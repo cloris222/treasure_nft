@@ -13,6 +13,7 @@ class AppImagePath {
   static const String dialogSuccess = '';
   static const String dialogClose = '';
   static const String dialogCancel = '';
+  static const String appBarLeftArrow='';
 
   static const String mainTypeExplore = '$fmIconFolderPath/icon_explore_01.png';
   static const String mainTypeCollection =
@@ -20,4 +21,5 @@ class AppImagePath {
   static const String mainTypeTrade = '$fmIconFolderPath/icon_explore_01.png';
   static const String mainTypeWallet = '$fmIconFolderPath/icon_explore_01.png';
   static const String mainTypeAccount = '$fmIconFolderPath/icon_explore_01.png';
+
 }
