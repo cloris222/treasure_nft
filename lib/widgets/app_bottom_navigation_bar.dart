@@ -73,35 +73,35 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
         {
           asset = isSelect
               ? AppImagePath.mainTypeExplore
-              : AppImagePath.mainTypeExplore;
+              : AppImagePath.mainTypeExploreOFF;
         }
         break;
       case AppNavigationBarType.typeCollection:
         {
           asset = isSelect
               ? AppImagePath.mainTypeCollection
-              : AppImagePath.mainTypeCollection;
+              : AppImagePath.mainTypeCollectionOFF;
         }
         break;
       case AppNavigationBarType.typeTrade:
         {
           asset = isSelect
               ? AppImagePath.mainTypeTrade
-              : AppImagePath.mainTypeTrade;
+              : AppImagePath.mainTypeTradeOFF;
         }
         break;
       case AppNavigationBarType.typeWallet:
         {
           asset = isSelect
               ? AppImagePath.mainTypeWallet
-              : AppImagePath.mainTypeWallet;
+              : AppImagePath.mainTypeWalletOFF;
         }
         break;
       case AppNavigationBarType.typeAccount:
         {
           asset = isSelect
               ? AppImagePath.mainTypeAccount
-              : AppImagePath.mainTypeAccount;
+              : AppImagePath.mainTypeAccountOFF;
         }
         break;
     }
