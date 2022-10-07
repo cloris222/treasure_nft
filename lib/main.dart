@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:treasure_nft_project/constant/theme/app_theme.dart';
+import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/views/home_page.dart';
 
 import 'constant/global_data.dart';
