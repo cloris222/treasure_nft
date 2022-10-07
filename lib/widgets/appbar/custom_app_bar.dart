@@ -86,7 +86,7 @@ class CustomAppBar {
 
   static AppBar mainAppBar() {
     return _getCustomAppBar(actions: [Flexible(child: Container(child:Row(children: [
-
+Row(children: [],)
     ],),))]);
   }
 }
