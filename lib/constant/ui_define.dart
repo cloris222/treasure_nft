@@ -103,4 +103,14 @@ class UIDefine {
     double temp = _fontUnit * fontSizeDefine;
     return temp;
   }
+
+  /// get screen width
+  static double getWidth(){
+    return _screenWidth;
+  }
+
+  /// get screen height
+ static double getHeight(){
+    return _screenHeight;
+ }
 }
