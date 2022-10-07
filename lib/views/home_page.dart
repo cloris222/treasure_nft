@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       bottomNavigationBar: AppBottomNavigationBar(
-        currentType: widget.type,
+        initType: widget.type,
         bottomFunction: _changePage,
       ),
     );

@@ -16,22 +16,25 @@ enum AppNavigationBarType {
 typedef AppBottomFunction = Function(AppNavigationBarType type, int pageIndex);
 
 class AppBottomNavigationBar extends StatefulWidget {
-  AppBottomNavigationBar(
-      {super.key,
-      this.isMainPage = false,
-      required this.currentType,
-      this.bottomFunction});
-
-  final bool isMainPage;
-  AppNavigationBarType currentType;
+  const AppBottomNavigationBar(
+      {Key? key, required this.initType, this.bottomFunction})
+      : super(key: key);
+  final AppNavigationBarType initType;
   final AppBottomFunction? bottomFunction;
 
   @override
-  State<StatefulWidget> createState() => _FmBottomNavigationBar();
+  State<AppBottomNavigationBar> createState() => _AppBottomNavigationBarState();
 }
 
-class _FmBottomNavigationBar extends State<AppBottomNavigationBar>
-    with WidgetsBindingObserver {
+class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
+  late AppNavigationBarType currentType;
+
+  @override
+  void initState() {
+    super.initState();
+    currentType = widget.initType;
+  }
+
   @override
   Widget build(BuildContext context) {
     return StatefulBuilder(builder: _barBuilder);
@@ -62,7 +65,7 @@ class _FmBottomNavigationBar extends State<AppBottomNavigationBar>
   }
 
   Widget getIcon(AppNavigationBarType type) {
-    bool isSelect = widget.currentType == type;
+    bool isSelect = (currentType == type);
     double sizeWidth = MediaQuery.of(context).size.width / 20;
     String asset;
     switch (type) {
@@ -108,21 +111,17 @@ class _FmBottomNavigationBar extends State<AppBottomNavigationBar>
   }
 
   _navigationTapped(int index, void Function(VoidCallback fn) setState) {
-    widget.currentType = AppNavigationBarType.values[index];
-    if (widget.isMainPage) {
-      //呼叫首頁切換頁面
-      if (widget.bottomFunction != null) {
-        setState(() {
-          widget.bottomFunction!(widget.currentType, index);
-        });
-      }
+    currentType = AppNavigationBarType.values[index];
+    if (widget.bottomFunction != null) {
+      setState(() {
+        widget.bottomFunction!(currentType, index);
+      });
     } else {
       //清除所有頁面並回到首頁
       Navigator.pushAndRemoveUntil<void>(
         context,
         MaterialPageRoute<void>(
-            builder: (BuildContext context) =>
-                HomePage(type: widget.currentType)),
+            builder: (BuildContext context) => HomePage(type: currentType)),
         ModalRoute.withName('/'),
       );
     }

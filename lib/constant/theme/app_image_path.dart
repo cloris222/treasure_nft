@@ -15,9 +15,15 @@ class AppImagePath {
   static const String dialogCancel = '';
 
   static const String mainTypeExplore = '$fmIconFolderPath/icon_explore_01.png';
+  static const String mainTypeExploreOFF = '$fmIconFolderPath/icon_explore_01.png';
   static const String mainTypeCollection =
       '$fmIconFolderPath/icon_explore_01.png';
+  static const String mainTypeCollectionOFF =
+      '$fmIconFolderPath/icon_explore_01.png';
   static const String mainTypeTrade = '$fmIconFolderPath/icon_explore_01.png';
+  static const String mainTypeTradeOFF = '$fmIconFolderPath/icon_explore_01.png';
   static const String mainTypeWallet = '$fmIconFolderPath/icon_explore_01.png';
+  static const String mainTypeWalletOFF = '$fmIconFolderPath/icon_explore_01.png';
   static const String mainTypeAccount = '$fmIconFolderPath/icon_explore_01.png';
+  static const String mainTypeAccountOFF = '$fmIconFolderPath/icon_explore_01.png';
 }
