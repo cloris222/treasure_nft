@@ -8,18 +8,19 @@ import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 
 import '../constant/ui_define.dart';
 import '../widgets/app_bottom_navigation_bar.dart';
+import 'home/home_main_view.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key, this.type = AppNavigationBarType.typeExplore})
+class MainPage extends StatefulWidget {
+  const MainPage({Key? key, this.type = AppNavigationBarType.typeExplore})
       : super(key: key);
   final AppNavigationBarType type;
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<MainPage> createState() => _MainPageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  PageController pageController = PageController();
+class _MainPageState extends State<MainPage> {
+  PageController pageController = PageController(initialPage: 5);
 
   @override
   void didChangeDependencies() {
@@ -50,6 +51,7 @@ class _HomePageState extends State<HomePage> {
           TradeMainView(),
           WalletMainView(),
           AccountMainView(),
+          HomeMainView(),
         ],
       ),
       bottomNavigationBar: AppBottomNavigationBar(
@@ -72,5 +74,6 @@ class _HomePageState extends State<HomePage> {
   void _globalAction() {}
 
   void _mainAction() {
+    pageController.jumpToPage(5);
   }
 }

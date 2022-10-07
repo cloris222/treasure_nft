@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../constant/theme/app_image_path.dart';
-import '../views/home_page.dart';
+import '../views/main_page.dart';
 
 //TODO: 定義主分頁類型
 enum AppNavigationBarType {
@@ -121,7 +121,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
       Navigator.pushAndRemoveUntil<void>(
         context,
         MaterialPageRoute<void>(
-            builder: (BuildContext context) => HomePage(type: currentType)),
+            builder: (BuildContext context) => MainPage(type: currentType)),
         ModalRoute.withName('/'),
       );
     }
