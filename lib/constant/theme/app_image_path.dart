@@ -9,8 +9,8 @@ class AppImagePath {
   static const String appImgPath = 'assets/icon/img';
 
   ///MARK: 通用icon
-  static const String dialogSuccess = '';
-  static const String dialogClose = '';
+  static const String dialogSuccess = '$appImgPath/img_check_01.png';
+  static const String dialogClose = '$appImgPath/img_error_01.png';
   static const String dialogCancel = '';
   static const String appBarLeftArrow='';
 

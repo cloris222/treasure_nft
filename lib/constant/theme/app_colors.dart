@@ -9,6 +9,7 @@ class AppColors {
   static const Color textRed = Color(0xFFF58989);
   static const Color textGrey = Color(0xFF7A7C7D);
   static const Color dialogGrey = Color(0xFF8797B0);
+  static const Color dialogBlack = Color(0xFF3D4045);
 
   ///MARK:主題色彩
   static const Color mainThemeButton = Color(0xFF3B82F6);
