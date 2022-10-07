@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:treasure_nft_project/constant/theme/app_theme.dart';
+import 'package:treasure_nft_project/views/home_page.dart';
 
 import 'constant/global_data.dart';
 import 'utils/language_util.dart';
@@ -19,7 +20,7 @@ void main() async {
     ///MARK:
     /// 以下兩行 設定android狀態列為透明的沉浸。寫在元件渲染之後，是為了在渲染後進行set賦值，覆蓋狀態列，寫在渲染之前MaterialApp元件會覆蓋掉這個值。
     SystemUiOverlayStyle systemUiOverlayStyle =
-    const SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+        const SystemUiOverlayStyle(statusBarColor: Colors.transparent);
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   }
   initApp();
@@ -51,13 +52,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     LanguageUtil.update(context);
     return MaterialApp(
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: LanguageUtil.getLocale(),
-    navigatorKey: GlobalData.globalKey,
-    title: 'TreasureNft',
-    theme: AppTheme.define(),
-    home:const Scaffold(body:  Center(child: Text('Flutter Demo Home Page'))),
+      debugShowCheckedModeBanner: false,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: LanguageUtil.getLocale(),
+      navigatorKey: GlobalData.globalKey,
+      title: 'TreasureNft',
+      theme: AppTheme.define(),
+      home: const HomePage(),
     );
   }
 }

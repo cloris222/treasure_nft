@@ -13,11 +13,13 @@ class AppImagePath {
   static const String dialogSuccess = '';
   static const String dialogClose = '';
   static const String dialogCancel = '';
-
-  static const String mainType1='';
-  static const String mainType2='';
-  static const String mainType3='';
-  static const String mainType4='';
-  static const String mainType5='';
   static const String appBarLeftArrow='';
+
+  static const String mainTypeExplore = '$fmIconFolderPath/icon_explore_01.png';
+  static const String mainTypeCollection =
+      '$fmIconFolderPath/icon_explore_01.png';
+  static const String mainTypeTrade = '$fmIconFolderPath/icon_explore_01.png';
+  static const String mainTypeWallet = '$fmIconFolderPath/icon_explore_01.png';
+  static const String mainTypeAccount = '$fmIconFolderPath/icon_explore_01.png';
+
 }

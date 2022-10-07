@@ -1,12 +1,52 @@
-// import 'package:flutter/material.dart';
-//
-// import '../widgets/fm_bottom_navigation_bar.dart';
-//
-// class HomePage extends StatelessWidget {
-//   const HomePage({Key? key, required this.type}) : super(key: key);
-//   final AppNavigationBarType type;
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container();
-//   }
-// }
+import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/views/account/account_main_view.dart';
+import 'package:treasure_nft_project/views/collection/collection_main_view.dart';
+import 'package:treasure_nft_project/views/explore/explore_main_view.dart';
+import 'package:treasure_nft_project/views/trade/trade_main_view.dart';
+import 'package:treasure_nft_project/views/wallet/wallet_main_view.dart';
+
+import '../widgets/app_bottom_navigation_bar.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key, this.type = AppNavigationBarType.typeExplore})
+      : super(key: key);
+  final AppNavigationBarType type;
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  PageController pageController = PageController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    pageController.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: PageView(
+        controller: pageController,
+        physics: const NeverScrollableScrollPhysics(),
+        children: const [
+          ExploreMainView(),
+          CollectionMainView(),
+          TradeMainView(),
+          WalletMainView(),
+          AccountMainView(),
+        ],
+      ),
+      bottomNavigationBar: AppBottomNavigationBar(
+        currentType: widget.type,
+        bottomFunction: _changePage,
+      ),
+    );
+  }
+
+  _changePage(AppNavigationBarType type, int pageIndex) {
+    pageController.jumpToPage(pageIndex);
+  }
+}
