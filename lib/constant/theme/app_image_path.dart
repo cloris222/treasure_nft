@@ -19,4 +19,5 @@ class AppImagePath {
   static const String mainType3='';
   static const String mainType4='';
   static const String mainType5='';
+  static const String appBarLeftArrow='';
 }
