@@ -1,0 +1,130 @@
+import 'dart:async';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import '../constant/theme/app_image_path.dart';
+import '../views/home_page.dart';
+
+//TODO: 定義主分頁類型
+enum AppNavigationBarType {
+  typeExplore,
+  typeCollection,
+  typeTrade,
+  typeWallet,
+  typeAccount
+}
+
+typedef AppBottomFunction = Function(AppNavigationBarType type, int pageIndex);
+
+class AppBottomNavigationBar extends StatefulWidget {
+  AppBottomNavigationBar(
+      {super.key,
+      this.isMainPage = false,
+      required this.currentType,
+      this.bottomFunction});
+
+  final bool isMainPage;
+  AppNavigationBarType currentType;
+  final AppBottomFunction? bottomFunction;
+
+  @override
+  State<StatefulWidget> createState() => _FmBottomNavigationBar();
+}
+
+class _FmBottomNavigationBar extends State<AppBottomNavigationBar>
+    with WidgetsBindingObserver {
+  @override
+  Widget build(BuildContext context) {
+    return StatefulBuilder(builder: _barBuilder);
+  }
+
+  Widget _barBuilder(BuildContext context, StateSetter setState) {
+    return CupertinoTabBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+              icon: Center(child: getIcon(AppNavigationBarType.typeExplore)),
+              backgroundColor: Colors.white),
+          BottomNavigationBarItem(
+              icon: Center(child: getIcon(AppNavigationBarType.typeCollection)),
+              backgroundColor: Colors.white),
+          BottomNavigationBarItem(
+              icon: getIcon(AppNavigationBarType.typeTrade),
+              backgroundColor: Colors.white),
+          BottomNavigationBarItem(
+              icon: Center(child: getIcon(AppNavigationBarType.typeWallet)),
+              backgroundColor: Colors.white),
+          BottomNavigationBarItem(
+              icon: Center(child: getIcon(AppNavigationBarType.typeAccount)),
+              backgroundColor: Colors.white),
+        ],
+        onTap: (index) {
+          _navigationTapped(index, setState);
+        });
+  }
+
+  Widget getIcon(AppNavigationBarType type) {
+    bool isSelect = widget.currentType == type;
+    double sizeWidth = MediaQuery.of(context).size.width / 20;
+    String asset;
+    switch (type) {
+      case AppNavigationBarType.typeExplore:
+        {
+          asset = isSelect
+              ? AppImagePath.mainTypeExplore
+              : AppImagePath.mainTypeExplore;
+        }
+        break;
+      case AppNavigationBarType.typeCollection:
+        {
+          asset = isSelect
+              ? AppImagePath.mainTypeCollection
+              : AppImagePath.mainTypeCollection;
+        }
+        break;
+      case AppNavigationBarType.typeTrade:
+        {
+          asset = isSelect
+              ? AppImagePath.mainTypeTrade
+              : AppImagePath.mainTypeTrade;
+        }
+        break;
+      case AppNavigationBarType.typeWallet:
+        {
+          asset = isSelect
+              ? AppImagePath.mainTypeWallet
+              : AppImagePath.mainTypeWallet;
+        }
+        break;
+      case AppNavigationBarType.typeAccount:
+        {
+          asset = isSelect
+              ? AppImagePath.mainTypeAccount
+              : AppImagePath.mainTypeAccount;
+        }
+        break;
+    }
+
+    return Image.asset(asset,
+        fit: BoxFit.contain, width: sizeWidth, height: sizeWidth);
+  }
+
+  _navigationTapped(int index, void Function(VoidCallback fn) setState) {
+    widget.currentType = AppNavigationBarType.values[index];
+    if (widget.isMainPage) {
+      //呼叫首頁切換頁面
+      if (widget.bottomFunction != null) {
+        setState(() {
+          widget.bottomFunction!(widget.currentType, index);
+        });
+      }
+    } else {
+      //清除所有頁面並回到首頁
+      Navigator.pushAndRemoveUntil<void>(
+        context,
+        MaterialPageRoute<void>(
+            builder: (BuildContext context) =>
+                HomePage(type: widget.currentType)),
+        ModalRoute.withName('/'),
+      );
+    }
+  }
+}
