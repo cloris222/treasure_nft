@@ -8,7 +8,6 @@ import 'http_exceptions.dart';
 import 'http_setting.dart';
 import 'parameter/api_response.dart';
 
-
 ///MARK: 參考網站
 ///https://dhruvnakum.xyz/networking-in-flutter-dio#heading-repository
 class HttpManager {
@@ -19,7 +18,9 @@ class HttpManager {
   final bool addToken;
 
   HttpManager(
-      {this.onConnectFail, this.baseUrl = HttpSetting.developUrl, this.addToken = true}) {
+      {this.onConnectFail,
+      this.baseUrl = HttpSetting.developUrl,
+      this.addToken = true}) {
     _dio
       ..options.baseUrl = baseUrl
       ..options.connectTimeout = HttpSetting.connectionTimeout
@@ -30,8 +31,10 @@ class HttpManager {
   ApiResponse _checkResponse(Response response) {
     debugPrint(response.realUri.toString());
     var result = ApiResponse.fromJson(response.data);
+
     ///MARK:不需要檢查則直接跳過這個function
     return result;
+
     ///MARK: 檢查結果
     // if (檢查正確) {
     //   ///偷懶看LOG用
@@ -73,7 +76,7 @@ class HttpManager {
   }
 
   String getLanguage() {
-    return LanguageUtil.getStrLanguageForHttp();
+    return LanguageUtil.getAppStrLanguageForHttp();
   }
 
   double getDouble(json, String key) {

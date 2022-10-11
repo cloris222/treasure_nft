@@ -22,7 +22,7 @@ class AppStyle {
   }
 
   /// 漸層色藍紫色
-  baseGradient() {
+  BoxDecoration baseGradient() {
     return const BoxDecoration(
         gradient: LinearGradient(
             colors: [AppColors.mainThemeButton, AppColors.subThemePurple]));
