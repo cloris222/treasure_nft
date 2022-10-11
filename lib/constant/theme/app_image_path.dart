@@ -7,7 +7,7 @@ class AppImagePath {
   static const String appImageFolderPath = 'assets/icon/img';
   static const String appLogoPath = 'assets/icon/logo';
   static const String appImgPath = 'assets/icon/img';
-  static const String appBtmBarPath = 'assets/svg/btm_bar';
+  static const String appBtmBarPath = 'assets/icon/btm_bar';
   static const String appCoinsPath = 'assets/icon/coins';
 
   ///MARK: 通用icon
@@ -16,21 +16,21 @@ class AppImagePath {
   static const String dialogCancel = '';
   static const String appBarLeftArrow = '';
 
-  static const String mainTypeExplore = '$appBtmBarPath/btn_explore_01_pre.svg';
+  static const String mainTypeExplore = '$appBtmBarPath/btn_explore_01_pre.png';
   static const String mainTypeExploreOFF =
-      '$appBtmBarPath/btn_explore_01_nor.svg';
+      '$appBtmBarPath/btn_explore_01_nor.png';
   static const String mainTypeCollection =
-      '$appBtmBarPath/btn_collection_02_pre.svg';
+      '$appBtmBarPath/btn_collection_02_pre.png';
   static const String mainTypeCollectionOFF =
-      '$appBtmBarPath/btn_collection_02_nor.svg';
-  static const String mainTypeTrade = '$appBtmBarPath/btn_trade_01_pre.svg';
-  static const String mainTypeTradeOFF = '$appBtmBarPath/btn_trade_01_nor.svg';
-  static const String mainTypeWallet = '$appBtmBarPath/btn_wallet_02_pre.svg';
+      '$appBtmBarPath/btn_collection_02_nor.png';
+  static const String mainTypeTrade = '$appBtmBarPath/btn_trade_01_pre.png';
+  static const String mainTypeTradeOFF = '$appBtmBarPath/btn_trade_01_nor.png';
+  static const String mainTypeWallet = '$appBtmBarPath/btn_wallet_02_pre.png';
   static const String mainTypeWalletOFF =
-      '$appBtmBarPath/btn_wallet_02_nor.svg';
-  static const String mainTypeAccount = '$appBtmBarPath/btn_profile_01_pre.svg';
+      '$appBtmBarPath/btn_wallet_02_nor.png';
+  static const String mainTypeAccount = '$appBtmBarPath/btn_profile_01_pre.png';
   static const String mainTypeAccountOFF =
-      '$appBtmBarPath/btn_profile_01_nor.svg';
+      '$appBtmBarPath/btn_profile_01_nor.png';
 
   /// main app bar picture
   static const String mainAppBarLogo = '$appLogoPath/logo_treasurenft_01.png';

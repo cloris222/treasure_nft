@@ -114,6 +114,14 @@ flutter:
     - assets/icon/daily/month/1.5x/
     - assets/icon/daily/month/2x/
     - assets/icon/daily/month/3x/
+    - assets/icon/icon/
+    - assets/icon/icon/1.5x/
+    - assets/icon/icon/2x/
+    - assets/icon/icon/3x/
+    - assets/icon/logo/
+    - assets/icon/logo/1.5x/
+    - assets/icon/logo/2x/
+    - assets/icon/logo/3x/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
