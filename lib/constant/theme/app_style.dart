@@ -27,4 +27,13 @@ class AppStyle {
         gradient: LinearGradient(
             colors: [AppColors.mainThemeButton, AppColors.subThemePurple]));
   }
+
+  BoxDecoration styleColorBorderBackground(
+      {double radius = 15.0, Color color = Colors.grey}) {
+    return BoxDecoration(
+      borderRadius: BorderRadius.all(Radius.circular(radius)),
+      color: Colors.white,
+      border: Border.all(color: color, width: 1),
+    );
+  }
 }

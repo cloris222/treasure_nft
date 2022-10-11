@@ -15,7 +15,7 @@ import 'view_models/base_view_model.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  debugPaintSizeEnabled = true;
+  debugPaintSizeEnabled = false;
 
   if (Platform.isAndroid) {
     ///MARK:
