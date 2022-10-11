@@ -29,7 +29,7 @@ class _LoginTextWidgetState extends State<LoginTextWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 50,
+        height: 60,
         margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: _buildEdit());
   }
