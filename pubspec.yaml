@@ -69,6 +69,7 @@ flutter:
     - assets/translations/
     - assets/icon/logo/
     - assets/icon/img/
+    - assets/icon/btm_bar/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
