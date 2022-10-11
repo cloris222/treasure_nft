@@ -9,4 +9,7 @@ typedef onGetBoolFunction = void Function(bool value);
 ///MARK: response
 typedef ResponseErrorFunction = void Function(String errorMessage);
 
+/// for search bar decide show keyboard
+typedef ShowKeyBoard = bool Function();
+
 

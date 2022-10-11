@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import '../constant/theme/app_image_path.dart';
 import '../views/login/login_main_view.dart';
@@ -113,7 +112,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
         break;
     }
 
-    return SvgPicture.asset(asset,
+    return Image.asset(asset,
         fit: BoxFit.contain, width: sizeWidth, height: sizeWidth);
   }
 
