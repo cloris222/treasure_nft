@@ -26,7 +26,7 @@ class _ExploreTypePage extends State<ExploreTypePage> {
   }
 
   Future<GetExploreMainListView> initView() async {
-    list = await viewModel.getExploreResponse(widget.currentType);
+    list = await viewModel.getExploreResponse(widget.currentType, 1, 10);
     return GetExploreMainListView(list: list, type: widget.currentType);
   }
 }

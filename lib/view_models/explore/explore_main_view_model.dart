@@ -4,6 +4,7 @@ import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
+import '../../views/explore/api/explore_api.dart';
 import '../../views/explore/data/explore_main_response_data.dart';
 import '../../views/explore/explore_type.dart';
 import '../../views/explore/explore_type_page.dart';
@@ -84,10 +85,10 @@ class ExploreMainViewModel extends BaseViewModel {
             borderRadius: BorderRadius.all(Radius.circular(20))));
   }
 
-  Future<ExploreMainResponseData> getExploreResponse(
-      ExploreType type, int page, int size, String search,
+  Future<List<ExploreMainResponseData>> getExploreResponse(
+      ExploreType type, int page, int size,
       {ResponseErrorFunction? onConnectFail}) async {
     return await ExploreApi(onConnectFail: onConnectFail)
-        .getExploreArtists(page: page, size: size, search: search);
+        .getExploreArtists(page: page, size: size);
   }
 }

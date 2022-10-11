@@ -7,7 +7,7 @@ class ExploreApi extends HttpManager {
   ExploreApi({super.onConnectFail, super.baseUrl = HttpSetting.developUrl});
 
   /// 搜尋使用帳戶
-  Future<List<ExploreMainResponseData>> getUsers(
+  Future<List<ExploreMainResponseData>> getExploreArtists(
       {int page = 1, int size = 10, String search = ''}) async {
     List<ExploreMainResponseData> result =
     <ExploreMainResponseData>[];

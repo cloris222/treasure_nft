@@ -6,6 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:treasure_nft_project/constant/theme/app_theme.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/views/explore/explore_main_view.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 
 import 'constant/global_data.dart';
@@ -60,7 +61,8 @@ class MyApp extends StatelessWidget {
       navigatorKey: GlobalData.globalKey,
       title: 'TreasureNft',
       theme: AppTheme.define(),
-      home: const MainPage(),
+      // home: const MainPage(),
+      home: const ExploreMainView(),
     );
   }
 }

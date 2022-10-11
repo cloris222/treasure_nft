@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -35,7 +36,7 @@ class EditAvatarDialog extends BaseDialog {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Edit',
+                tr('edit'),
                 style: TextStyle(
                     fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w600),
               ),
@@ -46,7 +47,7 @@ class EditAvatarDialog extends BaseDialog {
               Visibility(
                 visible: showTopBtn,
                 child: ActionButtonWidget(
-                  btnText: 'Gallery',
+                  btnText: tr('gallery'),
                   onPressed: topBtnAction,
                   isBorderStyle: true,
                   margin: EdgeInsets.only(
@@ -67,7 +68,7 @@ class EditAvatarDialog extends BaseDialog {
                     right: UIDefine.getWidth() / 10),
               ),
               ActionButtonWidget(
-                btnText: 'Confirm',
+                btnText: tr('check'),
                 onPressed: confirmBtnAction,
                 margin:
                 EdgeInsets.symmetric(horizontal: UIDefine.getWidth() / 20),

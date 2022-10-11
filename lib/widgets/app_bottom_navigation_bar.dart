@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import '../constant/theme/app_image_path.dart';
-import '../views/login/login_main_page.dart';
+import '../views/login/login_main_view.dart';
 import '../views/main_page.dart';
 
 //MARK: 定義主分頁類型
@@ -13,7 +12,8 @@ enum AppNavigationBarType {
   typeTrade,
   typeWallet,
   typeAccount,
-  typeNull
+  typeMain,
+  typeLogin
 }
 
 typedef AppBottomFunction = Function(AppNavigationBarType type, int pageIndex);
@@ -113,35 +113,34 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
         break;
     }
 
-    return SvgPicture.asset(asset,
+    return Image.asset(asset,
         fit: BoxFit.contain, width: sizeWidth, height: sizeWidth);
   }
 
   _navigationTapped(int index, void Function(VoidCallback fn) setState) {
     GlobalData.mainBottomType = AppNavigationBarType.values[index];
-
-    ///MARK: 未登入
-    if ((GlobalData.mainBottomType != AppNavigationBarType.typeNull &&
-            GlobalData.mainBottomType != AppNavigationBarType.typeExplore) &&
+    if ((GlobalData.mainBottomType != AppNavigationBarType.typeMain &&
+            GlobalData.mainBottomType != AppNavigationBarType.typeExplore
+    ///MARK: 暫時可通過
+        &&GlobalData.mainBottomType != AppNavigationBarType.typeTrade) ||
         false) {
-      GlobalData.mainBottomType = AppNavigationBarType.typeNull;
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const LoginMainPage()));
+      index = 6;
+      GlobalData.mainBottomType = AppNavigationBarType.typeLogin;
+    }
+
+    if (widget.bottomFunction != null) {
+      setState(() {
+        widget.bottomFunction!(GlobalData.mainBottomType, index);
+      });
     } else {
-      if (widget.bottomFunction != null) {
-        setState(() {
-          widget.bottomFunction!(GlobalData.mainBottomType, index);
-        });
-      } else {
-        //清除所有頁面並回到首頁
-        Navigator.pushAndRemoveUntil<void>(
-          context,
-          MaterialPageRoute<void>(
-              builder: (BuildContext context) =>
-                  MainPage(type: GlobalData.mainBottomType)),
-          ModalRoute.withName('/'),
-        );
-      }
+      //清除所有頁面並回到首頁
+      Navigator.pushAndRemoveUntil<void>(
+        context,
+        MaterialPageRoute<void>(
+            builder: (BuildContext context) =>
+                MainPage(type: GlobalData.mainBottomType)),
+        ModalRoute.withName('/'),
+      );
     }
   }
 }

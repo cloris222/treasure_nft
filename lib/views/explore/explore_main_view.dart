@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/widgets/dialog/simple_dialog.dart';
-import 'package:treasure_nft_project/widgets/tabbar/custom_tab_bar.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
 import '../../view_models/explore/explore_main_view_model.dart';
-import '../../widgets/appbar/custom_app_bar.dart';
-import '../../widgets/dialog/edit_avatar_dialog.dart';
 import 'explore_type.dart';
 
 class ExploreMainView extends StatefulWidget {
