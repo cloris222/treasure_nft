@@ -80,7 +80,7 @@ class _MainPageState extends State<MainPage> {
           TradeMainView(),
           WalletMainView(),
           AccountMainView(),
-          HomeMainView(),
+          HomeMainView()
         ],
       ),
       bottomNavigationBar: AppBottomNavigationBar(

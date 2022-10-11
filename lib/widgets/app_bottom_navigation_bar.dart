@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import '../constant/theme/app_image_path.dart';
+import '../views/login/login_main_page.dart';
 import '../views/main_page.dart';
 
 //MARK: 定義主分頁類型
@@ -118,19 +119,29 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
 
   _navigationTapped(int index, void Function(VoidCallback fn) setState) {
     GlobalData.mainBottomType = AppNavigationBarType.values[index];
-    if (widget.bottomFunction != null) {
-      setState(() {
-        widget.bottomFunction!(GlobalData.mainBottomType, index);
-      });
+
+    ///MARK: 未登入
+    if ((GlobalData.mainBottomType != AppNavigationBarType.typeNull &&
+            GlobalData.mainBottomType != AppNavigationBarType.typeExplore) &&
+        false) {
+      GlobalData.mainBottomType = AppNavigationBarType.typeNull;
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const LoginMainPage()));
     } else {
-      //清除所有頁面並回到首頁
-      Navigator.pushAndRemoveUntil<void>(
-        context,
-        MaterialPageRoute<void>(
-            builder: (BuildContext context) =>
-                MainPage(type: GlobalData.mainBottomType)),
-        ModalRoute.withName('/'),
-      );
+      if (widget.bottomFunction != null) {
+        setState(() {
+          widget.bottomFunction!(GlobalData.mainBottomType, index);
+        });
+      } else {
+        //清除所有頁面並回到首頁
+        Navigator.pushAndRemoveUntil<void>(
+          context,
+          MaterialPageRoute<void>(
+              builder: (BuildContext context) =>
+                  MainPage(type: GlobalData.mainBottomType)),
+          ModalRoute.withName('/'),
+        );
+      }
     }
   }
 }

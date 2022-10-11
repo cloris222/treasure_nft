@@ -1,1 +1,6 @@
-enum LanguageType { English, Chinese, Mandarin,Spanish}
+enum LanguageType {
+  English,
+  // Chinese,
+  Mandarin,
+  Spanish,
+}
