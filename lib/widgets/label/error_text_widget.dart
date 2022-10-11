@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../models/data/validate_result_data.dart';
 
-class LoginErrorText extends StatelessWidget {
-  const LoginErrorText({Key? key, required this.data}) : super(key: key);
+class ErrorTextWidget extends StatelessWidget {
+  const ErrorTextWidget({Key? key, required this.data}) : super(key: key);
   final ValidateResultData data;
 
   @override
