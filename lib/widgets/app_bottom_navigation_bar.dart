@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../constant/theme/app_image_path.dart';
 import '../views/main_page.dart';
 
@@ -66,7 +67,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
 
   Widget getIcon(AppNavigationBarType type) {
     bool isSelect = (currentType == type);
-    double sizeWidth = MediaQuery.of(context).size.width / 20;
+    double sizeWidth = MediaQuery.of(context).size.width / 15;
     String asset;
     switch (type) {
       case AppNavigationBarType.typeExplore:
@@ -85,6 +86,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
         break;
       case AppNavigationBarType.typeTrade:
         {
+          sizeWidth = MediaQuery.of(context).size.width / 5;
           asset = isSelect
               ? AppImagePath.mainTypeTrade
               : AppImagePath.mainTypeTradeOFF;
@@ -106,7 +108,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
         break;
     }
 
-    return Image.asset(asset,
+    return SvgPicture.asset(asset,
         fit: BoxFit.contain, width: sizeWidth, height: sizeWidth);
   }
 
