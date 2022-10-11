@@ -4,7 +4,6 @@ class AppImagePath {
   ///MARK: 美術圖路徑
   static const String appIconFolderPath = 'assets/icon/icon';
   static const String appBtnFolderPath = 'assets/icon/btn';
-  static const String appImageFolderPath = 'assets/icon/img';
   static const String appLogoPath = 'assets/icon/logo';
   static const String appImgPath = 'assets/icon/img';
   static const String appBtmBarPath = 'assets/icon/btm_bar';
@@ -48,4 +47,7 @@ class AppImagePath {
 
   /// coins
   static const String tetherImg = '$appCoinsPath/icon_tether_01@1x.png';
+
+  /// login
+  static const String loginBg = '$appImgPath/img_login_01.png';
 }
