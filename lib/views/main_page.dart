@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/views/account/account_main_view.dart';
 import 'package:treasure_nft_project/views/collection/collection_main_view.dart';
 import 'package:treasure_nft_project/views/explore/explore_main_view.dart';
+import 'package:treasure_nft_project/views/login/login_main_view.dart';
 import 'package:treasure_nft_project/views/trade/trade_main_view.dart';
 import 'package:treasure_nft_project/views/wallet/wallet_main_view.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
@@ -12,7 +13,7 @@ import '../widgets/app_bottom_navigation_bar.dart';
 import 'home/home_main_view.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key, this.type = AppNavigationBarType.typeNull})
+  const MainPage({Key? key, this.type = AppNavigationBarType.typeMain})
       : super(key: key);
   final AppNavigationBarType type;
 
@@ -80,7 +81,8 @@ class _MainPageState extends State<MainPage> {
           TradeMainView(),
           WalletMainView(),
           AccountMainView(),
-          HomeMainView()
+          HomeMainView(),
+          LoginMainView(),
         ],
       ),
       bottomNavigationBar: AppBottomNavigationBar(
@@ -104,7 +106,7 @@ class _MainPageState extends State<MainPage> {
 
   void _mainAction() {
     setState(() {
-      GlobalData.mainBottomType = AppNavigationBarType.typeNull;
+      GlobalData.mainBottomType = AppNavigationBarType.typeMain;
       pageController.jumpToPage(5);
     });
   }

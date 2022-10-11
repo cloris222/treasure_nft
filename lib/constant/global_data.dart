@@ -9,5 +9,5 @@ class GlobalData {
   static bool firstLaunch = true;
 
   ///MARK: 控管bar的圖案顯示
-  static AppNavigationBarType mainBottomType = AppNavigationBarType.typeNull;
+  static AppNavigationBarType mainBottomType = AppNavigationBarType.typeMain;
 }
