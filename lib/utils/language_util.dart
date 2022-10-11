@@ -3,7 +3,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../models/http/api/setting_enum.dart';
+import '../constant/enum/setting_enum.dart';
 import 'app_shared_Preferences.dart';
 
 class LanguageUtil {
