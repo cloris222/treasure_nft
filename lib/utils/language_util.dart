@@ -34,14 +34,38 @@ class LanguageUtil {
 
   static List<Locale> getSupportLanguage() {
     return const [
-      // Locale('en'),
-      // Locale('zh'),
-      Locale('es'),
-      Locale('de'),
-      Locale('fr'),
+      ///MARK:英文
       Locale('en', 'US'),
+
+      ///MARK:繁體中文
       Locale('zh', 'TW'),
-      Locale('zh', 'CN'),
+
+      ///MARK: 阿拉伯
+      Locale('ar'),
+
+      ///MARK: 波斯語
+      Locale('ir'),
+
+      ///MARK: 西班牙
+      Locale('es'),
+
+      ///MARK: 俄語
+      Locale('ru'),
+
+      ///MARK: 葡萄牙
+      Locale('pt'),
+
+      ///MARK: 韓國
+      Locale('kr'),
+
+      ///MARK: 越語
+      Locale('vi'),
+
+      ///MARK: 泰語
+      Locale('th'),
+
+      ///MARK: 土耳其語
+      Locale('tr'),
       // Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
       Locale.fromSubtags(
           languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW')
@@ -52,59 +76,91 @@ class LanguageUtil {
       BuildContext context, LanguageType currentLanguage) async {
     // debugPrint('currentLanguage: ${currentLanguage.name}');
     _appLang = currentLanguage;
-    _strLanguage = getStrLanguage();
+    _strLanguage = getAppStrLanguage();
     await AppSharedPreferences.setLanguage(_strLanguage);
-    context.setLocale(getLocale());
+    context.setLocale(getAppLocale());
+  }
+
+  static Locale getAppLocale() {
+    return getLocale(_appLang);
+  }
+
+  static String getAppStrLanguage() {
+    return getStrLanguage(_appLang);
+  }
+
+  static String getAppStrLanguageForHttp() {
+    return getStrLanguageForHttp(_appLang);
   }
 
   /// 用於HttpManager 上，參考API文件的語系設定
-  static String getStrLanguageForHttp() {
-    switch (_appLang) {
+  static String getStrLanguageForHttp(LanguageType type) {
+    switch (type) {
       case LanguageType.Mandarin:
         return 'zh-TW';
-      // case LanguageType.Chinese:
-      //   return 'zh-CN';
       case LanguageType.English:
         return 'en-US';
+      case LanguageType.Arabic:
+        return 'ar';
+      case LanguageType.Farsi:
+        return 'ir';
       case LanguageType.Spanish:
         return 'es-ES';
-      // case LanguageType.German:
-      //   return 'de';
-      // case LanguageType.French:
-      //   return 'fr';
+      case LanguageType.Russian:
+        return 'ru';
+      case LanguageType.Portuguese:
+        return 'pt';
+      case LanguageType.Korean:
+        return 'kr';
+      case LanguageType.Vietnamese:
+        return 'vi';
+      case LanguageType.Thai:
+        return 'th';
+      case LanguageType.Turkish:
+        return 'tr';
     }
   }
 
   ///MARK: 自動翻譯 & setLanguage用
-  static String getStrLanguage() {
-    switch (_appLang) {
+  static String getStrLanguage(LanguageType type) {
+    switch (type) {
       case LanguageType.Mandarin:
         return 'zh-TW';
-      // case LanguageType.Chinese:
-      //   return 'zh-CN';
       case LanguageType.English:
         return 'en-US';
+      case LanguageType.Arabic:
+        return 'ar';
+      case LanguageType.Farsi:
+        return 'ir';
       case LanguageType.Spanish:
         return 'es';
-      // case LanguageType.German:
-      //   return 'de';
-      // case LanguageType.French:
-      //   return 'fr';
+      case LanguageType.Russian:
+        return 'ru';
+      case LanguageType.Portuguese:
+        return 'pt';
+      case LanguageType.Korean:
+        return 'kr';
+      case LanguageType.Vietnamese:
+        return 'vi';
+      case LanguageType.Thai:
+        return 'th';
+      case LanguageType.Turkish:
+        return 'tr';
     }
   }
 
   ///用於自動翻譯文字上
   static String getTranslationType() {
-    if(getStrLanguage().toLowerCase() == 'en-us') {
+    if (getAppStrLanguage().toLowerCase() == 'en-us') {
       return 'en';
     } else {
-      return getStrLanguage().toLowerCase();
+      return getAppStrLanguage().toLowerCase();
     }
   }
 
   ///用於時間格式
   static String getTimeLocale() {
-    Locale locale = LanguageUtil.getLocale();
+    Locale locale = LanguageUtil.getAppLocale();
     String strLocale = locale.languageCode;
     if (locale.countryCode != null) {
       if (locale.countryCode!.isNotEmpty) {
@@ -115,37 +171,38 @@ class LanguageUtil {
   }
 
   static LanguageType getTypeLanguage(String strLanguage) {
-    switch (strLanguage) {
-      case 'zh-TW':
-        return LanguageType.Mandarin;
-      // case 'zh-CN':
-      //   return LanguageType.Chinese;
-      case 'es':
-        return LanguageType.Spanish;
-      // case 'de':
-      //   return LanguageType.German;
-      // case 'fr':
-      //   return LanguageType.French;
-      case 'en-US':
-      default:
-        return LanguageType.English;
+    for (var element in LanguageType.values) {
+      if (getStrLanguage(element) == strLanguage) {
+        continue;
+      }
     }
+    return LanguageType.English;
   }
 
-  static Locale getLocale() {
-    switch (_appLang) {
+  static Locale getLocale(LanguageType type) {
+    switch (type) {
       case LanguageType.Mandarin:
         return const Locale('zh', 'TW');
-      // case LanguageType.Chinese:
-      //   return const Locale('zh', 'CN');
       case LanguageType.English:
         return const Locale('en', 'US');
+      case LanguageType.Arabic:
+        return const Locale('ar');
+      case LanguageType.Farsi:
+        return const Locale('ir');
       case LanguageType.Spanish:
         return const Locale('es');
-      // case LanguageType.German:
-      //   return const Locale('de');
-      // case LanguageType.French:
-      //    return const Locale('fr');
+      case LanguageType.Russian:
+        return const Locale('ru');
+      case LanguageType.Portuguese:
+        return const Locale('pt');
+      case LanguageType.Korean:
+        return const Locale('kr');
+      case LanguageType.Vietnamese:
+        return const Locale('vi');
+      case LanguageType.Thai:
+        return const Locale('th');
+      case LanguageType.Turkish:
+        return const Locale('tr');
     }
   }
 
@@ -156,39 +213,55 @@ class LanguageUtil {
 
     if (locale.languageCode == 'zh' && locale.countryCode == 'TW') {
       return LanguageType.Mandarin;
-    }
-    // else if (locale.languageCode == 'zh' && locale.countryCode == 'CN') {
-    //   return LanguageType.Chinese;
-    // }
-    else if (locale.languageCode == 'en' && locale.countryCode == 'US') {
+    } else if (locale.languageCode == 'en' && locale.countryCode == 'US') {
       return LanguageType.English;
+    } else if (locale.languageCode == 'ar') {
+      return LanguageType.Arabic;
+    } else if (locale.languageCode == 'ir') {
+      return LanguageType.Farsi;
     } else if (locale.languageCode == 'es') {
       return LanguageType.Spanish;
+    } else if (locale.languageCode == 'ru') {
+      return LanguageType.Russian;
+    } else if (locale.languageCode == 'pt') {
+      return LanguageType.Portuguese;
+    } else if (locale.languageCode == 'kr') {
+      return LanguageType.Korean;
+    } else if (locale.languageCode == 'vi') {
+      return LanguageType.Vietnamese;
+    } else if (locale.languageCode == 'th') {
+      return LanguageType.Thai;
+    } else if (locale.languageCode == 'tr') {
+      return LanguageType.Turkish;
     }
-    // else if (locale.languageCode == 'de') {
-    //   return LanguageType.German;
-    // }
-    // else if (locale.languageCode == 'fr') {
-    //   return LanguageType.French;
-    // }
+
     return LanguageType.English;
   }
 
   static String getLanguageName(LanguageType type) {
     switch (type) {
       case LanguageType.English:
-        return 'English';
-      // case LanguageType.Chinese:
-      //   return '简体中文';
+        return tr('lang_en');
       case LanguageType.Mandarin:
-        return '繁體中文';
+        return tr('lang_tw');
+      case LanguageType.Arabic:
+        return tr('lang_ar');
+      case LanguageType.Farsi:
+        return tr('lang_ir');
       case LanguageType.Spanish:
-        return 'Español';
-      //   case LanguageType.German:
-      //     return 'Deutsch';
-      //   case LanguageType.French:
-      //     return 'Français';
-      // }
+        return tr('lang_es');
+      case LanguageType.Russian:
+        return tr('lang_ru');
+      case LanguageType.Portuguese:
+        return tr('lang_pt');
+      case LanguageType.Korean:
+        return tr('lang_kr');
+      case LanguageType.Vietnamese:
+        return tr('lang_vi');
+      case LanguageType.Thai:
+        return tr('lang_th');
+      case LanguageType.Turkish:
+        return tr('lang_tr');
     }
   }
 }

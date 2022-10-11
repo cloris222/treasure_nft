@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
-      locale: LanguageUtil.getLocale(),
+      locale: LanguageUtil.getAppLocale(),
       navigatorKey: GlobalData.globalKey,
       title: 'TreasureNft',
       theme: AppTheme.define(),
