@@ -9,6 +9,14 @@ class AppImagePath {
   static const String appImgPath = 'assets/icon/img';
   static const String appBtmBarPath = 'assets/icon/btm_bar';
   static const String appCoinsPath = 'assets/icon/coins';
+  static const String achievementMission = 'assets/icon/img/achievement_mission';
+  static const String achievementEmblem = 'assets/icon/img/achievement_emblem';
+  static const String dailyMission = 'assets/icon/img/daily_mission';
+  static const String rankEmblem = 'assets/icon/img/rank_emblem';
+  static const String autoAvatar = 'assets/icon/img/auto_avatar';
+  static const String footer = 'assets/icon/footer';
+  static const String daily = 'assets/icon/daily';
+  static const String month = 'assets/icon/daily/month';
 
   ///MARK: 通用icon
   static const String dialogSuccess = '$appImgPath/img_check_01.png';
