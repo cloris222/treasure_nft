@@ -1,17 +1,18 @@
-import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import '../constant/theme/app_image_path.dart';
 import '../views/main_page.dart';
 
-//TODO: 定義主分頁類型
+//MARK: 定義主分頁類型
 enum AppNavigationBarType {
   typeExplore,
   typeCollection,
   typeTrade,
   typeWallet,
-  typeAccount
+  typeAccount,
+  typeNull
 }
 
 typedef AppBottomFunction = Function(AppNavigationBarType type, int pageIndex);
@@ -28,12 +29,10 @@ class AppBottomNavigationBar extends StatefulWidget {
 }
 
 class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
-  late AppNavigationBarType currentType;
-
   @override
   void initState() {
     super.initState();
-    currentType = widget.initType;
+    GlobalData.mainBottomType = widget.initType;
   }
 
   @override
@@ -66,7 +65,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
   }
 
   Widget getIcon(AppNavigationBarType type) {
-    bool isSelect = (currentType == type);
+    bool isSelect = (GlobalData.mainBottomType == type);
     double sizeWidth = MediaQuery.of(context).size.width / 15;
     String asset;
     switch (type) {
@@ -106,6 +105,11 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
               : AppImagePath.mainTypeAccountOFF;
         }
         break;
+      default:
+        {
+          asset = '';
+        }
+        break;
     }
 
     return SvgPicture.asset(asset,
@@ -113,17 +117,18 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
   }
 
   _navigationTapped(int index, void Function(VoidCallback fn) setState) {
-    currentType = AppNavigationBarType.values[index];
+    GlobalData.mainBottomType = AppNavigationBarType.values[index];
     if (widget.bottomFunction != null) {
       setState(() {
-        widget.bottomFunction!(currentType, index);
+        widget.bottomFunction!(GlobalData.mainBottomType, index);
       });
     } else {
       //清除所有頁面並回到首頁
       Navigator.pushAndRemoveUntil<void>(
         context,
         MaterialPageRoute<void>(
-            builder: (BuildContext context) => MainPage(type: currentType)),
+            builder: (BuildContext context) =>
+                MainPage(type: GlobalData.mainBottomType)),
         ModalRoute.withName('/'),
       );
     }
