@@ -62,8 +62,8 @@ class LanguageUtil {
     switch (_appLang) {
       case LanguageType.Mandarin:
         return 'zh-TW';
-      case LanguageType.Chinese:
-        return 'zh-CN';
+      // case LanguageType.Chinese:
+      //   return 'zh-CN';
       case LanguageType.English:
         return 'en-US';
       case LanguageType.Spanish:
@@ -80,8 +80,8 @@ class LanguageUtil {
     switch (_appLang) {
       case LanguageType.Mandarin:
         return 'zh-TW';
-      case LanguageType.Chinese:
-        return 'zh-CN';
+      // case LanguageType.Chinese:
+      //   return 'zh-CN';
       case LanguageType.English:
         return 'en-US';
       case LanguageType.Spanish:
@@ -118,8 +118,8 @@ class LanguageUtil {
     switch (strLanguage) {
       case 'zh-TW':
         return LanguageType.Mandarin;
-      case 'zh-CN':
-        return LanguageType.Chinese;
+      // case 'zh-CN':
+      //   return LanguageType.Chinese;
       case 'es':
         return LanguageType.Spanish;
       // case 'de':
@@ -136,8 +136,8 @@ class LanguageUtil {
     switch (_appLang) {
       case LanguageType.Mandarin:
         return const Locale('zh', 'TW');
-      case LanguageType.Chinese:
-        return const Locale('zh', 'CN');
+      // case LanguageType.Chinese:
+      //   return const Locale('zh', 'CN');
       case LanguageType.English:
         return const Locale('en', 'US');
       case LanguageType.Spanish:
@@ -156,9 +156,11 @@ class LanguageUtil {
 
     if (locale.languageCode == 'zh' && locale.countryCode == 'TW') {
       return LanguageType.Mandarin;
-    } else if (locale.languageCode == 'zh' && locale.countryCode == 'CN') {
-      return LanguageType.Chinese;
-    } else if (locale.languageCode == 'en' && locale.countryCode == 'US') {
+    }
+    // else if (locale.languageCode == 'zh' && locale.countryCode == 'CN') {
+    //   return LanguageType.Chinese;
+    // }
+    else if (locale.languageCode == 'en' && locale.countryCode == 'US') {
       return LanguageType.English;
     } else if (locale.languageCode == 'es') {
       return LanguageType.Spanish;
@@ -176,8 +178,8 @@ class LanguageUtil {
     switch (type) {
       case LanguageType.English:
         return 'English';
-      case LanguageType.Chinese:
-        return '简体中文';
+      // case LanguageType.Chinese:
+      //   return '简体中文';
       case LanguageType.Mandarin:
         return '繁體中文';
       case LanguageType.Spanish:
