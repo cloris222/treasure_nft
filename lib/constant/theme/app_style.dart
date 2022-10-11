@@ -36,4 +36,12 @@ class AppStyle {
       border: Border.all(color: color, width: 1),
     );
   }
+
+  ///MARK: 登入用
+  OutlineInputBorder styleTextEditBorderBackground(
+      {double radius = 15.0, Color color = Colors.grey}) {
+    return OutlineInputBorder(
+        borderSide: BorderSide(color: color, width: 1),
+        borderRadius: BorderRadius.all(Radius.circular(radius)));
+  }
 }

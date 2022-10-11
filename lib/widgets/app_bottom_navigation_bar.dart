@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import '../constant/theme/app_image_path.dart';
-import '../views/login/login_main_page.dart';
+import '../views/login/login_main_view.dart';
 import '../views/main_page.dart';
 
 //MARK: 定義主分頁類型
@@ -126,7 +126,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
         false) {
       GlobalData.mainBottomType = AppNavigationBarType.typeNull;
       Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const LoginMainPage()));
+          MaterialPageRoute(builder: (context) => const LoginMainView()));
     } else {
       if (widget.bottomFunction != null) {
         setState(() {
