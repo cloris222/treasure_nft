@@ -46,7 +46,7 @@ class AppImagePath {
   static const String avatarImg = '$appImgPath/img_avatar_01_defult.png';
 
   /// coins
-  static const String tetherImg = '$appCoinsPath/icon_tether_01@1x.png';
+  static const String tetherImg = '$appCoinsPath/icon_tether_01.png';
 
   /// login
   static const String loginBg = '$appImgPath/img_login_01.png';
