@@ -14,7 +14,9 @@ class EditAvatarDialog extends BaseDialog {
       {this.showTopBtn = false,
       required this.topBtnAction,
       required this.bottomBtnAction,
-      required this.confirmBtnAction});
+      required this.confirmBtnAction,
+        super.backgroundColor = Colors.transparent
+      });
 
   bool showTopBtn;
   VoidCallback topBtnAction;
@@ -26,16 +28,62 @@ class EditAvatarDialog extends BaseDialog {
     return Stack(
       children: [
         Container(
-          padding: const EdgeInsets.all(15),
-          // decoration: AppStyle().,
+          padding: const EdgeInsets.all(20),
+          decoration: AppStyle().styleColorBorderBackground(color: Colors.white),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Edit',
+                style: TextStyle(
+                    fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w600),
+              ),
+              SizedBox(
+                height: UIDefine.getHeight() / 20,
+              ),
+              createImageWidget(asset: AppImagePath.avatarImg),
+              Visibility(
+                visible: showTopBtn,
+                child: ActionButtonWidget(
+                  btnText: 'Gallery',
+                  onPressed: topBtnAction,
+                  isBorderStyle: true,
+                  margin: EdgeInsets.only(
+                      top: 10,
+                      bottom: 5,
+                      left: UIDefine.getWidth() / 10,
+                      right: UIDefine.getWidth() / 10),
+                ),
+              ),
+              ActionButtonWidget(
+                btnText: 'Upload Files',
+                onPressed: bottomBtnAction,
+                isBorderStyle: true,
+                margin: EdgeInsets.only(
+                    top: 10,
+                    bottom: 5,
+                    left: UIDefine.getWidth() / 10,
+                    right: UIDefine.getWidth() / 10),
+              ),
+              ActionButtonWidget(
+                btnText: 'Confirm',
+                onPressed: confirmBtnAction,
+                margin:
+                EdgeInsets.symmetric(horizontal: UIDefine.getWidth() / 20),
+              ),
+            ],
+          ),
         ),
         Positioned(
           right: 0,
             top: 0,
             child: IconButton(
-          onPressed: () {},
-          icon: Icon(
-            Icons.dangerous_outlined,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            Icons.close,
             color: Colors.black,
           ),
         ))
