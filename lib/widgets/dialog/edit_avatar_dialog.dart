@@ -83,7 +83,7 @@ class EditAvatarDialog extends BaseDialog {
             Navigator.pop(context);
           },
           icon: const Icon(
-            Icons.dangerous_outlined,
+            Icons.close,
             color: Colors.black,
           ),
         ))

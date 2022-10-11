@@ -29,7 +29,7 @@ class AppStyle {
   }
 
   BoxDecoration styleColorBorderBackground(
-      {double radius = 15.0, Color color = Colors.grey}) {
+      {double radius = 20.0, Color color = Colors.grey}) {
     return BoxDecoration(
       borderRadius: BorderRadius.all(Radius.circular(radius)),
       color: Colors.white,
