@@ -8,12 +8,6 @@ class ExploreMainView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: TextButton(onPressed: () {
-          EditAvatarDialog(context,
-            topBtnAction: () {},
-            bottomBtnAction: () {},
-            confirmBtnAction: () {},).show();
-        }, child: Text('tap me')));
+    return Container();
   }
 }

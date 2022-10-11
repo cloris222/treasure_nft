@@ -8,6 +8,7 @@ class AppImagePath {
   static const String appLogoPath = 'assets/icon/logo';
   static const String appImgPath = 'assets/icon/img';
   static const String appBtmBarPath = 'assets/svg/btm_bar';
+  static const String appCoinsPath = 'assets/icon/coins';
 
   ///MARK: 通用icon
   static const String dialogSuccess = '$appImgPath/img_check_01.png';
@@ -36,4 +37,7 @@ class AppImagePath {
   static const String serverImage = '$appIconFolderPath/icon_service_02.png';
   static const String globalImage = '$appIconFolderPath/icon_language_01.png';
   static const String avatarImg = '$appImgPath/img_avatar_01_defult.png';
+
+  /// coins
+  static const String tetherImg = '$appCoinsPath/icon_tether_01@1x.png';
 }

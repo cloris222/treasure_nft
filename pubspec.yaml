@@ -65,13 +65,55 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/icon/
-    - assets/icon/icon/
     - assets/translations/
-    - assets/icon/logo/
     - assets/icon/img/
+    - assets/icon/img/1.5x/
+    - assets/icon/img/2x/
+    - assets/icon/img/3x/
+    - assets/icon/img/achievement_mission/
+    - assets/icon/img/achievement_mission/1.5x/
+    - assets/icon/img/achievement_mission/2x/
+    - assets/icon/img/achievement_mission/3x/
+    - assets/icon/img/achievement_emblem/
+    - assets/icon/img/achievement_emblem/1.5x/
+    - assets/icon/img/achievement_emblem/2x/
+    - assets/icon/img/achievement_emblem/3x/
+    - assets/icon/img/daily_mission/
+    - assets/icon/img/daily_mission/1.5x/
+    - assets/icon/img/daily_mission/2x/
+    - assets/icon/img/daily_mission/3x/
+    - assets/icon/img/rank_emblem/
+    - assets/icon/img/rank_emblem/1.5x/
+    - assets/icon/img/rank_emblem/2x/
+    - assets/icon/img/rank_emblem/3x/
+    - assets/icon/img/auto_avatar/
+    - assets/icon/img/auto_avatar/1.5x/
+    - assets/icon/img/auto_avatar/2x/
+    - assets/icon/img/auto_avatar/3x/
+    - assets/icon/btn/
+    - assets/icon/btn/1.5x/
+    - assets/icon/btn/2x/
+    - assets/icon/btn/3x/
+    - assets/icon/coins/
+    - assets/icon/coins/1.5x/
+    - assets/icon/coins/2x/
+    - assets/icon/coins/3x/
+    - assets/icon/footer/
+    - assets/icon/footer/1.5x/
+    - assets/icon/footer/2x/
+    - assets/icon/footer/3x/
     - assets/icon/btm_bar/
-    - assets/svg/btm_bar/
+    - assets/icon/btm_bar/1.5x/
+    - assets/icon/btm_bar/2x/
+    - assets/icon/btm_bar/3x/
+    - assets/icon/daily/
+    - assets/icon/daily/1.5x/
+    - assets/icon/daily/2x/
+    - assets/icon/daily/3x/
+    - assets/icon/daily/month/
+    - assets/icon/daily/month/1.5x/
+    - assets/icon/daily/month/2x/
+    - assets/icon/daily/month/3x/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
