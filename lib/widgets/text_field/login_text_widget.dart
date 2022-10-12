@@ -8,16 +8,22 @@ class LoginTextWidget extends StatefulWidget {
       required this.hintText,
       this.isSecure = false,
       this.prefixIconAsset = '',
-      this.setNullWidget,
       this.onChanged,
+      this.enabledColor = AppColors.bolderGrey,
+      this.focusedColor = AppColors.bolderGrey,
+      this.initColor = AppColors.bolderGrey,
       required this.controller})
       : super(key: key);
   final String hintText;
   final bool isSecure;
   final String prefixIconAsset;
-  final Widget? setNullWidget;
   final TextEditingController controller;
   final ValueChanged<String>? onChanged;
+
+  ///控制不同狀態下的框限顏色
+  final Color enabledColor; //可用狀態
+  final Color focusedColor; //點選中
+  final Color initColor;    //初始化
 
   @override
   State<LoginTextWidget> createState() => _LoginTextWidgetState();
@@ -30,7 +36,7 @@ class _LoginTextWidgetState extends State<LoginTextWidget> {
   Widget build(BuildContext context) {
     return Container(
         height: 60,
-        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        margin: const EdgeInsets.symmetric(vertical: 10),
         child: _buildEdit());
   }
 
@@ -38,7 +44,6 @@ class _LoginTextWidgetState extends State<LoginTextWidget> {
     return TextField(
         controller: widget.controller,
         obscureText: widget.isSecure && isPasswordVisible,
-//        controller: userPasswordController,
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.next,
         onChanged: widget.onChanged,
@@ -49,16 +54,15 @@ class _LoginTextWidgetState extends State<LoginTextWidget> {
             alignLabelWithHint: true,
             contentPadding: const EdgeInsets.only(top: 0, left: 20),
             enabledBorder: AppTheme.style
-                .styleTextEditBorderBackground(color: AppColors.bolderGrey),
+                .styleTextEditBorderBackground(color: widget.enabledColor),
             focusedBorder: AppTheme.style
-                .styleTextEditBorderBackground(color: AppColors.bolderGrey),
+                .styleTextEditBorderBackground(color: widget.focusedColor),
             border: AppTheme.style
-                .styleTextEditBorderBackground(color: AppColors.bolderGrey),
-            suffixIcon:
-                widget.isSecure ? _buildSecureView() : widget.setNullWidget,
+                .styleTextEditBorderBackground(color: widget.initColor),
+            suffixIcon: widget.isSecure ? _buildSecureView() : null,
             prefixIcon: widget.prefixIconAsset.isNotEmpty
                 ? Image.asset(widget.prefixIconAsset)
-                : widget.setNullWidget));
+                : null));
   }
 
   Widget _buildSecureView() {
