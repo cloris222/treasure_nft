@@ -37,7 +37,7 @@ class _LoginTextWidgetState extends State<LoginTextWidget> {
     return Container(
       alignment: Alignment.center,
         height: 60,
-        margin: const EdgeInsets.symmetric(vertical: 10),
+        margin: const EdgeInsets.symmetric(vertical: 5),
         child: _buildEdit());
   }
 

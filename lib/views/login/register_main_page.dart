@@ -13,6 +13,8 @@ import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/label/common_text_widget.dart';
 import '../../widgets/label/error_text_widget.dart';
 import '../../widgets/text_field/login_text_widget.dart';
+import 'login_email_code_view.dart';
+import 'login_param_view.dart';
 
 class RegisterMainPage extends StatefulWidget {
   const RegisterMainPage({Key? key}) : super(key: key);
@@ -27,7 +29,7 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
   @override
   void initState() {
     super.initState();
-    viewModel = RegisterMainViewModel();
+    viewModel = RegisterMainViewModel(setState: setState);
   }
 
   @override
@@ -64,102 +66,57 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         ///MARK:帳號
-        Text(tr('account'),
-            style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: UIDefine.fontSize14)),
-        LoginTextWidget(
-            hintText: tr('placeholder-account\''),
+        LoginParamView(
+            titleText: tr('account'),
+            hintText: tr("placeholder-account'"),
             controller: viewModel.accountController,
-            focusedColor: AppColors.mainThemeButton),
-        ErrorTextWidget(
-            data: viewModel.accountData, alignment: Alignment.center),
+            data: viewModel.accountData),
 
         ///MARK:密碼
-        Text(tr('password'),
-            style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: UIDefine.fontSize14)),
-        LoginTextWidget(
-          hintText: tr('placeholder-password'),
-          controller: viewModel.passwordController,
-          focusedColor: AppColors.mainThemeButton,
-          isSecure: true,
-        ),
-        ErrorTextWidget(
-            data: viewModel.passwordData, alignment: Alignment.center),
+        LoginParamView(
+            titleText: tr('password'),
+            hintText: tr("placeholder-password"),
+            controller: viewModel.passwordController,
+            isSecure: true,
+            data: viewModel.passwordData),
 
         ///MARK:再次確認密碼
-        Text(tr("placeholder-password-again'"),
-            style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: UIDefine.fontSize14)),
-        LoginTextWidget(
-          hintText: tr("placeholder-password-again'"),
-          controller: viewModel.rePasswordController,
-          focusedColor: AppColors.mainThemeButton,
-          isSecure: true,
-        ),
-        ErrorTextWidget(
-            data: viewModel.rePasswordData, alignment: Alignment.center),
+        LoginParamView(
+            titleText: tr("placeholder-password-again'"),
+            hintText: tr("placeholder-password-again'"),
+            controller: viewModel.rePasswordController,
+            isSecure: true,
+            data: viewModel.rePasswordData),
 
         ///MARK:Email
-        Text(tr('email'),
-            style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: UIDefine.fontSize14)),
-        LoginTextWidget(
-          hintText: tr("placeholder-email'"),
-          controller: viewModel.emailController,
-          focusedColor: AppColors.mainThemeButton,
-        ),
-        ErrorTextWidget(
-            data: viewModel.passwordData, alignment: Alignment.center),
+        LoginParamView(
+            titleText: tr('email'),
+            hintText: tr("placeholder-email'"),
+            controller: viewModel.emailController,
+            data: viewModel.emailData),
 
         ///MARK:驗證碼
-        Row(
-          children: [
-            Flexible(
-              child: LoginTextWidget(
-                  hintText: tr("placeholder-emailCode'"),
-                  controller: viewModel.emailCodeController),
-            ),
-            CountdownButtonWidget(
-              buttonType: 2,
-              countdownSecond: 180,
-              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-              btnText: tr('get'),
-              isFillWidth: false,
-              setHeight: 50,
-              onPress: viewModel.onPressSendCode,
-            ),
-            ActionButtonWidget(
-                btnText: tr('verify'),
-                isFillWidth: false,
-                setHeight: 50,
-                onPressed: viewModel.onPressCheckVerify)
-          ],
-        ),
+        LoginEmailCodeView(
+            hintText: tr("placeholder-emailCode'"),
+            controller: viewModel.emailCodeController,
+            onPressSendCode: viewModel.onPressSendCode,
+            onPressCheckVerify: viewModel.onPressCheckVerify,
+            data: viewModel.emailCodeData),
 
         ///MARK:暱稱
-        Text(tr('nickname'),
-            style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: UIDefine.fontSize14)),
-        LoginTextWidget(
-          hintText: tr("placeholder-nickname'"),
-          controller: viewModel.nicknameController,
-          focusedColor: AppColors.mainThemeButton,
-        ),
-        ErrorTextWidget(
-            data: viewModel.passwordData, alignment: Alignment.center),
+        LoginParamView(
+            titleText: tr('nickname'),
+            hintText: tr("placeholder-nickname'"),
+            controller: viewModel.nicknameController,
+            data: viewModel.nicknameData),
 
         ///MARK:邀請瑪
-        Text(tr('referralCode'),
-            style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: UIDefine.fontSize14)),
-        LoginTextWidget(
-          hintText: tr("placeholder-referralCode'"),
-          controller: viewModel.referralController,
-          focusedColor: AppColors.mainThemeButton,
-        ),
-        ErrorTextWidget(
-            data: viewModel.passwordData, alignment: Alignment.center),
+
+        LoginParamView(
+            titleText: tr('referralCode'),
+            hintText: tr("placeholder-referralCode'"),
+            controller: viewModel.referralController,
+            data: viewModel.referralData),
 
         ///MARK: 註冊按鈕
         LoginButtonWidget(
@@ -181,12 +138,10 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
                 child: CommonTextWidget(
                     text: tr('Login'),
                     fillWidth: false,
-                    onPress: viewModel.onPressLogin)),
+                    onPress: () => viewModel.onPressLogin(context))),
           ],
-        )
+        ),
       ],
     );
   }
-
-
 }

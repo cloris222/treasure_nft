@@ -10,7 +10,8 @@ class LoginButtonWidget extends StatelessWidget {
       required this.btnText,
       required this.onPressed,
       this.width,
-      this.enable = true, this.height})
+      this.enable = true,
+      this.height})
       : super(key: key);
   final String btnText;
   final VoidCallback onPressed;
@@ -21,11 +22,7 @@ class LoginButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        if (enable) {
-          onPressed();
-        }
-      },
+      onTap: onPressed,
       child: Container(
           alignment: Alignment.center,
           margin: const EdgeInsets.symmetric(vertical: 10),

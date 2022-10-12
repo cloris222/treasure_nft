@@ -16,7 +16,7 @@ class ValidateResultData {
 
   String getMessage() {
     if (message.isEmpty) {
-      return tr('thisFieldIsRequired');
+      return tr('rule_void');
     }
     return message;
   }
