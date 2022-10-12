@@ -50,6 +50,7 @@ class AppImagePath {
 
   /// login
   static const String loginBg = '$appImgPath/img_login_01.png';
+  static const String loginPhoto='$appImgPath/img_login_photo_01.png';
 
   /// trade page
   static const String countDownBackground = '$appImgPath/img_trade_bg_01.png';

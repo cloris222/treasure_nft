@@ -12,6 +12,7 @@ class AppColors {
   static const Color dialogBlack = Color(0xFF3D4045);
   static const Color bolderGrey = Color(0xFFE0EAF6);
   static const Color deepBlue = Color(0xFF4F5CBF);
+  static const Color buttonGrey = Color(0xFFE0EAF7);
 
   ///MARK:主題色彩
   static const Color mainThemeButton = Color(0xFF3B82F6);
