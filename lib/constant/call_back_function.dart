@@ -12,4 +12,7 @@ typedef ResponseErrorFunction = void Function(String errorMessage);
 /// for search bar decide show keyboard
 typedef ShowKeyBoard = bool Function();
 
+///用於倒數按鈕
+typedef PressVerification = Future<bool> Function();
+
 
