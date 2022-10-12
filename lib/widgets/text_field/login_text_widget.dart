@@ -23,7 +23,7 @@ class LoginTextWidget extends StatefulWidget {
   ///控制不同狀態下的框限顏色
   final Color enabledColor; //可用狀態
   final Color focusedColor; //點選中
-  final Color initColor;    //初始化
+  final Color initColor; //初始化
 
   @override
   State<LoginTextWidget> createState() => _LoginTextWidgetState();
@@ -35,6 +35,7 @@ class _LoginTextWidgetState extends State<LoginTextWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.center,
         height: 60,
         margin: const EdgeInsets.symmetric(vertical: 10),
         child: _buildEdit());
@@ -53,12 +54,12 @@ class _LoginTextWidgetState extends State<LoginTextWidget> {
             labelStyle: const TextStyle(color: Colors.black),
             alignLabelWithHint: true,
             contentPadding: const EdgeInsets.only(top: 0, left: 20),
-            enabledBorder: AppTheme.style
-                .styleTextEditBorderBackground(color: widget.enabledColor),
-            focusedBorder: AppTheme.style
-                .styleTextEditBorderBackground(color: widget.focusedColor),
-            border: AppTheme.style
-                .styleTextEditBorderBackground(color: widget.initColor),
+            enabledBorder: AppTheme.style.styleTextEditBorderBackground(
+                color: widget.enabledColor, radius: 10),
+            focusedBorder: AppTheme.style.styleTextEditBorderBackground(
+                color: widget.focusedColor, radius: 10),
+            border: AppTheme.style.styleTextEditBorderBackground(
+                color: widget.initColor, radius: 10),
             suffixIcon: widget.isSecure ? _buildSecureView() : null,
             prefixIcon: widget.prefixIconAsset.isNotEmpty
                 ? Image.asset(widget.prefixIconAsset)

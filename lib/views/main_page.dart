@@ -50,8 +50,11 @@ class _MainPageState extends State<MainPage> {
       case AppNavigationBarType.typeAccount:
         initialPage = 4;
         break;
-      default:
+      case AppNavigationBarType.typeMain:
         initialPage = 5;
+        break;
+      case AppNavigationBarType.typeLogin:
+        initialPage = 6;
         break;
     }
     pageController = PageController(initialPage: initialPage);

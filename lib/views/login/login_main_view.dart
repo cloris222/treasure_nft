@@ -10,6 +10,7 @@ import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/domain_bar.dart';
 import '../../widgets/label/error_text_widget.dart';
 import '../../widgets/label/common_text_widget.dart';
+import 'register_main_page.dart';
 
 class LoginMainView extends StatefulWidget {
   const LoginMainView({Key? key}) : super(key: key);
@@ -108,21 +109,49 @@ class _LoginMainViewState extends State<LoginMainView> {
               style: TextStyle(
                   fontWeight: FontWeight.bold, fontSize: UIDefine.fontSize14)),
           LoginTextWidget(
-              hintText: tr('placeholder-password'),
-              controller: passwordController,
-              focusedColor: AppColors.mainThemeButton),
+            hintText: tr('placeholder-password'),
+            controller: passwordController,
+            focusedColor: AppColors.mainThemeButton,
+            isSecure: true,
+          ),
           ErrorTextWidget(
               data: viewModel.passwordData, alignment: Alignment.center),
           CommonTextWidget(
             text: "${tr('forgot')}?",
             alignment: Alignment.centerRight,
+            onPress: _onPressForgot,
           ),
           LoginButtonWidget(
             btnText: tr('Login'),
             enable: viewModel.checkPress(
                 accountController.text, passwordController.text),
-            onPressed: () {},
+            onPressed: _onPressLogin,
+          ),
+          Row(
+            children: [
+              Flexible(
+                  flex: 3,
+                  child: CommonTextWidget(
+                    text: tr('withoutAccount'),
+                    alignment: Alignment.centerRight,
+                  )),
+              const SizedBox(width: 20),
+              Flexible(
+                  flex: 2,
+                  child: CommonTextWidget(
+                      text: tr('register'),
+                      fillWidth: false,
+                      onPress: _onPressRegister)),
+            ],
           )
         ]);
+  }
+
+  void _onPressForgot() {}
+
+  void _onPressLogin() {}
+
+  void _onPressRegister() {
+    viewModel.pushPage(context, const RegisterMainPage());
   }
 }

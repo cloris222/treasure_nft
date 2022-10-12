@@ -11,12 +11,14 @@ class CommonTextWidget extends StatelessWidget {
     this.margin = const EdgeInsets.symmetric(vertical: 10),
     this.onPress,
     this.fillWidth = true,
+    this.fontSize,
   }) : super(key: key);
   final String text;
   final AlignmentGeometry? alignment;
   final EdgeInsetsGeometry margin;
   final VoidCallback? onPress;
   final bool fillWidth;
+  final double? fontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,7 @@ class CommonTextWidget extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
+              fontSize: fontSize ?? UIDefine.fontSize14,
               color: isConnectText
                   ? AppColors.mainThemeButton
                   : AppColors.textBlack),
