@@ -32,8 +32,11 @@ class LoginParamView extends StatelessWidget {
         LoginTextWidget(
           hintText: hintText,
           controller: controller,
+          initColor: data.result ? AppColors.bolderGrey : AppColors.textRed,
+          enabledColor: data.result ? AppColors.bolderGrey : AppColors.textRed,
           focusedColor: AppColors.mainThemeButton,
           isSecure: true,
+          onChanged: onChanged,
         ),
         ErrorTextWidget(data: data, alignment: Alignment.centerRight),
       ],

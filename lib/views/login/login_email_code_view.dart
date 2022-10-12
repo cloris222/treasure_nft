@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import '../../constant/theme/app_colors.dart';
+
 import '../../models/data/validate_result_data.dart';
 import '../../widgets/button/action_button_widget.dart';
 import '../../widgets/button/countdown_button_widget.dart';
@@ -32,8 +34,14 @@ class LoginEmailCodeView extends StatelessWidget {
         Row(
           children: [
             Flexible(
-              child:
-                  LoginTextWidget(hintText: hintText, controller: controller),
+              child: LoginTextWidget(
+                hintText: hintText,
+                controller: controller,
+                initColor:
+                    data.result ? AppColors.bolderGrey : AppColors.textRed,
+                enabledColor:
+                    data.result ? AppColors.bolderGrey : AppColors.textRed,
+              ),
             ),
             CountdownButtonWidget(
               buttonType: 2,
