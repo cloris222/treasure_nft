@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
+import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
@@ -40,27 +41,41 @@ class CustomAmountDialog extends BaseDialog {
             children: [
               Text(
                 tr('custom'),
-                style: TextStyle(fontSize: UIDefine.fontSize20),
+                style: TextStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
               ),
-              Row(
-                children: [
-                  Flexible(
-                    child: TextField(
-                      controller: controller,
-                      onChanged: onChanged,
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          prefixIcon: Image.asset(AppImagePath.tetherImg)),
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 20),
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: TextField(
+                        controller: controller,
+                        onChanged: onChanged,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                            border: AppStyle().styleTextEditBorderBackground(color: Colors.grey),
+                            filled: true,
+                            fillColor: const Color(0XFFF4F7FA),
+                            contentPadding: const EdgeInsets.only(
+                                left: 14.0, bottom: 8.0, top: 8.0),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.white24),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            enabledBorder: AppStyle().styleTextEditBorderBackground(color: Colors.blueAccent),
+                            prefixIcon: Container(margin: const EdgeInsets.symmetric(vertical: 10,horizontal: 5),child: Image.asset(AppImagePath.tetherImg,width: 10,height: 10,))),
+                      ),
                     ),
-                  ),
-                  Text(tr('under'))
-                ],
+                    const SizedBox(width: 10,),
+                    Text(tr('under'))
+                  ],
+                ),
               ),
               ActionButtonWidget(
                 btnText: tr('check'),
                 onPressed: confirmBtnAction,
                 margin:
-                    EdgeInsets.symmetric(horizontal: UIDefine.getWidth() / 20),
+                    EdgeInsets.symmetric(horizontal: UIDefine.getWidth() / 6),
               ),
             ],
           ),
