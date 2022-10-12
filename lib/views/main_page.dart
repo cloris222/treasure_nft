@@ -96,7 +96,10 @@ class _MainPageState extends State<MainPage> {
     pageController.jumpToPage(pageIndex);
   }
 
-  void _searchAction() {}
+  void _searchAction() {
+    GlobalData.mainBottomType = AppNavigationBarType.typeExplore;
+    pageController.jumpToPage(0);
+  }
 
   void _serverAction() {}
 

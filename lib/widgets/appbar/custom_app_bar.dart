@@ -96,60 +96,59 @@ class CustomAppBar {
   }) {
     return _getCustomAppBar(actions: [
       Flexible(
-          child: Container(
-            margin: EdgeInsets.only(left: UIDefine.getWidth()/20),
-        child: Row(
-          children: [
-            InkWell(
-                onTap: mainAction,
-                child: Image.asset(
-                  AppImagePath.mainAppBarLogo,
-                  width: UIDefine.getWidth() / 2,
-                )),
-            SizedBox(
-              width: UIDefine.getWidth() / 15,
-            ),
-            Flexible(
-                child: Container(
-                  margin: const EdgeInsets.only(top: 10,right: 5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      InkWell(
-                        onTap: serverAction,
-                        child: const Icon(
-                          Icons.search,
-                          color: Colors.grey,
-                          size: 30,
+          child: Row(
+            children: [
+              InkWell(
+                  onTap: mainAction,
+                  child: Image.asset(
+                    AppImagePath.mainAppBarLogo,
+                    width: UIDefine.getWidth() / 2,
+                  )),
+              SizedBox(
+                width: UIDefine.getWidth() / 15,
+              ),
+              Flexible(
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 10,right: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        InkWell(
+                          onTap: searchAction,
+                          child: const Icon(
+                            Icons.search,
+                            color: Colors.grey,
+                            size: 30,
+                          ),
                         ),
-                      ),
-                      InkWell(
-                          onTap: serverAction,
-                          child: Image.asset(
-                            AppImagePath.serverImage,
-                            width: 30,
-                            height: 30,
-                          )),
-                      InkWell(
-                          onTap: avatarAction,
-                          child: Image.asset(
-                            AppImagePath.avatarImg,
-                            width: 30,
-                            height: 30,
-                          )),
-                      InkWell(
-                          onTap: globalAction,
-                          child: Image.asset(
-                            AppImagePath.globalImage,
-                            width: 30,
-                            height: 30,
-                          )),
-                    ],
-                  ),
-                ))
-          ],
-        ),
-      ))
+                        InkWell(
+                            onTap: serverAction,
+                            child: Image.asset(
+                              AppImagePath.serverImage,
+                              width: 30,
+                              height: 30,
+                              fit: BoxFit.cover,
+                            )),
+                        InkWell(
+                            onTap: avatarAction,
+                            child: Image.asset(
+                              AppImagePath.avatarImg,
+                              width: 25,
+                              height: 25,
+                            )),
+                        InkWell(
+                            onTap: globalAction,
+                            child: Image.asset(
+                              AppImagePath.globalImage,
+                              width: 30,
+                              height: 30,
+                              fit: BoxFit.cover,
+                            )),
+                      ],
+                    ),
+                  ))
+            ],
+          ))
     ]);
   }
 }

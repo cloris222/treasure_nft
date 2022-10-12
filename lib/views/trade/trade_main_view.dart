@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/widgets/domain_bar.dart';
 
 import '../../widgets/dialog/custom_amount_dialog.dart';
 import '../../widgets/dialog/edit_avatar_dialog.dart';
@@ -8,11 +9,14 @@ class TradeMainView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: TextButton(onPressed: () {
-          CustomAmountDialog(context, isJumpKeyBoard: () {
-            return true;
-          }, confirmBtnAction: (){Navigator.pop(context);}).show();
-        }, child: Text('tap me')));
+    return SingleChildScrollView(child: Column(children: [
+      DomainBar()
+    ],),);
+  }
+
+  Widget _countDownView(BuildContext context) {
+    return Stack(children: [
+
+    ],);
   }
 }
