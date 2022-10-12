@@ -32,13 +32,16 @@ class AppStyle {
   }
 
   BoxDecoration styleColorBorderBackground(
-      {double radius = 20.0, Color color = Colors.grey}) {
+      {double radius = 20.0,
+      Color color = Colors.grey,
+      Color backgroundColor = Colors.white, double borderLine = 1}) {
     return BoxDecoration(
       borderRadius: BorderRadius.all(Radius.circular(radius)),
-      color: Colors.white,
-      border: Border.all(color: color, width: 1),
+      color: backgroundColor,
+      border: Border.all(color: color, width: borderLine),
     );
   }
+
   BoxDecoration styleColorsRadiusBackground(
       {Color color = Colors.white, double radius = 15}) {
     return BoxDecoration(
@@ -46,6 +49,7 @@ class AppStyle {
       color: color,
     );
   }
+
   ///MARK: 登入用
   OutlineInputBorder styleTextEditBorderBackground(
       {double radius = 15.0, Color color = Colors.grey}) {

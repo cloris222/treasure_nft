@@ -54,4 +54,6 @@ class AppImagePath {
 
   /// trade page
   static const String countDownBackground = '$appImgPath/img_trade_bg_01.png';
+  static const String clockBlue = '$appImgPath/img_clock_01.png';
+  static const String colckRed = '$appImgPath/img_clock_02.png';
 }
