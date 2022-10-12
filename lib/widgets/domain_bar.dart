@@ -23,7 +23,7 @@ class DomainBar extends StatelessWidget {
                   fontWeight: FontWeight.w300
               ),
             ),
-            Text('https://treasure.xyz',
+            Text('https://treasurenft.xyz',
               style: TextStyle(
                   fontSize: UIDefine.fontSize12,
                   color: Colors.white,
