@@ -13,14 +13,21 @@ class TradeMainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        children: [DomainBar(), _countDownView(context)],
+        children: [const DomainBar(), _countDownView(context)],
       ),
     );
   }
 
   Widget _countDownView(BuildContext context) {
     return Stack(
-      children: [Image.asset(AppImagePath.countDownBackground,width: UIDefine.getWidth(),)],
+      children: [
+        Image.asset(
+          AppImagePath.countDownBackground,
+           width: UIDefine.getWidth(),
+           height: UIDefine.getWidth(),
+          fit: BoxFit.cover,
+        )
+      ],
     );
   }
 }
