@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/widgets/domain_bar.dart';
 
+import '../../constant/theme/app_image_path.dart';
 import '../../widgets/dialog/custom_amount_dialog.dart';
 import '../../widgets/dialog/edit_avatar_dialog.dart';
 
@@ -9,14 +11,16 @@ class TradeMainView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(child: Column(children: [
-      DomainBar()
-    ],),);
+    return SingleChildScrollView(
+      child: Column(
+        children: [DomainBar(), _countDownView(context)],
+      ),
+    );
   }
 
   Widget _countDownView(BuildContext context) {
-    return Stack(children: [
-
-    ],);
+    return Stack(
+      children: [Image.asset(AppImagePath.countDownBackground,width: UIDefine.getWidth(),)],
+    );
   }
 }
