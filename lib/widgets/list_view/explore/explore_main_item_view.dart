@@ -14,11 +14,13 @@ class ExploreMainItemView extends StatefulWidget {
 
 class _ExploreMainItemView extends State<ExploreMainItemView> {
 
+  ExploreMainResponseData get exploreMainResponseData {
+    return exploreMainResponseData;
+  }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Container();
   }
 
 }

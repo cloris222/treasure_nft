@@ -61,8 +61,7 @@ class MyApp extends StatelessWidget {
       navigatorKey: GlobalData.globalKey,
       title: 'TreasureNft',
       theme: AppTheme.define(),
-      // home: const MainPage(),
-      home: const ExploreMainView(),
+      home: const MainPage(),
     );
   }
 }

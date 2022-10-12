@@ -27,18 +27,18 @@ class _ExploreMainView extends State<ExploreMainView> {
       body: Column(children: [
         Container(
             padding: EdgeInsets.only(top: UIDefine.getScreenWidth(0.97), bottom: UIDefine.getScreenWidth(0.97)),
-            margin: EdgeInsets.only(left: UIDefine.getScreenWidth(8.33), right: UIDefine.getScreenWidth(8.33), bottom: UIDefine.getScreenWidth(4.16)),
-            height: UIDefine.getScreenWidth(11.11),
+            margin: EdgeInsets.only(left: UIDefine.getScreenWidth(8), right: UIDefine.getScreenWidth(8), bottom: UIDefine.getScreenWidth(4.16)),
+            height: UIDefine.getScreenWidth(12),
             child: viewModel.getExploreTypeButtons(
                 controller: listController,
                 currentExploreType: currentExploreType,
                 changePage: (ExploreType exploreType) {
                   changePage(exploreType);
                 })),
-        Container(
-          height: 2.5,
-          color: AppColors.textRed,
-        ),
+        // Container(
+        //   height: 2.5,
+        //   color: AppColors.textRed,
+        // ),
         Flexible(
             child: PageView(
               controller: pageController,

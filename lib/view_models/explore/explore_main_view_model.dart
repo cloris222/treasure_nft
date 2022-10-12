@@ -26,22 +26,36 @@ class ExploreMainViewModel extends BaseViewModel {
     List<Widget> buttons = <Widget>[];
     getExploreTypes().forEach((lMessageType) {
       bool isCurrent = (lMessageType == currentExploreType);
-      buttons.add(TextButton(
-          style: _getButtonBg(isCurrent),
-          onPressed: () {
-            changePage(lMessageType);
-          },
-          child: Container(
-            constraints: BoxConstraints(minWidth: UIDefine.getScreenWidth(36.11)),
-            child: Text(
-              _getPageTitle(lMessageType),
-              style: TextStyle(color: _getButtonColor(isCurrent), fontSize: UIDefine.fontSize14),
-              textAlign: TextAlign.center,
+      buttons.add(
+          IntrinsicWidth(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton(
+                  style: _getButtonBg(isCurrent),
+                  onPressed: () {
+                    changePage(lMessageType);
+                  },
+                  child: Container(
+                    // constraints: BoxConstraints(minWidth: UIDefine.getScreenWidth(36.11)),
+                    child: Text(
+                      _getPageTitle(lMessageType),
+                      style: TextStyle(color: _getButtonColor(isCurrent), fontSize: UIDefine.fontSize14),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                Container(
+                  height: _getLineHeight(isCurrent),
+                  color: _getLineColor(isCurrent),
+                ),
+              ],
             ),
-          )));
+          )
+      );
     });
     return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround, children: buttons);
+        mainAxisAlignment: MainAxisAlignment.start, children: buttons);
   }
 
 
@@ -67,8 +81,18 @@ class ExploreMainViewModel extends BaseViewModel {
     }
   }
 
+  double _getLineHeight(bool isCurrent) {
+    if (isCurrent) return 2.5;
+    return 1;
+  }
+
+  Color _getLineColor(bool isCurrent) {
+    if (isCurrent) return Colors.blue;
+    return Colors.grey;
+  }
+
   Color _getButtonColor(bool isCurrent) {
-    if (isCurrent) return Colors.white;
+    if (isCurrent) return Colors.black;
     return Colors.grey;
   }
 
@@ -76,19 +100,34 @@ class ExploreMainViewModel extends BaseViewModel {
   ButtonStyle _getButtonBg(bool isCurrent) {
     if (isCurrent) {
       return TextButton.styleFrom(
-          backgroundColor: AppColors.subThemePurple,
+          // backgroundColor: AppColors.subThemePurple,
           shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20))));
+              borderRadius: BorderRadius.all(Radius.circular(0))));
     }
     return TextButton.styleFrom(
         shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20))));
+            borderRadius: BorderRadius.all(Radius.circular(0))));
   }
 
   Future<List<ExploreMainResponseData>> getExploreResponse(
       ExploreType type, int page, int size,
       {ResponseErrorFunction? onConnectFail}) async {
+    String category = '';
+    switch (type) { // test
+      case ExploreType.All:
+        category = '';
+        break;
+      case ExploreType.ERC_NFT:
+        category = '';
+        break;
+      case ExploreType.Polygon_NFT:
+        category = '';
+        break;
+      case ExploreType.BSC_NFT:
+        category = '';
+        break;
+    }
     return await ExploreApi(onConnectFail: onConnectFail)
-        .getExploreArtists(page: page, size: size);
+        .getExploreArtists(page: page, size: size, category: category);
   }
 }

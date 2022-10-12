@@ -6,17 +6,17 @@ import '../data/explore_main_response_data.dart';
 class ExploreApi extends HttpManager {
   ExploreApi({super.onConnectFail, super.baseUrl = HttpSetting.developUrl});
 
-  /// 搜尋使用帳戶
+  /// 查詢探索首頁
   Future<List<ExploreMainResponseData>> getExploreArtists(
-      {int page = 1, int size = 10, String search = ''}) async {
+      {int page = 1, int size = 10, String category = ''}) async {
     List<ExploreMainResponseData> result =
     <ExploreMainResponseData>[];
     try {
       ApiResponse response =
-      await get('/app/discover/user/search', queryParameters: {
+      await get('/explore/artists', queryParameters: {
         'page': page,
         'size': size,
-        'search': search,
+        'category': category,
       });
       response.printLog();
       for (Map<String, dynamic> json in response.data['pageList']) {
