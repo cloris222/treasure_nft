@@ -15,6 +15,8 @@ class PersonalProfileIcon extends StatefulWidget {
       this.isPersonalCenter = false,
       // this.modifyFile,
       this.isFromMsg = false,
+      this.width = 72,
+      this.height = 72,
       this.onIconPress})
       : super(key: key);
   final String userId;
@@ -24,6 +26,8 @@ class PersonalProfileIcon extends StatefulWidget {
   final bool isPersonalCenter;
   final bool isFromMsg;
   final AsyncCallback? onIconPress;
+  final double width;
+  final double height;
 
   // File? modifyFile;
 
@@ -81,8 +85,8 @@ class _PersonalProfileIconState extends State<PersonalProfileIcon> {
             color: widget.backgroundColor,
             borderRadius: BorderRadius.circular(10),
           ),
-          height: UIDefine.getScreenWidth(20),
-          width: UIDefine.getScreenWidth(20),
+          height: widget.height,
+          width: widget.width,
           child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image(image: provider))),
