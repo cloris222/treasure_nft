@@ -16,6 +16,7 @@ class LoginEmailCodeView extends StatelessWidget {
       required this.data,
       this.isSecure = false,
       this.onChanged,
+      this.onEditTap,
       required this.onPressSendCode,
       required this.onPressCheckVerify})
       : super(key: key);
@@ -26,6 +27,7 @@ class LoginEmailCodeView extends StatelessWidget {
   final VoidCallback onPressSendCode;
   final VoidCallback onPressCheckVerify;
   final ValueChanged<String>? onChanged;
+  final GestureTapCallback? onEditTap;
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +43,12 @@ class LoginEmailCodeView extends StatelessWidget {
                     data.result ? AppColors.bolderGrey : AppColors.textRed,
                 enabledColor:
                     data.result ? AppColors.bolderGrey : AppColors.textRed,
+                onTap: onEditTap,
               ),
             ),
             CountdownButtonWidget(
               buttonType: 2,
-              countdownSecond: 180,
+              countdownSecond: 5,
               margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
               btnText: tr('get'),
               isFillWidth: false,

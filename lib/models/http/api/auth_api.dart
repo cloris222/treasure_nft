@@ -11,7 +11,7 @@ class AuthAPI extends HttpManager {
     return get('/user/code', queryParameters: {
       'type': 'MAIL',
       'account': mail,
-      'lang': getLanguage(),
+      'countryName': '',
       'action': LoginAction.register.name
     });
   }

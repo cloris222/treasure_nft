@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/enum/login_enum.dart';
 import 'package:treasure_nft_project/models/http/api/auth_api.dart';
@@ -31,6 +32,9 @@ class RegisterMainViewModel extends BaseViewModel {
   ValidateResultData nicknameData = ValidateResultData();
   ValidateResultData referralData = ValidateResultData();
 
+  ///是否判斷過驗證碼
+  bool checkEmail = false;
+
   void dispose() {
     accountController.dispose();
     passwordController.dispose();
@@ -46,9 +50,7 @@ class RegisterMainViewModel extends BaseViewModel {
         passwordController.text.isNotEmpty &&
         rePasswordController.text.isNotEmpty &&
         emailController.text.isNotEmpty &&
-        emailCodeController.text.isNotEmpty &&
-        nicknameController.text.isNotEmpty &&
-        referralController.text.isNotEmpty;
+        emailCodeController.text.isNotEmpty;
   }
 
   bool checkData() {
@@ -56,9 +58,17 @@ class RegisterMainViewModel extends BaseViewModel {
         passwordData.result &&
         rePasswordData.result &&
         emailData.result &&
-        emailCodeData.result &&
-        nicknameData.result &&
-        referralData.result;
+        emailCodeData.result;
+  }
+
+  void resetData() {
+    accountData = ValidateResultData();
+    passwordData = ValidateResultData();
+    rePasswordData = ValidateResultData();
+    emailData = ValidateResultData();
+    emailCodeData = ValidateResultData();
+    nicknameData = ValidateResultData();
+    referralData = ValidateResultData();
   }
 
   bool checkPress() {
@@ -80,7 +90,15 @@ class RegisterMainViewModel extends BaseViewModel {
   }
 
   ///MARK: 寄出驗證碼
-  void onPressSendCode() {}
+  void onPressSendCode(BuildContext context) async {
+    if (emailController.text.isNotEmpty) {
+      await AuthAPI(
+              onConnectFail: (message) => onBaseConnectFail(context, message))
+          .sendAuthRegisterMail(mail: emailController.text);
+      SimpleCustomDialog(context, mainText: tr('pleaseGotoMailboxReceive'))
+          .show();
+    }
+  }
 
   ///MARK: 註冊
   void onPressRegister(BuildContext context) {
@@ -96,11 +114,12 @@ class RegisterMainViewModel extends BaseViewModel {
         emailData = ValidateResultData(result: emailController.text.isNotEmpty);
         emailCodeData =
             ValidateResultData(result: emailCodeController.text.isNotEmpty);
-        nicknameData =
-            ValidateResultData(result: nicknameController.text.isNotEmpty);
-        referralData =
-            ValidateResultData(result: referralController.text.isNotEmpty);
       });
+      return;
+    }
+
+    ///MARK: 檢查是否驗證過信箱
+    else if (checkEmail) {
       return;
     } else {
       LoginAPI(onConnectFail: (message) => onBaseConnectFail(context, message))
@@ -115,5 +134,11 @@ class RegisterMainViewModel extends BaseViewModel {
   ///MARK: 切換到登入頁面
   void onPressLogin(BuildContext context) {
     popPage(context);
+  }
+
+  void onTap() {
+    setState(() {
+      resetData();
+    });
   }
 }
