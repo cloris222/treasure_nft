@@ -7,6 +7,7 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/widgets/count_down_timer.dart';
+import 'package:treasure_nft_project/widgets/dialog/simple_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/animation_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/base_close_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/custom_amount_dialog.dart';
