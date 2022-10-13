@@ -79,4 +79,8 @@ class AppImagePath {
 
   /// lock mission
   static const String level0Mission = '$lockMission/mb_level_bg_00.png';
+  /// home page
+  static const String firstBackground = '$appImgPath/img_main_bg_01.png';
+  static const String starIcon = '$appIconFolderPath/icon_star_01.png';
+  static const String downArrow = '$appBtnFolderPath/btn_arrow_01_down.png';
 }

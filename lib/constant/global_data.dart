@@ -6,6 +6,8 @@ import '../widgets/app_bottom_navigation_bar.dart';
 class GlobalData {
   GlobalData._();
 
+  static String urlPrefix = 'https://treasurenft.xyz/';
+
   static GlobalKey<NavigatorState> globalKey = GlobalKey();
   static bool firstLaunch = true;
 

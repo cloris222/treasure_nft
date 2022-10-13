@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 
@@ -20,14 +21,14 @@ class DomainBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'The only official domain for Treasure is ',
+                'Treasure\'s official domain: ',
                 style: TextStyle(
                     fontSize: UIDefine.fontSize12,
                     color: Colors.white,
                     fontWeight: FontWeight.w300),
               ),
               Text(
-                'https://treasurenft.xyz',
+                GlobalData.urlPrefix,
                 style: TextStyle(
                     fontSize: UIDefine.fontSize12,
                     color: Colors.white,
