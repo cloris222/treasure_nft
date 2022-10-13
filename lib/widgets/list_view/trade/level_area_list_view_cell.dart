@@ -27,24 +27,28 @@ class _LevelListViewCellState extends State<LevelListViewCell> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                Image.asset(widget.isBeginner
-                    ? AppImagePath.beginner
-                    : AppImagePath.tetherImg),
-                const SizedBox(
-                  width: 10,
-                ),
-                widget.isBeginner
-                    ? GradientText(
-                        tr('noviceArea'),
-                        size: UIDefine.fontSize22,
-                        weight: FontWeight.bold,
-                        starColor: AppColors.mainThemeButton,
-                        endColor: AppColors.subThemePurple,
-                      )
-                    : Text('1 - 50')
-              ],
+            Flexible(
+              child: Row(
+                children: [
+                  Image.asset(widget.isBeginner
+                      ? AppImagePath.beginner
+                      : AppImagePath.tetherImg),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: widget.isBeginner
+                        ? GradientText(
+                            tr('noviceArea'),
+                            size: UIDefine.fontSize20,
+                            weight: FontWeight.bold,
+                            starColor: AppColors.mainThemeButton,
+                            endColor: AppColors.subThemePurple,
+                          )
+                        : Text('1 - 50'),
+                  )
+                ],
+              ),
             ),
             Row(
               children: [
@@ -57,7 +61,7 @@ class _LevelListViewCellState extends State<LevelListViewCell> {
                 widget.isBeginner
                     ? GradientText(
                         tr('matching'),
-                        size: UIDefine.fontSize16,
+                        size: UIDefine.fontSize14,
                         weight: FontWeight.bold,
                         starColor: AppColors.mainThemeButton,
                         endColor: AppColors.subThemePurple,
