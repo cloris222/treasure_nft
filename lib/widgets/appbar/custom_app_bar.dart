@@ -133,7 +133,8 @@ class CustomAppBar {
                     )),
                 InkWell(
                     onTap: avatarAction,
-                    child: GlobalData.login
+                    child: GlobalData.login &&
+                            GlobalData.userInfo.photoUrl.isNotEmpty
                         ? CircleNetworkIcon(
                             networkUrl: GlobalData.userInfo.photoUrl,
                             radius: 15)
