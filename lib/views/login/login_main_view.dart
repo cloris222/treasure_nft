@@ -10,6 +10,7 @@ import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/domain_bar.dart';
 import '../../widgets/label/error_text_widget.dart';
 import '../../widgets/label/common_text_widget.dart';
+import 'login_param_view.dart';
 import 'register_main_page.dart';
 
 class LoginMainView extends StatefulWidget {
@@ -21,20 +22,17 @@ class LoginMainView extends StatefulWidget {
 
 class _LoginMainViewState extends State<LoginMainView> {
   late LoginMainViewModel viewModel;
-  TextEditingController accountController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    viewModel = LoginMainViewModel();
+    viewModel = LoginMainViewModel(setState: setState);
   }
 
   @override
   void dispose() {
     super.dispose();
-    accountController.dispose();
-    passwordController.dispose();
+    viewModel.dispose();
   }
 
   @override
@@ -96,36 +94,26 @@ class _LoginMainViewState extends State<LoginMainView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Text(tr('account'),
-              style: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: UIDefine.fontSize14)),
-          LoginTextWidget(
-              hintText: tr('placeholder-account\''),
-              controller: accountController,
-              focusedColor: AppColors.mainThemeButton),
-          ErrorTextWidget(
-              data: viewModel.accountData, alignment: Alignment.center),
-          Text(tr('password'),
-              style: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: UIDefine.fontSize14)),
-          LoginTextWidget(
-            hintText: tr('placeholder-password'),
-            controller: passwordController,
-            focusedColor: AppColors.mainThemeButton,
-            isSecure: true,
-          ),
-          ErrorTextWidget(
-              data: viewModel.passwordData, alignment: Alignment.center),
+          LoginParamView(
+              titleText: tr('account'),
+              hintText: tr("placeholder-account'"),
+              controller: viewModel.accountController,
+              data: viewModel.accountData),
+          LoginParamView(
+              titleText: tr('password'),
+              hintText: tr("placeholder-password"),
+              controller: viewModel.passwordController,
+              data: viewModel.passwordData,
+              isSecure: true),
           CommonTextWidget(
             text: "${tr('forgot')}?",
             alignment: Alignment.centerRight,
-            onPress: _onPressForgot,
+            onPress: () => viewModel.onPressForgot(context),
           ),
           LoginButtonWidget(
             btnText: tr('Login'),
-            enable: viewModel.checkPress(
-                accountController.text, passwordController.text),
-            onPressed: _onPressLogin,
+            enable: true,
+            onPressed: () => viewModel.onPressLogin(context),
           ),
           Row(
             children: [
@@ -141,17 +129,9 @@ class _LoginMainViewState extends State<LoginMainView> {
                   child: CommonTextWidget(
                       text: tr('register'),
                       fillWidth: false,
-                      onPress: _onPressRegister)),
+                      onPress: () => viewModel.onPressRegister(context))),
             ],
           )
         ]);
-  }
-
-  void _onPressForgot() {}
-
-  void _onPressLogin() {}
-
-  void _onPressRegister() {
-    viewModel.pushPage(context, const RegisterMainPage());
   }
 }

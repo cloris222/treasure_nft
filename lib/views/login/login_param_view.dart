@@ -7,21 +7,23 @@ import '../../widgets/label/error_text_widget.dart';
 import '../../widgets/text_field/login_text_widget.dart';
 
 class LoginParamView extends StatelessWidget {
-  const LoginParamView(
-      {Key? key,
-      required this.titleText,
-      required this.hintText,
-      required this.controller,
-      required this.data,
-      this.isSecure = false,
-      this.onChanged})
-      : super(key: key);
+  const LoginParamView({
+    Key? key,
+    required this.titleText,
+    required this.hintText,
+    required this.controller,
+    required this.data,
+    this.isSecure = false,
+    this.onChanged,
+    this.onTap,
+  }) : super(key: key);
   final String titleText;
   final String hintText;
   final TextEditingController controller;
   final bool isSecure;
   final ValidateResultData data;
   final ValueChanged<String>? onChanged;
+  final GestureTapCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +37,9 @@ class LoginParamView extends StatelessWidget {
           initColor: data.result ? AppColors.bolderGrey : AppColors.textRed,
           enabledColor: data.result ? AppColors.bolderGrey : AppColors.textRed,
           focusedColor: AppColors.mainThemeButton,
-          isSecure: true,
+          isSecure: isSecure,
           onChanged: onChanged,
+          onTap: onTap,
         ),
         ErrorTextWidget(data: data, alignment: Alignment.centerRight),
       ],

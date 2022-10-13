@@ -9,6 +9,7 @@ class LoginTextWidget extends StatefulWidget {
       this.isSecure = false,
       this.prefixIconAsset = '',
       this.onChanged,
+      this.onTap,
       this.enabledColor = AppColors.bolderGrey,
       this.focusedColor = AppColors.bolderGrey,
       this.initColor = AppColors.bolderGrey,
@@ -19,6 +20,7 @@ class LoginTextWidget extends StatefulWidget {
   final String prefixIconAsset;
   final TextEditingController controller;
   final ValueChanged<String>? onChanged;
+  final GestureTapCallback? onTap;
 
   ///控制不同狀態下的框限顏色
   final Color enabledColor; //可用狀態
@@ -35,7 +37,7 @@ class _LoginTextWidgetState extends State<LoginTextWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.center,
+        alignment: Alignment.center,
         height: 60,
         margin: const EdgeInsets.symmetric(vertical: 5),
         child: _buildEdit());
@@ -48,6 +50,7 @@ class _LoginTextWidgetState extends State<LoginTextWidget> {
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.next,
         onChanged: widget.onChanged,
+        onTap: widget.onTap,
         decoration: InputDecoration(
             hintText: widget.hintText,
             hintStyle: const TextStyle(height: 1.1),

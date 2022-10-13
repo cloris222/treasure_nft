@@ -76,4 +76,11 @@ class AppImagePath {
   static const String beginner = '$appIconFolderPath/icon_star_01.png';
   static const String beginnerReserving = '$appIconFolderPath/icon_rotate_01.png';
   static const String reserving = '$appIconFolderPath/icon_rotate_02.png';
+
+  /// lock mission
+  static const String level0Mission = '$lockMission/mb_level_bg_00.png';
+  /// home page
+  static const String firstBackground = '$appImgPath/img_main_bg_01.png';
+  static const String starIcon = '$appIconFolderPath/icon_star_01.png';
+  static const String downArrow = '$appBtnFolderPath/btn_arrow_01_down.png';
 }

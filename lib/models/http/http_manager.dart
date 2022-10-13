@@ -3,7 +3,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../constant/call_back_function.dart';
+import '../../constant/global_data.dart';
 import '../../utils/language_util.dart';
+import '../../utils/rsa_util.dart';
 import 'http_exceptions.dart';
 import 'http_setting.dart';
 import 'parameter/api_response.dart';
@@ -32,23 +34,23 @@ class HttpManager {
     debugPrint(response.realUri.toString());
     var result = ApiResponse.fromJson(response.data);
 
-    ///MARK:不需要檢查則直接跳過這個function
-    return result;
+    ///偷懶看LOG用
+    result.printLog();
 
     ///MARK: 檢查結果
-    // if (檢查正確) {
-    //   ///偷懶看LOG用
-    //   result.printLog();
-    //   return result;
-    // } else if (帳號已登出的狀況) {
+    if (result.code == "G_0000") {
+      return result;
+    }
+    // else if (帳號已登出的狀況) {
     //   var vm = BaseViewModel();
     //   vm.showToast(vm.getGlobalContext(), result.message);
     //   vm.globalPushAndRemoveUntil(const LoginMainPage());
     // }
+
     ///MARK: 檢查結果 有異常時 直接拋出錯誤
     //取代錯誤code
     response.statusCode = 404;
-    response.data['message'] = tr(result.message);
+    response.data['message'] = tr(result.code);
     throw DioError(
         requestOptions: response.requestOptions,
         response: response,
@@ -57,7 +59,7 @@ class HttpManager {
 
   Future<void> _initDio() async {
     if (addToken) {
-      // _dio.options.headers["Authorization"] = "Bearer ${GlobalData.userToken}";
+      _dio.options.headers["Authorization"] = "Bearer ${GlobalData.userToken}";
       debugPrint("Authorization:${_dio.options.headers['Authorization']}");
     }
   }
@@ -125,7 +127,9 @@ class HttpManager {
     try {
       final Response response = await _dio.post(
         url,
-        data: data,
+        data: {
+          'data': [await RSAEncode.encodeString(data)]
+        },
         queryParameters: queryParameters,
         options: options,
         cancelToken: cancelToken,

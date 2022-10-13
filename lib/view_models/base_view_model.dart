@@ -5,9 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../constant/global_data.dart';
+import '../models/http/api/login_api.dart';
+import '../models/http/parameter/api_response.dart';
+import '../utils/app_shared_Preferences.dart';
+import '../widgets/dialog/simple_custom_dialog.dart';
 
 class BaseViewModel {
-
   BuildContext getGlobalContext() {
     return GlobalData.globalKey.currentContext!;
   }
@@ -72,4 +75,26 @@ class BaseViewModel {
     // await pushPage(context, OtherPersonInfoPage(userId: userId));
   }
 
+
+  ///MARK: 更新使用者資料
+  Future<void> saveUserLoginInfo({required ApiResponse response}) async {
+    await AppSharedPreferences.setMemberID(response.data['id']);
+    await AppSharedPreferences.setToken(response.data['token']);
+    GlobalData.userToken = response.data['token'];
+    GlobalData.userMemberId = response.data['id'];
+
+    await uploadPersonalInfo();
+    GlobalData.login =true;
+
+    AppSharedPreferences.printAll();
+  }
+
+  Future<void> uploadPersonalInfo() async {
+    GlobalData.userInfo = await LoginAPI().getPersonInfo();
+  }
+
+  ///MARK: 通用的 單一彈錯視窗
+  onBaseConnectFail(BuildContext context, String message) {
+    SimpleCustomDialog(context, mainText: message, isSuccess: false).show();
+  }
 }

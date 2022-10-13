@@ -3,16 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
-import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 
-import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
 import '../../view_models/login/register_main_viewmodel.dart';
-import '../../widgets/button/countdown_button_widget.dart';
 import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/label/common_text_widget.dart';
-import '../../widgets/label/error_text_widget.dart';
-import '../../widgets/text_field/login_text_widget.dart';
 import 'login_email_code_view.dart';
 import 'login_param_view.dart';
 
@@ -100,7 +95,7 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
             hintText: tr("placeholder-emailCode'"),
             controller: viewModel.emailCodeController,
             onPressSendCode: viewModel.onPressSendCode,
-            onPressCheckVerify: viewModel.onPressCheckVerify,
+            onPressCheckVerify: () => viewModel.onPressCheckVerify(context),
             data: viewModel.emailCodeData),
 
         ///MARK:暱稱
@@ -122,7 +117,7 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
         LoginButtonWidget(
           btnText: tr('register'),
           enable: viewModel.checkPress(),
-          onPressed: viewModel.onPressRegister,
+          onPressed: () => viewModel.onPressRegister(context),
         ),
         Row(
           children: [

@@ -46,9 +46,27 @@ class AppSharedPreferences {
     return await _getString("Lang");
   }
 
+  static Future<void> setMemberID(String id) async {
+    await _setString("MemberID", id);
+  }
+
+  static Future<String> getMemberID() async {
+    return await _getString("MemberID");
+  }
+
+  static Future<void> setToken(String token) async {
+    await _setString('Token', token);
+  }
+
+  static Future<String> getToken() async {
+    return await _getString("Token");
+  }
+
   static Future<void> printAll() async {
     debugPrint('pref_ printAll------');
     debugPrint('pref_getLanguage:${await getLanguage()}');
+    debugPrint('pref_getMemberID:${await getMemberID()}');
+    debugPrint('pref_getToken:${await getToken()}');
   }
 
 }
