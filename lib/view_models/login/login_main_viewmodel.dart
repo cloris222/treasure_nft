@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/models/data/validate_result_data.dart';
 import 'package:treasure_nft_project/models/http/api/login_api.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 
 import '../../constant/call_back_function.dart';
+import '../../constant/global_data.dart';
 import '../../views/login/forgot_main_page.dart';
 import '../../views/login/register_main_page.dart';
+import '../../views/main_page.dart';
 import '../../widgets/dialog/simple_custom_dialog.dart';
 
 class LoginMainViewModel extends BaseViewModel {
@@ -51,7 +54,9 @@ class LoginMainViewModel extends BaseViewModel {
           .then((value) async {
         value.printLog();
         await saveUserLoginInfo(response: value);
-        SimpleCustomDialog(context).show();
+        GlobalData.mainBottomType = AppNavigationBarType.typeMain;
+        pushAndRemoveUntil(context, MainPage(type: GlobalData.mainBottomType));
+        SimpleCustomDialog(context, mainText: 'OK').show();
       });
     }
   }

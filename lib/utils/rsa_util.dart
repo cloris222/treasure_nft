@@ -20,8 +20,8 @@ class RSAEncode {
     return begin + strList.join('\n') + end;
   }
 
-  static Future<String> encodeString(String content) async {
-    String encoded = base64.encode(utf8.encode(content));
+  static Future<String> encodeString(Map<String, String> content) async {
+    String encoded = base64.encode(utf8.encode(jsonEncode(content)));
     dynamic publicKey = RSAKeyParser().parse(splitStr(HttpSetting.developKey));
     final encrypt = Encrypter(RSA(publicKey: publicKey));
     return encrypt.encrypt(encoded).base64;

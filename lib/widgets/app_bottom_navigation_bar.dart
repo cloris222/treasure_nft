@@ -119,11 +119,9 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
 
   _navigationTapped(int index, void Function(VoidCallback fn) setState) {
     GlobalData.mainBottomType = AppNavigationBarType.values[index];
-    if ((GlobalData.mainBottomType != AppNavigationBarType.typeMain &&
-            GlobalData.mainBottomType != AppNavigationBarType.typeExplore
-    ///MARK: 暫時可通過
-        &&GlobalData.mainBottomType != AppNavigationBarType.typeTrade) ||
-        false) {
+    if ((GlobalData.mainBottomType == AppNavigationBarType.typeMain &&
+            GlobalData.mainBottomType == AppNavigationBarType.typeExplore) ||
+        !GlobalData.login) {
       index = 6;
       GlobalData.mainBottomType = AppNavigationBarType.typeLogin;
     }

@@ -15,6 +15,8 @@ class GlobalData {
   static UserInfoData userInfo = UserInfoData();
   static String userToken = '';
   static String userMemberId = '';
+  ///暫時
+  static bool login = false;
 
   ///MARK: 控管bar的圖案顯示
   static AppNavigationBarType mainBottomType = AppNavigationBarType.typeMain;

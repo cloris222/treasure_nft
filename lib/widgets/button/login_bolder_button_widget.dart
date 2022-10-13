@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 
+import '../../constant/theme/app_colors.dart';
+import '../gradient_text.dart';
+
 class LoginBolderButtonWidget extends StatelessWidget {
   const LoginBolderButtonWidget(
       {Key? key,
@@ -37,9 +40,10 @@ class LoginBolderButtonWidget extends StatelessWidget {
                 alignment: Alignment.center,
                 decoration: AppStyle().styleColorsRadiusBackground(
                     color: Colors.white, radius: 10),
-                child: Text(btnText,
-                    style: TextStyle(
-                        color: Colors.black, fontSize: UIDefine.fontSize16))),
+                child: GradientText(btnText,
+                    size: UIDefine.fontSize16,
+                    starColor: AppColors.mainThemeButton,
+                    endColor: AppColors.subThemePurple)),
           ),
         ],
       ),
