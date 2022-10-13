@@ -8,7 +8,8 @@ class AppImagePath {
   static const String appImgPath = 'assets/icon/img';
   static const String appBtmBarPath = 'assets/icon/btm_bar';
   static const String appCoinsPath = 'assets/icon/coins';
-  static const String achievementMission = 'assets/icon/img/achievement_mission';
+  static const String achievementMission =
+      'assets/icon/img/achievement_mission';
   static const String achievementEmblem = 'assets/icon/img/achievement_emblem';
   static const String dailyMission = 'assets/icon/img/daily_mission';
   static const String rankEmblem = 'assets/icon/img/rank_emblem';
@@ -16,6 +17,7 @@ class AppImagePath {
   static const String footer = 'assets/icon/footer';
   static const String daily = 'assets/icon/daily';
   static const String month = 'assets/icon/daily/month';
+  static const String lockMission = 'assets/icon/img/lock_mission';
 
   ///MARK: 通用icon
   static const String dialogSuccess = '$appImgPath/img_check_01.png';
@@ -50,10 +52,28 @@ class AppImagePath {
 
   /// login
   static const String loginBg = '$appImgPath/img_login_01.png';
-  static const String loginPhoto='$appImgPath/img_login_photo_01.png';
+  static const String loginPhoto = '$appImgPath/img_login_photo_01.png';
 
   /// trade page
   static const String countDownBackground = '$appImgPath/img_trade_bg_01.png';
   static const String clockBlue = '$appImgPath/img_clock_01.png';
-  static const String colckRed = '$appImgPath/img_clock_02.png';
+  static const String clockRed = '$appImgPath/img_clock_02.png';
+  static const String closeDialogBtn =
+      '$appBtnFolderPath/btn_cancel_01_nor.png';
+
+  ///  rank level
+  static const String level0 = '$rankEmblem/badges_lv0.png';
+  static const String level1 = '$rankEmblem/badges_lv1.png';
+  static const String level2 = '$rankEmblem/badges_lv2.png';
+  static const String level3 = '$rankEmblem/badges_lv3.png';
+  static const String level4 = '$rankEmblem/badges_lv4.png';
+  static const String level5 = '$rankEmblem/badges_lv5.png';
+  static const String level6 = '$rankEmblem/badges_lv6.png';
+  static const String level7 = '$rankEmblem/badges_lv7.png';
+  static const String level8 = '$rankEmblem/badges_lv8.png';
+  static const String level9 = '$rankEmblem/badges_lv9.png';
+  static const String level10 = '$rankEmblem/badges_lv10.png';
+  static const String beginner = '$appIconFolderPath/icon_star_01.png';
+  static const String beginnerReserving = '$appIconFolderPath/icon_rotate_01.png';
+  static const String reserving = '$appIconFolderPath/icon_rotate_02.png';
 }
