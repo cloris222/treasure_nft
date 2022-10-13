@@ -102,8 +102,8 @@ class ReserveRange {
   });
 
   int index;
-  double startPrice;
-  double endPrice;
+  dynamic startPrice;
+  dynamic endPrice;
   bool used;
   bool lock;
 

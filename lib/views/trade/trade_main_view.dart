@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:treasure_nft_project/constant/enum/level_enum.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_animation_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
@@ -146,7 +147,7 @@ class _TradeMainViewState extends State<TradeMainView> {
         children: [
           Row(children: [
             Image.asset(
-              getLevelImg(LevelRank.LEVEL0),
+              viewModel.getLevelImg(),
               width: UIDefine.getWidth() / 11,
               height: UIDefine.getWidth() / 11,
             ),
@@ -158,7 +159,7 @@ class _TradeMainViewState extends State<TradeMainView> {
               width: 5,
             ),
             Text(
-              '1',
+              '${GlobalData.userInfo.level}',
               style: titleStyle,
             )
           ]),
@@ -169,19 +170,19 @@ class _TradeMainViewState extends State<TradeMainView> {
             children: [
               LevelDetailLabel(
                 title: tr('reserveCount'),
-                content: '999',
-                rightFontWeight: FontWeight.bold,
-              ),
-              LevelDetailLabel(
-                title: tr("wallet-balance'"),
-                showCoins: true,
-                content: '${viewModel.info?.balance}',
+                content: '${viewModel.info?.reserveCount}',
                 rightFontWeight: FontWeight.bold,
               ),
               LevelDetailLabel(
                 title: tr('amountRangeNFT'),
                 showCoins: true,
-                content: '0~99,999',
+                content: viewModel.getRange(),
+                rightFontWeight: FontWeight.bold,
+              ),
+              LevelDetailLabel(
+                title: tr("wallet-balance'"),
+                showCoins: true,
+                content: '${viewModel.info?.balance.toStringAsFixed(2)}',
                 rightFontWeight: FontWeight.bold,
               ),
               const Divider(
@@ -211,32 +212,5 @@ class _TradeMainViewState extends State<TradeMainView> {
             )
           ],
         ));
-  }
-
-  getLevelImg(LevelRank level) {
-    switch (level) {
-      case LevelRank.LEVEL0:
-        return AppImagePath.level0;
-      case LevelRank.LEVEL1:
-        return AppImagePath.level1;
-      case LevelRank.LEVEL2:
-        return AppImagePath.level2;
-      case LevelRank.LEVEL3:
-        return AppImagePath.level3;
-      case LevelRank.LEVEL4:
-        return AppImagePath.level4;
-      case LevelRank.LEVEL5:
-        return AppImagePath.level5;
-      case LevelRank.LEVEL6:
-        return AppImagePath.level6;
-      case LevelRank.LEVEL7:
-        return AppImagePath.level7;
-      case LevelRank.LEVEL8:
-        return AppImagePath.level8;
-      case LevelRank.LEVEL9:
-        return AppImagePath.level9;
-      case LevelRank.LEVEL10:
-        return AppImagePath.level10;
-    }
   }
 }
