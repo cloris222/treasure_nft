@@ -128,7 +128,7 @@ class HttpManager {
       final Response response = await _dio.post(
         url,
         data: {
-          'data': [await RSAEncode.encodeString(data.toString())]
+          'data': [await RSAEncode.encodeString(data)]
         },
         queryParameters: queryParameters,
         options: options,
