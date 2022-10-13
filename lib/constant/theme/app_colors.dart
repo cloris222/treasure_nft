@@ -17,4 +17,5 @@ class AppColors {
   ///MARK:主題色彩
   static const Color mainThemeButton = Color(0xFF3B82F6);
   static const Color subThemePurple = Color(0xFF9657D7);
+  static const Color reservationOrangeBtn = Color(0xFFF8B148);
 }

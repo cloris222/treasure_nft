@@ -1,16 +1,23 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:treasure_nft_project/constant/enum/level_enum.dart';
+import 'package:treasure_nft_project/constant/theme/app_animation_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/widgets/count_down_timer.dart';
+import 'package:treasure_nft_project/widgets/dialog/animation_dialog.dart';
+import 'package:treasure_nft_project/widgets/dialog/base_close_dialog.dart';
+import 'package:treasure_nft_project/widgets/dialog/custom_amount_dialog.dart';
+import 'package:treasure_nft_project/widgets/dialog/reservation_dialog.dart';
+import 'package:treasure_nft_project/widgets/dialog/simple_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/trade_rule_dialot.dart';
 import 'package:treasure_nft_project/widgets/domain_bar.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/label/level_detail.dart';
-import '../../widgets/list_view/trade/level_area_list_view.dart';
+import '../../widgets/list_view/trade/level_area_list_view_cell.dart';
 
 class TradeMainView extends StatelessWidget {
   const TradeMainView({Key? key}) : super(key: key);
@@ -163,7 +170,8 @@ class TradeMainView extends StatelessWidget {
                 rightFontWeight: FontWeight.bold,
               ),
               const Divider(
-                color: AppColors.dialogGrey,thickness: 1,
+                color: AppColors.dialogGrey,
+                thickness: 1,
               )
             ],
           )
@@ -172,11 +180,21 @@ class TradeMainView extends StatelessWidget {
     );
   }
 
-  Widget _levelArea(BuildContext context){
+  Widget _levelArea(BuildContext context) {
     return Container(
-        margin:EdgeInsets.symmetric(
-            horizontal: UIDefine.getWidth() / 20),
-        child: Column(children: [LevelListViewCell()],));
+        margin: EdgeInsets.symmetric(horizontal: UIDefine.getWidth() / 20),
+        child: Column(
+          children: [
+            LevelListViewCell(
+              reservationAction: () {
+                ReservationDialog(context, confirmBtnAction: () {
+                  Navigator.pop(context);
+                  AnimationDialog(context,AppAnimationPath.reserveSuccess).show();
+                }).show();
+              },
+            )
+          ],
+        ));
   }
 
   getLevelImg(LevelRank level) {

@@ -17,30 +17,18 @@ class TradeRuleDialog extends BaseCloseDialog {
   Widget buildBody() {
     TextStyle ruleStyle =
     TextStyle(fontSize: UIDefine.fontSize12, color: AppColors.dialogBlack);
-   return Column(
-     mainAxisSize: MainAxisSize.min,
-     crossAxisAlignment: CrossAxisAlignment.end,
+   return Wrap(
+     spacing: 10,
+     runSpacing: 10,
+     runAlignment: WrapAlignment.start,
      children: [
-       InkWell(
-         onTap: () {
-           Navigator.pop(context);
-         },
-         child: Image.asset(AppImagePath.closeDialogBtn),
-       ),
-       Wrap(
-         spacing: 10,
-         runSpacing: 10,
-         runAlignment: WrapAlignment.start,
-         children: [
-           Text('1. ${tr('defi-info-1')}', style: ruleStyle),
-           Text('2. ${tr('defi-info-2')}', style: ruleStyle),
-           Text('3. ${tr('defi-info-3')}', style: ruleStyle),
-           Text('4. ${tr('defi-info-4')}', style: ruleStyle),
-           Text('5. ${tr('defi-info-5')}', style: ruleStyle),
-           Text('6. ${tr('defi-info-6')}', style: ruleStyle),
-           Text('7. ${tr('defi-info-7')}', style: ruleStyle),
-         ],
-       ),
+       Text('1. ${tr('defi-info-1')}', style: ruleStyle),
+       Text('2. ${tr('defi-info-2')}', style: ruleStyle),
+       Text('3. ${tr('defi-info-3')}', style: ruleStyle),
+       Text('4. ${tr('defi-info-4')}', style: ruleStyle),
+       Text('5. ${tr('defi-info-5')}', style: ruleStyle),
+       Text('6. ${tr('defi-info-6')}', style: ruleStyle),
+       Text('7. ${tr('defi-info-7')}', style: ruleStyle),
      ],
    );
   }
