@@ -22,11 +22,7 @@ class LoginButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        if (enable) {
-          onPressed();
-        }
-      },
+      onTap: onPressed,
       child: Container(
           alignment: Alignment.center,
           margin: const EdgeInsets.symmetric(vertical: 10),

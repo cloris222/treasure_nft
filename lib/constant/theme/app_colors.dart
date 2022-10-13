@@ -6,7 +6,7 @@ class AppColors {
 
   static const Color textWhite = Color(0xFFFFFFFF);
   static const Color textBlack = Color(0xFF1F1F39);
-  static const Color textRed = Color(0xFFF58989);
+  static const Color textRed = Color(0xFFEC6898);
   static const Color textGrey = Color(0xFF7A7C7D);
   static const Color dialogGrey = Color(0xFF8797B0);
   static const Color dialogBlack = Color(0xFF3D4045);

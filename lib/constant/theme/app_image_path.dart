@@ -23,7 +23,7 @@ class AppImagePath {
   static const String dialogSuccess = '$appImgPath/img_check_01.png';
   static const String dialogClose = '$appImgPath/img_error_01.png';
   static const String dialogCancel = '';
-  static const String appBarLeftArrow = '';
+  static const String appBarLeftArrow = '$appBtnFolderPath/btn_back_01_nor.png';
 
   static const String mainTypeExplore = '$appBtmBarPath/btn_explore_01_pre.png';
   static const String mainTypeExploreOFF =
