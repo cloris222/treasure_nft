@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:treasure_nft_project/views/explore/explore_type.dart';
 
 import '../../view_models/explore/explore_main_view_model.dart';
 import '../../widgets/list_view/explore/get_explore_main_list_view.dart';
@@ -9,7 +8,7 @@ class ExploreTypePage extends StatefulWidget {
   const ExploreTypePage(
       {super.key, required this.currentType});
 
-  final ExploreType currentType;
+  final String currentType;
 
   @override
   State<StatefulWidget> createState() => _ExploreTypePage();

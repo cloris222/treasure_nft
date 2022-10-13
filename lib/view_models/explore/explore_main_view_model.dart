@@ -1,47 +1,45 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../constant/call_back_function.dart';
-import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
 import '../../views/explore/api/explore_api.dart';
+import '../../views/explore/data/explore_catogory_response_data.dart';
 import '../../views/explore/data/explore_main_response_data.dart';
-import '../../views/explore/explore_type.dart';
 import '../../views/explore/explore_type_page.dart';
 
 class ExploreMainViewModel extends BaseViewModel {
 
-  List<ExploreType> getExploreTypes() {
-    return <ExploreType>[ExploreType.All, ExploreType.ERC_NFT, ExploreType.Polygon_NFT, ExploreType.BSC_NFT];
-  }
-
-  Widget getExploreTypePage(ExploreType type) {
+  Widget getExploreTypePage(String type) {
     return ExploreTypePage(currentType: type);
   }
 
   Widget getExploreTypeButtons(
-      {required ExploreType currentExploreType,
+      {required String currentExploreType,
+        required List<ExploreCategoryResponseData> dataList,
         required ScrollController controller,
-        required Function(ExploreType exploreType) changePage}) {
+        required Function(String exploreType) changePage}) {
     List<Widget> buttons = <Widget>[];
-    getExploreTypes().forEach((lMessageType) {
-      bool isCurrent = (lMessageType == currentExploreType);
+    for (int i = 0; i < dataList.length; i++) {
+      bool isCurrent = (dataList[i].name == currentExploreType);
       buttons.add(
           IntrinsicWidth(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TextButton(
-                  style: _getButtonBg(isCurrent),
-                  onPressed: () {
-                    changePage(lMessageType);
-                  },
-                  child: Container(
-                    // constraints: BoxConstraints(minWidth: UIDefine.getScreenWidth(36.11)),
-                    child: Text(
-                      _getPageTitle(lMessageType),
-                      style: TextStyle(color: _getButtonColor(isCurrent), fontSize: UIDefine.fontSize14),
-                      textAlign: TextAlign.center,
+                SizedBox(
+                  height: UIDefine.getScreenWidth(12),
+                  child: TextButton(
+                    onPressed: () {
+                      changePage(dataList[i].name);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(2.77), 0, UIDefine.getScreenWidth(2.77), 0),
+                      child: Text(
+                        dataList[i].frontName,
+                        style: TextStyle(color: _getButtonColor(isCurrent), fontSize: UIDefine.fontSize16),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                 ),
@@ -53,32 +51,14 @@ class ExploreMainViewModel extends BaseViewModel {
             ),
           )
       );
-    });
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.start, children: buttons);
-  }
-
-
-  String _getPageTitle(ExploreType type) {
-    if (type == ExploreType.All) {
-      // return tr("all");
-      return "All";
-
-    } else if (type == ExploreType.ERC_NFT) {
-      // return tr("ercNft");
-      return "ERC NFT";
-
-    } else if (type == ExploreType.Polygon_NFT) {
-      // return tr('polygonNft');
-      return 'Polygon NFT';
-
-    } else if (type == ExploreType.BSC_NFT) {
-      // return tr('bscNft');
-      return 'BSC NFT';
-
-    } else {
-      return 'unKnown';
     }
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: buttons
+      ),
+    );
   }
 
   double _getLineHeight(bool isCurrent) {
@@ -96,38 +76,16 @@ class ExploreMainViewModel extends BaseViewModel {
     return Colors.grey;
   }
 
-
-  ButtonStyle _getButtonBg(bool isCurrent) {
-    if (isCurrent) {
-      return TextButton.styleFrom(
-          // backgroundColor: AppColors.subThemePurple,
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(0))));
-    }
-    return TextButton.styleFrom(
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(0))));
-  }
-
   Future<List<ExploreMainResponseData>> getExploreResponse(
-      ExploreType type, int page, int size,
-      {ResponseErrorFunction? onConnectFail}) async {
-    String category = '';
-    switch (type) { // test
-      case ExploreType.All:
-        category = '';
-        break;
-      case ExploreType.ERC_NFT:
-        category = '';
-        break;
-      case ExploreType.Polygon_NFT:
-        category = '';
-        break;
-      case ExploreType.BSC_NFT:
-        category = '';
-        break;
-    }
+      String type, int page, int size, {ResponseErrorFunction? onConnectFail}) async {
+    String category = type;
     return await ExploreApi(onConnectFail: onConnectFail)
         .getExploreArtists(page: page, size: size, category: category);
+  }
+
+  Future<List<ExploreCategoryResponseData>> getExploreCategory(
+      {ResponseErrorFunction? onConnectFail}) async {
+    return await ExploreApi(onConnectFail: onConnectFail)
+        .getExploreCatogory();
   }
 }

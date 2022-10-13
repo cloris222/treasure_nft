@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/widgets/domain_bar.dart';
 
-import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
 import '../../view_models/explore/explore_main_view_model.dart';
-import 'explore_type.dart';
+import 'data/explore_catogory_response_data.dart';
 
 class ExploreMainView extends StatefulWidget {
   const ExploreMainView({Key? key}) : super(key: key);
@@ -16,29 +16,27 @@ class ExploreMainView extends StatefulWidget {
 class _ExploreMainView extends State<ExploreMainView> {
 
   ExploreMainViewModel viewModel = ExploreMainViewModel();
-  ExploreType currentExploreType = ExploreType.All;
+  String currentExploreType = ''; // All類別打電文是帶空值
   ScrollController listController = ScrollController();
   PageController pageController = PageController();
   List<Widget> pages = <Widget>[];
+  List<ExploreCategoryResponseData> dataList = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(children: [
+        const DomainBar(),
         Container(
             padding: EdgeInsets.only(top: UIDefine.getScreenWidth(0.97), bottom: UIDefine.getScreenWidth(0.97)),
-            margin: EdgeInsets.only(left: UIDefine.getScreenWidth(8), right: UIDefine.getScreenWidth(8), bottom: UIDefine.getScreenWidth(4.16)),
-            height: UIDefine.getScreenWidth(12),
+            margin: EdgeInsets.only(left: UIDefine.getScreenWidth(5), right: UIDefine.getScreenWidth(5), bottom: UIDefine.getScreenWidth(4.16)),
             child: viewModel.getExploreTypeButtons(
                 controller: listController,
+                dataList: dataList,
                 currentExploreType: currentExploreType,
-                changePage: (ExploreType exploreType) {
+                changePage: (String exploreType) {
                   changePage(exploreType);
                 })),
-        // Container(
-        //   height: 2.5,
-        //   color: AppColors.textRed,
-        // ),
         Flexible(
             child: PageView(
               controller: pageController,
@@ -52,11 +50,24 @@ class _ExploreMainView extends State<ExploreMainView> {
   @override
   void initState() {
     super.initState();
-    pages = List<Widget>.generate(viewModel.getExploreTypes().length,
-            (index) => viewModel.getExploreTypePage(viewModel.getExploreTypes()[index]));
+    Future<List<ExploreCategoryResponseData>> list = viewModel.getExploreCategory();
+    list.then((value) => {setState(() {}), _setData(value), _setPage() });
   }
 
-  changePage(ExploreType exploreType) {
+  _setData(List<ExploreCategoryResponseData> value) {
+    dataList = value;
+    ExploreCategoryResponseData data = ExploreCategoryResponseData();
+    data.frontName = 'All';
+    data.name = '';
+    dataList.insert(0, data);
+  }
+
+  _setPage() {
+    pages = List<Widget>.generate(dataList.length,
+            (index) => viewModel.getExploreTypePage(dataList[index].name));
+  }
+
+  changePage(String exploreType) {
     setState(() {
       currentExploreType = exploreType;
       pageController.jumpToPage(getExploreTypeIndex(currentExploreType));
@@ -65,22 +76,18 @@ class _ExploreMainView extends State<ExploreMainView> {
 
   void _onPageChange(int value) {
     setState(() {
-      currentExploreType = ExploreType.values[value];
+      currentExploreType = dataList[value].name;
       // listController.jumpTo(value * 25);
     });
   }
 
-  int getExploreTypeIndex(ExploreType type) {
-    for (int i = 0; i < getExploreTypes().length; i++) {
-      if (type == getExploreTypes()[i]) {
+  int getExploreTypeIndex(String type) {
+    for (int i = 0; i < dataList.length; i++) {
+      if (type == dataList[i].name) {
         return i;
       }
     }
     return -1;
-  }
-
-  List<ExploreType> getExploreTypes() {
-    return <ExploreType>[ExploreType.All, ExploreType.ERC_NFT, ExploreType.Polygon_NFT, ExploreType.BSC_NFT];
   }
 
 }

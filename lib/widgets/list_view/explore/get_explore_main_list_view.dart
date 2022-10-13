@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
-import 'package:treasure_nft_project/views/explore/explore_type.dart';
 
 import '../../../constant/ui_define.dart';
+import '../../../view_models/explore/explore_main_view_model.dart';
 import '../../../views/explore/data/explore_main_response_data.dart';
 import 'explore_main_item_view.dart';
 
 class GetExploreMainListView extends StatefulWidget {
-  const GetExploreMainListView({super.key, required this.list, required this.type,});
+  const GetExploreMainListView({super.key, required this.list, required this.type});
 
   final List list;
-  final ExploreType type;
+  final String type;
 
   @override
   State<StatefulWidget> createState() => _GetExploreMainListView();
@@ -17,6 +17,10 @@ class GetExploreMainListView extends StatefulWidget {
 }
 
 class _GetExploreMainListView extends State<GetExploreMainListView> {
+
+  ExploreMainViewModel viewModel = ExploreMainViewModel();
+
+  int page = 1;
 
   Widget createItemBuilder(BuildContext context, int index) {
     return getLikesListViewItem(widget.list[index], index);
@@ -38,15 +42,37 @@ class _GetExploreMainListView extends State<GetExploreMainListView> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          return createItemBuilder(context, index);
-        },
-        itemCount: getItemCount(),
-        separatorBuilder: (BuildContext context, int index) {
-          return createSeparatorBuilder(context, index);
-        });
+    return NotificationListener<ScrollEndNotification>(
+      onNotification: (scrollEnd) {
+        final metrics = scrollEnd.metrics;
+        if (metrics.atEdge) {
+          bool isTop = metrics.pixels == 0;
+          if (isTop) {
+            debugPrint('At the top');
+          } else {
+            debugPrint('At the bottom');
+            updateView();
+          }
+        }
+        return true;
+      },
+      child: ListView.separated(
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            return createItemBuilder(context, index);
+          },
+          itemCount: getItemCount(),
+          separatorBuilder: (BuildContext context, int index) {
+            return createSeparatorBuilder(context, index);
+          }),
+    );
+  }
+
+  updateView() async {
+    page += 1;
+    List newList = await viewModel.getExploreResponse(widget.type, page, 15);
+    widget.list.addAll(newList);
+    setState(() {});
   }
 
 }

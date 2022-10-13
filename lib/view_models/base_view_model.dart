@@ -66,4 +66,10 @@ class BaseViewModel {
       (route) => false,
     );
   }
+
+  Future<void> pushOtherPersonalInfo(
+      BuildContext context, String userId) async { // test
+    // await pushPage(context, OtherPersonInfoPage(userId: userId));
+  }
+
 }

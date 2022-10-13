@@ -1,6 +1,7 @@
 import '../../../models/http/http_manager.dart';
 import '../../../models/http/http_setting.dart';
 import '../../../models/http/parameter/api_response.dart';
+import '../data/explore_catogory_response_data.dart';
 import '../data/explore_main_response_data.dart';
 
 class ExploreApi extends HttpManager {
@@ -21,6 +22,23 @@ class ExploreApi extends HttpManager {
       response.printLog();
       for (Map<String, dynamic> json in response.data['pageList']) {
         result.add(ExploreMainResponseData.fromJson(json));
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+    return result;
+  }
+
+  /// 查詢畫家類型
+  Future<List<ExploreCategoryResponseData>> getExploreCatogory() async {
+    List<ExploreCategoryResponseData> result =
+    <ExploreCategoryResponseData>[];
+    try {
+      ApiResponse response =
+      await get('/explore/category');
+      response.printLog();
+      for (Map<String, dynamic> json in response.data) {
+        result.add(ExploreCategoryResponseData.fromJson(json));
       }
     } catch (e) {
       print(e.toString());
