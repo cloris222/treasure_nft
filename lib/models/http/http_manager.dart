@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../constant/call_back_function.dart';
+import '../../constant/global_data.dart';
 import '../../utils/language_util.dart';
 import '../../utils/rsa_util.dart';
 import 'http_exceptions.dart';
@@ -58,7 +59,7 @@ class HttpManager {
 
   Future<void> _initDio() async {
     if (addToken) {
-      // _dio.options.headers["Authorization"] = "Bearer ${GlobalData.userToken}";
+      _dio.options.headers["Authorization"] = "Bearer ${GlobalData.userToken}";
       debugPrint("Authorization:${_dio.options.headers['Authorization']}");
     }
   }

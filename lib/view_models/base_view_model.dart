@@ -8,6 +8,7 @@ import '../constant/global_data.dart';
 import '../models/http/api/login_api.dart';
 import '../models/http/parameter/api_response.dart';
 import '../utils/app_shared_Preferences.dart';
+import '../widgets/dialog/simple_custom_dialog.dart';
 
 class BaseViewModel {
   BuildContext getGlobalContext() {
@@ -83,5 +84,10 @@ class BaseViewModel {
 
   Future<void> uploadPersonalInfo() async {
     GlobalData.userInfo = await LoginAPI().getPersonInfo();
+  }
+
+  ///MARK: 通用的 單一彈錯視窗
+  onBaseConnectFail(BuildContext context, String message) {
+    SimpleCustomDialog(context, mainText: message, isSuccess: false).show();
   }
 }

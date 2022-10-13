@@ -6,6 +6,7 @@ import 'package:treasure_nft_project/models/http/api/login_api.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../constant/call_back_function.dart';
+import '../../views/login/forgot_main_page.dart';
 import '../../views/login/register_main_page.dart';
 import '../../widgets/dialog/simple_custom_dialog.dart';
 
@@ -43,7 +44,7 @@ class LoginMainViewModel extends BaseViewModel {
       return;
     } else {
       ///MARK: 註冊API
-      LoginAPI(onConnectFail: (message) => _onConnectFail(context, message))
+      LoginAPI(onConnectFail: (message) => onBaseConnectFail(context, message))
           .login(
               account: accountController.text,
               password: passwordController.text)
@@ -59,9 +60,7 @@ class LoginMainViewModel extends BaseViewModel {
     pushPage(context, const RegisterMainPage());
   }
 
-  onPressForgot(BuildContext context) {}
-
-  _onConnectFail(BuildContext context, String message) {
-    SimpleCustomDialog(context, mainText: message, isSuccess: false).show();
+  onPressForgot(BuildContext context) {
+    pushPage(context, const ForgotMainPage());
   }
 }

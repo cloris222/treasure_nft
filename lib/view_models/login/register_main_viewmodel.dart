@@ -7,6 +7,7 @@ import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../constant/call_back_function.dart';
 import '../../models/data/validate_result_data.dart';
+import '../../models/http/api/login_api.dart';
 import '../../widgets/dialog/simple_custom_dialog.dart';
 
 class RegisterMainViewModel extends BaseViewModel {
@@ -68,10 +69,12 @@ class RegisterMainViewModel extends BaseViewModel {
   void onPressCheckVerify(BuildContext context) async {
     if (emailCodeController.text.isNotEmpty &&
         emailController.text.isNotEmpty) {
-      await AuthAPI(onConnectFail: _onConnectFail).checkAuthCodeMail(
-          mail: emailController.text,
-          action: LoginAction.register,
-          authCode: emailCodeController.text);
+      await AuthAPI(
+              onConnectFail: (message) => onBaseConnectFail(context, message))
+          .checkAuthCodeMail(
+              mail: emailController.text,
+              action: LoginAction.register,
+              authCode: emailCodeController.text);
       SimpleCustomDialog(context).show();
     }
   }
@@ -80,7 +83,7 @@ class RegisterMainViewModel extends BaseViewModel {
   void onPressSendCode() {}
 
   ///MARK: 註冊
-  void onPressRegister() {
+  void onPressRegister(BuildContext context) {
     ///MARK: 檢查是否有欄位未填
     if (!checkEmptyController()) {
       setState(() {
@@ -99,6 +102,13 @@ class RegisterMainViewModel extends BaseViewModel {
             ValidateResultData(result: referralController.text.isNotEmpty);
       });
       return;
+    } else {
+      LoginAPI(onConnectFail: (message) => onBaseConnectFail(context, message))
+          .register(
+              account: accountController.text, email: emailController.text)
+          .then((value) async {
+        SimpleCustomDialog(context).show();
+      });
     }
   }
 
@@ -106,6 +116,4 @@ class RegisterMainViewModel extends BaseViewModel {
   void onPressLogin(BuildContext context) {
     popPage(context);
   }
-
-  void _onConnectFail(String errorMessage) {}
 }
