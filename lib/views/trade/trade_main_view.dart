@@ -12,7 +12,6 @@ import 'package:treasure_nft_project/widgets/dialog/animation_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/base_close_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/custom_amount_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/reservation_dialog.dart';
-import 'package:treasure_nft_project/widgets/dialog/simple_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/trade_rule_dialot.dart';
 import 'package:treasure_nft_project/widgets/domain_bar.dart';
 import '../../constant/theme/app_image_path.dart';
