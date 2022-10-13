@@ -33,6 +33,7 @@ class _TradeMainViewState extends State<TradeMainView> {
   @override
   void initState() {
     viewModel = TradeMainViewModel(setState: setState);
+    viewModel.initState();
     super.initState();
   }
 

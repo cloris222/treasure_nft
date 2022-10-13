@@ -22,7 +22,7 @@ class CheckReservationInfo {
     required this.reserveCount,
     required this.balance,
     required this.reserveRanges,
-    required this.reserveItems,
+    // required this.reserveItems,
   });
 
   String startTime;
@@ -35,9 +35,9 @@ class CheckReservationInfo {
   String systemZone;
   String zone;
   int reserveCount;
-  int balance;
+  double balance;
   List<ReserveRange> reserveRanges;
-  List<ReserveItem> reserveItems;
+  // List<ReserveItem> reserveItems;
 
   factory CheckReservationInfo.fromJson(Map<String, dynamic> json) => CheckReservationInfo(
     startTime: json["startTime"],
@@ -52,7 +52,7 @@ class CheckReservationInfo {
     reserveCount: json["reserveCount"],
     balance: json["balance"],
     reserveRanges: List<ReserveRange>.from(json["reserveRanges"].map((x) => ReserveRange.fromJson(x))),
-    reserveItems: List<ReserveItem>.from(json["reserveItems"].map((x) => ReserveItem.fromJson(x))),
+    // reserveItems: List<ReserveItem>.from(json["reserveItems"].map((x) => ReserveItem.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -68,7 +68,7 @@ class CheckReservationInfo {
     "reserveCount": reserveCount,
     "balance": balance,
     "reserveRanges": List<dynamic>.from(reserveRanges.map((x) => x.toJson())),
-    "reserveItems": List<dynamic>.from(reserveItems.map((x) => x.toJson())),
+    // "reserveItems": List<dynamic>.from(reserveItems.map((x) => x.toJson())),
   };
 }
 
@@ -102,8 +102,8 @@ class ReserveRange {
   });
 
   int index;
-  int startPrice;
-  int endPrice;
+  double startPrice;
+  double endPrice;
   bool used;
   bool lock;
 
