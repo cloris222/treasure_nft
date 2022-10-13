@@ -81,9 +81,10 @@ class BaseViewModel {
     await AppSharedPreferences.setMemberID(response.data['id']);
     await AppSharedPreferences.setToken(response.data['token']);
     GlobalData.userToken = response.data['token'];
-    GlobalData.userMemberId = response.data['memberId'];
+    GlobalData.userMemberId = response.data['id'];
 
     await uploadPersonalInfo();
+    GlobalData.login =true;
 
     AppSharedPreferences.printAll();
   }
