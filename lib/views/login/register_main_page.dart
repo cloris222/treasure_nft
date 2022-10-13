@@ -100,7 +100,7 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
             hintText: tr("placeholder-emailCode'"),
             controller: viewModel.emailCodeController,
             onPressSendCode: viewModel.onPressSendCode,
-            onPressCheckVerify: viewModel.onPressCheckVerify,
+            onPressCheckVerify: ()=>viewModel.onPressCheckVerify(context),
             data: viewModel.emailCodeData),
 
         ///MARK:暱稱

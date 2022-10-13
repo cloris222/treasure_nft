@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/widgets/count_down_timer.dart';
-import 'package:treasure_nft_project/widgets/dialog/simple_dialog.dart';
+import 'package:treasure_nft_project/widgets/dialog/simple_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/domain_bar.dart';
 
 import '../../constant/theme/app_image_path.dart';

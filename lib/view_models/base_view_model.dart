@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../constant/global_data.dart';
+import '../models/http/api/login_api.dart';
+import '../models/http/parameter/api_response.dart';
+import '../utils/app_shared_Preferences.dart';
 
 class BaseViewModel {
-
   BuildContext getGlobalContext() {
     return GlobalData.globalKey.currentContext!;
   }
@@ -65,5 +67,21 @@ class BaseViewModel {
       MaterialPageRoute<void>(builder: (BuildContext context) => page),
       (route) => false,
     );
+  }
+
+  ///MARK: 更新使用者資料
+  Future<void> saveUserLoginInfo({required ApiResponse response}) async {
+    await AppSharedPreferences.setMemberID(response.data['id']);
+    await AppSharedPreferences.setToken(response.data['token']);
+    GlobalData.userToken = response.data['token'];
+    GlobalData.userMemberId = response.data['memberId'];
+
+    await uploadPersonalInfo();
+
+    AppSharedPreferences.printAll();
+  }
+
+  Future<void> uploadPersonalInfo() async {
+    GlobalData.userInfo = await LoginAPI().getPersonInfo();
   }
 }
