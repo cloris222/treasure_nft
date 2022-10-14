@@ -12,7 +12,7 @@ import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/appbar/custom_app_bar.dart';
 import '../data/explore_artist_detail_response_data.dart';
 import '../data/explore_main_response_data.dart';
-import 'home_page_widgets.dart';
+import 'explore_home_page_widgets.dart';
 
 class ExploreArtistHomePageView extends StatefulWidget {
   const ExploreArtistHomePageView({super.key, required this.artistData});
@@ -152,7 +152,7 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
                       child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        HomePageWidgets.productView(productList[index]),
+                        HomePageWidgets.productView(context, productList[index]),
                       ],
                     )
                   );
@@ -162,8 +162,8 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
                   child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    HomePageWidgets.productView(productList[index]),
-                    HomePageWidgets.productView(productList[index + 1])
+                    HomePageWidgets.productView(context, productList[index]),
+                    HomePageWidgets.productView(context, productList[index + 1])
                   ],
                 ),
                 );

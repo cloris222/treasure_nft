@@ -3,6 +3,7 @@ import '../../../models/http/http_setting.dart';
 import '../../../models/http/parameter/api_response.dart';
 import '../data/explore_artist_detail_response_data.dart';
 import '../data/explore_catogory_response_data.dart';
+import '../data/explore_item_response_data.dart';
 import '../data/explore_main_response_data.dart';
 
 class ExploreApi extends HttpManager {
@@ -62,6 +63,23 @@ class ExploreApi extends HttpManager {
       });
       response.printLog();
       result = ExploreArtistDetailResponseData.fromJson(response.data);
+    } catch (e) {
+      print(e.toString());
+    }
+    return result;
+  }
+
+  /// 查詢單一商品詳細資訊
+  Future<ExploreItemResponseData> getExploreItemDetail(
+      {String itemId = ''}) async {
+    ExploreItemResponseData result = ExploreItemResponseData(priceHistory: [], sellTimeList: []);
+    try {
+      ApiResponse response =
+      await get('/explore/item', queryParameters: {
+        'itemId': itemId,
+      });
+      response.printLog();
+      result = ExploreItemResponseData.fromJson(response.data);
     } catch (e) {
       print(e.toString());
     }

@@ -3,11 +3,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/views/login/login_main_view.dart';
+import 'package:treasure_nft_project/views/main_page.dart';
 
 import '../../../constant/ui_define.dart';
+import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/label/personal_profile_icon.dart';
+import 'explore_product_detail_page.dart';
 
 class HomePageWidgets {
   const HomePageWidgets._();
@@ -155,13 +160,22 @@ class HomePageWidgets {
     );
   }
 
-  static Widget productView(dynamic data) {
+  static Widget productView(BuildContext context, dynamic data) {
     return SizedBox(
       width: 163,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.network(data.imgUrl, height: 163),
+          GestureDetector(
+            onTap: () {
+              if (GlobalData.userToken != '') {
+                BaseViewModel().pushPage(context, ExploreProductDetailPage(itemId: data.itemId));
+              } else {
+                BaseViewModel().pushReplacement(context, MainPage(type: AppNavigationBarType.typeLogin));
+              }
+            },
+            child: Image.network(data.imgUrl, height: 163)
+          ),
 
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
