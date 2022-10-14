@@ -6,6 +6,7 @@ import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import 'package:treasure_nft_project/widgets/domain_bar.dart';
 import 'package:treasure_nft_project/widgets/gradient_text.dart';
+import 'package:treasure_nft_project/widgets/list_view/home/artist_record_listview.dart';
 import 'package:treasure_nft_project/widgets/list_view/home/carousel_listview.dart';
 
 
@@ -14,9 +15,7 @@ class HomeMainView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Flexible(child:
-      SingleChildScrollView(
+    return SingleChildScrollView(
         child:SizedBox(
           child:Column(children: [
             Stack(children: [
@@ -25,7 +24,6 @@ class HomeMainView extends StatelessWidget {
                 scaleY: 0.9,
                 child:  Image.asset(AppImagePath.firstBackground),
               ),
-
 
               Column(children: [
                 const DomainBar(),
@@ -114,23 +112,19 @@ class HomeMainView extends StatelessWidget {
             ]),
 
             Padding(
-              /// 下半部總padding
-              padding: EdgeInsets.all(UIDefine.getScreenWidth(4)),
-              child:
-                  Column(children: [
-                    Container(
-                        child: hotCollection()
-                    ),
+              /// 下半部總 padding
+              padding: EdgeInsets.only(
+                  left: UIDefine.getScreenWidth(3),
+                  right: UIDefine.getScreenWidth(3)
+              ),
+              child: Expanded(
+                child:hotCollection(),
+              ),
 
-
-
-                  ],)
             ),
           ]),
         ),
-      ),
-      ),
-    );
+      );
   }
 }
 
@@ -280,40 +274,37 @@ Widget USDT_Info() {
 
 
 Widget hotCollection() {
-  return Container(
-    child: Column(children: [
-      Row(children: [
+  return Column(children: [
+    Row(children: [
 
-        Padding(padding: EdgeInsets.all(UIDefine.getScreenHeight(1.5)),
-          child: Image.asset(AppImagePath.starIcon),
+      Padding(padding: EdgeInsets.all(UIDefine.getScreenHeight(1.5)),
+        child: Image.asset(AppImagePath.starIcon),
+      ),
+
+      Text('Hot Collections',
+        style: TextStyle(
+          fontSize: UIDefine.fontSize24,
+          fontWeight: FontWeight.bold,
+          color: AppColors.textBlack,
         ),
-
-        Text('Hot Collections',
-          style: TextStyle(
-            fontSize: UIDefine.fontSize24,
-            fontWeight: FontWeight.bold,
-            color: AppColors.textBlack,
-          ),
-        ),
-      ],),
-
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-        Text('Last 24 hours',
-          style: TextStyle(
-            fontSize: UIDefine.fontSize20,
-            color: AppColors.mainThemeButton,
-          ),
-        ),
-        Image.asset(AppImagePath.downArrow),
-      ],)
-
-
-
+      ),
     ],),
 
-  );
+    Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+      Text('Last 24 hours',
+        style: TextStyle(
+          fontSize: UIDefine.fontSize20,
+          color: AppColors.mainThemeButton,
+        ),
+      ),
+      Image.asset(AppImagePath.downArrow),
+    ]),
+
+    const ArtistRecordListView(),
+
+  ],);
 
 }
 
