@@ -7,6 +7,8 @@ import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
+import '../constant/theme/app_colors.dart';
+
 /// MARK: 滿版動畫
 class FullAnimationPage extends StatefulWidget {
   const FullAnimationPage(
@@ -47,7 +49,7 @@ class _FullAnimationPageState extends State<FullAnimationPage> {
       ///倒數判斷
       _currentSecond = widget.limitTimer;
 
-      ///如果沒有背景程式就不關閉
+      ///如果沒有背景程式就不進行
       runEnd = (widget.runFunction == null);
       if (widget.runFunction != null) {
         widget.runFunction!().then((value) => runEnd = true);
@@ -66,20 +68,29 @@ class _FullAnimationPageState extends State<FullAnimationPage> {
 
   @override
   Widget build(BuildContext context) {
+    double padding = MediaQuery.of(context).padding.top;
     return Scaffold(
-        body: Stack(
-      children: [
-        Lottie.asset(widget.animationPath,
-            width: UIDefine.getWidth(), height: UIDefine.getHeight()),
-        Positioned(
-            top: 0, right: 0, child: Image.asset(AppImagePath.closeDialogBtn))
-      ],
-    ));
+        backgroundColor: AppColors.opacityBackground,
+        body: Container(
+          alignment: Alignment.center,
+          margin: EdgeInsets.all(padding),
+          child: Stack(
+            children: [
+              Lottie.asset(widget.animationPath, fit: BoxFit.contain),
+              Positioned(
+                  top: 10,
+                  right: 10,
+                  child: InkWell(
+                      onTap: () => _countdownFinish(),
+                      child: Image.asset(AppImagePath.closeDialogBtn)))
+            ],
+          ),
+        ));
   }
 
   void countdownFunction() {
     _countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (_currentSecond > 0 || runEnd) {
+      if (_currentSecond > 0 || !runEnd) {
         if (_currentSecond != 0) {
           _currentSecond -= 1;
         }
@@ -92,7 +103,7 @@ class _FullAnimationPageState extends State<FullAnimationPage> {
 
   ///MARK: 倒數完成
   void _countdownFinish() {
-    if (_currentSecond == 0 && runEnd) {
+    if (runEnd) {
       if (widget.nextPage != null) {
         BaseViewModel().pushAndRemoveUntil(context, widget.nextPage!);
       } else {

@@ -15,6 +15,7 @@ class AppColors {
   static const Color buttonGrey = Color(0xFFE0EAF7);
   static const Color searchBar = Color(0xFFB9C5D9);
   static const Color growPrice = Color(0xFF54CE58);
+  static const Color opacityBackground = Color(0xC6000000);
 
   ///MARK:主題色彩
   static const Color mainThemeButton = Color(0xFF3B82F6);
