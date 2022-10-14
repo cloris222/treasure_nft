@@ -97,4 +97,16 @@ class BaseViewModel {
   onBaseConnectFail(BuildContext context, String message) {
     SimpleCustomDialog(context, mainText: message, isSuccess: false).show();
   }
+
+  /// 自動轉換數字為 K & M
+  String numberCompatFormat (String value) {
+    var formattedNumber = NumberFormat.compactCurrency(
+      decimalDigits: 2,
+      locale: 'en_US',
+      symbol: '',
+    ).format(double.parse(value));
+
+    return formattedNumber;
+  }
+
 }

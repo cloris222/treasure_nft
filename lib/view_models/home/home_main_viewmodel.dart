@@ -25,19 +25,6 @@ class HomeMainViewModel extends BaseViewModel {
   }
 
 
-  String getVolAndSalesFormat (String value) {
-    var formattedNumber = NumberFormat.compactCurrency(
-      decimalDigits: 2,
-      locale: 'en_US',
-      symbol: '',
-    ).format(double.parse(value));
-
-    // String result = double.parse(formattedNumber).toStringAsFixed(2);
-    // var format = NumberFormat('#,000');
-    // return format.format(double.parse(result));
-    return formattedNumber;
-  }
-
   Widget getPadding(double val) {
     return Padding(padding: EdgeInsets.all(UIDefine.getScreenWidth(val)));
   }

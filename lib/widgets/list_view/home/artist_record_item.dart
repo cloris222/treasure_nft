@@ -70,7 +70,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView> {
 
                     viewModel.getPadding(1),
 
-                    Text(viewModel.getVolAndSalesFormat(widget.itemData.ydayAmt),
+                    Text(viewModel.numberCompatFormat(widget.itemData.ydayAmt),
                         style: TextStyle(
                             fontSize: UIDefine.fontSize14,
                             fontWeight: FontWeight.w300,
@@ -97,7 +97,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView> {
 
                     viewModel.getPadding(1),
 
-                    Text(viewModel.getVolAndSalesFormat(widget.itemData.amtTotal),
+                    Text(viewModel.numberCompatFormat(widget.itemData.amtTotal),
                         style: TextStyle(
                             fontSize: UIDefine.fontSize14,
                             fontWeight: FontWeight.w300,
