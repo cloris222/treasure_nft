@@ -15,7 +15,7 @@ abstract class BaseDialog {
   double contentSizeHeight;
   Color backgroundColor;
 
-  void initValue();
+  Future<void> initValue();
 
   Widget initTitle();
 
@@ -26,7 +26,7 @@ abstract class BaseDialog {
   }
 
   Future<void> show() async {
-    initValue();
+    await initValue();
     await showDialog<void>(
       context: context,
       barrierDismissible: isDialogCancel,
