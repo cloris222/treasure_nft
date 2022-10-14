@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +8,7 @@ import '../../../constant/theme/app_theme.dart';
 import '../../../constant/ui_define.dart';
 import '../../../view_models/base_view_model.dart';
 import '../../../view_models/explore/explore_artist_home_page_view_model.dart';
+import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/appbar/custom_app_bar.dart';
 import '../data/explore_artist_detail_response_data.dart';
 import '../data/explore_main_response_data.dart';
@@ -29,8 +29,10 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
   ExploreArtistHomePageViewModel viewModel = ExploreArtistHomePageViewModel();
   bool bMore = false;
   ExploreArtistDetailResponseData data = ExploreArtistDetailResponseData(sms: [], list: ListClass(pageList: []));
-  // List<ExploreArtistDetailResponseData> dataList = [];
-  List productList = [];
+  List<PageList> productList = [];
+  String searchValue = '';
+  String dropDownValue = 'price';
+  bool bSort = true;
 
   ExploreMainResponseData get artistData {
     return widget.artistData;
@@ -119,40 +121,98 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
                       child: _dropDownBar()
                   ),
                   SizedBox(width: UIDefine.getScreenWidth(2.77)),
-                  Container(
-                    alignment: Alignment.center,
-                    width: 64,
-                    height: 50,
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 2, color: AppColors.mainThemeButton),
-                        borderRadius: BorderRadius.circular(6)),
-                    child: Image.asset('assets/icon/btn/btn_sort_01_nor.png'),
+                  GestureDetector(
+                    onTap: () => _onPressSort(),
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: 64,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 2, color: AppColors.mainThemeButton),
+                          borderRadius: BorderRadius.circular(6)),
+                      child: Image.asset('assets/icon/btn/btn_sort_01_nor.png'),
+                    )
                   )
                 ],
               ),
             ),
 
             /// 作品列表
-
-
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: productList.length,
+              itemBuilder: (context, index) {
+                if (index % 2 != 0) {
+                  return Container();
+                }
+                if (index % 2 != 0 && index == productList.length - 1) {
+                  return Padding(
+                      padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5), 0, 0,  UIDefine.getScreenWidth(5)),
+                      child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        HomePageWidgets.productView(productList[index]),
+                      ],
+                    )
+                  );
+                }
+                return Padding(
+                  padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5), 0, UIDefine.getScreenWidth(5),  UIDefine.getScreenWidth(5)),
+                  child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    HomePageWidgets.productView(productList[index]),
+                    HomePageWidgets.productView(productList[index + 1])
+                  ],
+                ),
+                );
+              }
+            )
           ],
         ),
       ),
+
+      bottomNavigationBar: const AppBottomNavigationBar(initType: AppNavigationBarType.typeExplore),
     );
   }
 
-
   String _shortString(String sValue) {
     return sValue.length > 50? '${sValue.substring(0, 50)}....' : sValue;
+  }
+
+  _onPressSort() {
+    // 撈產品資料 by sort
+    bSort = !bSort;
+    _getNewProductListResponse(1);
+  }
+
+  _getNewProductListResponse(int page) {
+    String sortBy = 'time';
+    if (bSort) {
+      if (dropDownValue == 'Price') {
+        sortBy = 'price';
+      } else {
+        sortBy = 'time';
+      }
+    } else {
+      if (dropDownValue == 'Price') {
+        sortBy = 'priceAsc';
+      } else {
+        sortBy = 'timeAsc';
+      }
+    }
+    productList.clear();
+    Future<ExploreArtistDetailResponseData> resList = viewModel.getArtistDetailResponse(artistData.artistId, searchValue, page, 10, sortBy);
+    resList.then((value) => _setData(value));
   }
 
   Widget _searchBar() {
     return TextField(
         onChanged: (text) {
           // 撈產品資料 by text
-          setState(() {
-
-          });
+          searchValue = text;
+          _getNewProductListResponse(1);
         },
         style: TextStyle(fontSize: UIDefine.fontSize14),
         decoration: InputDecoration(
@@ -178,13 +238,14 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
     return DropdownButtonFormField(
       icon: Image.asset('assets/icon/btn/btn_arrow_02_down.png'),
       onChanged: (newValue) {
-        // 選擇後近來這執行資料篩選
+        // 將選擇的暫存在全域
+        dropDownValue = newValue!;
       },
       value: _currencies.first,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.16), UIDefine.getScreenWidth(4.16), UIDefine.getScreenWidth(4.16), 0),
         hintText: 'Price',
-        hintStyle: const TextStyle(height: 1.6, color: AppColors.searchBar),
+        hintStyle: const TextStyle(height: 1.6, color: AppColors.textBlack),
         border: AppTheme.style.styleTextEditBorderBackground(color: AppColors.searchBar, radius: 10),
         focusedBorder: AppTheme.style.styleTextEditBorderBackground(color: AppColors.searchBar, radius: 10),
         enabledBorder: AppTheme.style.styleTextEditBorderBackground(color: AppColors.searchBar, radius: 10),

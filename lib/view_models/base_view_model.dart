@@ -71,10 +71,20 @@ class BaseViewModel {
   }
 
   Future<void> pushOtherPersonalInfo(
-      BuildContext context, String userId) async { // test
+      BuildContext context, String userId) async {
+    // test
     // await pushPage(context, OtherPersonInfoPage(userId: userId));
   }
 
+  ///MARK: 推透明的頁面
+  Future<void> pushOpacityPage(BuildContext context, Widget page) async{
+    Navigator.of(context).push(PageRouteBuilder(
+        pageBuilder: (BuildContext buildContext, Animation<double> animation,
+            Animation<double> secondaryAnimation) {
+          return page;
+        },
+        opaque: false));
+  }
 
   ///MARK: 更新使用者資料
   Future<void> saveUserLoginInfo({required ApiResponse response}) async {
@@ -84,7 +94,7 @@ class BaseViewModel {
     GlobalData.userMemberId = response.data['id'];
 
     await uploadPersonalInfo();
-    GlobalData.login =true;
+    GlobalData.login = true;
 
     AppSharedPreferences.printAll();
   }
@@ -97,4 +107,19 @@ class BaseViewModel {
   onBaseConnectFail(BuildContext context, String message) {
     SimpleCustomDialog(context, mainText: message, isSuccess: false).show();
   }
+
+  /// 自動轉換數字為 K & M
+  String numberCompatFormat (String value) {
+    if (value == '') {
+      return '';
+    }
+    var formattedNumber = NumberFormat.compactCurrency(
+      decimalDigits: 2,
+      locale: 'en_US',
+      symbol: '',
+    ).format(double.parse(value));
+
+    return formattedNumber;
+  }
+
 }

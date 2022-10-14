@@ -6,7 +6,7 @@ import '../data/explore_catogory_response_data.dart';
 import '../data/explore_main_response_data.dart';
 
 class ExploreApi extends HttpManager {
-  ExploreApi({super.onConnectFail, super.baseUrl = HttpSetting.developUrl});
+  ExploreApi({super.onConnectFail, super.baseUrl = HttpSetting.developUrl, super.addToken = false});
 
   /// 查詢探索首頁
   Future<List<ExploreMainResponseData>> getExploreArtists(

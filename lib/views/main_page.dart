@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/account/account_main_view.dart';
 import 'package:treasure_nft_project/views/collection/collection_main_view.dart';
 import 'package:treasure_nft_project/views/explore/explore_main_view.dart';
@@ -9,8 +10,10 @@ import 'package:treasure_nft_project/views/wallet/wallet_main_view.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 
 import '../constant/global_data.dart';
+import '../constant/theme/app_animation_path.dart';
 import '../constant/ui_define.dart';
 import '../widgets/app_bottom_navigation_bar.dart';
+import 'full_animation_page.dart';
 import 'home/home_main_view.dart';
 
 class MainPage extends StatefulWidget {
@@ -35,6 +38,7 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     int initialPage = getViewIndex(widget.type);
+    GlobalData.mainBottomType = widget.type;
     pageController = PageController(initialPage: initialPage);
   }
 

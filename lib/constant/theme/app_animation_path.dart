@@ -13,4 +13,8 @@ class AppAnimationPath {
   static const String loginAfternoon =
       '$animationPathJson/mb_login_afternoon.json';
   static const String loginNight = '$animationPathJson/mb_login_night.json';
+
+  /// 註冊成功動畫
+  static const String registerSuccess =
+      '$animationPathJson/mb_signup_success_01.gif';
 }

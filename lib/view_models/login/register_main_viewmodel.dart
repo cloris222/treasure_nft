@@ -1,13 +1,18 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/enum/login_enum.dart';
 import 'package:treasure_nft_project/models/http/api/auth_api.dart';
+import 'package:treasure_nft_project/utils/regular_expression_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../constant/call_back_function.dart';
+import '../../constant/theme/app_animation_path.dart';
 import '../../models/data/validate_result_data.dart';
 import '../../models/http/api/login_api.dart';
+import '../../views/full_animation_page.dart';
+import '../../views/main_page.dart';
 import '../../widgets/dialog/simple_custom_dialog.dart';
 
 class RegisterMainViewModel extends BaseViewModel {
@@ -31,6 +36,10 @@ class RegisterMainViewModel extends BaseViewModel {
   ValidateResultData nicknameData = ValidateResultData();
   ValidateResultData referralData = ValidateResultData();
 
+  ///是否判斷過驗證碼
+  bool checkEmail = false;
+  String validateEmail = '';
+
   void dispose() {
     accountController.dispose();
     passwordController.dispose();
@@ -46,9 +55,7 @@ class RegisterMainViewModel extends BaseViewModel {
         passwordController.text.isNotEmpty &&
         rePasswordController.text.isNotEmpty &&
         emailController.text.isNotEmpty &&
-        emailCodeController.text.isNotEmpty &&
-        nicknameController.text.isNotEmpty &&
-        referralController.text.isNotEmpty;
+        emailCodeController.text.isNotEmpty;
   }
 
   bool checkData() {
@@ -61,8 +68,31 @@ class RegisterMainViewModel extends BaseViewModel {
         referralData.result;
   }
 
+  void resetData() {
+    accountData = ValidateResultData();
+    passwordData = ValidateResultData();
+    rePasswordData = ValidateResultData();
+    emailData = ValidateResultData();
+    emailCodeData = ValidateResultData();
+    nicknameData = ValidateResultData();
+    referralData = ValidateResultData();
+  }
+
   bool checkPress() {
-    return checkEmptyController() && checkData();
+    return checkEmail;
+  }
+
+  void checkPassword() {
+    if (passwordController.text.isNotEmpty &&
+        rePasswordController.text.isNotEmpty) {
+      rePasswordData = ValidateResultData(
+          result:
+              passwordController.text.compareTo(rePasswordController.text) == 0,
+          message: tr('rule_confirmPW'));
+    } else {
+      passwordData = ValidateResultData();
+      rePasswordData = ValidateResultData();
+    }
   }
 
   /// MARK: 檢查驗證碼是否正確
@@ -75,12 +105,30 @@ class RegisterMainViewModel extends BaseViewModel {
               mail: emailController.text,
               action: LoginAction.register,
               authCode: emailCodeController.text);
+      setState(() {
+        checkEmail = true;
+        validateEmail = emailController.text;
+      });
       SimpleCustomDialog(context).show();
+    } else {
+      setState(() {
+        emailData = ValidateResultData(result: emailController.text.isNotEmpty);
+        emailCodeData =
+            ValidateResultData(result: emailCodeController.text.isNotEmpty);
+      });
     }
   }
 
   ///MARK: 寄出驗證碼
-  void onPressSendCode() {}
+  void onPressSendCode(BuildContext context) async {
+    if (emailController.text.isNotEmpty) {
+      await AuthAPI(
+              onConnectFail: (message) => onBaseConnectFail(context, message))
+          .sendAuthRegisterMail(mail: emailController.text);
+      SimpleCustomDialog(context, mainText: tr('pleaseGotoMailboxReceive'))
+          .show();
+    }
+  }
 
   ///MARK: 註冊
   void onPressRegister(BuildContext context) {
@@ -96,18 +144,40 @@ class RegisterMainViewModel extends BaseViewModel {
         emailData = ValidateResultData(result: emailController.text.isNotEmpty);
         emailCodeData =
             ValidateResultData(result: emailCodeController.text.isNotEmpty);
-        nicknameData =
-            ValidateResultData(result: nicknameController.text.isNotEmpty);
-        referralData =
-            ValidateResultData(result: referralController.text.isNotEmpty);
       });
       return;
     } else {
+      ///MARK: 檢查是否驗證過信箱
+      if (!checkEmail) {
+        emailCodeData =
+            ValidateResultData(result: false, message: tr('rule_mail_valid'));
+      }
+
+      ///MARK: 檢查密碼是否相符
+      checkPassword();
+
+      ///MARK: 如果檢查有部分錯誤時
+      if (!checkData()) {
+        setState(() {});
+        return;
+      }
       LoginAPI(onConnectFail: (message) => onBaseConnectFail(context, message))
           .register(
-              account: accountController.text, email: emailController.text)
+              account: accountController.text,
+              password: passwordController.text,
+              email: emailController.text,
+              nickname: nicknameController.text,
+              inviteCode: referralController.text)
           .then((value) async {
-        SimpleCustomDialog(context).show();
+        ///MARK: 註冊成功動畫
+        BaseViewModel().pushOpacityPage(
+            context,
+            const FullAnimationPage(
+              limitTimer: 10,
+              animationPath: AppAnimationPath.registerSuccess,
+              isGIF: true,
+              nextPage: MainPage(),
+            ));
       });
     }
   }
@@ -115,5 +185,45 @@ class RegisterMainViewModel extends BaseViewModel {
   ///MARK: 切換到登入頁面
   void onPressLogin(BuildContext context) {
     popPage(context);
+  }
+
+  void onTap() {
+    setState(() {
+      resetData();
+    });
+  }
+
+  Future<bool> checkEmailFormat() async {
+    if (emailController.text.isNotEmpty) {
+      var result =
+          RegularExpressionUtil().checkFormatEmail(emailController.text);
+      setState(() {
+        emailData =
+            ValidateResultData(result: result, message: tr('rule_email'));
+      });
+      return result;
+    } else {
+      setState(() {
+        emailData = ValidateResultData(result: false);
+      });
+    }
+
+    return false;
+  }
+
+  void onPasswordChanged(String value) {
+    setState(() {
+      checkPassword();
+    });
+  }
+
+  void onEmailChange(String value) {
+    setState(() {
+      if (value.isNotEmpty) {
+        checkEmail = (validateEmail.compareTo(value) == 0);
+      } else {
+        checkEmail = false;
+      }
+    });
   }
 }

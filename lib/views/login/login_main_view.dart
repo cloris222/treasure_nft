@@ -62,25 +62,28 @@ class _LoginMainViewState extends State<LoginMainView> {
               child: Image.asset(AppImagePath.loginBg,
                   height: UIDefine.getHeight() / 3, fit: BoxFit.fill)),
           Positioned(
-              top: UIDefine.getWidth() / 5,
-              bottom: UIDefine.getWidth() / 5,
-              left: 25,
+              top: 0,
+              bottom: 0,
+              left: 20,
               right: UIDefine.getWidth() / 4,
-              child: RichText(
-                  text: TextSpan(children: <TextSpan>[
-                TextSpan(
-                    text: '${tr('welcomeBack')} ,\n',
-                    style: TextStyle(
-                        fontSize: UIDefine.fontSize24,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600)),
-                TextSpan(
-                    text: tr('Login'),
-                    style: TextStyle(
-                        fontSize: UIDefine.fontSize34,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600))
-              ]))),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: RichText(
+                    text: TextSpan(children: <TextSpan>[
+                  TextSpan(
+                      text: '${tr('welcomeBack')} ,\n',
+                      style: TextStyle(
+                          fontSize: UIDefine.fontSize24,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600)),
+                  TextSpan(
+                      text: tr('Login'),
+                      style: TextStyle(
+                          fontSize: UIDefine.fontSize34,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600))
+                ])),
+              )),
           Positioned(
               bottom: 0,
               right: 10,

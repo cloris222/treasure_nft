@@ -1,4 +1,3 @@
-
 import 'package:easy_localization/easy_localization.dart';
 
 import 'language_util.dart';
@@ -6,6 +5,10 @@ import 'language_util.dart';
 class DateFormatUtil {
   String _buildDataFormat({required String strFormat, required DateTime time}) {
     return DateFormat(strFormat, LanguageUtil.getTimeLocale()).format(time);
+  }
+
+  DateTime _getNow() {
+    return DateTime.now();
   }
 
   ///MARK: 2022/09/06 11:46 AM
@@ -73,5 +76,10 @@ class DateFormatUtil {
     var newDate02 = DateTime(
         newDate01.year, newDate01.month, newDate01.day + duration + 1, 8);
     return _buildDataFormat(strFormat: 'yyyy-MM-dd hh:mm a', time: newDate02);
+  }
+
+  ///MARK: 18:46 24H
+  String getNowTimeWith24HourFormat() {
+    return _buildDataFormat(strFormat: 'HH:mm', time: _getNow());
   }
 }

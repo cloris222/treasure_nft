@@ -1,10 +1,10 @@
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../../constant/ui_define.dart';
 import '../../../widgets/label/personal_profile_icon.dart';
@@ -112,6 +112,7 @@ class HomePageWidgets {
 
 
   static Widget artistInfo(dynamic data) {
+    BaseViewModel viewModel = BaseViewModel();
     return Padding(
       padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5), 0, UIDefine.getScreenWidth(10), 0),
       child: Column(
@@ -120,9 +121,9 @@ class HomePageWidgets {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _amountView(data.items.toString(), 'Items', false),
-              _amountView(data.owners.toString(), 'Owners', false),
-              _amountView(data.volume.toString(), 'Total volume', true),
+              _amountView(viewModel.numberCompatFormat(data.items.toString()), 'Items', false),
+              _amountView(viewModel.numberCompatFormat(data.owners.toString()), 'Owners', false),
+              _amountView(viewModel.numberCompatFormat(data.volume.toString()), 'Total volume', true),
             ],
           ),
 
@@ -151,6 +152,56 @@ class HomePageWidgets {
         Text(title,
           style: TextStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w400),),
       ],
+    );
+  }
+
+  static Widget productView(dynamic data) {
+    return SizedBox(
+      width: 163,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Image.network(data.imgUrl, height: 163),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                data.ownerId,
+                style: TextStyle(fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w600),
+              ),
+              Row(
+                children: [
+                  Image.asset('assets/icon/icon/icon_trend_up_01.png'),
+                  Text(
+                    data.growAmount,
+                    style: TextStyle(color: AppColors.growPrice, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w600),
+                  ),
+                ],
+              )
+            ],
+          ),
+
+          Text(
+            data.name,
+            style: TextStyle(fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w600),
+          ),
+
+          const SizedBox(height: 4),
+
+          Row(
+            children: [
+              Image.asset('assets/icon/coins/icon_tether_01.png', width: UIDefine.getScreenWidth(4), height: UIDefine.getScreenWidth(4)),
+              const SizedBox(width: 6),
+              Text(
+                data.price,
+                style: TextStyle(fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+              ),
+            ],
+          )
+        ],
+
+      )
     );
   }
 

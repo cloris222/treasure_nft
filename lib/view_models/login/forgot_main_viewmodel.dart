@@ -54,7 +54,10 @@ class ForgotMainViewModel extends BaseViewModel {
           .forgetPassword(
               account: accountController.text, email: emailController.text)
           .then((value) async {
-        SimpleCustomDialog(context).show();
+        popPage(context);
+        SimpleCustomDialog(context,
+                mainText: tr('pleaseMailboxReceiveNewPassword'))
+            .show();
       });
     }
   }

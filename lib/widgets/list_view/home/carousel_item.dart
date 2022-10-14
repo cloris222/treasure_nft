@@ -44,7 +44,10 @@ class _CarouselItem extends State<CarouselItemView> {
                       topRight: Radius.circular(15)),
                   child: Container(
                     alignment: Alignment.topCenter,
-                    child: Image.network(widget.itemData.imageUrl, fit: BoxFit.fill),
+                    child: Image.network(widget.itemData.imageUrl,
+                      fit: BoxFit.fill,
+                      height: UIDefine.getScreenHeight(47),
+                    ),
                   ),
                 ),
 
