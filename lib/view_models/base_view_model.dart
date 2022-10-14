@@ -100,6 +100,9 @@ class BaseViewModel {
 
   /// 自動轉換數字為 K & M
   String numberCompatFormat (String value) {
+    if (value == '') {
+      return '';
+    }
     var formattedNumber = NumberFormat.compactCurrency(
       decimalDigits: 2,
       locale: 'en_US',

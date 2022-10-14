@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../../constant/ui_define.dart';
 import '../../../widgets/label/personal_profile_icon.dart';
@@ -111,6 +112,7 @@ class HomePageWidgets {
 
 
   static Widget artistInfo(dynamic data) {
+    BaseViewModel viewModel = BaseViewModel();
     return Padding(
       padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5), 0, UIDefine.getScreenWidth(10), 0),
       child: Column(
@@ -119,9 +121,9 @@ class HomePageWidgets {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _amountView(data.items.toString(), 'Items', false),
-              _amountView(data.owners.toString(), 'Owners', false),
-              _amountView(data.volume.toString(), 'Total volume', true),
+              _amountView(viewModel.numberCompatFormat(data.items.toString()), 'Items', false),
+              _amountView(viewModel.numberCompatFormat(data.owners.toString()), 'Owners', false),
+              _amountView(viewModel.numberCompatFormat(data.volume.toString()), 'Total volume', true),
             ],
           ),
 
