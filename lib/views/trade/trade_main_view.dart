@@ -17,6 +17,7 @@ import 'package:treasure_nft_project/widgets/dialog/reservation_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/trade_rule_dialot.dart';
 import 'package:treasure_nft_project/widgets/domain_bar.dart';
 import '../../constant/theme/app_image_path.dart';
+import '../../models/http/parameter/check_reservation_info.dart';
 import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/label/level_detail.dart';
 import '../../widgets/list_view/trade/level_area_list_view_cell.dart';
@@ -29,12 +30,15 @@ class TradeMainView extends StatefulWidget {
 }
 
 class _TradeMainViewState extends State<TradeMainView> {
-  late TradeMainViewModel viewModel;
+  late TradeMainViewModel reservationViewModel;
+  late TradeMainViewModel userLevelInfoViewModel;
 
   @override
   void initState() {
-    viewModel = TradeMainViewModel(setState: setState);
-    viewModel.initState();
+    reservationViewModel = TradeMainViewModel(setState: setState);
+    reservationViewModel.initState();
+    userLevelInfoViewModel = TradeMainViewModel(setState: setState);
+    userLevelInfoViewModel.initState();
     super.initState();
   }
 
@@ -46,7 +50,7 @@ class _TradeMainViewState extends State<TradeMainView> {
           const DomainBar(),
           _countDownView(context),
           _levelView(context),
-          _levelArea(context)
+          checkDataInit()
         ],
       ),
     );
@@ -147,7 +151,7 @@ class _TradeMainViewState extends State<TradeMainView> {
         children: [
           Row(children: [
             Image.asset(
-              viewModel.getLevelImg(),
+              reservationViewModel.getLevelImg(),
               width: UIDefine.getWidth() / 11,
               height: UIDefine.getWidth() / 11,
             ),
@@ -170,19 +174,21 @@ class _TradeMainViewState extends State<TradeMainView> {
             children: [
               LevelDetailLabel(
                 title: tr('reserveCount'),
-                content: '${viewModel.info?.reserveCount}',
+                content:
+                    '${reservationViewModel.reservationInfo?.reserveCount}',
                 rightFontWeight: FontWeight.bold,
               ),
               LevelDetailLabel(
                 title: tr('amountRangeNFT'),
                 showCoins: true,
-                content: viewModel.getRange(),
+                content: userLevelInfoViewModel.getRange(),
                 rightFontWeight: FontWeight.bold,
               ),
               LevelDetailLabel(
                 title: tr("wallet-balance'"),
                 showCoins: true,
-                content: '${viewModel.info?.balance.toStringAsFixed(2)}',
+                content:
+                    '${reservationViewModel.reservationInfo?.balance.toStringAsFixed(2)}',
                 rightFontWeight: FontWeight.bold,
               ),
               const Divider(
@@ -196,21 +202,38 @@ class _TradeMainViewState extends State<TradeMainView> {
     );
   }
 
+  Widget checkDataInit() {
+    if (reservationViewModel.reservationInfo != null) {
+      return _levelArea(context);
+    } else {
+      return Container();
+    }
+  }
+
   Widget _levelArea(BuildContext context) {
-    return Container(
-        margin: EdgeInsets.symmetric(horizontal: UIDefine.getWidth() / 20),
-        child: Column(
-          children: [
-            LevelListViewCell(
-              reservationAction: () {
-                ReservationDialog(context, confirmBtnAction: () {
-                  Navigator.pop(context);
-                  AnimationDialog(context, AppAnimationPath.reserveSuccess)
-                      .show();
-                }).show();
+    return ListView.builder(
+        itemCount: reservationViewModel.reservationInfo?.reserveRanges.length,
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (context, index) {
+          return LevelListViewCell(
+            /// press btn check reservation info
+            reservationAction: () {
+              ReserveRange? range =
+                  reservationViewModel.reservationInfo?.reserveRanges[index];
+              ReservationDialog(context, confirmBtnAction: () {
+                Navigator.pop(context);
+                /// reservation success
+                AnimationDialog(context, AppAnimationPath.reserveSuccess)
+                    .show();
               },
-            )
-          ],
-        ));
+                      index: range?.index,
+                      startPrice: range?.startPrice.toDouble(),
+                      endPrice: range?.endPrice.toDouble())
+                  .show();
+            },
+            range: reservationViewModel.reservationInfo?.reserveRanges[index],
+          );
+        });
   }
 }

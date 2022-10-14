@@ -62,23 +62,13 @@ class AppImagePath {
       '$appBtnFolderPath/btn_cancel_01_nor.png';
 
   ///  rank level
-  static const String level0 = '$rankEmblem/badges_lv0.png';
-  static const String level1 = '$rankEmblem/badges_lv1.png';
-  static const String level2 = '$rankEmblem/badges_lv2.png';
-  static const String level3 = '$rankEmblem/badges_lv3.png';
-  static const String level4 = '$rankEmblem/badges_lv4.png';
-  static const String level5 = '$rankEmblem/badges_lv5.png';
-  static const String level6 = '$rankEmblem/badges_lv6.png';
-  static const String level7 = '$rankEmblem/badges_lv7.png';
-  static const String level8 = '$rankEmblem/badges_lv8.png';
-  static const String level9 = '$rankEmblem/badges_lv9.png';
-  static const String level10 = '$rankEmblem/badges_lv10.png';
+  static const String level = '$rankEmblem/badges_lv{level}.png';
   static const String beginner = '$appIconFolderPath/icon_star_01.png';
   static const String beginnerReserving = '$appIconFolderPath/icon_rotate_01.png';
   static const String reserving = '$appIconFolderPath/icon_rotate_02.png';
 
   /// lock mission
-  static const String level0Mission = '$lockMission/mb_level_bg_00.png';
+  static const String levelMission = '$lockMission/mb_level_bg_{level}.png';
   /// home page
   static const String firstBackground = '$appImgPath/img_main_bg_01.png';
   static const String starIcon = '$appIconFolderPath/icon_star_01.png';

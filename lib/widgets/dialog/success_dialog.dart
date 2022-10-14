@@ -69,7 +69,7 @@ class SuccessDialog extends BaseDialog {
   }
 
   @override
-  void initValue() {}
+  Future<void> initValue() async {}
 
   void _onPress() {
     closeDialog();

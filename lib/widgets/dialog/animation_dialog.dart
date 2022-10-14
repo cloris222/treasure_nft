@@ -25,7 +25,7 @@ class AnimationDialog extends BaseDialog {
   }
 
   @override
-  void initValue() {
+  Future<void> initValue() async {
     // TODO: implement initValue
   }
 }
