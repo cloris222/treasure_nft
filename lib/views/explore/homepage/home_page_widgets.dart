@@ -1,5 +1,4 @@
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -151,6 +150,56 @@ class HomePageWidgets {
         Text(title,
           style: TextStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w400),),
       ],
+    );
+  }
+
+  static Widget productView(dynamic data) {
+    return SizedBox(
+      width: 163,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Image.network(data.imgUrl, height: 163),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                data.ownerId,
+                style: TextStyle(fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w600),
+              ),
+              Row(
+                children: [
+                  Image.asset('assets/icon/icon/icon_trend_up_01.png'),
+                  Text(
+                    data.growAmount,
+                    style: TextStyle(color: AppColors.growPrice, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w600),
+                  ),
+                ],
+              )
+            ],
+          ),
+
+          Text(
+            data.name,
+            style: TextStyle(fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w600),
+          ),
+
+          const SizedBox(height: 4),
+
+          Row(
+            children: [
+              Image.asset('assets/icon/coins/icon_tether_01.png', width: UIDefine.getScreenWidth(4), height: UIDefine.getScreenWidth(4)),
+              const SizedBox(width: 6),
+              Text(
+                data.price,
+                style: TextStyle(fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+              ),
+            ],
+          )
+        ],
+
+      )
     );
   }
 
