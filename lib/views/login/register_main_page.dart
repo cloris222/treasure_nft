@@ -43,8 +43,9 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
         tr('register'),
         fontSize: UIDefine.fontSize24,
         arrowFontSize: UIDefine.fontSize34,
-        circular: 40,
-        appBarHeight: 120,
+        circular: 30,
+        appBarHeight:
+            UIDefine.getHeight() / 6 > 100 ? 100 : UIDefine.getHeight() / 6,
       ),
       body: SingleChildScrollView(
           child: Container(
