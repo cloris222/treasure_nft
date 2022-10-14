@@ -27,6 +27,39 @@ class RSAEncode {
     return encrypt.encrypt(encoded).base64;
   }
 
+  /// MARK: JSON 长参数分段加密
+  static Future<String> encodeLong(Map para) async {
+    // 设置加密对象
+    dynamic publicKey = RSAKeyParser().parse(splitStr(HttpSetting.developKey));
+    final encrypter = Encrypter(RSA(publicKey: publicKey));
+    // map转成json字符串
+    final jsonStr = base64.encode(utf8.encode(jsonEncode(para)));
+    // 原始json转成字节数组
+    List<int> sourceByts = utf8.encode(jsonStr);
+    // 数据长度
+    int inputLen = sourceByts.length;
+    // 加密最大长度
+    int maxLen = 117;
+    // 存放加密后的字节数组
+    List<int> totalByts = [];
+    // 分段加密 步长为117
+    for (var i = 0; i < inputLen; i += maxLen) {
+      // 还剩多少字节长度
+      int endLen = inputLen - i;
+      List<int> item;
+      if (endLen > maxLen) {
+        item = sourceByts.sublist(i, i + maxLen);
+      } else {
+        item = sourceByts.sublist(i, i + endLen);
+      }
+      // 加密后的对象转换成字节数组再存放到容器
+      totalByts.addAll(encrypter.encryptBytes(item).bytes);
+    }
+    // 加密后的字节数组转换成base64编码并返回
+    String en = base64.encode(totalByts);
+    return en;
+  }
+
   static Future<String> decodeString(String content) async {
     dynamic publicKey = RSAKeyParser().parse(splitStr(HttpSetting.developKey));
     final encrypter = Encrypter(RSA(publicKey: publicKey));

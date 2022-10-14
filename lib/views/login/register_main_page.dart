@@ -75,7 +75,8 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
             controller: viewModel.passwordController,
             isSecure: true,
             data: viewModel.passwordData,
-            onTap: viewModel.onTap),
+            onTap: viewModel.onTap,
+            onChanged: viewModel.onPasswordChanged),
 
         ///MARK:再次確認密碼
         LoginParamView(
@@ -84,24 +85,29 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
             controller: viewModel.rePasswordController,
             isSecure: true,
             data: viewModel.rePasswordData,
-            onTap: viewModel.onTap),
+            onTap: viewModel.onTap,
+            onChanged: viewModel.onPasswordChanged),
 
         ///MARK:Email
         LoginParamView(
-            titleText: tr('email'),
-            hintText: tr("placeholder-email'"),
-            controller: viewModel.emailController,
-            data: viewModel.emailData,
-            onTap: viewModel.onTap),
+          titleText: tr('email'),
+          hintText: tr("placeholder-email'"),
+          controller: viewModel.emailController,
+          data: viewModel.emailData,
+          onTap: viewModel.onTap,
+          onChanged: viewModel.onEmailChange,
+        ),
 
         ///MARK:驗證碼
         LoginEmailCodeView(
-            hintText: tr("placeholder-emailCode'"),
-            controller: viewModel.emailCodeController,
-            onPressSendCode: () => viewModel.onPressSendCode(context),
-            onPressCheckVerify: () => viewModel.onPressCheckVerify(context),
-            data: viewModel.emailCodeData,
-            onEditTap: viewModel.onTap),
+          hintText: tr("placeholder-emailCode'"),
+          controller: viewModel.emailCodeController,
+          onPressSendCode: () => viewModel.onPressSendCode(context),
+          onPressCheckVerify: () => viewModel.onPressCheckVerify(context),
+          data: viewModel.emailCodeData,
+          onEditTap: viewModel.onTap,
+          onPressVerification: viewModel.checkEmailFormat,
+        ),
 
         ///MARK:暱稱
         LoginParamView(

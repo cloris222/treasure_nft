@@ -59,8 +59,11 @@ class HttpManager {
 
   Future<void> _initDio() async {
     if (addToken) {
-      _dio.options.headers["Authorization"] = "Bearer ${GlobalData.userToken}";
-      debugPrint("Authorization:${_dio.options.headers['Authorization']}");
+      if (GlobalData.userToken.isNotEmpty) {
+        _dio.options.headers["Authorization"] =
+            "Bearer ${GlobalData.userToken}";
+        debugPrint("Authorization:${_dio.options.headers['Authorization']}");
+      }
     }
   }
 
@@ -128,7 +131,7 @@ class HttpManager {
       final Response response = await _dio.post(
         url,
         data: {
-          'data': [await RSAEncode.encodeString(data)]
+          'data': [await RSAEncode.encodeLong(data)]
         },
         queryParameters: queryParameters,
         options: options,

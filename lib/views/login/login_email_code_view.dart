@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_colors.dart';
 
 import '../../models/data/validate_result_data.dart';
@@ -18,7 +19,8 @@ class LoginEmailCodeView extends StatelessWidget {
       this.onChanged,
       this.onEditTap,
       required this.onPressSendCode,
-      required this.onPressCheckVerify})
+      required this.onPressCheckVerify,
+      required this.onPressVerification})
       : super(key: key);
   final String hintText;
   final TextEditingController controller;
@@ -28,6 +30,7 @@ class LoginEmailCodeView extends StatelessWidget {
   final VoidCallback onPressCheckVerify;
   final ValueChanged<String>? onChanged;
   final GestureTapCallback? onEditTap;
+  final PressVerification? onPressVerification;
 
   @override
   Widget build(BuildContext context) {
@@ -48,12 +51,13 @@ class LoginEmailCodeView extends StatelessWidget {
             ),
             CountdownButtonWidget(
               buttonType: 2,
-              countdownSecond: 5,
+              countdownSecond: 180,
               margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
               btnText: tr('get'),
               isFillWidth: false,
               setHeight: 50,
               onPress: onPressSendCode,
+              onPressVerification: onPressVerification,
             ),
             ActionButtonWidget(
                 btnText: tr('verify'),
