@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:gif/gif.dart';
 import 'package:lottie/lottie.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
-import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../constant/theme/app_colors.dart';
@@ -16,8 +16,12 @@ class FullAnimationPage extends StatefulWidget {
       required this.animationPath,
       this.runFunction,
       this.limitTimer = 5,
-      this.nextPage})
+      this.nextPage,
+      this.isGIF = false})
       : super(key: key);
+
+  ///MARK: 判斷是否為GIF
+  final bool isGIF;
 
   ///MARK: 動畫路徑
   final String animationPath;
@@ -35,16 +39,21 @@ class FullAnimationPage extends StatefulWidget {
   State<FullAnimationPage> createState() => _FullAnimationPageState();
 }
 
-class _FullAnimationPageState extends State<FullAnimationPage> {
+class _FullAnimationPageState extends State<FullAnimationPage>
+    with TickerProviderStateMixin {
   late Timer _countdownTimer;
   int _currentSecond = 0;
 
   /// 判斷背景程式是否執行完成
   bool runEnd = true;
 
+  late GifController gifController;
+
   @override
   void initState() {
     super.initState();
+    gifController = GifController(vsync: this);
+    gifController.value = 0;
     if (widget.limitTimer != 0 || widget.runFunction != null) {
       ///倒數判斷
       _currentSecond = widget.limitTimer;
@@ -60,10 +69,10 @@ class _FullAnimationPageState extends State<FullAnimationPage> {
 
   @override
   void dispose() {
-    super.dispose();
     try {
       _countdownTimer.cancel();
     } catch (error) {}
+    super.dispose();
   }
 
   @override
@@ -76,7 +85,13 @@ class _FullAnimationPageState extends State<FullAnimationPage> {
           margin: EdgeInsets.all(padding),
           child: Stack(
             children: [
-              Lottie.asset(widget.animationPath, fit: BoxFit.contain),
+              widget.isGIF
+                  ? Gif(
+                      autostart: Autostart.loop,
+                      controller: gifController,
+                      image: AssetImage(widget.animationPath),
+                    )
+                  : Lottie.asset(widget.animationPath, fit: BoxFit.contain),
               Positioned(
                   top: 10,
                   right: 10,

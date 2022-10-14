@@ -8,8 +8,11 @@ import 'package:treasure_nft_project/utils/regular_expression_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../constant/call_back_function.dart';
+import '../../constant/theme/app_animation_path.dart';
 import '../../models/data/validate_result_data.dart';
 import '../../models/http/api/login_api.dart';
+import '../../views/full_animation_page.dart';
+import '../../views/main_page.dart';
 import '../../widgets/dialog/simple_custom_dialog.dart';
 
 class RegisterMainViewModel extends BaseViewModel {
@@ -166,8 +169,15 @@ class RegisterMainViewModel extends BaseViewModel {
               nickname: nicknameController.text,
               inviteCode: referralController.text)
           .then((value) async {
-        popPage(context);
-        SimpleCustomDialog(context).show();
+        ///MARK: 註冊成功動畫
+        BaseViewModel().pushOpacityPage(
+            context,
+            const FullAnimationPage(
+              limitTimer: 10,
+              animationPath: AppAnimationPath.registerSuccess,
+              isGIF: true,
+              nextPage: MainPage(),
+            ));
       });
     }
   }
