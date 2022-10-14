@@ -11,7 +11,9 @@ class AuthAPI extends HttpManager {
     return get('/user/code', queryParameters: {
       'type': 'MAIL',
       'account': mail,
-      'lang': getLanguage(),
+
+      ///MARK:不影響註冊
+      'countryName': 'Taiwan',
       'action': LoginAction.register.name
     });
   }
@@ -31,7 +33,13 @@ class AuthAPI extends HttpManager {
       {required String mail,
       required LoginAction action,
       required String authCode}) {
-    return post('/user/code',
-        data: {'action': action.name, 'type': 'MAIL', 'code': authCode});
+    return post('/user/code', data: {
+      'action': action.name,
+      'email': mail,
+      'type': 'MAIL',
+      'code': authCode,
+      'phone': '',
+      'countryName': 'Taiwan'
+    });
   }
 }

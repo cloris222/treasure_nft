@@ -15,9 +15,19 @@ class LoginAPI extends HttpManager {
 
   ///MARK: 註冊
   Future<ApiResponse> register(
-      {required String account, required String email}) async {
-    return post('/user/forget/password',
-        data: {'account': account, 'email': email});
+      {required String account,
+      required String password,
+      required String email,
+      required String nickname,
+      required String inviteCode}) async {
+    return post('/user/register', data: {
+      'account': account,
+      'password': password,
+      'email': email,
+      'phone': '',
+      'name': nickname,
+      'inviteCode': inviteCode,
+    });
   }
 
   ///MARK: 忘記密碼

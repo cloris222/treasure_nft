@@ -65,7 +65,8 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
             titleText: tr('account'),
             hintText: tr("placeholder-account'"),
             controller: viewModel.accountController,
-            data: viewModel.accountData),
+            data: viewModel.accountData,
+            onTap: viewModel.onTap),
 
         ///MARK:密碼
         LoginParamView(
@@ -73,7 +74,9 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
             hintText: tr("placeholder-password"),
             controller: viewModel.passwordController,
             isSecure: true,
-            data: viewModel.passwordData),
+            data: viewModel.passwordData,
+            onTap: viewModel.onTap,
+            onChanged: viewModel.onPasswordChanged),
 
         ///MARK:再次確認密碼
         LoginParamView(
@@ -81,29 +84,38 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
             hintText: tr("placeholder-password-again'"),
             controller: viewModel.rePasswordController,
             isSecure: true,
-            data: viewModel.rePasswordData),
+            data: viewModel.rePasswordData,
+            onTap: viewModel.onTap,
+            onChanged: viewModel.onPasswordChanged),
 
         ///MARK:Email
         LoginParamView(
-            titleText: tr('email'),
-            hintText: tr("placeholder-email'"),
-            controller: viewModel.emailController,
-            data: viewModel.emailData),
+          titleText: tr('email'),
+          hintText: tr("placeholder-email'"),
+          controller: viewModel.emailController,
+          data: viewModel.emailData,
+          onTap: viewModel.onTap,
+          onChanged: viewModel.onEmailChange,
+        ),
 
         ///MARK:驗證碼
         LoginEmailCodeView(
-            hintText: tr("placeholder-emailCode'"),
-            controller: viewModel.emailCodeController,
-            onPressSendCode: viewModel.onPressSendCode,
-            onPressCheckVerify: () => viewModel.onPressCheckVerify(context),
-            data: viewModel.emailCodeData),
+          hintText: tr("placeholder-emailCode'"),
+          controller: viewModel.emailCodeController,
+          onPressSendCode: () => viewModel.onPressSendCode(context),
+          onPressCheckVerify: () => viewModel.onPressCheckVerify(context),
+          data: viewModel.emailCodeData,
+          onEditTap: viewModel.onTap,
+          onPressVerification: viewModel.checkEmailFormat,
+        ),
 
         ///MARK:暱稱
         LoginParamView(
             titleText: tr('nickname'),
             hintText: tr("placeholder-nickname'"),
             controller: viewModel.nicknameController,
-            data: viewModel.nicknameData),
+            data: viewModel.nicknameData,
+            onTap: viewModel.onTap),
 
         ///MARK:邀請瑪
 
@@ -111,7 +123,8 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
             titleText: tr('referralCode'),
             hintText: tr("placeholder-referralCode'"),
             controller: viewModel.referralController,
-            data: viewModel.referralData),
+            data: viewModel.referralData,
+            onTap: viewModel.onTap),
 
         ///MARK: 註冊按鈕
         LoginButtonWidget(
