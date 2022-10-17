@@ -32,7 +32,7 @@ class SimpleCustomDialog extends BaseDialog {
                 : AppImagePath.dialogClose),
         Container(
           margin: mainMargin,
-          child: Text(mainText ?? '${tr('Success')}!',
+          child: Text(mainText ?? tr('success'),
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: AppColors.dialogBlack,

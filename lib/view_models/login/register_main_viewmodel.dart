@@ -172,11 +172,12 @@ class RegisterMainViewModel extends BaseViewModel {
         ///MARK: 註冊成功動畫
         BaseViewModel().pushOpacityPage(
             context,
-            const FullAnimationPage(
+            FullAnimationPage(
               limitTimer: 10,
               animationPath: AppAnimationPath.registerSuccess,
               isGIF: true,
-              nextPage: MainPage(),
+              nextPage: const MainPage(),
+              runFunction: _updateRegisterInfo,
             ));
       });
     }
@@ -225,5 +226,12 @@ class RegisterMainViewModel extends BaseViewModel {
         checkEmail = false;
       }
     });
+  }
+
+  ///更新使用者資料
+  Future<void> _updateRegisterInfo() async {
+    var response = await LoginAPI().login(
+        account: accountController.text, password: passwordController.text);
+    await saveUserLoginInfo(response: response);
   }
 }
