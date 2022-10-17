@@ -42,15 +42,15 @@ class DateFormatUtil {
     var week = endTime.difference(starTime).inDays % 7;
 
     if (week > 7) {
-      return '${week.toString()} week ago';
+      return week.toString();
     } else if (day > 1 || day == 1) {
-      return '${day.toString()} days ago';
+      return day.toString();
     } else if (hour < 24 && hour > 0) {
-      return '${hour.toString()} hours ago';
+      return hour.toString();
     } else if (minutes > 0 && minutes < 60) {
-      return '${minutes.toString()} minutes ago';
+      return minutes.toString();
     } else if (second >= 0 && second < 60) {
-      return '${second.toString()} sec ago';
+      return second.toString();
     } else {
       return result;
     }
@@ -83,6 +83,11 @@ class DateFormatUtil {
   ///MARK: 18:46 24H
   String getNowTimeWith24HourFormat() {
     return _buildDataFormat(strFormat: 'HH:mm', time: _getNow());
+  }
+
+  /// 現在時間 ex: 2022-10-18
+  String getNowTimeWithDayFormat() {
+    return _buildDataFormat(strFormat: 'yyyy-MM-dd', time: _getNow());
   }
 
 }
