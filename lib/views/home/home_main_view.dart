@@ -165,13 +165,14 @@ Widget USDT_Info() {
   return SizedBox(
       width: UIDefine.getWidth(),
       child:Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('VOL (USDT)',
                 style: TextStyle(
-                    fontSize: UIDefine.fontSize14,
+                    fontSize: UIDefine.fontSize12,
                     color: AppColors.textBlack,
                     fontWeight: FontWeight.w300
                 ),
@@ -181,7 +182,7 @@ Widget USDT_Info() {
 
               Text('12,373.6',
                 style: TextStyle(
-                  fontSize: UIDefine.fontSize20,
+                  fontSize: UIDefine.fontSize18,
                   color: AppColors.textBlack,
                 ),
               ),
@@ -196,9 +197,7 @@ Widget USDT_Info() {
               ),
             ],),
 
-          Padding(
-              padding: EdgeInsets.all(UIDefine.getScreenWidth(1))
-          ),
+          viewModel.getPadding(1),
 
           //分隔線
           SizedBox(
@@ -216,7 +215,7 @@ Widget USDT_Info() {
             children: [
               Text('FEE (USDT)',
                 style: TextStyle(
-                    fontSize: UIDefine.fontSize14,
+                    fontSize: UIDefine.fontSize12,
                     color: AppColors.textBlack,
                     fontWeight: FontWeight.w300
                 ),
@@ -226,7 +225,7 @@ Widget USDT_Info() {
 
               Text('1.54',
                 style: TextStyle(
-                  fontSize: UIDefine.fontSize20,
+                  fontSize: UIDefine.fontSize18,
                   color: AppColors.textBlack,
                 ),
               ),
@@ -259,7 +258,7 @@ Widget USDT_Info() {
             children: [
               Text('NFTs(USDT)',
                 style: TextStyle(
-                    fontSize: UIDefine.fontSize14,
+                    fontSize: UIDefine.fontSize12,
                     color: AppColors.textBlack,
                     fontWeight: FontWeight.w300
                 ),
@@ -269,7 +268,7 @@ Widget USDT_Info() {
 
               GradientText(
                 '108.7',
-                size: UIDefine.fontSize20,
+                size: UIDefine.fontSize18,
                 endColor:AppColors.subThemePurple,
               ),
 
