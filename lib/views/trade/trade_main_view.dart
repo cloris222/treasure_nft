@@ -43,6 +43,12 @@ class _TradeMainViewState extends State<TradeMainView> {
   }
 
   @override
+  void dispose() {
+    reservationViewModel.disposeState();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
@@ -95,7 +101,7 @@ class _TradeMainViewState extends State<TradeMainView> {
               SizedBox(
                 height: UIDefine.getHeight() / 40,
               ),
-              CountDownTimer(),
+              CountDownTimer(duration: reservationViewModel.duration,),
               LoginButtonWidget(
                 width: UIDefine.getWidth() / 1.7,
                 height: UIDefine.getHeight() / 20,
@@ -223,9 +229,14 @@ class _TradeMainViewState extends State<TradeMainView> {
                   reservationViewModel.reservationInfo?.reserveRanges[index];
               ReservationDialog(context, confirmBtnAction: () {
                 Navigator.pop(context);
-                /// reservation success
+                // TODO add new reservation
+
+                /// if reservation success
                 AnimationDialog(context, AppAnimationPath.reserveSuccess)
                     .show();
+                // TODO show reserving
+                // TODO change levelImg to reserving animation
+                // else TODO show fail dialog
               },
                       index: range?.index,
                       startPrice: range?.startPrice.toDouble(),
