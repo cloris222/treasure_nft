@@ -2,24 +2,52 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/api/login_api.dart';
+import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
-import 'package:treasure_nft_project/widgets/gradient_text.dart';
+import 'package:treasure_nft_project/views/personal/personal_sub_common_view.dart';
+import 'package:treasure_nft_project/views/personal/personal_sub_level_view.dart';
+import 'package:treasure_nft_project/views/personal/personal_sub_order_view.dart';
+import 'package:treasure_nft_project/views/personal/personal_sub_team_view.dart';
+import 'package:treasure_nft_project/views/personal/personal_sub_user_info_view.dart';
+import 'package:treasure_nft_project/widgets/domain_bar.dart';
 
+import '../../models/http/parameter/check_level_info.dart';
+import '../../view_models/personal/personal_main_viewmodel.dart';
 import '../../widgets/button/login_bolder_button_widget.dart';
 import '../main_page.dart';
 
-class PersonalMainView extends StatelessWidget {
+class PersonalMainView extends StatefulWidget {
   const PersonalMainView({Key? key}) : super(key: key);
 
   @override
+  State<PersonalMainView> createState() => _PersonalMainViewState();
+}
+
+class _PersonalMainViewState extends State<PersonalMainView> {
+  late PersonalMainViewModel viewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    viewModel = PersonalMainViewModel(setState: setState);
+    viewModel.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      GradientText('暫時的登出!'),
-      LoginBolderButtonWidget(
-          btnText: tr('logout'), onPressed: () => _onPressLogout(context)),
-    ]);
+    return SingleChildScrollView(
+      child: Column(children: [
+        const DomainBar(),
+        const PersonalSubUserInfoView(showLevelInfo: true),
+        const PersonalSubLevelView(),
+        const PersonalSubOrderView(),
+        const PersonalSubTeamView(),
+        const PersonalSubCommonView(),
+        LoginBolderButtonWidget(
+            btnText: tr('logout'), onPressed: () => _onPressLogout(context)),
+      ]),
+    );
   }
 
   void _onPressLogout(BuildContext context) {

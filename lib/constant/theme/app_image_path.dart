@@ -64,14 +64,21 @@ class AppImagePath {
   ///  rank level
   static const String level = '$rankEmblem/badges_lv{level}.png';
   static const String beginner = '$appIconFolderPath/icon_star_01.png';
-  static const String beginnerReserving = '$appIconFolderPath/icon_rotate_01.png';
+  static const String beginnerReserving =
+      '$appIconFolderPath/icon_rotate_01.png';
   static const String reserving = '$appIconFolderPath/icon_rotate_02.png';
 
   /// lock mission
   static const String levelMission = '$lockMission/mb_level_bg_{level}.png';
+
   /// home page
   static const String firstBackground = '$appImgPath/img_main_bg_01.png';
   static const String starIcon = '$appIconFolderPath/icon_star_01.png';
   static const String downArrow = '$appBtnFolderPath/btn_arrow_01_down.png';
   static const String downArrowGrey = '$appBtnFolderPath/btn_arrow_02_down.png';
+
+  /// personal page
+  static const String defaultBanner = '$appImgPath/img_banner_01_defult.png';
+  static const String rightArrow =
+      '$appBtnFolderPath/btn_arrow_right_01_nor.png';
 }
