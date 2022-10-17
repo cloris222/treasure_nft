@@ -69,7 +69,9 @@ class TradeMainViewModel extends BaseViewModel {
   void setCountDown() async {
     /// 倒數每秒呼叫api
     await apiInitState();
-    setState(() {});
+    if(countdownTimer!.isActive) {
+      setState(() {});
+    }
   }
 
   Duration countSellDate() {
