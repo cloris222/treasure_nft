@@ -81,4 +81,5 @@ class AppImagePath {
   static const String defaultBanner = '$appImgPath/img_banner_01_defult.png';
   static const String rightArrow =
       '$appBtnFolderPath/btn_arrow_right_01_nor.png';
+  static const String dailyIcon = '$appBtnFolderPath/btn_date_01_nor.png';
 }

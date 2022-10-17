@@ -46,7 +46,10 @@ class _PersonalMainViewState extends State<PersonalMainView> {
             margin: const EdgeInsets.all(20),
             child: Column(
               children: [
-                const PersonalSubLevelView(),
+                PersonalSubLevelView(
+                  userProperty: viewModel.userProperty,
+                  levelInfo: viewModel.levelInfo,
+                ),
                 const PersonalSubOrderView(),
                 const PersonalSubTeamView(),
                 const PersonalSubCommonView(),
