@@ -3,9 +3,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 
 import '../constant/global_data.dart';
-import '../models/http/api/login_api.dart';
 import '../models/http/parameter/api_response.dart';
 import '../utils/app_shared_Preferences.dart';
 import '../widgets/dialog/simple_custom_dialog.dart';
@@ -100,7 +100,7 @@ class BaseViewModel {
   }
 
   Future<void> uploadPersonalInfo() async {
-    GlobalData.userInfo = await LoginAPI().getPersonInfo();
+    GlobalData.userInfo = await UserInfoAPI().getPersonInfo();
   }
 
   ///MARK: 通用的 單一彈錯視窗
