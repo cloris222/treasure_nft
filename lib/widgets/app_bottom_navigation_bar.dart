@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import '../constant/theme/app_image_path.dart';
+import '../view_models/base_view_model.dart';
 import '../views/login/login_main_view.dart';
 import '../views/main_page.dart';
 
@@ -122,7 +123,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
     GlobalData.mainBottomType = AppNavigationBarType.values[index];
     if ((GlobalData.mainBottomType != AppNavigationBarType.typeMain &&
             GlobalData.mainBottomType != AppNavigationBarType.typeExplore) &&
-        !GlobalData.login) {
+        !BaseViewModel().isLogin()) {
       index = 6;
       GlobalData.mainBottomType = AppNavigationBarType.typeLogin;
     }

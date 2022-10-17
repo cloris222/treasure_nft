@@ -20,7 +20,7 @@ class PersonalMainView extends StatelessWidget {
   }
 
   void _onPressLogout(BuildContext context) {
-    GlobalData.login = false;
+    GlobalData.userToken = '';
     BaseViewModel().pushAndRemoveUntil(context, const MainPage());
   }
 }

@@ -94,13 +94,17 @@ class BaseViewModel {
     GlobalData.userMemberId = response.data['id'];
 
     await uploadPersonalInfo();
-    GlobalData.login = true;
 
     AppSharedPreferences.printAll();
   }
 
   Future<void> uploadPersonalInfo() async {
     GlobalData.userInfo = await UserInfoAPI().getPersonInfo();
+  }
+
+  ///MARK: 當token 為空時，代表未登入
+  bool isLogin() {
+    return GlobalData.userToken.isNotEmpty;
   }
 
   ///MARK: 通用的 單一彈錯視窗

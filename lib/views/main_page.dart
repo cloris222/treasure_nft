@@ -111,7 +111,7 @@ class _MainPageState extends State<MainPage> {
   void _serverAction() {}
 
   void _avatarAction() {
-    if (GlobalData.login) {
+    if (BaseViewModel().isLogin()) {
       GlobalData.mainBottomType = AppNavigationBarType.typePersonal;
     } else {
       GlobalData.mainBottomType = AppNavigationBarType.typeLogin;

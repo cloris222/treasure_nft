@@ -4,6 +4,7 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/ui_define.dart';
+import '../../view_models/base_view_model.dart';
 import '../../views/login/circle_network_icon.dart';
 
 class CustomAppBar {
@@ -133,7 +134,7 @@ class CustomAppBar {
                     )),
                 InkWell(
                     onTap: avatarAction,
-                    child: GlobalData.login &&
+                    child: BaseViewModel().isLogin() &&
                             GlobalData.userInfo.photoUrl.isNotEmpty
                         ? CircleNetworkIcon(
                             networkUrl: GlobalData.userInfo.photoUrl,
