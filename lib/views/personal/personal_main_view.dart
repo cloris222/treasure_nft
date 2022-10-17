@@ -51,7 +51,8 @@ class _PersonalMainViewState extends State<PersonalMainView> {
                       levelInfo: viewModel.levelInfo,
                     ),
                     _buildLine(),
-                    const PersonalSubOrderView(),
+                    PersonalSubOrderView(
+                        userOrderInfo: viewModel.userOrderInfo),
                     _buildLine(),
                     const PersonalSubTeamView(),
                     _buildLine(),
