@@ -1,6 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:treasure_nft_project/models/http/api/login_api.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/gradient_text.dart';
 
@@ -20,7 +23,13 @@ class PersonalMainView extends StatelessWidget {
   }
 
   void _onPressLogout(BuildContext context) {
-    GlobalData.userToken = '';
-    BaseViewModel().pushAndRemoveUntil(context, const MainPage());
+    LoginAPI(
+            onConnectFail: (message) =>
+                BaseViewModel().onBaseConnectFail(context, message))
+        .logout()
+        .then((value) async {
+      await BaseViewModel().clearUserLoginInfo();
+      BaseViewModel().pushAndRemoveUntil(context, const MainPage());
+    });
   }
 }

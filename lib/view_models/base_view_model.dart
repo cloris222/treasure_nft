@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
+import 'package:treasure_nft_project/models/http/parameter/user_info_data.dart';
 
 import '../constant/global_data.dart';
 import '../models/http/parameter/api_response.dart';
@@ -77,7 +78,7 @@ class BaseViewModel {
   }
 
   ///MARK: 推透明的頁面
-  Future<void> pushOpacityPage(BuildContext context, Widget page) async{
+  Future<void> pushOpacityPage(BuildContext context, Widget page) async {
     Navigator.of(context).push(PageRouteBuilder(
         pageBuilder: (BuildContext buildContext, Animation<double> animation,
             Animation<double> secondaryAnimation) {
@@ -88,6 +89,7 @@ class BaseViewModel {
 
   ///MARK: 更新使用者資料
   Future<void> saveUserLoginInfo({required ApiResponse response}) async {
+    await AppSharedPreferences.setLogIn(true);
     await AppSharedPreferences.setMemberID(response.data['id']);
     await AppSharedPreferences.setToken(response.data['token']);
     GlobalData.userToken = response.data['token'];
@@ -102,6 +104,16 @@ class BaseViewModel {
     GlobalData.userInfo = await UserInfoAPI().getPersonInfo();
   }
 
+  ///MARK: 登出使用者資料
+  Future<void> clearUserLoginInfo() async {
+    await AppSharedPreferences.setLogIn(false);
+    await AppSharedPreferences.setMemberID('');
+    await AppSharedPreferences.setToken('');
+    GlobalData.userToken = '';
+    GlobalData.userMemberId = '';
+    GlobalData.userInfo = UserInfoData();
+  }
+
   ///MARK: 當token 為空時，代表未登入
   bool isLogin() {
     return GlobalData.userToken.isNotEmpty;
@@ -113,7 +125,7 @@ class BaseViewModel {
   }
 
   /// 自動轉換數字為 K & M
-  String numberCompatFormat (String value) {
+  String numberCompatFormat(String value) {
     if (value == '') {
       return '';
     }
@@ -125,5 +137,4 @@ class BaseViewModel {
 
     return formattedNumber;
   }
-
 }

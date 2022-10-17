@@ -12,6 +12,11 @@ class LoginAPI extends HttpManager {
         data: {'account': account, 'password': password});
   }
 
+  ///MARK: 會員登出
+  Future<ApiResponse> logout() async {
+    return post('/user/logout');
+  }
+
   ///MARK: 註冊
   Future<ApiResponse> register(
       {required String account,
@@ -35,5 +40,4 @@ class LoginAPI extends HttpManager {
     return post('/user/forget/password',
         data: {'account': account, 'email': email});
   }
-
 }

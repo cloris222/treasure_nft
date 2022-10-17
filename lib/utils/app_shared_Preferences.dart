@@ -1,7 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 
-
 class AppSharedPreferences {
   AppSharedPreferences._();
 
@@ -62,11 +61,20 @@ class AppSharedPreferences {
     return await _getString("Token");
   }
 
+  /// MARK: 判斷是否登入過
+  static Future<void> setLogIn(bool isLogIn) async {
+    await _setBool("LogIn", isLogIn);
+  }
+
+  static Future<bool> getLogIn() async {
+    return await _getBool("LogIn");
+  }
+
   static Future<void> printAll() async {
     debugPrint('pref_ printAll------');
     debugPrint('pref_getLanguage:${await getLanguage()}');
     debugPrint('pref_getMemberID:${await getMemberID()}');
     debugPrint('pref_getToken:${await getToken()}');
+    debugPrint('pref_getLogIn:${await getLogIn()}');
   }
-
 }

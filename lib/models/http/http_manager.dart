@@ -130,9 +130,11 @@ class HttpManager {
     try {
       final Response response = await _dio.post(
         url,
-        data: {
-          'data': [await RSAEncode.encodeLong(data)]
-        },
+        data: data != null
+            ? {
+                'data': [await RSAEncode.encodeLong(data)]
+              }
+            : null,
         queryParameters: queryParameters,
         options: options,
         cancelToken: cancelToken,
