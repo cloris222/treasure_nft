@@ -78,7 +78,7 @@ class PersonalSubUserInfoView extends StatelessWidget {
           Row(children: [
             Flexible(
                 child: Container(
-              margin: EdgeInsets.only(left: UIDefine.getWidth() / 6, right: 5),
+              margin: EdgeInsets.only(left: UIDefine.getWidth() / 8, right: 3),
               padding: const EdgeInsets.symmetric(vertical: 5),
               alignment: Alignment.center,
               width: UIDefine.getWidth(),
@@ -103,7 +103,7 @@ class PersonalSubUserInfoView extends StatelessWidget {
             )),
             Flexible(
                 child: Container(
-              margin: EdgeInsets.only(right: UIDefine.getWidth() / 6, left: 5),
+              margin: EdgeInsets.only(right: UIDefine.getWidth() / 8, left: 3),
               padding: const EdgeInsets.symmetric(vertical: 5),
               alignment: Alignment.center,
               width: UIDefine.getWidth(),

@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/models/http/api/login_api.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
@@ -37,16 +37,27 @@ class _PersonalMainViewState extends State<PersonalMainView> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(children: [
-        const DomainBar(),
-        const PersonalSubUserInfoView(showLevelInfo: true),
-        const PersonalSubLevelView(),
-        const PersonalSubOrderView(),
-        const PersonalSubTeamView(),
-        const PersonalSubCommonView(),
-        LoginBolderButtonWidget(
-            btnText: tr('logout'), onPressed: () => _onPressLogout(context)),
-      ]),
+      child: Container(
+        color: Colors.white,
+        child: Column(children: [
+          const DomainBar(),
+          const PersonalSubUserInfoView(showLevelInfo: true),
+          Container(
+            margin: const EdgeInsets.all(20),
+            child: Column(
+              children: [
+                const PersonalSubLevelView(),
+                const PersonalSubOrderView(),
+                const PersonalSubTeamView(),
+                const PersonalSubCommonView(),
+                LoginBolderButtonWidget(
+                    btnText: tr('logout'),
+                    onPressed: () => _onPressLogout(context)),
+              ],
+            ),
+          ),
+        ]),
+      ),
     );
   }
 

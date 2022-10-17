@@ -12,7 +12,6 @@ enum AppNavigationBarType {
   typeCollection,
   typeTrade,
   typeWallet,
-  typeAccount,
   typeMain,
   typeLogin,
   typePersonal
@@ -59,7 +58,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
               icon: Center(child: getIcon(AppNavigationBarType.typeWallet)),
               backgroundColor: Colors.white),
           BottomNavigationBarItem(
-              icon: Center(child: getIcon(AppNavigationBarType.typeAccount)),
+              icon: Center(child: getIcon(AppNavigationBarType.typePersonal)),
               backgroundColor: Colors.white),
         ],
         onTap: (index) {
@@ -101,7 +100,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
               : AppImagePath.mainTypeWalletOFF;
         }
         break;
-      case AppNavigationBarType.typeAccount:
+      case AppNavigationBarType.typePersonal:
         {
           asset = isSelect
               ? AppImagePath.mainTypeAccount

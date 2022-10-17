@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
-import 'package:treasure_nft_project/views/account/account_main_view.dart';
 import 'package:treasure_nft_project/views/collection/collection_main_view.dart';
 import 'package:treasure_nft_project/views/explore/explore_main_view.dart';
 import 'package:treasure_nft_project/views/login/login_main_view.dart';
@@ -10,10 +9,8 @@ import 'package:treasure_nft_project/views/wallet/wallet_main_view.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 
 import '../constant/global_data.dart';
-import '../constant/theme/app_animation_path.dart';
 import '../constant/ui_define.dart';
 import '../widgets/app_bottom_navigation_bar.dart';
-import 'full_animation_page.dart';
 import 'home/home_main_view.dart';
 
 class MainPage extends StatefulWidget {
@@ -65,10 +62,9 @@ class _MainPageState extends State<MainPage> {
           CollectionMainView(),
           TradeMainView(),
           WalletMainView(),
-          AccountMainView(),
-          HomeMainView(),
-          LoginMainView(),
           PersonalMainView(),
+          HomeMainView(),
+          LoginMainView()
         ],
       ),
       bottomNavigationBar: AppBottomNavigationBar(
@@ -97,26 +93,26 @@ class _MainPageState extends State<MainPage> {
         return 2;
       case AppNavigationBarType.typeWallet:
         return 3;
-      case AppNavigationBarType.typeAccount:
+      case AppNavigationBarType.typePersonal:
         return 4;
       case AppNavigationBarType.typeMain:
         return 5;
       case AppNavigationBarType.typeLogin:
         return 6;
-      case AppNavigationBarType.typePersonal:
-        return 7;
     }
   }
 
   void _serverAction() {}
 
   void _avatarAction() {
-    if (BaseViewModel().isLogin()) {
-      GlobalData.mainBottomType = AppNavigationBarType.typePersonal;
-    } else {
-      GlobalData.mainBottomType = AppNavigationBarType.typeLogin;
-    }
-    pageController.jumpToPage(getViewIndex(GlobalData.mainBottomType));
+    setState(() {
+      if (BaseViewModel().isLogin()) {
+        GlobalData.mainBottomType = AppNavigationBarType.typePersonal;
+      } else {
+        GlobalData.mainBottomType = AppNavigationBarType.typeLogin;
+      }
+      pageController.jumpToPage(getViewIndex(GlobalData.mainBottomType));
+    });
   }
 
   void _globalAction() {}
