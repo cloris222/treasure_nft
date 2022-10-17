@@ -35,7 +35,6 @@ class HomeMainView extends StatelessWidget {
             const DomainBar(),
 
             Padding(
-              /// 上半部總padding
               padding: EdgeInsets.only(
                   left:UIDefine.getScreenWidth(6),
                   right: UIDefine.getScreenWidth(6)),
@@ -86,6 +85,7 @@ class HomeMainView extends StatelessWidget {
 
                   viewModel.getPadding(5),
 
+                  /// Trade
                   ActionButtonWidget(
                     setHeight: UIDefine.getScreenHeight(8),
                     btnText: 'Trade',
@@ -94,6 +94,7 @@ class HomeMainView extends StatelessWidget {
 
                   viewModel.getPadding(5),
 
+                  /// USDT_Info
                   USDT_Info(),
 
                   viewModel.getPadding(4),
@@ -121,7 +122,7 @@ class HomeMainView extends StatelessWidget {
             backgroundColor: MaterialStateProperty.all(Colors.white),
             shape: MaterialStateProperty.all(
                 RoundedRectangleBorder(
-                    side: const BorderSide(width: 3, color: Colors.black12),
+                    side: const BorderSide(width: 2, color: Colors.black12),
                     borderRadius: BorderRadius.circular(10))),
           ),
 
@@ -140,7 +141,7 @@ class HomeMainView extends StatelessWidget {
           child: const VideoPlayWidget(),
         ),
 
-        /// 贊助商
+        /// 贊助
         sponsor(),
 
         /// Email訂閱
@@ -149,7 +150,7 @@ class HomeMainView extends StatelessWidget {
         /// 資訊頁
         ourInfo(),
 
-        /// 聯絡資訊
+        /// 聯絡方式
         contactUs(),
 
       ]),
@@ -161,126 +162,128 @@ class HomeMainView extends StatelessWidget {
 Widget USDT_Info() {
   HomeMainViewModel viewModel = HomeMainViewModel();
 
-  return Row(
-    children: [
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  return SizedBox(
+      width: UIDefine.getWidth(),
+      child:Row(
         children: [
-          Text('VOL (USDT)',
-            style: TextStyle(
-                fontSize: UIDefine.fontSize14,
-                color: AppColors.textBlack,
-                fontWeight: FontWeight.w300
-            ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('VOL (USDT)',
+                style: TextStyle(
+                    fontSize: UIDefine.fontSize14,
+                    color: AppColors.textBlack,
+                    fontWeight: FontWeight.w300
+                ),
+              ),
+
+              viewModel.getPadding(1),
+
+              Text('12,373.6',
+                style: TextStyle(
+                  fontSize: UIDefine.fontSize20,
+                  color: AppColors.textBlack,
+                ),
+              ),
+
+              viewModel.getPadding(1),
+
+              Text('Last 24h',
+                style: TextStyle(
+                  fontSize: UIDefine.fontSize12,
+                  color: AppColors.textGrey,
+                ),
+              ),
+            ],),
+
+          Padding(
+              padding: EdgeInsets.all(UIDefine.getScreenWidth(1))
           ),
+
+          //分隔線
+          SizedBox(
+              height: UIDefine.getScreenHeight(10),
+              child:const VerticalDivider(
+                width: 3,
+                color: AppColors.dialogBlack,
+                thickness: 0.5,
+              )),
 
           viewModel.getPadding(1),
 
-          Text('12,373.6',
-            style: TextStyle(
-              fontSize: UIDefine.fontSize20,
-              color: AppColors.textBlack,
-            ),
-          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('FEE (USDT)',
+                style: TextStyle(
+                    fontSize: UIDefine.fontSize14,
+                    color: AppColors.textBlack,
+                    fontWeight: FontWeight.w300
+                ),
+              ),
+
+              viewModel.getPadding(1),
+
+              Text('1.54',
+                style: TextStyle(
+                  fontSize: UIDefine.fontSize20,
+                  color: AppColors.textBlack,
+                ),
+              ),
+
+              viewModel.getPadding(1),
+
+              Text('updated 3 minutes ago',
+                style: TextStyle(
+                  fontSize: UIDefine.fontSize12,
+                  color: AppColors.textGrey,
+                ),
+              ),
+            ],),
 
           viewModel.getPadding(1),
 
-          Text('Last 24h',
-            style: TextStyle(
-              fontSize: UIDefine.fontSize12,
-              color: AppColors.textGrey,
-            ),
-          ),
-        ],),
-
-      Padding(
-          padding: EdgeInsets.all(UIDefine.getScreenWidth(1))
-      ),
-
-      //分隔線
-      SizedBox(
-          height: UIDefine.getScreenHeight(10),
-          child:const VerticalDivider(
-            width: 3,
-            color: AppColors.dialogBlack,
-            thickness: 0.5,
-          )),
-
-      viewModel.getPadding(1),
-
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('FEE (USDT)',
-            style: TextStyle(
-                fontSize: UIDefine.fontSize14,
-                color: AppColors.textBlack,
-                fontWeight: FontWeight.w300
-            ),
-          ),
+          //分隔線
+          SizedBox(
+              height: UIDefine.getScreenHeight(10),
+              child:const VerticalDivider(
+                width: 3,
+                color: AppColors.dialogBlack,
+                thickness: 0.5,
+              )),
 
           viewModel.getPadding(1),
 
-          Text('1.54',
-            style: TextStyle(
-              fontSize: UIDefine.fontSize20,
-              color: AppColors.textBlack,
-            ),
-          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('NFTs(USDT)',
+                style: TextStyle(
+                    fontSize: UIDefine.fontSize14,
+                    color: AppColors.textBlack,
+                    fontWeight: FontWeight.w300
+                ),
+              ),
 
-          viewModel.getPadding(1),
+              viewModel.getPadding(1),
 
-          Text('updated 3 minutes ago',
-            style: TextStyle(
-              fontSize: UIDefine.fontSize12,
-              color: AppColors.textGrey,
-            ),
-          ),
-        ],),
+              GradientText(
+                '108.7',
+                size: UIDefine.fontSize20,
+                endColor:AppColors.subThemePurple,
+              ),
 
-      viewModel.getPadding(1),
+              viewModel.getPadding(1),
 
-      //分隔線
-      SizedBox(
-          height: UIDefine.getScreenHeight(10),
-          child:const VerticalDivider(
-            width: 3,
-            color: AppColors.dialogBlack,
-            thickness: 0.5,
-          )),
+              Text('Trading',
+                style: TextStyle(
+                  fontSize: UIDefine.fontSize12,
+                  color: AppColors.textGrey,
+                ),
+              ),
+            ],),
 
-      viewModel.getPadding(1),
-
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('NFTs(USDT)',
-            style: TextStyle(
-                fontSize: UIDefine.fontSize14,
-                color: AppColors.textBlack,
-                fontWeight: FontWeight.w300
-            ),
-          ),
-
-          viewModel.getPadding(1),
-
-          GradientText(
-            '108.7',
-            size: UIDefine.fontSize20,
-            endColor:AppColors.subThemePurple,
-          ),
-
-          viewModel.getPadding(1),
-
-          Text('Trading',
-            style: TextStyle(
-              fontSize: UIDefine.fontSize12,
-              color: AppColors.textGrey,
-            ),
-          ),
-        ],),
-
-    ],);
+        ],));
 }
 
 
