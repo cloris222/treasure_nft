@@ -101,13 +101,15 @@ class _TradeMainViewState extends State<TradeMainView> {
               SizedBox(
                 height: UIDefine.getHeight() / 40,
               ),
-              CountDownTimer(duration: reservationViewModel.duration,),
+              CountDownTimer(duration: reservationViewModel.countSellDate(),),
               LoginButtonWidget(
                 width: UIDefine.getWidth() / 1.7,
                 height: UIDefine.getHeight() / 20,
                 btnText: '(GMT + 8)00 : 23 : 00 PM',
                 fontSize: UIDefine.fontSize14,
-                onPressed: () {},
+                onPressed: () {
+
+                },
               )
             ],
           ),
