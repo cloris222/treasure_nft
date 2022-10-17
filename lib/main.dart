@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:treasure_nft_project/constant/theme/app_theme.dart';
-import 'package:treasure_nft_project/constant/ui_define.dart';
-import 'package:treasure_nft_project/views/explore/explore_main_view.dart';
+import 'package:treasure_nft_project/utils/app_shared_Preferences.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 
 import 'constant/global_data.dart';
@@ -32,6 +31,18 @@ Future<void> initApp() async {
   // BaseViewModel baseViewModel = BaseViewModel();
   // await baseViewModel.getCountry();
   await LanguageUtil.init();
+
+  ///MARK: 自動登入
+  try {
+    if (await AppSharedPreferences.getLogIn()) {
+      GlobalData.userToken = await AppSharedPreferences.getToken();
+      GlobalData.userMemberId = await AppSharedPreferences.getMemberID();
+      if (GlobalData.userToken.isNotEmpty &&
+          GlobalData.userMemberId.isNotEmpty) {
+        await BaseViewModel().uploadPersonalInfo();
+      }
+    }
+  } catch (e) {}
   runApp(localizations(const MyApp()));
 }
 

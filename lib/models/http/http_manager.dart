@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/views/main_page.dart';
+import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 
 import '../../constant/call_back_function.dart';
 import '../../constant/global_data.dart';
@@ -40,12 +43,12 @@ class HttpManager {
     ///MARK: 檢查結果
     if (result.code == "G_0000") {
       return result;
+    } else if ((result.code.compareTo("G_0201") == 0) ||
+        (result.code.compareTo("G_0202") == 0)) {
+      BaseViewModel().clearUserLoginInfo();
+      BaseViewModel().globalPushAndRemoveUntil(
+          const MainPage(type: AppNavigationBarType.typeLogin));
     }
-    // else if (帳號已登出的狀況) {
-    //   var vm = BaseViewModel();
-    //   vm.showToast(vm.getGlobalContext(), result.message);
-    //   vm.globalPushAndRemoveUntil(const LoginMainPage());
-    // }
 
     ///MARK: 檢查結果 有異常時 直接拋出錯誤
     //取代錯誤code
