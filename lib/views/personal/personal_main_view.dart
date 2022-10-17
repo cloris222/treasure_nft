@@ -12,6 +12,7 @@ import 'package:treasure_nft_project/views/personal/personal_sub_team_view.dart'
 import 'package:treasure_nft_project/views/personal/personal_sub_user_info_view.dart';
 import 'package:treasure_nft_project/widgets/domain_bar.dart';
 
+import '../../constant/theme/app_colors.dart';
 import '../../models/http/parameter/check_level_info.dart';
 import '../../view_models/personal/personal_main_viewmodel.dart';
 import '../../widgets/button/login_bolder_button_widget.dart';
@@ -37,29 +38,36 @@ class _PersonalMainViewState extends State<PersonalMainView> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Container(
-        color: Colors.white,
-        child: Column(children: [
-          const DomainBar(),
-          const PersonalSubUserInfoView(showLevelInfo: true),
-          Container(
-            margin: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                PersonalSubLevelView(
-                  userProperty: viewModel.userProperty,
-                  levelInfo: viewModel.levelInfo,
-                ),
-                const PersonalSubOrderView(),
-                const PersonalSubTeamView(),
-                const PersonalSubCommonView(),
-                LoginBolderButtonWidget(
-                    btnText: tr('logout'),
-                    onPressed: () => _onPressLogout(context)),
-              ],
-            ),
-          ),
-        ]),
+        child: Container(
+            color: Colors.white,
+            child: Column(children: [
+              const DomainBar(),
+              const PersonalSubUserInfoView(showLevelInfo: true),
+              Container(
+                  margin: const EdgeInsets.all(20),
+                  child: Column(children: [
+                    PersonalSubLevelView(
+                      userProperty: viewModel.userProperty,
+                      levelInfo: viewModel.levelInfo,
+                    ),
+                    _buildLine(),
+                    const PersonalSubOrderView(),
+                    _buildLine(),
+                    const PersonalSubTeamView(),
+                    _buildLine(),
+                    const PersonalSubCommonView(),
+                    LoginBolderButtonWidget(
+                        btnText: tr('logout'),
+                        onPressed: () => _onPressLogout(context)),
+                  ]))
+            ])));
+  }
+
+  Widget _buildLine() {
+    return const Padding(
+      padding: EdgeInsets.symmetric(vertical: 10),
+      child: Divider(
+        color: AppColors.searchBar,
       ),
     );
   }
