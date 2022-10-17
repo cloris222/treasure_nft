@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:easy_localization/easy_localization.dart';
 
 import 'language_util.dart';
@@ -82,4 +84,5 @@ class DateFormatUtil {
   String getNowTimeWith24HourFormat() {
     return _buildDataFormat(strFormat: 'HH:mm', time: _getNow());
   }
+
 }

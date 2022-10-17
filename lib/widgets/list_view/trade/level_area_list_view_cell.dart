@@ -137,13 +137,18 @@ class _LevelListViewCellState extends State<LevelListViewCell> {
               Positioned(
                 right: 0,
                 bottom: 0,
-                child: ActionButtonWidget(
-                    isFillWidth: false,
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 10),
-                    setMainColor: getReservationBtnColor(),
-                    btnText: tr("match"),
-                    onPressed: widget.reservationAction),
+                child: Visibility(
+                  /// is for sale?
+                  visible: true,
+                  child: ActionButtonWidget(
+                      isFillWidth: false,
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 10),
+                      setMainColor: getReservationBtnColor(),
+                      btnText: tr("match"),
+                      /// 按下去後新增預約
+                      onPressed: widget.reservationAction),
+                ),
               )
             ],
           )
