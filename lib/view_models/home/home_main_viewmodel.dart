@@ -28,5 +28,10 @@ class HomeMainViewModel extends BaseViewModel {
   Widget getPadding(double val) {
     return Padding(padding: EdgeInsets.all(UIDefine.getScreenWidth(val)));
   }
+  Widget getPaddingWithView(double val, Widget view) {
+    return Padding(padding: EdgeInsets.all(UIDefine.getScreenWidth(val)),
+      child: view,
+    );
+  }
 
 }

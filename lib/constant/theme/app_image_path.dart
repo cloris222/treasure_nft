@@ -69,9 +69,31 @@ class AppImagePath {
 
   /// lock mission
   static const String levelMission = '$lockMission/mb_level_bg_{level}.png';
+
   /// home page
   static const String firstBackground = '$appImgPath/img_main_bg_01.png';
   static const String starIcon = '$appIconFolderPath/icon_star_01.png';
   static const String downArrow = '$appBtnFolderPath/btn_arrow_01_down.png';
   static const String downArrowGrey = '$appBtnFolderPath/btn_arrow_02_down.png';
+  static const String fileIcon = '$appIconFolderPath/icon_file_01.png';
+  static const String openSea = '$footer/logo_opensea_01.png';
+  static const String coinBase = '$footer/logo_coinbase_01.png';
+  static const String mintBase = '$footer/logo_mintbase_01.png';
+  static const String trustWallet = '$footer/logo_trustwallet_01.png';
+  static const String tron = '$footer/logo_tron_01.png';
+  static const String binance = '$footer/logo_binance_01.png';
+  static const String minTable = '$footer/logo_mintable_01.png';
+  static const String zora = '$footer/logo_zora_01.png';
+  static const String polygon = '$footer/logo_polygon_01.png';
+  static const String ethereum = '$footer/logo_ethereum_01.png';
+  static const String tozfuft = '$footer/logo_tozfuft_01.png';
+  static const String mail = '$footer/btn_mail_01_nor.png';
+  static const String tiktok = '$footer/btn_tiktok_01_nor.png';
+  static const String twitter = '$footer/btn_twitter_01_nor.png';
+  static const String yt = '$footer/btn_yt_01_nor.png';
+  static const String tg = '$footer/btn_tg_01_nor.png';
+  static const String fb = '$footer/btn_fb_01_nor.png';
+  static const String ig = '$footer/btn_ig_01_nor.png';
+  static const String dc = '$footer/btn_discord_01_nor.png';
+
 }

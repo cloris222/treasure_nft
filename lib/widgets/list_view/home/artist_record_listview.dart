@@ -39,7 +39,6 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
   }
 
 
-
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
