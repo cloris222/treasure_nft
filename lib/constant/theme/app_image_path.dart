@@ -64,7 +64,8 @@ class AppImagePath {
   ///  rank level
   static const String level = '$rankEmblem/badges_lv{level}.png';
   static const String beginner = '$appIconFolderPath/icon_star_01.png';
-  static const String beginnerReserving = '$appIconFolderPath/icon_rotate_01.png';
+  static const String beginnerReserving =
+      '$appIconFolderPath/icon_rotate_01.png';
   static const String reserving = '$appIconFolderPath/icon_rotate_02.png';
 
   /// lock mission
@@ -96,4 +97,10 @@ class AppImagePath {
   static const String ig = '$footer/btn_ig_01_nor.png';
   static const String dc = '$footer/btn_discord_01_nor.png';
 
+
+  /// personal page
+  static const String defaultBanner = '$appImgPath/img_banner_01_defult.png';
+  static const String rightArrow =
+      '$appBtnFolderPath/btn_arrow_right_01_nor.png';
+  static const String dailyIcon = '$appBtnFolderPath/btn_date_01_nor.png';
 }

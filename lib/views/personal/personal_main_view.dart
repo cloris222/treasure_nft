@@ -1,25 +1,75 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/models/http/api/login_api.dart';
+import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
-import 'package:treasure_nft_project/widgets/gradient_text.dart';
+import 'package:treasure_nft_project/views/personal/personal_sub_common_view.dart';
+import 'package:treasure_nft_project/views/personal/personal_sub_level_view.dart';
+import 'package:treasure_nft_project/views/personal/personal_sub_order_view.dart';
+import 'package:treasure_nft_project/views/personal/personal_sub_team_view.dart';
+import 'package:treasure_nft_project/views/personal/personal_sub_user_info_view.dart';
+import 'package:treasure_nft_project/widgets/domain_bar.dart';
 
+import '../../constant/theme/app_colors.dart';
+import '../../models/http/parameter/check_level_info.dart';
+import '../../view_models/personal/personal_main_viewmodel.dart';
 import '../../widgets/button/login_bolder_button_widget.dart';
 import '../main_page.dart';
 
-class PersonalMainView extends StatelessWidget {
+class PersonalMainView extends StatefulWidget {
   const PersonalMainView({Key? key}) : super(key: key);
 
   @override
+  State<PersonalMainView> createState() => _PersonalMainViewState();
+}
+
+class _PersonalMainViewState extends State<PersonalMainView> {
+  late PersonalMainViewModel viewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    viewModel = PersonalMainViewModel(setState: setState);
+    viewModel.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      GradientText('暫時的登出!'),
-      LoginBolderButtonWidget(
-          btnText: tr('logout'), onPressed: () => _onPressLogout(context)),
-    ]);
+    return SingleChildScrollView(
+        child: Container(
+            color: Colors.white,
+            child: Column(children: [
+              const DomainBar(),
+              const PersonalSubUserInfoView(showLevelInfo: true),
+              Container(
+                  margin: const EdgeInsets.all(20),
+                  child: Column(children: [
+                    PersonalSubLevelView(
+                      userProperty: viewModel.userProperty,
+                      levelInfo: viewModel.levelInfo,
+                    ),
+                    _buildLine(),
+                    const PersonalSubOrderView(),
+                    _buildLine(),
+                    const PersonalSubTeamView(),
+                    _buildLine(),
+                    const PersonalSubCommonView(),
+                    LoginBolderButtonWidget(
+                        btnText: tr('logout'),
+                        onPressed: () => _onPressLogout(context)),
+                  ]))
+            ])));
+  }
+
+  Widget _buildLine() {
+    return const Padding(
+      padding: EdgeInsets.symmetric(vertical: 10),
+      child: Divider(
+        color: AppColors.searchBar,
+      ),
+    );
   }
 
   void _onPressLogout(BuildContext context) {
