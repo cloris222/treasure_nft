@@ -13,6 +13,7 @@ import 'package:treasure_nft_project/widgets/dialog/trade_rule_dialot.dart';
 import 'package:treasure_nft_project/widgets/domain_bar.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../models/http/parameter/check_reservation_info.dart';
+import '../../utils/date_format_util.dart';
 import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/label/level_detail.dart';
 import '../../widgets/list_view/trade/level_area_list_view_cell.dart';
@@ -29,7 +30,6 @@ class _TradeMainViewState extends State<TradeMainView> {
 
   @override
   void initState() {
-    mounted;
     viewModel = TradeMainViewModel(setState: () {
       if (mounted) {
         setState(() {});
@@ -98,14 +98,17 @@ class _TradeMainViewState extends State<TradeMainView> {
               SizedBox(
                 height: UIDefine.getHeight() / 40,
               ),
-              CountDownTimer(
-                duration: viewModel.countSellDate(),
-              ),
+              viewModel.reservationInfo != null
+                  ? CountDownTimer(
+                      duration: viewModel.countSellDate(),
+                    )
+                  : Container(),
               LoginButtonWidget(
                 width: UIDefine.getWidth() / 1.7,
                 height: UIDefine.getHeight() / 20,
-                btnText:
-                    '(${viewModel.reservationInfo?.zone}) ${viewModel.reservationInfo?.startTime}',
+                btnText: viewModel.startTime != null
+                    ? '(${viewModel.reservationInfo?.zone}) ${DateFormatUtil().getDateWith12HourInSecondFormat(viewModel.startTime!)}'
+                    : '',
                 fontSize: UIDefine.fontSize14,
                 fontWeight: FontWeight.bold,
                 onPressed: () {},
@@ -181,8 +184,7 @@ class _TradeMainViewState extends State<TradeMainView> {
             children: [
               LevelDetailLabel(
                 title: tr('reserveCount'),
-                content:
-                    '${viewModel.reservationInfo?.reserveCount}',
+                content: '${viewModel.reservationInfo?.reserveCount}',
                 rightFontWeight: FontWeight.bold,
               ),
               LevelDetailLabel(

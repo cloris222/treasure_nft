@@ -24,10 +24,10 @@ class _CountDownTimerState extends State<CountDownTimer> {
   @override
   Widget build(BuildContext context) {
     String strDigits(int n) => n.toString().padLeft(2, '0');
-    final days = strDigits((widget.duration!.inDays) * -1);
-    final hours = strDigits((widget.duration!.inHours.remainder(24) * -1));
-    final minutes = strDigits((widget.duration!.inMinutes.remainder(60)) * -1);
-    final seconds = strDigits((widget.duration!.inSeconds.remainder(60)) * -1);
+    final days = strDigits((widget.duration!.inDays));
+    final hours = strDigits((widget.duration!.inHours.remainder(24)));
+    final minutes = strDigits((widget.duration!.inMinutes.remainder(60)));
+    final seconds = strDigits((widget.duration!.inSeconds.remainder(60)));
     return GradientText(
       '$days : $hours : $minutes : $seconds',
       size: UIDefine.fontSize24,
