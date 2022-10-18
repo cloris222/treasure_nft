@@ -24,13 +24,11 @@ class PersonalSubUserInfoView extends StatelessWidget {
         child: GlobalData.userInfo.bannerUrl.isNotEmpty
             ? Image.network(
                 width: UIDefine.getWidth(),
-                height: 200,
                 GlobalData.userInfo.bannerUrl,
                 fit: BoxFit.fill,
               )
             : Image.asset(
                 width: UIDefine.getWidth(),
-                height: 200,
                 AppImagePath.defaultBanner,
                 fit: BoxFit.fitWidth,
               ),
