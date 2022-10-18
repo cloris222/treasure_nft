@@ -19,8 +19,14 @@ class PersonalSubLevelView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      runSpacing: 15,
-      children: [_buildCountry(), _buildProperty(), _buildReserve()],
+      runSpacing: 25,
+      children: [
+        const SizedBox(width: 1),
+        _buildCountry(),
+        _buildProperty(),
+        _buildReserve(),
+        const SizedBox(width: 1),
+      ],
     );
   }
 

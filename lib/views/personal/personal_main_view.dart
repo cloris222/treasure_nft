@@ -3,7 +3,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/models/http/api/login_api.dart';
-import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/personal/personal_sub_common_view.dart';
 import 'package:treasure_nft_project/views/personal/personal_sub_level_view.dart';
@@ -13,7 +12,6 @@ import 'package:treasure_nft_project/views/personal/personal_sub_user_info_view.
 import 'package:treasure_nft_project/widgets/domain_bar.dart';
 
 import '../../constant/theme/app_colors.dart';
-import '../../models/http/parameter/check_level_info.dart';
 import '../../view_models/personal/personal_main_viewmodel.dart';
 import '../../widgets/button/login_bolder_button_widget.dart';
 import '../main_page.dart';
@@ -44,7 +42,7 @@ class _PersonalMainViewState extends State<PersonalMainView> {
               const DomainBar(),
               const PersonalSubUserInfoView(showLevelInfo: true),
               Container(
-                  margin: const EdgeInsets.all(20),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(children: [
                     PersonalSubLevelView(
                       userProperty: viewModel.userProperty,
@@ -54,7 +52,7 @@ class _PersonalMainViewState extends State<PersonalMainView> {
                     PersonalSubOrderView(
                         userOrderInfo: viewModel.userOrderInfo),
                     _buildLine(),
-                    const PersonalSubTeamView(),
+                    PersonalSubTeamView(levelInfo: viewModel.levelInfo),
                     _buildLine(),
                     const PersonalSubCommonView(),
                     LoginBolderButtonWidget(
@@ -65,12 +63,7 @@ class _PersonalMainViewState extends State<PersonalMainView> {
   }
 
   Widget _buildLine() {
-    return const Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
-      child: Divider(
-        color: AppColors.searchBar,
-      ),
-    );
+    return const Divider(color: AppColors.searchBar);
   }
 
   void _onPressLogout(BuildContext context) {
