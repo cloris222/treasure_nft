@@ -41,7 +41,7 @@ class PersonalParamItem extends StatelessWidget {
         : assetImagePath != null
             ? Image.asset(assetImagePath!,
                 width: UIDefine.fontSize22, height: UIDefine.fontSize22)
-            : Text('0', style: style);
+            : Text('', style: style);
   }
 
   Widget _buildTitle() {

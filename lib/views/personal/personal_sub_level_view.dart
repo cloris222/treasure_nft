@@ -8,7 +8,9 @@ import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_style.dart';
 import '../../models/http/parameter/check_level_info.dart';
 import '../../models/http/parameter/user_property.dart';
+import '../../view_models/base_view_model.dart';
 import '../../widgets/label/personal_param_item.dart';
+import 'level/level_achievement_page.dart';
 
 class PersonalSubLevelView extends StatelessWidget {
   const PersonalSubLevelView({Key? key, this.userProperty, this.levelInfo})
@@ -19,8 +21,14 @@ class PersonalSubLevelView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      runSpacing: 15,
-      children: [_buildCountry(), _buildProperty(), _buildReserve()],
+      runSpacing: 25,
+      children: [
+        const SizedBox(width: 1),
+        _buildCountry(),
+        _buildProperty(),
+        _buildReserve(context),
+        const SizedBox(width: 1),
+      ],
     );
   }
 
@@ -52,10 +60,7 @@ class PersonalSubLevelView extends StatelessWidget {
   Widget _buildProperty() {
     return Container(
       width: UIDefine.getWidth(),
-      decoration: AppStyle().styleColorBorderBackground(
-          color: AppColors.dialogGrey,
-          radius: 10,
-          backgroundColor: Colors.transparent),
+      decoration: AppStyle().styleUserSetting(),
       padding: const EdgeInsets.all(15),
       child: Wrap(runSpacing: 5, children: [
         _buildPropertyParam(
@@ -98,7 +103,7 @@ class PersonalSubLevelView extends StatelessWidget {
               Text(
                   value == null
                       ? '0.0'
-                      : NumberFormat('#,##0.00').format(value),
+                      : NumberFormat('#,##0.##').format(value),
                   style: TextStyle(
                       fontSize: UIDefine.fontSize14,
                       fontWeight: FontWeight.w600))
@@ -139,7 +144,7 @@ class PersonalSubLevelView extends StatelessWidget {
     ]);
   }
 
-  Widget _buildReserve() {
+  Widget _buildReserve(BuildContext context) {
     return Row(
       children: [
         Flexible(
@@ -157,12 +162,14 @@ class PersonalSubLevelView extends StatelessWidget {
           child: PersonalParamItem(
             title: tr('DailyMission'),
             assetImagePath: AppImagePath.dailyIcon,
-            onPress: _showDailyPage,
+            onPress: () => _showDailyPage(context),
           ),
         ),
       ],
     );
   }
 
-  void _showDailyPage() {}
+  void _showDailyPage(BuildContext context) {
+    BaseViewModel().pushPage(context, const LevelAchievementPage());
+  }
 }

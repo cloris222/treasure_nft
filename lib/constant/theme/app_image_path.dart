@@ -97,10 +97,34 @@ class AppImagePath {
   static const String ig = '$footer/btn_ig_01_nor.png';
   static const String dc = '$footer/btn_discord_01_nor.png';
 
-
   /// personal page
   static const String defaultBanner = '$appImgPath/img_banner_01_defult.png';
   static const String rightArrow =
       '$appBtnFolderPath/btn_arrow_right_01_nor.png';
   static const String dailyIcon = '$appBtnFolderPath/btn_date_01_nor.png';
+  static const String medalIcon ='$achievementEmblem/a_medal_{mainNumber}_01.png';
+
+  ///personal 我的訂單
+  static const String myOrderIcon = '$appIconFolderPath/icon_file_02.png';
+  static const String myNftIcon = '$appIconFolderPath/icon_mint_02.png';
+  static const String myBalDetailIcon = '$appIconFolderPath/icon_file_04.png';
+  static const String myRechargeIcon = '$appIconFolderPath/icon_card_03.png';
+  static const String myWithdrawIcon =
+      '$appIconFolderPath/icon_extraction_04.png';
+
+  ///personal 我的團隊
+  static const String myTeamIcon = '$appIconFolderPath/icon_group_01_nor.png';
+  static const String myTeamMemberIcon = '$appIconFolderPath/icon_group_03.png';
+  static const String myTeamContributionIcon =
+      '$appIconFolderPath/icon_trophy_03.png';
+  static const String myTeamOrderIcon = '$appIconFolderPath/icon_file_04.png';
+  static const String myReferralCodeIcon =
+      '$appIconFolderPath/icon_qrcode_03.png';
+
+  ///personal 常用功能
+  static const String userCommonIcon = '$appIconFolderPath/icon_hammer_02.png';
+  static const String userNoviceIcon = '$appIconFolderPath/icon_user_03.png';
+  static const String userSettingIcon =
+      '$appIconFolderPath/icon_setting_02.png';
+  static const String userCreateIcon = '$appIconFolderPath/icon_hammer_03.png';
 }
