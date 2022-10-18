@@ -18,6 +18,7 @@ class AppImagePath {
   static const String daily = 'assets/icon/daily';
   static const String month = 'assets/icon/daily/month';
   static const String lockMission = 'assets/icon/img/lock_mission';
+  static const String languagePath = 'assets/icon/language/lock_mission';
 
   ///MARK: 通用icon
   static const String dialogSuccess = '$appImgPath/img_check_01.png';
@@ -102,7 +103,8 @@ class AppImagePath {
   static const String rightArrow =
       '$appBtnFolderPath/btn_arrow_right_01_nor.png';
   static const String dailyIcon = '$appBtnFolderPath/btn_date_01_nor.png';
-  static const String medalIcon ='$achievementEmblem/a_medal_{mainNumber}_01.png';
+  static const String medalIcon =
+      '$achievementEmblem/a_medal_{mainNumber}_01.png';
 
   ///personal 我的訂單
   static const String myOrderIcon = '$appIconFolderPath/icon_file_02.png';

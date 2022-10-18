@@ -136,6 +136,10 @@ flutter:
     - assets/icon/img/lock_mission/2x/
     - assets/icon/img/lock_mission/3x/
     - assets/animation/
+    - assets/icon/language/
+    - assets/icon/language/1.5x/
+    - assets/icon/language/2x/
+    - assets/icon/language/3x/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
