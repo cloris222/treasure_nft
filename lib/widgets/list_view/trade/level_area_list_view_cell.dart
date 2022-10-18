@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:format/format.dart';
+import 'package:lottie/lottie.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:treasure_nft_project/constant/theme/app_animation_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 
@@ -52,7 +54,32 @@ class _LevelListViewCellState extends State<LevelListViewCell> {
       );
     }
   }
+/// 是否解鎖副本
+  showImg(){
+    if(widget.range?.lock == true){
+        return getLockImg();
+    } else {
+      return getLevelImg();
+    }
+  }
 
+  /// 開賣狀態動畫顯示
+  String showGif(){
+    if (GlobalData.userInfo.level == 0) {
+      return format(AppAnimationPath.reservationAnimation, ({'level': '00'}));
+    }
+    int index = widget.range?.index ?? 0;
+    return format(AppAnimationPath.reservationAnimation, ({'level': '0${index + 1}'}));
+  }
+  /// 尚未開賣顯示圖
+  String getLockImg(){
+    if (GlobalData.userInfo.level == 0) {
+      return format(AppImagePath.levelMissionLocked, ({'level': '00'}));
+    }
+    int index = widget.range?.index ?? 0;
+    return format(AppImagePath.levelMissionLocked, ({'level': '0${index + 1}'}));
+  }
+  /// 可預約狀態顯示圖
   String getLevelImg() {
     /// 新手區
     if (GlobalData.userInfo.level == 0) {
@@ -133,13 +160,13 @@ class _LevelListViewCellState extends State<LevelListViewCell> {
           ),
           Stack(
             children: [
-              Image.asset(getLevelImg()),
+              Image.asset(showImg()),
               Positioned(
                 right: 0,
                 bottom: 0,
                 child: Visibility(
                   /// is for sale?
-                  visible: true,
+                  visible: !widget.range!.lock,
                   child: ActionButtonWidget(
                       isFillWidth: false,
                       margin: const EdgeInsets.symmetric(

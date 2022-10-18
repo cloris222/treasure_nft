@@ -5,7 +5,7 @@ import '../parameter/check_reservation_info.dart';
 import '../parameter/check_reserve_deposit.dart';
 
 class TradeAPI extends HttpManager {
-  TradeAPI({super.onConnectFail});
+  TradeAPI({super.onConnectFail, super.showTrString});
 
   /// 查詢預約資訊
   Future<CheckReservationInfo> getCheckReservationInfoAPI() async {
@@ -27,8 +27,9 @@ class TradeAPI extends HttpManager {
   }
 
   /// 新增預約
-  Future<Future<ApiResponse>> postAddNewReservationAPI(
+  Future<AddNewReservation> postAddNewReservationAPI(
       {required String type}) async {
-    return post('/reserve/insert', data: {'type': type});
+    var response = await post('/reserve/insert', data: {'type': type});
+    return AddNewReservation.fromJson(response.data);
   }
 }

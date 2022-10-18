@@ -17,4 +17,7 @@ class AppAnimationPath {
   /// 註冊成功動畫
   static const String registerSuccess =
       '$animationPathJson/mb_signup_success_01.gif';
+
+  /// reservation animation
+  static const String reservationAnimation = '$animationPathJson/mb_level_{level}.gif';
 }

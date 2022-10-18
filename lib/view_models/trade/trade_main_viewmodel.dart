@@ -1,27 +1,37 @@
 import 'dart:async';
-
+import 'package:flutter/cupertino.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/check_level_info.dart';
 import 'package:treasure_nft_project/models/http/parameter/check_reservation_info.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
-
 import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../models/http/api/trade_api.dart';
+import '../../models/http/parameter/add_new_reservation.dart';
 import '../../utils/date_format_util.dart';
 
+
 class TradeMainViewModel extends BaseViewModel {
-  TradeMainViewModel({required this.setState});
+  TradeMainViewModel(
+      {required this.setState,
+      required this.reservationSuccess,
+      required this.bookPriceNotEnough,
+      required this.notEnoughToPay});
 
   final onClickFunction setState;
   CheckReservationInfo? reservationInfo;
   CheckLevelInfo? userLevelInfo;
+  AddNewReservation? newReservation;
   Timer? countdownTimer;
   DateTime? startTime;
   DateTime? endTime;
   DateTime? localTime;
+  int second = 0;
+  VoidCallback notEnoughToPay;
+  VoidCallback bookPriceNotEnough;
+  VoidCallback reservationSuccess;
 
   Future<void> initState() async {
     reservationInfo = await TradeAPI().getCheckReservationInfoAPI();
@@ -30,13 +40,17 @@ class TradeMainViewModel extends BaseViewModel {
     setState();
   }
 
-  /// 每秒呼叫api更改時間狀態
-  Future<void> apiInitState() async {
-    reservationInfo = await TradeAPI().getCheckReservationInfoAPI();
+  /// 新增預約
+  addNewReservation() async {
+    newReservation = await TradeAPI(
+            onConnectFail: _onAddReservationFail, showTrString: false)
+        .postAddNewReservationAPI(type: "PRICE");
+    /// 如果預約成功 會進call back function
+    reservationSuccess();
   }
 
   /// 離開頁面後清除時間
-  void disposeState()  {
+  void disposeState() {
     stopTimer();
   }
 
@@ -70,16 +84,15 @@ class TradeMainViewModel extends BaseViewModel {
   }
 
   void setCountDown() async {
-    /// 倒數每秒呼叫api
-    await apiInitState();
     /// 如果timer在運行才會逕行狀態更新
-    if(countdownTimer!.isActive) {
+    if (countdownTimer!.isActive) {
+      second += 1;
       setState();
     }
   }
 
   Duration countSellDate() {
-    var duration = Duration();
+    var duration = const Duration();
 
     /// if sellDate == null , sell day is today
     if (reservationInfo?.sellDate == "") {
@@ -88,7 +101,8 @@ class TradeMainViewModel extends BaseViewModel {
 
     /// 現在時間（會員當地時間）
     localTime = DateTime.parse(
-        '${reservationInfo?.sellDate} ${reservationInfo?.localTime}');
+            '${reservationInfo?.sellDate} ${reservationInfo?.localTime}')
+        .add(Duration(seconds: second));
     // var localTime =DateTime.now();
 
     /// 開賣日期＋開賣時間 就是sellDate
@@ -119,6 +133,21 @@ class TradeMainViewModel extends BaseViewModel {
     } else {
       duration = endTime!.add(const Duration(days: 1)).difference(localTime!);
       return duration;
+    }
+  }
+
+  void _onAddReservationFail(String errorMessage) {
+    switch (errorMessage) {
+
+      /// 預約金不足
+      case 'APP_0041':
+        bookPriceNotEnough();
+        break;
+
+      /// 餘額不足
+      case 'APP_0013':
+        notEnoughToPay();
+        break;
     }
   }
 }

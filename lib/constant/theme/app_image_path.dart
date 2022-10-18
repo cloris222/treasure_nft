@@ -70,6 +70,7 @@ class AppImagePath {
 
   /// lock mission
   static const String levelMission = '$lockMission/mb_level_bg_{level}.png';
+  static const String levelMissionLocked = '$lockMission/mb_level_{level}_lock.png';
 
   /// home page
   static const String firstBackground = '$appImgPath/img_main_bg_01.png';

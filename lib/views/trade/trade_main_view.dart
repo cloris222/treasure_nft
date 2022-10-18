@@ -9,6 +9,7 @@ import 'package:treasure_nft_project/view_models/trade/trade_main_viewmodel.dart
 import 'package:treasure_nft_project/widgets/count_down_timer.dart';
 import 'package:treasure_nft_project/widgets/dialog/animation_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/reservation_dialog.dart';
+import 'package:treasure_nft_project/widgets/dialog/success_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/trade_rule_dialot.dart';
 import 'package:treasure_nft_project/widgets/domain_bar.dart';
 import '../../constant/theme/app_image_path.dart';
@@ -34,6 +35,33 @@ class _TradeMainViewState extends State<TradeMainView> {
       if (mounted) {
         setState(() {});
       }
+    },
+
+        /// 預約成功
+        reservationSuccess: () {
+      AnimationDialog(context, AppAnimationPath.reserveSuccess).show();
+    },
+
+        /// 預約金不足
+        bookPriceNotEnough: () {
+      SuccessDialog(
+        context,
+        callOkFunction: () {},
+        isSuccess: false,
+        mainText: tr('reserve-failed'),
+        // TODO 預約金不足多國
+      ).show();
+    },
+
+        /// 餘額不足
+        notEnoughToPay: () {
+      SuccessDialog(
+        context,
+        callOkFunction: () {},
+        isSuccess: false,
+          mainText: tr('reserve-failed'),
+        subText: tr('APP_0013')
+      ).show();
     });
     viewModel.initState();
     super.initState();
@@ -232,14 +260,9 @@ class _TradeMainViewState extends State<TradeMainView> {
                   viewModel.reservationInfo?.reserveRanges[index];
               ReservationDialog(context, confirmBtnAction: () {
                 Navigator.pop(context);
-                // TODO add new reservation
 
-                /// if reservation success
-                AnimationDialog(context, AppAnimationPath.reserveSuccess)
-                    .show();
-                // TODO show reserving
-                // TODO change levelImg to reserving animation
-                // else TODO show fail dialog
+                /// add new reservation
+                viewModel.addNewReservation();
               },
                       index: range?.index,
                       startPrice: range?.startPrice.toDouble(),

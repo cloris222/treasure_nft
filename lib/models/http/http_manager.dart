@@ -22,10 +22,14 @@ class HttpManager {
   String baseUrl;
   final bool addToken;
 
+  ///MARK: 是否自動轉多國
+  final bool showTrString;
+
   HttpManager(
       {this.onConnectFail,
       this.baseUrl = HttpSetting.developUrl,
-      this.addToken = true}) {
+      this.addToken = true,
+      this.showTrString = true}) {
     _dio
       ..options.baseUrl = baseUrl
       ..options.connectTimeout = HttpSetting.connectionTimeout
@@ -53,7 +57,7 @@ class HttpManager {
     ///MARK: 檢查結果 有異常時 直接拋出錯誤
     //取代錯誤code
     response.statusCode = 404;
-    response.data['message'] = tr(result.code);
+    response.data['message'] = showTrString ? tr(result.code) : result.code;
     throw DioError(
         requestOptions: response.requestOptions,
         response: response,
