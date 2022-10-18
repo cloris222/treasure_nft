@@ -8,7 +8,9 @@ import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_style.dart';
 import '../../models/http/parameter/check_level_info.dart';
 import '../../models/http/parameter/user_property.dart';
+import '../../view_models/base_view_model.dart';
 import '../../widgets/label/personal_param_item.dart';
+import 'level/level_achievement_page.dart';
 
 class PersonalSubLevelView extends StatelessWidget {
   const PersonalSubLevelView({Key? key, this.userProperty, this.levelInfo})
@@ -24,7 +26,7 @@ class PersonalSubLevelView extends StatelessWidget {
         const SizedBox(width: 1),
         _buildCountry(),
         _buildProperty(),
-        _buildReserve(),
+        _buildReserve(context),
         const SizedBox(width: 1),
       ],
     );
@@ -142,7 +144,7 @@ class PersonalSubLevelView extends StatelessWidget {
     ]);
   }
 
-  Widget _buildReserve() {
+  Widget _buildReserve(BuildContext context) {
     return Row(
       children: [
         Flexible(
@@ -160,12 +162,14 @@ class PersonalSubLevelView extends StatelessWidget {
           child: PersonalParamItem(
             title: tr('DailyMission'),
             assetImagePath: AppImagePath.dailyIcon,
-            onPress: _showDailyPage,
+            onPress: () => _showDailyPage(context),
           ),
         ),
       ],
     );
   }
 
-  void _showDailyPage() {}
+  void _showDailyPage(BuildContext context) {
+    BaseViewModel().pushPage(context, const LevelAchievementPage());
+  }
 }

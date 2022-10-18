@@ -1,6 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/views/personal/team/team_contribution_page.dart';
+import 'package:treasure_nft_project/views/personal/team/team_member_page.dart';
+import 'package:treasure_nft_project/views/personal/team/team_order_page.dart';
+import 'package:treasure_nft_project/views/personal/team/team_referral_code_page.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_style.dart';
@@ -20,7 +25,7 @@ class PersonalSubTeamView extends StatelessWidget {
         const SizedBox(width: 1),
         _buildTitle(),
         _buildCenter(),
-        _buildButton(),
+        _buildButton(context),
         const SizedBox(width: 1),
       ],
     );
@@ -67,7 +72,7 @@ class PersonalSubTeamView extends StatelessWidget {
     );
   }
 
-  Widget _buildButton() {
+  Widget _buildButton(BuildContext context) {
     return Container(
         width: UIDefine.getWidth(),
         decoration: AppStyle().styleUserSetting(),
@@ -77,30 +82,38 @@ class PersonalSubTeamView extends StatelessWidget {
               child: PersonalParamItem(
                   title: tr('teamMember'),
                   assetImagePath: AppImagePath.myTeamMemberIcon,
-                  onPress: _showTeamMemberPage)),
+                  onPress: () => _showTeamMemberPage(context))),
           Flexible(
               child: PersonalParamItem(
                   title: tr('teamContribution'),
                   assetImagePath: AppImagePath.myTeamContributionIcon,
-                  onPress: _showTeamContributionPage)),
+                  onPress: () => _showTeamContributionPage(context))),
           Flexible(
               child: PersonalParamItem(
                   title: tr('teamOrder'),
                   assetImagePath: AppImagePath.myTeamOrderIcon,
-                  onPress: _showTeamOrderPage)),
+                  onPress: () => _showTeamOrderPage(context))),
           Flexible(
               child: PersonalParamItem(
                   title: tr("referral-code'"),
                   assetImagePath: AppImagePath.myReferralCodeIcon,
-                  onPress: _showReferralCodePage))
+                  onPress: () => _showReferralCodePage(context)))
         ]));
   }
 
-  void _showTeamMemberPage() {}
+  void _showTeamMemberPage(BuildContext context) {
+    BaseViewModel().pushPage(context, const TeamMemberPage());
+  }
 
-  void _showTeamContributionPage() {}
+  void _showTeamContributionPage(BuildContext context) {
+    BaseViewModel().pushPage(context, const TeamContributionPage());
+  }
 
-  void _showTeamOrderPage() {}
+  void _showTeamOrderPage(BuildContext context) {
+    BaseViewModel().pushPage(context, const TeamOrderPage());
+  }
 
-  void _showReferralCodePage() {}
+  void _showReferralCodePage(BuildContext context) {
+    BaseViewModel().pushPage(context, const TeamReferralCodePage());
+  }
 }

@@ -35,17 +35,9 @@ class _ForgotMainPageState extends State<ForgotMainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar.getCornerAppBar(
-        () {
-          BaseViewModel().popPage(context);
-        },
-        tr('forgot'),
-        fontSize: UIDefine.fontSize24,
-        arrowFontSize: UIDefine.fontSize34,
-        circular: 30,
-        appBarHeight:
-            UIDefine.getHeight() / 6 > 100 ? 100 : UIDefine.getHeight() / 6,
-      ),
+      appBar: CustomAppBar.getCommonAppBar(() {
+        BaseViewModel().popPage(context);
+      }, tr('forgot')),
       body: SingleChildScrollView(
           child: Container(
               margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
