@@ -15,16 +15,19 @@ import '../../utils/date_format_util.dart';
 class TradeMainViewModel extends BaseViewModel {
   TradeMainViewModel({required this.setState});
 
-  final ViewChange setState;
+  final onClickFunction setState;
   CheckReservationInfo? reservationInfo;
   CheckLevelInfo? userLevelInfo;
   Timer? countdownTimer;
+  DateTime? startTime;
+  DateTime? endTime;
+  DateTime? localTime;
 
   Future<void> initState() async {
     reservationInfo = await TradeAPI().getCheckReservationInfoAPI();
     userLevelInfo = await UserInfoAPI().getCheckLevelInfoAPI();
     startTimer();
-    setState(() {});
+    setState();
   }
 
   /// 每秒呼叫api更改時間狀態
@@ -33,7 +36,7 @@ class TradeMainViewModel extends BaseViewModel {
   }
 
   /// 離開頁面後清除時間
-  Future<void> disposeState() async {
+  void disposeState()  {
     stopTimer();
   }
 
@@ -59,7 +62,7 @@ class TradeMainViewModel extends BaseViewModel {
   }
 
   void stopTimer() {
-    setState(() => countdownTimer!.cancel());
+    countdownTimer!.cancel();
   }
 
   void resetTimer() {
@@ -69,8 +72,9 @@ class TradeMainViewModel extends BaseViewModel {
   void setCountDown() async {
     /// 倒數每秒呼叫api
     await apiInitState();
+    /// 如果timer在運行才會逕行狀態更新
     if(countdownTimer!.isActive) {
-      setState(() {});
+      setState();
     }
   }
 
@@ -83,36 +87,37 @@ class TradeMainViewModel extends BaseViewModel {
     }
 
     /// 現在時間（會員當地時間）
-    var localTime = DateTime.parse(
+    localTime = DateTime.parse(
         '${reservationInfo?.sellDate} ${reservationInfo?.localTime}');
+    // var localTime =DateTime.now();
 
     /// 開賣日期＋開賣時間 就是sellDate
     /// 開賣時間(當地)
-    var startTime = DateTime.parse(
+    startTime = DateTime.parse(
         '${reservationInfo?.sellDate} ${reservationInfo?.startTime}');
 
     ///關閉時間(當地)
-    var endTime = DateTime.parse(
+    endTime = DateTime.parse(
         '${reservationInfo?.sellDate} ${reservationInfo?.endTime}');
 
-    // print("localTime:" + DateFormatUtil().getDateWith12HourFormat2(localTime));
-    // print("startTime:" + DateFormatUtil().getDateWith12HourFormat2(startTime));
-    // print("endTime:" + DateFormatUtil().getDateWith12HourFormat2(endTime));
+    // print("localTime:" + DateFormatUtil().getFullWithDateFormat(localTime));
+    // print("startTime:" + DateFormatUtil().getFullWithDateFormat(startTime));
+    // print("endTime:" + DateFormatUtil().getFullWithDateFormat(endTime));
 
     /// 尚未開賣 現在時間小於開賣時間
-    if (localTime.compareTo(startTime) < 0) {
-      duration = localTime.difference(startTime);
+    if (localTime!.compareTo(startTime!) < 0) {
+      duration = startTime!.difference(localTime!);
       return duration;
 
       /// 開賣中
-    } else if (localTime.compareTo(endTime) <= 0 &&
-        localTime.compareTo(startTime) >= 0) {
-      duration = endTime.difference(localTime);
+    } else if (localTime!.compareTo(endTime!) <= 0 &&
+        localTime!.compareTo(startTime!) >= 0) {
+      duration = endTime!.difference(localTime!);
       return duration;
 
       /// 開賣結束
     } else {
-      duration = localTime.difference(endTime.add(const Duration(days: 1)));
+      duration = endTime!.add(const Duration(days: 1)).difference(localTime!);
       return duration;
     }
   }

@@ -90,4 +90,14 @@ class DateFormatUtil {
     return _buildDataFormat(strFormat: 'yyyy-MM-dd', time: _getNow());
   }
 
+  /// 現在時間 ex: 2022-10-18
+  String getFullWithDateFormat(DateTime dateTime) {
+    return _buildDataFormat(strFormat: 'yyyy-MM-dd HH:mm:ss', time: dateTime);
+  }
+
+  ///MARK: 11 : 46 : 22  AM
+  String getDateWith12HourInSecondFormat(DateTime time) {
+    return _buildDataFormat(strFormat: 'hh : mm : ss a', time: time);
+  }
+
 }

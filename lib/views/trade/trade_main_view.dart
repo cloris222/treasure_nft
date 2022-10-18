@@ -1,7 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
-import 'package:treasure_nft_project/constant/enum/level_enum.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_animation_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
@@ -9,15 +7,13 @@ import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/trade/trade_main_viewmodel.dart';
 import 'package:treasure_nft_project/widgets/count_down_timer.dart';
-import 'package:treasure_nft_project/widgets/dialog/simple_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/animation_dialog.dart';
-import 'package:treasure_nft_project/widgets/dialog/base_close_dialog.dart';
-import 'package:treasure_nft_project/widgets/dialog/custom_amount_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/reservation_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/trade_rule_dialot.dart';
 import 'package:treasure_nft_project/widgets/domain_bar.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../models/http/parameter/check_reservation_info.dart';
+import '../../utils/date_format_util.dart';
 import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/label/level_detail.dart';
 import '../../widgets/list_view/trade/level_area_list_view_cell.dart';
@@ -30,21 +26,22 @@ class TradeMainView extends StatefulWidget {
 }
 
 class _TradeMainViewState extends State<TradeMainView> {
-  late TradeMainViewModel reservationViewModel;
-  late TradeMainViewModel userLevelInfoViewModel;
+  late TradeMainViewModel viewModel;
 
   @override
   void initState() {
-    reservationViewModel = TradeMainViewModel(setState: setState);
-    reservationViewModel.initState();
-    userLevelInfoViewModel = TradeMainViewModel(setState: setState);
-    userLevelInfoViewModel.initState();
+    viewModel = TradeMainViewModel(setState: () {
+      if (mounted) {
+        setState(() {});
+      }
+    });
+    viewModel.initState();
     super.initState();
   }
 
   @override
   void dispose() {
-    reservationViewModel.disposeState();
+    viewModel.disposeState();
     super.dispose();
   }
 
@@ -101,15 +98,20 @@ class _TradeMainViewState extends State<TradeMainView> {
               SizedBox(
                 height: UIDefine.getHeight() / 40,
               ),
-              CountDownTimer(duration: reservationViewModel.countSellDate(),),
+              viewModel.reservationInfo != null
+                  ? CountDownTimer(
+                      duration: viewModel.countSellDate(),
+                    )
+                  : Container(),
               LoginButtonWidget(
                 width: UIDefine.getWidth() / 1.7,
                 height: UIDefine.getHeight() / 20,
-                btnText: '(GMT + 8)00 : 23 : 00 PM',
+                btnText: viewModel.startTime != null
+                    ? '(${viewModel.reservationInfo?.zone}) ${DateFormatUtil().getDateWith12HourInSecondFormat(viewModel.startTime!)}'
+                    : '',
                 fontSize: UIDefine.fontSize14,
-                onPressed: () {
-
-                },
+                fontWeight: FontWeight.bold,
+                onPressed: () {},
               )
             ],
           ),
@@ -159,7 +161,7 @@ class _TradeMainViewState extends State<TradeMainView> {
         children: [
           Row(children: [
             Image.asset(
-              reservationViewModel.getLevelImg(),
+              viewModel.getLevelImg(),
               width: UIDefine.getWidth() / 11,
               height: UIDefine.getWidth() / 11,
             ),
@@ -182,21 +184,20 @@ class _TradeMainViewState extends State<TradeMainView> {
             children: [
               LevelDetailLabel(
                 title: tr('reserveCount'),
-                content:
-                    '${reservationViewModel.reservationInfo?.reserveCount}',
+                content: '${viewModel.reservationInfo?.reserveCount}',
                 rightFontWeight: FontWeight.bold,
               ),
               LevelDetailLabel(
                 title: tr('amountRangeNFT'),
                 showCoins: true,
-                content: userLevelInfoViewModel.getRange(),
+                content: viewModel.getRange(),
                 rightFontWeight: FontWeight.bold,
               ),
               LevelDetailLabel(
                 title: tr("wallet-balance'"),
                 showCoins: true,
                 content:
-                    '${reservationViewModel.reservationInfo?.balance.toStringAsFixed(2)}',
+                    '${viewModel.reservationInfo?.balance.toStringAsFixed(2)}',
                 rightFontWeight: FontWeight.bold,
               ),
               const Divider(
@@ -211,7 +212,7 @@ class _TradeMainViewState extends State<TradeMainView> {
   }
 
   Widget checkDataInit() {
-    if (reservationViewModel.reservationInfo != null) {
+    if (viewModel.reservationInfo != null) {
       return _levelArea(context);
     } else {
       return Container();
@@ -220,7 +221,7 @@ class _TradeMainViewState extends State<TradeMainView> {
 
   Widget _levelArea(BuildContext context) {
     return ListView.builder(
-        itemCount: reservationViewModel.reservationInfo?.reserveRanges.length,
+        itemCount: viewModel.reservationInfo?.reserveRanges.length,
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
@@ -228,7 +229,7 @@ class _TradeMainViewState extends State<TradeMainView> {
             /// press btn check reservation info
             reservationAction: () {
               ReserveRange? range =
-                  reservationViewModel.reservationInfo?.reserveRanges[index];
+                  viewModel.reservationInfo?.reserveRanges[index];
               ReservationDialog(context, confirmBtnAction: () {
                 Navigator.pop(context);
                 // TODO add new reservation
@@ -245,7 +246,7 @@ class _TradeMainViewState extends State<TradeMainView> {
                       endPrice: range?.endPrice.toDouble())
                   .show();
             },
-            range: reservationViewModel.reservationInfo?.reserveRanges[index],
+            range: viewModel.reservationInfo?.reserveRanges[index],
           );
         });
   }
