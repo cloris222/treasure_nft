@@ -78,12 +78,13 @@ class PersonalSubUserInfoView extends StatelessWidget {
           Row(children: [
             Flexible(
                 child: Container(
-              margin: EdgeInsets.only(left: UIDefine.getWidth() / 8, right: 3),
+              margin: EdgeInsets.only(
+                  left: UIDefine.getWidth() / 8, right: 3, top: 5),
               padding: const EdgeInsets.symmetric(vertical: 5),
               alignment: Alignment.center,
               width: UIDefine.getWidth(),
               decoration: AppStyle().styleColorsRadiusBackground(
-                  color: Colors.white.withOpacity(0.5), radius: 5),
+                  color: Colors.white.withOpacity(0.75), radius: 5),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -103,12 +104,13 @@ class PersonalSubUserInfoView extends StatelessWidget {
             )),
             Flexible(
                 child: Container(
-              margin: EdgeInsets.only(right: UIDefine.getWidth() / 8, left: 3),
+              margin: EdgeInsets.only(
+                  right: UIDefine.getWidth() / 8, left: 3, top: 5),
               padding: const EdgeInsets.symmetric(vertical: 5),
               alignment: Alignment.center,
               width: UIDefine.getWidth(),
               decoration: AppStyle().styleColorsRadiusBackground(
-                  color: Colors.white.withOpacity(0.5), radius: 5),
+                  color: Colors.white.withOpacity(0.75), radius: 5),
               child: Text('${GlobalData.userInfo.point} ${tr('lv_point')}',
                   style: TextStyle(
                       fontSize: UIDefine.fontSize12,

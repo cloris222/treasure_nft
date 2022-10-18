@@ -48,12 +48,13 @@ class PersonalSubTeamView extends StatelessWidget {
         Flexible(
           child: PersonalParamItem(
               title: tr('teamRewards'),
-              value: '${levelInfo?.income.toStringAsFixed(2)}'),
+              value: levelInfo != null
+                  ? NumberFormat('#,##0.##').format(levelInfo?.income)
+                  : '0'),
         ),
         Flexible(
           child: PersonalParamItem(
-              title: tr('validInvites'),
-              value: '$validInvites'),
+              title: tr('validInvites'), value: '$validInvites'),
         ),
         Flexible(
             child: PersonalParamItem(
@@ -69,10 +70,7 @@ class PersonalSubTeamView extends StatelessWidget {
   Widget _buildButton() {
     return Container(
         width: UIDefine.getWidth(),
-        decoration: AppStyle().styleColorBorderBackground(
-            color: AppColors.dialogGrey,
-            radius: 10,
-            backgroundColor: Colors.transparent),
+        decoration: AppStyle().styleUserSetting(),
         padding: const EdgeInsets.symmetric(vertical: 15),
         child: Row(children: [
           Flexible(

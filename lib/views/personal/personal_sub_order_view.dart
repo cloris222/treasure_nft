@@ -76,10 +76,7 @@ class PersonalSubOrderView extends StatelessWidget {
   Widget _buildButton() {
     return Container(
         width: UIDefine.getWidth(),
-        decoration: AppStyle().styleColorBorderBackground(
-            color: AppColors.dialogGrey,
-            radius: 10,
-            backgroundColor: Colors.transparent),
+        decoration: AppStyle().styleUserSetting(),
         padding: const EdgeInsets.symmetric(vertical: 15),
         child: Row(children: [
           Flexible(

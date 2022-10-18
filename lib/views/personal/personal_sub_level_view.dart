@@ -58,10 +58,7 @@ class PersonalSubLevelView extends StatelessWidget {
   Widget _buildProperty() {
     return Container(
       width: UIDefine.getWidth(),
-      decoration: AppStyle().styleColorBorderBackground(
-          color: AppColors.dialogGrey,
-          radius: 10,
-          backgroundColor: Colors.transparent),
+      decoration: AppStyle().styleUserSetting(),
       padding: const EdgeInsets.all(15),
       child: Wrap(runSpacing: 5, children: [
         _buildPropertyParam(
@@ -104,7 +101,7 @@ class PersonalSubLevelView extends StatelessWidget {
               Text(
                   value == null
                       ? '0.0'
-                      : NumberFormat('#,##0.00').format(value),
+                      : NumberFormat('#,##0.##').format(value),
                   style: TextStyle(
                       fontSize: UIDefine.fontSize14,
                       fontWeight: FontWeight.w600))
