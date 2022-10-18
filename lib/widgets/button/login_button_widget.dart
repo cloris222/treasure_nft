@@ -10,7 +10,10 @@ class LoginButtonWidget extends StatelessWidget {
       required this.btnText,
       required this.onPressed,
       this.width,
-      this.enable = true, this.height,this.fontSize})
+      this.enable = true,
+      this.height,
+      this.fontSize,
+      this.fontWeight})
       : super(key: key);
   final String btnText;
   final VoidCallback onPressed;
@@ -18,6 +21,7 @@ class LoginButtonWidget extends StatelessWidget {
   final double? width;
   final double? height;
   final double? fontSize;
+  final FontWeight? fontWeight;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +38,9 @@ class LoginButtonWidget extends StatelessWidget {
           height: height ?? 50,
           child: Text(btnText,
               style: TextStyle(
-                  color: Colors.white, fontSize: fontSize ?? UIDefine.fontSize16))),
+                  color: Colors.white,
+                  fontSize: fontSize ?? UIDefine.fontSize16,
+                  fontWeight: fontWeight ))),
     );
   }
 }

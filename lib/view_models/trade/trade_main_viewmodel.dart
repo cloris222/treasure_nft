@@ -15,7 +15,7 @@ import '../../utils/date_format_util.dart';
 class TradeMainViewModel extends BaseViewModel {
   TradeMainViewModel({required this.setState});
 
-  final ViewChange setState;
+  final onClickFunction setState;
   CheckReservationInfo? reservationInfo;
   CheckLevelInfo? userLevelInfo;
   Timer? countdownTimer;
@@ -24,7 +24,7 @@ class TradeMainViewModel extends BaseViewModel {
     reservationInfo = await TradeAPI().getCheckReservationInfoAPI();
     userLevelInfo = await UserInfoAPI().getCheckLevelInfoAPI();
     startTimer();
-    setState(() {});
+    setState();
   }
 
   /// 每秒呼叫api更改時間狀態
@@ -33,7 +33,7 @@ class TradeMainViewModel extends BaseViewModel {
   }
 
   /// 離開頁面後清除時間
-  Future<void> disposeState() async {
+  void disposeState()  {
     stopTimer();
   }
 
@@ -59,7 +59,7 @@ class TradeMainViewModel extends BaseViewModel {
   }
 
   void stopTimer() {
-    setState(() => countdownTimer!.cancel());
+    countdownTimer!.cancel();
   }
 
   void resetTimer() {
@@ -69,8 +69,9 @@ class TradeMainViewModel extends BaseViewModel {
   void setCountDown() async {
     /// 倒數每秒呼叫api
     await apiInitState();
+    /// 如果timer在運行才會逕行狀態更新
     if(countdownTimer!.isActive) {
-      setState(() {});
+      setState();
     }
   }
 
