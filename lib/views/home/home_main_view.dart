@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
@@ -9,6 +11,7 @@ import 'package:treasure_nft_project/widgets/domain_bar.dart';
 import 'package:treasure_nft_project/widgets/gradient_text.dart';
 import 'package:treasure_nft_project/widgets/list_view/home/artist_record_listview.dart';
 import 'package:treasure_nft_project/widgets/list_view/home/carousel_listview.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 import 'widget/sponsor_row_widget.dart';
 
@@ -561,24 +564,39 @@ Widget ourInfo() {
 
                 viewModel.getPadding(p),
 
-                Text('Docs', style: TextStyle(
-                  fontSize: UIDefine.fontSize14,
-                  color: AppColors.textGrey,
-                ),),
+                  GestureDetector(
+                    onTap: () {
+                      viewModel.launchInBrowser('https://treasurenft.gitbook.io/treasurenft-1/');
+                    },
+                    child:Text('Docs', style: TextStyle(
+                      fontSize: UIDefine.fontSize14,
+                      color: AppColors.textGrey,
+                    ),),
+                  ),
 
                 viewModel.getPadding(p),
 
-                Text('Invite Friends', style: TextStyle(
-                  fontSize: UIDefine.fontSize14,
-                  color: AppColors.textGrey,
-                ),),
+                  GestureDetector(
+                    onTap: () {
+                      viewModel.launchInBrowser('https://treasurenft-metaverse.gitbook.io/how-to-use/earn/how-to-share-invitations');
+                    },
+                    child:Text('Invite Friends', style: TextStyle(
+                      fontSize: UIDefine.fontSize14,
+                      color: AppColors.textGrey,
+                    ),),
+                  ),
 
                 viewModel.getPadding(p),
 
-                Text('How to buy', style: TextStyle(
-                  fontSize: UIDefine.fontSize14,
-                  color: AppColors.textGrey,
-                ),),
+                  GestureDetector(
+                    onTap: () {
+                      viewModel.launchInBrowser('https://treasurenft-metaverse.gitbook.io/how-to-use/earn/how-to-trade');
+                    },
+                    child:Text('How to buy', style: TextStyle(
+                      fontSize: UIDefine.fontSize14,
+                      color: AppColors.textGrey,
+                    ),),
+                  ),
               ],),
 
               /// News
@@ -592,10 +610,15 @@ Widget ourInfo() {
 
                 viewModel.getPadding(p),
 
-                Text('Blog', style: TextStyle(
-                  fontSize: UIDefine.fontSize14,
-                  color: AppColors.textGrey,
-                ),),
+                  GestureDetector(
+                    onTap: () {
+                      viewModel.launchInBrowser('https://medium.com/@Treasurenft_xyz');
+                    },
+                    child:Text('Blog', style: TextStyle(
+                      fontSize: UIDefine.fontSize14,
+                      color: AppColors.textGrey,
+                    ),),
+                  ),
               ],),
 
               /// Company
@@ -610,20 +633,6 @@ Widget ourInfo() {
                 viewModel.getPadding(p),
 
                 Text('Privacy Policy', style: TextStyle(
-                  fontSize: UIDefine.fontSize14,
-                  color: AppColors.textGrey,
-                ),),
-
-                viewModel.getPadding(p),
-
-                Text('Terms of Use', style: TextStyle(
-                  fontSize: UIDefine.fontSize14,
-                  color: AppColors.textGrey,
-                ),),
-
-                viewModel.getPadding(p),
-
-                Text('Gitbook', style: TextStyle(
                   fontSize: UIDefine.fontSize14,
                   color: AppColors.textGrey,
                 ),),

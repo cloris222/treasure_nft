@@ -19,7 +19,7 @@ class PersonalParamItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
         onTap: onPress,
         child: Container(
             width: fillWidth ? UIDefine.getWidth() : null,
@@ -41,7 +41,7 @@ class PersonalParamItem extends StatelessWidget {
         : assetImagePath != null
             ? Image.asset(assetImagePath!,
                 width: UIDefine.fontSize22, height: UIDefine.fontSize22)
-            : Text('0', style: style);
+            : Text('', style: style);
   }
 
   Widget _buildTitle() {

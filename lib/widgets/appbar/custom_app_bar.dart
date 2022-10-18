@@ -36,6 +36,16 @@ class CustomAppBar {
     return _getCustomAppBar(actions: actions);
   }
 
+  ///MARK: 常用Bar
+  static AppBar getCommonAppBar(VoidCallback onTap, String title) {
+    return getCornerAppBar(onTap, title,
+        fontSize: UIDefine.fontSize24,
+        arrowFontSize: UIDefine.fontSize34,
+        circular: 30,
+        appBarHeight:
+            UIDefine.getHeight() / 6 > 80 ? 80 : UIDefine.getHeight() / 6);
+  }
+
   /// 圓角app bar
   static AppBar getCornerAppBar(
     VoidCallback onTap,

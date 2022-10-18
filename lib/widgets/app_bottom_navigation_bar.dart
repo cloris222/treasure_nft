@@ -12,9 +12,9 @@ enum AppNavigationBarType {
   typeCollection,
   typeTrade,
   typeWallet,
+  typePersonal,
   typeMain,
   typeLogin,
-  typePersonal
 }
 
 typedef AppBottomFunction = Function(AppNavigationBarType type, int pageIndex);

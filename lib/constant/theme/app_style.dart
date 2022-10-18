@@ -34,7 +34,8 @@ class AppStyle {
   BoxDecoration styleColorBorderBackground(
       {double radius = 20.0,
       Color color = Colors.grey,
-      Color backgroundColor = Colors.white, double borderLine = 1}) {
+      Color backgroundColor = Colors.white,
+      double borderLine = 1}) {
     return BoxDecoration(
       borderRadius: BorderRadius.all(Radius.circular(radius)),
       color: backgroundColor,
@@ -48,6 +49,38 @@ class AppStyle {
       borderRadius: BorderRadius.all(Radius.circular(radius)),
       color: color,
     );
+  }
+
+  ///MARK: 陰影底
+  BoxDecoration styleShadowBorderBackground(
+      {double radius = 15.0,
+      Color borderBgColor = Colors.white,
+      Color borderColor = Colors.grey,
+      double borderWidth = 3,
+      double offsetX = 0,
+      double offsetY = 2,
+      Color shadowColor = Colors.black12,
+      double blurRadius = 0.7,
+      double spreadRadius = 2}) {
+    return BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(radius)),
+        color: Colors.white,
+        border: Border.all(color: borderColor, width: borderWidth),
+        boxShadow: [
+          BoxShadow(
+              color: shadowColor,
+              offset: Offset(offsetX, offsetY), //陰影y軸偏移量
+              blurRadius: blurRadius, //陰影模糊程度
+              spreadRadius: spreadRadius //陰影擴散程度
+              )
+        ]);
+  }
+
+  BoxDecoration styleUserSetting() {
+    return styleColorBorderBackground(
+        color: AppColors.searchBar,
+        radius: 15,
+        backgroundColor: Colors.transparent);
   }
 
   ///MARK: 登入用
