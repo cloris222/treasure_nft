@@ -5,6 +5,9 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 
+import '../../../constant/theme/app_colors.dart';
+import '../../../constant/theme/app_style.dart';
+import '../../../view_models/personal/orders/order_recharge_viewmodel.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/label/tether_coin_widget.dart';
 
@@ -20,6 +23,15 @@ class OrderRechargePage extends StatefulWidget {
 }
 
 class _OrderRechargePageState extends State<OrderRechargePage> {
+  late OrderRechargeViewModel viewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    viewModel = OrderRechargeViewModel(setState: setState);
+    viewModel.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,25 +44,43 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
   }
 
   Widget _buildBody() {
-    return Column(
-      children: [
-        _buildChoseAddress(),
-        Wrap(
-          runSpacing: 25,
-          children: [
-            _buildAddressInfo(),
-            _buildAddressPath(),
-            _buildAddressChain(),
-            _buildAddressHint(),
-          ],
-        )
-      ],
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      child: Column(
+        children: [
+          _buildChoseAddress(),
+          Wrap(
+            runSpacing: 20,
+            children: [
+              _buildAddressInfo(),
+              _buildAddressPath(),
+              _buildAddressChain(),
+              _buildAddressHint(),
+            ],
+          )
+        ],
+      ),
     );
   }
 
   Widget _buildChoseAddress() {
-    return Row(
-      children: [TetherCoinWidget(size: UIDefine.fontSize24)],
+    return Container(
+      width: UIDefine.getWidth(),
+      decoration: AppStyle().styleUserSetting(),
+      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+      child: Row(
+        children: [
+          TetherCoinWidget(size: UIDefine.fontSize24),
+          const SizedBox(width: 10),
+          Text(viewModel.getCurrentChainText(),
+              style: TextStyle(
+                  color: AppColors.dialogBlack,
+                  fontSize: UIDefine.fontSize16,
+                  fontWeight: FontWeight.w500)),
+          Flexible(child: Container()),
+
+        ],
+      ),
     );
   }
 
