@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:format/format.dart';
+import 'package:treasure_nft_project/constant/enum/level_enum.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/check_level_info.dart';
 import 'package:treasure_nft_project/models/http/parameter/check_reservation_info.dart';
@@ -18,7 +20,8 @@ class TradeMainViewModel extends BaseViewModel {
       {required this.setState,
       required this.reservationSuccess,
       required this.bookPriceNotEnough,
-      required this.notEnoughToPay});
+      required this.notEnoughToPay,
+      required this.depositNotEnough});
 
   final onClickFunction setState;
   CheckReservationInfo? reservationInfo;
@@ -32,6 +35,7 @@ class TradeMainViewModel extends BaseViewModel {
   VoidCallback notEnoughToPay;
   VoidCallback bookPriceNotEnough;
   VoidCallback reservationSuccess;
+  VoidCallback depositNotEnough;
 
   Future<void> initState() async {
     reservationInfo = await TradeAPI().getCheckReservationInfoAPI();
@@ -91,9 +95,13 @@ class TradeMainViewModel extends BaseViewModel {
     }
   }
 
-  Duration countSellDate() {
+  TradeData countSellDate() {
     var duration = const Duration();
 
+    /// 如果還沒拿到值 先給空資料
+    if(reservationInfo==null) {
+      return TradeData(duration: duration, status: SellingState.NotYet);
+    }
     /// if sellDate == null , sell day is today
     if (reservationInfo?.sellDate == "") {
       reservationInfo?.sellDate = DateFormatUtil().getNowTimeWithDayFormat();
@@ -121,18 +129,18 @@ class TradeMainViewModel extends BaseViewModel {
     /// 尚未開賣 現在時間小於開賣時間
     if (localTime!.compareTo(startTime!) < 0) {
       duration = startTime!.difference(localTime!);
-      return duration;
+      return TradeData(duration: duration, status: SellingState.NotYet);
 
       /// 開賣中
     } else if (localTime!.compareTo(endTime!) <= 0 &&
         localTime!.compareTo(startTime!) >= 0) {
       duration = endTime!.difference(localTime!);
-      return duration;
+      return TradeData(duration: duration, status: SellingState.Selling);
 
       /// 開賣結束
     } else {
       duration = endTime!.add(const Duration(days: 1)).difference(localTime!);
-      return duration;
+      return TradeData(duration: duration, status: SellingState.NotYet);
     }
   }
 
@@ -140,13 +148,18 @@ class TradeMainViewModel extends BaseViewModel {
     switch (errorMessage) {
 
       /// 預約金不足
-      case 'APP_0041':
+      case 'APP_0064':
         bookPriceNotEnough();
         break;
 
       /// 餘額不足
       case 'APP_0013':
         notEnoughToPay();
+        break;
+
+      /// 預約金額不符
+      case'APP_0041':
+        depositNotEnough();
         break;
     }
   }
