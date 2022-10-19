@@ -2,7 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
-import 'package:treasure_nft_project/views/personal/orders/order_nft_page.dart';
+import 'package:treasure_nft_project/views/main_page.dart';
+import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_style.dart';
@@ -116,7 +117,7 @@ class PersonalSubOrderView extends StatelessWidget {
   }
 
   void _showMyNftPage(BuildContext context) {
-    BaseViewModel().pushPage(context, const OrdersNftPage());
+    BaseViewModel().pushReplacement(context, const MainPage(type: AppNavigationBarType.typeCollection));
   }
 
   void _showMyBalDetailPage(BuildContext context) {
