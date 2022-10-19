@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/widgets/label/tether_coin_widget.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_style.dart';
@@ -79,8 +80,9 @@ class PersonalSubLevelView extends StatelessWidget {
   }
 
   Widget _buildIcon() {
-    return Image.asset(AppImagePath.tetherImg,
-        width: UIDefine.fontSize20, height: UIDefine.fontSize14);
+    return TetherCoinWidget(
+      size: UIDefine.fontSize16,
+    );
   }
 
   Widget _buildPropertyParam({required String title, double? value}) {
@@ -104,7 +106,7 @@ class PersonalSubLevelView extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               _buildIcon(),
-              Text(NumberFormatUtil().removeTwoPointFormat(value),
+              Text(' ${NumberFormatUtil().removeTwoPointFormat(value)}',
                   style: TextStyle(
                       fontSize: UIDefine.fontSize14,
                       fontWeight: FontWeight.w600))
@@ -137,7 +139,7 @@ class PersonalSubLevelView extends StatelessWidget {
             children: [
               _buildIcon(),
               Text(
-                  "${start == null ? "1" : NumberFormat('#,##0').format(start)}-${end == null ? "1" : NumberFormat('#,##0').format(end)}",
+                  " ${NumberFormatUtil().integerFormat(start)}-${NumberFormatUtil().integerFormat(end)}",
                   style: TextStyle(
                       fontSize: UIDefine.fontSize14,
                       fontWeight: FontWeight.w600)),
