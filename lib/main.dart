@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:treasure_nft_project/constant/theme/app_theme.dart';
 import 'package:treasure_nft_project/utils/app_shared_Preferences.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
+import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 
 import 'constant/global_data.dart';
 import 'utils/language_util.dart';

@@ -18,7 +18,7 @@ class AppImagePath {
   static const String daily = 'assets/icon/daily';
   static const String month = 'assets/icon/daily/month';
   static const String lockMission = 'assets/icon/img/lock_mission';
-  static const String languagePath = 'assets/icon/language/lock_mission';
+  static const String languagePath = 'assets/icon/language';
 
   ///MARK: 通用icon
   static const String dialogSuccess = '$appImgPath/img_check_01.png';
@@ -130,4 +130,9 @@ class AppImagePath {
   static const String userSettingIcon =
       '$appIconFolderPath/icon_setting_02.png';
   static const String userCreateIcon = '$appIconFolderPath/icon_hammer_03.png';
+
+  ///language 多國語言
+  static const String languageIcon = '$languagePath/img_{country}_01.png';
+  static const String languageCheckIcon =
+      '$appIconFolderPath/icon_check_ok_03.png';
 }

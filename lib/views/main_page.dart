@@ -4,6 +4,7 @@ import 'package:treasure_nft_project/views/collection/collection_main_view.dart'
 import 'package:treasure_nft_project/views/explore/explore_main_view.dart';
 import 'package:treasure_nft_project/views/login/login_main_view.dart';
 import 'package:treasure_nft_project/views/personal/personal_main_view.dart';
+import 'package:treasure_nft_project/views/setting_language_page.dart';
 import 'package:treasure_nft_project/views/trade/trade_main_view.dart';
 import 'package:treasure_nft_project/views/wallet/wallet_main_view.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
@@ -35,6 +36,8 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     int initialPage = getViewIndex(widget.type);
+    print('initialPage:$initialPage');
+    print('widget.type:${widget.type}');
     GlobalData.mainBottomType = widget.type;
     pageController = PageController(initialPage: initialPage);
   }
@@ -115,7 +118,11 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
-  void _globalAction() {}
+  void _globalAction() async {
+    await BaseViewModel().pushPage(context, SettingLanguagePage());
+    print('setState');
+    setState(() {});
+  }
 
   void _mainAction() {
     setState(() {

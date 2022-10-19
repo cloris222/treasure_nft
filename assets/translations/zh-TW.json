@@ -1,9 +1,10 @@
-{"lang":"中文",
+{
+  "lang":"中文",
   "--// langange":"---",
   "lang_en":"English",
   "lang_tw":"繁體中文",
-  "lang_ar":" عربي/عربى",
-  "lang_ir":"فارسی",
+  "lang_ar":" عربي/عربى‎ ʻarabī [ˈʕarabiː]",
+  "lang_ir":"فارسی/Fārsī",
   "lang_es":"Español",
   "lang_ru":"ру́сский язы́к",
   "lang_pt":"Português",
@@ -929,5 +930,11 @@
   "EO_004_6":"凍結邀請碼，請洽客服",
   "APP_0053":"禁止提現，請洽客服",
   "EO_001_6":"帳戶凍結中，請洽客服",
-  "reserve-APP_0054":"禁止交易，請洽客服"
+  "reserve-APP_0054":"禁止交易，請洽客服",
+  "pleaseLinkEmail":"請先綁定信箱",
+  "aboutJump":"即將跳轉",
+  "footer_friends_title":"如何邀請",
+  "footer_howtoBuy_title":"如何交易",
+  "overview":"總覽",
+  "document-text-1":"TreasureNFT是全球首個基於算法交易的綜合性NFT交易平台，通過創新的算法交易模式，採用自動算法報價、自動維持流動性，開創行業先河，不同於傳統NFT交易平台報價模式，易受市場波動干擾， 以及非理性投資因素驅動 NFT 資產價格大幅波動。一旦市場熱度 NFT 資產將出現流動性不足的情況，TreasureNFT 會以創新的算法價格交易模式，賦予NFT 資產流動性。"
 }

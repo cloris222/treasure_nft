@@ -3,8 +3,8 @@
   "--// langange": "---",
   "lang_en": "English",
   "lang_tw": "繁體中文",
-  "lang_ar": " عربي/عربى",
-  "lang_ir": "فارسی",
+  "lang_ar": " عربي/عربى‎ ʻarabī [ˈʕarabiː]",
+  "lang_ir": "فارسی/Fārsī",
   "lang_es": "Español",
   "lang_ru": "ру́сский язы́к",
   "lang_pt": "Português",
@@ -896,5 +896,11 @@
   "EO_004_6": "Invalid Invitation CodePlease contact customer service.",
   "APP_0053": "Withdrawal disabledPlease contact customer service.",
   "EO_001_6": "Account frozenPlease contact customer service.",
-  "reserve-APP_0054": "Trade  disabledPlease contact customer service."
+  "reserve-APP_0054": "Trade  disabledPlease contact customer service.",
+  "pleaseLinkEmail": "Please link your email",
+  "aboutJump": "Redirecting",
+  "footer_friends_title": "How to share invitations",
+  "footer_howtoBuy_title": "How to trade",
+  "overview": "Overview",
+  "document-text-1": "TreasureNFT is the world's first comprehensive NFT trading platform based on algorithmic trading, through an innovative algorithmic trading model, using automatic algorithmic quotes, automatic maintenance of liquidity, pioneering the industry, unlike the traditional NFT trading platform quote model, vulnerable to market sentiment interference, as well as irrational investment factors driven by NFT asset prices fluctuate significantly, once the market heat NFT assets will experience a lack of liquidity, TreasureNFT with an innovative algorithmic price trading model, for each NFT assets are given liquidity."
 }

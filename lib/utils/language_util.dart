@@ -33,43 +33,13 @@ class LanguageUtil {
   }
 
   static List<Locale> getSupportLanguage() {
-    return const [
-      ///MARK:英文
-      Locale('en', 'US'),
-
-      ///MARK:繁體中文
-      Locale('zh', 'TW'),
-
-      ///MARK: 阿拉伯
-      Locale('ar'),
-
-      ///MARK: 波斯語
-      Locale('ir'),
-
-      ///MARK: 西班牙
-      Locale('es'),
-
-      ///MARK: 俄語
-      Locale('ru'),
-
-      ///MARK: 葡萄牙
-      Locale('pt'),
-
-      ///MARK: 韓國
-      Locale('kr'),
-
-      ///MARK: 越語
-      Locale('vi'),
-
-      ///MARK: 泰語
-      Locale('th'),
-
-      ///MARK: 土耳其語
-      Locale('tr'),
-      // Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
-      Locale.fromSubtags(
-          languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW')
-    ];
+    List<Locale> list = [];
+    for (var element in LanguageType.values) {
+      list.add(getLocale(element));
+    }
+    list.add(const Locale.fromSubtags(
+        languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'));
+    return list;
   }
 
   static Future<void> setLanguageUtil(
@@ -103,7 +73,7 @@ class LanguageUtil {
       case LanguageType.Arabic:
         return 'ar';
       case LanguageType.Farsi:
-        return 'ir';
+        return 'fa';
       case LanguageType.Spanish:
         return 'es-ES';
       case LanguageType.Russian:
@@ -111,7 +81,7 @@ class LanguageUtil {
       case LanguageType.Portuguese:
         return 'pt';
       case LanguageType.Korean:
-        return 'kr';
+        return 'ko';
       case LanguageType.Vietnamese:
         return 'vi';
       case LanguageType.Thai:
@@ -131,7 +101,7 @@ class LanguageUtil {
       case LanguageType.Arabic:
         return 'ar';
       case LanguageType.Farsi:
-        return 'ir';
+        return 'fa';
       case LanguageType.Spanish:
         return 'es';
       case LanguageType.Russian:
@@ -139,7 +109,7 @@ class LanguageUtil {
       case LanguageType.Portuguese:
         return 'pt';
       case LanguageType.Korean:
-        return 'kr';
+        return 'ko';
       case LanguageType.Vietnamese:
         return 'vi';
       case LanguageType.Thai:
@@ -173,7 +143,7 @@ class LanguageUtil {
   static LanguageType getTypeLanguage(String strLanguage) {
     for (var element in LanguageType.values) {
       if (getStrLanguage(element) == strLanguage) {
-        continue;
+        return element;
       }
     }
     return LanguageType.English;
@@ -188,7 +158,7 @@ class LanguageUtil {
       case LanguageType.Arabic:
         return const Locale('ar');
       case LanguageType.Farsi:
-        return const Locale('ir');
+        return const Locale('fa');
       case LanguageType.Spanish:
         return const Locale('es');
       case LanguageType.Russian:
@@ -196,7 +166,7 @@ class LanguageUtil {
       case LanguageType.Portuguese:
         return const Locale('pt');
       case LanguageType.Korean:
-        return const Locale('kr');
+        return const Locale('ko');
       case LanguageType.Vietnamese:
         return const Locale('vi');
       case LanguageType.Thai:
@@ -217,7 +187,7 @@ class LanguageUtil {
       return LanguageType.English;
     } else if (locale.languageCode == 'ar') {
       return LanguageType.Arabic;
-    } else if (locale.languageCode == 'ir') {
+    } else if (locale.languageCode == 'fa') {
       return LanguageType.Farsi;
     } else if (locale.languageCode == 'es') {
       return LanguageType.Spanish;
@@ -225,7 +195,7 @@ class LanguageUtil {
       return LanguageType.Russian;
     } else if (locale.languageCode == 'pt') {
       return LanguageType.Portuguese;
-    } else if (locale.languageCode == 'kr') {
+    } else if (locale.languageCode == 'ko') {
       return LanguageType.Korean;
     } else if (locale.languageCode == 'vi') {
       return LanguageType.Vietnamese;

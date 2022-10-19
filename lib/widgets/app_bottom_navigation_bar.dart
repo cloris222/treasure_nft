@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
@@ -47,18 +48,23 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: Center(child: getIcon(AppNavigationBarType.typeExplore)),
+              label: tr('Explore'),
               backgroundColor: Colors.white),
           BottomNavigationBarItem(
               icon: Center(child: getIcon(AppNavigationBarType.typeCollection)),
+              label: tr('Collection'),
               backgroundColor: Colors.white),
           BottomNavigationBarItem(
               icon: getIcon(AppNavigationBarType.typeTrade),
+              label: tr('Trade'),
               backgroundColor: Colors.white),
           BottomNavigationBarItem(
               icon: Center(child: getIcon(AppNavigationBarType.typeWallet)),
+              label: tr('Wallet'),
               backgroundColor: Colors.white),
           BottomNavigationBarItem(
               icon: Center(child: getIcon(AppNavigationBarType.typePersonal)),
+              label: tr('Account'),
               backgroundColor: Colors.white),
         ],
         onTap: (index) {

@@ -2,8 +2,8 @@
   "--// langange":"---",
   "lang_en":"English",
   "lang_tw":"繁體中文",
-  "lang_ar":" عربي/عربى",
-  "lang_ir":"فارسی",
+  "lang_ar":" عربي/عربى‎ ʻarabī [ˈʕarabiː]",
+  "lang_ir":"فارسی/Fārsī",
   "lang_es":"Español",
   "lang_ru":"ру́сский язы́к",
   "lang_pt":"Português",
@@ -929,5 +929,11 @@
   "EO_004_6":"Geçersiz Davetiye KoduLütfen müşteri hizmetlerine başvurun.",
   "APP_0053":"Para çekme devre dışıLütfen müşteri hizmetlerine başvurun.",
   "EO_001_6":"Hesap dondurulduLütfen müşteri hizmetlerine başvurun.",
-  "reserve-APP_0054":"Ticaret devre dışıLütfen müşteri hizmetlerine başvurun."
+  "reserve-APP_0054":"Ticaret devre dışıLütfen müşteri hizmetlerine başvurun.",
+  "pleaseLinkEmail":"Lütfen e-posta adresinizi bağlayın",
+  "aboutJump":"Yönlendirme",
+  "footer_friends_title":"",
+  "footer_howtoBuy_title":"",
+  "overview":"",
+  "document-text-1":""
 }

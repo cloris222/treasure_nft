@@ -85,15 +85,18 @@ class PersonalSubLevelView extends StatelessWidget {
   Widget _buildPropertyParam({required String title, double? value}) {
     return Row(children: [
       Flexible(
+        flex: 2,
         child: SizedBox(
           width: UIDefine.getWidth(),
           child: Text(
             title,
+            maxLines: 1,
             style: TextStyle(fontSize: UIDefine.fontSize14),
           ),
         ),
       ),
       Flexible(
+        flex: 1,
         child: SizedBox(
           width: UIDefine.getWidth(),
           child: Row(
@@ -118,15 +121,18 @@ class PersonalSubLevelView extends StatelessWidget {
       {required String title, int? start, int? end}) {
     return Row(children: [
       Flexible(
+        flex: 2,
         child: SizedBox(
           width: UIDefine.getWidth(),
           child: Text(
             title,
+            maxLines: 1,
             style: TextStyle(fontSize: UIDefine.fontSize14),
           ),
         ),
       ),
       Flexible(
+        flex: 1,
         child: SizedBox(
           width: UIDefine.getWidth(),
           child: Row(
