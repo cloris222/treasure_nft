@@ -11,6 +11,7 @@ import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_style.dart';
 import '../../constant/ui_define.dart';
 import '../../models/http/parameter/check_level_info.dart';
+import '../../utils/number_format_util.dart';
 import '../../widgets/label/personal_param_item.dart';
 
 class PersonalSubTeamView extends StatelessWidget {
@@ -53,9 +54,8 @@ class PersonalSubTeamView extends StatelessWidget {
         Flexible(
           child: PersonalParamItem(
               title: tr('teamRewards'),
-              value: levelInfo != null
-                  ? NumberFormat('#,##0.##').format(levelInfo?.income)
-                  : '0'),
+              value:
+                  NumberFormatUtil().removeTwoPointFormat(levelInfo?.income)),
         ),
         Flexible(
           child: PersonalParamItem(
