@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
@@ -13,6 +14,7 @@ import 'package:treasure_nft_project/widgets/list_view/home/artist_record_listvi
 import 'package:treasure_nft_project/widgets/list_view/home/carousel_listview.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
+import 'home_pdf_viewer.dart';
 import 'widget/sponsor_row_widget.dart';
 
 
@@ -632,17 +634,36 @@ Widget ourInfo() {
 
                 viewModel.getPadding(p),
 
-                Text('Privacy Policy', style: TextStyle(
-                  fontSize: UIDefine.fontSize14,
-                  color: AppColors.textGrey,
-                ),),
+                  GestureDetector(
+                    onTap: () {
+                      viewModel.pushPage(GlobalData.globalKey.currentContext!,
+                          const PDFViewerPage(
+                            title: 'Privacy Policy',
+                            assetPath: 'assets/pdf/PrivacyPolicy.pdf',
+                          ));
+                    },
+                    child: Text('Privacy Policy', style: TextStyle(
+                      fontSize: UIDefine.fontSize14,
+                      color: AppColors.textGrey,
+                    ),),
+                  ),
 
                 viewModel.getPadding(p),
 
-                Text('User Agreement', style: TextStyle(
-                  fontSize: UIDefine.fontSize14,
-                  color: AppColors.textGrey,
-                ),),
+                  GestureDetector(
+                    onTap: () {
+                      viewModel.pushPage(GlobalData.globalKey.currentContext!,
+                          const PDFViewerPage(
+                            title: 'User Agreement',
+                            assetPath: 'assets/pdf/TermsOfUse.pdf',
+                          ));
+                    },
+                    child: Text('User Agreement', style: TextStyle(
+                      fontSize: UIDefine.fontSize14,
+                      color: AppColors.textGrey,
+                    ),),
+                  ),
+
               ],),
             ],),
 
