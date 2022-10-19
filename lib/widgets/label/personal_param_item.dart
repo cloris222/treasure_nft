@@ -45,10 +45,15 @@ class PersonalParamItem extends StatelessWidget {
   }
 
   Widget _buildTitle() {
-    return Text(
-      title,
-      style:
-          TextStyle(fontSize: UIDefine.fontSize14, color: AppColors.dialogGrey),
+    return SizedBox(
+      height: UIDefine.fontSize16 * 2,
+      child: Text(
+        title,
+        maxLines: 2,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+            fontSize: UIDefine.fontSize14, color: AppColors.dialogGrey),
+      ),
     );
   }
 }
