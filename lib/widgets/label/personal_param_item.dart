@@ -23,11 +23,12 @@ class PersonalParamItem extends StatelessWidget {
         onTap: onPress,
         child: Container(
             width: fillWidth ? UIDefine.getWidth() : null,
+            height: UIDefine.fontSize22 * 3,
             alignment: Alignment.center,
             child: Column(children: [
-              _buildTop(),
+              Flexible(child: _buildTop()),
               const SizedBox(height: 5),
-              _buildTitle()
+              Flexible(child: _buildTitle())
             ])));
   }
 

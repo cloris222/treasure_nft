@@ -25,6 +25,7 @@ class AppImagePath {
   static const String dialogClose = '$appImgPath/img_error_01.png';
   static const String dialogCancel = '';
   static const String appBarLeftArrow = '$appBtnFolderPath/btn_back_01_nor.png';
+  static const String copyIcon = '$appBtnFolderPath/btn_edit_01_nor.png';
 
   static const String mainTypeExplore = '$appBtmBarPath/btn_explore_01_pre.png';
   static const String mainTypeExploreOFF =
@@ -71,7 +72,8 @@ class AppImagePath {
 
   /// lock mission
   static const String levelMission = '$lockMission/mb_level_bg_{level}.png';
-  static const String levelMissionLocked = '$lockMission/mb_level_{level}_lock.png';
+  static const String levelMissionLocked =
+      '$lockMission/mb_level_{level}_lock.png';
 
   /// home page
   static const String firstBackground = '$appImgPath/img_main_bg_01.png';
@@ -135,4 +137,14 @@ class AppImagePath {
   static const String languageIcon = '$languagePath/img_{country}_01.png';
   static const String languageCheckIcon =
       '$appIconFolderPath/icon_check_ok_03.png';
+
+  ///錢包
+  static const String walletIcon = '$appIconFolderPath/icon_wallet_01.png';
+  static const String walletRechargeIcon =
+      '$appIconFolderPath/icon_card_01.png';
+  static const String walletWithdrawIcon =
+      '$appIconFolderPath/icon_extraction_02.png';
+  static const String walletSettingIcon =
+      '$appIconFolderPath/icon_setting_01.png';
+  static const String walletLogIcon = '$appIconFolderPath/icon_file_03.png';
 }

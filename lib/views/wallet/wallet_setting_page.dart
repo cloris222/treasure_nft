@@ -5,20 +5,18 @@ import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 
 import '../../../widgets/app_bottom_navigation_bar.dart';
 
-///MARK: 充值
-class OrderRechargePage extends StatelessWidget {
-  const OrderRechargePage(
-      {Key? key, this.type = AppNavigationBarType.typePersonal})
-      : super(key: key);
-  final AppNavigationBarType type;
+///MARK: 支付設置
+class WalletSettingPage extends StatelessWidget {
+  const WalletSettingPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar.getCommonAppBar(() {
         BaseViewModel().popPage(context);
-      }, tr('walletRecharge')),
-      bottomNavigationBar: AppBottomNavigationBar(initType: type),
+      }, tr('uc_setting')),
+      bottomNavigationBar: const AppBottomNavigationBar(
+          initType: AppNavigationBarType.typeWallet),
     );
   }
 }

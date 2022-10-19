@@ -8,6 +8,7 @@ import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_style.dart';
 import '../../models/http/parameter/check_level_info.dart';
 import '../../models/http/parameter/user_property.dart';
+import '../../utils/number_format_util.dart';
 import '../../view_models/base_view_model.dart';
 import '../../widgets/label/personal_param_item.dart';
 import 'level/level_achievement_page.dart';
@@ -103,10 +104,7 @@ class PersonalSubLevelView extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               _buildIcon(),
-              Text(
-                  value == null
-                      ? '0.0'
-                      : NumberFormat('#,##0.##').format(value),
+              Text(NumberFormatUtil().removeTwoPointFormat(value),
                   style: TextStyle(
                       fontSize: UIDefine.fontSize14,
                       fontWeight: FontWeight.w600))

@@ -7,7 +7,10 @@ import '../../../widgets/app_bottom_navigation_bar.dart';
 
 ///MARK: 提領
 class OrderWithdrawPage extends StatelessWidget {
-  const OrderWithdrawPage({Key? key}) : super(key: key);
+  const OrderWithdrawPage(
+      {Key? key, this.type = AppNavigationBarType.typePersonal})
+      : super(key: key);
+  final AppNavigationBarType type;
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +18,7 @@ class OrderWithdrawPage extends StatelessWidget {
       appBar: CustomAppBar.getCommonAppBar(() {
         BaseViewModel().popPage(context);
       }, tr('walletWithdraw')),
-      bottomNavigationBar:
-      const AppBottomNavigationBar(initType: AppNavigationBarType.typePersonal),
+      bottomNavigationBar: AppBottomNavigationBar(initType: type),
     );
   }
 }
