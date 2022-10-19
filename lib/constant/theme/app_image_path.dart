@@ -25,6 +25,7 @@ class AppImagePath {
   static const String dialogClose = '$appImgPath/img_error_01.png';
   static const String dialogCancel = '';
   static const String appBarLeftArrow = '$appBtnFolderPath/btn_back_01_nor.png';
+  static const String copyIcon = '$appBtnFolderPath/btn_edit_01_nor.png';
 
   static const String mainTypeExplore = '$appBtmBarPath/btn_explore_01_pre.png';
   static const String mainTypeExploreOFF =
@@ -139,4 +140,11 @@ class AppImagePath {
 
   ///錢包
   static const String walletIcon = '$appIconFolderPath/icon_wallet_01.png';
+  static const String walletRechargeIcon =
+      '$appIconFolderPath/icon_card_01.png';
+  static const String walletWithdrawIcon =
+      '$appIconFolderPath/icon_extraction_02.png';
+  static const String walletSettingIcon =
+      '$appIconFolderPath/icon_setting_01.png';
+  static const String walletLogIcon = '$appIconFolderPath/icon_file_03.png';
 }

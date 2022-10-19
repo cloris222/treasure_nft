@@ -60,7 +60,7 @@ class WalletInfoItem extends StatelessWidget {
         maxLines: 2,
         textAlign: TextAlign.center,
         style: TextStyle(
-            fontSize: UIDefine.fontSize14, color: AppColors.dialogGrey),
+            fontSize: UIDefine.fontSize14, color: AppColors.dialogBlack),
       ),
     );
   }
