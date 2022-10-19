@@ -18,26 +18,21 @@ class PersonalSubUserInfoView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DecorationImage image;
+    if (GlobalData.userInfo.bannerUrl.isNotEmpty) {
+      image = DecorationImage(
+          image: NetworkImage(GlobalData.userInfo.bannerUrl), fit: BoxFit.fill);
+    } else {
+      image = const DecorationImage(
+          image: AssetImage(AppImagePath.defaultBanner), fit: BoxFit.fill);
+    }
     return Stack(children: [
       Container(
-        alignment: Alignment.topCenter,
-        child: GlobalData.userInfo.bannerUrl.isNotEmpty
-            ? Image.network(
-                width: UIDefine.getWidth(),
-                GlobalData.userInfo.bannerUrl,
-                fit: BoxFit.fill,
-              )
-            : Image.asset(
-                width: UIDefine.getWidth(),
-                AppImagePath.defaultBanner,
-                fit: BoxFit.fitWidth,
-              ),
-      ),
-      Positioned(
-          left: 0,
-          right: 0,
-          top: 10,
-          child: _buildFloatView(context))
+          alignment: Alignment.topCenter,
+          width: UIDefine.getWidth(),
+          height: 220,
+          decoration: BoxDecoration(image: image)),
+      Positioned(left: 0, right: 0, top: 10, child: _buildFloatView(context))
     ]);
   }
 
