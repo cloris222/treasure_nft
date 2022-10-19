@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
@@ -36,7 +37,7 @@ class SuccessDialog extends BaseDialog {
           createImageWidget(
               asset: isSuccess
                   ? AppImagePath.dialogSuccess
-                  : AppImagePath.dialogCancel),
+                  : AppImagePath.dialogClose),
           Container(
             margin: mainMargin,
             child: Text(mainText ?? '${tr('success')} !',
@@ -53,12 +54,12 @@ class SuccessDialog extends BaseDialog {
                       color: AppColors.textGrey, fontSize: UIDefine.fontSize12))
               : const Text(''),
           Container(
-            margin: buttonMargin,
+            margin: EdgeInsets.zero,
             child: ActionButtonWidget(
-                margin: const EdgeInsets.only(top: 10),
-                btnText: tr('ok'),
+                margin: EdgeInsets.symmetric(horizontal: UIDefine.getWidth() / 4),
+                btnText: tr("check"),
                 onPressed: _onPress,
-                isBorderStyle: true),
+                isBorderStyle: false),
           )
         ]);
   }

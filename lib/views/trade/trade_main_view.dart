@@ -1,10 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/enum/level_enum.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_animation_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/view_models/trade/trade_main_viewmodel.dart';
 import 'package:treasure_nft_project/widgets/count_down_timer.dart';
 import 'package:treasure_nft_project/widgets/dialog/animation_dialog.dart';
@@ -48,21 +50,31 @@ class _TradeMainViewState extends State<TradeMainView> {
         context,
         callOkFunction: () {},
         isSuccess: false,
-        mainText: tr('reserve-failed'),
-        // TODO 預約金不足多國
+        mainText: tr("reserve-failed'")
+        // TODO 預約金不足 多國
       ).show();
     },
 
         /// 餘額不足
         notEnoughToPay: () {
-      SuccessDialog(
+          SuccessDialog(
         context,
         callOkFunction: () {},
         isSuccess: false,
-          mainText: tr('reserve-failed'),
+          mainText: tr("reserve-failed'"),
         subText: tr('APP_0013')
       ).show();
-    });
+    },
+        /// 預約金額不符
+        depositNotEnough: () {
+          SuccessDialog(
+              context,
+              callOkFunction: () {},
+              isSuccess: false,
+              mainText: tr("reserve-failed'"),
+              subText: tr('APP_0041')
+          ).show();
+        });
     viewModel.initState();
     super.initState();
   }
@@ -88,6 +100,9 @@ class _TradeMainViewState extends State<TradeMainView> {
   }
 
   Widget _countDownView(BuildContext context) {
+
+    TradeData tradeData = viewModel.countSellDate();
+
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -117,8 +132,8 @@ class _TradeMainViewState extends State<TradeMainView> {
           top: UIDefine.getHeight() / 8,
           child: Column(
             children: [
-              Image.asset(
-                AppImagePath.clockBlue,
+              Image.asset(tradeData.status == SellingState.NotYet ?
+                AppImagePath.clockBlue : AppImagePath.clockRed,
                 width: UIDefine.getWidth() / 3.6,
                 height: UIDefine.getWidth() / 3.6,
                 fit: BoxFit.contain,
@@ -128,7 +143,7 @@ class _TradeMainViewState extends State<TradeMainView> {
               ),
               viewModel.reservationInfo != null
                   ? CountDownTimer(
-                      duration: viewModel.countSellDate(),
+                      duration: tradeData.duration,
                     )
                   : Container(),
               LoginButtonWidget(

@@ -12,8 +12,7 @@ enum LevelRank {
   LEVEL10,
 }
 
-enum ReservationState{
-  IsLock,
-  Reservating,
-  ForSale,
+enum SellingState{
+  NotYet,
+  Selling,
 }
