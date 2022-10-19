@@ -33,43 +33,13 @@ class LanguageUtil {
   }
 
   static List<Locale> getSupportLanguage() {
-    return const [
-      ///MARK:英文
-      Locale('en', 'US'),
-
-      ///MARK:繁體中文
-      Locale('zh', 'TW'),
-
-      ///MARK: 阿拉伯
-      Locale('ar'),
-
-      ///MARK: 波斯語
-      Locale('ir'),
-
-      ///MARK: 西班牙
-      Locale('es'),
-
-      ///MARK: 俄語
-      Locale('ru'),
-
-      ///MARK: 葡萄牙
-      Locale('pt'),
-
-      ///MARK: 韓國
-      Locale('kr'),
-
-      ///MARK: 越語
-      Locale('vi'),
-
-      ///MARK: 泰語
-      Locale('th'),
-
-      ///MARK: 土耳其語
-      Locale('tr'),
-      // Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
-      Locale.fromSubtags(
-          languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW')
-    ];
+    List<Locale> list = [];
+    for (var element in LanguageType.values) {
+      list.add(getLocale(element));
+    }
+    list.add(const Locale.fromSubtags(
+        languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'));
+    return list;
   }
 
   static Future<void> setLanguageUtil(

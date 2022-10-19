@@ -36,6 +36,8 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     int initialPage = getViewIndex(widget.type);
+    print('initialPage:$initialPage');
+    print('widget.type:${widget.type}');
     GlobalData.mainBottomType = widget.type;
     pageController = PageController(initialPage: initialPage);
   }

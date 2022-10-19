@@ -3,9 +3,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:format/format.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 import '../constant/enum/setting_enum.dart';
@@ -39,7 +41,7 @@ class _SettingLanguagePageState extends State<SettingLanguagePage> {
           margin: const EdgeInsets.symmetric(horizontal: 30),
           child: _buildLanguageView(context)),
       bottomNavigationBar:
-          const AppBottomNavigationBar(initType: AppNavigationBarType.typeMain),
+          AppBottomNavigationBar(initType: GlobalData.mainBottomType),
     );
   }
 
@@ -132,6 +134,8 @@ class _SettingLanguagePageState extends State<SettingLanguagePage> {
 
   _onChangeLang(BuildContext context, LanguageType currentLanguage) async {
     await LanguageUtil.setLanguageUtil(context, currentLanguage);
-    BaseViewModel().popPage(context);
+    // BaseViewModel().popPage(context);
+    BaseViewModel()
+        .pushAndRemoveUntil(context, MainPage(type: GlobalData.mainBottomType));
   }
 }
