@@ -10,8 +10,10 @@ import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_theme.dart';
 import '../../view_models/wallet/wallet_setting_viewmodel.dart';
+import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/label/coin/base_coin_widget.dart';
 import '../../widgets/label/gradient_bolder_widget.dart';
+import '../login/login_email_code_view.dart';
 
 ///MARK: 支付設置
 class WalletSettingPage extends StatefulWidget {
@@ -43,6 +45,7 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
       appBar: CustomAppBar.getCommonAppBar(() {
         BaseViewModel().popPage(context);
       }, tr('uc_setting')),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(child: _buildBody()),
       bottomNavigationBar: const AppBottomNavigationBar(
           initType: AppNavigationBarType.typeWallet),
@@ -52,16 +55,36 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
   Widget _buildBody() {
     return Container(
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        child: Column(children: [
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           _buildSettingParam(CoinEnum.TRON, viewModel.trcController),
+          const SizedBox(height: 20),
           _buildSettingParam(CoinEnum.BSC, viewModel.bscController),
+          const SizedBox(height: 20),
           _buildSettingParam(CoinEnum.ROLLOUT, viewModel.rolloutController),
+          const SizedBox(height: 20),
+          Text(tr('emailValid'),
+              style: TextStyle(
+                  fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500)),
+          LoginEmailCodeView(
+              countdownSecond: 60,
+              onEditTap: viewModel.onClearData,
+              btnGetText: tr('send'),
+              hintText: tr('mail_valid_code'),
+              controller: viewModel.codeController,
+              data: viewModel.codeData,
+              onPressSendCode: () => viewModel.sendEmailCode(context),
+              onPressCheckVerify: () => viewModel.checkEmailCode(context)),
+          const SizedBox(height: 10),
+          LoginButtonWidget(
+              btnText: tr('save'),
+              onPressed: () => viewModel.onSavePayment(context),
+              enable: viewModel.checkEmail)
         ]));
   }
 
   Widget _buildSettingParam(CoinEnum coin, TextEditingController controller) {
     return GradientBolderWidget(
-        bolderWith: 4,
+        bolderWith: 3,
         autoHeight: true,
         child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -70,7 +93,7 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
                 BaseCoinWidget(
                     imageAssetPath: viewModel.getCoinImage(coin),
                     size: UIDefine.fontSize26),
-                Text(viewModel.getCoinTitle(coin),
+                Text("  ${viewModel.getCoinTitle(coin)}",
                     style: TextStyle(
                         fontSize: UIDefine.fontSize16,
                         fontWeight: FontWeight.w500))

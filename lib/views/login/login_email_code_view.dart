@@ -20,7 +20,9 @@ class LoginEmailCodeView extends StatelessWidget {
       this.onEditTap,
       required this.onPressSendCode,
       required this.onPressCheckVerify,
-      required this.onPressVerification})
+      this.onPressVerification,
+      this.btnGetText,
+      this.countdownSecond = 180})
       : super(key: key);
   final String hintText;
   final TextEditingController controller;
@@ -31,6 +33,10 @@ class LoginEmailCodeView extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final GestureTapCallback? onEditTap;
   final PressVerification? onPressVerification;
+  final int countdownSecond;
+
+  ///MARK: 更換左邊的button 文字
+  final String? btnGetText;
 
   @override
   Widget build(BuildContext context) {
@@ -51,9 +57,9 @@ class LoginEmailCodeView extends StatelessWidget {
             ),
             CountdownButtonWidget(
               buttonType: 2,
-              countdownSecond: 180,
+              countdownSecond: countdownSecond,
               margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-              btnText: tr('get'),
+              btnText: btnGetText ?? tr('get'),
               isFillWidth: false,
               setHeight: 50,
               onPress: onPressSendCode,
