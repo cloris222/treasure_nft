@@ -26,10 +26,10 @@ class _CollectionTypePage extends State<CollectionTypePage> {
   @override
   Widget build(BuildContext context) {
     return LoadingFutureBuilder.createLoadingWidget(
-        futureFunction: initView());
+        futureFunction: _initView());
   }
 
-  Future<GetCollectionMainListview> initView() async {
+  Future<GetCollectionMainListview> _initView() async {
     if (currentType == 'Reservation') {
       list = await viewModel.getReservationResponse('ITEM', 1, 10);
       list2 = await viewModel.getReservationResponse('PRICE', 1, 10);

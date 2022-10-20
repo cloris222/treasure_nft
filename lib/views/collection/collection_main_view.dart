@@ -40,7 +40,7 @@ class _CollectionMainView extends State<CollectionMainView> {
                 dataList: dataList,
                 currentExploreType: currentExploreType,
                 changePage: (String exploreType) {
-                  changePage(exploreType);
+                  _changePage(exploreType);
                 })),
         Flexible(
             child: PageView(
@@ -57,10 +57,10 @@ class _CollectionMainView extends State<CollectionMainView> {
             (index) => viewModel.getCollectionTypePage(dataList[index]));
   }
 
-  void changePage(String exploreType) {
+  void _changePage(String exploreType) {
     setState(() {
       currentExploreType = exploreType;
-      pageController.jumpToPage(getExploreTypeIndex(currentExploreType));
+      pageController.jumpToPage(_getExploreTypeIndex(currentExploreType));
     });
   }
 
@@ -71,7 +71,7 @@ class _CollectionMainView extends State<CollectionMainView> {
     });
   }
 
-  int getExploreTypeIndex(String type) {
+  int _getExploreTypeIndex(String type) {
     for (int i = 0; i < dataList.length; i++) {
       if (type == dataList[i]) {
         return i;

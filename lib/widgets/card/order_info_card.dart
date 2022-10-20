@@ -23,7 +23,7 @@ class OrderInfoCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(UIDefine.getScreenWidth(4.4)),
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.bolderGrey, width: 1),
+        border: Border.all(color: AppColors.bolderGrey, width: 2.5),
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       child: Column(

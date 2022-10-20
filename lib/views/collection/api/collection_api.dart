@@ -53,5 +53,22 @@ class CollectionApi extends HttpManager {
     return result;
   }
 
+}
 
+class CollectionApiCommon extends HttpManager {
+  CollectionApiCommon({super.onConnectFail, super.baseUrl = HttpSetting.developCommonUrl});
+
+  /// 查詢NFT合約擁有者地址
+  Future<String> getContractOwnerResponse() async {
+    String result = '';
+    try {
+      ApiResponse response =
+      await get('/query/contractOwner');
+      response.printLog();
+      result = response.data;
+    } catch (e) {
+      print(e.toString());
+    }
+    return result;
+  }
 }

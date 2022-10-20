@@ -51,9 +51,12 @@ class CollectionMainViewModel extends BaseViewModel {
           )
       );
     }
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: buttons
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: buttons
+      ),
     );
   }
 
