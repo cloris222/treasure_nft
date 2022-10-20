@@ -44,7 +44,7 @@ class OrderRechargeViewModel extends BaseViewModel {
   ///https://medium.com/codex/exporting-qr-codes-in-flutter-dd30220fcba4
   Future<String> capturePng(GlobalKey repaintKey) async {
     try {
-      print('开始保存');
+      debugPrint('开始保存');
       var qrValidationResult = QrValidator.validate(
         data: address?[currentChain] ?? '',
         version: QrVersions.auto,
@@ -61,12 +61,12 @@ class OrderRechargeViewModel extends BaseViewModel {
       );
       var picData =
           await painter.toImageData(2048, format: ImageByteFormat.png);
-      final result = await ImageGallerySaver.saveImage(
-          picData!.buffer.asUint8List());
-      print('result:$result');
+      final result =
+          await ImageGallerySaver.saveImage(picData!.buffer.asUint8List());
+      debugPrint('result:$result');
       return result['filePath'];
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
     return '';
   }
