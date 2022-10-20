@@ -3,19 +3,18 @@ import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import '../../constant/theme/app_colors.dart';
+import 'tether_coin_widget.dart';
 
 class WalletInfoItem extends StatelessWidget {
   const WalletInfoItem(
       {Key? key,
       required this.title,
       this.value,
-      this.assetImagePath = AppImagePath.tetherImg,
       this.onPress,
       this.fillWidth = true})
       : super(key: key);
   final String title;
   final double? value;
-  final String assetImagePath;
   final GestureTapCallback? onPress;
   final bool fillWidth;
 
@@ -38,10 +37,7 @@ class WalletInfoItem extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset(assetImagePath,
-            width: UIDefine.fontSize16,
-            height: UIDefine.fontSize16,
-            fit: BoxFit.contain),
+        TetherCoinWidget(size: UIDefine.fontSize16),
         const SizedBox(width: 5),
         Text(NumberFormatUtil().removeTwoPointFormat(value),
             style: TextStyle(

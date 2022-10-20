@@ -9,4 +9,9 @@ class NumberFormatUtil {
   String removeTwoPointFormat(dynamic value) {
     return _setNumberFormat(format: '#,##0.##', value: value);
   }
+
+  ///取整數
+  String integerFormat(dynamic value) {
+    return _setNumberFormat(format: '#,##0', value: value);
+  }
 }

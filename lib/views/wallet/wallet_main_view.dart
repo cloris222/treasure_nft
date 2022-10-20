@@ -9,6 +9,7 @@ import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/theme/app_style.dart';
 import '../../view_models/wallet/wallet_main_viewmodel.dart';
+import '../../widgets/label/tether_coin_widget.dart';
 import '../../widgets/label/wallet_info_item.dart';
 import '../personal/orders/order_info_page.dart';
 import '../personal/orders/order_recharge_page.dart';
@@ -188,10 +189,7 @@ class _WalletMainViewState extends State<WalletMainView> {
               fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500)),
       const SizedBox(height: 10),
       Row(children: [
-        Image.asset(AppImagePath.tetherImg,
-            width: UIDefine.fontSize28,
-            height: UIDefine.fontSize28,
-            fit: BoxFit.contain),
+        TetherCoinWidget(size: UIDefine.fontSize26),
         const SizedBox(width: 5),
         Text(tr('usdt'),
             style: TextStyle(
