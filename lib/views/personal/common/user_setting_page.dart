@@ -21,7 +21,8 @@ class UserSettingPage extends StatelessWidget {
       appBar: CustomAppBar.getCommonAppBar(() {
         BaseViewModel().popPage(context);
       }, tr('account')),
-      body: Column(
+      body: Wrap(
+        runSpacing: 15,
         children: [
           const PersonalSubUserInfoView(),
           LoginBolderButtonWidget(

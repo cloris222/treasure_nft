@@ -61,18 +61,25 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
 
   Widget _buildSettingParam(CoinEnum coin, TextEditingController controller) {
     return GradientBolderWidget(
-        height: UIDefine.getHeight() / 4,
+        bolderWith: 4,
+        autoHeight: true,
         child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 10),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Row(
-                children: [
-                  BaseCoinWidget(imageAssetPath: viewModel.getCoinImage(coin)),
-                  Text(viewModel.getCoinTitle(coin))
-                ],
-              ),
-              Text(tr('address')),
+            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            child: Wrap(runSpacing: 15, children: [
+              Row(children: [
+                BaseCoinWidget(
+                    imageAssetPath: viewModel.getCoinImage(coin),
+                    size: UIDefine.fontSize26),
+                Text(viewModel.getCoinTitle(coin),
+                    style: TextStyle(
+                        fontSize: UIDefine.fontSize16,
+                        fontWeight: FontWeight.w500))
+              ]),
+              const SizedBox(height: 5),
+              Text(tr('address'),
+                  style: TextStyle(
+                      fontSize: UIDefine.fontSize14,
+                      fontWeight: FontWeight.w500)),
               TextField(
                   controller: controller,
                   decoration: InputDecoration(
