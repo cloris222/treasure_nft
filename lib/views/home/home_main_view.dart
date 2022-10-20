@@ -105,10 +105,10 @@ class HomeMainView extends StatelessWidget {
                   viewModel.getPadding(4),
 
                   /// 輪播圖
-                  SizedBox(
-                    height: UIDefine.getScreenHeight(57),
-                    child: const CarouselListView(),
-                  ),
+                    SizedBox(
+                      height: UIDefine.getScreenHeight(57),
+                      child: const CarouselListView(),
+                    ),
 
                 ],),
             ),

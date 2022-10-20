@@ -6,9 +6,13 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_carousel.dart';
 
 class CarouselItemView extends StatefulWidget {
-  const CarouselItemView({super.key, required this.itemData});
+  const CarouselItemView({super.key,
+    required this.itemData,
+    required this.decorationImage,});
 
   final HomeCarousel itemData;
+
+  final Widget decorationImage;
 
   @override
   State<StatefulWidget> createState() => _CarouselItem();
@@ -42,13 +46,11 @@ class _CarouselItem extends State<CarouselItemView> {
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(15),
                       topRight: Radius.circular(15)),
-                  child: Container(
-                    alignment: Alignment.topCenter,
-                    child: Image.network(widget.itemData.imageUrl,
-                      fit: BoxFit.fill,
-                      height: UIDefine.getScreenHeight(47),
-                    ),
-                  ),
+                  child: widget.decorationImage,
+
+                    // Image.network(widget.itemData.imageUrl,
+                    //   fit: BoxFit.fill,
+                    // ),
                 ),
 
                 Container(
