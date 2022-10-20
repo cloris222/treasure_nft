@@ -105,10 +105,10 @@ class HomeMainView extends StatelessWidget {
                   viewModel.getPadding(4),
 
                   /// 輪播圖
-                    SizedBox(
-                      height: UIDefine.getScreenHeight(57),
-                      child: const CarouselListView(),
-                    ),
+                  SizedBox(
+                    height: UIDefine.getScreenHeight(57),
+                    child: const CarouselListView(),
+                  ),
 
                 ],),
             ),
@@ -703,48 +703,56 @@ Widget contactUs() {
                       children: [
                       GestureDetector(
                         onTap: () {
+                          viewModel.launchInBrowser('mailto:treasurenft.metaverse@gmail.com');
                         },
                         child: Image.asset(AppImagePath.mail),
                       ),
 
                       GestureDetector(
                         onTap: () {
+                          viewModel.launchInBrowser('https://www.tiktok.com/@treasurenft_xyz');
                         },
                         child: Image.asset(AppImagePath.tiktok),
                       ),
 
                       GestureDetector(
                         onTap: () {
+                          viewModel.launchInBrowser('https://twitter.com/Treasurenft_xyz');
                         },
                         child: Image.asset(AppImagePath.twitter),
                       ),
 
                       GestureDetector(
                         onTap: () {
+                          // viewModel.launchInBrowser('');
                         },
                         child: Image.asset(AppImagePath.yt),
                       ),
 
                       GestureDetector(
                         onTap: () {
+                          viewModel.launchInBrowser('https://t.me/TreasureNFTchat');
                         },
                         child: Image.asset(AppImagePath.tg),
                       ),
 
                       GestureDetector(
                         onTap: () {
+                          viewModel.launchInBrowser('https://www.facebook.com/Treasurenft-101676776000520');
                         },
                         child: Image.asset(AppImagePath.fb),
                       ),
 
                       GestureDetector(
                         onTap: () {
+                          viewModel.launchInBrowser('https://www.instagram.com/treasurenft_xyz/');
                         },
                         child: Image.asset(AppImagePath.ig),
                       ),
 
                       GestureDetector(
                         onTap: () {
+                          viewModel.launchInBrowser('https://discord.gg/H54mUVeQRQ');
                         },
                         child: Image.asset(AppImagePath.dc),
                       ),
