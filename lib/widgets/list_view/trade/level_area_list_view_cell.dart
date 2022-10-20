@@ -5,6 +5,7 @@ import 'package:lottie/lottie.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_animation_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
+import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 
 import '../../../constant/theme/app_colors.dart';

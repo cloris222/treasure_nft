@@ -27,9 +27,16 @@ class TradeAPI extends HttpManager {
   }
 
   /// 新增預約
-  Future<AddNewReservation> postAddNewReservationAPI(
-      {required String type}) async {
-    var response = await post('/reserve/insert', data: {'type': type});
-    return AddNewReservation.fromJson(response.data);
+  Future<ApiResponse> postAddNewReservationAPI(
+      {required String type,
+      required dynamic startPrice,
+      required dynamic endPrice,
+      required int priceIndex}) async {
+    return  post('/reserve/insert', data: {
+      'type': type,
+      'startPrice': startPrice,
+      'endPrice': endPrice,
+      'priceIndex': priceIndex
+    });
   }
 }
