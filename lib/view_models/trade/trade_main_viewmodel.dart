@@ -153,6 +153,7 @@ class TradeMainViewModel extends BaseViewModel {
     }
   }
 
+  /// 預約失敗顯示彈窗
   void _onAddReservationFail(String errorMessage) {
     switch (errorMessage) {
 

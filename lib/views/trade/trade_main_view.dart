@@ -285,6 +285,11 @@ class _TradeMainViewState extends State<TradeMainView> {
 
                 /// add new reservation
                 await viewModel.addNewReservation(index);
+
+                /// if reservation success 預約狀態 = true
+                viewModel.ranges[index].used = true;
+                /// 狀態更新
+                setState(() {});
               },
                       index: range.index,
                       startPrice: range.startPrice.toDouble(),
