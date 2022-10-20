@@ -6,12 +6,14 @@ import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
+import '../../../constant/enum/coin_enum.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_style.dart';
 import '../../../constant/theme/app_theme.dart';
 import '../../../view_models/personal/orders/order_recharge_viewmodel.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
-import '../../../widgets/label/tether_coin_widget.dart';
+import '../../../widgets/dialog/simple_custom_dialog.dart';
+import '../../../widgets/label/coin/tether_coin_widget.dart';
 
 ///MARK: 充值
 class OrderRechargePage extends StatefulWidget {
@@ -89,22 +91,22 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
         ),
         items: [
           DropdownMenuItem(
-              value: viewModel.chainTRON,
+              value: CoinEnum.TRON,
               child: Row(children: [
                 TetherCoinWidget(size: UIDefine.fontSize24),
                 Text('  USDT-TRC20',
                     style: TextStyle(
-                        color: viewModel.currentChain == viewModel.chainTRON
+                        color: viewModel.currentChain == CoinEnum.TRON
                             ? AppColors.deepBlue
                             : AppColors.searchBar))
               ])),
           DropdownMenuItem(
-              value: viewModel.chainBSC,
+              value: CoinEnum.BSC,
               child: Row(children: [
                 TetherCoinWidget(size: UIDefine.fontSize24),
                 Text('  USDT-BSC',
                     style: TextStyle(
-                        color: viewModel.currentChain == viewModel.chainBSC
+                        color: viewModel.currentChain == CoinEnum.BSC
                             ? AppColors.deepBlue
                             : AppColors.searchBar))
               ]))
@@ -188,9 +190,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
             children: [
               Flexible(
                   child: Text(
-                      viewModel.address != null
-                          ? viewModel.address![viewModel.currentChain]
-                          : '',
+                      viewModel.address?[viewModel.currentChain.name] ?? '',
                       maxLines: 2,
                       style: TextStyle(
                           fontSize: UIDefine.fontSize14,
@@ -200,8 +200,9 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
               InkWell(
                   onTap: () {
                     viewModel.copyText(
-                        copyText: viewModel.address?[viewModel.currentChain]);
-                    viewModel.showToast(context, 'copied');
+                        copyText:
+                            viewModel.address?[viewModel.currentChain.name]);
+                    SimpleCustomDialog(context, isSuccess: true).show();
                   },
                   child: Image.asset(AppImagePath.copyIcon))
             ],
@@ -228,7 +229,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
           ),
           const SizedBox(height: 5),
           Text(
-              viewModel.currentChain == viewModel.chainTRON
+              viewModel.currentChain == CoinEnum.TRON
                   ? 'TRON (TRC-20)'
                   : 'BSC (BEP-20)',
               style: TextStyle(
@@ -255,7 +256,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
       ),
       const SizedBox(height: 10),
       Text(
-          '${tr("minimum-rechargeAmount-start'")} ${viewModel.currentChain == viewModel.chainTRON ? 'USDT-TRC20' : 'USDT-BSC'} ${tr("minimum-rechargeAmount-end'")}',
+          '${tr("minimum-rechargeAmount-start'")} ${viewModel.currentChain == CoinEnum.TRON ? 'USDT-TRC20' : 'USDT-BSC'} ${tr("minimum-rechargeAmount-end'")}',
           maxLines: 2,
           textAlign: TextAlign.start,
           style: TextStyle(

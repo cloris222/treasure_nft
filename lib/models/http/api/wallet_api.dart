@@ -12,4 +12,14 @@ class WalletAPI extends HttpManager {
     }
     return result;
   }
+
+  ///MARK: 取得支付資訊
+  Future<Map<String, dynamic>> getPaymentInfo() async {
+    Map<String, String> result = {};
+    var response = await get('/payment/info');
+    for (Map<String, dynamic> json in response.data) {
+      result[json['payType']] = json['account'];
+    }
+    return result;
+  }
 }

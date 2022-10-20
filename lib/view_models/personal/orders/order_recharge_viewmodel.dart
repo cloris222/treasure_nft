@@ -10,6 +10,7 @@ import 'package:treasure_nft_project/utils/date_format_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../../constant/call_back_function.dart';
+import '../../../constant/enum/coin_enum.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../models/http/api/wallet_api.dart';
 import '../../../widgets/dialog/simple_custom_dialog.dart';
@@ -20,9 +21,7 @@ class OrderRechargeViewModel extends BaseViewModel {
   final ViewChange setState;
 
   Map<String, dynamic>? address;
-  String currentChain = 'TRON';
-  final String chainTRON = 'TRON';
-  final String chainBSC = 'BSC';
+  CoinEnum currentChain = CoinEnum.TRON;
 
   Future<void> initState() async {
     address = await WalletAPI().getBalanceRecharge();
