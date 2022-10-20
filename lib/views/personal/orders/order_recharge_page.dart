@@ -26,6 +26,7 @@ class OrderRechargePage extends StatefulWidget {
 
 class _OrderRechargePageState extends State<OrderRechargePage> {
   late OrderRechargeViewModel viewModel;
+  GlobalKey repaintKey = GlobalKey();
 
   @override
   void initState() {
@@ -125,15 +126,20 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
           child: Column(
             children: [
               const SizedBox(height: 5),
-              QrImage(
-                errorStateBuilder: (context, error) => Text(error.toString()),
-                data: viewModel.address?[viewModel.currentChain] ?? '',
-                version: QrVersions.auto,
-                foregroundColor: AppColors.mainThemeButton,
-                size: UIDefine.getWidth() / 2,
+              RepaintBoundary(
+                key: repaintKey,
+                child: QrImage(
+                  errorStateBuilder: (context, error) => Text(error.toString()),
+                  data: viewModel.address?[viewModel.currentChain] ?? '',
+                  version: QrVersions.auto,
+                  backgroundColor: Colors.white,
+                  foregroundColor: AppColors.mainThemeButton,
+                  size: UIDefine.getWidth() / 2,
+                ),
               ),
               const SizedBox(height: 5),
-              InkWell(onTap: viewModel.saveQrcode,
+              InkWell(
+                onTap: () => viewModel.onSaveQrcode(context, repaintKey),
                 child: Container(
                   decoration: AppStyle().styleUserSetting(),
                   padding:
