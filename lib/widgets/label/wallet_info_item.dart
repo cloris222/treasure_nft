@@ -3,7 +3,7 @@ import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import '../../constant/theme/app_colors.dart';
-import 'tether_coin_widget.dart';
+import 'coin/tether_coin_widget.dart';
 
 class WalletInfoItem extends StatelessWidget {
   const WalletInfoItem(

@@ -51,6 +51,9 @@ class AppImagePath {
 
   /// coins
   static const String tetherImg = '$appCoinsPath/icon_tether_01.png';
+  static const String tronImg = '$appCoinsPath/icon_tron_01.png';
+  static const String binanceImg = '$appCoinsPath/icon_binance_01.png';
+  static const String polyImg = '$appCoinsPath/icon_polygon_01.png';
 
   /// login
   static const String loginBg = '$appImgPath/img_login_01.png';

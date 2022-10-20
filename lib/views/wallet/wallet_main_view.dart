@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
@@ -9,7 +10,8 @@ import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/theme/app_style.dart';
 import '../../view_models/wallet/wallet_main_viewmodel.dart';
-import '../../widgets/label/tether_coin_widget.dart';
+import '../../widgets/dialog/simple_custom_dialog.dart';
+import '../../widgets/label/coin/tether_coin_widget.dart';
 import '../../widgets/label/wallet_info_item.dart';
 import '../personal/orders/order_info_page.dart';
 import '../personal/orders/order_recharge_page.dart';
@@ -129,7 +131,7 @@ class _WalletMainViewState extends State<WalletMainView> {
               InkWell(
                   onTap: () {
                     viewModel.copyText(copyText: viewModel.address?['TRON']);
-                    viewModel.showToast(context, 'copied');
+                    SimpleCustomDialog(context, isSuccess: true).show();
                   },
                   child: Image.asset(AppImagePath.copyIcon))
             ],
