@@ -17,6 +17,7 @@ class AppColors {
   static const Color growPrice = Color(0xFF54CE58);
   static const Color opacityBackground = Color(0xC6000000);
   static const Color transParent = Color(0x00000000);
+  static const Color transParentHalf = Color(0x80E1DBDB);
 
   ///MARK:主題色彩
   static const Color mainThemeButton = Color(0xFF3B82F6);

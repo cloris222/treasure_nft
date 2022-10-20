@@ -54,7 +54,7 @@ class _ExploreMainView extends State<ExploreMainView> {
     list.then((value) => {setState(() {}), _setData(value), _setPage() });
   }
 
-  _setData(List<ExploreCategoryResponseData> value) {
+  void _setData(List<ExploreCategoryResponseData> value) {
     dataList = value;
     ExploreCategoryResponseData data = ExploreCategoryResponseData();
     data.frontName = 'All';
@@ -62,12 +62,12 @@ class _ExploreMainView extends State<ExploreMainView> {
     dataList.insert(0, data);
   }
 
-  _setPage() {
+  void _setPage() {
     pages = List<Widget>.generate(dataList.length,
             (index) => viewModel.getExploreTypePage(dataList[index].name));
   }
 
-  changePage(String exploreType) {
+  void changePage(String exploreType) {
     setState(() {
       currentExploreType = exploreType;
       pageController.jumpToPage(getExploreTypeIndex(currentExploreType));

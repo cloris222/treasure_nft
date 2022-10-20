@@ -8,15 +8,15 @@ import 'data/card_showing_data.dart';
 
 /// 無圖片的訂單信息_副本預約 (外部先將部分Data存成 List<ItemInfoCardShowingData>)
 class OrderInfoCard extends StatelessWidget {
-  OrderInfoCard({super.key,
+  const OrderInfoCard({super.key,
   this.status = '', required this.orderNumber,
   required this.dateTime, required this.dataList
   });
 
-  String status;
-  String orderNumber;
-  String dateTime;
-  List<CardShowingData> dataList;
+  final String status;
+  final String orderNumber;
+  final String dateTime;
+  final List<CardShowingData> dataList;
 
   @override
   Widget build(BuildContext context) {
@@ -60,9 +60,11 @@ class OrderInfoCard extends StatelessWidget {
               Visibility(
                 visible: status != '' ,
                 child: Container(
-                  decoration: BoxDecoration(border: Border.all(color: _getLuckyStrawBorderColor(), width: 2)),
+                  decoration: BoxDecoration(
+                    color: _getLuckyStrawColor(),
+                    border: Border.all(color: _getLuckyStrawBorderColor(), width: 2),
+                  ),
                   padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
-                  color: _getLuckyStrawColor(),
                   child: Text(
                     _getLuckyStrawString(),
                     style: TextStyle(color: _getLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w600),
@@ -155,7 +157,7 @@ class OrderInfoCard extends StatelessWidget {
               Row(
                 children: [
                   Visibility(
-                      visible: dataList[i].title.contains('price'), // test 這要確認欄位是什麼 是否每隻API都是同名稱
+                      visible: _checkTitleShowCoins(dataList[i]), // test 這要確認欄位是什麼 是否每隻API都是同名稱
                       child: Image.asset('assets/icon/coins/icon_tether_01.png', width: UIDefine.getScreenWidth(3.7), height: UIDefine.getScreenWidth(3.7))
                   ),
                   const SizedBox(width: 4),
@@ -171,6 +173,16 @@ class OrderInfoCard extends StatelessWidget {
       );
     }
     return titleContent;
+  }
+
+  bool _checkTitleShowCoins(CardShowingData data) {
+    if (data.title.contains('price')) {
+      return true;
+    }
+    if (data.title.contains('Amount')) {
+      return true;
+    }
+    return false;
   }
 
 }

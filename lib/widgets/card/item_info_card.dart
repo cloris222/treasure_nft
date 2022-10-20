@@ -10,19 +10,19 @@ import 'data/card_showing_data.dart';
 
 /// 有圖片的商品信息_單一預約 (外部先將部分Data存成 List<ItemInfoCardShowingData>)
 class ItemInfoCard extends StatelessWidget {
-  ItemInfoCard({super.key,
+  const ItemInfoCard({super.key,
   this.bShowPriceAtEnd = false, this.status = '',
   required this.itemName, required this.dateTime,
   required this.imageUrl, required this.price, required this.dataList
   });
 
-  bool bShowPriceAtEnd;
-  String status;
-  String itemName;
-  String dateTime;
-  String imageUrl;
-  String price;
-  List<CardShowingData> dataList;
+  final bool bShowPriceAtEnd;
+  final String status;
+  final String itemName;
+  final String dateTime;
+  final String imageUrl;
+  final String price;
+  final List<CardShowingData> dataList;
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +58,11 @@ class ItemInfoCard extends StatelessWidget {
               Visibility(
                 visible: status != '' ,
                 child: Container(
-                  decoration: BoxDecoration(border: Border.all(color: _getLuckyStrawBorderColor(), width: 2)),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: _getLuckyStrawBorderColor(), width: 2),
+                    color: _getLuckyStrawColor()
+                  ),
                   padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
-                  color: _getLuckyStrawColor(),
                   child: Text(
                     _getLuckyStrawString(),
                     style: TextStyle(color: _getLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w600),
@@ -175,7 +177,7 @@ class ItemInfoCard extends StatelessWidget {
               Row(
                 children: [
                   Visibility(
-                      visible: dataList[i].title.contains('price'), // test 這要確認欄位是什麼 是否每隻API都是同名稱
+                      visible: _checkTitleShowCoins(dataList[i]), // test 這要確認欄位是什麼 是否每隻API都是同名稱
                       child: Image.asset('assets/icon/coins/icon_tether_01.png', width: UIDefine.getScreenWidth(3.7), height: UIDefine.getScreenWidth(3.7))
                   ),
                   const SizedBox(width: 4),
@@ -191,6 +193,16 @@ class ItemInfoCard extends StatelessWidget {
       );
     }
     return titleContent;
+  }
+
+  bool _checkTitleShowCoins(CardShowingData data) {
+    if (data.title.contains('price')) {
+      return true;
+    }
+    if (data.title.contains('Amount')) {
+      return true;
+    }
+    return false;
   }
 
 }
