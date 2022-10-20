@@ -10,16 +10,14 @@ class OrderRechargeViewModel extends BaseViewModel {
 
   Map<String, dynamic>? address;
   String currentChain = 'TRON';
+  final String chainTRON = 'TRON';
+  final String chainBSC = 'BSC';
 
   Future<void> initState() async {
     address = await WalletAPI().getBalanceRecharge();
     setState(() {});
   }
 
-  String getCurrentChainText() {
-    if (currentChain == 'TRON') {
-      return 'USDT-TRC20';
-    }
-    return 'USDT-BSC';
-  }
+  ///MARK: 儲存QR Code
+  void saveQrcode() {}
 }
