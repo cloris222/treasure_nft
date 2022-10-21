@@ -158,11 +158,13 @@ class PersonalSubLevelView extends StatelessWidget {
               title: tr('preOrderCoupon'),
               value: '${levelInfo?.dailyReverseAmount}'),
         ),
-        Flexible(
-          child: PersonalParamItem(
-              title: tr('luckyValue'),
-              value: '${levelInfo?.couponRate.toStringAsFixed(0)}'),
-        ),
+
+        ///MARK: 2022/10/21 不顯示幸運值
+        // Flexible(
+        //   child: PersonalParamItem(
+        //       title: tr('luckyValue'),
+        //       value: '${levelInfo?.couponRate.toStringAsFixed(0)}'),
+        // ),
         Flexible(child: PersonalParamItem(title: tr('fees'), value: '1.5%')),
         Flexible(
           child: PersonalParamItem(

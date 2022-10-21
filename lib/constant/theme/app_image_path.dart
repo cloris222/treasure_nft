@@ -151,6 +151,12 @@ class AppImagePath {
       '$appIconFolderPath/icon_setting_01.png';
   static const String walletLogIcon = '$appIconFolderPath/icon_file_03.png';
 
+  ///等級
+  static const String blueCheckIcon = '$appIconFolderPath/icon_check_ok_02.png';
+  static const String trophyIcon = '$appIconFolderPath/icon_trophy_01.png';
+  static const String levelUnLock = '$appIconFolderPath/icon_unlock_02.png';
+  static const String levelLock = '$appIconFolderPath/icon_lock_01.png';
+
   /// Team
   static const String dateIcon = '$appIconFolderPath/icon_date_01.png';
 
