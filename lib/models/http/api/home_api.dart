@@ -19,7 +19,6 @@ class HomeAPI extends HttpManager {
     } catch (e) {
       print(e.toString());
     }
-    print('aaaresult: $result');
     return result;
   }
 
@@ -39,7 +38,6 @@ class HomeAPI extends HttpManager {
     } catch (e) {
       print(e.toString());
     }
-    print('bbbresult: $result');
     return result;
   }
 

@@ -722,12 +722,12 @@ Widget contactUs() {
                         child: Image.asset(AppImagePath.twitter),
                       ),
 
-                      GestureDetector(
-                        onTap: () {
-                          // viewModel.launchInBrowser('');
-                        },
-                        child: Image.asset(AppImagePath.yt),
-                      ),
+                      // GestureDetector(
+                      //   onTap: () {
+                      //      viewModel.launchInBrowser('');
+                      //   },
+                      //   child: Image.asset(AppImagePath.yt),
+                      // ),
 
                       GestureDetector(
                         onTap: () {

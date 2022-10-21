@@ -19,6 +19,9 @@ class AppColors {
   static const Color transParent = Color(0x00000000);
   static const Color transParentHalf = Color(0x80E1DBDB);
 
+  static const Color datePickerBorder = Color(0xFFE0EAF6);
+
+
   ///MARK:主題色彩
   static const Color mainThemeButton = Color(0xFF3B82F6);
   static const Color subThemePurple = Color(0xFF9657D7);

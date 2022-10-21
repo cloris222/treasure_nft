@@ -150,4 +150,8 @@ class AppImagePath {
   static const String walletSettingIcon =
       '$appIconFolderPath/icon_setting_01.png';
   static const String walletLogIcon = '$appIconFolderPath/icon_file_03.png';
+
+  /// Team
+  static const String dateIcon = '$appIconFolderPath/icon_date_01.png';
+
 }
