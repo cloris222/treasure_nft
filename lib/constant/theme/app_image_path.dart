@@ -154,4 +154,5 @@ class AppImagePath {
   ///等級
   static const String blueCheckIcon = '$appIconFolderPath/icon_check_ok_02.png';
   static const String trophyIcon = '$appIconFolderPath/icon_trophy_01.png';
+  static const String levelLock = '$appIconFolderPath/icon_unlock_02.png';
 }

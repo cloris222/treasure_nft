@@ -6,17 +6,20 @@ import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import '../../../constant/call_back_function.dart';
 import '../../../models/http/api/user_info_api.dart';
 import '../../../models/http/parameter/check_level_info.dart';
+import '../../../models/http/parameter/level_info_data.dart';
 
 class LevelDetailViewModel extends BaseViewModel {
   LevelDetailViewModel({required this.setState});
 
   final ViewChange setState;
-  CheckLevelInfo? levelInfo;
+  CheckLevelInfo? userLevelInfo;
+  List<LevelInfoData> levelDataList = [];
   bool isLevelUp = false;
 
   void initState() async {
-    levelInfo = await UserInfoAPI().getCheckLevelInfoAPI();
+    userLevelInfo = await UserInfoAPI().getCheckLevelInfoAPI();
     isLevelUp = await LevelAPI().checkLevelUpdate();
+    levelDataList = await LevelAPI().getAllLevelInfo();
     setState(() {});
   }
 
@@ -25,11 +28,11 @@ class LevelDetailViewModel extends BaseViewModel {
   }
 
   double getPointPercentage() {
-    if (levelInfo != null) {
-      if (levelInfo!.userLevel == 6) {
+    if (userLevelInfo != null) {
+      if (userLevelInfo!.userLevel == 6) {
         return 1;
       }
-      return levelInfo!.point / levelInfo!.pointRequired;
+      return userLevelInfo!.point / userLevelInfo!.pointRequired;
     }
     return 0;
   }
@@ -38,5 +41,14 @@ class LevelDetailViewModel extends BaseViewModel {
     if (isLevelUp) {
       ///MARK: 判斷等級可以提升
     }
+  }
+
+  LevelInfoData getSingleLevelInfo(int level) {
+    for (var data in levelDataList) {
+      if (data.userLevel == level) {
+        return data;
+      }
+    }
+    return levelDataList.first;
   }
 }

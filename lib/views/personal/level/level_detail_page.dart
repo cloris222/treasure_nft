@@ -2,9 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/models/http/parameter/level_info_data.dart';
+import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
-import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
+import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart';
 import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
 import 'package:treasure_nft_project/widgets/label/icon/level_icon_widget.dart';
 
@@ -66,7 +68,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
     );
   }
 
-  Widget _buildSpace({double height = 5}) {
+  Widget _buildSpace({double height = 4}) {
     return SizedBox(height: UIDefine.getScreenHeight(height));
   }
 
@@ -87,7 +89,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
       ///MARK: 積分
       Row(children: [
         Text(
-          '${tr('lv_point')} : ${viewModel.levelInfo?.point} / ${viewModel.levelInfo?.pointRequired} (${viewModel.getStrPointPercentage()})',
+          '${tr('lv_point')} : ${viewModel.userLevelInfo?.point} / ${viewModel.userLevelInfo?.pointRequired} (${viewModel.getStrPointPercentage()})',
           style: TextStyle(
               fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w400),
         ),
@@ -130,38 +132,127 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
 
       ///MARK: 每日任務
       Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-        const BaseIconWidget(imageAssetPath: AppImagePath.walletLogIcon),
+        BaseIconWidget(
+            imageAssetPath: AppImagePath.walletLogIcon,
+            size: UIDefine.fontSize18),
         SizedBox(width: UIDefine.getScreenWidth(2)),
         Text(
           tr('pt_DAILY'),
           style: TextStyle(fontSize: UIDefine.fontSize16),
         ),
         Flexible(child: Container()),
-        const BaseIconWidget(imageAssetPath: AppImagePath.rightArrow)
+        BaseIconWidget(
+            imageAssetPath: AppImagePath.rightArrow, size: UIDefine.fontSize18)
       ]),
       _buildSpace(height: 2),
 
       ///MARK: 成就
       Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-        const BaseIconWidget(imageAssetPath: AppImagePath.trophyIcon),
+        BaseIconWidget(
+            imageAssetPath: AppImagePath.trophyIcon, size: UIDefine.fontSize18),
         SizedBox(width: UIDefine.getScreenWidth(2)),
         Text(
           tr('achievement'),
           style: TextStyle(fontSize: UIDefine.fontSize16),
         ),
         Flexible(child: Container()),
-        const BaseIconWidget(imageAssetPath: AppImagePath.rightArrow)
+        BaseIconWidget(
+            imageAssetPath: AppImagePath.rightArrow, size: UIDefine.fontSize18)
       ]),
     ]);
   }
 
   ///MARK: 建立現在等級諮詢
   Widget _buildCurrentLevelInfo() {
+    if (viewModel.levelDataList.length > GlobalData.userInfo.level) {
+      return Column(
+        children: [
+          _buildSingleLevelTitle(GlobalData.userInfo.level),
+          _buildSpace(height: 2),
+          _buildSingleLevelInfo(GlobalData.userInfo.level),
+        ],
+      );
+    }
     return Container();
   }
 
   ///MARK: 建立全部等級資訊
   Widget _buildAllLevelInfo() {
+    if (viewModel.levelDataList.isNotEmpty) {
+      return Container();
+    }
     return Container();
+  }
+
+  Widget _buildSingleLevelTitle(int level) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        BaseIconWidget(
+            imageAssetPath: AppImagePath.levelLock, size: UIDefine.fontSize26),
+        Text(' ${tr('level')} $level',
+            style: TextStyle(
+                fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w600))
+      ],
+    );
+  }
+
+  Widget _buildSingleLevelInfo(int level) {
+    LevelInfoData data = viewModel.getSingleLevelInfo(level);
+
+    return Column(
+      children: [
+        _buildSingleLevelInfoItem(
+            title: tr('reserve_pro_range'),
+            context:
+                '${NumberFormatUtil().removeTwoPointFormat(data.buyRangeStart)} ~ ${NumberFormatUtil().removeTwoPointFormat(data.buyRangeEnd)}',
+            showCoin: true),
+        _buildSingleLevelInfoItem(
+            title: tr('dialy_reserve'), context: '${data.dailyReverseAmount}'),
+        _buildSingleLevelInfoItem(
+            title: tr('trade_luk'),
+            context: NumberFormatUtil().removeTwoPointFormat(data.couponRate)),
+        _buildSingleLevelInfoItem(
+            title: tr('directShare-extra'),
+            context:
+                '${NumberFormatUtil().removeTwoPointFormat(data.directShare)}% & ${NumberFormatUtil().removeTwoPointFormat(data.directSave)}%'),
+        _buildSingleLevelInfoItem(
+            title: tr('indirectShare-extra'),
+            context:
+                '${NumberFormatUtil().removeTwoPointFormat(data.indirectShare)}% & ${NumberFormatUtil().removeTwoPointFormat(data.indirectSave)}%'),
+        _buildSingleLevelInfoItem(
+            title: tr('thirdShare-extra'),
+            context:
+                '${NumberFormatUtil().removeTwoPointFormat(data.thirdShare)}% & ${NumberFormatUtil().removeTwoPointFormat(data.thirdSave)}%'),
+      ],
+    );
+  }
+
+  Widget _buildSingleLevelInfoItem(
+      {required String title, required String context, bool showCoin = false}) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: UIDefine.getScreenHeight(1)),
+      child: Row(children: [
+        Text(
+          title,
+          style: TextStyle(
+              fontSize: UIDefine.fontSize14,
+              fontWeight: FontWeight.w500,
+              color: AppColors.dialogGrey),
+        ),
+        Flexible(child: Container()),
+        Visibility(
+            visible: showCoin,
+            child: TetherCoinWidget(size: UIDefine.fontSize16)),
+        SizedBox(width: UIDefine.getScreenWidth(1)),
+        Text(
+          context,
+          style: TextStyle(
+              fontSize: UIDefine.fontSize14,
+              fontWeight: FontWeight.w500,
+              color: AppColors.dialogBlack),
+        ),
+      ]),
+    );
   }
 }
