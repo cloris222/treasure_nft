@@ -29,11 +29,12 @@ class ItemInfoCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(UIDefine.getScreenWidth(4.4)),
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.bolderGrey, width: 1),
+        border: Border.all(color: AppColors.bolderGrey, width: 2.5),
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           /// 上半部
           Row(
@@ -41,17 +42,20 @@ class ItemInfoCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   /// 標題
                   Text(
                     itemName,
                     style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
                   ),
+                  SizedBox(height: 4),
                   /// 副標題
                   Text(
                     dateTime,
                     style: TextStyle(color: AppColors.searchBar, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
                   ),
+                  SizedBox(height: 10)
                 ],
               ),
               /// 中籤
@@ -82,7 +86,13 @@ class ItemInfoCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   /// 商品圖
-                  Image.network(imageUrl),
+                  imageUrl!=''? // test 現在FAILED的會沒有圖跟名稱 是對還不對啊
+                  Image.network(imageUrl, width: UIDefine.getScreenWidth(22), height: UIDefine.getScreenWidth(22))
+                  :
+                  const SizedBox(),
+
+                  SizedBox(height: UIDefine.getScreenWidth(2.5)),
+
                   /// 商品價格
                   Visibility(
                     visible: bShowPriceAtEnd,
@@ -100,10 +110,11 @@ class ItemInfoCard extends StatelessWidget {
                 ],
               ),
 
-              SizedBox(height: UIDefine.getScreenWidth(2.7)),
+              SizedBox(width: UIDefine.getScreenWidth(3)),
 
               /// 右半邊文字內容
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: _getTitleContent(),
               )
             ],
@@ -166,7 +177,7 @@ class ItemInfoCard extends StatelessWidget {
     for (int i = 0; i < dataList.length; i++) {
       titleContent.add(
         Padding(
-          padding: EdgeInsets.fromLTRB(0, 0, 0, 3),
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -180,7 +191,7 @@ class ItemInfoCard extends StatelessWidget {
                       visible: _checkTitleShowCoins(dataList[i]), // test 這要確認欄位是什麼 是否每隻API都是同名稱
                       child: Image.asset('assets/icon/coins/icon_tether_01.png', width: UIDefine.getScreenWidth(3.7), height: UIDefine.getScreenWidth(3.7))
                   ),
-                  const SizedBox(width: 4),
+                  const SizedBox(width: 8),
                   Text(
                     tr(dataList[i].content),
                     style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),

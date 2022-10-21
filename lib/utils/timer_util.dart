@@ -58,4 +58,39 @@ class CountDownTimerUtil {
       }
     });
   }
+
+
+  ///////// MM:SS ////////
+  void initMMSS({required MyCallBackListener callBackListener, int endTimeSeconds = 0}) {
+    this.callBackListener = callBackListener;
+    var now = DateTime.now();
+    var timeLeft = now.add(Duration(seconds: endTimeSeconds)).difference(now);
+    seconds = timeLeft.inSeconds;
+    if (seconds > 0) {
+      _startTimerMMSS();
+    }
+  }
+
+  void _startTimerMMSS() {
+    // 每秒回撥一次
+    const period = Duration(seconds: 1);
+    _timer = Timer.periodic(period, (timer) {
+      // CallBack
+      seconds--;
+      String sTime = _constructTimeMMSS(seconds);
+      callBackListener.myCallBack(sTime);
+
+      if (seconds == 0) {
+        // 歸零自動取消定時器
+        cancelTimer();
+      }
+    });
+  }
+
+  String _constructTimeMMSS(int seconds) {
+    int minute = seconds ~/ 60;
+    int second = seconds % 60;
+    return _formatTime(minute) + ':' + _formatTime(second);
+  }
+  ///////// MM:SS ////////
 }

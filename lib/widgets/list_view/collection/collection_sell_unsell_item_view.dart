@@ -5,6 +5,7 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 
 import '../../../views/collection/data/collection_nft_item_response_data.dart';
+import '../../../views/collection/transfer/collection_transfer_dialog.dart';
 
 /// 收藏 上架中/未上架 ItemView
 class CollectionSellUnSellItemView extends StatefulWidget {
@@ -125,17 +126,15 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                         ],
                       )
                   )
-
-
                 ],
               ),
 
-              SizedBox(height: UIDefine.getScreenWidth(5.5)),
+              SizedBox(height: UIDefine.getScreenWidth(2.2)),
 
               /// 下半部 按鈕
               _getBottomBtn(),
 
-              SizedBox(height: UIDefine.getScreenWidth(5.5))
+              SizedBox(height: UIDefine.getScreenWidth(2.2))
 
             ],
           ),
@@ -232,12 +231,15 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
           children: [
             Container(
               width: UIDefine.getScreenWidth(44),
+              height: UIDefine.getScreenWidth(10),
               decoration: BoxDecoration(
                 border: Border.all(color: AppColors.mainThemeButton, width: 2),
                 borderRadius: BorderRadius.circular(10)
               ),
               child: TextButton(
-                  onPressed: () {  },
+                  onPressed: () {
+                    _pressTransfer();
+                  },
                   child: Text(
                     tr('transfer'), // 轉讓
                     style: TextStyle(
@@ -248,6 +250,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
 
             Container(
               width: UIDefine.getScreenWidth(44),
+              height: UIDefine.getScreenWidth(10),
               decoration: BoxDecoration(
                   color: AppColors.mainThemeButton,
                   borderRadius: BorderRadius.circular(10)
@@ -279,6 +282,14 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
     }
 
     return const SizedBox();
+  }
+
+  void _pressTransfer() {
+    CollectionTransferDialog(
+        context,
+        data.imgUrl,
+        data.name).show();
+
   }
 
 }
