@@ -159,7 +159,7 @@ class PersonalSubLevelView extends StatelessWidget {
               value: '${levelInfo?.dailyReverseAmount}'),
         ),
 
-        ///MARK: 2022/10/21 不顯示幸運直
+        ///MARK: 2022/10/21 不顯示幸運值
         // Flexible(
         //   child: PersonalParamItem(
         //       title: tr('luckyValue'),

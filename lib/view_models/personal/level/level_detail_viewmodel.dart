@@ -1,4 +1,5 @@
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/api/level_api.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
@@ -40,6 +41,7 @@ class LevelDetailViewModel extends BaseViewModel {
   void onPressLevelUp(BuildContext context) {
     if (isLevelUp) {
       ///MARK: 判斷等級可以提升
+      ///MARK: 自動升級
     }
   }
 
@@ -50,5 +52,9 @@ class LevelDetailViewModel extends BaseViewModel {
       }
     }
     return levelDataList.first;
+  }
+
+  bool checkUnlock(int level) {
+    return GlobalData.userInfo.level >= level;
   }
 }

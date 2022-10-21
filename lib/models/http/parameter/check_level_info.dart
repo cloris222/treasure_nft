@@ -65,14 +65,31 @@ class CheckLevelInfo {
   double indirectSave;
   double thirdShare;
   double thirdSave;
+
+  ///MARK: 邀請A級有效 等級1以上
   int activeDirect;
+
+  ///MARK: 邀請A+B+C級有效 等級1以上
   int activeIndirect;
+
+  ///MARK: 邀請A級有效 需求 等級1以上
   int activeDirectRequired;
+
+  ///MARK: 邀請A+B+C級有效 需求 等級1以上
   int activeIndirectRequired;
+
+  ///MARK: 交易成功次數 等級0才有
   int tradeSuccess;
-  int depositAmount;
+
+  ///MARK: 充值金額 等級0才有
+  double depositAmount;
+
+  ///MARK: 交易成功次數 需求 等級0才有
   int tradeSuccessRequired;
+
+  ///MARK: 充值金額 需求 等級0才有
   int depositAmountRequired;
+
   int nextDailyReverseAmount;
   int nextDailyRCouponAmount;
   int nextBuyRangeStart;
@@ -110,11 +127,13 @@ class CheckLevelInfo {
         activeDirectRequired: json["activeDirectRequired"] ?? 0,
         activeIndirectRequired: json["activeIndirectRequired"] ?? 0,
         tradeSuccess: json["tradeSuccess"] ?? 0,
-        depositAmount: json["depositAmount"] ?? 0,
-        tradeSuccessRequired: json["tradeSuccessRequired"]?? 0,
+        depositAmount: json["depositAmount"] != null
+            ? json["depositAmount"].toDouble()
+            : 0.0,
+        tradeSuccessRequired: json["tradeSuccessRequired"] ?? 0,
         depositAmountRequired: json["depositAmountRequired"] ?? 0,
-        nextDailyReverseAmount: json["nextDailyReverseAmount"]??0,
-        nextDailyRCouponAmount: json["nextDailyRCouponAmount"]??0,
+        nextDailyReverseAmount: json["nextDailyReverseAmount"] ?? 0,
+        nextDailyRCouponAmount: json["nextDailyRCouponAmount"] ?? 0,
         nextBuyRangeStart: json["nextBuyRangeStart"],
         nextBuyRangeEnd: json["nextBuyRangeEnd"],
         nextCouponRate: json["nextCouponRate"],
