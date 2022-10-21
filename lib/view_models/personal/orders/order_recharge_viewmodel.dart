@@ -30,11 +30,14 @@ class OrderRechargeViewModel extends BaseViewModel {
 
   onSaveQrcode(BuildContext context, GlobalKey repaintKey) {
     capturePng(repaintKey).then((value) {
-      print('value:$value');
-      bool success = value.isNotEmpty;
+      // print('value:$value');
+      // bool success = value.isNotEmpty;
+      // SimpleCustomDialog(context,
+      //         mainText: success ? null : tr("recharge-FAIL'"),
+      //         isSuccess: success)
+      //     .show();
       SimpleCustomDialog(context,
-              mainText: success ? null : tr("recharge-FAIL'"),
-              isSuccess: success)
+          isSuccess: true)
           .show();
     });
   }
@@ -45,7 +48,7 @@ class OrderRechargeViewModel extends BaseViewModel {
     try {
       debugPrint('开始保存');
       var qrValidationResult = QrValidator.validate(
-        data: address?[currentChain] ?? '',
+        data: address?[currentChain.name] ?? '',
         version: QrVersions.auto,
         errorCorrectionLevel: QrErrorCorrectLevel.L,
       );
