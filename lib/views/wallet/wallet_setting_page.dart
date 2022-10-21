@@ -11,7 +11,7 @@ import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_theme.dart';
 import '../../view_models/wallet/wallet_setting_viewmodel.dart';
 import '../../widgets/button/login_button_widget.dart';
-import '../../widgets/label/coin/base_coin_widget.dart';
+import '../../widgets/label/icon/base_icon_widget.dart';
 import '../../widgets/label/gradient_bolder_widget.dart';
 import '../login/login_email_code_view.dart';
 
@@ -91,7 +91,7 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
             margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Wrap(runSpacing: 15, children: [
               Row(children: [
-                BaseCoinWidget(
+                BaseIconWidget(
                     imageAssetPath: viewModel.getCoinImage(coin),
                     size: UIDefine.fontSize26),
                 Text("  ${viewModel.getCoinTitle(coin)}",

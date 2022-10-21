@@ -7,6 +7,8 @@ import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
+import '../../widgets/label/icon/level_icon_widget.dart';
+import '../../widgets/label/icon/medal_icon_widget.dart';
 import '../login/circle_network_icon.dart';
 import 'level/level_detail_page.dart';
 import 'level/level_point_page.dart';
@@ -99,12 +101,9 @@ class PersonalSubUserInfoView extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Image.asset(
-                      format(AppImagePath.level,
-                          ({'level': GlobalData.userInfo.level})),
-                      width: UIDefine.fontSize18,
-                      height: UIDefine.fontSize18,
-                    ),
+                    LevelIconWidget(
+                        level: GlobalData.userInfo.level,
+                        size: UIDefine.fontSize18),
                     const SizedBox(width: 5),
                     Text('${tr('level')} ${GlobalData.userInfo.level}',
                         style: TextStyle(
@@ -137,62 +136,12 @@ class PersonalSubUserInfoView extends StatelessWidget {
 
   Widget _buildMedalIcon(BuildContext context) {
     if (GlobalData.userInfo.medal.isNotEmpty) {
-      String mainNumber = '';
-      switch (GlobalData.userInfo.medal) {
-
-        /// 累計簽到
-        case "AchSignIn":
-          mainNumber = '01';
-          break;
-
-        /// 累計連續簽到
-        case "AchContSignIn":
-          mainNumber = '02';
-          break;
-
-        /// 累計預約成功
-        case "AchRsvScs":
-          mainNumber = '03';
-          break;
-
-        /// 累計購買成功
-        case "AchBuyScs":
-          mainNumber = '04';
-          break;
-
-        /// 累計自己購買滿額
-        case "AchSlfBuyAmt":
-          mainNumber = '05';
-          break;
-
-        /// 累計團隊購買次數
-        case "AchTeamBuyFreq":
-          mainNumber = '06';
-          break;
-
-        /// 累計團隊購買金額
-        case "AchTeamBuyAmt":
-          mainNumber = '07';
-          break;
-
-        /// 累計邀請有效A級
-        case "AchInvClsA":
-          mainNumber = '08';
-          break;
-
-        /// 累計邀請有效B或C級
-        case "AchInvClsBC":
-          mainNumber = '09';
-          break;
-      }
       return InkWell(
-        onTap: () => _showPointPage(context),
-        child: Image.asset(
-          format(AppImagePath.medalIcon, {'mainNumber': mainNumber}),
-          width: UIDefine.fontSize24,
-          height: UIDefine.fontSize24,
-        ),
-      );
+          onTap: () => _showPointPage(context),
+          child: MedalIconWidget(
+            medal: GlobalData.userInfo.medal,
+            size: UIDefine.fontSize24,
+          ));
     }
     return Container();
   }
