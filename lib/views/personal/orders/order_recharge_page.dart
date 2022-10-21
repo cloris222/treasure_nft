@@ -132,7 +132,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
                 key: repaintKey,
                 child: QrImage(
                   errorStateBuilder: (context, error) => Text(error.toString()),
-                  data: viewModel.address?[viewModel.currentChain] ?? '',
+                  data: viewModel.address?[viewModel.currentChain.name] ?? '',
                   version: QrVersions.auto,
                   backgroundColor: Colors.white,
                   foregroundColor: AppColors.mainThemeButton,
