@@ -29,22 +29,17 @@ class OrderRechargeViewModel extends BaseViewModel {
   }
 
   onSaveQrcode(BuildContext context, GlobalKey repaintKey) {
-    capturePng(repaintKey).then((value) {
-      // print('value:$value');
-      // bool success = value.isNotEmpty;
-      // SimpleCustomDialog(context,
-      //         mainText: success ? null : tr("recharge-FAIL'"),
-      //         isSuccess: success)
-      //     .show();
+    capturePng(repaintKey).then((success) {
       SimpleCustomDialog(context,
-          isSuccess: true)
+              mainText: success ? null : tr("recharge-FAIL'"),
+              isSuccess: success)
           .show();
     });
   }
 
   ///MARK: 儲存QR Code
   ///https://medium.com/codex/exporting-qr-codes-in-flutter-dd30220fcba4
-  Future<String> capturePng(GlobalKey repaintKey) async {
+  Future<bool> capturePng(GlobalKey repaintKey) async {
     try {
       debugPrint('开始保存');
       var qrValidationResult = QrValidator.validate(
@@ -66,10 +61,10 @@ class OrderRechargeViewModel extends BaseViewModel {
       final result =
           await ImageGallerySaver.saveImage(picData!.buffer.asUint8List());
       debugPrint('result:$result');
-      return result['filePath'];
+      return true;
     } catch (e) {
       debugPrint(e.toString());
     }
-    return '';
+    return false;
   }
 }
