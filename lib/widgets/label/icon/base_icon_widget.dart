@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-
-import '../../../constant/theme/app_image_path.dart';
 import '../../../constant/ui_define.dart';
 
-class BaseCoinWidget extends StatelessWidget {
-  const BaseCoinWidget({Key? key, this.size, required this.imageAssetPath})
+class BaseIconWidget extends StatelessWidget {
+  const BaseIconWidget({Key? key, this.size, required this.imageAssetPath})
       : super(key: key);
   final double? size;
   final String imageAssetPath;
