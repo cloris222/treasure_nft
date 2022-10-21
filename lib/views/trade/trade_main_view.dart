@@ -18,6 +18,7 @@ import '../../constant/theme/app_image_path.dart';
 import '../../models/http/parameter/check_reservation_info.dart';
 import '../../utils/date_format_util.dart';
 import '../../widgets/button/login_button_widget.dart';
+import '../../widgets/dialog/simple_custom_dialog.dart';
 import '../../widgets/label/level_detail.dart';
 import '../../widgets/list_view/trade/level_area_list_view_cell.dart';
 
@@ -42,6 +43,8 @@ class _TradeMainViewState extends State<TradeMainView> {
         /// 預約成功
         reservationSuccess: () {
       AnimationDialog(context, AppAnimationPath.reserveSuccess).show();
+      /// hide reservation button
+
     },
 
         /// 預約金不足
@@ -74,7 +77,11 @@ class _TradeMainViewState extends State<TradeMainView> {
               mainText: tr("reserve-failed'"),
               subText: tr('APP_0041')
           ).show();
-        });
+        },
+    errorMes: (errorCode) {
+      SimpleCustomDialog(context, mainText: tr(errorCode), isSuccess: false).show();
+    }
+    );
     viewModel.initState();
     super.initState();
   }
@@ -272,19 +279,24 @@ class _TradeMainViewState extends State<TradeMainView> {
             /// press btn check reservation info
             reservationAction: () {
               ReserveRange? range =
-                  viewModel.reservationInfo?.reserveRanges[index];
-              ReservationDialog(context, confirmBtnAction: () {
+                  viewModel.ranges[index];
+              ReservationDialog(context, confirmBtnAction: () async{
                 Navigator.pop(context);
 
                 /// add new reservation
-                viewModel.addNewReservation();
+                await viewModel.addNewReservation(index);
+
+                /// if reservation success 預約狀態 = true
+                viewModel.ranges[index].used = true;
+                /// 狀態更新
+                setState(() {});
               },
-                      index: range?.index,
-                      startPrice: range?.startPrice.toDouble(),
-                      endPrice: range?.endPrice.toDouble())
+                      index: range.index,
+                      startPrice: range.startPrice.toDouble(),
+                      endPrice: range.endPrice.toDouble())
                   .show();
             },
-            range: viewModel.reservationInfo?.reserveRanges[index],
+            range: viewModel.ranges[index],
           );
         });
   }

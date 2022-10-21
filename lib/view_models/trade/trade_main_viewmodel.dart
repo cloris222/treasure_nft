@@ -14,19 +14,21 @@ import '../../models/http/api/trade_api.dart';
 import '../../models/http/parameter/add_new_reservation.dart';
 import '../../utils/date_format_util.dart';
 
-
 class TradeMainViewModel extends BaseViewModel {
-  TradeMainViewModel(
-      {required this.setState,
-      required this.reservationSuccess,
-      required this.bookPriceNotEnough,
-      required this.notEnoughToPay,
-      required this.depositNotEnough});
+  TradeMainViewModel({
+    required this.setState,
+    required this.reservationSuccess,
+    required this.bookPriceNotEnough,
+    required this.notEnoughToPay,
+    required this.depositNotEnough,
+    required this.errorMes,
+  });
 
   final onClickFunction setState;
   CheckReservationInfo? reservationInfo;
   CheckLevelInfo? userLevelInfo;
   AddNewReservation? newReservation;
+  late List<ReserveRange> ranges;
   Timer? countdownTimer;
   DateTime? startTime;
   DateTime? endTime;
@@ -36,19 +38,25 @@ class TradeMainViewModel extends BaseViewModel {
   VoidCallback bookPriceNotEnough;
   VoidCallback reservationSuccess;
   VoidCallback depositNotEnough;
+  ResponseErrorFunction errorMes;
 
   Future<void> initState() async {
     reservationInfo = await TradeAPI().getCheckReservationInfoAPI();
     userLevelInfo = await UserInfoAPI().getCheckLevelInfoAPI();
+    ranges = reservationInfo!.reserveRanges;
     startTimer();
     setState();
   }
 
   /// 新增預約
-  addNewReservation() async {
-    newReservation = await TradeAPI(
-            onConnectFail: _onAddReservationFail, showTrString: false)
-        .postAddNewReservationAPI(type: "PRICE");
+  addNewReservation(int index) async {
+    await TradeAPI(onConnectFail: _onAddReservationFail, showTrString: false)
+        .postAddNewReservationAPI(
+            type: "PRICE",
+            startPrice: ranges[index].startPrice,
+            endPrice: ranges[index].endPrice,
+            priceIndex: ranges[index].index);
+
     /// 如果預約成功 會進call back function
     reservationSuccess();
   }
@@ -60,8 +68,8 @@ class TradeMainViewModel extends BaseViewModel {
 
   /// display star ~ end price range
   String getRange() {
-    dynamic? min;
-    dynamic? max;
+    dynamic min;
+    dynamic max;
 
     min = userLevelInfo?.buyRangeStart;
     max = userLevelInfo?.buyRangeEnd;
@@ -99,9 +107,10 @@ class TradeMainViewModel extends BaseViewModel {
     var duration = const Duration();
 
     /// 如果還沒拿到值 先給空資料
-    if(reservationInfo==null) {
+    if (reservationInfo == null) {
       return TradeData(duration: duration, status: SellingState.NotYet);
     }
+
     /// if sellDate == null , sell day is today
     if (reservationInfo?.sellDate == "") {
       reservationInfo?.sellDate = DateFormatUtil().getNowTimeWithDayFormat();
@@ -144,6 +153,7 @@ class TradeMainViewModel extends BaseViewModel {
     }
   }
 
+  /// 預約失敗顯示彈窗
   void _onAddReservationFail(String errorMessage) {
     switch (errorMessage) {
 
@@ -158,8 +168,11 @@ class TradeMainViewModel extends BaseViewModel {
         break;
 
       /// 預約金額不符
-      case'APP_0041':
+      case 'APP_0041':
         depositNotEnough();
+        break;
+      default:
+        errorMes(errorMessage);
         break;
     }
   }

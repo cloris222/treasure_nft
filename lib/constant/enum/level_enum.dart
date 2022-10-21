@@ -13,6 +13,10 @@ enum LevelRank {
 }
 
 enum SellingState{
+  /// 尚未開賣
   NotYet,
+  /// 開賣中
   Selling,
+  /// 預約中
+  Reserving,
 }
