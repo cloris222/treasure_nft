@@ -13,8 +13,8 @@ import '../../../constant/ui_define.dart';
 import '../../../models/http/parameter/check_reservation_info.dart';
 import '../../gradient_text.dart';
 
-class LevelListViewCell extends StatefulWidget {
-  LevelListViewCell(
+class DivisionCell extends StatefulWidget {
+  DivisionCell(
       {Key? key,
       required this.reservationAction,
       this.range,
@@ -27,10 +27,10 @@ class LevelListViewCell extends StatefulWidget {
   late bool isSell;
 
   @override
-  State<LevelListViewCell> createState() => _LevelListViewCellState();
+  State<DivisionCell> createState() => _DivisionCellState();
 }
 
-class _LevelListViewCellState extends State<LevelListViewCell> {
+class _DivisionCellState extends State<DivisionCell> {
 
   String ifIsBeginnerImg() {
     if (GlobalData.userInfo.level == 0) {

@@ -7,10 +7,15 @@ import '../parameter/check_reserve_deposit.dart';
 class TradeAPI extends HttpManager {
   TradeAPI({super.onConnectFail, super.showTrString});
 
-  /// 查詢預約資訊
-  Future<CheckReservationInfo> getCheckReservationInfoAPI() async {
-    var response = await get('/reserve/info');
-    response.printLog();
+  /// step1: 查詢副本歸屬區間資訊
+  Future<List<int>> getDivisionAPI() async {
+    var response = await get('/reserve/division');
+    return List<int>.from(response.data.map((x) => x));
+  }
+
+  /// step2: 查詢預約資訊
+  Future<CheckReservationInfo> getCheckReservationInfoAPI(int division) async {
+    var response = await get('/reserve/info',queryParameters: {'division':division});
     return CheckReservationInfo.fromJson(response.data);
   }
 
@@ -32,7 +37,7 @@ class TradeAPI extends HttpManager {
       required dynamic startPrice,
       required dynamic endPrice,
       required int priceIndex}) async {
-    return  post('/reserve/insert', data: {
+    return post('/reserve/insert', data: {
       'type': type,
       'startPrice': startPrice,
       'endPrice': endPrice,

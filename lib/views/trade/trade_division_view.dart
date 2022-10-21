@@ -7,6 +7,7 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
+import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 import 'package:treasure_nft_project/widgets/count_down_timer.dart';
 import 'package:treasure_nft_project/widgets/dialog/animation_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/reservation_dialog.dart';
@@ -17,32 +18,74 @@ import '../../constant/theme/app_image_path.dart';
 import '../../models/http/parameter/check_reservation_info.dart';
 import '../../utils/date_format_util.dart';
 import '../../view_models/trade/trade_division_viewmodel.dart';
-import '../../view_models/trade/trade_main_viewmodel.dart';
 import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/dialog/simple_custom_dialog.dart';
 import '../../widgets/label/level_detail.dart';
 import '../../widgets/list_view/trade/level_area_division_cell.dart';
-import '../../widgets/list_view/trade/level_area_main_cell.dart';
 
-class TradeMainView extends StatefulWidget {
-  const TradeMainView({Key? key}) : super(key: key);
+class TradeDivisionView extends StatefulWidget {
+  const TradeDivisionView({
+    Key? key,
+    required this.level,
+  }) : super(key: key);
+
+  final int level;
 
   @override
-  State<TradeMainView> createState() => _TradeMainViewState();
+  State<TradeDivisionView> createState() => _TradeDivisionViewState();
 }
 
-class _TradeMainViewState extends State<TradeMainView> {
-  late TradeMainViewModel viewModel;
+class _TradeDivisionViewState extends State<TradeDivisionView> {
+  late TradeDivisionViewModel viewModel;
 
   @override
   void initState() {
-    viewModel = TradeMainViewModel(
-      setState: () {
-        if (mounted) {
-          setState(() {});
-        }
-      },
-    );
+    viewModel = TradeDivisionViewModel(setState: () {
+      if (mounted) {
+        setState(() {});
+      }
+    },
+
+        /// 預約成功
+        reservationSuccess: () {
+      AnimationDialog(context, AppAnimationPath.reserveSuccess).show();
+
+      /// hide reservation button
+    },
+
+        /// 預約金不足
+        bookPriceNotEnough: () {
+      SuccessDialog(context,
+              callOkFunction: () {},
+              isSuccess: false,
+              mainText: tr("reserve-failed'")
+              // TODO 預約金不足 多國
+              )
+          .show();
+    },
+
+        /// 餘額不足
+        notEnoughToPay: () {
+      SuccessDialog(context,
+              callOkFunction: () {},
+              isSuccess: false,
+              mainText: tr("reserve-failed'"),
+              subText: tr('APP_0013'))
+          .show();
+    },
+
+        /// 預約金額不符
+        depositNotEnough: () {
+      SuccessDialog(context,
+              callOkFunction: () {},
+              isSuccess: false,
+              mainText: tr("reserve-failed'"),
+              subText: tr('APP_0041'))
+          .show();
+    }, errorMes: (errorCode) {
+      SimpleCustomDialog(context, mainText: tr(errorCode), isSuccess: false)
+          .show();
+    });
     viewModel.initState();
     super.initState();
   }
@@ -55,14 +98,18 @@ class _TradeMainViewState extends State<TradeMainView> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          const DomainBar(),
-          _countDownView(context),
-          _levelView(context),
-          checkDataInit()
-        ],
+    return Scaffold(
+      appBar: CustomAppBar.getCommonAppBar(() {
+        Navigator.pop(context);
+      }, widget.level == 0 ? tr('noviceArea') : 'Level ${widget.level}'),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            _countDownView(context),
+            _levelView(context),
+            checkDataInit()
+          ],
+        ),
       ),
     );
   }
@@ -241,12 +288,32 @@ class _TradeMainViewState extends State<TradeMainView> {
 
   Widget _levelArea(BuildContext context) {
     return ListView.builder(
-        itemCount: viewModel.division?.length,
+        itemCount: viewModel.reservationInfo?.reserveRanges.length,
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
-          return LevelMainCell(
-            level: viewModel.division![index],
+          return DivisionCell(
+            /// press btn check reservation info
+            reservationAction: () {
+              ReserveRange? range = viewModel.ranges[index];
+              ReservationDialog(context, confirmBtnAction: () async {
+                Navigator.pop(context);
+
+                /// add new reservation
+                await viewModel.addNewReservation(index);
+
+                /// if reservation success 預約狀態 = true
+                viewModel.ranges[index].used = true;
+
+                /// 狀態更新
+                setState(() {});
+              },
+                      index: range.index,
+                      startPrice: range.startPrice.toDouble(),
+                      endPrice: range.endPrice.toDouble())
+                  .show();
+            },
+            range: viewModel.ranges[index],
           );
         });
   }
