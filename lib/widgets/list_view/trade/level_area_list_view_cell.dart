@@ -5,6 +5,7 @@ import 'package:lottie/lottie.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_animation_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
+import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 
 import '../../../constant/theme/app_colors.dart';
@@ -13,7 +14,7 @@ import '../../../models/http/parameter/check_reservation_info.dart';
 import '../../gradient_text.dart';
 
 class LevelListViewCell extends StatefulWidget {
-  const LevelListViewCell(
+  LevelListViewCell(
       {Key? key,
       required this.reservationAction,
       this.range,
@@ -23,12 +24,14 @@ class LevelListViewCell extends StatefulWidget {
   final bool isNew;
   final ReserveRange? range;
   final VoidCallback reservationAction;
+  late bool isSell;
 
   @override
   State<LevelListViewCell> createState() => _LevelListViewCellState();
 }
 
 class _LevelListViewCellState extends State<LevelListViewCell> {
+
   String ifIsBeginnerImg() {
     if (GlobalData.userInfo.level == 0) {
       return AppImagePath.beginner;
@@ -54,6 +57,14 @@ class _LevelListViewCellState extends State<LevelListViewCell> {
       );
     }
   }
+
+  ifReservationSuccess(){
+    /// reservation success 預約狀態 = true
+    if(widget.range?.used == true){
+      widget.isSell = true;
+    }
+  }
+
 /// 是否解鎖副本
   showImg(){
     if(widget.range?.lock == true){
