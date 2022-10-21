@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'package:flutter/cupertino.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/enum/level_enum.dart';
@@ -14,9 +15,14 @@ import '../../models/http/api/trade_api.dart';
 import '../../models/http/parameter/add_new_reservation.dart';
 import '../../utils/date_format_util.dart';
 
-class TradeMainViewModel extends BaseViewModel {
-  TradeMainViewModel({
+class TradeDivisionViewModel extends BaseViewModel {
+  TradeDivisionViewModel({
     required this.setState,
+    required this.reservationSuccess,
+    required this.bookPriceNotEnough,
+    required this.notEnoughToPay,
+    required this.depositNotEnough,
+    required this.errorMes,
   });
 
   final onClickFunction setState;
@@ -30,15 +36,32 @@ class TradeMainViewModel extends BaseViewModel {
   DateTime? endTime;
   DateTime? localTime;
   int second = 0;
+  VoidCallback notEnoughToPay;
+  VoidCallback bookPriceNotEnough;
+  VoidCallback reservationSuccess;
+  VoidCallback depositNotEnough;
+  ResponseErrorFunction errorMes;
 
   Future<void> initState() async {
     division = await TradeAPI().getDivisionAPI();
-    reservationInfo =
-        await TradeAPI().getCheckReservationInfoAPI(division!.first);
+    reservationInfo = await TradeAPI().getCheckReservationInfoAPI(division!.first);
     userLevelInfo = await UserInfoAPI().getCheckLevelInfoAPI();
     ranges = reservationInfo!.reserveRanges;
     startTimer();
     setState();
+  }
+
+  /// 新增預約
+  addNewReservation(int index) async {
+    await TradeAPI(onConnectFail: _onAddReservationFail, showTrString: false)
+        .postAddNewReservationAPI(
+            type: "PRICE",
+            startPrice: ranges[index].startPrice,
+            endPrice: ranges[index].endPrice,
+            priceIndex: ranges[index].index);
+
+    /// 如果預約成功 會進call back function
+    reservationSuccess();
   }
 
   /// 離開頁面後清除時間
@@ -130,6 +153,30 @@ class TradeMainViewModel extends BaseViewModel {
     } else {
       duration = endTime!.add(const Duration(days: 1)).difference(localTime!);
       return TradeData(duration: duration, status: SellingState.NotYet);
+    }
+  }
+
+  /// 預約失敗顯示彈窗
+  void _onAddReservationFail(String errorMessage) {
+    switch (errorMessage) {
+
+      /// 預約金不足
+      case 'APP_0064':
+        bookPriceNotEnough();
+        break;
+
+      /// 餘額不足
+      case 'APP_0013':
+        notEnoughToPay();
+        break;
+
+      /// 預約金額不符
+      case 'APP_0041':
+        depositNotEnough();
+        break;
+      default:
+        errorMes(errorMessage);
+        break;
     }
   }
 }
