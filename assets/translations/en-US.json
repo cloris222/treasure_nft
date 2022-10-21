@@ -133,7 +133,7 @@
   "vol": "Volume Traded",
   "last24h": "24 hours",
   "index-fee'": "Cost",
-  "updated-3-min'": "Last update: 3 minutes ago",
+  "updated-3-min'": "Last update: \n3 minutes ago",
   "trading": "Trade",
   "trending-NFTs'": "Trending NFTs",
   "viewAll": "View all",
@@ -845,7 +845,7 @@
   "transactionReward": "Transaction Reward",
   "changePassword": "Change Password",
   "submit": "Submit",
-  "emailIllustrate": "Join our mailing list to stay in the loop with our newest feature releases, NFT drops, and tips and tricks for navigating Treasure",
+  "emailIllustrate": "Join our mailing list to stay in the loop with our newest \nfeature releases, NFT drops, and tips and tricks \nfor navigating Treasure",
   "footer_resource": "Resources",
   "footer_docs": "docs",
   "footer_friends": "invite friends",
@@ -902,5 +902,7 @@
   "footer_friends_title": "How to share invitations",
   "footer_howtoBuy_title": "How to trade",
   "overview": "Overview",
-  "document-text-1": "TreasureNFT is the world's first comprehensive NFT trading platform based on algorithmic trading, through an innovative algorithmic trading model, using automatic algorithmic quotes, automatic maintenance of liquidity, pioneering the industry, unlike the traditional NFT trading platform quote model, vulnerable to market sentiment interference, as well as irrational investment factors driven by NFT asset prices fluctuate significantly, once the market heat NFT assets will experience a lack of liquidity, TreasureNFT with an innovative algorithmic price trading model, for each NFT assets are given liquidity."
+  "document-text-1": "TreasureNFT is the world's first comprehensive NFT trading platform based on algorithmic trading, through an innovative algorithmic trading model, using automatic algorithmic quotes, automatic maintenance of liquidity, pioneering the industry, unlike the traditional NFT trading platform quote model, vulnerable to market sentiment interference, as well as irrational investment factors driven by NFT asset prices fluctuate significantly, once the market heat NFT assets will experience a lack of liquidity, TreasureNFT with an innovative algorithmic price trading model, for each NFT assets are given liquidity.",
+  "document-title-2": "The world's first encrypted NFT integrated marketplace-TreasureNFT"
+
 }

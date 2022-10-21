@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
@@ -12,7 +12,6 @@ import 'package:treasure_nft_project/widgets/domain_bar.dart';
 import 'package:treasure_nft_project/widgets/gradient_text.dart';
 import 'package:treasure_nft_project/widgets/list_view/home/artist_record_listview.dart';
 import 'package:treasure_nft_project/widgets/list_view/home/carousel_listview.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 import 'home_pdf_viewer.dart';
 import 'widget/sponsor_row_widget.dart';
@@ -29,7 +28,7 @@ class HomeMainView extends StatelessWidget {
         Stack(children: [
 
           SizedBox(
-            height: UIDefine.getScreenHeight(121),
+            height: UIDefine.getScreenHeight(125),
             child:  Transform.scale(
               scaleX: 1.33,
               child: Image.asset(AppImagePath.firstBackground),
@@ -73,14 +72,14 @@ class HomeMainView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Buy and sell NFTs daily and earn profit',
+                      Text(tr('index-product-text-1\''),
                         style: TextStyle(
                           fontSize: UIDefine.fontSize14,
                           color: AppColors.textGrey,
                         ),
                       ),
 
-                      Text('Invite friends and daily earn extra income',
+                      Text(tr('index-product-text-2\''),
                         style: TextStyle(
                           fontSize: UIDefine.fontSize12,
                           color: AppColors.textGrey,
@@ -115,6 +114,7 @@ class HomeMainView extends StatelessWidget {
           ],),
         ]),
 
+        viewModel.getPadding(3),
         /// 畫家排行
         hotCollection(),
 
@@ -122,7 +122,6 @@ class HomeMainView extends StatelessWidget {
         TextButton(
           //圓角
           style: ButtonStyle(
-            // elevation: MaterialStateProperty.all(5),
             shadowColor: MaterialStateProperty.all(Colors.black38),
             backgroundColor: MaterialStateProperty.all(Colors.white),
             shape: MaterialStateProperty.all(
@@ -132,9 +131,9 @@ class HomeMainView extends StatelessWidget {
           ),
 
           onPressed: () {},
-          child: const Padding (
-            padding: EdgeInsets.only(left: 10, top: 3, right: 10, bottom: 3),
-            child:Text('View all', style: TextStyle(color: AppColors.textBlack)),
+          child: Padding (
+            padding: const EdgeInsets.only(left: 10, top: 3, right: 10, bottom: 3),
+            child:Text(tr('seeAll'), style: const TextStyle(color: AppColors.textBlack)),
           ),
         ),
 
@@ -175,7 +174,7 @@ Widget USDT_Info() {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('VOL (USDT)',
+              Text('${tr('lastDayAmount')} (${tr('usdt')})',
                 style: TextStyle(
                     fontSize: UIDefine.fontSize12,
                     color: AppColors.textBlack,
@@ -194,7 +193,7 @@ Widget USDT_Info() {
 
               viewModel.getPadding(1),
 
-              Text('Last 24h',
+              Text(tr('Last_24_hours'),
                 style: TextStyle(
                   fontSize: UIDefine.fontSize12,
                   color: AppColors.textGrey,
@@ -218,7 +217,7 @@ Widget USDT_Info() {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('FEE (USDT)',
+              Text('FEE (${tr('usdt')})',
                 style: TextStyle(
                     fontSize: UIDefine.fontSize12,
                     color: AppColors.textBlack,
@@ -237,7 +236,7 @@ Widget USDT_Info() {
 
               viewModel.getPadding(1),
 
-              Text('updated 3 minutes ago',
+              Text(tr('updated-3-min\''),
                 style: TextStyle(
                   fontSize: UIDefine.fontSize12,
                   color: AppColors.textGrey,
@@ -261,7 +260,7 @@ Widget USDT_Info() {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('NFTs(USDT)',
+              Text('${tr('NFTs')}(${tr('usdt')})',
                 style: TextStyle(
                     fontSize: UIDefine.fontSize12,
                     color: AppColors.textBlack,
@@ -279,7 +278,7 @@ Widget USDT_Info() {
 
               viewModel.getPadding(1),
 
-              Text('Trading',
+              Text(tr('status_PAYING'),
                 style: TextStyle(
                   fontSize: UIDefine.fontSize12,
                   color: AppColors.textGrey,
@@ -313,7 +312,7 @@ Widget hotCollection() {
     Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Last 24 hours',
+          Text(tr('Last_24_hours'),
             style: TextStyle(
               fontSize: UIDefine.fontSize20,
               color: AppColors.mainThemeButton,
@@ -458,15 +457,15 @@ Widget mailSubmit() {
                 children: [
                   vm.getPadding(1),
 
-                  Text('Join our mailing list to stay in the loop with our newest',
+                  Text(tr('emailIllustrate'),
                     style: TextStyle(fontSize: UIDefine.fontSize12),
                   ),
-                  Text('feature releases, NFT drops, and tips and tricks',
-                    style: TextStyle(fontSize: UIDefine.fontSize12),
-                  ),
-                  Text('for navigating DeepLink.',
-                    style: TextStyle(fontSize: UIDefine.fontSize12),
-                  ),
+                  // Text('feature releases, NFT drops, and tips and tricks',
+                  //   style: TextStyle(fontSize: UIDefine.fontSize12),
+                  // ),
+                  // Text('for navigating DeepLink.',
+                  //   style: TextStyle(fontSize: UIDefine.fontSize12),
+                  // ),
 
                   vm.getPadding(3),
 
@@ -490,7 +489,7 @@ Widget mailSubmit() {
                             controller: textEditingController,
                             focusNode: focusNode,
                             decoration: InputDecoration(
-                                hintText: 'Enter your email address',
+                                hintText: tr('placeholder-email-address\''),
                                 hintStyle: const TextStyle(color: AppColors.textGrey),
                                 border: AppStyle().styleTextEditBorderBackground(radius: 10),
                                 filled: true,
@@ -513,7 +512,7 @@ Widget mailSubmit() {
                                 child: Container(
                                   color: AppColors.mainThemeButton,
                                   child: Center(
-                                    child: Text('Submit',
+                                    child: Text(tr('submit'),
                                       style: TextStyle(
                                           color: AppColors.textWhite,
                                           fontSize: UIDefine.fontSize20,
@@ -559,7 +558,7 @@ Widget ourInfo() {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                Text('Resources', style: TextStyle(
+                Text(tr('footer_resource'), style: TextStyle(
                   fontSize: UIDefine.fontSize16,
                   color: AppColors.textBlack,
                 ),),
@@ -570,7 +569,7 @@ Widget ourInfo() {
                     onTap: () {
                       viewModel.launchInBrowser('https://treasurenft.gitbook.io/treasurenft-1/');
                     },
-                    child:Text('Docs', style: TextStyle(
+                    child:Text(tr('footer_docs'), style: TextStyle(
                       fontSize: UIDefine.fontSize14,
                       color: AppColors.textGrey,
                     ),),
@@ -582,7 +581,7 @@ Widget ourInfo() {
                     onTap: () {
                       viewModel.launchInBrowser('https://treasurenft-metaverse.gitbook.io/how-to-use/earn/how-to-share-invitations');
                     },
-                    child:Text('Invite Friends', style: TextStyle(
+                    child:Text(tr('footer_friends'), style: TextStyle(
                       fontSize: UIDefine.fontSize14,
                       color: AppColors.textGrey,
                     ),),
@@ -594,7 +593,7 @@ Widget ourInfo() {
                     onTap: () {
                       viewModel.launchInBrowser('https://treasurenft-metaverse.gitbook.io/how-to-use/earn/how-to-trade');
                     },
-                    child:Text('How to buy', style: TextStyle(
+                    child:Text(tr('footer_howtoBuy'), style: TextStyle(
                       fontSize: UIDefine.fontSize14,
                       color: AppColors.textGrey,
                     ),),
@@ -605,7 +604,7 @@ Widget ourInfo() {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                Text('News', style: TextStyle(
+                Text(tr('footer_news'), style: TextStyle(
                   fontSize: UIDefine.fontSize16,
                   color: AppColors.textBlack,
                 ),),
@@ -616,7 +615,7 @@ Widget ourInfo() {
                     onTap: () {
                       viewModel.launchInBrowser('https://medium.com/@Treasurenft_xyz');
                     },
-                    child:Text('Blog', style: TextStyle(
+                    child:Text(tr('footer_blog'), style: TextStyle(
                       fontSize: UIDefine.fontSize14,
                       color: AppColors.textGrey,
                     ),),
@@ -627,7 +626,7 @@ Widget ourInfo() {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                Text('Company', style: TextStyle(
+                Text(tr('footer_company'), style: TextStyle(
                   fontSize: UIDefine.fontSize16,
                   color: AppColors.textBlack,
                 ),),
@@ -637,8 +636,8 @@ Widget ourInfo() {
                   GestureDetector(
                     onTap: () {
                       viewModel.pushPage(GlobalData.globalKey.currentContext!,
-                          const PDFViewerPage(
-                            title: 'Privacy Policy',
+                          PDFViewerPage(
+                            title: tr('footer_privacy'),
                             assetPath: 'assets/pdf/PrivacyPolicy.pdf',
                           ));
                     },
@@ -653,8 +652,8 @@ Widget ourInfo() {
                   GestureDetector(
                     onTap: () {
                       viewModel.pushPage(GlobalData.globalKey.currentContext!,
-                          const PDFViewerPage(
-                            title: 'User Agreement',
+                          PDFViewerPage(
+                            title: tr('footer_agreement'),
                             assetPath: 'assets/pdf/TermsOfUse.pdf',
                           ));
                     },
@@ -674,7 +673,7 @@ Widget ourInfo() {
 Widget contactUs() {
   HomeMainViewModel viewModel = HomeMainViewModel();
   return SizedBox(
-      height: UIDefine.getScreenHeight(55),
+      height: UIDefine.getScreenHeight(80),
       child: Stack(
         alignment: Alignment.centerLeft,
         children: [
@@ -691,7 +690,7 @@ Widget contactUs() {
             child:Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Contact us', style: TextStyle(
+                    Text(tr('footer_contactUs'), style: TextStyle(
                       fontSize: UIDefine.fontSize16,
                       color: AppColors.textBlack,
                     ),),
@@ -761,8 +760,7 @@ Widget contactUs() {
 
                     viewModel.getPadding(4),
 
-                    Text('The world\'s first encrypted NFT integrated '
-                        '\nmarketplace-TreasureNFT', style: TextStyle(
+                    Text(tr('document-title-2'), style: TextStyle(
                       fontSize: UIDefine.fontSize16,
                       color: AppColors.textBlack,
                       height: 1.3
@@ -770,9 +768,7 @@ Widget contactUs() {
 
                     viewModel.getPadding(2),
 
-                    Text('Through innovative algorithmic trading mode, '
-                        '\nit gives encrypted NFT assets new vigour and '
-                        '\nvitality From TreasureMeta Technology ltd',
+                    Text(tr('document-text-1'),
                       style: TextStyle(
                         fontSize: UIDefine.fontSize14,
                         color: AppColors.textGrey,
