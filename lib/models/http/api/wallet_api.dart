@@ -1,5 +1,7 @@
 import 'package:treasure_nft_project/models/http/http_manager.dart';
 
+import '../parameter/api_response.dart';
+
 class WalletAPI extends HttpManager {
   WalletAPI({super.onConnectFail});
 
@@ -21,5 +23,18 @@ class WalletAPI extends HttpManager {
       result[json['payType']] = json['account'];
     }
     return result;
+  }
+
+  Future<ApiResponse> setPaymentInfo(
+      {required String accountTRON,
+      required String accountBSC,
+      required String accountROLLOUT}) async {
+    return put('/payment/update', data: {
+      "paymentList": [
+        {"payType": "TRON", "account": accountTRON},
+        {"payType": "BSC", "account": accountBSC},
+        {"payType": "ROLLOUT", "account": accountROLLOUT}
+      ]
+    });
   }
 }

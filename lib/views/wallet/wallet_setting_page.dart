@@ -76,6 +76,7 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
               onPressCheckVerify: () => viewModel.checkEmailCode(context)),
           const SizedBox(height: 10),
           LoginButtonWidget(
+              isGradient: false,
               btnText: tr('save'),
               onPressed: () => viewModel.onSavePayment(context),
               enable: viewModel.checkEmail)

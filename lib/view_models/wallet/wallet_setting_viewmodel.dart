@@ -107,7 +107,19 @@ class WalletSettingViewModel extends BaseViewModel {
     });
   }
 
-  void onSavePayment(BuildContext context) {}
+  void onSavePayment(BuildContext context) async {
+    await WalletAPI(
+            onConnectFail: (errorMessage) =>
+                onBaseConnectFail(context, errorMessage))
+        .setPaymentInfo(
+            accountTRON: trcController.text,
+            accountBSC: bscController.text,
+            accountROLLOUT: rolloutController.text)
+        .then((value) {
+      popPage(context);
+      SimpleCustomDialog(context, isSuccess: true).show();
+    });
+  }
 
   void onClearData() {
     setState(() {
