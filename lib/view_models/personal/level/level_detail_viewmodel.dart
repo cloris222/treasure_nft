@@ -8,7 +8,7 @@ import '../../../constant/call_back_function.dart';
 import '../../../models/http/api/user_info_api.dart';
 import '../../../models/http/parameter/check_level_info.dart';
 import '../../../models/http/parameter/level_info_data.dart';
-import '../../../views/personal/level/level_bouns_page.dart';
+import '../../../views/personal/level/level_bonus_page.dart';
 
 class LevelDetailViewModel extends BaseViewModel {
   LevelDetailViewModel({required this.setState});
