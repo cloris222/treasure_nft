@@ -38,7 +38,7 @@ abstract class BaseDialog {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(radius))),
           title: initTitle(),
-          content: StatefulBuilder(builder: initContent),
+          content: SingleChildScrollView(child: StatefulBuilder(builder: initContent)),
           actions: initAction(),
         );
       },
