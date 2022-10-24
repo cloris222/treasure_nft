@@ -37,7 +37,7 @@ class SuccessDialog extends BaseDialog {
           createImageWidget(
               asset: isSuccess
                   ? AppImagePath.dialogSuccess
-                  : AppImagePath.dialogClose),
+                  : AppImagePath.dialogCancel),
           Container(
             margin: mainMargin,
             child: Text(mainText ?? '${tr('success')} !',
