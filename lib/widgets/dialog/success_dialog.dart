@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/constant/global_data.dart';
 import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';

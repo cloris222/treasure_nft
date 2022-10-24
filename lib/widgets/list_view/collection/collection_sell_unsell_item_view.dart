@@ -1,11 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 
 import '../../../views/collection/data/collection_nft_item_response_data.dart';
-import '../../../views/collection/transfer/collection_transfer_dialog.dart';
+import '../../../views/collection/sell/collection_sell_dialog_view.dart';
+import '../../../views/collection/transfer/collection_transfer_dialog_view.dart';
 
 /// 收藏 上架中/未上架 ItemView
 class CollectionSellUnSellItemView extends StatefulWidget {
@@ -256,7 +256,9 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                   borderRadius: BorderRadius.circular(10)
               ),
               child: TextButton(
-                  onPressed: () {  },
+                  onPressed: () {
+                    _pressSell();
+                  },
                   child: Text(
                     tr('sell'), // 販售
                     style: TextStyle(
@@ -285,11 +287,17 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
   }
 
   void _pressTransfer() {
-    CollectionTransferDialog(
+    CollectionTransferDialogView(
         context,
         data.imgUrl,
         data.name).show();
+  }
 
+  void _pressSell() {
+    CollectionSellDialogView(
+        context,
+        data.imgUrl,
+        data.name).show();
   }
 
 }

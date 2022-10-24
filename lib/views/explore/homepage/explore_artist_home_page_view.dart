@@ -1,6 +1,3 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constant/theme/app_colors.dart';
@@ -163,8 +160,8 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
                           onTap: () => _onPressSort(),
                           child: Container(
                             alignment: Alignment.center,
-                            width: 64,
-                            height: 50,
+                            width: UIDefine.getScreenWidth(17.77),
+                            height: UIDefine.getScreenWidth(13.88),
                             decoration: BoxDecoration(
                                 border: Border.all(
                                     width: 2, color: AppColors.mainThemeButton),

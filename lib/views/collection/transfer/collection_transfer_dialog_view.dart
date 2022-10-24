@@ -8,9 +8,9 @@ import 'package:treasure_nft_project/widgets/dialog/base_dialog.dart';
 
 import '../../../constant/theme/app_colors.dart';
 
-
-class CollectionTransferDialog extends BaseDialog {
-  CollectionTransferDialog(super.context, this.imgUrl, this.name) : super(isDialogCancel: false);
+/// 收藏 > 未上架Item > 轉出
+class CollectionTransferDialogView extends BaseDialog {
+  CollectionTransferDialogView(super.context, this.imgUrl, this.name) : super(isDialogCancel: false);
 
   String imgUrl;
   String name;
@@ -29,7 +29,6 @@ class CollectionTransferDialog extends BaseDialog {
     this.setState = setState;
     return SizedBox(
       width: UIDefine.getScreenWidth(97),
-      height: UIDefine.getScreenWidth(119),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -57,28 +56,29 @@ class CollectionTransferDialog extends BaseDialog {
               ),
 
               /// 驗證碼輸入框
-                  SizedBox(
-                      width: UIDefine.getScreenWidth(27.77),
-                      height: UIDefine.getScreenWidth(11.11),
-                      child: TextField(
-                        controller: controller,
-                        decoration: const InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: AppColors.bolderGrey, width: 2),
-                                borderRadius: BorderRadius.all(Radius.circular(10))),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: AppColors.bolderGrey, width: 2),
-                                borderRadius: BorderRadius.all(Radius.circular(10))),
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(color: AppColors.bolderGrey, width: 2),
-                                borderRadius: BorderRadius.all(Radius.circular(10))),
-                            filled: true,
-                            fillColor: AppColors.textWhite,
-                            contentPadding:
-                            EdgeInsets.only(left: 10, bottom: 6, top: 6)
-                        ),
-                      )
+              SizedBox(
+                width: UIDefine.getScreenWidth(27.77),
+                height: UIDefine.getScreenWidth(11.11),
+                child: TextField(
+                  controller: controller,
+                  decoration: InputDecoration(
+                    enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: AppColors.bolderGrey, width: 2),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: AppColors.bolderGrey, width: 2),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    border: const OutlineInputBorder(
+                        borderSide: BorderSide(color: AppColors.bolderGrey, width: 2),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    filled: true,
+                    fillColor: AppColors.textWhite,
+                    hintText: '驗證碼',
+                    hintStyle: TextStyle(fontSize: UIDefine.fontSize10, color: AppColors.searchBar),
+                    contentPadding: const EdgeInsets.only(left: 10, bottom: 6, top: 6)
                   ),
+                )
+              ),
 
               /// Get按鈕
               Container(
@@ -198,6 +198,7 @@ class CollectionTransferDialog extends BaseDialog {
       setState(() { bEmpty = true; });
       return;
     }
+
 
     /// API
   }
