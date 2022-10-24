@@ -320,13 +320,26 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
 
   ///MARK:升級至其他等級的需求
   Widget _buildLevelOtherRequest(int level) {
-    return Container();
+    return Column(
+      children: [
+        _buildSingleRequest(
+            level: level,
+            title: tr('open_A_lv'),
+            value: viewModel.userLevelInfo!.activeDirect,
+            request: viewModel.userLevelInfo!.activeDirectRequired),
+        _buildSingleRequest(
+            level: level,
+            title: tr('open_BC_lv'),
+            value: viewModel.userLevelInfo!.activeIndirect,
+            request: viewModel.userLevelInfo!.activeIndirectRequired),
+      ],
+    );
   }
 
   Widget _buildSingleRequest(
       {required int level,
       required String title,
-      required double value,
+      required dynamic value,
       required int request}) {
     double percentage = viewModel.checkUnlock(level) ? 1 : value / request;
     return Column(
@@ -334,7 +347,9 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
         Row(children: [
           Text(title),
           Flexible(child: Container()),
-          Text(percentage == 1 ? tr('Completed') : '$value / $request'),
+          Text(percentage == 1
+              ? tr('Completed')
+              : '${NumberFormatUtil().removeTwoPointFormat(value)} / $request'),
         ]),
         _buildSpace(height: 2),
         CustomLinearProgress(percentage: percentage),
