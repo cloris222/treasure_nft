@@ -68,7 +68,7 @@ class CancelDialog extends BaseDialog {
             Visibility(
                 visible: isShowDeleteBtn,
                 child: IconButton(
-                  icon: Image.asset(AppImagePath.dialogClose),
+                  icon: Image.asset(AppImagePath.dialogCancel),
                   onPressed: cancelAction,
                 )),
           ],

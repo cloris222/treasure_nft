@@ -21,6 +21,7 @@ class AppColors {
 
   static const Color datePickerBorder = Color(0xFFE0EAF6);
 
+  static const Color pageUnChoose = Color(0xFFD9D9D9);
 
   ///MARK:主題色彩
   static const Color mainThemeButton = Color(0xFF3B82F6);

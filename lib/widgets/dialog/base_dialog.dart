@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/theme/app_theme.dart';
+
 abstract class BaseDialog {
   BaseDialog(this.context,
       {this.radius = 35.0,
@@ -62,10 +63,11 @@ abstract class BaseDialog {
         transitionDuration: const Duration(milliseconds: 1500),
         transitionBuilder: (context, animation, secondaryAnimation, child) {
           return SlideTransition(
-              position:
-                  Tween<Offset>(begin: const Offset(0.0, 1.0), end: const Offset(0.0, 0.0))
-                      .animate(CurvedAnimation(
-                          parent: animation, curve: Curves.fastOutSlowIn)),
+              position: Tween<Offset>(
+                      begin: const Offset(0.0, 1.0),
+                      end: const Offset(0.0, 0.0))
+                  .animate(CurvedAnimation(
+                      parent: animation, curve: Curves.fastOutSlowIn)),
               child: FadeTransition(
                   opacity: Tween(begin: 0.0, end: 1.0).animate(
                       CurvedAnimation(parent: animation, curve: Curves.linear)),
@@ -99,7 +101,7 @@ abstract class BaseDialog {
   Widget createDialogCloseIcon() {
     return IconButton(
         onPressed: onCancel,
-        icon: Image.asset(AppImagePath.dialogClose, width: 15, height: 15));
+        icon: Image.asset(AppImagePath.closeDialogBtn, width: 15, height: 15));
   }
 
   Widget createImageWidget(

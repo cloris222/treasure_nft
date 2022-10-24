@@ -22,8 +22,7 @@ class AppImagePath {
 
   ///MARK: 通用icon
   static const String dialogSuccess = '$appImgPath/img_check_01.png';
-  static const String dialogClose = '$appImgPath/img_error_01.png';
-  static const String dialogCancel = '';
+  static const String dialogCancel = '$appImgPath/img_error_01.png';
   static const String appBarLeftArrow = '$appBtnFolderPath/btn_back_01_nor.png';
   static const String copyIcon = '$appBtnFolderPath/btn_edit_01_nor.png';
 
@@ -156,8 +155,8 @@ class AppImagePath {
   static const String trophyIcon = '$appIconFolderPath/icon_trophy_01.png';
   static const String levelUnLock = '$appIconFolderPath/icon_unlock_02.png';
   static const String levelLock = '$appIconFolderPath/icon_lock_01.png';
+  static const String bonusIcon = '$appImgPath/img_tether_01.png';
 
   /// Team
   static const String dateIcon = '$appIconFolderPath/icon_date_01.png';
-
 }

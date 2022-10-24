@@ -38,11 +38,17 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar.getCommonAppBar(() {
         BaseViewModel().popPage(context);
       }, tr('level')),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
           child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -57,15 +63,10 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
       children: [
         _buildSpace(),
         _buildCurrentLevelStatus(),
-        _buildSpace(),
         _buildLine(),
-        _buildSpace(),
         _buildCurrentLevelInfo(),
-        _buildSpace(),
         _buildLine(),
-        _buildSpace(),
         _buildAllLevelInfo(),
-        _buildSpace(),
       ],
     );
   }
@@ -75,7 +76,11 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
   }
 
   Widget _buildLine() {
-    return const Divider(color: AppColors.searchBar);
+    return Column(children: [
+      _buildSpace(),
+      const Divider(color: AppColors.searchBar),
+      _buildSpace()
+    ]);
   }
 
   ///MARK: 建立現在等級狀態
@@ -134,46 +139,44 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
 
       ///MARK: 每日任務
       InkWell(
-        onTap: () {
-          viewModel.pushPage(context, const LevelAchievementPage());
-        },
-        child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          BaseIconWidget(
-              imageAssetPath: AppImagePath.walletLogIcon,
-              size: UIDefine.fontSize18),
-          SizedBox(width: UIDefine.getScreenWidth(2)),
-          Text(
-            tr('pt_DAILY'),
-            style: TextStyle(fontSize: UIDefine.fontSize16),
-          ),
-          Flexible(child: Container()),
-          BaseIconWidget(
-              imageAssetPath: AppImagePath.rightArrow,
-              size: UIDefine.fontSize18)
-        ]),
-      ),
+          onTap: () {
+            viewModel.pushPage(context, const LevelAchievementPage());
+          },
+          child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+            BaseIconWidget(
+                imageAssetPath: AppImagePath.walletLogIcon,
+                size: UIDefine.fontSize18),
+            SizedBox(width: UIDefine.getScreenWidth(2)),
+            Text(
+              tr('pt_DAILY'),
+              style: TextStyle(fontSize: UIDefine.fontSize16),
+            ),
+            Flexible(child: Container()),
+            BaseIconWidget(
+                imageAssetPath: AppImagePath.rightArrow,
+                size: UIDefine.fontSize18)
+          ])),
       _buildSpace(height: 2),
 
       ///MARK: 成就
       InkWell(
-        onTap: () {
-          viewModel.pushPage(context, const LevelAchievementPage());
-        },
-        child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          BaseIconWidget(
-              imageAssetPath: AppImagePath.trophyIcon,
-              size: UIDefine.fontSize18),
-          SizedBox(width: UIDefine.getScreenWidth(2)),
-          Text(
-            tr('achievement'),
-            style: TextStyle(fontSize: UIDefine.fontSize16),
-          ),
-          Flexible(child: Container()),
-          BaseIconWidget(
-              imageAssetPath: AppImagePath.rightArrow,
-              size: UIDefine.fontSize18)
-        ]),
-      ),
+          onTap: () {
+            viewModel.pushPage(context, const LevelAchievementPage());
+          },
+          child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+            BaseIconWidget(
+                imageAssetPath: AppImagePath.trophyIcon,
+                size: UIDefine.fontSize18),
+            SizedBox(width: UIDefine.getScreenWidth(2)),
+            Text(
+              tr('achievement'),
+              style: TextStyle(fontSize: UIDefine.fontSize16),
+            ),
+            Flexible(child: Container()),
+            BaseIconWidget(
+                imageAssetPath: AppImagePath.rightArrow,
+                size: UIDefine.fontSize18)
+          ]))
     ]);
   }
 
@@ -199,8 +202,8 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
         }
       }
       return SizedBox(
-        height: UIDefine.getScreenHeight(70),
-        child: PageView(children: pages),
+        height: UIDefine.getScreenHeight(80),
+        child: PageView(controller: viewModel.pageController, children: pages),
       );
     }
     return Container();
@@ -208,52 +211,58 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
 
   ///MARK: 等級標題
   Widget _buildSingleLevelTitle(int level) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        BaseIconWidget(
-            imageAssetPath: viewModel.checkUnlock(level)
-                ? AppImagePath.levelUnLock
-                : AppImagePath.levelLock,
-            size: UIDefine.fontSize26),
-        Text(' ${tr('level')} $level ',
-            style: TextStyle(
-                fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w600)),
-        LevelIconWidget(level: level, size: UIDefine.fontSize26)
-      ],
-    );
+    return Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+      BaseIconWidget(
+          imageAssetPath: viewModel.checkUnlock(level)
+              ? AppImagePath.levelUnLock
+              : AppImagePath.levelLock,
+          size: UIDefine.fontSize26),
+      Text(' ${tr('level')} $level ',
+          style: TextStyle(
+              fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w600)),
+      LevelIconWidget(level: level, size: UIDefine.fontSize26),
+      Flexible(child: Container()),
+      Visibility(
+          visible: viewModel.nextLevel(level),
+          child: InkWell(
+            child: ActionButtonWidget(
+              isBorderStyle: true,
+              isFillWidth: false,
+              btnText: tr('rebate'),
+              onPressed: () => viewModel.showLeveLBonus(context),
+            ),
+          ))
+    ]);
   }
 
   ///MARK: 等級詳細
   Widget _buildSingleLevelInfo(int level) {
     LevelInfoData data = viewModel.getSingleLevelInfo(level);
 
-    return Column(
-      children: [
-        _buildSingleLevelInfoItem(
-            title: tr('reserve_pro_range'),
-            context:
-                '${NumberFormatUtil().removeTwoPointFormat(data.buyRangeStart)} ~ ${NumberFormatUtil().removeTwoPointFormat(data.buyRangeEnd)}',
-            showCoin: true),
-        _buildSingleLevelInfoItem(
-            title: tr('dialy_reserve'), context: '${data.dailyReverseAmount}'),
-        _buildSingleLevelInfoItem(
-            title: tr('trade_luk'),
-            context: NumberFormatUtil().removeTwoPointFormat(data.couponRate)),
-        _buildSingleLevelInfoItem(
-            title: tr('directShare-extra'),
-            context:
-                '${NumberFormatUtil().removeTwoPointFormat(data.directShare)}% & ${NumberFormatUtil().removeTwoPointFormat(data.directSave)}%'),
-        _buildSingleLevelInfoItem(
-            title: tr('indirectShare-extra'),
-            context:
-                '${NumberFormatUtil().removeTwoPointFormat(data.indirectShare)}% & ${NumberFormatUtil().removeTwoPointFormat(data.indirectSave)}%'),
-        _buildSingleLevelInfoItem(
-            title: tr('thirdShare-extra'),
-            context:
-                '${NumberFormatUtil().removeTwoPointFormat(data.thirdShare)}% & ${NumberFormatUtil().removeTwoPointFormat(data.thirdSave)}%'),
-      ],
-    );
+    return Column(children: [
+      _buildSingleLevelInfoItem(
+          title: tr('reserve_pro_range'),
+          context:
+              '${NumberFormatUtil().removeTwoPointFormat(data.buyRangeStart)} ~ ${NumberFormatUtil().removeTwoPointFormat(data.buyRangeEnd)}',
+          showCoin: true),
+      _buildSingleLevelInfoItem(
+          title: tr('dialy_reserve'), context: '${data.dailyReverseAmount}'),
+      _buildSingleLevelInfoItem(
+          title: tr('trade_luk'),
+          context: NumberFormatUtil().removeTwoPointFormat(data.couponRate)),
+      _buildSingleLevelInfoItem(
+          title: tr('directShare-extra'),
+          context:
+              '${NumberFormatUtil().removeTwoPointFormat(data.directShare)}% & ${NumberFormatUtil().removeTwoPointFormat(data.directSave)}%'),
+      _buildSingleLevelInfoItem(
+          title: tr('indirectShare-extra'),
+          context:
+              '${NumberFormatUtil().removeTwoPointFormat(data.indirectShare)}% & ${NumberFormatUtil().removeTwoPointFormat(data.indirectSave)}%'),
+      _buildSingleLevelInfoItem(
+          title: tr('thirdShare-extra'),
+          context:
+              '${NumberFormatUtil().removeTwoPointFormat(data.thirdShare)}% & ${NumberFormatUtil().removeTwoPointFormat(data.thirdSave)}%')
+    ]);
   }
 
   Widget _buildSingleLevelInfoItem(
@@ -273,13 +282,11 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
               visible: showCoin,
               child: TetherCoinWidget(size: UIDefine.fontSize16)),
           SizedBox(width: UIDefine.getScreenWidth(1)),
-          Text(
-            context,
-            style: TextStyle(
-                fontSize: UIDefine.fontSize14,
-                fontWeight: FontWeight.w500,
-                color: AppColors.dialogBlack),
-          )
+          Text(context,
+              style: TextStyle(
+                  fontSize: UIDefine.fontSize14,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.dialogBlack))
         ]));
   }
 
@@ -291,6 +298,8 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
       _buildSingleLevelInfoRequest(level),
       _buildSpace(height: 2),
       _buildSingleLevelInfo(level),
+      _buildLine(),
+      _buildItemChange(level)
     ]);
   }
 
@@ -307,33 +316,29 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
 
   ///MARK:升級至等級1的需求
   Widget _buildLevelOneRequest() {
-    return Column(
-      children: [
-        _buildSingleRequest(
-            level: 1,
-            title: tr('depositNFT'),
-            value: viewModel.userLevelInfo!.depositAmount,
-            request: viewModel.userLevelInfo!.depositAmountRequired),
-      ],
-    );
+    return Column(children: [
+      _buildSingleRequest(
+          level: 1,
+          title: tr('depositNFT'),
+          value: viewModel.userLevelInfo!.depositAmount,
+          request: viewModel.userLevelInfo!.depositAmountRequired)
+    ]);
   }
 
   ///MARK:升級至其他等級的需求
   Widget _buildLevelOtherRequest(int level) {
-    return Column(
-      children: [
-        _buildSingleRequest(
-            level: level,
-            title: tr('open_A_lv'),
-            value: viewModel.userLevelInfo!.activeDirect,
-            request: viewModel.userLevelInfo!.activeDirectRequired),
-        _buildSingleRequest(
-            level: level,
-            title: tr('open_BC_lv'),
-            value: viewModel.userLevelInfo!.activeIndirect,
-            request: viewModel.userLevelInfo!.activeIndirectRequired),
-      ],
-    );
+    return Column(children: [
+      _buildSingleRequest(
+          level: level,
+          title: tr('open_A_lv'),
+          value: viewModel.userLevelInfo!.activeDirect,
+          request: viewModel.userLevelInfo!.activeDirectRequired),
+      _buildSingleRequest(
+          level: level,
+          title: tr('open_BC_lv'),
+          value: viewModel.userLevelInfo!.activeIndirect,
+          request: viewModel.userLevelInfo!.activeIndirectRequired)
+    ]);
   }
 
   Widget _buildSingleRequest(
@@ -342,19 +347,40 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
       required dynamic value,
       required int request}) {
     double percentage = viewModel.checkUnlock(level) ? 1 : value / request;
-    return Column(
-      children: [
-        Row(children: [
-          Text(title),
-          Flexible(child: Container()),
-          Text(percentage == 1
-              ? tr('Completed')
-              : '${NumberFormatUtil().removeTwoPointFormat(value)} / $request'),
-        ]),
-        _buildSpace(height: 2),
-        CustomLinearProgress(percentage: percentage),
-        _buildSpace(height: 2),
-      ],
-    );
+    return Column(children: [
+      Row(children: [
+        Text(title),
+        Flexible(child: Container()),
+        Text(percentage == 1
+            ? tr('Completed')
+            : '${NumberFormatUtil().removeTwoPointFormat(value)} / $request'),
+      ]),
+      _buildSpace(height: 2),
+      CustomLinearProgress(percentage: percentage),
+      _buildSpace(height: 2),
+    ]);
+  }
+
+  Widget _buildItemChange(int level) {
+    List<Widget> button = [];
+    for (var data in viewModel.levelDataList) {
+      if (data.userLevel != 0) {
+        button.add(_buildCirce(data.userLevel, level));
+      }
+    }
+    return Row(mainAxisSize: MainAxisSize.min, children: button);
+  }
+
+  Widget _buildCirce(int level, int currentLevel) {
+    bool current = (level == currentLevel);
+    return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 5),
+        child: GestureDetector(
+          onTap: () => viewModel.changePage(level),
+          child: CircleAvatar(
+              radius: 5,
+              backgroundColor:
+                  current ? AppColors.textGrey : AppColors.pageUnChoose),
+        ));
   }
 }
