@@ -56,7 +56,7 @@ class SuccessDialog extends BaseDialog {
           Container(
             margin: EdgeInsets.zero,
             child: ActionButtonWidget(
-                margin: EdgeInsets.symmetric(horizontal: UIDefine.getWidth() / 4),
+                margin: EdgeInsets.symmetric(horizontal: UIDefine.getWidth() / 5),
                 btnText: tr("check"),
                 onPressed: _onPress,
                 isBorderStyle: false),

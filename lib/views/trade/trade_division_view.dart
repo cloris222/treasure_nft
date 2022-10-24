@@ -49,7 +49,6 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
         /// 預約成功
         reservationSuccess: () {
       AnimationDialog(context, AppAnimationPath.reserveSuccess).show();
-
       /// hide reservation button
     },
 
