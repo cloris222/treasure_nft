@@ -73,9 +73,10 @@ class AppImagePath {
   static const String reserving = '$appIconFolderPath/icon_rotate_02.png';
 
   /// lock mission
-  static const String levelMission = '$lockMission/mb_level_bg_{level}.png';
+  static const String levelMission = '$lockMission/mb_level_bg_{level}_5.png';
   static const String levelMissionLocked =
       '$lockMission/mb_level_{level}_lock.png';
+  static const String divisionLevel = '$lockMission/mb_level_bg_{level}_{index}.png';
 
   /// home page
   static const String firstBackground = '$appImgPath/img_main_bg_01.png';
