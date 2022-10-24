@@ -92,7 +92,7 @@ class CommonCustomDialog extends BaseDialog {
       case DialogImageType.success:
         return Image.asset(AppImagePath.dialogSuccess);
       case DialogImageType.fail:
-        return Image.asset(AppImagePath.dialogClose);
+        return Image.asset(AppImagePath.dialogCancel);
       case DialogImageType.warning:
         return Image.asset(AppImagePath.dialogWarning);
     }

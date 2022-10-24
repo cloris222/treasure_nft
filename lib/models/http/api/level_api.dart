@@ -1,6 +1,8 @@
 import 'package:treasure_nft_project/models/http/http_manager.dart';
 import 'package:treasure_nft_project/models/http/parameter/level_info_data.dart';
 
+import '../parameter/level_bonus_data.dart';
+
 class LevelAPI extends HttpManager {
   LevelAPI({super.onConnectFail});
 
@@ -16,5 +18,11 @@ class LevelAPI extends HttpManager {
       result.add(LevelInfoData.fromJson(json));
     }
     return result;
+  }
+
+  ///MARK: 取得bonus
+  Future<LevelBonusData> getBonusInfo() async {
+    var response = await get('/level/bonus');
+    return LevelBonusData.fromJson(response.data);
   }
 }

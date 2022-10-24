@@ -26,7 +26,6 @@ class DivisionCell extends StatefulWidget {
   final bool isNew;
   final ReserveRange? range;
   final VoidCallback reservationAction;
-  late bool isSell;
 
   @override
   State<DivisionCell> createState() => _DivisionCellState();
@@ -59,18 +58,15 @@ class _DivisionCellState extends State<DivisionCell> {
     }
   }
 
-  ifReservationSuccess() {
-    /// reservation success 預約狀態 = true
-    if (widget.range?.used == true) {
-      widget.isSell = true;
-    }
-  }
 
-  /// 是否解鎖副本
+  /// 是否解鎖副本 && 開賣狀態動畫顯示
   showImg() {
     if (widget.range?.lock == true) {
       return getLockImg();
-    } else {
+    } else if(widget.range?.used == true){
+      return showGif();
+    }
+    else {
       return getLevelImg();
     }
   }
@@ -99,7 +95,8 @@ class _DivisionCellState extends State<DivisionCell> {
     if (GlobalData.userInfo.level == 0) {
       return format(AppImagePath.levelMission, ({'level': '00'}));
     }
-    return format(AppImagePath.levelMission, ({'level': '0${widget.level}'}));
+    int index = widget.range?.index ?? 0;
+    return format(AppImagePath.divisionLevel, ({'level': '0${widget.level}','index':'${index + 1}'}));
   }
 
   Color getReservationBtnColor() {
@@ -151,21 +148,27 @@ class _DivisionCellState extends State<DivisionCell> {
               ),
               Row(
                 children: [
-                  Image.asset(widget.level == 0
-                      ? AppImagePath.beginnerReserving
-                      : AppImagePath.reserving),
+                  Visibility(
+                    visible: widget.range!.used,
+                    child: Image.asset(widget.level == 0
+                        ? AppImagePath.beginnerReserving
+                        : AppImagePath.reserving),
+                  ),
                   const SizedBox(
                     width: 5,
                   ),
-                  widget.isNew
-                      ? GradientText(
-                          tr('matching'),
-                          size: UIDefine.fontSize14,
-                          weight: FontWeight.bold,
-                          starColor: AppColors.mainThemeButton,
-                          endColor: AppColors.subThemePurple,
-                        )
-                      : Text(tr('matching'))
+                  /// 如果是預約狀態（顯示轉圈動畫）
+                  Visibility(
+                    visible: widget.range!.used,
+                      child: !widget.range!.used
+                      ? Container():GradientText(
+                    tr('matching'),
+                    size: UIDefine.fontSize14,
+                    weight: FontWeight.bold,
+                    starColor: AppColors.mainThemeButton,
+                    endColor: AppColors.subThemePurple,
+                  )
+                  )
                 ],
               )
             ],
