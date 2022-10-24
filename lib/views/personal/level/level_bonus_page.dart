@@ -152,7 +152,7 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
   /// 提醒 剩餘OO天 XX天尚未升級
   Widget _buildBonusHint(int? hasDay, String? day) {
     String text = format('※獎勵保留{hasDay}天，{day}前未升級，將回收全部獎勵',
-        {'hasDay': hasDay ?? 0, 'day': '0'});
+        {'hasDay': hasDay ?? 0, 'day': day??'0'});
     return Text(text,
         maxLines: 2,
         style: TextStyle(
