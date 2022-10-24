@@ -18,5 +18,6 @@ class LevelAchievementViewModel extends BaseViewModel {
     dailyList = await MissionAPI().getDailyTask();
     achieveList = await MissionAPI().getAchieveTask();
     medalList = await MissionAPI().getMedalList();
+    setState(() {});
   }
 }
