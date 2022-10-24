@@ -32,16 +32,14 @@ abstract class BaseDialog {
       context: context,
       barrierDismissible: isDialogCancel,
       builder: (BuildContext context) {
-        return SingleChildScrollView(
-          child: AlertDialog(
-            backgroundColor: backgroundColor,
-            elevation: 0,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(radius))),
-            title: initTitle(),
-            content: StatefulBuilder(builder: initContent),
-            actions: initAction(),
-          )
+        return AlertDialog(
+          backgroundColor: backgroundColor,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(radius))),
+          title: initTitle(),
+          content: StatefulBuilder(builder: initContent),
+          actions: initAction(),
         );
       },
     );
