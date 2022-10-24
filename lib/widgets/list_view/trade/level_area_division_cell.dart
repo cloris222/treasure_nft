@@ -178,7 +178,7 @@ class _DivisionCellState extends State<DivisionCell> {
                 bottom: 0,
                 child: Visibility(
                   /// is for sale? 等級不夠不顯示 或 已經被預約不顯示
-                  visible: !widget.range!.lock || widget.range?.used == true,
+                  visible: !widget.range!.lock && !widget.range!.used,
                   child: ActionButtonWidget(
                       isFillWidth: false,
                       margin: const EdgeInsets.symmetric(
