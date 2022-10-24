@@ -81,7 +81,7 @@ class _WalletMainViewState extends State<WalletMainView> {
     return Container(
       width: UIDefine.getWidth(),
       decoration: AppStyle().styleUserSetting(),
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 5),
       child: Row(
         children: [
           Flexible(

@@ -37,11 +37,12 @@ class WalletInfoItem extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        TetherCoinWidget(size: UIDefine.fontSize16),
+        TetherCoinWidget(size: UIDefine.fontSize14),
         const SizedBox(width: 5),
         Text(NumberFormatUtil().removeTwoPointFormat(value),
+            maxLines: 1,
             style: TextStyle(
-                fontSize: UIDefine.fontSize16,
+                fontSize: UIDefine.fontSize14,
                 color: AppColors.dialogBlack,
                 fontWeight: FontWeight.bold))
       ],
