@@ -18,9 +18,11 @@ class DivisionCell extends StatefulWidget {
       {Key? key,
       required this.reservationAction,
       this.range,
+      required this.level,
       this.isNew = true})
       : super(key: key);
 
+  final int level;
   final bool isNew;
   final ReserveRange? range;
   final VoidCallback reservationAction;
@@ -31,7 +33,6 @@ class DivisionCell extends StatefulWidget {
 }
 
 class _DivisionCellState extends State<DivisionCell> {
-
   String ifIsBeginnerImg() {
     if (GlobalData.userInfo.level == 0) {
       return AppImagePath.beginner;
@@ -58,46 +59,47 @@ class _DivisionCellState extends State<DivisionCell> {
     }
   }
 
-  ifReservationSuccess(){
+  ifReservationSuccess() {
     /// reservation success 預約狀態 = true
-    if(widget.range?.used == true){
+    if (widget.range?.used == true) {
       widget.isSell = true;
     }
   }
 
-/// 是否解鎖副本
-  showImg(){
-    if(widget.range?.lock == true){
-        return getLockImg();
+  /// 是否解鎖副本
+  showImg() {
+    if (widget.range?.lock == true) {
+      return getLockImg();
     } else {
       return getLevelImg();
     }
   }
 
   /// 開賣狀態動畫顯示
-  String showGif(){
+  String showGif() {
     if (GlobalData.userInfo.level == 0) {
       return format(AppAnimationPath.reservationAnimation, ({'level': '00'}));
     }
-    int index = widget.range?.index ?? 0;
-    return format(AppAnimationPath.reservationAnimation, ({'level': '0${index + 1}'}));
+    return format(
+        AppAnimationPath.reservationAnimation, ({'level': '0${widget.level}'}));
   }
+
   /// 尚未開賣顯示圖
-  String getLockImg(){
+  String getLockImg() {
     if (GlobalData.userInfo.level == 0) {
       return format(AppImagePath.levelMissionLocked, ({'level': '00'}));
     }
-    int index = widget.range?.index ?? 0;
-    return format(AppImagePath.levelMissionLocked, ({'level': '0${index + 1}'}));
+    return format(
+        AppImagePath.levelMissionLocked, ({'level': '0${widget.level}'}));
   }
+
   /// 可預約狀態顯示圖
   String getLevelImg() {
     /// 新手區
     if (GlobalData.userInfo.level == 0) {
       return format(AppImagePath.levelMission, ({'level': '00'}));
     }
-    int index = widget.range?.index ?? 0;
-    return format(AppImagePath.levelMission, ({'level': '0${index + 1}'}));
+    return format(AppImagePath.levelMission, ({'level': '0${widget.level}'}));
   }
 
   Color getReservationBtnColor() {
@@ -105,19 +107,18 @@ class _DivisionCellState extends State<DivisionCell> {
     if (GlobalData.userInfo.level == 0) {
       return AppColors.reservationLevel0.withOpacity(0.7);
     }
-    int index = widget.range?.index ?? 0;
-    index = index + 1;
-    if (index == 0) {
+
+    if (widget.level == 0) {
       return AppColors.reservationLevel0.withOpacity(0.7);
-    } else if (index == 1) {
+    } else if (widget.level == 1) {
       return AppColors.reservationLevel1.withOpacity(0.7);
-    } else if (index == 2) {
+    } else if (widget.level == 2) {
       return AppColors.reservationLevel2.withOpacity(0.7);
-    } else if (index == 3) {
+    } else if (widget.level == 3) {
       return AppColors.reservationLevel3.withOpacity(0.7);
-    } else if (index == 4) {
+    } else if (widget.level == 4) {
       return AppColors.reservationLevel4.withOpacity(0.7);
-    } else if (index == 5) {
+    } else if (widget.level == 5) {
       return AppColors.reservationLevel5.withOpacity(0.7);
     }
     return AppColors.textBlack;
@@ -150,7 +151,7 @@ class _DivisionCellState extends State<DivisionCell> {
               ),
               Row(
                 children: [
-                  Image.asset(widget.isNew
+                  Image.asset(widget.level == 0
                       ? AppImagePath.beginnerReserving
                       : AppImagePath.reserving),
                   const SizedBox(
@@ -176,14 +177,15 @@ class _DivisionCellState extends State<DivisionCell> {
                 right: 0,
                 bottom: 0,
                 child: Visibility(
-                  /// is for sale?
-                  visible: !widget.range!.lock,
+                  /// is for sale? 等級不夠不顯示 或 已經被預約不顯示
+                  visible: !widget.range!.lock || widget.range?.used == true,
                   child: ActionButtonWidget(
                       isFillWidth: false,
                       margin: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 10),
                       setMainColor: getReservationBtnColor(),
                       btnText: tr("match"),
+
                       /// 按下去後新增預約
                       onPressed: widget.reservationAction),
                 ),

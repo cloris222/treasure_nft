@@ -44,7 +44,8 @@ class TradeDivisionViewModel extends BaseViewModel {
 
   Future<void> initState() async {
     division = await TradeAPI().getDivisionAPI();
-    reservationInfo = await TradeAPI().getCheckReservationInfoAPI(division!.first);
+    reservationInfo =
+        await TradeAPI().getCheckReservationInfoAPI(division!.first);
     userLevelInfo = await UserInfoAPI().getCheckLevelInfoAPI();
     ranges = reservationInfo!.reserveRanges;
     startTimer();
@@ -174,6 +175,7 @@ class TradeDivisionViewModel extends BaseViewModel {
       case 'APP_0041':
         depositNotEnough();
         break;
+
       default:
         errorMes(errorMessage);
         break;

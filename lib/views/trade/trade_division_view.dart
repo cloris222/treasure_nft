@@ -313,7 +313,7 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
                       endPrice: range.endPrice.toDouble())
                   .show();
             },
-            range: viewModel.ranges[index],
+            range: viewModel.ranges[index], level: widget.level,
           );
         });
   }

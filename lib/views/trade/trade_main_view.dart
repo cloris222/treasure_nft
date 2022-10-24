@@ -2,26 +2,18 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/enum/level_enum.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
-import 'package:treasure_nft_project/constant/theme/app_animation_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/widgets/count_down_timer.dart';
-import 'package:treasure_nft_project/widgets/dialog/animation_dialog.dart';
-import 'package:treasure_nft_project/widgets/dialog/reservation_dialog.dart';
-import 'package:treasure_nft_project/widgets/dialog/success_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/trade_rule_dialot.dart';
 import 'package:treasure_nft_project/widgets/domain_bar.dart';
 import '../../constant/theme/app_image_path.dart';
-import '../../models/http/parameter/check_reservation_info.dart';
 import '../../utils/date_format_util.dart';
-import '../../view_models/trade/trade_division_viewmodel.dart';
 import '../../view_models/trade/trade_main_viewmodel.dart';
 import '../../widgets/button/login_button_widget.dart';
-import '../../widgets/dialog/simple_custom_dialog.dart';
 import '../../widgets/label/level_detail.dart';
-import '../../widgets/list_view/trade/level_area_division_cell.dart';
 import '../../widgets/list_view/trade/level_area_main_cell.dart';
 
 class TradeMainView extends StatefulWidget {
