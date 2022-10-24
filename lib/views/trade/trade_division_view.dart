@@ -85,7 +85,25 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
     }, errorMes: (errorCode) {
       SimpleCustomDialog(context, mainText: tr(errorCode), isSuccess: false)
           .show();
-    });
+    },
+        /// 體驗帳號狀態失效
+        experienceExpired: () {
+          SuccessDialog(context,
+              callOkFunction: () {},
+              isSuccess: false,
+              mainText: tr("reserve-failed'"),
+              subText: tr('APP_0058'))
+              .show();
+        },
+        /// 新手帳號交易天數到期
+        beginnerExpired: () {
+          SuccessDialog(context,
+              callOkFunction: () {},
+              isSuccess: false,
+              mainText: tr("reserve-failed'"),
+              subText: tr('APP_0069'))
+              .show();
+        });
     viewModel.initState();
     super.initState();
   }

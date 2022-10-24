@@ -16,14 +16,15 @@ import '../../models/http/parameter/add_new_reservation.dart';
 import '../../utils/date_format_util.dart';
 
 class TradeDivisionViewModel extends BaseViewModel {
-  TradeDivisionViewModel({
-    required this.setState,
-    required this.reservationSuccess,
-    required this.bookPriceNotEnough,
-    required this.notEnoughToPay,
-    required this.depositNotEnough,
-    required this.errorMes,
-  });
+  TradeDivisionViewModel(
+      {required this.setState,
+      required this.reservationSuccess,
+      required this.bookPriceNotEnough,
+      required this.notEnoughToPay,
+      required this.depositNotEnough,
+      required this.errorMes,
+      required this.experienceExpired,
+      required this.beginnerExpired});
 
   final onClickFunction setState;
   List<int>? division;
@@ -40,6 +41,8 @@ class TradeDivisionViewModel extends BaseViewModel {
   VoidCallback bookPriceNotEnough;
   VoidCallback reservationSuccess;
   VoidCallback depositNotEnough;
+  VoidCallback beginnerExpired;
+  VoidCallback experienceExpired;
   ResponseErrorFunction errorMes;
 
   Future<void> initState() async {
@@ -54,6 +57,16 @@ class TradeDivisionViewModel extends BaseViewModel {
 
   /// 新增預約
   addNewReservation(int index) async {
+    /// 確認體驗帳號狀態
+    await TradeAPI(onConnectFail: _experienceExpired, showTrString: false)
+        .getExperienceInfoAPI()
+        .then((value) {
+      if (value == false) {
+        experienceExpired();
+      }
+    });
+
+    /// 新增預約
     await TradeAPI(onConnectFail: _onAddReservationFail, showTrString: false)
         .postAddNewReservationAPI(
             type: "PRICE",
@@ -176,9 +189,18 @@ class TradeDivisionViewModel extends BaseViewModel {
         depositNotEnough();
         break;
 
+      /// 新手帳號交易天數到期
+      case 'APP_0069':
+        beginnerExpired();
+        break;
       default:
         errorMes(errorMessage);
         break;
     }
+  }
+
+  /// 體驗帳號狀態失效
+  void _experienceExpired(String errorMessage) {
+    experienceExpired();
   }
 }

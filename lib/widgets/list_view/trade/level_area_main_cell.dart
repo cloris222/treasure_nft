@@ -1,16 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/views/trade/trade_division_view.dart';
-import 'package:treasure_nft_project/widgets/dialog/animation_dialog.dart';
-
 import '../../../constant/global_data.dart';
-import '../../../constant/theme/app_animation_path.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
 import '../../../constant/ui_define.dart';
-import '../../../models/http/parameter/check_reservation_info.dart';
 import '../../button/action_button_widget.dart';
 import '../../gradient_text.dart';
 
@@ -60,7 +55,7 @@ class _LevelMainCellState extends State<LevelMainCell> {
   String getLevelImg() {
     /// 新手區
     if (GlobalData.userInfo.level == 0) {
-      return format(AppImagePath.levelMission, ({'level': '00'}));
+      return AppImagePath.level0;
     }
      return format(AppImagePath.levelMission, ({'level': '0${widget.level}'}));
   }
