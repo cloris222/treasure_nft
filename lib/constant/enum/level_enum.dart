@@ -12,11 +12,24 @@ enum LevelRank {
   LEVEL10,
 }
 
-enum SellingState{
+enum SellingState {
   /// 尚未開賣
   NotYet,
+
   /// 開賣中
   Selling,
+
   /// 預約中
   Reserving,
+}
+
+enum TaskType {
+  ///每日任務
+  daily,
+
+  ///成就任務
+  achieve,
+
+  ///成就徽章
+  medal
 }
