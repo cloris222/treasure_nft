@@ -7,6 +7,9 @@ class AppAnimationPath {
   /// trade animation
   static const String reserveSuccess =
       '$animationPathJson/reserve_success_01.json';
+  static const String rotating = '$animationPathJson/icon_rotate_gradient.json';
+  static const String beginnerReserving =
+      '$animationPathJson/icon_rotate_blue.json';
 
   ///登入後的招呼動畫
   static const String loginMorning = '$animationPathJson/mb_login_morning.json';

@@ -68,11 +68,11 @@ class AppImagePath {
   ///  rank level
   static const String level = '$rankEmblem/badges_lv{level}.png';
   static const String beginner = '$appIconFolderPath/icon_star_01.png';
-  static const String beginnerReserving =
-      '$appIconFolderPath/icon_rotate_01.png';
   static const String reserving = '$appIconFolderPath/icon_rotate_02.png';
 
   /// lock mission
+  static const String level0 = '$lockMission/mb_level_bg_00.png';
+  static const String level0Locked = '$lockMission/mb_level_00_lock.png';
   static const String levelMission = '$lockMission/mb_level_bg_{level}_5.png';
   static const String levelMissionLocked =
       '$lockMission/mb_level_{level}_lock.png';

@@ -5,7 +5,6 @@ import 'package:lottie/lottie.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_animation_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
-import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 
 import '../../../constant/theme/app_colors.dart';
@@ -18,12 +17,10 @@ class DivisionCell extends StatefulWidget {
       {Key? key,
       required this.reservationAction,
       this.range,
-      required this.level,
-      this.isNew = true})
+      required this.level,})
       : super(key: key);
 
   final int level;
-  final bool isNew;
   final ReserveRange? range;
   final VoidCallback reservationAction;
 
@@ -58,15 +55,13 @@ class _DivisionCellState extends State<DivisionCell> {
     }
   }
 
-
   /// 是否解鎖副本 && 開賣狀態動畫顯示
   showImg() {
     if (widget.range?.lock == true) {
       return getLockImg();
-    } else if(widget.range?.used == true){
+    } else if (widget.range?.used == true) {
       return showGif();
-    }
-    else {
+    } else {
       return getLevelImg();
     }
   }
@@ -83,7 +78,7 @@ class _DivisionCellState extends State<DivisionCell> {
   /// 尚未開賣顯示圖
   String getLockImg() {
     if (GlobalData.userInfo.level == 0) {
-      return format(AppImagePath.levelMissionLocked, ({'level': '00'}));
+      return AppImagePath.level0Locked;
     }
     return format(
         AppImagePath.levelMissionLocked, ({'level': '0${widget.level}'}));
@@ -93,10 +88,11 @@ class _DivisionCellState extends State<DivisionCell> {
   String getLevelImg() {
     /// 新手區
     if (GlobalData.userInfo.level == 0) {
-      return format(AppImagePath.levelMission, ({'level': '00'}));
+      return AppImagePath.level0;
     }
     int index = widget.range?.index ?? 0;
-    return format(AppImagePath.divisionLevel, ({'level': '0${widget.level}','index':'${index + 1}'}));
+    return format(AppImagePath.divisionLevel,
+        ({'level': '0${widget.level}', 'index': '${index + 1}'}));
   }
 
   Color getReservationBtnColor() {
@@ -148,27 +144,31 @@ class _DivisionCellState extends State<DivisionCell> {
               ),
               Row(
                 children: [
-                  Visibility(
-                    visible: widget.range!.used,
-                    child: Image.asset(widget.level == 0
-                        ? AppImagePath.beginnerReserving
-                        : AppImagePath.reserving),
+                  /// 如果是預約狀態（顯示轉圈動畫）
+                  Container(
+                    width: 25,
+                    height: 25,
+                    child: Visibility(
+                      visible: widget.range!.used,
+                      child: Lottie.asset(widget.level == 0
+                          ? AppAnimationPath.beginnerReserving
+                          : AppAnimationPath.rotating),
+                    ),
                   ),
                   const SizedBox(
                     width: 5,
                   ),
-                  /// 如果是預約狀態（顯示轉圈動畫）
                   Visibility(
-                    visible: widget.range!.used,
+                      visible: widget.range!.used,
                       child: !widget.range!.used
-                      ? Container():GradientText(
-                    tr('matching'),
-                    size: UIDefine.fontSize14,
-                    weight: FontWeight.bold,
-                    starColor: AppColors.mainThemeButton,
-                    endColor: AppColors.subThemePurple,
-                  )
-                  )
+                          ? Container()
+                          : GradientText(
+                              tr('matching'),
+                              size: UIDefine.fontSize14,
+                              weight: FontWeight.bold,
+                              starColor: AppColors.mainThemeButton,
+                              endColor: AppColors.subThemePurple,
+                            ))
                 ],
               )
             ],

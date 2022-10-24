@@ -15,7 +15,8 @@ class TradeAPI extends HttpManager {
 
   /// step2: 查詢預約資訊
   Future<CheckReservationInfo> getCheckReservationInfoAPI(int division) async {
-    var response = await get('/reserve/info',queryParameters: {'division':division});
+    var response =
+        await get('/reserve/info', queryParameters: {'division': division});
     return CheckReservationInfo.fromJson(response.data);
   }
 
@@ -43,5 +44,11 @@ class TradeAPI extends HttpManager {
       'endPrice': endPrice,
       'priceIndex': priceIndex
     });
+  }
+
+  /// 取得體驗帳號資訊
+  Future<bool> getExperienceInfoAPI() async {
+    var response = await get('/experience/experience-info');
+    return response.data['isExperience'];
   }
 }
