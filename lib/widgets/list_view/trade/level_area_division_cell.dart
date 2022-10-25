@@ -6,29 +6,33 @@ import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_animation_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
-
+import '../../../constant/enum/level_enum.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/ui_define.dart';
+import '../../../models/data/trade_model_data.dart';
 import '../../../models/http/parameter/check_reservation_info.dart';
 import '../../gradient_text.dart';
 
 class DivisionCell extends StatefulWidget {
-  DivisionCell(
-      {Key? key,
-      required this.reservationAction,
-      this.range,
-      required this.level,})
-      : super(key: key);
+  const DivisionCell({
+    Key? key,
+    required this.reservationAction,
+    this.range,
+    required this.level,
+    required this.tradeData
+  }) : super(key: key);
 
   final int level;
   final ReserveRange? range;
   final VoidCallback reservationAction;
+  final TradeData tradeData;
 
   @override
   State<DivisionCell> createState() => _DivisionCellState();
 }
 
 class _DivisionCellState extends State<DivisionCell> {
+
   String ifIsBeginnerImg() {
     if (GlobalData.userInfo.level == 0) {
       return AppImagePath.beginner;
@@ -145,7 +149,7 @@ class _DivisionCellState extends State<DivisionCell> {
               Row(
                 children: [
                   /// 如果是預約狀態（顯示轉圈動畫）
-                  Container(
+                  SizedBox(
                     width: 25,
                     height: 25,
                     child: Visibility(
@@ -180,8 +184,10 @@ class _DivisionCellState extends State<DivisionCell> {
                 right: 0,
                 bottom: 0,
                 child: Visibility(
-                  /// is for sale? 等級不夠不顯示 或 已經被預約不顯示
-                  visible: !widget.range!.lock && !widget.range!.used,
+                  /// is for sale? 等級不夠不顯示 或 已經被預約不顯示 或 開賣中不顯示
+                  visible: !widget.range!.lock &&
+                      !widget.range!.used ||
+                      widget.tradeData.status == SellingState.Selling,
                   child: ActionButtonWidget(
                       isFillWidth: false,
                       margin: const EdgeInsets.symmetric(
