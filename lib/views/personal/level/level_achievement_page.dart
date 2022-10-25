@@ -38,7 +38,7 @@ class _LevelAchievementPageState extends State<LevelAchievementPage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       title: tr('achievement'),
-      widget: Column(children: [
+      body: Column(children: [
         ///MARK: 不可以調成固定
         PersonalSubUserInfoView(),
         Container(
@@ -51,26 +51,6 @@ class _LevelAchievementPageState extends State<LevelAchievementPage> {
             ]))
       ]),
     );
-    return Scaffold(
-        appBar: CustomAppBar.getOnlyAppBar(() {
-          BaseViewModel().popPage(context);
-        }, tr('achievement')),
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-            child: Column(children: [
-          ///MARK: 不可以調成固定
-          PersonalSubUserInfoView(),
-          Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(children: [
-                _buildButtonList(),
-                const SizedBox(height: 10),
-                _buildTaskView(),
-                const SizedBox(height: 10),
-              ]))
-        ])),
-        bottomNavigationBar: const AppBottomNavigationBar(
-            initType: AppNavigationBarType.typePersonal));
   }
 
   ///MARK: 選擇項目

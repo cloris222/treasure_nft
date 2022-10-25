@@ -9,6 +9,7 @@ import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 import '../../../models/http/api/login_api.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/button/login_bolder_button_widget.dart';
+import '../../custom_appbar_view.dart';
 import '../../main_page.dart';
 
 ///MARK: 個人設置
@@ -17,21 +18,14 @@ class UserSettingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar.getCommonAppBar(() {
-        BaseViewModel().popPage(context);
-      }, tr('account')),
-      body: Wrap(
-        runSpacing: 15,
-        children: [
+    return CustomAppbarView(
+        title: tr('account'),
+        type: AppNavigationBarType.typePersonal,
+        body: Wrap(runSpacing: 15, children: [
           const PersonalSubUserInfoView(),
           LoginBolderButtonWidget(
               btnText: tr('logout'), onPressed: () => _onPressLogout(context)),
-        ],
-      ),
-      bottomNavigationBar: const AppBottomNavigationBar(
-          initType: AppNavigationBarType.typePersonal),
-    );
+        ]));
   }
 
   void _onPressLogout(BuildContext context) {
