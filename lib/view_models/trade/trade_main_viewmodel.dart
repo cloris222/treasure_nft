@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:format/format.dart';
-import 'package:treasure_nft_project/constant/enum/level_enum.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
@@ -9,6 +8,7 @@ import 'package:treasure_nft_project/models/http/parameter/check_level_info.dart
 import 'package:treasure_nft_project/models/http/parameter/check_reservation_info.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import '../../constant/call_back_function.dart';
+import '../../constant/enum/trade_enum.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../models/http/api/trade_api.dart';
 import '../../models/http/parameter/add_new_reservation.dart';

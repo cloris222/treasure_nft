@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:ffi';
 import 'package:flutter/cupertino.dart';
 import 'package:format/format.dart';
-import 'package:treasure_nft_project/constant/enum/level_enum.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
@@ -10,6 +9,7 @@ import 'package:treasure_nft_project/models/http/parameter/check_level_info.dart
 import 'package:treasure_nft_project/models/http/parameter/check_reservation_info.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import '../../constant/call_back_function.dart';
+import '../../constant/enum/trade_enum.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../models/http/api/trade_api.dart';
 import '../../models/http/parameter/add_new_reservation.dart';
@@ -24,7 +24,8 @@ class TradeDivisionViewModel extends BaseViewModel {
       required this.depositNotEnough,
       required this.errorMes,
       required this.experienceExpired,
-      required this.beginnerExpired});
+      required this.beginnerExpired,
+      required this.experienceDisable});
 
   final onClickFunction setState;
   List<int>? division;
@@ -43,6 +44,7 @@ class TradeDivisionViewModel extends BaseViewModel {
   VoidCallback depositNotEnough;
   VoidCallback beginnerExpired;
   VoidCallback experienceExpired;
+  VoidCallback experienceDisable;
   ResponseErrorFunction errorMes;
 
   Future<void> initState() async {
@@ -61,8 +63,10 @@ class TradeDivisionViewModel extends BaseViewModel {
     await TradeAPI(onConnectFail: _experienceExpired, showTrString: false)
         .getExperienceInfoAPI()
         .then((value) {
-      if (value == false) {
+      if (value.isExperience == true && value.status == 'EXPIRED') {
         experienceExpired();
+      } else if(value.isExperience == true && value.status == 'DISABLE'){
+        experienceDisable();
       }
     });
 
@@ -202,5 +206,6 @@ class TradeDivisionViewModel extends BaseViewModel {
   /// 體驗帳號狀態失效
   void _experienceExpired(String errorMessage) {
     experienceExpired();
+    experienceDisable();
   }
 }

@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/constant/enum/level_enum.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_animation_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
@@ -12,6 +11,7 @@ import 'package:treasure_nft_project/widgets/dialog/animation_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/reservation_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/success_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/trade_rule_dialot.dart';
+import '../../constant/enum/trade_enum.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../models/http/parameter/check_reservation_info.dart';
 import '../../utils/date_format_util.dart';
@@ -38,70 +38,83 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
 
   @override
   void initState() {
-    viewModel = TradeDivisionViewModel(setState: () {
-      if (mounted) {
-        setState(() {});
-      }
-    },
+    viewModel = TradeDivisionViewModel(
+      setState: () {
+        if (mounted) {
+          setState(() {});
+        }
+      },
 
-        /// 預約成功
-        reservationSuccess: () {
-      AnimationDialog(context, AppAnimationPath.reserveSuccess).show();
-    },
+      /// 預約成功
+      reservationSuccess: () {
+        AnimationDialog(context, AppAnimationPath.reserveSuccess).show();
+      },
 
-        /// 預約金不足
-        bookPriceNotEnough: () {
-      SuccessDialog(context,
-              callOkFunction: () {},
-              isSuccess: false,
-              mainText: tr("reserve-failed'")
-              // TODO 預約金不足 多國
-              )
-          .show();
-    },
+      /// 預約金不足
+      bookPriceNotEnough: () {
+        SuccessDialog(context,
+                callOkFunction: () {},
+                isSuccess: false,
+                mainText: tr("reserve-failed'")
+                // TODO 預約金不足 多國
+                )
+            .show();
+      },
 
-        /// 餘額不足
-        notEnoughToPay: () {
-      SuccessDialog(context,
-              callOkFunction: () {},
-              isSuccess: false,
-              mainText: tr("reserve-failed'"),
-              subText: tr('APP_0013'))
-          .show();
-    },
+      /// 餘額不足
+      notEnoughToPay: () {
+        SuccessDialog(context,
+                callOkFunction: () {},
+                isSuccess: false,
+                mainText: tr("reserve-failed'"),
+                subText: tr('APP_0013'))
+            .show();
+      },
 
-        /// 預約金額不符
-        depositNotEnough: () {
-      SuccessDialog(context,
-              callOkFunction: () {},
-              isSuccess: false,
-              mainText: tr("reserve-failed'"),
-              subText: tr('APP_0041'))
-          .show();
-    }, errorMes: (errorCode) {
-      SimpleCustomDialog(context, mainText: tr(errorCode), isSuccess: false)
-          .show();
-    },
+      /// 預約金額不符
+      depositNotEnough: () {
+        SuccessDialog(context,
+                callOkFunction: () {},
+                isSuccess: false,
+                mainText: tr("reserve-failed'"),
+                subText: tr('APP_0041'))
+            .show();
+      },
+      errorMes: (errorCode) {
+        SimpleCustomDialog(context, mainText: tr(errorCode), isSuccess: false)
+            .show();
+      },
 
-        /// 體驗帳號狀態失效
-        experienceExpired: () {
-      SuccessDialog(context,
-              callOkFunction: () {},
-              isSuccess: false,
-              mainText: tr("reserve-failed'"),
-              subText: tr('APP_0057'))
-          .show();
-    },
+      /// 體驗帳號狀態過期
+      experienceExpired: () {
+        SuccessDialog(context,
+                callOkFunction: () {},
+                isSuccess: false,
+                mainText: tr("reserve-failed'"),
+                subText: tr('APP_0057'))
+            .show();
+      },
 
-        /// 新手帳號交易天數到期
-        beginnerExpired: () {
-      SuccessDialog(context,
-              callOkFunction: () {},
-              isSuccess: false,
-              mainText: tr("reserve-failed'"),
-              subText: tr('APP_0069'))
-          .show();
-    });
+      /// 體驗帳號狀態關閉
+      experienceDisable: () {
+        SuccessDialog(
+          context,
+          callOkFunction: () {},
+          isSuccess: false,
+          mainText: tr("reserve-failed'"),
+        ).show();
+      },
+
+      /// 新手帳號交易天數到期
+      beginnerExpired: () {
+        SuccessDialog(context,
+                callOkFunction: () {},
+                isSuccess: false,
+                mainText: tr("reserve-failed'"),
+                subText: tr('APP_0069'))
+            .show();
+      },
+    );
 
     viewModel.initState();
     super.initState();

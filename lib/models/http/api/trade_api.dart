@@ -1,6 +1,7 @@
 import 'package:treasure_nft_project/models/http/http_manager.dart';
 import 'package:treasure_nft_project/models/http/parameter/api_response.dart';
 import '../parameter/add_new_reservation.dart';
+import '../parameter/check_experience_info.dart';
 import '../parameter/check_reservation_info.dart';
 import '../parameter/check_reserve_deposit.dart';
 
@@ -47,8 +48,8 @@ class TradeAPI extends HttpManager {
   }
 
   /// 取得體驗帳號資訊
-  Future<bool> getExperienceInfoAPI() async {
+  Future<ExperienceInfo> getExperienceInfoAPI() async {
     var response = await get('/experience/experience-info');
-    return response.data['isExperience'];
+    return ExperienceInfo.fromJson(response.data);
   }
 }
