@@ -6,7 +6,7 @@ import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_animation_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
-import '../../../constant/enum/level_enum.dart';
+import '../../../constant/enum/trade_enum.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/ui_define.dart';
 import '../../../models/data/trade_model_data.dart';

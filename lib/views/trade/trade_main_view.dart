@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/constant/enum/level_enum.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
@@ -9,6 +8,7 @@ import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/widgets/count_down_timer.dart';
 import 'package:treasure_nft_project/widgets/dialog/trade_rule_dialot.dart';
 import 'package:treasure_nft_project/widgets/domain_bar.dart';
+import '../../constant/enum/trade_enum.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../utils/date_format_util.dart';
 import '../../view_models/trade/trade_main_viewmodel.dart';
