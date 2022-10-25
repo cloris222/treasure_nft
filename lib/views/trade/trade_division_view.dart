@@ -41,6 +41,7 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
   @override
   void initState() {
     viewModel = TradeDivisionViewModel(
+      widget.level,
       setState: () {
         if (mounted) {
           setState(() {});

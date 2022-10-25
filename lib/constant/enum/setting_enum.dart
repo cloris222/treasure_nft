@@ -32,3 +32,12 @@ enum LanguageType {
   ///MARK:繁體中文
   Mandarin,
 }
+
+enum VideoStrEnum{
+  SignUp,
+  Deposit,
+  Buy,
+  Withdraw,
+  Invite,
+  Earings
+}
