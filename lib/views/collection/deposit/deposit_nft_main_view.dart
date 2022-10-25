@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 
 import '../../../constant/ui_define.dart';
 import '../../../view_models/base_view_model.dart';
@@ -168,11 +169,23 @@ class _DepositNftMainView extends State<DepositNftMainView> {
   }
 
   void _pressNext() {
-    String netWork = 'BSC';
     if (bPolygon) {
-      netWork = 'Polygon';
+      String netWork = 'Polygon';
+      BaseViewModel().pushPage(context, DepositNftResultView(netWork: netWork));
+
+    } else {
+      CommonCustomDialog(
+          context,
+          type: DialogImageType.warning,
+          title: '暫時不能使用',
+          content: '為確保良好的用戶體驗，充值BSC鏈的NFT功能，目前正處於批次測試階段。此階段只有選定的用戶可參與',
+          rightBtnText: '確定',
+          onLeftPress: (){},
+          onRightPress: () {
+            Navigator.pop(context);
+          }
+      ).show();
     }
-    BaseViewModel().pushPage(context, DepositNftResultView(netWork: netWork));
   }
 
 }

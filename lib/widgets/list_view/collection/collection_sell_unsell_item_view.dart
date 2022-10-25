@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 
+import '../../../constant/call_back_function.dart';
 import '../../../views/collection/data/collection_nft_item_response_data.dart';
 import '../../../views/collection/sell/collection_sell_dialog_view.dart';
 import '../../../views/collection/transfer/collection_transfer_dialog_view.dart';
@@ -12,12 +13,14 @@ class CollectionSellUnSellItemView extends StatefulWidget {
   const CollectionSellUnSellItemView({super.key,
   required this.collectionNftItemResponseData,
   required this.index,
-  required this.type
+  required this.type,
+  required this.callBack
   });
 
   final CollectionNftItemResponseData collectionNftItemResponseData;
   final int index;
   final String type;
+  final onGetIntFunction callBack;
 
   @override
   State<StatefulWidget> createState() => _SellUnSellItemInfoCard();
@@ -41,7 +44,6 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
     return Stack(
       children: [
         Container(
-          // width: double.infinity,
           margin: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5), 0, UIDefine.getScreenWidth(5), 0),
           decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: AppColors.searchBar, width: 1))),
           child: Column(
@@ -141,10 +143,10 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
         ),
 
         /// 半透明遮罩
-        Positioned(
-          left: 0, top: 0, right: 0, bottom: 0,
-          child: _getGrayCover()
-        )
+        // Positioned(
+        //   left: 0, top: 0, right: 0, bottom: 0,
+        //   child: _getGrayCover()
+        // )
       ],
     );
   }
@@ -290,14 +292,23 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
     CollectionTransferDialogView(
         context,
         data.imgUrl,
-        data.name).show();
+        data.name,
+        data.itemId).show();
   }
 
   void _pressSell() {
     CollectionSellDialogView(
         context,
         data.imgUrl,
-        data.name).show();
+        data.name,
+        data.itemId,
+        data.growPrice,
+        () => _onViewChange()
+    ).show();
+  }
+
+  void _onViewChange() {
+    widget.callBack(widget.index);
   }
 
 }

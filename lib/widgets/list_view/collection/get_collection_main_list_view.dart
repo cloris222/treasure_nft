@@ -49,9 +49,6 @@ class _GetCollectionMainListview extends State<GetCollectionMainListview> {
     } else if (currentType == 'Selling') { // 上架中
       return _getSellingListViewItem(widget.list[index], index);
     } else { // 未上架
-      if (index == 0) { // 充值NFT Button
-        return _getDepositBtn();
-      }
       return _getPendingListViewItem(widget.list[index], index);
     }
   }
@@ -73,21 +70,20 @@ class _GetCollectionMainListview extends State<GetCollectionMainListview> {
   Widget _getSellingListViewItem(CollectionNftItemResponseData data, int index) {
     return CollectionSellUnSellItemView(
       collectionNftItemResponseData: data, index: index, type: 'Selling',
+        callBack: (index) => _removeItem(index)
     );
   }
 
   Widget _getPendingListViewItem(CollectionNftItemResponseData data, int index) {
     return CollectionSellUnSellItemView(
       collectionNftItemResponseData: data, index: index, type: 'Pending',
+        callBack: (index) => _removeItem(index)
     );
   }
 
-  Widget _getDepositBtn() {
-    return IconTextButtonWidget(
-      btnText: '充值NFT',
-      iconPath: 'assets/icon/btn/btn_card_01_nor.png',
-      onPressed: () { BaseViewModel().pushPage(context, DepositNftMainView()); } // test 這要加上跳頁
-      );
+  void _removeItem(int index) {
+    widget.list.removeAt(index);
+    setState(() {});
   }
 
   // updateView() async { // test 更新還沒做

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../constant/ui_define.dart';
 import '../../view_models/collection/collection_main_view_model.dart';
+import '../../widgets/button/icon_text_button_widget.dart';
 import '../../widgets/domain_bar.dart';
+import 'deposit/deposit_nft_main_view.dart';
 
 class CollectionMainView extends StatefulWidget {
   const CollectionMainView({Key? key}) : super(key: key);
@@ -42,6 +44,11 @@ class _CollectionMainView extends State<CollectionMainView> {
                 changePage: (String exploreType) {
                   _changePage(exploreType);
                 })),
+        Visibility(
+          visible: currentExploreType == 'Pending',
+          child: _getDepositBtn()
+        ),
+        SizedBox(height: UIDefine.getScreenWidth(2.77)),
         Flexible(
             child: PageView(
               controller: pageController,
@@ -78,6 +85,14 @@ class _CollectionMainView extends State<CollectionMainView> {
       }
     }
     return -1;
+  }
+
+  Widget _getDepositBtn() {
+    return IconTextButtonWidget(
+        btnText: '充值NFT',
+        iconPath: 'assets/icon/btn/btn_card_01_nor.png',
+        onPressed: () { viewModel.pushPage(context, DepositNftMainView()); } // test 這要加上跳頁
+    );
   }
 
 }

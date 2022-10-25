@@ -116,7 +116,13 @@ class _DepositNftResultView extends State<DepositNftResultView> {
                               )
                             ),
                             SizedBox(width: UIDefine.getScreenWidth(3)),
-                            Image.asset('assets/icon/btn/btn_edit_01_nor.png', width: UIDefine.getScreenWidth(6), height: UIDefine.getScreenWidth(6))
+                            GestureDetector(
+                             onTap: () {
+                               BaseViewModel().copyText(copyText: data);
+                               BaseViewModel().showToast(context, 'Copied !');
+                             },
+                             child: Image.asset('assets/icon/btn/btn_edit_01_nor.png', width: UIDefine.getScreenWidth(6), height: UIDefine.getScreenWidth(6))
+                            )
                           ],
                         )
                       ],

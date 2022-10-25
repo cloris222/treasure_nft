@@ -2,22 +2,28 @@ import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/timer_util.dart';
 import 'package:treasure_nft_project/widgets/dialog/base_dialog.dart';
+import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
+import 'package:treasure_nft_project/widgets/dialog/simple_custom_dialog.dart';
 
 import '../../../constant/theme/app_colors.dart';
+import '../../../view_models/collection/collection_transfer_view_model.dart';
 
 /// 收藏 > 未上架Item > 轉出
 class CollectionTransferDialogView extends BaseDialog {
-  CollectionTransferDialogView(super.context, this.imgUrl, this.name) : super(isDialogCancel: false);
+  CollectionTransferDialogView(super.context, this.imgUrl, this.name, this.itemId) : super(isDialogCancel: false);
 
   String imgUrl;
   String name;
+  String itemId;
   String leftTime = '15 : 00';
   bool bEmpty = false;
   TextEditingController controller = TextEditingController();
   late StateSetter setState;
+  CollectionTransferViewModel viewModel = CollectionTransferViewModel();
 
   @override
   Future<void> initValue() async {
@@ -60,6 +66,7 @@ class CollectionTransferDialogView extends BaseDialog {
                 width: UIDefine.getScreenWidth(27.77),
                 height: UIDefine.getScreenWidth(11.11),
                 child: TextField(
+                  keyboardType: TextInputType.number,
                   controller: controller,
                   decoration: InputDecoration(
                     enabledBorder: const OutlineInputBorder(
@@ -106,8 +113,8 @@ class CollectionTransferDialogView extends BaseDialog {
           Visibility(
             visible: bEmpty,
             child: Text(
-              '驗證碼不得為空',
-              style: TextStyle(color: AppColors.textRed,
+              '不得為空',
+              style: TextStyle(color: AppColors.reservationLevel5,
                   fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w400),
             ),
           ),
@@ -180,32 +187,94 @@ class CollectionTransferDialogView extends BaseDialog {
   }
 
   void _pressGet() {
-    /// 倒計時
-    CountDownTimerUtil().initMMSS(callBackListener:
-    MyCallBackListener(
-        myCallBack: (sTimeLeft) {
-          setState(() { leftTime = sTimeLeft; });
-        }),
-        endTimeSeconds: 900
-    );
-
     /// API
-
+    Future<String> message = viewModel.getUserCodeResponse(
+        'withdraw', GlobalData.userInfo.email, GlobalData.userInfo.country, 'MAIL');
+    message.then((value) => { _startTimer(value) });
   }
 
-  void _pressVerify() {
-    if (controller.text == '') {
-      setState(() { bEmpty = true; });
-      return;
+  void _startTimer(String message) {
+    if (message == 'SUCCESS') {
+      /// 倒計時
+      CountDownTimerUtil().initMMSS(callBackListener:
+      MyCallBackListener(
+          myCallBack: (sTimeLeft) {
+            setState(() { leftTime = sTimeLeft; });
+          }),
+          endTimeSeconds: 900
+      );
+
+    } else {
+      // test 如果失敗有要跳Alert?
     }
-
-
-    /// API
   }
 
   void _pressCancel() {
     closeDialog();
   }
 
+  void _pressVerify() {
+    /// 驗證碼空值檢查
+    if (controller.text == '') {
+      setState(() { bEmpty = true; });
+      return;
+    }
 
+    /// API
+    Future<String> result = viewModel.getCheckUserCodeResponse(
+        'withdraw', 'MAIL', GlobalData.userInfo.email, GlobalData.userInfo.country,
+        GlobalData.userInfo.phone, controller.text, _onErrorResult);
+    result.then((message) => _onSuccessResult(message));
+  }
+
+  void _onSuccessResult(String message) {
+    if (message == 'SUCCESS') {
+      _showConfirmDialog();
+    }
+  }
+
+  void _onErrorResult(String code) {
+    _showErrorCodeDialog();
+  }
+
+  void _showErrorCodeDialog() {
+     SimpleCustomDialog(context, mainText: '驗證碼錯誤', isSuccess: false).show();
+  }
+
+  void _showConfirmDialog() {
+    CommonCustomDialog(context,
+        type: DialogImageType.warning,
+        title: '注意',
+        content: '轉出的商品，無法回到商場內繼續交易，請確認是否繼續轉出',
+        bOneButton: false,
+        leftBtnText: 'Cancel',
+        rightBtnText: 'Confirm',
+        onLeftPress: (){
+          Navigator.pop(context);
+        },
+        onRightPress: (){
+          Future<String> result = viewModel.getTransferOutResponse(itemId, controller.text, _checkResponseCode);
+          result.then((message) => _onTransferSuccess(message));
+        })
+        .show();
+  }
+
+  void _onTransferSuccess(String message) {
+    if (message == 'SUCCESS') {
+      SimpleCustomDialog(context, mainText: 'Success!', isSuccess: true).show();
+    }
+  }
+
+  void _checkResponseCode(String code) {
+    String msg = '';
+    switch(code) {
+      case 'APP_0049':
+        msg = '商品擁有者錯誤';
+        break;
+      case 'APP_0050':
+        msg = '商品已轉出';
+        break;
+    }
+    SimpleCustomDialog(context, mainText: msg, isSuccess: false).show();
+  }
 }

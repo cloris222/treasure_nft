@@ -2,22 +2,38 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/widgets/dialog/base_dialog.dart';
+import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
+import 'package:treasure_nft_project/widgets/dialog/simple_custom_dialog.dart';
 
+import '../../../constant/call_back_function.dart';
 import '../../../constant/ui_define.dart';
+import '../../../view_models/collection/collection_sell_view_model.dart';
+import '../data/collection_item_status_response_error_data.dart';
+import '../data/collection_level_fee_response_data.dart';
+
+
+
 
 /// 收藏 > 未上架Item > 販售
 class CollectionSellDialogView extends BaseDialog {
-  CollectionSellDialogView(super.context, this.imgUrl, this.name) : super(isDialogCancel: false);
+  CollectionSellDialogView(super.context, this.imgUrl, this.name,
+  this.itemId, this.growPrice, this.callBack) : super(isDialogCancel: false);
 
   String imgUrl;
   String name;
+  String itemId;
+  String growPrice;
+  onClickFunction callBack;
   TextEditingController controller = TextEditingController();
   late StateSetter setState;
+  ClassSellViewModel viewModel = ClassSellViewModel();
+  CollectionLevelFeeResponseData data = CollectionLevelFeeResponseData();
   String dropDownValue = 'USDT';
 
   @override
   Future<void> initValue() async {
-    // TODO: implement initValue
+    Future<CollectionLevelFeeResponseData> result = viewModel.getLevelFeeResponse(itemId);
+    result.then((value) => {data = value, setState(() {})});
   }
 
   @override
@@ -34,7 +50,10 @@ class CollectionSellDialogView extends BaseDialog {
           children: [
             Positioned(
               right: 0, top: 0,
-              child: Image.asset('assets/icon/btn/btn_cancel_01_nor.png')
+              child: InkWell(
+                onTap: () => Navigator.pop(context),
+                child: Image.asset('assets/icon/btn/btn_cancel_01_nor.png')
+              )
             ),
 
             Column(
@@ -73,29 +92,20 @@ class CollectionSellDialogView extends BaseDialog {
                       children: [
                         Expanded(child: _dropDownBar()),
                         SizedBox(width: UIDefine.getScreenWidth(2.77)),
-                        SizedBox(
+                        Container(
                           width: UIDefine.getScreenWidth(32.5),
                           height: UIDefine.getScreenWidth(12),
-                          child: TextField(
-                            controller: controller,
-                            decoration: InputDecoration(
-                                enabledBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide(color: AppColors.bolderGrey, width: 1.5),
-                                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                                focusedBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide(color: AppColors.bolderGrey, width: 1.5),
-                                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                                border: const OutlineInputBorder(
-                                    borderSide: BorderSide(color: AppColors.bolderGrey, width: 1.5),
-                                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                                filled: true,
-                                fillColor: AppColors.textWhite,
-                                hintText: '價錢',
-                                hintStyle: TextStyle(fontSize: UIDefine.fontSize10, color: AppColors.searchBar),
-                                contentPadding: const EdgeInsets.only(left: 10, bottom: 5, top: 6)
-                            ),
-                          )
-                        )
+                          alignment: Alignment.centerLeft,
+                          padding: const EdgeInsets.only(left: 10),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: AppColors.bolderGrey, width: 1.5),
+                            borderRadius: const BorderRadius.all(Radius.circular(10))
+                          ),
+                          child: Text(
+                            growPrice,
+                            style: TextStyle(fontSize: UIDefine.fontSize14, color: AppColors.searchBar),
+                          ),
+                        ),
                       ],
                     ),
                     SizedBox(height: UIDefine.getScreenWidth(8)),
@@ -116,7 +126,7 @@ class CollectionSellDialogView extends BaseDialog {
                               fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                         ),
                         Text(
-                          '2.5%',
+                          data.feeRate.toString() + ' %',
                           style: TextStyle(color: AppColors.searchBar,
                               fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                         )
@@ -132,7 +142,7 @@ class CollectionSellDialogView extends BaseDialog {
                               fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                         ),
                         Text(
-                          '5%',
+                          data.royalRate.toString() + ' %',
                           style: TextStyle(color: AppColors.searchBar,
                               fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                         )
@@ -170,7 +180,7 @@ class CollectionSellDialogView extends BaseDialog {
 
   final List<String> _currencies = [
     "USDT",
-    "BSC",
+    // "BSC", // 現在網頁沒有BSC
   ];
 
   Widget _dropDownBar() {
@@ -213,6 +223,37 @@ class CollectionSellDialogView extends BaseDialog {
 
 
   void _pressComplete() {
+    Future<dynamic> result = viewModel.getItemStatusResponse(itemId, 'SELLING');
+    result.then((message) => _onItemStatusSuccess(message));
+
+  }
+
+  void _onItemStatusSuccess(dynamic message) {
+    if (message == 'SUCCESS') {
+      SimpleCustomDialog(
+          context,
+          isSuccess: true,
+          mainText: '付款成功'
+      ).show();
+
+      Navigator.pop(context); // 關商品視窗
+      callBack();
+
+    } else {
+      CollectionItemStatusResponseErrorData data = CollectionItemStatusResponseErrorData();
+      data = message;
+      CommonCustomDialog(
+          context,
+          type: DialogImageType.fail,
+          title: '上架失敗',
+          content: '可上架時間為\n' + data.zone + data.startTime + ' ~ ' + data.endTime,
+          rightBtnText: '確定',
+          onLeftPress: (){},
+          onRightPress: () {
+            Navigator.pop(context);
+          }
+      ).show();
+    }
 
   }
 

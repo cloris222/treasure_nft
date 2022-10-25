@@ -104,7 +104,7 @@ class OrderInfoCard extends StatelessWidget {
       case 'SUCCESS':
         return AppColors.growPrice;
       case 'PENDING':
-        return AppColors.textGrey;
+        return AppColors.textWhite;
       case 'FAIL':
         return AppColors.textRed;
       case 'THROW':
