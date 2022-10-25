@@ -8,7 +8,7 @@ import 'package:treasure_nft_project/views/personal/level/achievement/achievemen
 import 'package:treasure_nft_project/views/personal/personal_sub_user_info_view.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 
-import '../../../constant/enum/level_enum.dart';
+import '../../../constant/enum/task_enum.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../view_models/personal/level/level_achievement_viewmodel.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';

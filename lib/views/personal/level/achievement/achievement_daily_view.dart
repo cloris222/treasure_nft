@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/models/http/parameter/task_info_data.dart';
 
-import '../../../../constant/enum/level_enum.dart';
+import '../../../../constant/enum/task_enum.dart';
 import '../../../../view_models/personal/level/level_achievement_viewmodel.dart';
 import '../../../../widgets/label/task_item_widget.dart';
 

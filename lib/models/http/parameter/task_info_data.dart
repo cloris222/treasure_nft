@@ -5,7 +5,7 @@
 import 'dart:convert';
 
 import 'package:easy_localization/easy_localization.dart';
-import '../../../constant/enum/level_enum.dart';
+import '../../../constant/enum/task_enum.dart';
 
 TaskInfoData taskInfoDataFromJson(String str) =>
     TaskInfoData.fromJson(json.decode(str));
