@@ -5,6 +5,7 @@ import 'package:treasure_nft_project/views/personal/personal_sub_user_info_view.
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 
 import '../../../widgets/app_bottom_navigation_bar.dart';
+import '../../custom_appbar_view.dart';
 
 ///MARK: 分享
 class TeamReferralCodePage extends StatelessWidget {
@@ -12,15 +13,12 @@ class TeamReferralCodePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar.getCommonAppBar(() {
-        BaseViewModel().popPage(context);
-      }, tr('shareCenter')),
+    return CustomAppbarView(
+      title: tr('shareCenter'),
       body: Column(
         children: const [PersonalSubUserInfoView()],
       ),
-      bottomNavigationBar: const AppBottomNavigationBar(
-          initType: AppNavigationBarType.typePersonal),
+      type: AppNavigationBarType.typePersonal,
     );
   }
 }

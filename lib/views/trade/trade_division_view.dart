@@ -134,7 +134,7 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
     TradeData tradeData = viewModel.countSellDate();
     return CustomAppbarView(
         title: widget.level == 0 ? tr('noviceArea') : 'Level ${widget.level}',
-        widget: Column(children: [
+        body: Column(children: [
           const SizedBox(
             height: 5,
           ),
