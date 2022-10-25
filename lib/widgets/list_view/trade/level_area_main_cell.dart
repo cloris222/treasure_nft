@@ -10,12 +10,8 @@ import '../../button/action_button_widget.dart';
 import '../../gradient_text.dart';
 
 class LevelMainCell extends StatefulWidget {
-  const LevelMainCell(
-      {Key? key,
-      required this.level,
-      })
+  const LevelMainCell({Key? key, required this.level,})
       : super(key: key);
-
 
   final int level;
 
@@ -44,8 +40,8 @@ class _LevelMainCellState extends State<LevelMainCell> {
     } else {
       return Text(
         //'${int.parse(widget.range?.startPrice.toStringAsFixed(0))} - ${int.parse(widget.range?.endPrice.toStringAsFixed(0))}',
-        'Level ${widget.level}'
-        ,style: TextStyle(
+        'Level ${widget.level}',
+        style: TextStyle(
             fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
       );
     }
@@ -57,7 +53,7 @@ class _LevelMainCellState extends State<LevelMainCell> {
     if (GlobalData.userInfo.level == 0) {
       return AppImagePath.level0;
     }
-     return format(AppImagePath.levelMission, ({'level': '0${widget.level}'}));
+    return format(AppImagePath.levelMission, ({'level': '0${widget.level}'}));
   }
 
   Color getReservationBtnColor() {
@@ -90,11 +86,15 @@ class _LevelMainCellState extends State<LevelMainCell> {
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Container(margin: const EdgeInsets.only(left: 10),
+              /// 新手顯示星星
+              Visibility(
+                visible: widget.level == 0,
+                  child: Image.asset(AppImagePath.beginner)),
+              Container(
+                  margin: const EdgeInsets.only(left: 10),
                   child: ifIsBeginnerLabel())
-
             ],
           ),
           Stack(
@@ -113,7 +113,9 @@ class _LevelMainCellState extends State<LevelMainCell> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => TradeDivisionView(level: widget.level,)));
+                              builder: (context) => TradeDivisionView(
+                                    level: widget.level,
+                                  )));
                     }),
               )
             ],

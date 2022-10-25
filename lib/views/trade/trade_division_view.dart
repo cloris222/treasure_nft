@@ -7,13 +7,11 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
-import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 import 'package:treasure_nft_project/widgets/count_down_timer.dart';
 import 'package:treasure_nft_project/widgets/dialog/animation_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/reservation_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/success_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/trade_rule_dialot.dart';
-import 'package:treasure_nft_project/widgets/domain_bar.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../models/http/parameter/check_reservation_info.dart';
 import '../../utils/date_format_util.dart';
@@ -49,8 +47,6 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
         /// 預約成功
         reservationSuccess: () {
       AnimationDialog(context, AppAnimationPath.reserveSuccess).show();
-
-      /// hide reservation button
     },
 
         /// 預約金不足
@@ -86,24 +82,27 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
       SimpleCustomDialog(context, mainText: tr(errorCode), isSuccess: false)
           .show();
     },
+
         /// 體驗帳號狀態失效
         experienceExpired: () {
-          SuccessDialog(context,
+      SuccessDialog(context,
               callOkFunction: () {},
               isSuccess: false,
               mainText: tr("reserve-failed'"),
-              subText: tr('APP_0058'))
-              .show();
-        },
+              subText: tr('APP_0057'))
+          .show();
+    },
+
         /// 新手帳號交易天數到期
         beginnerExpired: () {
-          SuccessDialog(context,
+      SuccessDialog(context,
               callOkFunction: () {},
               isSuccess: false,
               mainText: tr("reserve-failed'"),
               subText: tr('APP_0069'))
-              .show();
-        });
+          .show();
+    });
+
     viewModel.initState();
     super.initState();
   }
@@ -116,26 +115,35 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
 
   @override
   Widget build(BuildContext context) {
+    /// 將開賣狀態的值往下傳
+    TradeData tradeData = viewModel.countSellDate();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            widget.level == 0 ? tr('noviceArea') : 'Level ${widget.level}',style: TextStyle(fontSize: UIDefine.fontSize24),),
+          widget.level == 0 ? tr('noviceArea') : 'Level ${widget.level}',
+          style: TextStyle(fontSize: UIDefine.fontSize24),
+        ),
         backgroundColor: AppColors.mainThemeButton,
         elevation: 0,
         leading: IconButton(
-            onPressed: (){Navigator.pop(context);},
-            icon: Image.asset(AppImagePath.appBarLeftArrow,
-                fit: BoxFit.contain)),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon:
+                Image.asset(AppImagePath.appBarLeftArrow, fit: BoxFit.contain)),
       ),
       body: Stack(
         children: [
           SingleChildScrollView(
             child: Column(
               children: [
-                const SizedBox(height: 5,),
-                _countDownView(context),
+                const SizedBox(
+                  height: 5,
+                ),
+                _countDownView(context, tradeData),
                 _levelView(context),
-                checkDataInit()
+                checkDataInit(tradeData)
               ],
             ),
           ),
@@ -156,9 +164,7 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
     );
   }
 
-  Widget _countDownView(BuildContext context) {
-    TradeData tradeData = viewModel.countSellDate();
-
+  Widget _countDownView(BuildContext context, TradeData tradeData) {
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -240,7 +246,9 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
           },
           child: Column(
             children: [
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               Stack(
                 alignment: Alignment.center,
                 children: [
@@ -256,7 +264,8 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
                   Text(
                     tr('trade-rules'),
                     style: TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: UIDefine.fontSize14),
+                        fontWeight: FontWeight.bold,
+                        fontSize: UIDefine.fontSize14),
                   )
                 ],
               ),
@@ -325,15 +334,15 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
     );
   }
 
-  Widget checkDataInit() {
+  Widget checkDataInit(TradeData tradeData) {
     if (viewModel.reservationInfo != null) {
-      return _levelArea(context);
+      return _levelArea(context, tradeData);
     } else {
       return Container();
     }
   }
 
-  Widget _levelArea(BuildContext context) {
+  Widget _levelArea(BuildContext context, TradeData tradeData) {
     return ListView.builder(
         itemCount: viewModel.reservationInfo?.reserveRanges.length,
         shrinkWrap: true,
@@ -360,7 +369,9 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
                       endPrice: range.endPrice.toDouble())
                   .show();
             },
-            range: viewModel.ranges[index], level: widget.level,
+            range: viewModel.ranges[index],
+            level: widget.level,
+            tradeData: tradeData,
           );
         });
   }
