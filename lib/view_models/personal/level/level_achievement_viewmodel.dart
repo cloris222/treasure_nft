@@ -25,9 +25,24 @@ class LevelAchievementViewModel extends BaseViewModel {
   }
 
   void getDailyPoint(BuildContext context, String recordNo, int point) async {
-    await MissionAPI(
-            onConnectFail: (message) => onBaseConnectFail(context, message))
-        .getMissionPoint(recordNo: recordNo);
+    // await MissionAPI(
+    //         onConnectFail: (message) => onBaseConnectFail(context, message))
+    //     .getMissionPoint(recordNo: recordNo);
+    setState(() {
+      GlobalData.userInfo.point += point;
+      for (TaskInfoData data in achieveList) {
+        if (data.recordNo != null) {
+          data.takeStatus = 'TAKEN';
+        }
+      }
+    });
+  }
+
+  void getAchievementPoint(BuildContext context, AchievementCode code,
+      String recordNo, int point) async {
+    // await MissionAPI(
+    //     onConnectFail: (message) => onBaseConnectFail(context, message))
+    //     .getMissionPoint(recordNo: recordNo);
     setState(() {
       GlobalData.userInfo.point += point;
       for (TaskInfoData data in dailyList) {
@@ -36,5 +51,8 @@ class LevelAchievementViewModel extends BaseViewModel {
         }
       }
     });
+
+    achieveList = await MissionAPI().getAchieveTask();
+    setState(() {});
   }
 }

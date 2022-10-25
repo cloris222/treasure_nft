@@ -5,19 +5,19 @@ import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
-import '../../constant/call_back_function.dart';
-import '../../constant/enum/task_enum.dart';
-import '../../constant/theme/app_colors.dart';
-import '../../constant/theme/app_image_path.dart';
-import '../../models/http/parameter/task_info_data.dart';
-import '../../utils/number_format_util.dart';
-import '../../views/main_page.dart';
-import '../../views/personal/team/team_order_page.dart';
-import '../app_bottom_navigation_bar.dart';
-import 'flex_two_text_widget.dart';
+import '../../../constant/call_back_function.dart';
+import '../../../constant/enum/task_enum.dart';
+import '../../../constant/theme/app_colors.dart';
+import '../../../constant/theme/app_image_path.dart';
+import '../../../models/http/parameter/task_info_data.dart';
+import '../../../utils/number_format_util.dart';
+import '../../../views/main_page.dart';
+import '../../../views/personal/team/team_order_page.dart';
+import '../../app_bottom_navigation_bar.dart';
+import '../flex_two_text_widget.dart';
 
-class TaskItemWidget extends StatelessWidget {
-  const TaskItemWidget({Key? key, required this.data, required this.getPoint})
+class DailyItemWidget extends StatelessWidget {
+  const DailyItemWidget({Key? key, required this.data, required this.getPoint})
       : super(key: key);
   final TaskInfoData data;
   final GetMissionPoint getPoint;
@@ -38,7 +38,7 @@ class TaskItemWidget extends StatelessWidget {
           borderLine: 2),
       child: Container(
           margin: const EdgeInsets.all(15),
-          height: UIDefine.fontSize20 * 6,
+          height: UIDefine.fontSize20 * 6.5,
           child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -180,7 +180,7 @@ class TaskItemWidget extends StatelessWidget {
                 Expanded(
                   child: FlexTwoTextWidget(
                       alignment: Alignment.topLeft,
-                      text: data.getTaskText(),
+                      text: data.getDailyTaskText(),
                       fontSize: 16,
                       color: AppColors.dialogBlack,
                       fontWeight: FontWeight.w600),
@@ -194,7 +194,7 @@ class TaskItemWidget extends StatelessWidget {
             child: FlexTwoTextWidget(
                 alignment: Alignment.topLeft,
                 fontSize: 14,
-                text: data.getTaskSubText(),
+                text: data.getDailyTaskSubText(),
                 color: AppColors.dialogGrey,
                 fontWeight: FontWeight.w600),
           )
