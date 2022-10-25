@@ -161,6 +161,7 @@ class AppImagePath {
 
   /// Team
   static const String dateIcon = '$appIconFolderPath/icon_date_01.png';
+  static const String checkIcon02 = '$appImgPath/img_check_02.png';
 
   /// beginner course
   static const String userGradient = '$appIconFolderPath/icon_user_02.png';

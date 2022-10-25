@@ -35,6 +35,7 @@ abstract class BaseDialog {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: backgroundColor,
+          insetPadding: defaultInsetPadding(),
           elevation: 0,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(radius))),
@@ -116,5 +117,9 @@ abstract class BaseDialog {
 
   void clearFocus() {
     FocusScope.of(context).unfocus();
+  }
+
+  EdgeInsets defaultInsetPadding () {
+    return const EdgeInsets.symmetric(horizontal: 40.0, vertical: 24.0);
   }
 }

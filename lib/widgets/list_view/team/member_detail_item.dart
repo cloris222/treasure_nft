@@ -5,6 +5,9 @@ import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_member_detail.dart';
 import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
+import 'package:treasure_nft_project/widgets/dialog/list_dialog.dart';
+import 'lower_invite_listview.dart';
+import 'lower_nft_listview.dart';
 
 
 class MemberDetailItemView extends StatefulWidget {
@@ -19,6 +22,7 @@ class MemberDetailItemView extends StatefulWidget {
 
 class _MemberDetailItem extends State<MemberDetailItemView> {
   TeamMemberViewModel viewModel = TeamMemberViewModel();
+  bool _loadingNFT = true;
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +82,7 @@ class _MemberDetailItem extends State<MemberDetailItemView> {
 
                     viewModel.getPadding(1),
 
-                    Text(widget.itemData.phone,
+                    Text(widget.itemData.phone.toString(),
                       style: TextStyle(
                         color: AppColors.textBlack,
                         fontSize: UIDefine.fontSize12,
@@ -129,6 +133,15 @@ class _MemberDetailItem extends State<MemberDetailItemView> {
                     ),
 
                     onPressed: () {
+                      viewModel.getLowerNFT(1, widget.itemData.userId)
+                          .then((value) => {
+                        ListDialog(context,
+                          mainText:tr('NFTs'),
+                          callOkFunction: () {},
+                          listView: LowerNFTListView(list: value),
+                        ).show(),
+
+                      });
                     },
 
                     child: Container(
@@ -166,7 +179,9 @@ class _MemberDetailItem extends State<MemberDetailItemView> {
                 children: [
 
                   /// NickName
-                  Column(children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
                     Text(tr('nickname'),
                       style: TextStyle(
                         color: AppColors.textGrey,
@@ -216,7 +231,6 @@ class _MemberDetailItem extends State<MemberDetailItemView> {
                   ],),
 
 
-
                   Opacity(
                     opacity:0,
                     child: Column(
@@ -228,6 +242,7 @@ class _MemberDetailItem extends State<MemberDetailItemView> {
                           fontSize: UIDefine.fontSize12,
                         ),
                       ),
+                      viewModel.getPadding(1),
 
                       Text(' ',
                         style: TextStyle(
@@ -250,6 +265,15 @@ class _MemberDetailItem extends State<MemberDetailItemView> {
                       ),
 
                       onPressed: () {
+                        viewModel.getLowerInvite(1, widget.itemData.userId)
+                            .then((value) => {
+                          ListDialog(context,
+                            mainText:tr('invite'),
+                            callOkFunction: () {},
+                            listView: LowerInviteListView(list: value),
+                          ).show(),
+
+                        });
                       },
 
                       child: Container(

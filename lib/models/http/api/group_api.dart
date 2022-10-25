@@ -1,6 +1,7 @@
 import 'package:treasure_nft_project/models/http/http_manager.dart';
 import 'package:treasure_nft_project/models/http/http_setting.dart';
 import 'package:treasure_nft_project/models/http/parameter/api_response.dart';
+import 'package:treasure_nft_project/models/http/parameter/lower_nft_data.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_group_list.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_members.dart';
 
@@ -25,7 +26,6 @@ class GroupAPI extends HttpManager {
   Future<ApiResponse> getMemberDetail(
       {required int page, int size = 2, required String type,
         required String startTime, required String endTime})  async {
-    List<MemberDetailPageList> result = [];
     return await get('/group/member-list',
         queryParameters: {
           'page' : page,
@@ -34,7 +34,28 @@ class GroupAPI extends HttpManager {
           'endTime' : endTime,
           'type' : type,
         });
+  }
 
+  /// 查詢下線持有物品
+  Future<ApiResponse> getLowerNFT(
+      {required int page, int size = 20, required String lowerId})  async {
+    return await get('/group/lower-nft',
+        queryParameters: {
+          'page' : page,
+          'size' : size,
+          'lowerId' : lowerId,
+        });
+  }
+
+  /// 查詢下線直推列表
+  Future<ApiResponse> getLowerInvite(
+      {required int page, int size = 20, required String lowerId})  async {
+    return await get('/group/lower-invite',
+        queryParameters: {
+          'page' : page,
+          'size' : size,
+          'lowerId' : lowerId,
+        });
   }
 
   /// 查詢群組會員列表
