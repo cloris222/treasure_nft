@@ -18,7 +18,7 @@ class AnimationDialog extends BaseDialog {
     return Stack(
       children: [
         Container(
-          height: UIDefine.getHeight()/1.6,),
+          height: UIDefine.getHeight()/1.8,),
         Lottie.asset(animationPathJson),
         Positioned(
           bottom: 0,
