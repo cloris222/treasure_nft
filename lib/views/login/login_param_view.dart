@@ -27,31 +27,27 @@ class LoginParamView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildTextTitle(titleText),
-        LoginTextWidget(
-          hintText: hintText,
-          controller: controller,
-          initColor: data.result ? AppColors.bolderGrey : AppColors.textRed,
-          enabledColor: data.result ? AppColors.bolderGrey : AppColors.textRed,
-          focusedColor: AppColors.mainThemeButton,
-          isSecure: isSecure,
-          onChanged: onChanged,
-          onTap: onTap,
-        ),
-        ErrorTextWidget(data: data, alignment: Alignment.centerRight),
-      ],
-    );
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      _buildTextTitle(titleText),
+      LoginTextWidget(
+        hintText: hintText,
+        controller: controller,
+        initColor: data.result ? AppColors.bolderGrey : AppColors.textRed,
+        enabledColor: data.result ? AppColors.bolderGrey : AppColors.textRed,
+        focusedColor: AppColors.mainThemeButton,
+        isSecure: isSecure,
+        onChanged: onChanged,
+        onTap: onTap,
+      ),
+      ErrorTextWidget(data: data, alignment: Alignment.centerRight)
+    ]);
   }
 
   Widget _buildTextTitle(String text) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 5),
-      child: Text(text,
-          style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: UIDefine.fontSize14)),
-    );
+        margin: const EdgeInsets.symmetric(vertical: 5),
+        child: Text(text,
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: UIDefine.fontSize14)));
   }
 }

@@ -3,15 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/login/login_main_viewmodel.dart';
-import 'package:treasure_nft_project/widgets/text_field/login_text_widget.dart';
 
-import '../../constant/theme/app_colors.dart';
 import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/domain_bar.dart';
-import '../../widgets/label/error_text_widget.dart';
 import '../../widgets/label/common_text_widget.dart';
 import 'login_param_view.dart';
-import 'register_main_page.dart';
 
 class LoginMainView extends StatefulWidget {
   const LoginMainView({Key? key}) : super(key: key);
@@ -38,17 +34,13 @@ class _LoginMainViewState extends State<LoginMainView> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const DomainBar(),
-          _buildTop(),
-          Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10),
-              child: _buildBottom()),
-        ],
-      ),
-    );
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      const DomainBar(),
+      _buildTop(),
+      Container(
+          margin: const EdgeInsets.symmetric(horizontal: 10),
+          child: _buildBottom())
+    ]));
   }
 
   Widget _buildTop() {
@@ -101,12 +93,14 @@ class _LoginMainViewState extends State<LoginMainView> {
               titleText: tr('account'),
               hintText: tr("placeholder-account'"),
               controller: viewModel.accountController,
-              data: viewModel.accountData),
+              data: viewModel.accountData,
+              onTap: viewModel.onTap),
           LoginParamView(
               titleText: tr('password'),
               hintText: tr("placeholder-password"),
               controller: viewModel.passwordController,
               data: viewModel.passwordData,
+              onTap: viewModel.onTap,
               isSecure: true),
           CommonTextWidget(
             text: "${tr('forgot')}?",
@@ -118,23 +112,21 @@ class _LoginMainViewState extends State<LoginMainView> {
             enable: true,
             onPressed: () => viewModel.onPressLogin(context),
           ),
-          Row(
-            children: [
-              Flexible(
-                  flex: 3,
-                  child: CommonTextWidget(
-                    text: tr('withoutAccount'),
-                    alignment: Alignment.centerRight,
-                  )),
-              const SizedBox(width: 20),
-              Flexible(
-                  flex: 2,
-                  child: CommonTextWidget(
-                      text: tr('register'),
-                      fillWidth: false,
-                      onPress: () => viewModel.onPressRegister(context))),
-            ],
-          )
+          Row(children: [
+            Flexible(
+                flex: 3,
+                child: CommonTextWidget(
+                  text: tr('withoutAccount'),
+                  alignment: Alignment.centerRight,
+                )),
+            const SizedBox(width: 20),
+            Flexible(
+                flex: 2,
+                child: CommonTextWidget(
+                    text: tr('register'),
+                    fillWidth: false,
+                    onPress: () => viewModel.onPressRegister(context)))
+          ])
         ]);
   }
 }

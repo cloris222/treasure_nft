@@ -12,6 +12,7 @@ import '../../../constant/enum/level_enum.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../view_models/personal/level/level_achievement_viewmodel.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
+import '../../../widgets/label/flex_two_text_widget.dart';
 
 ///MARK: 成就
 class LevelAchievementPage extends StatefulWidget {
@@ -38,6 +39,7 @@ class _LevelAchievementPageState extends State<LevelAchievementPage> {
         appBar: CustomAppBar.getCommonAppBar(() {
           BaseViewModel().popPage(context);
         }, tr('achievement')),
+        backgroundColor: Colors.white,
         body: SingleChildScrollView(
             child: Column(children: [
           const PersonalSubUserInfoView(),
@@ -47,6 +49,7 @@ class _LevelAchievementPageState extends State<LevelAchievementPage> {
                 _buildButtonList(),
                 const SizedBox(height: 10),
                 _buildTaskView(),
+                const SizedBox(height: 10),
               ]))
         ])),
         bottomNavigationBar: const AppBottomNavigationBar(
@@ -85,14 +88,12 @@ class _LevelAchievementPageState extends State<LevelAchievementPage> {
             width: UIDefine.getWidth(),
             child: Column(children: [
               const SizedBox(height: 5),
-              Text(
-                text,
-                style: TextStyle(
-                    color:
-                        isCurrent ? AppColors.textBlack : AppColors.dialogGrey,
-                    fontSize: UIDefine.fontSize16,
-                    fontWeight: FontWeight.w500),
-              ),
+              FlexTwoTextWidget(
+                  alignment: Alignment.bottomCenter,
+                  text: text,
+                  color: isCurrent ? AppColors.textBlack : AppColors.dialogGrey,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500),
               const SizedBox(height: 5),
               isCurrent
                   ? const Divider(

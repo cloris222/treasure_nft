@@ -5,10 +5,6 @@
 import 'dart:convert';
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:format/format.dart';
-import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
-import 'package:treasure_nft_project/utils/number_format_util.dart';
-
 import '../../../constant/enum/level_enum.dart';
 
 TaskInfoData taskInfoDataFromJson(String str) =>
@@ -77,7 +73,7 @@ class TaskInfoData {
         "takeStatus": takeStatus,
       };
 
-  int getDailyCodeIndex(String code) {
+  int getDailyCodeIndex() {
     for (int i = 0; i < DailyCode.values.length; i++) {
       if (DailyCode.values[i].name == code) {
         return i;
@@ -98,9 +94,7 @@ class TaskInfoData {
     return tr('dly_t_$code');
   }
 
-  String getImagePath() {
-    int index = getDailyCodeIndex(code) + 1;
-    return format('${AppImagePath.dailyMission}/dm_{index}_01_finish.png',
-        {'index': NumberFormatUtil().integerTwoFormat(index)});
+  String getTaskSubText() {
+    return '${tr('mis_goal')} : ${tr('dly_c_$code')}';
   }
 }

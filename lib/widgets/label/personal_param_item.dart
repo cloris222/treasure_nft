@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import '../../constant/theme/app_colors.dart';
+import 'flex_two_text_widget.dart';
 
 class PersonalParamItem extends StatelessWidget {
   const PersonalParamItem(
@@ -23,10 +24,10 @@ class PersonalParamItem extends StatelessWidget {
         onTap: onPress,
         child: Container(
             width: fillWidth ? UIDefine.getWidth() : null,
-            height: UIDefine.fontSize22 * 3,
+            height: UIDefine.fontSize18 * 3.5,
             alignment: Alignment.center,
             child: Column(children: [
-              Flexible(child: _buildTop()),
+              _buildTop(),
               const SizedBox(height: 5),
               Flexible(child: _buildTitle())
             ])));
@@ -46,15 +47,12 @@ class PersonalParamItem extends StatelessWidget {
   }
 
   Widget _buildTitle() {
-    return SizedBox(
-      height: UIDefine.fontSize16 * 2,
-      child: Text(
-        title,
-        maxLines: 2,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: UIDefine.fontSize14, color: AppColors.dialogGrey),
-      ),
+    return FlexTwoTextWidget(
+      text: title,
+      fontSize: 14,
+      textAlign: TextAlign.center,
+      color: AppColors.dialogGrey,
+      fontWeight: FontWeight.w500,
     );
   }
 }

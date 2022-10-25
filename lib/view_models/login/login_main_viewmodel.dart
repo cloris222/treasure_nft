@@ -88,4 +88,11 @@ class LoginMainViewModel extends BaseViewModel {
     }
     return AppAnimationPath.loginNight;
   }
+
+  void onTap() {
+    setState(() {
+      accountData = ValidateResultData();
+      passwordData = ValidateResultData();
+    });
+  }
 }

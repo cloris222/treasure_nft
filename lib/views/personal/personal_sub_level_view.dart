@@ -40,12 +40,16 @@ class PersonalSubLevelView extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            '${tr('nationality')} : ',
-            style: TextStyle(
-                color: AppColors.dialogGrey,
-                fontSize: UIDefine.fontSize16,
-                fontWeight: FontWeight.w500),
+          Flexible(
+            child: Text(
+              '${tr('nationality')} : ',
+              softWrap: false,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                  color: AppColors.dialogGrey,
+                  fontSize: UIDefine.fontSize16,
+                  fontWeight: FontWeight.w500),
+            ),
           ),
           Text(
             '${tr(GlobalData.userInfo.country)} (${GlobalData.userInfo.zone})',
@@ -94,6 +98,8 @@ class PersonalSubLevelView extends StatelessWidget {
           child: Text(
             title,
             maxLines: 1,
+            softWrap: false,
+            overflow: TextOverflow.ellipsis,
             style: TextStyle(fontSize: UIDefine.fontSize14),
           ),
         ),

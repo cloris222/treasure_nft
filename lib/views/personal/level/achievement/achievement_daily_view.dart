@@ -3,6 +3,7 @@ import 'package:treasure_nft_project/models/http/parameter/task_info_data.dart';
 
 import '../../../../constant/enum/level_enum.dart';
 import '../../../../view_models/personal/level/level_achievement_viewmodel.dart';
+import '../../../../widgets/label/task_item_widget.dart';
 
 ///MARK: 每日任務
 class AchievementDailyView extends StatelessWidget {
@@ -14,19 +15,19 @@ class AchievementDailyView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
         shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           return _buildItem(context, viewModel.dailyList[index]);
         },
         separatorBuilder: (context, index) {
-          return Container();
+          return const SizedBox(height: 10);
         },
         itemCount: viewModel.dailyList.length);
   }
 
   Widget _buildItem(BuildContext context, TaskInfoData data) {
-    TaskStatus status = data.getTaskStatus();
-    return Row(children: [
-        Text(data.getTaskText()),Image.asset(data.getImagePath())
-    ],);
+    return TaskItemWidget(data: data, getPoint: _getPoint);
   }
+
+  void _getPoint(String value) {}
 }
