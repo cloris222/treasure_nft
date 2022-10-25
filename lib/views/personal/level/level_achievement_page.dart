@@ -13,6 +13,7 @@ import '../../../constant/theme/app_colors.dart';
 import '../../../view_models/personal/level/level_achievement_viewmodel.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/label/flex_two_text_widget.dart';
+import '../../custom_appbar_view.dart';
 
 ///MARK: 成就
 class LevelAchievementPage extends StatefulWidget {
@@ -35,8 +36,23 @@ class _LevelAchievementPageState extends State<LevelAchievementPage> {
 
   @override
   Widget build(BuildContext context) {
+    return CustomAppbarView(
+      title: tr('achievement'),
+      widget: Column(children: [
+        ///MARK: 不可以調成固定
+        PersonalSubUserInfoView(),
+        Container(
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(children: [
+              _buildButtonList(),
+              const SizedBox(height: 10),
+              _buildTaskView(),
+              const SizedBox(height: 10),
+            ]))
+      ]),
+    );
     return Scaffold(
-        appBar: CustomAppBar.getCommonAppBar(() {
+        appBar: CustomAppBar.getOnlyAppBar(() {
           BaseViewModel().popPage(context);
         }, tr('achievement')),
         backgroundColor: Colors.white,

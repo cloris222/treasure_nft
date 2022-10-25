@@ -46,6 +46,23 @@ class CustomAppBar {
             UIDefine.getHeight() / 6 > 80 ? 80 : UIDefine.getHeight() / 6);
   }
 
+  ///MARK: 僅Bar
+  static AppBar getOnlyAppBar(VoidCallback onTap, String title) {
+    return AppBar(
+      title: Text(title,
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: UIDefine.fontSize24)),
+      backgroundColor: AppColors.mainThemeButton,
+      elevation: 0,
+      leading: IconButton(
+          onPressed: onTap,
+          icon: Image.asset(AppImagePath.appBarLeftArrow,
+              fit: BoxFit.contain,
+              width: UIDefine.fontSize34,
+              height: UIDefine.fontSize34)),
+    );
+  }
+
   /// 圓角app bar
   static AppBar getCornerAppBar(
     VoidCallback onTap,

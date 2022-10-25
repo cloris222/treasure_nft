@@ -6,6 +6,7 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
+import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/count_down_timer.dart';
 import 'package:treasure_nft_project/widgets/dialog/animation_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/reservation_dialog.dart';
@@ -20,6 +21,7 @@ import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/dialog/simple_custom_dialog.dart';
 import '../../widgets/label/level_detail.dart';
 import '../../widgets/list_view/trade/level_area_division_cell.dart';
+import '../custom_appbar_view.dart';
 
 class TradeDivisionView extends StatefulWidget {
   const TradeDivisionView({
@@ -130,51 +132,61 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
   Widget build(BuildContext context) {
     /// 將開賣狀態的值往下傳
     TradeData tradeData = viewModel.countSellDate();
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          widget.level == 0 ? tr('noviceArea') : 'Level ${widget.level}',
-          style: TextStyle(fontSize: UIDefine.fontSize24),
-        ),
-        backgroundColor: AppColors.mainThemeButton,
-        elevation: 0,
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon:
-                Image.asset(AppImagePath.appBarLeftArrow, fit: BoxFit.contain)),
-      ),
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 5,
-                ),
-                _countDownView(context, tradeData),
-                _levelView(context),
-                checkDataInit(tradeData)
-              ],
-            ),
+    return CustomAppbarView(
+        title: widget.level == 0 ? tr('noviceArea') : 'Level ${widget.level}',
+        widget: Column(children: [
+          const SizedBox(
+            height: 5,
           ),
-          Positioned(
-            top: 0,
-            child: Container(
-              height: 20,
-              width: UIDefine.getWidth(),
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(50),
-                      bottomRight: Radius.circular(50)),
-                  color: AppColors.mainThemeButton),
-            ),
-          )
-        ],
-      ),
-    );
+          _countDownView(context, tradeData),
+          _levelView(context),
+          checkDataInit(tradeData)
+        ]));
+
+    // return Scaffold(
+    //   appBar: AppBar(
+    //     title: Text(
+    //       widget.level == 0 ? tr('noviceArea') : 'Level ${widget.level}',
+    //       style: TextStyle(fontSize: UIDefine.fontSize24),
+    //     ),
+    //     backgroundColor: AppColors.mainThemeButton,
+    //     elevation: 0,
+    //     leading: IconButton(
+    //         onPressed: () {
+    //           Navigator.pop(context);
+    //         },
+    //         icon:
+    //             Image.asset(AppImagePath.appBarLeftArrow, fit: BoxFit.contain)),
+    //   ),
+    //   body: Stack(
+    //     children: [
+    //       SingleChildScrollView(
+    //         child: Column(
+    //           children: [
+    //             const SizedBox(
+    //               height: 5,
+    //             ),
+    //             _countDownView(context, tradeData),
+    //             _levelView(context),
+    //             checkDataInit(tradeData)
+    //           ],
+    //         ),
+    //       ),
+    //       Positioned(
+    //         top: 0,
+    //         child: Container(
+    //           height: 20,
+    //           width: UIDefine.getWidth(),
+    //           decoration: const BoxDecoration(
+    //               borderRadius: BorderRadius.only(
+    //                   bottomLeft: Radius.circular(50),
+    //                   bottomRight: Radius.circular(50)),
+    //               color: AppColors.mainThemeButton),
+    //         ),
+    //       )
+    //     ],
+    //   ),
+    // );
   }
 
   Widget _countDownView(BuildContext context, TradeData tradeData) {
