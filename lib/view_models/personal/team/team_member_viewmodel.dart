@@ -3,12 +3,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/api/group_api.dart';
-import 'package:treasure_nft_project/models/http/parameter/members_detail.dart';
+import 'package:treasure_nft_project/models/http/parameter/api_response.dart';
+import 'package:treasure_nft_project/models/http/parameter/team_group_list.dart';
+import 'package:treasure_nft_project/models/http/parameter/team_member_detail.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_members.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 
 class TeamMemberViewModel extends BaseViewModel {
+  int memberDetailTotalPages = 1;
 
   /// 查詢團隊成員
   Future<TeamMembers> getTeamMembers(
@@ -18,8 +21,30 @@ class TeamMemberViewModel extends BaseViewModel {
         .getMembers(startTime: startTime, endTime: endTime);
   }
 
+  /// 查詢成員詳細
+  Future< List<MemberDetailPageList>> getMemberDetail(
+      int page, String startTime, String endTime, String type,
+      {ResponseErrorFunction? onConnectFail}) async {
+    List<MemberDetailPageList> list = [];
+
+    var response = await GroupAPI(onConnectFail: onConnectFail)
+        .getMemberDetail(
+        page: page,
+        startTime: startTime,
+        endTime: endTime,
+        type: type,
+    );
+    memberDetailTotalPages = response.data['totalPages'];
+
+    for (Map<String, dynamic> json in response.data['pageList']) {
+      list.add(MemberDetailPageList.fromJson(json));
+    }
+
+    return list;
+  }
+
   /// 查詢群組會員列表
-  Future<MembersDetail> getMembersDetail(
+  Future<GroupList> getGroupList(
       {ResponseErrorFunction? onConnectFail}) async {
     return await GroupAPI(onConnectFail: onConnectFail)
         .getGroupList();
@@ -45,5 +70,8 @@ class TeamMemberViewModel extends BaseViewModel {
     DateTime dateTime = DateTime.now().subtract(Duration(days:day));
     return DateFormat('yyyy-MM-dd').format(dateTime);
   }
+
+
+
 
 }

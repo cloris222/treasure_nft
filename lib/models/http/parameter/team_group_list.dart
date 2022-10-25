@@ -1,12 +1,12 @@
 
 import 'dart:convert';
 
-MembersDetail teamMembersFromJson(String str) => MembersDetail.fromJson(json.decode(str));
+GroupList teamMembersFromJson(String str) => GroupList.fromJson(json.decode(str));
 
-String teamMembersToJson(MembersDetail data) => json.encode(data.toJson());
+String teamMembersToJson(GroupList data) => json.encode(data.toJson());
 
-class MembersDetail {
-  MembersDetail({
+class GroupList {
+  GroupList({
     this.totalVal,
     this.user,
     this.active,
@@ -22,7 +22,7 @@ class MembersDetail {
   dynamic notDirect;
   PageResult? pageResult;
 
-  factory MembersDetail.fromJson(Map<String, dynamic> json) => MembersDetail(
+  factory GroupList.fromJson(Map<String, dynamic> json) => GroupList(
     totalVal: json["totalVal"],
     user: json["user"],
     active: json["active"],

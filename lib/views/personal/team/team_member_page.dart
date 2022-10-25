@@ -8,6 +8,7 @@ import 'package:treasure_nft_project/models/http/parameter/team_members.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
 import 'package:treasure_nft_project/views/home/widget/search_action_button.dart';
+import 'package:treasure_nft_project/views/personal/team/team_member_detail_page.dart';
 import 'package:treasure_nft_project/views/personal/team/widget/all_members_card.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
@@ -126,6 +127,7 @@ class BodyState extends State<Body> {
                               await viewModel.getTeamMembers('', '').then((value)  => {
                                 teamMembers = value,
                               });
+                              startDate = ''; endDate = '';
                               setState(() {});
                             },
                           ),
@@ -137,9 +139,12 @@ class BodyState extends State<Body> {
                             btnText: tr('today'),
                             onPressed: () async{
                               buttonType = Search.Today;
+
+                              startDate = viewModel.dateTimeFormat(DateTime.now());
+                              endDate = viewModel.dateTimeFormat(DateTime.now());
                               await viewModel.getTeamMembers(
-                                viewModel.dateTimeFormat(DateTime.now()),
-                                viewModel.dateTimeFormat(DateTime.now()),
+                                startDate,
+                                endDate,
                               ).then((value)  => {
                                 teamMembers = value,
                               });
@@ -154,8 +159,11 @@ class BodyState extends State<Body> {
                             btnText: tr('yesterday'),
                             onPressed: () async{
                               buttonType = Search.Yesterday;
+
+                              startDate = viewModel.getDays(1);
+                              endDate =viewModel.getDays(1);
                               await viewModel.getTeamMembers(
-                                  viewModel.getDays(1), viewModel.getDays(1)
+                                startDate, endDate
                               ).then((value)  => {
                                 teamMembers = value,
                               });
@@ -170,9 +178,11 @@ class BodyState extends State<Body> {
                             btnText: tr('day7'),
                             onPressed: () async{
                               buttonType = Search.SevenDays;
+
+                              startDate =  viewModel.getDays(7);
+                              endDate = viewModel.dateTimeFormat(DateTime.now());
                               await viewModel.getTeamMembers(
-                                viewModel.getDays(7),
-                                viewModel.dateTimeFormat(DateTime.now()),
+                                startDate, endDate,
                               ).then((value)  => {
                                 teamMembers = value,
                               });
@@ -187,9 +197,11 @@ class BodyState extends State<Body> {
                             btnText: tr('day30'),
                             onPressed: () async{
                               buttonType = Search.ThirtyDays;
+
+                              startDate =  viewModel.getDays(30);
+                              endDate = viewModel.dateTimeFormat(DateTime.now());
                               await viewModel.getTeamMembers(
-                                viewModel.getDays(30),
-                                viewModel.dateTimeFormat(DateTime.now()),
+                                startDate, endDate,
                               ).then((value)  => {
                                 teamMembers = value,
                               });
@@ -211,11 +223,19 @@ class BodyState extends State<Body> {
               ),
 
               /// all
-              AllMembersCard(
-                leftTitle: tr('AllMember'),
-                leftValue: teamMembers.totalUser.toString(),
-                rightTitle: tr('allValidMembers'),
-                rightValue: teamMembers.totalActive.toString(),
+              GestureDetector(
+                onTap: () {
+                  viewModel.pushPage(context, TeamMemberDetailPage(
+                    startTime: startDate,
+                    endTime: endDate,
+                    type: 'totalUser',));
+                },
+                child:AllMembersCard(
+                  leftTitle: tr('AllMember'),
+                  leftValue: teamMembers.totalUser.toString(),
+                  rightTitle: tr('allValidMembers'),
+                  rightValue: teamMembers.totalActive.toString(),
+                ),
               ),
 
 
@@ -224,36 +244,60 @@ class BodyState extends State<Body> {
               ),
 
               /// A class
-              AllMembersCard(
+            GestureDetector(
+              onTap: () {
+                viewModel.pushPage(context, TeamMemberDetailPage(
+                  startTime: startDate,
+                  endTime: endDate,
+                  type: 'direct',));
+              },
+              child:AllMembersCard(
                 leftTitle: tr('direct'),
                 leftValue: teamMembers.direct.toString(),
                 rightTitle: tr('activeDirect'),
                 rightValue: teamMembers.activeDirect.toString(),
               ),
+            ),
 
               viewModel.getPaddingWithView(2,
                 const Divider(color: AppColors.datePickerBorder,thickness:1.5),
               ),
 
               /// B class
-              AllMembersCard(
+            GestureDetector(
+              onTap: () {
+                viewModel.pushPage(context, TeamMemberDetailPage(
+                  startTime: startDate,
+                  endTime: endDate,
+                  type: 'indirect',));
+              },
+              child:AllMembersCard(
                 leftTitle: tr('indirect'),
                 leftValue: teamMembers.indirect.toString(),
                 rightTitle: tr('activeIndirect'),
                 rightValue: teamMembers.activeIndirect.toString(),
               ),
+            ),
 
               viewModel.getPaddingWithView(2,
                 const Divider(color: AppColors.datePickerBorder,thickness:1.5),
               ),
 
               /// C class
-              AllMembersCard(
+            GestureDetector(
+              onTap: () {
+                viewModel.pushPage(context, TeamMemberDetailPage(
+                  startTime: startDate,
+                  endTime: endDate,
+                  type: 'third',));
+              },
+              child:AllMembersCard(
                 leftTitle: tr('third'),
                 leftValue: teamMembers.third.toString(),
                 rightTitle: tr('activeThird'),
                 rightValue: teamMembers.activeThird.toString(),
               ),
+            ),
 
             ],)));
   }

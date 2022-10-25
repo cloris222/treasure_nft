@@ -1,7 +1,10 @@
 import 'package:treasure_nft_project/models/http/http_manager.dart';
 import 'package:treasure_nft_project/models/http/http_setting.dart';
-import 'package:treasure_nft_project/models/http/parameter/members_detail.dart';
+import 'package:treasure_nft_project/models/http/parameter/api_response.dart';
+import 'package:treasure_nft_project/models/http/parameter/team_group_list.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_members.dart';
+
+import '../parameter/team_member_detail.dart';
 
 
 class GroupAPI extends HttpManager {
@@ -18,8 +21,24 @@ class GroupAPI extends HttpManager {
     return TeamMembers.fromJson(response.data);
   }
 
+  /// 查詢成員詳細
+  Future<ApiResponse> getMemberDetail(
+      {required int page, int size = 2, required String type,
+        required String startTime, required String endTime})  async {
+    List<MemberDetailPageList> result = [];
+    return await get('/group/member-list',
+        queryParameters: {
+          'page' : page,
+          'size' : size,
+          'startTime' : startTime,
+          'endTime' : endTime,
+          'type' : type,
+        });
+
+  }
+
   /// 查詢群組會員列表
-  Future<MembersDetail> getGroupList(
+  Future<GroupList> getGroupList(
       {int page = 1, int size = 10, String date = 'ALL'})  async {
     var response = await get('/group/list',
         queryParameters: {
@@ -27,7 +46,7 @@ class GroupAPI extends HttpManager {
           'page' : page,
           'date' : date,
         });
-    return MembersDetail.fromJson(response.data);
+    return GroupList.fromJson(response.data);
   }
 
 
