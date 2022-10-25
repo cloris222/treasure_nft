@@ -13,6 +13,7 @@ class AppTheme {
   ///MARK: 從女權拿來的
   static ThemeData define(){
     return ThemeData(
+        backgroundColor: Colors.white,
         primarySwatch: Colors.blue,
         primaryColor: Colors.black,
         primaryIconTheme: const IconThemeData(color: Colors.black),

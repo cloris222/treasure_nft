@@ -107,12 +107,12 @@ class UIDefine {
   }
 
   /// get screen width
-  static double getWidth(){
+  static double getWidth() {
     return _screenWidth;
   }
 
   /// get screen height
- static double getHeight(){
+  static double getHeight() {
     return _screenHeight;
- }
+  }
 }

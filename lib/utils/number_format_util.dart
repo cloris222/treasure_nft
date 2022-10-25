@@ -14,4 +14,9 @@ class NumberFormatUtil {
   String integerFormat(dynamic value) {
     return _setNumberFormat(format: '#,##0', value: value);
   }
+
+  ///取整數
+  String integerTwoFormat(dynamic value) {
+    return _setNumberFormat(format: '00', value: value);
+  }
 }

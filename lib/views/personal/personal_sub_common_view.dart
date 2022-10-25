@@ -30,11 +30,14 @@ class PersonalSubCommonView extends StatelessWidget {
     return Row(children: [
       Image.asset(AppImagePath.userCommonIcon),
       const SizedBox(width: 5),
-      Text(tr('usualFun'),
-          style: TextStyle(
-              fontSize: UIDefine.fontSize20,
-              fontWeight: FontWeight.bold,
-              color: AppColors.dialogBlack))
+      Flexible(
+        child: Text(tr('usualFun'),
+            softWrap: false,
+            style: TextStyle(
+                fontSize: UIDefine.fontSize20,
+                fontWeight: FontWeight.bold,
+                color: AppColors.dialogBlack)),
+      )
     ]);
   }
 

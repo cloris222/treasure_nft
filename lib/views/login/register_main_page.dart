@@ -4,7 +4,6 @@ import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 
-import '../../constant/ui_define.dart';
 import '../../view_models/login/register_main_viewmodel.dart';
 import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/label/common_text_widget.dart';
@@ -36,97 +35,96 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar.getCommonAppBar(() {
-        BaseViewModel().popPage(context);
-      }, tr('register')),
-      body: SingleChildScrollView(
-          child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              child: _buildBody())),
-      bottomNavigationBar: const AppBottomNavigationBar(
-          initType: AppNavigationBarType.typeLogin),
-    );
+        appBar: CustomAppBar.getCommonAppBar(() {
+          BaseViewModel().popPage(context);
+        }, tr('register')),
+        body: SingleChildScrollView(
+            child: Container(
+                margin:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                child: _buildBody())),
+        bottomNavigationBar: const AppBottomNavigationBar(
+            initType: AppNavigationBarType.typeLogin));
   }
 
   Widget _buildBody() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        ///MARK:帳號
-        LoginParamView(
-            titleText: tr('account'),
-            hintText: tr("placeholder-account'"),
-            controller: viewModel.accountController,
-            data: viewModel.accountData,
-            onTap: viewModel.onTap),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          ///MARK:帳號
+          LoginParamView(
+              titleText: tr('account'),
+              hintText: tr("placeholder-account'"),
+              controller: viewModel.accountController,
+              data: viewModel.accountData,
+              onTap: viewModel.onTap),
 
-        ///MARK:密碼
-        LoginParamView(
-            titleText: tr('password'),
-            hintText: tr("placeholder-password"),
-            controller: viewModel.passwordController,
-            isSecure: true,
-            data: viewModel.passwordData,
+          ///MARK:密碼
+          LoginParamView(
+              titleText: tr('password'),
+              hintText: tr("placeholder-password"),
+              controller: viewModel.passwordController,
+              isSecure: true,
+              data: viewModel.passwordData,
+              onTap: viewModel.onTap,
+              onChanged: viewModel.onPasswordChanged),
+
+          ///MARK:再次確認密碼
+          LoginParamView(
+              titleText: tr("placeholder-password-again'"),
+              hintText: tr("placeholder-password-again'"),
+              controller: viewModel.rePasswordController,
+              isSecure: true,
+              data: viewModel.rePasswordData,
+              onTap: viewModel.onTap,
+              onChanged: viewModel.onPasswordChanged),
+
+          ///MARK:Email
+          LoginParamView(
+            titleText: tr('email'),
+            hintText: tr("placeholder-email'"),
+            controller: viewModel.emailController,
+            data: viewModel.emailData,
             onTap: viewModel.onTap,
-            onChanged: viewModel.onPasswordChanged),
+            onChanged: viewModel.onEmailChange,
+          ),
 
-        ///MARK:再次確認密碼
-        LoginParamView(
-            titleText: tr("placeholder-password-again'"),
-            hintText: tr("placeholder-password-again'"),
-            controller: viewModel.rePasswordController,
-            isSecure: true,
-            data: viewModel.rePasswordData,
-            onTap: viewModel.onTap,
-            onChanged: viewModel.onPasswordChanged),
+          ///MARK:驗證碼
+          LoginEmailCodeView(
+            hintText: tr("placeholder-emailCode'"),
+            controller: viewModel.emailCodeController,
+            onPressSendCode: () => viewModel.onPressSendCode(context),
+            onPressCheckVerify: () => viewModel.onPressCheckVerify(context),
+            data: viewModel.emailCodeData,
+            onEditTap: viewModel.onTap,
+            onPressVerification: viewModel.checkEmailFormat,
+          ),
 
-        ///MARK:Email
-        LoginParamView(
-          titleText: tr('email'),
-          hintText: tr("placeholder-email'"),
-          controller: viewModel.emailController,
-          data: viewModel.emailData,
-          onTap: viewModel.onTap,
-          onChanged: viewModel.onEmailChange,
-        ),
+          ///MARK:暱稱
+          LoginParamView(
+              titleText: tr('nickname'),
+              hintText: tr("placeholder-nickname'"),
+              controller: viewModel.nicknameController,
+              data: viewModel.nicknameData,
+              onTap: viewModel.onTap),
 
-        ///MARK:驗證碼
-        LoginEmailCodeView(
-          hintText: tr("placeholder-emailCode'"),
-          controller: viewModel.emailCodeController,
-          onPressSendCode: () => viewModel.onPressSendCode(context),
-          onPressCheckVerify: () => viewModel.onPressCheckVerify(context),
-          data: viewModel.emailCodeData,
-          onEditTap: viewModel.onTap,
-          onPressVerification: viewModel.checkEmailFormat,
-        ),
+          ///MARK:邀請瑪
 
-        ///MARK:暱稱
-        LoginParamView(
-            titleText: tr('nickname'),
-            hintText: tr("placeholder-nickname'"),
-            controller: viewModel.nicknameController,
-            data: viewModel.nicknameData,
-            onTap: viewModel.onTap),
+          LoginParamView(
+              titleText: tr('referralCode'),
+              hintText: tr("placeholder-referralCode'"),
+              controller: viewModel.referralController,
+              data: viewModel.referralData,
+              onTap: viewModel.onTap),
 
-        ///MARK:邀請瑪
-
-        LoginParamView(
-            titleText: tr('referralCode'),
-            hintText: tr("placeholder-referralCode'"),
-            controller: viewModel.referralController,
-            data: viewModel.referralData,
-            onTap: viewModel.onTap),
-
-        ///MARK: 註冊按鈕
-        LoginButtonWidget(
-          btnText: tr('register'),
-          enable: viewModel.checkPress(),
-          onPressed: () => viewModel.onPressRegister(context),
-        ),
-        Row(
-          children: [
+          ///MARK: 註冊按鈕
+          LoginButtonWidget(
+            btnText: tr('register'),
+            enable: viewModel.checkPress(),
+            onPressed: () => viewModel.onPressRegister(context),
+          ),
+          Row(children: [
             Flexible(
                 flex: 3,
                 child: CommonTextWidget(
@@ -139,10 +137,8 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
                 child: CommonTextWidget(
                     text: tr('Login'),
                     fillWidth: false,
-                    onPress: () => viewModel.onPressLogin(context))),
-          ],
-        ),
-      ],
-    );
+                    onPress: () => viewModel.onPressLogin(context)))
+          ])
+        ]);
   }
 }
