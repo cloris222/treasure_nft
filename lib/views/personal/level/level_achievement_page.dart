@@ -42,7 +42,8 @@ class _LevelAchievementPageState extends State<LevelAchievementPage> {
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
             child: Column(children: [
-          const PersonalSubUserInfoView(),
+          ///MARK: 不可以調成固定
+          PersonalSubUserInfoView(),
           Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(children: [

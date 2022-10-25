@@ -26,8 +26,8 @@ class AchievementDailyView extends StatelessWidget {
   }
 
   Widget _buildItem(BuildContext context, TaskInfoData data) {
-    return TaskItemWidget(data: data, getPoint: _getPoint);
+    return TaskItemWidget(
+        data: data,
+        getPoint: (String recordNo, int point) => viewModel.getDailyPoint(context,recordNo,point));
   }
-
-  void _getPoint(String value) {}
 }

@@ -1,6 +1,7 @@
 import 'package:treasure_nft_project/models/http/http_manager.dart';
 import 'package:treasure_nft_project/models/http/parameter/task_info_data.dart';
 
+import '../parameter/api_response.dart';
 import '../parameter/medal_info_data.dart';
 
 class MissionAPI extends HttpManager {
@@ -34,5 +35,9 @@ class MissionAPI extends HttpManager {
       result.add(MedalInfoData.fromJson(json));
     }
     return result;
+  }
+
+  Future<ApiResponse> getMissionPoint({required String recordNo}) async {
+    return post('/mission/take-point', data: {'recordNo': recordNo});
   }
 }

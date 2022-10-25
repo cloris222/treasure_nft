@@ -35,13 +35,16 @@ class _PersonalMainViewState extends State<PersonalMainView> {
             color: Colors.white,
             child: Column(children: [
               const DomainBar(),
-              const PersonalSubUserInfoView(showLevelInfo: true),
+
+              ///MARK: 不可以上const
+              PersonalSubUserInfoView(showLevelInfo: true),
               Container(
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(children: [
                     PersonalSubLevelView(
                       userProperty: viewModel.userProperty,
                       levelInfo: viewModel.levelInfo,
+                      onViewUpdate: _onViewUpdate,
                     ),
                     _buildLine(),
                     PersonalSubOrderView(
@@ -56,5 +59,11 @@ class _PersonalMainViewState extends State<PersonalMainView> {
 
   Widget _buildLine() {
     return const Divider(color: AppColors.searchBar);
+  }
+
+  void _onViewUpdate() {
+    ///MARK: 先更新已更新的資料狀態
+    setState(() {});
+    viewModel.updateData();
   }
 }

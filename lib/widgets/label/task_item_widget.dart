@@ -20,7 +20,7 @@ class TaskItemWidget extends StatelessWidget {
   const TaskItemWidget({Key? key, required this.data, required this.getPoint})
       : super(key: key);
   final TaskInfoData data;
-  final onGetStringFunction getPoint;
+  final GetMissionPoint getPoint;
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +134,7 @@ class TaskItemWidget extends StatelessWidget {
               isFillWidth: false,
               btnText: tr('acceptReward'),
               onPressed: () {
-                getPoint(data.recordNo!);
+                getPoint(data.recordNo!, data.point);
               });
         }
       case TaskStatus.isTaken:
@@ -144,9 +144,7 @@ class TaskItemWidget extends StatelessWidget {
               setMainColor: AppColors.datePickerBorder,
               setSubColor: AppColors.dialogGrey,
               btnText: tr('acceptedReward'),
-              onPressed: () {
-                getPoint(data.recordNo!);
-              });
+              onPressed: () {});
         }
     }
   }

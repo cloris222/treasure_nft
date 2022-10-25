@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/enum/task_enum.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/api/mission_api.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
@@ -19,5 +22,19 @@ class LevelAchievementViewModel extends BaseViewModel {
     achieveList = await MissionAPI().getAchieveTask();
     medalList = await MissionAPI().getMedalList();
     setState(() {});
+  }
+
+  void getDailyPoint(BuildContext context, String recordNo, int point) async {
+    await MissionAPI(
+            onConnectFail: (message) => onBaseConnectFail(context, message))
+        .getMissionPoint(recordNo: recordNo);
+    setState(() {
+      GlobalData.userInfo.point += point;
+      for (TaskInfoData data in dailyList) {
+        if (data.recordNo != null) {
+          data.takeStatus = 'TAKEN';
+        }
+      }
+    });
   }
 }

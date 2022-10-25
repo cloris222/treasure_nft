@@ -14,7 +14,11 @@ class PersonalMainViewModel extends BaseViewModel {
   UserProperty? userProperty;
   UserOrderInfo? userOrderInfo;
 
-  void initState() async {
+  void initState() {
+    updateData();
+  }
+
+  void updateData() async {
     levelInfo = await UserInfoAPI().getCheckLevelInfoAPI();
     userProperty = await UserInfoAPI().getUserPropertyInfo();
     userOrderInfo = await UserInfoAPI().getUserOrderInfo();

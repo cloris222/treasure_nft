@@ -5,6 +5,7 @@ import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart';
 
+import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_style.dart';
 import '../../models/http/parameter/check_level_info.dart';
@@ -15,10 +16,12 @@ import '../../widgets/label/personal_param_item.dart';
 import 'level/level_achievement_page.dart';
 
 class PersonalSubLevelView extends StatelessWidget {
-  const PersonalSubLevelView({Key? key, this.userProperty, this.levelInfo})
+  const PersonalSubLevelView(
+      {Key? key, this.userProperty, this.levelInfo, required this.onViewUpdate})
       : super(key: key);
   final UserProperty? userProperty;
   final CheckLevelInfo? levelInfo;
+  final onClickFunction onViewUpdate;
 
   @override
   Widget build(BuildContext context) {
@@ -183,7 +186,8 @@ class PersonalSubLevelView extends StatelessWidget {
     );
   }
 
-  void _showDailyPage(BuildContext context) {
-    BaseViewModel().pushPage(context, const LevelAchievementPage());
+  void _showDailyPage(BuildContext context) async {
+    await BaseViewModel().pushPage(context, const LevelAchievementPage());
+    onViewUpdate();
   }
 }

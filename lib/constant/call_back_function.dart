@@ -21,3 +21,5 @@ typedef PressVerification = Future<bool> Function();
 
 ///MARK: 背景執行程式
 typedef BackgroundFunction = Future<void> Function();
+
+typedef GetMissionPoint=void Function(String recordNo,int point);
