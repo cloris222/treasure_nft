@@ -36,8 +36,14 @@ class MissionAPI extends HttpManager {
     }
     return result;
   }
-
+///MARK: 領取任務獎勵
   Future<ApiResponse> getMissionPoint({required String recordNo}) async {
     return post('/mission/take-point', data: {'recordNo': recordNo});
   }
+
+  ///MARK: 選擇成就徽章
+  Future<ApiResponse> setAchieveMedalCode({required String code}) async {
+    return post('/mission/medal-choose', data: {'code': code});
+  }
+
 }

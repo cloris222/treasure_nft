@@ -7,10 +7,12 @@ import '../../../constant/theme/app_image_path.dart';
 import '../../../utils/number_format_util.dart';
 
 class MedalIconWidget extends StatelessWidget {
-  const MedalIconWidget({Key? key, required this.medal, this.size})
+  const MedalIconWidget(
+      {Key? key, required this.medal, this.size, this.enable = true})
       : super(key: key);
   final String medal;
   final double? size;
+  final bool enable;
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +24,10 @@ class MedalIconWidget extends StatelessWidget {
       }
     }
 
-    String path = format(AppImagePath.medalIcon,
-        {'mainNumber': NumberFormatUtil().integerTwoFormat(index + 1)});
+    String path = enable
+        ? format(AppImagePath.medalIcon,
+            {'mainNumber': NumberFormatUtil().integerTwoFormat(index + 1)})
+        : AppImagePath.unableMedalIcon;
     return BaseIconWidget(imageAssetPath: path, size: size);
   }
 }

@@ -36,7 +36,6 @@ class CustomLinearProgress extends StatelessWidget {
     if (flex >= 100) {
       flex = 100;
     }
-    print('flex:$flex');
     return Row(
       children: [
         Flexible(

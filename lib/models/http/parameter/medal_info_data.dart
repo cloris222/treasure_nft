@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:easy_localization/easy_localization.dart';
+
 MedalInfoData medalInfoDataFromJson(String str) =>
     MedalInfoData.fromJson(json.decode(str));
 
@@ -31,4 +33,8 @@ class MedalInfoData {
         "code": code,
         "isFinished": isFinished,
       };
+
+  String getMedalText() {
+    return tr('mis_t_$code');
+  }
 }

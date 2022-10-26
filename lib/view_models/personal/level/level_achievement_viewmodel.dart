@@ -53,7 +53,7 @@ class LevelAchievementViewModel extends BaseViewModel {
   void getAchievementPoint(BuildContext context, TaskInfoData data,
       AchievementCode code, String recordNo, int point) async {
     await MissionAPI(
-        onConnectFail: (message) => onBaseConnectFail(context, message))
+            onConnectFail: (message) => onBaseConnectFail(context, message))
         .getMissionPoint(recordNo: recordNo);
     setState(() {
       pushOpacityPage(
@@ -68,5 +68,15 @@ class LevelAchievementViewModel extends BaseViewModel {
 
     achieveList = await MissionAPI().getAchieveTask();
     setState(() {});
+  }
+
+  void setMedalCode(BuildContext context, String code) {
+    MissionAPI(onConnectFail: (message) => onBaseConnectFail(context, message))
+        .setAchieveMedalCode(code: code)
+        .then((value) {
+      setState(() {
+        GlobalData.userInfo.medal = code;
+      });
+    });
   }
 }
