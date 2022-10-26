@@ -80,7 +80,7 @@ class _LowerInviteItem extends State<LowerInviteItemView> {
                   viewModel.getPadding(1),
 
                   Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(tr('email'),
                           style: TextStyle(
@@ -89,11 +89,14 @@ class _LowerInviteItem extends State<LowerInviteItemView> {
 
                         viewModel.getPadding(1),
 
-                        Text(widget.itemData.email.toString(),
+                        SizedBox(
+                          width: UIDefine.getScreenWidth(35),
+                        child:Text(widget.itemData.email.toString(),
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontSize: UIDefine.fontSize14,
                             ),),
+                        ),
                       ],),
 
                   viewModel.getPadding(1),

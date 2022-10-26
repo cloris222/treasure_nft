@@ -1,11 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
+import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/api/group_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/api_response.dart';
 import 'package:treasure_nft_project/models/http/parameter/lower_invite_data.dart';
 import 'package:treasure_nft_project/models/http/parameter/lower_nft_data.dart';
+import 'package:treasure_nft_project/models/http/parameter/team_contribute_data.dart';
+import 'package:treasure_nft_project/models/http/parameter/team_contribute_list_data.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_group_list.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_member_detail.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_members.dart';
@@ -62,7 +65,7 @@ class TeamMemberViewModel extends BaseViewModel {
   }
 
   /// 查詢下線直推列表
-  Future< List<LowerInviteData>> getLowerInvite(
+  Future<List<LowerInviteData>> getLowerInvite(
       int page, String lowerId,
       {ResponseErrorFunction? onConnectFail}) async {
     List<LowerInviteData> list = [];
@@ -74,6 +77,30 @@ class TeamMemberViewModel extends BaseViewModel {
     );
     for (Map<String, dynamic> json in response.data['pageList']) {
       list.add(LowerInviteData.fromJson(json));
+    }
+    return list;
+  }
+
+
+  /// 查詢團隊貢獻
+  Future<TeamContribute> getContribute(
+      String startTime, String endTime,
+      {ResponseErrorFunction? onConnectFail}) async {
+    return await GroupAPI(onConnectFail: onConnectFail)
+        .getContribute(startTime: startTime, endTime: endTime);
+  }
+
+  /// 查詢團隊貢獻名單
+  Future<List<TeamContributeList>> getContributeList(
+      String startTime, String endTime,
+      {ResponseErrorFunction? onConnectFail}) async {
+    List<TeamContributeList> list = [];
+
+    var response = await GroupAPI(onConnectFail: onConnectFail)
+        .getContributeList(startTime: startTime, endTime: endTime);
+
+    for (Map<String, dynamic> json in response.data['pageList']) {
+      list.add(TeamContributeList.fromJson(json));
     }
     return list;
   }
@@ -110,6 +137,12 @@ class TeamMemberViewModel extends BaseViewModel {
   }
 
 
+  Widget getCoinImage() {
+    return SizedBox(
+      height: UIDefine.getScreenWidth(4),
+      child:Image.asset(AppImagePath.tetherImg),
+    );
+  }
 
 
 }

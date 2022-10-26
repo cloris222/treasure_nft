@@ -46,7 +46,12 @@ class ListDialog extends BaseDialog {
           Container(
             margin: EdgeInsets.zero,
             child: ActionButtonWidget(
-                margin: EdgeInsets.symmetric(horizontal: UIDefine.getWidth() / 5),
+              setHeight: UIDefine.getScreenHeight(7),
+                margin: EdgeInsets.only(
+                    left: UIDefine.getScreenWidth(20),
+                    right: UIDefine.getScreenWidth(20),
+                    top: UIDefine.getScreenWidth(6),
+                ),
                 btnText: tr("check"),
                 onPressed: _onPress,
                 isBorderStyle: false),

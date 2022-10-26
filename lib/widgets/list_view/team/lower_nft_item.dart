@@ -37,14 +37,14 @@ class _LowerNFTItem extends State<LowerNFTItemView> {
             children: [
 
               SizedBox(
-                width: UIDefine.getScreenWidth(16),
+                width: UIDefine.getScreenWidth(20),
                 child:Image.network(widget.itemData.originImgUrl),
               ),
 
               viewModel.getPadding(1),
 
               SizedBox(
-              width: UIDefine.getScreenWidth(35),
+              width: UIDefine.getScreenWidth(40),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,7 +58,7 @@ class _LowerNFTItem extends State<LowerNFTItemView> {
                       ),
                     ),
 
-                  viewModel.getPadding(1),
+                  viewModel.getPadding(2),
 
                   Row(children: [
                   SizedBox(

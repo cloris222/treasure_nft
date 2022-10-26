@@ -224,6 +224,7 @@ class BodyState extends State<Body> {
 
               /// all
               GestureDetector(
+                behavior: HitTestBehavior.translucent,
                 onTap: () {
                   viewModel.pushPage(context, TeamMemberDetailPage(
                     startTime: startDate,
@@ -245,6 +246,7 @@ class BodyState extends State<Body> {
 
               /// A class
             GestureDetector(
+              behavior: HitTestBehavior.translucent,
               onTap: () {
                 viewModel.pushPage(context, TeamMemberDetailPage(
                   startTime: startDate,
@@ -265,6 +267,7 @@ class BodyState extends State<Body> {
 
               /// B class
             GestureDetector(
+              behavior: HitTestBehavior.translucent,
               onTap: () {
                 viewModel.pushPage(context, TeamMemberDetailPage(
                   startTime: startDate,
@@ -285,6 +288,7 @@ class BodyState extends State<Body> {
 
               /// C class
             GestureDetector(
+              behavior: HitTestBehavior.translucent,
               onTap: () {
                 viewModel.pushPage(context, TeamMemberDetailPage(
                   startTime: startDate,

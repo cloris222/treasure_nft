@@ -1,37 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/models/http/parameter/team_member_detail.dart';
+import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/models/http/parameter/team_contribute_list_data.dart';
 import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
-import 'member_detail_item.dart';
+import 'package:treasure_nft_project/widgets/list_view/team/team_contribute_item.dart';
 
 
-class MemberDetailListView extends StatefulWidget {
-  const MemberDetailListView({super.key,
+class TeamContributeListView extends StatefulWidget {
+  const TeamContributeListView({super.key,
     required this.list,
   });
 
-  final List<MemberDetailPageList> list;
+  final List<TeamContributeList> list;
 
   @override
-  State<StatefulWidget> createState() => _MemberDetailListView();
+  State<StatefulWidget> createState() => _TeamContributeListView();
 
 }
 
-class _MemberDetailListView extends State<MemberDetailListView> {
+class _TeamContributeListView extends State<TeamContributeListView> {
   TeamMemberViewModel viewModel = TeamMemberViewModel();
 
 
   Widget createItemBuilder(BuildContext context, int index) {
-    return MemberDetailItemView(
+    return TeamContributeItemView(
       itemData: widget.list[index],
+      itemCount: index,
     );
   }
 
   Widget createSeparatorBuilder(BuildContext context, int index) {
-    return viewModel.getPadding(3);
-    //   Divider(
-    //   height: UIDefine.getScreenWidth(4.16),
-    //   color: AppColors.datePickerBorder,
-    // );
+    return Divider(
+      height: UIDefine.getScreenWidth(4.16),
+      color: AppColors.datePickerBorder,
+    );
   }
 
 

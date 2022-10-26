@@ -2,6 +2,8 @@ import 'package:treasure_nft_project/models/http/http_manager.dart';
 import 'package:treasure_nft_project/models/http/http_setting.dart';
 import 'package:treasure_nft_project/models/http/parameter/api_response.dart';
 import 'package:treasure_nft_project/models/http/parameter/lower_nft_data.dart';
+import 'package:treasure_nft_project/models/http/parameter/team_contribute_data.dart';
+import 'package:treasure_nft_project/models/http/parameter/team_contribute_list_data.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_group_list.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_members.dart';
 
@@ -55,6 +57,31 @@ class GroupAPI extends HttpManager {
           'page' : page,
           'size' : size,
           'lowerId' : lowerId,
+        });
+  }
+
+  /// 查詢團隊貢獻
+  Future<TeamContribute> getContribute(
+      {required String startTime, required String endTime})  async {
+    var response = await get('/group/contribute-summary',
+        queryParameters: {
+          'startTime' : startTime,
+          'endTime' : endTime,
+        });
+    return TeamContribute.fromJson(response.data);
+  }
+
+  /// 查詢團隊貢獻名單
+  Future<ApiResponse> getContributeList(
+      {int page = 1, int size = 20, type = '',
+        required String startTime, required String endTime})  async {
+    return await get('/group/contribute-list',
+        queryParameters: {
+          'page' : page,
+          'size' : size,
+          'startTime' : startTime,
+          'endTime' : endTime,
+          'type' : type,
         });
   }
 
