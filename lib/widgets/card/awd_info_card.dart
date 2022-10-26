@@ -112,11 +112,11 @@ class AWDInfoCard extends StatelessWidget {
   String _getLuckyStrawString() {
     switch(status) {
       case 'SUCCESS':
-        return tr('success');
+        return tr("notification-SUCCESS'");
       case 'PENDING':
-        return tr('pending');
+        return tr("notification-PENDING'");
       case 'FAIL':
-        return tr('fail');
+        return tr("notification-FAIL'");
     }
     return '';
   }
@@ -161,7 +161,7 @@ class AWDInfoCard extends StatelessWidget {
               Row(
                 children: [
                   Visibility(
-                      visible: dataList[i].title.contains('預開欄位'), // 不確定AWD是否會有icon的需要 目前沒
+                      visible: dataList[i].title.contains('預開欄位'), // test 不確定AWD是否會有icon的需要 目前沒
                       child: Image.asset('assets/icon/coins/icon_tether_01.png', width: UIDefine.getScreenWidth(3.7), height: UIDefine.getScreenWidth(3.7))
                   ),
                   const SizedBox(width: 4),

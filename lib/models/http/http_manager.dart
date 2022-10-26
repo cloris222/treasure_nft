@@ -45,7 +45,7 @@ class HttpManager {
     result.printLog();
 
     ///MARK: 檢查結果
-    if (result.code == "G_0000" || result.code == "APP_0062") {
+    if (result.code == "G_0000" || result.code == "APP_0062" || result.code == "APP_0041") {
       return result;
     } else if ((result.code.compareTo("G_0201") == 0) ||
         (result.code.compareTo("G_0202") == 0)) {

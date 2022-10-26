@@ -190,19 +190,19 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
     String title = '';
     switch(data.status) {
       case 'SELLING':
-        title = tr('selling');
+        title = tr("status_SELLING");
         break;
       case 'DISABLE':
-        title = tr('disable');
+        title = tr('status_DISABLE');
         break;
       case 'PAYING':
-        title = tr('paying');
+        title = tr('status_PAYING');
         break;
       case 'AUDITING':
-        title = tr('auditing');
+        title = tr("status_AUDITING");
         break;
       case 'PENDING':
-        title = tr('pending');
+        title = tr('status_PENDING');
         break;
     }
     return title;

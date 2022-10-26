@@ -1,5 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
@@ -31,7 +30,7 @@ class _DepositNftMainView extends State<DepositNftMainView> {
             () {
           BaseViewModel().popPage(context);
         },
-        'Deposit NFT',
+        tr("depositNFT"),
         fontSize: UIDefine.fontSize24,
         arrowFontSize: UIDefine.fontSize34,
         circular: 40,
@@ -44,14 +43,14 @@ class _DepositNftMainView extends State<DepositNftMainView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '選擇網路',
+              tr("chooseNetwork"),
               style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w600),
             ),
 
             const SizedBox(height: 4),
 
             Text(
-              '目前支援Polygon、BSC',
+              tr("supportNetwork"),
               style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w600),
             ),
 
@@ -151,7 +150,7 @@ class _DepositNftMainView extends State<DepositNftMainView> {
                     _pressNext();
                   },
                   child: Text(
-                    tr('next'), // 完成付款
+                    tr('paymentCompleted'), // 完成付款
                     style: TextStyle(
                         color: AppColors.textWhite, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
                   )
@@ -177,9 +176,9 @@ class _DepositNftMainView extends State<DepositNftMainView> {
       CommonCustomDialog(
           context,
           type: DialogImageType.warning,
-          title: '暫時不能使用',
-          content: '為確保良好的用戶體驗，充值BSC鏈的NFT功能，目前正處於批次測試階段。此階段只有選定的用戶可參與',
-          rightBtnText: '確定',
+          title: tr("temp-cant-use'"),
+          content: tr("mint-cant-info'"),
+          rightBtnText: tr('confirm'),
           onLeftPress: (){},
           onRightPress: () {
             Navigator.pop(context);

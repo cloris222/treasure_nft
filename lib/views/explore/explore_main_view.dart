@@ -3,7 +3,7 @@ import 'package:treasure_nft_project/widgets/domain_bar.dart';
 
 import '../../constant/ui_define.dart';
 import '../../view_models/explore/explore_main_view_model.dart';
-import 'data/explore_catogory_response_data.dart';
+import 'data/explore_category_response_data.dart';
 
 class ExploreMainView extends StatefulWidget {
   const ExploreMainView({Key? key}) : super(key: key);

@@ -4,9 +4,9 @@
 
 import 'dart:convert';
 
-ExploreCategoryResponseData exploreCatogoryResponseDataFromJson(String str) => ExploreCategoryResponseData.fromJson(json.decode(str));
+ExploreCategoryResponseData exploreCategoryResponseDataFromJson(String str) => ExploreCategoryResponseData.fromJson(json.decode(str));
 
-String exploreCatogoryResponseDataToJson(ExploreCategoryResponseData data) => json.encode(data.toJson());
+String exploreCategoryResponseDataToJson(ExploreCategoryResponseData data) => json.encode(data.toJson());
 
 class ExploreCategoryResponseData {
   ExploreCategoryResponseData({

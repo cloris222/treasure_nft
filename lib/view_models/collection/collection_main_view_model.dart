@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/collection/api/collection_api.dart';
@@ -35,7 +36,7 @@ class CollectionMainViewModel extends BaseViewModel {
                     child: Container(
                       padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.5), 0, UIDefine.getScreenWidth(3), 0),
                       child: Text(
-                        dataList[i], // test 要改成tr
+                        _getTabTitle(dataList[i]),
                         style: TextStyle(color: _getButtonColor(isCurrent), fontSize: UIDefine.fontSize16),
                         textAlign: TextAlign.center,
                       ),
@@ -60,6 +61,18 @@ class CollectionMainViewModel extends BaseViewModel {
     );
   }
 
+  String _getTabTitle(String value) {
+    switch(value) {
+      case 'Reservation':
+        return tr('tab_reserve');
+      case 'Selling':
+        return tr('tab_selling');
+      case 'Pending':
+        return tr('tab_unsell');
+    }
+    return '';
+  }
+
   double _getLineHeight(bool isCurrent) {
     if (isCurrent) return 2.5;
     return 1;
@@ -75,16 +88,15 @@ class CollectionMainViewModel extends BaseViewModel {
     return Colors.grey;
   }
 
-  Future<List<CollectionNftItemResponseData>> getNFTItemResponse(
-      String status, int page, int size, {ResponseErrorFunction? onConnectFail}) async {
-    return await CollectionApi(onConnectFail: onConnectFail)
-        .getNFTItemResponse(page: page, size: size, status: status);
-  }
-
   Future<List<CollectionReservationResponseData>> getReservationResponse(
       String type, int page, int size, {ResponseErrorFunction? onConnectFail}) async {
     return await CollectionApi(onConnectFail: onConnectFail)
         .getReservationResponse(page: page, size: size, type: type);
   }
 
+  Future<List<CollectionNftItemResponseData>> getNFTItemResponse(
+      String status, int page, int size, {ResponseErrorFunction? onConnectFail}) async {
+    return await CollectionApi(onConnectFail: onConnectFail)
+        .getNFTItemResponse(page: page, size: size, status: status);
+  }
 }

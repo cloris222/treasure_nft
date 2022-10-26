@@ -145,7 +145,6 @@ class CollectionApi extends HttpManager {
       });
       response.printLog();
       if (response.code == 'APP_0062') {
-        result = CollectionItemStatusResponseErrorData();
         result = CollectionItemStatusResponseErrorData.fromJson(response.data);
 
       } else {

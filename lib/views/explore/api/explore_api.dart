@@ -2,9 +2,11 @@ import '../../../models/http/http_manager.dart';
 import '../../../models/http/http_setting.dart';
 import '../../../models/http/parameter/api_response.dart';
 import '../data/explore_artist_detail_response_data.dart';
-import '../data/explore_catogory_response_data.dart';
+import '../data/explore_category_response_data.dart';
 import '../data/explore_item_response_data.dart';
+import '../data/explore_level_info_response_data.dart';
 import '../data/explore_main_response_data.dart';
+import '../data/explore_reserve_insert_response_error_data.dart';
 
 class ExploreApi extends HttpManager {
   ExploreApi({super.onConnectFail, super.baseUrl = HttpSetting.developUrl, super.addToken = false});
@@ -32,7 +34,7 @@ class ExploreApi extends HttpManager {
   }
 
   /// 查詢畫家類型
-  Future<List<ExploreCategoryResponseData>> getExploreCatogory() async {
+  Future<List<ExploreCategoryResponseData>> getExploreCategory() async {
     List<ExploreCategoryResponseData> result =
     <ExploreCategoryResponseData>[];
     try {
@@ -85,5 +87,37 @@ class ExploreApi extends HttpManager {
     }
     return result;
   }
+}
 
+class ExploreApiWithToken extends HttpManager {
+  ExploreApiWithToken({super.onConnectFail, super.baseUrl = HttpSetting.developUrl, super.showTrString});
+
+  /// 查詢等級資訊
+  Future<ExploreLevelInfoResponseData> getCheckLevelInfoAPI() async {
+    var response = await get('/level/user-info');
+    return ExploreLevelInfoResponseData.fromJson(response.data);
+  }
+
+  /// 新增預約
+  Future<dynamic> getNewReservationAPI(
+      {required String type, required String itemId}) async {
+    dynamic result;
+    try {
+      ApiResponse response =
+      await post('/reserve/insert', data: {
+        'type': type,
+        'itemId': itemId,
+      });
+      response.printLog();
+      if (response.code == 'APP_0041') {
+        result = ExploreReserveInsertResponseErrorData.fromJson(response.data);
+
+      } else {
+        result = response.message;
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+    return result;
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../constant/ui_define.dart';
@@ -89,7 +90,7 @@ class _CollectionMainView extends State<CollectionMainView> {
 
   Widget _getDepositBtn() {
     return IconTextButtonWidget(
-        btnText: '充值NFT',
+        btnText: tr("depositNFT"),
         iconPath: 'assets/icon/btn/btn_card_01_nor.png',
         onPressed: () { viewModel.pushPage(context, DepositNftMainView()); } // test 這要加上跳頁
     );

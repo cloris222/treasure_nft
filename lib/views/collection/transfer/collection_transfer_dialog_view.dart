@@ -56,7 +56,7 @@ class CollectionTransferDialogView extends BaseDialog {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '信箱驗證碼',
+                tr("mail_valid_code"),
                 style: TextStyle(
                     fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
               ),
@@ -80,7 +80,7 @@ class CollectionTransferDialogView extends BaseDialog {
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     filled: true,
                     fillColor: AppColors.textWhite,
-                    hintText: '驗證碼',
+                    hintText: tr("code"),
                     hintStyle: TextStyle(fontSize: UIDefine.fontSize10, color: AppColors.searchBar),
                     contentPadding: const EdgeInsets.only(left: 10, bottom: 6, top: 6)
                   ),
@@ -113,7 +113,7 @@ class CollectionTransferDialogView extends BaseDialog {
           Visibility(
             visible: bEmpty,
             child: Text(
-              '不得為空',
+              tr("rule_void"),
               style: TextStyle(color: AppColors.reservationLevel5,
                   fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w400),
             ),
@@ -122,7 +122,7 @@ class CollectionTransferDialogView extends BaseDialog {
           SizedBox(height: UIDefine.getScreenWidth(3.33)),
 
           Text(
-            '有效時間：' + leftTime,
+            tr("valid_time") + leftTime,
             style: TextStyle(color: AppColors.textRed,
                 fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
           ),
@@ -143,7 +143,7 @@ class CollectionTransferDialogView extends BaseDialog {
                       _pressCancel();
                     },
                     child: Text(
-                      tr('Cancel'), // 轉讓
+                      tr('cancel'), // 轉讓
                       style: TextStyle(
                           color: AppColors.mainThemeButton, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
                     )
@@ -179,7 +179,7 @@ class CollectionTransferDialogView extends BaseDialog {
     return Container(
       alignment: Alignment.center,
       child: Text(
-        '轉出確認',
+        tr("transferCheck"),
         style:
         TextStyle(fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500),
       )
@@ -238,17 +238,17 @@ class CollectionTransferDialogView extends BaseDialog {
   }
 
   void _showErrorCodeDialog() {
-     SimpleCustomDialog(context, mainText: '驗證碼錯誤', isSuccess: false).show();
+     SimpleCustomDialog(context, mainText: tr("EO_005_2"), isSuccess: false).show();
   }
 
   void _showConfirmDialog() {
     CommonCustomDialog(context,
         type: DialogImageType.warning,
-        title: '注意',
-        content: '轉出的商品，無法回到商場內繼續交易，請確認是否繼續轉出',
+        title: tr("attention"),
+        content: tr("tranfor_hint"),
         bOneButton: false,
-        leftBtnText: 'Cancel',
-        rightBtnText: 'Confirm',
+        leftBtnText: tr('cancel'),
+        rightBtnText: tr('confirm'),
         onLeftPress: (){
           Navigator.pop(context);
         },
@@ -261,7 +261,7 @@ class CollectionTransferDialogView extends BaseDialog {
 
   void _onTransferSuccess(String message) {
     if (message == 'SUCCESS') {
-      SimpleCustomDialog(context, mainText: 'Success!', isSuccess: true).show();
+      SimpleCustomDialog(context, mainText: tr("success"), isSuccess: true).show();
     }
   }
 
@@ -269,10 +269,10 @@ class CollectionTransferDialogView extends BaseDialog {
     String msg = '';
     switch(code) {
       case 'APP_0049':
-        msg = '商品擁有者錯誤';
+        msg = tr("APP_0049");
         break;
       case 'APP_0050':
-        msg = '商品已轉出';
+        msg = tr("APP_0050");
         break;
     }
     SimpleCustomDialog(context, mainText: msg, isSuccess: false).show();

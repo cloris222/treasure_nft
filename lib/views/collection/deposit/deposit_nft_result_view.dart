@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:format/format.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import '../../../constant/call_back_function.dart';
 import '../../../constant/theme/app_colors.dart';
@@ -42,7 +44,7 @@ class _DepositNftResultView extends State<DepositNftResultView> {
         () {
           BaseViewModel().popPage(context);
         },
-        'Deposit NFT',
+        tr("depositNFT"),
         fontSize: UIDefine.fontSize24,
         arrowFontSize: UIDefine.fontSize34,
         circular: 40,
@@ -70,15 +72,7 @@ class _DepositNftResultView extends State<DepositNftResultView> {
 
             /// 文字
             Text(
-              '請僅發送' + widget.netWork + ' NFT到這個地址。', // 完成付款
-              style: TextStyle(
-                  color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
-            ),
-
-            const SizedBox(height: 4),
-
-            Text(
-              '該地址僅支援由Treasure發送的NFT', // 完成付款
+              tr("Polygon-text'"), // 完成付款 Polygon
               style: TextStyle(
                   color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
             ),
@@ -100,7 +94,7 @@ class _DepositNftResultView extends State<DepositNftResultView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          widget.netWork + ' 充值地址',
+                          tr("Polygon-address'"),
                           style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                         ),
 
@@ -146,7 +140,7 @@ class _DepositNftResultView extends State<DepositNftResultView> {
                     child: Row(
                       children: [
                         Text(
-                          '鏈',
+                          tr("chain"),
                           style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                         ),
 

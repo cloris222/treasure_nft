@@ -1,18 +1,15 @@
 
-import 'package:flutter/cupertino.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
-import 'package:treasure_nft_project/views/login/login_main_view.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 
 import '../../../constant/ui_define.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/label/personal_profile_icon.dart';
-import 'explore_product_detail_page.dart';
+import '../itemdetail/explore_product_detail_page.dart';
 
 class HomePageWidgets {
   const HomePageWidgets._();
@@ -126,15 +123,15 @@ class HomePageWidgets {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _amountView(viewModel.numberCompatFormat(data.items.toString()), 'Items', false),
-              _amountView(viewModel.numberCompatFormat(data.owners.toString()), 'Owners', false),
-              _amountView(viewModel.numberCompatFormat(data.volume.toString()), 'Total volume', true),
+              _amountView(viewModel.numberCompatFormat(data.items.toString()), tr("items"), false),
+              _amountView(viewModel.numberCompatFormat(data.owners.toString()), tr('owners'), false),
+              _amountView(viewModel.numberCompatFormat(data.volume.toString()), tr('tradeVol'), true),
             ],
           ),
 
           SizedBox(height: UIDefine.getScreenWidth(5.5)),
 
-          _amountView(data.floorPrice.toString(), 'Floor Price', true),
+          _amountView(data.floorPrice.toString(), tr('floorPrice'), true),
 
         ],
       )
@@ -169,7 +166,7 @@ class HomePageWidgets {
           GestureDetector(
             onTap: () {
               if (GlobalData.userToken != '') {
-                BaseViewModel().pushPage(context, ExploreProductDetailPage(itemId: data.itemId));
+                BaseViewModel().pushPage(context, ExploreItemDetailPage(itemId: data.itemId));
               } else {
                 BaseViewModel().pushReplacement(context, MainPage(type: AppNavigationBarType.typeLogin));
               }

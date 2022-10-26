@@ -1,11 +1,11 @@
-import 'package:flutter/cupertino.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../constant/call_back_function.dart';
 import '../../constant/ui_define.dart';
 import '../../views/explore/api/explore_api.dart';
-import '../../views/explore/data/explore_catogory_response_data.dart';
+import '../../views/explore/data/explore_category_response_data.dart';
 import '../../views/explore/data/explore_main_response_data.dart';
 import '../../views/explore/explore_type_page.dart';
 
@@ -36,7 +36,7 @@ class ExploreMainViewModel extends BaseViewModel {
                     child: Container(
                       padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(2.77), 0, UIDefine.getScreenWidth(2.77), 0),
                       child: Text(
-                        dataList[i].frontName,
+                        _getTabTitle(dataList[i].name),
                         style: TextStyle(color: _getButtonColor(isCurrent), fontSize: UIDefine.fontSize16),
                         textAlign: TextAlign.center,
                       ),
@@ -59,6 +59,36 @@ class ExploreMainViewModel extends BaseViewModel {
           children: buttons
       ),
     );
+  }
+
+  String _getTabTitle(String value) {
+    switch(value) {
+      case '':
+        return tr('TopPicks');
+      case 'artwork':
+        return tr('art');
+      case 'bscNFT':
+        return tr('bSCNFT');
+      case 'collection':
+        return tr('collectibles');
+      case 'domain':
+        return tr('domainNames');
+      case 'ercNFT':
+        return tr('eRCNFT');
+      case 'facility':
+        return tr('utility');
+      case 'music':
+        return tr('music');
+      case 'photo':
+        return tr('photography');
+      case 'polygonNFT':
+        return tr('polygonNFT');
+      case 'sport':
+        return tr('sports');
+      case 'tradeCard':
+        return tr('tradingCards');
+    }
+    return '';
   }
 
   double _getLineHeight(bool isCurrent) {
@@ -86,6 +116,6 @@ class ExploreMainViewModel extends BaseViewModel {
   Future<List<ExploreCategoryResponseData>> getExploreCategory(
       {ResponseErrorFunction? onConnectFail}) async {
     return await ExploreApi(onConnectFail: onConnectFail)
-        .getExploreCatogory();
+        .getExploreCategory();
   }
 }

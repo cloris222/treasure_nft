@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constant/theme/app_colors.dart';
@@ -119,7 +120,7 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          bMore ? 'Close' : 'See more',
+                          bMore ? tr('SeeLess') : tr('SeeMore'),
                           style: TextStyle(
                               color: AppColors.mainThemeButton,
                               fontSize: UIDefine.fontSize14,
@@ -275,7 +276,7 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
           contentPadding:
               EdgeInsets.fromLTRB(0, UIDefine.getScreenWidth(4.16), 0, 0),
           prefixIcon: Image.asset('assets/icon/btn/btn_discover_01_nor.png'),
-          hintText: 'Select by name or attribute',
+          hintText: tr("select-placeholder'"),
           hintStyle: const TextStyle(height: 1.6, color: AppColors.searchBar),
           labelStyle: const TextStyle(color: Colors.black),
           alignLabelWithHint: true,
@@ -304,8 +305,6 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
       decoration: InputDecoration(
         contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.16),
             UIDefine.getScreenWidth(4.16), UIDefine.getScreenWidth(4.16), 0),
-        hintText: 'Price',
-        hintStyle: const TextStyle(height: 1.6, color: AppColors.textBlack),
         border: AppTheme.style.styleTextEditBorderBackground(
             color: AppColors.searchBar, radius: 10),
         focusedBorder: AppTheme.style.styleTextEditBorderBackground(
@@ -318,11 +317,21 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
             value: category,
             child: Row(
               children: <Widget>[
-                Text(category,
+                Text(_getCategoryText(category),
                     style: const TextStyle(color: AppColors.searchBar)),
               ],
             ));
       }).toList(),
     );
+  }
+
+  String _getCategoryText(String value) { // 下拉選單 多國
+    switch(value) {
+      case 'Price':
+        return tr('price');
+      case 'Time':
+        return tr('time');
+    }
+    return '';
   }
 }

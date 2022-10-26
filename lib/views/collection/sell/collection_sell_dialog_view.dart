@@ -11,9 +11,6 @@ import '../../../view_models/collection/collection_sell_view_model.dart';
 import '../data/collection_item_status_response_error_data.dart';
 import '../data/collection_level_fee_response_data.dart';
 
-
-
-
 /// 收藏 > 未上架Item > 販售
 class CollectionSellDialogView extends BaseDialog {
   CollectionSellDialogView(super.context, this.imgUrl, this.name,
@@ -76,13 +73,13 @@ class CollectionSellDialogView extends BaseDialog {
                   children: [
                     SizedBox(height: UIDefine.getScreenWidth(5)),
                     Text(
-                      'List item for sale',
+                      tr("listItemforSale"),
                       style: TextStyle(
                           fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500),
                     ),
                     SizedBox(height: UIDefine.getScreenWidth(5)),
                     Text(
-                      'Price',
+                      tr('price'),
                       style: TextStyle(
                           fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
                     ),
@@ -112,7 +109,7 @@ class CollectionSellDialogView extends BaseDialog {
                     Container(width: double.infinity, height: 1.5, color: AppColors.searchBar),
                     SizedBox(height: UIDefine.getScreenWidth(10)),
                     Text(
-                      'Fees',
+                      tr('fees'),
                       style: TextStyle(
                           fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w600),
                     ),
@@ -121,7 +118,7 @@ class CollectionSellDialogView extends BaseDialog {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Service Fee',
+                          tr("serviceFee"),
                           style: TextStyle(color: AppColors.searchBar,
                               fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                         ),
@@ -137,7 +134,7 @@ class CollectionSellDialogView extends BaseDialog {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Creator Fee',
+                          tr("creatorFee"),
                           style: TextStyle(color: AppColors.searchBar,
                               fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                         ),
@@ -165,7 +162,7 @@ class CollectionSellDialogView extends BaseDialog {
                         _pressComplete();
                       },
                       child: Text(
-                        tr('Complete listing'), // 完成上架
+                        tr("completeList"), // 完成上架
                         style: TextStyle(
                             color: AppColors.textWhite, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
                       )
@@ -233,7 +230,7 @@ class CollectionSellDialogView extends BaseDialog {
       SimpleCustomDialog(
           context,
           isSuccess: true,
-          mainText: '付款成功'
+          mainText: tr("successfulPayment")
       ).show();
 
       Navigator.pop(context); // 關商品視窗
@@ -245,9 +242,9 @@ class CollectionSellDialogView extends BaseDialog {
       CommonCustomDialog(
           context,
           type: DialogImageType.fail,
-          title: '上架失敗',
-          content: '可上架時間為\n' + data.zone + data.startTime + ' ~ ' + data.endTime,
-          rightBtnText: '確定',
+          title: tr("listingFailed"),
+          content: tr("availableTime") + '\n' + data.zone + data.startTime + ' ~ ' + data.endTime,
+          rightBtnText: tr('confirm'),
           onLeftPress: (){},
           onRightPress: () {
             Navigator.pop(context);

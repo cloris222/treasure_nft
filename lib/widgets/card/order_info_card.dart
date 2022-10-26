@@ -40,7 +40,7 @@ class OrderInfoCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Order No.:',
+                    tr('orderNo') + ':',
                     style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
                   ),
                   const SizedBox(height: 4),
@@ -116,13 +116,13 @@ class OrderInfoCard extends StatelessWidget {
   String _getLuckyStrawString() {
     switch(status) {
       case 'SUCCESS':
-        return tr('success');
+        return tr("notification-SUCCESS'");
       case 'PENDING':
-        return tr('pending');
+        return tr("notification-PENDING'");
       case 'FAIL':
-        return tr('fail');
+        return tr("notification-FAIL'");
       case 'THROW':
-        return tr('throw');
+        return tr("notification-THROW'");
     }
     return '';
   }
@@ -151,7 +151,7 @@ class OrderInfoCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                tr(dataList[i].title),
+                tr(dataList[i].title), // 在外部要塞多語系的key
                 style: TextStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
               ),
               Row(
@@ -176,10 +176,7 @@ class OrderInfoCard extends StatelessWidget {
   }
 
   bool _checkTitleShowCoins(CardShowingData data) {
-    if (data.title.contains('price')) {
-      return true;
-    }
-    if (data.title.contains('Amount')) {
+    if (data.bIcon) {
       return true;
     }
     return false;

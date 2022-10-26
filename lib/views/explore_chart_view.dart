@@ -5,7 +5,7 @@ import '../constant/ui_define.dart';
 import 'explore/data/explore_item_response_data.dart';
 import 'package:charts_flutter/flutter.dart' as chart;
 
-import 'explore/homepage/explore_product_detail_page.dart';
+import 'explore/itemdetail/explore_product_detail_page.dart';
 
 class ExploreChartView extends StatefulWidget {
 

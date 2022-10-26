@@ -151,11 +151,11 @@ class ItemInfoCard extends StatelessWidget {
   String _getLuckyStrawString() {
     switch(status) {
       case 'SUCCESS':
-        return tr('success');
+        return tr("notification-SUCCESS'");
       case 'PENDING':
-        return tr('pending');
+        return tr("notification-PENDING'");
       case 'FAIL':
-        return tr('fail');
+        return tr("notification-FAIL'");
     }
     return '';
   }
@@ -182,7 +182,7 @@ class ItemInfoCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                tr(dataList[i].title),
+                tr(dataList[i].title), // 在外部要塞多語系的key
                 style: TextStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
               ),
               Row(
@@ -207,10 +207,7 @@ class ItemInfoCard extends StatelessWidget {
   }
 
   bool _checkTitleShowCoins(CardShowingData data) {
-    if (data.title.contains('price')) {
-      return true;
-    }
-    if (data.title.contains('Amount')) {
+    if (data.bIcon) {
       return true;
     }
     return false;

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/widgets/card/data/card_showing_data.dart';
@@ -42,7 +43,8 @@ class _CollectionReservationItemView extends State<CollectionReservationItemView
           dataList: _getOrderData(
             data.startPrice.toString() + ' ~ ' + data.endPrice.toString(),
             data.deposit.toString(),
-            data.reserveCount.toString()
+            data.reserveCount.toString(),
+            data.winCount.toString()
           ));
 
     } else {
@@ -53,33 +55,41 @@ class _CollectionReservationItemView extends State<CollectionReservationItemView
   List<CardShowingData> _getItemData(String itemPrice, String orderNo) {
     List<CardShowingData> dataList = [];
     CardShowingData data = CardShowingData();
-    data.title = 'itemPrice';
+    data.title = tr('price');
     data.content = itemPrice;
+    data.bIcon = true;
     dataList.add(data);
 
     data = CardShowingData();
-    data.title = 'orderNo';
+    data.title = tr('orderNo');
     data.content = orderNo;
     dataList.add(data);
 
     return dataList;
   }
 
-  List<CardShowingData> _getOrderData(String estimatedAmount, String deposit, String estimatedNumber) {
+  List<CardShowingData> _getOrderData(String estimatedAmount, String deposit, String estimatedNumber, String winCount) {
     List<CardShowingData> dataList = [];
     CardShowingData data = CardShowingData();
-    data.title = 'estimatedAmount';
+    data.title = tr('reservationAmount');
     data.content = estimatedAmount;
+    data.bIcon = true;
     dataList.add(data);
 
     data = CardShowingData();
-    data.title = 'deposit';
+    data.title = tr('reservationFee');
     data.content = deposit;
+    data.bIcon = true;
     dataList.add(data);
 
     data = CardShowingData();
-    data.title = 'estimatedNumber';
+    data.title = tr('numberAppointments');
     data.content = estimatedNumber;
+    dataList.add(data);
+
+    data = CardShowingData();
+    data.title = tr('numberWinningBids');
+    data.content = winCount;
     dataList.add(data);
 
     return dataList;
