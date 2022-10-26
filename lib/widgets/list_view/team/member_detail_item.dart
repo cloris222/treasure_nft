@@ -60,10 +60,13 @@ class _MemberDetailItem extends State<MemberDetailItemView> {
 
                         viewModel.getPadding(1),
 
-                        Text(widget.itemData.email,
-                          style: TextStyle(
-                            color: AppColors.textBlack,
-                            fontSize: UIDefine.fontSize12,
+                        SizedBox(
+                          width: UIDefine.getScreenWidth(35),
+                          child:Text(widget.itemData.email,
+                            style: TextStyle(
+                              color: AppColors.textBlack,
+                              fontSize: UIDefine.fontSize12,
+                            ),
                           ),
                         ),
                       ]),

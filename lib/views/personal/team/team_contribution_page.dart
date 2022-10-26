@@ -160,8 +160,8 @@ class BodyState extends State<Body> {
                               });
                               await viewModel.getContributeList(
                                   startDate, endDate).then((value) => {
-                                    teamContributeList = value
-                                  });
+                                teamContributeList = value
+                              });
                               setState(() {});
                             },
                           ),
@@ -239,12 +239,12 @@ class BodyState extends State<Body> {
               Container(
                 padding: EdgeInsets.all(UIDefine.getScreenWidth(7)),
                 decoration: BoxDecoration(
-                  color: AppColors.textWhite,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                      color: AppColors.datePickerBorder,
-                      width: 3
-                  )
+                    color: AppColors.textWhite,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                        color: AppColors.datePickerBorder,
+                        width: 3
+                    )
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -253,116 +253,125 @@ class BodyState extends State<Body> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                      /// 總獎勵
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                        Text(tr('reward_total'),
-                          style: TextStyle(
-                            color: AppColors.textGrey,
-                            fontSize: UIDefine.fontSize12,
-                          ),
-                        ),
-
-                        viewModel.getPadding(1),
-
-                        Row(children: [
-                          viewModel.getCoinImage(),
-
-                          viewModel.getPadding(0.5),
-                          Text(teamContribute.teamShare.toString(),
-                            style: TextStyle(
-                              color: AppColors.textBlack,
-                              fontSize: UIDefine.fontSize14,
+                        /// 總獎勵
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(tr('reward_total'),
+                              style: TextStyle(
+                                color: AppColors.textGrey,
+                                fontSize: UIDefine.fontSize12,
+                              ),
                             ),
-                          ),
-                        ]),
-                      ],),
+
+                            viewModel.getPadding(1),
+
+                            Row(children: [
+                              viewModel.getCoinImage(),
+
+                              viewModel.getPadding(0.5),
+                              Text(teamContribute.teamShare.toString(),
+                                style: TextStyle(
+                                  color: AppColors.textBlack,
+                                  fontSize: UIDefine.fontSize14,
+                                ),
+                              ),
+                            ]),
+                          ],),
 
 
 
-                      /// A級獎勵
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                        Text(tr('directShare-extra'),
-                          style: TextStyle(
-                            color: AppColors.textGrey,
-                            fontSize: UIDefine.fontSize12,
-                          ),
-                        ),
-                        viewModel.getPadding(1),
-                        Row(children: [
-                          viewModel.getCoinImage(),
-
-                          viewModel.getPadding(0.5),
-
-                          Text(teamContribute.directShare.toString(),
-                            style: TextStyle(
-                              color: AppColors.textBlack,
-                              fontSize: UIDefine.fontSize14,
+                        /// A級獎勵
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: UIDefine.getScreenWidth(30),
+                              child:Text(tr('directShare-extra'),
+                                style: TextStyle(
+                                  color: AppColors.textGrey,
+                                  fontSize: UIDefine.fontSize12,
+                                ),
+                              ),
                             ),
-                          ),
-                        ]),
+                            viewModel.getPadding(1),
+                            Row(children: [
+                              viewModel.getCoinImage(),
+
+                              viewModel.getPadding(0.5),
+
+                              Text(teamContribute.directShare.toString(),
+                                style: TextStyle(
+                                  color: AppColors.textBlack,
+                                  fontSize: UIDefine.fontSize14,
+                                ),
+                              ),
+                            ]),
+                          ],),
                       ],),
-                    ],),
 
                     viewModel.getPadding(3),
 
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                      /// B級獎勵
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(tr('indirectShare-extra'),
-                            style: TextStyle(
-                              color: AppColors.textGrey,
-                              fontSize: UIDefine.fontSize12,
-                            ),
-                          ),
-                          viewModel.getPadding(1),
-                          Row(children: [
-                            viewModel.getCoinImage(),
-
-                            viewModel.getPadding(0.5),
-                            Text(teamContribute.indirectShare.toString(),
-                              style: TextStyle(
-                                color: AppColors.textBlack,
-                                fontSize: UIDefine.fontSize14,
+                          /// B級獎勵
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: UIDefine.getScreenWidth(30),
+                                child:Text(tr('indirectShare-extra'),
+                                  style: TextStyle(
+                                    color: AppColors.textGrey,
+                                    fontSize: UIDefine.fontSize12,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ]),
-                        ],
-                      ),
+                              viewModel.getPadding(1),
+                              Row(children: [
+                                viewModel.getCoinImage(),
 
-
-                      /// C級獎勵
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(tr('thirdShare-extra'),
-                            style: TextStyle(
-                              color: AppColors.textGrey,
-                              fontSize: UIDefine.fontSize12,
-                            ),
+                                viewModel.getPadding(0.5),
+                                Text(teamContribute.indirectShare.toString(),
+                                  style: TextStyle(
+                                    color: AppColors.textBlack,
+                                    fontSize: UIDefine.fontSize14,
+                                  ),
+                                ),
+                              ]),
+                            ],
                           ),
-                          viewModel.getPadding(1),
-                          Row(children: [
-                            viewModel.getCoinImage(),
 
-                            viewModel.getPadding(0.5),
 
-                            Text(teamContribute.thirdShare.toString(),
-                              style: TextStyle(
-                                color: AppColors.textBlack,
-                                fontSize: UIDefine.fontSize14,
+                          /// C級獎勵
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: UIDefine.getScreenWidth(30),
+                                child:Text(tr('thirdShare-extra'),
+                                  style: TextStyle(
+                                    color: AppColors.textGrey,
+                                    fontSize: UIDefine.fontSize12,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ]),
-                        ],),
-                    ]),
+                              viewModel.getPadding(1),
+                              Row(children: [
+                                viewModel.getCoinImage(),
+
+                                viewModel.getPadding(0.5),
+
+                                Text(teamContribute.thirdShare.toString(),
+                                  style: TextStyle(
+                                    color: AppColors.textBlack,
+                                    fontSize: UIDefine.fontSize14,
+                                  ),
+                                ),
+                              ]),
+                            ],),
+                        ]),
                   ],),
               ),
 
@@ -372,13 +381,13 @@ class BodyState extends State<Body> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                  Text(tr('direct'),
-                    style:TextStyle(
-                        fontSize: UIDefine.fontSize14
+                    Text(tr('direct'),
+                      style:TextStyle(
+                          fontSize: UIDefine.fontSize14
+                      ),
                     ),
-                  ),
 
-                  viewModel.getPadding(1),
+                    viewModel.getPadding(1),
 
                     SizedBox(
                       width: UIDefine.getScreenWidth(25),
@@ -389,7 +398,7 @@ class BodyState extends State<Body> {
                       ),
                     ),
 
-                ],),
+                  ],),
               ),
 
               TeamContributeListView(
