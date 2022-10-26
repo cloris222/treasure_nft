@@ -1,7 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/models/data/course_model_data.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/views/personal/common/user_course_video_page.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 import 'package:video_player/video_player.dart';
 import '../../../constant/enum/setting_enum.dart';
@@ -12,53 +15,15 @@ import '../../../widgets/app_bottom_navigation_bar.dart';
 
 ///MARK: 新手教程
 class UserNovicePage extends StatefulWidget {
-  const UserNovicePage({Key? key}) : super(key: key);
+  const UserNovicePage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<UserNovicePage> createState() => _UserNovicePageState();
 }
 
 class _UserNovicePageState extends State<UserNovicePage> {
-  late VideoPlayerController _controller;
-
-  @override
-  void initState() {
-    _controller = VideoPlayerController.network(
-        'https://image.treasurenft.xyz/video/mb_tutorial_01.mp4')
-      ..initialize().then((_) {
-        setState(() {});
-      })
-      ..play();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
-  }
-
-  String getVideoPath(VideoStrEnum videoStrPath) {
-    switch (videoStrPath) {
-      case VideoStrEnum.SignUp:
-        return 'https://image.treasurenft.xyz/video/mb_tutorial_01.mp4';
-
-      case VideoStrEnum.Deposit:
-        return 'https://image.treasurenft.xyz/video/mb_tutorial_02.mp4';
-
-      case VideoStrEnum.Buy:
-        return 'https://image.treasurenft.xyz/video/mb_tutorial_03.mp4';
-
-      case VideoStrEnum.Withdraw:
-        return 'https://image.treasurenft.xyz/video/mb_tutorial_04.mp4';
-
-      case VideoStrEnum.Invite:
-        return 'https://image.treasurenft.xyz/video/mb_tutorial_05.mp4';
-
-      case VideoStrEnum.Earings:
-        return 'https://image.treasurenft.xyz/video/mb_tutorial_06.mp4';
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +37,13 @@ class _UserNovicePageState extends State<UserNovicePage> {
               horizontal: UIDefine.getWidth() / 20,
               vertical: UIDefine.getHeight() / 30),
           child: Column(
-            children: [_buildTitle(context), _buildVideoGrid(context)],
+            children: [
+              _buildTitle(context),
+              Container(
+                  margin:
+                      EdgeInsets.symmetric(vertical: UIDefine.getHeight() / 40),
+                  child: _buildVideoGrid(context))
+            ],
           ),
         ),
       ),
@@ -98,141 +69,62 @@ class _UserNovicePageState extends State<UserNovicePage> {
   }
 
   Widget _buildVideoGrid(BuildContext context) {
-    return Center(
-      child: GridView.count(
-          primary: false,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          crossAxisCount: 2,
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
-
-          /// 顯示格子寬高比
-          childAspectRatio: 0.8,
-          padding: const EdgeInsets.only(top: 20),
-          children: <Widget>[
-            Container(
+    return GridView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 200,
+            childAspectRatio: 0.8,
+            crossAxisSpacing: 15,
+            mainAxisSpacing: 15),
+        itemCount: VideoStrEnum.values.length,
+        itemBuilder: (BuildContext context, index) {
+          return Container(
+              alignment: Alignment.center,
               decoration: AppStyle().styleColorBorderBackground(
                   radius: 10, color: AppColors.searchBar, borderLine: 2),
-              child: Stack(
-                children: [
-                  Positioned(
-                      bottom: 5,
-                      left: UIDefine.getWidth() / 25,
-                      right: 0,
-                      child: Text(
-                        tr("howSignUp"),
-                        style: TextStyle(
-                            fontSize: UIDefine.fontSize16,
-                            fontWeight: FontWeight.w600),
-                      )),
-                  Container(
-                    child: _controller.value.isInitialized
-                        ? AspectRatio(
-                            aspectRatio: _controller.value.aspectRatio,
-                            child: VideoPlayer(_controller),
-                          )
-                        : Container(),
-                  )
-                ],
-              ),
-            ),
-            Container(
-              decoration: AppStyle().styleColorBorderBackground(
-                  radius: 10, color: AppColors.searchBar, borderLine: 2),
-              child: Stack(
-                children: [
-                  Positioned(
-                      bottom: 5,
-                      left: UIDefine.getWidth() / 25,
-                      right: 0,
-                      child: Text(
-                        tr("howToDeposit"),
-                        style: TextStyle(
-                            fontSize: UIDefine.fontSize16,
-                            fontWeight: FontWeight.w600),
-                      )),
-                  Image.asset(AppImagePath.polyImg),
-                ],
-              ),
-            ),
-            Container(
-              decoration: AppStyle().styleColorBorderBackground(
-                  radius: 10, color: AppColors.searchBar, borderLine: 2),
-              child: Stack(
-                children: [
-                  Positioned(
-                      bottom: 5,
-                      left: UIDefine.getWidth() / 25,
-                      right: 0,
-                      child: Text(
-                        tr("howToBuy"),
-                        style: TextStyle(
-                            fontSize: UIDefine.fontSize16,
-                            fontWeight: FontWeight.w600),
-                      )),
-                  Image.asset(AppImagePath.polyImg),
-                ],
-              ),
-            ),
-            Container(
-              decoration: AppStyle().styleColorBorderBackground(
-                  radius: 10, color: AppColors.searchBar, borderLine: 2),
-              child: Stack(
-                children: [
-                  Positioned(
-                      bottom: 5,
-                      left: UIDefine.getWidth() / 25,
-                      right: 0,
-                      child: Text(
-                        tr("howToWithdraw"),
-                        style: TextStyle(
-                            fontSize: UIDefine.fontSize16,
-                            fontWeight: FontWeight.w600),
-                      )),
-                  Image.asset(AppImagePath.polyImg),
-                ],
-              ),
-            ),
-            Container(
-              decoration: AppStyle().styleColorBorderBackground(
-                  radius: 10, color: AppColors.searchBar, borderLine: 2),
-              child: Stack(
-                children: [
-                  Positioned(
-                      bottom: 5,
-                      left: UIDefine.getWidth() / 25,
-                      right: 0,
-                      child: Text(
-                        tr("howToViewInvitations"),
-                        style: TextStyle(
-                            fontSize: UIDefine.fontSize16,
-                            fontWeight: FontWeight.w600),
-                      )),
-                  Image.asset(AppImagePath.polyImg),
-                ],
-              ),
-            ),
-            Container(
-              decoration: AppStyle().styleColorBorderBackground(
-                  radius: 10, color: AppColors.searchBar, borderLine: 2),
-              child: Stack(
-                children: [
-                  Positioned(
-                      bottom: 5,
-                      left: UIDefine.getWidth() / 25,
-                      right: 0,
-                      child: Text(
-                        tr("howToViewEarnings"),
-                        style: TextStyle(
-                            fontSize: UIDefine.fontSize16,
-                            fontWeight: FontWeight.w600),
-                      )),
-                  Image.asset(AppImagePath.polyImg),
-                ],
-              ),
-            ),
-          ]),
-    );
+              child: Stack(children: [
+                SizedBox(
+                  height: UIDefine.getHeight(),
+                  width: UIDefine.getWidth(),
+                ),
+                Positioned(
+                    top: 10,
+                    bottom: 5,
+                    left: 10,
+                    right: 10,
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CourseVideoPage(
+                                            videoStr:
+                                                VideoStrEnum.values[index],
+                                          )));
+                            },
+                            child: Image.asset(
+                              format(AppImagePath.videoCover,
+                                  {'index': index + 1}),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          tr(VideoStrEnum.values[index].name),
+                          style: TextStyle(
+                              fontSize: UIDefine.fontSize14,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    )),
+              ]));
+        });
   }
 }

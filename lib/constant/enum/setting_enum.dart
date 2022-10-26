@@ -34,10 +34,10 @@ enum LanguageType {
 }
 
 enum VideoStrEnum{
-  SignUp,
-  Deposit,
-  Buy,
-  Withdraw,
-  Invite,
-  Earings
+  howSignUp,
+  howToDeposit,
+  howToBuy,
+  howToWithdraw,
+  howToViewInvitations,
+  howToViewEarnings
 }

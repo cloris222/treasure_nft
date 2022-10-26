@@ -164,4 +164,5 @@ class AppImagePath {
 
   /// beginner course
   static const String userGradient = '$appIconFolderPath/icon_user_02.png';
+  static const String videoCover = '$appImgPath/img_vedio_0{index}.png';
 }
