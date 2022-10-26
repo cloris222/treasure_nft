@@ -36,9 +36,9 @@ class PersonalSubUserInfoView extends StatelessWidget {
       Container(
           alignment: Alignment.topCenter,
           width: UIDefine.getWidth(),
-          height: 220,
+          height: UIDefine.getHeight()/3.8,
           decoration: BoxDecoration(image: image)),
-      Positioned(left: 10, right: 10, top: 10, child: _buildFloatView(context))
+      Positioned(left: 10, right: 10, top: 20, child: _buildFloatView(context))
     ]);
   }
 
@@ -69,7 +69,7 @@ class PersonalSubUserInfoView extends StatelessWidget {
                 : const Text(''),
           ),
           Container(
-            margin: const EdgeInsets.only(bottom: 5),
+            margin: const EdgeInsets.only(bottom: 15),
             child: GlobalData.userInfo.photoUrl.isNotEmpty
                 ? CircleNetworkIcon(
                     networkUrl: GlobalData.userInfo.photoUrl, radius: 35)
@@ -96,12 +96,12 @@ class PersonalSubUserInfoView extends StatelessWidget {
               onTap: () => _showLevelInfoPage(context),
               child: Container(
                 margin: EdgeInsets.only(
-                    left: UIDefine.getWidth() / 8, right: 3, top: 5),
+                    left: UIDefine.getWidth() / 8, right: 3, top: 15),
                 padding: const EdgeInsets.symmetric(vertical: 5),
                 alignment: Alignment.center,
                 width: UIDefine.getWidth(),
                 decoration: AppStyle().styleColorsRadiusBackground(
-                    color: Colors.white.withOpacity(0.75), radius: 5),
+                    color: Colors.white.withOpacity(0.75), radius: 10),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -122,16 +122,23 @@ class PersonalSubUserInfoView extends StatelessWidget {
               onTap: () => _showPointPage(context),
               child: Container(
                 margin: EdgeInsets.only(
-                    right: UIDefine.getWidth() / 8, left: 3, top: 5),
+                    right: UIDefine.getWidth() / 8, left: 3, top: 15),
                 padding: const EdgeInsets.symmetric(vertical: 5),
                 alignment: Alignment.center,
                 width: UIDefine.getWidth(),
                 decoration: AppStyle().styleColorsRadiusBackground(
-                    color: Colors.white.withOpacity(0.75), radius: 5),
-                child: Text('${GlobalData.userInfo.point} ${tr('lv_point')}',
-                    style: TextStyle(
-                        fontSize: UIDefine.fontSize12,
-                        color: AppColors.dialogBlack)),
+                    color: Colors.white.withOpacity(0.75), radius: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                        height: UIDefine.fontSize18),
+                    Text('${GlobalData.userInfo.point} ${tr('lv_point')}',
+                        style: TextStyle(
+                            fontSize: UIDefine.fontSize12,
+                            color: AppColors.dialogBlack)),
+                  ],
+                ),
               ),
             ))
           ]),

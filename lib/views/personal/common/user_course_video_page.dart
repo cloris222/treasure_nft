@@ -40,7 +40,7 @@ class _CourseVideoPageState extends State<CourseVideoPage> {
     return Scaffold(body: Stack(
       children: [
         _buildVideo(),
-        Positioned(top: 20,
+        Positioned(top: UIDefine.getHeight()/17,
             left: 5,
             child: IconButton(
               icon: const Icon(Icons.arrow_back_ios_new,color: Colors.white,),
