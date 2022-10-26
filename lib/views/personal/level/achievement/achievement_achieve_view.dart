@@ -29,6 +29,6 @@ class AchievementAchieveView extends StatelessWidget {
     return AchievementItemWidget(
         data: data,
         getPoint: (AchievementCode code, String recordNo, int point) =>
-            viewModel.getAchievementPoint(context, code, recordNo, point));
+            viewModel.getAchievementPoint(context,data, code, recordNo, point));
   }
 }

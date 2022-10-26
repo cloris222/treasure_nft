@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:format/format.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../../constant/call_back_function.dart';
 import '../../../constant/enum/task_enum.dart';
@@ -10,6 +11,7 @@ import '../../../constant/theme/app_style.dart';
 import '../../../constant/ui_define.dart';
 import '../../../models/http/parameter/task_info_data.dart';
 import '../../../utils/number_format_util.dart';
+import '../../../views/personal/level/achievement/achievement_achieve_finish_page.dart';
 import '../../button/action_button_widget.dart';
 import '../custom_linear_progress.dart';
 import '../flex_two_text_widget.dart';
@@ -43,9 +45,7 @@ class AchievementItemWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ///MARK: 任務內容
-                Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Image.asset(
                     getImagePath(status, index),
                     height: UIDefine.fontSize20 * 4,
@@ -120,11 +120,12 @@ class AchievementItemWidget extends StatelessWidget {
       BuildContext context, TaskStatus status, AchievementCode code) {
     bool enable = (status == TaskStatus.unTaken);
     return ActionButtonWidget(
+        fontSize: UIDefine.fontSize12,
         setMainColor:
             enable ? AppColors.mainThemeButton : AppColors.datePickerBorder,
         setSubColor: enable ? AppColors.textWhite : AppColors.dialogGrey,
         isFillWidth: false,
-        btnText: '+ ${data.point} ${tr('point')}',
+        btnText: '+ ${data.point} ${tr('acv_point')}',
         onPressed: () {
           if (enable) {
             getPoint(code, data.recordNo!, data.point);

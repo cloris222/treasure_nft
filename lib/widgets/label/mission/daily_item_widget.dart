@@ -123,6 +123,7 @@ class DailyItemWidget extends StatelessWidget {
           return Visibility(
               visible: visible,
               child: ActionButtonWidget(
+                  fontSize: UIDefine.fontSize12,
                   isFillWidth: false,
                   isBorderStyle: true,
                   btnText: btnText,
@@ -131,6 +132,7 @@ class DailyItemWidget extends StatelessWidget {
       case TaskStatus.unTaken:
         {
           return ActionButtonWidget(
+              fontSize: UIDefine.fontSize12,
               isFillWidth: false,
               btnText: tr('acceptReward'),
               onPressed: () {
@@ -140,6 +142,7 @@ class DailyItemWidget extends StatelessWidget {
       case TaskStatus.isTaken:
         {
           return ActionButtonWidget(
+              fontSize: UIDefine.fontSize12,
               isFillWidth: false,
               setMainColor: AppColors.datePickerBorder,
               setSubColor: AppColors.dialogGrey,
