@@ -122,7 +122,7 @@ class CollectionTransferDialogView extends BaseDialog {
           SizedBox(height: UIDefine.getScreenWidth(3.33)),
 
           Text(
-            tr("valid_time") + leftTime,
+            tr("valid_time") + ': ' + leftTime,
             style: TextStyle(color: AppColors.textRed,
                 fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
           ),
@@ -161,7 +161,7 @@ class CollectionTransferDialogView extends BaseDialog {
                       _pressVerify();
                     },
                     child: Text(
-                      tr('Verify'), // 販售
+                      tr('verify'), // 販售
                       style: TextStyle(
                           color: AppColors.textWhite, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
                     )

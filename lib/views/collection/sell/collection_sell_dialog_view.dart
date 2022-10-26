@@ -243,7 +243,7 @@ class CollectionSellDialogView extends BaseDialog {
           context,
           type: DialogImageType.fail,
           title: tr("listingFailed"),
-          content: tr("availableTime") + '\n' + data.zone + data.startTime + ' ~ ' + data.endTime,
+          content: tr("availableTime") + '\n' + '(' + data.zone + ') ' + data.startTime + ' ~ ' + data.endTime,
           rightBtnText: tr('confirm'),
           onLeftPress: (){},
           onRightPress: () {

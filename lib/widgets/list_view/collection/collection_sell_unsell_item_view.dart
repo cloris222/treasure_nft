@@ -233,7 +233,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
           children: [
             Container(
               width: UIDefine.getScreenWidth(44),
-              height: UIDefine.getScreenWidth(10),
+              height: UIDefine.getScreenWidth(11),
               decoration: BoxDecoration(
                 border: Border.all(color: AppColors.mainThemeButton, width: 2),
                 borderRadius: BorderRadius.circular(10)
@@ -252,7 +252,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
 
             Container(
               width: UIDefine.getScreenWidth(44),
-              height: UIDefine.getScreenWidth(10),
+              height: UIDefine.getScreenWidth(11),
               decoration: BoxDecoration(
                   color: AppColors.mainThemeButton,
                   borderRadius: BorderRadius.circular(10)
