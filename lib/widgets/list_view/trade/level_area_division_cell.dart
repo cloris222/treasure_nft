@@ -17,13 +17,13 @@ class DivisionCell extends StatefulWidget {
   const DivisionCell({
     Key? key,
     required this.reservationAction,
-    this.range,
+    required this.range,
     required this.level,
     required this.tradeData
   }) : super(key: key);
 
   final int level;
-  final ReserveRange? range;
+  final ReserveRange range;
   final VoidCallback reservationAction;
   final TradeData tradeData;
 
@@ -52,7 +52,7 @@ class _DivisionCellState extends State<DivisionCell> {
       );
     } else {
       return Text(
-        '${int.parse(widget.range?.startPrice.toStringAsFixed(0))} - ${int.parse(widget.range?.endPrice.toStringAsFixed(0))}',
+        '${int.parse(widget.range.startPrice.toStringAsFixed(0))} - ${int.parse(widget.range.endPrice.toStringAsFixed(0))}',
         style: TextStyle(
             fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
       );
@@ -61,9 +61,9 @@ class _DivisionCellState extends State<DivisionCell> {
 
   /// 是否解鎖副本 && 開賣狀態動畫顯示
   showImg() {
-    if (widget.range?.lock == true) {
+    if (widget.range.lock == true) {
       return getLockImg();
-    } else if (widget.range?.used == true) {
+    } else if (widget.range.used == true) {
       return showGif();
     } else {
       return getLevelImg();
@@ -76,7 +76,7 @@ class _DivisionCellState extends State<DivisionCell> {
       return format(AppAnimationPath.reservationAnimation, ({'level': '00'}));
     }
     return format(
-        AppAnimationPath.reservationAnimation, ({'level': '0${widget.level}'}));
+        AppAnimationPath.reservationAnimation, ({'level': '0${widget.level}','index': '0${widget.range.index + 1}'}));
   }
 
   /// 尚未開賣顯示圖
@@ -94,7 +94,7 @@ class _DivisionCellState extends State<DivisionCell> {
     if (GlobalData.userInfo.level == 0) {
       return AppImagePath.level0;
     }
-    int index = widget.range?.index ?? 0;
+    int index = widget.range.index ?? 0;
     return format(AppImagePath.divisionLevel,
         ({'level': '0${widget.level}', 'index': '${index + 1}'}));
   }
@@ -117,6 +117,8 @@ class _DivisionCellState extends State<DivisionCell> {
       return AppColors.reservationLevel4.withOpacity(0.7);
     } else if (widget.level == 5) {
       return AppColors.reservationLevel5.withOpacity(0.7);
+    }else if (widget.level == 6) {
+      return AppColors.reservationLevel6.withOpacity(0.7);
     }
     return AppColors.textBlack;
   }
@@ -153,7 +155,7 @@ class _DivisionCellState extends State<DivisionCell> {
                     width: 25,
                     height: 25,
                     child: Visibility(
-                      visible: widget.range!.used,
+                      visible: widget.range.used,
                       child: Lottie.asset(widget.level == 0
                           ? AppAnimationPath.beginnerReserving
                           : AppAnimationPath.rotating),
@@ -163,8 +165,8 @@ class _DivisionCellState extends State<DivisionCell> {
                     width: 5,
                   ),
                   Visibility(
-                      visible: widget.range!.used,
-                      child: !widget.range!.used
+                      visible: widget.range.used,
+                      child: !widget.range.used
                           ? Container()
                           : GradientText(
                               tr('matching'),
@@ -185,8 +187,8 @@ class _DivisionCellState extends State<DivisionCell> {
                 bottom: 0,
                 child: Visibility(
                   /// is for sale? 等級不夠不顯示 或 已經被預約不顯示 或 開賣中不顯示
-                  visible: !widget.range!.lock &&
-                      !widget.range!.used ||
+                  visible: !widget.range.lock &&
+                      !widget.range.used ||
                       widget.tradeData.status == SellingState.Selling,
                   child: ActionButtonWidget(
                       isFillWidth: false,

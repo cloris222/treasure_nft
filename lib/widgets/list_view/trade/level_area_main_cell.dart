@@ -74,8 +74,11 @@ class _LevelMainCellState extends State<LevelMainCell> {
       return AppColors.reservationLevel4.withOpacity(0.7);
     } else if (widget.level == 5) {
       return AppColors.reservationLevel5.withOpacity(0.7);
+    }else if (widget.level == 6) {
+      return AppColors.reservationLevel6.withOpacity(0.7);
+    }else {
+      return AppColors.textBlack;
     }
-    return AppColors.textBlack;
   }
 
   @override

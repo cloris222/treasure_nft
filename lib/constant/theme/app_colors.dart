@@ -34,4 +34,5 @@ class AppColors {
   static const Color reservationLevel3 = Color(0xFF1F6AC6);
   static const Color reservationLevel4 = Color(0xFF4051CB);
   static const Color reservationLevel5 = Color(0xFFCB4072);
+  static const Color reservationLevel6 = Color(0xFFb7bcfb);
 }
