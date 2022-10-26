@@ -17,7 +17,9 @@ class FullAnimationPage extends StatefulWidget {
       this.runFunction,
       this.limitTimer = 5,
       this.nextPage,
-      this.isGIF = false})
+      this.isGIF = false,
+      this.isPushNextPage = false,
+      this.nextOpacityPage = false})
       : super(key: key);
 
   ///MARK: 判斷是否為GIF
@@ -34,6 +36,14 @@ class FullAnimationPage extends StatefulWidget {
 
   ///MARK: 如果有就推到下一頁，沒有就直接清掉此頁面
   final Widget? nextPage;
+
+  ///MARK: 判斷下一頁是不是透明的
+  ///true:用透明的方式推下一頁 false 一般方式推下一頁
+  final bool nextOpacityPage;
+
+  ///MARK: 判斷是要推下一頁還是清除全部
+  ///true:僅推一頁 false:直接清除其他頁面，推下一頁
+  final bool isPushNextPage;
 
   @override
   State<FullAnimationPage> createState() => _FullAnimationPageState();
@@ -127,7 +137,11 @@ class _FullAnimationPageState extends State<FullAnimationPage>
   void _countdownFinish() {
     if (runEnd) {
       if (widget.nextPage != null) {
-        BaseViewModel().pushAndRemoveUntil(context, widget.nextPage!);
+        widget.isPushNextPage
+            ? widget.nextOpacityPage
+                ? BaseViewModel().pushOpacityPage(context, widget.nextPage!)
+                : BaseViewModel().pushPage(context, widget.nextPage!)
+            : BaseViewModel().pushAndRemoveUntil(context, widget.nextPage!);
       } else {
         BaseViewModel().popPage(context);
       }

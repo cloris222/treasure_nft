@@ -57,7 +57,7 @@ class LoginMainViewModel extends BaseViewModel {
             context,
             FullAnimationPage(
                 limitTimer: 2,
-                animationPath: _getTimeAnimationPath(),
+                animationPath: getLoginTimeAnimationPath(),
                 runFunction: () async {
                   await saveUserLoginInfo(response: value);
                 },
@@ -72,21 +72,6 @@ class LoginMainViewModel extends BaseViewModel {
 
   onPressForgot(BuildContext context) {
     pushPage(context, const ForgotMainPage());
-  }
-
-  String _getTimeAnimationPath() {
-    /*
-    * 5:00 -12:00   早
-      12:00 - 18:00 午
-      18:00 - 5:00  晚
-    * */
-    String time = DateFormatUtil().getNowTimeWith24HourFormat();
-    if (time.compareTo("05:00") >= 0 && time.compareTo("12:00") < 0) {
-      return AppAnimationPath.loginMorning;
-    } else if (time.compareTo("12:00") >= 0 && time.compareTo("18:00") < 0) {
-      return AppAnimationPath.loginAfternoon;
-    }
-    return AppAnimationPath.loginNight;
   }
 
   void onTap() {

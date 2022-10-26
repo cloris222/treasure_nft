@@ -6,9 +6,13 @@ import 'package:flutter/services.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/user_info_data.dart';
 
+import '../constant/call_back_function.dart';
 import '../constant/global_data.dart';
+import '../constant/theme/app_animation_path.dart';
 import '../models/http/parameter/api_response.dart';
+import '../models/http/parameter/sign_in_data.dart';
 import '../utils/app_shared_Preferences.dart';
+import '../utils/date_format_util.dart';
 import '../widgets/dialog/simple_custom_dialog.dart';
 
 class BaseViewModel {
@@ -112,11 +116,38 @@ class BaseViewModel {
     GlobalData.userToken = '';
     GlobalData.userMemberId = '';
     GlobalData.userInfo = UserInfoData();
+    GlobalData.checkSignIn = false;
   }
 
   ///MARK: 當token 為空時，代表未登入
   bool isLogin() {
     return GlobalData.userToken.isNotEmpty;
+  }
+
+  String getLoginTimeAnimationPath() {
+    /*
+    * 5:00 -12:00   早
+      12:00 - 18:00 午
+      18:00 - 5:00  晚
+    * */
+    String time = DateFormatUtil().getNowTimeWith24HourFormat();
+    if (time.compareTo("05:00") >= 0 && time.compareTo("12:00") < 0) {
+      return AppAnimationPath.loginMorning;
+    } else if (time.compareTo("12:00") >= 0 && time.compareTo("18:00") < 0) {
+      return AppAnimationPath.loginAfternoon;
+    }
+    return AppAnimationPath.loginNight;
+  }
+
+  Future<void> showLoginAnimate(GetSignInDate showSign) async {
+    ///MARK: 初次開啟APP且有登入
+    if (!GlobalData.checkSignIn && isLogin()) {
+      GlobalData.checkSignIn = true;
+      SignInData date = await UserInfoAPI().getSignInInfo();
+      if (!date.isFinished || true) {
+        showSign(date);
+      }
+    }
   }
 
   ///MARK: 通用的 單一彈錯視窗

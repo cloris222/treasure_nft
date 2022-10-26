@@ -12,6 +12,9 @@ class GlobalData {
   static GlobalKey<NavigatorState> globalKey = GlobalKey();
   static bool firstLaunch = true;
 
+  ///MARK: 判斷是否為本日初次登入
+  static bool checkSignIn = false;
+
   ///MARK: 使用者相關資料
   static UserInfoData userInfo = UserInfoData();
   static String userToken = '';
