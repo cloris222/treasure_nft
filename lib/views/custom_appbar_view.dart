@@ -23,7 +23,7 @@ class CustomAppbarView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar.getOnlyAppBar(
+        appBar: CustomAppBar.getOnlyArrowAppBar(
             onPressed ??
                 () {
                   Navigator.pop(context);

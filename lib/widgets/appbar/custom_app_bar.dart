@@ -15,6 +15,7 @@ class CustomAppBar {
       double? appBarHeight,
       ShapeBorder? shape,
       Color color = Colors.white,
+      Color? fillColor,
       EdgeInsetsGeometry? margin,
       MainAxisAlignment mainAxisAlignment = MainAxisAlignment.start}) {
     return AppBar(
@@ -26,7 +27,7 @@ class CustomAppBar {
           Flexible(
               child: Container(
                   margin: margin,
-                  color: color,
+                  color: fillColor,
                   constraints: const BoxConstraints.expand(),
                   child: Row(
                       mainAxisAlignment: mainAxisAlignment, children: actions)))
@@ -48,7 +49,7 @@ class CustomAppBar {
   }
 
   ///MARK: 僅Bar&Arrow
-  static AppBar getOnlyAppBar(VoidCallback onTap, String title) {
+  static AppBar getOnlyArrowAppBar(VoidCallback onTap, String title) {
     return _getCustomAppBar(
       actions: [
         Expanded(
@@ -73,6 +74,7 @@ class CustomAppBar {
           ),
         )
       ],
+      fillColor: AppColors.mainThemeButton,
       color: AppColors.mainThemeButton,
     );
   }
