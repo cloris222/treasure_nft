@@ -22,5 +22,10 @@ class AppAnimationPath {
       '$animationPathJson/mb_signup_success_01.gif';
 
   /// reservation animation
-  static const String reservationAnimation = '$animationPathJson/mb_level_{level}.gif';
+  static const String reservationAnimation =
+      '$animationPathJson/mb_level_{level}.gif';
+
+  /// achievement_unlock
+  static const String achievementUnlockAnimation =
+      '$animationPathJson/achievement_unlocked_01_all.json';
 }

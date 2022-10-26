@@ -26,7 +26,7 @@ class FlexTwoTextWidget extends StatelessWidget {
     return Container(
         alignment: alignment,
         width: UIDefine.getWidth(),
-        height: getFontSize(fontSize + 2) * 2.5,
+        height: getFontSize(fontSize + 2) * 2.7,
         child: Text(text,
             softWrap: true,
             textAlign: textAlign,

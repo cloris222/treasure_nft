@@ -14,7 +14,8 @@ class LoginButtonWidget extends StatelessWidget {
       this.height,
       this.fontSize,
       this.fontWeight,
-      this.isGradient = true})
+      this.isGradient = true,
+      this.isFlip = false})
       : super(key: key);
   final String btnText;
   final VoidCallback onPressed;
@@ -24,6 +25,7 @@ class LoginButtonWidget extends StatelessWidget {
   final double? fontSize;
   final FontWeight? fontWeight;
   final bool isGradient;
+  final bool isFlip;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,9 @@ class LoginButtonWidget extends StatelessWidget {
           margin: const EdgeInsets.symmetric(vertical: 10),
           decoration: enable
               ? isGradient
-                  ? AppStyle().baseGradient(radius: 10)
+                  ? isFlip
+                      ? AppStyle().baseFlipGradient(radius: 10)
+                      : AppStyle().baseGradient(radius: 10)
                   : AppStyle().styleColorsRadiusBackground(
                       color: AppColors.mainThemeButton)
               : AppStyle()
@@ -42,6 +46,8 @@ class LoginButtonWidget extends StatelessWidget {
           width: width ?? UIDefine.getWidth(),
           height: height ?? 50,
           child: Text(btnText,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                   color: Colors.white,
                   fontSize: fontSize ?? UIDefine.fontSize16,

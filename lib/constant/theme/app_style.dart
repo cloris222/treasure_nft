@@ -31,6 +31,16 @@ class AppStyle {
             colors: [AppColors.mainThemeButton, AppColors.subThemePurple]));
   }
 
+  /// 漸層色紫藍色
+  BoxDecoration baseFlipGradient(
+      {double radius = 0, Color borderColor = Colors.transparent}) {
+    return BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(radius)),
+        border: Border.all(color: borderColor, width: 1),
+        gradient: const LinearGradient(
+            colors: [AppColors.subThemePurple, AppColors.mainThemeButton]));
+  }
+
   BoxDecoration styleColorBorderBackground(
       {double radius = 20.0,
       Color color = Colors.grey,

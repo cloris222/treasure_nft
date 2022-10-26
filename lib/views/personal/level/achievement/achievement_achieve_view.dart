@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/models/http/parameter/task_info_data.dart';
 
+import '../../../../constant/enum/task_enum.dart';
 import '../../../../view_models/personal/level/level_achievement_viewmodel.dart';
+import '../../../../widgets/label/mission/achievement_item_widget.dart';
 
 ///MARK: 成就任務
 class AchievementAchieveView extends StatelessWidget {
@@ -10,8 +13,22 @@ class AchievementAchieveView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('AchievementAchieveView'),
-    );
+    return ListView.separated(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (context, index) {
+          return _buildItem(context, viewModel.achieveList[index]);
+        },
+        separatorBuilder: (context, index) {
+          return const SizedBox(height: 10);
+        },
+        itemCount: viewModel.achieveList.length);
+  }
+
+  Widget _buildItem(BuildContext context, TaskInfoData data) {
+    return AchievementItemWidget(
+        data: data,
+        getPoint: (AchievementCode code, String recordNo, int point) =>
+            viewModel.getAchievementPoint(context,data, code, recordNo, point));
   }
 }

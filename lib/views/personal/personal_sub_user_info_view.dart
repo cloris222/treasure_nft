@@ -1,12 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/widgets/label/custom_linear_progress.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
+import '../../models/http/parameter/check_level_info.dart';
+import '../../utils/number_format_util.dart';
 import '../../widgets/label/icon/level_icon_widget.dart';
 import '../../widgets/label/icon/medal_icon_widget.dart';
 import '../login/circle_network_icon.dart';
@@ -14,9 +16,11 @@ import 'level/level_detail_page.dart';
 import 'level/level_point_page.dart';
 
 class PersonalSubUserInfoView extends StatelessWidget {
-  const PersonalSubUserInfoView({Key? key, this.showLevelInfo = false})
+  const PersonalSubUserInfoView(
+      {Key? key, this.showLevelInfo = false, this.userLevelInfo})
       : super(key: key);
   final bool showLevelInfo;
+  final CheckLevelInfo? userLevelInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +38,7 @@ class PersonalSubUserInfoView extends StatelessWidget {
           width: UIDefine.getWidth(),
           height: 220,
           decoration: BoxDecoration(image: image)),
-      Positioned(left: 0, right: 0, top: 10, child: _buildFloatView(context))
+      Positioned(left: 10, right: 10, top: 10, child: _buildFloatView(context))
     ]);
   }
 
@@ -130,7 +134,19 @@ class PersonalSubUserInfoView extends StatelessWidget {
                         color: AppColors.dialogBlack)),
               ),
             ))
-          ])
+          ]),
+          userLevelInfo != null
+              ? Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+                  Text(
+                    '${NumberFormatUtil().integerFormat(getPointPercentage() * 100)}%',
+                    style: TextStyle(fontSize: UIDefine.fontSize12),
+                  ),
+                  CustomLinearProgress(
+                    height: UIDefine.fontSize12,
+                    percentage: getPointPercentage(),
+                  )
+                ])
+              : Container()
         ]);
   }
 
@@ -152,5 +168,15 @@ class PersonalSubUserInfoView extends StatelessWidget {
 
   _showPointPage(BuildContext context) {
     BaseViewModel().pushPage(context, const LevelPointPage());
+  }
+
+  double getPointPercentage() {
+    if (userLevelInfo != null) {
+      if (userLevelInfo!.userLevel == 6) {
+        return 1;
+      }
+      return userLevelInfo!.point / userLevelInfo!.pointRequired;
+    }
+    return 0;
   }
 }

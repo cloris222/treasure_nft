@@ -11,8 +11,9 @@ class NumberFormatUtil {
   }
 
   ///取整數
-  String integerFormat(dynamic value) {
-    return _setNumberFormat(format: '#,##0', value: value);
+  String integerFormat(dynamic value, {bool hasSeparator = true}) {
+    return _setNumberFormat(
+        format: hasSeparator ? '#,##0' : '##0', value: value);
   }
 
   ///取整數
