@@ -41,6 +41,7 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
   @override
   void initState() {
     viewModel = TradeDivisionViewModel(
+      widget.level,
       setState: () {
         if (mounted) {
           setState(() {});
@@ -143,50 +144,6 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
           checkDataInit(tradeData)
         ]));
 
-    // return Scaffold(
-    //   appBar: AppBar(
-    //     title: Text(
-    //       widget.level == 0 ? tr('noviceArea') : 'Level ${widget.level}',
-    //       style: TextStyle(fontSize: UIDefine.fontSize24),
-    //     ),
-    //     backgroundColor: AppColors.mainThemeButton,
-    //     elevation: 0,
-    //     leading: IconButton(
-    //         onPressed: () {
-    //           Navigator.pop(context);
-    //         },
-    //         icon:
-    //             Image.asset(AppImagePath.appBarLeftArrow, fit: BoxFit.contain)),
-    //   ),
-    //   body: Stack(
-    //     children: [
-    //       SingleChildScrollView(
-    //         child: Column(
-    //           children: [
-    //             const SizedBox(
-    //               height: 5,
-    //             ),
-    //             _countDownView(context, tradeData),
-    //             _levelView(context),
-    //             checkDataInit(tradeData)
-    //           ],
-    //         ),
-    //       ),
-    //       Positioned(
-    //         top: 0,
-    //         child: Container(
-    //           height: 20,
-    //           width: UIDefine.getWidth(),
-    //           decoration: const BoxDecoration(
-    //               borderRadius: BorderRadius.only(
-    //                   bottomLeft: Radius.circular(50),
-    //                   bottomRight: Radius.circular(50)),
-    //               color: AppColors.mainThemeButton),
-    //         ),
-    //       )
-    //     ],
-    //   ),
-    // );
   }
 
   Widget _countDownView(BuildContext context, TradeData tradeData) {

@@ -16,7 +16,7 @@ import '../../models/http/parameter/add_new_reservation.dart';
 import '../../utils/date_format_util.dart';
 
 class TradeDivisionViewModel extends BaseViewModel {
-  TradeDivisionViewModel(
+  TradeDivisionViewModel(this.level,
       {required this.setState,
       required this.reservationSuccess,
       required this.bookPriceNotEnough,
@@ -28,7 +28,7 @@ class TradeDivisionViewModel extends BaseViewModel {
       required this.experienceDisable});
 
   final onClickFunction setState;
-  List<int>? division;
+  final int level;
   CheckReservationInfo? reservationInfo;
   CheckLevelInfo? userLevelInfo;
   AddNewReservation? newReservation;
@@ -48,9 +48,8 @@ class TradeDivisionViewModel extends BaseViewModel {
   ResponseErrorFunction errorMes;
 
   Future<void> initState() async {
-    division = await TradeAPI().getDivisionAPI();
     reservationInfo =
-        await TradeAPI().getCheckReservationInfoAPI(division!.first);
+        await TradeAPI().getCheckReservationInfoAPI(level);
     userLevelInfo = await UserInfoAPI().getCheckLevelInfoAPI();
     ranges = reservationInfo!.reserveRanges;
     startTimer();

@@ -32,3 +32,12 @@ enum LanguageType {
   ///MARK:繁體中文
   Mandarin,
 }
+
+enum VideoStrEnum{
+  howSignUp,
+  howToDeposit,
+  howToBuy,
+  howToWithdraw,
+  howToViewInvitations,
+  howToViewEarnings
+}
