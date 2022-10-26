@@ -28,8 +28,10 @@ class CustomLinearProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('percentage:$percentage');
     int flex = int.parse(NumberFormatUtil()
         .integerFormat(percentage * 100, hasSeparator: false));
+    debugPrint('flex:$flex');
     if (flex <= 0) {
       flex = 0;
     }

@@ -26,6 +26,7 @@ class CustomAppBar {
           Flexible(
               child: Container(
                   margin: margin,
+                  color: color,
                   constraints: const BoxConstraints.expand(),
                   child: Row(
                       mainAxisAlignment: mainAxisAlignment, children: actions)))
@@ -46,20 +47,33 @@ class CustomAppBar {
             UIDefine.getHeight() / 6 > 80 ? 80 : UIDefine.getHeight() / 6);
   }
 
-  ///MARK: 僅Bar
+  ///MARK: 僅Bar&Arrow
   static AppBar getOnlyAppBar(VoidCallback onTap, String title) {
-    return AppBar(
-      title: Text(title,
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: UIDefine.fontSize24)),
-      backgroundColor: AppColors.mainThemeButton,
-      elevation: 0,
-      leading: IconButton(
-          onPressed: onTap,
-          icon: Image.asset(AppImagePath.appBarLeftArrow,
-              fit: BoxFit.contain,
-              width: UIDefine.fontSize34,
-              height: UIDefine.fontSize34)),
+    return _getCustomAppBar(
+      actions: [
+        Expanded(
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: Text(title,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: UIDefine.fontSize24)),
+              ),
+              Positioned(
+                top: 0,
+                bottom: 0,
+                child: IconButton(
+                    onPressed: onTap,
+                    icon: Image.asset(AppImagePath.appBarLeftArrow,
+                        fit: BoxFit.contain,
+                        width: UIDefine.fontSize34,
+                        height: UIDefine.fontSize34)),
+              ),
+            ],
+          ),
+        )
+      ],
+      color: AppColors.mainThemeButton,
     );
   }
 

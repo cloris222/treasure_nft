@@ -47,13 +47,7 @@ class LevelDetailViewModel extends BaseViewModel {
   }
 
   double getPointPercentage() {
-    if (userLevelInfo != null) {
-      if (userLevelInfo!.userLevel == 6) {
-        return 1;
-      }
-      return userLevelInfo!.point / userLevelInfo!.pointRequired;
-    }
-    return 0;
+    return userLevelInfo?.getPointPercentage() ?? 0;
   }
 
   void onPressLevelUp(BuildContext context) {

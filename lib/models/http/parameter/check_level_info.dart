@@ -190,4 +190,14 @@ class CheckLevelInfo {
         "secondRecommend": secondRecommend,
         "thirdRecommend": thirdRecommend,
       };
+
+  double getPointPercentage() {
+    if (userLevel == 6) {
+      return 1;
+    }
+    if (point == 0 || pointRequired == 0) {
+      return 0;
+    }
+    return (point / pointRequired) > 1 ? 1 : point / pointRequired;
+  }
 }

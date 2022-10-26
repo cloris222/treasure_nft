@@ -5,23 +5,21 @@ import 'package:treasure_nft_project/widgets/dialog/base_dialog.dart';
 
 import '../../constant/theme/app_colors.dart';
 
-enum DialogImageType {
-  success,
-  fail,
-  warning
-}
+enum DialogImageType { success, fail, warning }
 
 /// 可選圖,單/雙按鈕,標題,內容 的共用Dialog
 class CommonCustomDialog extends BaseDialog {
-  CommonCustomDialog(super.context,
-  {required this.type,
-  this.title = '',
-  this.content = '',
-  this.bOneButton = true,
-  this.leftBtnText = '',
-  this.rightBtnText = '',
-  required this.onLeftPress,
-  required this.onRightPress,
+  CommonCustomDialog(
+    super.context, {
+    super.isDialogCancel,
+    required this.type,
+    this.title = '',
+    this.content = '',
+    this.bOneButton = true,
+    this.leftBtnText = '',
+    this.rightBtnText = '',
+    required this.onLeftPress,
+    required this.onRightPress,
   });
 
   DialogImageType type;
@@ -32,7 +30,6 @@ class CommonCustomDialog extends BaseDialog {
   String rightBtnText;
   Function onLeftPress;
   Function onRightPress;
-
 
   @override
   Widget initTitle() {
@@ -49,46 +46,40 @@ class CommonCustomDialog extends BaseDialog {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         _getImage(),
-
         Visibility(
-          visible: title!='',
-          child: Column(
-            children: [
-              SizedBox(height: UIDefine.getScreenWidth(2.7)),
-              Text(title,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: AppColors.textBlack,
-                      fontSize: UIDefine.fontSize24,
-                      fontWeight: FontWeight.w500))
-            ],
-          )
-        ),
-
+            visible: title != '',
+            child: Column(
+              children: [
+                SizedBox(height: UIDefine.getScreenWidth(2.7)),
+                Text(title,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: AppColors.textBlack,
+                        fontSize: UIDefine.fontSize24,
+                        fontWeight: FontWeight.w500))
+              ],
+            )),
         Visibility(
-          visible: content!='',
-          child: Column(
-            children: [
-              SizedBox(height: UIDefine.getScreenWidth(2.7)),
-              Text(content,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: AppColors.dialogGrey,
-                      fontSize: UIDefine.fontSize14,
-                      fontWeight: FontWeight.w500))
-            ],
-          )
-        ),
-
+            visible: content != '',
+            child: Column(
+              children: [
+                SizedBox(height: UIDefine.getScreenWidth(2.7)),
+                Text(content,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: AppColors.dialogGrey,
+                        fontSize: UIDefine.fontSize14,
+                        fontWeight: FontWeight.w500))
+              ],
+            )),
         SizedBox(height: UIDefine.getScreenWidth(8.5)),
-
         _getButton()
       ],
     );
   }
 
   Widget _getImage() {
-    switch(type) {
+    switch (type) {
       case DialogImageType.success:
         return Image.asset(AppImagePath.dialogSuccess);
       case DialogImageType.fail:
@@ -101,7 +92,6 @@ class CommonCustomDialog extends BaseDialog {
   Widget _getButton() {
     if (bOneButton) {
       return _solidButton();
-
     } else {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -114,13 +104,13 @@ class CommonCustomDialog extends BaseDialog {
     }
   }
 
-  Widget _solidButton() { // 實心按鈕
+  Widget _solidButton() {
+    // 實心按鈕
     return Container(
       width: UIDefine.getScreenWidth(32),
       decoration: BoxDecoration(
           color: AppColors.mainThemeButton,
-          borderRadius: BorderRadius.circular(10)
-      ),
+          borderRadius: BorderRadius.circular(10)),
       child: TextButton(
           onPressed: () {
             onRightPress();
@@ -128,19 +118,20 @@ class CommonCustomDialog extends BaseDialog {
           child: Text(
             rightBtnText,
             style: TextStyle(
-                color: AppColors.textWhite, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
-          )
-      ),
+                color: AppColors.textWhite,
+                fontSize: UIDefine.fontSize16,
+                fontWeight: FontWeight.w500),
+          )),
     );
   }
 
-  Widget _hollowButton() { // 空心按鈕
+  Widget _hollowButton() {
+    // 空心按鈕
     return Container(
       width: UIDefine.getScreenWidth(32),
       decoration: BoxDecoration(
           border: Border.all(color: AppColors.mainThemeButton, width: 2),
-          borderRadius: BorderRadius.circular(10)
-      ),
+          borderRadius: BorderRadius.circular(10)),
       child: TextButton(
           onPressed: () {
             onLeftPress();
@@ -148,10 +139,10 @@ class CommonCustomDialog extends BaseDialog {
           child: Text(
             leftBtnText,
             style: TextStyle(
-                color: AppColors.mainThemeButton, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
-          )
-      ),
+                color: AppColors.mainThemeButton,
+                fontSize: UIDefine.fontSize16,
+                fontWeight: FontWeight.w500),
+          )),
     );
   }
-
 }

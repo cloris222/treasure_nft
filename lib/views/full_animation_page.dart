@@ -80,25 +80,32 @@ class _FullAnimationPageState extends State<FullAnimationPage>
     double padding = MediaQuery.of(context).padding.top;
     return Scaffold(
         backgroundColor: AppColors.opacityBackground,
-        body: Container(
-          alignment: Alignment.center,
-          margin: EdgeInsets.all(padding),
-          child: Stack(
-            children: [
-              widget.isGIF
-                  ? Gif(
-                      autostart: Autostart.loop,
-                      controller: gifController,
-                      image: AssetImage(widget.animationPath),
-                    )
-                  : Lottie.asset(widget.animationPath, fit: BoxFit.contain),
-              Positioned(
-                  top: 10,
-                  right: 10,
-                  child: InkWell(
-                      onTap: () => _countdownFinish(),
-                      child: Image.asset(AppImagePath.closeDialogBtn)))
-            ],
+
+        ///MARK: 禁止返回前頁
+        body: WillPopScope(
+          onWillPop: () async {
+            return false;
+          },
+          child: Container(
+            alignment: Alignment.center,
+            margin: EdgeInsets.all(padding),
+            child: Stack(
+              children: [
+                widget.isGIF
+                    ? Gif(
+                        autostart: Autostart.loop,
+                        controller: gifController,
+                        image: AssetImage(widget.animationPath),
+                      )
+                    : Lottie.asset(widget.animationPath, fit: BoxFit.contain),
+                Positioned(
+                    top: 10,
+                    right: 10,
+                    child: InkWell(
+                        onTap: () => _countdownFinish(),
+                        child: Image.asset(AppImagePath.closeDialogBtn)))
+              ],
+            ),
           ),
         ));
   }

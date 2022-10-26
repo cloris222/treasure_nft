@@ -10,6 +10,7 @@ import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart'
 import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
 import 'package:treasure_nft_project/widgets/label/icon/level_icon_widget.dart';
 
+import '../../../constant/enum/task_enum.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
 import '../../../constant/theme/app_style.dart';
@@ -124,7 +125,8 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
       ///MARK: 每日任務
       InkWell(
           onTap: () {
-            viewModel.pushPage(context, const LevelAchievementPage());
+            viewModel.pushPage(
+                context, const LevelAchievementPage(initType: TaskType.daily));
           },
           child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
             BaseIconWidget(
@@ -145,7 +147,8 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
       ///MARK: 成就
       InkWell(
           onTap: () {
-            viewModel.pushPage(context, const LevelAchievementPage());
+            viewModel.pushPage(context,
+                const LevelAchievementPage(initType: TaskType.achieve));
           },
           child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
             BaseIconWidget(

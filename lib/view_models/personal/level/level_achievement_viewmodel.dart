@@ -2,17 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/enum/task_enum.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/api/mission_api.dart';
+import 'package:treasure_nft_project/models/http/api/trade_api.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../../constant/call_back_function.dart';
+import '../../../models/http/parameter/check_experience_info.dart';
 import '../../../models/http/parameter/check_level_info.dart';
 import '../../../models/http/parameter/medal_info_data.dart';
 import '../../../models/http/parameter/task_info_data.dart';
 import '../../../views/personal/level/achievement/achievement_achieve_finish_page.dart';
 
 class LevelAchievementViewModel extends BaseViewModel {
-  LevelAchievementViewModel({required this.setState});
+  LevelAchievementViewModel(
+      {required this.showExperienceHint,
+      required this.showLevel0Hint,
+      required this.setState});
 
   List<TaskInfoData> dailyList = [];
   List<TaskInfoData> achieveList = [];
@@ -20,8 +25,21 @@ class LevelAchievementViewModel extends BaseViewModel {
 
   final ViewChange setState;
   CheckLevelInfo? userLevelInfo;
+  final onClickFunction showExperienceHint;
+  final onClickFunction showLevel0Hint;
 
   Future<void> initState() async {
+    ExperienceInfo info = await TradeAPI().getExperienceInfoAPI();
+    await uploadPersonalInfo();
+
+    if (info.isExperience) {
+      showExperienceHint();
+      return;
+    } else if (GlobalData.userInfo.level == 0) {
+      showLevel0Hint();
+      return;
+    }
+
     MissionAPI()
         .getDailyTask()
         .then((value) => setState(() => dailyList = value));

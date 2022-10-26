@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 
 import '../constant/theme/app_colors.dart';
-import '../constant/theme/app_image_path.dart';
 import '../constant/ui_define.dart';
 import '../widgets/app_bottom_navigation_bar.dart';
 import '../widgets/appbar/custom_app_bar.dart';

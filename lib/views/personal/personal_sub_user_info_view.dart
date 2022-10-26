@@ -171,12 +171,6 @@ class PersonalSubUserInfoView extends StatelessWidget {
   }
 
   double getPointPercentage() {
-    if (userLevelInfo != null) {
-      if (userLevelInfo!.userLevel == 6) {
-        return 1;
-      }
-      return userLevelInfo!.point / userLevelInfo!.pointRequired;
-    }
-    return 0;
+    return userLevelInfo?.getPointPercentage() ?? 0;
   }
 }
