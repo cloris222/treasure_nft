@@ -115,26 +115,10 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
       _buildSpace(height: 2),
 
       ///MARK: 積分條
-      Row(children: [
-        Flexible(
-            child: CustomLinearProgress(
+      CustomLinearProgress(
           height: UIDefine.fontSize12,
-          backgroundColor: AppColors.transParentHalf,
-          valueColor: AppColors.mainThemeButton,
           percentage: viewModel.getPointPercentage(),
-        )),
-        Container(
-          margin: const EdgeInsets.only(left: 10),
-          child: viewModel.getPointPercentage() == 1
-              ? BaseIconWidget(
-                  imageAssetPath: AppImagePath.blueCheckIcon,
-                  size: UIDefine.fontSize16)
-              : Text(
-                  viewModel.getStrPointPercentage(),
-                  style: TextStyle(fontSize: UIDefine.fontSize12),
-                ),
-        )
-      ]),
+          needShowPercentage: true),
       _buildSpace(height: 2),
 
       ///MARK: 每日任務

@@ -11,6 +11,7 @@ import '../../../constant/ui_define.dart';
 import '../../../models/http/parameter/task_info_data.dart';
 import '../../../utils/number_format_util.dart';
 import '../../button/action_button_widget.dart';
+import '../custom_linear_progress.dart';
 import '../flex_two_text_widget.dart';
 
 class AchievementItemWidget extends StatelessWidget {
@@ -36,11 +37,12 @@ class AchievementItemWidget extends StatelessWidget {
           borderLine: 2),
       child: Container(
           margin: const EdgeInsets.all(15),
-          height: UIDefine.fontSize20 * 6.5,
+          height: UIDefine.fontSize20 * 7.5,
           child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                ///MARK: 任務內容
                 Flexible(
                     child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,12 +55,16 @@ class AchievementItemWidget extends StatelessWidget {
                       const SizedBox(width: 5),
                       Flexible(child: _buildTaskInfo(context, status, code))
                     ])),
-                Text('${tr('mis_award')} : ${data.point} ${tr('point')}',
-                    maxLines: 1,
-                    style: TextStyle(
-                        fontSize: UIDefine.fontSize14,
-                        color: AppColors.dialogGrey,
-                        fontWeight: FontWeight.w500))
+                FlexTwoTextWidget(
+                    alignment: Alignment.topLeft,
+                    fontSize: 14,
+                    text: data.getAchievementCurrentTaskSubText(code),
+                    color: AppColors.dialogGrey,
+                    fontWeight: FontWeight.w500),
+                CustomLinearProgress(
+                    height: UIDefine.fontSize12,
+                    percentage: data.nowValue / data.goalValue,
+                    needShowPercentage: true),
               ])),
     );
   }
@@ -108,7 +114,7 @@ class AchievementItemWidget extends StatelessWidget {
             child: FlexTwoTextWidget(
                 alignment: Alignment.topLeft,
                 fontSize: 14,
-                text: data.getAchievementTaskSubText(code),
+                text: data.getAchievementGoalTaskSubText(code),
                 color: AppColors.dialogGrey,
                 fontWeight: FontWeight.w600),
           )
