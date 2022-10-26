@@ -1,17 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
-import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/personal/level/achievement/achievement_achieve_view.dart';
 import 'package:treasure_nft_project/views/personal/level/achievement/achievement_daily_view.dart';
 import 'package:treasure_nft_project/views/personal/level/achievement/achievement_medal_view.dart';
 import 'package:treasure_nft_project/views/personal/personal_sub_user_info_view.dart';
-import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 
 import '../../../constant/enum/task_enum.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../view_models/personal/level/level_achievement_viewmodel.dart';
-import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/label/flex_two_text_widget.dart';
 import '../../custom_appbar_view.dart';
 
@@ -40,7 +37,7 @@ class _LevelAchievementPageState extends State<LevelAchievementPage> {
       title: tr('achievement'),
       body: Column(children: [
         ///MARK: 不可以調成固定
-        PersonalSubUserInfoView(),
+        PersonalSubUserInfoView(userLevelInfo: viewModel.userLevelInfo),
         Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(children: [

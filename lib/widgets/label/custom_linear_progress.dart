@@ -16,6 +16,7 @@ class CustomLinearProgress extends StatelessWidget {
     this.height = 20,
     this.radius = 15,
     this.needShowPercentage = false,
+    this.needShowFinishIcon = true,
   }) : super(key: key);
   final double percentage;
   final Color backgroundColor;
@@ -23,16 +24,19 @@ class CustomLinearProgress extends StatelessWidget {
   final double? height;
   final double radius;
   final bool needShowPercentage;
+  final bool needShowFinishIcon;
 
   @override
   Widget build(BuildContext context) {
-    int flex = int.parse(NumberFormatUtil().integerFormat(percentage * 100));
+    int flex = int.parse(NumberFormatUtil()
+        .integerFormat(percentage * 100, hasSeparator: false));
     if (flex <= 0) {
       flex = 0;
     }
     if (flex >= 100) {
       flex = 100;
     }
+    print('flex:$flex');
     return Row(
       children: [
         Flexible(
@@ -51,7 +55,7 @@ class CustomLinearProgress extends StatelessWidget {
                       child: Container(
                           decoration: AppStyle().styleColorsRadiusBackground(
                               color: valueColor, radius: radius),
-                          width: UIDefine.getWidth() * percentage,
+                          width: UIDefine.getWidth(),
                           height: height),
                     ),
               flex == 100
@@ -66,7 +70,7 @@ class CustomLinearProgress extends StatelessWidget {
             visible: needShowPercentage,
             child: Container(
               margin: const EdgeInsets.only(left: 10),
-              child: flex == 100
+              child: (flex == 100 && needShowFinishIcon)
                   ? BaseIconWidget(
                       imageAssetPath: AppImagePath.blueCheckIcon,
                       size: UIDefine.fontSize16)

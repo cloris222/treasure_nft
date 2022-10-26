@@ -37,24 +37,23 @@ class AchievementItemWidget extends StatelessWidget {
           borderLine: 2),
       child: Container(
           margin: const EdgeInsets.all(15),
-          height: UIDefine.fontSize20 * 7.5,
+          height: UIDefine.fontSize20 * 8,
           child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ///MARK: 任務內容
-                Flexible(
-                    child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                      Image.asset(
-                        getImagePath(status, index),
-                        height: UIDefine.fontSize20 * 4,
-                        fit: BoxFit.fitHeight,
-                      ),
-                      const SizedBox(width: 5),
-                      Flexible(child: _buildTaskInfo(context, status, code))
-                    ])),
+                Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                  Image.asset(
+                    getImagePath(status, index),
+                    height: UIDefine.fontSize20 * 4,
+                    fit: BoxFit.fitHeight,
+                  ),
+                  const SizedBox(width: 5),
+                  Flexible(child: _buildTaskInfo(context, status, code))
+                ]),
                 FlexTwoTextWidget(
                     alignment: Alignment.topLeft,
                     fontSize: 14,
@@ -94,30 +93,26 @@ class AchievementItemWidget extends StatelessWidget {
     return SizedBox(
         width: UIDefine.getWidth(),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Expanded(
-            child: Row(
-              children: [
-                Expanded(
-                  child: FlexTwoTextWidget(
-                      alignment: Alignment.topLeft,
-                      text: data.getAchievementTaskText(),
-                      fontSize: 16,
-                      color: AppColors.dialogBlack,
-                      fontWeight: FontWeight.w600),
-                ),
-                _buildButton(context, status, code),
-              ],
-            ),
+          Row(
+            children: [
+              Flexible(
+                child: FlexTwoTextWidget(
+                    alignment: Alignment.topLeft,
+                    text: data.getAchievementTaskText(),
+                    fontSize: 16,
+                    color: AppColors.dialogBlack,
+                    fontWeight: FontWeight.w600),
+              ),
+              _buildButton(context, status, code),
+            ],
           ),
           const SizedBox(height: 5),
-          Expanded(
-            child: FlexTwoTextWidget(
-                alignment: Alignment.topLeft,
-                fontSize: 14,
-                text: data.getAchievementGoalTaskSubText(code),
-                color: AppColors.dialogGrey,
-                fontWeight: FontWeight.w600),
-          )
+          FlexTwoTextWidget(
+              alignment: Alignment.topLeft,
+              fontSize: 14,
+              text: data.getAchievementGoalTaskSubText(code),
+              color: AppColors.dialogGrey,
+              fontWeight: FontWeight.w600)
         ]));
   }
 
