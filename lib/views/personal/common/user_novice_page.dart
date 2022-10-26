@@ -6,6 +6,7 @@ import 'package:treasure_nft_project/models/data/course_model_data.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/personal/common/user_course_video_page.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
+import 'package:treasure_nft_project/widgets/label/flex_two_text_widget.dart';
 import 'package:video_player/video_player.dart';
 import '../../../constant/enum/setting_enum.dart';
 import '../../../constant/theme/app_colors.dart';
@@ -24,7 +25,6 @@ class UserNovicePage extends StatefulWidget {
 }
 
 class _UserNovicePageState extends State<UserNovicePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,6 +94,7 @@ class _UserNovicePageState extends State<UserNovicePage> {
                     left: 10,
                     right: 10,
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Expanded(
                           child: InkWell(
@@ -113,14 +114,12 @@ class _UserNovicePageState extends State<UserNovicePage> {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          tr(VideoStrEnum.values[index].name),
-                          style: TextStyle(
-                              fontSize: UIDefine.fontSize14,
-                              fontWeight: FontWeight.w600),
+                        FlexTwoTextWidget(
+                          text: tr(VideoStrEnum.values[index].name),
+                          textAlign: TextAlign.center,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                            alignment:Alignment.center
                         ),
                       ],
                     )),
