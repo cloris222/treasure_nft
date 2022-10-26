@@ -23,7 +23,7 @@ class AppAnimationPath {
 
   /// reservation animation
   static const String reservationAnimation =
-      '$animationPathJson/mb_level_{level}.gif';
+      '$animationPathJson/mb_level_{level}_{index}.gif';
 
   /// achievement_unlock
   static const String achievementUnlockAnimation =
