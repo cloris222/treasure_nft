@@ -8,6 +8,8 @@ typedef onGetIntFunction = void Function(int value);
 typedef onGetDoubleFunction = void Function(double value);
 typedef onGetStringFunction = void Function(String value);
 typedef onGetBoolFunction = void Function(bool value);
+typedef onDateFunction = void Function(String startDate, String endDate);
+
 
 ///MARK: setState
 typedef ViewChange = void Function(VoidCallback fn);

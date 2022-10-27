@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
+import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/api/group_api.dart';
@@ -12,6 +14,7 @@ import 'package:treasure_nft_project/models/http/parameter/team_contribute_list_
 import 'package:treasure_nft_project/models/http/parameter/team_group_list.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_member_detail.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_members.dart';
+import 'package:treasure_nft_project/models/http/parameter/team_order.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 
@@ -106,6 +109,24 @@ class TeamMemberViewModel extends BaseViewModel {
   }
 
 
+  /// 查詢團隊訂單
+  Future<List<TeamOrderData>> getTeamOrder(
+      String startTime, String endTime, String sortBy, String nameAcct,
+      {ResponseErrorFunction? onConnectFail}) async {
+    List<TeamOrderData> list = [];
+
+    var response = await GroupAPI(onConnectFail: onConnectFail)
+        .getTeamOrder(startTime: startTime, endTime: endTime,
+        sortBy: sortBy, nameAcct: nameAcct);
+
+    for (Map<String, dynamic> json in response.data['pageList']) {
+      list.add(TeamOrderData.fromJson(json));
+    }
+    return list;
+  }
+
+
+
   /// 查詢群組會員列表
   Future<GroupList> getGroupList(
       {ResponseErrorFunction? onConnectFail}) async {
@@ -144,5 +165,17 @@ class TeamMemberViewModel extends BaseViewModel {
     );
   }
 
+  BoxDecoration setBoxDecoration() {
+    return BoxDecoration(
+        border: Border.all(
+            width: 3, color: AppColors.datePickerBorder),
+        borderRadius: BorderRadius.circular(10));
+  }
+
+  OutlineInputBorder setOutlineInputBorder() {
+    return const OutlineInputBorder(
+        borderSide: BorderSide(color: AppColors.datePickerBorder, width: 3),
+        borderRadius: BorderRadius.all(Radius.circular(10)));
+  }
 
 }

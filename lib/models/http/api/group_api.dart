@@ -85,6 +85,24 @@ class GroupAPI extends HttpManager {
         });
   }
 
+  /// 查詢團隊訂單
+  Future<ApiResponse> getTeamOrder(
+      {int page = 1, int size = 10, sortBy = '',
+        nameAcct = '', nameAcctType = '',
+        required String startTime, required String endTime})  async {
+    return await get('/group/team-order',
+        queryParameters: {
+          'page' : page,
+          'size' : size,
+          'startTime' : startTime,
+          'endTime' : endTime,
+          'sortBy' : sortBy,
+          'nameAcct' : nameAcct,
+          'nameAcctType' : nameAcctType,
+        });
+  }
+
+
   /// 查詢群組會員列表
   Future<GroupList> getGroupList(
       {int page = 1, int size = 10, String date = 'ALL'})  async {
