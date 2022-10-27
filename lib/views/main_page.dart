@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/collection/collection_main_view.dart';
@@ -18,7 +20,7 @@ import 'full_animation_page.dart';
 import 'home/home_main_view.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key, this.type = AppNavigationBarType.typePersonal})
+  const MainPage({Key? key, this.type = AppNavigationBarType.typeMain})
       : super(key: key);
   final AppNavigationBarType type;
 
@@ -70,13 +72,17 @@ class _MainPageState extends State<MainPage> {
   }
 
   void showSignView() {
-    if (GlobalData.signInInfo != null) {
-      viewModel.pushOpacityPage(
-          context,
-          SignInPage(
-            data: GlobalData.signInInfo!,
-          ));
-    }
+    Future.delayed(const Duration(seconds: 1)).then((value) {
+      if (GlobalData.signInInfo != null) {
+        viewModel
+            .pushOpacityPage(
+                context,
+                SignInPage(
+                  data: GlobalData.signInInfo!,
+                ))
+            .then((value) => viewModel.setSignIn(context));
+      }
+    });
   }
 
   @override

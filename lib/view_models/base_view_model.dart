@@ -120,6 +120,16 @@ class BaseViewModel {
     }
   }
 
+  ///MARK: 更新簽到資料
+  Future<void> setSignIn(BuildContext context) async {
+    await UserInfoAPI(
+            onConnectFail: (message) => onBaseConnectFail(context, message))
+        .setSignIn();
+    SimpleCustomDialog(context,
+            mainText: tr('signSuccessfully'), isSuccess: true)
+        .show();
+  }
+
   ///MARK: 登出使用者資料
   Future<void> clearUserLoginInfo() async {
     await AppSharedPreferences.setLogIn(false);

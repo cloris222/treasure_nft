@@ -29,24 +29,27 @@ class AchievementAchieveFinishPage extends StatelessWidget {
             margin: EdgeInsets.all(padding),
             child: Container(
               color: Colors.white,
+              padding:  EdgeInsets.symmetric(horizontal:UIDefine.getScreenWidth(5)),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Stack(alignment: Alignment.center, children: [
-                    Lottie.asset(AppAnimationPath.achievementUnlockAnimation,
-                        fit: BoxFit.contain),
-                    Positioned(
-                        top: UIDefine.getScreenHeight(22.5),
-                        child: MedalIconWidget(
-                          medal: code.name,
-                          size: UIDefine.getScreenWidth(52.5),
-                        )),
-                    Positioned(
-                        bottom: 0,
-                        left: UIDefine.getScreenWidth(10),
-                        right: UIDefine.getScreenWidth(10),
-                        child: _buildAchieveInfo(context))
-                  ]),
+                  Flexible(
+                    child: Stack(alignment: Alignment.center, children: [
+                      Lottie.asset(AppAnimationPath.achievementUnlockAnimation,
+                          fit: BoxFit.contain),
+                      Positioned(
+                          top: UIDefine.getScreenHeight(22.5),
+                          child: MedalIconWidget(
+                            medal: code.name,
+                            size: UIDefine.getScreenWidth(52.5),
+                          )),
+                      Positioned(
+                          bottom: 0,
+                          left: UIDefine.getScreenWidth(10),
+                          right: UIDefine.getScreenWidth(10),
+                          child: _buildAchieveInfo(context))
+                    ]),
+                  ),
                   LoginButtonWidget(
                     isFlip: true,
                     width: UIDefine.getScreenWidth(40),

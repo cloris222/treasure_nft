@@ -26,15 +26,16 @@ class SignInPage extends StatelessWidget {
             onWillPop: () async {
               return false;
             },
-            child: Padding(
+            child: Container(
+                alignment: Alignment.center,
                 padding: EdgeInsets.symmetric(
                     vertical: MediaQuery.of(context).padding.top,
                     horizontal: MediaQuery.of(context).padding.top),
                 child: GradientBolderWidget(
-                    height: UIDefine.getHeight(),
+                    height: UIDefine.getHeight() * 0.85,
                     child: Column(children: [
                       Image.asset(AppImagePath.signInBar, fit: BoxFit.fitWidth),
-                      Expanded(child: _buildDailyBody(context))
+                      Flexible(child: _buildDailyBody(context))
                     ])))));
   }
 
@@ -42,45 +43,39 @@ class SignInPage extends StatelessWidget {
     List<String> days = DateFormatUtil().getCurrentMonthDays();
     String currentDay = DateFormatUtil().getNowTimeWithDayFormat();
     return Container(
-        margin: EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(8)),
+        margin: EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(5)),
+        height: UIDefine.getHeight(),
         child: Column(children: [
           _buildTitle(context),
-          const SizedBox(height: 5),
-          Expanded(
-              child: SingleChildScrollView(
-                  child: MediaQuery.removePadding(
-                      removeTop: true,
-                      context: context,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: UIDefine.getScreenWidth(2)),
-                        child: GridView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (BuildContext context, int index) =>
-                              _buildItem(
-                                  context, index, days[index], currentDay),
-                          itemCount: days.length,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 5,
-                                  childAspectRatio: 1,
-                                  mainAxisSpacing: UIDefine.getScreenWidth(1),
-                                  crossAxisSpacing: UIDefine.getScreenWidth(1)),
-                        ),
-                      )))),
+          Container(
+            height: UIDefine.getHeight() * 0.55,
+            alignment: Alignment.topCenter,
+            child: MediaQuery.removePadding(
+                removeTop: true,
+                context: context,
+                child: GridView.builder(
+                  itemBuilder: (BuildContext context, int index) =>
+                      _buildItem(context, index, days[index], currentDay),
+                  itemCount: days.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 5,
+                      childAspectRatio: 1,
+                      mainAxisSpacing: UIDefine.getScreenWidth(1),
+                      crossAxisSpacing: UIDefine.getScreenWidth(1)),
+                )),
+          ),
           LoginButtonWidget(
               radius: 5,
               fontSize: UIDefine.fontSize16,
-              height: UIDefine.fontSize26,
+              height: UIDefine.fontSize30,
               btnText: tr('checkin'),
-              onPressed: () => _onPressSignIn(context))
+              onPressed: () => _onPressSignIn(context)),
         ]));
   }
 
   Widget _buildTitle(BuildContext context) {
     return Stack(children: [
-      Container(
+      SizedBox(
         width: UIDefine.getWidth(),
         child: Text('　  ${tr('dailyMissionRewards')}',
             softWrap: true,
@@ -146,7 +141,7 @@ class SignInPage extends StatelessWidget {
     ]);
   }
 
-  void _onPressSignIn(BuildContext context) {
+  void _onPressSignIn(BuildContext context) async {
     GlobalData.signInInfo = null;
     BaseViewModel().popPage(context);
   }
