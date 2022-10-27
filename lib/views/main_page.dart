@@ -28,6 +28,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   late PageController pageController;
+  BaseViewModel viewModel = BaseViewModel();
 
   @override
   void didChangeDependencies() {
@@ -43,18 +44,39 @@ class _MainPageState extends State<MainPage> {
     debugPrint('widget.type:${widget.type}');
     GlobalData.mainBottomType = widget.type;
     pageController = PageController(initialPage: initialPage);
-    BaseViewModel viewModel = BaseViewModel();
-    viewModel.showLoginAnimate((SignInData data) {
-      ///MARK: 如果需要顯示的時候
-      // viewModel.pushOpacityPage(
-      //     context,
-      //     FullAnimationPage(
-      //         limitTimer: 2,
-      //         animationPath: viewModel.getLoginTimeAnimationPath(),
-      //         nextOpacityPage: true,
-      //         isPushNextPage: true,
-      //         nextPage: SignInPage(data: data)));
-    });
+
+    Future.delayed(const Duration(seconds: 2))
+        .then((value) => showAnimateView());
+  }
+
+  void showAnimateView() {
+    ///MARK: 代表手機自動登入
+    if (GlobalData.showLoginAnimate) {
+      GlobalData.showLoginAnimate = false;
+      viewModel
+          .pushOpacityPage(
+              context,
+              FullAnimationPage(
+                  limitTimer: 3,
+                  animationPath: viewModel.getLoginTimeAnimationPath(),
+                  nextOpacityPage: true,
+                  isPushNextPage: true))
+          .then((value) {
+        showSignView();
+      });
+    } else {
+      showSignView();
+    }
+  }
+
+  void showSignView() {
+    if (GlobalData.signInInfo != null) {
+      viewModel.pushOpacityPage(
+          context,
+          SignInPage(
+            data: GlobalData.signInInfo!,
+          ));
+    }
   }
 
   @override

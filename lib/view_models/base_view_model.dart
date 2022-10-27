@@ -83,7 +83,7 @@ class BaseViewModel {
 
   ///MARK: 推透明的頁面
   Future<void> pushOpacityPage(BuildContext context, Widget page) async {
-    Navigator.of(context).push(PageRouteBuilder(
+    await Navigator.of(context).push(PageRouteBuilder(
         pageBuilder: (BuildContext buildContext, Animation<double> animation,
             Animation<double> secondaryAnimation) {
           return page;
@@ -105,7 +105,16 @@ class BaseViewModel {
   }
 
   Future<void> uploadPersonalInfo() async {
+    ///MARK: 使用者資料
     GlobalData.userInfo = await UserInfoAPI().getPersonInfo();
+
+    ///MARK: 更新簽到資料
+    SignInData signInInfo = await UserInfoAPI().getSignInInfo();
+    if (!signInInfo.isFinished) {
+      GlobalData.signInInfo = signInInfo;
+    } else {
+      GlobalData.signInInfo = null;
+    }
   }
 
   ///MARK: 登出使用者資料
@@ -116,7 +125,8 @@ class BaseViewModel {
     GlobalData.userToken = '';
     GlobalData.userMemberId = '';
     GlobalData.userInfo = UserInfoData();
-    GlobalData.checkSignIn = false;
+    GlobalData.showLoginAnimate = false;
+    GlobalData.signInInfo = null;
   }
 
   ///MARK: 當token 為空時，代表未登入
@@ -137,17 +147,6 @@ class BaseViewModel {
       return AppAnimationPath.loginAfternoon;
     }
     return AppAnimationPath.loginNight;
-  }
-
-  Future<void> showLoginAnimate(GetSignInDate showSign) async {
-    ///MARK: 初次開啟APP且有登入
-    if (!GlobalData.checkSignIn && isLogin()) {
-      GlobalData.checkSignIn = true;
-      SignInData date = await UserInfoAPI().getSignInInfo();
-      if (!date.isFinished || true) {
-        showSign(date);
-      }
-    }
   }
 
   ///MARK: 通用的 單一彈錯視窗

@@ -31,4 +31,4 @@ typedef GetAchievementMissionPoint = void Function(
     AchievementCode code, String recordNo, int point);
 
 ///MARK: 顯示簽到頁面用
-typedef GetSignInDate = void Function(SignInData data);
+typedef GetSignInDate = void Function(SignInData ?data);
