@@ -29,10 +29,9 @@ class LevelAchievementViewModel extends BaseViewModel {
   final onClickFunction showLevel0Hint;
 
   Future<void> initState() async {
-    ExperienceInfo info = await TradeAPI().getExperienceInfoAPI();
     await uploadPersonalInfo();
 
-    if (info.isExperience) {
+    if (GlobalData.experienceInfo.isExperience) {
       showExperienceHint();
       return;
     } else if (GlobalData.userInfo.level == 0) {

@@ -9,6 +9,7 @@ import 'package:treasure_nft_project/models/http/parameter/user_info_data.dart';
 import '../constant/call_back_function.dart';
 import '../constant/global_data.dart';
 import '../constant/theme/app_animation_path.dart';
+import '../models/http/api/trade_api.dart';
 import '../models/http/parameter/api_response.dart';
 import '../models/http/parameter/sign_in_data.dart';
 import '../utils/app_shared_Preferences.dart';
@@ -108,10 +109,16 @@ class BaseViewModel {
   ///MARK: 使用者資料
   Future<void> uploadPersonalInfo() async {
     GlobalData.userInfo = await UserInfoAPI().getPersonInfo();
+    GlobalData.experienceInfo = await TradeAPI().getExperienceInfoAPI();
   }
 
   ///MARK: 更新簽到資料
   Future<void> uploadSignInInfo() async {
+    if (GlobalData.userInfo.level == 0 ||
+        GlobalData.experienceInfo.isExperience) {
+      GlobalData.signInInfo = null;
+      return;
+    }
     SignInData signInInfo = await UserInfoAPI().getSignInInfo();
     if (!signInInfo.isFinished) {
       GlobalData.signInInfo = signInInfo;
