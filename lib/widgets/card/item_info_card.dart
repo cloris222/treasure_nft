@@ -8,7 +8,7 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
 import 'data/card_showing_data.dart';
 
-/// 有圖片的商品信息_單一預約 (外部先將部分Data存成 List<ItemInfoCardShowingData>)
+/// 有圖片的商品信息_單一預約 (外部先將部分Data存成 List<CardShowingData>)
 class ItemInfoCard extends StatelessWidget {
   const ItemInfoCard({super.key,
   this.bShowPriceAtEnd = false, this.status = '',

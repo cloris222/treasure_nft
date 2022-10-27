@@ -36,7 +36,7 @@ class PersonalSubUserInfoView extends StatelessWidget {
       Container(
           alignment: Alignment.topCenter,
           width: UIDefine.getWidth(),
-          height: UIDefine.getHeight()/3.8,
+          height: UIDefine.getHeight()/3.3,
           decoration: BoxDecoration(image: image)),
       Positioned(left: 10, right: 10, top: 20, child: _buildFloatView(context))
     ]);
