@@ -1,6 +1,8 @@
 import 'package:treasure_nft_project/models/http/http_manager.dart';
 
+import '../parameter/api_response.dart';
 import '../parameter/check_level_info.dart';
+import '../parameter/sign_in_data.dart';
 import '../parameter/user_info_data.dart';
 import '../parameter/user_order_info.dart';
 import '../parameter/user_property.dart';
@@ -30,5 +32,16 @@ class UserInfoAPI extends HttpManager {
   Future<UserOrderInfo> getUserOrderInfo() async {
     var response = await get('/user/order-count');
     return UserOrderInfo.fromJson(response.data);
+  }
+
+  ///MARK: 查詢簽到
+  Future<SignInData> getSignInInfo() async {
+    var response = await get('/user/sign-in');
+    return SignInData.fromJson(response.data);
+  }
+
+  ///MARK: 簽到
+  Future<ApiResponse> setSignIn() async {
+    return post('/user/sign-in');
   }
 }

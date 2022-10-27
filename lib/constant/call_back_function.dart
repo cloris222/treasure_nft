@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
+import '../models/http/parameter/sign_in_data.dart';
 import 'enum/task_enum.dart';
 
 ///MARK: 常用call back
@@ -26,6 +27,10 @@ typedef PressVerification = Future<bool> Function();
 ///MARK: 背景執行程式
 typedef BackgroundFunction = Future<void> Function();
 
+///MARK: 任務達成用
 typedef GetMissionPoint = void Function(String recordNo, int point);
 typedef GetAchievementMissionPoint = void Function(
     AchievementCode code, String recordNo, int point);
+
+///MARK: 顯示簽到頁面用
+typedef GetSignInDate = void Function(SignInData ?data);

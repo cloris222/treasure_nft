@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:treasure_nft_project/utils/number_format_util.dart';
 
 import 'language_util.dart';
 
@@ -100,4 +101,14 @@ class DateFormatUtil {
     return _buildDataFormat(strFormat: 'hh : mm : ss a', time: time);
   }
 
+  ///MARK: 取得當月有幾天
+  List<String> getCurrentMonthDays() {
+    var year = _getNow().year;
+    var month = _getNow().month;
+    int days = DateTime(year, month + 1, 0).day;
+    return List<String>.generate(
+        days,
+        (index) =>
+            '$year-${NumberFormatUtil().integerTwoFormat(month)}-${NumberFormatUtil().integerTwoFormat(index + 1)}');
+  }
 }
