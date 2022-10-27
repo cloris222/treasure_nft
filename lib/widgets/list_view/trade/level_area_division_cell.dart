@@ -186,10 +186,10 @@ class _DivisionCellState extends State<DivisionCell> {
                 right: 0,
                 bottom: 0,
                 child: Visibility(
-                  /// is for sale? 等級不夠不顯示 或 已經被預約不顯示 或 開賣中不顯示
+                  /// 未鎖定 且 未預約 且 不是開賣中
                   visible: !widget.range.lock &&
-                      !widget.range.used ||
-                      widget.tradeData.status == SellingState.Selling,
+                      !widget.range.used &&
+                      widget.tradeData.status != SellingState.Selling,
                   child: ActionButtonWidget(
                       isFillWidth: false,
                       margin: const EdgeInsets.symmetric(
