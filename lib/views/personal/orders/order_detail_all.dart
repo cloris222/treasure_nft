@@ -10,6 +10,10 @@ class OrderDetailAll extends StatefulWidget {
 class _OrderDetailAllState extends State<OrderDetailAll> {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('all'),);
+    return SingleChildScrollView(
+      child: Column(
+        children: [],
+      ),
+    );
   }
 }

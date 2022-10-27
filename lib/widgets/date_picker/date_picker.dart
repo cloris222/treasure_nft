@@ -13,10 +13,12 @@ class DatePickerWidget extends StatefulWidget {
   String startDate;
   String endDate;
   final onDateFunction dateCallback;
+  bool displayALL;
 
   DatePickerWidget({super.key,
     this.startDate = 'Select date',
     this.endDate = '',
+    this.displayALL = false,
     required this.dateCallback,
   });
 
@@ -81,14 +83,17 @@ class DatePickerState extends State<DatePickerWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
 
-                  SearchActionButton(
-                    isSelect: buttonType == Search.All,
-                    btnText: '  ${tr('all')}  ',
-                    onPressed: () async{
-                      buttonType = Search.All;
+                  Visibility(
+                    visible: widget.displayALL,
+                    child: SearchActionButton(
+                      isSelect: buttonType == Search.All,
+                      btnText: '  ${tr('all')}  ',
+                      onPressed: () async{
+                        buttonType = Search.All;
 
-                      widget.dateCallback('', '');
-                    },
+                        widget.dateCallback('', '');
+                      },
+                    ),
                   ),
 
                   viewModel.getPadding(2),
