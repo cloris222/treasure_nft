@@ -34,10 +34,15 @@ class PersonalSubUserInfoView extends StatelessWidget {
     }
     return Stack(children: [
       Container(
-          alignment: Alignment.topCenter,
-          width: UIDefine.getWidth(),
-          height: UIDefine.getHeight()/3.8,
-          decoration: BoxDecoration(image: image)),
+        alignment: Alignment.topCenter,
+        width: UIDefine.getWidth(),
+        padding:  const EdgeInsets.all(20),
+        decoration: BoxDecoration(image: image),
+        child: Opacity(
+          opacity: 0,
+          child: _buildFloatView(context),
+        ),
+      ),
       Positioned(left: 10, right: 10, top: 20, child: _buildFloatView(context))
     ]);
   }
@@ -131,8 +136,7 @@ class PersonalSubUserInfoView extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
-                        height: UIDefine.fontSize18),
+                    SizedBox(height: UIDefine.fontSize18),
                     Text('${GlobalData.userInfo.point} ${tr('lv_point')}',
                         style: TextStyle(
                             fontSize: UIDefine.fontSize12,

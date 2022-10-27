@@ -7,6 +7,7 @@ import 'label/flex_two_text_widget.dart';
 class SliderPageView extends StatefulWidget {
   const SliderPageView({
     Key? key,
+    required this.topView,
     required this.titles,
     required this.initialPage,
     required this.children,
@@ -16,6 +17,7 @@ class SliderPageView extends StatefulWidget {
   final List<String> titles;
   final int initialPage;
   final List<Widget> children;
+  final Widget topView;
 
   @override
   State<SliderPageView> createState() => _SliderPageViewState();
@@ -32,16 +34,30 @@ class _SliderPageViewState extends State<SliderPageView> {
   void initState() {
     super.initState();
     pageController = PageController(initialPage: widget.initialPage);
+    currentType = widget.titles[widget.initialPage];
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      _buildButtonList(),
-      const SizedBox(height: 10),
-      _buildPageView(),
-      const SizedBox(height: 10),
-    ]);
+    return SizedBox(
+      height: UIDefine.getHeight(),
+      child: SafeArea(
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(child: widget.topView),
+            SliverFillRemaining(
+              child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Column(children: [
+                    _buildButtonList(),
+                    Flexible(child: _buildPageView()),
+                    SizedBox(height: UIDefine.getScreenHeight(23))
+                  ])),
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _buildButtonList() {
