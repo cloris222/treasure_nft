@@ -77,7 +77,8 @@ class AppImagePath {
   static const String levelMission = '$lockMission/mb_level_bg_{level}_5.png';
   static const String levelMissionLocked =
       '$lockMission/mb_level_{level}_lock.png';
-  static const String divisionLevel = '$lockMission/mb_level_bg_{level}_{index}.png';
+  static const String divisionLevel =
+      '$lockMission/mb_level_bg_{level}_{index}.png';
 
   /// home page
   static const String firstBackground = '$appImgPath/img_main_bg_01.png';
@@ -112,7 +113,8 @@ class AppImagePath {
   static const String dailyIcon = '$appBtnFolderPath/btn_date_01_nor.png';
   static const String medalIcon =
       '$achievementEmblem/a_medal_{mainNumber}_01.png';
-  static const String unableMedalIcon ='$achievementEmblem/a_medal_unknow_01.png';
+  static const String unableMedalIcon =
+      '$achievementEmblem/a_medal_unknow_01.png';
 
   ///personal 我的訂單
   static const String myOrderIcon = '$appIconFolderPath/icon_file_02.png';
@@ -166,4 +168,13 @@ class AppImagePath {
 
   /// beginner course
   static const String userGradient = '$appIconFolderPath/icon_user_02.png';
+
+  /// sign in
+  static const String signInBar = '$daily/img_daily_reward_02.png';
+  static const String signTitle = '$daily/icon_date_02.png';
+  static const String dailyDayIcon = '$month/btn_daily_reward_nor_{day}.png';
+  static const String dailyPointIcon = '$daily/icon_badge_plus5.png';
+  static const String dailyCurrentDay = '$daily/btn_daily_reward_pre_02.png';
+  static const String dailySignInIcon = '$daily/btn_daily_reward_finish_02.png';
+  static const String dailyFailIcon = '$daily/btn_daily_reward_disable_02.png';
 }

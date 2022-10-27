@@ -41,6 +41,7 @@ Future<void> initApp() async {
       if (GlobalData.userToken.isNotEmpty &&
           GlobalData.userMemberId.isNotEmpty) {
         await BaseViewModel().uploadPersonalInfo();
+        await BaseViewModel().uploadSignInInfo();
         GlobalData.showLoginAnimate = true;
       }
     }

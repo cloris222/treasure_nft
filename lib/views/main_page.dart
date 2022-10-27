@@ -18,7 +18,7 @@ import 'full_animation_page.dart';
 import 'home/home_main_view.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key, this.type = AppNavigationBarType.typeMain})
+  const MainPage({Key? key, this.type = AppNavigationBarType.typePersonal})
       : super(key: key);
   final AppNavigationBarType type;
 

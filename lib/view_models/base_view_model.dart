@@ -100,15 +100,18 @@ class BaseViewModel {
     GlobalData.userMemberId = response.data['id'];
 
     await uploadPersonalInfo();
+    await uploadSignInInfo();
 
     AppSharedPreferences.printAll();
   }
 
+  ///MARK: 使用者資料
   Future<void> uploadPersonalInfo() async {
-    ///MARK: 使用者資料
     GlobalData.userInfo = await UserInfoAPI().getPersonInfo();
+  }
 
-    ///MARK: 更新簽到資料
+  ///MARK: 更新簽到資料
+  Future<void> uploadSignInInfo() async {
     SignInData signInInfo = await UserInfoAPI().getSignInInfo();
     if (!signInInfo.isFinished) {
       GlobalData.signInInfo = signInInfo;

@@ -15,7 +15,8 @@ class LoginButtonWidget extends StatelessWidget {
       this.fontSize,
       this.fontWeight,
       this.isGradient = true,
-      this.isFlip = false})
+      this.isFlip = false,
+      this.radius = 10})
       : super(key: key);
   final String btnText;
   final VoidCallback onPressed;
@@ -26,6 +27,7 @@ class LoginButtonWidget extends StatelessWidget {
   final FontWeight? fontWeight;
   final bool isGradient;
   final bool isFlip;
+  final double radius;
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +39,8 @@ class LoginButtonWidget extends StatelessWidget {
           decoration: enable
               ? isGradient
                   ? isFlip
-                      ? AppStyle().baseFlipGradient(radius: 10)
-                      : AppStyle().baseGradient(radius: 10)
+                      ? AppStyle().baseFlipGradient(radius: radius)
+                      : AppStyle().baseGradient(radius: radius)
                   : AppStyle().styleColorsRadiusBackground(
                       color: AppColors.mainThemeButton)
               : AppStyle()
