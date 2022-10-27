@@ -30,12 +30,13 @@ class _TeamOrderListView extends State<TeamOrderListView> {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          mainAxisSpacing: UIDefine.getScreenHeight(100),
-          crossAxisSpacing: UIDefine.getScreenWidth(5)),
+        childAspectRatio: 0.45,
+        mainAxisSpacing: UIDefine.getScreenHeight(3),
+          crossAxisSpacing: UIDefine.getScreenWidth(3),
+      ),
       itemCount:widget.list.length,
       itemBuilder: (context, index) {
         return createItemBuilder(context, index);

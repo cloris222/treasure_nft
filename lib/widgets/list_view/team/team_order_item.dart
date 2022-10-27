@@ -25,7 +25,7 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
 
-       Image.network(widget.itemData.imgUrl, height: UIDefine.getScreenHeight(25)),
+      Image.network(widget.itemData.imgUrl),
 
       /// Name
       Text(widget.itemData.itemName,
@@ -101,6 +101,7 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
 
               Row(children: [
                 viewModel.getCoinImage(),
+                viewModel.getPadding(0.5),
                 Text(widget.itemData.income.toString(),
                   style: TextStyle(
                     fontSize: UIDefine.fontSize12,
@@ -128,6 +129,7 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
 
               Row(children: [
                 viewModel.getCoinImage(),
+                viewModel.getPadding(0.5),
                 Text(widget.itemData.moneyBox.toString(),
                   style: TextStyle(
                     fontSize: UIDefine.fontSize12,
@@ -145,9 +147,9 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(),
-            viewModel.getPadding(1),
             Row(children: [
               viewModel.getCoinImage(),
+              viewModel.getPadding(0.5),
               Text(widget.itemData.price.toString(),
                 style: TextStyle(
                   fontSize: UIDefine.fontSize12,
@@ -156,6 +158,6 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
             ],)
           ]),
 
-    ],);
+    ]);
   }
 }
