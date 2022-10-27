@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/user_property.dart';
 import 'package:treasure_nft_project/view_models/personal/orders/order_detail_viewmodel.dart';
+import 'package:treasure_nft_project/views/personal/orders/order_detail_all.dart';
+import 'package:treasure_nft_project/views/personal/orders/order_detail_mine.dart';
+import 'package:treasure_nft_project/views/personal/orders/order_detail_team.dart';
 import 'package:treasure_nft_project/views/personal/personal_sub_user_info_view.dart';
+import 'package:treasure_nft_project/widgets/slider_page_view.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
@@ -18,6 +22,16 @@ class OrderDetailPage extends StatefulWidget {
 
 class _OrderDetailPageState extends State<OrderDetailPage> {
   late OrderDetailViewModel viewModel;
+  List<String> titles = [
+    tr("TopPicks"),
+    tr("Team"),
+    tr("mine"),
+  ];
+  List<Widget> pageViews = [
+    OrderDetailAll(),
+    OrderDetailTeam(),
+    OrderDetailMine(),
+  ];
 
   @override
   initState() {
@@ -39,7 +53,8 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
           const PersonalSubUserInfoView(),
           SizedBox(
               height: UIDefine.getHeight() / 12,
-              child: _buildTotalEarningsTitle(context))
+              child: _buildTotalEarningsTitle(context)),
+          _buildPageView(context)
         ],
       ),
       type: AppNavigationBarType.typePersonal,
@@ -79,5 +94,9 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
         )
       ],
     );
+  }
+
+  Widget _buildPageView(BuildContext context) {
+    return SliderPageView(titles: titles, initialPage: 0, children: pageViews);
   }
 }

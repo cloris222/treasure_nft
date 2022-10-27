@@ -32,6 +32,7 @@ class _SliderPageViewState extends State<SliderPageView> {
   void initState() {
     super.initState();
     pageController = PageController(initialPage: widget.initialPage);
+    currentType = widget.titles.first;
   }
 
   @override
