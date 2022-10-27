@@ -15,6 +15,7 @@ import '../../../constant/theme/app_colors.dart';
 import '../../../view_models/personal/level/level_achievement_viewmodel.dart';
 import '../../../widgets/dialog/common_custom_dialog.dart';
 import '../../../widgets/label/flex_two_text_widget.dart';
+import '../../../widgets/slider_page_view.dart';
 import '../../custom_appbar_view.dart';
 
 ///MARK: 成就
@@ -28,13 +29,16 @@ class LevelAchievementPage extends StatefulWidget {
 }
 
 class _LevelAchievementPageState extends State<LevelAchievementPage> {
-  late TaskType currentType;
   late LevelAchievementViewModel viewModel;
 
+  List<String> titles = [
+    tr('tab_daily'),
+    tr('tab_mission'),
+    tr('tab_medal'),
+  ];
   @override
   void initState() {
     super.initState();
-    currentType = widget.initType;
     viewModel = LevelAchievementViewModel(
         setState: setState,
         showExperienceHint: () {
@@ -72,81 +76,27 @@ class _LevelAchievementPageState extends State<LevelAchievementPage> {
           }).show();
         });
     viewModel.initState();
+
   }
 
   @override
   Widget build(BuildContext context) {
     return CustomAppbarView(
       title: tr('achievement'),
-      body: Column(children: [
-        ///MARK: 不可以調成固定
-        PersonalSubUserInfoView(userLevelInfo: viewModel.userLevelInfo),
-        Container(
-            margin: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(children: [
-              _buildButtonList(),
-              const SizedBox(height: 10),
-              _buildTaskView(),
-              const SizedBox(height: 10),
-            ]))
-      ]),
+      body: _buildPageView(context),
     );
   }
 
-  ///MARK: 選擇項目
-  Widget _buildButtonList() {
-    return Row(
-        children: List<Widget>.from(
-            TaskType.values.map((e) => Flexible(child: _buildButton(e)))));
-  }
-
-  Widget _buildButton(TaskType type) {
-    String text = '';
-    switch (type) {
-      case TaskType.daily:
-        text = tr('tab_daily');
-        break;
-      case TaskType.achieve:
-        text = tr('tab_mission');
-        break;
-      case TaskType.medal:
-        text = tr('tab_medal');
-        break;
-    }
-    bool isCurrent = (currentType == type);
-
-    return InkWell(
-        onTap: () {
-          setState(() {
-            currentType = type;
-          });
-        },
-        child: SizedBox(
-            width: UIDefine.getWidth(),
-            child: Column(children: [
-              const SizedBox(height: 5),
-              FlexTwoTextWidget(
-                  alignment: Alignment.bottomCenter,
-                  text: text,
-                  color: isCurrent ? AppColors.textBlack : AppColors.dialogGrey,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500),
-              const SizedBox(height: 5),
-              isCurrent
-                  ? const Divider(
-                      color: AppColors.mainThemeButton, thickness: 2)
-                  : const Divider(color: AppColors.textGrey)
-            ])));
-  }
-
-  Widget _buildTaskView() {
-    switch (currentType) {
-      case TaskType.daily:
-        return AchievementDailyView(viewModel: viewModel);
-      case TaskType.achieve:
-        return AchievementAchieveView(viewModel: viewModel);
-      case TaskType.medal:
-        return AchievementMedalView(viewModel: viewModel);
-    }
+  Widget _buildPageView(BuildContext context) {
+    return SliderPageView(
+        titles: titles,
+        initialPage: TaskType.values.indexOf(widget.initType),
+        topView:
+            PersonalSubUserInfoView(userLevelInfo: viewModel.userLevelInfo),
+        children: [
+          AchievementDailyView(viewModel: viewModel),
+          AchievementAchieveView(viewModel: viewModel),
+          AchievementMedalView(viewModel: viewModel),
+        ]);
   }
 }
