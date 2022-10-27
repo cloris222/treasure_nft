@@ -1,18 +1,34 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
-import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/models/http/parameter/user_property.dart';
+import 'package:treasure_nft_project/view_models/personal/orders/order_detail_viewmodel.dart';
 import 'package:treasure_nft_project/views/personal/personal_sub_user_info_view.dart';
-import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
-
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../custom_appbar_view.dart';
 
-///MARK: 我的收益
-class OrderBalDetailPage extends StatelessWidget {
-  const OrderBalDetailPage({Key? key}) : super(key: key);
+class OrderDetailPage extends StatefulWidget {
+  const OrderDetailPage({Key? key}) : super(key: key);
+
+  @override
+  State<OrderDetailPage> createState() => _OrderDetailPageState();
+}
+
+class _OrderDetailPageState extends State<OrderDetailPage> {
+  late OrderDetailViewModel viewModel;
+
+  @override
+  initState() {
+    super.initState();
+    viewModel = OrderDetailViewModel(
+      onListChange: () {
+        setState(() {});
+      },
+    );
+    viewModel.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +37,8 @@ class OrderBalDetailPage extends StatelessWidget {
       body: Column(
         children: [
           const PersonalSubUserInfoView(),
-          SizedBox(height: UIDefine.getHeight()/12,
+          SizedBox(
+              height: UIDefine.getHeight() / 12,
               child: _buildTotalEarningsTitle(context))
         ],
       ),
@@ -56,7 +73,10 @@ class OrderBalDetailPage extends StatelessWidget {
         const SizedBox(
           width: 5,
         ),
-        Text('1,800.00',style: styleBlack,)
+        Text(
+          '${viewModel.userProperty?.income.toStringAsFixed(2)}',
+          style: styleBlack,
+        )
       ],
     );
   }

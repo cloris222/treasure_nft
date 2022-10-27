@@ -10,7 +10,7 @@ import '../../constant/theme/app_style.dart';
 import '../../constant/ui_define.dart';
 import '../../models/http/parameter/user_order_info.dart';
 import '../../widgets/label/personal_param_item.dart';
-import 'orders/order_bal_detail_page.dart';
+import 'orders/order_detail_page.dart';
 import 'orders/order_info_page.dart';
 import 'orders/order_recharge_page.dart';
 import 'orders/order_withdraw_page.dart';
@@ -121,7 +121,7 @@ class PersonalSubOrderView extends StatelessWidget {
   }
 
   void _showMyBalDetailPage(BuildContext context) {
-    BaseViewModel().pushPage(context, const OrderBalDetailPage());
+    BaseViewModel().pushPage(context, const OrderDetailPage());
   }
 
   void _showMyRechargePage(BuildContext context) {
