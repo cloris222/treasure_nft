@@ -52,6 +52,13 @@ class TradeDivisionViewModel extends BaseViewModel {
         await TradeAPI().getCheckReservationInfoAPI(level);
     userLevelInfo = await UserInfoAPI().getCheckLevelInfoAPI();
     ranges = reservationInfo!.reserveRanges;
+    /// 如果是體驗帳號 且 level 1 副本顯示內容不同
+    if(GlobalData.experienceInfo.isExperience == true && GlobalData.userInfo.level == 1){
+      ranges[0].startPrice = 1;
+      ranges[0].endPrice = 50;
+      ranges[1].startPrice = 50;
+      ranges[1].endPrice = 150;
+    }
     startTimer();
     setState();
   }
