@@ -40,24 +40,22 @@ class _WalletMainViewState extends State<WalletMainView> {
     return SingleChildScrollView(
       child: Column(children: [
         const DomainBar(),
-        GlobalData.experienceInfo.isExperience
-            ? Container()
-            : Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                child: Wrap(
-                  runSpacing: 25,
-                  children: [
-                    const SizedBox(width: 1),
-                    _buildTitle(),
-                    _buildWalletInfo(),
-                    _buildWalletAddress(),
-                    _buildWalletFunction(),
-                    _buildWalletAccount(),
-                    _buildWalletHistory(),
-                    const SizedBox(width: 1),
-                  ],
-                ),
-              ),
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 20),
+          child: Wrap(
+            runSpacing: 25,
+            children: [
+              const SizedBox(width: 1),
+              _buildTitle(),
+              _buildWalletInfo(),
+              _buildWalletAddress(),
+              _buildWalletFunction(),
+              _buildWalletAccount(),
+              _buildWalletHistory(),
+              const SizedBox(width: 1),
+            ],
+          ),
+        ),
       ]),
     );
   }
