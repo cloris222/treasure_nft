@@ -24,7 +24,7 @@ class PointRecordData {
     required this.amount,
     required this.type,
     this.missionCode = '',
-    this.level = '',
+    this.level = 0,
   });
 
   String id;
@@ -34,7 +34,7 @@ class PointRecordData {
   int amount;
   PointType type;
   String missionCode;
-  String level;
+  int level;
 
   factory PointRecordData.fromJson(Map<String, dynamic> json) {
     String strType = json["type"];
@@ -51,7 +51,7 @@ class PointRecordData {
       amount: json["amount"],
       type: type,
       missionCode: json["missionCode"] ?? '',
-      level: json["level"] ?? '',
+      level: json["level"] ?? 0,
     );
   }
 
