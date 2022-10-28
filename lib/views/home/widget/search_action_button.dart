@@ -60,7 +60,7 @@ class SearchActionButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
                   color: borderColor,
-                  width: borderWidth??3,
+                  width: borderWidth??2,
                 )),
             child: Center(
             child:Text(
