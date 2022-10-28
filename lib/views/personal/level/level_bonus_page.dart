@@ -69,15 +69,18 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Row(children: [
         Flexible(
-            child: _buildTextView(tr('交易儲蓄罐'), viewModel.levelBonus?.bonus)),
+            child: _buildTextView(
+                tr('bonus_trade'), viewModel.levelBonus?.tradeBonus)),
         Flexible(child: _buildCanView())
       ]),
       _buildNextBonusHint(
           viewModel.levelBonus?.nextLevel,
-          viewModel.levelBonus?.nextLevelBonus,
-          viewModel.levelBonus?.nextLevelBonusPct),
+          viewModel.levelBonus?.nextLevelTradeBonus,
+          viewModel.levelBonus?.nextLevelTradeBonusPct),
       _buildMaxBonusHint(viewModel.levelBonus?.maxLevel),
-      _buildBonusHint(12, '10/20')
+      _buildSpace(),
+      _buildBonusHint(viewModel.levelBonus?.tradeMoneyBoxExpireTime,
+          viewModel.levelBonus?.tradeMoneyBoxExpireDate)
       // _buildNextBonusHint(level, bonus, percentage)
     ]);
   }
@@ -87,14 +90,17 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
       Row(children: [
         Flexible(child: _buildCanView()),
         Flexible(
-            child: _buildTextView(tr('推廣儲蓄罐'), viewModel.levelBonus?.bonus))
+            child: _buildTextView(
+                tr('bonus_referral'), viewModel.levelBonus?.bonus))
       ]),
       _buildNextBonusHint(
           viewModel.levelBonus?.nextLevel,
           viewModel.levelBonus?.nextLevelBonus,
           viewModel.levelBonus?.nextLevelBonusPct),
       _buildMaxBonusHint(viewModel.levelBonus?.maxLevel),
-      _buildBonusHint(12, '10/20')
+      _buildSpace(),
+      _buildBonusHint(viewModel.levelBonus?.moneyBoxExpireTime,
+          viewModel.levelBonus?.moneyBoxExpireDate)
       // _buildNextBonusHint(level, bonus, percentage)
     ]);
   }
@@ -103,7 +109,7 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
   Widget _buildTextView(String title, double? currentCoin) {
     return SizedBox(
         width: UIDefine.getWidth(),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(title,
               style: TextStyle(
                   color: AppColors.dialogBlack,
@@ -113,7 +119,11 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
           Row(mainAxisSize: MainAxisSize.min, children: [
             const TetherCoinWidget(),
             const SizedBox(width: 5),
-            Text(NumberFormatUtil().removeTwoPointFormat(currentCoin ?? 0))
+            Text(NumberFormatUtil().removeTwoPointFormat(currentCoin ?? 0),
+                style: TextStyle(
+                    color: AppColors.dialogBlack,
+                    fontSize: UIDefine.fontSize20,
+                    fontWeight: FontWeight.w600))
           ])
         ]));
   }
@@ -151,8 +161,8 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
 
   /// 提醒 剩餘OO天 XX天尚未升級
   Widget _buildBonusHint(int? hasDay, String? day) {
-    String text = format('※獎勵保留{hasDay}天，{day}前未升級，將回收全部獎勵',
-        {'hasDay': hasDay ?? 0, 'day': day??'0'});
+    String text = format(
+        '※${tr('bonus_keep_hint')}', {'day': hasDay ?? '', 'date': day ?? ''});
     return Text(text,
         maxLines: 2,
         style: TextStyle(

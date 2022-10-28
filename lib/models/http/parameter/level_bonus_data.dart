@@ -45,7 +45,7 @@ class LevelBonusData {
   double bonus;
 
   ///MARK: 最大交易儲金罐獎勵
-  int tradeBonus;
+  double tradeBonus;
 
   ///MARK: 下一等級交易儲金罐返還
   double nextLevelTradeBonus;
@@ -72,7 +72,7 @@ class LevelBonusData {
         nextLevelBonusPct: json["nextLevelBonusPCT"],
         maxLevel: json["maxLevel"],
         bonus: json["bonus"].toDouble(),
-        tradeBonus: json["tradeBonus"],
+        tradeBonus: json["tradeBonus"].toDouble(),
         nextLevelTradeBonus: json["nextLevelTradeBonus"].toDouble(),
         nextLevelTradeBonusPct: json["nextLevelTradeBonusPCT"],
         moneyBoxExpireTime: json["moneyBoxExpireTime"],
