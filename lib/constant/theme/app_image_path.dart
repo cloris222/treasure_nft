@@ -178,4 +178,8 @@ class AppImagePath {
   static const String dailyCurrentDay = '$daily/btn_daily_reward_pre_02.png';
   static const String dailySignInIcon = '$daily/btn_daily_reward_finish_02.png';
   static const String dailyFailIcon = '$daily/btn_daily_reward_disable_02.png';
+
+  /// Sharing Center
+  static const String rewardGradient = '$appIconFolderPath/icon_rewards_01.png';
+  static const String clockGradient = '$appIconFolderPath/icon_clock_02.png';
 }
