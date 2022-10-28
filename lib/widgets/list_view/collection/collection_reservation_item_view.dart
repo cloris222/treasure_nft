@@ -9,17 +9,17 @@ import '../../../views/collection/data/collection_reservation_response_data.dart
 
 /// 收藏 今日預約 ItemView
 class CollectionReservationItemView extends StatefulWidget {
-  const CollectionReservationItemView({super.key, required this.collectionReservationResponseData});
+  const CollectionReservationItemView(
+      {super.key, required this.collectionReservationResponseData});
 
   final CollectionReservationResponseData collectionReservationResponseData;
 
   @override
   State<StatefulWidget> createState() => _CollectionReservationItemView();
-
 }
 
-class _CollectionReservationItemView extends State<CollectionReservationItemView> {
-
+class _CollectionReservationItemView
+    extends State<CollectionReservationItemView> {
   CollectionReservationResponseData get data {
     return widget.collectionReservationResponseData;
   }
@@ -27,26 +27,31 @@ class _CollectionReservationItemView extends State<CollectionReservationItemView
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5), UIDefine.getScreenWidth(5), UIDefine.getScreenWidth(5), 0),
+      margin: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5),
+          UIDefine.getScreenWidth(5), UIDefine.getScreenWidth(5), 0),
       child: _getViewByType(),
     );
   }
 
-
   Widget _getViewByType() {
     if (data.type == 'ITEM') {
-      return ItemInfoCard(status: data.status, itemName: data.itemName, dateTime: data.createdAt,
-          imageUrl: data.imgUrl, price: '', dataList: _getItemData(data.price.toString(), data.orderNo));
-
+      return ItemInfoCard(
+          status: data.status,
+          itemName: data.itemName,
+          dateTime: data.createdAt,
+          imageUrl: data.imgUrl,
+          price: '',
+          dataList: _getItemData(data.price.toString(), data.orderNo));
     } else if (data.type == 'PRICE') {
-      return OrderInfoCard(status: data.status, orderNumber: data.orderNo, dateTime: data.createdAt,
+      return OrderInfoCard(
+          status: data.status,
+          orderNumber: data.orderNo,
+          dateTime: data.createdAt,
           dataList: _getOrderData(
-            data.startPrice.toString() + ' ~ ' + data.endPrice.toString(),
-            data.deposit.toString(),
-            data.reserveCount.toString(),
-            data.winCount.toString()
-          ));
-
+              data.startPrice.toString() + ' ~ ' + data.endPrice.toString(),
+              data.deposit.toString(),
+              data.reserveCount.toString(),
+              data.winCount.toString()));
     } else {
       return const SizedBox();
     }
@@ -68,7 +73,8 @@ class _CollectionReservationItemView extends State<CollectionReservationItemView
     return dataList;
   }
 
-  List<CardShowingData> _getOrderData(String estimatedAmount, String deposit, String estimatedNumber, String winCount) {
+  List<CardShowingData> _getOrderData(String estimatedAmount, String deposit,
+      String estimatedNumber, String winCount) {
     List<CardShowingData> dataList = [];
     CardShowingData data = CardShowingData();
     data.title = tr('reservationAmount');
@@ -94,6 +100,4 @@ class _CollectionReservationItemView extends State<CollectionReservationItemView
 
     return dataList;
   }
-
-
 }

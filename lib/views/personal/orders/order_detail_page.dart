@@ -75,7 +75,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
           width: 5,
         ),
         Text(
-          '${viewModel.userProperty?.income.toStringAsFixed(2)}',
+          viewModel.income.toStringAsFixed(2),
           style: styleBlack,
         )
       ],
