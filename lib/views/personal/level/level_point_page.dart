@@ -1,13 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/personal/personal_sub_user_info_view.dart';
-import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 
 import '../../../constant/enum/team_enum.dart';
+import '../../../view_models/personal/level/level_point_viewmodel.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/date_picker/custom_date_picker.dart';
-import '../../../widgets/date_picker/date_picker.dart';
 import '../../custom_appbar_view.dart';
 
 ///MARK: 積分
@@ -20,6 +18,14 @@ class LevelPointPage extends StatefulWidget {
 }
 
 class _LevelPointPageState extends State<LevelPointPage> {
+  late LevelPointViewModel viewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    viewModel = LevelPointViewModel(onListChange: () => setState(() {}));
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomAppbarView(
@@ -34,9 +40,9 @@ class _LevelPointPageState extends State<LevelPointPage> {
       children: [
         PersonalSubUserInfoView(),
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 20),
+          margin: const EdgeInsets.symmetric(horizontal: 20),
           child: CustomDatePickerWidget(
-            dateCallback: _onDataCallBack,
+            dateCallback: viewModel.onDataCallBack,
             typeList: const [
               Search.Today,
               Search.Yesterday,
@@ -45,10 +51,9 @@ class _LevelPointPageState extends State<LevelPointPage> {
             ],
             initType: Search.Today,
           ),
-        )
+        ),
+        viewModel.buildListView()
       ],
     );
   }
-
-  void _onDataCallBack(String startDate, String endDate) {}
 }

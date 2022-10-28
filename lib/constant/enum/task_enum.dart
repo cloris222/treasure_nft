@@ -77,3 +77,14 @@ enum AchievementCode {
   /// 累計邀請有效B或C級
   AchInvClsBC,
 }
+
+enum PointType {
+  /// 每日任務
+  DAILY,
+
+  /// 成就任務
+  ACHIEVEMENT,
+
+  /// 升等
+  LEVEL_UP_SUBTRACT
+}
