@@ -38,12 +38,8 @@ class PersonalSubUserInfoView extends StatelessWidget {
         width: UIDefine.getWidth(),
         padding:  const EdgeInsets.all(20),
         decoration: BoxDecoration(image: image),
-        child: Opacity(
-          opacity: 0,
-          child: _buildFloatView(context),
-        ),
+        child: _buildFloatView(context)
       ),
-      Positioned(left: 10, right: 10, top: 20, child: _buildFloatView(context))
     ]);
   }
 

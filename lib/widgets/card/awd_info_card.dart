@@ -5,7 +5,7 @@ import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
 import 'data/card_showing_data.dart';
 
-/// A:活動獎勵 W:提領 D:充值 (外部先將部分Data存成 List<ItemInfoCardShowingData>)
+/// A:活動獎勵 W:提領 D:充值 (外部先將部分Data存成 List<CardShowingData>)
 class AWDInfoCard extends StatelessWidget {
   AWDInfoCard({super.key,
   this.status = '', 

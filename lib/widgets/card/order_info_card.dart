@@ -6,7 +6,7 @@ import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
 import 'data/card_showing_data.dart';
 
-/// 無圖片的訂單信息_副本預約 (外部先將部分Data存成 List<ItemInfoCardShowingData>)
+/// 無圖片的訂單信息_副本預約 (外部先將部分Data存成 List<CardShowingData>)
 class OrderInfoCard extends StatelessWidget {
   const OrderInfoCard({super.key,
   this.status = '', required this.orderNumber,

@@ -8,6 +8,9 @@ class HttpSetting {
   // static const String releaseCommonUrl = "https://treasurenft.xyz/gateway/common";
   static const String developCommonUrl = "https://dev.treasurenft.xyz/gateway/common";
 
+  // static const String releaseAdminUrl = "https://treasurenft.xyz/gateway/admin";
+  static const String developAdminUrl = "https://dev.treasurenft.xyz/gateway/admin";
+
   // static const String releaseKey="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDPPrcA1ZO5YmIPDqq/fBp6wQl3y1sAuVQhiTFmVLuUTh2euLZVFE2QzPLmY+9J+uxdLJrvXKWgQA8z5rC8TJrd41jxWdADH8D931UHm50lmZJcA8JEpTNEnXUkX5aR8kJWcy59ogGsE/cCu2+xzfkQOu9urc12dyw1zaPDVqQRSwIDAQAB";
   static const String developKey="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDPPrcA1ZO5YmIPDqq/fBp6wQl3y1sAuVQhiTFmVLuUTh2euLZVFE2QzPLmY+9J+uxdLJrvXKWgQA8z5rC8TJrd41jxWdADH8D931UHm50lmZJcA8JEpTNEnXUkX5aR8kJWcy59ogGsE/cCu2+xzfkQOu9urc12dyw1zaPDVqQRSwIDAQAB";
 
