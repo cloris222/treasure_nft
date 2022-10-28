@@ -1,53 +1,71 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:treasure_nft_project/constant/enum/setting_enum.dart';
+import 'package:treasure_nft_project/constant/enum/team_enum.dart';
 import 'package:treasure_nft_project/models/http/api/order_api.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
+import 'package:treasure_nft_project/utils/date_format_util.dart';
 import 'package:treasure_nft_project/view_models/base_list_view_model.dart';
 import 'package:treasure_nft_project/widgets/card/item_info_card.dart';
 
-import '../../../models/http/parameter/check_earning_income.dart';
 import '../../../models/http/parameter/user_property.dart';
 import '../../../widgets/card/data/card_showing_data.dart';
+import '../../../widgets/date_picker/custom_date_picker.dart';
 
 class OrderDetailViewModel extends BaseListViewModel {
-  OrderDetailViewModel(
-      {required super.onListChange, this.type = EarningIncomeType.ALL});
+  OrderDetailViewModel({
+    required super.onListChange,
+    this.type = EarningIncomeType.ALL,
+    super.hasTopView = true,
+  });
 
-  UserProperty? userProperty;
   double income = 0.0;
   EarningIncomeType type;
+  String startDate = '';
+  String endDate = '';
+  Search? currentType;
 
   Future<void> initState() async {
-    userProperty = await UserInfoAPI().getUserPropertyInfo();
-    income = await OrderAPI().getPersonalIncome();
+    income = await OrderAPI()
+        .getPersonalIncome(type: type, startDate: startDate, endDate: endDate);
     onListChange();
     initListView();
   }
 
   @override
   Widget itemView(int index, data) {
-    return ItemInfoCard(
-      itemName: data.itemName,
-      dateTime: data.time.toString(),
-      imageUrl: data.imgUrl,
-      price: data.price.toString(),
-      dataList: _getItemData(data.orderNo, data.sellerName, data.income),
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: ItemInfoCard(
+        itemName: data.itemName,
+        dateTime: DateFormatUtil().getFullWithDateFormat(data.time),
+        imageUrl: data.imgUrl,
+        price: data.price.toString(),
+          bShowPriceAtEnd:true,
+        dataList: _getItemData(data.orderNo, data.sellerName, data.income,data.rebate),
+      ),
     );
   }
 
   @override
   Future<List> loadData(int page, int size) async {
-    return await OrderAPI().getEarningData(page: page, size: size);
+    return await OrderAPI().getEarningData(
+        page: page,
+        size: size,
+        startDate: startDate,
+        endDate: endDate,
+        type: type);
   }
 
   List<CardShowingData> _getItemData(
-      String nickName, String orderNo, double income) {
+      String nickName, String orderNo, double income, num rebate) {
     List<CardShowingData> dataList = [];
     CardShowingData data = CardShowingData();
     data.title = tr("orderNo");
     data.content = orderNo;
-    data.bIcon = true;
+    data.bIcon = false;
     dataList.add(data);
 
     data = CardShowingData();
@@ -56,10 +74,43 @@ class OrderDetailViewModel extends BaseListViewModel {
     dataList.add(data);
 
     data = CardShowingData();
+    data.title = tr(tr('rebate'));
+    data.content = '${rebate.toString()}%';
+    dataList.add(data);
+
+    data = CardShowingData();
     data.title = tr("income");
     data.content = income.toString();
     dataList.add(data);
 
     return dataList;
+  }
+
+  @override
+  Widget buildTopView() {
+    return CustomDatePickerWidget(
+      dateCallback: _callback,
+      typeCallback: _callType,
+      initType: currentType,
+      typeList: const [
+        Search.Today,
+        Search.Yesterday,
+        Search.SevenDays,
+        Search.ThirtyDays
+      ],
+    );
+  }
+
+  void _callback(String startDate, String endDate) {
+    /// 判斷與當前顯示日期不同在進行畫面更新
+    if (this.startDate != startDate || this.endDate != endDate) {
+      this.startDate = startDate;
+      this.endDate = endDate;
+      initState();
+    }
+  }
+
+  void _callType(Search type) {
+    currentType = type;
   }
 }

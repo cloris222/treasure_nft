@@ -1,16 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/enum/setting_enum.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/personal/orders/order_detail_viewmodel.dart';
-import 'package:treasure_nft_project/views/personal/orders/order_detail_all.dart';
-import 'package:treasure_nft_project/views/personal/orders/order_detail_mine.dart';
-import 'package:treasure_nft_project/views/personal/orders/order_detail_team.dart';
 import 'package:treasure_nft_project/views/personal/personal_sub_user_info_view.dart';
 import 'package:treasure_nft_project/widgets/slider_page_view.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../custom_appbar_view.dart';
+import 'order_detail_Info.dart';
 
 class OrderDetailPage extends StatefulWidget {
   const OrderDetailPage({Key? key}) : super(key: key);
@@ -55,7 +54,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
     TextStyle styleBlack = TextStyle(
         color: AppColors.opacityBackground,
         fontSize: UIDefine.fontSize18,
-        fontWeight: FontWeight.w500);
+        fontWeight: FontWeight.bold);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -101,10 +100,17 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
         titles: titles,
         initialPage: 0,
         topView: _buildTopView(context),
+        getPageIndex: _getPageIndex,
         children: [
-          OrderDetailAll(),
-          OrderDetailTeam(),
-          OrderDetailMine(),
+          OrderDetailInfo(viewModel: viewModel, type: EarningIncomeType.ALL),
+          OrderDetailInfo(viewModel: viewModel, type: EarningIncomeType.TEAM),
+          OrderDetailInfo(viewModel: viewModel, type: EarningIncomeType.MINE),
         ]);
+  }
+
+  /// 依點選button切換內容及total income
+  void _getPageIndex(int value) {
+    viewModel.type = EarningIncomeType.values[value];
+    viewModel.initState();
   }
 }

@@ -49,7 +49,7 @@ class ItemInfoCard extends StatelessWidget {
                     itemName,
                     style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
                   ),
-                  SizedBox(height: 4),
+                  SizedBox(height: 5),
                   /// 副標題
                   Text(
                     dateTime,
@@ -177,7 +177,7 @@ class ItemInfoCard extends StatelessWidget {
     for (int i = 0; i < dataList.length; i++) {
       titleContent.add(
         Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
