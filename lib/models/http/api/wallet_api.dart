@@ -1,5 +1,6 @@
 import 'package:treasure_nft_project/models/http/http_manager.dart';
 
+import '../../../constant/enum/coin_enum.dart';
 import '../parameter/api_response.dart';
 
 class WalletAPI extends HttpManager {
@@ -12,6 +13,13 @@ class WalletAPI extends HttpManager {
     for (Map<String, dynamic> json in response.data) {
       result[json['chain']] = json['address'];
     }
+    if (!result.containsKey(CoinEnum.TRON.name)) {
+      result[CoinEnum.TRON.name] = '';
+    }
+    if (!result.containsKey(CoinEnum.BSC.name)) {
+      result[CoinEnum.BSC.name] = '';
+    }
+
     return result;
   }
 

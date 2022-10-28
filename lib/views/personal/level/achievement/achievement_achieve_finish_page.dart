@@ -27,39 +27,39 @@ class AchievementAchieveFinishPage extends StatelessWidget {
         body: Container(
             alignment: Alignment.center,
             margin: EdgeInsets.all(padding),
-            child: Container(
-              color: Colors.white,
-              padding:  EdgeInsets.symmetric(horizontal:UIDefine.getScreenWidth(5)),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Flexible(
-                    child: Stack(alignment: Alignment.center, children: [
-                      Lottie.asset(AppAnimationPath.achievementUnlockAnimation,
-                          fit: BoxFit.contain),
-                      Positioned(
-                          top: UIDefine.getScreenHeight(22.5),
-                          child: MedalIconWidget(
-                            medal: code.name,
-                            size: UIDefine.getScreenWidth(52.5),
-                          )),
-                      Positioned(
-                          bottom: 0,
-                          left: UIDefine.getScreenWidth(10),
-                          right: UIDefine.getScreenWidth(10),
-                          child: _buildAchieveInfo(context))
-                    ]),
-                  ),
-                  LoginButtonWidget(
+            child: Stack(alignment: Alignment.center, children: [
+              Container(
+                color: Colors.white,
+                width: UIDefine.getWidth(),
+                height: UIDefine.getHeight(),
+              ),
+              Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  child: Lottie.asset(
+                      AppAnimationPath.achievementUnlockAnimation,
+                      fit: BoxFit.contain)),
+              Positioned(
+                  top: UIDefine.getScreenHeight(22.5),
+                  child: MedalIconWidget(
+                    medal: code.name,
+                    size: UIDefine.getScreenWidth(52.5),
+                  )),
+              Positioned(
+                  bottom: 0,
+                  left: UIDefine.getScreenWidth(10),
+                  right: UIDefine.getScreenWidth(10),
+                  child: _buildAchieveInfo(context)),
+              Positioned(
+                  bottom: 2,
+                  child: LoginButtonWidget(
                     isFlip: true,
                     width: UIDefine.getScreenWidth(40),
                     btnText: tr('OK'),
                     onPressed: () => {BaseViewModel().popPage(context)},
-                  ),
-                  _buildSpace(height: 2),
-                ],
-              ),
-            )));
+                  ))
+            ])));
   }
 
   Widget _buildAchieveInfo(BuildContext context) {
@@ -87,6 +87,13 @@ class AchievementAchieveFinishPage extends StatelessWidget {
             fontWeight: FontWeight.w600),
       ),
       _buildSpace(height: 4),
+      LoginButtonWidget(
+        isFlip: true,
+        width: UIDefine.getScreenWidth(40),
+        btnText: tr('OK'),
+        onPressed: () => {BaseViewModel().popPage(context)},
+      ),
+      _buildSpace(height: 1),
     ]);
   }
 
