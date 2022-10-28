@@ -5,6 +5,7 @@ import 'package:lottie/lottie.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_animation_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
+import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import '../../../constant/enum/trade_enum.dart';
 import '../../../constant/theme/app_colors.dart';
@@ -61,9 +62,9 @@ class _DivisionCellState extends State<DivisionCell> {
 
   /// 是否解鎖副本 && 開賣狀態動畫顯示
   showImg() {
-    if (widget.range.lock == true) {
+    if (widget.range.lock == true&&false) {
       return getLockImg();
-    } else if (widget.range.used == true) {
+    } else if (widget.range.used == true||true) {
       return showGif();
     } else {
       return getLevelImg();
@@ -76,7 +77,7 @@ class _DivisionCellState extends State<DivisionCell> {
       return format(AppAnimationPath.reservationAnimation, ({'level': '00'}));
     }
     return format(
-        AppAnimationPath.reservationAnimation, ({'level': '0${widget.level}','index': '0${widget.range.index + 1}'}));
+        AppAnimationPath.reservationAnimation, ({'index': NumberFormatUtil().integerTwoFormat(widget.range.index + 1)}));
   }
 
   /// 尚未開賣顯示圖
