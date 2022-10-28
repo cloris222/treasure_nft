@@ -41,3 +41,10 @@ enum VideoStrEnum{
   howToViewInvitations,
   howToViewEarnings
 }
+
+enum EarningIncomeType{
+  ALL,
+  TEAM,
+  MINE
+}
+

@@ -48,7 +48,7 @@ class CheckEarningIncomeData {
         imgUrl: json["imgUrl"],
         price: json["price"].toDouble(),
         income: json["income"].toDouble(),
-        rebate: json["rebate"].toDouble(),
+        rebate: json["rebate"]?.toDouble()??0.0,
         originImgUrl: json["originImgUrl"],
       );
 
