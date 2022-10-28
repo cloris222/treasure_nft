@@ -44,7 +44,7 @@ class OrderDetailViewModel extends BaseListViewModel {
         imageUrl: data.imgUrl,
         price: data.price.toString(),
           bShowPriceAtEnd:true,
-        dataList: _getItemData(data.orderNo, data.sellerName, data.income,data.rebate),
+        dataList: _getItemData( data.sellerName,data.orderNo, data.income,data.rebate),
       ),
     );
   }
