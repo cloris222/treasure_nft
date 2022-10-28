@@ -18,6 +18,13 @@ class LevelBonusData {
     required this.nextLevelBonusPct,
     required this.maxLevel,
     required this.bonus,
+    required this.tradeBonus,
+    required this.nextLevelTradeBonus,
+    required this.nextLevelTradeBonusPct,
+    required this.moneyBoxExpireTime,
+    this.moneyBoxExpireDate,
+    required this.tradeMoneyBoxExpireTime,
+    this.tradeMoneyBoxExpireDate,
   });
 
   int userLevel;
@@ -37,6 +44,27 @@ class LevelBonusData {
   ///MARK: 獎勵 使用者為最大等級時 為0
   double bonus;
 
+  ///MARK: 最大交易儲金罐獎勵
+  int tradeBonus;
+
+  ///MARK: 下一等級交易儲金罐返還
+  double nextLevelTradeBonus;
+
+  ///MARK: 下一等級交易儲金罐返還%數
+  int nextLevelTradeBonusPct;
+
+  ///MARK: 儲金罐過期時間
+  int moneyBoxExpireTime;
+
+  ///MARK: 儲金罐過期日
+  String? moneyBoxExpireDate;
+
+  ///MARK: 交易儲金罐過期時間
+  int tradeMoneyBoxExpireTime;
+
+  ///MARK: 交易儲金罐過期日
+  String? tradeMoneyBoxExpireDate;
+
   factory LevelBonusData.fromJson(Map<String, dynamic> json) => LevelBonusData(
         userLevel: json["userLevel"],
         nextLevel: json["nextLevel"],
@@ -44,6 +72,13 @@ class LevelBonusData {
         nextLevelBonusPct: json["nextLevelBonusPCT"],
         maxLevel: json["maxLevel"],
         bonus: json["bonus"].toDouble(),
+        tradeBonus: json["tradeBonus"],
+        nextLevelTradeBonus: json["nextLevelTradeBonus"].toDouble(),
+        nextLevelTradeBonusPct: json["nextLevelTradeBonusPCT"],
+        moneyBoxExpireTime: json["moneyBoxExpireTime"],
+        moneyBoxExpireDate: json["moneyBoxExpireDate"],
+        tradeMoneyBoxExpireTime: json["tradeMoneyBoxExpireTime"],
+        tradeMoneyBoxExpireDate: json["tradeMoneyBoxExpireDate"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -53,5 +88,12 @@ class LevelBonusData {
         "nextLevelBonusPCT": nextLevelBonusPct,
         "maxLevel": maxLevel,
         "bonus": bonus,
+        "tradeBonus": tradeBonus,
+        "nextLevelTradeBonus": nextLevelTradeBonus,
+        "nextLevelTradeBonusPCT": nextLevelTradeBonusPct,
+        "moneyBoxExpireTime": moneyBoxExpireTime,
+        "moneyBoxExpireDate": moneyBoxExpireDate,
+        "tradeMoneyBoxExpireTime": tradeMoneyBoxExpireTime,
+        "tradeMoneyBoxExpireDate": tradeMoneyBoxExpireDate,
       };
 }
