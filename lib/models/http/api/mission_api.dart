@@ -1,4 +1,5 @@
 import 'package:treasure_nft_project/models/http/http_manager.dart';
+import 'package:treasure_nft_project/models/http/parameter/point_record_data.dart';
 import 'package:treasure_nft_project/models/http/parameter/task_info_data.dart';
 
 import '../parameter/api_response.dart';
@@ -36,7 +37,8 @@ class MissionAPI extends HttpManager {
     }
     return result;
   }
-///MARK: 領取任務獎勵
+
+  ///MARK: 領取任務獎勵
   Future<ApiResponse> getMissionPoint({required String recordNo}) async {
     return post('/mission/take-point', data: {'recordNo': recordNo});
   }
@@ -46,4 +48,23 @@ class MissionAPI extends HttpManager {
     return post('/mission/medal-choose', data: {'code': code});
   }
 
+  Future<List<PointRecordData>> getPointRecord(
+      {int page = 1,
+      int size = 10,
+      required String startDate,
+      required String endDate}) async {
+    var response = await get('/user/points', queryParameters: {
+      'page': page,
+      'size': size,
+      'startTime': '$startDate+00:00:00',
+      'endTime': '$endDate+23:59:59'
+    });
+
+    List<PointRecordData> result = [];
+    for (Map<String, dynamic> json in response.data['pageList']) {
+      result.add(PointRecordData.fromJson(json));
+    }
+
+    return result;
+  }
 }

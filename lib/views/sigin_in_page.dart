@@ -27,15 +27,15 @@ class SignInPage extends StatelessWidget {
               return false;
             },
             child: Container(
-                alignment: Alignment.center,
                 padding: EdgeInsets.symmetric(
                     vertical: MediaQuery.of(context).padding.top,
                     horizontal: MediaQuery.of(context).padding.top),
+                alignment: Alignment.center,
                 child: GradientBolderWidget(
-                    height: UIDefine.getHeight() * 0.85,
-                    child: Column(children: [
+                    autoHeight: true,
+                    child: Column(mainAxisSize: MainAxisSize.min, children: [
                       Image.asset(AppImagePath.signInBar, fit: BoxFit.fitWidth),
-                      Flexible(child: _buildDailyBody(context))
+                      _buildDailyBody(context)
                     ])))));
   }
 
@@ -44,9 +44,9 @@ class SignInPage extends StatelessWidget {
     String currentDay = DateFormatUtil().getNowTimeWithDayFormat();
     return Container(
         margin: EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(5)),
-        height: UIDefine.getHeight(),
         child: Column(children: [
           _buildTitle(context),
+          const SizedBox(height: 5),
           Container(
             height: UIDefine.getHeight() * 0.55,
             alignment: Alignment.topCenter,
@@ -70,6 +70,7 @@ class SignInPage extends StatelessWidget {
               height: UIDefine.fontSize30,
               btnText: tr('checkin'),
               onPressed: () => _onPressSignIn(context)),
+          const SizedBox(height: 5),
         ]));
   }
 

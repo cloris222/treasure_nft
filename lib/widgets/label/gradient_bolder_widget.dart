@@ -49,32 +49,14 @@ class GradientBolderWidget extends StatelessWidget {
 
   ///MARK: 自適應高度
   Widget _buildAutoHeight() {
-    return Stack(children: [
-      Container(
-          width: width ?? UIDefine.getWidth(),
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: child),
-      Positioned(
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0,
-        child: Container(
-            alignment: Alignment.center,
-            decoration: AppStyle().baseGradient(radius: radius),
-            width: width ?? UIDefine.getWidth(),
-            child: const Text('')),
+    return Container(
+      decoration: AppStyle().baseGradient(radius: radius),
+      padding: EdgeInsets.all(bolderWith),
+      child: Container(
+        decoration: AppStyle()
+            .styleColorsRadiusBackground(color: Colors.white, radius: radius),
+        child: child,
       ),
-      Positioned(
-          top: bolderWith,
-          bottom: bolderWith,
-          left: bolderWith,
-          right: bolderWith,
-          child: Container(
-              alignment: Alignment.center,
-              decoration: AppStyle().styleColorsRadiusBackground(
-                  color: Colors.white, radius: radius),
-              child: child))
-    ]);
+    );
   }
 }
