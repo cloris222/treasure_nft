@@ -13,7 +13,13 @@ class CustomDatePickerWidget extends StatefulWidget {
   const CustomDatePickerWidget({
     super.key,
     this.initType,
-    this.typeList = Search.values,
+    this.typeList = const [
+      Search.All,
+      Search.Today,
+      Search.Yesterday,
+      Search.SevenDays,
+      Search.ThirtyDays
+    ],
     required this.dateCallback,
     this.typeCallback,
   });
@@ -60,15 +66,19 @@ class CustomDatePickerState extends State<CustomDatePickerWidget> {
               width: UIDefine.getWidth(),
               height: UIDefine.getScreenHeight(5),
               decoration: TeamMemberViewModel().setBoxDecoration(),
-              child: Row(children: [
-                getPadding(1),
-                Image.asset(AppImagePath.dateIcon),
-                getPadding(1),
-                Text(
-                  endDate == '' ? tr('select_date') : '$startDate ~ $endDate',
-                  style: const TextStyle(color: AppColors.textGrey),
-                )
-              ]))),
+              padding:
+                  EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(2)),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      endDate == ''
+                          ? tr('select_date')
+                          : '$startDate ~ $endDate',
+                      style: const TextStyle(color: AppColors.textGrey),
+                    ),
+                    Image.asset(AppImagePath.dateIcon),
+                  ]))),
 
       getPadding(2),
       SizedBox(
@@ -110,21 +120,12 @@ class CustomDatePickerState extends State<CustomDatePickerWidget> {
         return tr('day7');
       case Search.ThirtyDays:
         return tr('day30');
-    }
-  }
-
-  String setTypeCallback(Search type) {
-    switch (type) {
-      case Search.All:
-        return tr('all');
-      case Search.Today:
-        return tr('today');
-      case Search.Yesterday:
-        return tr('yesterday');
-      case Search.SevenDays:
-        return tr('day7');
-      case Search.ThirtyDays:
-        return tr('day30');
+      case Search.ThisMonth:
+        return tr('date_month');
+      case Search.ThisWeek:
+        return tr('date_week');
+      case Search.SelfChoose:
+        return '使用者自選';
     }
   }
 
@@ -138,9 +139,13 @@ class CustomDatePickerState extends State<CustomDatePickerWidget> {
                   DateFormatUtil().getTimeWithDayFormat(time: value?.start),
               endDate = DateFormatUtil().getTimeWithDayFormat(time: value?.end),
             })
-        .then((value) async => {
-              widget.dateCallback(startDate, endDate),
-            });
+        .then((value) async {
+      currentType = Search.SelfChoose;
+      if (widget.typeCallback != null) {
+        widget.typeCallback!(currentType);
+      }
+      widget.dateCallback(startDate, endDate);
+    });
   }
 
   void _onPressChoose(Search type) {
@@ -169,6 +174,18 @@ class CustomDatePickerState extends State<CustomDatePickerWidget> {
         case Search.ThirtyDays:
           startDate = DateFormatUtil().getBeforeDays(30);
           endDate = DateFormatUtil().getTimeWithDayFormat();
+          break;
+        case Search.ThisWeek:
+          startDate = DateFormatUtil().getBeforeDays(6);
+          endDate = DateFormatUtil().getTimeWithDayFormat();
+          break;
+        case Search.ThisMonth:
+          startDate = DateFormatUtil().getCurrentMonthFirst();
+          endDate = DateFormatUtil().getCurrentMonthLast();
+          break;
+        case Search.SelfChoose:
+
+          ///MARK:不會觸發
           break;
       }
       widget.dateCallback(startDate, endDate);

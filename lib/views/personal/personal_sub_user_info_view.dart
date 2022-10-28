@@ -17,10 +17,16 @@ import 'level/level_point_page.dart';
 
 class PersonalSubUserInfoView extends StatelessWidget {
   const PersonalSubUserInfoView(
-      {Key? key, this.showLevelInfo = false, this.userLevelInfo})
+      {Key? key,
+      this.showLevelInfo = false,
+      this.userLevelInfo,
+      this.enableLevel = true,
+      this.enablePoint = true})
       : super(key: key);
   final bool showLevelInfo;
   final CheckLevelInfo? userLevelInfo;
+  final bool enableLevel;
+  final bool enablePoint;
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +40,11 @@ class PersonalSubUserInfoView extends StatelessWidget {
     }
     return Stack(children: [
       Container(
-        alignment: Alignment.topCenter,
-        width: UIDefine.getWidth(),
-        padding:  const EdgeInsets.all(20),
-        decoration: BoxDecoration(image: image),
-        child: _buildFloatView(context)
-      ),
+          alignment: Alignment.topCenter,
+          width: UIDefine.getWidth(),
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(image: image),
+          child: _buildFloatView(context)),
     ]);
   }
 
@@ -170,11 +175,15 @@ class PersonalSubUserInfoView extends StatelessWidget {
   }
 
   void _showLevelInfoPage(BuildContext context) {
-    BaseViewModel().pushPage(context, const LevelDetailPage());
+    if (enableLevel) {
+      BaseViewModel().pushPage(context, const LevelDetailPage());
+    }
   }
 
-  _showPointPage(BuildContext context) {
-    BaseViewModel().pushPage(context, const LevelPointPage());
+  void _showPointPage(BuildContext context) {
+    if (enablePoint) {
+      BaseViewModel().pushPage(context, const LevelPointPage());
+    }
   }
 
   double getPointPercentage() {

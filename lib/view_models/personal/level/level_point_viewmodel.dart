@@ -13,6 +13,7 @@ class LevelPointViewModel extends BaseListViewModel {
 
   String startDate = '';
   String endDate = '';
+  Search currentType = Search.Today;
 
   void initState() {
     startDate = DateFormatUtil().getTimeWithDayFormat();
@@ -35,29 +36,34 @@ class LevelPointViewModel extends BaseListViewModel {
   Widget buildTopView() {
     return Column(
       children: [
-        const PersonalSubUserInfoView(),
+        const PersonalSubUserInfoView(enablePoint: false),
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: CustomDatePickerWidget(
-            dateCallback: onDataCallBack,
+            typeCallback: _onTypeCallBack,
+            dateCallback: _onDataCallBack,
             typeList: const [
               Search.Today,
               Search.Yesterday,
-              Search.SevenDays,
-              Search.ThirtyDays
+              Search.ThisWeek,
+              Search.ThisMonth
             ],
-            initType: Search.Today,
+            initType: currentType,
           ),
         )
       ],
     );
   }
 
-  void onDataCallBack(String startDate, String endDate) {
+  void _onDataCallBack(String startDate, String endDate) {
     if (this.startDate != startDate || this.endDate != endDate) {
       this.startDate = startDate;
       this.endDate = endDate;
       initListView();
     }
+  }
+
+  void _onTypeCallBack(Search type) {
+    currentType = type;
   }
 }

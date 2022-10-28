@@ -122,6 +122,21 @@ class DateFormatUtil {
             '$year-${NumberFormatUtil().integerTwoFormat(month)}-${NumberFormatUtil().integerTwoFormat(index + 1)}');
   }
 
+  ///MARK: 取得當月第一天
+  String getCurrentMonthFirst() {
+    var year = _getNow().year;
+    var month = _getNow().month;
+    return '$year-${NumberFormatUtil().integerTwoFormat(month)}-${NumberFormatUtil().integerTwoFormat(1)}';
+  }
+
+  ///MARK: 取得當月最後一天
+  String getCurrentMonthLast() {
+    var year = _getNow().year;
+    var month = _getNow().month;
+    int days = DateTime(year, month + 1, 0).day;
+    return '$year-${NumberFormatUtil().integerTwoFormat(month)}-${NumberFormatUtil().integerTwoFormat(days)}';
+  }
+
   String getBeforeDays(int day) {
     DateTime dateTime = _getNow().subtract(Duration(days: day));
     return getTimeWithDayFormat(time: dateTime);

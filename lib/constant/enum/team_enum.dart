@@ -4,4 +4,7 @@ enum Search {
   Yesterday,
   SevenDays,
   ThirtyDays,
+  ThisWeek,
+  ThisMonth,
+  SelfChoose,
 }
