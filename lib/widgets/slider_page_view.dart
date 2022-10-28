@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../constant/call_back_function.dart';
 import '../constant/theme/app_colors.dart';
 import '../constant/ui_define.dart';
 import 'label/flex_two_text_widget.dart';
@@ -11,6 +12,7 @@ class SliderPageView extends StatefulWidget {
     required this.titles,
     required this.initialPage,
     required this.children,
+    this.getPageIndex,
   }) : super(key: key);
 
   /// button title
@@ -18,6 +20,7 @@ class SliderPageView extends StatefulWidget {
   final int initialPage;
   final List<Widget> children;
   final Widget topView;
+  final onGetIntFunction? getPageIndex;
 
   @override
   State<SliderPageView> createState() => _SliderPageViewState();
@@ -107,6 +110,9 @@ class _SliderPageViewState extends State<SliderPageView> {
   void _onPageChange(int pageIndex) {
     setState(() {
       currentType = widget.titles[pageIndex];
+      if (widget.getPageIndex != null) {
+        widget.getPageIndex!(pageIndex);
+      }
     });
   }
 }

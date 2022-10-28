@@ -12,13 +12,15 @@ import 'package:treasure_nft_project/views/home/widget/search_action_button.dart
 class CustomDatePickerWidget extends StatefulWidget {
   const CustomDatePickerWidget({
     super.key,
-    this.initType = Search.All,
+    this.initType,
     this.typeList = Search.values,
     required this.dateCallback,
+    this.typeCallback,
   });
 
   final onDateFunction dateCallback;
-  final Search initType;
+  final onDateTypeFunction? typeCallback;
+  final Search? initType;
   final List<Search> typeList;
 
   @override
@@ -36,7 +38,7 @@ class CustomDatePickerState extends State<CustomDatePickerWidget> {
   void initState() {
     super.initState();
     // currentType = widget.initType;
-    _onPressChoose(widget.initType);
+    _onPressChoose(widget.initType ?? Search.All);
   }
 
   Widget getPadding(double val) {
@@ -56,33 +58,21 @@ class CustomDatePickerState extends State<CustomDatePickerWidget> {
           },
           child: Container(
               width: UIDefine.getWidth(),
-              height: UIDefine.getScreenHeight(8),
+              height: UIDefine.getScreenHeight(5),
               decoration: TeamMemberViewModel().setBoxDecoration(),
               child: Row(children: [
                 getPadding(1),
                 Image.asset(AppImagePath.dateIcon),
                 getPadding(1),
                 Text(
-                  startDate,
-                  style: const TextStyle(color: AppColors.textGrey),
-                ),
-                getPadding(1),
-                Visibility(
-                    visible: endDate != '',
-                    child: const Text(
-                      '～',
-                      style: TextStyle(color: AppColors.textGrey),
-                    )),
-                getPadding(1),
-                Text(
-                  endDate,
+                  endDate == '' ? tr('select_date') : '$startDate ~ $endDate',
                   style: const TextStyle(color: AppColors.textGrey),
                 )
               ]))),
 
       getPadding(2),
       SizedBox(
-          height: UIDefine.getScreenHeight(8),
+          height: UIDefine.getScreenHeight(5),
           width: UIDefine.getWidth(),
           child: ListView.separated(
               scrollDirection: Axis.horizontal,
@@ -156,6 +146,9 @@ class CustomDatePickerState extends State<CustomDatePickerWidget> {
   void _onPressChoose(Search type) {
     setState(() {
       currentType = type;
+      if (widget.typeCallback != null) {
+        widget.typeCallback!(type);
+      }
       startDate = '';
       endDate = '';
       switch (type) {

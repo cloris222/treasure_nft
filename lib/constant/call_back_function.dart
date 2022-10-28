@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../models/http/parameter/sign_in_data.dart';
 import 'enum/task_enum.dart';
+import 'enum/team_enum.dart';
 
 ///MARK: 常用call back
 typedef onClickFunction = void Function();
@@ -10,7 +11,7 @@ typedef onGetDoubleFunction = void Function(double value);
 typedef onGetStringFunction = void Function(String value);
 typedef onGetBoolFunction = void Function(bool value);
 typedef onDateFunction = void Function(String startDate, String endDate);
-
+typedef onDateTypeFunction = void Function(Search type);
 
 ///MARK: setState
 typedef ViewChange = void Function(VoidCallback fn);
