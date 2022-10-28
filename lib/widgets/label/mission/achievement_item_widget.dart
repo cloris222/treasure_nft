@@ -39,21 +39,26 @@ class AchievementItemWidget extends StatelessWidget {
           borderLine: 2),
       child: Container(
           margin: const EdgeInsets.all(15),
-          height: UIDefine.fontSize20 * 8,
           child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ///MARK: 任務內容
-                Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Image.asset(
-                    getImagePath(status, index),
-                    height: UIDefine.fontSize20 * 4,
-                    fit: BoxFit.fitHeight,
-                  ),
-                  const SizedBox(width: 5),
-                  Flexible(child: _buildTaskInfo(context, status, code))
-                ]),
+                SizedBox(
+                  width: UIDefine.getWidth(),
+                  height: UIDefine.fontSize20 * 5,
+                  child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.asset(
+                          getImagePath(status, index),
+                          height: UIDefine.fontSize20 * 4,
+                          fit: BoxFit.fitHeight,
+                        ),
+                        const SizedBox(width: 5),
+                        Flexible(child: _buildTaskInfo(context, status, code))
+                      ]),
+                ),
                 FlexTwoTextWidget(
                     alignment: Alignment.topLeft,
                     fontSize: 14,

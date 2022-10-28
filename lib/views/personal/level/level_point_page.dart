@@ -23,12 +23,18 @@ class _LevelPointPageState extends State<LevelPointPage> {
   @override
   void initState() {
     super.initState();
-    viewModel = LevelPointViewModel(onListChange: () => setState(() {}));
+    viewModel = LevelPointViewModel(onListChange: () {
+      if (mounted) {
+        setState(() {});
+      }
+    });
+    viewModel.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return CustomAppbarView(
+      needScrollView: false,
       title: tr('pointRecord'),
       body: _buildBody(),
       type: AppNavigationBarType.typePersonal,
@@ -36,24 +42,6 @@ class _LevelPointPageState extends State<LevelPointPage> {
   }
 
   Widget _buildBody() {
-    return Column(
-      children: [
-        PersonalSubUserInfoView(),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 20),
-          child: CustomDatePickerWidget(
-            dateCallback: viewModel.onDataCallBack,
-            typeList: const [
-              Search.Today,
-              Search.Yesterday,
-              Search.SevenDays,
-              Search.ThirtyDays
-            ],
-            initType: Search.Today,
-          ),
-        ),
-        viewModel.buildListView()
-      ],
-    );
+    return viewModel.buildListView();
   }
 }

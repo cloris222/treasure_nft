@@ -13,12 +13,14 @@ class CustomAppbarView extends StatelessWidget {
       required this.title,
       required this.body,
       this.onPressed,
-      this.type})
+      this.type,
+      this.needScrollView = true})
       : super(key: key);
   final String title;
   final Widget body;
   final VoidCallback? onPressed;
   final AppNavigationBarType? type;
+  final bool needScrollView;
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +32,20 @@ class CustomAppbarView extends StatelessWidget {
                 },
             title),
         body: Stack(children: [
-          SingleChildScrollView(
-              child: Column(children: [
-            const SizedBox(
-              height: 5,
-            ),
-            body
-          ])),
+          needScrollView
+              ? SingleChildScrollView(
+                  child: Column(children: [
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  body
+                ]))
+              : Container(
+                  height: UIDefine.getHeight(),
+                  width: UIDefine.getWidth(),
+                  padding: const EdgeInsets.only(top: 5),
+                  child: body,
+                ),
           Positioned(
               top: 0,
               child: Container(
