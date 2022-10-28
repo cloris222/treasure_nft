@@ -62,9 +62,9 @@ class _DivisionCellState extends State<DivisionCell> {
 
   /// 是否解鎖副本 && 開賣狀態動畫顯示
   showImg() {
-    if (widget.range.lock == true&&false) {
+    if (widget.range.lock == true) {
       return getLockImg();
-    } else if (widget.range.used == true||true) {
+    } else if (widget.range.used == true) {
       return showGif();
     } else {
       return getLevelImg();
