@@ -3,16 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
-import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/personal/orders/order_detail_page.dart';
 import 'package:treasure_nft_project/views/personal/personal_sub_user_info_view.dart';
-import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
-
-import '../../../constant/call_back_function.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
-import '../../../widgets/label/icon/base_icon_widget.dart';
 import '../../custom_appbar_view.dart';
 
 ///MARK: 分享
@@ -75,7 +70,7 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
           ),
         ),
         Container(
-          height: UIDefine.getHeight() / 7,
+          height: UIDefine.getHeight() / 8,
           decoration: AppStyle().styleColorBorderBackground(
             radius: 15,
             color: AppColors.bolderGrey,
@@ -83,8 +78,10 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
             borderLine: 2,
           ),
           child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 10,vertical: 15),
+            margin:  const EdgeInsets.symmetric(horizontal: 10),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
