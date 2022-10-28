@@ -88,7 +88,12 @@ class DateFormatUtil {
 
   /// 現在時間 ex: 2022-10-18
   String getNowTimeWithDayFormat() {
-    return _buildDataFormat(strFormat: 'yyyy-MM-dd', time: _getNow());
+    return getTimeWithDayFormat(time: _getNow());
+  }
+
+  /// ex: 2022-10-18
+  String getTimeWithDayFormat({DateTime? time}) {
+    return _buildDataFormat(strFormat: 'yyyy-MM-dd', time: time ?? _getNow());
   }
 
   /// 現在時間 ex: 2022-10-18
@@ -110,5 +115,10 @@ class DateFormatUtil {
         days,
         (index) =>
             '$year-${NumberFormatUtil().integerTwoFormat(month)}-${NumberFormatUtil().integerTwoFormat(index + 1)}');
+  }
+
+  String getBeforeDays(int day) {
+    DateTime dateTime = _getNow().subtract(Duration(days: day));
+    return getTimeWithDayFormat(time: dateTime);
   }
 }
