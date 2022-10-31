@@ -44,4 +44,21 @@ class UserInfoAPI extends HttpManager {
   Future<ApiResponse> setSignIn() async {
     return post('/user/sign-in');
   }
+
+  ///MARK: 更新會員資訊
+  Future<ApiResponse> updatePersonInfo({ // 所有req欄位皆是 '非必須'
+    required String name, required String phoneCountry, required String phone, required String password,
+    required String oldPassword, required String gender, required String birthday,
+  }) async {
+    return await post('/user/update', data: {
+      'name': name,
+      'phoneCountry': phoneCountry,
+      'phone': phone,
+      'password': password,
+      'oldPassword': oldPassword,
+      'gender': gender,
+      'birthday': birthday
+    });
+  }
+
 }

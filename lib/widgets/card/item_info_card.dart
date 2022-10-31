@@ -86,7 +86,7 @@ class ItemInfoCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   /// 商品圖
-                  imageUrl!=''? // test 現在FAILED的會沒有圖跟名稱 是對還不對啊
+                  imageUrl!=''?
                   Image.network(imageUrl, width: UIDefine.getScreenWidth(22), height: UIDefine.getScreenWidth(22))
                   :
                   const SizedBox(),
@@ -188,7 +188,7 @@ class ItemInfoCard extends StatelessWidget {
               Row(
                 children: [
                   Visibility(
-                      visible: _checkTitleShowCoins(dataList[i]), // test 這要確認欄位是什麼 是否每隻API都是同名稱
+                      visible: _checkTitleShowCoins(dataList[i]),
                       child: Image.asset('assets/icon/coins/icon_tether_01.png', width: UIDefine.getScreenWidth(3.7), height: UIDefine.getScreenWidth(3.7))
                   ),
                   const SizedBox(width: 8),

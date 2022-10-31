@@ -92,7 +92,7 @@ class _CollectionMainView extends State<CollectionMainView> {
     return IconTextButtonWidget(
         btnText: tr("depositNFT"),
         iconPath: 'assets/icon/btn/btn_card_01_nor.png',
-        onPressed: () { viewModel.pushPage(context, DepositNftMainView()); } // test 這要加上跳頁
+        onPressed: () { viewModel.pushPage(context, DepositNftMainView()); }
     );
   }
 

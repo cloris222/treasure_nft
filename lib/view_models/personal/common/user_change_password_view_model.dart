@@ -150,7 +150,7 @@ class UserChangePasswordViewModel extends BaseViewModel {
       .updatePassword(oldPassword: oldPasswordController.text, newPassword: newPasswordController.text)
       .then((value) async {
         SimpleCustomDialog(context, mainText: tr('success')).show();
-        pushPage(context, PersonalMainView());
+        pushPage(context, const PersonalMainView());
       });
 
     }

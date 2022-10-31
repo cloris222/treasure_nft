@@ -240,7 +240,7 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
                       Image.asset('assets/icon/coins/icon_tether_01.png', width: UIDefine.getScreenWidth(5), height: UIDefine.getScreenWidth(5)),
                       const SizedBox(width: 10),
                       Text(
-                        levelData.buyRangeStart.toString() + ' ~ ' + levelData.buyRangeEnd.toString(), // test 哪裡來的數字
+                        levelData.buyRangeStart.toString() + ' ~ ' + levelData.buyRangeEnd.toString(),
                         style: TextStyle(
                             color: AppColors.textBlack, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w600),
                       )

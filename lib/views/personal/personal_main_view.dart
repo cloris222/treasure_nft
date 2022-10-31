@@ -30,31 +30,33 @@ class _PersonalMainViewState extends State<PersonalMainView> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: Container(
-            color: Colors.white,
-            child: Column(children: [
-              const DomainBar(),
+    return Scaffold( // 加上Scaffold才能在修改完成時跳回來，不然InkWell會拋錯沒有Material
+      body: SingleChildScrollView(
+          child: Container(
+              color: Colors.white,
+              child: Column(children: [
+                const DomainBar(),
 
-              ///MARK: 不可以上const
-              PersonalSubUserInfoView(showLevelInfo: true),
-              Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(children: [
-                    PersonalSubLevelView(
-                      userProperty: viewModel.userProperty,
-                      levelInfo: viewModel.levelInfo,
-                      onViewUpdate: _onViewUpdate,
-                    ),
-                    _buildLine(),
-                    PersonalSubOrderView(
-                        userOrderInfo: viewModel.userOrderInfo),
-                    _buildLine(),
-                    PersonalSubTeamView(levelInfo: viewModel.levelInfo),
-                    _buildLine(),
-                    const PersonalSubCommonView(),
-                  ]))
-            ])));
+                ///MARK: 不可以上const
+                PersonalSubUserInfoView(showLevelInfo: true),
+                Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(children: [
+                      PersonalSubLevelView(
+                        userProperty: viewModel.userProperty,
+                        levelInfo: viewModel.levelInfo,
+                        onViewUpdate: _onViewUpdate,
+                      ),
+                      _buildLine(),
+                      PersonalSubOrderView(
+                          userOrderInfo: viewModel.userOrderInfo),
+                      _buildLine(),
+                      PersonalSubTeamView(levelInfo: viewModel.levelInfo),
+                      _buildLine(),
+                      const PersonalSubCommonView(),
+                    ]))
+              ])))
+    );
   }
 
   Widget _buildLine() {
