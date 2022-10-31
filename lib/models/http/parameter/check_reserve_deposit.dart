@@ -21,7 +21,7 @@ class CheckReserveDeposit {
   int deposit;
   double reserveBalance;
   int tradingTime;
-  int reward;
+  double reward;
 
   factory CheckReserveDeposit.fromJson(Map<String, dynamic> json) =>
       CheckReserveDeposit(
