@@ -231,26 +231,19 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
               const SizedBox(
                 height: 10,
               ),
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                      width: UIDefine.getWidth() / 6.5,
-                      height: UIDefine.getHeight() / 25,
-                      decoration: AppStyle().styleColorBorderBackground(
-                        radius: 7,
-                        color: Colors.black,
-                        backgroundColor: Colors.transparent,
-                        borderLine: 2,
-                      )),
-                  Text(
-                    tr('trade-rules'),
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: UIDefine.fontSize14),
-                  )
-                ],
-              ),
+              Container(
+                padding: const EdgeInsets.all(2),
+                decoration: AppStyle().styleColorBorderBackground(
+                  radius: 7,
+                  color: Colors.black,
+                  backgroundColor: Colors.transparent,
+                  borderLine: 2,
+                ),
+                child: Text(
+                  tr('trade-rules'),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: UIDefine.fontSize14),
+                ),),
             ],
           ),
         ));

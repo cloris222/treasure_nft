@@ -142,7 +142,7 @@ class _TradeMainViewState extends State<TradeMainView> {
             TradeRuleDialog(context).show();
           },
           child: Container(
-              height: UIDefine.getHeight() / 25,
+            padding: const EdgeInsets.all(2),
               decoration: AppStyle().styleColorBorderBackground(
                 radius: 7,
                 color: Colors.black,
