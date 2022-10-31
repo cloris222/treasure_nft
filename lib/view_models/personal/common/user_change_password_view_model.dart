@@ -2,7 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/views/personal/personal_main_view.dart';
+import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 
 import '../../../constant/call_back_function.dart';
 import '../../../constant/enum/login_enum.dart';
@@ -77,7 +79,9 @@ class UserChangePasswordViewModel extends BaseViewModel {
     if (newPasswordController.text.isNotEmpty &&
         rePasswordController.text.isNotEmpty) {
       rePasswordData = ValidateResultData(
-          result: newPasswordController.text.compareTo(rePasswordController.text) == 0,
+          result:
+              newPasswordController.text.compareTo(rePasswordController.text) ==
+                  0,
           message: tr('rule_confirmPW'));
     } else {
       newPasswordData = ValidateResultData();
@@ -88,11 +92,12 @@ class UserChangePasswordViewModel extends BaseViewModel {
   /// MARK: 檢查驗證碼是否正確
   void onPressCheckVerify(BuildContext context) async {
     if (emailCodeController.text.isNotEmpty) {
-      await AuthAPI(onConnectFail: (message) => onBaseConnectFail(context, message)).checkAuthCodeMail(
-          mail: GlobalData.userInfo.email,
-          action: LoginAction.updatePsw,
-          authCode: emailCodeController.text
-      );
+      await AuthAPI(
+              onConnectFail: (message) => onBaseConnectFail(context, message))
+          .checkAuthCodeMail(
+              mail: GlobalData.userInfo.email,
+              action: LoginAction.updatePsw,
+              authCode: emailCodeController.text);
       setState(() {
         checkEmail = true;
       });
@@ -108,7 +113,7 @@ class UserChangePasswordViewModel extends BaseViewModel {
   ///MARK: 寄出驗證碼
   void onPressSendCode(BuildContext context) async {
     await AuthAPI(
-        onConnectFail: (message) => onBaseConnectFail(context, message))
+            onConnectFail: (message) => onBaseConnectFail(context, message))
         .sendAuthActionMail(action: LoginAction.updatePsw);
     SimpleCustomDialog(context, mainText: tr('pleaseGotoMailboxReceive'))
         .show();
@@ -128,7 +133,6 @@ class UserChangePasswordViewModel extends BaseViewModel {
             ValidateResultData(result: emailCodeController.text.isNotEmpty);
       });
       return;
-
     } else {
       ///MARK: 檢查是否驗證過信箱
       if (!checkEmail) {
@@ -147,12 +151,14 @@ class UserChangePasswordViewModel extends BaseViewModel {
 
       ///MARK: 修改密碼API
       AdminAPI(onConnectFail: (message) => onBaseConnectFail(context, message))
-      .updatePassword(oldPassword: oldPasswordController.text, newPassword: newPasswordController.text)
-      .then((value) async {
+          .updatePassword(
+              oldPassword: oldPasswordController.text,
+              newPassword: newPasswordController.text)
+          .then((value) async {
         SimpleCustomDialog(context, mainText: tr('success')).show();
-        pushPage(context, PersonalMainView());
+        pushPage(
+            context, const MainPage(type: AppNavigationBarType.typePersonal));
       });
-
     }
   }
 }

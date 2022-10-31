@@ -44,4 +44,11 @@ class UserInfoAPI extends HttpManager {
   Future<ApiResponse> setSignIn() async {
     return post('/user/sign-in');
   }
+
+  Future<ApiResponse> setUserAvtar(String avatarUrl) {
+    return put('/user/change-photo', data: {'photoUrl': avatarUrl});
+  }
+  Future<ApiResponse> setUserBanner(String bannerUrl) {
+    return put('/user/change-banner', data: {'photoUrl': bannerUrl});
+  }
 }

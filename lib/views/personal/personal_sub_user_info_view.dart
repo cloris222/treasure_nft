@@ -5,10 +5,12 @@ import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/label/custom_linear_progress.dart';
+import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
 import '../../models/http/parameter/check_level_info.dart';
 import '../../utils/number_format_util.dart';
+import '../../widgets/dialog/edit_avatar_dialog.dart';
 import '../../widgets/label/icon/level_icon_widget.dart';
 import '../../widgets/label/icon/medal_icon_widget.dart';
 import '../login/circle_network_icon.dart';
@@ -21,12 +23,18 @@ class PersonalSubUserInfoView extends StatelessWidget {
       this.showLevelInfo = false,
       this.userLevelInfo,
       this.enableLevel = true,
-      this.enablePoint = true})
+      this.enablePoint = true,
+      this.enableModify = false,
+      this.onViewUpdate})
       : super(key: key);
   final bool showLevelInfo;
   final CheckLevelInfo? userLevelInfo;
   final bool enableLevel;
   final bool enablePoint;
+
+  ///MARK: 修改頭像等
+  final bool enableModify;
+  final onClickFunction? onViewUpdate;
 
   @override
   Widget build(BuildContext context) {
@@ -39,12 +47,15 @@ class PersonalSubUserInfoView extends StatelessWidget {
           image: AssetImage(AppImagePath.defaultBanner), fit: BoxFit.fill);
     }
     return Stack(children: [
-      Container(
-          alignment: Alignment.topCenter,
-          width: UIDefine.getWidth(),
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(image: image),
-          child: _buildFloatView(context)),
+      GestureDetector(
+        onTap: () => _showModifyBanner(context),
+        child: Container(
+            alignment: Alignment.topCenter,
+            width: UIDefine.getWidth(),
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(image: image),
+            child: _buildFloatView(context)),
+      ),
     ]);
   }
 
@@ -74,16 +85,19 @@ class PersonalSubUserInfoView extends StatelessWidget {
                   )
                 : const Text(''),
           ),
-          Container(
-            margin: const EdgeInsets.only(bottom: 15),
-            child: GlobalData.userInfo.photoUrl.isNotEmpty
-                ? CircleNetworkIcon(
-                    networkUrl: GlobalData.userInfo.photoUrl, radius: 35)
-                : Image.asset(
-                    AppImagePath.avatarImg,
-                    width: 70,
-                    height: 70,
-                  ),
+          GestureDetector(
+            onTap: () => _showModifyAvatar(context),
+            child: Container(
+              margin: const EdgeInsets.only(bottom: 15),
+              child: GlobalData.userInfo.photoUrl.isNotEmpty
+                  ? CircleNetworkIcon(
+                      networkUrl: GlobalData.userInfo.photoUrl, radius: 35)
+                  : Image.asset(
+                      AppImagePath.avatarImg,
+                      width: 70,
+                      height: 70,
+                    ),
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -188,5 +202,25 @@ class PersonalSubUserInfoView extends StatelessWidget {
 
   double getPointPercentage() {
     return userLevelInfo?.getPointPercentage() ?? 0;
+  }
+
+  void _showModifyBanner(BuildContext context) {
+    if (enableModify) {
+      EditAvatarDialog(context, isAvatar: false, onChange: () {
+        if (onViewUpdate != null) {
+          onViewUpdate!();
+        }
+      }).show();
+    }
+  }
+
+  void _showModifyAvatar(BuildContext context) {
+    if (enableModify) {
+      EditAvatarDialog(context, isAvatar: true, onChange: () {
+        if (onViewUpdate != null) {
+          onViewUpdate!();
+        }
+      }).show();
+    }
   }
 }

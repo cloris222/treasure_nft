@@ -17,19 +17,25 @@ import '../../custom_appbar_view.dart';
 import '../../main_page.dart';
 
 ///MARK: 個人設置
-class UserSettingPage extends StatelessWidget {
+class UserSettingPage extends StatefulWidget {
   const UserSettingPage({Key? key}) : super(key: key);
 
+  @override
+  State<UserSettingPage> createState() => _UserSettingPageState();
+}
+
+class _UserSettingPageState extends State<UserSettingPage> {
   @override
   Widget build(BuildContext context) {
     return CustomAppbarView(
         title: tr('account'),
         type: AppNavigationBarType.typePersonal,
         body: Wrap(runSpacing: 15, children: [
-          const PersonalSubUserInfoView(),
+          PersonalSubUserInfoView(
+              enableModify: true, onViewUpdate: () => setState(() {})),
           Container(
-            padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5), UIDefine.getScreenWidth(5),
-                UIDefine.getScreenWidth(5.5), 0),
+            padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5),
+                UIDefine.getScreenWidth(5), UIDefine.getScreenWidth(5.5), 0),
             child: _getGrayBolderButton(context, true),
           ),
           Container(
@@ -38,11 +44,8 @@ class UserSettingPage extends StatelessWidget {
             child: _getGrayBolderButton(context, false),
           ),
           Container(
-              padding: EdgeInsets.fromLTRB(
-                  UIDefine.getScreenWidth(5.5),
-                  UIDefine.getScreenWidth(25),
-                  UIDefine.getScreenWidth(5.5),
-                  0),
+              padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5),
+                  UIDefine.getScreenWidth(25), UIDefine.getScreenWidth(5.5), 0),
               child: LoginBolderButtonWidget(
                   btnText: tr('logout'),
                   onPressed: () => _onPressLogout(context)))
@@ -51,7 +54,7 @@ class UserSettingPage extends StatelessWidget {
 
   Widget _getGrayBolderButton(BuildContext context, bool bLockIcon) {
     return GestureDetector(
-      onTap: () => bLockIcon? _goChangePwd(context) : _goUserSetting(context),
+      onTap: () => bLockIcon ? _goChangePwd(context) : _goUserSetting(context),
       child: Container(
           decoration: const BoxDecoration(
               color: AppColors.bolderGrey,
@@ -83,7 +86,9 @@ class UserSettingPage extends StatelessWidget {
                                       height: UIDefine.getScreenWidth(6)),
                               SizedBox(width: UIDefine.getScreenWidth(3)),
                               Text(
-                                bLockIcon ? tr('changePassword') : tr('userInfo'),
+                                bLockIcon
+                                    ? tr('changePassword')
+                                    : tr('userInfo'),
                                 style: TextStyle(
                                     color: AppColors.textBlack,
                                     fontSize: UIDefine.fontSize16,

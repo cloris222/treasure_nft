@@ -6,12 +6,15 @@ import 'package:treasure_nft_project/views/personal/common/user_create_page.dart
 import 'package:treasure_nft_project/views/personal/common/user_novice_page.dart';
 import 'package:treasure_nft_project/views/personal/common/user_setting_page.dart';
 
+import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
 import '../../widgets/label/personal_param_item.dart';
 
 class PersonalSubCommonView extends StatelessWidget {
-  const PersonalSubCommonView({Key? key}) : super(key: key);
+  const PersonalSubCommonView({Key? key, required this.onViewUpdate})
+      : super(key: key);
+  final onClickFunction onViewUpdate;
 
   @override
   Widget build(BuildContext context) {
@@ -67,8 +70,9 @@ class PersonalSubCommonView extends StatelessWidget {
     BaseViewModel().pushPage(context, const UserNovicePage());
   }
 
-  void _showUserSettingPage(BuildContext context) {
-    BaseViewModel().pushPage(context, const UserSettingPage());
+  void _showUserSettingPage(BuildContext context) async {
+    await BaseViewModel().pushPage(context, const UserSettingPage());
+    onViewUpdate();
   }
 
   void _showUserCreatePage(BuildContext context) {
