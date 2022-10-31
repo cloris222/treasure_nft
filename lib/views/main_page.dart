@@ -103,14 +103,14 @@ class _MainPageState extends State<MainPage> {
       body: PageView(
         controller: pageController,
         physics: const NeverScrollableScrollPhysics(),
-        children: const [
-          ExploreMainView(),
-          CollectionMainView(),
-          TradeMainView(),
-          WalletMainView(),
-          PersonalMainView(),
-          HomeMainView(),
-          LoginMainView()
+        children: [
+          const ExploreMainView(),
+          const CollectionMainView(),
+          const TradeMainView(),
+          const WalletMainView(),
+          PersonalMainView(onViewChange: () => setState(() {})),
+          const HomeMainView(),
+          const LoginMainView()
         ],
       ),
       bottomNavigationBar: AppBottomNavigationBar(
@@ -162,7 +162,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   void _globalAction() async {
-    await BaseViewModel().pushPage(context, SettingLanguagePage());
+    await BaseViewModel().pushPage(context, const SettingLanguagePage());
     print('setState');
     setState(() {});
   }

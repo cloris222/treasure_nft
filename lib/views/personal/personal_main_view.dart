@@ -8,11 +8,14 @@ import 'package:treasure_nft_project/views/personal/personal_sub_team_view.dart'
 import 'package:treasure_nft_project/views/personal/personal_sub_user_info_view.dart';
 import 'package:treasure_nft_project/widgets/domain_bar.dart';
 
+import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../view_models/personal/personal_main_viewmodel.dart';
 
 class PersonalMainView extends StatefulWidget {
-  const PersonalMainView({Key? key}) : super(key: key);
+  const PersonalMainView({Key? key, required this.onViewChange})
+      : super(key: key);
+  final onClickFunction onViewChange;
 
   @override
   State<PersonalMainView> createState() => _PersonalMainViewState();
@@ -37,26 +40,35 @@ class _PersonalMainViewState extends State<PersonalMainView> {
               child: Column(children: [
                 const DomainBar(),
 
-                ///MARK: 不可以上const
-                PersonalSubUserInfoView(showLevelInfo: true),
-                Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(children: [
-                      PersonalSubLevelView(
-                        userProperty: viewModel.userProperty,
-                        levelInfo: viewModel.levelInfo,
-                        onViewUpdate: _onViewUpdate,
-                      ),
-                      _buildLine(),
-                      PersonalSubOrderView(
-                          userOrderInfo: viewModel.userOrderInfo),
-                      _buildLine(),
-                      PersonalSubTeamView(levelInfo: viewModel.levelInfo),
-                      _buildLine(),
-                      const PersonalSubCommonView(),
-                    ]))
-              ])))
-    );
+              ///MARK: 不可以上const
+              PersonalSubUserInfoView(
+                showLevelInfo: true,
+                enableModify: true,
+                onViewUpdate: () {
+                  setState(() {});
+                  widget.onViewChange();
+                },
+              ),
+              Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(children: [
+                    PersonalSubLevelView(
+                      userProperty: viewModel.userProperty,
+                      levelInfo: viewModel.levelInfo,
+                      onViewUpdate: _onViewUpdate,
+                    ),
+                    _buildLine(),
+                    PersonalSubOrderView(
+                        userOrderInfo: viewModel.userOrderInfo),
+                    _buildLine(),
+                    PersonalSubTeamView(levelInfo: viewModel.levelInfo),
+                    _buildLine(),
+                    PersonalSubCommonView(onViewUpdate:(){
+                      setState(() {});
+                      widget.onViewChange();
+                    }),
+                  ]))
+            ])));
   }
 
   Widget _buildLine() {

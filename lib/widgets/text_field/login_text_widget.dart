@@ -13,6 +13,7 @@ class LoginTextWidget extends StatefulWidget {
       this.enabledColor = AppColors.bolderGrey,
       this.focusedColor = AppColors.bolderGrey,
       this.initColor = AppColors.bolderGrey,
+      this.keyboardType,
       required this.controller})
       : super(key: key);
   final String hintText;
@@ -21,6 +22,7 @@ class LoginTextWidget extends StatefulWidget {
   final TextEditingController controller;
   final ValueChanged<String>? onChanged;
   final GestureTapCallback? onTap;
+  final TextInputType? keyboardType;
 
   ///控制不同狀態下的框限顏色
   final Color enabledColor; //可用狀態
@@ -47,7 +49,7 @@ class _LoginTextWidgetState extends State<LoginTextWidget> {
     return TextField(
         controller: widget.controller,
         obscureText: widget.isSecure && isPasswordVisible,
-        keyboardType: TextInputType.text,
+        keyboardType: widget.keyboardType ?? TextInputType.text,
         textInputAction: TextInputAction.next,
         onChanged: widget.onChanged,
         onTap: widget.onTap,
@@ -57,6 +59,8 @@ class _LoginTextWidgetState extends State<LoginTextWidget> {
             labelStyle: const TextStyle(color: Colors.black),
             alignLabelWithHint: true,
             contentPadding: const EdgeInsets.only(top: 0, left: 20),
+            disabledBorder: AppTheme.style.styleTextEditBorderBackground(
+                color: widget.enabledColor, radius: 10),
             enabledBorder: AppTheme.style.styleTextEditBorderBackground(
                 color: widget.enabledColor, radius: 10),
             focusedBorder: AppTheme.style.styleTextEditBorderBackground(

@@ -45,7 +45,9 @@ class HttpManager {
     result.printLog();
 
     ///MARK: 檢查結果
-    if (result.code == "G_0000" || result.code == "APP_0062" || result.code == "APP_0041") {
+    if (result.code == "G_0000" ||
+        result.code == "APP_0062" ||
+        result.code == "APP_0041") {
       return result;
     } else if ((result.code.compareTo("G_0201") == 0) ||
         (result.code.compareTo("G_0202") == 0)) {
@@ -132,15 +134,18 @@ class HttpManager {
     CancelToken? cancelToken,
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
+    bool isEncode = true,
   }) async {
     await _initDio();
     try {
       final Response response = await _dio.post(
         url,
         data: data != null
-            ? {
-                'data': [await RSAEncode.encodeLong(data)]
-              }
+            ? isEncode
+                ? {
+                    'data': [await RSAEncode.encodeLong(data)]
+                  }
+                : data
             : null,
         queryParameters: queryParameters,
         options: options,
