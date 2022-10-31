@@ -7,7 +7,7 @@ class NumberFormatUtil {
 
   ///MARK: 小數點兩位 無條件捨去
   String removeTwoPointFormat(dynamic value) {
-    return _setNumberFormat(format: '#,##0.##', value: value);
+    return removePointFormat(value, 2);
   }
 
   ///取整數
@@ -19,5 +19,24 @@ class NumberFormatUtil {
   ///取整數
   String integerTwoFormat(dynamic value) {
     return _setNumberFormat(format: '00', value: value);
+  }
+
+  String removePointFormat(dynamic value, int point) {
+    var num;
+    if (value is double) {
+      num = value;
+    } else {
+      num = double.parse(value.toString());
+    }
+    if ((num.toString().length - num.toString().lastIndexOf(".") - 1) <
+        point) {
+      return (num.toStringAsFixed(point)
+          .substring(0, num.toString().lastIndexOf(".") + point + 1)
+          .toString());
+    } else {
+      return (num.toString()
+          .substring(0, num.toString().lastIndexOf(".") + point + 1)
+          .toString());
+    }
   }
 }
