@@ -7,6 +7,7 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/personal/orders/order_detail_page.dart';
 import 'package:treasure_nft_project/views/personal/personal_sub_user_info_view.dart';
+import 'package:treasure_nft_project/views/personal/team/share_picture_style.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
@@ -290,7 +291,13 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
               SizedBox(
                 height: UIDefine.getHeight()/20,
               ),
-              ActionButtonWidget(btnText: tr("share"), onPressed: (){})
+              ActionButtonWidget(btnText: tr("share"), onPressed: (){
+                Navigator.of(context).push(PageRouteBuilder(
+                    opaque: false,
+                    pageBuilder: (context, animation, secondaryAnimation){
+                      return SharePicStyle(link: link,);
+                    }));
+              })
             ],
           ),
         )
