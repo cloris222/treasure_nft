@@ -4,8 +4,10 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/personal/orders/order_detail_page.dart';
 import 'package:treasure_nft_project/views/personal/personal_sub_user_info_view.dart';
+import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
 import '../../../view_models/personal/team/share_center_viewmodel.dart';
@@ -24,11 +26,14 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
   String data = '';
   late ShareCenterViewModel viewModel;
 
-  String link = '${GlobalData.urlPrefix}#/uc/register/?inviteCode=${GlobalData.userInfo.inviteCode}';
+  String link =
+      '${GlobalData.urlPrefix}#/uc/register/?inviteCode=${GlobalData.userInfo.inviteCode}';
 
   @override
   void initState() {
-    viewModel = ShareCenterViewModel(setState: () {});
+    viewModel = ShareCenterViewModel(setState: () {
+      setState(() {});
+    });
     viewModel.initState();
     super.initState();
   }
@@ -55,6 +60,12 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
   }
 
   Widget _buildInviteView(BuildContext context) {
+    TextStyle styleBlack =
+        TextStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w600);
+    TextStyle styleGrey = TextStyle(
+        fontSize: UIDefine.fontSize14,
+        fontWeight: FontWeight.w500,
+        color: AppColors.dialogGrey);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -115,7 +126,8 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
                     ),
                     Row(
                       children: [
-                        Text('3.567USDT'),
+                        Text(
+                            '${viewModel.shareCenterInfo?.teamIncome.toString()}'),
                         Image.asset(AppImagePath.rightArrow),
                       ],
                     ),
@@ -141,7 +153,25 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
                         )
                       ],
                     ),
-                    Text('3.567USDT'),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                            '${viewModel.shareCenterInfo?.no1DirectIncome.toString()}USDT'),
+                        Row(
+                          children: [
+                            Text(
+                              'ID',
+                              style: styleGrey,
+                            ),
+                            Text(
+                              viewModel.shareCenterInfo?.no1DirectId ?? "",
+                              style: styleGrey,
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ],
                 )
               ],
@@ -204,7 +234,6 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
                 tr("inviteCode"),
                 style: styleBlack,
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -214,15 +243,17 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
                     style: styleGrey,
                   ),
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        viewModel.copyText(copyText: GlobalData.userInfo.inviteCode);
+                      },
                       icon: Image.asset(AppImagePath.copyIcon))
                 ],
               ),
             ],
           ),
         ),
-        SizedBox(
-          height: UIDefine.getHeight() / 30,
+        const SizedBox(
+          height: 10,
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -249,11 +280,17 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
                       ),
                     ),
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          viewModel.copyText(copyText: link);
+                        },
                         icon: Image.asset(AppImagePath.copyIcon))
                   ],
                 ),
               ),
+              SizedBox(
+                height: UIDefine.getHeight()/20,
+              ),
+              ActionButtonWidget(btnText: tr("share"), onPressed: (){})
             ],
           ),
         )

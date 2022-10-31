@@ -1,17 +1,19 @@
-import 'package:treasure_nft_project/constant/global_data.dart';
-import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
-import 'package:treasure_nft_project/models/http/parameter/user_info_data.dart';
+import 'package:treasure_nft_project/models/http/parameter/check_share_center.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../../constant/call_back_function.dart';
+import '../../../models/http/api/group_api.dart';
 
-class ShareCenterViewModel extends BaseViewModel{
-ShareCenterViewModel({required this.setState,});
+class ShareCenterViewModel extends BaseViewModel {
+  ShareCenterViewModel({
+    required this.setState,
+  });
 
   final onClickFunction setState;
+  CheckShareCenter? shareCenterInfo;
 
   void initState() async {
-    GlobalData.userInfo = await UserInfoAPI().getPersonInfo();
+    shareCenterInfo = await GroupAPI().getShareCenter();
     setState();
   }
 }

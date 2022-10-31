@@ -22,9 +22,9 @@ class CheckShareCenter {
   int no1DirectIncome;
 
   factory CheckShareCenter.fromJson(Map<String, dynamic> json) => CheckShareCenter(
-    directRecommend: json["directRecommend"].toDouble(),
-    teamIncome: json["teamIncome"].toDouble(),
-    no1DirectId: json["no1DirectId"],
+    directRecommend: json["directRecommend"].toDouble() ,
+    teamIncome: json["teamIncome"].toDouble()?? 0.0,
+    no1DirectId: json["no1DirectId"]??'',
     no1DirectIncome: json["no1DirectIncome"],
   );
 
