@@ -5,7 +5,9 @@ import '../../../constant/call_back_function.dart';
 import '../../../models/data/validate_result_data.dart';
 import '../../../models/http/api/user_info_api.dart';
 import '../../../utils/regular_expression_util.dart';
+import '../../../views/main_page.dart';
 import '../../../views/personal/personal_main_view.dart';
+import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/dialog/simple_custom_dialog.dart';
 import '../../base_view_model.dart';
 
@@ -116,7 +118,9 @@ class UserInfoSettingViewModel extends BaseViewModel {
         phone: phoneController.text, password: '', oldPassword: '', gender: gender, birthday: birthday
     ).then((value) async {
       SimpleCustomDialog(context, mainText: tr('success')).show();
-      pushAndRemoveUntil(context, const PersonalMainView());
+      ///MARK: 跳回首頁-個人中心
+      pushAndRemoveUntil(
+          context, const MainPage(type: AppNavigationBarType.typePersonal));
     });
 
   }
