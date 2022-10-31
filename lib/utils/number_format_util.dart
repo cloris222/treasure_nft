@@ -7,7 +7,8 @@ class NumberFormatUtil {
 
   ///MARK: 小數點兩位 無條件捨去
   String removeTwoPointFormat(dynamic value) {
-    return removePointFormat(value, 2);
+    return _setNumberFormat(
+        format: '#,##0.##', value: double.parse(removePointFormat(value, 2)));
   }
 
   ///取整數
