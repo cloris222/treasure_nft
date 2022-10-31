@@ -22,14 +22,21 @@ class NumberFormatUtil {
   }
 
   String removePointFormat(dynamic value, int point) {
+    if (value == null) {
+      return '0';
+    }
     var num;
     if (value is double) {
       num = value;
     } else {
+      if (value is String) {
+        if (value.isEmpty) {
+          value = '0.0';
+        }
+      }
       num = double.parse(value.toString());
     }
-    if ((num.toString().length - num.toString().lastIndexOf(".") - 1) <
-        point) {
+    if ((num.toString().length - num.toString().lastIndexOf(".") - 1) < point) {
       return (num.toStringAsFixed(point)
           .substring(0, num.toString().lastIndexOf(".") + point + 1)
           .toString());
