@@ -1,18 +1,17 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/personal/orders/order_detail_page.dart';
 import 'package:treasure_nft_project/views/personal/personal_sub_user_info_view.dart';
-import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
-
-import '../../../constant/call_back_function.dart';
+import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
+import '../../../view_models/personal/team/share_center_viewmodel.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
-import '../../../widgets/label/icon/base_icon_widget.dart';
 import '../../custom_appbar_view.dart';
 
 ///MARK: 分享
@@ -24,13 +23,19 @@ class TeamReferralCodePage extends StatefulWidget {
 }
 
 class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
-
   String data = '';
+  late ShareCenterViewModel viewModel;
+
+  String link =
+      '${GlobalData.urlPrefix}#/uc/register/?inviteCode=${GlobalData.userInfo.inviteCode}';
 
   @override
   void initState() {
+    viewModel = ShareCenterViewModel(setState: () {
+      setState(() {});
+    });
+    viewModel.initState();
     super.initState();
-
   }
 
   @override
@@ -45,7 +50,7 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
               child: Column(
                 children: [
                   _buildInviteView(context),
-                  _buildQRcodeView(context)
+                  _buildQRcodeView(context),
                 ],
               ))
         ],
@@ -55,6 +60,12 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
   }
 
   Widget _buildInviteView(BuildContext context) {
+    TextStyle styleBlack =
+        TextStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w600);
+    TextStyle styleGrey = TextStyle(
+        fontSize: UIDefine.fontSize14,
+        fontWeight: FontWeight.w500,
+        color: AppColors.dialogGrey);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -75,7 +86,7 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
           ),
         ),
         Container(
-          height: UIDefine.getHeight() / 7,
+          height: UIDefine.getHeight() / 8,
           decoration: AppStyle().styleColorBorderBackground(
             radius: 15,
             color: AppColors.bolderGrey,
@@ -83,8 +94,10 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
             borderLine: 2,
           ),
           child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 10,vertical: 15),
+            margin: const EdgeInsets.symmetric(horizontal: 10),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -113,13 +126,16 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
                     ),
                     Row(
                       children: [
-                        Text('3.567USDT'),
+                        Text(
+                            '${viewModel.shareCenterInfo?.teamIncome.toString()}'),
                         Image.asset(AppImagePath.rightArrow),
                       ],
                     ),
                   ],
                 ),
-                const SizedBox(height: 10,),
+                const SizedBox(
+                  height: 10,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -137,7 +153,25 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
                         )
                       ],
                     ),
-                    Text('3.567USDT'),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                            '${viewModel.shareCenterInfo?.no1DirectIncome.toString()}USDT'),
+                        Row(
+                          children: [
+                            Text(
+                              'ID',
+                              style: styleGrey,
+                            ),
+                            Text(
+                              viewModel.shareCenterInfo?.no1DirectId ?? "",
+                              style: styleGrey,
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ],
                 )
               ],
@@ -148,32 +182,119 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
     );
   }
 
-  Widget _buildQRcodeView(BuildContext context){
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-        const SizedBox(height: 20,),
-        Text(tr("referralQRcode",),style: TextStyle(
-            fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w600)),
-        const SizedBox(height: 20,),
+  Widget _buildQRcodeView(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const SizedBox(
+          height: 20,
+        ),
+        Text(
+            tr(
+              "referralQRcode",
+            ),
+            style: TextStyle(
+                fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w600)),
+        const SizedBox(
+          height: 10,
+        ),
+
         /// QRCode
         QrImage(
-          errorStateBuilder: (context, error) =>
-              Text(error.toString()),
-          data: data,
+          errorStateBuilder: (context, error) => Text(error.toString()),
+          data: link,
           version: QrVersions.auto,
           size: UIDefine.getScreenWidth(41.6),
           foregroundColor: AppColors.mainThemeButton,
         ),
-          const SizedBox(height: 10,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+        const SizedBox(
+          height: 20,
+        ),
+        _copyArea(context)
+      ],
+    );
+  }
+
+  Widget _copyArea(BuildContext context) {
+    TextStyle styleBlack =
+        TextStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w600);
+    TextStyle styleGrey = TextStyle(
+        fontSize: UIDefine.fontSize14,
+        fontWeight: FontWeight.w500,
+        color: AppColors.dialogGrey);
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-            Text(tr("referralLink")),
-          ],)
-      ],),
+              Text(
+                tr("inviteCode"),
+                style: styleBlack,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    GlobalData.userInfo.inviteCode,
+                    textAlign: TextAlign.start,
+                    style: styleGrey,
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        viewModel.copyText(copyText: GlobalData.userInfo.inviteCode);
+                      },
+                      icon: Image.asset(AppImagePath.copyIcon))
+                ],
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                tr("referralLink"),
+                style: styleBlack,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                height: UIDefine.getHeight() / 15,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        link,
+                        textAlign: TextAlign.start,
+                        style: styleGrey,
+                      ),
+                    ),
+                    IconButton(
+                        onPressed: () {
+                          viewModel.copyText(copyText: link);
+                        },
+                        icon: Image.asset(AppImagePath.copyIcon))
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: UIDefine.getHeight()/20,
+              ),
+              ActionButtonWidget(btnText: tr("share"), onPressed: (){})
+            ],
+          ),
+        )
+      ],
     );
   }
 }

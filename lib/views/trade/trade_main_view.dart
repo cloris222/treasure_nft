@@ -141,25 +141,19 @@ class _TradeMainViewState extends State<TradeMainView> {
           onTap: () {
             TradeRuleDialog(context).show();
           },
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Container(
-                  width: UIDefine.getWidth() / 6.5,
-                  height: UIDefine.getHeight() / 25,
-                  decoration: AppStyle().styleColorBorderBackground(
-                    radius: 7,
-                    color: Colors.black,
-                    backgroundColor: Colors.transparent,
-                    borderLine: 2,
-                  )),
-              Text(
-                tr('trade-rules'),
-                style: TextStyle(
-                    fontWeight: FontWeight.bold, fontSize: UIDefine.fontSize14),
-              )
-            ],
-          ),
+          child: Container(
+              height: UIDefine.getHeight() / 25,
+              decoration: AppStyle().styleColorBorderBackground(
+                radius: 7,
+                color: Colors.black,
+                backgroundColor: Colors.transparent,
+                borderLine: 2,
+              ),
+          child: Text(
+            tr('trade-rules'),
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: UIDefine.fontSize14),
+          ),),
         ));
   }
 

@@ -7,6 +7,7 @@ import 'package:treasure_nft_project/models/http/parameter/team_contribute_list_
 import 'package:treasure_nft_project/models/http/parameter/team_group_list.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_members.dart';
 
+import '../parameter/check_share_center.dart';
 import '../parameter/team_member_detail.dart';
 
 
@@ -115,6 +116,11 @@ class GroupAPI extends HttpManager {
     return GroupList.fromJson(response.data);
   }
 
+  /// 查詢分享中心資訊
+  Future<CheckShareCenter> getShareCenter() async{
+    var response = await get('/level/share-center');
+    return CheckShareCenter.fromJson(response.data);
+  }
 
 
 }

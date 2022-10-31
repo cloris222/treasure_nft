@@ -29,7 +29,7 @@ class TradeAPI extends HttpManager {
       'startPrice': startPrice,
       'endPrice': endPrice
     });
-    response.printLog();
+  //  response.printLog();
     return CheckReserveDeposit.fromJson(response.data);
   }
 
