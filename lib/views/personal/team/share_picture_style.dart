@@ -1,17 +1,20 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'dart:ui';
+import 'package:cross_file/cross_file.dart';
 import 'package:flutter/services.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
-
 
 import '../../../constant/theme/app_colors.dart';
 import '../../../widgets/button/action_button_widget.dart';
@@ -34,8 +37,9 @@ class _SharePicStyleState extends State<SharePicStyle> {
   int pageIndex = 0;
 
   GlobalKey repaintKey = GlobalKey();
-/// Widget生成圖片
-  void saveQrcodeImage() async{
+
+  /// Widget生成圖片
+  void saveQrcodeImage() async {
     RenderRepaintBoundary boundary =
         repaintKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
     boundary.toImage(pixelRatio: 3.0).then((value) async {
@@ -43,15 +47,19 @@ class _SharePicStyleState extends State<SharePicStyle> {
           await value.toByteData(format: ui.ImageByteFormat.png);
       Uint8List pngBytes = byteData!.buffer.asUint8List();
 
-        final result = await ImageGallerySaver.saveImage(pngBytes, quality: 80);
-        print(result.toString());
-        if (result["isSuccess"]) {
-          print('图片保存 ok');
-          // toast("保存成功", wring: false);
-        } else {
-          print('图片保存 error');
-          // toast("保存失败");
-        }
+      final result = await ImageGallerySaver.saveImage(pngBytes,
+          quality: 90, isReturnImagePathOfIOS: Platform.isIOS);
+      print(result.toString());
+      if (result["isSuccess"]) {
+        print('图片保存 ok');
+        /// share picture
+        var file = XFile(result['filePath']);
+        Share.shareXFiles([file]);
+        // toast("保存成功", wring: false);
+      } else {
+        print('图片保存 error');
+        // toast("保存失败");
+      }
     });
   }
 
@@ -83,7 +91,8 @@ class _SharePicStyleState extends State<SharePicStyle> {
             SizedBox(
               height: UIDefine.getHeight() / 2,
               width: UIDefine.getWidth(),
-              child: RepaintBoundary(key: repaintKey,
+              child: RepaintBoundary(
+                key: repaintKey,
                 child: PageView(
                     controller: pageController,
                     scrollDirection: Axis.horizontal,
@@ -230,4 +239,49 @@ class _SharePicStyleState extends State<SharePicStyle> {
       ],
     );
   }
+
+// MaterialPageRoute _showShareBottomSheet(BuildContext context){
+//   return MaterialPageRoute(
+//     builder: (context) => Scaffold(
+//         body: CupertinoScaffold(
+//         body: Builder(
+//         builder: (context) => CupertinoPageScaffold(
+//     navigationBar: CupertinoNavigationBar(
+//     transitionBetweenRoutes: false,
+//     middle: Text('Normal Navigation Presentation'),
+//     trailing: GestureDetector(
+//       child: Icon(Icons.arrow_upward),
+//       onTap: () =>
+//           CupertinoScaffold.showCupertinoModalBottomSheet(
+//             expand: true,
+//             context: context,
+//             backgroundColor: Colors.transparent,
+//             builder: (context) => Stack(
+//               children: <Widget>[
+//                 ModalWithScroll(),
+//                 Positioned(
+//                   height: 40,
+//                   left: 40,
+//                   right: 40,
+//                   bottom: 20,
+//                   child: MaterialButton(
+//                     onPressed: () => Navigator.of(context).popUntil(
+//                             (route) => route.settings.name == '/'),
+//                     child: Text('Pop back home'),
+//                   ),
+//                 )
+//               ],
+//             ),
+//           ),
+//     ),
+//   ),  child: Center(
+//             child: Container(),
+//         ),
+//         ),
+//     ),
+//   ),
+//   ),
+//   settings: settings,
+//   );
+// }
 }
