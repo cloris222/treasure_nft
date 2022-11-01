@@ -28,4 +28,8 @@ class GlobalData {
 
   ///MARK: 控管bar的圖案顯示
   static AppNavigationBarType mainBottomType = AppNavigationBarType.typeMain;
+
+  ///MARK: 提供給選擇日期使用
+  static String strDataPickerStart = '';
+  static String strDataPickerEnd = '';
 }
