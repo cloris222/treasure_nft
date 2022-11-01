@@ -4,21 +4,23 @@ import '../../constant/theme/app_style.dart';
 import '../../constant/ui_define.dart';
 
 class GradientBolderWidget extends StatelessWidget {
-  const GradientBolderWidget({
-    Key? key,
-    required this.child,
-    this.width,
-    this.height,
-    this.radius = 10,
-    this.bolderWith = 2,
-    this.autoHeight = false,
-  }) : super(key: key);
+  const GradientBolderWidget(
+      {Key? key,
+      required this.child,
+      this.width,
+      this.height,
+      this.radius = 10,
+      this.bolderWith = 2,
+      this.autoHeight = false,
+      this.padding})
+      : super(key: key);
   final double? width;
   final double? height;
   final Widget child;
   final double radius;
   final double bolderWith;
   final bool autoHeight;
+  final EdgeInsetsGeometry? padding;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +42,7 @@ class GradientBolderWidget extends StatelessWidget {
           left: bolderWith,
           right: bolderWith,
           child: Container(
+              padding: padding,
               alignment: Alignment.center,
               decoration: AppStyle().styleColorsRadiusBackground(
                   color: Colors.white, radius: radius),
@@ -53,6 +56,7 @@ class GradientBolderWidget extends StatelessWidget {
       decoration: AppStyle().baseGradient(radius: radius),
       padding: EdgeInsets.all(bolderWith),
       child: Container(
+        padding: padding,
         decoration: AppStyle()
             .styleColorsRadiusBackground(color: Colors.white, radius: radius),
         child: child,

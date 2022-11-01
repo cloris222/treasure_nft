@@ -15,7 +15,7 @@ class CustomAppbarView extends StatelessWidget {
       required this.body,
       this.onPressed,
       this.type,
-      this.needScrollView = true})
+      required this.needScrollView})
       : super(key: key);
   final String title;
   final Widget body;

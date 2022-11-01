@@ -36,6 +36,7 @@ class _LevelAchievementPageState extends State<LevelAchievementPage> {
     tr('tab_mission'),
     tr('tab_medal'),
   ];
+
   @override
   void initState() {
     super.initState();
@@ -76,12 +77,12 @@ class _LevelAchievementPageState extends State<LevelAchievementPage> {
           }).show();
         });
     viewModel.initState();
-
   }
 
   @override
   Widget build(BuildContext context) {
     return CustomAppbarView(
+      needScrollView: true,
       title: tr('achievement'),
       body: _buildPageView(context),
     );

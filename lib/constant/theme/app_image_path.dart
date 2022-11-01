@@ -34,8 +34,8 @@ class AppImagePath {
       '$appBtmBarPath/btn_collection_02_pre.png';
   static const String mainTypeCollectionOFF =
       '$appBtmBarPath/btn_collection_02_nor.png';
-  static const String mainTypeTrade = '$appBtmBarPath/btn_trade_01_pre.png';
-  static const String mainTypeTradeOFF = '$appBtmBarPath/btn_trade_01_nor.png';
+  static const String mainTypeTrade = '$appBtmBarPath/btn_defi_01_nor.png';
+  static const String mainTypeTradeOFF = '$appBtmBarPath/btn_defi_01_nor.png';
   static const String mainTypeWallet = '$appBtmBarPath/btn_wallet_02_pre.png';
   static const String mainTypeWalletOFF =
       '$appBtmBarPath/btn_wallet_02_nor.png';
