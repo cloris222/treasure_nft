@@ -15,6 +15,7 @@ import '../../view_models/base_view_model.dart';
 import '../../widgets/label/personal_param_item.dart';
 import 'level/level_achievement_page.dart';
 
+///MARK: 總資產
 class PersonalSubLevelView extends StatelessWidget {
   const PersonalSubLevelView(
       {Key? key, this.userProperty, this.levelInfo, required this.onViewUpdate})
@@ -29,7 +30,7 @@ class PersonalSubLevelView extends StatelessWidget {
       runSpacing: 25,
       children: [
         const SizedBox(width: 1),
-        _buildCountry(),
+        _buildTitle(),
         _buildProperty(),
         _buildReserve(context),
         const SizedBox(width: 1),
@@ -66,6 +67,28 @@ class PersonalSubLevelView extends StatelessWidget {
     );
   }
 
+  Widget _buildTitle() {
+    return Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+      Image.asset(
+        AppImagePath.walletRechargeIcon,
+        width: UIDefine.getScreenWidth(8),
+        fit: BoxFit.fitWidth,
+      ),
+      const SizedBox(width: 5),
+      Text(tr('totalAssets'),
+          style: TextStyle(
+              fontSize: UIDefine.fontSize20,
+              fontWeight: FontWeight.bold,
+              color: AppColors.dialogBlack)),
+      Flexible(child: Container()),
+      Text(tr(' ${NumberFormatUtil().removeTwoPointFormat(userProperty?.totalBalance)}'),
+          style: TextStyle(
+              fontSize: UIDefine.fontSize20,
+              fontWeight: FontWeight.bold,
+              color: AppColors.dialogBlack))
+    ]);
+  }
+
   Widget _buildProperty() {
     return Container(
       width: UIDefine.getWidth(),
@@ -73,15 +96,19 @@ class PersonalSubLevelView extends StatelessWidget {
       padding: const EdgeInsets.all(15),
       child: Wrap(runSpacing: 5, children: [
         _buildPropertyParam(
-            title: tr('totalIncome'), value: userProperty?.income),
-        _buildPropertyParam(
-            title: tr("wallet-withdraw'"), value: userProperty?.savingBalance),
-        _buildPropertyParam(
             title: tr("wallet-balance'"), value: userProperty?.balance),
-        _buildPropertyParamRange(
-            title: tr("reservation-product-amount'"),
-            start: levelInfo?.buyRangeStart,
-            end: levelInfo?.buyRangeEnd),
+        _buildPropertyParam(
+            title: tr('nftAssets'), value: userProperty?.nftBalance),
+        _buildPropertyParam(
+            title: tr('totalIncome'),
+            value: userProperty?.income,
+            needCoin: true),
+        const Divider(color: AppColors.searchBar),
+        _buildPropertyParam(
+          title: tr("bonus_referral"),
+          value: userProperty?.savingBalance,
+        ),
+        _buildPropertyParam(title: tr("bonus_trade"), value: null),
       ]),
     );
   }
@@ -92,7 +119,8 @@ class PersonalSubLevelView extends StatelessWidget {
     );
   }
 
-  Widget _buildPropertyParam({required String title, double? value}) {
+  Widget _buildPropertyParam(
+      {required String title, double? value, bool needCoin = false}) {
     return Row(children: [
       Flexible(
         flex: 2,
@@ -103,7 +131,10 @@ class PersonalSubLevelView extends StatelessWidget {
             maxLines: 1,
             softWrap: false,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(fontSize: UIDefine.fontSize14),
+            style: TextStyle(
+                fontSize: UIDefine.fontSize14,
+                color: AppColors.dialogGrey,
+                fontWeight: FontWeight.w500),
           ),
         ),
       ),
@@ -114,7 +145,7 @@ class PersonalSubLevelView extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              _buildIcon(),
+              needCoin ? _buildIcon() : const SizedBox(),
               Text(' ${NumberFormatUtil().removeTwoPointFormat(value)}',
                   style: TextStyle(
                       fontSize: UIDefine.fontSize14,

@@ -41,8 +41,11 @@ class PersonalParamItem extends StatelessWidget {
     return value != null
         ? Text(value!, style: style)
         : assetImagePath != null
-            ? Image.asset(assetImagePath!,
-                width: UIDefine.fontSize22, height: UIDefine.fontSize22)
+            ? Image.asset(
+                assetImagePath!,
+                height: UIDefine.fontSize22,
+                fit: BoxFit.fitHeight,
+              )
             : Text('', style: style);
   }
 

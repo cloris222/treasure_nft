@@ -30,8 +30,9 @@ class PersonalSubCommonView extends StatelessWidget {
   }
 
   Widget _buildTitle() {
-    return Row(children: [
-      Image.asset(AppImagePath.userCommonIcon),
+    return Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+      Image.asset(AppImagePath.userCommonIcon,
+          width: UIDefine.getScreenWidth(8), fit: BoxFit.fitWidth),
       const SizedBox(width: 5),
       Flexible(
         child: Text(tr('usualFun'),

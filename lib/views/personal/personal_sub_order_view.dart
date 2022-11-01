@@ -34,8 +34,12 @@ class PersonalSubOrderView extends StatelessWidget {
   }
 
   Widget _buildTitle(BuildContext context) {
-    return Row(children: [
-      Image.asset(AppImagePath.myOrderIcon),
+    return Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+      Image.asset(
+        AppImagePath.myOrderIcon,
+        width: UIDefine.getScreenWidth(8),
+        fit: BoxFit.fitWidth,
+      ),
       const SizedBox(width: 5),
       Text(tr('myOrder'),
           style: TextStyle(
@@ -117,7 +121,8 @@ class PersonalSubOrderView extends StatelessWidget {
   }
 
   void _showMyNftPage(BuildContext context) {
-    BaseViewModel().pushReplacement(context, const MainPage(type: AppNavigationBarType.typeCollection));
+    BaseViewModel().pushReplacement(
+        context, const MainPage(type: AppNavigationBarType.typeCollection));
   }
 
   void _showMyBalDetailPage(BuildContext context) {

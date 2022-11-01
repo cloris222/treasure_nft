@@ -33,8 +33,12 @@ class PersonalSubTeamView extends StatelessWidget {
   }
 
   Widget _buildTitle() {
-    return Row(children: [
-      Image.asset(AppImagePath.myTeamIcon),
+    return Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+      Image.asset(
+        AppImagePath.myTeamIcon,
+        width: UIDefine.getScreenWidth(8),
+        fit: BoxFit.fitWidth,
+      ),
       const SizedBox(width: 5),
       Text(tr('myTeam'),
           style: TextStyle(
