@@ -297,7 +297,10 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
                     pageBuilder: (context, animation, secondaryAnimation){
                       return SharePicStyle(link: link,);
                     }));
-              })
+              }),
+              const SizedBox(
+                height: 20,
+              ),
             ],
           ),
         )

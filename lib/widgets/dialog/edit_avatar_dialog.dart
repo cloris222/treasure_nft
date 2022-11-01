@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
@@ -138,7 +139,7 @@ class EditAvatarDialog extends BaseDialog {
   _onUploadImage(BuildContext context) async {
     if (uploadFile != null) {
       ///MARK:上傳圖片
-      var imageResponse = await CommonAPI().uploadImage(uploadFile!.path);
+     var imageResponse = await CommonAPI().uploadImage(uploadFile!.path);
       if (isAvatar) {
         await UserInfoAPI().setUserAvtar(imageResponse.data);
         GlobalData.userInfo.photoUrl = imageResponse.data;
@@ -146,6 +147,8 @@ class EditAvatarDialog extends BaseDialog {
         await UserInfoAPI().setUserBanner(imageResponse.data);
         GlobalData.userInfo.bannerUrl = imageResponse.data;
       }
+      // Share.shareXFiles([uploadFile!]);
+      // print('!!!!!!!!!${uploadFile!.path}');
       onChange();
       closeDialog();
     } else {
