@@ -12,6 +12,7 @@ import '../../../constant/enum/setting_enum.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
 import '../../../constant/theme/app_style.dart';
+import '../../../widgets/app_bottom_center_button.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 
 ///MARK: 新手教程
@@ -49,6 +50,8 @@ class _UserNovicePageState extends State<UserNovicePage> {
       ),
       bottomNavigationBar: const AppBottomNavigationBar(
           initType: AppNavigationBarType.typePersonal),
+      floatingActionButton: const AppBottomCenterButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 

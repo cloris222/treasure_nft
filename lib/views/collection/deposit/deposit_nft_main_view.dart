@@ -5,6 +5,7 @@ import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 
 import '../../../constant/ui_define.dart';
 import '../../../view_models/base_view_model.dart';
+import '../../../widgets/app_bottom_center_button.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/appbar/custom_app_bar.dart';
 import 'deposit_nft_result_view.dart';
@@ -164,6 +165,8 @@ class _DepositNftMainView extends State<DepositNftMainView> {
 
 
       bottomNavigationBar: const AppBottomNavigationBar(initType: AppNavigationBarType.typeCollection),
+      floatingActionButton: const AppBottomCenterButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 

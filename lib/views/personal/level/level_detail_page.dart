@@ -15,6 +15,7 @@ import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
 import '../../../constant/theme/app_style.dart';
 import '../../../view_models/personal/level/level_detail_viewmodel.dart';
+import '../../../widgets/app_bottom_center_button.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/button/action_button_widget.dart';
 import '../../../widgets/label/custom_linear_progress.dart';
@@ -56,6 +57,8 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
               child: _buildBody())),
       bottomNavigationBar: const AppBottomNavigationBar(
           initType: AppNavigationBarType.typePersonal),
+      floatingActionButton: const AppBottomCenterButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 

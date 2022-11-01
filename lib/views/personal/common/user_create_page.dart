@@ -13,6 +13,7 @@ import 'package:treasure_nft_project/widgets/text_field/login_text_widget.dart';
 
 import '../../../constant/theme/app_colors.dart';
 import '../../../view_models/personal/common/user_create_viewmodel.dart';
+import '../../../widgets/app_bottom_center_button.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../login/login_param_view.dart';
 import 'choose_date_view.dart';
@@ -50,6 +51,8 @@ class _UserCreatePageState extends State<UserCreatePage> {
       body: Container(padding: const EdgeInsets.all(20), child: _buildBody()),
       bottomNavigationBar: const AppBottomNavigationBar(
           initType: AppNavigationBarType.typePersonal),
+      floatingActionButton: const AppBottomCenterButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 

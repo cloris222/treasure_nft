@@ -9,6 +9,8 @@ import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 import 'package:treasure_nft_project/widgets/list_view/team/member_detail_listview.dart';
 
+import '../../../widgets/app_bottom_center_button.dart';
+
 
 ///MARK:成員詳細
 class TeamMemberDetailPage extends StatefulWidget {
@@ -47,6 +49,8 @@ class _TeamMemberDetailPage extends State<TeamMemberDetailPage> {
         }, tr('teamDetail')),
         bottomNavigationBar:
         const AppBottomNavigationBar(initType: AppNavigationBarType.typePersonal),
+        floatingActionButton: const AppBottomCenterButton(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
         body: SingleChildScrollView(
           child: Padding(

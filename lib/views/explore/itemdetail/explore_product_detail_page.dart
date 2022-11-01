@@ -13,6 +13,7 @@ import '../../../models/http/parameter/check_level_info.dart';
 import '../../../utils/timer_util.dart';
 import '../../../view_models/base_view_model.dart';
 import '../../../view_models/explore/explore_product_detail_view_model.dart';
+import '../../../widgets/app_bottom_center_button.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/appbar/custom_app_bar.dart';
 import '../../explore_chart_view.dart';
@@ -254,6 +255,8 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
       ),
 
       bottomNavigationBar: const AppBottomNavigationBar(initType: AppNavigationBarType.typeExplore),
+      floatingActionButton: const AppBottomCenterButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 

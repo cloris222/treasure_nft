@@ -9,6 +9,7 @@ import '../../../constant/theme/app_colors.dart';
 import '../../../constant/ui_define.dart';
 import '../../../view_models/base_view_model.dart';
 import '../../../view_models/personal/level/level_bonus_viewmodel.dart';
+import '../../../widgets/app_bottom_center_button.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/appbar/custom_app_bar.dart';
 
@@ -44,6 +45,8 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
               child: _buildBody())),
       bottomNavigationBar: const AppBottomNavigationBar(
           initType: AppNavigationBarType.typePersonal),
+      floatingActionButton: const AppBottomCenterButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 

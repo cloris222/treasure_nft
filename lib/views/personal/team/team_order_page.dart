@@ -14,6 +14,8 @@ import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 import 'package:treasure_nft_project/widgets/date_picker/date_picker.dart';
 import 'package:treasure_nft_project/widgets/list_view/team/team_order_listview.dart';
 
+import '../../../widgets/app_bottom_center_button.dart';
+
 
 ///MARK:團隊訂單
 class TeamOrderPage extends StatelessWidget {
@@ -28,6 +30,8 @@ class TeamOrderPage extends StatelessWidget {
       body: const Body(),
       bottomNavigationBar:
       const AppBottomNavigationBar(initType: AppNavigationBarType.typePersonal),
+      floatingActionButton: const AppBottomCenterButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

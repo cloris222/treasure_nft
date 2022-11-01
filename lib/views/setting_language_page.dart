@@ -14,6 +14,7 @@ import '../constant/enum/setting_enum.dart';
 
 import '../constant/theme/app_colors.dart';
 import '../utils/language_util.dart';
+import '../widgets/app_bottom_center_button.dart';
 
 class SettingLanguagePage extends StatefulWidget {
   const SettingLanguagePage({Key? key}) : super(key: key);
@@ -42,6 +43,8 @@ class _SettingLanguagePageState extends State<SettingLanguagePage> {
           child: _buildLanguageView(context)),
       bottomNavigationBar:
           AppBottomNavigationBar(initType: GlobalData.mainBottomType),
+      floatingActionButton: const AppBottomCenterButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 
