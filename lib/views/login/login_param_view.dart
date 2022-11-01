@@ -48,7 +48,7 @@ class LoginParamView extends StatelessWidget {
 
   Widget _buildTextTitle(String text) {
     return Container(
-        margin: const EdgeInsets.symmetric(vertical: 5),
+        // margin: const EdgeInsets.symmetric(vertical: 5), // (Ethan改) LoginTextWidget已有上下5 margin 間距過大
         child: Text(text,
             style: TextStyle(
                 fontWeight: FontWeight.bold, fontSize: UIDefine.fontSize14)));

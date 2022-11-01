@@ -97,7 +97,7 @@ class AppStyle {
   OutlineInputBorder styleTextEditBorderBackground(
       {double radius = 15.0, Color color = Colors.grey}) {
     return OutlineInputBorder(
-        borderSide: BorderSide(color: color, width: 1),
+        borderSide: BorderSide(color: color, width: 1.5),
         borderRadius: BorderRadius.all(Radius.circular(radius)));
   }
 }
