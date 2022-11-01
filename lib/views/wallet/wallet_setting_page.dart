@@ -10,6 +10,7 @@ import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_theme.dart';
 import '../../view_models/wallet/wallet_setting_viewmodel.dart';
+import '../../widgets/app_bottom_center_button.dart';
 import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/label/icon/base_icon_widget.dart';
 import '../../widgets/label/gradient_bolder_widget.dart';
@@ -49,6 +50,8 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
       body: SingleChildScrollView(child: _buildBody()),
       bottomNavigationBar: const AppBottomNavigationBar(
           initType: AppNavigationBarType.typeWallet),
+      floatingActionButton: const AppBottomCenterButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 

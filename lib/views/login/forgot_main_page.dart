@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../view_models/base_view_model.dart';
 import '../../view_models/login/forgot_main_viewmodel.dart';
+import '../../widgets/app_bottom_center_button.dart';
 import '../../widgets/app_bottom_navigation_bar.dart';
 import '../../widgets/appbar/custom_app_bar.dart';
 import '../../widgets/button/login_bolder_button_widget.dart';
@@ -34,16 +35,18 @@ class _ForgotMainPageState extends State<ForgotMainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar.getCommonAppBar(() {
-          BaseViewModel().popPage(context);
-        }, tr('forgot')),
-        body: SingleChildScrollView(
-            child: Container(
-                margin:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                child: _buildBody())),
-        bottomNavigationBar: const AppBottomNavigationBar(
-            initType: AppNavigationBarType.typeLogin));
+      appBar: CustomAppBar.getCommonAppBar(() {
+        BaseViewModel().popPage(context);
+      }, tr('forgot')),
+      body: SingleChildScrollView(
+          child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              child: _buildBody())),
+      bottomNavigationBar: const AppBottomNavigationBar(
+          initType: AppNavigationBarType.typeLogin),
+      floatingActionButton: const AppBottomCenterButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+    );
   }
 
   Widget _buildBody() {

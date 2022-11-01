@@ -6,6 +6,7 @@ import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 
 import '../../../constant/ui_define.dart';
 import 'withdraw/order_withdraw_tab_bar.dart';
+import '../../../widgets/app_bottom_center_button.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 
 ///MARK: 提領
@@ -63,6 +64,8 @@ class _OrderWithdrawPage extends State<OrderWithdrawPage> {
 
 
       bottomNavigationBar: AppBottomNavigationBar(initType: widget.type),
+      floatingActionButton: const AppBottomCenterButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 

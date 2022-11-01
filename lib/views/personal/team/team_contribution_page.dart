@@ -14,6 +14,8 @@ import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 import 'package:treasure_nft_project/widgets/list_view/team/team_contribute_listview.dart';
 
+import '../../../widgets/app_bottom_center_button.dart';
+
 
 ///MARK:團隊貢獻
 class TeamContributionPage extends StatelessWidget {
@@ -28,6 +30,8 @@ class TeamContributionPage extends StatelessWidget {
       body: const Body(),
       bottomNavigationBar:
       const AppBottomNavigationBar(initType: AppNavigationBarType.typePersonal),
+      floatingActionButton: const AppBottomCenterButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

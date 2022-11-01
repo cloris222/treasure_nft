@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/enum/team_enum.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
@@ -141,6 +142,10 @@ class CustomDatePickerState extends State<CustomDatePickerWidget> {
             })
         .then((value) async {
       currentType = Search.SelfChoose;
+
+      ///MARK: 避免滑動後消失
+      GlobalData.strDataPickerStart = startDate;
+      GlobalData.strDataPickerEnd = endDate;
       if (widget.typeCallback != null) {
         widget.typeCallback!(currentType);
       }
@@ -184,8 +189,8 @@ class CustomDatePickerState extends State<CustomDatePickerWidget> {
           endDate = DateFormatUtil().getCurrentMonthLast();
           break;
         case Search.SelfChoose:
-
-          ///MARK:不會觸發
+          startDate = GlobalData.strDataPickerStart;
+          endDate = GlobalData.strDataPickerEnd;
           break;
       }
       widget.dateCallback(startDate, endDate);

@@ -5,7 +5,6 @@ import 'package:treasure_nft_project/constant/global_data.dart';
 import '../constant/theme/app_colors.dart';
 import '../constant/theme/app_image_path.dart';
 import '../view_models/base_view_model.dart';
-import '../views/login/login_main_view.dart';
 import '../views/main_page.dart';
 
 //MARK: 定義主分頁類型
@@ -19,7 +18,7 @@ enum AppNavigationBarType {
   typeLogin,
 }
 
-typedef AppBottomFunction = Function(AppNavigationBarType type, int pageIndex);
+typedef AppBottomFunction = Function(AppNavigationBarType type);
 
 class AppBottomNavigationBar extends StatefulWidget {
   const AppBottomNavigationBar(
@@ -46,6 +45,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
 
   Widget _barBuilder(BuildContext context, StateSetter setState) {
     return CupertinoTabBar(
+        border: const Border(),
         backgroundColor: Colors.white,
         activeColor: AppColors.dialogGrey,
         inactiveColor: AppColors.dialogGrey,
@@ -59,7 +59,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
               label: tr('Collection'),
               backgroundColor: Colors.white),
           BottomNavigationBarItem(
-              icon: getIcon(AppNavigationBarType.typeTrade),
+              icon: const Icon(null),
               label: tr('Trade'),
               backgroundColor: Colors.white),
           BottomNavigationBarItem(
@@ -139,7 +139,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
 
     if (widget.bottomFunction != null) {
       setState(() {
-        widget.bottomFunction!(GlobalData.mainBottomType, index);
+        widget.bottomFunction!(GlobalData.mainBottomType);
       });
     } else {
       //清除所有頁面並回到首頁

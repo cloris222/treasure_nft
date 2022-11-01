@@ -11,6 +11,7 @@ import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_style.dart';
 import '../../../constant/theme/app_theme.dart';
 import '../../../view_models/personal/orders/order_recharge_viewmodel.dart';
+import '../../../widgets/app_bottom_center_button.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/dialog/simple_custom_dialog.dart';
 import '../../../widgets/label/coin/tether_coin_widget.dart';
@@ -45,6 +46,8 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
       }, tr('walletRecharge')),
       body: SingleChildScrollView(child: _buildBody()),
       bottomNavigationBar: AppBottomNavigationBar(initType: widget.type),
+      floatingActionButton: const AppBottomCenterButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 

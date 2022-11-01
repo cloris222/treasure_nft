@@ -6,6 +6,7 @@ import '../../../constant/call_back_function.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/ui_define.dart';
 import '../../../view_models/base_view_model.dart';
+import '../../../widgets/app_bottom_center_button.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/appbar/custom_app_bar.dart';
 import '../api/collection_api.dart';
@@ -160,6 +161,8 @@ class _DepositNftResultView extends State<DepositNftResultView> {
 
 
       bottomNavigationBar: const AppBottomNavigationBar(initType: AppNavigationBarType.typeCollection),
+      floatingActionButton: const AppBottomCenterButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

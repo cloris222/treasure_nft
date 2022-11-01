@@ -1,10 +1,20 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
+import 'dart:ui';
+import 'package:cross_file/cross_file.dart';
+import 'package:flutter/services.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 
 import '../../../constant/theme/app_colors.dart';
 import '../../../widgets/button/action_button_widget.dart';
@@ -26,6 +36,33 @@ class _SharePicStyleState extends State<SharePicStyle> {
   PageController pageController = PageController(initialPage: 0);
   int pageIndex = 0;
 
+  GlobalKey repaintKey = GlobalKey();
+
+  /// Widget生成圖片
+  void saveQrcodeImage() async {
+    RenderRepaintBoundary boundary =
+        repaintKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
+    boundary.toImage(pixelRatio: 3.0).then((value) async {
+      ByteData? byteData =
+          await value.toByteData(format: ui.ImageByteFormat.png);
+      Uint8List pngBytes = byteData!.buffer.asUint8List();
+
+      final result = await ImageGallerySaver.saveImage(pngBytes,
+          quality: 90, isReturnImagePathOfIOS: Platform.isIOS);
+      print(result.toString());
+      if (result["isSuccess"]) {
+        print('图片保存 ok');
+        /// share picture
+        var file = XFile(result['filePath']);
+        Share.shareXFiles([file]);
+        // toast("保存成功", wring: false);
+      } else {
+        print('图片保存 error');
+        // toast("保存失败");
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +81,7 @@ class _SharePicStyleState extends State<SharePicStyle> {
               height: 5,
             ),
             Text(
-              tr("style${pageIndex+1}"),
+              tr("style${pageIndex + 1}"),
               style:
                   TextStyle(fontSize: UIDefine.fontSize16, color: Colors.white),
             ),
@@ -54,18 +91,21 @@ class _SharePicStyleState extends State<SharePicStyle> {
             SizedBox(
               height: UIDefine.getHeight() / 2,
               width: UIDefine.getWidth(),
-              child: PageView(
-                  controller: pageController,
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    _shareImage(context, pageIndex),
-                    _shareImage(context, pageIndex),
-                  ],
-                  onPageChanged: (index) {
-                    setState(() {
-                      pageIndex = index;
-                    });
-                  }),
+              child: RepaintBoundary(
+                key: repaintKey,
+                child: PageView(
+                    controller: pageController,
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      _shareImage(context, pageIndex),
+                      _shareImage(context, pageIndex),
+                    ],
+                    onPageChanged: (index) {
+                      setState(() {
+                        pageIndex = index;
+                      });
+                    }),
+              ),
             ),
             // _shareImage(context),
             SizedBox(
@@ -74,6 +114,7 @@ class _SharePicStyleState extends State<SharePicStyle> {
             ActionButtonWidget(
               btnText: tr('confirm'),
               onPressed: () {
+                saveQrcodeImage();
                 Navigator.pop(context);
               },
               setHeight: 50,
@@ -91,7 +132,7 @@ class _SharePicStyleState extends State<SharePicStyle> {
       children: [
         Image.asset(AppImagePath.shareBackground),
         Positioned(
-            left: UIDefine.getWidth() / 9,
+            left: UIDefine.getWidth() / 8,
             top: 10,
             child: Image.asset(AppImagePath.mainAppBarLogo)),
         Positioned(
@@ -105,20 +146,23 @@ class _SharePicStyleState extends State<SharePicStyle> {
 
   Widget _shareImgHeader(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             GlobalData.userInfo.photoUrl.isNotEmpty
                 ? CircleNetworkIcon(
                     networkUrl: GlobalData.userInfo.photoUrl, radius: 35)
                 : Image.asset(
                     AppImagePath.avatarImg,
-                    width: 70,
-                    height: 70,
+                    width: UIDefine.getWidth() / 6,
+                    height: UIDefine.getWidth() / 6,
                   ),
             SizedBox(width: UIDefine.getScreenWidth(5)),
             Column(
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -155,14 +199,15 @@ class _SharePicStyleState extends State<SharePicStyle> {
               thickness: 0.5,
               color: Colors.black,
             )),
+
         /// 下半部
         //const SizedBox(height: 10,),
-        _shareImgBottom(context,pageIndex)
+        _shareImgBottom(context, pageIndex)
       ],
     );
   }
 
-  Widget _shareImgBottom(BuildContext context,int index) {
+  Widget _shareImgBottom(BuildContext context, int index) {
     TextStyle styleBlack =
         TextStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w600);
     TextStyle styleGrey = TextStyle(
@@ -170,8 +215,14 @@ class _SharePicStyleState extends State<SharePicStyle> {
         fontWeight: FontWeight.w500,
         color: AppColors.dialogGrey);
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        index==0?Image.asset(AppImagePath.shareText1):Image.asset(AppImagePath.shareText2),
+        index == 0
+            ? Image.asset(
+                AppImagePath.shareText1,
+                fit: BoxFit.contain,
+              )
+            : Image.asset(AppImagePath.shareText2, fit: BoxFit.contain),
         QrImage(
           errorStateBuilder: (context, error) => Text(error.toString()),
           data: widget.link,
@@ -188,4 +239,49 @@ class _SharePicStyleState extends State<SharePicStyle> {
       ],
     );
   }
+
+// MaterialPageRoute _showShareBottomSheet(BuildContext context){
+//   return MaterialPageRoute(
+//     builder: (context) => Scaffold(
+//         body: CupertinoScaffold(
+//         body: Builder(
+//         builder: (context) => CupertinoPageScaffold(
+//     navigationBar: CupertinoNavigationBar(
+//     transitionBetweenRoutes: false,
+//     middle: Text('Normal Navigation Presentation'),
+//     trailing: GestureDetector(
+//       child: Icon(Icons.arrow_upward),
+//       onTap: () =>
+//           CupertinoScaffold.showCupertinoModalBottomSheet(
+//             expand: true,
+//             context: context,
+//             backgroundColor: Colors.transparent,
+//             builder: (context) => Stack(
+//               children: <Widget>[
+//                 ModalWithScroll(),
+//                 Positioned(
+//                   height: 40,
+//                   left: 40,
+//                   right: 40,
+//                   bottom: 20,
+//                   child: MaterialButton(
+//                     onPressed: () => Navigator.of(context).popUntil(
+//                             (route) => route.settings.name == '/'),
+//                     child: Text('Pop back home'),
+//                   ),
+//                 )
+//               ],
+//             ),
+//           ),
+//     ),
+//   ),  child: Center(
+//             child: Container(),
+//         ),
+//         ),
+//     ),
+//   ),
+//   ),
+//   settings: settings,
+//   );
+// }
 }

@@ -13,6 +13,8 @@ import 'package:treasure_nft_project/views/personal/team/widget/all_members_card
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 
+import '../../../widgets/app_bottom_center_button.dart';
+
 
 ///MARK:團隊成員
 class TeamMemberPage extends StatelessWidget {
@@ -27,6 +29,8 @@ class TeamMemberPage extends StatelessWidget {
       body: const Body(),
       bottomNavigationBar:
       const AppBottomNavigationBar(initType: AppNavigationBarType.typePersonal),
+      floatingActionButton: const AppBottomCenterButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

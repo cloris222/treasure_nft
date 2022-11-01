@@ -5,6 +5,7 @@ import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 
 import '../../view_models/login/register_main_viewmodel.dart';
+import '../../widgets/app_bottom_center_button.dart';
 import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/label/common_text_widget.dart';
 import 'login_email_code_view.dart';
@@ -44,7 +45,9 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: _buildBody())),
         bottomNavigationBar: const AppBottomNavigationBar(
-            initType: AppNavigationBarType.typeLogin));
+            initType: AppNavigationBarType.typeLogin),
+      floatingActionButton: const AppBottomCenterButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,);
   }
 
   Widget _buildBody() {
