@@ -139,7 +139,7 @@ class _SharePicStyleState extends State<SharePicStyle> {
 
   Widget _shareImage(BuildContext context, int index) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: UIDefine.getWidth()/9,vertical: 10),
+       padding: EdgeInsets.symmetric(horizontal: UIDefine.getWidth()/9,vertical: 0),
       decoration: const BoxDecoration(
         image: DecorationImage(
           alignment: Alignment.center,
@@ -150,14 +150,8 @@ class _SharePicStyleState extends State<SharePicStyle> {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Image.asset(AppImagePath.mainAppBarLogo),
-            ],
-          ),
-          const SizedBox(height: 20,),
           _shareImgHeader(context),
         ],
       ),
@@ -168,6 +162,12 @@ class _SharePicStyleState extends State<SharePicStyle> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
+        Row(
+          // mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Image.asset(AppImagePath.mainAppBarLogo),
+          ],
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
