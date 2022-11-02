@@ -56,9 +56,13 @@ class CustomAppBar {
           child: Stack(
             children: [
               Positioned.fill(
-                child: Text(title,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: UIDefine.fontSize24,fontWeight: FontWeight.w600)),
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text(title,
+                      style: TextStyle(
+                          fontSize: UIDefine.fontSize24,
+                          fontWeight: FontWeight.w600)),
+                ),
               ),
               Positioned(
                 top: 0,

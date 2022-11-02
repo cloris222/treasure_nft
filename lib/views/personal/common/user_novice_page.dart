@@ -2,18 +2,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
-import 'package:treasure_nft_project/models/data/course_model_data.dart';
-import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/personal/common/user_course_video_page.dart';
-import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 import 'package:treasure_nft_project/widgets/label/flex_two_text_widget.dart';
-import 'package:video_player/video_player.dart';
 import '../../../constant/enum/setting_enum.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
 import '../../../constant/theme/app_style.dart';
-import '../../../widgets/app_bottom_center_button.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
+import '../../custom_appbar_view.dart';
 
 ///MARK: 新手教程
 class UserNovicePage extends StatefulWidget {
@@ -28,10 +24,10 @@ class UserNovicePage extends StatefulWidget {
 class _UserNovicePageState extends State<UserNovicePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar.getCommonAppBar(() {
-        BaseViewModel().popPage(context);
-      }, tr('uc_novice')),
+    return CustomAppbarView(
+      needScrollView: false,
+      title: tr("uc_novice"),
+      type: AppNavigationBarType.typePersonal,
       body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.symmetric(
@@ -48,10 +44,6 @@ class _UserNovicePageState extends State<UserNovicePage> {
           ),
         ),
       ),
-      bottomNavigationBar: const AppBottomNavigationBar(
-          initType: AppNavigationBarType.typePersonal),
-      floatingActionButton: const AppBottomCenterButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 

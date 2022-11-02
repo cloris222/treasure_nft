@@ -1,13 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
-import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 
 import '../../view_models/login/register_main_viewmodel.dart';
-import '../../widgets/app_bottom_center_button.dart';
 import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/label/common_text_widget.dart';
+import '../custom_appbar_view.dart';
 import 'login_email_code_view.dart';
 import 'login_param_view.dart';
 
@@ -35,19 +33,15 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: CustomAppBar.getCommonAppBar(() {
-          BaseViewModel().popPage(context);
-        }, tr('register')),
-        body: SingleChildScrollView(
-            child: Container(
-                margin:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                child: _buildBody())),
-        bottomNavigationBar: const AppBottomNavigationBar(
-            initType: AppNavigationBarType.typeLogin),
-      floatingActionButton: const AppBottomCenterButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,);
+    return CustomAppbarView(
+      needScrollView: false,
+      title: tr("register"),
+      type: AppNavigationBarType.typeLogin,
+      body: SingleChildScrollView(
+          child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              child: _buildBody())),
+    );
   }
 
   Widget _buildBody() {

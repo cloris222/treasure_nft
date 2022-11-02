@@ -6,13 +6,11 @@ import 'package:treasure_nft_project/utils/national_flag_util.dart';
 import 'package:treasure_nft_project/views/personal/common/phone_param_view.dart';
 
 import '../../../constant/ui_define.dart';
-import '../../../view_models/base_view_model.dart';
 import '../../../view_models/personal/common/user_info_setting_view_model.dart';
-import '../../../widgets/app_bottom_center_button.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
-import '../../../widgets/appbar/custom_app_bar.dart';
 import '../../../widgets/button/login_button_widget.dart';
 import '../../../widgets/date_picker/date_picker_one.dart';
+import '../../custom_appbar_view.dart';
 import '../../login/login_param_view.dart';
 import 'gender_selector_drop_down_bar.dart';
 
@@ -43,19 +41,10 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      /// AppBar
-      appBar: CustomAppBar.getCornerAppBar(
-            () {
-          BaseViewModel().popPage(context);
-        },
-        tr("userInfo"),
-        fontSize: UIDefine.fontSize24,
-        arrowFontSize: UIDefine.fontSize34,
-        circular: 40,
-        appBarHeight: UIDefine.getScreenWidth(20),
-      ),
-
+    return CustomAppbarView(
+      needScrollView: false,
+      title: tr("userInfo"),
+      type: AppNavigationBarType.typePersonal,
       body:SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(UIDefine.getScreenWidth(5.5)),
@@ -123,10 +112,6 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
           )
         ),
       ),
-
-      bottomNavigationBar: const AppBottomNavigationBar(initType: AppNavigationBarType.typePersonal),
-      floatingActionButton: const AppBottomCenterButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 

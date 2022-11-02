@@ -5,15 +5,13 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_members.dart';
-import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
 import 'package:treasure_nft_project/views/home/widget/search_action_button.dart';
 import 'package:treasure_nft_project/views/personal/team/team_member_detail_page.dart';
 import 'package:treasure_nft_project/views/personal/team/widget/all_members_card.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
-import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 
-import '../../../widgets/app_bottom_center_button.dart';
+import '../../custom_appbar_view.dart';
 
 
 ///MARK:團隊成員
@@ -22,15 +20,11 @@ class TeamMemberPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar.getCommonAppBar(() {
-        BaseViewModel().popPage(context);
-      }, tr('teamMember')),
+    return CustomAppbarView(
+      needScrollView: false,
+      title: tr("teamMember"),
+      type: AppNavigationBarType.typePersonal,
       body: const Body(),
-      bottomNavigationBar:
-      const AppBottomNavigationBar(initType: AppNavigationBarType.typePersonal),
-      floatingActionButton: const AppBottomCenterButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

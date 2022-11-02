@@ -1,12 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/personal/orders/withdraw/order_withdraw_type_page.dart';
-import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 
 import '../../../constant/ui_define.dart';
+import '../../custom_appbar_view.dart';
 import 'withdraw/order_withdraw_tab_bar.dart';
-import '../../../widgets/app_bottom_center_button.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 
 ///MARK: 提領
@@ -35,11 +33,10 @@ class _OrderWithdrawPage extends State<OrderWithdrawPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar.getCommonAppBar(() {
-        BaseViewModel().popPage(context);
-      }, tr('walletWithdraw')),
-
+    return CustomAppbarView(
+      needScrollView: false,
+      title: tr("walletWithdraw"),
+      type: widget.type,
       body: Column(
         children: [
           Container(
@@ -62,11 +59,7 @@ class _OrderWithdrawPage extends State<OrderWithdrawPage> {
         ],
       ),
 
-
-      bottomNavigationBar: AppBottomNavigationBar(initType: widget.type),
-      floatingActionButton: const AppBottomCenterButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-    );
+   );
   }
 
   void _setPage() {

@@ -40,6 +40,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
   @override
   Widget build(BuildContext context) {
     return CustomAppbarView(
+      needCover: true,
       needScrollView:true,
       title: tr('myEarnings'),
       body: _buildPageView(context),

@@ -10,12 +10,10 @@ import 'package:treasure_nft_project/views/setting_language_page.dart';
 import 'package:treasure_nft_project/views/sigin_in_page.dart';
 import 'package:treasure_nft_project/views/trade/trade_main_view.dart';
 import 'package:treasure_nft_project/views/wallet/wallet_main_view.dart';
-import 'package:treasure_nft_project/widgets/app_bottom_center_button.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 
 import '../constant/global_data.dart';
 import '../constant/ui_define.dart';
-import '../models/http/parameter/sign_in_data.dart';
 import '../widgets/app_bottom_navigation_bar.dart';
 import 'full_animation_page.dart';
 import 'home/home_main_view.dart';
@@ -168,7 +166,6 @@ class _MainPageState extends State<MainPage> {
 
   void _globalAction() async {
     await BaseViewModel().pushPage(context, const SettingLanguagePage());
-    print('setState');
     setState(() {});
   }
 

@@ -1,19 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/enum/coin_enum.dart';
-import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
-import 'package:treasure_nft_project/view_models/base_view_model.dart';
-import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_theme.dart';
 import '../../view_models/wallet/wallet_setting_viewmodel.dart';
-import '../../widgets/app_bottom_center_button.dart';
 import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/label/icon/base_icon_widget.dart';
 import '../../widgets/label/gradient_bolder_widget.dart';
+import '../custom_appbar_view.dart';
 import '../login/login_email_code_view.dart';
 
 ///MARK: 支付設置
@@ -42,17 +39,12 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar.getCommonAppBar(() {
-        BaseViewModel().popPage(context);
-      }, tr('uc_setting')),
-      backgroundColor: Colors.white,
+    return CustomAppbarView(
+      needScrollView: false,
+      title: tr("uc_setting"),
+      type: AppNavigationBarType.typeWallet,
       body: SingleChildScrollView(child: _buildBody()),
-      bottomNavigationBar: const AppBottomNavigationBar(
-          initType: AppNavigationBarType.typeWallet),
-      floatingActionButton: const AppBottomCenterButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-    );
+      );
   }
 
   Widget _buildBody() {

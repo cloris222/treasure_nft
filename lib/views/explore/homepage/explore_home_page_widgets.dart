@@ -22,9 +22,9 @@ class HomePageWidgets {
           children: [
             Column(
               children: [
-                Container(
-                  height: UIDefine.getScreenWidth(16),
-                ),
+                // Container(
+                //   height: UIDefine.getScreenWidth(16),
+                // ),
 
                 Image.network(data.introPhoneUrl, height: UIDefine.getScreenWidth(44), fit: BoxFit.fill),
 

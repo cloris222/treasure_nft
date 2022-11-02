@@ -1,14 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:format/format.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import '../../../constant/call_back_function.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/ui_define.dart';
 import '../../../view_models/base_view_model.dart';
-import '../../../widgets/app_bottom_center_button.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
-import '../../../widgets/appbar/custom_app_bar.dart';
+import '../../custom_appbar_view.dart';
 import '../api/collection_api.dart';
 
 class DepositNftResultView extends StatefulWidget {
@@ -40,17 +38,10 @@ class _DepositNftResultView extends State<DepositNftResultView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar.getCornerAppBar(
-        () {
-          BaseViewModel().popPage(context);
-        },
-        tr("depositNFT"),
-        fontSize: UIDefine.fontSize24,
-        arrowFontSize: UIDefine.fontSize34,
-        circular: 40,
-        appBarHeight: UIDefine.getScreenWidth(20),
-      ),
+    return CustomAppbarView(
+      needScrollView: false,
+      title: tr("depositNFT"),
+      type: AppNavigationBarType.typeCollection,
 
       body: Padding(
         padding: EdgeInsets.all(UIDefine.getScreenWidth(5)),
@@ -158,11 +149,6 @@ class _DepositNftResultView extends State<DepositNftResultView> {
           ],
         ),
       ),
-
-
-      bottomNavigationBar: const AppBottomNavigationBar(initType: AppNavigationBarType.typeCollection),
-      floatingActionButton: const AppBottomCenterButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

@@ -2,8 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
-import 'package:treasure_nft_project/view_models/base_view_model.dart';
-import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../../constant/enum/coin_enum.dart';
@@ -11,10 +9,10 @@ import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_style.dart';
 import '../../../constant/theme/app_theme.dart';
 import '../../../view_models/personal/orders/order_recharge_viewmodel.dart';
-import '../../../widgets/app_bottom_center_button.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/dialog/simple_custom_dialog.dart';
 import '../../../widgets/label/coin/tether_coin_widget.dart';
+import '../../custom_appbar_view.dart';
 
 ///MARK: 充值
 class OrderRechargePage extends StatefulWidget {
@@ -40,14 +38,11 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar.getCommonAppBar(() {
-        BaseViewModel().popPage(context);
-      }, tr('walletRecharge')),
+    return CustomAppbarView(
+      needScrollView: false,
+      title: tr("walletRecharge"),
+      type: widget.type,
       body: SingleChildScrollView(child: _buildBody()),
-      bottomNavigationBar: AppBottomNavigationBar(initType: widget.type),
-      floatingActionButton: const AppBottomCenterButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 

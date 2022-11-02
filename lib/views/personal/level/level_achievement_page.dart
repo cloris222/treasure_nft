@@ -82,6 +82,7 @@ class _LevelAchievementPageState extends State<LevelAchievementPage> {
   @override
   Widget build(BuildContext context) {
     return CustomAppbarView(
+      needCover: true,
       needScrollView: true,
       title: tr('achievement'),
       body: _buildPageView(context),

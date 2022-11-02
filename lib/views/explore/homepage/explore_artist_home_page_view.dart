@@ -6,9 +6,9 @@ import '../../../constant/theme/app_theme.dart';
 import '../../../constant/ui_define.dart';
 import '../../../view_models/base_view_model.dart';
 import '../../../view_models/explore/explore_artist_home_page_view_model.dart';
-import '../../../widgets/app_bottom_center_button.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/appbar/custom_app_bar.dart';
+import '../../custom_appbar_view.dart';
 import '../data/explore_artist_detail_response_data.dart';
 import '../data/explore_main_response_data.dart';
 import 'explore_home_page_widgets.dart';
@@ -54,7 +54,11 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return CustomAppbarView(
+      needCover: true,
+      needScrollView: false,
+      title: artistData.artistName,
+      type: AppNavigationBarType.typeExplore,
       body: NotificationListener<ScrollEndNotification>(
           onNotification: (scrollEnd) {
             final metrics = scrollEnd.metrics;
@@ -79,17 +83,17 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
                     /// 畫家照片+背景照+名稱
                     HomePageWidgets.homePageTop(artistData, data.creatorName),
 
-                    /// AppBar
-                    CustomAppBar.getCornerAppBar(
-                      () {
-                        BaseViewModel().popPage(context);
-                      },
-                      artistData.artistName,
-                      fontSize: UIDefine.fontSize24,
-                      arrowFontSize: UIDefine.fontSize34,
-                      circular: 40,
-                      appBarHeight: UIDefine.getScreenWidth(20),
-                    ),
+                    // /// AppBar
+                    // CustomAppBar.getCornerAppBar(
+                    //   () {
+                    //     BaseViewModel().popPage(context);
+                    //   },
+                    //   artistData.artistName,
+                    //   fontSize: UIDefine.fontSize24,
+                    //   arrowFontSize: UIDefine.fontSize34,
+                    //   circular: 40,
+                    //   appBarHeight: UIDefine.getScreenWidth(20),
+                    // ),
                   ],
                 ),
 
@@ -219,10 +223,6 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
               ],
             ),
           )),
-      bottomNavigationBar: const AppBottomNavigationBar(
-          initType: AppNavigationBarType.typeExplore),
-      floatingActionButton: const AppBottomCenterButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 

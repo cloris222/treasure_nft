@@ -7,11 +7,9 @@ import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart'
 
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/ui_define.dart';
-import '../../../view_models/base_view_model.dart';
 import '../../../view_models/personal/level/level_bonus_viewmodel.dart';
-import '../../../widgets/app_bottom_center_button.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
-import '../../../widgets/appbar/custom_app_bar.dart';
+import '../../custom_appbar_view.dart';
 
 class LevelBonusPage extends StatefulWidget {
   const LevelBonusPage({Key? key}) : super(key: key);
@@ -32,21 +30,16 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar.getCommonAppBar(() {
-        BaseViewModel().popPage(context);
-      }, tr('bonus')),
-      backgroundColor: Colors.white,
+    return CustomAppbarView(
+      needScrollView: false,
+      title: tr("bonus"),
+      type: AppNavigationBarType.typePersonal,
       body: SingleChildScrollView(
           child: Container(
               margin: EdgeInsets.symmetric(
                   horizontal: UIDefine.getScreenWidth(15),
                   vertical: UIDefine.getScreenHeight(3)),
               child: _buildBody())),
-      bottomNavigationBar: const AppBottomNavigationBar(
-          initType: AppNavigationBarType.typePersonal),
-      floatingActionButton: const AppBottomCenterButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 

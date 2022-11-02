@@ -134,6 +134,7 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
     /// 將開賣狀態的值往下傳
     TradeData tradeData = viewModel.countSellDate();
     return CustomAppbarView(
+        needCover: true,
         needScrollView:true,
         title: widget.level == 0 ? tr('noviceArea') : 'Level ${widget.level}',
         body: Column(children: [

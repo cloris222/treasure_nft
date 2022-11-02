@@ -3,7 +3,6 @@ import 'package:treasure_nft_project/constant/global_data.dart';
 
 import '../constant/theme/app_colors.dart';
 import '../constant/ui_define.dart';
-import '../widgets/app_bottom_center_button.dart';
 import '../widgets/app_bottom_navigation_bar.dart';
 import '../widgets/appbar/custom_app_bar.dart';
 
@@ -15,17 +14,20 @@ class CustomAppbarView extends StatelessWidget {
       required this.body,
       this.onPressed,
       this.type,
-      required this.needScrollView})
+      required this.needScrollView,
+      this.needCover = false})
       : super(key: key);
   final String title;
   final Widget body;
   final VoidCallback? onPressed;
   final AppNavigationBarType? type;
   final bool needScrollView;
+  final bool needCover;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
         appBar: CustomAppBar.getOnlyArrowAppBar(
             onPressed ??
                 () {
@@ -36,16 +38,17 @@ class CustomAppbarView extends StatelessWidget {
           needScrollView
               ? SingleChildScrollView(
                   child: Column(children: [
-                  const SizedBox(height: 5),
+                  SizedBox(height: needCover ? 5 : 20),
                   body,
-                  const SizedBox(height: 5+GlobalData.navigationBarPadding),
+                  const SizedBox(height: 5 + GlobalData.navigationBarPadding),
                 ]))
               : Container(
                   height:
                       UIDefine.getHeight() - MediaQuery.of(context).padding.top,
                   width: UIDefine.getWidth(),
-                  padding: const EdgeInsets.only(
-                      top: 5, bottom: 5+GlobalData.navigationBarPadding),
+                  padding: EdgeInsets.only(
+                      top: needCover ? 5 : 20,
+                      bottom: 5 + GlobalData.navigationBarPadding),
                   child: body),
           Positioned(
               top: 0,

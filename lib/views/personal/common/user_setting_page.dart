@@ -28,6 +28,7 @@ class _UserSettingPageState extends State<UserSettingPage> {
   @override
   Widget build(BuildContext context) {
     return CustomAppbarView(
+        needCover: true,
         needScrollView:true,
         title: tr('account'),
         type: AppNavigationBarType.typePersonal,

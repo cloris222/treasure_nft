@@ -4,8 +4,6 @@ import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/level_info_data.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
-import 'package:treasure_nft_project/view_models/base_view_model.dart';
-import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart';
 import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
 import 'package:treasure_nft_project/widgets/label/icon/level_icon_widget.dart';
@@ -15,10 +13,10 @@ import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
 import '../../../constant/theme/app_style.dart';
 import '../../../view_models/personal/level/level_detail_viewmodel.dart';
-import '../../../widgets/app_bottom_center_button.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/button/action_button_widget.dart';
 import '../../../widgets/label/custom_linear_progress.dart';
+import '../../custom_appbar_view.dart';
 import 'level_achievement_page.dart';
 
 ///MARK: 等級詳細
@@ -46,19 +44,14 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar.getCommonAppBar(() {
-        BaseViewModel().popPage(context);
-      }, tr('level')),
-      backgroundColor: Colors.white,
+    return CustomAppbarView(
+      needScrollView: false,
+      title: tr("level"),
+      type: AppNavigationBarType.typePersonal,
       body: SingleChildScrollView(
           child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),
               child: _buildBody())),
-      bottomNavigationBar: const AppBottomNavigationBar(
-          initType: AppNavigationBarType.typePersonal),
-      floatingActionButton: const AppBottomCenterButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 

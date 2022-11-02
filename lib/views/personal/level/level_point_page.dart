@@ -34,6 +34,7 @@ class _LevelPointPageState extends State<LevelPointPage> {
   @override
   Widget build(BuildContext context) {
     return CustomAppbarView(
+      needCover: true,
       needScrollView: false,
       title: tr('pointRecord'),
       body: _buildBody(),

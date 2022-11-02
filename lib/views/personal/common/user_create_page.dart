@@ -2,19 +2,15 @@ import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
-import 'package:treasure_nft_project/view_models/base_view_model.dart';
-import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
-import 'package:treasure_nft_project/widgets/text_field/login_text_widget.dart';
 
 import '../../../constant/theme/app_colors.dart';
 import '../../../view_models/personal/common/user_create_viewmodel.dart';
-import '../../../widgets/app_bottom_center_button.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
+import '../../custom_appbar_view.dart';
 import '../../login/login_param_view.dart';
 import 'choose_date_view.dart';
 
@@ -44,15 +40,11 @@ class _UserCreatePageState extends State<UserCreatePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar.getCommonAppBar(() {
-        BaseViewModel().popPage(context);
-      }, tr('create')),
+    return CustomAppbarView(
+      needScrollView: false,
+      title: tr("create"),
+      type: AppNavigationBarType.typePersonal,
       body: Container(padding: const EdgeInsets.all(20), child: _buildBody()),
-      bottomNavigationBar: const AppBottomNavigationBar(
-          initType: AppNavigationBarType.typePersonal),
-      floatingActionButton: const AppBottomCenterButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 
@@ -104,7 +96,7 @@ class _UserCreatePageState extends State<UserCreatePage> {
         hintText: tr("sellDate-placeholder'"),
         controller: viewModel.dateController,
         data: viewModel.dateData,
-        onTap: ()=>viewModel.onChooseDate(context),
+        onTap: () => viewModel.onChooseDate(context),
       ),
       Text(
           '${tr('royalty')} : ${NumberFormatUtil().removeTwoPointFormat(viewModel.rate)} %'),

@@ -2,12 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constant/ui_define.dart';
-import '../../../view_models/base_view_model.dart';
 import '../../../view_models/personal/common/user_change_password_view_model.dart';
-import '../../../widgets/app_bottom_center_button.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
-import '../../../widgets/appbar/custom_app_bar.dart';
 import '../../../widgets/button/login_button_widget.dart';
+import '../../custom_appbar_view.dart';
 import '../../login/login_email_code_view.dart';
 import '../../login/login_param_view.dart';
 
@@ -37,19 +35,10 @@ class _UserChangePasswordPage extends State<UserChangePasswordPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      /// AppBar
-      appBar: CustomAppBar.getCornerAppBar(
-            () {
-          BaseViewModel().popPage(context);
-        },
-        tr("changePassword"),
-        fontSize: UIDefine.fontSize24,
-        arrowFontSize: UIDefine.fontSize34,
-        circular: 40,
-        appBarHeight: UIDefine.getScreenWidth(20),
-      ),
-
+    return CustomAppbarView(
+      needScrollView: false,
+      title: tr("changePassword"),
+      type: AppNavigationBarType.typePersonal,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(UIDefine.getScreenWidth(5.5)),
@@ -99,10 +88,6 @@ class _UserChangePasswordPage extends State<UserChangePasswordPage> {
            ),
         )
       ),
-
-      bottomNavigationBar: const AppBottomNavigationBar(initType: AppNavigationBarType.typePersonal),
-      floatingActionButton: const AppBottomCenterButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 

@@ -7,14 +7,13 @@ import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
-import 'package:treasure_nft_project/views/main_page.dart';
-import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
-import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 import '../constant/enum/setting_enum.dart';
 
 import '../constant/theme/app_colors.dart';
+
 import '../utils/language_util.dart';
-import '../widgets/app_bottom_center_button.dart';
+import 'custom_appbar_view.dart';
+import 'main_page.dart';
 
 class SettingLanguagePage extends StatefulWidget {
   const SettingLanguagePage({Key? key}) : super(key: key);
@@ -34,17 +33,14 @@ class _SettingLanguagePageState extends State<SettingLanguagePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar.getCommonAppBar(() {
-        BaseViewModel().popPage(context);
-      }, tr('language')),
+    return CustomAppbarView(
+      needScrollView: false,
+      needCover: false,
+      title: tr('language'),
+      type: GlobalData.mainBottomType,
       body: Container(
           margin: const EdgeInsets.symmetric(horizontal: 30),
           child: _buildLanguageView(context)),
-      bottomNavigationBar:
-          AppBottomNavigationBar(initType: GlobalData.mainBottomType),
-      floatingActionButton: const AppBottomCenterButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 

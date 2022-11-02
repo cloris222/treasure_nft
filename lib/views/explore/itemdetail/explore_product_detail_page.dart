@@ -3,19 +3,16 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:format/format.dart';
-import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 
 import '../../../constant/ui_define.dart';
-import '../../../models/http/api/user_info_api.dart';
-import '../../../models/http/parameter/check_level_info.dart';
 import '../../../utils/timer_util.dart';
 import '../../../view_models/base_view_model.dart';
 import '../../../view_models/explore/explore_product_detail_view_model.dart';
-import '../../../widgets/app_bottom_center_button.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/appbar/custom_app_bar.dart';
+import '../../custom_appbar_view.dart';
 import '../../explore_chart_view.dart';
 import '../../personal/level/level_achievement_page.dart';
 import '../data/explore_item_response_data.dart';
@@ -85,22 +82,25 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return CustomAppbarView(
+      needScrollView: false,
+      title: tr("Details"),
+      type: AppNavigationBarType.typeExplore,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            /// AppBar
-            CustomAppBar.getCornerAppBar(
-                  () {
-                BaseViewModel().popPage(context);
-              },
-              tr('Details'),
-              fontSize: UIDefine.fontSize24,
-              arrowFontSize: UIDefine.fontSize34,
-              circular: 40,
-              appBarHeight: UIDefine.getScreenWidth(20),
-            ),
+            // /// AppBar
+            // CustomAppBar.getCornerAppBar(
+            //       () {
+            //     BaseViewModel().popPage(context);
+            //   },
+            //   tr('Details'),
+            //   fontSize: UIDefine.fontSize24,
+            //   arrowFontSize: UIDefine.fontSize34,
+            //   circular: 40,
+            //   appBarHeight: UIDefine.getScreenWidth(20),
+            // ),
 
             /// 提醒標語+倒數計時
             Visibility(
@@ -253,10 +253,6 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
           ],
         ),
       ),
-
-      bottomNavigationBar: const AppBottomNavigationBar(initType: AppNavigationBarType.typeExplore),
-      floatingActionButton: const AppBottomCenterButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 

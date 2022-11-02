@@ -1,10 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/view_models/base_view_model.dart';
-import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
-
-import '../../../widgets/app_bottom_center_button.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
+import '../../custom_appbar_view.dart';
 
 ///MARK: 訂單信息
 class OrderInfoPage extends StatelessWidget {
@@ -12,14 +9,11 @@ class OrderInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar.getCommonAppBar(() {
-        BaseViewModel().popPage(context);
-      }, tr('Notification_nav')),
-      bottomNavigationBar:
-      const AppBottomNavigationBar(initType: AppNavigationBarType.typePersonal),
-      floatingActionButton: const AppBottomCenterButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+    return CustomAppbarView(
+      needScrollView: false,
+      title: tr('Notification_nav'),
+      type: AppNavigationBarType.typePersonal,
+      body: Container(),
     );
   }
 }

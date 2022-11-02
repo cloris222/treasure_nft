@@ -42,6 +42,7 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
   @override
   Widget build(BuildContext context) {
     return CustomAppbarView(
+      needCover: true,
       needScrollView: true,
       title: tr('shareCenter'),
       body: Column(
