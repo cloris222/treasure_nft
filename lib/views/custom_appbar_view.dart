@@ -36,7 +36,7 @@ class CustomAppbarView extends StatelessWidget {
         body: Stack(children: [
           Container(
               color: Colors.white,
-              height: UIDefine.getHeight() - MediaQuery.of(context).padding.top,
+              height: UIDefine.getHeight(),
               width: UIDefine.getWidth(),
               padding: EdgeInsets.only(
                   top: needCover ? 5 : 20,

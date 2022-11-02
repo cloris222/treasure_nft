@@ -81,7 +81,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
   }
 
   final double itemHeight = kBottomNavigationBarHeight * 1.4;
-  final double spaceHeight = kBottomNavigationBarHeight * 0.3;
+  final double spaceHeight = kBottomNavigationBarHeight * 0.35;
   final double textHeight = kBottomNavigationBarHeight * 0.3;
   final double iconHeight = kBottomNavigationBarHeight * 0.5;
   final double paddingSpace = kBottomNavigationBarHeight * 0.12;
