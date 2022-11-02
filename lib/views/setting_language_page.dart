@@ -55,57 +55,57 @@ class _SettingLanguagePageState extends State<SettingLanguagePage> {
           switch (type) {
             case LanguageType.English:
               {
-                imageCountry = 'en';
+                imageCountry = 'America';
               }
               break;
             case LanguageType.Mandarin:
               {
-                imageCountry = 'tc';
+                imageCountry = 'Taiwan';
               }
               break;
             case LanguageType.Arabic:
               {
-                imageCountry = 'sa';
+                imageCountry = 'SaudiArabia';
               }
               break;
             case LanguageType.Farsi:
               {
-                imageCountry = 'ir';
+                imageCountry = 'Iran';
               }
               break;
             case LanguageType.Spanish:
               {
-                imageCountry = 'es';
+                imageCountry = 'Spain';
               }
               break;
             case LanguageType.Russian:
               {
-                imageCountry = 'ru';
+                imageCountry = 'Russia';
               }
               break;
             case LanguageType.Portuguese:
               {
-                imageCountry = 'pt';
+                imageCountry = 'Portugal';
               }
               break;
             case LanguageType.Korean:
               {
-                imageCountry = 'kr';
+                imageCountry = 'Korea';
               }
               break;
             case LanguageType.Vietnamese:
               {
-                imageCountry = 'vn';
+                imageCountry = 'VietNam';
               }
               break;
             case LanguageType.Thai:
               {
-                imageCountry = 'th';
+                imageCountry = 'Thailand';
               }
               break;
             case LanguageType.Turkish:
               {
-                imageCountry = 'tr';
+                imageCountry = 'Turkey';
               }
               break;
           }

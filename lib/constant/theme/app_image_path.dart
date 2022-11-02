@@ -141,7 +141,7 @@ class AppImagePath {
   static const String userCreateIcon = '$appIconFolderPath/icon_hammer_03.png';
 
   ///language 多國語言
-  static const String languageIcon = '$languagePath/img_{country}_01.png';
+  static const String languageIcon = '$languagePath/img_{country}.png';
   static const String languageCheckIcon =
       '$appIconFolderPath/icon_check_ok_03.png';
 

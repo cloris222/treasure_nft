@@ -1,10 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
-import 'package:treasure_nft_project/utils/national_flag_util.dart';
 import 'package:treasure_nft_project/views/personal/common/phone_param_view.dart';
 
+import '../../../constant/theme/app_image_path.dart';
 import '../../../constant/ui_define.dart';
 import '../../../view_models/personal/common/user_info_setting_view_model.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
@@ -120,7 +121,7 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Image.asset(NationalFlagUtil().getNationalFlag(GlobalData.userInfo.country),
+        Image.asset(format(AppImagePath.languageIcon, {'country': GlobalData.userInfo.country}),
         width: UIDefine.getScreenWidth(11.11), height: UIDefine.getScreenWidth(11.11)),
 
         SizedBox(width: UIDefine.getScreenWidth(2.7)),
