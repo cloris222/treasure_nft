@@ -66,6 +66,7 @@ class _PersonalMainViewState extends State<PersonalMainView> {
                       setState(() {});
                       widget.onViewChange();
                     }),
+                   const SizedBox(height: 10)
                   ]))
             ])));
   }

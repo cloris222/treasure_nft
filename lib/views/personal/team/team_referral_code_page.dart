@@ -301,7 +301,7 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
                     }));
               }),
               const SizedBox(
-                height: 20,
+                height: 50,
               ),
             ],
           ),
