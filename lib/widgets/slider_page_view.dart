@@ -54,7 +54,7 @@ class _SliderPageViewState extends State<SliderPageView> {
                   child: Column(children: [
                     _buildButtonList(),
                     Flexible(child: _buildPageView()),
-                    SizedBox(height: UIDefine.getScreenHeight(23))
+                    SizedBox(height: UIDefine.getScreenHeight(10))
                   ])),
             )
           ],

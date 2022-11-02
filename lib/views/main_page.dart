@@ -101,18 +101,22 @@ class _MainPageState extends State<MainPage> {
             avatarAction: _avatarAction,
             globalAction: _globalAction,
             mainAction: _mainAction),
-        body: PageView(
-          controller: pageController,
-          physics: const NeverScrollableScrollPhysics(),
-          children: [
-            const ExploreMainView(),
-            const CollectionMainView(),
-            const TradeMainView(),
-            const WalletMainView(),
-            PersonalMainView(onViewChange: () => setState(() {})),
-            const HomeMainView(),
-            const LoginMainView()
-          ],
+        body: Padding(
+          padding:
+              const EdgeInsets.only(bottom: GlobalData.navigationBarPadding),
+          child: PageView(
+            controller: pageController,
+            physics: const NeverScrollableScrollPhysics(),
+            children: [
+              const ExploreMainView(),
+              const CollectionMainView(),
+              const TradeMainView(),
+              const WalletMainView(),
+              PersonalMainView(onViewChange: () => setState(() {})),
+              const HomeMainView(),
+              const LoginMainView()
+            ],
+          ),
         ),
         extendBody: true,
         bottomNavigationBar: AppBottomNavigationBar(
@@ -122,9 +126,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   _changePage(AppNavigationBarType type) {
-    setState(() {
-      pageController.jumpToPage(getViewIndex(type));
-    });
+    pageController.jumpToPage(getViewIndex(type));
   }
 
   void _searchAction() {
