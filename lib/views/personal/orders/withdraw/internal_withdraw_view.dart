@@ -1,8 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
-
+import 'package:permission_handler/permission_handler.dart';
 import '../../../../constant/theme/app_colors.dart';
 import '../../../../constant/ui_define.dart';
+import '../../../../utils/qrcode_scanner_util.dart';
 import '../../../../view_models/personal/orders/order_internal_withdraw_view_model.dart';
 import '../../../../widgets/button/login_button_widget.dart';
 import '../../../../widgets/label/error_text_widget.dart';
@@ -29,6 +30,15 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
     viewModel.initState();
   }
 
+  Future<PermissionStatus> _getCameraPermission() async {
+    var status = await Permission.camera.status;
+    if (!status.isGranted) {
+      final result = await Permission.camera.request();
+      return result;
+    } else {
+      return status;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +104,10 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
 
               Positioned(
                   right: UIDefine.getScreenWidth(5.5), top: UIDefine.getScreenWidth(6.38),
-                  child: Image.asset('assets/icon/icon/icon_scanning_01.png')
+                  child: GestureDetector(
+                      onTap: () => _onScanQRCode(),
+                      child: Image.asset('assets/icon/icon/icon_scanning_01.png')
+                  )
               )
             ],
           ),
@@ -161,6 +174,18 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
     );
   }
 
+  void _onScanQRCode() async {
+    PermissionStatus status = await _getCameraPermission();
+    if (status.isGranted) { // 檢查權限
+      if (mounted) {
+        viewModel.pushPage(context, QRCodeScannerUtil(
+            callBack: (String value) {
+              viewModel.accountController.text = value;
+            }));
+      }
+    }
+  }
+
   Widget _buildTextContent(String title, String content) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -179,7 +204,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
     );
   }
 
-  Widget _buildPasswordInputBar() {
+  Widget _buildPasswordInputBar() { // test 體驗號功能未開
     return LoginParamView(
         titleText: tr('password'),
         hintText: tr("placeholder-password"),

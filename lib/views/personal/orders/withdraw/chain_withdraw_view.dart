@@ -1,11 +1,14 @@
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/widgets/dialog/simple_custom_dialog.dart';
 
 import '../../../../constant/enum/coin_enum.dart';
 import '../../../../constant/theme/app_theme.dart';
 import '../../../../constant/ui_define.dart';
+import '../../../../utils/qrcode_scanner_util.dart';
 import '../../../../view_models/personal/orders/order_chain_withdraw_view_model.dart';
 import '../../../../widgets/button/login_button_widget.dart';
 import '../../../../widgets/label/coin/tether_coin_widget.dart';
@@ -30,6 +33,16 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
     super.initState();
     viewModel = OrderChainWithdrawViewModel(setState: setState);
     viewModel.initState();
+  }
+
+  Future<PermissionStatus> _getCameraPermission() async {
+    var status = await Permission.camera.status;
+    if (!status.isGranted) {
+      final result = await Permission.camera.request();
+      return result;
+    } else {
+      return status;
+    }
   }
 
   @override
@@ -151,7 +164,10 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
               
               Positioned(
                 right: UIDefine.getScreenWidth(5.5), top: UIDefine.getScreenWidth(6.38),
-                  child: Image.asset('assets/icon/icon/icon_scanning_01.png')
+                  child: GestureDetector(
+                    onTap: () => _onScanQRCode(),
+                    child: Image.asset('assets/icon/icon/icon_scanning_01.png')
+                  )
               )
             ],
           ),
@@ -160,6 +176,28 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
         ErrorTextWidget(data: viewModel.addressData, alignment: Alignment.centerRight)
       ],
     );
+  }
+
+  void _onScanQRCode() async {
+    PermissionStatus status = await _getCameraPermission();
+    if (status.isGranted) { // 檢查權限
+      if (mounted) {
+        viewModel.pushPage(context, QRCodeScannerUtil(
+            callBack: (String value) {
+              viewModel.addressController.text = value;
+            }));
+      }
+    }
+  }
+
+  void _onQuickFill() {
+    String address = viewModel.data.address;
+    if (address.isNotEmpty) {
+      viewModel.addressController.text = viewModel.data.address;
+
+    } else {
+      SimpleCustomDialog(context, isSuccess: false, mainText: '尚未設定帳號').show();
+    }
   }
 
   Widget _buildAmountInputBar() {
@@ -216,16 +254,6 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
         ErrorTextWidget(data: viewModel.amountData, alignment: Alignment.centerRight)
       ],
     );
-  }
-
-  void _onQuickFill() {
-    String address = viewModel.data.address;
-    if (address.isNotEmpty) {
-      viewModel.addressController.text = viewModel.data.address;
-
-    } else {
-      SimpleCustomDialog(context, isSuccess: false, mainText: '尚未設定帳號').show();
-    }
   }
 
   Widget _buildTextContent(String title, String content) {
