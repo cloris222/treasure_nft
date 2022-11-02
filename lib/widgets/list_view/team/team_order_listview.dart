@@ -33,7 +33,7 @@ class _TeamOrderListView extends State<TeamOrderListView> {
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-        childAspectRatio: 0.45,
+        childAspectRatio: 0.44,
         mainAxisSpacing: UIDefine.getScreenHeight(3),
           crossAxisSpacing: UIDefine.getScreenWidth(3),
       ),

@@ -1,10 +1,11 @@
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_order.dart';
 import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
+import 'package:treasure_nft_project/widgets/dialog/simple_custom_dialog.dart';
 
 
 class TeamOrderItemView extends StatefulWidget {
@@ -27,23 +28,37 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
 
       Image.network(widget.itemData.imgUrl),
 
-      /// Name
-      Text(widget.itemData.itemName,
-        style: TextStyle(
-            fontSize: UIDefine.fontSize14,
-            fontWeight: FontWeight.bold
+        /// Name
+        Text(widget.itemData.itemName,
+          style: TextStyle(
+              fontSize: UIDefine.fontSize14,
+              fontWeight: FontWeight.bold
+          ),
         ),
-      ),
 
       viewModel.getPadding(1),
 
-      /// Time
-      Text(widget.itemData.time.toString(),
-        style: TextStyle(
-          fontSize: UIDefine.fontSize12,
-          color: AppColors.textGrey,
-        ),
-      ),
+        /// Time
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(widget.itemData.time.toString(),
+              style: TextStyle(
+                fontSize: UIDefine.fontSize12,
+                color: AppColors.textGrey,
+              ),
+            ),
+
+            /// Share
+            GestureDetector(
+                onTap: () {
+                  SimpleCustomDialog(context).show();
+                },
+                child:  SizedBox(
+                  width: UIDefine.getScreenWidth(6),
+                  child: Image.asset(AppImagePath.shareIcon02),
+                )),
+          ],),
+
 
       viewModel.getPadding(1),
 
