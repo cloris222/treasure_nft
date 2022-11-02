@@ -26,6 +26,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
   initState() {
     super.initState();
     viewModel = OrderInternalWithdrawViewModel(setState: setState);
+    viewModel.initState();
   }
 
 
@@ -40,9 +41,9 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
               SizedBox(height: UIDefine.getScreenWidth(5.5)),
               _buildAmountInputBar(),
               SizedBox(height: UIDefine.getScreenWidth(2.77)),
-              _buildTextContent(tr('canWithdrawFee'), '89997.6'),
+              _buildTextContent(tr('canWithdrawFee'), viewModel.data.balance),
               SizedBox(height: UIDefine.getScreenWidth(2.77)),
-              _buildTextContent(tr('minAmount'), '1 USDT'),
+              _buildTextContent(tr('minAmount'), viewModel.data.minAmount + ' USDT'),
               SizedBox(height: UIDefine.getScreenWidth(8.27)),
 
               Container(width: double.infinity, height: 1.5, color: AppColors.dialogGrey),
@@ -68,15 +69,11 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
     return Column(
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              tr('getAddress'),
+              tr('getAccount'),
               style: TextStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w600),
-            ),
-            Text(
-              tr('quickFill'),
-              style: TextStyle(color: AppColors.mainThemeButton, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w600),
             ),
           ],
         ),
@@ -145,10 +142,13 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
                       SizedBox(width: UIDefine.getScreenWidth(2.77)),
                       Container(width: 1, height: UIDefine.getScreenWidth(6.66), color: AppColors.dialogGrey),
                       SizedBox(width: UIDefine.getScreenWidth(2.77)),
-                      Text(
-                        tr('all'),
-                        style: TextStyle(color: AppColors.mainThemeButton, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w600),
-                      ),
+                      GestureDetector(
+                          onTap: () => viewModel.amountController.text = viewModel.data.balance,
+                          child: Text(
+                            tr('all'),
+                            style: TextStyle(color: AppColors.mainThemeButton, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w600),
+                          )
+                      )
                     ],
                   )
               )

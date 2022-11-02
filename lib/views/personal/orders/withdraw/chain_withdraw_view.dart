@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/widgets/dialog/simple_custom_dialog.dart';
 
 import '../../../../constant/enum/coin_enum.dart';
 import '../../../../constant/theme/app_theme.dart';
@@ -28,6 +29,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
   initState() {
     super.initState();
     viewModel = OrderChainWithdrawViewModel(setState: setState);
+    viewModel.initState();
   }
 
   @override
@@ -43,11 +45,11 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
             SizedBox(height: UIDefine.getScreenWidth(5.5)),
             _buildAmountInputBar(),
             SizedBox(height: UIDefine.getScreenWidth(2.77)),
-            _buildTextContent(tr('canWithdrawFee'), '89997.6'),
+            _buildTextContent(tr('canWithdrawFee'), viewModel.data.balance),
             SizedBox(height: UIDefine.getScreenWidth(2.77)),
-            _buildTextContent(tr('minAmount'), '1 USDT'),
+            _buildTextContent(tr('minAmount'), viewModel.data.minAmount + ' USDT'),
             SizedBox(height: UIDefine.getScreenWidth(2.77)),
-            _buildTextContent(tr('withdrawFee'), '2 USDT'),
+            _buildTextContent(tr('withdrawFee'), viewModel.data.fee + ' USDT'),
             SizedBox(height: UIDefine.getScreenWidth(8.27)),
 
             Container(width: double.infinity, height: 1.5, color: AppColors.dialogGrey),
@@ -123,13 +125,16 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
               tr('getAddress'),
               style: TextStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w600),
             ),
-            Text(
-              tr('quickFill'),
-              style: TextStyle(color: AppColors.mainThemeButton, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w600),
-            ),
+            GestureDetector(
+              onTap: _onQuickFill,
+              child: Text(
+                tr('quickFill'),
+                style: TextStyle(color: AppColors.mainThemeButton, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w600),
+              )
+            )
           ],
         ),
-        
+
         SizedBox(
           width: UIDefine.getScreenWidth(90),
           child: Stack(
@@ -194,10 +199,13 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
                       SizedBox(width: UIDefine.getScreenWidth(2.77)),
                       Container(width: 1, height: UIDefine.getScreenWidth(6.66), color: AppColors.dialogGrey),
                       SizedBox(width: UIDefine.getScreenWidth(2.77)),
-                      Text(
-                        tr('all'),
-                        style: TextStyle(color: AppColors.mainThemeButton, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w600),
-                      ),
+                      GestureDetector(
+                        onTap: () => viewModel.amountController.text = viewModel.data.balance,
+                        child: Text(
+                          tr('all'),
+                          style: TextStyle(color: AppColors.mainThemeButton, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w600),
+                        )
+                      )
                     ],
                   )
               )
@@ -208,6 +216,16 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
         ErrorTextWidget(data: viewModel.amountData, alignment: Alignment.centerRight)
       ],
     );
+  }
+
+  void _onQuickFill() {
+    String address = viewModel.data.address;
+    if (address.isNotEmpty) {
+      viewModel.addressController.text = viewModel.data.address;
+
+    } else {
+      SimpleCustomDialog(context, isSuccess: false, mainText: '尚未設定帳號').show();
+    }
   }
 
   Widget _buildTextContent(String title, String content) {
@@ -228,7 +246,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
     );
   }
 
-  Widget _buildPasswordInputBar() {
+  Widget _buildPasswordInputBar() { // test 體驗號功能未開
     return LoginParamView(
       titleText: tr('password'),
       hintText: tr("placeholder-password"),

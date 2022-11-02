@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/views/personal/orders/order_withdraw_page.dart';
 
 import '../../../constant/call_back_function.dart';
 import '../../../constant/enum/coin_enum.dart';
@@ -8,6 +9,8 @@ import '../../../constant/enum/login_enum.dart';
 import '../../../constant/global_data.dart';
 import '../../../models/data/validate_result_data.dart';
 import '../../../models/http/api/auth_api.dart';
+import '../../../models/http/api/withdraw_api.dart';
+import '../../../views/personal/orders/withdraw/data/withdraw_balance_response_data.dart';
 import '../../../widgets/dialog/simple_custom_dialog.dart';
 
 class OrderChainWithdrawViewModel extends BaseViewModel {
@@ -26,9 +29,22 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
   ValidateResultData passwordData = ValidateResultData();
   ValidateResultData emailCodeData = ValidateResultData();
 
+  WithdrawBalanceResponseData data = WithdrawBalanceResponseData();
+
   ///是否判斷過驗證碼
   bool checkEmail = false;
   bool checkExperience = GlobalData.experienceInfo.isExperience;
+
+  initState() {
+    Future<WithdrawBalanceResponseData> result = WithdrawApi().getWithdrawBalance();
+    result.then((value) => _setData(value));
+  }
+
+  _setData(WithdrawBalanceResponseData resData) {
+    setState(() {
+      data = resData;
+    });
+  }
 
   void onTap() {
     setState(() {
@@ -72,10 +88,14 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
     emailCodeData = ValidateResultData();
   }
 
-  bool checkPress() {
-    return checkEmail;
+  ///MARK: 寄出驗證碼
+  void onPressSendCode(BuildContext context) async {
+    await AuthAPI(
+        onConnectFail: (message) => onBaseConnectFail(context, message))
+        .sendAuthActionMail(action: LoginAction.withdraw);
+    SimpleCustomDialog(context, mainText: tr('pleaseGotoMailboxReceive'))
+        .show();
   }
-
 
   /// MARK: 檢查驗證碼是否正確
   void onPressCheckVerify(BuildContext context) async {
@@ -84,7 +104,7 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
           onConnectFail: (message) => onBaseConnectFail(context, message))
           .checkAuthCodeMail(
           mail: GlobalData.userInfo.email,
-          action: LoginAction.updatePsw,
+          action: LoginAction.withdraw,
           authCode: emailCodeController.text);
       setState(() {
         checkEmail = true;
@@ -96,15 +116,6 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
             ValidateResultData(result: emailCodeController.text.isNotEmpty);
       });
     }
-  }
-
-  ///MARK: 寄出驗證碼
-  void onPressSendCode(BuildContext context) async {
-    await AuthAPI(
-        onConnectFail: (message) => onBaseConnectFail(context, message))
-        .sendAuthActionMail(action: LoginAction.withdraw);
-    SimpleCustomDialog(context, mainText: tr('pleaseGotoMailboxReceive'))
-        .show();
   }
 
   void onPressSave(BuildContext context) {
@@ -135,15 +146,14 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
       }
 
       ///MARK: 打提交API
-      // AdminAPI(onConnectFail: (message) => onBaseConnectFail(context, message))
-      //     .updatePassword(
-      //     oldPassword: oldPasswordController.text,
-      //     newPassword: newPasswordController.text)
-      //     .then((value) async {
-      //   SimpleCustomDialog(context, mainText: tr('success')).show();
-      //   pushPage(
-      //       context, const MainPage(type: AppNavigationBarType.typePersonal));
-      // });
+      WithdrawApi(onConnectFail: (message) => onBaseConnectFail(context, message))
+          .submitBalanceWithdraw(
+          address: addressController.text,
+          amount: amountController.text)
+          .then((value) async {
+        SimpleCustomDialog(context, mainText: tr('success')).show();
+        pushPage(context, const OrderWithdrawPage());
+      });
     }
   }
 
