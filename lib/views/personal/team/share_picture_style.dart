@@ -1,9 +1,9 @@
 import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
@@ -14,8 +14,6 @@ import 'dart:ui' as ui;
 import 'dart:ui';
 import 'package:cross_file/cross_file.dart';
 import 'package:flutter/services.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
-
 import '../../../constant/theme/app_colors.dart';
 import '../../../widgets/button/action_button_widget.dart';
 import '../../../widgets/label/icon/level_icon_widget.dart';
@@ -32,36 +30,45 @@ class SharePicStyle extends StatefulWidget {
 }
 
 class _SharePicStyleState extends State<SharePicStyle> {
-  //pageView
+  ///pageView
   PageController pageController = PageController(initialPage: 0);
   int pageIndex = 0;
-
+  /// 绘图key值
   GlobalKey repaintKey = GlobalKey();
 
-  /// Widget生成圖片
-  void saveQrcodeImage() async {
-    RenderRepaintBoundary boundary =
-        repaintKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
-    boundary.toImage(pixelRatio: 3.0).then((value) async {
-      ByteData? byteData =
-          await value.toByteData(format: ui.ImageByteFormat.png);
-      Uint8List pngBytes = byteData!.buffer.asUint8List();
-
-      final result = await ImageGallerySaver.saveImage(pngBytes,
-          quality: 90, isReturnImagePathOfIOS: Platform.isIOS);
-      print(result.toString());
-      if (result["isSuccess"]) {
-        print('图片保存 ok');
-        /// share picture
-        var file = XFile(result['filePath']);
-        Share.shareXFiles([file]);
-        // toast("保存成功", wring: false);
-      } else {
-        print('图片保存 error');
-        // toast("保存失败");
-      }
-    });
+  /// 截屏图片生成图片流ByteData
+  Future<ByteData?> _capturePngToByteData() async {
+    try {
+      RenderRepaintBoundary boundary = repaintKey.currentContext!
+          .findRenderObject() as RenderRepaintBoundary;
+      double dpr = ui.window.devicePixelRatio; // 获取当前设备的像素比
+      ui.Image image = await boundary.toImage(pixelRatio: dpr);
+      ByteData? _byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+      return _byteData;
+    } catch (e) {
+      print(e);
+    }
+    return null;
   }
+
+  /// 把图片ByteData写入File，并触发分享
+  Future<void> _shareUiImage() async {
+
+    ByteData? sourceByteData = await _capturePngToByteData();
+    Uint8List sourceBytes = sourceByteData!.buffer.asUint8List();
+    Directory tempDir = await getTemporaryDirectory();
+
+    String storagePath = tempDir.path;
+    File file = File('$storagePath/TreasureNFT.png');
+
+    if (!file.existsSync()) {
+      file.createSync();
+    }
+    file.writeAsBytesSync(sourceBytes);
+    var shareFile = XFile((file.path));
+    Share.shareXFiles([shareFile]);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -91,6 +98,7 @@ class _SharePicStyleState extends State<SharePicStyle> {
             SizedBox(
               height: UIDefine.getHeight() / 2,
               width: UIDefine.getWidth(),
+              /// 截图的widget外包一层RepaintBoundary
               child: RepaintBoundary(
                 key: repaintKey,
                 child: PageView(
@@ -114,7 +122,9 @@ class _SharePicStyleState extends State<SharePicStyle> {
             ActionButtonWidget(
               btnText: tr('confirm'),
               onPressed: () {
-                saveQrcodeImage();
+                //saveQrcodeImage();
+                _capturePngToByteData();
+                _shareUiImage();
                 Navigator.pop(context);
               },
               setHeight: 50,
