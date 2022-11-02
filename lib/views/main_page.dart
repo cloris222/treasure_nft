@@ -95,40 +95,38 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar.mainAppBar(
-          searchAction: _searchAction,
-          serverAction: _serverAction,
-          avatarAction: _avatarAction,
-          globalAction: _globalAction,
-          mainAction: _mainAction),
-      body: PageView(
-        controller: pageController,
-        physics: const NeverScrollableScrollPhysics(),
-        children: [
-          const ExploreMainView(),
-          const CollectionMainView(),
-          const TradeMainView(),
-          const WalletMainView(),
-          PersonalMainView(onViewChange: () => setState(() {})),
-          const HomeMainView(),
-          const LoginMainView()
-        ],
-      ),
-      bottomNavigationBar: AppBottomNavigationBar(
-        initType: widget.type,
-        bottomFunction: _changePage,
-      ),
-      floatingActionButton: AppBottomCenterButton(
-        bottomFunction: _changePage,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-    );
+        appBar: CustomAppBar.mainAppBar(
+            searchAction: _searchAction,
+            serverAction: _serverAction,
+            avatarAction: _avatarAction,
+            globalAction: _globalAction,
+            mainAction: _mainAction),
+        body: Padding(
+          padding:
+              const EdgeInsets.only(bottom: GlobalData.navigationBarPadding),
+          child: PageView(
+            controller: pageController,
+            physics: const NeverScrollableScrollPhysics(),
+            children: [
+              const ExploreMainView(),
+              const CollectionMainView(),
+              const TradeMainView(),
+              const WalletMainView(),
+              PersonalMainView(onViewChange: () => setState(() {})),
+              const HomeMainView(),
+              const LoginMainView()
+            ],
+          ),
+        ),
+        extendBody: true,
+        bottomNavigationBar: AppBottomNavigationBar(
+          initType: widget.type,
+          bottomFunction: _changePage,
+        ));
   }
 
   _changePage(AppNavigationBarType type) {
-    setState(() {
-      pageController.jumpToPage(getViewIndex(type));
-    });
+    pageController.jumpToPage(getViewIndex(type));
   }
 
   void _searchAction() {

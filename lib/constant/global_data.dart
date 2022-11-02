@@ -13,6 +13,7 @@ class GlobalData {
 
   static GlobalKey<NavigatorState> globalKey = GlobalKey();
   static bool firstLaunch = true;
+  static const double navigationBarPadding = kBottomNavigationBarHeight * 1.1;
 
   ///MARK: 判斷是否為要顯示登入動畫
   static bool showLoginAnimate = false;
