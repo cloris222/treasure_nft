@@ -33,6 +33,7 @@ class _SharePicStyleState extends State<SharePicStyle> {
   ///pageView
   PageController pageController = PageController(initialPage: 0);
   int pageIndex = 0;
+
   /// 绘图key值
   GlobalKey repaintKey = GlobalKey();
 
@@ -43,7 +44,8 @@ class _SharePicStyleState extends State<SharePicStyle> {
           .findRenderObject() as RenderRepaintBoundary;
       double dpr = ui.window.devicePixelRatio; // 获取当前设备的像素比
       ui.Image image = await boundary.toImage(pixelRatio: dpr);
-      ByteData? _byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+      ByteData? _byteData =
+          await image.toByteData(format: ui.ImageByteFormat.png);
       return _byteData;
     } catch (e) {
       print(e);
@@ -53,7 +55,6 @@ class _SharePicStyleState extends State<SharePicStyle> {
 
   /// 把图片ByteData写入File，并触发分享
   Future<void> _shareUiImage() async {
-
     ByteData? sourceByteData = await _capturePngToByteData();
     Uint8List sourceBytes = sourceByteData!.buffer.asUint8List();
     Directory tempDir = await getTemporaryDirectory();
@@ -68,7 +69,6 @@ class _SharePicStyleState extends State<SharePicStyle> {
     var shareFile = XFile((file.path));
     Share.shareXFiles([shareFile]);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -98,6 +98,7 @@ class _SharePicStyleState extends State<SharePicStyle> {
             SizedBox(
               height: UIDefine.getHeight() / 2,
               width: UIDefine.getWidth(),
+
               /// 截图的widget外包一层RepaintBoundary
               child: RepaintBoundary(
                 key: repaintKey,
@@ -137,20 +138,29 @@ class _SharePicStyleState extends State<SharePicStyle> {
   }
 
   Widget _shareImage(BuildContext context, int index) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Image.asset(AppImagePath.shareBackground),
-        Positioned(
-            left: UIDefine.getWidth() / 8,
-            top: 10,
-            child: Image.asset(AppImagePath.mainAppBarLogo)),
-        Positioned(
-            left: 0,
-            right: 0,
-            top: UIDefine.getHeight() / 12,
-            child: _shareImgHeader(context)),
-      ],
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: UIDefine.getWidth()/9,vertical: 10),
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          alignment: Alignment.center,
+          matchTextDirection: true,
+          repeat: ImageRepeat.noRepeat,
+          image: AssetImage(AppImagePath.shareBackground),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Image.asset(AppImagePath.mainAppBarLogo),
+            ],
+          ),
+          const SizedBox(height: 20,),
+          _shareImgHeader(context),
+        ],
+      ),
     );
   }
 
