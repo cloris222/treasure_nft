@@ -93,6 +93,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: CustomAppBar.mainAppBar(
             searchAction: _searchAction,
             serverAction: _serverAction,

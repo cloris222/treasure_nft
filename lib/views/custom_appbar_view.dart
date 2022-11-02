@@ -27,7 +27,6 @@ class CustomAppbarView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
         appBar: CustomAppBar.getOnlyArrowAppBar(
             onPressed ??
                 () {
@@ -35,21 +34,15 @@ class CustomAppbarView extends StatelessWidget {
                 },
             title),
         body: Stack(children: [
-          needScrollView
-              ? SingleChildScrollView(
-                  child: Column(children: [
-                  SizedBox(height: needCover ? 5 : 20),
-                  body,
-                  const SizedBox(height: 5 + GlobalData.navigationBarPadding),
-                ]))
-              : Container(
-                  height:
-                      UIDefine.getHeight() - MediaQuery.of(context).padding.top,
-                  width: UIDefine.getWidth(),
-                  padding: EdgeInsets.only(
-                      top: needCover ? 5 : 20,
-                      bottom: 5 + GlobalData.navigationBarPadding),
-                  child: body),
+          Container(
+              color: Colors.white,
+              height: UIDefine.getHeight() - MediaQuery.of(context).padding.top,
+              width: UIDefine.getWidth(),
+              padding: EdgeInsets.only(
+                  top: needCover ? 5 : 20,
+                  bottom: 5 + GlobalData.navigationBarPadding),
+              child:
+                  needScrollView ? SingleChildScrollView(child: body) : body),
           Positioned(
               top: 0,
               child: Container(
