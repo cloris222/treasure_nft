@@ -6,6 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:treasure_nft_project/constant/theme/app_theme.dart';
 import 'package:treasure_nft_project/utils/app_shared_Preferences.dart';
+import 'package:treasure_nft_project/utils/stomp_socket_util.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 
@@ -42,6 +43,8 @@ Future<void> initApp() async {
           GlobalData.userMemberId.isNotEmpty) {
         await BaseViewModel().uploadPersonalInfo();
         await BaseViewModel().uploadSignInInfo();
+
+        StompSocketUtil().connect();
         GlobalData.showLoginAnimate = true;
       }
     }

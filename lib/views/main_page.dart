@@ -49,7 +49,6 @@ class _MainPageState extends State<MainPage> {
 
     Future.delayed(const Duration(seconds: 2))
         .then((value) => showAnimateView());
-    StompSocketUtil.init();
   }
 
   void showAnimateView() {
