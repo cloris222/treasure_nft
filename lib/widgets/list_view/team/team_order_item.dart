@@ -49,14 +49,17 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
             ),
 
             /// Share
-            GestureDetector(
-                onTap: () {
-                  SimpleCustomDialog(context).show();
-                },
-                child:  SizedBox(
-                  width: UIDefine.getScreenWidth(6),
-                  child: Image.asset(AppImagePath.shareIcon02),
-                )),
+            Visibility(
+              visible: widget.itemData.type == 'SELL',
+              child:GestureDetector(
+                  onTap: () {
+                    SimpleCustomDialog(context).show();
+                  },
+                  child:  SizedBox(
+                    width: UIDefine.getScreenWidth(6),
+                    child: Image.asset(AppImagePath.shareIcon02),
+                  )),
+            ),
           ],),
 
 

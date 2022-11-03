@@ -18,7 +18,7 @@ class DatePickerWidget extends StatefulWidget {
   DatePickerWidget({super.key,
     this.startDate = 'Select date',
     this.endDate = '',
-    this.displayALL = false,
+    this.displayALL = true,
     required this.dateCallback,
   });
 
@@ -44,7 +44,7 @@ class DatePickerState extends State<DatePickerWidget> {
           },
           child: Container(
             width: UIDefine.getWidth(),
-            height: UIDefine.getScreenHeight(10),
+            height: UIDefine.getScreenHeight(5)+30,
             decoration: viewModel.setBoxDecoration(),
 
 
