@@ -33,6 +33,8 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>would your allow use camera scan QR code?</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>would you allow to save QR code to your gallery</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
