@@ -101,8 +101,10 @@ class _MainPageState extends State<MainPage> {
             globalAction: _globalAction,
             mainAction: _mainAction),
         body: Padding(
-          padding:
-              const EdgeInsets.only(bottom: GlobalData.navigationBarPadding),
+          padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom > 0
+                  ? 0
+                  : GlobalData.navigationBarPadding),
           child: PageView(
             controller: pageController,
             physics: const NeverScrollableScrollPhysics(),
