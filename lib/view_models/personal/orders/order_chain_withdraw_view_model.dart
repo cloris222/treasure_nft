@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/personal/orders/order_withdraw_page.dart';
+import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 
 import '../../../constant/call_back_function.dart';
 import '../../../constant/enum/coin_enum.dart';
@@ -143,6 +144,21 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
       ///MARK: 如果上面的檢查有部分錯誤時return
       if (!checkData()) {
         setState(() {});
+        return;
+      }
+
+      ///MARK: 提領金額是否大於最低金額
+      if (int.parse(amountController.text) < int.parse(data.minAmount)) {
+        CommonCustomDialog(
+          context,
+          title: tr("point-FAIL'"),
+          content: tr("errorMinAmount") + data.minAmount + ' USDT',
+          type: DialogImageType.fail,
+          onLeftPress: (){},
+          onRightPress: () {
+            Navigator.pop(context);
+          })
+        .show();
         return;
       }
 
