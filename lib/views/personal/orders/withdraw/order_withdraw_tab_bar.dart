@@ -16,7 +16,6 @@ class OrderWithdrawTabBar {
             child: Column(
               children: [
                 SizedBox(
-                  width: UIDefine.getScreenWidth(45),
                   height: UIDefine.getScreenWidth(12),
                   child: TextButton(
                     onPressed: () {

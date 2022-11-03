@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:treasure_nft_project/views/personal/orders/withdraw/order_withdraw_type_page.dart';
 
 import '../../../constant/ui_define.dart';
@@ -40,14 +41,17 @@ class _OrderWithdrawPage extends State<OrderWithdrawPage> {
       body: Column(
         children: [
           Container(
-              padding: EdgeInsets.only(top: UIDefine.getScreenWidth(0.97), bottom: UIDefine.getScreenWidth(0.97)),
-              margin: EdgeInsets.only(left: UIDefine.getScreenWidth(5), right: UIDefine.getScreenWidth(5), bottom: UIDefine.getScreenWidth(4.16)),
+            padding: EdgeInsets.only(top: UIDefine.getScreenWidth(0.97), bottom: UIDefine.getScreenWidth(0.97)),
+            margin: EdgeInsets.only(left: UIDefine.getScreenWidth(5), right: UIDefine.getScreenWidth(5), bottom: UIDefine.getScreenWidth(4.16)),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
               child: OrderWithdrawTabBar().getCollectionTypeButtons(
-                  dataList: dataList,
-                  currentExploreType: currentExploreType,
-                  changePage: (String exploreType) {
-                    _changePage(exploreType);
-                  })),
+                dataList: dataList,
+                currentExploreType: currentExploreType,
+                changePage: (String exploreType) {
+                  _changePage(exploreType);
+                })),
+          ),
 
           SizedBox(height: UIDefine.getScreenWidth(2.77)),
           Flexible(
