@@ -15,7 +15,8 @@ class ActionButtonWidget extends StatelessWidget {
       this.margin,
       this.padding,
       this.isBorderStyle = false,
-      this.isFillWidth = true})
+      this.isFillWidth = true,
+      this.radius = 10})
       : super(key: key);
   final String btnText;
   final VoidCallback onPressed;
@@ -23,11 +24,12 @@ class ActionButtonWidget extends StatelessWidget {
   final Color setSubColor; //子色
   final Color setTransColor; //取代透明色,用於倒數框
   final double? setHeight;
-  final double ?fontSize;
+  final double? fontSize;
   final bool isBorderStyle; //false 時 為填滿顏色 true 為 只有框線色
   final bool isFillWidth;
   final EdgeInsetsGeometry? margin;
   final EdgeInsetsGeometry? padding;
+  final double radius;
 
   @override
   Widget build(BuildContext context) {
@@ -49,12 +51,13 @@ class ActionButtonWidget extends StatelessWidget {
         style: ElevatedButton.styleFrom(
             primary: primaryColor,
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(radius),
                 side: BorderSide(color: borderColor))),
         onPressed: onPressed,
         child: Text(
           btnText,
-          style: TextStyle(color: textColor, fontSize: fontSize??UIDefine.fontSize16),
+          style: TextStyle(
+              color: textColor, fontSize: fontSize ?? UIDefine.fontSize16),
         ));
 
     return isFillWidth
