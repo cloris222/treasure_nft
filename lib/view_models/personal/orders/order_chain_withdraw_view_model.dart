@@ -11,6 +11,7 @@ import '../../../models/data/validate_result_data.dart';
 import '../../../models/http/api/auth_api.dart';
 import '../../../models/http/api/withdraw_api.dart';
 import '../../../views/personal/orders/withdraw/data/withdraw_balance_response_data.dart';
+import '../../../views/personal/orders/withdraw/order_withdraw_confirm_dialog_view.dart';
 import '../../../widgets/dialog/simple_custom_dialog.dart';
 
 class OrderChainWithdrawViewModel extends BaseViewModel {
@@ -145,16 +146,40 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
         return;
       }
 
-      ///MARK: 打提交API
-      WithdrawApi(onConnectFail: (message) => onBaseConnectFail(context, message))
-          .submitBalanceWithdraw(
+      ///MARK: 最後確認地址的Dialog
+      OrderWithdrawConfirmDialogView(context,
+          chain: _getChainName(currentChain),
           address: addressController.text,
-          amount: amountController.text)
-          .then((value) async {
-        SimpleCustomDialog(context, mainText: tr('success')).show();
-        pushPage(context, const OrderWithdrawPage());
-      });
+          onLeftPress: () => Navigator.pop(context),
+          onRightPress: () => {_submitRequestApi(context), Navigator.pop(context)})
+          .show();
     }
   }
+
+  void _submitRequestApi(BuildContext context) {
+    ///MARK: 打提交API
+    WithdrawApi(onConnectFail: (message) => onBaseConnectFail(context, message))
+        .submitBalanceWithdraw(
+        address: addressController.text,
+        amount: amountController.text)
+        .then((value) async {
+      SimpleCustomDialog(context, mainText: tr('success')).show();
+      pushPage(context, const OrderWithdrawPage());
+    });
+  }
+
+  String _getChainName(CoinEnum currentChain) {
+    switch(currentChain) {
+      case CoinEnum.TRON:
+        return 'BSC-20';
+      case CoinEnum.BSC:
+        return 'TRC-20';
+      case CoinEnum.ROLLOUT: // 這裡沒這選項
+        break;
+    }
+    return '';
+  }
+
+
 
 }

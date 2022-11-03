@@ -212,6 +212,8 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
     }
 
     return Text(text,
+        maxLines: 1,
+        overflow: TextOverflow.clip,
         style: TextStyle(
             fontSize: textHeight > UIDefine.fontSize12
                 ? UIDefine.fontSize12

@@ -40,7 +40,9 @@ class CustomAppbarView extends StatelessWidget {
               width: UIDefine.getWidth(),
               padding: EdgeInsets.only(
                   top: needCover ? 5 : 20,
-                  bottom: 5 + GlobalData.navigationBarPadding),
+                  bottom: MediaQuery.of(context).viewInsets.bottom > 0
+                      ? 5
+                      : 5 + GlobalData.navigationBarPadding),
               child:
                   needScrollView ? SingleChildScrollView(child: body) : body),
           Positioned(

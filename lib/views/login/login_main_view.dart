@@ -39,6 +39,7 @@ class _LoginMainViewState extends State<LoginMainView> {
       _buildTop(),
       Container(
           margin: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.only(bottom: 20),
           child: _buildBottom())
     ]));
   }
