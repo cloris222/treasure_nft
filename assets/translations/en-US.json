@@ -899,6 +899,7 @@
   "reserve-APP_0054": "Trade  disabledPlease contact customer service.",
   "pleaseLinkEmail": "Please link your email",
   "aboutJump": "Redirecting",
+  "footer_docs_title": "TreasureNFT",
   "footer_friends_title": "How to share invitations",
   "footer_howtoBuy_title": "How to trade",
   "overview": "Overview",
@@ -947,9 +948,15 @@
   "bonus_trade": "Trading bank",
   "bonus_referral": "Reference bank",
   "bonus_keep_hint": "Rewards will be retained {day} days. If failed to upgrade before {date}, all rewards will be taken back",
-  "nftAssets": "",
-  "totalAssets": "",
-  "reservenotDrawn": "",
-  "reservenotDrawn-hint": "",
-  "reservenotDrawn-hint-post": ""
+  "APP_0071": "Currently trading, please apply after the transaction",
+  "nftAssets": "NFT asset",
+  "totalAssets": "Total asset",
+  "reservenotDrawn": "Undrawn reservation oders",
+  "reservenotDrawn-hint": "You still have undrawn reservation order(s), please confirm your withdraw",
+  "reservenotDrawn-hint-post": "You still have undrawn reservation order(s), available amount of withdraw: {balance} USDT",
+  "Congo": "Congo",
+  "Egypt": "Egypt",
+  "Chile": "Chile",
+  "APP_0070": "Operating frequency error, please try again later.",
+  "openoBlindBox": ""
 }
