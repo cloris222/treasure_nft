@@ -154,6 +154,7 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
           title: tr("point-FAIL'"),
           content: tr("errorMinAmount") + data.minAmount + ' USDT',
           type: DialogImageType.fail,
+          rightBtnText: tr('confirm'),
           onLeftPress: (){},
           onRightPress: () {
             Navigator.pop(context);

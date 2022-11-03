@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/simple_custom_dialog.dart';
 
 import '../../../../constant/enum/coin_enum.dart';
@@ -16,7 +17,6 @@ import '../../../../widgets/label/error_text_widget.dart';
 import '../../../../widgets/text_field/login_text_widget.dart';
 import '../../../login/login_email_code_view.dart';
 import '../../../login/login_param_view.dart';
-import 'order_withdraw_confirm_dialog_view.dart';
 
 class ChainWithdrawView extends StatefulWidget {
   const ChainWithdrawView({super.key});
@@ -34,16 +34,6 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
     super.initState();
     viewModel = OrderChainWithdrawViewModel(setState: setState);
     viewModel.initState();
-  }
-
-  Future<PermissionStatus> _getCameraPermission() async {
-    PermissionStatus status = await Permission.camera.status;
-    if (!status.isGranted) {
-      final result = await Permission.camera.request();
-      return result;
-    } else {
-      return status;
-    }
   }
 
   @override
@@ -179,11 +169,22 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
     );
   }
 
+  Future<PermissionStatus> _getCameraPermission() async {
+    PermissionStatus status = await Permission.camera.status;
+    if (!status.isGranted) {
+      final result = await Permission.camera.request();
+      return result;
+    } else {
+      return status;
+    }
+  }
+
   void _onScanQRCode() async {
     PermissionStatus status = await _getCameraPermission();
     if (status == PermissionStatus.permanentlyDenied) {
-      SimpleCustomDialog(context, mainText: 'Go Setting', isSuccess: false).show();
+      _showDialog();
     }
+
     if (status.isGranted) { // 檢查權限
       if (mounted) {
         viewModel.pushPage(context, QRCodeScannerUtil(
@@ -193,6 +194,26 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
       }
     }
   }
+
+  void _showDialog() {
+    CommonCustomDialog(
+        context,
+        bOneButton: false,
+        type: DialogImageType.warning,
+        title: tr("G_0403"),
+        content: tr('goPermissionSetting'),
+        leftBtnText: tr('cancel'),
+        rightBtnText: tr('confirm'),
+        onLeftPress: () {
+          Navigator.pop(context);
+        },
+        onRightPress: () {
+          openAppSettings();
+          Navigator.pop(context);
+        })
+        .show();
+  }
+
 
   void _onQuickFill() {
     String address = viewModel.data.address;

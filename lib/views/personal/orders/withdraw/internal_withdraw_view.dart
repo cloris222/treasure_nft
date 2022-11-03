@@ -6,6 +6,7 @@ import '../../../../constant/ui_define.dart';
 import '../../../../utils/qrcode_scanner_util.dart';
 import '../../../../view_models/personal/orders/order_internal_withdraw_view_model.dart';
 import '../../../../widgets/button/login_button_widget.dart';
+import '../../../../widgets/dialog/common_custom_dialog.dart';
 import '../../../../widgets/label/error_text_widget.dart';
 import '../../../../widgets/text_field/login_text_widget.dart';
 import '../../../login/login_email_code_view.dart';
@@ -28,16 +29,6 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
     super.initState();
     viewModel = OrderInternalWithdrawViewModel(setState: setState);
     viewModel.initState();
-  }
-
-  Future<PermissionStatus> _getCameraPermission() async {
-    var status = await Permission.camera.status;
-    if (!status.isGranted) {
-      final result = await Permission.camera.request();
-      return result;
-    } else {
-      return status;
-    }
   }
 
   @override
@@ -174,8 +165,22 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
     );
   }
 
+  Future<PermissionStatus> _getCameraPermission() async {
+    var status = await Permission.camera.status;
+    if (!status.isGranted) {
+      final result = await Permission.camera.request();
+      return result;
+    } else {
+      return status;
+    }
+  }
+
   void _onScanQRCode() async {
     PermissionStatus status = await _getCameraPermission();
+    if (status == PermissionStatus.permanentlyDenied) {
+      _showDialog();
+    }
+
     if (status.isGranted) { // 檢查權限
       if (mounted) {
         viewModel.pushPage(context, QRCodeScannerUtil(
@@ -184,6 +189,25 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
             }));
       }
     }
+  }
+
+  void _showDialog() {
+    CommonCustomDialog(
+        context,
+        bOneButton: false,
+        type: DialogImageType.warning,
+        title: tr("G_0403"),
+        content: tr('goPermissionSetting'),
+        leftBtnText: tr('cancel'),
+        rightBtnText: tr('confirm'),
+        onLeftPress: () {
+          Navigator.pop(context);
+        },
+        onRightPress: () {
+          openAppSettings();
+          Navigator.pop(context);
+        })
+        .show();
   }
 
   Widget _buildTextContent(String title, String content) {
