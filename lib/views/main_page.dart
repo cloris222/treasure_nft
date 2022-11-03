@@ -14,6 +14,7 @@ import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 
 import '../constant/global_data.dart';
 import '../constant/ui_define.dart';
+import '../utils/stomp_socket_util.dart';
 import '../widgets/app_bottom_navigation_bar.dart';
 import 'full_animation_page.dart';
 import 'home/home_main_view.dart';
@@ -48,6 +49,7 @@ class _MainPageState extends State<MainPage> {
 
     Future.delayed(const Duration(seconds: 2))
         .then((value) => showAnimateView());
+    StompSocketUtil.init();
   }
 
   void showAnimateView() {
