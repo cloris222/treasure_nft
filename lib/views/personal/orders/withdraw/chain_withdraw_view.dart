@@ -37,7 +37,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
   }
 
   Future<PermissionStatus> _getCameraPermission() async {
-    var status = await Permission.camera.status;
+    PermissionStatus status = await Permission.camera.status;
     if (!status.isGranted) {
       final result = await Permission.camera.request();
       return result;
@@ -181,6 +181,9 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
 
   void _onScanQRCode() async {
     PermissionStatus status = await _getCameraPermission();
+    if (status == PermissionStatus.permanentlyDenied) {
+      SimpleCustomDialog(context, mainText: 'Go Setting', isSuccess: false).show();
+    }
     if (status.isGranted) { // 檢查權限
       if (mounted) {
         viewModel.pushPage(context, QRCodeScannerUtil(
