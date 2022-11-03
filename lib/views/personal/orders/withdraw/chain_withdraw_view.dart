@@ -16,6 +16,7 @@ import '../../../../widgets/label/error_text_widget.dart';
 import '../../../../widgets/text_field/login_text_widget.dart';
 import '../../../login/login_email_code_view.dart';
 import '../../../login/login_param_view.dart';
+import 'order_withdraw_confirm_dialog_view.dart';
 
 class ChainWithdrawView extends StatefulWidget {
   const ChainWithdrawView({super.key});
