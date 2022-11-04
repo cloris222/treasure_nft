@@ -21,7 +21,7 @@ class StompSocketUtil {
   StompClient? stompClient;
   final String key = '-Stomp:';
 
-  void connect() async {
+  void connect({required StompFrameCallback onConnect}) async {
     if (stompClient != null) {
       disconnect();
       await Future.delayed(const Duration(seconds: 1));
@@ -36,7 +36,10 @@ class StompSocketUtil {
             debugPrint('$key $msg');
           }
         },
-        onConnect: _onConnect,
+        onConnect: (frame) {
+          debugPrint('$key _onConnect');
+          onConnect(frame);
+        },
         beforeConnect: () async {
           debugPrint('$key wait connecting...');
         },
@@ -70,21 +73,5 @@ class StompSocketUtil {
 
   void disconnect() {
     stompClient?.deactivate();
-  }
-
-  void _onConnect(StompFrame frame) {
-    debugPrint('$key _onConnect');
-    stompClient!.subscribe(
-      destination: '/user/notify/${GlobalData.userMemberId}',
-      callback: (frame) {
-        debugPrint('$key ${frame.body}');
-      },
-    );
-    stompClient!.subscribe(
-      destination: '/user/levelUp/${GlobalData.userMemberId}',
-      callback: (frame) {
-        debugPrint('$key ${frame.body}');
-      },
-    );
   }
 }

@@ -1,20 +1,27 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:convert';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:stomp_dart_client/stomp_frame.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/user_info_data.dart';
+import 'package:treasure_nft_project/views/notify/notify_level_up_page.dart';
 
 import '../constant/call_back_function.dart';
+import '../constant/enum/task_enum.dart';
 import '../constant/global_data.dart';
 import '../constant/theme/app_animation_path.dart';
 import '../models/http/api/trade_api.dart';
 import '../models/http/parameter/api_response.dart';
 import '../models/http/parameter/sign_in_data.dart';
+import '../models/http/parameter/task_info_data.dart';
 import '../utils/app_shared_Preferences.dart';
 import '../utils/date_format_util.dart';
 import '../utils/stomp_socket_util.dart';
+import '../views/personal/level/achievement/achievement_achieve_finish_page.dart';
 import '../widgets/dialog/simple_custom_dialog.dart';
 
 class BaseViewModel {
@@ -148,7 +155,7 @@ class BaseViewModel {
     GlobalData.userInfo = UserInfoData();
     GlobalData.showLoginAnimate = false;
     GlobalData.signInInfo = null;
-    StompSocketUtil().disconnect();
+    stopUserListener();
   }
 
   ///MARK: 當token 為空時，代表未登入
@@ -188,5 +195,63 @@ class BaseViewModel {
     ).format(double.parse(value));
 
     return formattedNumber;
+  }
+
+  ///MARK: 使用者監聽
+  void startUserListener() {
+    debugPrint('---startUserListener');
+    StompSocketUtil().connect(onConnect: _onStompConnect);
+  }
+
+  ///MARK: 關閉使用者監聽
+  void stopUserListener() {
+    debugPrint('---stopUserListener');
+    StompSocketUtil().disconnect();
+  }
+
+  void _onStompConnect(StompFrame frame) {
+    ///MARK: 顯示購買成功
+    StompSocketUtil().stompClient!.subscribe(
+          destination: '/user/notify/${GlobalData.userMemberId}',
+          callback: (frame) {
+            debugPrint('${StompSocketUtil().key} ${frame.body}');
+            var result = json.decode(frame.body!);
+            if (result['toUserId'] == GlobalData.userMemberId) {
+              showBuySuccessAnimate();
+            }
+          },
+        );
+
+    ///MARK: 升等通知
+    StompSocketUtil().stompClient!.subscribe(
+          destination: '/user/levelUp/${GlobalData.userMemberId}',
+          callback: (frame) {
+            debugPrint('${StompSocketUtil().key} ${frame.body}');
+            var result = json.decode(frame.body!);
+            if (result['toUserId'] == GlobalData.userMemberId) {
+              showLevelUpAnimate(result['oldLevel'], result['newLevel']);
+            }
+          },
+        );
+  }
+
+  void showBuySuccessAnimate() {}
+
+  void showLevelUpAnimate(int oldLevel, int newLevel) {
+    // pushOpacityPage(getGlobalContext(),
+    //     NotifyLevelUpPage(oldLevel: oldLevel, newLevel: newLevel));
+    pushOpacityPage(
+        getGlobalContext(),
+        AchievementAchieveFinishPage(
+          code: AchievementCode.AchBuyScs,
+          data: TaskInfoData(
+              title: 'title',
+              content: 'content',
+              code: AchievementCode.AchBuyScs.name,
+              point: 5,
+              goalType: '',
+              goalValue: 10,
+              nowValue: 100),
+        ));
   }
 }

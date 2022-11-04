@@ -41,10 +41,11 @@ Future<void> initApp() async {
       GlobalData.userMemberId = await AppSharedPreferences.getMemberID();
       if (GlobalData.userToken.isNotEmpty &&
           GlobalData.userMemberId.isNotEmpty) {
-        await BaseViewModel().uploadPersonalInfo();
-        await BaseViewModel().uploadSignInInfo();
+        var viewModel = BaseViewModel();
+        await viewModel.uploadPersonalInfo();
+        await viewModel.uploadSignInInfo();
 
-        StompSocketUtil().connect();
+        viewModel.startUserListener();
         GlobalData.showLoginAnimate = true;
       }
     }

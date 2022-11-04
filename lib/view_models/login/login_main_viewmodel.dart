@@ -61,7 +61,7 @@ class LoginMainViewModel extends BaseViewModel {
                 animationPath: getLoginTimeAnimationPath(),
                 runFunction: () async {
                   await saveUserLoginInfo(response: value);
-                  StompSocketUtil().connect();
+                  startUserListener();
                 },
                 nextPage: const MainPage(type: AppNavigationBarType.typeMain)));
       });

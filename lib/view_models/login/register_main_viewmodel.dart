@@ -234,6 +234,6 @@ class RegisterMainViewModel extends BaseViewModel {
     var response = await LoginAPI().login(
         account: accountController.text, password: passwordController.text);
     await saveUserLoginInfo(response: response);
-    StompSocketUtil().connect();
+    startUserListener();
   }
 }

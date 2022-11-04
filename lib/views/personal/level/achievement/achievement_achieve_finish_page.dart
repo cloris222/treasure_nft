@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:treasure_nft_project/constant/theme/app_animation_path.dart';
+import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/label/icon/medal_icon_widget.dart';
@@ -13,11 +14,12 @@ import '../../../../widgets/button/login_button_widget.dart';
 import '../../../../widgets/gradient_text.dart';
 
 class AchievementAchieveFinishPage extends StatelessWidget {
-  const AchievementAchieveFinishPage(
+  AchievementAchieveFinishPage(
       {Key? key, required this.data, required this.code})
       : super(key: key);
   final AchievementCode code;
   final TaskInfoData data;
+  final double pageHeight = UIDefine.getHeight() * 0.8;
 
   @override
   Widget build(BuildContext context) {
@@ -29,36 +31,29 @@ class AchievementAchieveFinishPage extends StatelessWidget {
             margin: EdgeInsets.all(padding),
             child: Stack(alignment: Alignment.center, children: [
               Container(
-                color: Colors.white,
+                decoration: AppStyle().styleColorsRadiusBackground(),
                 width: UIDefine.getWidth(),
-                height: UIDefine.getHeight(),
+                height: pageHeight,
               ),
               Positioned(
                   top: 0,
                   left: 0,
                   right: 0,
+                  bottom: pageHeight * 0.2,
                   child: Lottie.asset(
                       AppAnimationPath.achievementUnlockAnimation,
-                      fit: BoxFit.contain)),
+                      fit: BoxFit.fill)),
               Positioned(
-                  top: UIDefine.getScreenHeight(22.5),
+                  top: pageHeight * 0.25,
                   child: MedalIconWidget(
                     medal: code.name,
-                    size: UIDefine.getScreenWidth(52.5),
+                    size: pageHeight * 0.3,
                   )),
               Positioned(
                   bottom: 0,
                   left: UIDefine.getScreenWidth(10),
                   right: UIDefine.getScreenWidth(10),
                   child: _buildAchieveInfo(context)),
-              Positioned(
-                  bottom: 2,
-                  child: LoginButtonWidget(
-                    isFlip: true,
-                    width: UIDefine.getScreenWidth(40),
-                    btnText: tr('OK'),
-                    onPressed: () => {BaseViewModel().popPage(context)},
-                  ))
             ])));
   }
 

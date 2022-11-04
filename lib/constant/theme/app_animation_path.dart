@@ -28,4 +28,15 @@ class AppAnimationPath {
   /// achievement_unlock
   static const String achievementUnlockAnimation =
       '$animationPathJson/achievement_unlocked_01_all.json';
+
+  /// 購買成功
+  static const String buyNFTSuccess =
+      '$animationPathJson/purchased_successfully_all.json';
+
+  /// 等級提升
+  static const String showLevelUp = '$animationPathJson/levelup_01_all.json';
+  static const String arrow = '$animationPathJson/icon_arrow_01.png';
+
+  /// 儲金罐
+  static const String showCoinJar = '$animationPathJson/coin_jar_01.json';
 }
