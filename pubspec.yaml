@@ -55,7 +55,6 @@ dependencies:
   cupertino_icons: ^1.0.2
   permission_handler: ^10.2.0
   path_provider: ^2.0.11
-  modal_bottom_sheet: ^2.1.2
   share_plus: any
   qr_code_scanner: ^1.0.1
 
