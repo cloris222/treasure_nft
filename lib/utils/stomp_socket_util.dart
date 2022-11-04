@@ -6,6 +6,8 @@ import 'package:stomp_dart_client/stomp_config.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 
+import '../models/http/http_setting.dart';
+
 class StompSocketUtil {
   /// 單例
   static StompSocketUtil? _stompSocketUtil;
@@ -30,7 +32,7 @@ class StompSocketUtil {
     stompClient = StompClient(
       config: StompConfig.SockJS(
         // useSockJS: true,
-        url: 'https://dev.treasurenft.xyz/gateway/websocket/websocket-connect',
+        url: HttpSetting.developSocket,
         onDebugMessage: (msg) {
           if (msg != '<<< h') {
             debugPrint('$key $msg');
