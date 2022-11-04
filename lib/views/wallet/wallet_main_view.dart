@@ -8,7 +8,7 @@ import 'package:treasure_nft_project/widgets/domain_bar.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/theme/app_style.dart';
-import '../../view_models/wallet/wallet_main_viewmodel.dart';
+import '../../view_models/wallet/wallet_main_view_model.dart';
 import '../../widgets/dialog/simple_custom_dialog.dart';
 import '../../widgets/label/coin/tether_coin_widget.dart';
 import '../../widgets/label/wallet_info_item.dart';
@@ -53,6 +53,7 @@ class _WalletMainViewState extends State<WalletMainView> {
               _buildWalletAccount(),
               _buildWalletHistory(),
               _buildRecordListView(),
+              _bottomMargin()
             ],
           ),
         ),
@@ -235,6 +236,13 @@ class _WalletMainViewState extends State<WalletMainView> {
             return BalanceRecordItemView(data: viewModel.balanceRecordResponseDataList[index]);
           }
       ),
+    );
+  }
+
+  Widget _bottomMargin() {
+    return Visibility(
+      visible: viewModel.balanceRecordResponseDataList.isEmpty,
+      child: const SizedBox(width: 1)
     );
   }
 
