@@ -8,10 +8,8 @@ import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 
 import '../../../constant/ui_define.dart';
 import '../../../utils/timer_util.dart';
-import '../../../view_models/base_view_model.dart';
 import '../../../view_models/explore/explore_product_detail_view_model.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
-import '../../../widgets/appbar/custom_app_bar.dart';
 import '../../custom_appbar_view.dart';
 import '../../explore_chart_view.dart';
 import '../../personal/level/level_achievement_page.dart';
@@ -90,6 +88,7 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            /// 原AppBar, 會一起滑動
             // /// AppBar
             // CustomAppBar.getCornerAppBar(
             //       () {
@@ -176,80 +175,84 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
             /// 折線圖圖表
             chartView,
 
-            /// 預約按鈕+預約券總數量
-            Container(
-              margin: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5), UIDefine.getScreenWidth(10),
-                  UIDefine.getScreenWidth(5), 0),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color: AppColors.mainThemeButton,
-                  borderRadius: BorderRadius.circular(6)
-              ),
-              child: TextButton(
-                onPressed: () {
-                  _pressReserve();
-                },
-                  child: Text(
-                    tr('reserve'),
-                    style: TextStyle(
-                        color: AppColors.textWhite, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
-                  )
-              ),
-            ),
-            const SizedBox(height: 6),
-            Padding(
-              padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5), 0,
-                  UIDefine.getScreenWidth(5), 0),
-              child: Text(
-                tr('reserveCount') + ': ' + levelData.dailyRCouponAmount.toString() + ' ' + tr('reserveCountPiece'),
-                style: TextStyle(
-                    color: AppColors.textRed, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
-              )
-            ),
+            /// 底部間距
+            SizedBox(height: UIDefine.getScreenWidth(10))
 
-            /// 等級+Range
-            Padding(
-              padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5), UIDefine.getScreenWidth(10),
-                  UIDefine.getScreenWidth(5), 0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset(viewModel.getLevelImg(), width: UIDefine.getScreenWidth(10), height: UIDefine.getScreenWidth(10)),
-                  const SizedBox(width: 10),
-                  Text(
-                    tr('level') + ' ' + levelData.userLevel.toString(),
-                    style: TextStyle(
-                        color: AppColors.textBlack, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
-                  )
-                ],
-              )
-            ),
-
-            Padding(
-              padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5), UIDefine.getScreenWidth(2),
-                  UIDefine.getScreenWidth(5), UIDefine.getScreenWidth(10)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    tr('amountRangeNFT'),
-                    style: TextStyle(
-                        color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
-                  ),
-                  Row(
-                    children: [
-                      Image.asset('assets/icon/coins/icon_tether_01.png', width: UIDefine.getScreenWidth(5), height: UIDefine.getScreenWidth(5)),
-                      const SizedBox(width: 10),
-                      Text(
-                        levelData.buyRangeStart.toString() + ' ~ ' + levelData.buyRangeEnd.toString(),
-                        style: TextStyle(
-                            color: AppColors.textBlack, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w600),
-                      )
-                    ],
-                  )
-                ],
-              )
-            )
+            ///MARK: 按鈕(含)以下都拿掉 2022/11/04 Ethan
+            // /// 預約按鈕+預約券總數量
+            // Container(
+            //   margin: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5), UIDefine.getScreenWidth(10),
+            //       UIDefine.getScreenWidth(5), 0),
+            //   width: double.infinity,
+            //   decoration: BoxDecoration(
+            //       color: AppColors.mainThemeButton,
+            //       borderRadius: BorderRadius.circular(6)
+            //   ),
+            //   child: TextButton(
+            //     onPressed: () {
+            //       _pressReserve();
+            //     },
+            //       child: Text(
+            //         tr('reserve'),
+            //         style: TextStyle(
+            //             color: AppColors.textWhite, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
+            //       )
+            //   ),
+            // ),
+            // const SizedBox(height: 6),
+            // Padding(
+            //   padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5), 0,
+            //       UIDefine.getScreenWidth(5), 0),
+            //   child: Text(
+            //     tr('reserveCount') + ': ' + levelData.dailyRCouponAmount.toString() + ' ' + tr('reserveCountPiece'),
+            //     style: TextStyle(
+            //         color: AppColors.textRed, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+            //   )
+            // ),
+            //
+            // /// 等級+Range
+            // Padding(
+            //   padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5), UIDefine.getScreenWidth(10),
+            //       UIDefine.getScreenWidth(5), 0),
+            //   child: Row(
+            //     crossAxisAlignment: CrossAxisAlignment.center,
+            //     children: [
+            //       Image.asset(viewModel.getLevelImg(), width: UIDefine.getScreenWidth(10), height: UIDefine.getScreenWidth(10)),
+            //       const SizedBox(width: 10),
+            //       Text(
+            //         tr('level') + ' ' + levelData.userLevel.toString(),
+            //         style: TextStyle(
+            //             color: AppColors.textBlack, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
+            //       )
+            //     ],
+            //   )
+            // ),
+            //
+            // Padding(
+            //   padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5), UIDefine.getScreenWidth(2),
+            //       UIDefine.getScreenWidth(5), UIDefine.getScreenWidth(10)),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       Text(
+            //         tr('amountRangeNFT'),
+            //         style: TextStyle(
+            //             color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+            //       ),
+            //       Row(
+            //         children: [
+            //           Image.asset('assets/icon/coins/icon_tether_01.png', width: UIDefine.getScreenWidth(5), height: UIDefine.getScreenWidth(5)),
+            //           const SizedBox(width: 10),
+            //           Text(
+            //             levelData.buyRangeStart.toString() + ' ~ ' + levelData.buyRangeEnd.toString(),
+            //             style: TextStyle(
+            //                 color: AppColors.textBlack, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w600),
+            //           )
+            //         ],
+            //       )
+            //     ],
+            //   )
+            // )
           ],
         ),
       ),
