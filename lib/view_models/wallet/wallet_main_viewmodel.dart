@@ -4,6 +4,7 @@ import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import '../../constant/call_back_function.dart';
 import '../../models/http/api/user_info_api.dart';
 import '../../models/http/parameter/user_property.dart';
+import '../../views/wallet/data/BalanceRecordResponseData.dart';
 
 class WalletMainViewModel extends BaseViewModel {
   WalletMainViewModel({required this.setState});
@@ -12,10 +13,12 @@ class WalletMainViewModel extends BaseViewModel {
 
   UserProperty? userProperty;
   Map<String, dynamic>? address;
+  List<BalanceRecordResponseData> balanceRecordResponseDataList = <BalanceRecordResponseData>[];
 
   Future<void> initState() async {
     userProperty = await UserInfoAPI().getUserPropertyInfo();
     address = await WalletAPI().getBalanceRecharge();
+    balanceRecordResponseDataList = await WalletAPI().getBalanceRecord();
     setState(() {});
   }
 }

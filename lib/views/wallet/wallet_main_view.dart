@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
@@ -16,6 +15,7 @@ import '../../widgets/label/wallet_info_item.dart';
 import '../personal/orders/order_info_page.dart';
 import '../personal/orders/order_recharge_page.dart';
 import '../personal/orders/order_withdraw_page.dart';
+import 'balance_record_item_view.dart';
 import 'wallet_setting_page.dart';
 
 class WalletMainView extends StatefulWidget {
@@ -52,7 +52,7 @@ class _WalletMainViewState extends State<WalletMainView> {
               _buildWalletFunction(),
               _buildWalletAccount(),
               _buildWalletHistory(),
-              const SizedBox(width: 1),
+              _buildRecordListView(),
             ],
           ),
         ),
@@ -221,6 +221,20 @@ class _WalletMainViewState extends State<WalletMainView> {
               fit: BoxFit.contain),
         )
       ],
+    );
+  }
+
+  Widget _buildRecordListView() { // 顯示最近的15筆紀錄, 訂單信息功能才顯示完整所有紀錄
+    return Visibility(
+      visible: viewModel.balanceRecordResponseDataList.isNotEmpty,
+      child: ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: viewModel.balanceRecordResponseDataList.length,
+          itemBuilder: (context, index) {
+            return BalanceRecordItemView(data: viewModel.balanceRecordResponseDataList[index]);
+          }
+      ),
     );
   }
 
