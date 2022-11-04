@@ -74,7 +74,7 @@ class _DivisionCellState extends State<DivisionCell> {
   /// 開賣狀態動畫顯示
   String showGif() {
     if (GlobalData.userInfo.level == 0) {
-      return format(AppAnimationPath.reservationAnimation, ({'level': '00'}));
+      return format(AppAnimationPath.reservationAnimation, ({'index': '00'}));
     }
     return format(
         AppAnimationPath.reservationAnimation, ({'index': NumberFormatUtil().integerTwoFormat(widget.range.index + 1)}));
