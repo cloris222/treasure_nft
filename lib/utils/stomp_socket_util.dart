@@ -14,14 +14,19 @@ class StompSocketUtil {
 
   /// 獲取單例内部方法
   factory StompSocketUtil() {
-    // 只能有一个實例
+    /// 只能有一个實例
     return _stompSocketUtil ??= StompSocketUtil._();
   }
 
-  StompClient ?stompClient;
+  StompClient? stompClient;
   final String key = '-Stomp:';
 
-  void connect() {
+  void connect() async {
+    if (stompClient != null) {
+      disconnect();
+      await Future.delayed(const Duration(seconds: 1));
+    }
+
     stompClient = StompClient(
       config: StompConfig.SockJS(
         // useSockJS: true,
@@ -60,11 +65,10 @@ class StompSocketUtil {
         },
       ),
     );
-    debugPrint('$key Bearer ${GlobalData.userToken}');
     stompClient!.activate();
   }
 
-  void disconnect(){
+  void disconnect() {
     stompClient?.deactivate();
   }
 

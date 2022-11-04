@@ -136,6 +136,9 @@ class _FullAnimationPageState extends State<FullAnimationPage>
   ///MARK: 倒數完成
   void _countdownFinish() {
     if (runEnd) {
+      if (_countdownTimer.isActive) {
+        _countdownTimer.cancel();
+      }
       if (widget.nextPage != null) {
         widget.isPushNextPage
             ? widget.nextOpacityPage

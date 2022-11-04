@@ -14,6 +14,7 @@ import '../models/http/parameter/api_response.dart';
 import '../models/http/parameter/sign_in_data.dart';
 import '../utils/app_shared_Preferences.dart';
 import '../utils/date_format_util.dart';
+import '../utils/stomp_socket_util.dart';
 import '../widgets/dialog/simple_custom_dialog.dart';
 
 class BaseViewModel {
@@ -147,6 +148,7 @@ class BaseViewModel {
     GlobalData.userInfo = UserInfoData();
     GlobalData.showLoginAnimate = false;
     GlobalData.signInInfo = null;
+    StompSocketUtil().disconnect();
   }
 
   ///MARK: 當token 為空時，代表未登入
