@@ -6,12 +6,15 @@ import '../../../constant/global_data.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
 import '../../../constant/ui_define.dart';
+import '../../../models/http/parameter/check_reservation_info.dart';
 import '../../button/action_button_widget.dart';
 import '../../gradient_text.dart';
 
 class LevelMainCell extends StatefulWidget {
-  const LevelMainCell({Key? key, required this.level,})
-      : super(key: key);
+  const LevelMainCell({
+    Key? key,
+    required this.level,
+  }) : super(key: key);
 
   final int level;
 
@@ -29,22 +32,11 @@ class _LevelMainCellState extends State<LevelMainCell> {
   }
 
   Widget ifIsBeginnerLabel() {
-    if (GlobalData.userInfo.level == 0) {
-      return GradientText(
-        tr('noviceArea'),
-        size: UIDefine.fontSize20,
-        weight: FontWeight.bold,
-        starColor: AppColors.mainThemeButton,
-        endColor: AppColors.subThemePurple,
-      );
-    } else {
-      return Text(
-        //'${int.parse(widget.range?.startPrice.toStringAsFixed(0))} - ${int.parse(widget.range?.endPrice.toStringAsFixed(0))}',
-        'Level ${widget.level}',
-        style: TextStyle(
-            fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
-      );
-    }
+    return Text(
+      'Level ${widget.level}',
+      style:
+          TextStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
+    );
   }
 
   /// 可預約狀態顯示圖
@@ -74,9 +66,9 @@ class _LevelMainCellState extends State<LevelMainCell> {
       return AppColors.reservationLevel4.withOpacity(0.7);
     } else if (widget.level == 5) {
       return AppColors.reservationLevel5.withOpacity(0.7);
-    }else if (widget.level == 6) {
+    } else if (widget.level == 6) {
       return AppColors.reservationLevel6.withOpacity(0.7);
-    }else {
+    } else {
       return AppColors.textBlack;
     }
   }
@@ -91,10 +83,6 @@ class _LevelMainCellState extends State<LevelMainCell> {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              /// 新手顯示星星
-              Visibility(
-                visible: widget.level == 0,
-                  child: Image.asset(AppImagePath.beginner)),
               Container(
                   margin: const EdgeInsets.only(left: 10),
                   child: ifIsBeginnerLabel())
@@ -107,11 +95,12 @@ class _LevelMainCellState extends State<LevelMainCell> {
                 right: 0,
                 bottom: 0,
                 child: ActionButtonWidget(
+                    setHeight: 40,
                     isFillWidth: false,
                     margin: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 10),
                     setMainColor: getReservationBtnColor(),
-                    btnText: 'Enter',
+                    btnText: widget.level == 0? tr("match") : tr("enter"),
                     onPressed: () {
                       Navigator.push(
                           context,

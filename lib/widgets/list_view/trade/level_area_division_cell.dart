@@ -43,21 +43,11 @@ class _DivisionCellState extends State<DivisionCell> {
   }
 
   Widget ifIsBeginnerLabel() {
-    if (GlobalData.userInfo.level == 0) {
-      return GradientText(
-        tr('noviceArea'),
-        size: UIDefine.fontSize20,
-        weight: FontWeight.bold,
-        starColor: AppColors.mainThemeButton,
-        endColor: AppColors.subThemePurple,
-      );
-    } else {
-      return Text(
-        '${int.parse(widget.range.startPrice.toStringAsFixed(0))} - ${int.parse(widget.range.endPrice.toStringAsFixed(0))}',
-        style: TextStyle(
-            fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
-      );
-    }
+    return Text(
+      'Level ${widget.level}',
+      style:
+      TextStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
+    );
   }
 
   /// 是否解鎖副本 && 開賣狀態動畫顯示
@@ -137,10 +127,14 @@ class _DivisionCellState extends State<DivisionCell> {
               Flexible(
                 child: Row(
                   children: [
-                    Image.asset(
-                      ifIsBeginnerImg(),
-                      width: 25,
-                      height: 25,
+                    /// if is level hide image
+                    Visibility(
+                      visible: GlobalData.userInfo.level!=0,
+                      child: Image.asset(
+                        ifIsBeginnerImg(),
+                        width: 25,
+                        height: 25,
+                      ),
                     ),
                     const SizedBox(
                       width: 5,
@@ -192,9 +186,10 @@ class _DivisionCellState extends State<DivisionCell> {
                       !widget.range.used &&
                       widget.tradeData.status != SellingState.Selling,
                   child: ActionButtonWidget(
+                    setHeight: 40,
                       isFillWidth: false,
                       margin: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 10),
+                          vertical: 10, ),
                       setMainColor: getReservationBtnColor(),
                       btnText: tr("match"),
 
