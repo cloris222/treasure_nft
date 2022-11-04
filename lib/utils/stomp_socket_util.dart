@@ -32,7 +32,7 @@ class StompSocketUtil {
         // useSockJS: true,
         url: 'https://dev.treasurenft.xyz/gateway/websocket/websocket-connect',
         onDebugMessage: (msg) {
-          if (msg != '<<< h' || true) {
+          if (msg != '<<< h') {
             debugPrint('$key $msg');
           }
         },

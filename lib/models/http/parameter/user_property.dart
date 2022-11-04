@@ -16,16 +16,25 @@ class UserProperty {
       required this.balance,
       required this.savingBalance,
       required this.nftBalance,
-      required this.totalBalance});
+      required this.totalBalance,
+      required this.tradingSavingBalance});
 
   double income;
   double withdraw;
   double balance;
+
+  /// 儲金罐餘額
   double savingBalance;
 
   ///MARK: 2022/11/01新增
+  /// nft資產
   double nftBalance;
+
+  /// 總資產
   double totalBalance;
+
+  /// 交易儲金罐餘額
+  double tradingSavingBalance;
 
   factory UserProperty.fromJson(Map<String, dynamic> json) => UserProperty(
         income: json["income"].toDouble(),
@@ -34,6 +43,7 @@ class UserProperty {
         savingBalance: json["savingBalance"].toDouble(),
         nftBalance: json["nftBalance"].toDouble(),
         totalBalance: json["totalBalance"].toDouble(),
+        tradingSavingBalance: json["tradingSavingBalance"].toDouble(),
       );
 
   Map<String, dynamic> toJson() => {
@@ -43,5 +53,6 @@ class UserProperty {
         "savingBalance": savingBalance,
         "nftBalance": nftBalance,
         "totalBalance": totalBalance,
+        "tradingSavingBalance": tradingSavingBalance,
       };
 }

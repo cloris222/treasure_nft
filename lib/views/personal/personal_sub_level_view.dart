@@ -108,7 +108,9 @@ class PersonalSubLevelView extends StatelessWidget {
           title: tr("bonus_referral"),
           value: userProperty?.savingBalance,
         ),
-        _buildPropertyParam(title: tr("bonus_trade"), value: null),
+        _buildPropertyParam(
+            title: tr("bonus_trade"),
+            value: userProperty?.tradingSavingBalance),
       ]),
     );
   }
