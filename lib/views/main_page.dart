@@ -41,11 +41,15 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     int initialPage = getViewIndex(widget.type);
-    debugPrint('initialPage:$initialPage');
-    debugPrint('widget.type:${widget.type}');
     GlobalData.mainBottomType = widget.type;
-    pageController = PageController(initialPage: initialPage);
+    if ((GlobalData.mainBottomType != AppNavigationBarType.typeMain &&
+            GlobalData.mainBottomType != AppNavigationBarType.typeExplore) &&
+        !BaseViewModel().isLogin()) {
+      initialPage = 6;
+      GlobalData.mainBottomType = AppNavigationBarType.typeLogin;
+    }
 
+    pageController = PageController(initialPage: initialPage);
     Future.delayed(const Duration(seconds: 2))
         .then((value) => showAnimateView());
   }
@@ -121,7 +125,7 @@ class _MainPageState extends State<MainPage> {
         ),
         extendBody: true,
         bottomNavigationBar: AppBottomNavigationBar(
-          initType: widget.type,
+          initType: GlobalData.mainBottomType,
           bottomFunction: _changePage,
         ));
   }

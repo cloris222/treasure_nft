@@ -9,6 +9,7 @@ import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 
 import '../../constant/call_back_function.dart';
+import '../../utils/stomp_socket_util.dart';
 import '../../views/full_animation_page.dart';
 import '../../views/login/forgot_main_page.dart';
 import '../../views/login/register_main_page.dart';
@@ -60,6 +61,7 @@ class LoginMainViewModel extends BaseViewModel {
                 animationPath: getLoginTimeAnimationPath(),
                 runFunction: () async {
                   await saveUserLoginInfo(response: value);
+                  startUserListener();
                 },
                 nextPage: const MainPage(type: AppNavigationBarType.typeMain)));
       });

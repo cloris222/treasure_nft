@@ -11,6 +11,7 @@ import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_animation_path.dart';
 import '../../models/data/validate_result_data.dart';
 import '../../models/http/api/login_api.dart';
+import '../../utils/stomp_socket_util.dart';
 import '../../views/full_animation_page.dart';
 import '../../views/main_page.dart';
 import '../../widgets/dialog/simple_custom_dialog.dart';
@@ -233,5 +234,6 @@ class RegisterMainViewModel extends BaseViewModel {
     var response = await LoginAPI().login(
         account: accountController.text, password: passwordController.text);
     await saveUserLoginInfo(response: response);
+    startUserListener();
   }
 }
