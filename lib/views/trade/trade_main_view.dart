@@ -161,8 +161,8 @@ class _TradeMainViewState extends State<TradeMainView> {
     TextStyle titleStyle = TextStyle(fontSize: UIDefine.fontSize16);
     return Container(
       margin: EdgeInsets.symmetric(
-          vertical: UIDefine.getHeight() / 30,
-          horizontal: UIDefine.getWidth() / 20),
+          vertical: 10,
+          horizontal: UIDefine.getWidth() / 30),
       child: Column(
         children: [
           Row(children: [
@@ -183,35 +183,38 @@ class _TradeMainViewState extends State<TradeMainView> {
               style: titleStyle,
             )
           ]),
-          const SizedBox(
-            height: 10,
+          const SizedBox(height: 10,),
+          Container(
+            decoration: AppStyle().styleColorBorderBackground(
+                color: AppColors.bolderGrey,borderLine: 2),
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              children: [
+                Column(
+                  children: [
+                    LevelDetailLabel(
+                      title: tr("wallet-balance'"),
+                      showCoins: false,
+                      content:
+                      '${viewModel.reservationInfo?.balance.toStringAsFixed(2)}',
+                      rightFontWeight: FontWeight.bold,
+                    ),
+                    LevelDetailLabel(
+                      title: tr("availableBalance"),
+                      content: '${viewModel.reservationInfo?.reserveCount}',
+                      rightFontWeight: FontWeight.bold,
+                    ),
+                    LevelDetailLabel(
+                      title: tr('amountRangeNFT'),
+                      showCoins: false,
+                      content: viewModel.getRange(),
+                      rightFontWeight: FontWeight.bold,
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
-          Column(
-            children: [
-              LevelDetailLabel(
-                title: tr('reserveCount'),
-                content: '${viewModel.reservationInfo?.reserveCount}',
-                rightFontWeight: FontWeight.bold,
-              ),
-              LevelDetailLabel(
-                title: tr('amountRangeNFT'),
-                showCoins: true,
-                content: viewModel.getRange(),
-                rightFontWeight: FontWeight.bold,
-              ),
-              LevelDetailLabel(
-                title: tr("wallet-balance'"),
-                showCoins: true,
-                content:
-                    '${viewModel.reservationInfo?.balance.toStringAsFixed(2)}',
-                rightFontWeight: FontWeight.bold,
-              ),
-              const Divider(
-                color: AppColors.dialogGrey,
-                thickness: 1,
-              )
-            ],
-          )
         ],
       ),
     );
