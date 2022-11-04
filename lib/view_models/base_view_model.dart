@@ -6,14 +6,20 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
+import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/user_info_data.dart';
+import 'package:treasure_nft_project/views/full_animation_page.dart';
+import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/views/notify/notify_level_up_page.dart';
+import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
+import 'package:treasure_nft_project/widgets/image_dialog.dart';
 
 import '../constant/call_back_function.dart';
 import '../constant/enum/task_enum.dart';
 import '../constant/global_data.dart';
 import '../constant/theme/app_animation_path.dart';
+import '../constant/theme/app_colors.dart';
 import '../models/http/api/trade_api.dart';
 import '../models/http/parameter/api_response.dart';
 import '../models/http/parameter/sign_in_data.dart';
@@ -235,23 +241,51 @@ class BaseViewModel {
         );
   }
 
-  void showBuySuccessAnimate() {}
-
-  void showLevelUpAnimate(int oldLevel, int newLevel) {
-    // pushOpacityPage(getGlobalContext(),
-    //     NotifyLevelUpPage(oldLevel: oldLevel, newLevel: newLevel));
-    pushOpacityPage(
+  void showBuySuccessAnimate() async {
+    await pushOpacityPage(
         getGlobalContext(),
-        AchievementAchieveFinishPage(
-          code: AchievementCode.AchBuyScs,
-          data: TaskInfoData(
-              title: 'title',
-              content: 'content',
-              code: AchievementCode.AchBuyScs.name,
-              point: 5,
-              goalType: '',
-              goalValue: 10,
-              nowValue: 100),
-        ));
+        const FullAnimationPage(
+            animationPath: AppAnimationPath.buyNFTSuccess, limitTimer: 4));
+    ImageDialog(
+      getGlobalContext(),
+      mainText: tr('buy_remind_title'),
+      subText: tr('buy_remind_content'),
+      buttonText: tr('gotoPost'),
+      assetImagePath: AppImagePath.notifyGift,
+      callOkFunction: () {
+        pushAndRemoveUntil(getGlobalContext(),
+            const MainPage(type: AppNavigationBarType.typeCollection));
+      },
+    ).show();
+  }
+
+  void showLevelUpAnimate(int oldLevel, int newLevel) async {
+    await pushOpacityPage(getGlobalContext(),
+        NotifyLevelUpPage(oldLevel: oldLevel, newLevel: newLevel));
+
+    ///MARK: 顯示彈窗
+    if (oldLevel == 0 && newLevel == 1) {
+      ImageDialog(
+        getGlobalContext(),
+        mainText: tr('lv_remind_title'),
+        subText: tr('lv_remind_content'),
+        buttonText: tr('gotoUse'),
+        assetImagePath: AppImagePath.notifyGift,
+        callOkFunction: () {
+          pushAndRemoveUntil(getGlobalContext(),
+              const MainPage(type: AppNavigationBarType.typeTrade));
+        },
+      ).show();
+    }
+
+    ///MARK: 儲金罐動畫
+    else {
+      pushOpacityPage(
+          getGlobalContext(),
+          FullAnimationPage(
+              animationPath: AppAnimationPath.showCoinJar,
+              limitTimer: 3,
+              backgroundColor: AppColors.jarCoinBg.withOpacity(0.8)));
+    }
   }
 }

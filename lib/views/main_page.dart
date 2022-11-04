@@ -14,7 +14,6 @@ import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 
 import '../constant/global_data.dart';
 import '../constant/ui_define.dart';
-import '../utils/stomp_socket_util.dart';
 import '../widgets/app_bottom_navigation_bar.dart';
 import 'full_animation_page.dart';
 import 'home/home_main_view.dart';
@@ -42,11 +41,15 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     int initialPage = getViewIndex(widget.type);
-    debugPrint('initialPage:$initialPage');
-    debugPrint('widget.type:${widget.type}');
     GlobalData.mainBottomType = widget.type;
-    pageController = PageController(initialPage: initialPage);
+    if ((GlobalData.mainBottomType != AppNavigationBarType.typeMain &&
+            GlobalData.mainBottomType != AppNavigationBarType.typeExplore) &&
+        !BaseViewModel().isLogin()) {
+      initialPage = 6;
+      GlobalData.mainBottomType = AppNavigationBarType.typeLogin;
+    }
 
+    pageController = PageController(initialPage: initialPage);
     Future.delayed(const Duration(seconds: 2))
         .then((value) => showAnimateView());
   }
@@ -122,7 +125,7 @@ class _MainPageState extends State<MainPage> {
         ),
         extendBody: true,
         bottomNavigationBar: AppBottomNavigationBar(
-          initType: widget.type,
+          initType: GlobalData.mainBottomType,
           bottomFunction: _changePage,
         ));
   }

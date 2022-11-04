@@ -19,7 +19,8 @@ class FullAnimationPage extends StatefulWidget {
       this.nextPage,
       this.isGIF = false,
       this.isPushNextPage = false,
-      this.nextOpacityPage = false})
+      this.nextOpacityPage = false,
+      this.backgroundColor = AppColors.opacityBackground})
       : super(key: key);
 
   ///MARK: 判斷是否為GIF
@@ -44,6 +45,8 @@ class FullAnimationPage extends StatefulWidget {
   ///MARK: 判斷是要推下一頁還是清除全部
   ///true:僅推一頁 false:直接清除其他頁面，推下一頁
   final bool isPushNextPage;
+
+  final Color backgroundColor;
 
   @override
   State<FullAnimationPage> createState() => _FullAnimationPageState();
@@ -89,7 +92,7 @@ class _FullAnimationPageState extends State<FullAnimationPage>
   Widget build(BuildContext context) {
     double padding = MediaQuery.of(context).padding.top;
     return Scaffold(
-        backgroundColor: AppColors.opacityBackground,
+        backgroundColor: widget.backgroundColor,
 
         ///MARK: 禁止返回前頁
         body: WillPopScope(
