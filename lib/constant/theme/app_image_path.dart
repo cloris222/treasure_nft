@@ -84,6 +84,7 @@ class AppImagePath {
   static const String firstBackground = '$appImgPath/img_main_bg_01.png';
   static const String starIcon = '$appIconFolderPath/icon_star_01.png';
   static const String downArrow = '$appBtnFolderPath/btn_arrow_01_down.png';
+  static const String upArrowGrey = '$appBtnFolderPath/btn_arrow_02_up.png';
   static const String downArrowGrey = '$appBtnFolderPath/btn_arrow_02_down.png';
   static const String fileIcon = '$appIconFolderPath/icon_file_01.png';
   static const String openSea = '$footer/logo_opensea_01.png';

@@ -96,7 +96,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
                   ? const SizedBox()
                   : getIcon(type),
               Container(child: getText(type)),
-              SizedBox(height: paddingSpace)
+              // SizedBox(height: paddingSpace)
             ])));
   }
 
@@ -215,9 +215,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
         maxLines: 1,
         overflow: TextOverflow.clip,
         style: TextStyle(
-            fontSize: textHeight > UIDefine.fontSize12
-                ? UIDefine.fontSize12
-                : textHeight,
+            fontSize: UIDefine.fontSize12,
             color: AppColors.dialogGrey,
             fontWeight: FontWeight.w400));
   }

@@ -19,6 +19,7 @@ import 'package:treasure_nft_project/widgets/list_view/home/artist_record_listvi
 import 'package:treasure_nft_project/widgets/list_view/home/carousel_listview.dart';
 import 'package:video_player/video_player.dart';
 import '../../constant/enum/setting_enum.dart';
+import '../../constant/theme/app_theme.dart';
 import 'home_pdf_viewer.dart';
 import 'widget/sponsor_row_widget.dart';
 
@@ -41,6 +42,8 @@ class HomeMainView extends StatelessWidget {
           Column(
             children: [
               const DomainBar(),
+              viewModel.getPadding(5),
+              _buildTitleText(),
               Padding(
                 padding: EdgeInsets.only(
                     left: UIDefine.getScreenWidth(6),
@@ -48,10 +51,6 @@ class HomeMainView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    viewModel.getPadding(5),
-
-                    _buildTitleText(),
-
                     viewModel.getPadding(3),
 
                     Column(
@@ -228,19 +227,49 @@ Widget hotCollection() {
           ),
         ],
       ),
-      Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Text(
-          tr('Last_24_hours'),
-          style: TextStyle(
-            fontSize: UIDefine.fontSize20,
-            color: AppColors.mainThemeButton,
-          ),
-        ),
-        Image.asset(AppImagePath.downArrow),
-      ]),
+      // Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+      //   Text(
+      //     tr('Last_24_hours'),
+      //     style: TextStyle(
+      //       fontSize: UIDefine.fontSize20,
+      //       color: AppColors.mainThemeButton,
+      //     ),
+      //   ),
+      //   Image.asset(AppImagePath.downArrow),
+      // ]),
+
+      Container(
+          margin: EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(15)),
+          child: _buildChainDropDownBar()),
       const ArtistRecordListView(),
     ],
   );
+}
+
+Widget _buildChainDropDownBar() {
+  return DropdownButtonFormField(
+      icon: Image.asset(AppImagePath.downArrow),
+      onChanged: (newValue) {},
+      value: 1,
+      isExpanded: true,
+      alignment:Alignment.center,
+      decoration: InputDecoration(
+        // contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.16),
+        //     UIDefine.getScreenWidth(4.16), UIDefine.getScreenWidth(4.16), 0),
+        hintStyle: const TextStyle(height: 1.6, color: AppColors.mainThemeButton),
+        border: AppTheme.style.styleTextEditBorderBackground(
+            color: Colors.transparent, radius: 10),
+        focusedBorder: AppTheme.style.styleTextEditBorderBackground(
+            color: Colors.transparent, radius: 10),
+        enabledBorder: AppTheme.style.styleTextEditBorderBackground(
+            color: Colors.transparent, radius: 10),
+      ),
+      items: [
+        DropdownMenuItem(
+            value: 1,
+            child: Text(tr('Last_24_hours'),
+                style: const TextStyle(color: AppColors.mainThemeButton))),
+      ]);
 }
 
 class VideoPlayWidget extends StatefulWidget {
