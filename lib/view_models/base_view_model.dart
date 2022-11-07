@@ -15,19 +15,16 @@ import 'package:treasure_nft_project/views/notify/notify_level_up_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/image_dialog.dart';
 
-import '../constant/call_back_function.dart';
-import '../constant/enum/task_enum.dart';
 import '../constant/global_data.dart';
 import '../constant/theme/app_animation_path.dart';
 import '../constant/theme/app_colors.dart';
 import '../models/http/api/trade_api.dart';
 import '../models/http/parameter/api_response.dart';
 import '../models/http/parameter/sign_in_data.dart';
-import '../models/http/parameter/task_info_data.dart';
 import '../utils/app_shared_Preferences.dart';
 import '../utils/date_format_util.dart';
 import '../utils/stomp_socket_util.dart';
-import '../views/personal/level/achievement/achievement_achieve_finish_page.dart';
+import '../utils/trade_timer_util.dart';
 import '../widgets/dialog/simple_custom_dialog.dart';
 
 class BaseViewModel {
@@ -207,12 +204,14 @@ class BaseViewModel {
   void startUserListener() {
     debugPrint('---startUserListener');
     StompSocketUtil().connect(onConnect: _onStompConnect);
+    TradeTimerUtil().start();
   }
 
   ///MARK: 關閉使用者監聽
   void stopUserListener() {
     debugPrint('---stopUserListener');
     StompSocketUtil().disconnect();
+    TradeTimerUtil().stop();
   }
 
   void _onStompConnect(StompFrame frame) {

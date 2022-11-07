@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
+import '../models/data/trade_model_data.dart';
 import '../models/http/parameter/sign_in_data.dart';
 import 'enum/task_enum.dart';
 import 'enum/team_enum.dart';
@@ -34,4 +35,6 @@ typedef GetAchievementMissionPoint = void Function(
     AchievementCode code, String recordNo, int point);
 
 ///MARK: 顯示簽到頁面用
-typedef GetSignInDate = void Function(SignInData ?data);
+typedef GetSignInDate = void Function(SignInData? data);
+
+typedef GetTradDate = void Function(TradeData data);

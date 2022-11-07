@@ -14,6 +14,10 @@ class DateFormatUtil {
     return DateTime.now();
   }
 
+  String buildFormat({required String strFormat, required DateTime time}) {
+    return _buildDataFormat(strFormat: strFormat, time: time);
+  }
+
   ///MARK: 2022/09/06 11:46 AM
   String getDateWith12HourFormat(DateTime time) {
     return _buildDataFormat(strFormat: 'yyyy/MM/dd hh:mm a', time: time);
