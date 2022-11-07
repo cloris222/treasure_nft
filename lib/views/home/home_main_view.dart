@@ -43,7 +43,11 @@ class HomeMainView extends StatelessWidget {
             children: [
               const DomainBar(),
               viewModel.getPadding(5),
-              _buildTitleText(),
+              Padding(
+                  padding: EdgeInsets.only(
+                      left: UIDefine.getScreenWidth(2),
+                      right: UIDefine.getScreenWidth(2)),
+                  child: _buildTitleText()),
               Padding(
                 padding: EdgeInsets.only(
                     left: UIDefine.getScreenWidth(6),
@@ -164,20 +168,27 @@ class HomeMainView extends StatelessWidget {
   }
 
   Widget _buildTitleText() {
+    ///MARK: 調整文字與英文未對齊的問題
+    bool showZh =
+        (LanguageUtil.getSettingLanguageType() == LanguageType.Mandarin);
+    double styleHeight = 1.1;
     TextStyle black = TextStyle(
-        fontSize: UIDefine.fontSize24,
+        fontSize: UIDefine.fontSize22,
         fontWeight: FontWeight.bold,
-        color: AppColors.textBlack);
+        color: AppColors.textBlack,
+        height: showZh ? 1.1 : null);
+
     return SizedBox(
       // height: UIDefine.getScreenHeight(8),
-      child: LanguageUtil.getSettingLanguageType() == LanguageType.Mandarin
+      child: showZh
           ? Wrap(
               children: [
                 Text('使用', style: black),
                 GradientText(
                   ' Treasure NFT ',
-                  size: UIDefine.fontSize24,
+                  size: UIDefine.fontSize22,
                   weight: FontWeight.bold,
+                  styleHeight: styleHeight,
                 ),
                 Text('交', style: black),
                 Text('易', style: black),
@@ -252,11 +263,12 @@ Widget _buildChainDropDownBar() {
       onChanged: (newValue) {},
       value: 1,
       isExpanded: true,
-      alignment:Alignment.center,
+      alignment: Alignment.center,
       decoration: InputDecoration(
         // contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.16),
         //     UIDefine.getScreenWidth(4.16), UIDefine.getScreenWidth(4.16), 0),
-        hintStyle: const TextStyle(height: 1.6, color: AppColors.mainThemeButton),
+        hintStyle:
+            const TextStyle(height: 1.6, color: AppColors.mainThemeButton),
         border: AppTheme.style.styleTextEditBorderBackground(
             color: Colors.transparent, radius: 10),
         focusedBorder: AppTheme.style.styleTextEditBorderBackground(

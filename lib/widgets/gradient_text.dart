@@ -13,6 +13,8 @@ class GradientText extends StatelessWidget {
     this.end = Alignment.topRight,
     this.maxLines,
     this.overflow,
+    this.strutStyle,
+    this.styleHeight,
   });
 
   final String text;
@@ -24,6 +26,8 @@ class GradientText extends StatelessWidget {
   final AlignmentGeometry end;
   final int? maxLines;
   final TextOverflow? overflow;
+  final StrutStyle? strutStyle;
+  final double? styleHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +41,11 @@ class GradientText extends StatelessWidget {
         Rect.fromLTWH(0, 0, bounds.width, bounds.height),
       ),
       child: Text(text,
+          strutStyle: strutStyle,
           maxLines: maxLines,
           overflow: overflow,
-          style: TextStyle(fontSize: size, fontWeight: weight)),
+          style: TextStyle(
+              fontSize: size, fontWeight: weight, height: styleHeight)),
     );
   }
 }
