@@ -6,6 +6,7 @@ import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/widgets/count_down_timer.dart';
+import 'package:treasure_nft_project/widgets/dialog/new_reservation_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/trade_rule_dialot.dart';
 import 'package:treasure_nft_project/widgets/domain_bar.dart';
 import '../../constant/enum/trade_enum.dart';
@@ -41,6 +42,7 @@ class _TradeMainViewState extends State<TradeMainView> {
           setState(() {});
         }
       },
+
       /// 預約成功
       reservationSuccess: () {
         AnimationDialog(context, AppAnimationPath.reserveSuccess).show();
@@ -49,31 +51,31 @@ class _TradeMainViewState extends State<TradeMainView> {
       /// 預約金不足
       bookPriceNotEnough: () {
         SuccessDialog(context,
-            callOkFunction: () {},
-            isSuccess: false,
-            mainText: tr("reserve-failed'")
-          // TODO 預約金不足 多國
-        )
+                callOkFunction: () {},
+                isSuccess: false,
+                mainText: tr("reserve-failed'")
+                // TODO 預約金不足 多國
+                )
             .show();
       },
 
       /// 餘額不足
       notEnoughToPay: () {
         SuccessDialog(context,
-            callOkFunction: () {},
-            isSuccess: false,
-            mainText: tr("reserve-failed'"),
-            subText: tr('APP_0013'))
+                callOkFunction: () {},
+                isSuccess: false,
+                mainText: tr("reserve-failed'"),
+                subText: tr('APP_0013'))
             .show();
       },
 
       /// 預約金額不符
       depositNotEnough: () {
         SuccessDialog(context,
-            callOkFunction: () {},
-            isSuccess: false,
-            mainText: tr("reserve-failed'"),
-            subText: tr('APP_0041'))
+                callOkFunction: () {},
+                isSuccess: false,
+                mainText: tr("reserve-failed'"),
+                subText: tr('APP_0041'))
             .show();
       },
       errorMes: (errorCode) {
@@ -84,10 +86,10 @@ class _TradeMainViewState extends State<TradeMainView> {
       /// 體驗帳號狀態過期
       experienceExpired: () {
         SuccessDialog(context,
-            callOkFunction: () {},
-            isSuccess: false,
-            mainText: tr("reserve-failed'"),
-            subText: tr('APP_0057'))
+                callOkFunction: () {},
+                isSuccess: false,
+                mainText: tr("reserve-failed'"),
+                subText: tr('APP_0057'))
             .show();
       },
 
@@ -104,10 +106,10 @@ class _TradeMainViewState extends State<TradeMainView> {
       /// 新手帳號交易天數到期
       beginnerExpired: () {
         SuccessDialog(context,
-            callOkFunction: () {},
-            isSuccess: false,
-            mainText: tr("reserve-failed'"),
-            subText: tr('APP_0069'))
+                callOkFunction: () {},
+                isSuccess: false,
+                mainText: tr("reserve-failed'"),
+                subText: tr('APP_0069'))
             .show();
       },
     );
@@ -280,7 +282,7 @@ class _TradeMainViewState extends State<TradeMainView> {
                     ),
                     LevelDetailLabel(
                       title: tr("availableBalance"),
-                      content: '${viewModel.reservationInfo?.reserveCount}',
+                      content: '${viewModel.reservationInfo?.reserveBalance.toStringAsFixed(2)}',
                       rightFontWeight: FontWeight.bold,
                     ),
                     LevelDetailLabel(

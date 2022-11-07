@@ -18,6 +18,7 @@ import '../../models/http/parameter/check_reservation_info.dart';
 import '../../utils/date_format_util.dart';
 import '../../view_models/trade/trade_division_viewmodel.dart';
 import '../../widgets/button/login_button_widget.dart';
+import '../../widgets/dialog/new_reservation_dialog.dart';
 import '../../widgets/dialog/simple_custom_dialog.dart';
 import '../../widgets/label/level_detail.dart';
 import '../../widgets/list_view/trade/level_area_division_cell.dart';
@@ -135,7 +136,7 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
     TradeData tradeData = viewModel.countSellDate();
     return CustomAppbarView(
         needCover: true,
-        needScrollView:true,
+        needScrollView: true,
         title: widget.level == 0 ? tr('noviceArea') : 'Level ${widget.level}',
         body: Column(children: [
           const SizedBox(
@@ -145,7 +146,6 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
           _levelView(context),
           checkDataInit(tradeData)
         ]));
-
   }
 
   Widget _countDownView(BuildContext context, TradeData tradeData) {
@@ -244,8 +244,10 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
                 child: Text(
                   tr('trade-rules'),
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: UIDefine.fontSize14),
-                ),),
+                      fontWeight: FontWeight.bold,
+                      fontSize: UIDefine.fontSize14),
+                ),
+              ),
             ],
           ),
         ));
@@ -327,24 +329,46 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
         itemBuilder: (context, index) {
           return DivisionCell(
             /// press btn check reservation info
+            // reservationAction: () {
+            //   ReserveRange? range = viewModel.ranges[index];
+            //   ReservationDialog(context, confirmBtnAction: () async {
+            //     Navigator.pop(context);
+            //
+            //     /// add new reservation
+            //     await viewModel.addNewReservation(index);
+            //
+            //     /// if reservation success 預約狀態 = true
+            //     viewModel.ranges[index].used = true;
+            //
+            //     /// 狀態更新
+            //     setState(() {});
+            //   },
+            //           index: range.index,
+            //           startPrice: range.startPrice.toDouble(),
+            //           endPrice: range.endPrice.toDouble())
+            //       .show();
+            // },
             reservationAction: () {
-              ReserveRange? range = viewModel.ranges[index];
-              ReservationDialog(context, confirmBtnAction: () async {
-                Navigator.pop(context);
 
-                /// add new reservation
-                await viewModel.addNewReservation(index);
+              /// 推透明頁面！！！
+              Navigator.of(context).push(PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                    return NewReservationPopUpView(
+                      confirmBtnAction: () async {
+                        Navigator.pop(context);
+                        /// add new reservation
+                        await viewModel.addNewReservation(index);
 
-                /// if reservation success 預約狀態 = true
-                viewModel.ranges[index].used = true;
+                        /// if reservation success 預約狀態 = true
+                        viewModel.ranges[index].used = true;
 
-                /// 狀態更新
-                setState(() {});
-              },
-                      index: range.index,
-                      startPrice: range.startPrice.toDouble(),
-                      endPrice: range.endPrice.toDouble())
-                  .show();
+                        /// 狀態更新
+                        setState(() {});
+                      }, reservationFee: '',transactionTime: '',transactionReward: '',
+                    );
+                  },
+                  /// 透明頁一定要加
+                  opaque: false));
             },
             range: viewModel.ranges[index],
             level: widget.level,

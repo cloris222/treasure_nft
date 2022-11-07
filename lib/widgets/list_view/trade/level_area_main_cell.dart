@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/views/trade/trade_division_view.dart';
+import 'package:treasure_nft_project/widgets/label/level_detail.dart';
 import '../../../constant/global_data.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
@@ -31,12 +32,116 @@ class _LevelMainCellState extends State<LevelMainCell> {
     }
   }
 
-  Widget ifIsBeginnerLabel() {
+  Widget showLevelLabel() {
     return Text(
       'Level ${widget.level}',
       style:
           TextStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
     );
+  }
+
+  getLevelRange() {
+    Image etherImg = Image.asset(
+      AppImagePath.tetherImg,
+      width: UIDefine.fontSize18,
+      height: UIDefine.fontSize18,
+    );
+    SizedBox freeSpace = const SizedBox(
+      width: 5,
+    );
+    TextStyle style =
+        TextStyle(fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500);
+    if (widget.level == 0) {
+      return Row(
+        children: [
+          Image.asset(AppImagePath.tetherImg),
+          freeSpace,
+          Visibility(
+              visible: widget.level != 0,
+              child: Text(
+                '',
+                style: style,
+              ))
+        ],
+      );
+    } else if (widget.level == 1) {
+      return Row(
+        children: [
+          etherImg,
+          freeSpace,
+          Text(
+            '1 - 300',
+            style: style,
+          )
+        ],
+      );
+    } else if (widget.level == 2) {
+      return Row(
+        children: [
+          etherImg,
+          freeSpace,
+          Text(
+            '300 - 1k',
+            style: style,
+          )
+        ],
+      );
+    } else if (widget.level == 3) {
+      return Row(
+        children: [
+          etherImg,
+          freeSpace,
+          Text(
+            '1k - 3k',
+            style: style,
+          )
+        ],
+      );
+    } else if (widget.level == 4) {
+      return Row(
+        children: [
+          etherImg,
+          freeSpace,
+          Text(
+            '3k - 5k',
+            style: style,
+          )
+        ],
+      );
+    } else if (widget.level == 5) {
+      return Row(
+        children: [
+          etherImg,
+          freeSpace,
+          Text(
+            '5k - 20k',
+            style: style,
+          )
+        ],
+      );
+    } else if (widget.level == 6) {
+      return Row(
+        children: [
+          etherImg,
+          freeSpace,
+          Text(
+            '20k - 50k',
+            style: style,
+          )
+        ],
+      );
+    } else {
+      return Row(
+        children: [
+          etherImg,
+          freeSpace,
+          Text(
+            '',
+            style: style,
+          )
+        ],
+      );
+    }
   }
 
   /// 可預約狀態顯示圖
@@ -81,11 +186,15 @@ class _LevelMainCellState extends State<LevelMainCell> {
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Container(
-                  margin: const EdgeInsets.only(left: 10),
-                  child: ifIsBeginnerLabel())
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  showLevelLabel()
+                ],
+              ),
+              Flexible(child: Container()),
+              getLevelRange()
             ],
           ),
           Stack(
@@ -100,7 +209,7 @@ class _LevelMainCellState extends State<LevelMainCell> {
                     margin: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 10),
                     setMainColor: getReservationBtnColor(),
-                    btnText: widget.level == 0? tr("match") : tr("enter"),
+                    btnText: widget.level == 0 ? tr("match") : tr("enter"),
                     onPressed: () {
                       Navigator.push(
                           context,

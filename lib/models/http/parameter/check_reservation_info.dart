@@ -21,6 +21,7 @@ class CheckReservationInfo {
     required this.zone,
     required this.reserveCount,
     required this.balance,
+    required this.reserveBalance,
     required this.reserveRanges,
     // required this.reserveItems,
   });
@@ -36,6 +37,7 @@ class CheckReservationInfo {
   String zone;
   int reserveCount;
   double balance;
+  double reserveBalance;
   List<ReserveRange> reserveRanges;
   // List<ReserveItem> reserveItems;
 
@@ -51,6 +53,7 @@ class CheckReservationInfo {
     zone: json["zone"],
     reserveCount: json["reserveCount"],
     balance: json["balance"],
+    reserveBalance: json["reserveBalance"].toDouble() ?? 0.0,
     reserveRanges: List<ReserveRange>.from(json["reserveRanges"].map((x) => ReserveRange.fromJson(x))),
     // reserveItems: List<ReserveItem>.from(json["reserveItems"].map((x) => ReserveItem.fromJson(x))),
   );
@@ -67,6 +70,7 @@ class CheckReservationInfo {
     "zone": zone,
     "reserveCount": reserveCount,
     "balance": balance,
+    "reserveBalance":reserveBalance,
     "reserveRanges": List<dynamic>.from(reserveRanges.map((x) => x.toJson())),
     // "reserveItems": List<dynamic>.from(reserveItems.map((x) => x.toJson())),
   };
