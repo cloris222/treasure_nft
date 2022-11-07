@@ -24,7 +24,7 @@ class TradeTimerUtil {
 
   Timer? _countdownTimer;
   final String key = '-TradeTimer:';
-  final bool printTimeLog = true;
+  final bool printTimeLog = false;
 
   ///MARK: 要判斷 天數
   late DateTime _dateCurrentTime;
@@ -75,8 +75,10 @@ class TradeTimerUtil {
 
   void _startTimer() {
     debugPrint('$key start timer');
+
+    /// 區間為 01:01~59:31
     _updateTime =
-        '${NumberFormatUtil().integerTwoFormat(Random().nextInt(59))}:${NumberFormatUtil().integerTwoFormat(Random().nextInt(59))}';
+        '${NumberFormatUtil().integerTwoFormat(Random().nextInt(58) + 1)}:${NumberFormatUtil().integerTwoFormat(Random().nextInt(30) + 1)}';
     debugPrint('$key random time $_updateTime');
     _countdownTimer =
         Timer.periodic(const Duration(seconds: 1), (_) => _setCountDown());

@@ -39,4 +39,7 @@ class AppAnimationPath {
 
   /// 儲金罐
   static const String showCoinJar = '$animationPathJson/coin_jar_01.json';
+
+  /// 開賣動畫
+  static const String showWaitSell = '$animationPathJson/mb_announce_01.json';
 }

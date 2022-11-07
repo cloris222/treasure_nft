@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
+import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/user_info_data.dart';
 import 'package:treasure_nft_project/views/full_animation_page.dart';
@@ -204,6 +205,7 @@ class BaseViewModel {
   void startUserListener() {
     debugPrint('---startUserListener');
     StompSocketUtil().connect(onConnect: _onStompConnect);
+    TradeTimerUtil().addListener(_onTradeTimerListener);
     TradeTimerUtil().start();
   }
 
@@ -211,6 +213,7 @@ class BaseViewModel {
   void stopUserListener() {
     debugPrint('---stopUserListener');
     StompSocketUtil().disconnect();
+    TradeTimerUtil().removeListener(_onTradeTimerListener);
     TradeTimerUtil().stop();
   }
 
@@ -285,6 +288,16 @@ class BaseViewModel {
               animationPath: AppAnimationPath.showCoinJar,
               limitTimer: 3,
               backgroundColor: AppColors.jarCoinBg.withOpacity(0.8)));
+    }
+  }
+
+  ///MARK: 倒數五分鐘顯示開賣中動畫
+  void _onTradeTimerListener(TradeData data) {
+    if (data.duration == const Duration(minutes: 5)) {
+      pushOpacityPage(
+          getGlobalContext(),
+          const FullAnimationPage(
+              animationPath: AppAnimationPath.showWaitSell, limitTimer: 4));
     }
   }
 }
