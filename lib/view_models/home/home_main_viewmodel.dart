@@ -7,29 +7,28 @@ import 'package:treasure_nft_project/models/http/parameter/home_carousel.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../models/http/parameter/trading_volume_data.dart';
 
 class HomeMainViewModel extends BaseViewModel {
-
   /// 取得輪播圖
   Future<List<HomeCarousel>> getHomeCarousel(
       {ResponseErrorFunction? onConnectFail}) async {
-    return await HomeAPI(onConnectFail: onConnectFail)
-        .getCarouselItem();
+    return await HomeAPI(onConnectFail: onConnectFail).getCarouselItem();
   }
 
   /// 查詢畫家列表
   Future<List<ArtistRecord>> getArtistRecord(
       {ResponseErrorFunction? onConnectFail}) async {
-    return await HomeAPI(onConnectFail: onConnectFail)
-        .getArtistRecord();
+    return await HomeAPI(onConnectFail: onConnectFail).getArtistRecord();
   }
-
 
   Widget getPadding(double val) {
     return Padding(padding: EdgeInsets.all(UIDefine.getScreenWidth(val)));
   }
+
   Widget getPaddingWithView(double val, Widget view) {
-    return Padding(padding: EdgeInsets.all(UIDefine.getScreenWidth(val)),
+    return Padding(
+      padding: EdgeInsets.all(UIDefine.getScreenWidth(val)),
       child: view,
     );
   }
@@ -44,5 +43,7 @@ class HomeMainViewModel extends BaseViewModel {
     }
   }
 
-
+  Future<TradingVolumeData> getUsdtInfo() async {
+    return HomeAPI().getTradingVolume();
+  }
 }

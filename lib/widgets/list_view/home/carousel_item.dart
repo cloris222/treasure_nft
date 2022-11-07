@@ -42,15 +42,17 @@ class _CarouselItem extends State<CarouselItemView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
 
-                ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15)),
-                  child: widget.decorationImage,
+                Expanded(
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(15)),
+                    child: widget.decorationImage,
 
-                    // Image.network(widget.itemData.imageUrl,
-                    //   fit: BoxFit.fill,
-                    // ),
+                      // Image.network(widget.itemData.imageUrl,
+                      //   fit: BoxFit.fill,
+                      // ),
+                  ),
                 ),
 
                 Container(

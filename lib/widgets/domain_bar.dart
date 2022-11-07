@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
@@ -16,26 +17,15 @@ class DomainBar extends StatelessWidget {
         decoration: AppStyle().baseGradient(),
         padding: const EdgeInsets.symmetric(horizontal: 5),
         child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            scrollDirection: Axis.horizontal,
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               Text(
-                'Treasure\'s official domain: ',
+                tr('officialSite_title'),
                 style: TextStyle(
                     fontSize: UIDefine.fontSize12,
                     color: Colors.white,
                     fontWeight: FontWeight.w300),
-              ),
-              Text(
-                GlobalData.urlPrefix,
-                style: TextStyle(
-                    fontSize: UIDefine.fontSize12,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-        ));
+              )
+            ])));
   }
 }

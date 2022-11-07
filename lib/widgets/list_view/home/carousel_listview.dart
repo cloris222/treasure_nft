@@ -36,13 +36,13 @@ class _GetCarouselListView extends State<CarouselListView> {
       imageList.add(
           Container(
             alignment: Alignment.topCenter,
-            height:UIDefine.getScreenHeight(46),
+            height:UIDefine.getHeight()*0.4,
             decoration: BoxDecoration(
                 image: DecorationImage(
                     alignment: Alignment.topCenter,
                     image: Image.network(
                       list[i].imageUrl,
-                      fit: BoxFit.fitWidth,
+                      fit: BoxFit.fitHeight,
                     ).image)),
           )
       );

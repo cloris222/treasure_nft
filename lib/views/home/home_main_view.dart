@@ -6,7 +6,9 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/language_util.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
+import 'package:treasure_nft_project/views/home/widget/home_usdt_info.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/views/trade/trade_main_view.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
@@ -16,6 +18,7 @@ import 'package:treasure_nft_project/widgets/gradient_text.dart';
 import 'package:treasure_nft_project/widgets/list_view/home/artist_record_listview.dart';
 import 'package:treasure_nft_project/widgets/list_view/home/carousel_listview.dart';
 import 'package:video_player/video_player.dart';
+import '../../constant/enum/setting_enum.dart';
 import 'home_pdf_viewer.dart';
 import 'widget/sponsor_row_widget.dart';
 
@@ -47,26 +50,7 @@ class HomeMainView extends StatelessWidget {
                   children: [
                     viewModel.getPadding(5),
 
-                    SizedBox(
-                      height: UIDefine.getScreenHeight(7),
-                      child: Row(
-                        children: [
-                          Text(
-                            'Earn profit with',
-                            style: TextStyle(
-                              fontSize: UIDefine.fontSize24,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.textBlack,
-                            ),
-                          ),
-                          GradientText(
-                            ' Treasure ',
-                            size: UIDefine.fontSize24,
-                            weight: FontWeight.bold,
-                          ),
-                        ],
-                      ),
-                    ),
+                    _buildTitleText(),
 
                     viewModel.getPadding(3),
 
@@ -99,23 +83,27 @@ class HomeMainView extends StatelessWidget {
                       btnText: tr('Trade'),
                       onPressed: () {
                         viewModel.isLogin()
-                            ? viewModel.pushAndRemoveUntil(context,
-                                const MainPage(type: AppNavigationBarType.typeTrade))
-                            : viewModel.pushAndRemoveUntil(context,
-                                const MainPage(type: AppNavigationBarType.typeLogin));
+                            ? viewModel.pushAndRemoveUntil(
+                                context,
+                                const MainPage(
+                                    type: AppNavigationBarType.typeTrade))
+                            : viewModel.pushAndRemoveUntil(
+                                context,
+                                const MainPage(
+                                    type: AppNavigationBarType.typeLogin));
                       },
                     ),
 
                     viewModel.getPadding(5),
 
                     /// USDT_Info
-                    USDT_Info(),
+                    const HomeUsdtInfo(),
 
                     viewModel.getPadding(4),
 
                     /// 輪播圖
                     SizedBox(
-                      height: UIDefine.getScreenHeight(57),
+                      height: UIDefine.getHeight() * 0.5,
                       child: const CarouselListView(),
                     ),
                   ],
@@ -141,7 +129,10 @@ class HomeMainView extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10))),
           ),
 
-          onPressed: () {},
+          onPressed: () {
+            viewModel.pushAndRemoveUntil(context,
+                const MainPage(type: AppNavigationBarType.typeExplore));
+          },
           child: Padding(
             padding:
                 const EdgeInsets.only(left: 10, top: 3, right: 10, bottom: 3),
@@ -150,7 +141,7 @@ class HomeMainView extends StatelessWidget {
           ),
         ),
 
-        viewModel.getPadding(1),
+        viewModel.getPadding(2),
 
         /// 教學影片
         SizedBox(
@@ -172,128 +163,47 @@ class HomeMainView extends StatelessWidget {
       ]),
     );
   }
-}
 
-Widget USDT_Info() {
-  HomeMainViewModel viewModel = HomeMainViewModel();
-
-  return SizedBox(
-      width: UIDefine.getWidth(),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '${tr('lastDayAmount')} (${tr('usdt')})',
-                style: TextStyle(
-                    fontSize: UIDefine.fontSize12,
-                    color: AppColors.textBlack,
-                    fontWeight: FontWeight.w300),
-              ),
-              viewModel.getPadding(1),
-              Text(
-                '12,373.6',
-                style: TextStyle(
-                  fontSize: UIDefine.fontSize18,
-                  color: AppColors.textBlack,
+  Widget _buildTitleText() {
+    TextStyle black = TextStyle(
+        fontSize: UIDefine.fontSize24,
+        fontWeight: FontWeight.bold,
+        color: AppColors.textBlack);
+    return SizedBox(
+      // height: UIDefine.getScreenHeight(8),
+      child: LanguageUtil.getSettingLanguageType() == LanguageType.Mandarin
+          ? Wrap(
+              children: [
+                Text('使用', style: black),
+                GradientText(
+                  ' Treasure NFT ',
+                  size: UIDefine.fontSize24,
+                  weight: FontWeight.bold,
                 ),
-              ),
-              viewModel.getPadding(1),
-              Text(
-                tr('Last_24_hours'),
-                style: TextStyle(
-                  fontSize: UIDefine.fontSize12,
-                  color: AppColors.textGrey,
+                Text('交', style: black),
+                Text('易', style: black),
+                Text('賺', style: black),
+                Text('取', style: black),
+                Text('收', style: black),
+                Text('益', style: black),
+              ],
+            )
+          : Wrap(
+              children: [
+                Text('Earn profit with',
+                    style: TextStyle(
+                        fontSize: UIDefine.fontSize22,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.textBlack)),
+                GradientText(
+                  ' Treasure NFT',
+                  size: UIDefine.fontSize22,
+                  weight: FontWeight.bold,
                 ),
-              ),
-            ],
-          ),
-
-          viewModel.getPadding(1),
-
-          //分隔線
-          SizedBox(
-              height: UIDefine.getScreenHeight(10),
-              child: const VerticalDivider(
-                width: 3,
-                color: AppColors.dialogBlack,
-                thickness: 0.5,
-              )),
-
-          viewModel.getPadding(1),
-
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'FEE (${tr('usdt')})',
-                style: TextStyle(
-                    fontSize: UIDefine.fontSize12,
-                    color: AppColors.textBlack,
-                    fontWeight: FontWeight.w300),
-              ),
-              viewModel.getPadding(1),
-              Text(
-                '1.54',
-                style: TextStyle(
-                  fontSize: UIDefine.fontSize18,
-                  color: AppColors.textBlack,
-                ),
-              ),
-              viewModel.getPadding(1),
-              Text(
-                tr('updated-3-min\''),
-                style: TextStyle(
-                  fontSize: UIDefine.fontSize12,
-                  color: AppColors.textGrey,
-                ),
-              ),
-            ],
-          ),
-
-          viewModel.getPadding(1),
-
-          //分隔線
-          SizedBox(
-              height: UIDefine.getScreenHeight(10),
-              child: const VerticalDivider(
-                width: 3,
-                color: AppColors.dialogBlack,
-                thickness: 0.5,
-              )),
-
-          viewModel.getPadding(1),
-
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '${tr('NFTs')}(${tr('usdt')})',
-                style: TextStyle(
-                    fontSize: UIDefine.fontSize12,
-                    color: AppColors.textBlack,
-                    fontWeight: FontWeight.w300),
-              ),
-              viewModel.getPadding(1),
-              GradientText(
-                '108.7',
-                size: UIDefine.fontSize18,
-                endColor: AppColors.subThemePurple,
-              ),
-              viewModel.getPadding(1),
-              Text(
-                tr('status_PAYING'),
-                style: TextStyle(
-                  fontSize: UIDefine.fontSize12,
-                  color: AppColors.textGrey,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ));
+              ],
+            ),
+    );
+  }
 }
 
 Widget hotCollection() {
@@ -309,10 +219,10 @@ Widget hotCollection() {
             child: Image.asset(AppImagePath.starIcon),
           ),
           Text(
-            'Hot Collections',
+            tr('topCreator'),
             style: TextStyle(
               fontSize: UIDefine.fontSize24,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w400,
               color: AppColors.textBlack,
             ),
           ),
@@ -350,7 +260,8 @@ class VideoPlayWidgetState extends State<VideoPlayWidget> {
       ..initialize().then((value) {
         setState(() {});
       })
-      ..play();
+      ..play()
+      ..setLooping(true);
 
     super.initState();
   }
@@ -376,60 +287,53 @@ class VideoPlayWidgetState extends State<VideoPlayWidget> {
 
 Widget sponsor() {
   HomeMainViewModel vm = HomeMainViewModel();
-  return SizedBox(
-    height: UIDefine.getHeight() / 1.2,
-    child: Stack(
-      children: [
-        Container(
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                Color.fromARGB(255, 255, 255, 255),
-                Color.fromARGB(255, 230, 247, 255),
-                Color.fromARGB(255, 215, 224, 255)
-              ])),
+  return Container(
+      decoration: const BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+            Color.fromARGB(255, 255, 255, 255),
+            Color.fromARGB(255, 230, 247, 255),
+            Color.fromARGB(255, 215, 224, 255)
+          ])),
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        vm.getPadding(5),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            vm.getPadding(3),
+            Image.asset(AppImagePath.fileIcon),
+            vm.getPadding(3),
+            Text(
+              'Investors and patrons',
+              style: TextStyle(fontSize: UIDefine.fontSize24),
+            ),
+          ],
         ),
-        Column(children: [
-          vm.getPadding(5),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              vm.getPadding(3),
-              Image.asset(AppImagePath.fileIcon),
-              vm.getPadding(3),
-              Text(
-                'Investors and patrons',
-                style: TextStyle(fontSize: UIDefine.fontSize24),
-              ),
-            ],
-          ),
-          const SponsorRowWidget(
-            leftLogo: AppImagePath.openSea,
-            rightLogo: AppImagePath.coinBase,
-          ),
-          const SponsorRowWidget(
-            leftLogo: AppImagePath.mintBase,
-            rightLogo: AppImagePath.trustWallet,
-          ),
-          const SponsorRowWidget(
-            leftLogo: AppImagePath.tron,
-            rightLogo: AppImagePath.binance,
-          ),
-          const SponsorRowWidget(
-            leftLogo: AppImagePath.minTable,
-            rightLogo: AppImagePath.zora,
-          ),
-          const SponsorRowWidget(
-            leftLogo: AppImagePath.polygon,
-            rightLogo: AppImagePath.ethereum,
-          ),
-          vm.getPaddingWithView(5, Image.asset(AppImagePath.tozfuft)),
-        ]),
-      ],
-    ),
-  );
+        const SponsorRowWidget(
+          leftLogo: AppImagePath.openSea,
+          rightLogo: AppImagePath.coinBase,
+        ),
+        const SponsorRowWidget(
+          leftLogo: AppImagePath.mintBase,
+          rightLogo: AppImagePath.trustWallet,
+        ),
+        const SponsorRowWidget(
+          leftLogo: AppImagePath.tron,
+          rightLogo: AppImagePath.binance,
+        ),
+        const SponsorRowWidget(
+          leftLogo: AppImagePath.minTable,
+          rightLogo: AppImagePath.zora,
+        ),
+        const SponsorRowWidget(
+          leftLogo: AppImagePath.polygon,
+          rightLogo: AppImagePath.ethereum,
+        ),
+        vm.getPaddingWithView(5, Image.asset(AppImagePath.tozfuft)),
+        vm.getPadding(3),
+      ]));
 }
 
 Widget mailSubmit() {
