@@ -28,7 +28,7 @@ class CheckReserveDeposit {
         deposit: json["deposit"],
         reserveBalance: json["reserveBalance"].toDouble(),
         tradingTime: json["tradingTime"],
-        reward: json["reward"],
+        reward: json["reward"].toDouble(),
       );
 
   Map<String, dynamic> toJson() => {

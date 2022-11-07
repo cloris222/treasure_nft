@@ -6,6 +6,7 @@ import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_animation_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import '../../../constant/enum/trade_enum.dart';
 import '../../../constant/theme/app_colors.dart';
@@ -33,6 +34,16 @@ class DivisionCell extends StatefulWidget {
 }
 
 class _DivisionCellState extends State<DivisionCell> {
+
+  String getRange(){
+    dynamic min;
+    dynamic max;
+
+    min = widget.range.startPrice;
+    max = widget.range.endPrice;
+
+    return '${BaseViewModel().numberCompatFormat(NumberFormatUtil().integerFormat(min,hasSeparator:false))} - ${BaseViewModel().numberCompatFormat(max.toString())}';
+  }
 
   String ifIsBeginnerImg() {
     if (GlobalData.userInfo.level == 0) {
@@ -116,6 +127,7 @@ class _DivisionCellState extends State<DivisionCell> {
 
   @override
   Widget build(BuildContext context) {
+   TextStyle style =  TextStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500);
     return Container(
       margin: EdgeInsets.symmetric(
           horizontal: UIDefine.getWidth() / 20, vertical: 10),
@@ -139,7 +151,9 @@ class _DivisionCellState extends State<DivisionCell> {
                     const SizedBox(
                       width: 5,
                     ),
-                    Expanded(child: ifIsBeginnerLabel())
+                    Expanded(child:
+                    Text(getRange(),style: style,)
+                      )
                   ],
                 ),
               ),
