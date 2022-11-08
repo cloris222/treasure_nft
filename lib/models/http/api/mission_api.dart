@@ -1,6 +1,7 @@
 import 'package:treasure_nft_project/models/http/http_manager.dart';
 import 'package:treasure_nft_project/models/http/parameter/point_record_data.dart';
 import 'package:treasure_nft_project/models/http/parameter/task_info_data.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../parameter/api_response.dart';
 import '../parameter/medal_info_data.dart';
@@ -56,8 +57,10 @@ class MissionAPI extends HttpManager {
     var response = await get('/user/points', queryParameters: {
       'page': page,
       'size': size,
-      'startTime': '$startDate+00:00:00',
-      'endTime': '$endDate+23:59:59'
+      'startTime': BaseViewModel().changeTimeZone('$startDate 00:00:00',
+          isSystemTime: false, isApiValue: true),
+      'endTime': BaseViewModel().changeTimeZone('$endDate 23:59:59',
+          isSystemTime: false, isApiValue: true),
     });
 
     List<PointRecordData> result = [];

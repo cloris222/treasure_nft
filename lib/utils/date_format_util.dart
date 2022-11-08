@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 

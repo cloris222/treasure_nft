@@ -308,8 +308,12 @@ class BaseViewModel {
   /// changeLocalTime:false -> local time to system time
   /// showGMT control (+XX:XX)
   /// isApiValue :true ->2022-08-30 14:43:22
-  String changeTimeZone(String strTime,
-      {bool isSystemTime = true, bool isApiValue = false}) {
+  String changeTimeZone(
+    String strTime, {
+    bool isSystemTime = true,
+    bool isApiValue = false,
+    String strFormat = '',
+  }) {
     var format = DateFormat('yyyy-MM-DD HH:mm:ss');
     DateTime time = format.parse(strTime);
 
@@ -332,7 +336,7 @@ class BaseViewModel {
 
     return isApiValue
         ? DateFormatUtil().getFullWithDateFormat(time)
-        : '(${localZone > 0 ? '+' : ''}${NumberFormatUtil().integerTwoFormat(localZone)}:00) ${DateFormatUtil().getFullWithDateFormat2(time)}';
+        : '(${localZone > 0 ? '+' : ''}${NumberFormatUtil().integerTwoFormat(localZone)}:00) ${strFormat.isEmpty ? DateFormatUtil().getFullWithDateFormat2(time) : DateFormatUtil().buildFormat(strFormat: strFormat, time: time)}';
   }
 
   int getZone(String gmt) {

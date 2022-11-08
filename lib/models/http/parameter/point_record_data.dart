@@ -28,7 +28,7 @@ class PointRecordData {
   });
 
   String id;
-  DateTime time;
+  String time;
 
   ///MARK: 積分
   int amount;
@@ -47,7 +47,7 @@ class PointRecordData {
     }
     return PointRecordData(
       id: json["id"],
-      time: DateTime.parse(json["time"]),
+      time: json["time"],
       amount: json["amount"],
       type: type,
       missionCode: json["missionCode"] ?? '',
@@ -57,7 +57,7 @@ class PointRecordData {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "time": time.toIso8601String(),
+        "time": time,
         "amount": amount,
         "type": type.name,
         "missionCode": missionCode,

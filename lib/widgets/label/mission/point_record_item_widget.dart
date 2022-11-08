@@ -1,15 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:format/format.dart';
-import 'package:treasure_nft_project/utils/date_format_util.dart';
-
-import '../../../constant/enum/task_enum.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import '../../../constant/theme/app_colors.dart';
-import '../../../constant/theme/app_image_path.dart';
 import '../../../constant/theme/app_style.dart';
 import '../../../constant/ui_define.dart';
 import '../../../models/http/parameter/point_record_data.dart';
-import '../../../utils/number_format_util.dart';
 
 class PointRecordItemWidget extends StatelessWidget {
   const PointRecordItemWidget({Key? key, required this.record})
@@ -49,8 +44,10 @@ class PointRecordItemWidget extends StatelessWidget {
             style: TextStyle(
                 color: AppColors.dialogBlack,
                 fontSize: UIDefine.fontSize16,
-                fontWeight: FontWeight.w600)),
-        Text(DateFormatUtil().getFullWithDateFormat2(record.time),
+                fontWeight: FontWeight.w500)),
+        Text(
+            BaseViewModel()
+                .changeTimeZone(record.time, strFormat: 'yyyy-MM-dd HH:mm:ss'),
             style: TextStyle(
                 color: AppColors.searchBar,
                 fontSize: UIDefine.fontSize12,
