@@ -13,6 +13,7 @@ import '../../constant/enum/trade_enum.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../models/http/api/trade_api.dart';
 import '../../models/http/parameter/add_new_reservation.dart';
+import '../../models/http/parameter/check_reserve_deposit.dart';
 import '../../utils/date_format_util.dart';
 
 class TradeDivisionViewModel extends BaseViewModel {
@@ -29,6 +30,7 @@ class TradeDivisionViewModel extends BaseViewModel {
 
   final onClickFunction setState;
   final int level;
+  late CheckReserveDeposit checkReserveDeposit;
   CheckReservationInfo? reservationInfo;
   CheckLevelInfo? userLevelInfo;
   AddNewReservation? newReservation;
@@ -48,12 +50,18 @@ class TradeDivisionViewModel extends BaseViewModel {
   ResponseErrorFunction errorMes;
 
   Future<void> initState() async {
-    reservationInfo =
-        await TradeAPI().getCheckReservationInfoAPI(level);
+    print('AAA initState');
+    reservationInfo = await TradeAPI().getCheckReservationInfoAPI(level);
     userLevelInfo = await UserInfoAPI().getCheckLevelInfoAPI();
     ranges = reservationInfo!.reserveRanges;
+    checkReserveDeposit = await TradeAPI().getCheckReserveDepositAPI(
+        ranges.first.index,
+        ranges.first.startPrice.toDouble(),
+        ranges.first.endPrice.toDouble());
+
     /// 如果是體驗帳號 且 level 1 副本顯示內容不同
-    if(GlobalData.experienceInfo.isExperience == true && GlobalData.userInfo.level == 1){
+    if (GlobalData.experienceInfo.isExperience == true &&
+        GlobalData.userInfo.level == 1) {
       ranges[0].startPrice = 1;
       ranges[0].endPrice = 50;
       ranges[1].startPrice = 50;
@@ -71,7 +79,7 @@ class TradeDivisionViewModel extends BaseViewModel {
         .then((value) {
       if (value.isExperience == true && value.status == 'EXPIRED') {
         experienceExpired();
-      } else if(value.isExperience == true && value.status == 'DISABLE'){
+      } else if (value.isExperience == true && value.status == 'DISABLE') {
         experienceDisable();
       }
     });

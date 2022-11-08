@@ -2,16 +2,20 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/views/trade/trade_division_view.dart';
+import 'package:treasure_nft_project/widgets/label/level_detail.dart';
 import '../../../constant/global_data.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
 import '../../../constant/ui_define.dart';
+import '../../../models/http/parameter/check_reservation_info.dart';
 import '../../button/action_button_widget.dart';
 import '../../gradient_text.dart';
 
 class LevelMainCell extends StatefulWidget {
-  const LevelMainCell({Key? key, required this.level,})
-      : super(key: key);
+  const LevelMainCell({
+    Key? key,
+    required this.level,
+  }) : super(key: key);
 
   final int level;
 
@@ -28,21 +32,114 @@ class _LevelMainCellState extends State<LevelMainCell> {
     }
   }
 
-  Widget ifIsBeginnerLabel() {
-    if (GlobalData.userInfo.level == 0) {
-      return GradientText(
-        tr('noviceArea'),
-        size: UIDefine.fontSize20,
-        weight: FontWeight.bold,
-        starColor: AppColors.mainThemeButton,
-        endColor: AppColors.subThemePurple,
+  Widget showLevelLabel() {
+    return Text(
+      'Level ${widget.level}',
+      style:
+          TextStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
+    );
+  }
+
+  getLevelRange() {
+    Image etherImg = Image.asset(
+      AppImagePath.tetherImg,
+      width: UIDefine.fontSize18,
+      height: UIDefine.fontSize18,
+    );
+    SizedBox freeSpace = const SizedBox(
+      width: 5,
+    );
+    TextStyle style =
+        TextStyle(fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500);
+    if (widget.level == 0) {
+      return Row(
+        children: [
+          Image.asset(AppImagePath.tetherImg),
+          freeSpace,
+          Visibility(
+              visible: widget.level != 0,
+              child: Text(
+                '',
+                style: style,
+              ))
+        ],
+      );
+    } else if (widget.level == 1) {
+      return Row(
+        children: [
+          etherImg,
+          freeSpace,
+          Text(
+            '1 - 300',
+            style: style,
+          )
+        ],
+      );
+    } else if (widget.level == 2) {
+      return Row(
+        children: [
+          etherImg,
+          freeSpace,
+          Text(
+            '300 - 1k',
+            style: style,
+          )
+        ],
+      );
+    } else if (widget.level == 3) {
+      return Row(
+        children: [
+          etherImg,
+          freeSpace,
+          Text(
+            '1k - 3k',
+            style: style,
+          )
+        ],
+      );
+    } else if (widget.level == 4) {
+      return Row(
+        children: [
+          etherImg,
+          freeSpace,
+          Text(
+            '3k - 5k',
+            style: style,
+          )
+        ],
+      );
+    } else if (widget.level == 5) {
+      return Row(
+        children: [
+          etherImg,
+          freeSpace,
+          Text(
+            '5k - 20k',
+            style: style,
+          )
+        ],
+      );
+    } else if (widget.level == 6) {
+      return Row(
+        children: [
+          etherImg,
+          freeSpace,
+          Text(
+            '20k - 50k',
+            style: style,
+          )
+        ],
       );
     } else {
-      return Text(
-        //'${int.parse(widget.range?.startPrice.toStringAsFixed(0))} - ${int.parse(widget.range?.endPrice.toStringAsFixed(0))}',
-        'Level ${widget.level}',
-        style: TextStyle(
-            fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
+      return Row(
+        children: [
+          etherImg,
+          freeSpace,
+          Text(
+            '',
+            style: style,
+          )
+        ],
       );
     }
   }
@@ -74,9 +171,9 @@ class _LevelMainCellState extends State<LevelMainCell> {
       return AppColors.reservationLevel4.withOpacity(0.7);
     } else if (widget.level == 5) {
       return AppColors.reservationLevel5.withOpacity(0.7);
-    }else if (widget.level == 6) {
+    } else if (widget.level == 6) {
       return AppColors.reservationLevel6.withOpacity(0.7);
-    }else {
+    } else {
       return AppColors.textBlack;
     }
   }
@@ -89,15 +186,15 @@ class _LevelMainCellState extends State<LevelMainCell> {
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              /// 新手顯示星星
-              Visibility(
-                visible: widget.level == 0,
-                  child: Image.asset(AppImagePath.beginner)),
-              Container(
-                  margin: const EdgeInsets.only(left: 10),
-                  child: ifIsBeginnerLabel())
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  showLevelLabel()
+                ],
+              ),
+              Flexible(child: Container()),
+              getLevelRange()
             ],
           ),
           Stack(
@@ -107,11 +204,12 @@ class _LevelMainCellState extends State<LevelMainCell> {
                 right: 0,
                 bottom: 0,
                 child: ActionButtonWidget(
+                    setHeight: 40,
                     isFillWidth: false,
                     margin: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 10),
                     setMainColor: getReservationBtnColor(),
-                    btnText: 'Enter',
+                    btnText: widget.level == 0 ? tr("match") : tr("enter"),
                     onPressed: () {
                       Navigator.push(
                           context,

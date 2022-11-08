@@ -17,6 +17,14 @@ import '../../utils/date_format_util.dart';
 class TradeMainViewModel extends BaseViewModel {
   TradeMainViewModel({
     required this.setState,
+    required this.reservationSuccess,
+    required this.bookPriceNotEnough,
+    required this.notEnoughToPay,
+    required this.depositNotEnough,
+    required this.errorMes,
+    required this.experienceExpired,
+    required this.beginnerExpired,
+    required this.experienceDisable
   });
 
   final onClickFunction setState;
@@ -30,15 +38,89 @@ class TradeMainViewModel extends BaseViewModel {
   DateTime? endTime;
   DateTime? localTime;
   int second = 0;
+  VoidCallback notEnoughToPay;
+  VoidCallback bookPriceNotEnough;
+  VoidCallback reservationSuccess;
+  VoidCallback depositNotEnough;
+  VoidCallback beginnerExpired;
+  VoidCallback experienceExpired;
+  VoidCallback experienceDisable;
+  ResponseErrorFunction errorMes;
 
   Future<void> initState() async {
     division = await TradeAPI().getDivisionAPI();
     reservationInfo =
-        await TradeAPI().getCheckReservationInfoAPI(division!.first);
+        await TradeAPI().getCheckReservationInfoAPI(0);
     userLevelInfo = await UserInfoAPI().getCheckLevelInfoAPI();
     ranges = reservationInfo!.reserveRanges;
+    /// 如果是體驗帳號 且 level 1 副本顯示內容不同
+    if(GlobalData.experienceInfo.isExperience == true && GlobalData.userInfo.level == 1){
+      ranges[0].startPrice = 1;
+      ranges[0].endPrice = 50;
+      ranges[1].startPrice = 50;
+      ranges[1].endPrice = 150;
+    }
     startTimer();
     setState();
+  }
+
+  addNewReservation(int index) async {
+    /// 確認體驗帳號狀態
+    await TradeAPI(onConnectFail: _experienceExpired, showTrString: false)
+        .getExperienceInfoAPI()
+        .then((value) {
+      if (value.isExperience == true && value.status == 'EXPIRED') {
+         experienceExpired();
+      } else if(value.isExperience == true && value.status == 'DISABLE'){
+         experienceDisable();
+      }
+    });
+
+    /// 新增預約
+    await TradeAPI(onConnectFail: _onAddReservationFail, showTrString: false)
+        .postAddNewReservationAPI(
+        type: "PRICE",
+        startPrice: ranges[index].startPrice,
+        endPrice: ranges[index].endPrice,
+        priceIndex: ranges[index].index);
+
+    /// 如果預約成功 會進call back function
+     reservationSuccess();
+  }
+
+  /// 體驗帳號狀態失效
+  void _experienceExpired(String errorMessage) {
+     experienceExpired();
+     experienceDisable();
+  }
+
+  /// 預約失敗顯示彈窗
+  void _onAddReservationFail(String errorMessage) {
+    switch (errorMessage) {
+
+    /// 預約金不足
+      case 'APP_0064':
+         bookPriceNotEnough();
+        break;
+
+    /// 餘額不足
+      case 'APP_0013':
+         notEnoughToPay();
+        break;
+
+    /// 預約金額不符
+      case 'APP_0041':
+         depositNotEnough();
+        break;
+
+    /// 新手帳號交易天數到期
+      case 'APP_0069':
+         beginnerExpired();
+        break;
+      default:
+         errorMes(errorMessage);
+        break;
+    }
   }
 
   /// 離開頁面後清除時間

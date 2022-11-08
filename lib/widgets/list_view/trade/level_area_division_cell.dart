@@ -6,6 +6,7 @@ import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_animation_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import '../../../constant/enum/trade_enum.dart';
 import '../../../constant/theme/app_colors.dart';
@@ -34,6 +35,16 @@ class DivisionCell extends StatefulWidget {
 
 class _DivisionCellState extends State<DivisionCell> {
 
+  String getRange(){
+    dynamic min;
+    dynamic max;
+
+    min = widget.range.startPrice;
+    max = widget.range.endPrice;
+
+    return '${BaseViewModel().numberCompatFormat(NumberFormatUtil().integerFormat(min,hasSeparator:false))} - ${BaseViewModel().numberCompatFormat(max.toString())}';
+  }
+
   String ifIsBeginnerImg() {
     if (GlobalData.userInfo.level == 0) {
       return AppImagePath.beginner;
@@ -43,21 +54,11 @@ class _DivisionCellState extends State<DivisionCell> {
   }
 
   Widget ifIsBeginnerLabel() {
-    if (GlobalData.userInfo.level == 0) {
-      return GradientText(
-        tr('noviceArea'),
-        size: UIDefine.fontSize20,
-        weight: FontWeight.bold,
-        starColor: AppColors.mainThemeButton,
-        endColor: AppColors.subThemePurple,
-      );
-    } else {
-      return Text(
-        '${int.parse(widget.range.startPrice.toStringAsFixed(0))} - ${int.parse(widget.range.endPrice.toStringAsFixed(0))}',
-        style: TextStyle(
-            fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
-      );
-    }
+    return Text(
+      'Level ${widget.level}',
+      style:
+      TextStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
+    );
   }
 
   /// 是否解鎖副本 && 開賣狀態動畫顯示
@@ -126,6 +127,7 @@ class _DivisionCellState extends State<DivisionCell> {
 
   @override
   Widget build(BuildContext context) {
+   TextStyle style =  TextStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500);
     return Container(
       margin: EdgeInsets.symmetric(
           horizontal: UIDefine.getWidth() / 20, vertical: 10),
@@ -137,15 +139,21 @@ class _DivisionCellState extends State<DivisionCell> {
               Flexible(
                 child: Row(
                   children: [
-                    Image.asset(
-                      ifIsBeginnerImg(),
-                      width: 25,
-                      height: 25,
+                    /// if is level hide image
+                    Visibility(
+                      visible: GlobalData.userInfo.level!=0,
+                      child: Image.asset(
+                        ifIsBeginnerImg(),
+                        width: 25,
+                        height: 25,
+                      ),
                     ),
                     const SizedBox(
                       width: 5,
                     ),
-                    Expanded(child: ifIsBeginnerLabel())
+                    Expanded(child:
+                    Text(getRange(),style: style,)
+                      )
                   ],
                 ),
               ),
@@ -192,9 +200,10 @@ class _DivisionCellState extends State<DivisionCell> {
                       !widget.range.used &&
                       widget.tradeData.status != SellingState.Selling,
                   child: ActionButtonWidget(
+                    setHeight: 40,
                       isFillWidth: false,
                       margin: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 10),
+                          vertical: 10, ),
                       setMainColor: getReservationBtnColor(),
                       btnText: tr("match"),
 
