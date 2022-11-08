@@ -45,9 +45,11 @@ class TradeMainViewModel extends BaseViewModel {
   late TradeData currentData;
 
   void initState() {
+    ///MARK: timer監聽
     currentData = TradeTimerUtil().getCurrentTradeData();
     TradeTimerUtil().addListener(_onUpdateTrade);
 
+    ///更新畫面
     TradeAPI().getDivisionAPI().then((value) {
       division = value;
       setState();
