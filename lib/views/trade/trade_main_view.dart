@@ -12,7 +12,9 @@ import 'package:treasure_nft_project/widgets/domain_bar.dart';
 import '../../constant/enum/trade_enum.dart';
 import '../../constant/theme/app_animation_path.dart';
 import '../../constant/theme/app_image_path.dart';
+import '../../models/http/api/trade_api.dart';
 import '../../models/http/parameter/check_reservation_info.dart';
+import '../../models/http/parameter/check_reserve_deposit.dart';
 import '../../utils/date_format_util.dart';
 import '../../view_models/trade/trade_main_viewmodel.dart';
 import '../../widgets/button/login_button_widget.dart';
@@ -333,24 +335,38 @@ class _TradeMainViewState extends State<TradeMainView> {
         itemBuilder: (context, index) {
           return DivisionCell(
             /// press btn check reservation info
-            reservationAction: () {
-              ReserveRange? range = viewModel.ranges.first;
-              ReservationDialog(context, confirmBtnAction: () async {
-                Navigator.pop(context);
+            reservationAction: () async {
+              /// 查詢預約金
+              CheckReserveDeposit checkReserveDeposit;
+              checkReserveDeposit = await TradeAPI().getCheckReserveDepositAPI(
+                  viewModel.ranges[index].index,
+                  viewModel.ranges[index].startPrice.toDouble(),
+                  viewModel.ranges[index].endPrice.toDouble());
 
-                /// add new reservation
-                await viewModel.addNewReservation(index);
+              /// 推透明頁面！！！
+              Navigator.of(context).push(PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                    return NewReservationPopUpView(
+                      confirmBtnAction: () async {
+                        Navigator.pop(context);
 
-                /// if reservation success 預約狀態 = true
-                viewModel.ranges[index].used = true;
+                        /// add new reservation
+                        await viewModel.addNewReservation(index);
 
-                /// 狀態更新
-                setState(() {});
-              },
-                      index: range.index,
-                      startPrice: range.startPrice.toDouble(),
-                      endPrice: range.endPrice.toDouble())
-                  .show();
+                        /// if reservation success 預約狀態 = true
+                        viewModel.ranges[index].used = true;
+
+                        /// 狀態更新
+                        setState(() {});
+                      },
+                      reservationFee: '${checkReserveDeposit.deposit}',
+                      transactionTime: '${checkReserveDeposit.tradingTime}',
+                      transactionReward: '${checkReserveDeposit.reward}',
+                    );
+                  },
+
+                  /// 透明頁一定要加
+                  opaque: false));
             },
             range: viewModel.ranges[index],
             level: 0,
