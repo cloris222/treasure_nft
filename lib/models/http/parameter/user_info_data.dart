@@ -114,4 +114,8 @@ class UserInfoData {
         "country": country,
         "zone": zone,
       };
+
+  String getStrZone(){
+    return '';
+  }
 }

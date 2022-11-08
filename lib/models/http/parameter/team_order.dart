@@ -17,12 +17,12 @@ class TeamOrderData {
     this.itemId = '',
     this.itemName = '',
     this.sellerName = '',
-    this.buyerAccount,
+    this.buyerAccount = '',
     this.buyerName = '',
     this.imgUrl = '',
-    this.price,
-    this.income,
-    this.moneyBox,
+    this.price = 0.0,
+    this.income = 0.0,
+    this.moneyBox = 0.0,
     this.originImgUrl = '',
   });
 
@@ -32,12 +32,12 @@ class TeamOrderData {
   String itemId;
   String itemName;
   String sellerName;
-  dynamic buyerAccount;
+  String buyerAccount;
   String buyerName;
   String imgUrl;
-  dynamic price;
-  dynamic income;
-  dynamic moneyBox;
+  double price;
+  double income;
+  double moneyBox;
   String originImgUrl;
 
   factory TeamOrderData.fromJson(Map<String, dynamic> json) => TeamOrderData(
@@ -47,12 +47,12 @@ class TeamOrderData {
         itemId: json["itemId"],
         itemName: json["itemName"],
         sellerName: json["sellerName"],
-        buyerAccount: json["buyerAccount"],
+        buyerAccount: json["buyerAccount"] ?? '',
         buyerName: json["buyerName"],
         imgUrl: json["imgUrl"],
-        price: json["price"],
-        income: json["income"],
-        moneyBox: json["moneyBox"],
+        price: json["price"]?.toDouble() ?? 0.0,
+        income: json["income"]?.toDouble() ?? 0.0,
+        moneyBox: json["moneyBox"]?.toDouble() ?? 0.0,
         originImgUrl: json["originImgUrl"],
       );
 
