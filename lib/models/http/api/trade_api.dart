@@ -29,18 +29,20 @@ class TradeAPI extends HttpManager {
       'startPrice': startPrice,
       'endPrice': endPrice
     });
-  //  response.printLog();
+    //  response.printLog();
     return CheckReserveDeposit.fromJson(response.data);
   }
 
   /// 新增預約
   Future<ApiResponse> postAddNewReservationAPI(
       {required String type,
+      required int reserveCount,
       required dynamic startPrice,
       required dynamic endPrice,
       required int priceIndex}) async {
     return post('/reserve/insert', data: {
       'type': type,
+      'reserveCount': reserveCount,
       'startPrice': startPrice,
       'endPrice': endPrice,
       'priceIndex': priceIndex
