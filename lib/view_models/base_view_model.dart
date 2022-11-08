@@ -304,21 +304,35 @@ class BaseViewModel {
   }
 
   /// 2022-08-30 14:43:22
-  String changeTimeZone(String systemTime) {
+  /// changeLocalTime:true -> system time to local time
+  /// changeLocalTime:false -> local time to system time
+  /// showGMT control (+XX:XX)
+  /// isApiValue :true ->2022-08-30 14:43:22
+  String changeTimeZone(String strTime,
+      {bool isSystemTime = true, bool isApiValue = false}) {
     var format = DateFormat('yyyy-MM-DD HH:mm:ss');
-    DateTime time = format.parse(systemTime);
+    DateTime time = format.parse(strTime);
 
     ///MARK: 計算
     int systemZone = getZone(HttpSetting.developTimeZone);
     int localZone = getZone(GlobalData.userInfo.zone);
+    if (isSystemTime) {
+      ///MARK: 把時間轉成 GMT+0
+      time = time.subtract(Duration(hours: systemZone));
 
-    ///MARK: 把時間轉成 GMT+0
-    time = time.subtract(Duration(hours: systemZone));
+      ///MARK: 把時間轉成 使用者時區
+      time = time.add(Duration(hours: localZone));
+    } else {
+      ///MARK: 把時間轉成 GMT+0
+      time = time.subtract(Duration(hours: localZone));
 
-    ///MARK: 把時間轉成 使用者時區
-    time = time.add(Duration(hours: localZone));
+      ///MARK: 把時間轉成 系統時區
+      time = time.add(Duration(hours: systemZone));
+    }
 
-    return '(${localZone > 0 ? '+' : ''}${NumberFormatUtil().integerTwoFormat(localZone)}:00) ${DateFormatUtil().getFullWithDateFormat2(time)}';
+    return isApiValue
+        ? DateFormatUtil().getFullWithDateFormat(time)
+        : '(${localZone > 0 ? '+' : ''}${NumberFormatUtil().integerTwoFormat(localZone)}:00) ${DateFormatUtil().getFullWithDateFormat2(time)}';
   }
 
   int getZone(String gmt) {
