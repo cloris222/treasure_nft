@@ -13,7 +13,7 @@ class TeamOrderData {
   TeamOrderData({
     this.orderNo = '',
     this.type = '',
-    this.time,
+    this.time = '',
     this.itemId = '',
     this.itemName = '',
     this.sellerName = '',
@@ -28,7 +28,7 @@ class TeamOrderData {
 
   String orderNo;
   String type;
-  dynamic time;
+  String time;
   String itemId;
   String itemName;
   String sellerName;
@@ -59,7 +59,7 @@ class TeamOrderData {
   Map<String, dynamic> toJson() => {
         "orderNo": orderNo,
         "type": type,
-        "time": time.toIso8601String(),
+        "time": time,
         "itemId": itemId,
         "itemName": itemName,
         "sellerName": sellerName,

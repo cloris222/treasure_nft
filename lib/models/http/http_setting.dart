@@ -17,6 +17,9 @@ class HttpSetting {
   // static const String releaseSocket='https://treasurenft.xyz/gateway/websocket/websocket-connect';
   static const String developSocket='https://dev.treasurenft.xyz/gateway/websocket/websocket-connect';
 
+  // static const String releaseTimeZone='GMT+4';
+  static const String developTimeZone='GMT+8';
+
   // receiveTimeout
   static const int receiveTimeout = 15000;
 

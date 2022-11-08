@@ -60,8 +60,8 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
       viewModel.getPadding(1),
 
       /// Time
-      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Text(widget.itemData.time.toString(),
+      Wrap(children: [
+        Text(viewModel.changeTimeZone(widget.itemData.time),
             style: TextStyle(
                 fontSize: UIDefine.fontSize12, color: AppColors.textGrey))
       ]),

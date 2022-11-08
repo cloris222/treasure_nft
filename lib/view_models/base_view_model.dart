@@ -10,6 +10,7 @@ import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/user_info_data.dart';
+import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/views/full_animation_page.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/views/notify/notify_level_up_page.dart';
@@ -20,6 +21,7 @@ import '../constant/global_data.dart';
 import '../constant/theme/app_animation_path.dart';
 import '../constant/theme/app_colors.dart';
 import '../models/http/api/trade_api.dart';
+import '../models/http/http_setting.dart';
 import '../models/http/parameter/api_response.dart';
 import '../models/http/parameter/sign_in_data.dart';
 import '../utils/app_shared_Preferences.dart';
@@ -298,6 +300,32 @@ class BaseViewModel {
           getGlobalContext(),
           const FullAnimationPage(
               animationPath: AppAnimationPath.showWaitSell, limitTimer: 4));
+    }
+  }
+
+  /// 2022-08-30 14:43:22
+  String changeTimeZone(String systemTime) {
+    var format = DateFormat('yyyy-MM-DD HH:mm:ss');
+    DateTime time = format.parse(systemTime);
+
+    ///MARK: 計算
+    int systemZone = getZone(HttpSetting.developTimeZone);
+    int localZone = getZone(GlobalData.userInfo.zone);
+
+    ///MARK: 把時間轉成 GMT+0
+    time = time.subtract(Duration(hours: systemZone));
+
+    ///MARK: 把時間轉成 使用者時區
+    time = time.add(Duration(hours: localZone));
+
+    return '(${localZone > 0 ? '+' : ''}${NumberFormatUtil().integerTwoFormat(localZone)}:00) ${DateFormatUtil().getFullWithDateFormat2(time)}';
+  }
+
+  int getZone(String gmt) {
+    if (gmt.contains('GMT+')) {
+      return int.parse(gmt.substring(4));
+    } else {
+      return int.parse(gmt.substring(4)) * -1;
     }
   }
 }

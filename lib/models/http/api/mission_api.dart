@@ -67,4 +67,8 @@ class MissionAPI extends HttpManager {
 
     return result;
   }
+
+  Future<ApiResponse> finishShareMission() async {
+    return post('/mission/share');
+  }
 }
