@@ -2,12 +2,14 @@ import 'package:treasure_nft_project/models/http/http_manager.dart';
 import 'package:treasure_nft_project/models/http/http_setting.dart';
 import 'package:treasure_nft_project/models/http/parameter/api_response.dart';
 import 'package:treasure_nft_project/models/http/parameter/lower_nft_data.dart';
+import 'package:treasure_nft_project/models/http/parameter/other_collect_data.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_contribute_data.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_contribute_list_data.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_group_list.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_members.dart';
 
 import '../parameter/check_share_center.dart';
+import '../parameter/other_user_info.dart';
 import '../parameter/team_member_detail.dart';
 import '../parameter/team_share_info.dart';
 
@@ -128,5 +130,39 @@ class GroupAPI extends HttpManager {
     var response =
         await get('/group/share-info', queryParameters: {'orderNo': orderNo});
     return TeamShareInfo.fromJson(response.data);
+  }
+
+  ///MARK: 查詢買/賣家 用戶資訊
+  Future<OtherUserInfo> getOtherUserInfo(
+      {required String orderNo, required bool isSeller}) async {
+    var response = await get('/user/query/user', queryParameters: {
+      "orderNo": orderNo,
+      "type": isSeller ? "MAKER" : "TAKER"
+    });
+    return OtherUserInfo.fromJson(response.data);
+  }
+
+  ///MARK: 查詢買/賣家收藏
+  Future<List<OtherCollectData>> getOtherCollectData({
+    required int page,
+    required int size,
+    required String userId,
+    required bool isDesc,
+    required String nftName,
+  }) async {
+    var response = await get('/NFTItem/query/collect', queryParameters: {
+      "page": page,
+      "size": size,
+      "id": userId,
+      "sort": isDesc ? "desc" : "asc",
+      "nftName": nftName
+    });
+
+    List<OtherCollectData> result = [];
+    for (Map<String, dynamic> json in response.data['pageList']) {
+      result.add(OtherCollectData.fromJson(json));
+    }
+
+    return result;
   }
 }
