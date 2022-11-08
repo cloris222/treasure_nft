@@ -35,6 +35,11 @@ class DivisionCell extends StatefulWidget {
 
 class _DivisionCellState extends State<DivisionCell> {
   String getRange() {
+
+    if(GlobalData.userInfo.level == 0){
+      return '${tr("level")} 0';
+    }
+
     dynamic min;
     dynamic max;
 
@@ -52,13 +57,6 @@ class _DivisionCellState extends State<DivisionCell> {
     }
   }
 
-  Widget ifIsBeginnerLabel() {
-    return Text(
-      'Level ${widget.level}',
-      style:
-          TextStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
-    );
-  }
 
   /// 是否解鎖副本 && 開賣狀態動畫顯示
   showImg() {

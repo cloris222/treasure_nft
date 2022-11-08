@@ -6,6 +6,7 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
+import 'package:treasure_nft_project/models/http/parameter/check_reserve_deposit.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/count_down_timer.dart';
 import 'package:treasure_nft_project/widgets/dialog/animation_dialog.dart';
@@ -14,6 +15,7 @@ import 'package:treasure_nft_project/widgets/dialog/success_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/trade_rule_dialot.dart';
 import '../../constant/enum/trade_enum.dart';
 import '../../constant/theme/app_image_path.dart';
+import '../../models/http/api/trade_api.dart';
 import '../../models/http/parameter/check_reservation_info.dart';
 import '../../utils/date_format_util.dart';
 import '../../view_models/trade/trade_division_viewmodel.dart';
@@ -293,12 +295,13 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
                       title: tr("wallet-balance'"),
                       showCoins: false,
                       content:
-                      '${viewModel.reservationInfo?.balance.toStringAsFixed(2)}',
+                          '${viewModel.reservationInfo?.balance.toStringAsFixed(2)}',
                       rightFontWeight: FontWeight.bold,
                     ),
                     LevelDetailLabel(
                       title: tr("availableBalance"),
-                      content: '${viewModel.reservationInfo?.reserveBalance.toStringAsFixed(2)}',
+                      content:
+                          '${viewModel.reservationInfo?.reserveBalance.toStringAsFixed(2)}',
                       rightFontWeight: FontWeight.bold,
                     ),
                     LevelDetailLabel(
@@ -333,26 +336,13 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
         itemBuilder: (context, index) {
           return DivisionCell(
             /// press btn check reservation info
-            // reservationAction: () {
-            //   ReserveRange? range = viewModel.ranges[index];
-            //   ReservationDialog(context, confirmBtnAction: () async {
-            //     Navigator.pop(context);
-            //
-            //     /// add new reservation
-            //     await viewModel.addNewReservation(index);
-            //
-            //     /// if reservation success 預約狀態 = true
-            //     viewModel.ranges[index].used = true;
-            //
-            //     /// 狀態更新
-            //     setState(() {});
-            //   },
-            //           index: range.index,
-            //           startPrice: range.startPrice.toDouble(),
-            //           endPrice: range.endPrice.toDouble())
-            //       .show();
-            // },
-            reservationAction: () {
+            reservationAction: () async {
+              /// 查詢預約金
+              CheckReserveDeposit checkReserveDeposit;
+              checkReserveDeposit = await TradeAPI().getCheckReserveDepositAPI(
+                  viewModel.ranges[index].index,
+                  viewModel.ranges[index].startPrice.toDouble(),
+                  viewModel.ranges[index].endPrice.toDouble());
 
               /// 推透明頁面！！！
               Navigator.of(context).push(PageRouteBuilder(
@@ -360,6 +350,7 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
                     return NewReservationPopUpView(
                       confirmBtnAction: () async {
                         Navigator.pop(context);
+
                         /// add new reservation
                         await viewModel.addNewReservation(index);
 
@@ -368,9 +359,13 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
 
                         /// 狀態更新
                         setState(() {});
-                      }, reservationFee: '',transactionTime: '',transactionReward: '',
+                      },
+                      reservationFee: '${checkReserveDeposit.deposit}',
+                      transactionTime: '${checkReserveDeposit.tradingTime}',
+                      transactionReward: '${checkReserveDeposit.reward}',
                     );
                   },
+
                   /// 透明頁一定要加
                   opaque: false));
             },

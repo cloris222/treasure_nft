@@ -80,6 +80,7 @@ class TradeMainViewModel extends BaseViewModel {
     await TradeAPI(onConnectFail: _onAddReservationFail, showTrString: false)
         .postAddNewReservationAPI(
         type: "PRICE",
+        reserveCount: 1,
         startPrice: ranges[index].startPrice,
         endPrice: ranges[index].endPrice,
         priceIndex: ranges[index].index);
