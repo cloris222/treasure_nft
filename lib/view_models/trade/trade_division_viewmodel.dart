@@ -14,6 +14,7 @@ import '../../constant/theme/app_image_path.dart';
 import '../../models/http/api/trade_api.dart';
 import '../../models/http/parameter/add_new_reservation.dart';
 import '../../utils/date_format_util.dart';
+import '../../utils/trade_timer_util.dart';
 
 class TradeDivisionViewModel extends BaseViewModel {
   TradeDivisionViewModel(this.level,
@@ -33,10 +34,6 @@ class TradeDivisionViewModel extends BaseViewModel {
   CheckLevelInfo? userLevelInfo;
   AddNewReservation? newReservation;
   late List<ReserveRange> ranges;
-  Timer? countdownTimer;
-  DateTime? startTime;
-  DateTime? endTime;
-  DateTime? localTime;
   int second = 0;
   VoidCallback notEnoughToPay;
   VoidCallback bookPriceNotEnough;
@@ -47,21 +44,39 @@ class TradeDivisionViewModel extends BaseViewModel {
   VoidCallback experienceDisable;
   ResponseErrorFunction errorMes;
 
-  Future<void> initState() async {
-    reservationInfo = await TradeAPI().getCheckReservationInfoAPI(level);
-    userLevelInfo = await UserInfoAPI().getCheckLevelInfoAPI();
-    ranges = reservationInfo!.reserveRanges;
+  late TradeData currentData;
 
-    /// 如果是體驗帳號 且 level 1 副本顯示內容不同
-    if (GlobalData.experienceInfo.isExperience == true &&
-        GlobalData.userInfo.level == 1) {
-      ranges[0].startPrice = 1;
-      ranges[0].endPrice = 50;
-      ranges[1].startPrice = 50;
-      ranges[1].endPrice = 150;
-    }
-    startTimer();
-    setState();
+  void initState() {
+    ///MARK: 監聽
+    currentData = TradeTimerUtil().getCurrentTradeData();
+    TradeTimerUtil().addListener(_onUpdateTrade);
+
+    ///更新畫面
+    TradeAPI().getCheckReservationInfoAPI(level).then((value) {
+      TradeTimerUtil().start(setInfo: value);
+
+      reservationInfo = value;
+      ranges = reservationInfo!.reserveRanges;
+
+      /// 如果是體驗帳號 且 level 1 副本顯示內容不同
+      if (GlobalData.experienceInfo.isExperience == true &&
+          GlobalData.userInfo.level == 1) {
+        ranges[0].startPrice = 1;
+        ranges[0].endPrice = 50;
+        ranges[1].startPrice = 50;
+        ranges[1].endPrice = 150;
+      }
+      setState();
+    });
+    UserInfoAPI().getCheckLevelInfoAPI().then((value) {
+      userLevelInfo = value;
+      setState();
+    });
+  }
+
+  /// 離開頁面後清除時間
+  void disposeState() {
+    TradeTimerUtil().removeListener(_onUpdateTrade);
   }
 
   /// 新增預約
@@ -90,11 +105,6 @@ class TradeDivisionViewModel extends BaseViewModel {
     reservationSuccess();
   }
 
-  /// 離開頁面後清除時間
-  void disposeState() {
-    stopTimer();
-  }
-
   /// display star ~ end price range
   String getRange() {
     dynamic min;
@@ -108,78 +118,6 @@ class TradeDivisionViewModel extends BaseViewModel {
   /// display level image
   String getLevelImg() {
     return format(AppImagePath.level, ({'level': GlobalData.userInfo.level}));
-  }
-
-  /// Timer related methods ///
-  void startTimer() {
-    countdownTimer =
-        Timer.periodic(const Duration(seconds: 1), (_) => setCountDown());
-  }
-
-  void stopTimer() {
-    countdownTimer!.cancel();
-  }
-
-  void resetTimer() {
-    stopTimer();
-  }
-
-  void setCountDown() async {
-    /// 如果timer在運行才會逕行狀態更新
-    if (countdownTimer!.isActive) {
-      second += 1;
-      setState();
-    }
-  }
-
-  TradeData countSellDate() {
-    var duration = const Duration();
-
-    /// 如果還沒拿到值 先給空資料
-    if (reservationInfo == null) {
-      return TradeData(duration: duration, status: SellingState.NotYet);
-    }
-
-    /// if sellDate == null , sell day is today
-    if (reservationInfo?.sellDate == "") {
-      reservationInfo?.sellDate = DateFormatUtil().getNowTimeWithDayFormat();
-    }
-
-    /// 現在時間（會員當地時間）
-    localTime = DateTime.parse(
-            '${reservationInfo?.sellDate} ${reservationInfo?.localTime}')
-        .add(Duration(seconds: second));
-    // var localTime =DateTime.now();
-
-    /// 開賣日期＋開賣時間 就是sellDate
-    /// 開賣時間(當地)
-    startTime = DateTime.parse(
-        '${reservationInfo?.sellDate} ${reservationInfo?.startTime}');
-
-    ///關閉時間(當地)
-    endTime = DateTime.parse(
-        '${reservationInfo?.sellDate} ${reservationInfo?.endTime}');
-
-    // print("localTime:" + DateFormatUtil().getFullWithDateFormat(localTime));
-    // print("startTime:" + DateFormatUtil().getFullWithDateFormat(startTime));
-    // print("endTime:" + DateFormatUtil().getFullWithDateFormat(endTime));
-
-    /// 尚未開賣 現在時間小於開賣時間
-    if (localTime!.compareTo(startTime!) < 0) {
-      duration = startTime!.difference(localTime!);
-      return TradeData(duration: duration, status: SellingState.NotYet);
-
-      /// 開賣中
-    } else if (localTime!.compareTo(endTime!) <= 0 &&
-        localTime!.compareTo(startTime!) >= 0) {
-      duration = endTime!.difference(localTime!);
-      return TradeData(duration: duration, status: SellingState.Selling);
-
-      /// 開賣結束
-    } else {
-      duration = endTime!.add(const Duration(days: 1)).difference(localTime!);
-      return TradeData(duration: duration, status: SellingState.NotYet);
-    }
   }
 
   /// 預約失敗顯示彈窗
@@ -215,5 +153,10 @@ class TradeDivisionViewModel extends BaseViewModel {
   void _experienceExpired(String errorMessage) {
     experienceExpired();
     experienceDisable();
+  }
+
+  void _onUpdateTrade(TradeData data) {
+    currentData = data;
+    setState();
   }
 }

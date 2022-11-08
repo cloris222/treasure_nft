@@ -7,17 +7,15 @@ import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/models/http/parameter/check_reserve_deposit.dart';
-import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/count_down_timer.dart';
 import 'package:treasure_nft_project/widgets/dialog/animation_dialog.dart';
-import 'package:treasure_nft_project/widgets/dialog/reservation_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/success_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/trade_rule_dialot.dart';
 import '../../constant/enum/trade_enum.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../models/http/api/trade_api.dart';
-import '../../models/http/parameter/check_reservation_info.dart';
 import '../../utils/date_format_util.dart';
+import '../../utils/trade_timer_util.dart';
 import '../../view_models/trade/trade_division_viewmodel.dart';
 import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/dialog/new_reservation_dialog.dart';
@@ -62,7 +60,6 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
                 callOkFunction: () {},
                 isSuccess: false,
                 mainText: tr("reserve-failed'")
-                // TODO 預約金不足 多國
                 )
             .show();
       },
@@ -135,7 +132,7 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
   @override
   Widget build(BuildContext context) {
     /// 將開賣狀態的值往下傳
-    TradeData tradeData = viewModel.countSellDate();
+    TradeData tradeData = viewModel.currentData;
     return CustomAppbarView(
         needCover: true,
         needScrollView: true,
@@ -207,9 +204,8 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
               LoginButtonWidget(
                 width: UIDefine.getWidth() / 1.7,
                 height: UIDefine.getHeight() / 20,
-                btnText: viewModel.startTime != null
-                    ? '(${viewModel.reservationInfo?.zone}) ${DateFormatUtil().getDateWith12HourInSecondFormat(viewModel.startTime!)}'
-                    : '',
+                btnText:
+                    '(${viewModel.reservationInfo?.zone}) ${DateFormatUtil().getDateWith12HourInSecondFormat(TradeTimerUtil().getSellStartTime())}',
                 fontSize: UIDefine.fontSize14,
                 fontWeight: FontWeight.bold,
                 onPressed: () {},

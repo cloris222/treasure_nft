@@ -5,6 +5,7 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
+import 'package:treasure_nft_project/utils/trade_timer_util.dart';
 import 'package:treasure_nft_project/widgets/count_down_timer.dart';
 import 'package:treasure_nft_project/widgets/dialog/new_reservation_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/trade_rule_dialot.dart';
@@ -13,13 +14,11 @@ import '../../constant/enum/trade_enum.dart';
 import '../../constant/theme/app_animation_path.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../models/http/api/trade_api.dart';
-import '../../models/http/parameter/check_reservation_info.dart';
 import '../../models/http/parameter/check_reserve_deposit.dart';
 import '../../utils/date_format_util.dart';
 import '../../view_models/trade/trade_main_viewmodel.dart';
 import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/dialog/animation_dialog.dart';
-import '../../widgets/dialog/reservation_dialog.dart';
 import '../../widgets/dialog/simple_custom_dialog.dart';
 import '../../widgets/dialog/success_dialog.dart';
 import '../../widgets/label/level_detail.dart';
@@ -55,9 +54,7 @@ class _TradeMainViewState extends State<TradeMainView> {
         SuccessDialog(context,
                 callOkFunction: () {},
                 isSuccess: false,
-                mainText: tr("reserve-failed'")
-                // TODO 預約金不足 多國
-                )
+                mainText: tr("reserve-failed'"))
             .show();
       },
 
@@ -141,7 +138,7 @@ class _TradeMainViewState extends State<TradeMainView> {
   }
 
   Widget _countDownView(BuildContext context) {
-    TradeData tradeData = viewModel.countSellDate();
+    TradeData tradeData = viewModel.currentData;
 
     return Stack(
       alignment: Alignment.center,
@@ -199,9 +196,8 @@ class _TradeMainViewState extends State<TradeMainView> {
               LoginButtonWidget(
                 width: UIDefine.getWidth() / 1.7,
                 height: UIDefine.getHeight() / 20,
-                btnText: viewModel.startTime != null
-                    ? '(${viewModel.reservationInfo?.zone}) ${DateFormatUtil().getDateWith12HourInSecondFormat(viewModel.startTime!)}'
-                    : '',
+                btnText:
+                    '(${viewModel.reservationInfo?.zone}) ${DateFormatUtil().getDateWith12HourInSecondFormat(TradeTimerUtil().getSellStartTime())}',
                 fontSize: UIDefine.fontSize14,
                 fontWeight: FontWeight.bold,
                 onPressed: () {},
@@ -284,7 +280,8 @@ class _TradeMainViewState extends State<TradeMainView> {
                     ),
                     LevelDetailLabel(
                       title: tr("availableBalance"),
-                      content: '${viewModel.reservationInfo?.reserveBalance.toStringAsFixed(2)}',
+                      content:
+                          '${viewModel.reservationInfo?.reserveBalance.toStringAsFixed(2)}',
                       rightFontWeight: FontWeight.bold,
                     ),
                     LevelDetailLabel(
@@ -327,7 +324,7 @@ class _TradeMainViewState extends State<TradeMainView> {
   }
 
   Widget _levelZero(BuildContext context) {
-    TradeData tradeData = viewModel.countSellDate();
+    TradeData tradeData = viewModel.currentData;
     return ListView.builder(
         itemCount: 1,
         shrinkWrap: true,

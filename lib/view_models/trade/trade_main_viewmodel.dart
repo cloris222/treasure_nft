@@ -6,6 +6,7 @@ import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/check_level_info.dart';
 import 'package:treasure_nft_project/models/http/parameter/check_reservation_info.dart';
+import 'package:treasure_nft_project/utils/trade_timer_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import '../../constant/call_back_function.dart';
 import '../../constant/enum/trade_enum.dart';
@@ -15,17 +16,16 @@ import '../../models/http/parameter/add_new_reservation.dart';
 import '../../utils/date_format_util.dart';
 
 class TradeMainViewModel extends BaseViewModel {
-  TradeMainViewModel({
-    required this.setState,
-    required this.reservationSuccess,
-    required this.bookPriceNotEnough,
-    required this.notEnoughToPay,
-    required this.depositNotEnough,
-    required this.errorMes,
-    required this.experienceExpired,
-    required this.beginnerExpired,
-    required this.experienceDisable
-  });
+  TradeMainViewModel(
+      {required this.setState,
+      required this.reservationSuccess,
+      required this.bookPriceNotEnough,
+      required this.notEnoughToPay,
+      required this.depositNotEnough,
+      required this.errorMes,
+      required this.experienceExpired,
+      required this.beginnerExpired,
+      required this.experienceDisable});
 
   final onClickFunction setState;
   List<int>? division;
@@ -33,11 +33,6 @@ class TradeMainViewModel extends BaseViewModel {
   CheckLevelInfo? userLevelInfo;
   AddNewReservation? newReservation;
   late List<ReserveRange> ranges;
-  Timer? countdownTimer;
-  DateTime? startTime;
-  DateTime? endTime;
-  DateTime? localTime;
-  int second = 0;
   VoidCallback notEnoughToPay;
   VoidCallback bookPriceNotEnough;
   VoidCallback reservationSuccess;
@@ -47,21 +42,40 @@ class TradeMainViewModel extends BaseViewModel {
   VoidCallback experienceDisable;
   ResponseErrorFunction errorMes;
 
-  Future<void> initState() async {
-    division = await TradeAPI().getDivisionAPI();
-    reservationInfo =
-        await TradeAPI().getCheckReservationInfoAPI(0);
-    userLevelInfo = await UserInfoAPI().getCheckLevelInfoAPI();
-    ranges = reservationInfo!.reserveRanges;
-    /// 如果是體驗帳號 且 level 1 副本顯示內容不同
-    if(GlobalData.experienceInfo.isExperience == true && GlobalData.userInfo.level == 1){
-      ranges[0].startPrice = 1;
-      ranges[0].endPrice = 50;
-      ranges[1].startPrice = 50;
-      ranges[1].endPrice = 150;
-    }
-    startTimer();
-    setState();
+  late TradeData currentData;
+
+  void initState() {
+    currentData = TradeTimerUtil().getCurrentTradeData();
+    TradeTimerUtil().addListener(_onUpdateTrade);
+
+    TradeAPI().getDivisionAPI().then((value) {
+      division = value;
+      setState();
+    });
+    TradeAPI().getCheckReservationInfoAPI(0).then((value) {
+      TradeTimerUtil().start(setInfo: value);
+      reservationInfo = value;
+      ranges = reservationInfo!.reserveRanges;
+
+      /// 如果是體驗帳號 且 level 1 副本顯示內容不同
+      if (GlobalData.experienceInfo.isExperience == true &&
+          GlobalData.userInfo.level == 1) {
+        ranges[0].startPrice = 1;
+        ranges[0].endPrice = 50;
+        ranges[1].startPrice = 50;
+        ranges[1].endPrice = 150;
+      }
+      setState();
+    });
+    UserInfoAPI().getCheckLevelInfoAPI().then((value) {
+      userLevelInfo = value;
+      setState();
+    });
+  }
+
+  /// 離開頁面後清除時間
+  void disposeState() {
+    TradeTimerUtil().removeListener(_onUpdateTrade);
   }
 
   addNewReservation(int index) async {
@@ -70,63 +84,58 @@ class TradeMainViewModel extends BaseViewModel {
         .getExperienceInfoAPI()
         .then((value) {
       if (value.isExperience == true && value.status == 'EXPIRED') {
-         experienceExpired();
-      } else if(value.isExperience == true && value.status == 'DISABLE'){
-         experienceDisable();
+        experienceExpired();
+      } else if (value.isExperience == true && value.status == 'DISABLE') {
+        experienceDisable();
       }
     });
 
     /// 新增預約
     await TradeAPI(onConnectFail: _onAddReservationFail, showTrString: false)
         .postAddNewReservationAPI(
-        type: "PRICE",
-        reserveCount: 1,
-        startPrice: ranges[index].startPrice,
-        endPrice: ranges[index].endPrice,
-        priceIndex: ranges[index].index);
+            type: "PRICE",
+            reserveCount: 1,
+            startPrice: ranges[index].startPrice,
+            endPrice: ranges[index].endPrice,
+            priceIndex: ranges[index].index);
 
     /// 如果預約成功 會進call back function
-     reservationSuccess();
+    reservationSuccess();
   }
 
   /// 體驗帳號狀態失效
   void _experienceExpired(String errorMessage) {
-     experienceExpired();
-     experienceDisable();
+    experienceExpired();
+    experienceDisable();
   }
 
   /// 預約失敗顯示彈窗
   void _onAddReservationFail(String errorMessage) {
     switch (errorMessage) {
 
-    /// 預約金不足
+      /// 預約金不足
       case 'APP_0064':
-         bookPriceNotEnough();
+        bookPriceNotEnough();
         break;
 
-    /// 餘額不足
+      /// 餘額不足
       case 'APP_0013':
-         notEnoughToPay();
+        notEnoughToPay();
         break;
 
-    /// 預約金額不符
+      /// 預約金額不符
       case 'APP_0041':
-         depositNotEnough();
+        depositNotEnough();
         break;
 
-    /// 新手帳號交易天數到期
+      /// 新手帳號交易天數到期
       case 'APP_0069':
-         beginnerExpired();
+        beginnerExpired();
         break;
       default:
-         errorMes(errorMessage);
+        errorMes(errorMessage);
         break;
     }
-  }
-
-  /// 離開頁面後清除時間
-  void disposeState() {
-    stopTimer();
   }
 
   /// display star ~ end price range
@@ -144,75 +153,8 @@ class TradeMainViewModel extends BaseViewModel {
     return format(AppImagePath.level, ({'level': GlobalData.userInfo.level}));
   }
 
-  /// Timer related methods ///
-  void startTimer() {
-    countdownTimer =
-        Timer.periodic(const Duration(seconds: 1), (_) => setCountDown());
-  }
-
-  void stopTimer() {
-    countdownTimer!.cancel();
-  }
-
-  void resetTimer() {
-    stopTimer();
-  }
-
-  void setCountDown() async {
-    /// 如果timer在運行才會逕行狀態更新
-    if (countdownTimer!.isActive) {
-      second += 1;
-      setState();
-    }
-  }
-
-  TradeData countSellDate() {
-    var duration = const Duration();
-
-    /// 如果還沒拿到值 先給空資料
-    if (reservationInfo == null) {
-      return TradeData(duration: duration, status: SellingState.NotYet);
-    }
-
-    /// if sellDate == null , sell day is today
-    if (reservationInfo?.sellDate == "") {
-      reservationInfo?.sellDate = DateFormatUtil().getNowTimeWithDayFormat();
-    }
-
-    /// 現在時間（會員當地時間）
-    localTime = DateTime.parse(
-            '${reservationInfo?.sellDate} ${reservationInfo?.localTime}')
-        .add(Duration(seconds: second));
-    // var localTime =DateTime.now();
-
-    /// 開賣日期＋開賣時間 就是sellDate
-    /// 開賣時間(當地)
-    startTime = DateTime.parse(
-        '${reservationInfo?.sellDate} ${reservationInfo?.startTime}');
-
-    ///關閉時間(當地)
-    endTime = DateTime.parse(
-        '${reservationInfo?.sellDate} ${reservationInfo?.endTime}');
-
-    // print("localTime:" + DateFormatUtil().getFullWithDateFormat(localTime));
-    // print("startTime:" + DateFormatUtil().getFullWithDateFormat(startTime));
-    // print("endTime:" + DateFormatUtil().getFullWithDateFormat(endTime));
-
-    /// 尚未開賣 現在時間小於開賣時間
-    if (localTime!.compareTo(startTime!) < 0) {
-      duration = startTime!.difference(localTime!);
-      return TradeData(duration: duration, status: SellingState.NotYet);
-
-      /// 開賣中
-    } else if (localTime!.compareTo(endTime!) <= 0 &&
-        localTime!.compareTo(startTime!) >= 0) {
-      duration = endTime!.difference(localTime!);
-      return TradeData(duration: duration, status: SellingState.Selling);
-
-      /// 開賣結束
-    } else {
-      duration = endTime!.add(const Duration(days: 1)).difference(localTime!);
-      return TradeData(duration: duration, status: SellingState.NotYet);
-    }
+  void _onUpdateTrade(TradeData data) {
+    currentData = data;
+    setState();
   }
 }

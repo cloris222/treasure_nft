@@ -32,7 +32,7 @@ class TradeTimerUtil {
   late DateTime _dateSellEndTime;
 
   ///MARK: 計算出來的結果
-  late TradeData currentTradeData;
+  late TradeData _currentTradeData;
   List<GetTradDate> listeners = [];
 
   ///MARK: 隨機更新時間
@@ -62,7 +62,11 @@ class TradeTimerUtil {
   }
 
   TradeData getCurrentTradeData() {
-    return currentTradeData;
+    return _currentTradeData;
+  }
+
+  DateTime getSellStartTime() {
+    return _dateSellStartTime;
   }
 
   void addListener(GetTradDate tradDate) {
@@ -100,13 +104,13 @@ class TradeTimerUtil {
         debugPrint('$key restart Timer');
         start();
       } else {
-        currentTradeData = _countSellDate();
+        _currentTradeData = _countSellDate();
         for (var element in listeners) {
-          element(currentTradeData);
+          element(_currentTradeData);
         }
         if (printTimeLog) {
-          debugPrint('$key status:${currentTradeData.status.name}');
-          debugPrint('$key time:${_printDuration(currentTradeData.duration)}');
+          debugPrint('$key status:${_currentTradeData.status.name}');
+          debugPrint('$key time:${_printDuration(_currentTradeData.duration)}');
         }
       }
     }
