@@ -18,11 +18,24 @@ class PersonalMainViewModel extends BaseViewModel {
     updateData();
   }
 
-  void updateData() async {
-    levelInfo = await UserInfoAPI().getCheckLevelInfoAPI();
-    userProperty = await UserInfoAPI().getUserPropertyInfo();
-    userOrderInfo = await UserInfoAPI().getUserOrderInfo();
-    await uploadPersonalInfo();
-    setState(() {});
+  void updateData() {
+    UserInfoAPI().getCheckLevelInfoAPI().then((value) {
+      setState(() {
+        levelInfo = value;
+      });
+    });
+    UserInfoAPI().getUserPropertyInfo().then((value) {
+      setState(() {
+        userProperty = value;
+      });
+    });
+    UserInfoAPI().getUserOrderInfo().then((value) {
+      setState(() {
+        userOrderInfo = value;
+      });
+    });
+    uploadPersonalInfo().then((value) {
+      setState(() {});
+    });
   }
 }
