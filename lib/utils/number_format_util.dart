@@ -47,4 +47,18 @@ class NumberFormatUtil {
           .toString());
     }
   }
+
+  /// 自動轉換數字為 K & M
+  String numberCompatFormat(String value, {int decimalDigits = 2}) {
+    if (value == '') {
+      return '';
+    }
+    var formattedNumber = NumberFormat.compactCurrency(
+      decimalDigits: decimalDigits,
+      locale: 'en_US',
+      symbol: '',
+    ).format(double.parse(value));
+
+    return formattedNumber;
+  }
 }

@@ -16,13 +16,13 @@ import '../../../models/http/parameter/check_reservation_info.dart';
 import '../../gradient_text.dart';
 
 class DivisionCell extends StatefulWidget {
-  const DivisionCell({
-    Key? key,
-    required this.reservationAction,
-    required this.range,
-    required this.level,
-    required this.tradeData
-  }) : super(key: key);
+  const DivisionCell(
+      {Key? key,
+      required this.reservationAction,
+      required this.range,
+      required this.level,
+      required this.tradeData})
+      : super(key: key);
 
   final int level;
   final ReserveRange range;
@@ -34,15 +34,14 @@ class DivisionCell extends StatefulWidget {
 }
 
 class _DivisionCellState extends State<DivisionCell> {
-
-  String getRange(){
+  String getRange() {
     dynamic min;
     dynamic max;
 
     min = widget.range.startPrice;
     max = widget.range.endPrice;
 
-    return '${BaseViewModel().numberCompatFormat(NumberFormatUtil().integerFormat(min,hasSeparator:false))} - ${BaseViewModel().numberCompatFormat(max.toString())}';
+    return '${BaseViewModel().numberCompatFormat(NumberFormatUtil().integerFormat(min, hasSeparator: false), decimalDigits: 0)} - ${BaseViewModel().numberCompatFormat(max.toString(), decimalDigits: 0)}';
   }
 
   String ifIsBeginnerImg() {
@@ -57,7 +56,7 @@ class _DivisionCellState extends State<DivisionCell> {
     return Text(
       'Level ${widget.level}',
       style:
-      TextStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
+          TextStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
     );
   }
 
@@ -78,7 +77,10 @@ class _DivisionCellState extends State<DivisionCell> {
       return format(AppAnimationPath.reservationAnimation, ({'index': '00'}));
     }
     return format(
-        AppAnimationPath.reservationAnimation, ({'index': NumberFormatUtil().integerTwoFormat(widget.range.index + 1)}));
+        AppAnimationPath.reservationAnimation,
+        ({
+          'index': NumberFormatUtil().integerTwoFormat(widget.range.index + 1)
+        }));
   }
 
   /// 尚未開賣顯示圖
@@ -119,7 +121,7 @@ class _DivisionCellState extends State<DivisionCell> {
       return AppColors.reservationLevel4.withOpacity(0.7);
     } else if (widget.level == 5) {
       return AppColors.reservationLevel5.withOpacity(0.7);
-    }else if (widget.level == 6) {
+    } else if (widget.level == 6) {
       return AppColors.reservationLevel6.withOpacity(0.7);
     }
     return AppColors.textBlack;
@@ -127,7 +129,8 @@ class _DivisionCellState extends State<DivisionCell> {
 
   @override
   Widget build(BuildContext context) {
-   TextStyle style =  TextStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500);
+    TextStyle style =
+        TextStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500);
     return Container(
       margin: EdgeInsets.symmetric(
           horizontal: UIDefine.getWidth() / 20, vertical: 10),
@@ -141,7 +144,7 @@ class _DivisionCellState extends State<DivisionCell> {
                   children: [
                     /// if is level hide image
                     Visibility(
-                      visible: GlobalData.userInfo.level!=0,
+                      visible: GlobalData.userInfo.level != 0,
                       child: Image.asset(
                         ifIsBeginnerImg(),
                         width: 25,
@@ -151,9 +154,11 @@ class _DivisionCellState extends State<DivisionCell> {
                     const SizedBox(
                       width: 5,
                     ),
-                    Expanded(child:
-                    Text(getRange(),style: style,)
-                      )
+                    Expanded(
+                        child: Text(
+                      getRange(),
+                      style: style,
+                    ))
                   ],
                 ),
               ),
@@ -200,10 +205,11 @@ class _DivisionCellState extends State<DivisionCell> {
                       !widget.range.used &&
                       widget.tradeData.status != SellingState.Selling,
                   child: ActionButtonWidget(
-                    setHeight: 40,
+                      setHeight: 40,
                       isFillWidth: false,
                       margin: const EdgeInsets.symmetric(
-                          vertical: 10, ),
+                        vertical: 10,
+                      ),
                       setMainColor: getReservationBtnColor(),
                       btnText: tr("match"),
 
