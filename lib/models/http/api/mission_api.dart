@@ -57,10 +57,8 @@ class MissionAPI extends HttpManager {
     var response = await get('/user/points', queryParameters: {
       'page': page,
       'size': size,
-      'startTime': BaseViewModel().changeTimeZone('$startDate 00:00:00',
-          isSystemTime: false, isApiValue: true),
-      'endTime': BaseViewModel().changeTimeZone('$endDate 23:59:59',
-          isSystemTime: false, isApiValue: true),
+      'startTime': BaseViewModel().getStartTime(startDate),
+      'endTime': BaseViewModel().getEndTime(endDate),
     });
 
     List<PointRecordData> result = [];

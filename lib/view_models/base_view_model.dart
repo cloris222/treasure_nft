@@ -303,6 +303,16 @@ class BaseViewModel {
     }
   }
 
+  String getStartTime(String startDate) {
+    return changeTimeZone('$startDate 00:00:00',
+        isSystemTime: false, isApiValue: true);
+  }
+
+  String getEndTime(String endDate) {
+    return changeTimeZone('$endDate 23:59:59',
+        isSystemTime: false, isApiValue: true);
+  }
+
   /// 2022-08-30 14:43:22
   /// changeLocalTime:true -> system time to local time
   /// changeLocalTime:false -> local time to system time
