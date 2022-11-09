@@ -67,8 +67,10 @@ class OrderInfoPageViewModel extends BaseViewModel {
             imageUrl: data.imgUrl, price: data.price.toString(), dataList: _royaltyListContent(data));
 
       case 'PRICE':
-        return OrderInfoCard(orderNumber: data.orderNo, dateTime: BaseViewModel().changeTimeZone(data.createdAt),
-            dataList: _priceListContent(data), status: data.status);
+        return OrderInfoCard(
+            orderNumber: data.orderNo, dateTime: BaseViewModel().changeTimeZone(data.createdAt),
+            dataList: _priceListContent(data), status: data.status,
+            imageUrl: data.imgUrl, itemName: data.itemName, price: data.price.toString());
 
       case 'ACTIVITY':
         return AWDInfoCard(type: data.type, datetime: BaseViewModel().changeTimeZone(data.time),
@@ -177,21 +179,13 @@ class OrderInfoPageViewModel extends BaseViewModel {
     CardShowingData data = CardShowingData();
     data.title = tr('reservationAmount');
     data.content = resData.startPrice.toString() + ' ~ ' + resData.endPrice.toString();
+    data.bIcon = true;
     dataList.add(data);
 
     data = CardShowingData();
     data.title = tr('reservationFee');
     data.content = resData.deposit.toString();
-    dataList.add(data);
-
-    data = CardShowingData();
-    data.title = tr('numberAppointments');
-    data.content = resData.reserveCount.toString();
-    dataList.add(data);
-
-    data = CardShowingData();
-    data.title = tr('numberWinningBids');
-    data.content = resData.winCount.toString();
+    data.bIcon = true;
     dataList.add(data);
 
     return dataList;

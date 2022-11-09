@@ -9,11 +9,14 @@ import 'data/card_showing_data.dart';
 /// 無圖片的訂單信息_副本預約 (外部先將部分Data存成 List<CardShowingData>)
 class OrderInfoCard extends StatelessWidget {
   const OrderInfoCard({super.key,
-  this.status = '', required this.orderNumber,
-  required this.dateTime, required this.dataList
+  this.status = '', required this.imageUrl, required this.itemName, this.price = '',
+  required this.orderNumber,required this.dateTime, required this.dataList
   });
 
   final String status;
+  final String itemName;
+  final String imageUrl;
+  final String price;
   final String orderNumber;
   final String dateTime;
   final List<CardShowingData> dataList;
@@ -79,7 +82,16 @@ class OrderInfoCard extends StatelessWidget {
           /// 下半部
           Column(
             children: _getTitleContent(),
+          ),
+
+          SizedBox(height: UIDefine.getScreenWidth(2.77)),
+
+          /// 成功預約時的圖+文
+          Visibility(
+            visible: status == 'SUCCESS',
+            child: _getImageView(),
           )
+
         ],
       )
     );
@@ -173,6 +185,50 @@ class OrderInfoCard extends StatelessWidget {
       );
     }
     return titleContent;
+  }
+
+  Widget _getImageView() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Image.network(imageUrl, width: UIDefine.getScreenWidth(21.3), height: UIDefine.getScreenWidth(21.3)),
+        SizedBox(width: UIDefine.getScreenWidth(2.77)),
+
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              itemName,
+              style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
+            ),
+
+            SizedBox(height: UIDefine.getScreenWidth(2.5)),
+
+            Row(
+              children: [
+                Text(
+                  tr("theAmountGoods"),
+                  style: TextStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                ),
+
+                SizedBox(width: UIDefine.getScreenWidth(3)),
+
+                Row(
+                  children: [
+                    Image.asset('assets/icon/coins/icon_tether_01.png', width: UIDefine.getScreenWidth(3.7), height: UIDefine.getScreenWidth(3.7)),
+                    const SizedBox(width: 2.5),
+                    Text(
+                      price,
+                      style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                    )
+                  ],
+                )
+              ],
+            )
+          ],
+        )
+      ],
+    );
   }
 
   bool _checkTitleShowCoins(CardShowingData data) {

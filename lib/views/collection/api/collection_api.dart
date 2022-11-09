@@ -23,7 +23,6 @@ class CollectionApi extends HttpManager {
         'startTime': '',
         'endTime': ''
       });
-      response.printLog();
       for (Map<String, dynamic> json in response.data['pageList']) {
         result.add(CollectionReservationResponseData.fromJson(json));
       }
@@ -45,7 +44,6 @@ class CollectionApi extends HttpManager {
         'size': size,
         'status': status,
       });
-      response.printLog();
       for (Map<String, dynamic> json in response.data['pageList']) {
         result.add(CollectionNftItemResponseData.fromJson(json));
       }
@@ -67,7 +65,6 @@ class CollectionApi extends HttpManager {
         'countryName': countryName,
         'type': type,
       });
-      response.printLog();
       result = response.message;
     } catch (e) {
       print(e.toString());
@@ -90,7 +87,6 @@ class CollectionApi extends HttpManager {
         'phone': phone,
         'code': code,
       });
-      response.printLog();
       result = response.message;
     } catch (e) {
       print(e.toString());
@@ -108,7 +104,6 @@ class CollectionApi extends HttpManager {
         'itemId': itemId,
         'code': code,
       });
-      response.printLog();
       result = response.message;
     } catch (e) {
       print(e.toString());
@@ -125,7 +120,6 @@ class CollectionApi extends HttpManager {
       await get('/level/fee', queryParameters: {
         'itemId': itemId,
       });
-      response.printLog();
       result = CollectionLevelFeeResponseData.fromJson(response.data);
     } catch (e) {
       print(e.toString());
@@ -143,7 +137,6 @@ class CollectionApi extends HttpManager {
         'itemId': itemId,
         'status': status,
       });
-      response.printLog();
       if (response.code == 'APP_0062') {
         result = CollectionItemStatusResponseErrorData.fromJson(response.data);
 
@@ -167,7 +160,6 @@ class CollectionApiCommon extends HttpManager {
     try {
       ApiResponse response =
       await get('/query/contractOwner');
-      response.printLog();
       result = response.data;
     } catch (e) {
       print(e.toString());

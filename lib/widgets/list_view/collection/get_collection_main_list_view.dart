@@ -58,8 +58,10 @@ class _GetCollectionMainListview extends State<GetCollectionMainListview> {
   Widget _createItemBuilder(BuildContext context, int index) {
     if (currentType == 'Reservation') { // 今日預約
       return _getReservationListViewItem(widget.list[index], index);
+
     } else if (currentType == 'Selling') { // 上架中
       return _getSellingListViewItem(widget.list[index], index);
+
     } else { // 未上架
       return _getPendingListViewItem(widget.list[index], index);
     }

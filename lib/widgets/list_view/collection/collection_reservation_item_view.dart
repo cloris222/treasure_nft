@@ -42,17 +42,23 @@ class _CollectionReservationItemView
           dateTime: BaseViewModel().changeTimeZone(data.createdAt),
           imageUrl: data.imgUrl,
           price: '',
-          dataList: _getItemData(data.price.toString(), data.orderNo));
+          dataList: _getItemData(data.price.toString(), data.orderNo)
+      );
+
     } else if (data.type == 'PRICE') {
       return OrderInfoCard(
           status: data.status,
           orderNumber: data.orderNo,
+          itemName: data.itemName,
+          imageUrl: data.imgUrl,
+          price: data.price.toString(),
           dateTime: BaseViewModel().changeTimeZone(data.createdAt),
           dataList: _getOrderData(
               data.startPrice.toString() + ' ~ ' + data.endPrice.toString(),
               data.deposit.toString(),
-              data.reserveCount.toString(),
-              data.winCount.toString()));
+          )
+      );
+
     } else {
       return const SizedBox();
     }
@@ -74,8 +80,7 @@ class _CollectionReservationItemView
     return dataList;
   }
 
-  List<CardShowingData> _getOrderData(String estimatedAmount, String deposit,
-      String estimatedNumber, String winCount) {
+  List<CardShowingData> _getOrderData(String estimatedAmount, String deposit) {
     List<CardShowingData> dataList = [];
     CardShowingData data = CardShowingData();
     data.title = tr('reservationAmount');
@@ -87,16 +92,6 @@ class _CollectionReservationItemView
     data.title = tr('reservationFee');
     data.content = deposit;
     data.bIcon = true;
-    dataList.add(data);
-
-    data = CardShowingData();
-    data.title = tr('numberAppointments');
-    data.content = estimatedNumber;
-    dataList.add(data);
-
-    data = CardShowingData();
-    data.title = tr('numberWinningBids');
-    data.content = winCount;
     dataList.add(data);
 
     return dataList;

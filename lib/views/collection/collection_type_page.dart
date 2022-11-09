@@ -20,8 +20,7 @@ class _CollectionTypePage extends State<CollectionTypePage> {
   }
 
   CollectionMainViewModel viewModel = CollectionMainViewModel();
-  List list = [];
-  List list2 = [];
+  List responseList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -31,18 +30,18 @@ class _CollectionTypePage extends State<CollectionTypePage> {
 
   Future<GetCollectionMainListview> _initView() async {
     if (currentType == 'Reservation') {
-      list = await viewModel.getReservationResponse('ITEM', 1, 10);
-      list2 = await viewModel.getReservationResponse('PRICE', 1, 10);
-      list.addAll(list2);
-      return GetCollectionMainListview(list: list, currentType: currentType);
+      responseList = await viewModel.getReservationResponse('ITEM', 1, 10);
+      List tempList = await viewModel.getReservationResponse('PRICE', 1, 10);
+      responseList.addAll(tempList);
+      return GetCollectionMainListview(list: responseList, currentType: currentType);
 
     } else if (currentType == 'Selling') {
-      list = await viewModel.getNFTItemResponse('SELLING', 1, 10);
-      return GetCollectionMainListview(list: list, currentType: currentType);
+      responseList = await viewModel.getNFTItemResponse('SELLING', 1, 10);
+      return GetCollectionMainListview(list: responseList, currentType: currentType);
 
     } else {
-      list = await viewModel.getNFTItemResponse('PENDING', 1, 10);
-      return GetCollectionMainListview(list: list, currentType: currentType);
+      responseList = await viewModel.getNFTItemResponse('PENDING', 1, 10);
+      return GetCollectionMainListview(list: responseList, currentType: currentType);
     }
   }
 }

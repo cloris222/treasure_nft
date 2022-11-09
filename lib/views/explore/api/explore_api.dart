@@ -23,7 +23,6 @@ class ExploreApi extends HttpManager {
         'size': size,
         'category': category,
       });
-      response.printLog();
       for (Map<String, dynamic> json in response.data['pageList']) {
         result.add(ExploreMainResponseData.fromJson(json));
       }
@@ -40,7 +39,6 @@ class ExploreApi extends HttpManager {
     try {
       ApiResponse response =
       await get('/explore/category');
-      response.printLog();
       for (Map<String, dynamic> json in response.data) {
         result.add(ExploreCategoryResponseData.fromJson(json));
       }
@@ -63,7 +61,6 @@ class ExploreApi extends HttpManager {
         'size': size,
         'sortBy': sortBy,
       });
-      response.printLog();
       result = ExploreArtistDetailResponseData.fromJson(response.data);
     } catch (e) {
       print(e.toString());
@@ -80,7 +77,6 @@ class ExploreApi extends HttpManager {
       await get('/explore/item', queryParameters: {
         'itemId': itemId,
       });
-      response.printLog();
       result = ExploreItemResponseData.fromJson(response.data);
     } catch (e) {
       print(e.toString());
@@ -108,7 +104,6 @@ class ExploreApiWithToken extends HttpManager {
         'type': type,
         'itemId': itemId,
       });
-      response.printLog();
       if (response.code == 'APP_0041') {
         result = ExploreReserveInsertResponseErrorData.fromJson(response.data);
 
