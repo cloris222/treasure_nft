@@ -20,9 +20,13 @@ abstract class BaseListViewModel extends BaseViewModel {
   final int maxLoad;
   final onClickFunction onListChange;
   final bool shrinkWrap;
-  final bool hasTopView;
   final ScrollPhysics? physics;
-  final bool isAutoReloadMore; //是否自動讀取
+
+  ///MARK: 是否有上方view(僅支援listview)
+  final bool hasTopView;
+
+  ///MARK: 是否自動讀取(僅支援listview)
+  final bool isAutoReloadMore;
 
   ///MARK: 讀取資料
   Future<List<dynamic>> loadData(int page, int size);
@@ -82,23 +86,8 @@ abstract class BaseListViewModel extends BaseViewModel {
     if (_showWaitLoad || (!isAutoReloadMore && nextItems.isNotEmpty)) {
       length += 1;
     }
-    return NotificationListener<ScrollEndNotification>(
-        onNotification: (scrollEnd) {
-          final metrics = scrollEnd.metrics;
-          if (metrics.atEdge) {
-            bool isTop = metrics.pixels == 0;
-            if (isTop) {
-              debugPrint('At the top');
-            } else {
-              debugPrint('At the bottom');
-              if (nextItems.isNotEmpty && isAutoReloadMore) {
-                _onMorePress();
-              }
-            }
-          }
-          return true;
-        },
-        child: ListView.builder(
+    return _buildListListener(
+        listBody: ListView.builder(
             itemCount: length,
             shrinkWrap: shrinkWrap,
             physics: physics,
@@ -124,6 +113,76 @@ abstract class BaseListViewModel extends BaseViewModel {
                 return _buildLoading();
               }
             }));
+  }
+
+  Widget buildGridView({
+    required int crossAxisCount,
+    double mainAxisSpacing = 0.0,
+    double crossAxisSpacing = 0.0,
+    double childAspectRatio = 1.0,
+  }) {
+    int length = currentItems.length;
+
+    if (hasTopView) {
+      length += 1;
+    }
+
+    if (_showWaitLoad || (!isAutoReloadMore && nextItems.isNotEmpty)) {
+      length += 1;
+    }
+    return _buildListListener(
+        listBody: GridView.builder(
+            itemCount: length,
+            shrinkWrap: shrinkWrap,
+            physics: physics,
+            scrollDirection: Axis.vertical,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: crossAxisCount,
+              childAspectRatio: crossAxisSpacing,
+              mainAxisSpacing: mainAxisSpacing,
+              crossAxisSpacing: crossAxisSpacing,
+            ),
+            itemBuilder: (context, index) {
+              int itemIndex = index;
+              if (hasTopView && index == 0) {
+                return buildTopView();
+              }
+
+              if (hasTopView) {
+                itemIndex -= 1;
+              }
+              if (itemIndex != currentItems.length) {
+                return Visibility(
+                    visible: !removeItems.contains(itemIndex),
+                    child: itemView(itemIndex, currentItems[itemIndex]));
+              } else {
+                if (!_showWaitLoad &&
+                    (!isAutoReloadMore && nextItems.isNotEmpty)) {
+                  return _buildReadMore();
+                }
+                return _buildLoading();
+              }
+            }));
+  }
+
+  _buildListListener({required Widget listBody}) {
+    return NotificationListener<ScrollEndNotification>(
+        onNotification: (scrollEnd) {
+          final metrics = scrollEnd.metrics;
+          if (metrics.atEdge) {
+            bool isTop = metrics.pixels == 0;
+            if (isTop) {
+              debugPrint('At the top');
+            } else {
+              debugPrint('At the bottom');
+              if (nextItems.isNotEmpty && isAutoReloadMore) {
+                _onMorePress();
+              }
+            }
+          }
+          return true;
+        },
+        child: listBody);
   }
 
   _buildLoading() {
