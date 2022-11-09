@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/card/data/card_showing_data.dart';
 import 'package:treasure_nft_project/widgets/card/item_info_card.dart';
 import 'package:treasure_nft_project/widgets/card/order_info_card.dart';
@@ -38,7 +39,7 @@ class _CollectionReservationItemView
       return ItemInfoCard(
           status: data.status,
           itemName: data.itemName,
-          dateTime: data.createdAt,
+          dateTime: BaseViewModel().changeTimeZone(data.createdAt),
           imageUrl: data.imgUrl,
           price: '',
           dataList: _getItemData(data.price.toString(), data.orderNo));
@@ -46,7 +47,7 @@ class _CollectionReservationItemView
       return OrderInfoCard(
           status: data.status,
           orderNumber: data.orderNo,
-          dateTime: data.createdAt,
+          dateTime: BaseViewModel().changeTimeZone(data.createdAt),
           dataList: _getOrderData(
               data.startPrice.toString() + ' ~ ' + data.endPrice.toString(),
               data.deposit.toString(),

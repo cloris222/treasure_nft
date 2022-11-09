@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import 'data/BalanceRecordResponseData.dart';
 
@@ -37,7 +38,7 @@ class BalanceRecordItemView extends StatelessWidget {
                 ),
                 const SizedBox(height: 3),
                 Text(
-                  data.time,
+                  BaseViewModel().changeTimeZone(data.time),
                   style: TextStyle(color: AppColors.dialogGrey,
                       fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
                 ),
