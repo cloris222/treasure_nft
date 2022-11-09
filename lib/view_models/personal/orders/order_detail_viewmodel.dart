@@ -7,12 +7,14 @@ import 'package:treasure_nft_project/constant/enum/team_enum.dart';
 import 'package:treasure_nft_project/models/http/api/order_api.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/utils/date_format_util.dart';
+import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/base_list_view_model.dart';
 import 'package:treasure_nft_project/widgets/card/item_info_card.dart';
 
 import '../../../models/http/parameter/user_property.dart';
 import '../../../widgets/card/data/card_showing_data.dart';
 import '../../../widgets/date_picker/custom_date_picker.dart';
+import '../../base_view_model.dart';
 
 class OrderDetailViewModel extends BaseListViewModel {
   OrderDetailViewModel({
@@ -28,9 +30,13 @@ class OrderDetailViewModel extends BaseListViewModel {
   Search? currentType;
 
   Future<void> initState() async {
-    income = await OrderAPI()
-        .getPersonalIncome(type: type, startDate: startDate, endDate: endDate);
-    onListChange();
+    /// 拿完總收入後馬上更新並建立畫面
+    OrderAPI()
+        .getPersonalIncome(type: type, startDate: startDate, endDate: endDate)
+        .then((value) {
+      income = value;
+      onListChange();
+    });
     initListView();
   }
 
@@ -40,11 +46,12 @@ class OrderDetailViewModel extends BaseListViewModel {
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: ItemInfoCard(
         itemName: data.itemName,
-        dateTime: DateFormatUtil().getFullWithDateFormat(data.time),
+        dateTime: changeTimeZone(data.time),
         imageUrl: data.imgUrl,
         price: data.price.toString(),
-          bShowPriceAtEnd:true,
-        dataList: _getItemData( data.sellerName,data.orderNo, data.income,data.rebate),
+        bShowPriceAtEnd: true,
+        dataList: _getItemData(
+            data.sellerName, data.orderNo, data.income, data.rebate),
       ),
     );
   }
@@ -54,8 +61,8 @@ class OrderDetailViewModel extends BaseListViewModel {
     return await OrderAPI().getEarningData(
         page: page,
         size: size,
-        startDate: startDate,
-        endDate: endDate,
+        startDate: getStartTime(startDate),
+        endDate: getEndTime(endDate),
         type: type);
   }
 
@@ -63,6 +70,8 @@ class OrderDetailViewModel extends BaseListViewModel {
       String nickName, String orderNo, double income, num rebate) {
     List<CardShowingData> dataList = [];
     CardShowingData data = CardShowingData();
+
+    data = CardShowingData();
     data.title = tr("orderNo");
     data.content = orderNo;
     data.bIcon = false;
@@ -80,7 +89,7 @@ class OrderDetailViewModel extends BaseListViewModel {
 
     data = CardShowingData();
     data.title = tr("income");
-    data.content = income.toString();
+    data.content = NumberFormatUtil().removeTwoPointFormat(income);
     dataList.add(data);
 
     return dataList;
