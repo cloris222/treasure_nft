@@ -304,13 +304,17 @@ class BaseViewModel {
   }
 
   String getStartTime(String startDate) {
-    return changeTimeZone('$startDate 00:00:00',
-        isSystemTime: false, isApiValue: true);
+    return startDate.isNotEmpty
+        ? changeTimeZone('$startDate 00:00:00',
+            isSystemTime: false, isApiValue: true)
+        : '';
   }
 
   String getEndTime(String endDate) {
-    return changeTimeZone('$endDate 23:59:59',
-        isSystemTime: false, isApiValue: true);
+    return endDate.isNotEmpty
+        ? changeTimeZone('$endDate 23:59:59',
+            isSystemTime: false, isApiValue: true)
+        : '';
   }
 
   /// 2022-08-30 14:43:22

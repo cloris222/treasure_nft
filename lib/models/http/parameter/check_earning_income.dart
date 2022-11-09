@@ -26,7 +26,7 @@ class CheckEarningIncomeData {
   });
 
   String orderNo;
-  DateTime time;
+  String time;
   String itemId;
   String itemName;
   String sellerName;
@@ -40,7 +40,7 @@ class CheckEarningIncomeData {
   factory CheckEarningIncomeData.fromJson(Map<String, dynamic> json) =>
       CheckEarningIncomeData(
         orderNo: json["orderNo"],
-        time: DateTime.parse(json["time"]),
+        time: json["time"],
         itemId: json["itemId"],
         itemName: json["itemName"],
         sellerName: json["sellerName"],
@@ -54,7 +54,7 @@ class CheckEarningIncomeData {
 
   Map<String, dynamic> toJson() => {
         "orderNo": orderNo,
-        "time": time.toIso8601String(),
+        "time": time,
         "itemId": itemId,
         "itemName": itemName,
         "sellerName": sellerName,
