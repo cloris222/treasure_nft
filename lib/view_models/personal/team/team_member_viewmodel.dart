@@ -108,26 +108,6 @@ class TeamMemberViewModel extends BaseViewModel {
     return list;
   }
 
-
-  /// 查詢團隊訂單
-  Future<List<TeamOrderData>> getTeamOrder(
-      String startTime, String endTime, String sortBy,
-      String nameAcct, String nameAcctType,
-      {ResponseErrorFunction? onConnectFail}) async {
-    List<TeamOrderData> list = [];
-
-    var response = await GroupAPI(onConnectFail: onConnectFail)
-        .getTeamOrder(startTime: startTime, endTime: endTime,
-        sortBy: sortBy, nameAcct: nameAcct, nameAcctType: nameAcctType);
-
-    for (Map<String, dynamic> json in response.data['pageList']) {
-      list.add(TeamOrderData.fromJson(json));
-    }
-    return list;
-  }
-
-
-
   /// 查詢群組會員列表
   Future<GroupList> getGroupList(
       {ResponseErrorFunction? onConnectFail}) async {
