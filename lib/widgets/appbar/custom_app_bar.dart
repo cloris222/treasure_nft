@@ -44,7 +44,7 @@ class CustomAppBar {
         color: AppColors.mainThemeButton,
         appBarHeight: 30,
         mainAxisAlignment: MainAxisAlignment.end,
-        actions: [Text('X')]);
+        actions: [Text('X'), SizedBox(width: UIDefine.getScreenHeight(3))]);
   }
 
   ///MARK: 常用Bar
