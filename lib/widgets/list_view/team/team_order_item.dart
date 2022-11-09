@@ -10,6 +10,8 @@ import 'package:treasure_nft_project/view_models/personal/team/team_member_viewm
 import 'package:treasure_nft_project/views/personal/team/share_team_order_page.dart';
 import 'package:treasure_nft_project/widgets/dialog/simple_custom_dialog.dart';
 
+import '../../../views/personal/team/other_collect_page.dart';
+
 class TeamOrderItemView extends StatefulWidget {
   const TeamOrderItemView({super.key, required this.itemData});
 
@@ -82,13 +84,16 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
             ),
             SizedBox(width: UIDefine.getScreenWidth(5)),
             Flexible(
-              child: Text(
-                widget.itemData.buyerName,
-                textAlign: TextAlign.end,
-                style: TextStyle(
-                    fontSize: UIDefine.fontSize12,
-                    color: AppColors.mainThemeButton,
-                    fontWeight: FontWeight.w500),
+              child: GestureDetector(
+                onTap: () => _onPressBuyer(),
+                child: Text(
+                  widget.itemData.buyerName,
+                  textAlign: TextAlign.end,
+                  style: TextStyle(
+                      fontSize: UIDefine.fontSize12,
+                      color: AppColors.mainThemeButton,
+                      fontWeight: FontWeight.w500),
+                ),
               ),
             ),
           ]),
@@ -109,13 +114,16 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
             ),
             SizedBox(width: UIDefine.getScreenWidth(5)),
             Flexible(
-              child: Text(
-                widget.itemData.sellerName,
-                textAlign: TextAlign.end,
-                style: TextStyle(
-                    fontSize: UIDefine.fontSize12,
-                    color: AppColors.mainThemeButton,
-                    fontWeight: FontWeight.w500),
+              child: GestureDetector(
+                onTap: () => _onPressSeller(),
+                child: Text(
+                  widget.itemData.sellerName,
+                  textAlign: TextAlign.end,
+                  style: TextStyle(
+                      fontSize: UIDefine.fontSize12,
+                      color: AppColors.mainThemeButton,
+                      fontWeight: FontWeight.w500),
+                ),
               ),
             ),
           ]),
@@ -238,5 +246,15 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
   void _onPressShare() {
     BaseViewModel().pushOpacityPage(
         context, ShareTeamOrderPage(itemData: widget.itemData));
+  }
+
+  _onPressBuyer() {
+    BaseViewModel().pushPage(context,
+        OtherCollectPage(isSeller: false, orderNo: widget.itemData.orderNo));
+  }
+
+  _onPressSeller() {
+    BaseViewModel().pushPage(context,
+        OtherCollectPage(isSeller: true, orderNo: widget.itemData.orderNo));
   }
 }
