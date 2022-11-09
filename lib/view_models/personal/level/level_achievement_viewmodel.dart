@@ -59,9 +59,11 @@ class LevelAchievementViewModel extends BaseViewModel {
         .getMissionPoint(recordNo: recordNo);
     setState(() {
       GlobalData.userInfo.point += point;
-      for (TaskInfoData data in achieveList) {
+      for (TaskInfoData data in dailyList) {
         if (data.recordNo != null) {
-          data.takeStatus = 'TAKEN';
+          if (data.recordNo == recordNo) {
+            data.takeStatus = 'TAKEN';
+          }
         }
       }
     });
@@ -76,9 +78,11 @@ class LevelAchievementViewModel extends BaseViewModel {
       pushOpacityPage(
           context, AchievementAchieveFinishPage(data: data, code: code));
       GlobalData.userInfo.point += point;
-      for (TaskInfoData data in dailyList) {
+      for (TaskInfoData data in achieveList) {
         if (data.recordNo != null) {
-          data.takeStatus = 'TAKEN';
+          if (data.recordNo == recordNo) {
+            data.takeStatus = 'TAKEN';
+          }
         }
       }
     });
