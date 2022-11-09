@@ -2,6 +2,7 @@ import 'package:treasure_nft_project/constant/enum/setting_enum.dart';
 import 'package:treasure_nft_project/models/http/http_manager.dart';
 import 'package:treasure_nft_project/models/http/parameter/api_response.dart';
 
+import '../../../views/personal/orders/orderinfo/data/order_message_list_response_data.dart';
 import '../parameter/check_earning_income.dart';
 
 class OrderAPI extends HttpManager {
@@ -55,5 +56,30 @@ class OrderAPI extends HttpManager {
       case EarningIncomeType.MINE:
         return 'MINE';
     }
+  }
+
+  /// 取得訂單信息列表
+  Future<List<OrderMessageListResponseData>> getOrderMessageListResponse(
+      {int page = 1, int size = 10, String type = '',
+       String startTime = '', String endTime = ''
+      }) async {
+    List<OrderMessageListResponseData> result =
+    <OrderMessageListResponseData>[];
+    try {
+      ApiResponse response =
+      await get('/order/message-list', queryParameters: {
+        'page': page,
+        'size': size,
+        'type': type,
+        'startTime': startTime,
+        'endTime': endTime
+      });
+      for (Map<String, dynamic> json in response.data['pageList']) {
+        result.add(OrderMessageListResponseData.fromJson(json));
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+    return result;
   }
 }

@@ -9,13 +9,13 @@ import 'data/card_showing_data.dart';
 class AWDInfoCard extends StatelessWidget {
   AWDInfoCard({super.key,
   this.status = '', 
-  required this.type, required this.title,
-  required this.datetime, required this.dataList
+  required this.type,
+  required this.datetime,
+  required this.dataList
   });
 
   String status;
   String type;
-  String title;
   String datetime;
   List<CardShowingData> dataList;
 
@@ -45,7 +45,7 @@ class AWDInfoCard extends StatelessWidget {
                       _getImage(),
                       const SizedBox(width: 4),
                       Text(
-                        title,
+                        _getTitle(),
                         style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
                       ),
                     ],
@@ -62,9 +62,10 @@ class AWDInfoCard extends StatelessWidget {
               Visibility(
                 visible: status != '' ,
                 child: Container(
-                  decoration: BoxDecoration(border: Border.all(color: _getLuckyStrawBorderColor(), width: 2)),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: _getLuckyStrawBorderColor(), width: 2),
+                      color: _getLuckyStrawColor()),
                   padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
-                  color: _getLuckyStrawColor(),
                   child: Text(
                     _getLuckyStrawString(),
                     style: TextStyle(color: _getLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w600),
@@ -112,11 +113,11 @@ class AWDInfoCard extends StatelessWidget {
   String _getLuckyStrawString() {
     switch(status) {
       case 'SUCCESS':
-        return tr("notification-SUCCESS'");
+        return tr("success");
       case 'PENDING':
-        return tr("notification-PENDING'");
+        return tr("recharge-PENDING'");
       case 'FAIL':
-        return tr("notification-FAIL'");
+        return tr("recharge-FAIL'");
     }
     return '';
   }
@@ -131,6 +132,22 @@ class AWDInfoCard extends StatelessWidget {
         return AppColors.textWhite;
     }
     return AppColors.transParent;
+  }
+
+  String _getTitle() {
+    if (type.contains('ACTIVITY')) {
+      return tr('activitiesUSDT');
+
+    } else if (type.contains('LEVEL')) {
+      return tr('bonus');
+
+    } else if (type.contains('DEPOSIT')) {
+      return tr('recharge');
+
+    } else if (type.contains('WITHDRAW')) {
+      return tr('withdraw');
+    }
+    return '';
   }
   
   _getImage() {
