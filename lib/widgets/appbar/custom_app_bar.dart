@@ -20,6 +20,7 @@ class CustomAppBar {
       MainAxisAlignment mainAxisAlignment = MainAxisAlignment.start}) {
     return AppBar(
         elevation: 0,
+        automaticallyImplyLeading: false,
         backgroundColor: color,
         toolbarHeight: appBarHeight,
         shape: shape,
@@ -36,6 +37,14 @@ class CustomAppBar {
 
   static AppBar getCustomAppBar({required List<Widget> actions}) {
     return _getCustomAppBar(actions: actions);
+  }
+
+  static AppBar getServerAppBar() {
+    return _getCustomAppBar(
+        color: AppColors.mainThemeButton,
+        appBarHeight: 30,
+        mainAxisAlignment: MainAxisAlignment.end,
+        actions: [Text('X'), SizedBox(width: UIDefine.getScreenHeight(3))]);
   }
 
   ///MARK: 常用Bar

@@ -313,7 +313,7 @@ class _TradeMainViewState extends State<TradeMainView> {
       return _levelZero(context);
     }
     return ListView.builder(
-        itemCount: viewModel.division?.length,
+        itemCount: viewModel.division?.length??0,
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
