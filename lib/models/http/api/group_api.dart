@@ -11,6 +11,7 @@ import 'package:treasure_nft_project/models/http/parameter/team_members.dart';
 import '../parameter/check_share_center.dart';
 import '../parameter/other_user_info.dart';
 import '../parameter/team_member_detail.dart';
+import '../parameter/team_order.dart';
 import '../parameter/team_share_info.dart';
 
 class GroupAPI extends HttpManager {
@@ -89,15 +90,15 @@ class GroupAPI extends HttpManager {
   }
 
   /// 查詢團隊訂單
-  Future<ApiResponse> getTeamOrder(
+  Future<List<TeamOrderData>> getTeamOrder(
       {int page = 1,
       int size = 10,
-      sortBy = '',
-      nameAcct = '',
-      nameAcctType = '',
+      String sortBy = '',
+      String nameAcct = '',
+      String nameAcctType = '',
       required String startTime,
       required String endTime}) async {
-    return await get('/group/team-order', queryParameters: {
+    var response = await get('/group/team-order', queryParameters: {
       'page': page,
       'size': size,
       'startTime': startTime,
@@ -106,6 +107,12 @@ class GroupAPI extends HttpManager {
       'nameAcct': nameAcct,
       'nameAcctType': nameAcctType,
     });
+
+    List<TeamOrderData> list = [];
+    for (Map<String, dynamic> json in response.data['pageList']) {
+      list.add(TeamOrderData.fromJson(json));
+    }
+    return list;
   }
 
   /// 查詢群組會員列表
