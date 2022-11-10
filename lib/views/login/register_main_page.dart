@@ -2,10 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 
+import '../../models/http/parameter/country_phone_data.dart';
 import '../../view_models/login/register_main_viewmodel.dart';
 import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/label/common_text_widget.dart';
 import '../custom_appbar_view.dart';
+import '../personal/common/phone_param_view.dart';
 import 'login_email_code_view.dart';
 import 'login_param_view.dart';
 
@@ -76,6 +78,16 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
               data: viewModel.rePasswordData,
               onTap: viewModel.onTap,
               onChanged: viewModel.onPasswordChanged),
+
+          PhoneParamView(
+              titleText: tr('phone'),
+              hintText: tr("placeholder-phone'"),
+              controller: viewModel.phoneController,
+              data: viewModel.phoneData,
+              onTap: viewModel.onTap,
+              getDropDownValue: (String value) {
+                viewModel.setPhoneCountry(value);
+              }),
 
           ///MARK:Email
           LoginParamView(

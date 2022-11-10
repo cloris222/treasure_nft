@@ -23,12 +23,15 @@ class LoginAPI extends HttpManager {
       required String password,
       required String email,
       required String nickname,
+      required String phone,
+      required String phoneCountry,
       required String inviteCode}) async {
     return post('/user/register', data: {
       'account': account,
       'password': password,
       'email': email,
-      'phone': '',
+      'phone': phone,
+      'phoneCountry': phoneCountry,
       'name': nickname,
       'inviteCode': inviteCode,
     });

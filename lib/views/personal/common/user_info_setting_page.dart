@@ -7,6 +7,7 @@ import 'package:treasure_nft_project/views/personal/common/phone_param_view.dart
 
 import '../../../constant/theme/app_image_path.dart';
 import '../../../constant/ui_define.dart';
+import '../../../models/http/parameter/country_phone_data.dart';
 import '../../../view_models/personal/common/user_info_setting_view_model.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/button/login_button_widget.dart';
@@ -21,11 +22,9 @@ class UserInfoSettingPage extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() => _UserInfoSettingPage();
-
 }
 
 class _UserInfoSettingPage extends State<UserInfoSettingPage> {
-
   late UserInfoSettingViewModel viewModel;
 
   @override
@@ -46,72 +45,70 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
       needScrollView: false,
       title: tr("userInfo"),
       type: AppNavigationBarType.typePersonal,
-      body:SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(UIDefine.getScreenWidth(5.5)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                  margin: const EdgeInsets.symmetric(vertical: 5),
-                  child: Text(tr('nationality'),
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: UIDefine.fontSize14))),
-              _getNationalityForm(),
-              SizedBox(height: UIDefine.getScreenWidth(4.16)),
-
-              _getUnEditFormView(tr('account'), GlobalData.userInfo.name),
-              SizedBox(height: UIDefine.getScreenWidth(4.16)),
-
-              LoginParamView(
-                  titleText: tr('nickname'),
-                  hintText: tr("placeholder-nickname'"),
-                  controller: viewModel.nickNameController,
-                  data: viewModel.nickNameData,
-                  onTap: viewModel.onTap,
-                  onChanged: viewModel.onNicknameChanged),
-              SizedBox(height: UIDefine.getScreenWidth(4.16)),
-
-              PhoneParamView(
-                titleText: tr('phone'),
-                hintText: tr("placeholder-phone'"),
-                controller: viewModel.phoneController,
-                data: viewModel.phoneData,
-                onTap: viewModel.onTap,
-                getDropDownValue: (String value) {
-                  viewModel.setPhoneCountry(value);
+            padding: EdgeInsets.all(UIDefine.getScreenWidth(5.5)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                    margin: const EdgeInsets.symmetric(vertical: 5),
+                    child: Text(tr('nationality'),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: UIDefine.fontSize14))),
+                _getNationalityForm(),
+                SizedBox(height: UIDefine.getScreenWidth(4.16)),
+                _getUnEditFormView(tr('account'), GlobalData.userInfo.name),
+                SizedBox(height: UIDefine.getScreenWidth(4.16)),
+                LoginParamView(
+                    titleText: tr('nickname'),
+                    hintText: tr("placeholder-nickname'"),
+                    controller: viewModel.nickNameController,
+                    data: viewModel.nickNameData,
+                    onTap: viewModel.onTap,
+                    onChanged: viewModel.onNicknameChanged),
+                SizedBox(height: UIDefine.getScreenWidth(4.16)),
+                PhoneParamView(
+                    titleText: tr('phone'),
+                    hintText: tr("placeholder-phone'"),
+                    controller: viewModel.phoneController,
+                    data: viewModel.phoneData,
+                    onTap: viewModel.onTap,
+                    getDropDownValue: (String value) {
+                      viewModel.setPhoneCountry(value);
+                    }),
+                SizedBox(height: UIDefine.getScreenWidth(4.16)),
+                _getUnEditFormView(tr('email'), GlobalData.userInfo.email),
+                SizedBox(height: UIDefine.getScreenWidth(4.16)),
+                GenderSelectorDropDownBar(getDropDownValue: (String value) {
+                  viewModel.setGender(value);
                 }),
-              SizedBox(height: UIDefine.getScreenWidth(4.16)),
-
-              _getUnEditFormView(tr('email'), GlobalData.userInfo.email),
-              SizedBox(height: UIDefine.getScreenWidth(4.16)),
-
-              GenderSelectorDropDownBar(
-                  getDropDownValue: (String value) {
-                    viewModel.setGender(value);
-                  }),
-              SizedBox(height: UIDefine.getScreenWidth(4.16)),
-
-              Container(
-                  margin: const EdgeInsets.symmetric(vertical: 5),
-                  child: Text(tr('birthday'),
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: UIDefine.fontSize14))),
-              DatePickerOne(
+                SizedBox(height: UIDefine.getScreenWidth(4.16)),
+                Container(
+                    margin: const EdgeInsets.symmetric(vertical: 5),
+                    child: Text(tr('birthday'),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: UIDefine.fontSize14))),
+                DatePickerOne(
                   onTap: viewModel.onTap,
-                  getValue: (String value) { viewModel.setBirthday(value); },
+                  getValue: (String value) {
+                    viewModel.setBirthday(value);
+                  },
                   data: viewModel.birthdayData,
-                  enabledColor: viewModel.birthdayData.result ? AppColors.bolderGrey : AppColors.textRed,),
-
-              SizedBox(height: UIDefine.getScreenWidth(6)),
-              LoginButtonWidget( // Save按鈕
-                  isGradient: false,
-                  btnText: tr('save'),
-                  onPressed: () => viewModel.onPressSave(context)
-              )
-            ],
-          )
-        ),
+                  enabledColor: viewModel.birthdayData.result
+                      ? AppColors.bolderGrey
+                      : AppColors.textRed,
+                ),
+                SizedBox(height: UIDefine.getScreenWidth(6)),
+                LoginButtonWidget(
+                    // Save按鈕
+                    isGradient: false,
+                    btnText: tr('save'),
+                    onPressed: () => viewModel.onPressSave(context))
+              ],
+            )),
       ),
     );
   }
@@ -121,15 +118,16 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Image.asset(format(AppImagePath.languageIcon, {'country': GlobalData.userInfo.country}),
-        width: UIDefine.getScreenWidth(11.11), height: UIDefine.getScreenWidth(11.11)),
-
+        Image.asset(
+            format(AppImagePath.languageIcon,
+                {'country': GlobalData.userInfo.country}),
+            width: UIDefine.getScreenWidth(11.11),
+            height: UIDefine.getScreenWidth(11.11)),
         SizedBox(width: UIDefine.getScreenWidth(2.7)),
-
         Text(
-          GlobalData.userInfo.country + ' (' + GlobalData.userInfo.zone + ')',
-          style: TextStyle(
-              fontWeight: FontWeight.w600, fontSize: UIDefine.fontSize14)),
+            GlobalData.userInfo.country + ' (' + GlobalData.userInfo.zone + ')',
+            style: TextStyle(
+                fontWeight: FontWeight.w600, fontSize: UIDefine.fontSize14)),
       ],
     );
   }
@@ -142,24 +140,24 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
             margin: const EdgeInsets.symmetric(vertical: 5),
             child: Text(title,
                 style: TextStyle(
-                    fontWeight: FontWeight.bold, fontSize: UIDefine.fontSize14))),
-
+                    fontWeight: FontWeight.bold,
+                    fontSize: UIDefine.fontSize14))),
         Container(
-          alignment: Alignment.centerLeft,
-          padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5), UIDefine.getScreenWidth(4.16),
-            0, UIDefine.getScreenWidth(4.16)),
-          decoration: const BoxDecoration(
-            color: AppColors.datePickerBorder,
-            borderRadius: BorderRadius.all(Radius.circular(10))
-          ),
-          child: Text(content,
-              style: TextStyle(color: AppColors.dialogGrey,
-                  fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14))
-        ),
-
-
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.fromLTRB(
+                UIDefine.getScreenWidth(5.5),
+                UIDefine.getScreenWidth(4.16),
+                0,
+                UIDefine.getScreenWidth(4.16)),
+            decoration: const BoxDecoration(
+                color: AppColors.datePickerBorder,
+                borderRadius: BorderRadius.all(Radius.circular(10))),
+            child: Text(content,
+                style: TextStyle(
+                    color: AppColors.dialogGrey,
+                    fontWeight: FontWeight.w500,
+                    fontSize: UIDefine.fontSize14))),
       ],
     );
   }
-
 }

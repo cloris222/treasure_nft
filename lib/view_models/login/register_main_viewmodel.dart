@@ -28,6 +28,7 @@ class RegisterMainViewModel extends BaseViewModel {
   TextEditingController emailCodeController = TextEditingController();
   TextEditingController nicknameController = TextEditingController();
   TextEditingController referralController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
 
   ValidateResultData accountData = ValidateResultData();
   ValidateResultData passwordData = ValidateResultData();
@@ -36,10 +37,13 @@ class RegisterMainViewModel extends BaseViewModel {
   ValidateResultData emailCodeData = ValidateResultData();
   ValidateResultData nicknameData = ValidateResultData();
   ValidateResultData referralData = ValidateResultData();
+  ValidateResultData phoneData = ValidateResultData();
 
   ///是否判斷過驗證碼
   bool checkEmail = false;
   String validateEmail = '';
+
+  String phoneCountry = '';
 
   void dispose() {
     accountController.dispose();
@@ -49,6 +53,7 @@ class RegisterMainViewModel extends BaseViewModel {
     emailCodeController.dispose();
     nicknameController.dispose();
     referralController.dispose();
+    phoneController.dispose();
   }
 
   bool checkEmptyController() {
@@ -56,7 +61,8 @@ class RegisterMainViewModel extends BaseViewModel {
         passwordController.text.isNotEmpty &&
         rePasswordController.text.isNotEmpty &&
         emailController.text.isNotEmpty &&
-        emailCodeController.text.isNotEmpty;
+        emailCodeController.text.isNotEmpty &&
+        phoneController.text.isNotEmpty;
   }
 
   bool checkData() {
@@ -66,7 +72,8 @@ class RegisterMainViewModel extends BaseViewModel {
         emailData.result &&
         emailCodeData.result &&
         nicknameData.result &&
-        referralData.result;
+        referralData.result &&
+        phoneData.result;
   }
 
   void resetData() {
@@ -77,6 +84,7 @@ class RegisterMainViewModel extends BaseViewModel {
     emailCodeData = ValidateResultData();
     nicknameData = ValidateResultData();
     referralData = ValidateResultData();
+    phoneData = ValidateResultData();
   }
 
   bool checkPress() {
@@ -145,6 +153,7 @@ class RegisterMainViewModel extends BaseViewModel {
         emailData = ValidateResultData(result: emailController.text.isNotEmpty);
         emailCodeData =
             ValidateResultData(result: emailCodeController.text.isNotEmpty);
+        phoneData = ValidateResultData(result: phoneController.text.isNotEmpty);
       });
       return;
     } else {
@@ -168,7 +177,9 @@ class RegisterMainViewModel extends BaseViewModel {
               password: passwordController.text,
               email: emailController.text,
               nickname: nicknameController.text,
-              inviteCode: referralController.text)
+              inviteCode: referralController.text,
+              phone: phoneController.text,
+              phoneCountry: phoneCountry)
           .then((value) async {
         ///MARK: 註冊成功動畫
         BaseViewModel().pushOpacityPage(
@@ -235,5 +246,10 @@ class RegisterMainViewModel extends BaseViewModel {
         account: accountController.text, password: passwordController.text);
     await saveUserLoginInfo(response: response);
     startUserListener();
+  }
+
+  void setPhoneCountry(String value) {
+    print('$value');
+    phoneCountry = value;
   }
 }

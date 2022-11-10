@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../models/data/trade_model_data.dart';
+import '../models/http/parameter/country_phone_data.dart';
 import '../models/http/parameter/sign_in_data.dart';
 import 'enum/task_enum.dart';
 import 'enum/team_enum.dart';
@@ -38,3 +39,5 @@ typedef GetAchievementMissionPoint = void Function(
 typedef GetSignInDate = void Function(SignInData? data);
 
 typedef GetTradDate = void Function(TradeData data);
+
+typedef GetCountry = void Function(CountryPhoneData data);

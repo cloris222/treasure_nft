@@ -20,6 +20,7 @@ import 'package:treasure_nft_project/widgets/image_dialog.dart';
 import '../constant/global_data.dart';
 import '../constant/theme/app_animation_path.dart';
 import '../constant/theme/app_colors.dart';
+import '../models/http/api/common_api.dart';
 import '../models/http/api/trade_api.dart';
 import '../models/http/http_setting.dart';
 import '../models/http/parameter/api_response.dart';
@@ -360,5 +361,13 @@ class BaseViewModel {
     } else {
       return int.parse(gmt.substring(4)) * -1;
     }
+  }
+
+  ///查詢國家列表
+  Future<void> getCountry() async {
+    await CommonAPI().getCountryList().then((value) {
+      GlobalData.country.clear();
+      GlobalData.country.addAll(value);
+    });
   }
 }

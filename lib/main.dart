@@ -30,8 +30,8 @@ void main() async {
 }
 
 Future<void> initApp() async {
-  // BaseViewModel baseViewModel = BaseViewModel();
-  // await baseViewModel.getCountry();
+  BaseViewModel viewModel = BaseViewModel();
+  await viewModel.getCountry();
   await LanguageUtil.init();
 
   ///MARK: 自動登入
@@ -41,7 +41,6 @@ Future<void> initApp() async {
       GlobalData.userMemberId = await AppSharedPreferences.getMemberID();
       if (GlobalData.userToken.isNotEmpty &&
           GlobalData.userMemberId.isNotEmpty) {
-        var viewModel = BaseViewModel();
         await viewModel.uploadPersonalInfo();
         await viewModel.uploadSignInInfo();
 
