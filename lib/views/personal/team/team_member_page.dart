@@ -11,6 +11,8 @@ import 'package:treasure_nft_project/views/personal/team/widget/all_members_card
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/date_picker/date_picker.dart';
 
+import '../../../widgets/date_picker/custom_date_picker.dart';
+
 ///MARK:團隊成員
 class TeamMemberPage extends StatelessWidget {
   const TeamMemberPage({Key? key}) : super(key: key);
@@ -38,7 +40,7 @@ class Body extends StatefulWidget {
 class BodyState extends State<Body> {
   TeamMemberViewModel viewModel = TeamMemberViewModel();
 
-  String startDate = 'Select date';
+  String startDate = '';
   String endDate = '';
 
   Search buttonType = Search.All;
@@ -60,13 +62,15 @@ class BodyState extends State<Body> {
             padding: EdgeInsets.only(
                 left: UIDefine.getScreenWidth(6),
                 right: UIDefine.getScreenWidth(6)),
-            child: Column(
-              children: [
-                viewModel.getPadding(3),
+            child: Column(children: [
+              viewModel.getPadding(3),
 
-                /// 日期選擇器 & 按鈕
-                DatePickerWidget(
-                  dateCallback: (String startDate, String endDate) async {
+              /// 日期選擇器 & 按鈕
+              CustomDatePickerWidget(
+                dateCallback: (String startDate, String endDate) async {
+                  if (startDate != this.startDate || endDate != this.endDate) {
+                    this.startDate = startDate;
+                    this.endDate = endDate;
                     await viewModel
                         .getTeamMembers(
                           startDate,
@@ -74,127 +78,79 @@ class BodyState extends State<Body> {
                         )
                         .then((value) => {teamMembers = value});
                     setState(() {});
-                  },
-                ),
+                  }
+                },
+              ),
 
-                /// all members
-                Container(
-                  alignment: Alignment.centerLeft,
-                  width: UIDefine.getWidth(),
-                  height: UIDefine.getScreenHeight(10),
-                  child: Text(
-                    tr('AllMembers'),
-                    style: TextStyle(fontSize: UIDefine.fontSize14),
-                  ),
+              /// all members
+              Container(
+                alignment: Alignment.centerLeft,
+                width: UIDefine.getWidth(),
+                height: UIDefine.getScreenHeight(10),
+                child: Text(
+                  tr('AllMembers'),
+                  style: TextStyle(fontSize: UIDefine.fontSize14),
                 ),
+              ),
 
-                /// all
-                GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onTap: () {
-                    viewModel.pushPage(
-                        context,
-                        TeamMemberDetailPage(
-                          startTime: startDate,
-                          endTime: endDate,
-                          type: 'totalUser',
-                        ));
-                  },
-                  child: AllMembersCard(
-                    leftTitle: tr('AllMember'),
-                    leftValue: teamMembers.totalUser.toString(),
-                    rightTitle: tr('allValidMembers'),
-                    rightValue: teamMembers.totalActive.toString(),
-                    onPressActive: () {},
-                    onPressAll: () {},
-                  ),
-                ),
+              /// all
+              AllMembersCard(
+                leftTitle: tr('AllMember'),
+                leftValue: teamMembers.totalUser.toString(),
+                rightTitle: tr('allValidMembers'),
+                rightValue: teamMembers.totalActive.toString(),
+                onPressAll: () => showMemberDetail('totalUser'),
+                onPressActive: () => showMemberDetail('totalActive'),
+              ),
 
-                viewModel.getPaddingWithView(
-                  2,
-                  const Divider(
-                      color: AppColors.datePickerBorder, thickness: 1.5),
-                ),
+              viewModel.getPaddingWithView(
+                2,
+                const Divider(
+                    color: AppColors.datePickerBorder, thickness: 1.5),
+              ),
 
-                /// A class
-                GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onTap: () {
-                    viewModel.pushPage(
-                        context,
-                        TeamMemberDetailPage(
-                          startTime: startDate,
-                          endTime: endDate,
-                          type: 'direct',
-                        ));
-                  },
-                  child: AllMembersCard(
-                    leftTitle: tr('direct'),
-                    leftValue: teamMembers.direct.toString(),
-                    rightTitle: tr('activeDirect'),
-                    rightValue: teamMembers.activeDirect.toString(),
-                    onPressActive: () {},
-                    onPressAll: () {},
-                  ),
-                ),
+              /// A class
+              AllMembersCard(
+                leftTitle: tr('direct'),
+                leftValue: teamMembers.direct.toString(),
+                rightTitle: tr('activeDirect'),
+                rightValue: teamMembers.activeDirect.toString(),
+                onPressAll: () => showMemberDetail('direct'),
+                onPressActive: () => showMemberDetail('activeDirect'),
+              ),
 
-                viewModel.getPaddingWithView(
-                  2,
-                  const Divider(
-                      color: AppColors.datePickerBorder, thickness: 1.5),
-                ),
+              viewModel.getPaddingWithView(
+                2,
+                const Divider(
+                    color: AppColors.datePickerBorder, thickness: 1.5),
+              ),
 
-                /// B class
-                GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onTap: () {
-                    viewModel.pushPage(
-                        context,
-                        TeamMemberDetailPage(
-                          startTime: startDate,
-                          endTime: endDate,
-                          type: 'indirect',
-                        ));
-                  },
-                  child: AllMembersCard(
-                    leftTitle: tr('indirect'),
-                    leftValue: teamMembers.indirect.toString(),
-                    rightTitle: tr('activeIndirect'),
-                    rightValue: teamMembers.activeIndirect.toString(),
-                    onPressActive: () {},
-                    onPressAll: () {},
-                  ),
-                ),
+              /// B class
+              AllMembersCard(
+                leftTitle: tr('indirect'),
+                leftValue: teamMembers.indirect.toString(),
+                rightTitle: tr('activeIndirect'),
+                rightValue: teamMembers.activeIndirect.toString(),
+                onPressAll: () => showMemberDetail('indirect'),
+                onPressActive: () => showMemberDetail('activeIndirect'),
+              ),
 
-                viewModel.getPaddingWithView(
-                  2,
-                  const Divider(
-                      color: AppColors.datePickerBorder, thickness: 1.5),
-                ),
+              viewModel.getPaddingWithView(
+                2,
+                const Divider(
+                    color: AppColors.datePickerBorder, thickness: 1.5),
+              ),
 
-                /// C class
-                GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onTap: () {
-                    viewModel.pushPage(
-                        context,
-                        TeamMemberDetailPage(
-                          startTime: startDate,
-                          endTime: endDate,
-                          type: 'third',
-                        ));
-                  },
-                  child: AllMembersCard(
-                    leftTitle: tr('third'),
-                    leftValue: teamMembers.third.toString(),
-                    rightTitle: tr('activeThird'),
-                    rightValue: teamMembers.activeThird.toString(),
-                    onPressActive: () {},
-                    onPressAll: () {},
-                  ),
-                ),
-              ],
-            )));
+              /// C class
+              AllMembersCard(
+                leftTitle: tr('third'),
+                leftValue: teamMembers.third.toString(),
+                rightTitle: tr('activeThird'),
+                rightValue: teamMembers.activeThird.toString(),
+                onPressAll: () => showMemberDetail('third'),
+                onPressActive: () => showMemberDetail('activeThird'),
+              )
+            ])));
   }
 
   Future<void> _showDatePicker(BuildContext context) async {
@@ -215,5 +171,12 @@ class BodyState extends State<Body> {
                       }),
             });
     debugPrint('startDate: $startDate');
+  }
+
+  void showMemberDetail(String type) {
+    viewModel.pushPage(
+        context,
+        TeamMemberDetailPage(
+            startTime: startDate, endTime: endDate, type: type));
   }
 }

@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
@@ -30,7 +30,7 @@ class AllMembersCard extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            GestureDetector(
+            InkWell(
               onTap: () => onPressAll(),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,7 +52,7 @@ class AllMembersCard extends StatelessWidget {
                     ),
                   ]),
             ),
-            GestureDetector(
+            InkWell(
               onTap: () => onPressActive(),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

@@ -7,6 +7,7 @@ import '../../../widgets/list_view/team/member_detail_item.dart';
 
 class TeamMemberDetailViewModel extends BaseListViewModel {
   TeamMemberDetailViewModel({
+    super.hasTopView = true,
     required super.onListChange,
     required this.startTime,
     required this.endTime,
@@ -19,6 +20,10 @@ class TeamMemberDetailViewModel extends BaseListViewModel {
 
   @override
   Widget buildSeparatorView(BuildContext context, int index) {
+    return Padding(padding: EdgeInsets.all(UIDefine.getScreenWidth(3)));
+  }
+  @override
+  Widget buildTopView() {
     return Padding(padding: EdgeInsets.all(UIDefine.getScreenWidth(3)));
   }
 
