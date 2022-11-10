@@ -191,4 +191,5 @@ class AppImagePath {
 
   ///notify
   static const String notifyGift = '$appImgPath/img_gift_01.png';
+  static const String emptyCoffee = '$appImgPath/img_coffee_01.png';
 }

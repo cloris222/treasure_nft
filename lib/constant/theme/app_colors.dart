@@ -24,7 +24,7 @@ class AppColors {
   static const Color pageUnChoose = Color(0xFFD9D9D9);
   static const Color jarCoinBg = Color(0xFF003268);
   static const Color homeArtBg = Color(0xFFEFF4FA);
-  static const Color serverBg = Color(0xFF1D7CFA);
+  static const Color emptyCoffee = Color(0xFF5FC8AE);
 
   ///MARK:主題色彩
   static const Color mainThemeButton = Color(0xFF3B82F6);

@@ -10,21 +10,14 @@ import 'package:treasure_nft_project/widgets/dialog/list_dialog.dart';
 import 'lower_invite_listview.dart';
 import 'lower_nft_listview.dart';
 
-class MemberDetailItemView extends StatefulWidget {
+class MemberDetailItemView extends StatelessWidget {
   const MemberDetailItemView({super.key, required this.itemData});
 
   final MemberDetailPageList itemData;
 
   @override
-  State<StatefulWidget> createState() => _MemberDetailItem();
-}
-
-class _MemberDetailItem extends State<MemberDetailItemView> {
-  TeamMemberViewModel viewModel = TeamMemberViewModel();
-  bool _loadingNFT = true;
-
-  @override
   Widget build(BuildContext context) {
+    TeamMemberViewModel viewModel = TeamMemberViewModel();
     TextStyle titleStyle = TextStyle(
         color: AppColors.dialogGrey,
         fontSize: UIDefine.fontSize12,
@@ -59,8 +52,7 @@ class _MemberDetailItem extends State<MemberDetailItemView> {
                         viewModel.getPadding(1),
                         SizedBox(
                           width: UIDefine.getScreenWidth(35),
-                          child:
-                              Text(widget.itemData.email, style: contentStyle),
+                          child: Text(itemData.email, style: contentStyle),
                         ),
                       ]),
 
@@ -70,8 +62,7 @@ class _MemberDetailItem extends State<MemberDetailItemView> {
                     children: [
                       Text(tr('phone'), style: titleStyle),
                       viewModel.getPadding(1),
-                      Text(widget.itemData.phone.toString(),
-                          style: contentStyle),
+                      Text(itemData.phone.toString(), style: contentStyle),
                     ],
                   ),
 
@@ -88,8 +79,8 @@ class _MemberDetailItem extends State<MemberDetailItemView> {
                         ),
                         viewModel.getPadding(0.5),
                         Text(
-                            NumberFormatUtil().removeTwoPointFormat(
-                                widget.itemData.tradingVolume),
+                            NumberFormatUtil()
+                                .removeTwoPointFormat(itemData.tradingVolume),
                             style: contentStyle),
                       ]),
                     ],
@@ -106,19 +97,7 @@ class _MemberDetailItem extends State<MemberDetailItemView> {
                           borderRadius: BorderRadius.circular(10))),
                     ),
 
-                    onPressed: () {
-                      viewModel
-                          .getLowerNFT(
-                              widget.itemData.itemCount, widget.itemData.userId)
-                          .then((value) => {
-                                ListDialog(
-                                  context,
-                                  mainText: tr('NFTs'),
-                                  callOkFunction: () {},
-                                  listView: LowerNFTListView(list: value),
-                                ).show(),
-                              });
-                    },
+                    onPressed: () => _onShowNFTs(context, viewModel),
 
                     child: Container(
                         padding: EdgeInsets.only(
@@ -138,7 +117,7 @@ class _MemberDetailItem extends State<MemberDetailItemView> {
                               left: UIDefine.getScreenWidth(6),
                             )),
                             Text(
-                              widget.itemData.itemCount.toString(),
+                              itemData.itemCount.toString(),
                               style: const TextStyle(
                                   color: AppColors.mainThemeButton),
                             ),
@@ -157,7 +136,7 @@ class _MemberDetailItem extends State<MemberDetailItemView> {
                     children: [
                       Text(tr('nickname'), style: titleStyle),
                       viewModel.getPadding(1),
-                      Text(widget.itemData.userName, style: contentStyle),
+                      Text(itemData.userName, style: contentStyle),
                     ],
                   ),
 
@@ -175,8 +154,8 @@ class _MemberDetailItem extends State<MemberDetailItemView> {
                           ),
                           viewModel.getPadding(0.5),
                           Text(
-                              NumberFormatUtil().removeTwoPointFormat(
-                                  widget.itemData.totalPrice),
+                              NumberFormatUtil()
+                                  .removeTwoPointFormat(itemData.totalPrice),
                               style: contentStyle),
                         ],
                       )
@@ -217,19 +196,7 @@ class _MemberDetailItem extends State<MemberDetailItemView> {
                                 width: 2, color: AppColors.mainThemeButton),
                             borderRadius: BorderRadius.circular(10))),
                       ),
-                      onPressed: () {
-                        viewModel
-                            .getLowerInvite(widget.itemData.inviteCount,
-                                widget.itemData.userId)
-                            .then((value) => {
-                                  ListDialog(
-                                    context,
-                                    mainText: tr('invite'),
-                                    callOkFunction: () {},
-                                    listView: LowerInviteListView(list: value),
-                                  ).show(),
-                                });
-                      },
+                      onPressed: () => _onShowInvite(context, viewModel),
                       child: Container(
                           padding: EdgeInsets.only(
                             left: UIDefine.getScreenWidth(2),
@@ -244,7 +211,7 @@ class _MemberDetailItem extends State<MemberDetailItemView> {
                               ),
                               viewModel.getPadding(3),
                               Text(
-                                widget.itemData.inviteCount.toString(),
+                                itemData.inviteCount.toString(),
                                 style: const TextStyle(
                                     color: AppColors.mainThemeButton),
                               ),
@@ -253,5 +220,86 @@ class _MemberDetailItem extends State<MemberDetailItemView> {
                 ],
               ),
             ]));
+  }
+
+  _onShowInvite(BuildContext context, TeamMemberViewModel viewModel) {
+    if (itemData.inviteCount == 0) {
+      ListDialog(
+        context,
+        mainText: tr('invite'),
+        callOkFunction: () {},
+        listView: _buildEmptyView(),
+      ).show();
+    } else {
+      viewModel
+          .getLowerInvite(itemData.inviteCount, itemData.userId)
+          .then((value) => {
+                ListDialog(
+                  context,
+                  mainText: tr('invite'),
+                  callOkFunction: () {},
+                  listView: LowerInviteListView(list: value),
+                ).show(),
+              });
+    }
+  }
+
+  _onShowNFTs(BuildContext context, TeamMemberViewModel viewModel) {
+    if (itemData.itemCount == 0) {
+      ListDialog(
+        context,
+        mainText: tr('NFTs'),
+        callOkFunction: () {},
+        listView: _buildEmptyView(),
+      ).show();
+    } else {
+      viewModel
+          .getLowerNFT(itemData.itemCount, itemData.userId)
+          .then((value) => {
+                ListDialog(
+                  context,
+                  mainText: tr('NFTs'),
+                  callOkFunction: () {},
+                  listView: LowerNFTListView(list: value),
+                ).show(),
+              });
+    }
+  }
+
+  Widget _buildEmptyView() {
+    Widget space = SizedBox(height: UIDefine.getScreenHeight(2));
+    return Container(
+        height: UIDefine.getScreenHeight(50),
+        alignment: Alignment.center,
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Image.asset(
+                  AppImagePath.emptyCoffee,
+                  height: UIDefine.getWidth() * 0.25,
+                  fit: BoxFit.fitHeight,
+                ),
+                space,
+                Text(
+                  'No Notifications',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.emptyCoffee,
+                      fontSize: UIDefine.fontSize14),
+                ),
+                space
+              ]),
+          Center(
+            child: Text(tr('noData'),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.emptyCoffee.withOpacity(0.3),
+                    fontSize: UIDefine.fontSize16)),
+          ),
+          space
+        ]));
   }
 }

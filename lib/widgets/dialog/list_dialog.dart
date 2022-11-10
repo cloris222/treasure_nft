@@ -30,6 +30,7 @@ class ListDialog extends BaseDialog {
           Text('$mainText',
               style: TextStyle(
                 fontSize: UIDefine.fontSize24,
+                fontWeight: FontWeight.w500
               )
           ),
 
@@ -52,7 +53,7 @@ class ListDialog extends BaseDialog {
                     right: UIDefine.getScreenWidth(20),
                     top: UIDefine.getScreenWidth(6),
                 ),
-                btnText: tr("check"),
+                btnText: tr("confirm"),
                 onPressed: _onPress,
                 isBorderStyle: false),
           )

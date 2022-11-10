@@ -45,8 +45,7 @@ class _LowerInviteItem extends State<LowerInviteItemView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                     Text(
-                        BaseViewModel().changeTimeZone(widget.itemData.time,
-                            strFormat: 'yyyy-MM-dd HH:mm:ss'),
+                        BaseViewModel().changeTimeZone(widget.itemData.time),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
