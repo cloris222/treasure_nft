@@ -53,6 +53,12 @@ abstract class BaseListViewModel extends BaseViewModel {
     return const SizedBox();
   }
 
+  ///MARK: 建立間隔view
+  @protected
+  Widget buildSeparatorView(BuildContext context, int index) {
+    return const SizedBox();
+  }
+
   List<dynamic> getList() {
     return currentItems;
   }
@@ -69,10 +75,6 @@ abstract class BaseListViewModel extends BaseViewModel {
     nextItems = await loadData(currentPage + 1, maxLoad);
   }
 
-  bool _checkHasNextPage() {
-    return nextItems.isNotEmpty;
-  }
-
   void _readMorePage() {
     currentPage += 1;
   }
@@ -84,7 +86,7 @@ abstract class BaseListViewModel extends BaseViewModel {
       length += 1;
     }
     return _buildListListener(
-        listBody: ListView.builder(
+        listBody: ListView.separated(
             itemCount: length,
             shrinkWrap: hasTopView ? true : shrinkWrap,
             physics:
@@ -103,7 +105,9 @@ abstract class BaseListViewModel extends BaseViewModel {
                 }
                 return _buildLoading();
               }
-            }));
+            },
+            separatorBuilder: (BuildContext context, int index) =>
+                buildSeparatorView(context, index)));
   }
 
   Widget buildGridView({

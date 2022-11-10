@@ -11,7 +11,6 @@ import 'package:treasure_nft_project/views/personal/team/widget/all_members_card
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/date_picker/date_picker.dart';
 
-
 ///MARK:團隊成員
 class TeamMemberPage extends StatelessWidget {
   const TeamMemberPage({Key? key}) : super(key: key);
@@ -49,139 +48,172 @@ class BodyState extends State<Body> {
   void initState() {
     super.initState();
     viewModel.getTeamMembers('', '').then((value) => {
-      teamMembers = value,
-      setState(() {}),
-    });
+          teamMembers = value,
+          setState(() {}),
+        });
   }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-
-        child:Padding(
+        child: Padding(
             padding: EdgeInsets.only(
-                left:UIDefine.getScreenWidth(6),
+                left: UIDefine.getScreenWidth(6),
                 right: UIDefine.getScreenWidth(6)),
+            child: Column(
+              children: [
+                viewModel.getPadding(3),
 
-            child:Column(children: [
-              viewModel.getPadding(3),
-              /// 日期選擇器 & 按鈕
-              DatePickerWidget(
-                dateCallback: (String startDate, String endDate) async {
-                  await viewModel.getTeamMembers(startDate, endDate,
-                  ).then((value)  => {teamMembers = value});
-                  setState(() {});
-                },
-              ),
-
-              /// all members
-              Container(
-                alignment: Alignment.centerLeft,
-                width: UIDefine.getWidth(),
-                height: UIDefine.getScreenHeight(10),
-                child: Text(tr('AllMembers'),
-                  style: TextStyle(fontSize: UIDefine.fontSize14),
+                /// 日期選擇器 & 按鈕
+                DatePickerWidget(
+                  dateCallback: (String startDate, String endDate) async {
+                    await viewModel
+                        .getTeamMembers(
+                          startDate,
+                          endDate,
+                        )
+                        .then((value) => {teamMembers = value});
+                    setState(() {});
+                  },
                 ),
-              ),
 
-              /// all
-              GestureDetector(
-                behavior: HitTestBehavior.translucent,
-                onTap: () {
-                  viewModel.pushPage(context, TeamMemberDetailPage(
-                    startTime: startDate,
-                    endTime: endDate,
-                    type: 'totalUser',));
-                },
-                child:AllMembersCard(
-                  leftTitle: tr('AllMember'),
-                  leftValue: teamMembers.totalUser.toString(),
-                  rightTitle: tr('allValidMembers'),
-                  rightValue: teamMembers.totalActive.toString(),
+                /// all members
+                Container(
+                  alignment: Alignment.centerLeft,
+                  width: UIDefine.getWidth(),
+                  height: UIDefine.getScreenHeight(10),
+                  child: Text(
+                    tr('AllMembers'),
+                    style: TextStyle(fontSize: UIDefine.fontSize14),
+                  ),
                 ),
-              ),
 
+                /// all
+                GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () {
+                    viewModel.pushPage(
+                        context,
+                        TeamMemberDetailPage(
+                          startTime: startDate,
+                          endTime: endDate,
+                          type: 'totalUser',
+                        ));
+                  },
+                  child: AllMembersCard(
+                    leftTitle: tr('AllMember'),
+                    leftValue: teamMembers.totalUser.toString(),
+                    rightTitle: tr('allValidMembers'),
+                    rightValue: teamMembers.totalActive.toString(),
+                    onPressActive: () {},
+                    onPressAll: () {},
+                  ),
+                ),
 
-              viewModel.getPaddingWithView(2,
-                const Divider(color: AppColors.datePickerBorder,thickness:1.5),
-              ),
+                viewModel.getPaddingWithView(
+                  2,
+                  const Divider(
+                      color: AppColors.datePickerBorder, thickness: 1.5),
+                ),
 
-              /// A class
-            GestureDetector(
-              behavior: HitTestBehavior.translucent,
-              onTap: () {
-                viewModel.pushPage(context, TeamMemberDetailPage(
-                  startTime: startDate,
-                  endTime: endDate,
-                  type: 'direct',));
-              },
-              child:AllMembersCard(
-                leftTitle: tr('direct'),
-                leftValue: teamMembers.direct.toString(),
-                rightTitle: tr('activeDirect'),
-                rightValue: teamMembers.activeDirect.toString(),
-              ),
-            ),
+                /// A class
+                GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () {
+                    viewModel.pushPage(
+                        context,
+                        TeamMemberDetailPage(
+                          startTime: startDate,
+                          endTime: endDate,
+                          type: 'direct',
+                        ));
+                  },
+                  child: AllMembersCard(
+                    leftTitle: tr('direct'),
+                    leftValue: teamMembers.direct.toString(),
+                    rightTitle: tr('activeDirect'),
+                    rightValue: teamMembers.activeDirect.toString(),
+                    onPressActive: () {},
+                    onPressAll: () {},
+                  ),
+                ),
 
-              viewModel.getPaddingWithView(2,
-                const Divider(color: AppColors.datePickerBorder,thickness:1.5),
-              ),
+                viewModel.getPaddingWithView(
+                  2,
+                  const Divider(
+                      color: AppColors.datePickerBorder, thickness: 1.5),
+                ),
 
-              /// B class
-            GestureDetector(
-              behavior: HitTestBehavior.translucent,
-              onTap: () {
-                viewModel.pushPage(context, TeamMemberDetailPage(
-                  startTime: startDate,
-                  endTime: endDate,
-                  type: 'indirect',));
-              },
-              child:AllMembersCard(
-                leftTitle: tr('indirect'),
-                leftValue: teamMembers.indirect.toString(),
-                rightTitle: tr('activeIndirect'),
-                rightValue: teamMembers.activeIndirect.toString(),
-              ),
-            ),
+                /// B class
+                GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () {
+                    viewModel.pushPage(
+                        context,
+                        TeamMemberDetailPage(
+                          startTime: startDate,
+                          endTime: endDate,
+                          type: 'indirect',
+                        ));
+                  },
+                  child: AllMembersCard(
+                    leftTitle: tr('indirect'),
+                    leftValue: teamMembers.indirect.toString(),
+                    rightTitle: tr('activeIndirect'),
+                    rightValue: teamMembers.activeIndirect.toString(),
+                    onPressActive: () {},
+                    onPressAll: () {},
+                  ),
+                ),
 
-              viewModel.getPaddingWithView(2,
-                const Divider(color: AppColors.datePickerBorder,thickness:1.5),
-              ),
+                viewModel.getPaddingWithView(
+                  2,
+                  const Divider(
+                      color: AppColors.datePickerBorder, thickness: 1.5),
+                ),
 
-              /// C class
-            GestureDetector(
-              behavior: HitTestBehavior.translucent,
-              onTap: () {
-                viewModel.pushPage(context, TeamMemberDetailPage(
-                  startTime: startDate,
-                  endTime: endDate,
-                  type: 'third',));
-              },
-              child:AllMembersCard(
-                leftTitle: tr('third'),
-                leftValue: teamMembers.third.toString(),
-                rightTitle: tr('activeThird'),
-                rightValue: teamMembers.activeThird.toString(),
-              ),
-            ),
-
-            ],)));
+                /// C class
+                GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () {
+                    viewModel.pushPage(
+                        context,
+                        TeamMemberDetailPage(
+                          startTime: startDate,
+                          endTime: endDate,
+                          type: 'third',
+                        ));
+                  },
+                  child: AllMembersCard(
+                    leftTitle: tr('third'),
+                    leftValue: teamMembers.third.toString(),
+                    rightTitle: tr('activeThird'),
+                    rightValue: teamMembers.activeThird.toString(),
+                    onPressActive: () {},
+                    onPressAll: () {},
+                  ),
+                ),
+              ],
+            )));
   }
 
-  Future<void> _showDatePicker(BuildContext context) async{
+  Future<void> _showDatePicker(BuildContext context) async {
     await showDateRangePicker(
-        context:context,
-        firstDate: DateTime(2022, 10),
-        lastDate: DateTime.now()).then((value) => {
-      startDate = viewModel.dateTimeFormat(value?.start),
-      endDate = viewModel.dateTimeFormat(value?.end),
-    }).then((value) async => {
-      await viewModel.getTeamMembers(startDate, endDate).then((value) => {
-        teamMembers = value,
-        setState(() {}),
-      }),
-    });
+            context: context,
+            firstDate: DateTime(2022, 10),
+            lastDate: DateTime.now())
+        .then((value) => {
+              startDate = viewModel.dateTimeFormat(value?.start),
+              endDate = viewModel.dateTimeFormat(value?.end),
+            })
+        .then((value) async => {
+              await viewModel
+                  .getTeamMembers(startDate, endDate)
+                  .then((value) => {
+                        teamMembers = value,
+                        setState(() {}),
+                      }),
+            });
     debugPrint('startDate: $startDate');
   }
-
 }

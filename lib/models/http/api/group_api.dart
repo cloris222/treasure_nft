@@ -28,19 +28,26 @@ class GroupAPI extends HttpManager {
   }
 
   /// 查詢成員詳細
-  Future<ApiResponse> getMemberDetail(
+  Future<List<MemberDetailPageList>> getMemberDetail(
       {required int page,
       int size = 2,
       required String type,
       required String startTime,
       required String endTime}) async {
-    return await get('/group/member-list', queryParameters: {
+
+    List<MemberDetailPageList> list = [];
+    var response = await get('/group/member-list', queryParameters: {
       'page': page,
       'size': size,
       'startTime': startTime,
       'endTime': endTime,
       'type': type,
     });
+
+    for (Map<String, dynamic> json in response.data['pageList']) {
+      list.add(MemberDetailPageList.fromJson(json));
+    }
+    return list;
   }
 
   /// 查詢下線持有物品

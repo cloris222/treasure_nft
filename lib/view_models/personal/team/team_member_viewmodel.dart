@@ -29,27 +29,6 @@ class TeamMemberViewModel extends BaseViewModel {
         .getMembers(startTime: getStartTime(startTime), endTime: getEndTime(endTime));
   }
 
-  /// 查詢成員詳細
-  Future< List<MemberDetailPageList>> getMemberDetail(
-      int page, String startTime, String endTime, String type,
-      {ResponseErrorFunction? onConnectFail}) async {
-    List<MemberDetailPageList> list = [];
-
-    var response = await GroupAPI(onConnectFail: onConnectFail)
-        .getMemberDetail(
-        page: page,
-        startTime: startTime,
-        endTime: endTime,
-        type: type,
-    );
-    memberDetailTotalPages = response.data['totalPages'];
-
-    for (Map<String, dynamic> json in response.data['pageList']) {
-      list.add(MemberDetailPageList.fromJson(json));
-    }
-    return list;
-  }
-
   /// 查詢下線持有物品
   Future< List<LowerNftData>> getLowerNFT(
       int page, String lowerId,

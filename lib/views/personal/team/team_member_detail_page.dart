@@ -7,15 +7,16 @@ import 'package:treasure_nft_project/views/personal/team/widget/number_paginator
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/list_view/team/member_detail_listview.dart';
 
+import '../../../view_models/personal/team/team_member_datail_viewmodel.dart';
 import '../../custom_appbar_view.dart';
-
 
 ///MARK:成員詳細
 class TeamMemberDetailPage extends StatefulWidget {
-  const TeamMemberDetailPage({super.key,
-    required this.startTime,
-    required this.endTime,
-    required this.type});
+  const TeamMemberDetailPage(
+      {super.key,
+      required this.startTime,
+      required this.endTime,
+      required this.type});
 
   final String startTime;
   final String endTime;
@@ -28,7 +29,8 @@ class TeamMemberDetailPage extends StatefulWidget {
 }
 
 class _TeamMemberDetailPage extends State<TeamMemberDetailPage> {
-  TeamMemberViewModel viewModel = TeamMemberViewModel();
+  TeamMemberViewModel memberViewModel = TeamMemberViewModel();
+  late TeamMemberDetailViewModel viewModel;
   late List<MemberDetailPageList> list = [];
   int currentPage = 1;
   bool selected = false;
@@ -36,7 +38,16 @@ class _TeamMemberDetailPage extends State<TeamMemberDetailPage> {
   @override
   void initState() {
     super.initState();
-    callMemberDetail();
+    viewModel = TeamMemberDetailViewModel(
+        onListChange: () {
+          if (mounted) {
+            setState(() {});
+          }
+        },
+        startTime: widget.startTime,
+        endTime: widget.endTime,
+        type: widget.type);
+    viewModel.initListView();
   }
 
   @override
@@ -45,48 +56,10 @@ class _TeamMemberDetailPage extends State<TeamMemberDetailPage> {
         needScrollView: false,
         title: tr("teamDetail"),
         type: AppNavigationBarType.typePersonal,
-        body: SingleChildScrollView(
-          child: Padding(
+        body: Padding(
             padding: EdgeInsets.only(
-                left:UIDefine.getScreenWidth(6),
+                left: UIDefine.getScreenWidth(6),
                 right: UIDefine.getScreenWidth(6)),
-            child:Column(
-                children: [
-                  viewModel.getPadding(3),
-
-                  MemberDetailListView(list: list),
-
-                  viewModel.getPadding(3),
-
-
-                  SizedBox(
-                    height: UIDefine.getScreenHeight(8),
-                    child:NumberPaginatorWidget(
-                      onPageChange: (int index){
-                        currentPage = index;
-                        debugPrint('currentPage" $currentPage');
-                        callMemberDetail();
-                        setState(() {});
-                      },
-                      totalPages: viewModel.memberDetailTotalPages,
-                    ),
-                  ),
-
-                ]),
-          ),
-
-
-          ));
-  }
-
-  callMemberDetail() {
-    debugPrint('callMemberDetail');
-    viewModel.getMemberDetail(currentPage, widget.startTime,
-        widget.endTime, widget.type).then((value) => {
-      list = value,
-      setState(() {}),
-    });
+            child: viewModel.buildListView()));
   }
 }
-
-
