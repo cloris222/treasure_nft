@@ -147,10 +147,7 @@ class HomeMainView extends StatelessWidget {
         viewModel.getPadding(2),
 
         /// 教學影片
-        SizedBox(
-          width: UIDefine.getWidth(),
-          child: const VideoPlayWidget(),
-        ),
+        const VideoPlayWidget(),
 
         /// 贊助
         sponsor(),
@@ -745,28 +742,66 @@ class VideoPlayWidgetState extends State<VideoPlayWidget> {
         'https://devimage.treasurenft.xyz/Treasure2.5/index/pc_ad_01.mp4')
       ..initialize().then((value) {
         setState(() {});
-      })
-      ..play()
-      ..setLooping(true);
+        _controller.setLooping(true);
+      });
 
     super.initState();
   }
 
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: _controller.value.isInitialized
-          ? AspectRatio(
-              aspectRatio: _controller.value.aspectRatio,
-              child: VideoPlayer(_controller),
-            )
-          : Container(),
+    return SizedBox(
+      width: UIDefine.getWidth(),
+      height: UIDefine.getScreenHeight(27),
+      child: Container(
+        child: _controller.value.isInitialized
+            ? _controller.value.isPlaying
+                ? InkWell(
+                    onTap: _onStop,
+                    child: AspectRatio(
+                      aspectRatio: _controller.value.aspectRatio,
+                      child: VideoPlayer(_controller),
+                    ),
+                  )
+                : Container(
+                    color: Colors.white,
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.all(UIDefine.getScreenWidth(2)),
+                    child: InkWell(
+                        onTap: _onStart,
+                        child: Stack(alignment: Alignment.center, children: [
+                          Image.asset(AppImagePath.videoImg,
+                              height: UIDefine.getScreenHeight(15)),
+                          Opacity(
+                            opacity: 0.87,
+                            child: CircleAvatar(
+                                radius: UIDefine.getScreenWidth(8),
+                                backgroundColor: Colors.white,
+                                child: Icon(
+                                  Icons.play_arrow,
+                                  color: Colors.black,
+                                  size: UIDefine.getScreenWidth(8),
+                                )),
+                          )
+                        ])))
+            : Container(),
+      ),
     );
+  }
+
+  void _onStop() {
+    _controller.pause().then((value) => setState(() {}));
+  }
+
+  void _onStart() {
+    _controller
+        .seekTo(const Duration(seconds: 0))
+        .then((value) => _controller.play().then((value) => setState(() {})));
   }
 }

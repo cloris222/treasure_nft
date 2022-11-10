@@ -106,6 +106,7 @@ class AppImagePath {
   static const String fb = '$footer/btn_fb_01_nor.png';
   static const String ig = '$footer/btn_ig_01_nor.png';
   static const String dc = '$footer/btn_discord_01_nor.png';
+  static const String videoImg = '$appLogoPath/logo_treasurenft_02.png';
 
   /// personal page
   static const String defaultBanner = '$appImgPath/img_banner_01_defult.png';
