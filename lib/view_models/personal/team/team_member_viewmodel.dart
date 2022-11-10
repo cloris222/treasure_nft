@@ -55,29 +55,6 @@ class TeamMemberViewModel extends BaseViewModel {
     return list;
   }
 
-  /// 查詢團隊貢獻
-  Future<TeamContribute> getContribute(String startTime, String endTime,
-      {ResponseErrorFunction? onConnectFail}) async {
-    return await GroupAPI(onConnectFail: onConnectFail).getContribute(
-        startTime: getStartTime(startTime), endTime: getEndTime(endTime));
-  }
-
-  /// 查詢團隊貢獻名單
-  Future<List<TeamContributeList>> getContributeList(
-      String startTime, String endTime,
-      {ResponseErrorFunction? onConnectFail}) async {
-    List<TeamContributeList> list = [];
-
-    var response = await GroupAPI(onConnectFail: onConnectFail)
-        .getContributeList(
-            startTime: getStartTime(startTime), endTime: getEndTime(endTime));
-
-    for (Map<String, dynamic> json in response.data['pageList']) {
-      list.add(TeamContributeList.fromJson(json));
-    }
-    return list;
-  }
-
   /// 查詢群組會員列表
   Future<GroupList> getGroupList({ResponseErrorFunction? onConnectFail}) async {
     return await GroupAPI(onConnectFail: onConnectFail).getGroupList();

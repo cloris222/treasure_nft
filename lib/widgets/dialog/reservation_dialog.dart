@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/view_models/trade/reservation_viewmodel.dart';
 import 'package:treasure_nft_project/widgets/dialog/base_close_dialog.dart';

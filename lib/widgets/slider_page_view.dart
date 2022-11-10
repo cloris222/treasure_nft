@@ -42,25 +42,23 @@ class _SliderPageViewState extends State<SliderPageView> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: UIDefine.getHeight(),
-      child: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(child: widget.topView),
-            SliverFillRemaining(
-              child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Column(children: [
-                    _buildButtonList(),
-                    Flexible(child: _buildPageView()),
-                    SizedBox(height: UIDefine.getScreenHeight(10))
-                  ])),
-            )
-          ],
-        ),
-      ),
-    );
+    return MediaQuery.removePadding(
+        context: context,
+        removeBottom: true,
+        child: SizedBox(
+            height: UIDefine.getHeight(),
+            child: SafeArea(
+                child: CustomScrollView(slivers: [
+              SliverToBoxAdapter(child: widget.topView),
+              SliverFillRemaining(
+                  child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Column(children: [
+                        _buildButtonList(),
+                        Flexible(child: _buildPageView()),
+                        SizedBox(height: UIDefine.getScreenHeight(10))
+                      ])))
+            ]))));
   }
 
   Widget _buildButtonList() {

@@ -34,7 +34,6 @@ class GroupAPI extends HttpManager {
       required String type,
       required String startTime,
       required String endTime}) async {
-
     List<MemberDetailPageList> list = [];
     var response = await get('/group/member-list', queryParameters: {
       'page': page,
@@ -81,19 +80,24 @@ class GroupAPI extends HttpManager {
   }
 
   /// 查詢團隊貢獻名單
-  Future<ApiResponse> getContributeList(
+  Future<List<TeamContributeList>> getContributeList(
       {int page = 1,
       int size = 20,
       type = '',
       required String startTime,
       required String endTime}) async {
-    return await get('/group/contribute-list', queryParameters: {
+    List<TeamContributeList> list = [];
+    var response = await get('/group/contribute-list', queryParameters: {
       'page': page,
       'size': size,
       'startTime': startTime,
       'endTime': endTime,
       'type': type,
     });
+    for (Map<String, dynamic> json in response.data['pageList']) {
+      list.add(TeamContributeList.fromJson(json));
+    }
+    return list;
   }
 
   /// 查詢團隊訂單

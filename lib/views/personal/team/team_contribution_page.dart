@@ -1,16 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/constant/enum/team_enum.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
-import 'package:treasure_nft_project/models/http/parameter/team_contribute_data.dart';
-import 'package:treasure_nft_project/models/http/parameter/team_contribute_list_data.dart';
+import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
+import 'package:treasure_nft_project/views/personal/team/team_contribution_member_view.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
-import 'package:treasure_nft_project/widgets/date_picker/date_picker.dart';
-import 'package:treasure_nft_project/widgets/list_view/team/team_contribute_listview.dart';
+import 'package:treasure_nft_project/widgets/date_picker/custom_date_picker.dart';
 
+import '../../../view_models/personal/team/team_contribution_viewmodel.dart';
+import '../../../widgets/slider_page_view.dart';
 
 ///MARK:團隊貢獻
 class TeamContributionPage extends StatelessWidget {
@@ -27,7 +27,6 @@ class TeamContributionPage extends StatelessWidget {
   }
 }
 
-
 class Body extends StatefulWidget {
   const Body({super.key});
 
@@ -38,242 +37,130 @@ class Body extends StatefulWidget {
 }
 
 class BodyState extends State<Body> {
-  TeamMemberViewModel viewModel = TeamMemberViewModel();
+  TeamMemberViewModel memberViewModel = TeamMemberViewModel();
+  late TeamContributionViewModel viewModel;
 
-  String startDate = 'Select date';
-  String endDate = '';
-
-  Search buttonType = Search.All;
-  TeamContribute teamContribute = TeamContribute();
-  List<TeamContributeList> teamContributeList = [];
+  List<String> titles = [
+    'A${tr('levelMember')}',
+    'B${tr('levelMember')}',
+    'C${tr('levelMember')}',
+  ];
 
   @override
   void initState() {
     super.initState();
-    viewModel.getContribute('', '').then((value) => {
-      teamContribute = value,
-      setState(() {}),
+    viewModel = TeamContributionViewModel(onListChange: () {
+      if (mounted) {
+        setState(() {});
+      }
     });
-
-    viewModel.getContributeList('', '').then((value) => {
-      teamContributeList = value,
-      setState(() {}),
-    });
+    viewModel.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: Padding(
-            padding: EdgeInsets.only(
-                left: UIDefine.getScreenWidth(6),
-                right: UIDefine.getScreenWidth(6)),
+    return SliderPageView(
+        titles: titles,
+        initialPage: 0,
+        topView: _buildTopView(),
+        getPageIndex: _onChangeView,
+        children: [
+          TeamContributionMemberView(viewModel: viewModel, type: 'A'),
+          TeamContributionMemberView(viewModel: viewModel, type: 'B'),
+          TeamContributionMemberView(viewModel: viewModel, type: 'C'),
+        ]);
+  }
 
-            child: Column(children: [
-              viewModel.getPadding(3),
+  Widget _buildTopView() {
+    return Padding(
+        padding: EdgeInsets.only(
+            left: UIDefine.getScreenWidth(6),
+            right: UIDefine.getScreenWidth(6)),
+        child: Column(mainAxisSize: MainAxisSize.min, children: [
+          memberViewModel.getPadding(2),
 
-              /// 日期選擇器 & 按鈕
-              DatePickerWidget(
-                dateCallback: (String startDate, String endDate) async {
-                  await viewModel.getContribute('', '').then((
-                      value) => {teamContribute = value,});
-                  await viewModel.getContributeList('', '').then((
-                      value) => {teamContributeList = value,});
-                  setState(() {});
-                },
-              ),
+          /// 日期選擇器 & 按鈕
+          CustomDatePickerWidget(dateCallback: viewModel.onDataCallBack),
+          memberViewModel.getPadding(3),
 
-
-              /// 獎勵框
-              Container(
-                padding: EdgeInsets.all(UIDefine.getScreenWidth(7)),
-                decoration: BoxDecoration(
-                    color: AppColors.textWhite,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                        color: AppColors.datePickerBorder,
-                        width: 3
-                    )
-                ),
-                child: Column(
+          /// 獎勵框
+          Container(
+              padding: EdgeInsets.all(UIDefine.getScreenWidth(7)),
+              decoration: BoxDecoration(
+                  color: AppColors.textWhite,
+                  borderRadius: BorderRadius.circular(10),
+                  border:
+                      Border.all(color: AppColors.datePickerBorder, width: 3)),
+              child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        /// 總獎勵
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(tr('reward_total'),
-                              style: TextStyle(
-                                color: AppColors.textGrey,
-                                fontSize: UIDefine.fontSize12,
-                              ),
-                            ),
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          /// 總獎勵
+                          _buildInfo(tr('totalCommission'),
+                              viewModel.teamContribute.teamShare),
 
-                            viewModel.getPadding(1),
-
-                            Row(children: [
-                              viewModel.getCoinImage(),
-
-                              viewModel.getPadding(0.5),
-                              Text(teamContribute.teamShare.toString(),
-                                style: TextStyle(
-                                  color: AppColors.textBlack,
-                                  fontSize: UIDefine.fontSize14,
-                                ),
-                              ),
-                            ]),
-                          ],),
-
-
-
-                        /// A級獎勵
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              width: UIDefine.getScreenWidth(30),
-                              child:Text(tr('directShare-extra'),
-                                style: TextStyle(
-                                  color: AppColors.textGrey,
-                                  fontSize: UIDefine.fontSize12,
-                                ),
-                              ),
-                            ),
-                            viewModel.getPadding(1),
-                            Row(children: [
-                              viewModel.getCoinImage(),
-
-                              viewModel.getPadding(0.5),
-
-                              Text(teamContribute.directShare.toString(),
-                                style: TextStyle(
-                                  color: AppColors.textBlack,
-                                  fontSize: UIDefine.fontSize14,
-                                ),
-                              ),
-                            ]),
-                          ],),
-                      ],),
-
-                    viewModel.getPadding(3),
-
+                          /// A級獎勵
+                          _buildInfo(tr('A-antiCommission\''),
+                              viewModel.teamContribute.directShare),
+                        ]),
+                    memberViewModel.getPadding(3),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           /// B級獎勵
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: UIDefine.getScreenWidth(30),
-                                child:Text(tr('indirectShare-extra'),
-                                  style: TextStyle(
-                                    color: AppColors.textGrey,
-                                    fontSize: UIDefine.fontSize12,
-                                  ),
-                                ),
-                              ),
-                              viewModel.getPadding(1),
-                              Row(children: [
-                                viewModel.getCoinImage(),
-
-                                viewModel.getPadding(0.5),
-                                Text(teamContribute.indirectShare.toString(),
-                                  style: TextStyle(
-                                    color: AppColors.textBlack,
-                                    fontSize: UIDefine.fontSize14,
-                                  ),
-                                ),
-                              ]),
-                            ],
-                          ),
-
+                          _buildInfo(tr('B-antiCommission\''),
+                              viewModel.teamContribute.indirectShare),
 
                           /// C級獎勵
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: UIDefine.getScreenWidth(30),
-                                child:Text(tr('thirdShare-extra'),
-                                  style: TextStyle(
-                                    color: AppColors.textGrey,
-                                    fontSize: UIDefine.fontSize12,
-                                  ),
-                                ),
-                              ),
-                              viewModel.getPadding(1),
-                              Row(children: [
-                                viewModel.getCoinImage(),
-
-                                viewModel.getPadding(0.5),
-
-                                Text(teamContribute.thirdShare.toString(),
-                                  style: TextStyle(
-                                    color: AppColors.textBlack,
-                                    fontSize: UIDefine.fontSize14,
-                                  ),
-                                ),
-                              ]),
-                            ],),
-                        ]),
-                  ],),
-              ),
-
-              /// A級會員列表
-              Container(
-                padding: EdgeInsets.all(UIDefine.getScreenWidth(3)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(tr('direct'),
-                      style:TextStyle(
-                          fontSize: UIDefine.fontSize14
-                      ),
-                    ),
-
-                    viewModel.getPadding(1),
-
-                    SizedBox(
-                      width: UIDefine.getScreenWidth(25),
-                      child:Text(tr('bonus'),
-                        style:TextStyle(
-                            fontSize: UIDefine.fontSize14
-                        ),
-                      ),
-                    ),
-
-                  ],),
-              ),
-
-              TeamContributeListView(
-                list: teamContributeList,
-              ),
-
-            ],)));
+                          _buildInfo(tr('C-antiCommission\''),
+                              viewModel.teamContribute.thirdShare),
+                        ])
+                  ]))
+        ]));
   }
 
-  Future<void> _showDatePicker(BuildContext context) async {
-    await showDateRangePicker(
-        context: context,
-        firstDate: DateTime(2022, 10),
-        lastDate: DateTime.now()).then((value) =>
-    {
-      startDate = viewModel.dateTimeFormat(value?.start),
-      endDate = viewModel.dateTimeFormat(value?.end),
-    }).then((value) async =>
-    {
-      await viewModel.getContribute(startDate, endDate).then((value) =>
-      {
-        teamContribute = value,
-        setState(() {}),
-      }),
-    });
-    debugPrint('startDate: $startDate');
+  Widget _buildInfo(String title, dynamic value) {
+    return Flexible(
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text(title,
+            style: TextStyle(
+                color: AppColors.textGrey, fontSize: UIDefine.fontSize12)),
+        memberViewModel.getPadding(1),
+        Row(children: [
+          memberViewModel.getCoinImage(),
+          memberViewModel.getPadding(0.5),
+          Text(NumberFormatUtil().removeTwoPointFormat(value),
+              style: TextStyle(
+                  color: AppColors.textBlack, fontSize: UIDefine.fontSize14))
+        ])
+      ]),
+    );
   }
 
+  void _onChangeView(int value) {
+    String type = '';
+    switch (value) {
+      case 0:
+        {
+          type = 'direct';
+        }
+        break;
+      case 1:
+        {
+          type = 'indirect';
+        }
+        break;
+      case 2:
+        {
+          type = 'third';
+        }
+        break;
+    }
+    if (type != viewModel.type) {
+      viewModel.type = type;
+      viewModel.initListView();
+    }
+  }
 }

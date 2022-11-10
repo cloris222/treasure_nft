@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:treasure_nft_project/widgets/dialog/base_dialog.dart';
 
 import '../../constant/theme/app_colors.dart';

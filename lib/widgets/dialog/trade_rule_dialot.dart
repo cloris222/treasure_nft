@@ -1,12 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
-import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
-import 'package:treasure_nft_project/widgets/dialog/base_dialog.dart';
-
 import '../../constant/theme/app_colors.dart';
 import 'base_close_dialog.dart';
 

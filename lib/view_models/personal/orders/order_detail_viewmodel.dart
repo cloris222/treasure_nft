@@ -1,12 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:treasure_nft_project/constant/enum/setting_enum.dart';
 import 'package:treasure_nft_project/constant/enum/team_enum.dart';
 import 'package:treasure_nft_project/models/http/api/order_api.dart';
-import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
-import 'package:treasure_nft_project/utils/date_format_util.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/base_list_view_model.dart';
 import 'package:treasure_nft_project/widgets/card/item_info_card.dart';
