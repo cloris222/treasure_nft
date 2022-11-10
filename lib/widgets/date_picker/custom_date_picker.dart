@@ -159,10 +159,10 @@ class CustomDatePickerState extends State<CustomDatePickerWidget> {
       if (widget.typeCallback != null) {
         widget.typeCallback!(type);
       }
-      startDate = '';
-      endDate = '';
       switch (type) {
         case Search.All:
+          startDate = '';
+          endDate = '';
           break;
         case Search.Today:
           startDate = DateFormatUtil().getTimeWithDayFormat();

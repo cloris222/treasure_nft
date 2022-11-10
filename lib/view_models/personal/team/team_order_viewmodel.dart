@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/models/http/api/group_api.dart';
 import 'package:treasure_nft_project/view_models/base_list_view_model.dart';
-
 import '../../../widgets/list_view/team/team_order_item.dart';
 
 class TeamOrderViewModel extends BaseListViewModel {
@@ -28,8 +27,8 @@ class TeamOrderViewModel extends BaseListViewModel {
     return GroupAPI().getTeamOrder(
         page: page,
         size: size,
-        startTime: startDate,
-        endTime: endDate,
+        startTime: getStartTime(startDate),
+        endTime: getEndTime(endDate),
         sortBy: sortType,
         nameAcct: nameAcct,
         nameAcctType: nameAcctType);

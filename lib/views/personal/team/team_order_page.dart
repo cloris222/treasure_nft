@@ -4,37 +4,20 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
-import 'package:treasure_nft_project/widgets/date_picker/date_picker.dart';
 
 import '../../../view_models/personal/team/team_order_viewmodel.dart';
 import '../../../widgets/date_picker/custom_date_picker.dart';
 import '../../custom_appbar_view.dart';
 
 ///MARK:團隊訂單
-class TeamOrderPage extends StatelessWidget {
+class TeamOrderPage extends StatefulWidget {
   const TeamOrderPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return CustomAppbarView(
-      needScrollView: false,
-      title: tr("teamOrder"),
-      type: AppNavigationBarType.typePersonal,
-      body: const Body(),
-    );
-  }
+  State<TeamOrderPage> createState() => _TeamOrderPageState();
 }
 
-class Body extends StatefulWidget {
-  const Body({super.key});
-
-  @override
-  State<StatefulWidget> createState() {
-    return BodyState();
-  }
-}
-
-class BodyState extends State<Body> {
+class _TeamOrderPageState extends State<TeamOrderPage> {
   TeamMemberViewModel viewMemberModel = TeamMemberViewModel();
   late TeamOrderViewModel viewModel;
 
@@ -50,6 +33,16 @@ class BodyState extends State<Body> {
   ];
 
   @override
+  Widget build(BuildContext context) {
+    return CustomAppbarView(
+      needScrollView: false,
+      title: tr("teamOrder"),
+      type: AppNavigationBarType.typePersonal,
+      body: _buildBody(),
+    );
+  }
+
+  @override
   void initState() {
     super.initState();
     viewModel = TeamOrderViewModel(
@@ -61,9 +54,7 @@ class BodyState extends State<Body> {
         topView: _buildTopView);
     viewModel.initListView();
   }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildBody() {
     return Padding(
       padding: EdgeInsets.only(
           left: UIDefine.getScreenWidth(6), right: UIDefine.getScreenWidth(6)),
@@ -83,9 +74,11 @@ class BodyState extends State<Body> {
         /// 日期選擇器 & 按鈕
         CustomDatePickerWidget(
           dateCallback: (String startDate, String endDate) {
-            viewModel.startDate = startDate;
-            viewModel.endDate = endDate;
-            viewModel.initListView();
+           if(startDate!=startDate||endDate!=endDate){
+             viewModel.startDate = startDate;
+             viewModel.endDate = endDate;
+             viewModel.initListView();
+           }
           },
         ),
         viewMemberModel.getPadding(3),

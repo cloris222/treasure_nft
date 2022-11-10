@@ -7,7 +7,7 @@ String lowerInviteDataToJson(LowerInviteData data) => json.encode(data.toJson())
 
 class LowerInviteData {
   LowerInviteData({
-    this.time,
+    this.time='',
     this.userName = '',
     this.account = '',
     this.email = '',
@@ -15,7 +15,7 @@ class LowerInviteData {
     this.isActive,
   });
 
-  dynamic time;
+  String time;
   String userName;
   String account;
   String email;
@@ -32,7 +32,7 @@ class LowerInviteData {
   );
 
   Map<String, dynamic> toJson() => {
-    "time": time.toIso8601String(),
+    "time": time,
     "userName": userName,
     "account": account,
     "email": email,

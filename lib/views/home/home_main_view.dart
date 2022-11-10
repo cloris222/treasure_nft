@@ -214,74 +214,519 @@ class HomeMainView extends StatelessWidget {
             ),
     );
   }
-}
 
-Widget hotCollection() {
-  return Column(
-    children: [
-      Row(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(
-              left: UIDefine.getScreenHeight(1.5),
-              right: UIDefine.getScreenHeight(1.5),
+  Widget hotCollection() {
+    return Column(
+      children: [
+        Row(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                left: UIDefine.getScreenHeight(1.5),
+                right: UIDefine.getScreenHeight(1.5),
+              ),
+              child: Image.asset(AppImagePath.starIcon),
             ),
-            child: Image.asset(AppImagePath.starIcon),
-          ),
-          Text(
-            tr('topCreator'),
-            style: TextStyle(
-              fontSize: UIDefine.fontSize24,
-              fontWeight: FontWeight.w400,
-              color: AppColors.textBlack,
+            Text(
+              tr('topCreator'),
+              style: TextStyle(
+                fontSize: UIDefine.fontSize24,
+                fontWeight: FontWeight.w400,
+                color: AppColors.textBlack,
+              ),
             ),
+          ],
+        ),
+        // Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        //   Text(
+        //     tr('Last_24_hours'),
+        //     style: TextStyle(
+        //       fontSize: UIDefine.fontSize20,
+        //       color: AppColors.mainThemeButton,
+        //     ),
+        //   ),
+        //   Image.asset(AppImagePath.downArrow),
+        // ]),
+
+        Container(
+            margin:
+                EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(15)),
+            child: _buildChainDropDownBar()),
+        const ArtistRecordListView(),
+      ],
+    );
+  }
+
+  Widget _buildChainDropDownBar() {
+    return DropdownButtonFormField(
+        icon: Image.asset(AppImagePath.downArrow),
+        onChanged: (newValue) {},
+        value: 1,
+        isExpanded: true,
+        alignment: Alignment.center,
+        decoration: InputDecoration(
+          // contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.16),
+          //     UIDefine.getScreenWidth(4.16), UIDefine.getScreenWidth(4.16), 0),
+          hintStyle:
+              const TextStyle(height: 1.6, color: AppColors.mainThemeButton),
+          border: AppTheme.style.styleTextEditBorderBackground(
+              color: Colors.transparent, radius: 10),
+          focusedBorder: AppTheme.style.styleTextEditBorderBackground(
+              color: Colors.transparent, radius: 10),
+          enabledBorder: AppTheme.style.styleTextEditBorderBackground(
+              color: Colors.transparent, radius: 10),
+        ),
+        items: [
+          DropdownMenuItem(
+              value: 1,
+              child: Text(tr('Last_24_hours'),
+                  style: const TextStyle(color: AppColors.mainThemeButton))),
+        ]);
+  }
+
+  Widget sponsor() {
+    HomeMainViewModel vm = HomeMainViewModel();
+    return Container(
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+              Color.fromARGB(255, 255, 255, 255),
+              Color.fromARGB(255, 230, 247, 255),
+              Color.fromARGB(255, 215, 224, 255)
+            ])),
+        child: Column(mainAxisSize: MainAxisSize.min, children: [
+          vm.getPadding(5),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              vm.getPadding(3),
+              Image.asset(AppImagePath.fileIcon),
+              vm.getPadding(3),
+              Text(
+                'Investors and patrons',
+                style: TextStyle(fontSize: UIDefine.fontSize24),
+              ),
+            ],
           ),
-        ],
-      ),
-      // Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-      //   Text(
-      //     tr('Last_24_hours'),
-      //     style: TextStyle(
-      //       fontSize: UIDefine.fontSize20,
-      //       color: AppColors.mainThemeButton,
-      //     ),
-      //   ),
-      //   Image.asset(AppImagePath.downArrow),
-      // ]),
+          const SponsorRowWidget(
+            leftLogo: AppImagePath.openSea,
+            rightLogo: AppImagePath.coinBase,
+          ),
+          const SponsorRowWidget(
+            leftLogo: AppImagePath.mintBase,
+            rightLogo: AppImagePath.trustWallet,
+          ),
+          const SponsorRowWidget(
+            leftLogo: AppImagePath.tron,
+            rightLogo: AppImagePath.binance,
+          ),
+          const SponsorRowWidget(
+            leftLogo: AppImagePath.minTable,
+            rightLogo: AppImagePath.zora,
+          ),
+          const SponsorRowWidget(
+            leftLogo: AppImagePath.polygon,
+            rightLogo: AppImagePath.ethereum,
+          ),
+          vm.getPaddingWithView(5, Image.asset(AppImagePath.tozfuft)),
+          vm.getPadding(3),
+        ]));
+  }
 
-      Container(
-          margin: EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(15)),
-          child: _buildChainDropDownBar()),
-      const ArtistRecordListView(),
-    ],
-  );
-}
+  Widget mailSubmit() {
+    HomeMainViewModel vm = HomeMainViewModel();
+    TextEditingController textEditingController = TextEditingController();
+    FocusNode focusNode = FocusNode();
+    return SizedBox(
+        height: UIDefine.getScreenHeight(30),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            /// 背景顏色
+            Container(
+              decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 224, 234, 246)),
+            ),
 
-Widget _buildChainDropDownBar() {
-  return DropdownButtonFormField(
-      icon: Image.asset(AppImagePath.downArrow),
-      onChanged: (newValue) {},
-      value: 1,
-      isExpanded: true,
-      alignment: Alignment.center,
-      decoration: InputDecoration(
-        // contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.16),
-        //     UIDefine.getScreenWidth(4.16), UIDefine.getScreenWidth(4.16), 0),
-        hintStyle:
-            const TextStyle(height: 1.6, color: AppColors.mainThemeButton),
-        border: AppTheme.style.styleTextEditBorderBackground(
-            color: Colors.transparent, radius: 10),
-        focusedBorder: AppTheme.style.styleTextEditBorderBackground(
-            color: Colors.transparent, radius: 10),
-        enabledBorder: AppTheme.style.styleTextEditBorderBackground(
-            color: Colors.transparent, radius: 10),
-      ),
-      items: [
-        DropdownMenuItem(
-            value: 1,
-            child: Text(tr('Last_24_hours'),
-                style: const TextStyle(color: AppColors.mainThemeButton))),
-      ]);
+            Padding(
+                padding: EdgeInsets.only(
+                    top: UIDefine.getScreenWidth(6),
+                    left: UIDefine.getScreenWidth(6),
+                    right: UIDefine.getScreenWidth(6)),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    vm.getPadding(1),
+
+                    Text(
+                      tr('emailIllustrate'),
+                      style: TextStyle(fontSize: UIDefine.fontSize12),
+                    ),
+                    // Text('feature releases, NFT drops, and tips and tricks',
+                    //   style: TextStyle(fontSize: UIDefine.fontSize12),
+                    // ),
+                    // Text('for navigating DeepLink.',
+                    //   style: TextStyle(fontSize: UIDefine.fontSize12),
+                    // ),
+
+                    vm.getPadding(3),
+
+                    Container(
+                        height: UIDefine.getScreenHeight(7),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: AppColors.textWhite,
+                            boxShadow: const [
+                              BoxShadow(
+                                  color: Colors.black12,
+                                  spreadRadius: 2,
+                                  blurRadius: 5),
+                            ]),
+                        child: Stack(
+                          alignment: Alignment.centerRight,
+                          children: [
+                            TextField(
+                              controller: textEditingController,
+                              focusNode: focusNode,
+                              decoration: InputDecoration(
+                                  hintText: tr('placeholder-email-address\''),
+                                  hintStyle: const TextStyle(
+                                      color: AppColors.textGrey),
+                                  border: AppStyle()
+                                      .styleTextEditBorderBackground(
+                                          radius: 10),
+                                  filled: true,
+                                  fillColor: AppColors.textWhite,
+                                  contentPadding: const EdgeInsets.only(
+                                      left: 14.0, bottom: 8.0, top: 8.0)),
+                            ),
+
+                            /// Submit按鈕
+                            ClipRRect(
+                              borderRadius: const BorderRadius.only(
+                                topRight: Radius.circular(10),
+                                bottomRight: Radius.circular(10),
+                              ),
+                              child: SizedBox(
+                                height: UIDefine.getScreenHeight(15),
+                                width: UIDefine.getScreenWidth(25),
+                                child: GestureDetector(
+                                  onTap: () {},
+                                  child: Container(
+                                    color: AppColors.mainThemeButton,
+                                    child: Center(
+                                      child: Text(
+                                        tr('submit'),
+                                        style: TextStyle(
+                                            color: AppColors.textWhite,
+                                            fontSize: UIDefine.fontSize20,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )),
+                  ],
+                )),
+          ],
+        ));
+  }
+
+  Widget ourInfo() {
+    HomeMainViewModel viewModel = HomeMainViewModel();
+    double p = 2;
+    return SizedBox(
+        height: UIDefine.getScreenHeight(30),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            /// 背景顏色
+            Container(
+              decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 224, 234, 246)),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                  top: UIDefine.getScreenWidth(6),
+                  left: UIDefine.getScreenWidth(6),
+                  right: UIDefine.getScreenWidth(6)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  /// Resources
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tr('footer_resource'),
+                        style: TextStyle(
+                          fontSize: UIDefine.fontSize16,
+                          color: AppColors.textBlack,
+                        ),
+                      ),
+                      viewModel.getPadding(p),
+                      GestureDetector(
+                        onTap: () {
+                          viewModel.launchInBrowser(
+                              'https://treasurenft.gitbook.io/treasurenft-1/');
+                        },
+                        child: Text(
+                          tr('footer_docs'),
+                          style: TextStyle(
+                            fontSize: UIDefine.fontSize14,
+                            color: AppColors.textGrey,
+                          ),
+                        ),
+                      ),
+                      viewModel.getPadding(p),
+                      GestureDetector(
+                        onTap: () {
+                          viewModel.launchInBrowser(
+                              'https://treasurenft-metaverse.gitbook.io/how-to-use/earn/how-to-share-invitations');
+                        },
+                        child: Text(
+                          tr('footer_friends'),
+                          style: TextStyle(
+                            fontSize: UIDefine.fontSize14,
+                            color: AppColors.textGrey,
+                          ),
+                        ),
+                      ),
+                      viewModel.getPadding(p),
+                      GestureDetector(
+                        onTap: () {
+                          viewModel.launchInBrowser(
+                              'https://treasurenft-metaverse.gitbook.io/how-to-use/earn/how-to-trade');
+                        },
+                        child: Text(
+                          tr('footer_howtoBuy'),
+                          style: TextStyle(
+                            fontSize: UIDefine.fontSize14,
+                            color: AppColors.textGrey,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  /// News
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tr('footer_news'),
+                        style: TextStyle(
+                          fontSize: UIDefine.fontSize16,
+                          color: AppColors.textBlack,
+                        ),
+                      ),
+                      viewModel.getPadding(p),
+                      GestureDetector(
+                        onTap: () {
+                          viewModel.launchInBrowser(
+                              'https://medium.com/@Treasurenft_xyz');
+                        },
+                        child: Text(
+                          tr('footer_blog'),
+                          style: TextStyle(
+                            fontSize: UIDefine.fontSize14,
+                            color: AppColors.textGrey,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  /// Company
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tr('footer_company'),
+                        style: TextStyle(
+                          fontSize: UIDefine.fontSize16,
+                          color: AppColors.textBlack,
+                        ),
+                      ),
+                      viewModel.getPadding(p),
+                      GestureDetector(
+                        onTap: () {
+                          viewModel.pushPage(
+                              GlobalData.globalKey.currentContext!,
+                              PDFViewerPage(
+                                title: tr('footer_privacy'),
+                                assetPath: 'assets/pdf/PrivacyPolicy.pdf',
+                              ));
+                        },
+                        child: Text(
+                          'Privacy Policy',
+                          style: TextStyle(
+                            fontSize: UIDefine.fontSize14,
+                            color: AppColors.textGrey,
+                          ),
+                        ),
+                      ),
+                      viewModel.getPadding(p),
+                      GestureDetector(
+                        onTap: () {
+                          viewModel.pushPage(
+                              GlobalData.globalKey.currentContext!,
+                              PDFViewerPage(
+                                title: tr('footer_agreement'),
+                                assetPath: 'assets/pdf/TermsOfUse.pdf',
+                              ));
+                        },
+                        child: Text(
+                          'User Agreement',
+                          style: TextStyle(
+                            fontSize: UIDefine.fontSize14,
+                            color: AppColors.textGrey,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            )
+          ],
+        ));
+  }
+
+  Widget contactUs() {
+    HomeMainViewModel viewModel = HomeMainViewModel();
+    return SizedBox(
+        height: UIDefine.getScreenHeight(80),
+        child: Stack(
+          alignment: Alignment.centerLeft,
+          children: [
+            /// 背景顏色
+            Container(
+              decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 224, 234, 246)),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                  top: UIDefine.getScreenWidth(2),
+                  left: UIDefine.getScreenWidth(6),
+                  right: UIDefine.getScreenWidth(6)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    tr('footer_contactUs'),
+                    style: TextStyle(
+                      fontSize: UIDefine.fontSize16,
+                      color: AppColors.textBlack,
+                    ),
+                  ),
+                  viewModel.getPadding(2),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          viewModel.launchInBrowser(
+                              'mailto:treasurenft.metaverse@gmail.com');
+                        },
+                        child: Image.asset(AppImagePath.mail),
+                      ),
+
+                      GestureDetector(
+                        onTap: () {
+                          viewModel.launchInBrowser(
+                              'https://www.tiktok.com/@treasurenft_xyz');
+                        },
+                        child: Image.asset(AppImagePath.tiktok),
+                      ),
+
+                      GestureDetector(
+                        onTap: () {
+                          viewModel.launchInBrowser(
+                              'https://twitter.com/Treasurenft_xyz');
+                        },
+                        child: Image.asset(AppImagePath.twitter),
+                      ),
+
+                      // GestureDetector(
+                      //   onTap: () {
+                      //      viewModel.launchInBrowser('');
+                      //   },
+                      //   child: Image.asset(AppImagePath.yt),
+                      // ),
+
+                      GestureDetector(
+                        onTap: () {
+                          viewModel
+                              .launchInBrowser('https://t.me/TreasureNFTchat');
+                        },
+                        child: Image.asset(AppImagePath.tg),
+                      ),
+
+                      GestureDetector(
+                        onTap: () {
+                          viewModel.launchInBrowser(
+                              'https://www.facebook.com/Treasurenft-101676776000520');
+                        },
+                        child: Image.asset(AppImagePath.fb),
+                      ),
+
+                      GestureDetector(
+                        onTap: () {
+                          viewModel.launchInBrowser(
+                              'https://www.instagram.com/treasurenft_xyz/');
+                        },
+                        child: Image.asset(AppImagePath.ig),
+                      ),
+
+                      GestureDetector(
+                        onTap: () {
+                          viewModel
+                              .launchInBrowser('https://discord.gg/H54mUVeQRQ');
+                        },
+                        child: Image.asset(AppImagePath.dc),
+                      ),
+                    ],
+                  ),
+                  viewModel.getPadding(4),
+                  Text(
+                    tr('document-title-2'),
+                    style: TextStyle(
+                        fontSize: UIDefine.fontSize16,
+                        color: AppColors.textBlack,
+                        height: 1.3),
+                  ),
+                  viewModel.getPadding(2),
+                  Text(
+                    tr('document-text-1'),
+                    style: TextStyle(
+                        fontSize: UIDefine.fontSize14,
+                        color: AppColors.textGrey,
+                        height: 1.3),
+                  ),
+                  viewModel.getPadding(10),
+                  Center(
+                    child: Text(
+                      'Copyright 2022',
+                      style: TextStyle(
+                        fontSize: UIDefine.fontSize14,
+                        color: AppColors.textBlack,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ));
+  }
 }
 
 class VideoPlayWidget extends StatefulWidget {
@@ -324,447 +769,4 @@ class VideoPlayWidgetState extends State<VideoPlayWidget> {
           : Container(),
     );
   }
-}
-
-Widget sponsor() {
-  HomeMainViewModel vm = HomeMainViewModel();
-  return Container(
-      decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-            Color.fromARGB(255, 255, 255, 255),
-            Color.fromARGB(255, 230, 247, 255),
-            Color.fromARGB(255, 215, 224, 255)
-          ])),
-      child: Column(mainAxisSize: MainAxisSize.min, children: [
-        vm.getPadding(5),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            vm.getPadding(3),
-            Image.asset(AppImagePath.fileIcon),
-            vm.getPadding(3),
-            Text(
-              'Investors and patrons',
-              style: TextStyle(fontSize: UIDefine.fontSize24),
-            ),
-          ],
-        ),
-        const SponsorRowWidget(
-          leftLogo: AppImagePath.openSea,
-          rightLogo: AppImagePath.coinBase,
-        ),
-        const SponsorRowWidget(
-          leftLogo: AppImagePath.mintBase,
-          rightLogo: AppImagePath.trustWallet,
-        ),
-        const SponsorRowWidget(
-          leftLogo: AppImagePath.tron,
-          rightLogo: AppImagePath.binance,
-        ),
-        const SponsorRowWidget(
-          leftLogo: AppImagePath.minTable,
-          rightLogo: AppImagePath.zora,
-        ),
-        const SponsorRowWidget(
-          leftLogo: AppImagePath.polygon,
-          rightLogo: AppImagePath.ethereum,
-        ),
-        vm.getPaddingWithView(5, Image.asset(AppImagePath.tozfuft)),
-        vm.getPadding(3),
-      ]));
-}
-
-Widget mailSubmit() {
-  HomeMainViewModel vm = HomeMainViewModel();
-  TextEditingController textEditingController = TextEditingController();
-  FocusNode focusNode = FocusNode();
-  return SizedBox(
-      height: UIDefine.getScreenHeight(30),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          /// 背景顏色
-          Container(
-            decoration:
-                const BoxDecoration(color: Color.fromARGB(255, 224, 234, 246)),
-          ),
-
-          Padding(
-              padding: EdgeInsets.only(
-                  top: UIDefine.getScreenWidth(6),
-                  left: UIDefine.getScreenWidth(6),
-                  right: UIDefine.getScreenWidth(6)),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  vm.getPadding(1),
-
-                  Text(
-                    tr('emailIllustrate'),
-                    style: TextStyle(fontSize: UIDefine.fontSize12),
-                  ),
-                  // Text('feature releases, NFT drops, and tips and tricks',
-                  //   style: TextStyle(fontSize: UIDefine.fontSize12),
-                  // ),
-                  // Text('for navigating DeepLink.',
-                  //   style: TextStyle(fontSize: UIDefine.fontSize12),
-                  // ),
-
-                  vm.getPadding(3),
-
-                  Container(
-                      height: UIDefine.getScreenHeight(7),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: AppColors.textWhite,
-                          boxShadow: const [
-                            BoxShadow(
-                                color: Colors.black12,
-                                spreadRadius: 2,
-                                blurRadius: 5),
-                          ]),
-                      child: Stack(
-                        alignment: Alignment.centerRight,
-                        children: [
-                          TextField(
-                            controller: textEditingController,
-                            focusNode: focusNode,
-                            decoration: InputDecoration(
-                                hintText: tr('placeholder-email-address\''),
-                                hintStyle:
-                                    const TextStyle(color: AppColors.textGrey),
-                                border: AppStyle()
-                                    .styleTextEditBorderBackground(radius: 10),
-                                filled: true,
-                                fillColor: AppColors.textWhite,
-                                contentPadding: const EdgeInsets.only(
-                                    left: 14.0, bottom: 8.0, top: 8.0)),
-                          ),
-
-                          /// Submit按鈕
-                          ClipRRect(
-                            borderRadius: const BorderRadius.only(
-                              topRight: Radius.circular(10),
-                              bottomRight: Radius.circular(10),
-                            ),
-                            child: SizedBox(
-                              height: UIDefine.getScreenHeight(15),
-                              width: UIDefine.getScreenWidth(25),
-                              child: GestureDetector(
-                                onTap: () {},
-                                child: Container(
-                                  color: AppColors.mainThemeButton,
-                                  child: Center(
-                                    child: Text(
-                                      tr('submit'),
-                                      style: TextStyle(
-                                          color: AppColors.textWhite,
-                                          fontSize: UIDefine.fontSize20,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      )),
-                ],
-              )),
-        ],
-      ));
-}
-
-Widget ourInfo() {
-  HomeMainViewModel viewModel = HomeMainViewModel();
-  double p = 2;
-  return SizedBox(
-      height: UIDefine.getScreenHeight(30),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          /// 背景顏色
-          Container(
-            decoration:
-                const BoxDecoration(color: Color.fromARGB(255, 224, 234, 246)),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-                top: UIDefine.getScreenWidth(6),
-                left: UIDefine.getScreenWidth(6),
-                right: UIDefine.getScreenWidth(6)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                /// Resources
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr('footer_resource'),
-                      style: TextStyle(
-                        fontSize: UIDefine.fontSize16,
-                        color: AppColors.textBlack,
-                      ),
-                    ),
-                    viewModel.getPadding(p),
-                    GestureDetector(
-                      onTap: () {
-                        viewModel.launchInBrowser(
-                            'https://treasurenft.gitbook.io/treasurenft-1/');
-                      },
-                      child: Text(
-                        tr('footer_docs'),
-                        style: TextStyle(
-                          fontSize: UIDefine.fontSize14,
-                          color: AppColors.textGrey,
-                        ),
-                      ),
-                    ),
-                    viewModel.getPadding(p),
-                    GestureDetector(
-                      onTap: () {
-                        viewModel.launchInBrowser(
-                            'https://treasurenft-metaverse.gitbook.io/how-to-use/earn/how-to-share-invitations');
-                      },
-                      child: Text(
-                        tr('footer_friends'),
-                        style: TextStyle(
-                          fontSize: UIDefine.fontSize14,
-                          color: AppColors.textGrey,
-                        ),
-                      ),
-                    ),
-                    viewModel.getPadding(p),
-                    GestureDetector(
-                      onTap: () {
-                        viewModel.launchInBrowser(
-                            'https://treasurenft-metaverse.gitbook.io/how-to-use/earn/how-to-trade');
-                      },
-                      child: Text(
-                        tr('footer_howtoBuy'),
-                        style: TextStyle(
-                          fontSize: UIDefine.fontSize14,
-                          color: AppColors.textGrey,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-
-                /// News
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr('footer_news'),
-                      style: TextStyle(
-                        fontSize: UIDefine.fontSize16,
-                        color: AppColors.textBlack,
-                      ),
-                    ),
-                    viewModel.getPadding(p),
-                    GestureDetector(
-                      onTap: () {
-                        viewModel.launchInBrowser(
-                            'https://medium.com/@Treasurenft_xyz');
-                      },
-                      child: Text(
-                        tr('footer_blog'),
-                        style: TextStyle(
-                          fontSize: UIDefine.fontSize14,
-                          color: AppColors.textGrey,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-
-                /// Company
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr('footer_company'),
-                      style: TextStyle(
-                        fontSize: UIDefine.fontSize16,
-                        color: AppColors.textBlack,
-                      ),
-                    ),
-                    viewModel.getPadding(p),
-                    GestureDetector(
-                      onTap: () {
-                        viewModel.pushPage(
-                            GlobalData.globalKey.currentContext!,
-                            PDFViewerPage(
-                              title: tr('footer_privacy'),
-                              assetPath: 'assets/pdf/PrivacyPolicy.pdf',
-                            ));
-                      },
-                      child: Text(
-                        'Privacy Policy',
-                        style: TextStyle(
-                          fontSize: UIDefine.fontSize14,
-                          color: AppColors.textGrey,
-                        ),
-                      ),
-                    ),
-                    viewModel.getPadding(p),
-                    GestureDetector(
-                      onTap: () {
-                        viewModel.pushPage(
-                            GlobalData.globalKey.currentContext!,
-                            PDFViewerPage(
-                              title: tr('footer_agreement'),
-                              assetPath: 'assets/pdf/TermsOfUse.pdf',
-                            ));
-                      },
-                      child: Text(
-                        'User Agreement',
-                        style: TextStyle(
-                          fontSize: UIDefine.fontSize14,
-                          color: AppColors.textGrey,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          )
-        ],
-      ));
-}
-
-Widget contactUs() {
-  HomeMainViewModel viewModel = HomeMainViewModel();
-  return SizedBox(
-      height: UIDefine.getScreenHeight(80),
-      child: Stack(
-        alignment: Alignment.centerLeft,
-        children: [
-          /// 背景顏色
-          Container(
-            decoration:
-                const BoxDecoration(color: Color.fromARGB(255, 224, 234, 246)),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-                top: UIDefine.getScreenWidth(2),
-                left: UIDefine.getScreenWidth(6),
-                right: UIDefine.getScreenWidth(6)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  tr('footer_contactUs'),
-                  style: TextStyle(
-                    fontSize: UIDefine.fontSize16,
-                    color: AppColors.textBlack,
-                  ),
-                ),
-                viewModel.getPadding(2),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        viewModel.launchInBrowser(
-                            'mailto:treasurenft.metaverse@gmail.com');
-                      },
-                      child: Image.asset(AppImagePath.mail),
-                    ),
-
-                    GestureDetector(
-                      onTap: () {
-                        viewModel.launchInBrowser(
-                            'https://www.tiktok.com/@treasurenft_xyz');
-                      },
-                      child: Image.asset(AppImagePath.tiktok),
-                    ),
-
-                    GestureDetector(
-                      onTap: () {
-                        viewModel.launchInBrowser(
-                            'https://twitter.com/Treasurenft_xyz');
-                      },
-                      child: Image.asset(AppImagePath.twitter),
-                    ),
-
-                    // GestureDetector(
-                    //   onTap: () {
-                    //      viewModel.launchInBrowser('');
-                    //   },
-                    //   child: Image.asset(AppImagePath.yt),
-                    // ),
-
-                    GestureDetector(
-                      onTap: () {
-                        viewModel
-                            .launchInBrowser('https://t.me/TreasureNFTchat');
-                      },
-                      child: Image.asset(AppImagePath.tg),
-                    ),
-
-                    GestureDetector(
-                      onTap: () {
-                        viewModel.launchInBrowser(
-                            'https://www.facebook.com/Treasurenft-101676776000520');
-                      },
-                      child: Image.asset(AppImagePath.fb),
-                    ),
-
-                    GestureDetector(
-                      onTap: () {
-                        viewModel.launchInBrowser(
-                            'https://www.instagram.com/treasurenft_xyz/');
-                      },
-                      child: Image.asset(AppImagePath.ig),
-                    ),
-
-                    GestureDetector(
-                      onTap: () {
-                        viewModel
-                            .launchInBrowser('https://discord.gg/H54mUVeQRQ');
-                      },
-                      child: Image.asset(AppImagePath.dc),
-                    ),
-                  ],
-                ),
-                viewModel.getPadding(4),
-                Text(
-                  tr('document-title-2'),
-                  style: TextStyle(
-                      fontSize: UIDefine.fontSize16,
-                      color: AppColors.textBlack,
-                      height: 1.3),
-                ),
-                viewModel.getPadding(2),
-                Text(
-                  tr('document-text-1'),
-                  style: TextStyle(
-                      fontSize: UIDefine.fontSize14,
-                      color: AppColors.textGrey,
-                      height: 1.3),
-                ),
-                viewModel.getPadding(10),
-                Center(
-                  child: Text(
-                    'Copyright 2022',
-                    style: TextStyle(
-                      fontSize: UIDefine.fontSize14,
-                      color: AppColors.textBlack,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          )
-        ],
-      ));
 }

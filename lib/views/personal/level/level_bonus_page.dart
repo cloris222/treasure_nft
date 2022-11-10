@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart';
 
 import '../../../constant/theme/app_colors.dart';
@@ -157,8 +158,15 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
 
   /// 提醒 剩餘OO天 XX天尚未升級
   Widget _buildBonusHint(int? hasDay, String? day) {
-    String text = format(
-        '※${tr('bonus_keep_hint')}', {'day': hasDay ?? '', 'date': day ?? ''});
+    String text = format('※${tr('bonus_keep_hint')}', {
+      'day': hasDay ?? '',
+      'date': day == null
+          ? ''
+          : day.isEmpty
+              ? ''
+              : BaseViewModel()
+                  .changeTimeZone('$day 00:00:00', strFormat: 'yyyy-MM-dd')
+    });
     return Text(text,
         maxLines: 2,
         style: TextStyle(

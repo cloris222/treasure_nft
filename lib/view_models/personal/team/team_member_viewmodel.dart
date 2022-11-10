@@ -26,7 +26,7 @@ class TeamMemberViewModel extends BaseViewModel {
       String startTime, String endTime,
       {ResponseErrorFunction? onConnectFail}) async {
     return await GroupAPI(onConnectFail: onConnectFail)
-        .getMembers(startTime: startTime, endTime: endTime);
+        .getMembers(startTime: getStartTime(startTime), endTime: getEndTime(endTime));
   }
 
   /// 查詢成員詳細
@@ -90,7 +90,7 @@ class TeamMemberViewModel extends BaseViewModel {
       String startTime, String endTime,
       {ResponseErrorFunction? onConnectFail}) async {
     return await GroupAPI(onConnectFail: onConnectFail)
-        .getContribute(startTime: startTime, endTime: endTime);
+        .getContribute(startTime:  getStartTime(startTime), endTime:  getEndTime(endTime));
   }
 
   /// 查詢團隊貢獻名單
@@ -100,7 +100,7 @@ class TeamMemberViewModel extends BaseViewModel {
     List<TeamContributeList> list = [];
 
     var response = await GroupAPI(onConnectFail: onConnectFail)
-        .getContributeList(startTime: startTime, endTime: endTime);
+        .getContributeList(startTime:  getStartTime(startTime), endTime: getEndTime(endTime));
 
     for (Map<String, dynamic> json in response.data['pageList']) {
       list.add(TeamContributeList.fromJson(json));

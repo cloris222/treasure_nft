@@ -13,12 +13,18 @@ class WalletMainViewModel extends BaseViewModel {
 
   UserProperty? userProperty;
   Map<String, dynamic>? address;
-  List<BalanceRecordResponseData> balanceRecordResponseDataList = <BalanceRecordResponseData>[];
+  List<BalanceRecordResponseData> balanceRecordResponseDataList =
+      <BalanceRecordResponseData>[];
 
-  Future<void> initState() async {
-    userProperty = await UserInfoAPI().getUserPropertyInfo();
-    address = await WalletAPI().getBalanceRecharge();
-    balanceRecordResponseDataList = await WalletAPI().getBalanceRecord();
-    setState(() {});
+  void initState() {
+    UserInfoAPI()
+        .getUserPropertyInfo()
+        .then((value) => setState(() => userProperty = value));
+    WalletAPI()
+        .getBalanceRecharge()
+        .then((value) => setState(() => address = value));
+    WalletAPI()
+        .getBalanceRecord()
+        .then((value) => setState(() => balanceRecordResponseDataList = value));
   }
 }

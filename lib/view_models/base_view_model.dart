@@ -328,7 +328,7 @@ class BaseViewModel {
     bool isApiValue = false,
     String strFormat = '',
   }) {
-    var format = DateFormat('yyyy-MM-DD HH:mm:ss');
+    var format = DateFormat('yyyy-MM-dd HH:mm:ss');
     DateTime time = format.parse(strTime);
 
     ///MARK: 計算
