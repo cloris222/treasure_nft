@@ -29,7 +29,6 @@ class TradeMainViewModel extends BaseViewModel {
 
   final onClickFunction setState;
   List<int>? division;
-  CheckReservationInfo? reservationInfo;
   CheckLevelInfo? userLevelInfo;
   AddNewReservation? newReservation;
   late List<ReserveRange> ranges;
@@ -47,6 +46,7 @@ class TradeMainViewModel extends BaseViewModel {
   void initState() {
     ///MARK: timer監聽
     currentData = TradeTimerUtil().getCurrentTradeData();
+    setState();
     TradeTimerUtil().addListener(_onUpdateTrade);
 
     ///更新畫面
@@ -56,8 +56,7 @@ class TradeMainViewModel extends BaseViewModel {
     });
     TradeAPI().getCheckReservationInfoAPI(0).then((value) {
       TradeTimerUtil().start(setInfo: value);
-      reservationInfo = value;
-      ranges = reservationInfo!.reserveRanges;
+      ranges = TradeTimerUtil().getReservationInfo().reserveRanges;
 
       /// 如果是體驗帳號 且 level 1 副本顯示內容不同
       if (GlobalData.experienceInfo.isExperience == true &&

@@ -26,6 +26,9 @@ class TradeTimerUtil {
   final String key = '-TradeTimer:';
   final bool printTimeLog = false;
 
+  ///MARK: 預約查詢資訊
+  late CheckReservationInfo _reservationInfo;
+
   ///MARK: 要判斷 天數
   late DateTime _dateCurrentTime;
   late DateTime _dateSellStartTime;
@@ -47,13 +50,12 @@ class TradeTimerUtil {
     debugPrint('$key init timer');
 
     ///MARK: 取得開賣時間
-    CheckReservationInfo reservationInfo;
     if (setInfo == null) {
-      reservationInfo = await TradeAPI().getCheckReservationInfoAPI(0);
+      _reservationInfo = await TradeAPI().getCheckReservationInfoAPI(0);
     } else {
-      reservationInfo = setInfo;
+      _reservationInfo = setInfo;
     }
-    _setTime(reservationInfo);
+    _setTime(_reservationInfo);
     _startTimer();
   }
 
@@ -67,6 +69,10 @@ class TradeTimerUtil {
 
   DateTime getSellStartTime() {
     return _dateSellStartTime;
+  }
+
+  CheckReservationInfo getReservationInfo() {
+    return _reservationInfo;
   }
 
   void addListener(GetTradDate tradDate) {
