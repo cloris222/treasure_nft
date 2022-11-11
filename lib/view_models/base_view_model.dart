@@ -384,7 +384,7 @@ class BaseViewModel {
 
     return isApiValue
         ? DateFormatUtil().getFullWithDateFormat(time)
-        : '${isShowGmt ? '(${localZone > 0 ? '+' : ''}${NumberFormatUtil().integerTwoFormat(localZone)}:00) ' : ''}${strFormat.isEmpty ? DateFormatUtil().getFullWithDateFormat2(time) : DateFormatUtil().buildFormat(strFormat: strFormat, time: time)}';
+        : '${isShowGmt ? '(GMT${localZone > 0 ? '+' : ''}${NumberFormatUtil().integerTwoFormat(localZone)}:00) ' : ''}${strFormat.isEmpty ? DateFormatUtil().getFullWithDateFormat2(time) : DateFormatUtil().buildFormat(strFormat: strFormat, time: time)}';
   }
 
   int getZone(String gmt) {
