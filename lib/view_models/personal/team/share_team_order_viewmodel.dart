@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:treasure_nft_project/models/http/api/mission_api.dart';
+import 'package:treasure_nft_project/models/http/api/order_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_order.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:share_plus/share_plus.dart';
@@ -25,9 +26,13 @@ class ShareTeamOrderViewModel extends BaseViewModel {
 
   TeamShareInfo? teamShareInfo;
 
-  void initState(TeamOrderData itemData) async {
+  void initState(TeamOrderData itemData, bool fromSell) async {
     MissionAPI().finishShareMission();
-    teamShareInfo = await GroupAPI().getTeamShareInfo(itemData.orderNo);
+    if (fromSell) {
+      teamShareInfo = await OrderAPI().getOrderShareInfo(itemData.orderNo);
+    } else {
+      teamShareInfo = await GroupAPI().getTeamShareInfo(itemData.orderNo);
+    }
     onViewUpdate();
 
     ///MARK: time late 做 share image

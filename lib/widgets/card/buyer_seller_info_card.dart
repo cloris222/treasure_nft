@@ -1,20 +1,26 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:treasure_nft_project/views/personal/team/share_team_order_page.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
+import '../../models/http/parameter/team_order.dart';
+import '../../view_models/base_view_model.dart';
+import '../../views/personal/orders/orderinfo/data/order_message_list_response_data.dart';
 import 'data/card_showing_data.dart';
 
 class BuyerSellerInfoCard extends StatefulWidget {
   const BuyerSellerInfoCard({super.key,
-  required this.imgUrl,
+  required this.data,
   required this.dataList,
-  required this.moreInfoDataList});
+  required this.moreInfoDataList,
+  this.bShowShare = false});
 
   final List<CardShowingData> dataList;
   final List<CardShowingData> moreInfoDataList;
-  final String imgUrl;
+  final OrderMessageListResponseData data;
+  final bool bShowShare;
 
   @override
   State<StatefulWidget> createState() => _BuyerSellerInfoCard();
@@ -46,9 +52,17 @@ class _BuyerSellerInfoCard extends State<BuyerSellerInfoCard> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image.network(widget.imgUrl, width: UIDefine.getScreenWidth(14.5), height: UIDefine.getScreenWidth(14.5)),
+                  Image.network(widget.data.imgUrl, width: UIDefine.getScreenWidth(14.5), height: UIDefine.getScreenWidth(14.5)),
                   SizedBox(height: UIDefine.getScreenWidth(2.77)),
-                  Image.asset('assets/icon/icon/icon_share_02.png')
+                  Visibility(
+                    visible: widget.bShowShare,
+                      child: GestureDetector(
+                        onTap: () {
+                          _onTapShare(widget.data.imgUrl);
+                        },
+                        child: Image.asset('assets/icon/icon/icon_share_02.png')
+                      )
+                  )
                 ],
               ),
 
@@ -206,6 +220,15 @@ class _BuyerSellerInfoCard extends State<BuyerSellerInfoCard> {
       return true;
     }
     return false;
+  }
+
+  void _onTapShare(String imgUrl) {
+    TeamOrderData itemData = TeamOrderData();
+    itemData.imgUrl = imgUrl;
+    itemData.orderNo = widget.data.orderNo;
+    itemData.income = widget.data.income.toDouble();
+    BaseViewModel().pushOpacityPage(
+        context, ShareTeamOrderPage(itemData: itemData, fromSell: true));
   }
 
 }

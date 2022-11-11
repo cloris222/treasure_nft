@@ -13,18 +13,22 @@ class TeamShareInfo {
   TeamShareInfo({
     required this.day,
     required this.promotePct,
+    required this.profitPCT, // for個人訂單分享
   });
 
   int day;
   double promotePct;
+  double profitPCT;
 
   factory TeamShareInfo.fromJson(Map<String, dynamic> json) => TeamShareInfo(
         day: json["day"],
-        promotePct: json["promotePCT"].toDouble(),
+        promotePct: json["promotePCT"]!=null? json["promotePCT"].toDouble() : 0,
+        profitPCT: json["profitPCT"]!=null? json["profitPCT"].toDouble() : 0,
       );
 
   Map<String, dynamic> toJson() => {
         "day": day,
         "promotePCT": promotePct,
+        "profitPCT": profitPCT,
       };
 }

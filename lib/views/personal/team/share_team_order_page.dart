@@ -16,9 +16,13 @@ import '../../../widgets/label/icon/medal_icon_widget.dart';
 import '../../login/circle_network_icon.dart';
 
 class ShareTeamOrderPage extends StatefulWidget {
-  const ShareTeamOrderPage({Key? key, required this.itemData})
-      : super(key: key);
+  const ShareTeamOrderPage({Key? key,
+    required this.itemData,
+    this.fromSell = false
+  }) : super(key: key);
+
   final TeamOrderData itemData;
+  final bool fromSell;
 
   @override
   State<ShareTeamOrderPage> createState() => _ShareTeamOrderPageState();
@@ -31,6 +35,10 @@ class _ShareTeamOrderPageState extends State<ShareTeamOrderPage> {
     return widget.itemData;
   }
 
+  bool get fromSell {
+    return widget.fromSell;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -41,7 +49,7 @@ class _ShareTeamOrderPageState extends State<ShareTeamOrderPage> {
     }, onShareFinish: () {
       viewModel.popPage(context);
     });
-    viewModel.initState(itemData);
+    viewModel.initState(itemData, fromSell);
   }
 
   @override
@@ -141,7 +149,7 @@ class _ShareTeamOrderPageState extends State<ShareTeamOrderPage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(tr('myReward')),
+            Text(fromSell? tr('myTradingResults') : tr('myReward')),
             Text(
                 '${tr('tradingCycle')} : ${viewModel.teamShareInfo?.day ?? '0'}${tr('day')}')
           ],
@@ -178,12 +186,15 @@ class _ShareTeamOrderPageState extends State<ShareTeamOrderPage> {
             Expanded(
                 child: Column(children: [
               SizedBox(height: itemSize * 0.05),
-              Text(tr('promotionReward'), style: titleStyle),
+              Text(fromSell? tr("profit-loss-ratio'") : tr('promotionReward'), style: titleStyle),
               _buildSpace(),
               Expanded(
                   child: Container(
                 alignment: Alignment.center,
                 child: Text(
+                    fromSell?
+                    '${NumberFormatUtil().removeTwoPointFormat(viewModel.teamShareInfo?.profitPCT ?? 0)}%'
+                        :
                     '${NumberFormatUtil().removeTwoPointFormat(viewModel.teamShareInfo?.promotePct ?? 0)}%',
                     style: TextStyle(
                         color: AppColors.mainThemeButton,
@@ -195,7 +206,7 @@ class _ShareTeamOrderPageState extends State<ShareTeamOrderPage> {
             Expanded(
                 child: Column(children: [
               SizedBox(height: itemSize * 0.05),
-              Text(tr('promotionIncome'), style: titleStyle),
+              Text(fromSell? tr("accumulated-profit-loss'") : tr('promotionIncome'), style: titleStyle),
               _buildSpace(),
               Expanded(
                   child: Row(

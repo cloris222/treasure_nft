@@ -4,6 +4,7 @@ import 'package:treasure_nft_project/models/http/parameter/api_response.dart';
 
 import '../../../views/personal/orders/orderinfo/data/order_message_list_response_data.dart';
 import '../parameter/check_earning_income.dart';
+import '../parameter/team_share_info.dart';
 
 class OrderAPI extends HttpManager {
   OrderAPI({super.onConnectFail});
@@ -81,5 +82,12 @@ class OrderAPI extends HttpManager {
       print(e.toString());
     }
     return result;
+  }
+
+  ///MARK: 取得團隊分享訊息  (共用團隊分享的Data Class)
+  Future<TeamShareInfo> getOrderShareInfo(String orderNo) async {
+    var response =
+    await get('/order/share-info', queryParameters: {'orderNo': orderNo});
+    return TeamShareInfo.fromJson(response.data);
   }
 }

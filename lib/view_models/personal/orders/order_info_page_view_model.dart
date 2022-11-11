@@ -84,12 +84,13 @@ class OrderInfoPageViewModel extends BaseViewModel {
 
       case 'BUY':
         return BuyerSellerInfoCard(
-            imgUrl: data.imgUrl,
+            data: data,
             dataList: _buyListContent(data),
             moreInfoDataList: _buyListContentMore(data));
       case 'SELL':
         return BuyerSellerInfoCard(
-            imgUrl: data.imgUrl,
+            data: data,
+            bShowShare: true,
             dataList: _sellListContent(data),
             moreInfoDataList: _sellListContentMore(data));
       case 'DEPOSIT_NFT':
