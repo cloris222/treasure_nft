@@ -170,7 +170,13 @@ class _BuyerSellerInfoCard extends State<BuyerSellerInfoCard> {
 
   List<Widget> _getMoreInfoWidget(int startIndex) {
     List<Widget> titleContent = [];
-    for (int i = startIndex; i < moreInfoDataList.length; i++) {
+    int endIndex = 0;
+    if (startIndex == 0) {
+      endIndex = 3;
+    } else {
+      endIndex = 6;
+    }
+    for (int i = startIndex; i < endIndex; i++) {
       titleContent.add(
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,

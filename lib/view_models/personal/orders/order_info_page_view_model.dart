@@ -3,6 +3,7 @@ import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../../constant/call_back_function.dart';
 import '../../../models/http/api/order_api.dart';
+import '../../../views/collection/api/collection_api.dart';
 import '../../../views/personal/orders/orderinfo/data/order_message_list_response_data.dart';
 import '../../../widgets/card/awd_info_card.dart';
 import '../../../widgets/card/buyer_seller_info_card.dart';
@@ -18,6 +19,7 @@ class OrderInfoPageViewModel extends BaseViewModel {
   String startDate = '';
   String endDate = '';
   List<OrderMessageListResponseData> dataList = [];
+  num walletBalance = 0;
 
   requestAPI(int page, int size, {ResponseErrorFunction? onConnectFail}) async {
     if (currentType.isNotEmpty) {
@@ -25,6 +27,11 @@ class OrderInfoPageViewModel extends BaseViewModel {
           .getOrderMessageListResponse(page: page, size: size,
           type: currentType, startTime: startDate, endTime: endDate)
           .then((value) => {_setState(value)} );
+
+      await CollectionApi(onConnectFail: onConnectFail)
+          .getWalletBalanceResponse()
+          .then((value) => walletBalance = value);
+
     }
   }
 
@@ -69,7 +76,7 @@ class OrderInfoPageViewModel extends BaseViewModel {
       case 'PRICE':
         return OrderInfoCard(
             orderNumber: data.orderNo, dateTime: BaseViewModel().changeTimeZone(data.createdAt, isShowGmt: true),
-            dataList: _priceListContent(data), status: data.status,
+            dataList: _priceListContent(data), status: data.status, walletBalance: walletBalance,
             imageUrl: data.imgUrl, itemName: data.itemName, price: data.price.toString());
 
       case 'ACTIVITY':
