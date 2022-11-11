@@ -42,4 +42,5 @@ class GlobalData {
   static CheckLevelInfo? userLevelInfo; //查詢等級資訊
   static UserProperty? userProperty; //查詢資產
   static UserOrderInfo? userOrderInfo; //取得訂單記數資訊
+  static Map<String, dynamic>? userWalletInfo;
 }

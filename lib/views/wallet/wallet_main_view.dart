@@ -121,8 +121,8 @@ class _WalletMainViewState extends State<WalletMainView> {
             children: [
               Flexible(
                   child: Text(
-                      viewModel.address != null
-                          ? viewModel.address!['TRON']
+                      GlobalData.userWalletInfo != null
+                          ? GlobalData.userWalletInfo!['TRON']
                           : '',
                       maxLines: 2,
                       style: TextStyle(
@@ -132,7 +132,8 @@ class _WalletMainViewState extends State<WalletMainView> {
               const SizedBox(width: 10),
               InkWell(
                   onTap: () {
-                    viewModel.copyText(copyText: viewModel.address?['TRON']);
+                    viewModel.copyText(
+                        copyText: GlobalData.userWalletInfo?['TRON']);
                     SimpleCustomDialog(context, isSuccess: true).show();
                   },
                   child: Image.asset(AppImagePath.copyIcon))
