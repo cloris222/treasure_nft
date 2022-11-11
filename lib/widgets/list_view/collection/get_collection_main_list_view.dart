@@ -4,26 +4,38 @@ import 'package:treasure_nft_project/view_models/collection/collection_main_view
 import '../../../constant/ui_define.dart';
 import '../../../views/collection/data/collection_nft_item_response_data.dart';
 import '../../../views/collection/data/collection_reservation_response_data.dart';
+import 'collection_blind_box_item_view.dart';
 import 'collection_sell_unsell_item_view.dart';
 import 'collection_reservation_item_view.dart';
 
 class GetCollectionMainListview extends StatefulWidget {
-  const GetCollectionMainListview
+  const GetCollectionMainListview({super.key,
+  required this.reserveList,
+  required this.itemsList,
+  required this.currentType
+  });
 
-  ({super.key, required this.list, required this.currentType});
-
-  final List list;
+  final List<CollectionReservationResponseData> reserveList;
+  final List<CollectionNftItemResponseData> itemsList;
   final String currentType;
 
   @override
   State<StatefulWidget> createState() => _GetCollectionMainListview();
-
 }
 
 class _GetCollectionMainListview extends State<GetCollectionMainListview> {
   String get currentType {
     return widget.currentType;
   }
+
+  List<CollectionReservationResponseData> get reserveList {
+    return widget.reserveList;
+  }
+
+  List<CollectionNftItemResponseData> get itemsList {
+    return widget.itemsList;
+  }
+
   CollectionMainViewModel viewModel = CollectionMainViewModel();
   int page = 1;
 
@@ -57,13 +69,13 @@ class _GetCollectionMainListview extends State<GetCollectionMainListview> {
 
   Widget _createItemBuilder(BuildContext context, int index) {
     if (currentType == 'Reservation') { // 今日預約
-      return _getReservationListViewItem(widget.list[index], index);
+      return _getReservationListViewItem(reserveList[index], index);
 
     } else if (currentType == 'Selling') { // 上架中
-      return _getSellingListViewItem(widget.list[index], index);
+      return _getSellingListViewItem(itemsList[index], index);
 
     } else { // 未上架
-      return _getPendingListViewItem(widget.list[index], index);
+      return _getPendingListViewItem(itemsList[index], index);
     }
   }
 
@@ -72,7 +84,10 @@ class _GetCollectionMainListview extends State<GetCollectionMainListview> {
   }
 
   int _getItemCount() {
-    return widget.list.length;
+    if (currentType == 'Reservation') {
+      return reserveList.length;
+    }
+    return itemsList.length;
   }
 
   Widget _getReservationListViewItem(CollectionReservationResponseData data, int index) {
@@ -89,32 +104,59 @@ class _GetCollectionMainListview extends State<GetCollectionMainListview> {
   }
 
   Widget _getPendingListViewItem(CollectionNftItemResponseData data, int index) {
-    return CollectionSellUnSellItemView(
-      collectionNftItemResponseData: data, index: index, type: 'Pending',
-        callBack: (index) => _removeItem(index)
-    );
+    // data.status = 'GIVE'; // test 已開未解鎖 測試用 目前後端都沒資料
+    // data.boxOpen = 'TRUE'; // test 已開未解鎖 測試用 目前後端都沒資料
+
+    // data.boxOpen = 'FALSE'; // test 盲盒測試用 目前後端都沒資料
+
+    if (data.boxOpen == 'FALSE') { // 盲盒未開
+      return CollectionBlindBoxItemView(data: data, index: index,
+        openBlind: () { // 開盲盒
+          viewModel.getOpenBoxResponse(action: 'openBox', itemId: data.itemId);
+        },
+        unlock: (int value) {});
+
+    } else if (data.status == 'GIVE' && data.boxOpen == 'TRUE') { // 盲盒已開但未解鎖
+      return CollectionBlindBoxItemView(data: data, index: index,
+        openBlind: () {},
+        unlock: (index) { // 解鎖
+          viewModel.getOpenBoxResponse(action: 'unlock', itemId: data.itemId);
+          _updateItem(index);
+        });
+
+    } else {
+      return CollectionSellUnSellItemView( // 一般圖
+          collectionNftItemResponseData: data, index: index, type: 'Pending',
+          callBack: (index) => _removeItem(index)
+      );
+    }
   }
 
-  void _removeItem(int index) {
-    widget.list.removeAt(index);
+  void _removeItem(int index) { // 上架,轉出
+    itemsList.removeAt(index);
+    setState(() {});
+  }
+
+  void _updateItem(int index) { // 解鎖
+    itemsList[index].status == 'PENDING';
     setState(() {});
   }
 
   updateView() async {
     page += 1;
     if(currentType == 'Reservation') {
-      List newListItem = await viewModel.getReservationResponse('ITEM', page, 10);
-      List newListPrice = await viewModel.getReservationResponse('PRICE', page, 10);
-      widget.list.addAll(newListItem);
-      widget.list.addAll(newListPrice);
+      var newListItem = await viewModel.getReservationResponse('ITEM', page, 10);
+      var newListPrice = await viewModel.getReservationResponse('PRICE', page, 10);
+      reserveList.addAll(newListItem);
+      reserveList.addAll(newListPrice);
 
     } else if (currentType == 'Selling') {
-      List newList = await viewModel.getNFTItemResponse('SELLING', page, 10);
-      widget.list.addAll(newList);
+      var newList = await viewModel.getNFTItemResponse('SELLING', page, 10);
+      itemsList.addAll(newList);
 
     } else {
-      List newList = await viewModel.getNFTItemResponse('PENDING', page, 10);
-      widget.list.addAll(newList);
+      var newList = await viewModel.getNFTItemResponse('PENDING', page, 10);
+      itemsList.addAll(newList);
 
     }
     setState(() {});

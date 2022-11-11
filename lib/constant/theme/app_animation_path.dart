@@ -42,4 +42,7 @@ class AppAnimationPath {
 
   /// 開賣動畫
   static const String showWaitSell = '$animationPathJson/mb_announce_01.json';
+
+  /// 收藏開啟翅膀盲盒
+  static const String showOpenWinsBox = '$animationPathJson/box_open_wings.json';
 }

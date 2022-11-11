@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import '../../view_models/collection/collection_main_view_model.dart';
 import '../../widgets/list_view/collection/get_collection_main_list_view.dart';
 import '../../widgets/loading_future_builder.dart';
+import 'data/collection_nft_item_response_data.dart';
+import 'data/collection_reservation_response_data.dart';
 
 class CollectionTypePage extends StatefulWidget {
   const CollectionTypePage({super.key, required this.currentType});
@@ -15,12 +17,13 @@ class CollectionTypePage extends StatefulWidget {
 }
 
 class _CollectionTypePage extends State<CollectionTypePage> {
+  CollectionMainViewModel viewModel = CollectionMainViewModel();
   String get currentType {
     return widget.currentType;
   }
 
-  CollectionMainViewModel viewModel = CollectionMainViewModel();
-  List responseList = [];
+  List<CollectionReservationResponseData> reserveList = [];
+  List<CollectionNftItemResponseData> itemsList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -30,18 +33,21 @@ class _CollectionTypePage extends State<CollectionTypePage> {
 
   Future<GetCollectionMainListview> _initView() async {
     if (currentType == 'Reservation') {
-      responseList = await viewModel.getReservationResponse('ITEM', 1, 10);
-      List tempList = await viewModel.getReservationResponse('PRICE', 1, 10);
-      responseList.addAll(tempList);
-      return GetCollectionMainListview(list: responseList, currentType: currentType);
+      reserveList = await viewModel.getReservationResponse('ITEM', 1, 10);
+      var tempList = await viewModel.getReservationResponse('PRICE', 1, 10);
+      reserveList.addAll(tempList);
+      return GetCollectionMainListview(
+          reserveList: reserveList, itemsList: [], currentType: currentType);
 
     } else if (currentType == 'Selling') {
-      responseList = await viewModel.getNFTItemResponse('SELLING', 1, 10);
-      return GetCollectionMainListview(list: responseList, currentType: currentType);
+      itemsList = await viewModel.getNFTItemResponse('SELLING', 1, 10);
+      return GetCollectionMainListview(
+          reserveList: [], itemsList: itemsList,  currentType: currentType);
 
     } else {
-      responseList = await viewModel.getNFTItemResponse('PENDING', 1, 10);
-      return GetCollectionMainListview(list: responseList, currentType: currentType);
+      itemsList = await viewModel.getNFTItemResponse('PENDING', 1, 10);
+      return GetCollectionMainListview(
+          reserveList: [], itemsList: itemsList, currentType: currentType);
     }
   }
 }

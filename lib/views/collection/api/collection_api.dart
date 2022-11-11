@@ -149,6 +149,23 @@ class CollectionApi extends HttpManager {
     return result;
   }
 
+  /// 開箱盲盒 / 解鎖NFT
+  Future<String> getOpenBoxResponse({
+    required String action, required String itemId}) async {
+    String result = '';
+    try {
+      ApiResponse response =
+      await post('/NFTItem/reward/open', data: {
+        'action': action,
+        'itemId': itemId,
+      });
+      result = response.message;
+    } catch (e) {
+      print(e.toString());
+    }
+    return result;
+  }
+
 }
 
 class CollectionApiCommon extends HttpManager {

@@ -99,4 +99,10 @@ class CollectionMainViewModel extends BaseViewModel {
     return await CollectionApi(onConnectFail: onConnectFail)
         .getNFTItemResponse(page: page, size: size, status: status);
   }
+
+  Future<String> getOpenBoxResponse({required String action, required String itemId,
+    ResponseErrorFunction? onConnectFail}) async {
+    return await CollectionApi(onConnectFail: onConnectFail)
+        .getOpenBoxResponse(action: action, itemId: itemId);
+  }
 }
