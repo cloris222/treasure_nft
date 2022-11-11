@@ -14,6 +14,7 @@ abstract class BaseListViewModel extends BaseViewModel {
       this.shrinkWrap = true,
       this.hasTopView = false,
       this.isAutoReloadMore = true,
+      this.reloadItems = const [],
       this.physics});
 
   ///MARK:一次讀幾筆
@@ -27,6 +28,12 @@ abstract class BaseListViewModel extends BaseViewModel {
 
   ///MARK: 是否自動讀取(僅支援listview)
   final bool isAutoReloadMore;
+
+  ///MARK:可以放暫存的資料
+  final List<dynamic> reloadItems;
+
+  ///MARK:判斷初始化是否讀取完畢
+  bool isInitFinish = false;
 
   ///MARK: 讀取資料
   Future<List<dynamic>> loadData(int page, int size);
