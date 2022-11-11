@@ -166,6 +166,19 @@ class CollectionApi extends HttpManager {
     return result;
   }
 
+  /// 查詢錢包餘額
+  Future<num> getWalletBalanceResponse() async {
+    num result = 0;
+    try {
+      ApiResponse response =
+      await get('/user/balance');
+      result = response.data;
+    } catch (e) {
+      print(e.toString());
+    }
+    return result;
+  }
+
 }
 
 class CollectionApiCommon extends HttpManager {

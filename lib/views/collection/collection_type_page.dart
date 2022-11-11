@@ -24,6 +24,7 @@ class _CollectionTypePage extends State<CollectionTypePage> {
 
   List<CollectionReservationResponseData> reserveList = [];
   List<CollectionNftItemResponseData> itemsList = [];
+  num walletBalance = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +34,12 @@ class _CollectionTypePage extends State<CollectionTypePage> {
 
   Future<GetCollectionMainListview> _initView() async {
     if (currentType == 'Reservation') {
+      walletBalance = await viewModel.getWalletBalanceResponse();
       reserveList = await viewModel.getReservationResponse('ITEM', 1, 10);
       var tempList = await viewModel.getReservationResponse('PRICE', 1, 10);
       reserveList.addAll(tempList);
       return GetCollectionMainListview(
-          reserveList: reserveList, itemsList: [], currentType: currentType);
+          reserveList: reserveList, itemsList: [], currentType: currentType, walletBalance: walletBalance);
 
     } else if (currentType == 'Selling') {
       itemsList = await viewModel.getNFTItemResponse('SELLING', 1, 10);

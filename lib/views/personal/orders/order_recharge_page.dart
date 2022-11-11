@@ -5,6 +5,7 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../../constant/enum/coin_enum.dart';
+import '../../../constant/global_data.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_style.dart';
 import '../../../constant/theme/app_theme.dart';
@@ -130,7 +131,9 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
                 key: repaintKey,
                 child: QrImage(
                   errorStateBuilder: (context, error) => Text(error.toString()),
-                  data: viewModel.address?[viewModel.currentChain.name] ?? '',
+                  data:
+                      GlobalData.userWalletInfo?[viewModel.currentChain.name] ??
+                          '',
                   version: QrVersions.auto,
                   backgroundColor: Colors.white,
                   foregroundColor: AppColors.mainThemeButton,
@@ -188,7 +191,8 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
             children: [
               Flexible(
                   child: Text(
-                      viewModel.address?[viewModel.currentChain.name] ?? '',
+                      GlobalData.userWalletInfo?[viewModel.currentChain.name] ??
+                          '',
                       maxLines: 2,
                       style: TextStyle(
                           fontSize: UIDefine.fontSize14,
@@ -198,8 +202,8 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
               InkWell(
                   onTap: () {
                     viewModel.copyText(
-                        copyText:
-                            viewModel.address?[viewModel.currentChain.name]);
+                        copyText: GlobalData
+                            .userWalletInfo?[viewModel.currentChain.name]);
                     SimpleCustomDialog(context, isSuccess: true).show();
                   },
                   child: Image.asset(AppImagePath.copyIcon))

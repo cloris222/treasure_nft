@@ -6,21 +6,26 @@ import 'package:treasure_nft_project/widgets/card/data/card_showing_data.dart';
 import 'package:treasure_nft_project/widgets/card/item_info_card.dart';
 import 'package:treasure_nft_project/widgets/card/order_info_card.dart';
 
+import '../../../constant/call_back_function.dart';
 import '../../../views/collection/data/collection_reservation_response_data.dart';
 
 /// 收藏 今日預約 ItemView
 class CollectionReservationItemView extends StatefulWidget {
-  const CollectionReservationItemView(
-      {super.key, required this.collectionReservationResponseData});
+  const CollectionReservationItemView({super.key,
+  required this.collectionReservationResponseData,
+  required this.walletBalance,
+  this.onEnoughMoney
+  });
 
   final CollectionReservationResponseData collectionReservationResponseData;
+  final num walletBalance;
+  final onClickFunction? onEnoughMoney;
 
   @override
   State<StatefulWidget> createState() => _CollectionReservationItemView();
 }
 
-class _CollectionReservationItemView
-    extends State<CollectionReservationItemView> {
+class _CollectionReservationItemView extends State<CollectionReservationItemView> {
   CollectionReservationResponseData get data {
     return widget.collectionReservationResponseData;
   }
@@ -48,6 +53,7 @@ class _CollectionReservationItemView
     } else if (data.type == 'PRICE') {
       return OrderInfoCard(
           status: data.status,
+          walletBalance: widget.walletBalance,
           orderNumber: data.orderNo,
           itemName: data.itemName,
           imageUrl: data.imgUrl,
@@ -56,7 +62,10 @@ class _CollectionReservationItemView
           dataList: _getOrderData(
               data.startPrice.toString() + ' ~ ' + data.endPrice.toString(),
               data.deposit.toString(),
-          )
+          ),
+          onEnoughMoney: () {
+            widget.onEnoughMoney!();
+          },
       );
 
     } else {

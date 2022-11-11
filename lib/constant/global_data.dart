@@ -44,4 +44,5 @@ class GlobalData {
   static UserProperty? userProperty; //查詢資產
   static UserOrderInfo? userOrderInfo; //取得訂單記數資訊
   static double? totalIncome;// 查詢收益明細 “裡面的總收入”
+  static Map<String, dynamic>? userWalletInfo;
 }
