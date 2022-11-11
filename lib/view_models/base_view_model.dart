@@ -202,6 +202,10 @@ class BaseViewModel {
     GlobalData.userLevelInfo = null;
     GlobalData.userProperty = null;
     GlobalData.userOrderInfo = null;
+    GlobalData.totalIncome = 0.0;
+    GlobalData.userWalletInfo = null;
+    AppSharedPreferences.setProfitRecord([]);
+    AppSharedPreferences.setProfitRecord([]);
   }
 
   ///MARK: 當token 為空時，代表未登入
