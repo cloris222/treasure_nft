@@ -1,4 +1,5 @@
 import 'package:treasure_nft_project/constant/enum/setting_enum.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/http_manager.dart';
 import 'package:treasure_nft_project/models/http/parameter/api_response.dart';
 
@@ -44,7 +45,13 @@ class OrderAPI extends HttpManager {
       'type': getIncomeTypeStr(type),
     });
 
-    return response.data['totalIncome'].toDouble()?? 0.0;
+    return response.data['totalIncome'].toDouble() ?? 0.0;
+  }
+
+  /// 暫存查詢收益明細 “裡面的總收入”
+  Future<double> saveTempTotalIncome() async {
+    GlobalData.totalIncome = await getPersonalIncome();
+    return GlobalData.totalIncome ?? 0.0;
   }
 
   getIncomeTypeStr(EarningIncomeType type) {
@@ -60,14 +67,15 @@ class OrderAPI extends HttpManager {
 
   /// 取得訂單信息列表
   Future<List<OrderMessageListResponseData>> getOrderMessageListResponse(
-      {int page = 1, int size = 10, String type = '',
-       String startTime = '', String endTime = ''
-      }) async {
+      {int page = 1,
+      int size = 10,
+      String type = '',
+      String startTime = '',
+      String endTime = ''}) async {
     List<OrderMessageListResponseData> result =
-    <OrderMessageListResponseData>[];
+        <OrderMessageListResponseData>[];
     try {
-      ApiResponse response =
-      await get('/order/message-list', queryParameters: {
+      ApiResponse response = await get('/order/message-list', queryParameters: {
         'page': page,
         'size': size,
         'type': type,
