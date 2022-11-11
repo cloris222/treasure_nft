@@ -17,6 +17,7 @@ import 'package:treasure_nft_project/views/notify/notify_level_up_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/image_dialog.dart';
 
+import '../constant/call_back_function.dart';
 import '../constant/global_data.dart';
 import '../constant/theme/app_animation_path.dart';
 import '../constant/theme/app_colors.dart';
@@ -117,14 +118,21 @@ class BaseViewModel {
 
     await uploadPersonalInfo();
     await uploadSignInInfo();
+    await uploadTemporaryData();
 
     AppSharedPreferences.printAll();
   }
 
   ///MARK: 使用者資料
   Future<void> uploadPersonalInfo() async {
-    GlobalData.userInfo = await UserInfoAPI().getPersonInfo();
-    GlobalData.experienceInfo = await TradeAPI().getExperienceInfoAPI();
+    List<bool> checkList = List<bool>.generate(2, (index) => false);
+
+    UserInfoAPI().getPersonInfo().then((value) => checkList[0] = true);
+    TradeAPI().getExperienceInfoAPI().then((value) => checkList[1] = true);
+
+    await checkFutureTime(
+        logKey: 'uploadPersonalInfo',
+        onCheckFinish: () => !checkList.contains(false));
   }
 
   ///MARK: 更新簽到資料
@@ -157,12 +165,36 @@ class BaseViewModel {
     await AppSharedPreferences.setLogIn(false);
     await AppSharedPreferences.setMemberID('');
     await AppSharedPreferences.setToken('');
+    await clearTemporaryData();
     GlobalData.userToken = '';
     GlobalData.userMemberId = '';
     GlobalData.userInfo = UserInfoData();
     GlobalData.showLoginAnimate = false;
     GlobalData.signInInfo = null;
     stopUserListener();
+  }
+
+  ///MARK: 更新暫存資料
+  Future<void> uploadTemporaryData() async {
+    ///MARK: 需檢查的項目數量
+    List<bool> checkList = List<bool>.generate(3, (index) => false);
+
+    ///MARK: 同步更新
+    UserInfoAPI().getCheckLevelInfoAPI().then((value) => checkList[0] = true);
+    UserInfoAPI().getUserPropertyInfo().then((value) => checkList[1] = true);
+    UserInfoAPI().getUserOrderInfo().then((value) => checkList[2] = true);
+
+    ///MARK: 等待更新完成
+    await checkFutureTime(
+        logKey: 'uploadTemporaryData',
+        onCheckFinish: () => !checkList.contains(false));
+  }
+
+  ///MARK: 清除暫存資料
+  Future<void> clearTemporaryData() async {
+    GlobalData.userLevelInfo = null;
+    GlobalData.userProperty = null;
+    GlobalData.userOrderInfo = null;
   }
 
   ///MARK: 當token 為空時，代表未登入
@@ -369,5 +401,23 @@ class BaseViewModel {
       GlobalData.country.clear();
       GlobalData.country.addAll(value);
     });
+  }
+
+  /// 簡易timer
+  Future<void> checkFutureTime(
+      {required onReturnBoolFunction onCheckFinish,
+      Duration timeOut = const Duration(seconds: 30),
+      String logKey = 'checkFutureTime',
+      bool printLog = true}) async {
+    if (printLog) debugPrint('$logKey: ---timeStart!!!!');
+    while (timeOut.inSeconds > 0) {
+      await Future.delayed(const Duration(milliseconds: 500));
+      timeOut = timeOut - const Duration(microseconds: 500);
+      if (onCheckFinish()) {
+        if (printLog) debugPrint('$logKey: ---timeFinish!!!!');
+        return;
+      }
+    }
+    if (printLog) debugPrint('$logKey: ---timeOut!!!!');
   }
 }

@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/views/personal/personal_sub_common_view.dart';
 import 'package:treasure_nft_project/views/personal/personal_sub_level_view.dart';
 import 'package:treasure_nft_project/views/personal/personal_sub_order_view.dart';
@@ -52,21 +53,21 @@ class _PersonalMainViewState extends State<PersonalMainView> {
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(children: [
                     PersonalSubLevelView(
-                      userProperty: viewModel.userProperty,
-                      levelInfo: viewModel.levelInfo,
+                      userProperty: GlobalData.userProperty,
+                      levelInfo: GlobalData.userLevelInfo,
                       onViewUpdate: _onViewUpdate,
                     ),
                     _buildLine(),
                     PersonalSubOrderView(
-                        userOrderInfo: viewModel.userOrderInfo),
+                        userOrderInfo: GlobalData.userOrderInfo),
                     _buildLine(),
-                    PersonalSubTeamView(levelInfo: viewModel.levelInfo),
+                    PersonalSubTeamView(levelInfo: GlobalData.userLevelInfo),
                     _buildLine(),
                     PersonalSubCommonView(onViewUpdate: () {
                       setState(() {});
                       widget.onViewChange();
                     }),
-                   const SizedBox(height: 10)
+                    const SizedBox(height: 10)
                   ]))
             ])));
   }

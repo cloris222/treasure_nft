@@ -5,6 +5,7 @@ import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/domain_bar.dart';
 
+import '../../constant/global_data.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/theme/app_style.dart';
@@ -88,15 +89,15 @@ class _WalletMainViewState extends State<WalletMainView> {
           Flexible(
               child: WalletInfoItem(
                   title: tr('totalAccountEarnings'),
-                  value: viewModel.userProperty?.income)),
+                  value: GlobalData.userProperty?.income)),
           Flexible(
               child: WalletInfoItem(
                   title: tr('extracted'),
-                  value: viewModel.userProperty?.withdraw)),
+                  value: GlobalData.userProperty?.withdraw)),
           Flexible(
               child: WalletInfoItem(
                   title: tr('notExtracted'),
-                  value: viewModel.userProperty?.balance)),
+                  value: GlobalData.userProperty?.balance)),
         ],
       ),
     );
@@ -200,7 +201,7 @@ class _WalletMainViewState extends State<WalletMainView> {
         Flexible(child: Container()),
         Text(
             NumberFormatUtil()
-                .removeTwoPointFormat(viewModel.userProperty?.balance),
+                .removeTwoPointFormat(GlobalData.userProperty?.balance),
             style: TextStyle(
                 fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w600))
       ])
@@ -225,7 +226,8 @@ class _WalletMainViewState extends State<WalletMainView> {
     );
   }
 
-  Widget _buildRecordListView() { // 顯示最近的15筆紀錄, 訂單信息功能才顯示完整所有紀錄
+  Widget _buildRecordListView() {
+    // 顯示最近的15筆紀錄, 訂單信息功能才顯示完整所有紀錄
     return Visibility(
       visible: viewModel.balanceRecordResponseDataList.isNotEmpty,
       child: ListView.builder(
@@ -233,17 +235,16 @@ class _WalletMainViewState extends State<WalletMainView> {
           physics: const NeverScrollableScrollPhysics(),
           itemCount: viewModel.balanceRecordResponseDataList.length,
           itemBuilder: (context, index) {
-            return BalanceRecordItemView(data: viewModel.balanceRecordResponseDataList[index]);
-          }
-      ),
+            return BalanceRecordItemView(
+                data: viewModel.balanceRecordResponseDataList[index]);
+          }),
     );
   }
 
   Widget _bottomMargin() {
     return Visibility(
-      visible: viewModel.balanceRecordResponseDataList.isEmpty,
-      child: const SizedBox(width: 1)
-    );
+        visible: viewModel.balanceRecordResponseDataList.isEmpty,
+        child: const SizedBox(width: 1));
   }
 
   void _showRechargePage() {

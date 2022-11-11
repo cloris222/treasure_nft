@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/login/register_main_page.dart';
@@ -94,7 +95,7 @@ class _LevelAchievementPageState extends State<LevelAchievementPage> {
         titles: titles,
         initialPage: TaskType.values.indexOf(widget.initType),
         topView:
-            PersonalSubUserInfoView(userLevelInfo: viewModel.userLevelInfo),
+            PersonalSubUserInfoView(userLevelInfo: GlobalData.userLevelInfo),
         children: [
           AchievementDailyView(viewModel: viewModel),
           AchievementAchieveView(viewModel: viewModel),

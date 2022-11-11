@@ -14,6 +14,7 @@ typedef onGetStringFunction = void Function(String value);
 typedef onGetBoolFunction = void Function(bool value);
 typedef onDateFunction = void Function(String startDate, String endDate);
 typedef onDateTypeFunction = void Function(Search type);
+typedef onReturnBoolFunction = bool Function();
 
 ///MARK: setState
 typedef ViewChange = void Function(VoidCallback fn);
