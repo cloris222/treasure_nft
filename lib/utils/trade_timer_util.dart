@@ -26,7 +26,7 @@ class TradeTimerUtil {
   final String key = '-TradeTimer:';
   final bool printTimeLog = false;
 
-  ///MARK: 預約查詢資訊
+  ///MARK: 查詢預約資訊
   late CheckReservationInfo _reservationInfo;
 
   ///MARK: 要判斷 天數
