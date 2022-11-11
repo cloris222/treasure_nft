@@ -14,7 +14,6 @@ abstract class BaseListViewModel extends BaseViewModel {
       this.shrinkWrap = true,
       this.hasTopView = false,
       this.isAutoReloadMore = true,
-      this.reloadItems = const [],
       this.physics});
 
   ///MARK:一次讀幾筆
@@ -29,11 +28,11 @@ abstract class BaseListViewModel extends BaseViewModel {
   ///MARK: 是否自動讀取(僅支援listview)
   final bool isAutoReloadMore;
 
-  ///MARK:可以放暫存的資料
-  final List<dynamic> reloadItems;
-
   ///MARK:判斷初始化是否讀取完畢
-  bool isInitFinish = false;
+  bool _isInitFinish = false;
+
+  ///MARK:可以放暫存的資料
+  List<dynamic> reloadItems = [];
 
   ///MARK: 讀取資料
   Future<List<dynamic>> loadData(int page, int size);
@@ -86,8 +85,16 @@ abstract class BaseListViewModel extends BaseViewModel {
     currentPage += 1;
   }
 
+  List<dynamic> getShowList() {
+    if (!_isInitFinish && reloadItems.isNotEmpty) {
+      return reloadItems;
+    }
+    return currentItems;
+  }
+
   Widget buildListView() {
-    int length = currentItems.length;
+    List<dynamic> list = getShowList();
+    int length = list.length;
 
     if (_showWaitLoad || (!isAutoReloadMore && nextItems.isNotEmpty)) {
       length += 1;
@@ -101,10 +108,10 @@ abstract class BaseListViewModel extends BaseViewModel {
             scrollDirection: Axis.vertical,
             itemBuilder: (context, index) {
               int itemIndex = index;
-              if (itemIndex != currentItems.length) {
+              if (itemIndex != list.length) {
                 return Visibility(
                     visible: !removeItems.contains(itemIndex),
-                    child: itemView(itemIndex, currentItems[itemIndex]));
+                    child: itemView(itemIndex, list[itemIndex]));
               } else {
                 if (!_showWaitLoad &&
                     (!isAutoReloadMore && nextItems.isNotEmpty)) {
@@ -123,8 +130,10 @@ abstract class BaseListViewModel extends BaseViewModel {
     double crossAxisSpacing = 0.0,
     double childAspectRatio = 1.0,
   }) {
-    int length = currentItems.length;
-    bool showInitLoading = (currentItems.isEmpty && _showWaitLoad);
+    List<dynamic> list = getShowList();
+    int length = list.length;
+
+    bool showInitLoading = (list.isEmpty && _showWaitLoad);
     if (_showWaitLoad) {
       length += 1;
     }
@@ -143,10 +152,10 @@ abstract class BaseListViewModel extends BaseViewModel {
             ),
             itemBuilder: (context, index) {
               int itemIndex = index;
-              if (itemIndex != currentItems.length) {
+              if (itemIndex != list.length) {
                 return Visibility(
                     visible: !removeItems.contains(itemIndex),
-                    child: itemView(itemIndex, currentItems[itemIndex]));
+                    child: itemView(itemIndex, list[itemIndex]));
               } else {
                 return _buildLoading();
               }
@@ -210,6 +219,7 @@ abstract class BaseListViewModel extends BaseViewModel {
     await _clearListView();
     await _uploadList();
     _showWaitLoad = false;
+    _isInitFinish = true;
     onListChange();
   }
 
@@ -229,10 +239,12 @@ abstract class BaseListViewModel extends BaseViewModel {
       await _uploadList();
     }
     _showWaitLoad = false;
+    _isInitFinish = true;
     onListChange();
   }
 
   Future<void> _clearListView() async {
+    _isInitFinish = false;
     currentPage = 1;
     currentItems.clear();
     nextItems.clear();

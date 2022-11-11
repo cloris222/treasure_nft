@@ -19,6 +19,7 @@ import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/image_dialog.dart';
 
 import '../constant/call_back_function.dart';
+import '../constant/enum/setting_enum.dart';
 import '../constant/global_data.dart';
 import '../constant/theme/app_animation_path.dart';
 import '../constant/theme/app_colors.dart';
@@ -179,7 +180,7 @@ class BaseViewModel {
   ///MARK: 登入後-更新暫存資料
   Future<void> uploadTemporaryData() async {
     ///MARK: 需檢查的項目數量
-    List<bool> checkList = List<bool>.generate(6, (index) => false);
+    List<bool> checkList = List<bool>.generate(7, (index) => false);
 
     ///MARK: 同步更新
     UserInfoAPI().getCheckLevelInfoAPI().then((value) => checkList[0] = true);
@@ -188,7 +189,7 @@ class BaseViewModel {
     OrderAPI().saveTempTotalIncome().then((value) => checkList[3] = true);
     WalletAPI().getBalanceRecharge().then((value) => checkList[4] = true);
     WalletAPI().getBalanceRecord().then((value) => checkList[5] = true);
-
+    OrderAPI().saveTempRecord().then((value) => checkList[6] = true);
 
     ///MARK: 等待更新完成
     await checkFutureTime(

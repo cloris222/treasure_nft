@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../models/http/parameter/check_earning_income.dart';
 import '../views/wallet/data/BalanceRecordResponseData.dart';
 
 class AppSharedPreferences {
@@ -106,7 +107,6 @@ class AppSharedPreferences {
 
   ///MARK: ----暫存相關 start ----
 
-
   ///MARK: 錢包紀錄 WalletRecord
   static Future<void> setWalletRecord(
       List<BalanceRecordResponseData> list) async {
@@ -116,8 +116,31 @@ class AppSharedPreferences {
 
   static Future<List<BalanceRecordResponseData>> getWalletRecord() async {
     var json = await _getJson("WalletRecord");
+    if (json == null) {
+      return [];
+    }
     return List<BalanceRecordResponseData>.from(
         json.map((x) => BalanceRecordResponseData.fromJson(x)));
+  }
+
+  ///MARK: 收益明細 ProfitRecord
+  static Future<void> setProfitRecord(List<CheckEarningIncomeData> list) async {
+    await _setJson(
+        "ProfitRecord", List<dynamic>.from(list.map((x) => x.toJson())));
+    getProfitRecord().then((value) {
+      for (var element in value) {
+        print('!!!ProfitRecord:${element.toJson().toString()}');
+      }
+    });
+  }
+
+  static Future<List<CheckEarningIncomeData>> getProfitRecord() async {
+    var json = await _getJson("ProfitRecord");
+    if (json == null) {
+      return [];
+    }
+    return List<CheckEarningIncomeData>.from(
+        json.map((x) => CheckEarningIncomeData.fromJson(x)));
   }
 
   ///MARK: ----暫存相關 end ----
