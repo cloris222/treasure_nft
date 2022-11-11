@@ -197,9 +197,12 @@ class OrderInfoCard extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              itemName,
-              style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
+            Container(
+              width: UIDefine.getScreenWidth(50),
+              child: Text(
+                itemName,
+                style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize18, fontWeight: FontWeight.w500),
+              )
             ),
 
             SizedBox(height: UIDefine.getScreenWidth(2.5)),
