@@ -1,16 +1,14 @@
-import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:treasure_nft_project/utils/date_format_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../../constant/call_back_function.dart';
 import '../../../constant/enum/coin_enum.dart';
+import '../../../constant/global_data.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../models/http/api/wallet_api.dart';
 import '../../../widgets/dialog/simple_custom_dialog.dart';
@@ -19,12 +17,10 @@ class OrderRechargeViewModel extends BaseViewModel {
   OrderRechargeViewModel({required this.setState});
 
   final ViewChange setState;
-
-  Map<String, dynamic>? address;
   CoinEnum currentChain = CoinEnum.TRON;
 
   Future<void> initState() async {
-    address = await WalletAPI().getBalanceRecharge();
+    await WalletAPI().getBalanceRecharge();
     setState(() {});
   }
 
@@ -43,7 +39,7 @@ class OrderRechargeViewModel extends BaseViewModel {
     try {
       debugPrint('开始保存');
       var qrValidationResult = QrValidator.validate(
-        data: address?[currentChain.name] ?? '',
+        data: GlobalData.userWalletInfo?[currentChain.name] ?? '',
         version: QrVersions.auto,
         errorCorrectionLevel: QrErrorCorrectLevel.L,
       );

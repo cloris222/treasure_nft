@@ -1,6 +1,8 @@
 import 'package:treasure_nft_project/constant/enum/setting_enum.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/http_manager.dart';
 import 'package:treasure_nft_project/models/http/parameter/api_response.dart';
+import 'package:treasure_nft_project/utils/app_shared_Preferences.dart';
 
 import '../../../views/personal/orders/orderinfo/data/order_message_list_response_data.dart';
 import '../parameter/check_earning_income.dart';
@@ -27,6 +29,15 @@ class OrderAPI extends HttpManager {
     for (Map<String, dynamic> json in response.data['pageList']['pageList']) {
       result.add(CheckEarningIncomeData.fromJson(json));
     }
+
+    ///MARK: 偷偷的存起來
+    if (type == EarningIncomeType.ALL &&
+        page == 1 &&
+        size == 10 &&
+        startDate.isEmpty &&
+        endDate.isEmpty) {
+      AppSharedPreferences.setProfitRecord(result);
+    }
     return result;
   }
 
@@ -45,7 +56,23 @@ class OrderAPI extends HttpManager {
       'type': getIncomeTypeStr(type),
     });
 
-    return response.data['totalIncome'].toDouble()?? 0.0;
+    return response.data['totalIncome'].toDouble() ?? 0.0;
+  }
+
+  /// 暫存查詢收益明細 “裡面的總收入”
+  Future<double> saveTempTotalIncome() async {
+    GlobalData.totalIncome = await getPersonalIncome();
+    return GlobalData.totalIncome ?? 0.0;
+  }
+
+  /// 暫存查詢收益明細紀錄
+  Future<void> saveTempRecord() async {
+    await OrderAPI().getEarningData(
+        page: 1,
+        size: 10,
+        startDate: '',
+        endDate: '',
+        type: EarningIncomeType.ALL);
   }
 
   getIncomeTypeStr(EarningIncomeType type) {
@@ -61,14 +88,15 @@ class OrderAPI extends HttpManager {
 
   /// 取得訂單信息列表
   Future<List<OrderMessageListResponseData>> getOrderMessageListResponse(
-      {int page = 1, int size = 10, String type = '',
-       String startTime = '', String endTime = ''
-      }) async {
+      {int page = 1,
+      int size = 10,
+      String type = '',
+      String startTime = '',
+      String endTime = ''}) async {
     List<OrderMessageListResponseData> result =
-    <OrderMessageListResponseData>[];
+        <OrderMessageListResponseData>[];
     try {
-      ApiResponse response =
-      await get('/order/message-list', queryParameters: {
+      ApiResponse response = await get('/order/message-list', queryParameters: {
         'page': page,
         'size': size,
         'type': type,

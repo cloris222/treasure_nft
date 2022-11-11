@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
+import 'package:treasure_nft_project/models/http/api/order_api.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/user_info_data.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
@@ -18,11 +19,13 @@ import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/image_dialog.dart';
 
 import '../constant/call_back_function.dart';
+import '../constant/enum/setting_enum.dart';
 import '../constant/global_data.dart';
 import '../constant/theme/app_animation_path.dart';
 import '../constant/theme/app_colors.dart';
 import '../models/http/api/common_api.dart';
 import '../models/http/api/trade_api.dart';
+import '../models/http/api/wallet_api.dart';
 import '../models/http/http_setting.dart';
 import '../models/http/parameter/api_response.dart';
 import '../models/http/parameter/sign_in_data.dart';
@@ -177,12 +180,16 @@ class BaseViewModel {
   ///MARK: 登入後-更新暫存資料
   Future<void> uploadTemporaryData() async {
     ///MARK: 需檢查的項目數量
-    List<bool> checkList = List<bool>.generate(3, (index) => false);
+    List<bool> checkList = List<bool>.generate(7, (index) => false);
 
     ///MARK: 同步更新
     UserInfoAPI().getCheckLevelInfoAPI().then((value) => checkList[0] = true);
     UserInfoAPI().getUserPropertyInfo().then((value) => checkList[1] = true);
     UserInfoAPI().getUserOrderInfo().then((value) => checkList[2] = true);
+    OrderAPI().saveTempTotalIncome().then((value) => checkList[3] = true);
+    WalletAPI().getBalanceRecharge().then((value) => checkList[4] = true);
+    WalletAPI().getBalanceRecord().then((value) => checkList[5] = true);
+    OrderAPI().saveTempRecord().then((value) => checkList[6] = true);
 
     ///MARK: 等待更新完成
     await checkFutureTime(
@@ -195,6 +202,10 @@ class BaseViewModel {
     GlobalData.userLevelInfo = null;
     GlobalData.userProperty = null;
     GlobalData.userOrderInfo = null;
+    GlobalData.totalIncome = 0.0;
+    GlobalData.userWalletInfo = null;
+    AppSharedPreferences.setProfitRecord([]);
+    AppSharedPreferences.setProfitRecord([]);
   }
 
   ///MARK: 當token 為空時，代表未登入

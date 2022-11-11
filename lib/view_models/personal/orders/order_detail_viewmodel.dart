@@ -2,7 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:treasure_nft_project/constant/enum/setting_enum.dart';
 import 'package:treasure_nft_project/constant/enum/team_enum.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/api/order_api.dart';
+import 'package:treasure_nft_project/utils/app_shared_Preferences.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/base_list_view_model.dart';
 import 'package:treasure_nft_project/widgets/card/item_info_card.dart';
@@ -19,17 +21,20 @@ class OrderDetailViewModel extends BaseListViewModel {
     super.hasTopView = true,
   });
 
-  double income = 0.0;
+  double income = GlobalData.totalIncome ?? 0;
   EarningIncomeType type;
   String startDate = '';
   String endDate = '';
   Search? currentType;
 
   Future<void> initState() async {
-    /// 拿完總收入後馬上更新並建立畫面
-    OrderAPI()
-        .getPersonalIncome(type: type, startDate: startDate, endDate: endDate)
-        .then((value) {
+    ///MARK: 載入預讀
+    if (type == EarningIncomeType.ALL && startDate.isEmpty && endDate.isEmpty) {
+      reloadItems = await AppSharedPreferences.getProfitRecord();
+    } else {
+      reloadItems = [];
+    }
+    OrderAPI().saveTempTotalIncome().then((value) {
       income = value;
       onListChange();
     });
