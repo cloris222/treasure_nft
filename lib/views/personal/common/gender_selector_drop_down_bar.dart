@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 
 import '../../../constant/call_back_function.dart';
 import '../../../constant/theme/app_colors.dart';
@@ -19,20 +20,22 @@ class GenderSelectorDropDownBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      _buildTextTitle(tr('gender')),
-      _dropDownBar()
-    ]);
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [_buildTextTitle(tr('gender')), _dropDownBar()]);
   }
 
   Widget _dropDownBar() {
-    getDropDownValue(_currencies.first);
+    var gender = GlobalData.userInfo.gender.isNotEmpty
+        ? GlobalData.userInfo.gender
+        : _currencies.first;
+    getDropDownValue(gender);
     return DropdownButtonFormField(
       icon: Image.asset('assets/icon/btn/btn_arrow_02_down.png'),
       onChanged: (newValue) {
         getDropDownValue(newValue!);
       },
-      value: _currencies.first,
+      value: gender,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.16),
             UIDefine.getScreenWidth(4.16), UIDefine.getScreenWidth(4.16), 0),
@@ -56,8 +59,9 @@ class GenderSelectorDropDownBar extends StatelessWidget {
     );
   }
 
-  String _getCategoryText(String value) { // 下拉選單 多國
-    switch(value) {
+  String _getCategoryText(String value) {
+    // 下拉選單 多國
+    switch (value) {
       case 'Male':
         return tr('male');
       case 'FeMale':
@@ -65,7 +69,6 @@ class GenderSelectorDropDownBar extends StatelessWidget {
     }
     return '';
   }
-
 
   Widget _buildTextTitle(String text) {
     return Container(

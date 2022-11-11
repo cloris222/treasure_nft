@@ -3,6 +3,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/enum/login_enum.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/api/auth_api.dart';
 import 'package:treasure_nft_project/utils/regular_expression_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
@@ -43,7 +44,8 @@ class RegisterMainViewModel extends BaseViewModel {
   bool checkEmail = false;
   String validateEmail = '';
 
-  String phoneCountry = '';
+  String phoneCountry =
+      GlobalData.country.isNotEmpty ? GlobalData.country.first.country : '';
 
   void dispose() {
     accountController.dispose();
@@ -249,7 +251,6 @@ class RegisterMainViewModel extends BaseViewModel {
   }
 
   void setPhoneCountry(String value) {
-    print('$value');
     phoneCountry = value;
   }
 }

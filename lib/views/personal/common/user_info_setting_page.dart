@@ -7,7 +7,6 @@ import 'package:treasure_nft_project/views/personal/common/phone_param_view.dart
 
 import '../../../constant/theme/app_image_path.dart';
 import '../../../constant/ui_define.dart';
-import '../../../models/http/parameter/country_phone_data.dart';
 import '../../../view_models/personal/common/user_info_setting_view_model.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/button/login_button_widget.dart';
@@ -59,7 +58,7 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
                             fontSize: UIDefine.fontSize14))),
                 _getNationalityForm(),
                 SizedBox(height: UIDefine.getScreenWidth(4.16)),
-                _getUnEditFormView(tr('account'), GlobalData.userInfo.name),
+                _getUnEditFormView(tr('account'), GlobalData.userInfo.account),
                 SizedBox(height: UIDefine.getScreenWidth(4.16)),
                 LoginParamView(
                     titleText: tr('nickname'),
@@ -70,6 +69,9 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
                     onChanged: viewModel.onNicknameChanged),
                 SizedBox(height: UIDefine.getScreenWidth(4.16)),
                 PhoneParamView(
+                    initCountry: GlobalData.userInfo.phoneCountry.isNotEmpty
+                        ? GlobalData.userInfo.phoneCountry
+                        : null,
                     titleText: tr('phone'),
                     hintText: tr("placeholder-phone'"),
                     controller: viewModel.phoneController,
@@ -92,6 +94,9 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
                             fontWeight: FontWeight.bold,
                             fontSize: UIDefine.fontSize14))),
                 DatePickerOne(
+                  initDate: GlobalData.userInfo.birthday.isNotEmpty
+                      ? GlobalData.userInfo.birthday
+                      : null,
                   onTap: viewModel.onTap,
                   getValue: (String value) {
                     viewModel.setBirthday(value);
@@ -107,9 +112,9 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
                     isGradient: false,
                     btnText: tr('save'),
                     onPressed: () => viewModel.onPressSave(context))
-              ],
-            )),
-      ),
+              ]
+            ))
+      )
     );
   }
 
@@ -124,8 +129,7 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
             width: UIDefine.getScreenWidth(11.11),
             height: UIDefine.getScreenWidth(11.11)),
         SizedBox(width: UIDefine.getScreenWidth(2.7)),
-        Text(
-            GlobalData.userInfo.country + ' (' + GlobalData.userInfo.zone + ')',
+        Text('${GlobalData.userInfo.country} (${GlobalData.userInfo.zone})',
             style: TextStyle(
                 fontWeight: FontWeight.w600, fontSize: UIDefine.fontSize14)),
       ],

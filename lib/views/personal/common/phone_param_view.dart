@@ -12,8 +12,9 @@ import '../../../widgets/text_field/login_text_widget.dart';
 
 /// 區碼選擇 + 電話號碼輸入框
 class PhoneParamView extends StatelessWidget {
-  PhoneParamView(
+  const PhoneParamView(
       {Key? key,
+      this.initCountry,
       required this.titleText,
       required this.hintText,
       required this.controller,
@@ -23,6 +24,7 @@ class PhoneParamView extends StatelessWidget {
       this.onChanged,
       this.onTap})
       : super(key: key);
+  final String? initCountry;
   final String titleText;
   final String hintText;
   final TextEditingController controller;
@@ -84,7 +86,10 @@ class PhoneParamView extends StatelessWidget {
         // 將選擇的傳至外部 ex: +65 (只有區碼)
         getDropDownValue(newValue!);
       },
-      value: GlobalData.country.first.country,
+      value: initCountry ??
+          (GlobalData.country.isNotEmpty
+              ? GlobalData.country.first.country
+              : ''),
       decoration: InputDecoration(
         iconColor: AppColors.mainThemeButton,
         contentPadding: EdgeInsets.fromLTRB(

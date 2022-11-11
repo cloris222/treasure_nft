@@ -12,6 +12,7 @@ String userInfoDataToJson(UserInfoData data) => json.encode(data.toJson());
 class UserInfoData {
   UserInfoData({
     this.name = '',
+    this.account = '',
     this.email = '',
     this.phoneCountry = '',
     this.phone = '',
@@ -31,6 +32,9 @@ class UserInfoData {
 
   /// 暱稱
   String name;
+
+  /// 帳號
+  String account;
 
   /// 信箱
   String email;
@@ -79,24 +83,26 @@ class UserInfoData {
 
   factory UserInfoData.fromJson(Map<String, dynamic> json) => UserInfoData(
         name: json["name"],
+        account: json['account'],
         email: json["email"],
         phoneCountry: json["phoneCountry"] ?? '',
         phone: json["phone"] ?? '',
-        inviteCode: json["inviteCode"]??'',
-        photoUrl: json["photoUrl"]??'',
-        bannerUrl: json["bannerUrl"]??'',
+        inviteCode: json["inviteCode"] ?? '',
+        photoUrl: json["photoUrl"] ?? '',
+        bannerUrl: json["bannerUrl"] ?? '',
         gender: json["gender"],
         birthday: json["birthday"] ?? '',
         bindGoogle: json["bindGoogle"],
         level: json["level"],
         canLevelUp: json["canLevelUp"],
-        medal: json["medal"]?? '',
-        point: json["point"]??0,
+        medal: json["medal"] ?? '',
+        point: json["point"] ?? 0,
         country: json["country"],
         zone: json["zone"],
       );
 
   Map<String, dynamic> toJson() => {
+        "account": account,
         "name": name,
         "email": email,
         "phoneCountry": phoneCountry,
@@ -115,7 +121,7 @@ class UserInfoData {
         "zone": zone,
       };
 
-  String getStrZone(){
+  String getStrZone() {
     return '';
   }
 }

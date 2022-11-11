@@ -10,13 +10,19 @@ import '../label/error_text_widget.dart';
 
 /// 單日日期選擇器
 class DatePickerOne extends StatefulWidget {
-  const DatePickerOne({super.key, this.onTap,
-  required this.getValue, required this.data, required this.enabledColor});
+  const DatePickerOne(
+      {super.key,
+      this.onTap,
+      required this.getValue,
+      required this.data,
+      required this.enabledColor,
+      this.initDate});
 
   final GestureTapCallback? onTap;
   final onGetStringFunction getValue;
   final ValidateResultData data;
   final Color enabledColor; //可用狀態
+  final String? initDate;
 
   @override
   State<StatefulWidget> createState() => _DatePickerOne();
@@ -29,14 +35,12 @@ class _DatePickerOne extends State<DatePickerOne> {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () async {
-          await _showDatePicker(context)
-              .then((value) =>
-          { date = dateTimeFormat(value),
-            widget.getValue(date),
-            setState(() {})
-          });
+          await _showDatePicker(context).then((value) => {
+                date = dateTimeFormat(value),
+                widget.getValue(date),
+                setState(() {})
+              });
         },
-
         child: Column(
           children: [
             Container(
@@ -46,25 +50,19 @@ class _DatePickerOne extends State<DatePickerOne> {
               child: Row(
                 children: [
                   _getPadding(1),
-
                   Image.asset(AppImagePath.dateIcon),
-
                   _getPadding(1),
-
                   Text(
-                    date,
+                    widget.initDate ?? date,
                     style: const TextStyle(color: AppColors.textGrey),
                   ),
-
                 ],
               ),
             ),
-
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             ErrorTextWidget(data: widget.data, alignment: Alignment.centerRight)
           ],
-        )
-    );
+        ));
   }
 
   Future<DateTime?> _showDatePicker(BuildContext context) async {
@@ -77,8 +75,9 @@ class _DatePickerOne extends State<DatePickerOne> {
 
   BoxDecoration _setBoxDecoration() {
     return BoxDecoration(
-        border: Border.all(color: widget.enabledColor),
-        borderRadius: BorderRadius.circular(10),);
+      border: Border.all(color: widget.enabledColor),
+      borderRadius: BorderRadius.circular(10),
+    );
   }
 
   Widget _getPadding(double val) {
