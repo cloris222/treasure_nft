@@ -59,8 +59,7 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
         SuccessDialog(context,
                 callOkFunction: () {},
                 isSuccess: false,
-                mainText: tr("reserve-failed'")
-                )
+                mainText: tr("reserve-failed'"))
             .show();
       },
 
@@ -188,24 +187,22 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
               SizedBox(
                 height: UIDefine.getHeight() / 50,
               ),
-              viewModel.reservationInfo != null
-                  ? tradeData.status == SellingState.Selling
-                      ? Text(
-                          tr('onSale'),
-                          style: TextStyle(
-                              color: AppColors.textRed,
-                              fontSize: UIDefine.fontSize24,
-                              fontWeight: FontWeight.w600),
-                        )
-                      : CountDownTimer(
-                          duration: tradeData.duration,
-                        )
-                  : Container(),
+              tradeData.status == SellingState.Selling
+                  ? Text(
+                      tr('onSale'),
+                      style: TextStyle(
+                          color: AppColors.textRed,
+                          fontSize: UIDefine.fontSize24,
+                          fontWeight: FontWeight.w600),
+                    )
+                  : CountDownTimer(
+                      duration: tradeData.duration,
+                    ),
               LoginButtonWidget(
                 width: UIDefine.getWidth() / 1.7,
                 height: UIDefine.getHeight() / 20,
                 btnText:
-                    '(${viewModel.reservationInfo?.zone}) ${DateFormatUtil().getDateWith12HourInSecondFormat(TradeTimerUtil().getSellStartTime())}',
+                    '(${GlobalData.userInfo.zone}) ${DateFormatUtil().getDateWith12HourInSecondFormat(TradeTimerUtil().getSellStartTime())}',
                 fontSize: UIDefine.fontSize14,
                 fontWeight: FontWeight.bold,
                 onPressed: () {},
@@ -291,13 +288,13 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
                       title: tr("wallet-balance'"),
                       showCoins: false,
                       content:
-                          '${viewModel.reservationInfo?.balance.toStringAsFixed(2)}',
+                      TradeTimerUtil().getReservationInfo().balance.toStringAsFixed(2),
                       rightFontWeight: FontWeight.bold,
                     ),
                     LevelDetailLabel(
                       title: tr("availableBalance"),
                       content:
-                          '${viewModel.reservationInfo?.reserveBalance.toStringAsFixed(2)}',
+                      TradeTimerUtil().getReservationInfo().reserveBalance.toStringAsFixed(2),
                       rightFontWeight: FontWeight.bold,
                     ),
                     LevelDetailLabel(
@@ -317,16 +314,12 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
   }
 
   Widget checkDataInit(TradeData tradeData) {
-    if (viewModel.reservationInfo != null) {
-      return _levelArea(context, tradeData);
-    } else {
-      return Container();
-    }
+    return _levelArea(context, tradeData);
   }
 
   Widget _levelArea(BuildContext context, TradeData tradeData) {
     return ListView.builder(
-        itemCount: viewModel.reservationInfo?.reserveRanges.length,
+        itemCount: TradeTimerUtil().getReservationInfo().reserveRanges.length,
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {

@@ -118,7 +118,7 @@ class BaseViewModel {
 
     await uploadPersonalInfo();
     await uploadSignInInfo();
-    await uploadTemporaryData();
+    uploadTemporaryData();
 
     AppSharedPreferences.printAll();
   }

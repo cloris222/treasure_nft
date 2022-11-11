@@ -1,19 +1,15 @@
-import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
-import 'package:treasure_nft_project/models/http/parameter/check_level_info.dart';
 import 'package:treasure_nft_project/models/http/parameter/check_reservation_info.dart';
 import 'package:treasure_nft_project/utils/trade_timer_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import '../../constant/call_back_function.dart';
-import '../../constant/enum/trade_enum.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../models/http/api/trade_api.dart';
 import '../../models/http/parameter/add_new_reservation.dart';
-import '../../utils/date_format_util.dart';
 
 class TradeMainViewModel extends BaseViewModel {
   TradeMainViewModel(
@@ -29,7 +25,6 @@ class TradeMainViewModel extends BaseViewModel {
 
   final onClickFunction setState;
   List<int>? division;
-  CheckLevelInfo? userLevelInfo;
   AddNewReservation? newReservation;
   late List<ReserveRange> ranges;
   VoidCallback notEnoughToPay;
@@ -68,10 +63,7 @@ class TradeMainViewModel extends BaseViewModel {
       }
       setState();
     });
-    UserInfoAPI().getCheckLevelInfoAPI().then((value) {
-      userLevelInfo = value;
-      setState();
-    });
+    UserInfoAPI().getCheckLevelInfoAPI().then((value) => setState());
   }
 
   /// 離開頁面後清除時間
@@ -144,8 +136,8 @@ class TradeMainViewModel extends BaseViewModel {
     dynamic min;
     dynamic max;
 
-    min = userLevelInfo?.buyRangeStart;
-    max = userLevelInfo?.buyRangeEnd;
+    min = GlobalData.userLevelInfo?.buyRangeStart;
+    max = GlobalData.userLevelInfo?.buyRangeEnd;
     return '$min~$max';
   }
 
