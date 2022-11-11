@@ -6,7 +6,6 @@ import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../../constant/call_back_function.dart';
 import '../../../models/http/api/user_info_api.dart';
-import '../../../models/http/parameter/check_level_info.dart';
 import '../../../models/http/parameter/level_info_data.dart';
 import '../../../views/personal/level/level_bonus_page.dart';
 
@@ -14,7 +13,6 @@ class LevelDetailViewModel extends BaseViewModel {
   LevelDetailViewModel({required this.setState});
 
   final ViewChange setState;
-  CheckLevelInfo? userLevelInfo;
   List<LevelInfoData> levelDataList = [];
   bool isLevelUp = false;
   late PageController pageController;
@@ -38,13 +36,13 @@ class LevelDetailViewModel extends BaseViewModel {
     int index = 0;
 
     ///MARK: 5&6等 跳到第6等等級頁
-    if (userLevelInfo!.userLevel >= 5) {
+    if (GlobalData.userLevelInfo!.userLevel >= 5) {
       index = 5;
     }
 
     ///1~4等 跳到 第+1等 等級頁
-    else if (userLevelInfo!.userLevel > 0) {
-      index = userLevelInfo!.userLevel;
+    else if (GlobalData.userLevelInfo!.userLevel > 0) {
+      index = GlobalData.userLevelInfo!.userLevel;
     }
     pageController = PageController(initialPage: index);
     setState(() {});
@@ -59,7 +57,7 @@ class LevelDetailViewModel extends BaseViewModel {
   }
 
   double getPointPercentage() {
-    return userLevelInfo?.getPointPercentage() ?? 0;
+    return GlobalData.userLevelInfo?.getPointPercentage() ?? 0;
   }
 
   void onPressLevelUp(BuildContext context) {
@@ -88,7 +86,7 @@ class LevelDetailViewModel extends BaseViewModel {
 
   ///MARK: 判斷是否為下一等級
   bool nextLevel(int level) {
-    return (level - userLevelInfo!.userLevel) == 1;
+    return (level - GlobalData.userLevelInfo!.userLevel) == 1;
   }
 
   ///MARK: 顯示下一等級獎勵

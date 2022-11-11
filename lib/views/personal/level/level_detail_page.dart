@@ -93,7 +93,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
       ///MARK: 積分
       Row(children: [
         Text(
-          '${tr('lv_point')} : ${viewModel.userLevelInfo?.point} / ${viewModel.userLevelInfo?.pointRequired} (${viewModel.getStrPointPercentage()})',
+          '${tr('lv_point')} : ${GlobalData.userLevelInfo?.point} / ${GlobalData.userLevelInfo?.pointRequired} (${viewModel.getStrPointPercentage()})',
           style: TextStyle(
               fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w400),
         ),
@@ -303,8 +303,8 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
       _buildSingleRequest(
           level: 1,
           title: tr('depositNFT'),
-          value: viewModel.userLevelInfo!.depositAmount,
-          request: viewModel.userLevelInfo!.depositAmountRequired)
+          value: GlobalData.userLevelInfo!.depositAmount,
+          request: GlobalData.userLevelInfo!.depositAmountRequired)
     ]);
   }
 
@@ -314,13 +314,13 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
       _buildSingleRequest(
           level: level,
           title: tr('open_A_lv'),
-          value: viewModel.userLevelInfo!.activeDirect,
-          request: viewModel.userLevelInfo!.activeDirectRequired),
+          value: GlobalData.userLevelInfo!.activeDirect,
+          request: GlobalData.userLevelInfo!.activeDirectRequired),
       _buildSingleRequest(
           level: level,
           title: tr('open_BC_lv'),
-          value: viewModel.userLevelInfo!.activeIndirect,
-          request: viewModel.userLevelInfo!.activeIndirectRequired)
+          value: GlobalData.userLevelInfo!.activeIndirect,
+          request: GlobalData.userLevelInfo!.activeIndirectRequired)
     ]);
   }
 
