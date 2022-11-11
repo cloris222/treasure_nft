@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/models/http/parameter/check_earning_income.dart';
 import 'package:treasure_nft_project/models/http/parameter/check_level_info.dart';
 
 import '../models/http/parameter/check_experience_info.dart';
@@ -42,5 +43,6 @@ class GlobalData {
   static CheckLevelInfo? userLevelInfo; //查詢等級資訊
   static UserProperty? userProperty; //查詢資產
   static UserOrderInfo? userOrderInfo; //取得訂單記數資訊
+  static double? totalIncome;// 查詢收益明細 “裡面的總收入”
   static Map<String, dynamic>? userWalletInfo;
 }

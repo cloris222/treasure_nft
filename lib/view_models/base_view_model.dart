@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
+import 'package:treasure_nft_project/models/http/api/order_api.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/user_info_data.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
@@ -178,14 +179,16 @@ class BaseViewModel {
   ///MARK: 登入後-更新暫存資料
   Future<void> uploadTemporaryData() async {
     ///MARK: 需檢查的項目數量
-    List<bool> checkList = List<bool>.generate(5, (index) => false);
+    List<bool> checkList = List<bool>.generate(6, (index) => false);
 
     ///MARK: 同步更新
     UserInfoAPI().getCheckLevelInfoAPI().then((value) => checkList[0] = true);
     UserInfoAPI().getUserPropertyInfo().then((value) => checkList[1] = true);
     UserInfoAPI().getUserOrderInfo().then((value) => checkList[2] = true);
-    WalletAPI().getBalanceRecharge().then((value) => checkList[3] = true);
-    WalletAPI().getBalanceRecord().then((value) => checkList[4] = true);
+    OrderAPI().saveTempTotalIncome().then((value) => checkList[3] = true);
+    WalletAPI().getBalanceRecharge().then((value) => checkList[4] = true);
+    WalletAPI().getBalanceRecord().then((value) => checkList[5] = true);
+
 
     ///MARK: 等待更新完成
     await checkFutureTime(
