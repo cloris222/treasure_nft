@@ -105,4 +105,9 @@ class CollectionMainViewModel extends BaseViewModel {
     return await CollectionApi(onConnectFail: onConnectFail)
         .getOpenBoxResponse(action: action, itemId: itemId);
   }
+
+  Future<num> getWalletBalanceResponse({ResponseErrorFunction? onConnectFail}) async {
+    return await CollectionApi(onConnectFail: onConnectFail)
+        .getWalletBalanceResponse();
+  }
 }

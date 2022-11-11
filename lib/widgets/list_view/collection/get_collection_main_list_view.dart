@@ -12,12 +12,14 @@ class GetCollectionMainListview extends StatefulWidget {
   const GetCollectionMainListview({super.key,
   required this.reserveList,
   required this.itemsList,
-  required this.currentType
+  required this.currentType,
+  this.walletBalance = 0
   });
 
   final List<CollectionReservationResponseData> reserveList;
   final List<CollectionNftItemResponseData> itemsList;
   final String currentType;
+  final num walletBalance;
 
   @override
   State<StatefulWidget> createState() => _GetCollectionMainListview();
@@ -38,6 +40,13 @@ class _GetCollectionMainListview extends State<GetCollectionMainListview> {
 
   CollectionMainViewModel viewModel = CollectionMainViewModel();
   int page = 1;
+  late num walletBalance;
+
+  @override
+  void initState() {
+    super.initState();
+    walletBalance = widget.walletBalance;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +102,10 @@ class _GetCollectionMainListview extends State<GetCollectionMainListview> {
   Widget _getReservationListViewItem(CollectionReservationResponseData data, int index) {
     return CollectionReservationItemView(
       collectionReservationResponseData: data,
+      walletBalance: walletBalance,
+      onEnoughMoney: () {
+        // test 還要補上 補足餘額的API API後端未完成
+      },
     );
   }
 
@@ -145,6 +158,7 @@ class _GetCollectionMainListview extends State<GetCollectionMainListview> {
   updateView() async {
     page += 1;
     if(currentType == 'Reservation') {
+      walletBalance = await viewModel.getWalletBalanceResponse();
       var newListItem = await viewModel.getReservationResponse('ITEM', page, 10);
       var newListPrice = await viewModel.getReservationResponse('PRICE', page, 10);
       reserveList.addAll(newListItem);
