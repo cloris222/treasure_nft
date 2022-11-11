@@ -18,8 +18,6 @@ class WalletMainViewModel extends BaseViewModel {
     ///MARK:取得資料
     await AppSharedPreferences.getWalletRecord()
         .then((value) => setState(() => balanceRecordResponseDataList = value));
-
-    await Future.delayed(Duration(seconds: 5));
     List<bool> checkList = List<bool>.generate(3, (index) => false);
 
     UserInfoAPI().getUserPropertyInfo().then((value) => checkList[0] = true);
