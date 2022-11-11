@@ -174,7 +174,7 @@ class BaseViewModel {
     stopUserListener();
   }
 
-  ///MARK: 更新暫存資料
+  ///MARK: 登入後-更新暫存資料
   Future<void> uploadTemporaryData() async {
     ///MARK: 需檢查的項目數量
     List<bool> checkList = List<bool>.generate(3, (index) => false);
@@ -190,7 +190,7 @@ class BaseViewModel {
         onCheckFinish: () => !checkList.contains(false));
   }
 
-  ///MARK: 清除暫存資料
+  ///MARK: 登出後-清除暫存資料
   Future<void> clearTemporaryData() async {
     GlobalData.userLevelInfo = null;
     GlobalData.userProperty = null;
