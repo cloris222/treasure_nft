@@ -1,5 +1,6 @@
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/http_manager.dart';
+import 'package:treasure_nft_project/utils/app_shared_Preferences.dart';
 
 import '../../../constant/enum/coin_enum.dart';
 import '../../../views/wallet/data/BalanceRecordResponseData.dart';
@@ -37,6 +38,7 @@ class WalletAPI extends HttpManager {
     for (Map<String, dynamic> json in response.data['pageList']) {
       result.add(BalanceRecordResponseData.fromJson(json));
     }
+    AppSharedPreferences.setWalletRecord(result);
     return result;
   }
 

@@ -3,6 +3,7 @@ import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../constant/call_back_function.dart';
 import '../../models/http/api/user_info_api.dart';
+import '../../utils/app_shared_Preferences.dart';
 import '../../views/wallet/data/BalanceRecordResponseData.dart';
 
 class WalletMainViewModel extends BaseViewModel {
@@ -13,7 +14,12 @@ class WalletMainViewModel extends BaseViewModel {
   List<BalanceRecordResponseData> balanceRecordResponseDataList =
       <BalanceRecordResponseData>[];
 
-  void initState() {
+  void initState() async {
+    ///MARK:取得資料
+    await AppSharedPreferences.getWalletRecord()
+        .then((value) => setState(() => balanceRecordResponseDataList = value));
+
+    await Future.delayed(Duration(seconds: 5));
     List<bool> checkList = List<bool>.generate(3, (index) => false);
 
     UserInfoAPI().getUserPropertyInfo().then((value) => checkList[0] = true);

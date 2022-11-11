@@ -178,13 +178,14 @@ class BaseViewModel {
   ///MARK: 登入後-更新暫存資料
   Future<void> uploadTemporaryData() async {
     ///MARK: 需檢查的項目數量
-    List<bool> checkList = List<bool>.generate(4, (index) => false);
+    List<bool> checkList = List<bool>.generate(5, (index) => false);
 
     ///MARK: 同步更新
     UserInfoAPI().getCheckLevelInfoAPI().then((value) => checkList[0] = true);
     UserInfoAPI().getUserPropertyInfo().then((value) => checkList[1] = true);
     UserInfoAPI().getUserOrderInfo().then((value) => checkList[2] = true);
     WalletAPI().getBalanceRecharge().then((value) => checkList[3] = true);
+    WalletAPI().getBalanceRecord().then((value) => checkList[4] = true);
 
     ///MARK: 等待更新完成
     await checkFutureTime(
