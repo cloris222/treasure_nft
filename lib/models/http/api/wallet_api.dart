@@ -1,3 +1,4 @@
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/http_manager.dart';
 
 import '../../../constant/enum/coin_enum.dart';
@@ -20,20 +21,19 @@ class WalletAPI extends HttpManager {
     if (!result.containsKey(CoinEnum.BSC.name)) {
       result[CoinEnum.BSC.name] = '';
     }
-
+    GlobalData.userWalletInfo = result;
     return result;
   }
 
   Future<List<BalanceRecordResponseData>> getBalanceRecord() async {
     List<BalanceRecordResponseData> result = <BalanceRecordResponseData>[];
-    var response = await get('/user/balance-record', queryParameters:
-        {
-          'type': 'ALL',
-          'page': '1',
-          'size': '15',
-          'startTime': '',
-          'endTime': ''
-        });
+    var response = await get('/user/balance-record', queryParameters: {
+      'type': 'ALL',
+      'page': '1',
+      'size': '15',
+      'startTime': '',
+      'endTime': ''
+    });
     for (Map<String, dynamic> json in response.data['pageList']) {
       result.add(BalanceRecordResponseData.fromJson(json));
     }
