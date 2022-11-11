@@ -39,7 +39,7 @@ class _CollectionReservationItemView
       return ItemInfoCard(
           status: data.status,
           itemName: data.itemName,
-          dateTime: BaseViewModel().changeTimeZone(data.createdAt),
+          dateTime: BaseViewModel().changeTimeZone(data.createdAt, isShowGmt: true),
           imageUrl: data.imgUrl,
           price: '',
           dataList: _getItemData(data.price.toString(), data.orderNo)
@@ -52,7 +52,7 @@ class _CollectionReservationItemView
           itemName: data.itemName,
           imageUrl: data.imgUrl,
           price: data.price.toString(),
-          dateTime: BaseViewModel().changeTimeZone(data.createdAt),
+          dateTime: BaseViewModel().changeTimeZone(data.createdAt, isShowGmt: true),
           dataList: _getOrderData(
               data.startPrice.toString() + ' ~ ' + data.endPrice.toString(),
               data.deposit.toString(),

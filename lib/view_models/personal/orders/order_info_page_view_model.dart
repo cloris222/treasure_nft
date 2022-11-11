@@ -68,7 +68,7 @@ class OrderInfoPageViewModel extends BaseViewModel {
 
       case 'PRICE':
         return OrderInfoCard(
-            orderNumber: data.orderNo, dateTime: BaseViewModel().changeTimeZone(data.createdAt),
+            orderNumber: data.orderNo, dateTime: BaseViewModel().changeTimeZone(data.createdAt, isShowGmt: true),
             dataList: _priceListContent(data), status: data.status,
             imageUrl: data.imgUrl, itemName: data.itemName, price: data.price.toString());
 
