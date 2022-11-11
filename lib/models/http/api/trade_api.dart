@@ -1,3 +1,4 @@
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/http_manager.dart';
 import 'package:treasure_nft_project/models/http/parameter/api_response.dart';
 import '../parameter/add_new_reservation.dart';
@@ -52,6 +53,7 @@ class TradeAPI extends HttpManager {
   /// 取得體驗帳號資訊
   Future<ExperienceInfo> getExperienceInfoAPI() async {
     var response = await get('/experience/experience-info');
-    return ExperienceInfo.fromJson(response.data);
+    GlobalData.experienceInfo = ExperienceInfo.fromJson(response.data);
+    return GlobalData.experienceInfo;
   }
 }

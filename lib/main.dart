@@ -41,8 +41,16 @@ Future<void> initApp() async {
       GlobalData.userMemberId = await AppSharedPreferences.getMemberID();
       if (GlobalData.userToken.isNotEmpty &&
           GlobalData.userMemberId.isNotEmpty) {
-        await viewModel.uploadPersonalInfo();
-        await viewModel.uploadSignInInfo();
+        List<bool> checkList = List<bool>.generate(3, (index) => false);
+        viewModel.uploadPersonalInfo().then((value) => checkList[0] = true);
+        viewModel.uploadSignInInfo().then((value) => checkList[1] = true);
+        viewModel.uploadTemporaryData().then((value) => checkList[2] = true);
+
+        await viewModel.checkFutureTime(
+            logKey: 'autoLogin',
+            onCheckFinish: () {
+              return !checkList.contains(false);
+            });
 
         viewModel.startUserListener();
         GlobalData.showLoginAnimate = true;

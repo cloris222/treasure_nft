@@ -20,9 +20,21 @@ class LevelDetailViewModel extends BaseViewModel {
   late PageController pageController;
 
   void initState() async {
-    userLevelInfo = await UserInfoAPI().getCheckLevelInfoAPI();
-    isLevelUp = await LevelAPI().checkLevelUpdate();
-    levelDataList = await LevelAPI().getAllLevelInfo();
+    List<bool> checkList = List<bool>.generate(3, (index) => false);
+
+    UserInfoAPI().getCheckLevelInfoAPI().then((value) => checkList[0] = true);
+    LevelAPI().checkLevelUpdate().then((value) {
+      isLevelUp = value;
+      checkList[1] = true;
+    });
+    LevelAPI().getAllLevelInfo().then((value) {
+      levelDataList = value;
+      checkList[2] = true;
+    });
+
+    ///MARK: 等待更新完成
+    await checkFutureTime(
+        logKey: 'levelDetail', onCheckFinish: () => !checkList.contains(false));
     int index = 0;
 
     ///MARK: 5&6等 跳到第6等等級頁

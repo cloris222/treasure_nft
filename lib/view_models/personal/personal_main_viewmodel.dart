@@ -10,32 +10,22 @@ class PersonalMainViewModel extends BaseViewModel {
   PersonalMainViewModel({required this.setState});
 
   final ViewChange setState;
-  CheckLevelInfo? levelInfo;
-  UserProperty? userProperty;
-  UserOrderInfo? userOrderInfo;
 
   void initState() {
     updateData();
   }
 
   void updateData() {
-    UserInfoAPI().getCheckLevelInfoAPI().then((value) {
-      setState(() {
-        levelInfo = value;
-      });
-    });
-    UserInfoAPI().getUserPropertyInfo().then((value) {
-      setState(() {
-        userProperty = value;
-      });
-    });
-    UserInfoAPI().getUserOrderInfo().then((value) {
-      setState(() {
-        userOrderInfo = value;
-      });
-    });
-    uploadPersonalInfo().then((value) {
-      setState(() {});
-    });
+    List<bool> checkList = List<bool>.generate(4, (index) => false);
+
+    UserInfoAPI().getCheckLevelInfoAPI().then((value) => checkList[0] = true);
+    UserInfoAPI().getUserPropertyInfo().then((value) => checkList[1] = true);
+    UserInfoAPI().getUserOrderInfo().then((value) => checkList[2] = true);
+    uploadPersonalInfo().then((value) => checkList[3] = true);
+
+    checkFutureTime(
+            logKey: 'PersonalMain_updateData',
+            onCheckFinish: () => !checkList.contains(false))
+        .then((value) => setState(() {}));
   }
 }

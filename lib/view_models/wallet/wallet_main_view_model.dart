@@ -11,15 +11,12 @@ class WalletMainViewModel extends BaseViewModel {
 
   final ViewChange setState;
 
-  UserProperty? userProperty;
   Map<String, dynamic>? address;
   List<BalanceRecordResponseData> balanceRecordResponseDataList =
       <BalanceRecordResponseData>[];
 
   void initState() {
-    UserInfoAPI()
-        .getUserPropertyInfo()
-        .then((value) => setState(() => userProperty = value));
+    UserInfoAPI().getUserPropertyInfo().then((value) => setState(() {}));
     WalletAPI()
         .getBalanceRecharge()
         .then((value) => setState(() => address = value));

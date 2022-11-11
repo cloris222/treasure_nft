@@ -24,21 +24,17 @@ class LevelAchievementViewModel extends BaseViewModel {
   List<MedalInfoData> medalList = [];
 
   final ViewChange setState;
-  CheckLevelInfo? userLevelInfo;
   final onClickFunction showExperienceHint;
   final onClickFunction showLevel0Hint;
 
   Future<void> initState() async {
-    await uploadPersonalInfo();
-
-    if (GlobalData.experienceInfo.isExperience) {
-      showExperienceHint();
-      return;
-    } else if (GlobalData.userInfo.level == 0) {
-      showLevel0Hint();
-      return;
-    }
-
+    uploadPersonalInfo().then((value) {
+      if (GlobalData.experienceInfo.isExperience) {
+        showExperienceHint();
+      } else if (GlobalData.userInfo.level == 0) {
+        showLevel0Hint();
+      }
+    });
     MissionAPI()
         .getDailyTask()
         .then((value) => setState(() => dailyList = value));
@@ -48,9 +44,7 @@ class LevelAchievementViewModel extends BaseViewModel {
     MissionAPI()
         .getMedalList()
         .then((value) => setState(() => medalList = value));
-    UserInfoAPI()
-        .getCheckLevelInfoAPI()
-        .then((value) => setState(() => userLevelInfo = value));
+    UserInfoAPI().getCheckLevelInfoAPI().then((value) => setState(() {}));
   }
 
   void getDailyPoint(BuildContext context, String recordNo, int point) async {

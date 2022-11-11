@@ -5,6 +5,8 @@ import '../models/http/parameter/check_experience_info.dart';
 import '../models/http/parameter/country_phone_data.dart';
 import '../models/http/parameter/sign_in_data.dart';
 import '../models/http/parameter/user_info_data.dart';
+import '../models/http/parameter/user_order_info.dart';
+import '../models/http/parameter/user_property.dart';
 import '../widgets/app_bottom_navigation_bar.dart';
 
 class GlobalData {
@@ -35,4 +37,9 @@ class GlobalData {
   ///MARK: 提供給選擇日期使用
   static String strDataPickerStart = '';
   static String strDataPickerEnd = '';
+
+  ///MARK: 暫存區
+  static CheckLevelInfo? userLevelInfo; //查詢等級資訊
+  static UserProperty? userProperty; //查詢資產
+  static UserOrderInfo? userOrderInfo; //取得訂單記數資訊
 }
