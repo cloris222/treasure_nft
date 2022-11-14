@@ -263,7 +263,7 @@ class _OrderInfoCard extends State<OrderInfoCard> {
         Visibility(
             visible: bNotEnoughMoney,
             child: Text(
-              tr('notEnoughToReserve'),
+              tr('insufficientBalance'),
               style: TextStyle(color: AppColors.dialogGrey,
                   fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
             )
@@ -273,7 +273,7 @@ class _OrderInfoCard extends State<OrderInfoCard> {
         Visibility(
             visible: bNotEnoughMoney,
             child: ActionButtonWidget(
-                btnText: tr('alreadyDeposit'),
+                btnText: tr('balanceMadeUp'),
                 setHeight: UIDefine.getScreenWidth(12),
                 onPressed: () {
                   setState(() { bNotEnoughMoney = false; });
