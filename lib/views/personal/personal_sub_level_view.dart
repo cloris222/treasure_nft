@@ -90,6 +90,8 @@ class PersonalSubLevelView extends StatelessWidget {
   }
 
   Widget _buildProperty() {
+    Widget space = SizedBox(height: UIDefine.getScreenHeight(3));
+
     return Container(
       width: UIDefine.getWidth(),
       decoration: AppStyle().styleUserSetting(),
@@ -97,8 +99,10 @@ class PersonalSubLevelView extends StatelessWidget {
       child: Wrap(runSpacing: 5, children: [
         _buildPropertyParam(
             title: tr("wallet-balance'"), value: userProperty?.balance),
+        space,
         _buildPropertyParam(
             title: tr('nftAssets'), value: userProperty?.nftBalance),
+        space,
         _buildPropertyParam(
             title: tr('totalIncome'),
             value: userProperty?.income,
@@ -108,6 +112,7 @@ class PersonalSubLevelView extends StatelessWidget {
           title: tr("bonus_referral"),
           value: userProperty?.savingBalance,
         ),
+        space,
         _buildPropertyParam(
             title: tr("bonus_trade"),
             value: userProperty?.tradingSavingBalance),

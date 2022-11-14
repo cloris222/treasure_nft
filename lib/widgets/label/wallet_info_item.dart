@@ -23,7 +23,7 @@ class WalletInfoItem extends StatelessWidget {
     return InkWell(
         onTap: onPress,
         child: Container(
-            height: UIDefine.fontSize20 * 3,
+            height: UIDefine.fontSize20 * 3.5,
             width: fillWidth ? UIDefine.getWidth() : null,
             alignment: Alignment.center,
             child: Column(children: [
