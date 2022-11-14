@@ -127,30 +127,47 @@ class BaseViewModel {
   }
 
   ///MARK: 使用者資料
-  Future<void> uploadPersonalInfo() async {
+  Future<bool> uploadPersonalInfo() async {
+    ///MARK: 判斷有無讀取失敗
+    bool connectFail = false;
+    onFail(message) => connectFail = true;
+
     List<bool> checkList = List<bool>.generate(2, (index) => false);
 
-    UserInfoAPI().getPersonInfo().then((value) => checkList[0] = true);
-    TradeAPI().getExperienceInfoAPI().then((value) => checkList[1] = true);
+    UserInfoAPI(onConnectFail: onFail)
+        .getPersonInfo()
+        .then((value) => checkList[0] = true);
+    TradeAPI(onConnectFail: onFail)
+        .getExperienceInfoAPI()
+        .then((value) => checkList[1] = true);
 
     await checkFutureTime(
         logKey: 'uploadPersonalInfo',
-        onCheckFinish: () => !checkList.contains(false));
+        onCheckFinish: () => !checkList.contains(false) || connectFail);
+
+    ///MARK: 判斷有無讀取失敗
+    return !connectFail;
   }
 
   ///MARK: 更新簽到資料
-  Future<void> uploadSignInInfo() async {
+  Future<bool> uploadSignInInfo() async {
+    ///MARK: 判斷有無讀取失敗
+    bool connectFail = false;
+    onFail(message) => connectFail = true;
+
     if (GlobalData.userInfo.level == 0 ||
         GlobalData.experienceInfo.isExperience) {
       GlobalData.signInInfo = null;
-      return;
+      return !connectFail;
     }
-    SignInData signInInfo = await UserInfoAPI().getSignInInfo();
+    SignInData signInInfo =
+        await UserInfoAPI(onConnectFail: onFail).getSignInInfo();
     if (!signInInfo.isFinished) {
       GlobalData.signInInfo = signInInfo;
     } else {
       GlobalData.signInInfo = null;
     }
+    return !connectFail;
   }
 
   ///MARK: 更新簽到資料
@@ -178,23 +195,42 @@ class BaseViewModel {
   }
 
   ///MARK: 登入後-更新暫存資料
-  Future<void> uploadTemporaryData() async {
+  Future<bool> uploadTemporaryData() async {
+    ///MARK: 判斷有無讀取失敗
+    bool connectFail = false;
+    onFail(message) => connectFail = true;
+
     ///MARK: 需檢查的項目數量
     List<bool> checkList = List<bool>.generate(7, (index) => false);
 
     ///MARK: 同步更新
-    UserInfoAPI().getCheckLevelInfoAPI().then((value) => checkList[0] = true);
-    UserInfoAPI().getUserPropertyInfo().then((value) => checkList[1] = true);
-    UserInfoAPI().getUserOrderInfo().then((value) => checkList[2] = true);
-    OrderAPI().saveTempTotalIncome().then((value) => checkList[3] = true);
-    WalletAPI().getBalanceRecharge().then((value) => checkList[4] = true);
-    WalletAPI().getBalanceRecord().then((value) => checkList[5] = true);
-    OrderAPI().saveTempRecord().then((value) => checkList[6] = true);
+    UserInfoAPI(onConnectFail: onFail)
+        .getCheckLevelInfoAPI()
+        .then((value) => checkList[0] = true);
+    UserInfoAPI(onConnectFail: onFail)
+        .getUserPropertyInfo()
+        .then((value) => checkList[1] = true);
+    UserInfoAPI(onConnectFail: onFail)
+        .getUserOrderInfo()
+        .then((value) => checkList[2] = true);
+    OrderAPI(onConnectFail: onFail)
+        .saveTempTotalIncome()
+        .then((value) => checkList[3] = true);
+    WalletAPI(onConnectFail: onFail)
+        .getBalanceRecharge()
+        .then((value) => checkList[4] = true);
+    WalletAPI(onConnectFail: onFail)
+        .getBalanceRecord()
+        .then((value) => checkList[5] = true);
+    OrderAPI(onConnectFail: onFail)
+        .saveTempRecord()
+        .then((value) => checkList[6] = true);
 
     ///MARK: 等待更新完成
     await checkFutureTime(
         logKey: 'uploadTemporaryData',
-        onCheckFinish: () => !checkList.contains(false));
+        onCheckFinish: () => !checkList.contains(false) || connectFail);
+    return !connectFail;
   }
 
   ///MARK: 登出後-清除暫存資料

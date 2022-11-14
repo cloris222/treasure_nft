@@ -41,19 +41,37 @@ Future<void> initApp() async {
       GlobalData.userMemberId = await AppSharedPreferences.getMemberID();
       if (GlobalData.userToken.isNotEmpty &&
           GlobalData.userMemberId.isNotEmpty) {
+        bool connectFail = false;
+
         List<bool> checkList = List<bool>.generate(3, (index) => false);
-        viewModel.uploadPersonalInfo().then((value) => checkList[0] = true);
-        viewModel.uploadSignInInfo().then((value) => checkList[1] = true);
-        viewModel.uploadTemporaryData().then((value) => checkList[2] = true);
+        viewModel.uploadPersonalInfo().then((value) {
+          checkList[0] = true;
+          if (value == false) {
+            connectFail = true;
+          }
+        });
+        viewModel.uploadSignInInfo().then((value) {
+          checkList[1] = true;
+          if (value == false) {
+            connectFail = true;
+          }
+        });
+        viewModel.uploadTemporaryData().then((value) {
+          checkList[2] = true;
+          if (value == false) {
+            connectFail = true;
+          }
+        });
 
         await viewModel.checkFutureTime(
             logKey: 'autoLogin',
             onCheckFinish: () {
-              return !checkList.contains(false);
+              return !checkList.contains(false) || connectFail;
             });
-
-        viewModel.startUserListener();
-        GlobalData.showLoginAnimate = true;
+        if (!connectFail) {
+          viewModel.startUserListener();
+          GlobalData.showLoginAnimate = true;
+        }
       }
     }
   } catch (e) {}
