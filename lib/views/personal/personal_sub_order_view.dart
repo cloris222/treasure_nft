@@ -47,13 +47,13 @@ class PersonalSubOrderView extends StatelessWidget {
               fontWeight: FontWeight.bold,
               color: AppColors.dialogBlack)),
       const SizedBox(width: 5),
-      Flexible(
+      Expanded(
           child: Container(
               alignment: Alignment.centerRight,
               width: UIDefine.getWidth(),
               child: InkWell(
                 onTap: () => _showOrderInfo(context),
-                child: Row(children: [
+                child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                   Flexible(
                     child: Text(tr('seeOrder'),
                         maxLines: 2,

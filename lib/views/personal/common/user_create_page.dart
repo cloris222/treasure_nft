@@ -44,13 +44,16 @@ class _UserCreatePageState extends State<UserCreatePage> {
       needScrollView: false,
       title: tr("create"),
       type: AppNavigationBarType.typePersonal,
-      body: Container(padding: const EdgeInsets.all(20), child: _buildBody()),
+      body: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: _buildBody()),
     );
   }
 
   Widget _buildBody() {
     return SingleChildScrollView(
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      const SizedBox(height: 20),
       Visibility(
           visible: viewModel.uploadImage != null,
           child: ActionButtonWidget(
@@ -116,7 +119,8 @@ class _UserCreatePageState extends State<UserCreatePage> {
           btnText: tr('confirm'),
           onPressed: () => viewModel.onConfirm(context),
         ))
-      ])
+      ]),
+      const SizedBox(height: 20),
     ]));
   }
 }

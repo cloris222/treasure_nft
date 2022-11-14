@@ -30,49 +30,53 @@ class AllMembersCard extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            InkWell(
-              onTap: () => onPressAll(),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      leftTitle,
-                      style: TextStyle(
-                        color: AppColors.textGrey,
-                        fontSize: UIDefine.fontSize12,
+            Expanded(
+              child: InkWell(
+                onTap: () => onPressAll(),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        leftTitle,
+                        style: TextStyle(
+                          color: AppColors.textGrey,
+                          fontSize: UIDefine.fontSize12,
+                        ),
                       ),
-                    ),
-                    viewModel.getPadding(1),
-                    Text(
-                      leftValue,
-                      style: TextStyle(
-                        color: AppColors.mainThemeButton,
-                        fontSize: UIDefine.fontSize14,
+                      viewModel.getPadding(1),
+                      Text(
+                        leftValue,
+                        style: TextStyle(
+                          color: AppColors.mainThemeButton,
+                          fontSize: UIDefine.fontSize14,
+                        ),
                       ),
-                    ),
-                  ]),
+                    ]),
+              ),
             ),
-            InkWell(
-              onTap: () => onPressActive(),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      rightTitle,
-                      style: TextStyle(
-                        color: AppColors.textGrey,
-                        fontSize: UIDefine.fontSize12,
+            Expanded(
+              child: InkWell(
+                onTap: () => onPressActive(),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        rightTitle,
+                        style: TextStyle(
+                          color: AppColors.textGrey,
+                          fontSize: UIDefine.fontSize12,
+                        ),
                       ),
-                    ),
-                    viewModel.getPadding(1),
-                    Text(
-                      rightValue,
-                      style: TextStyle(
-                        color: AppColors.mainThemeButton,
-                        fontSize: UIDefine.fontSize14,
+                      viewModel.getPadding(1),
+                      Text(
+                        rightValue,
+                        style: TextStyle(
+                          color: AppColors.mainThemeButton,
+                          fontSize: UIDefine.fontSize14,
+                        ),
                       ),
-                    ),
-                  ]),
+                    ]),
+              ),
             ),
             viewModel.getPadding(1)
           ],

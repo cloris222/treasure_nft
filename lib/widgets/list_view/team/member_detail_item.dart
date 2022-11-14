@@ -40,114 +40,40 @@ class MemberDetailItemView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  /// email
-                  Column(
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    /// email
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(tr('email'), style: titleStyle),
+                          viewModel.getPadding(1),
+                          SizedBox(
+                            width: UIDefine.getScreenWidth(35),
+                            child: Text(itemData.email, style: contentStyle),
+                          ),
+                        ]),
+
+                    /// Phone
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(tr('email'), style: titleStyle),
+                        Text(tr('phone'), style: titleStyle),
                         viewModel.getPadding(1),
-                        SizedBox(
-                          width: UIDefine.getScreenWidth(35),
-                          child: Text(itemData.email, style: contentStyle),
-                        ),
-                      ]),
-
-                  /// Phone
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(tr('phone'), style: titleStyle),
-                      viewModel.getPadding(1),
-                      Text(itemData.phone.toString(), style: contentStyle),
-                    ],
-                  ),
-
-                  /// Trading Volume
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(tr('tradingVol'), style: titleStyle),
-                      viewModel.getPadding(1),
-                      Row(children: [
-                        SizedBox(
-                          height: UIDefine.getScreenWidth(4),
-                          child: Image.asset(AppImagePath.tetherImg),
-                        ),
-                        viewModel.getPadding(0.5),
-                        Text(
-                            NumberFormatUtil()
-                                .removeTwoPointFormat(itemData.tradingVolume),
-                            style: contentStyle),
-                      ]),
-                    ],
-                  ),
-
-                  /// NFTs
-                  TextButton(
-                    //圓角
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.white),
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                          side: const BorderSide(
-                              width: 2, color: AppColors.mainThemeButton),
-                          borderRadius: BorderRadius.circular(10))),
+                        Text(itemData.phone.toString(), style: contentStyle),
+                      ],
                     ),
 
-                    onPressed: () => _onShowNFTs(context, viewModel),
-
-                    child: Container(
-                        padding: EdgeInsets.only(
-                          left: UIDefine.getScreenWidth(2),
-                          right: UIDefine.getScreenWidth(2),
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              tr('NFTs'),
-                              style: const TextStyle(
-                                  color: AppColors.mainThemeButton),
-                            ),
-                            Padding(
-                                padding: EdgeInsets.only(
-                              left: UIDefine.getScreenWidth(6),
-                            )),
-                            Text(
-                              itemData.itemCount.toString(),
-                              style: const TextStyle(
-                                  color: AppColors.mainThemeButton),
-                            ),
-                          ],
-                        )),
-                  ),
-                ],
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  /// NickName
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(tr('nickname'), style: titleStyle),
-                      viewModel.getPadding(1),
-                      Text(itemData.userName, style: contentStyle),
-                    ],
-                  ),
-
-                  /// Holding price
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(tr('value'), style: titleStyle),
-                      viewModel.getPadding(1),
-                      Row(
-                        children: [
+                    /// Trading Volume
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(tr('tradingVol'), style: titleStyle),
+                        viewModel.getPadding(1),
+                        Row(children: [
                           SizedBox(
                             height: UIDefine.getScreenWidth(4),
                             child: Image.asset(AppImagePath.tetherImg),
@@ -155,69 +81,164 @@ class MemberDetailItemView extends StatelessWidget {
                           viewModel.getPadding(0.5),
                           Text(
                               NumberFormatUtil()
-                                  .removeTwoPointFormat(itemData.totalPrice),
+                                  .removeTwoPointFormat(itemData.tradingVolume),
                               style: contentStyle),
-                        ],
-                      )
-                    ],
-                  ),
+                        ]),
+                      ],
+                    ),
 
-                  Opacity(
-                      opacity: 0,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            ' ',
-                            style: TextStyle(
-                              color: AppColors.textGrey,
-                              fontSize: UIDefine.fontSize12,
-                            ),
-                          ),
-                          viewModel.getPadding(1),
-                          Text(
-                            ' ',
-                            style: TextStyle(
-                              color: AppColors.textBlack,
-                              fontSize: UIDefine.fontSize12,
-                            ),
-                          ),
-                        ],
-                      )),
-
-                  /// Invite
-                  TextButton(
-                      //圓角
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.white),
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                            side: const BorderSide(
-                                width: 2, color: AppColors.mainThemeButton),
-                            borderRadius: BorderRadius.circular(10))),
+                    /// NFTs
+                    Container(
+                      margin: EdgeInsets.only(
+                        right: UIDefine.getScreenWidth(3),
                       ),
-                      onPressed: () => _onShowInvite(context, viewModel),
-                      child: Container(
-                          padding: EdgeInsets.only(
-                            left: UIDefine.getScreenWidth(2),
-                            right: UIDefine.getScreenWidth(2),
+                      child: TextButton(
+                        //圓角
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.white),
+                          shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                              side: const BorderSide(
+                                  width: 2, color: AppColors.mainThemeButton),
+                              borderRadius: BorderRadius.circular(10))),
+                        ),
+
+                        onPressed: () => _onShowNFTs(context, viewModel),
+
+                        child: Container(
+                            padding: EdgeInsets.only(
+                              left: UIDefine.getScreenWidth(2),
+                              right: UIDefine.getScreenWidth(2),
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  tr('NFTs'),
+                                  style: const TextStyle(
+                                      color: AppColors.mainThemeButton),
+                                ),
+                                Padding(
+                                    padding: EdgeInsets.only(
+                                  left: UIDefine.getScreenWidth(6),
+                                )),
+                                Text(
+                                  itemData.itemCount.toString(),
+                                  style: const TextStyle(
+                                      color: AppColors.mainThemeButton),
+                                ),
+                              ],
+                            )),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    /// NickName
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(tr('nickname'), style: titleStyle),
+                        viewModel.getPadding(1),
+                        Text(itemData.userName, style: contentStyle),
+                      ],
+                    ),
+
+                    /// Holding price
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(tr('value'), style: titleStyle),
+                        viewModel.getPadding(1),
+                        Row(
+                          children: [
+                            SizedBox(
+                              height: UIDefine.getScreenWidth(4),
+                              child: Image.asset(AppImagePath.tetherImg),
+                            ),
+                            viewModel.getPadding(0.5),
+                            Text(
+                                NumberFormatUtil()
+                                    .removeTwoPointFormat(itemData.totalPrice),
+                                style: contentStyle),
+                          ],
+                        )
+                      ],
+                    ),
+
+                    Opacity(
+                        opacity: 0,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              ' ',
+                              style: TextStyle(
+                                color: AppColors.textGrey,
+                                fontSize: UIDefine.fontSize12,
+                              ),
+                            ),
+                            viewModel.getPadding(1),
+                            Text(
+                              ' ',
+                              style: TextStyle(
+                                color: AppColors.textBlack,
+                                fontSize: UIDefine.fontSize12,
+                              ),
+                            ),
+                          ],
+                        )),
+
+                    /// Invite
+                    Container(
+                      margin: EdgeInsets.only(
+                        right: UIDefine.getScreenWidth(3),
+                      ),
+                      child: TextButton(
+                          //圓角
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.white),
+                            shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                    side: const BorderSide(
+                                        width: 2,
+                                        color: AppColors.mainThemeButton),
+                                    borderRadius: BorderRadius.circular(10))),
                           ),
-                          child: Row(
-                            children: [
-                              Text(
-                                tr('invite'),
-                                style: const TextStyle(
-                                    color: AppColors.mainThemeButton),
+                          onPressed: () => _onShowInvite(context, viewModel),
+                          child: Container(
+                              padding: EdgeInsets.only(
+                                left: UIDefine.getScreenWidth(2),
+                                right: UIDefine.getScreenWidth(2),
                               ),
-                              viewModel.getPadding(3),
-                              Text(
-                                itemData.inviteCount.toString(),
-                                style: const TextStyle(
-                                    color: AppColors.mainThemeButton),
-                              ),
-                            ],
-                          ))),
-                ],
+                              child: Row(
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      tr('invite'),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                          color: AppColors.mainThemeButton),
+                                    ),
+                                  ),
+                                  viewModel.getPadding(3),
+                                  Text(
+                                    itemData.inviteCount.toString(),
+                                    style: const TextStyle(
+                                        color: AppColors.mainThemeButton),
+                                  ),
+                                ],
+                              ))),
+                    ),
+                  ],
+                ),
               ),
             ]));
   }
