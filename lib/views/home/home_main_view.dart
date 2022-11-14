@@ -32,8 +32,6 @@ class HomeMainView extends StatefulWidget {
 }
 
 class _HomeMainViewState extends State<HomeMainView> {
-
-
   @override
   Widget build(BuildContext context) {
     HomeMainViewModel viewModel = HomeMainViewModel();
@@ -613,130 +611,119 @@ class _HomeMainViewState extends State<HomeMainView> {
 
   Widget contactUs() {
     HomeMainViewModel viewModel = HomeMainViewModel();
-    return SizedBox(
-        height: UIDefine.getScreenHeight(85),
-        child: Stack(
-          alignment: Alignment.centerLeft,
-          children: [
-            /// 背景顏色
-            Container(
-              decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 224, 234, 246)),
-            ),
-            Padding(
+    return Container(
+        decoration:
+            const BoxDecoration(color: Color.fromARGB(255, 224, 234, 246)),
+        child: Column(children: [
+          Padding(
               padding: EdgeInsets.only(
                   top: UIDefine.getScreenWidth(2),
                   left: UIDefine.getScreenWidth(6),
                   right: UIDefine.getScreenWidth(6)),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    tr('footer_contactUs'),
-                    style: TextStyle(
-                      fontSize: UIDefine.fontSize16,
-                      color: AppColors.textBlack,
-                    ),
-                  ),
-                  viewModel.getPadding(2),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          viewModel.launchInBrowser(
-                              'mailto:treasurenft.metaverse@gmail.com');
-                        },
-                        child: Image.asset(AppImagePath.mail),
-                      ),
-
-                      GestureDetector(
-                        onTap: () {
-                          viewModel.launchInBrowser(
-                              'https://www.tiktok.com/@treasurenft_xyz');
-                        },
-                        child: Image.asset(AppImagePath.tiktok),
-                      ),
-
-                      GestureDetector(
-                        onTap: () {
-                          viewModel.launchInBrowser(
-                              'https://twitter.com/Treasurenft_xyz');
-                        },
-                        child: Image.asset(AppImagePath.twitter),
-                      ),
-
-                      // GestureDetector(
-                      //   onTap: () {
-                      //      viewModel.launchInBrowser('');
-                      //   },
-                      //   child: Image.asset(AppImagePath.yt),
-                      // ),
-
-                      GestureDetector(
-                        onTap: () {
-                          viewModel
-                              .launchInBrowser('https://t.me/TreasureNFTchat');
-                        },
-                        child: Image.asset(AppImagePath.tg),
-                      ),
-
-                      GestureDetector(
-                        onTap: () {
-                          viewModel.launchInBrowser(
-                              'https://www.facebook.com/Treasurenft-101676776000520');
-                        },
-                        child: Image.asset(AppImagePath.fb),
-                      ),
-
-                      GestureDetector(
-                        onTap: () {
-                          viewModel.launchInBrowser(
-                              'https://www.instagram.com/treasurenft_xyz/');
-                        },
-                        child: Image.asset(AppImagePath.ig),
-                      ),
-
-                      GestureDetector(
-                        onTap: () {
-                          viewModel
-                              .launchInBrowser('https://discord.gg/H54mUVeQRQ');
-                        },
-                        child: Image.asset(AppImagePath.dc),
-                      ),
-                    ],
-                  ),
-                  viewModel.getPadding(4),
-                  Text(
-                    tr('document-title-2'),
-                    style: TextStyle(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      tr('footer_contactUs'),
+                      style: TextStyle(
                         fontSize: UIDefine.fontSize16,
                         color: AppColors.textBlack,
-                        height: 1.3),
-                  ),
-                  viewModel.getPadding(2),
-                  Text(
-                    tr('document-text-1'),
-                    style: TextStyle(
-                        fontSize: UIDefine.fontSize14,
-                        color: AppColors.textGrey,
-                        height: 1.3),
-                  ),
-                  viewModel.getPadding(10),
-                  Center(
-                    child: Text(
-                      'Copyright 2022',
-                      style: TextStyle(
-                        fontSize: UIDefine.fontSize14,
-                        color: AppColors.textBlack,
                       ),
                     ),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ));
+                    viewModel.getPadding(2),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            viewModel.launchInBrowser(
+                                'mailto:treasurenft.metaverse@gmail.com');
+                          },
+                          child: Image.asset(AppImagePath.mail),
+                        ),
+
+                        GestureDetector(
+                          onTap: () {
+                            viewModel.launchInBrowser(
+                                'https://www.tiktok.com/@treasurenft_xyz');
+                          },
+                          child: Image.asset(AppImagePath.tiktok),
+                        ),
+
+                        GestureDetector(
+                          onTap: () {
+                            viewModel.launchInBrowser(
+                                'https://twitter.com/Treasurenft_xyz');
+                          },
+                          child: Image.asset(AppImagePath.twitter),
+                        ),
+
+                        // GestureDetector(
+                        //   onTap: () {
+                        //      viewModel.launchInBrowser('');
+                        //   },
+                        //   child: Image.asset(AppImagePath.yt),
+                        // ),
+
+                        GestureDetector(
+                          onTap: () {
+                            viewModel.launchInBrowser(
+                                'https://t.me/TreasureNFTchat');
+                          },
+                          child: Image.asset(AppImagePath.tg),
+                        ),
+
+                        GestureDetector(
+                          onTap: () {
+                            viewModel.launchInBrowser(
+                                'https://www.facebook.com/Treasurenft-101676776000520');
+                          },
+                          child: Image.asset(AppImagePath.fb),
+                        ),
+
+                        GestureDetector(
+                          onTap: () {
+                            viewModel.launchInBrowser(
+                                'https://www.instagram.com/treasurenft_xyz/');
+                          },
+                          child: Image.asset(AppImagePath.ig),
+                        ),
+
+                        GestureDetector(
+                          onTap: () {
+                            viewModel.launchInBrowser(
+                                'https://discord.gg/H54mUVeQRQ');
+                          },
+                          child: Image.asset(AppImagePath.dc),
+                        ),
+                      ],
+                    ),
+                    viewModel.getPadding(4),
+                    Text(
+                      tr('document-title-2'),
+                      style: TextStyle(
+                          fontSize: UIDefine.fontSize16,
+                          color: AppColors.textBlack,
+                          height: 1.3),
+                    ),
+                    viewModel.getPadding(2),
+                    Text(
+                      tr('document-text-1'),
+                      style: TextStyle(
+                          fontSize: UIDefine.fontSize14,
+                          color: AppColors.textGrey,
+                          height: 1.3),
+                    ),
+                    viewModel.getPadding(10),
+                    Center(
+                        child: Text('Copyright 2022',
+                            style: TextStyle(
+                              fontSize: UIDefine.fontSize14,
+                              color: AppColors.textBlack,
+                            ))),
+                    viewModel.getPadding(10),
+                  ]))
+        ]));
   }
 }
 
