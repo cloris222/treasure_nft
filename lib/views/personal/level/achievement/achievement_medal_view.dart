@@ -24,11 +24,14 @@ class AchievementMedalView extends StatelessWidget {
             childAspectRatio: 0.75,
             mainAxisSpacing: 2,
             crossAxisSpacing: 2),
-        itemCount: viewModel.medalList.length,
+        itemCount: viewModel.medalList.length+3,
         itemBuilder: _buildIcon);
   }
 
   Widget _buildIcon(BuildContext context, int index) {
+    if (index >= viewModel.medalList.length) {
+      return const SizedBox(height: kBottomNavigationBarHeight * 2);
+    }
     MedalInfoData data = viewModel.medalList[index];
 
     return Container(
