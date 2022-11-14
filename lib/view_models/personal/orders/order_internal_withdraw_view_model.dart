@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:format/format.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../../constant/call_back_function.dart';
@@ -8,8 +9,10 @@ import '../../../constant/global_data.dart';
 import '../../../models/data/validate_result_data.dart';
 import '../../../models/http/api/auth_api.dart';
 import '../../../models/http/api/withdraw_api.dart';
+import '../../../models/http/parameter/withdraw_alert_info.dart';
 import '../../../views/personal/orders/order_withdraw_page.dart';
 import '../../../views/personal/orders/withdraw/data/withdraw_balance_response_data.dart';
+import '../../../widgets/dialog/common_custom_dialog.dart';
 import '../../../widgets/dialog/simple_custom_dialog.dart';
 
 class OrderInternalWithdrawViewModel extends BaseViewModel {
@@ -34,7 +37,8 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
   bool checkExperience = GlobalData.experienceInfo.isExperience;
 
   initState() {
-    Future<WithdrawBalanceResponseData> result = WithdrawApi().getWithdrawBalance();
+    Future<WithdrawBalanceResponseData> result =
+        WithdrawApi().getWithdrawBalance();
     result.then((value) => _setData(value));
   }
 
@@ -89,20 +93,21 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
   ///MARK: 寄出驗證碼
   void onPressSendCode(BuildContext context) async {
     await AuthAPI(
-        onConnectFail: (message) => onBaseConnectFail(context, message))
+            onConnectFail: (message) => onBaseConnectFail(context, message))
         .sendAuthActionMail(action: LoginAction.withdraw);
-    SimpleCustomDialog(context, mainText: tr('pleaseGotoMailboxReceive')).show();
+    SimpleCustomDialog(context, mainText: tr('pleaseGotoMailboxReceive'))
+        .show();
   }
 
   /// MARK: 檢查驗證碼是否正確
   void onPressCheckVerify(BuildContext context) async {
     if (emailCodeController.text.isNotEmpty) {
       await AuthAPI(
-          onConnectFail: (message) => onBaseConnectFail(context, message))
+              onConnectFail: (message) => onBaseConnectFail(context, message))
           .checkAuthCodeMail(
-          mail: GlobalData.userInfo.email,
-          action: LoginAction.withdraw,
-          authCode: emailCodeController.text);
+              mail: GlobalData.userInfo.email,
+              action: LoginAction.withdraw,
+              authCode: emailCodeController.text);
       setState(() {
         checkEmail = true;
       });
@@ -115,7 +120,7 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
     }
   }
 
-  void onPressSave(BuildContext context) {
+  void onPressSave(BuildContext context, WithdrawAlertInfo alertInfo) {
     ///MARK: 檢查是否有欄位未填
     if (!checkEmptyController()) {
       setState(() {
@@ -141,17 +146,31 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
         setState(() {});
         return;
       }
-
-      ///MARK: 打提交API
-      WithdrawApi(onConnectFail: (message) => onBaseConnectFail(context, message))
-          .submitBalanceWithdraw(
-          address: accountController.text,
-          amount: amountController.text)
-          .then((value) async {
-        SimpleCustomDialog(context, mainText: tr('success')).show();
-        pushPage(context, const OrderWithdrawPage());
-      });
+      if (alertInfo.isReserve) {
+        CommonCustomDialog(context,
+            title: tr("reservenotDrawn"),
+            content: format(tr('reservenotDrawn-hint-post'),
+                {"balance": alertInfo.validAmount}),
+            type: DialogImageType.fail,
+            rightBtnText: tr('confirm'),
+            onLeftPress: () {}, onRightPress: () {
+          Navigator.pop(context);
+          sendConfirm(context);
+        }).show();
+      } else {
+        sendConfirm(context);
+      }
     }
   }
 
+  void sendConfirm(BuildContext context) {
+    ///MARK: 打提交API
+    WithdrawApi(onConnectFail: (message) => onBaseConnectFail(context, message))
+        .submitBalanceWithdraw(
+            address: accountController.text, amount: amountController.text)
+        .then((value) async {
+      SimpleCustomDialog(context, mainText: tr('success')).show();
+      pushPage(context, const OrderWithdrawPage());
+    });
+  }
 }

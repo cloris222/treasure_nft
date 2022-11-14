@@ -1,6 +1,6 @@
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:format/format.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
@@ -9,6 +9,7 @@ import 'package:treasure_nft_project/widgets/dialog/simple_custom_dialog.dart';
 import '../../../../constant/enum/coin_enum.dart';
 import '../../../../constant/theme/app_theme.dart';
 import '../../../../constant/ui_define.dart';
+import '../../../../models/http/parameter/withdraw_alert_info.dart';
 import '../../../../utils/qrcode_scanner_util.dart';
 import '../../../../view_models/personal/orders/order_chain_withdraw_view_model.dart';
 import '../../../../widgets/button/login_button_widget.dart';
@@ -19,14 +20,15 @@ import '../../../login/login_email_code_view.dart';
 import '../../../login/login_param_view.dart';
 
 class ChainWithdrawView extends StatefulWidget {
-  const ChainWithdrawView({super.key});
+  const ChainWithdrawView({super.key, required this.getWalletAlert});
+
+  final WithdrawAlertInfo Function() getWalletAlert;
 
   @override
   State<StatefulWidget> createState() => _ChainWithdrawView();
 }
 
 class _ChainWithdrawView extends State<ChainWithdrawView> {
-
   late OrderChainWithdrawViewModel viewModel;
 
   @override
@@ -39,39 +41,44 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: UIDefine.getScreenWidth(5), right: UIDefine.getScreenWidth(5)),
+      padding: EdgeInsets.only(
+          left: UIDefine.getScreenWidth(5), right: UIDefine.getScreenWidth(5)),
       child: SingleChildScrollView(
-        child: Column(
-          children: [
-            _buildChainDropDownBar(),
-            SizedBox(height: UIDefine.getScreenWidth(5.5)),
-            _buildAddressInputBar(),
-            SizedBox(height: UIDefine.getScreenWidth(5.5)),
-            _buildAmountInputBar(),
-            SizedBox(height: UIDefine.getScreenWidth(2.77)),
-            _buildTextContent(tr('canWithdrawFee'), viewModel.data.balance),
-            SizedBox(height: UIDefine.getScreenWidth(2.77)),
-            _buildTextContent(tr('minAmount'), viewModel.data.minAmount + ' USDT'),
-            SizedBox(height: UIDefine.getScreenWidth(2.77)),
-            _buildTextContent(tr('withdrawFee'), viewModel.data.fee + ' USDT'),
-            SizedBox(height: UIDefine.getScreenWidth(8.27)),
+          child: Column(
+        children: [
+          _buildChainDropDownBar(),
+          SizedBox(height: UIDefine.getScreenWidth(5.5)),
+          _buildAddressInputBar(),
+          SizedBox(height: UIDefine.getScreenWidth(5.5)),
+          _buildAmountInputBar(),
+          SizedBox(height: UIDefine.getScreenWidth(2.77)),
+          _buildTextContent(tr('canWithdrawFee'), viewModel.data.balance),
+          SizedBox(height: UIDefine.getScreenWidth(2.77)),
+          _buildTextContent(
+              tr('minAmount'), '${viewModel.data.minAmount} USDT'),
+          SizedBox(height: UIDefine.getScreenWidth(2.77)),
+          _buildTextContent(tr('withdrawFee'), '${viewModel.data.fee} USDT'),
+          SizedBox(height: UIDefine.getScreenWidth(8.27)),
 
-            Container(width: double.infinity, height: 1.5, color: AppColors.dialogGrey),
+          Container(
+              width: double.infinity, height: 1.5, color: AppColors.dialogGrey),
 
-            SizedBox(height: UIDefine.getScreenWidth(8.27)),
-            // viewModel.checkExperience?  _buildPasswordInputBar() : _buildEmailVerify(), // test 體驗號功能未開
-            viewModel.checkExperience?  const SizedBox() : _buildEmailVerify(),
+          SizedBox(height: UIDefine.getScreenWidth(8.27)),
+          // viewModel.checkExperience?  _buildPasswordInputBar() : _buildEmailVerify(), // test 體驗號功能未開
+          viewModel.checkExperience ? const SizedBox() : _buildEmailVerify(),
 
-            SizedBox(height: UIDefine.getScreenWidth(16.54)),
-            LoginButtonWidget( // Save按鈕
-                isGradient: false,
-                btnText: tr('submit'),
-                onPressed: () => viewModel.onPressSave(context),
-                enable: viewModel.checkEnable()),
-            SizedBox(height: UIDefine.getScreenWidth(11.1))
-          ],
-        )
-      ),
+          SizedBox(height: UIDefine.getScreenWidth(16.54)),
+          LoginButtonWidget(
+              // Save按鈕
+              isGradient: false,
+              btnText: tr('submit'),
+              onPressed: () {
+                viewModel.onPressSave(context, widget.getWalletAlert());
+              },
+              enable: viewModel.checkEnable()),
+          SizedBox(height: UIDefine.getScreenWidth(11.1))
+        ],
+      )),
     );
   }
 
@@ -127,18 +134,20 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
           children: [
             Text(
               tr('getAddress'),
-              style: TextStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                  fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w600),
             ),
             GestureDetector(
-              onTap: _onQuickFill,
-              child: Text(
-                tr('quickFill'),
-                style: TextStyle(color: AppColors.mainThemeButton, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w600),
-              )
-            )
+                onTap: _onQuickFill,
+                child: Text(
+                  tr('quickFill'),
+                  style: TextStyle(
+                      color: AppColors.mainThemeButton,
+                      fontSize: UIDefine.fontSize12,
+                      fontWeight: FontWeight.w600),
+                ))
           ],
         ),
-
         SizedBox(
           width: UIDefine.getScreenWidth(90),
           child: Stack(
@@ -147,24 +156,27 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
                 hintText: '',
                 controller: viewModel.addressController,
                 contentPaddingRight: UIDefine.getScreenWidth(20),
-                initColor: viewModel.addressData.result ? AppColors.bolderGrey : AppColors.textRed,
-                enabledColor: viewModel.addressData.result ? AppColors.bolderGrey : AppColors.textRed,
+                initColor: viewModel.addressData.result
+                    ? AppColors.bolderGrey
+                    : AppColors.textRed,
+                enabledColor: viewModel.addressData.result
+                    ? AppColors.bolderGrey
+                    : AppColors.textRed,
                 focusedColor: AppColors.mainThemeButton,
                 onTap: viewModel.onTap,
               ),
-              
               Positioned(
-                right: UIDefine.getScreenWidth(5.5), top: UIDefine.getScreenWidth(6.38),
+                  right: UIDefine.getScreenWidth(5.5),
+                  top: UIDefine.getScreenWidth(6.38),
                   child: GestureDetector(
-                    onTap: () => _onScanQRCode(),
-                    child: Image.asset('assets/icon/icon/icon_scanning_01.png')
-                  )
-              )
+                      onTap: () => _onScanQRCode(),
+                      child:
+                          Image.asset('assets/icon/icon/icon_scanning_01.png')))
             ],
           ),
         ),
-
-        ErrorTextWidget(data: viewModel.addressData, alignment: Alignment.centerRight)
+        ErrorTextWidget(
+            data: viewModel.addressData, alignment: Alignment.centerRight)
       ],
     );
   }
@@ -185,41 +197,35 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
       _showDialog();
     }
 
-    if (status.isGranted) { // 檢查權限
+    if (status.isGranted) {
+      // 檢查權限
       if (mounted) {
-        viewModel.pushPage(context, QRCodeScannerUtil(
-            callBack: (String value) {
-              viewModel.addressController.text = value;
-            }));
+        viewModel.pushPage(context, QRCodeScannerUtil(callBack: (String value) {
+          viewModel.addressController.text = value;
+        }));
       }
     }
   }
 
   void _showDialog() {
-    CommonCustomDialog(
-        context,
+    CommonCustomDialog(context,
         bOneButton: false,
         type: DialogImageType.warning,
         title: tr("G_0403"),
         content: tr('goPermissionSetting'),
         leftBtnText: tr('cancel'),
-        rightBtnText: tr('confirm'),
-        onLeftPress: () {
-          Navigator.pop(context);
-        },
-        onRightPress: () {
-          openAppSettings();
-          Navigator.pop(context);
-        })
-        .show();
+        rightBtnText: tr('confirm'), onLeftPress: () {
+      Navigator.pop(context);
+    }, onRightPress: () {
+      openAppSettings();
+      Navigator.pop(context);
+    }).show();
   }
-
 
   void _onQuickFill() {
     String address = viewModel.data.address;
     if (address.isNotEmpty) {
       viewModel.addressController.text = viewModel.data.address;
-
     } else {
       SimpleCustomDialog(context, isSuccess: false, mainText: '尚未設定帳號').show();
     }
@@ -231,9 +237,9 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
       children: [
         Text(
           tr('quantity'),
-          style: TextStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w600),
+          style: TextStyle(
+              fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w600),
         ),
-
         SizedBox(
           width: UIDefine.getScreenWidth(90),
           child: Stack(
@@ -243,40 +249,51 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
                 hintText: '0.0000',
                 controller: viewModel.amountController,
                 contentPaddingRight: UIDefine.getScreenWidth(60),
-                initColor: viewModel.amountData.result ? AppColors.bolderGrey : AppColors.textRed,
-                enabledColor: viewModel.amountData.result ? AppColors.bolderGrey : AppColors.textRed,
+                initColor: viewModel.amountData.result
+                    ? AppColors.bolderGrey
+                    : AppColors.textRed,
+                enabledColor: viewModel.amountData.result
+                    ? AppColors.bolderGrey
+                    : AppColors.textRed,
                 focusedColor: AppColors.mainThemeButton,
                 onTap: viewModel.onTap,
               ),
-
               Positioned(
-                  right: UIDefine.getScreenWidth(5.5), top: UIDefine.getScreenWidth(6.38),
+                  right: UIDefine.getScreenWidth(5.5),
+                  top: UIDefine.getScreenWidth(6.38),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
                         'USDT',
-                        style: TextStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                        style: TextStyle(
+                            fontSize: UIDefine.fontSize14,
+                            fontWeight: FontWeight.w500),
                       ),
                       SizedBox(width: UIDefine.getScreenWidth(2.77)),
-                      Container(width: 1, height: UIDefine.getScreenWidth(6.66), color: AppColors.dialogGrey),
+                      Container(
+                          width: 1,
+                          height: UIDefine.getScreenWidth(6.66),
+                          color: AppColors.dialogGrey),
                       SizedBox(width: UIDefine.getScreenWidth(2.77)),
                       GestureDetector(
-                        onTap: () => viewModel.amountController.text = viewModel.data.balance,
-                        child: Text(
-                          tr('all'),
-                          style: TextStyle(color: AppColors.mainThemeButton, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w600),
-                        )
-                      )
+                          onTap: () => viewModel.amountController.text =
+                              viewModel.data.balance,
+                          child: Text(
+                            tr('all'),
+                            style: TextStyle(
+                                color: AppColors.mainThemeButton,
+                                fontSize: UIDefine.fontSize12,
+                                fontWeight: FontWeight.w600),
+                          ))
                     ],
-                  )
-              )
+                  ))
             ],
           ),
         ),
-
-        ErrorTextWidget(data: viewModel.amountData, alignment: Alignment.centerRight)
+        ErrorTextWidget(
+            data: viewModel.amountData, alignment: Alignment.centerRight)
       ],
     );
   }
@@ -287,25 +304,30 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
       children: [
         Text(
           title,
-          style: TextStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500,
-          color: AppColors.dialogGrey),
+          style: TextStyle(
+              fontSize: UIDefine.fontSize14,
+              fontWeight: FontWeight.w500,
+              color: AppColors.dialogGrey),
         ),
         Text(
           content,
-          style: TextStyle(fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500,
-          color: AppColors.dialogBlack),
+          style: TextStyle(
+              fontSize: UIDefine.fontSize16,
+              fontWeight: FontWeight.w500,
+              color: AppColors.dialogBlack),
         ),
       ],
     );
   }
 
-  Widget _buildPasswordInputBar() { // test 體驗號功能未開
+  Widget _buildPasswordInputBar() {
+    // test 體驗號功能未開
     return LoginParamView(
-      titleText: tr('password'),
-      hintText: tr("placeholder-password"),
-      controller: viewModel.passwordController,
-      data: viewModel.passwordData,
-      onTap: viewModel.onTap);
+        titleText: tr('password'),
+        hintText: tr("placeholder-password"),
+        controller: viewModel.passwordController,
+        data: viewModel.passwordData,
+        onTap: viewModel.onTap);
   }
 
   Widget _buildEmailVerify() {
@@ -326,5 +348,4 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
       ],
     );
   }
-
 }
