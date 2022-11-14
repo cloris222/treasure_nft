@@ -5,6 +5,7 @@ import 'package:treasure_nft_project/utils/app_shared_Preferences.dart';
 import '../../../constant/enum/coin_enum.dart';
 import '../../../views/wallet/data/BalanceRecordResponseData.dart';
 import '../parameter/api_response.dart';
+import '../parameter/withdraw_alert_info.dart';
 
 class WalletAPI extends HttpManager {
   WalletAPI({super.onConnectFail});
@@ -63,5 +64,11 @@ class WalletAPI extends HttpManager {
         {"payType": "ROLLOUT", "account": accountROLLOUT}
       ]
     });
+  }
+
+  ///MARK: 查詢提現警告
+  Future<WithdrawAlertInfo> checkWithdrawAlert() async {
+    var response = await get('/user/balance-withdraw-alert');
+    return WithdrawAlertInfo.fromJson(response.data);
   }
 }
