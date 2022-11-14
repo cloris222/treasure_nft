@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treasure_nft_project/models/http/http_manager.dart';
 import 'package:treasure_nft_project/models/http/http_setting.dart';
 import 'package:treasure_nft_project/models/http/parameter/api_response.dart';
@@ -19,6 +22,13 @@ class HomeAPI extends HttpManager {
     } catch (e) {
       print(e.toString());
     }
+    /// save home carousel images
+    List<String> encodeHomeCarousel =
+        result.map((res) => json.encode(res.toJson())).toList();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    /// to write
+    prefs.setStringList("homeCarousel", encodeHomeCarousel);
+
     return result;
   }
 

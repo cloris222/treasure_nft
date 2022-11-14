@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
@@ -23,8 +24,15 @@ import '../../constant/theme/app_theme.dart';
 import 'home_pdf_viewer.dart';
 import 'widget/sponsor_row_widget.dart';
 
-class HomeMainView extends StatelessWidget {
+class HomeMainView extends StatefulWidget {
   const HomeMainView({Key? key}) : super(key: key);
+
+  @override
+  State<HomeMainView> createState() => _HomeMainViewState();
+}
+
+class _HomeMainViewState extends State<HomeMainView> {
+
 
   @override
   Widget build(BuildContext context) {

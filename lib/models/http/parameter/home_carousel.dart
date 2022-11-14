@@ -16,9 +16,9 @@ class HomeCarousel {
   String imageUrl;
 
   factory HomeCarousel.fromJson(Map<String, dynamic> json) => HomeCarousel(
-    itemId: json["itemId"],
-    name: json["name"],
-    imageUrl: json["imageUrl"],
+    itemId: json["itemId"] as String,
+    name: json["name"] as String,
+    imageUrl: json["imageUrl"] as String,
   );
 
   Map<String, dynamic> toJson() => {
