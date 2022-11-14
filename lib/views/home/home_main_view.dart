@@ -466,137 +466,143 @@ class _HomeMainViewState extends State<HomeMainView> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   /// Resources
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        tr('footer_resource'),
-                        style: TextStyle(
-                          fontSize: UIDefine.fontSize16,
-                          color: AppColors.textBlack,
-                        ),
-                      ),
-                      viewModel.getPadding(p),
-                      GestureDetector(
-                        onTap: () {
-                          viewModel.launchInBrowser(
-                              'https://treasurenft.gitbook.io/treasurenft-1/');
-                        },
-                        child: Text(
-                          tr('footer_docs'),
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          tr('footer_resource'),
                           style: TextStyle(
-                            fontSize: UIDefine.fontSize14,
-                            color: AppColors.textGrey,
+                            fontSize: UIDefine.fontSize16,
+                            color: AppColors.textBlack,
                           ),
                         ),
-                      ),
-                      viewModel.getPadding(p),
-                      GestureDetector(
-                        onTap: () {
-                          viewModel.launchInBrowser(
-                              'https://treasurenft-metaverse.gitbook.io/how-to-use/earn/how-to-share-invitations');
-                        },
-                        child: Text(
-                          tr('footer_friends'),
-                          style: TextStyle(
-                            fontSize: UIDefine.fontSize14,
-                            color: AppColors.textGrey,
+                        viewModel.getPadding(p),
+                        GestureDetector(
+                          onTap: () {
+                            viewModel.launchInBrowser(
+                                'https://treasurenft.gitbook.io/treasurenft-1/');
+                          },
+                          child: Text(
+                            tr('footer_docs'),
+                            style: TextStyle(
+                              fontSize: UIDefine.fontSize14,
+                              color: AppColors.textGrey,
+                            ),
                           ),
                         ),
-                      ),
-                      viewModel.getPadding(p),
-                      GestureDetector(
-                        onTap: () {
-                          viewModel.launchInBrowser(
-                              'https://treasurenft-metaverse.gitbook.io/how-to-use/earn/how-to-trade');
-                        },
-                        child: Text(
-                          tr('footer_howtoBuy'),
-                          style: TextStyle(
-                            fontSize: UIDefine.fontSize14,
-                            color: AppColors.textGrey,
+                        viewModel.getPadding(p),
+                        GestureDetector(
+                          onTap: () {
+                            viewModel.launchInBrowser(
+                                'https://treasurenft-metaverse.gitbook.io/how-to-use/earn/how-to-share-invitations');
+                          },
+                          child: Text(
+                            tr('footer_friends'),
+                            style: TextStyle(
+                              fontSize: UIDefine.fontSize14,
+                              color: AppColors.textGrey,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                        viewModel.getPadding(p),
+                        GestureDetector(
+                          onTap: () {
+                            viewModel.launchInBrowser(
+                                'https://treasurenft-metaverse.gitbook.io/how-to-use/earn/how-to-trade');
+                          },
+                          child: Text(
+                            tr('footer_howtoBuy'),
+                            style: TextStyle(
+                              fontSize: UIDefine.fontSize14,
+                              color: AppColors.textGrey,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
 
                   /// News
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        tr('footer_news'),
-                        style: TextStyle(
-                          fontSize: UIDefine.fontSize16,
-                          color: AppColors.textBlack,
-                        ),
-                      ),
-                      viewModel.getPadding(p),
-                      GestureDetector(
-                        onTap: () {
-                          viewModel.launchInBrowser(
-                              'https://medium.com/@Treasurenft_xyz');
-                        },
-                        child: Text(
-                          tr('footer_blog'),
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          tr('footer_news'),
                           style: TextStyle(
-                            fontSize: UIDefine.fontSize14,
-                            color: AppColors.textGrey,
+                            fontSize: UIDefine.fontSize16,
+                            color: AppColors.textBlack,
                           ),
                         ),
-                      ),
-                    ],
+                        viewModel.getPadding(p),
+                        GestureDetector(
+                          onTap: () {
+                            viewModel.launchInBrowser(
+                                'https://medium.com/@Treasurenft_xyz');
+                          },
+                          child: Text(
+                            tr('footer_blog'),
+                            style: TextStyle(
+                              fontSize: UIDefine.fontSize14,
+                              color: AppColors.textGrey,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
 
                   /// Company
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        tr('footer_company'),
-                        style: TextStyle(
-                          fontSize: UIDefine.fontSize16,
-                          color: AppColors.textBlack,
-                        ),
-                      ),
-                      viewModel.getPadding(p),
-                      GestureDetector(
-                        onTap: () {
-                          viewModel.pushPage(
-                              GlobalData.globalKey.currentContext!,
-                              PDFViewerPage(
-                                title: tr('footer_privacy'),
-                                assetPath: 'assets/pdf/PrivacyPolicy.pdf',
-                              ));
-                        },
-                        child: Text(
-                          'Privacy Policy',
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          tr('footer_company'),
                           style: TextStyle(
-                            fontSize: UIDefine.fontSize14,
-                            color: AppColors.textGrey,
+                            fontSize: UIDefine.fontSize16,
+                            color: AppColors.textBlack,
                           ),
                         ),
-                      ),
-                      viewModel.getPadding(p),
-                      GestureDetector(
-                        onTap: () {
-                          viewModel.pushPage(
-                              GlobalData.globalKey.currentContext!,
-                              PDFViewerPage(
-                                title: tr('footer_agreement'),
-                                assetPath: 'assets/pdf/TermsOfUse.pdf',
-                              ));
-                        },
-                        child: Text(
-                          'User Agreement',
-                          style: TextStyle(
-                            fontSize: UIDefine.fontSize14,
-                            color: AppColors.textGrey,
+                        viewModel.getPadding(p),
+                        GestureDetector(
+                          onTap: () {
+                            viewModel.pushPage(
+                                GlobalData.globalKey.currentContext!,
+                                PDFViewerPage(
+                                  title: tr('footer_privacy'),
+                                  assetPath: 'assets/pdf/PrivacyPolicy.pdf',
+                                ));
+                          },
+                          child: Text(
+                            'Privacy Policy',
+                            style: TextStyle(
+                              fontSize: UIDefine.fontSize14,
+                              color: AppColors.textGrey,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                        viewModel.getPadding(p),
+                        GestureDetector(
+                          onTap: () {
+                            viewModel.pushPage(
+                                GlobalData.globalKey.currentContext!,
+                                PDFViewerPage(
+                                  title: tr('footer_agreement'),
+                                  assetPath: 'assets/pdf/TermsOfUse.pdf',
+                                ));
+                          },
+                          child: Text(
+                            'User Agreement',
+                            style: TextStyle(
+                              fontSize: UIDefine.fontSize14,
+                              color: AppColors.textGrey,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -608,7 +614,7 @@ class _HomeMainViewState extends State<HomeMainView> {
   Widget contactUs() {
     HomeMainViewModel viewModel = HomeMainViewModel();
     return SizedBox(
-        height: UIDefine.getScreenHeight(80),
+        height: UIDefine.getScreenHeight(85),
         child: Stack(
           alignment: Alignment.centerLeft,
           children: [
