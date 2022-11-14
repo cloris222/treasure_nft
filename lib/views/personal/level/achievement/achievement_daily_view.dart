@@ -13,17 +13,21 @@ class AchievementDailyView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
         itemBuilder: (context, index) {
+          if (index >= viewModel.dailyList.length) {
+            return const SizedBox(height: kBottomNavigationBarHeight * 2);
+          }
           return _buildItem(context, viewModel.dailyList[index]);
         },
         separatorBuilder: (context, index) {
           return const SizedBox(height: 10);
         },
-        itemCount: viewModel.dailyList.length);
+        itemCount: viewModel.dailyList.length + 1);
   }
 
   Widget _buildItem(BuildContext context, TaskInfoData data) {
     return DailyItemWidget(
         data: data,
-        getPoint: (String recordNo, int point) => viewModel.getDailyPoint(context,recordNo,point));
+        getPoint: (String recordNo, int point) =>
+            viewModel.getDailyPoint(context, recordNo, point));
   }
 }

@@ -15,18 +15,22 @@ class AchievementAchieveView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
         itemBuilder: (context, index) {
+          if (index >= viewModel.achieveList.length) {
+            return const SizedBox(height: kBottomNavigationBarHeight * 2);
+          }
           return _buildItem(context, viewModel.achieveList[index]);
         },
         separatorBuilder: (context, index) {
           return const SizedBox(height: 10);
         },
-        itemCount: viewModel.achieveList.length);
+        itemCount: viewModel.achieveList.length + 1);
   }
 
   Widget _buildItem(BuildContext context, TaskInfoData data) {
     return AchievementItemWidget(
         data: data,
         getPoint: (AchievementCode code, String recordNo, int point) =>
-            viewModel.getAchievementPoint(context,data, code, recordNo, point));
+            viewModel.getAchievementPoint(
+                context, data, code, recordNo, point));
   }
 }
