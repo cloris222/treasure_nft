@@ -75,28 +75,32 @@ class _UserSettingPageState extends State<UserSettingPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                            children: [
-                              bLockIcon
-                                  ? Image.asset(
-                                      'assets/icon/icon/icon_lock_02.png',
-                                      width: UIDefine.getScreenWidth(6),
-                                      height: UIDefine.getScreenWidth(6))
-                                  : Image.asset(
-                                      'assets/icon/icon/icon_user_02.png',
-                                      width: UIDefine.getScreenWidth(6),
-                                      height: UIDefine.getScreenWidth(6)),
-                              SizedBox(width: UIDefine.getScreenWidth(3)),
-                              Text(
+                          Flexible(
+                            child: Row(
+                              children: [
                                 bLockIcon
-                                    ? tr('changePassword')
-                                    : tr('userInfo'),
-                                style: TextStyle(
-                                    color: AppColors.textBlack,
-                                    fontSize: UIDefine.fontSize16,
-                                    fontWeight: FontWeight.w500),
-                              )
-                            ],
+                                    ? Image.asset(
+                                        'assets/icon/icon/icon_lock_02.png',
+                                        width: UIDefine.getScreenWidth(6),
+                                        height: UIDefine.getScreenWidth(6))
+                                    : Image.asset(
+                                        'assets/icon/icon/icon_user_02.png',
+                                        width: UIDefine.getScreenWidth(6),
+                                        height: UIDefine.getScreenWidth(6)),
+                                SizedBox(width: UIDefine.getScreenWidth(3)),
+                                Flexible(
+                                  child: Text(
+                                    bLockIcon
+                                        ? tr('changePassword')
+                                        : tr('userInfo'),
+                                    style: TextStyle(
+                                        color: AppColors.textBlack,
+                                        fontSize: UIDefine.fontSize14,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                           Image.asset(
                               'assets/icon/btn/btn_arrow_right_01_nor.png',
