@@ -27,12 +27,13 @@ class UserSettingPage extends StatefulWidget {
 class _UserSettingPageState extends State<UserSettingPage> {
   @override
   Widget build(BuildContext context) {
+    Widget space = const SizedBox(height: 15);
     return CustomAppbarView(
         needCover: true,
-        needScrollView:true,
+        needScrollView: true,
         title: tr('account'),
         type: AppNavigationBarType.typePersonal,
-        body: Wrap(runSpacing: 15, children: [
+        body: Column(children: [
           PersonalSubUserInfoView(
               enableModify: true, onViewUpdate: () => setState(() {})),
           Container(
@@ -40,14 +41,16 @@ class _UserSettingPageState extends State<UserSettingPage> {
                 UIDefine.getScreenWidth(5), UIDefine.getScreenWidth(5.5), 0),
             child: _getGrayBolderButton(context, true),
           ),
+          space,
           Container(
             padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5), 0,
                 UIDefine.getScreenWidth(5.5), 0),
             child: _getGrayBolderButton(context, false),
           ),
+          space,
           Container(
-              padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5),
-                  UIDefine.getScreenWidth(25), UIDefine.getScreenWidth(5.5), 0),
+              padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5), 0,
+                  UIDefine.getScreenWidth(5.5), 0),
               child: LoginBolderButtonWidget(
                   btnText: tr('logout'),
                   onPressed: () => _onPressLogout(context)))
