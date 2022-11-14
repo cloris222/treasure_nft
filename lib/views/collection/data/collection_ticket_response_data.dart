@@ -50,7 +50,7 @@ class CollectionTicketResponseData {
     imgUrl: json["imgUrl"],
     itemPrice: json["itemPrice"],
     itemStatus: json["itemStatus"],
-    winPrize: json["winPrize"],
+    winPrize: json["winPrize"] ?? 0,
     winPrizeAmount: json["winPrizeAmount"],
     winPrizeStatus: json["winPrizeStatus"],
   );
