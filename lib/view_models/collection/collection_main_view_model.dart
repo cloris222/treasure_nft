@@ -8,6 +8,7 @@ import '../../constant/call_back_function.dart';
 import '../../constant/ui_define.dart';
 import '../../views/collection/data/collection_nft_item_response_data.dart';
 import '../../views/collection/data/collection_reservation_response_data.dart';
+import '../../views/collection/data/collection_ticket_response_data.dart';
 
 class CollectionMainViewModel extends BaseViewModel {
 
@@ -69,6 +70,8 @@ class CollectionMainViewModel extends BaseViewModel {
         return tr('tab_selling');
       case 'Pending':
         return tr('tab_unsell');
+      case 'Ticket':
+        return tr('myTicket');
     }
     return '';
   }
@@ -98,6 +101,12 @@ class CollectionMainViewModel extends BaseViewModel {
       String status, int page, int size, {ResponseErrorFunction? onConnectFail}) async {
     return await CollectionApi(onConnectFail: onConnectFail)
         .getNFTItemResponse(page: page, size: size, status: status);
+  }
+
+  Future<List<CollectionTicketResponseData>> getTicketResponse(
+      String type, int page, int size, {ResponseErrorFunction? onConnectFail}) async {
+    return await CollectionApi(onConnectFail: onConnectFail)
+        .getTicketResponse(page: page, size: size, type: type);
   }
 
   Future<String> getOpenBoxResponse({required String action, required String itemId,

@@ -170,6 +170,9 @@ class _BuyerSellerInfoCard extends State<BuyerSellerInfoCard> {
 
   List<Widget> _getMoreInfoWidget(int startIndex) {
     List<Widget> titleContent = [];
+    if (moreInfoDataList.length-1 < startIndex) {
+      return titleContent;
+    }
     int endIndex = 0;
     if (startIndex == 0) {
       endIndex = 3;

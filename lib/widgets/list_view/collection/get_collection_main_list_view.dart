@@ -4,20 +4,24 @@ import 'package:treasure_nft_project/view_models/collection/collection_main_view
 import '../../../constant/ui_define.dart';
 import '../../../views/collection/data/collection_nft_item_response_data.dart';
 import '../../../views/collection/data/collection_reservation_response_data.dart';
+import '../../../views/collection/data/collection_ticket_response_data.dart';
 import 'collection_blind_box_item_view.dart';
 import 'collection_sell_unsell_item_view.dart';
 import 'collection_reservation_item_view.dart';
+import 'collection_ticket_item_view.dart';
 
 class GetCollectionMainListview extends StatefulWidget {
   const GetCollectionMainListview({super.key,
   required this.reserveList,
   required this.itemsList,
+  required this.ticketList,
   required this.currentType,
   this.walletBalance = 0
   });
 
   final List<CollectionReservationResponseData> reserveList;
   final List<CollectionNftItemResponseData> itemsList;
+  final List<CollectionTicketResponseData> ticketList;
   final String currentType;
   final num walletBalance;
 
@@ -33,9 +37,11 @@ class _GetCollectionMainListview extends State<GetCollectionMainListview> {
   List<CollectionReservationResponseData> get reserveList {
     return widget.reserveList;
   }
-
   List<CollectionNftItemResponseData> get itemsList {
     return widget.itemsList;
+  }
+  List<CollectionTicketResponseData> get ticketList {
+    return widget.ticketList;
   }
 
   CollectionMainViewModel viewModel = CollectionMainViewModel();
@@ -83,8 +89,11 @@ class _GetCollectionMainListview extends State<GetCollectionMainListview> {
     } else if (currentType == 'Selling') { // 上架中
       return _getSellingListViewItem(itemsList[index], index);
 
-    } else { // 未上架
+    } else if (currentType == 'Pending') { // 未上架
       return _getPendingListViewItem(itemsList[index], index);
+
+    } else { // 我的票券
+      return _getTicketListViewItem(ticketList[index], index);
     }
   }
 
@@ -95,6 +104,9 @@ class _GetCollectionMainListview extends State<GetCollectionMainListview> {
   int _getItemCount() {
     if (currentType == 'Reservation') {
       return reserveList.length;
+
+    } else if (currentType == 'Ticket'){
+      return ticketList.length;
     }
     return itemsList.length;
   }
@@ -145,6 +157,10 @@ class _GetCollectionMainListview extends State<GetCollectionMainListview> {
     }
   }
 
+  Widget _getTicketListViewItem(CollectionTicketResponseData data, int index) {
+    return CollectionTicketItemView(data: data, index: index);
+  }
+
   void _removeItem(int index) { // 上架,轉出
     itemsList.removeAt(index);
     setState(() {});
@@ -168,10 +184,13 @@ class _GetCollectionMainListview extends State<GetCollectionMainListview> {
       var newList = await viewModel.getNFTItemResponse('SELLING', page, 10);
       itemsList.addAll(newList);
 
-    } else {
+    } else if (currentType == 'Pending') {
       var newList = await viewModel.getNFTItemResponse('PENDING', page, 10);
       itemsList.addAll(newList);
 
+    } else {
+      var newList = await viewModel.getTicketResponse('TICKET', page, 10);
+      ticketList.addAll(newList);
     }
     setState(() {});
   }

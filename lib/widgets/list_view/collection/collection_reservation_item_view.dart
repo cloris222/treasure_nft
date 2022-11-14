@@ -33,8 +33,8 @@ class _CollectionReservationItemView extends State<CollectionReservationItemView
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5),
-          UIDefine.getScreenWidth(5), UIDefine.getScreenWidth(5), 0),
+      margin: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5), 0,
+          UIDefine.getScreenWidth(5), 0),
       child: _getViewByType(),
     );
   }

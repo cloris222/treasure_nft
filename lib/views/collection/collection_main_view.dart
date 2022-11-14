@@ -12,7 +12,6 @@ class CollectionMainView extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() => _CollectionMainView();
-
 }
 
 class _CollectionMainView extends State<CollectionMainView> {
@@ -22,7 +21,7 @@ class _CollectionMainView extends State<CollectionMainView> {
   ScrollController listController = ScrollController();
   PageController pageController = PageController();
   List<Widget> pages = <Widget>[];
-  List<String> dataList = ['Reservation', 'Selling', 'Pending'];
+  List<String> dataList = ['Reservation', 'Selling', 'Pending', 'Ticket'];
 
   @override
   void initState() {

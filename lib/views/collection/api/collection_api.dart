@@ -5,6 +5,7 @@ import '../data/collection_item_status_response_error_data.dart';
 import '../data/collection_level_fee_response_data.dart';
 import '../data/collection_nft_item_response_data.dart';
 import '../data/collection_reservation_response_data.dart';
+import '../data/collection_ticket_response_data.dart';
 
 class CollectionApi extends HttpManager {
   CollectionApi({super.onConnectFail, super.baseUrl = HttpSetting.developUrl});
@@ -46,6 +47,29 @@ class CollectionApi extends HttpManager {
       });
       for (Map<String, dynamic> json in response.data['pageList']) {
         result.add(CollectionNftItemResponseData.fromJson(json));
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+    return result;
+  }
+
+  /// 查詢我的票券
+  Future<List<CollectionTicketResponseData>> getTicketResponse(
+      {int page = 1, int size = 10, String type = ''}) async {
+    List<CollectionTicketResponseData> result =
+    <CollectionTicketResponseData>[];
+    try {
+      ApiResponse response =
+      await get('/order/message-list', queryParameters: {
+        'page': page,
+        'size': size,
+        'type': type,
+        'startTime': '',
+        'endTime': ''
+      });
+      for (Map<String, dynamic> json in response.data['pageList']) {
+        result.add(CollectionTicketResponseData.fromJson(json));
       }
     } catch (e) {
       print(e.toString());

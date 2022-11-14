@@ -6,6 +6,7 @@ import '../../widgets/list_view/collection/get_collection_main_list_view.dart';
 import '../../widgets/loading_future_builder.dart';
 import 'data/collection_nft_item_response_data.dart';
 import 'data/collection_reservation_response_data.dart';
+import 'data/collection_ticket_response_data.dart';
 
 class CollectionTypePage extends StatefulWidget {
   const CollectionTypePage({super.key, required this.currentType});
@@ -24,6 +25,7 @@ class _CollectionTypePage extends State<CollectionTypePage> {
 
   List<CollectionReservationResponseData> reserveList = [];
   List<CollectionNftItemResponseData> itemsList = [];
+  List<CollectionTicketResponseData> ticketList = [];
   num walletBalance = 0;
 
   @override
@@ -39,17 +41,26 @@ class _CollectionTypePage extends State<CollectionTypePage> {
       var tempList = await viewModel.getReservationResponse('PRICE', 1, 10);
       reserveList.addAll(tempList);
       return GetCollectionMainListview(
-          reserveList: reserveList, itemsList: [], currentType: currentType, walletBalance: walletBalance);
+          reserveList: reserveList, itemsList: [], ticketList: [],
+          currentType: currentType, walletBalance: walletBalance);
 
     } else if (currentType == 'Selling') {
       itemsList = await viewModel.getNFTItemResponse('SELLING', 1, 10);
       return GetCollectionMainListview(
-          reserveList: [], itemsList: itemsList,  currentType: currentType);
+          reserveList: [], itemsList: itemsList,  ticketList: [],
+          currentType: currentType);
 
-    } else {
+    } else if (currentType == 'Pending') {
       itemsList = await viewModel.getNFTItemResponse('PENDING', 1, 10);
       return GetCollectionMainListview(
-          reserveList: [], itemsList: itemsList, currentType: currentType);
+          reserveList: [], itemsList: itemsList, ticketList: [],
+          currentType: currentType);
+
+    } else {
+      ticketList = await viewModel.getTicketResponse('TICKET', 1, 10);
+      return GetCollectionMainListview(
+          reserveList: [], itemsList: [], ticketList: ticketList,
+          currentType: currentType);
     }
   }
 }
