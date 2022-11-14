@@ -88,6 +88,10 @@ class LanguageUtil {
         return 'th';
       case LanguageType.Turkish:
         return 'tr';
+      case LanguageType.Malaysia:
+        return 'ms';
+      case LanguageType.Indonesia:
+        return 'id';
     }
   }
 
@@ -116,6 +120,10 @@ class LanguageUtil {
         return 'th';
       case LanguageType.Turkish:
         return 'tr';
+      case LanguageType.Malaysia:
+        return 'ms';
+      case LanguageType.Indonesia:
+        return 'id';
     }
   }
 
@@ -173,6 +181,10 @@ class LanguageUtil {
         return const Locale('th');
       case LanguageType.Turkish:
         return const Locale('tr');
+      case LanguageType.Malaysia:
+        return const Locale('ms');
+      case LanguageType.Indonesia:
+        return const Locale('id');
     }
   }
 
@@ -203,6 +215,10 @@ class LanguageUtil {
       return LanguageType.Thai;
     } else if (locale.languageCode == 'tr') {
       return LanguageType.Turkish;
+    }else if (locale.languageCode == 'ms') {
+      return LanguageType.Malaysia;
+    }else if (locale.languageCode == 'id') {
+      return LanguageType.Indonesia;
     }
 
     return LanguageType.English;
@@ -232,6 +248,10 @@ class LanguageUtil {
         return tr('lang_th');
       case LanguageType.Turkish:
         return tr('lang_tr');
+      case LanguageType.Malaysia:
+        return tr('lang_ma');
+      case LanguageType.Indonesia:
+        return tr('lang_id');
     }
   }
 }

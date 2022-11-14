@@ -108,6 +108,16 @@ class _SettingLanguagePageState extends State<SettingLanguagePage> {
                 imageCountry = 'Turkey';
               }
               break;
+            case LanguageType.Malaysia:
+              {
+                imageCountry = 'Malaysia';
+              }
+              break;
+            case LanguageType.Indonesia:
+              {
+                imageCountry = 'Indonesia';
+              }
+              break;
           }
           return InkWell(
             onTap: () => _onChangeLang(context, type),

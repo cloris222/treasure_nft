@@ -31,9 +31,15 @@ enum LanguageType {
 
   ///MARK:繁體中文
   Mandarin,
+
+  ///MARK:馬來西亞
+  Malaysia,
+
+  ///MARK:印尼
+  Indonesia,
 }
 
-enum VideoStrEnum{
+enum VideoStrEnum {
   howSignUp,
   howToDeposit,
   howToBuy,
@@ -42,9 +48,4 @@ enum VideoStrEnum{
   howToViewEarnings
 }
 
-enum EarningIncomeType{
-  ALL,
-  TEAM,
-  MINE
-}
-
+enum EarningIncomeType { ALL, TEAM, MINE }
