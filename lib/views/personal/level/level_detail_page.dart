@@ -211,7 +211,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
             child: ActionButtonWidget(
               isBorderStyle: true,
               isFillWidth: false,
-              btnText: tr('rebate'),
+              btnText: tr('mis_award'),
               onPressed: () => viewModel.showLeveLBonus(context),
             ),
           ))

@@ -46,18 +46,23 @@ class PersonalSubOrderView extends StatelessWidget {
               fontSize: UIDefine.fontSize20,
               fontWeight: FontWeight.bold,
               color: AppColors.dialogBlack)),
+      const SizedBox(width: 5),
       Flexible(
           child: Container(
               alignment: Alignment.centerRight,
               width: UIDefine.getWidth(),
               child: InkWell(
                 onTap: () => _showOrderInfo(context),
-                child: Row(mainAxisSize: MainAxisSize.min, children: [
-                  Text(tr('seeOrder'),
-                      style: TextStyle(
-                          fontSize: UIDefine.fontSize12,
-                          color: AppColors.dialogGrey,
-                          fontWeight: FontWeight.w500)),
+                child: Row(children: [
+                  Flexible(
+                    child: Text(tr('seeOrder'),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: UIDefine.fontSize12,
+                            color: AppColors.dialogGrey,
+                            fontWeight: FontWeight.w500)),
+                  ),
                   const SizedBox(width: 5),
                   Image.asset(AppImagePath.rightArrow)
                 ]),
