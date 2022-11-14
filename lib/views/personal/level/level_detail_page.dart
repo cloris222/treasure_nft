@@ -253,23 +253,35 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
     return Container(
         margin: EdgeInsets.symmetric(vertical: UIDefine.getScreenHeight(1)),
         child: Row(children: [
-          Text(
-            title,
-            style: TextStyle(
-                fontSize: UIDefine.fontSize14,
-                fontWeight: FontWeight.w500,
-                color: AppColors.dialogGrey),
-          ),
-          Flexible(child: Container()),
-          Visibility(
-              visible: showCoin,
-              child: TetherCoinWidget(size: UIDefine.fontSize16)),
-          SizedBox(width: UIDefine.getScreenWidth(1)),
-          Text(context,
+          Expanded(
+            flex: 2,
+            child: Text(
+              title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                   fontSize: UIDefine.fontSize14,
                   fontWeight: FontWeight.w500,
-                  color: AppColors.dialogBlack))
+                  color: AppColors.dialogGrey),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Visibility(
+                    visible: showCoin,
+                    child: TetherCoinWidget(size: UIDefine.fontSize16)),
+                SizedBox(width: UIDefine.getScreenWidth(1)),
+                Text(context,
+                    style: TextStyle(
+                        fontSize: UIDefine.fontSize14,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.dialogBlack)),
+              ],
+            ),
+          )
         ]));
   }
 
@@ -332,11 +344,18 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
     double percentage = viewModel.checkUnlock(level) ? 1 : value / request;
     return Column(children: [
       Row(children: [
-        Text(title),
-        Flexible(child: Container()),
-        Text(percentage == 1
-            ? tr('Completed')
-            : '${NumberFormatUtil().removeTwoPointFormat(value)} / $request'),
+        Expanded(
+            flex: 4,
+            child: Text(title, maxLines: 1, overflow: TextOverflow.ellipsis)),
+        Expanded(
+          flex: 1,
+          child: Container(
+            alignment: Alignment.centerRight,
+            child: Text(percentage == 1
+                ? tr('Completed')
+                : '${NumberFormatUtil().removeTwoPointFormat(value)} / $request'),
+          ),
+        ),
       ]),
       _buildSpace(height: 2),
       CustomLinearProgress(percentage: percentage),

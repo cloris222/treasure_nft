@@ -11,21 +11,18 @@ class DomainBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        alignment: Alignment.center,
+        alignment: Alignment.centerLeft,
         height: UIDefine.getScreenHeight(7),
         width: UIDefine.getWidth(),
         decoration: AppStyle().baseGradient(),
         padding: const EdgeInsets.symmetric(horizontal: 5),
-        child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Text(
-                tr('officialSite_title'),
-                style: TextStyle(
-                    fontSize: UIDefine.fontSize12,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w300),
-              )
-            ])));
+        child: Text(
+          tr('officialSite_title'),
+          textAlign: TextAlign.left,
+          style: TextStyle(
+              fontSize: UIDefine.fontSize12,
+              color: Colors.white,
+              fontWeight: FontWeight.w300),
+        ));
   }
 }

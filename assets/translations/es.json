@@ -949,7 +949,7 @@
   "APP_0069": "El tiempo de negociación de la cuenta de principiante ha expirado",
   "bonus_trade": "banco comercial",
   "bonus_referral": "Banco de referencia",
-  "bonus_keep_hint": "Las recompensas se conservarán {día} días. Si no pudo actualizar antes del {fecha}, se retirarán todas las recompensas",
+  "bonus_keep_hint": "Las recompensas se conservarán {day} días. Si no pudo actualizar antes del {date}, se retirarán todas las recompensas",
   "APP_0071": "18:00-19:40 es el momento para que la plataforma haga reservas para transacciones. Durante este período, las cuentas con órdenes de reserva no pueden retirar efectivo temporalmente. ¡Envíe su solicitud de retiro después de las 19:40!",
   "nftAssets": "Activo NFT",
   "totalAssets": "Activos totales",

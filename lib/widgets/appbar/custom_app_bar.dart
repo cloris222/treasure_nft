@@ -157,6 +157,7 @@ class CustomAppBar {
       Flexible(
           child: Row(
         children: [
+          const SizedBox(width: 5),
           InkWell(
               onTap: mainAction,
               child: Image.asset(

@@ -332,7 +332,7 @@
   "level": "Level",
   "open_A_lv": "Berlaku untuk Undangan A",
   "open_BC_lv": "Berlaku untuk undangan ke Level ABC",
-  "reach_level_hint": "Raih Level {level} untuk menerima {bonus}({rasio}%)!",
+  "reach_level_hint": "Raih Level {level} untuk menerima {bonus}({ratio}%)!",
   "Completed": "Selesai",
   "tradecount": "Jumlah transaksi",
   "lv_remind_title": "Selamat atas kenaikan level Anda!",
