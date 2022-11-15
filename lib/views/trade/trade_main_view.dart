@@ -132,7 +132,11 @@ class _TradeMainViewState extends State<TradeMainView> {
           const DomainBar(),
           _countDownView(context),
           _levelView(context),
-          WorldCupView(),
+          WorldCupView(
+            countdownTime: '00 : 01 : 45 : 53',
+            drawnTime: '(GMT+08) 2022/11/15 16:15:00',
+            poolSize: '200K USDT(+${tr("platformPrizePool")}100K USDT)',
+          ),
           checkDataInit()
         ],
       ),
@@ -274,14 +278,18 @@ class _TradeMainViewState extends State<TradeMainView> {
                     LevelDetailLabel(
                       title: tr("wallet-balance'"),
                       showCoins: false,
-                      content:
-                          TradeTimerUtil().getReservationInfo().balance.toStringAsFixed(2),
+                      content: TradeTimerUtil()
+                          .getReservationInfo()
+                          .balance
+                          .toStringAsFixed(2),
                       rightFontWeight: FontWeight.bold,
                     ),
                     LevelDetailLabel(
                       title: tr("availableBalance"),
-                      content:
-                          TradeTimerUtil().getReservationInfo().reserveBalance.toStringAsFixed(2),
+                      content: TradeTimerUtil()
+                          .getReservationInfo()
+                          .reserveBalance
+                          .toStringAsFixed(2),
                       rightFontWeight: FontWeight.bold,
                     ),
                     LevelDetailLabel(
