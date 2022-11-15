@@ -6,6 +6,7 @@ import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/utils/trade_timer_util.dart';
+import 'package:treasure_nft_project/widgets/activity/world_cup_view.dart';
 import 'package:treasure_nft_project/widgets/count_down_timer.dart';
 import 'package:treasure_nft_project/widgets/dialog/new_reservation_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/trade_rule_dialot.dart';
@@ -131,6 +132,7 @@ class _TradeMainViewState extends State<TradeMainView> {
           const DomainBar(),
           _countDownView(context),
           _levelView(context),
+          WorldCupView(),
           checkDataInit()
         ],
       ),
