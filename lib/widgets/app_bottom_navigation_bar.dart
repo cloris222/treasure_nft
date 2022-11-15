@@ -96,7 +96,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
                   ? const SizedBox()
                   : getIcon(type),
               Container(child: getText(type)),
-              // SizedBox(height: paddingSpace)
+              SizedBox(height: 2)
             ])));
   }
 
