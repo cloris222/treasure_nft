@@ -193,4 +193,7 @@ class AppImagePath {
   ///notify
   static const String notifyGift = '$appImgPath/img_gift_01.png';
   static const String emptyCoffee = '$appImgPath/img_coffee_01.png';
+
+  /// world cup
+  static const String worldCupTitleImg = '$appImgPath/img_title_football_01.png';
 }
