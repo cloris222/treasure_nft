@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:format/format.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 
@@ -52,7 +53,7 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
     Future<ExploreLevelInfoResponseData> data = viewModel.getCheckLevelInfoAPI();
     data.then((value) => {levelData = value, setState(() {})});
 
-    _timer();
+    // _timer();
   }
 
   @override
@@ -69,13 +70,13 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
     setState(() {});
   }
 
-  _timer() {
+  _timer(int secondLeft) {
     CountDownTimerUtil().init(callBackListener:
     MyCallBackListener(
         myCallBack: (sTimeLeft) {
       setState(() { this.sTimeLeft = sTimeLeft; });
     }),
-        endTimeSeconds: 0);
+        endTimeSeconds: secondLeft);
   }
 
   @override
@@ -103,7 +104,7 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
 
             /// 提醒標語+倒數計時
             Visibility(
-              visible: sellTimeList.isNotEmpty,
+              visible: _checkCountry(),
               child: Padding(
                 padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5), UIDefine.getScreenWidth(10),
                     UIDefine.getScreenWidth(5), UIDefine.getScreenWidth(0)),
@@ -388,6 +389,26 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
         onLeftPress: (){},
         onRightPress: click)
         .show();
+  }
+
+  bool _checkCountry() {
+    for (int i = 0; i < sellTimeList.length; i++) {
+      if (sellTimeList[i].country == GlobalData.userInfo.country) {
+        DateTime dateTime;
+        if (sellTimeList[i].sellDate.isEmpty) {
+          dateTime = DateTime.parse(DateFormat('yyyy-MM-dd').format(DateTime.now()) +' '
+              + sellTimeList[i].startTime);
+        } else {
+          dateTime = DateTime.parse(sellTimeList[i].sellDate +' '+ sellTimeList[i].startTime);
+        }
+        int secondLeft = dateTime.difference(DateTime.now()).inSeconds;
+        if (secondLeft > 0) { // 大於0才是尚未開賣，如是開賣中,另外判是否已過結束時間,但現在沒看到開賣的圖..
+          _timer(secondLeft);
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
 }

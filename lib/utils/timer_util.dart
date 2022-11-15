@@ -13,7 +13,7 @@ class CountDownTimerUtil {
   late MyCallBackListener callBackListener;
 
   /// 外部使用呼叫此方法  endTimeSeconds: 距離開賣的剩餘秒數
-  void init({required MyCallBackListener callBackListener, int endTimeSeconds = 0}) {
+  void init({required MyCallBackListener callBackListener, required int endTimeSeconds}) {
     this.callBackListener = callBackListener;
     var now = DateTime.now();
     var timeLeft = now.add(Duration(seconds: endTimeSeconds)).difference(now);

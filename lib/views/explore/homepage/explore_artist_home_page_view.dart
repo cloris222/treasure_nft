@@ -149,7 +149,7 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
                       UIDefine.getScreenWidth(5),
                       UIDefine.getScreenWidth(5),
                       UIDefine.getScreenWidth(5),
-                      0),
+                      UIDefine.getScreenWidth(5)),
                   child: Row(
                     children: [
                       Expanded(child: _dropDownBar()),
@@ -177,10 +177,7 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: productList.length,
                     itemBuilder: (context, index) {
-                      if (index % 2 != 0) {
-                        return Container();
-                      }
-                      if (index % 2 != 0 && index == productList.length - 1) {
+                      if (index % 2 == 0 && index == productList.length - 1) {
                         return Padding(
                             padding: EdgeInsets.fromLTRB(
                                 UIDefine.getScreenWidth(5),
@@ -194,6 +191,9 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
                                     context, productList[index]),
                               ],
                             ));
+                      }
+                      if (index % 2 != 0) {
+                        return Container();
                       }
                       return Padding(
                         padding: EdgeInsets.fromLTRB(
