@@ -1,7 +1,5 @@
-import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
@@ -11,7 +9,6 @@ import 'package:treasure_nft_project/utils/language_util.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
 import 'package:treasure_nft_project/views/home/widget/home_usdt_info.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
-import 'package:treasure_nft_project/views/trade/trade_main_view.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import 'package:treasure_nft_project/widgets/domain_bar.dart';
@@ -32,9 +29,10 @@ class HomeMainView extends StatefulWidget {
 }
 
 class _HomeMainViewState extends State<HomeMainView> {
+  HomeMainViewModel viewModel = HomeMainViewModel();
+
   @override
   Widget build(BuildContext context) {
-    HomeMainViewModel viewModel = HomeMainViewModel();
     return SingleChildScrollView(
       child: Column(children: [
         Stack(children: [
@@ -288,7 +286,6 @@ class _HomeMainViewState extends State<HomeMainView> {
   }
 
   Widget sponsor() {
-    HomeMainViewModel vm = HomeMainViewModel();
     return Container(
         decoration: const BoxDecoration(
             gradient: LinearGradient(
@@ -300,13 +297,13 @@ class _HomeMainViewState extends State<HomeMainView> {
               Color.fromARGB(255, 215, 224, 255)
             ])),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
-          vm.getPadding(5),
+          viewModel.getPadding(5),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              vm.getPadding(3),
+              viewModel.getPadding(3),
               Image.asset(AppImagePath.fileIcon),
-              vm.getPadding(3),
+              viewModel.getPadding(3),
               Text(
                 'Investors and patrons',
                 style: TextStyle(fontSize: UIDefine.fontSize24),
@@ -333,108 +330,96 @@ class _HomeMainViewState extends State<HomeMainView> {
             leftLogo: AppImagePath.polygon,
             rightLogo: AppImagePath.ethereum,
           ),
-          vm.getPaddingWithView(5, Image.asset(AppImagePath.tozfuft)),
-          vm.getPadding(3),
+          viewModel.getPaddingWithView(5, Image.asset(AppImagePath.tozfuft)),
+          viewModel.getPadding(3),
         ]));
   }
 
   Widget mailSubmit() {
-    HomeMainViewModel vm = HomeMainViewModel();
     TextEditingController textEditingController = TextEditingController();
     FocusNode focusNode = FocusNode();
-    return SizedBox(
-        height: UIDefine.getScreenHeight(30),
-        child: Stack(
-          alignment: Alignment.center,
+    return Container(
+       decoration: const BoxDecoration(
+            color: Color.fromARGB(255, 224, 234, 246)),
+        padding: EdgeInsets.only(
+            top: UIDefine.getScreenWidth(6),
+            left: UIDefine.getScreenWidth(6),
+            right: UIDefine.getScreenWidth(6)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            /// 背景顏色
-            Container(
-              decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 224, 234, 246)),
+            viewModel.getPadding(1),
+
+            Text(
+              tr('emailIllustrate'),
+              style: TextStyle(fontSize: UIDefine.fontSize12),
             ),
+            // Text('feature releases, NFT drops, and tips and tricks',
+            //   style: TextStyle(fontSize: UIDefine.fontSize12),
+            // ),
+            // Text('for navigating DeepLink.',
+            //   style: TextStyle(fontSize: UIDefine.fontSize12),
+            // ),
 
-            Padding(
-                padding: EdgeInsets.only(
-                    top: UIDefine.getScreenWidth(6),
-                    left: UIDefine.getScreenWidth(6),
-                    right: UIDefine.getScreenWidth(6)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+            viewModel.getPadding(3),
+
+            Container(
+                height: UIDefine.getScreenHeight(7),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: AppColors.textWhite,
+                    boxShadow: const [
+                      BoxShadow(
+                          color: Colors.black12,
+                          spreadRadius: 2,
+                          blurRadius: 5),
+                    ]),
+                child: Stack(
+                  alignment: Alignment.centerRight,
                   children: [
-                    vm.getPadding(1),
-
-                    Text(
-                      tr('emailIllustrate'),
-                      style: TextStyle(fontSize: UIDefine.fontSize12),
+                    TextField(
+                      controller: textEditingController,
+                      focusNode: focusNode,
+                      decoration: InputDecoration(
+                          hintText: tr('placeholder-email-address\''),
+                          hintStyle: const TextStyle(
+                              color: AppColors.textGrey),
+                          border: AppStyle()
+                              .styleTextEditBorderBackground(
+                                  radius: 10),
+                          filled: true,
+                          fillColor: AppColors.textWhite,
+                          contentPadding: const EdgeInsets.only(
+                              left: 14.0, bottom: 8.0, top: 8.0)),
                     ),
-                    // Text('feature releases, NFT drops, and tips and tricks',
-                    //   style: TextStyle(fontSize: UIDefine.fontSize12),
-                    // ),
-                    // Text('for navigating DeepLink.',
-                    //   style: TextStyle(fontSize: UIDefine.fontSize12),
-                    // ),
 
-                    vm.getPadding(3),
-
-                    Container(
-                        height: UIDefine.getScreenHeight(7),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: AppColors.textWhite,
-                            boxShadow: const [
-                              BoxShadow(
-                                  color: Colors.black12,
-                                  spreadRadius: 2,
-                                  blurRadius: 5),
-                            ]),
-                        child: Stack(
-                          alignment: Alignment.centerRight,
-                          children: [
-                            TextField(
-                              controller: textEditingController,
-                              focusNode: focusNode,
-                              decoration: InputDecoration(
-                                  hintText: tr('placeholder-email-address\''),
-                                  hintStyle: const TextStyle(
-                                      color: AppColors.textGrey),
-                                  border: AppStyle()
-                                      .styleTextEditBorderBackground(
-                                          radius: 10),
-                                  filled: true,
-                                  fillColor: AppColors.textWhite,
-                                  contentPadding: const EdgeInsets.only(
-                                      left: 14.0, bottom: 8.0, top: 8.0)),
-                            ),
-
-                            /// Submit按鈕
-                            ClipRRect(
-                              borderRadius: const BorderRadius.only(
-                                topRight: Radius.circular(10),
-                                bottomRight: Radius.circular(10),
-                              ),
-                              child: SizedBox(
-                                height: UIDefine.getScreenHeight(15),
-                                width: UIDefine.getScreenWidth(25),
-                                child: GestureDetector(
-                                  onTap: () {},
-                                  child: Container(
-                                    color: AppColors.mainThemeButton,
-                                    child: Center(
-                                      child: Text(
-                                        tr('submit'),
-                                        style: TextStyle(
-                                            color: AppColors.textWhite,
-                                            fontSize: UIDefine.fontSize20,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                    /// Submit按鈕
+                    ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(10),
+                        bottomRight: Radius.circular(10),
+                      ),
+                      child: SizedBox(
+                        height: UIDefine.getScreenHeight(15),
+                        width: UIDefine.getScreenWidth(25),
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            color: AppColors.mainThemeButton,
+                            child: Center(
+                              child: Text(
+                                tr('submit'),
+                                style: TextStyle(
+                                    color: AppColors.textWhite,
+                                    fontSize: UIDefine.fontSize20,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
-                          ],
-                        )),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 )),
           ],
@@ -442,175 +427,162 @@ class _HomeMainViewState extends State<HomeMainView> {
   }
 
   Widget ourInfo() {
-    HomeMainViewModel viewModel = HomeMainViewModel();
-    double p = 2;
-    return SizedBox(
-        height: UIDefine.getScreenHeight(30),
-        child: Stack(
-          alignment: Alignment.center,
+    double padding = 2;
+    return Container(
+        decoration:
+            const BoxDecoration(color: Color.fromARGB(255, 224, 234, 246)),
+        padding: EdgeInsets.only(
+            top: UIDefine.getScreenWidth(6),
+            left: UIDefine.getScreenWidth(6),
+            right: UIDefine.getScreenWidth(6)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            /// 背景顏色
-            Container(
-              decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 224, 234, 246)),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                  top: UIDefine.getScreenWidth(6),
-                  left: UIDefine.getScreenWidth(6),
-                  right: UIDefine.getScreenWidth(6)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            /// Resources
+            Flexible(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  /// Resources
-                  Flexible(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          tr('footer_resource'),
-                          style: TextStyle(
-                            fontSize: UIDefine.fontSize16,
-                            color: AppColors.textBlack,
-                          ),
-                        ),
-                        viewModel.getPadding(p),
-                        GestureDetector(
-                          onTap: () {
-                            viewModel.launchInBrowser(
-                                'https://treasurenft.gitbook.io/treasurenft-1/');
-                          },
-                          child: Text(
-                            tr('footer_docs'),
-                            style: TextStyle(
-                              fontSize: UIDefine.fontSize14,
-                              color: AppColors.textGrey,
-                            ),
-                          ),
-                        ),
-                        viewModel.getPadding(p),
-                        GestureDetector(
-                          onTap: () {
-                            viewModel.launchInBrowser(
-                                'https://treasurenft-metaverse.gitbook.io/how-to-use/earn/how-to-share-invitations');
-                          },
-                          child: Text(
-                            tr('footer_friends'),
-                            style: TextStyle(
-                              fontSize: UIDefine.fontSize14,
-                              color: AppColors.textGrey,
-                            ),
-                          ),
-                        ),
-                        viewModel.getPadding(p),
-                        GestureDetector(
-                          onTap: () {
-                            viewModel.launchInBrowser(
-                                'https://treasurenft-metaverse.gitbook.io/how-to-use/earn/how-to-trade');
-                          },
-                          child: Text(
-                            tr('footer_howtoBuy'),
-                            style: TextStyle(
-                              fontSize: UIDefine.fontSize14,
-                              color: AppColors.textGrey,
-                            ),
-                          ),
-                        ),
-                      ],
+                  Text(
+                    tr('footer_resource'),
+                    style: TextStyle(
+                      fontSize: UIDefine.fontSize16,
+                      color: AppColors.textBlack,
                     ),
                   ),
-
-                  /// News
-                  Flexible(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          tr('footer_news'),
-                          style: TextStyle(
-                            fontSize: UIDefine.fontSize16,
-                            color: AppColors.textBlack,
-                          ),
-                        ),
-                        viewModel.getPadding(p),
-                        GestureDetector(
-                          onTap: () {
-                            viewModel.launchInBrowser(
-                                'https://medium.com/@Treasurenft_xyz');
-                          },
-                          child: Text(
-                            tr('footer_blog'),
-                            style: TextStyle(
-                              fontSize: UIDefine.fontSize14,
-                              color: AppColors.textGrey,
-                            ),
-                          ),
-                        ),
-                      ],
+                  viewModel.getPadding(padding),
+                  GestureDetector(
+                    onTap: () {
+                      viewModel.launchInBrowser(
+                          'https://treasurenft.gitbook.io/treasurenft-1/');
+                    },
+                    child: Text(
+                      tr('footer_docs'),
+                      style: TextStyle(
+                        fontSize: UIDefine.fontSize14,
+                        color: AppColors.textGrey,
+                      ),
                     ),
                   ),
-
-                  /// Company
-                  Flexible(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          tr('footer_company'),
-                          style: TextStyle(
-                            fontSize: UIDefine.fontSize16,
-                            color: AppColors.textBlack,
-                          ),
-                        ),
-                        viewModel.getPadding(p),
-                        GestureDetector(
-                          onTap: () {
-                            viewModel.pushPage(
-                                GlobalData.globalKey.currentContext!,
-                                PDFViewerPage(
-                                  title: tr('footer_privacy'),
-                                  assetPath: 'assets/pdf/PrivacyPolicy.pdf',
-                                ));
-                          },
-                          child: Text(
-                            'Privacy Policy',
-                            style: TextStyle(
-                              fontSize: UIDefine.fontSize14,
-                              color: AppColors.textGrey,
-                            ),
-                          ),
-                        ),
-                        viewModel.getPadding(p),
-                        GestureDetector(
-                          onTap: () {
-                            viewModel.pushPage(
-                                GlobalData.globalKey.currentContext!,
-                                PDFViewerPage(
-                                  title: tr('footer_agreement'),
-                                  assetPath: 'assets/pdf/TermsOfUse.pdf',
-                                ));
-                          },
-                          child: Text(
-                            'User Agreement',
-                            style: TextStyle(
-                              fontSize: UIDefine.fontSize14,
-                              color: AppColors.textGrey,
-                            ),
-                          ),
-                        ),
-                      ],
+                  viewModel.getPadding(padding),
+                  GestureDetector(
+                    onTap: () {
+                      viewModel.launchInBrowser(
+                          'https://treasurenft-metaverse.gitbook.io/how-to-use/earn/how-to-share-invitations');
+                    },
+                    child: Text(
+                      tr('footer_friends'),
+                      style: TextStyle(
+                        fontSize: UIDefine.fontSize14,
+                        color: AppColors.textGrey,
+                      ),
+                    ),
+                  ),
+                  viewModel.getPadding(padding),
+                  GestureDetector(
+                    onTap: () {
+                      viewModel.launchInBrowser(
+                          'https://treasurenft-metaverse.gitbook.io/how-to-use/earn/how-to-trade');
+                    },
+                    child: Text(
+                      tr('footer_howtoBuy'),
+                      style: TextStyle(
+                        fontSize: UIDefine.fontSize14,
+                        color: AppColors.textGrey,
+                      ),
                     ),
                   ),
                 ],
               ),
-            )
+            ),
+
+            /// News
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    tr('footer_news'),
+                    style: TextStyle(
+                      fontSize: UIDefine.fontSize16,
+                      color: AppColors.textBlack,
+                    ),
+                  ),
+                  viewModel.getPadding(padding),
+                  GestureDetector(
+                    onTap: () {
+                      viewModel.launchInBrowser(
+                          'https://medium.com/@Treasurenft_xyz');
+                    },
+                    child: Text(
+                      tr('footer_blog'),
+                      style: TextStyle(
+                        fontSize: UIDefine.fontSize14,
+                        color: AppColors.textGrey,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            /// Company
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    tr('footer_company'),
+                    style: TextStyle(
+                      fontSize: UIDefine.fontSize16,
+                      color: AppColors.textBlack,
+                    ),
+                  ),
+                  viewModel.getPadding(padding),
+                  GestureDetector(
+                    onTap: () {
+                      viewModel.pushPage(
+                          GlobalData.globalKey.currentContext!,
+                          PDFViewerPage(
+                            title: tr('footer_privacy'),
+                            assetPath: 'assets/pdf/PrivacyPolicy.pdf',
+                          ));
+                    },
+                    child: Text(
+                      'Privacy Policy',
+                      style: TextStyle(
+                        fontSize: UIDefine.fontSize14,
+                        color: AppColors.textGrey,
+                      ),
+                    ),
+                  ),
+                  viewModel.getPadding(padding),
+                  GestureDetector(
+                    onTap: () {
+                      viewModel.pushPage(
+                          GlobalData.globalKey.currentContext!,
+                          PDFViewerPage(
+                            title: tr('footer_agreement'),
+                            assetPath: 'assets/pdf/TermsOfUse.pdf',
+                          ));
+                    },
+                    child: Text(
+                      'User Agreement',
+                      style: TextStyle(
+                        fontSize: UIDefine.fontSize14,
+                        color: AppColors.textGrey,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ));
   }
 
   Widget contactUs() {
-    HomeMainViewModel viewModel = HomeMainViewModel();
     return Container(
         decoration:
             const BoxDecoration(color: Color.fromARGB(255, 224, 234, 246)),
