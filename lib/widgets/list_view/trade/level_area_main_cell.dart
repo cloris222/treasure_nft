@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/views/trade/trade_division_view.dart';
 import 'package:treasure_nft_project/widgets/label/level_detail.dart';
+import '../../../constant/enum/trade_enum.dart';
 import '../../../constant/global_data.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
 import '../../../constant/ui_define.dart';
+import '../../../models/data/trade_model_data.dart';
 import '../../../models/http/parameter/check_reservation_info.dart';
 import '../../button/action_button_widget.dart';
 import '../../gradient_text.dart';
@@ -15,9 +17,11 @@ class LevelMainCell extends StatefulWidget {
   const LevelMainCell({
     Key? key,
     required this.level,
+    required this.tradeData,
   }) : super(key: key);
 
   final int level;
+  final TradeData tradeData;
 
   @override
   State<LevelMainCell> createState() => _LevelMainCellState();
@@ -203,21 +207,24 @@ class _LevelMainCellState extends State<LevelMainCell> {
               Positioned(
                 right: 0,
                 bottom: 0,
-                child: ActionButtonWidget(
-                    setHeight: 40,
-                    isFillWidth: false,
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 10),
-                    setMainColor: getReservationBtnColor(),
-                    btnText: widget.level == 0 ? tr("match") : tr("enter"),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => TradeDivisionView(
-                                    level: widget.level,
-                                  )));
-                    }),
+                child: Visibility(
+                  visible: widget.tradeData.status != SellingState.Selling,
+                  child: ActionButtonWidget(
+                      setHeight: 40,
+                      isFillWidth: false,
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 10),
+                      setMainColor: getReservationBtnColor(),
+                      btnText: widget.level == 0 ? tr("match") : tr("enter"),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TradeDivisionView(
+                                      level: widget.level,
+                                    )));
+                      }),
+                ),
               )
             ],
           )
