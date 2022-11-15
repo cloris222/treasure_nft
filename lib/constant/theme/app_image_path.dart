@@ -197,4 +197,5 @@ class AppImagePath {
   /// world cup
   static const String worldCupTitleImg = '$appImgPath/img_title_football_01.png';
   static const String questionBtn = '$appBtnFolderPath/btn_info_01_nor.png';
+  static const String worldCupBackground = '$appImgPath/img_bn_football_01.png';
 }

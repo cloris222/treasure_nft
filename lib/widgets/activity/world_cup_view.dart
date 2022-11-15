@@ -32,7 +32,8 @@ class _WorldCupViewState extends State<WorldCupView> {
                 fit: BoxFit.contain,
               ),
             )),
-        _infoView(context)
+        _infoView(context),
+        _reservationView(context)
       ],
     );
   }
@@ -79,6 +80,13 @@ class _WorldCupViewState extends State<WorldCupView> {
           ],),
         ],
       ),
+    );
+  }
+
+  Widget _reservationView(BuildContext context){
+    return Container(
+      width: UIDefine.getWidth(),
+      child: Image.asset(AppImagePath.worldCupBackground,fit: BoxFit.fitWidth,)
     );
   }
 }
