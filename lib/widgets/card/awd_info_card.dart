@@ -74,6 +74,8 @@ class AWDInfoCard extends StatelessWidget {
               )
             ],
           ),
+          /// 活動名稱(only for Activity)
+          _getActivityName(),
           
           SizedBox(height: UIDefine.getScreenWidth(2.7)),
 
@@ -84,6 +86,22 @@ class AWDInfoCard extends StatelessWidget {
         ],
       )
     );
+  }
+
+  Widget _getActivityName() {
+    if (type.contains('ACTIVITY')) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 6),
+          Text(
+            '???????', // test 活動名, 後端欄位尚未完成
+            style: TextStyle(fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
+          )
+        ],
+      );
+    }
+    return const SizedBox();
   }
 
   Color _getLuckyStrawBorderColor() {
