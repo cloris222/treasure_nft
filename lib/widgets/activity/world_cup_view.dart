@@ -1,11 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/theme/app_style.dart';
 import '../../constant/ui_define.dart';
+import '../../views/trade/trade_draw_result_page.dart';
 
 class WorldCupView extends StatefulWidget {
   const WorldCupView({Key? key}) : super(key: key);
@@ -21,12 +23,16 @@ class _WorldCupViewState extends State<WorldCupView> {
       margin: EdgeInsets.all(UIDefine.fontSize10),
       child: Column(
         children: [
-          SizedBox(
-              width: UIDefine.getWidth(),
-              child: Image.asset(
-                AppImagePath.worldCupTitleImg,
-                fit: BoxFit.contain,
-              )),
+          ///MARK: 偷偷擺在這裡
+          InkWell(
+            onTap: ()=>BaseViewModel().pushPage(context, TradeDrawResultPage()),
+            child: SizedBox(
+                width: UIDefine.getWidth(),
+                child: Image.asset(
+                  AppImagePath.worldCupTitleImg,
+                  fit: BoxFit.contain,
+                )),
+          ),
           _infoView(context)
         ],
       ),
