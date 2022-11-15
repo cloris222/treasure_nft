@@ -4,7 +4,6 @@ import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
-import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart';
 import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
 
 import '../../constant/theme/app_colors.dart';
@@ -108,7 +107,7 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
         opacity: 0.8,
         child: Container(
             decoration: AppStyle()
-                .buildGradient(radius: 5, colors: AppColors.drawColor),
+                .buildGradient(radius: 5, colors: AppColors.drawColorBg),
             padding: const EdgeInsets.all(5),
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               Image.asset(AppImagePath.tradeDrawInfoStar),
@@ -164,8 +163,15 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
                 fit: BoxFit.fill)),
         child: Column(children: [
           _buildBar(),
-          Image.asset(AppImagePath.tradeDrawResultTitle,
-              height: UIDefine.getScreenHeight(10)),
+          SizedBox(height: UIDefine.getScreenHeight(1)),
+          Row(children: [
+            SizedBox(width: UIDefine.getScreenWidth(15)),
+            Expanded(
+                child: Image.asset(AppImagePath.tradeDrawResultTitle,
+                    fit: BoxFit.fitWidth)),
+            SizedBox(width: UIDefine.getScreenWidth(15))
+          ]),
+          SizedBox(height: UIDefine.getScreenHeight(1)),
           _buildDrawResultList(),
         ]));
   }
@@ -188,30 +194,52 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
-          return Column(
-            children: [
-              Opacity(
-                opacity: 0.8,
-                child: Container(
-                    decoration: AppStyle()
-                        .buildGradient(radius: 5, colors: AppColors.drawColor),
-                    padding: const EdgeInsets.all(5),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(AppImagePath.tradeDrawResultStar),
-                          Text(' ${tr('bonus-win-${index + 1}')}',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: UIDefine.fontSize16))
-                        ])),
-              ),
-            ],
-          );
+          int length =
+              viewModel.drawResultInfo!.prizeList[index].winners.length;
+
+          return Column(children: [
+            Container(
+                decoration: AppStyle().styleColorsRadiusBackground(
+                    radius: 5, color: AppColors.drawLine.withOpacity(0.3)),
+                padding: const EdgeInsets.all(5),
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Image.asset(AppImagePath.tradeDrawResultStar),
+                  Text(' ${tr('bonus-win-${index + 1}')}',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                          fontSize: UIDefine.fontSize16))
+                ])),
+            SizedBox(height: UIDefine.getScreenHeight(1)),
+            Container(
+                decoration: AppStyle().styleColorsRadiusBackground(
+                    radius: 5, color: Colors.white.withOpacity(0.3)),
+                padding: const EdgeInsets.all(5),
+                child: GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: length == 1 ? 1 : 2,
+                        childAspectRatio: length == 1 ? 8 : 4,
+                        mainAxisSpacing: UIDefine.getScreenWidth(1),
+                        crossAxisSpacing: UIDefine.getScreenWidth(1)),
+                    itemBuilder: (context, subIndex) {
+                      return Center(
+                        child: Text(
+                            viewModel.drawResultInfo!.prizeList[index]
+                                .winners[subIndex],
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: UIDefine.fontSize12,
+                                fontWeight: FontWeight.w500)),
+                      );
+                    }))
+          ]);
         },
         separatorBuilder: (context, index) {
-          return Container();
+          return SizedBox(height: UIDefine.getScreenHeight(3));
         },
         itemCount: viewModel.drawResultInfo?.prizeList.length ?? 0);
   }

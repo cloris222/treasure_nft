@@ -42,7 +42,7 @@ class AppColors {
   static const Color reservationLevel6 = Color(0xFFb7bcfb);
 
   /// trade draw result
-  static const List<Color> drawColor = [
+  static const List<Color> drawColorBg = [
     Color(0xFFA1D8FE),
     Color(0xFF43B7FE),
     Color(0xFF44ACF7),

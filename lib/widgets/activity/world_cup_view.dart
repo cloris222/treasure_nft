@@ -23,16 +23,12 @@ class _WorldCupViewState extends State<WorldCupView> {
       margin: EdgeInsets.all(UIDefine.fontSize10),
       child: Column(
         children: [
-          ///MARK: 偷偷擺在這裡
-          InkWell(
-            onTap: ()=>BaseViewModel().pushPage(context, TradeDrawResultPage()),
-            child: SizedBox(
-                width: UIDefine.getWidth(),
-                child: Image.asset(
-                  AppImagePath.worldCupTitleImg,
-                  fit: BoxFit.contain,
-                )),
-          ),
+         SizedBox(
+              width: UIDefine.getWidth(),
+              child: Image.asset(
+                AppImagePath.worldCupTitleImg,
+                fit: BoxFit.contain,
+              )),
           _infoView(context)
         ],
       ),
