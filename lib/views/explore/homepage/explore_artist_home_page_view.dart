@@ -26,7 +26,6 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
   ExploreArtistDetailResponseData data =
       ExploreArtistDetailResponseData(sms: [], list: ListClass(pageList: []));
   List<PageList> productList = [];
-  List<Sm> smList = [];
   String searchValue = '';
   String dropDownValue = 'Price';
   bool bSort = true;
@@ -48,7 +47,6 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
   _setData(value) {
     data = value;
     productList = data.list.pageList;
-    smList = data.sms;
     setState(() {});
   }
 
@@ -86,21 +84,8 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
                         callBack: (url) {
                           viewModel.launchInBrowser(url);
                         },
-                        smList: smList
+                        smList: data.sms
                     )
-
-
-                    // /// AppBar
-                    // CustomAppBar.getCornerAppBar(
-                    //   () {
-                    //     BaseViewModel().popPage(context);
-                    //   },
-                    //   artistData.artistName,
-                    //   fontSize: UIDefine.fontSize24,
-                    //   arrowFontSize: UIDefine.fontSize34,
-                    //   circular: 40,
-                    //   appBarHeight: UIDefine.getScreenWidth(20),
-                    // ),
                   ],
                 ),
 
