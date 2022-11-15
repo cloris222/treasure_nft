@@ -11,6 +11,7 @@ import 'package:treasure_nft_project/widgets/count_down_timer.dart';
 import 'package:treasure_nft_project/widgets/dialog/animation_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/success_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/trade_rule_dialot.dart';
+import 'package:treasure_nft_project/widgets/trade_countdown_view.dart';
 import '../../constant/enum/trade_enum.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../models/http/api/trade_api.dart';
@@ -140,112 +141,10 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
           const SizedBox(
             height: 5,
           ),
-          _countDownView(context, tradeData),
+          TradeCountDownView(tradeData: viewModel.currentData),
           _levelView(context),
           checkDataInit(tradeData)
         ]));
-  }
-
-  Widget _countDownView(BuildContext context, TradeData tradeData) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Image.asset(
-          AppImagePath.countDownBackground,
-          width: UIDefine.getWidth(),
-          height: UIDefine.getWidth(),
-          fit: BoxFit.cover,
-        ),
-        Container(
-          margin: EdgeInsets.only(top: UIDefine.getHeight() / 25),
-          width: UIDefine.getWidth() / 1.1,
-          height: UIDefine.getWidth() / 1.3,
-          decoration: AppStyle().styleColorBorderBackground(
-              color: Colors.white,
-              backgroundColor: Colors.transparent,
-              borderLine: 2),
-        ),
-        Container(
-          margin: EdgeInsets.only(top: UIDefine.getHeight() / 25),
-          width: UIDefine.getWidth() / 1.2,
-          height: UIDefine.getWidth() / 1.45,
-          decoration: AppStyle().styleColorsRadiusBackground(
-              color: Colors.white.withOpacity(0.5)),
-        ),
-        Positioned(
-          top: UIDefine.getHeight() / 8,
-          child: Column(
-            children: [
-              Image.asset(
-                tradeData.status == SellingState.NotYet
-                    ? AppImagePath.clockBlue
-                    : AppImagePath.clockRed,
-                width: UIDefine.getWidth() / 3.6,
-                height: UIDefine.getWidth() / 3.6,
-                fit: BoxFit.contain,
-              ),
-              SizedBox(
-                height: UIDefine.getHeight() / 50,
-              ),
-              tradeData.status == SellingState.Selling
-                  ? Text(
-                      tr('onSale'),
-                      style: TextStyle(
-                          color: AppColors.textRed,
-                          fontSize: UIDefine.fontSize24,
-                          fontWeight: FontWeight.w600),
-                    )
-                  : CountDownTimer(
-                      duration: tradeData.duration,
-                    ),
-              LoginButtonWidget(
-                width: UIDefine.getWidth() / 1.7,
-                height: UIDefine.getHeight() / 20,
-                btnText:
-                    '(${GlobalData.userInfo.zone}) ${DateFormatUtil().getDateWith12HourInSecondFormat(TradeTimerUtil().getSellStartTime())}',
-                fontSize: UIDefine.fontSize14,
-                fontWeight: FontWeight.bold,
-                onPressed: () {},
-              )
-            ],
-          ),
-        ),
-        _ruleAction(context)
-      ],
-    );
-  }
-
-  Widget _ruleAction(BuildContext context) {
-    return Positioned(
-        top: 10,
-        right: 10,
-        child: InkWell(
-          onTap: () {
-            TradeRuleDialog(context).show();
-          },
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 10,
-              ),
-              Container(
-                padding: const EdgeInsets.all(2),
-                decoration: AppStyle().styleColorBorderBackground(
-                  radius: 7,
-                  color: Colors.black,
-                  backgroundColor: Colors.transparent,
-                  borderLine: 2,
-                ),
-                child: Text(
-                  tr('trade-rules'),
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: UIDefine.fontSize14),
-                ),
-              ),
-            ],
-          ),
-        ));
   }
 
   Widget _levelView(BuildContext context) {
