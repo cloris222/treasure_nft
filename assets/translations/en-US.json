@@ -981,6 +981,12 @@
   "winnersList": "List of winners",
   "myTicket": "My tickets",
   "lotteryNumber": "Drawing number",
+  "bonus-win-1": "First prize",
+  "bonus-win-2": "Second prize",
+  "bonus-win-3": "Third prize",
+  "itemValue": "Value",
+  "awardMoney": "Reward",
+  "world-cups-event": "World Cups Limited Time Eevnts",
   "--//app use": "---",
   "goPermissionSetting": "The scan function requires the camera permission on your phone. Go into your phone settings to open it?"
 }

@@ -981,6 +981,12 @@
   "winnersList": "Danh sách những người chiến thắng",
   "myTicket": "Vé của tôi",
   "lotteryNumber": "Số bản vẽ",
+  "bonus-win-1": "Giải nhất",
+  "bonus-win-2": "Giải nhì",
+  "bonus-win-3": "Giải ba",
+  "itemValue": "Giá trị",
+  "awardMoney": "phần thưởng",
+  "world-cups-event": "Các sự kiện trong thời gian giới hạn các kỳ World Cup",
   "--//app use": "---",
   "goPermissionSetting": "Chức năng quét yêu cầu quyền của máy ảnh trên điện thoại của bạn. Đi vào cài đặt điện thoại của bạn để mở nó?"
 }

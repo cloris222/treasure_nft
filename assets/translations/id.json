@@ -981,6 +981,12 @@
   "winnersList": "Daftar pemenang",
   "myTicket": "Tiket saya",
   "lotteryNumber": "Nomor gambar",
+  "bonus-win-1": "Hadiah utama",
+  "bonus-win-2": "Hadiah kedua",
+  "bonus-win-3": "Hadiah ketiga",
+  "itemValue": "Nilai",
+  "awardMoney": "Hadiah",
+  "world-cups-event": "Acara Waktu Terbatas Piala Dunia",
   "--//app use": "---",
   "goPermissionSetting": "Fungsi pemindaian memerlukan izin kamera di ponsel Anda. Masuk ke pengaturan ponsel Anda untuk membukanya?"
 }

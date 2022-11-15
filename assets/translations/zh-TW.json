@@ -981,6 +981,12 @@
   "winnersList": "中獎名單",
   "myTicket": "我的票券",
   "lotteryNumber": "抽獎號碼",
+  "bonus-win-1": "一等獎",
+  "bonus-win-2": "二等獎",
+  "bonus-win-3": "三等獎",
+  "itemValue": "價值",
+  "awardMoney": "獎金",
+  "world-cups-event": "幸運世界盃NFT",
   "--//app use": "---",
   "goPermissionSetting": "掃碼功能需先開啟相機權限才能使用，是否前往設定頁面做設定？"
 }

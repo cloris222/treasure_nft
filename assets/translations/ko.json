@@ -981,6 +981,12 @@
   "winnersList": "수상자 목록",
   "myTicket": "내 티켓",
   "lotteryNumber": "도면 번호",
+  "bonus-win-1": "일등 상",
+  "bonus-win-2": "2등상",
+  "bonus-win-3": "3등상",
+  "itemValue": "값",
+  "awardMoney": "보너스",
+  "world-cups-event": "월드컵 기간 한정 이벤트",
   "--//app use": "---",
   "goPermissionSetting": "스캔 기능을 사용하려면 휴대폰의 카메라 권한이 필요합니다. 전화 설정으로 이동하여 여시겠습니까?"
 }

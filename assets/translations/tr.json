@@ -981,6 +981,12 @@
   "winnersList": "kazananların listesi",
   "myTicket": "Biletlerim",
   "lotteryNumber": "Rakam çizmek",
+  "bonus-win-1": "Büyük ikramiye",
+  "bonus-win-2": "ikinci ödül",
+  "bonus-win-3": "Üçüncülük ödülü",
+  "itemValue": "Değer",
+  "awardMoney": "Ödül",
+  "world-cups-event": "Dünya Kupaları Sınırlı Süreli Etkinlikler",
   "--//app use": "---",
   "goPermissionSetting": "Tarama işlevi, telefonunuzda kamera izni gerektirir. Açmak için telefon ayarlarına git?"
 }
