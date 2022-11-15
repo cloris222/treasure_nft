@@ -20,6 +20,7 @@ class CollectionNftItemResponseData {
     this.growPrice = '',
     this.status = '',
     this.nextTradeDate = '',
+    this.tradePeriod = '',
     this.boxOpen = '',
     required this.rewardNft,
   });
@@ -34,6 +35,7 @@ class CollectionNftItemResponseData {
   String growPrice;
   String status;
   String nextTradeDate;
+  String tradePeriod;
   String boxOpen;
   RewardNft rewardNft;
 
@@ -48,6 +50,7 @@ class CollectionNftItemResponseData {
     growPrice: json["growPrice"]??'',
     status: json["status"]??'',
     nextTradeDate: json["nextTradeDate"]??'',
+    tradePeriod: json["tradePeriod"]??'',
     boxOpen: json["boxOpen"]??'',
     rewardNft: json["rewardNft"]!=null? RewardNft.fromJson(json["rewardNft"]) : RewardNft(),
   );
@@ -63,6 +66,7 @@ class CollectionNftItemResponseData {
     "growPrice": growPrice,
     "status": status,
     "nextTradeDate": nextTradeDate,
+    "tradePeriod": tradePeriod,
     "boxOpen": boxOpen,
     "rewardNft": rewardNft.toJson(),
   };

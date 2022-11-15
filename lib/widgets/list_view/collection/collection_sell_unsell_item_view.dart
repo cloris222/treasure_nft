@@ -47,6 +47,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
           margin: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5), 0, UIDefine.getScreenWidth(5), 0),
           decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: AppColors.searchBar, width: 1))),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               /// 上半部分
               Row(
@@ -67,11 +68,14 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                   ),
 
                   /// 計時器View
-                  _getTimerView()
+                  _getTimerView() // test Jeff表示交易中將會移到今日預約(還沒定版), 這裡暫時留著不影響
                 ],
               ),
 
               SizedBox(height: UIDefine.getScreenWidth(4)),
+
+              /// 交易週期(only for 交易中)
+              _getTradeTimeView(),
 
               /// 中間部分 圖+文
               Row(
@@ -92,7 +96,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                               )
                           ),
 
-                          SizedBox(height: UIDefine.getScreenWidth(2.7)),
+                          SizedBox(height: UIDefine.getScreenWidth(5)),
 
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -149,6 +153,27 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
         // )
       ],
     );
+  }
+
+  Widget _getTradeTimeView() {
+    if (data.status == 'SELLING' && itemType == 'Selling') {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            tr('nextTradeDate') + ':  ' + data.nextTradeDate,
+            style: TextStyle(fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500)
+          ),
+          SizedBox(height: UIDefine.getScreenWidth(2.4)),
+          Text(
+              tr('tradingCycle') + ':  ' + 'T+ ' + data.tradePeriod,
+              style: TextStyle(fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500)
+          ),
+          SizedBox(height: UIDefine.getScreenWidth(4))
+        ],
+      );
+    }
+    return SizedBox();
   }
   
   Widget _getTimerView() {
@@ -210,7 +235,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
 
   Widget _getBottomBtn() {
     if (itemType == 'Pending') {
-      if (data.status == 'PAYING') {
+      if (data.status == '???????') { // test 要判斷是否為拆分的商品, 後端還沒完成該欄位
         return Container(
           width: UIDefine.getScreenWidth(88),
           decoration: BoxDecoration(
@@ -220,7 +245,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
           child: TextButton(
               onPressed: () {  },
               child: Text(
-                tr('donePay'), // 完成付款
+                tr('sell'), // 完成付款
                 style: TextStyle(
                     color: AppColors.textWhite, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
               )
