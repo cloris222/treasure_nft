@@ -91,62 +91,82 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
 
   ///MARK: 獎項清單
   Widget _buildActivityAward() {
-    return Row(children: [
-      _buildActivityAwardItem(1),
-      SizedBox(width: UIDefine.getScreenWidth(3)),
-      _buildActivityAwardItem(2),
-      SizedBox(width: UIDefine.getScreenWidth(3)),
-      _buildActivityAwardItem(3)
-    ]);
+    return Column(
+      children: [
+        Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+          _buildAwardTopItem(1),
+          SizedBox(width: UIDefine.getScreenWidth(3)),
+          _buildAwardTopItem(2),
+          SizedBox(width: UIDefine.getScreenWidth(3)),
+          _buildAwardTopItem(3)
+        ]),
+        SizedBox(height: UIDefine.getScreenHeight(1)),
+        Row(children: [
+          _buildActivityBottomItem(1),
+          SizedBox(width: UIDefine.getScreenWidth(3)),
+          _buildActivityBottomItem(2),
+          SizedBox(width: UIDefine.getScreenWidth(3)),
+          _buildActivityBottomItem(3)
+        ]),
+      ],
+    );
   }
 
-  Widget _buildActivityAwardItem(int index) {
+  Widget _buildAwardTopItem(int index) {
     return Expanded(
-        child: Column(children: [
-      Opacity(
-        opacity: 0.8,
-        child: Container(
-            decoration: AppStyle()
-                .buildGradient(radius: 5, colors: AppColors.drawColorBg),
-            padding: const EdgeInsets.all(5),
-            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Image.asset(AppImagePath.tradeDrawInfoStar),
-              Text(' ${tr('bonus-win-$index')}',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                      fontSize: UIDefine.fontSize16))
-            ])),
-      ),
-      SizedBox(height: UIDefine.getScreenHeight(1)),
-      Container(
+      child: Opacity(
+          opacity: 0.8,
+          child: Container(
+              decoration: AppStyle()
+                  .buildGradient(radius: 5, colors: AppColors.drawColorBg),
+              padding: const EdgeInsets.all(5),
+              child:
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                Image.asset(AppImagePath.tradeDrawInfoStar),
+                Flexible(
+                    child: Center(
+                  child: Text(' ${tr('bonus-win-$index')}',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                          fontSize: UIDefine.fontSize16)),
+                ))
+              ]))),
+    );
+  }
+
+  Widget _buildActivityBottomItem(int index) {
+    return Expanded(
+      child: Container(
           decoration: AppStyle().styleColorsRadiusBackground(
               radius: 5, color: Colors.white.withOpacity(0.3)),
           padding: const EdgeInsets.all(5),
           child: Column(children: [
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Center(
+              Flexible(
                   child: Text(
                       NumberFormatUtil()
                           .integerFormat(viewModel.getPrizeAmount(index)),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w600,
                           fontSize: UIDefine.fontSize16))),
+              const SizedBox(width: 3),
               BaseIconWidget(
                   imageAssetPath: AppImagePath.tradeDrawInfoCoin,
                   size: UIDefine.fontSize18)
             ]),
             Center(
-              child: Text(
-                  '${viewModel.getPrizePerson(index)} ${tr('drawPerson')}',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w400,
-                      fontSize: UIDefine.fontSize12)),
-            )
-          ]))
-    ]));
+                child: Text(
+                    '${viewModel.getPrizePerson(index)} ${tr('drawPerson')}',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                        fontSize: UIDefine.fontSize12)))
+          ])),
+    );
   }
 
   ///MARK: 結果清單

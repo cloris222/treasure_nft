@@ -38,6 +38,7 @@ class TradeDrawResultViewModel extends BaseViewModel {
     }
     return 0;
   }
+
   int getPrizePerson(int index) {
     if (drawResultInfo != null) {
       for (var element in drawResultInfo!.prizeList) {
