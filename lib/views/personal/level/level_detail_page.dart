@@ -185,7 +185,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
         }
       }
       return SizedBox(
-        height: UIDefine.getScreenHeight(80),
+        height: UIDefine.getHeight() * 0.9,
         child: PageView(controller: viewModel.pageController, children: pages),
       );
     }

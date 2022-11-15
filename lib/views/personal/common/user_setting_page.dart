@@ -53,7 +53,8 @@ class _UserSettingPageState extends State<UserSettingPage> {
                   UIDefine.getScreenWidth(5.5), 0),
               child: LoginBolderButtonWidget(
                   btnText: tr('logout'),
-                  onPressed: () => _onPressLogout(context)))
+                  onPressed: () => _onPressLogout(context))),
+          SizedBox(height: UIDefine.getScreenHeight(10))
         ]));
   }
 
