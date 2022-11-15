@@ -4,8 +4,13 @@ import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'language_util.dart';
 
 class DateFormatUtil {
-  String _buildDataFormat({required String strFormat, required DateTime time}) {
-    return DateFormat(strFormat, LanguageUtil.getTimeLocale()).format(time);
+  String _buildDataFormat(
+      {required String strFormat,
+      required DateTime time,
+      bool needLocale = false}) {
+    return DateFormat(
+            strFormat, needLocale ? LanguageUtil.getTimeLocale() : "en")
+        .format(time);
   }
 
   DateTime _getNow() {
