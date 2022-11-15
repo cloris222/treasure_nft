@@ -5,6 +5,7 @@ import '../parameter/add_new_reservation.dart';
 import '../parameter/check_experience_info.dart';
 import '../parameter/check_reservation_info.dart';
 import '../parameter/check_reserve_deposit.dart';
+import '../parameter/draw_result_info.dart';
 
 class TradeAPI extends HttpManager {
   TradeAPI({super.onConnectFail, super.showTrString});
@@ -55,5 +56,11 @@ class TradeAPI extends HttpManager {
     var response = await get('/experience/experience-info');
     GlobalData.experienceInfo = ExperienceInfo.fromJson(response.data);
     return GlobalData.experienceInfo;
+  }
+
+  ///MARK: 查詢開獎結果
+  Future<DrawResultInfo> getActivityDrawResultInfoAPI() async {
+    var response = await get('/activity-dungeon/draw-result');
+    return DrawResultInfo.fromJson(response.data);
   }
 }

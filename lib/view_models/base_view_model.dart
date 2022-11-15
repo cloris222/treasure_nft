@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:format/format.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
@@ -404,16 +405,18 @@ class BaseViewModel {
   /// isApiValue :true ->2022-08-30 14:43:22
   String changeTimeZone(
     String strTime, {
+    String? setSystemZone,
     bool isSystemTime = true,
     bool isApiValue = false,
     bool isShowGmt = false,
+    String strGmtFormat = '(GMT{}{:02d}:00) ',
     String strFormat = '',
   }) {
-    var format = DateFormat('yyyy-MM-dd HH:mm:ss');
-    DateTime time = format.parse(strTime);
+    var dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
+    DateTime time = dateFormat.parse(strTime);
 
     ///MARK: 計算
-    int systemZone = getZone(HttpSetting.developTimeZone);
+    int systemZone = getZone(setSystemZone ?? HttpSetting.developTimeZone);
     int localZone = getZone(GlobalData.userInfo.zone);
     if (isSystemTime) {
       ///MARK: 把時間轉成 GMT+0
@@ -431,15 +434,12 @@ class BaseViewModel {
 
     return isApiValue
         ? DateFormatUtil().getFullWithDateFormat(time)
-        : '${isShowGmt ? '(GMT${localZone > 0 ? '+' : ''}${NumberFormatUtil().integerTwoFormat(localZone)}:00) ' : ''}${strFormat.isEmpty ? DateFormatUtil().getFullWithDateFormat2(time) : DateFormatUtil().buildFormat(strFormat: strFormat, time: time)}';
+        : '${isShowGmt ? format(strGmtFormat, localZone > 0 ? '+' : '', localZone) : ''}${strFormat.isEmpty ? DateFormatUtil().getFullWithDateFormat2(time) : DateFormatUtil().buildFormat(strFormat: strFormat, time: time)}';
   }
 
   int getZone(String gmt) {
-    if (gmt.contains('GMT+')) {
-      return int.parse(gmt.substring(4));
-    } else {
-      return int.parse(gmt.substring(4)) * -1;
-    }
+    return (gmt.contains('GMT+') ? 1 : -1) *
+        int.parse(gmt.substring(4, (gmt.length > 6) ? 6 : null));
   }
 
   ///查詢國家列表

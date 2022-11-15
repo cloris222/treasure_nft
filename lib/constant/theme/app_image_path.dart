@@ -198,4 +198,16 @@ class AppImagePath {
   static const String worldCupTitleImg = '$appImgPath/img_title_football_01.png';
   static const String questionBtn = '$appBtnFolderPath/btn_info_01_nor.png';
   static const String worldCupBackground = '$appImgPath/img_bn_football_01.png';
+
+  /// draw result
+  static const String tradeDrawInfoBg = '$appImgPath/img_event_bg_01.png';
+  static const String tradeDrawInfoTitle = '$appImgPath/img_event_font_01.png';
+  static const String tradeDrawInfoStar ='$appIconFolderPath/icon_star_04.png';
+  static const String tradeDrawInfoCoin ='$appIconFolderPath/icon_usdt_01.png';
+
+  static const String tradeDrawResultBg = '$appImgPath/img_event_bg_02.png';
+  static const String tradeDrawResultTitle =
+      '$appImgPath/img_event_font_02.png';
+  static const String tradeDrawResultStar='$appIconFolderPath/icon_star_03.png';
+
 }

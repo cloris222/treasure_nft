@@ -41,6 +41,17 @@ class AppStyle {
             colors: [AppColors.subThemePurple, AppColors.mainThemeButton]));
   }
 
+  /// 自定義漸層
+  BoxDecoration buildGradient(
+      {double radius = 0,
+      Color borderColor = Colors.transparent,
+      required List<Color> colors}) {
+    return BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(radius)),
+        border: Border.all(color: Colors.transparent, width: 1),
+        gradient: LinearGradient(colors: colors));
+  }
+
   BoxDecoration styleColorBorderBackground(
       {double radius = 20.0,
       Color color = Colors.grey,
