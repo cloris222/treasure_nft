@@ -36,7 +36,7 @@ class _GetCarouselListView extends State<CarouselListView> {
     List<HomeCarousel> decodeHomeCarousel = decodeHomeCarouselString
     !.map((res) => HomeCarousel.fromJson(json.decode(res)))
         .toList();
-    print('!!!!!!!!!!!${decodeHomeCarousel.toString()}');
+    //print('!!!!!!!!!!!${decodeHomeCarousel.toString()}');
         });
   }
 
