@@ -1,6 +1,7 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
@@ -9,12 +10,23 @@ import 'package:treasure_nft_project/views/main_page.dart';
 import '../../../constant/ui_define.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/label/personal_profile_icon.dart';
+import '../data/explore_artist_detail_response_data.dart';
 import '../itemdetail/explore_product_detail_page.dart';
 
 class HomePageWidgets {
-  const HomePageWidgets._();
+  static HomePageWidgets? _homePageWidgets;
 
-  static Widget homePageTop(dynamic data, String creatorName) {
+  HomePageWidgets._();
+
+  factory HomePageWidgets() {
+    return _homePageWidgets ??= HomePageWidgets._();
+  }
+
+  late onGetStringFunction callBack;
+
+  Widget homePageTop(dynamic data, String creatorName,
+      {required onGetStringFunction callBack, required List<Sm> smList}) {
+    this.callBack = callBack;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -22,10 +34,6 @@ class HomePageWidgets {
           children: [
             Column(
               children: [
-                // Container(
-                //   height: UIDefine.getScreenWidth(16),
-                // ),
-
                 Image.network(data.introPhoneUrl, height: UIDefine.getScreenWidth(44), fit: BoxFit.fill),
 
                 Container(
@@ -54,25 +62,7 @@ class HomePageWidgets {
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Image.asset('assets/icon/footer/btn_ig_01_nor.png',
-                            width: UIDefine.getScreenWidth(6), height: UIDefine.getScreenWidth(6)),
-                        SizedBox(width: UIDefine.getScreenWidth(5)),
-                        Image.asset('assets/icon/footer/btn_fb_01_nor.png',
-                            width: UIDefine.getScreenWidth(6), height: UIDefine.getScreenWidth(6)),
-                        SizedBox(width: UIDefine.getScreenWidth(5)),
-                        Image.asset('assets/icon/footer/btn_twitter_01_nor.png',
-                            width: UIDefine.getScreenWidth(6), height: UIDefine.getScreenWidth(6)),
-                        SizedBox(width: UIDefine.getScreenWidth(5)),
-                        Image.asset('assets/icon/footer/btn_tg_01_nor.png',
-                            width: UIDefine.getScreenWidth(6), height: UIDefine.getScreenWidth(6)),
-                        SizedBox(width: UIDefine.getScreenWidth(5)),
-                        Image.asset('assets/icon/footer/btn_discord_01_nor.png',
-                            width: UIDefine.getScreenWidth(6), height: UIDefine.getScreenWidth(6)),
-                        SizedBox(width: UIDefine.getScreenWidth(5)),
-                        Image.asset('assets/icon/icon/icon_share_03.png',
-                            width: UIDefine.getScreenWidth(6), height: UIDefine.getScreenWidth(6))
-                      ],
+                      children: _getSmsIcons(smList),
                     ),
                   ],
                 )
@@ -112,8 +102,67 @@ class HomePageWidgets {
     );
   }
 
+  List<Widget> _getSmsIcons(List<Sm> smList) {
+    List<Widget> widgets = [];
+    for (int i = 0; i < smList.length; i++) {
+      switch(smList[i].type) {
+        case 'twitter':
+          widgets.add(
+            GestureDetector(
+              onTap: () => callBack(smList[i].data),
+              child: Image.asset('assets/icon/footer/btn_twitter_01_nor.png',
+                  width: UIDefine.getScreenWidth(6), height: UIDefine.getScreenWidth(6))
+            )
+          );
+          break;
+        case 'discord':
+          widgets.add(
+              GestureDetector(
+                  onTap: () => callBack(smList[i].data),
+                  child: Image.asset('assets/icon/footer/btn_discord_01_nor.png',
+                      width: UIDefine.getScreenWidth(6), height: UIDefine.getScreenWidth(6))
+              )
+          );
+          break;
+        case 'youtube':
+          widgets.add(
+              GestureDetector(
+                  onTap: () => callBack(smList[i].data),
+                  child: Image.asset('assets/icon/footer/btn_yt_01_nor.png',
+                      width: UIDefine.getScreenWidth(6), height: UIDefine.getScreenWidth(6))
+              )
+          );
+          break;
+        case 'instagram':
+          widgets.add(
+              GestureDetector(
+                  onTap: () => callBack(smList[i].data),
+                  child: Image.asset('assets/icon/footer/btn_ig_01_nor.png',
+                      width: UIDefine.getScreenWidth(6), height: UIDefine.getScreenWidth(6))
+              )
+          );
+          break;
+        case 'facebook':
+          widgets.add(
+              GestureDetector(
+                  onTap: () => callBack(smList[i].data),
+                  child: Image.asset('assets/icon/footer/btn_fb_01_nor.png',
+                      width: UIDefine.getScreenWidth(6), height: UIDefine.getScreenWidth(6))
+              )
+          );
+          break;
+      }
+      widgets.add(SizedBox(width: UIDefine.getScreenWidth(5)));
+    }
+    widgets.add( // 分享 目前沒做事
+        Image.asset('assets/icon/icon/icon_share_03.png',
+            width: UIDefine.getScreenWidth(6), height: UIDefine.getScreenWidth(6)));
+    return widgets;
+  }
 
-  static Widget artistInfo(dynamic data) {
+
+
+  Widget artistInfo(dynamic data) {
     BaseViewModel viewModel = BaseViewModel();
     return Padding(
       padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5), 0, UIDefine.getScreenWidth(10), 0),
@@ -138,7 +187,7 @@ class HomePageWidgets {
     );
   }
 
-  static Widget _amountView(String amount, String title, bool bIcon) {
+  Widget _amountView(String amount, String title, bool bIcon) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -157,7 +206,7 @@ class HomePageWidgets {
     );
   }
 
-  static Widget productView(BuildContext context, dynamic data) {
+  Widget productView(BuildContext context, dynamic data) {
     return SizedBox(
       width: 163,
       child: Column(

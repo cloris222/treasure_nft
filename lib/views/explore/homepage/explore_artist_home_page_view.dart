@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_theme.dart';
 import '../../../constant/ui_define.dart';
-import '../../../view_models/base_view_model.dart';
 import '../../../view_models/explore/explore_artist_home_page_view_model.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
-import '../../../widgets/appbar/custom_app_bar.dart';
 import '../../custom_appbar_view.dart';
 import '../data/explore_artist_detail_response_data.dart';
 import '../data/explore_main_response_data.dart';
@@ -28,6 +26,7 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
   ExploreArtistDetailResponseData data =
       ExploreArtistDetailResponseData(sms: [], list: ListClass(pageList: []));
   List<PageList> productList = [];
+  List<Sm> smList = [];
   String searchValue = '';
   String dropDownValue = 'Price';
   bool bSort = true;
@@ -49,6 +48,7 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
   _setData(value) {
     data = value;
     productList = data.list.pageList;
+    smList = data.sms;
     setState(() {});
   }
 
@@ -81,7 +81,14 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
                   // 上方AppBar + 畫家資訊
                   children: [
                     /// 畫家照片+背景照+名稱
-                    HomePageWidgets.homePageTop(artistData, data.creatorName),
+                    HomePageWidgets().homePageTop(
+                        artistData, data.creatorName,
+                        callBack: (url) {
+                          viewModel.launchInBrowser(url);
+                        },
+                        smList: smList
+                    )
+
 
                     // /// AppBar
                     // CustomAppBar.getCornerAppBar(
@@ -140,7 +147,7 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
                 ),
 
                 /// 數字統計
-                HomePageWidgets.artistInfo(data),
+                HomePageWidgets().artistInfo(data),
 
                 /// 輸入Bar
                 Padding(
@@ -198,7 +205,7 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                HomePageWidgets.productView(
+                                HomePageWidgets().productView(
                                     context, productList[index]),
                               ],
                             ));
@@ -212,9 +219,9 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            HomePageWidgets.productView(
+                            HomePageWidgets().productView(
                                 context, productList[index]),
-                            HomePageWidgets.productView(
+                            HomePageWidgets().productView(
                                 context, productList[index + 1])
                           ],
                         ),
