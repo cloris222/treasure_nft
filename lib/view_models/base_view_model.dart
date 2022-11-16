@@ -242,7 +242,7 @@ class BaseViewModel {
     GlobalData.totalIncome = 0.0;
     GlobalData.userWalletInfo = null;
     AppSharedPreferences.setProfitRecord([]);
-    AppSharedPreferences.setProfitRecord([]);
+    AppSharedPreferences.setWalletRecord([]);
   }
 
   ///MARK: 當token 為空時，代表未登入

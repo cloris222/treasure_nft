@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
-import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/language_util.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
@@ -18,6 +17,7 @@ import 'package:treasure_nft_project/widgets/list_view/home/carousel_listview.da
 import 'package:video_player/video_player.dart';
 import '../../constant/enum/setting_enum.dart';
 import '../../constant/theme/app_theme.dart';
+import '../../widgets/dialog/simple_custom_dialog.dart';
 import 'home_pdf_viewer.dart';
 import 'widget/sponsor_row_widget.dart';
 
@@ -37,12 +37,10 @@ class _HomeMainViewState extends State<HomeMainView> {
       child: Column(children: [
         Stack(children: [
           SizedBox(
-            height: UIDefine.getScreenHeight(125),
-            child: Transform.scale(
-              scaleX: 1.33,
-              child: Image.asset(AppImagePath.firstBackground),
-            ),
-          ),
+              height: UIDefine.getScreenHeight(125),
+              child: Transform.scale(
+                  scaleX: 1.33,
+                  child: Image.asset(AppImagePath.firstBackground))),
           Column(
             children: [
               const DomainBar(),
@@ -154,7 +152,7 @@ class _HomeMainViewState extends State<HomeMainView> {
         const VideoPlayWidget(),
 
         /// 贊助
-        sponsor(),
+        // sponsor(),
 
         /// Email訂閱
         mailSubmit(),
@@ -180,10 +178,9 @@ class _HomeMainViewState extends State<HomeMainView> {
         height: showZh ? 1.1 : null);
 
     return SizedBox(
-      // height: UIDefine.getScreenHeight(8),
-      child: showZh
-          ? Wrap(
-              children: [
+        // height: UIDefine.getScreenHeight(8),
+        child: showZh
+            ? Wrap(children: [
                 Text('使用', style: black),
                 GradientText(
                   ' Treasure NFT ',
@@ -197,23 +194,16 @@ class _HomeMainViewState extends State<HomeMainView> {
                 Text('取', style: black),
                 Text('收', style: black),
                 Text('益', style: black),
-              ],
-            )
-          : Wrap(
-              children: [
+              ])
+            : Wrap(children: [
                 Text('Earn profit with',
                     style: TextStyle(
                         fontSize: UIDefine.fontSize22,
                         fontWeight: FontWeight.bold,
                         color: AppColors.textBlack)),
-                GradientText(
-                  ' Treasure NFT',
-                  size: UIDefine.fontSize22,
-                  weight: FontWeight.bold,
-                ),
-              ],
-            ),
-    );
+                GradientText(' Treasure NFT',
+                    size: UIDefine.fontSize22, weight: FontWeight.bold)
+              ]));
   }
 
   Widget hotCollection() {
@@ -339,91 +329,86 @@ class _HomeMainViewState extends State<HomeMainView> {
     TextEditingController textEditingController = TextEditingController();
     FocusNode focusNode = FocusNode();
     return Container(
-       decoration: const BoxDecoration(
-            color: Color.fromARGB(255, 224, 234, 246)),
+        decoration:
+            const BoxDecoration(color: Color.fromARGB(255, 224, 234, 246)),
         padding: EdgeInsets.only(
             top: UIDefine.getScreenWidth(6),
             left: UIDefine.getScreenWidth(6),
             right: UIDefine.getScreenWidth(6)),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            viewModel.getPadding(1),
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              viewModel.getPadding(1),
 
-            Text(
-              tr('emailIllustrate'),
-              style: TextStyle(fontSize: UIDefine.fontSize12),
-            ),
-            // Text('feature releases, NFT drops, and tips and tricks',
-            //   style: TextStyle(fontSize: UIDefine.fontSize12),
-            // ),
-            // Text('for navigating DeepLink.',
-            //   style: TextStyle(fontSize: UIDefine.fontSize12),
-            // ),
+              Text(
+                tr('emailIllustrate'),
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: UIDefine.fontSize12),
+              ),
+              // Text('feature releases, NFT drops, and tips and tricks',
+              //   style: TextStyle(fontSize: UIDefine.fontSize12),
+              // ),
+              // Text('for navigating DeepLink.',
+              //   style: TextStyle(fontSize: UIDefine.fontSize12),
+              // ),
 
-            viewModel.getPadding(3),
+              viewModel.getPadding(3),
 
-            Container(
-                height: UIDefine.getScreenHeight(7),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: AppColors.textWhite,
-                    boxShadow: const [
-                      BoxShadow(
-                          color: Colors.black12,
-                          spreadRadius: 2,
-                          blurRadius: 5),
-                    ]),
-                child: Stack(
-                  alignment: Alignment.centerRight,
-                  children: [
+              Container(
+                  height: UIDefine.getScreenHeight(7),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: AppColors.textWhite,
+                      boxShadow: const [
+                        BoxShadow(
+                            color: Colors.black12,
+                            spreadRadius: 2,
+                            blurRadius: 5),
+                      ]),
+                  child: Stack(alignment: Alignment.centerRight, children: [
                     TextField(
-                      controller: textEditingController,
-                      focusNode: focusNode,
-                      decoration: InputDecoration(
-                          hintText: tr('placeholder-email-address\''),
-                          hintStyle: const TextStyle(
-                              color: AppColors.textGrey),
-                          border: AppStyle()
-                              .styleTextEditBorderBackground(
-                                  radius: 10),
-                          filled: true,
-                          fillColor: AppColors.textWhite,
-                          contentPadding: const EdgeInsets.only(
-                              left: 14.0, bottom: 8.0, top: 8.0)),
-                    ),
+                        controller: textEditingController,
+                        focusNode: focusNode,
+                        decoration: InputDecoration(
+                            hintText: tr('placeholder-email-address\''),
+                            hintStyle:
+                                const TextStyle(color: AppColors.textGrey),
+                            border: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            filled: true,
+                            fillColor: AppColors.textWhite,
+                            contentPadding: const EdgeInsets.only(
+                                left: 14.0, bottom: 8.0, top: 8.0))),
 
                     /// Submit按鈕
                     ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(10),
-                        bottomRight: Radius.circular(10),
-                      ),
-                      child: SizedBox(
-                        height: UIDefine.getScreenHeight(15),
-                        width: UIDefine.getScreenWidth(25),
-                        child: GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                            color: AppColors.mainThemeButton,
-                            child: Center(
-                              child: Text(
-                                tr('submit'),
-                                style: TextStyle(
-                                    color: AppColors.textWhite,
-                                    fontSize: UIDefine.fontSize20,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                )),
-          ],
-        ));
+                        borderRadius: const BorderRadius.only(
+                            topRight: Radius.circular(10),
+                            bottomRight: Radius.circular(10)),
+                        child: SizedBox(
+                            height: UIDefine.getScreenHeight(15),
+                            width: UIDefine.getScreenWidth(25),
+                            child: GestureDetector(
+                                onTap: () {
+                                  SimpleCustomDialog(context,
+                                          mainText: tr('subscriptSucceed'),
+                                          isSuccess: true)
+                                      .show();
+                                },
+                                child: Container(
+                                    color: AppColors.mainThemeButton,
+                                    child: Center(
+                                        child: Text(tr('submit'),
+                                            style: TextStyle(
+                                                color: AppColors.textWhite,
+                                                fontSize: UIDefine.fontSize16,
+                                                fontWeight:
+                                                    FontWeight.bold)))))))
+                  ])),
+              viewModel.getPadding(5)
+            ]));
   }
 
   Widget ourInfo() {
@@ -436,150 +421,116 @@ class _HomeMainViewState extends State<HomeMainView> {
             left: UIDefine.getScreenWidth(6),
             right: UIDefine.getScreenWidth(6)),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            /// Resources
-            Flexible(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    tr('footer_resource'),
-                    style: TextStyle(
-                      fontSize: UIDefine.fontSize16,
-                      color: AppColors.textBlack,
-                    ),
-                  ),
-                  viewModel.getPadding(padding),
-                  GestureDetector(
-                    onTap: () {
-                      viewModel.launchInBrowser(
-                          'https://treasurenft.gitbook.io/treasurenft-1/');
-                    },
-                    child: Text(
-                      tr('footer_docs'),
-                      style: TextStyle(
-                        fontSize: UIDefine.fontSize14,
-                        color: AppColors.textGrey,
-                      ),
-                    ),
-                  ),
-                  viewModel.getPadding(padding),
-                  GestureDetector(
-                    onTap: () {
-                      viewModel.launchInBrowser(
-                          'https://treasurenft-metaverse.gitbook.io/how-to-use/earn/how-to-share-invitations');
-                    },
-                    child: Text(
-                      tr('footer_friends'),
-                      style: TextStyle(
-                        fontSize: UIDefine.fontSize14,
-                        color: AppColors.textGrey,
-                      ),
-                    ),
-                  ),
-                  viewModel.getPadding(padding),
-                  GestureDetector(
-                    onTap: () {
-                      viewModel.launchInBrowser(
-                          'https://treasurenft-metaverse.gitbook.io/how-to-use/earn/how-to-trade');
-                    },
-                    child: Text(
-                      tr('footer_howtoBuy'),
-                      style: TextStyle(
-                        fontSize: UIDefine.fontSize14,
-                        color: AppColors.textGrey,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              /// Resources
+              Flexible(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                    Text(tr('footer_resource'),
+                        style: TextStyle(
+                            fontSize: UIDefine.fontSize16,
+                            color: AppColors.textBlack)),
+                    viewModel.getPadding(padding),
+                    GestureDetector(
+                        onTap: () {
+                          viewModel.launchInBrowser(
+                              'https://treasurenft.gitbook.io/treasurenft-1/');
+                        },
+                        child: Text(tr('footer_docs'),
+                            style: TextStyle(
+                                fontSize: UIDefine.fontSize14,
+                                color: AppColors.textGrey))),
+                    viewModel.getPadding(padding),
+                    GestureDetector(
+                        onTap: () {
+                          viewModel.launchInBrowser(
+                              'https://treasurenft-metaverse.gitbook.io/how-to-use/earn/how-to-share-invitations');
+                        },
+                        child: Text(tr('footer_friends'),
+                            style: TextStyle(
+                                fontSize: UIDefine.fontSize14,
+                                color: AppColors.textGrey))),
+                    viewModel.getPadding(padding),
+                    GestureDetector(
+                        onTap: () {
+                          viewModel.launchInBrowser(
+                              'https://treasurenft-metaverse.gitbook.io/how-to-use/earn/how-to-trade');
+                        },
+                        child: Text(tr('footer_howtoBuy'),
+                            style: TextStyle(
+                                fontSize: UIDefine.fontSize14,
+                                color: AppColors.textGrey)))
+                  ])),
 
-            /// News
-            Flexible(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    tr('footer_news'),
-                    style: TextStyle(
-                      fontSize: UIDefine.fontSize16,
-                      color: AppColors.textBlack,
-                    ),
-                  ),
-                  viewModel.getPadding(padding),
-                  GestureDetector(
-                    onTap: () {
-                      viewModel.launchInBrowser(
-                          'https://medium.com/@Treasurenft_xyz');
-                    },
-                    child: Text(
-                      tr('footer_blog'),
+              /// News
+              Flexible(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                    Text(
+                      tr('footer_news'),
                       style: TextStyle(
-                        fontSize: UIDefine.fontSize14,
-                        color: AppColors.textGrey,
+                        fontSize: UIDefine.fontSize16,
+                        color: AppColors.textBlack,
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
+                    viewModel.getPadding(padding),
+                    GestureDetector(
+                        onTap: () {
+                          viewModel.launchInBrowser(
+                              'https://medium.com/@Treasurenft_xyz');
+                        },
+                        child: Text(tr('footer_blog'),
+                            style: TextStyle(
+                                fontSize: UIDefine.fontSize14,
+                                color: AppColors.textGrey)))
+                  ])),
 
-            /// Company
-            Flexible(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    tr('footer_company'),
-                    style: TextStyle(
-                      fontSize: UIDefine.fontSize16,
-                      color: AppColors.textBlack,
-                    ),
-                  ),
-                  viewModel.getPadding(padding),
-                  GestureDetector(
-                    onTap: () {
-                      viewModel.pushPage(
-                          GlobalData.globalKey.currentContext!,
-                          PDFViewerPage(
-                            title: tr('footer_privacy'),
-                            assetPath: 'assets/pdf/PrivacyPolicy.pdf',
-                          ));
-                    },
-                    child: Text(
-                      'Privacy Policy',
+              /// Company
+              Flexible(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                    Text(
+                      tr('footer_company'),
                       style: TextStyle(
-                        fontSize: UIDefine.fontSize14,
-                        color: AppColors.textGrey,
+                        fontSize: UIDefine.fontSize16,
+                        color: AppColors.textBlack,
                       ),
                     ),
-                  ),
-                  viewModel.getPadding(padding),
-                  GestureDetector(
-                    onTap: () {
-                      viewModel.pushPage(
-                          GlobalData.globalKey.currentContext!,
-                          PDFViewerPage(
-                            title: tr('footer_agreement'),
-                            assetPath: 'assets/pdf/TermsOfUse.pdf',
-                          ));
-                    },
-                    child: Text(
-                      'User Agreement',
-                      style: TextStyle(
-                        fontSize: UIDefine.fontSize14,
-                        color: AppColors.textGrey,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ));
+                    viewModel.getPadding(padding),
+                    GestureDetector(
+                        onTap: () {
+                          viewModel.pushPage(
+                              GlobalData.globalKey.currentContext!,
+                              PDFViewerPage(
+                                title: tr('footer_privacy'),
+                                assetPath: 'assets/pdf/PrivacyPolicy.pdf',
+                              ));
+                        },
+                        child: Text(tr('footer_privacy'),
+                            style: TextStyle(
+                                fontSize: UIDefine.fontSize14,
+                                color: AppColors.textGrey))),
+                    viewModel.getPadding(padding),
+                    GestureDetector(
+                        onTap: () {
+                          viewModel.pushPage(
+                              GlobalData.globalKey.currentContext!,
+                              PDFViewerPage(
+                                title: tr('footer_agreement'),
+                                assetPath: 'assets/pdf/TermsOfUse.pdf',
+                              ));
+                        },
+                        child: Text(tr('footer_agreement'),
+                            style: TextStyle(
+                                fontSize: UIDefine.fontSize14,
+                                color: AppColors.textGrey)))
+                  ]))
+            ]));
   }
 
   Widget contactUs() {
@@ -595,105 +546,103 @@ class _HomeMainViewState extends State<HomeMainView> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      tr('footer_contactUs'),
-                      style: TextStyle(
-                        fontSize: UIDefine.fontSize16,
-                        color: AppColors.textBlack,
-                      ),
-                    ),
+                    viewModel.getPadding(5),
+
+                    Text(tr('footer_contactUs'),
+                        style: TextStyle(
+                            fontSize: UIDefine.fontSize16,
+                            color: AppColors.textBlack)),
                     viewModel.getPadding(2),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            viewModel.launchInBrowser(
-                                'mailto:treasurenft.metaverse@gmail.com');
-                          },
-                          child: Image.asset(AppImagePath.mail),
-                        ),
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              viewModel.launchInBrowser(
+                                  'mailto:treasurenft.metaverse@gmail.com');
+                            },
+                            child: Image.asset(AppImagePath.mail),
+                          ),
 
-                        GestureDetector(
-                          onTap: () {
-                            viewModel.launchInBrowser(
-                                'https://www.tiktok.com/@treasurenft_xyz');
-                          },
-                          child: Image.asset(AppImagePath.tiktok),
-                        ),
+                          GestureDetector(
+                              onTap: () {
+                                viewModel.launchInBrowser(
+                                    'https://www.tiktok.com/@treasurenft_xyz');
+                              },
+                              child: Image.asset(AppImagePath.tiktok)),
 
-                        GestureDetector(
-                          onTap: () {
-                            viewModel.launchInBrowser(
-                                'https://twitter.com/Treasurenft_xyz');
-                          },
-                          child: Image.asset(AppImagePath.twitter),
-                        ),
+                          GestureDetector(
+                              onTap: () {
+                                viewModel.launchInBrowser(
+                                    'https://twitter.com/Treasurenft_xyz');
+                              },
+                              child: Image.asset(AppImagePath.twitter)),
 
-                        // GestureDetector(
-                        //   onTap: () {
-                        //      viewModel.launchInBrowser('');
-                        //   },
-                        //   child: Image.asset(AppImagePath.yt),
-                        // ),
+                          // GestureDetector(
+                          //   onTap: () {
+                          //      viewModel.launchInBrowser('');
+                          //   },
+                          //   child: Image.asset(AppImagePath.yt),
+                          // ),
 
-                        GestureDetector(
-                          onTap: () {
-                            viewModel.launchInBrowser(
-                                'https://t.me/TreasureNFTchat');
-                          },
-                          child: Image.asset(AppImagePath.tg),
-                        ),
+                          GestureDetector(
+                              onTap: () {
+                                viewModel.launchInBrowser(
+                                    'https://t.me/TreasureNFTchat');
+                              },
+                              child: Image.asset(AppImagePath.tg)),
 
-                        GestureDetector(
-                          onTap: () {
-                            viewModel.launchInBrowser(
-                                'https://www.facebook.com/Treasurenft-101676776000520');
-                          },
-                          child: Image.asset(AppImagePath.fb),
-                        ),
+                          GestureDetector(
+                              onTap: () {
+                                viewModel.launchInBrowser(
+                                    'https://www.facebook.com/Treasurenft-101676776000520');
+                              },
+                              child: Image.asset(AppImagePath.fb)),
 
-                        GestureDetector(
-                          onTap: () {
-                            viewModel.launchInBrowser(
-                                'https://www.instagram.com/treasurenft_xyz/');
-                          },
-                          child: Image.asset(AppImagePath.ig),
-                        ),
+                          GestureDetector(
+                              onTap: () {
+                                viewModel.launchInBrowser(
+                                    'https://www.instagram.com/treasurenft_xyz/');
+                              },
+                              child: Image.asset(AppImagePath.ig)),
 
-                        GestureDetector(
-                          onTap: () {
-                            viewModel.launchInBrowser(
-                                'https://discord.gg/H54mUVeQRQ');
-                          },
-                          child: Image.asset(AppImagePath.dc),
-                        ),
-                      ],
-                    ),
-                    viewModel.getPadding(4),
-                    Text(
-                      tr('document-title-2'),
-                      style: TextStyle(
-                          fontSize: UIDefine.fontSize16,
-                          color: AppColors.textBlack,
-                          height: 1.3),
-                    ),
-                    viewModel.getPadding(2),
-                    Text(
-                      tr('document-text-1'),
-                      style: TextStyle(
-                          fontSize: UIDefine.fontSize14,
-                          color: AppColors.textGrey,
-                          height: 1.3),
-                    ),
-                    viewModel.getPadding(10),
+                          GestureDetector(
+                              onTap: () {
+                                viewModel.launchInBrowser(
+                                    'https://discord.gg/H54mUVeQRQ');
+                              },
+                              child: Image.asset(AppImagePath.dc))
+                        ]),
+                    // viewModel.getPadding(4),
+                    // Text(
+                    //   tr('document-title-2'),
+                    //   style: TextStyle(
+                    //       fontSize: UIDefine.fontSize16,
+                    //       color: AppColors.textBlack,
+                    //       height: 1.3),
+                    // ),
+                    // viewModel.getPadding(2),
+                    // Text(
+                    //   tr('document-text-1'),
+                    //   style: TextStyle(
+                    //       fontSize: UIDefine.fontSize14,
+                    //       color: AppColors.textGrey,
+                    //       height: 1.3),
+                    // ),
+                    // viewModel.getPadding(10),
+                    // Center(
+                    //     child: Text('Copyright 2022',
+                    //         style: TextStyle(
+                    //           fontSize: UIDefine.fontSize14,
+                    //           color: AppColors.textBlack,
+                    //         ))),
+                    viewModel.getPadding(5),
                     Center(
-                        child: Text('Copyright 2022',
+                        child: Text('TreasureMeta Technology',
                             style: TextStyle(
-                              fontSize: UIDefine.fontSize14,
-                              color: AppColors.textBlack,
-                            ))),
-                    viewModel.getPadding(10),
+                                fontSize: UIDefine.fontSize14,
+                                color: AppColors.textBlack))),
+                    viewModel.getPadding(5),
                   ]))
         ]));
   }
@@ -730,42 +679,36 @@ class VideoPlayWidgetState extends State<VideoPlayWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: UIDefine.getWidth(),
-      height: UIDefine.getScreenHeight(27),
-      child: Container(
-        child: _controller.value.isInitialized
-            ? _controller.value.isPlaying
-                ? InkWell(
-                    onTap: _onStop,
-                    child: AspectRatio(
-                      aspectRatio: _controller.value.aspectRatio,
-                      child: VideoPlayer(_controller),
-                    ),
-                  )
-                : Container(
-                    color: Colors.white,
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.all(UIDefine.getScreenWidth(2)),
-                    child: InkWell(
-                        onTap: _onStart,
-                        child: Stack(alignment: Alignment.center, children: [
-                          Image.asset(AppImagePath.videoImg,
-                              height: UIDefine.getScreenHeight(15)),
-                          Opacity(
-                            opacity: 0.87,
-                            child: CircleAvatar(
-                                radius: UIDefine.getScreenWidth(8),
-                                backgroundColor: Colors.white,
-                                child: Icon(
-                                  Icons.play_arrow,
-                                  color: Colors.black,
-                                  size: UIDefine.getScreenWidth(8),
-                                )),
-                          )
-                        ])))
-            : Container(),
-      ),
-    );
+        width: UIDefine.getWidth(),
+        height: UIDefine.getScreenHeight(27),
+        child: Container(
+          child: _controller.value.isInitialized
+              ? _controller.value.isPlaying
+                  ? InkWell(
+                      onTap: _onStop,
+                      child: AspectRatio(
+                          aspectRatio: _controller.value.aspectRatio,
+                          child: VideoPlayer(_controller)))
+                  : Container(
+                      color: Colors.white,
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.all(UIDefine.getScreenWidth(2)),
+                      child: InkWell(
+                          onTap: _onStart,
+                          child: Stack(alignment: Alignment.center, children: [
+                            Image.asset(AppImagePath.videoImg,
+                                height: UIDefine.getScreenHeight(15)),
+                            Opacity(
+                                opacity: 0.87,
+                                child: CircleAvatar(
+                                    radius: UIDefine.getScreenWidth(8),
+                                    backgroundColor: Colors.white,
+                                    child: Icon(Icons.play_arrow,
+                                        color: Colors.black,
+                                        size: UIDefine.getScreenWidth(8))))
+                          ])))
+              : Container(),
+        ));
   }
 
   void _onStop() {
