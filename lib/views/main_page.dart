@@ -161,8 +161,8 @@ class _MainPageState extends State<MainPage> {
   }
 
   void _serverAction() {
-    // viewModel.pushPage(context, const ServerWebPage());
-    viewModel.pushPage(context, const SplashScreenPage());
+    viewModel.pushPage(context, const ServerWebPage());
+    // viewModel.pushPage(context, const SplashScreenPage());
   }
 
   void _avatarAction() {
