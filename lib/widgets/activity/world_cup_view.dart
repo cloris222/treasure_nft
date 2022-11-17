@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/view_models/trade/activity_viewmodel.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 
@@ -12,26 +14,26 @@ import '../../constant/ui_define.dart';
 import '../dialog/activity_rule_dialog.dart';
 
 class WorldCupView extends StatefulWidget {
-  const WorldCupView(
-      {Key? key,
-      required this.countdownTime,
-      required this.drawnTime,
-      required this.poolSize,
-      required this.buttonAction,
-      required this.prizeReservation})
-      : super(key: key);
+  const WorldCupView({Key? key, required this.buttonAction}) : super(key: key);
 
-  final String countdownTime;
-  final String drawnTime;
-  final String poolSize;
   final VoidCallback buttonAction;
-  final String prizeReservation;
 
   @override
   State<WorldCupView> createState() => _WorldCupViewState();
 }
 
 class _WorldCupViewState extends State<WorldCupView> {
+  late ActivityViewModel viewModel;
+
+  @override
+  void initState() {
+    viewModel = ActivityViewModel(
+      setState: () {},
+    );
+    viewModel.initState();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -46,12 +48,21 @@ class _WorldCupViewState extends State<WorldCupView> {
               ),
             )),
         _infoView(context),
-        SizedBox(height: UIDefine.fontSize10,),
+        SizedBox(
+          height: UIDefine.fontSize10,
+        ),
         _reservationView(context),
-        SizedBox(height: UIDefine.fontSize16,),
+        SizedBox(
+          height: UIDefine.fontSize16,
+        ),
         LoginButtonWidget(
-            btnText: tr("start-booking-prize"), onPressed: widget.buttonAction,width: UIDefine.getWidth()*0.7,),
-        SizedBox(height: UIDefine.fontSize16,),
+          btnText: tr("start-booking-prize"),
+          onPressed: widget.buttonAction,
+          width: UIDefine.getWidth() * 0.7,
+        ),
+        SizedBox(
+          height: UIDefine.fontSize16,
+        ),
       ],
     );
   }
@@ -82,7 +93,9 @@ class _WorldCupViewState extends State<WorldCupView> {
                 style: titleStyle,
               ),
               InkWell(
-                onTap: () {ActivityRuleDialog(context).show();},
+                onTap: () {
+                  ActivityRuleDialog(context).show();
+                },
                 child: Image.asset(AppImagePath.questionBtn),
               )
             ],
@@ -97,7 +110,7 @@ class _WorldCupViewState extends State<WorldCupView> {
                 style: contentStyle,
               ),
               Text(
-                widget.countdownTime,
+                viewModel.canReserve?.endTime ?? '',
                 style: contentStyle,
               )
             ],
@@ -112,7 +125,9 @@ class _WorldCupViewState extends State<WorldCupView> {
                 style: contentStyle,
               ),
               Text(
-                widget.drawnTime,
+                BaseViewModel().changeTimeZone(
+                    viewModel.canReserve?.drawTime ?? '',
+                    isShowGmt: true),
                 style: contentStyle,
               )
             ],
@@ -127,7 +142,7 @@ class _WorldCupViewState extends State<WorldCupView> {
                 style: blackContent,
               ),
               Text(
-                widget.poolSize,
+                '200K USDT(+${tr("platformPrizePool")}100K USDT)',
                 style: blackContent,
               )
             ],
@@ -168,7 +183,7 @@ class _WorldCupViewState extends State<WorldCupView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    widget.prizeReservation,
+                    '${viewModel.canReserve?.deposit ?? ''}',
                     style: TextStyle(
                         fontSize: UIDefine.fontSize20,
                         fontWeight: FontWeight.bold),
@@ -185,8 +200,8 @@ class _WorldCupViewState extends State<WorldCupView> {
 
               /// 更新多國
               Text(
-                '(80U限量NFT+20U獎池金)',
-                style: TextStyle(
+                '(${viewModel.canReserve?.depositForConsume ?? 0}U${tr("limitedNFT")}+${viewModel.canReserve?.depositForPool ?? 0}U${tr("bonusPool")})',
+                style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
@@ -198,9 +213,18 @@ class _WorldCupViewState extends State<WorldCupView> {
               const SizedBox(
                 height: 5,
               ),
-              Text(
-                'LV1~LV6',
-                style: blackContent,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'LV${viewModel.canReserve?.levelMin ?? 1}~',
+                    style: blackContent,
+                  ),
+                  Text(
+                    'LV${viewModel.canReserve?.levelMax ?? 6}',
+                    style: blackContent,
+                  )
+                ],
               )
             ],
           ),

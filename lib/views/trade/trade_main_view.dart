@@ -134,9 +134,7 @@ class _TradeMainViewState extends State<TradeMainView> {
           TradeCountDownView(tradeData: viewModel.currentData),
           _levelView(context),
           WorldCupView(
-            countdownTime: '00 : 01 : 45 : 53',
-            drawnTime: '(GMT+08) 2022/11/15 16:15:00',
-            poolSize: '200K USDT(+${tr("platformPrizePool")}100K USDT)', buttonAction: () {  }, prizeReservation: '100',
+            buttonAction: () {  },
           ),
           checkDataInit()
         ],
