@@ -9,6 +9,7 @@ import 'package:treasure_nft_project/views/personal/personal_main_view.dart';
 import 'package:treasure_nft_project/views/server_web_page.dart';
 import 'package:treasure_nft_project/views/setting_language_page.dart';
 import 'package:treasure_nft_project/views/sigin_in_page.dart';
+import 'package:treasure_nft_project/views/splash_screen_page.dart';
 import 'package:treasure_nft_project/views/trade/trade_main_view.dart';
 import 'package:treasure_nft_project/views/wallet/wallet_main_view.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
@@ -160,7 +161,8 @@ class _MainPageState extends State<MainPage> {
   }
 
   void _serverAction() {
-    viewModel.pushPage(context, const ServerWebPage());
+    // viewModel.pushPage(context, const ServerWebPage());
+    viewModel.pushPage(context, const SplashScreenPage());
   }
 
   void _avatarAction() {

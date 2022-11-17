@@ -45,4 +45,6 @@ class AppAnimationPath {
 
   /// 收藏開啟翅膀盲盒
   static const String showOpenWinsBox = '$animationPathJson/box_open_wings.json';
+
+  static const String splashScreen = '$animationPathJson/logo_start_animation.mp4';
 }
