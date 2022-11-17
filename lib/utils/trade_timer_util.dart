@@ -96,7 +96,7 @@ class TradeTimerUtil {
 
   void _closeTimer() {
     debugPrint('$key close timer');
-    _countdownTimer!.cancel();
+    _countdownTimer?.cancel();
   }
 
   void _setCountDown() async {

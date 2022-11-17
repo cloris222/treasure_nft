@@ -8,6 +8,7 @@ import 'package:treasure_nft_project/constant/theme/app_theme.dart';
 import 'package:treasure_nft_project/utils/app_shared_Preferences.dart';
 import 'package:treasure_nft_project/utils/stomp_socket_util.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
+import 'package:treasure_nft_project/views/splash_screen_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 
 import 'constant/global_data.dart';
@@ -30,51 +31,7 @@ void main() async {
 }
 
 Future<void> initApp() async {
-  BaseViewModel viewModel = BaseViewModel();
-  await viewModel.getCountry();
   await LanguageUtil.init();
-
-  ///MARK: 自動登入
-  try {
-    if (await AppSharedPreferences.getLogIn()) {
-      GlobalData.userToken = await AppSharedPreferences.getToken();
-      GlobalData.userMemberId = await AppSharedPreferences.getMemberID();
-      if (GlobalData.userToken.isNotEmpty &&
-          GlobalData.userMemberId.isNotEmpty) {
-        bool connectFail = false;
-
-        List<bool> checkList = List<bool>.generate(3, (index) => false);
-        viewModel.uploadPersonalInfo().then((value) {
-          checkList[0] = true;
-          if (value == false) {
-            connectFail = true;
-          }
-        });
-        viewModel.uploadSignInInfo().then((value) {
-          checkList[1] = true;
-          if (value == false) {
-            connectFail = true;
-          }
-        });
-        viewModel.uploadTemporaryData().then((value) {
-          checkList[2] = true;
-          if (value == false) {
-            connectFail = true;
-          }
-        });
-
-        await viewModel.checkFutureTime(
-            logKey: 'autoLogin',
-            onCheckFinish: () {
-              return !checkList.contains(false) || connectFail;
-            });
-        if (!connectFail) {
-          viewModel.startUserListener();
-          GlobalData.showLoginAnimate = true;
-        }
-      }
-    }
-  } catch (e) {}
   runApp(localizations(const MyApp()));
 }
 
@@ -104,7 +61,7 @@ class MyApp extends StatelessWidget {
       navigatorKey: GlobalData.globalKey,
       title: 'TreasureNft',
       theme: AppTheme.define(),
-      home: const MainPage(),
+      home: const SplashScreenPage(),
     );
   }
 }
