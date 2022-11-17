@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/constant/theme/app_style.dart';
 
 import '../../constant/theme/app_image_path.dart';
+import '../../constant/theme/app_theme.dart';
 import '../../constant/ui_define.dart';
 import '../../view_models/base_view_model.dart';
 import '../../views/login/circle_network_icon.dart';
@@ -191,16 +193,20 @@ class CustomAppBar {
                     )),
                 InkWell(
                     onTap: avatarAction,
-                    child: BaseViewModel().isLogin() &&
-                            GlobalData.userInfo.photoUrl.isNotEmpty
-                        ? CircleNetworkIcon(
-                            networkUrl: GlobalData.userInfo.photoUrl,
-                            radius: 15)
-                        : Image.asset(
-                            AppImagePath.avatarImg,
-                            width: 25,
-                            height: 25,
-                          )),
+                    child: Container(
+                      decoration: AppTheme.style.baseGradient(radius: 15),
+                      padding: const EdgeInsets.all(1),
+                      child: BaseViewModel().isLogin() &&
+                              GlobalData.userInfo.photoUrl.isNotEmpty
+                          ? CircleNetworkIcon(
+                              networkUrl: GlobalData.userInfo.photoUrl,
+                              radius: 15)
+                          : Image.asset(
+                              AppImagePath.avatarImg,
+                              width: 25,
+                              height: 25,
+                            ),
+                    )),
                 InkWell(
                     onTap: globalAction,
                     child: Image.asset(
