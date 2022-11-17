@@ -31,6 +31,16 @@ class HomeMainView extends StatefulWidget {
 class _HomeMainViewState extends State<HomeMainView> {
   HomeMainViewModel viewModel = HomeMainViewModel();
 
+  TextEditingController emailEditingController = TextEditingController();
+  FocusNode emailFocusNode = FocusNode();
+
+  @override
+  void dispose() {
+    emailEditingController.dispose();
+    emailFocusNode.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -326,11 +336,11 @@ class _HomeMainViewState extends State<HomeMainView> {
   }
 
   Widget mailSubmit() {
-    TextEditingController textEditingController = TextEditingController();
-    FocusNode focusNode = FocusNode();
+    OutlineInputBorder outlineInputBorder = const OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.transparent, width: 2),
+        borderRadius: BorderRadius.all(Radius.circular(10)));
     return Container(
-        decoration:
-            const BoxDecoration(color: Color.fromARGB(255, 224, 234, 246)),
+        color: AppColors.mainBottomBg,
         padding: EdgeInsets.only(
             top: UIDefine.getScreenWidth(6),
             left: UIDefine.getScreenWidth(6),
@@ -368,15 +378,15 @@ class _HomeMainViewState extends State<HomeMainView> {
                       ]),
                   child: Stack(alignment: Alignment.centerRight, children: [
                     TextField(
-                        controller: textEditingController,
-                        focusNode: focusNode,
+                        controller: emailEditingController,
+                        focusNode: emailFocusNode,
                         decoration: InputDecoration(
                             hintText: tr('placeholder-email-address\''),
                             hintStyle:
                                 const TextStyle(color: AppColors.textGrey),
-                            border: InputBorder.none,
-                            enabledBorder: InputBorder.none,
-                            focusedBorder: InputBorder.none,
+                            enabledBorder: outlineInputBorder,
+                            focusedBorder: outlineInputBorder,
+                            border: outlineInputBorder,
                             filled: true,
                             fillColor: AppColors.textWhite,
                             contentPadding: const EdgeInsets.only(
@@ -414,8 +424,7 @@ class _HomeMainViewState extends State<HomeMainView> {
   Widget ourInfo() {
     double padding = 2;
     return Container(
-        decoration:
-            const BoxDecoration(color: Color.fromARGB(255, 224, 234, 246)),
+        color: AppColors.mainBottomBg,
         padding: EdgeInsets.only(
             top: UIDefine.getScreenWidth(6),
             left: UIDefine.getScreenWidth(6),
@@ -535,8 +544,7 @@ class _HomeMainViewState extends State<HomeMainView> {
 
   Widget contactUs() {
     return Container(
-        decoration:
-            const BoxDecoration(color: Color.fromARGB(255, 224, 234, 246)),
+        color: AppColors.mainBottomBg,
         child: Column(children: [
           Padding(
               padding: EdgeInsets.only(
