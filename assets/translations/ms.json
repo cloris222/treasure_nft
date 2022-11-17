@@ -987,6 +987,16 @@
   "itemValue": "Nilai",
   "awardMoney": "anugerah",
   "world-cups-event": "Acara Masa Terhad Piala Dunia",
+  "limitedNFT":"NFT terhad",
+  "bonusPool":"Kumpulan ganjaran",
+  "activity-info-1":"Yuran 100U diperlukan untuk menempah acara tersebut",
+  "activity-info-2":"80U akan dikembalikan jika anda tidak memenangi NFT edisi terhad",
+  "activity-info-3":"Pemenang contoh akan didedahkan pada masa yang sama",
+  "activity-info-4":"Keputusan loteri akan diumumkan dalam contoh",
+  "APP_0075":"Tempahan untuk acara ini telah diduduki",
+  "APP_0076":"Tempahan individu untuk acara ini telah diduduki",
+  "couponValue":"Nilai tiket",
+  "over":"Berakhir",
   "--//app use": "---",
   "goPermissionSetting": "Fungsi imbasan memerlukan kebenaran kamera pada telefon anda. Pergi ke tetapan telefon anda untuk membukanya?"
 }

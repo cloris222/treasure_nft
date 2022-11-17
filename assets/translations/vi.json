@@ -987,6 +987,16 @@
   "itemValue": "Giá trị",
   "awardMoney": "phần thưởng",
   "world-cups-event": "Các sự kiện trong thời gian giới hạn các kỳ World Cup",
+  "limitedNFT":"NFT hạn chế",
+  "bonusPool":"Phần thưởng",
+  "activity-info-1":"Phí 100U được yêu cầu để đặt trước sự kiện",
+  "activity-info-2":"80U sẽ được hoàn lại nếu bạn không giành được NFT phiên bản giới hạn",
+  "activity-info-3":"Ví dụ người chiến thắng sẽ được tiết lộ cùng một lúc",
+  "activity-info-4":"Kết quả xổ số sẽ được công bố trong trường hợp này",
+  "APP_0075":"Đặt chỗ cho sự kiện này đã hết",
+  "APP_0076":"Đặt chỗ cá nhân cho sự kiện này đã được lấp đầy",
+  "couponValue":"Giá trị vé",
+  "over":"đã kết thúc",
   "--//app use": "---",
   "goPermissionSetting": "Chức năng quét yêu cầu quyền của máy ảnh trên điện thoại của bạn. Đi vào cài đặt điện thoại của bạn để mở nó?"
 }

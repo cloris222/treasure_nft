@@ -987,6 +987,16 @@
   "itemValue": "Value",
   "awardMoney": "Reward",
   "world-cups-event": "World Cups Limited Time Eevnts",
+  "limitedNFT":"Limited NFT",
+  "bonusPool":"Reward pool",
+  "activity-info-1":"100U fee is required to reserve the event",
+  "activity-info-2":"80U will be refunded if you do not win the limited edition NFT",
+  "activity-info-3":"The winner of instance will be revealed at the same time",
+  "activity-info-4":"Lottery result will be announced in the instance",
+  "APP_0075":"Reservation for this event is occupied",
+  "APP_0076":"Individual reservation for this event is occupied",
+  "couponValue":"Ticket value",
+  "over":"Ended",
   "--//app use": "---",
   "goPermissionSetting": "The scan function requires the camera permission on your phone. Go into your phone settings to open it?"
 }

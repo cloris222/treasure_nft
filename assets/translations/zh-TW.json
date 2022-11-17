@@ -987,6 +987,16 @@
   "itemValue": "價值",
   "awardMoney": "獎金",
   "world-cups-event": "幸運世界盃NFT",
+  "limitedNFT":"限量NFT",
+  "bonusPool":"獎金池",
+  "activity-info-1":"預約活動需付100U預約金",
+  "activity-info-2":"沒有中獎限量版NFT則會退還80U",
+  "activity-info-3":"活動副本統一時間開獎",
+  "activity-info-4":"中獎結果將會公布在活動副本上",
+  "APP_0075":"此次活動預約次數已滿",
+  "APP_0076":"此次活動個人預約次數已滿",
+  "couponValue":"券值",
+  "over":"已結束",
   "--//app use": "---",
   "goPermissionSetting": "掃碼功能需先開啟相機權限才能使用，是否前往設定頁面做設定？"
 }

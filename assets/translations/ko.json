@@ -987,6 +987,16 @@
   "itemValue": "값",
   "awardMoney": "보너스",
   "world-cups-event": "월드컵 기간 한정 이벤트",
+  "limitedNFT":"제한된 NFT",
+  "bonusPool":"보상 풀",
+  "activity-info-1":"이벤트를 예약하려면 100U의 수수료가 필요합니다.",
+  "activity-info-2":"한정판 NFT에 당첨되지 않으면 80U가 환불됩니다.",
+  "activity-info-3":"인스턴스의 승자는 동시에 공개됩니다",
+  "activity-info-4":"추첨 결과는 인스턴스에서 발표됩니다",
+  "APP_0075":"이 이벤트의 예약이 완료되었습니다.",
+  "APP_0076":"본 이벤트의 개별 예약이 마감되었습니다.",
+  "couponValue":"티켓 가치",
+  "over":"종료",
   "--//app use": "---",
   "goPermissionSetting": "스캔 기능을 사용하려면 휴대폰의 카메라 권한이 필요합니다. 전화 설정으로 이동하여 여시겠습니까?"
 }

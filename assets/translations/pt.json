@@ -987,6 +987,16 @@
   "itemValue": "Valor",
   "awardMoney": "Prémio",
   "world-cups-event": "Eventos por tempo limitado da Copa do Mundo",
+  "limitedNFT":"NFT limitada",
+  "bonusPool":"Conjunto de recompensas",
+  "activity-info-1":"Taxa de 100U é necessária para reservar o evento",
+  "activity-info-2":"80U serão reembolsados se você não ganhar a edição limitada NFT",
+  "activity-info-3":"O vencedor da instância será revelado ao mesmo tempo",
+  "activity-info-4":"O resultado da loteria será anunciado na instância",
+  "APP_0075":"A reserva para este evento está ocupada",
+  "APP_0076":"A reserva individual para este evento está ocupada",
+  "couponValue":"Valor do bilhete",
+  "over":"sobre",
   "--//app use": "---",
   "goPermissionSetting": "A função de digitalização requer a permissão da câmera em seu telefone. Entre nas configurações do seu telefone para abri-lo?"
 }

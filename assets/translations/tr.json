@@ -987,6 +987,16 @@
   "itemValue": "Değer",
   "awardMoney": "Ödül",
   "world-cups-event": "Dünya Kupaları Sınırlı Süreli Etkinlikler",
+  "limitedNFT":"Sınırlı NFT",
+  "bonusPool":"Ödül havuzu",
+  "activity-info-1":"Etkinliği rezerve etmek için 100U ücret gereklidir",
+  "activity-info-2":"Sınırlı sayıda NFT'yi kazanmazsanız 80U iade edilecektir",
+  "activity-info-3":"Örneğin kazananı aynı anda açıklanacak",
+  "activity-info-4":"Piyango sonucu durumda açıklanacak",
+  "APP_0075":"Reservation for this event is occupied",
+  "APP_0076":"Bu etkinlik için bireysel rezervasyon dolu",
+  "couponValue":"Bilet değeri",
+  "over":"Bitti",
   "--//app use": "---",
   "goPermissionSetting": "Tarama işlevi, telefonunuzda kamera izni gerektirir. Açmak için telefon ayarlarına git?"
 }

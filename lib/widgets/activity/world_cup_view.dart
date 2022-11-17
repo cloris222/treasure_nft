@@ -9,6 +9,7 @@ import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/theme/app_style.dart';
 import '../../constant/ui_define.dart';
+import '../dialog/activity_rule_dialog.dart';
 
 class WorldCupView extends StatefulWidget {
   const WorldCupView(
@@ -81,7 +82,7 @@ class _WorldCupViewState extends State<WorldCupView> {
                 style: titleStyle,
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {ActivityRuleDialog(context).show();},
                 child: Image.asset(AppImagePath.questionBtn),
               )
             ],
