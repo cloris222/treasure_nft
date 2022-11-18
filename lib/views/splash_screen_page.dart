@@ -42,18 +42,23 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SizedBox.expand(
-      child: FittedBox(
-        fit: BoxFit.cover,
-        child: SizedBox(
-          width: getVideoWidth(),
-          height: getVideoHeight(),
-          child: viewModel.controller.value.isInitialized
-              ? AspectRatio(
-                  aspectRatio: viewModel.controller.value.aspectRatio,
-                  child: VideoPlayer(viewModel.controller),
-                )
-              : Container(),
+        body: WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: SizedBox.expand(
+        child: FittedBox(
+          fit: BoxFit.cover,
+          child: SizedBox(
+            width: getVideoWidth(),
+            height: getVideoHeight(),
+            child: viewModel.controller.value.isInitialized
+                ? AspectRatio(
+                    aspectRatio: viewModel.controller.value.aspectRatio,
+                    child: VideoPlayer(viewModel.controller),
+                  )
+                : Container(),
+          ),
         ),
       ),
     ));
