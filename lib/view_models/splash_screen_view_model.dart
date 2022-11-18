@@ -57,8 +57,8 @@ class SplashScreenViewModel extends BaseViewModel {
         debugPrint('$key isVideoFinish:true');
 
         isVideoFinish = true;
-        controller.setLooping(true);
-        controller.seekTo(Duration.zero).then((value) => controller.play());
+        // controller.setLooping(true);
+        // controller.seekTo(Duration.zero).then((value) => controller.play());
       } else {
         _oldPosition = newPosition;
       }
