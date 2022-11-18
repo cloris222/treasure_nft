@@ -22,15 +22,13 @@ class SplashScreenViewModel extends BaseViewModel {
   late Timer _countdownTimer;
   Duration _oldPosition = Duration.zero;
 
-  void initState() {
-    controller = VideoPlayerController.asset(AppAnimationPath.splashScreen)
-      ..initialize().then((value) {
-        controller.play();
-        onViewChange();
-      });
-
+  void initState() async {
+    controller = VideoPlayerController.asset(AppAnimationPath.splashScreen);
+    await controller.initialize();
+    await controller.play();
+    onViewChange();
     _countdownTimer = Timer.periodic(
-        const Duration(milliseconds: 100), (_) => _setCountDown());
+        const Duration(milliseconds: 500), (_) => _setCountDown());
     runInitApp().then((value) {
       isInitAppFinish = true;
       print('isInitAppFinish:true');
@@ -43,10 +41,11 @@ class SplashScreenViewModel extends BaseViewModel {
   }
 
   _setCountDown() {
-    var newPosition = controller.value.position;
-    var newDuration = controller.value.duration;
     if (!isVideoFinish) {
-      if ((_oldPosition.toString().compareTo(newPosition.toString()) == 0 &&
+      ///MARK: 計算影片是否撥放完畢
+      var newPosition = controller.value.position;
+      var newDuration = controller.value.duration;
+      if ((_oldPosition.compareTo(newPosition) == 0 &&
               _oldPosition.compareTo(Duration.zero) != 0) ||
           (newDuration.compareTo(newPosition) == 0 ||
               newDuration.compareTo(newPosition) == -1)) {
@@ -67,6 +66,7 @@ class SplashScreenViewModel extends BaseViewModel {
   Future<void> runInitApp() async {
     ///MARK: 等兩秒 讓動畫播
     await Future.delayed(const Duration(seconds: 3));
+    print('runInitApp:start');
     await getCountry();
 
     ///MARK: 自動登入
