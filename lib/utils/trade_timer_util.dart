@@ -66,7 +66,7 @@ class TradeTimerUtil {
   TradeData getCurrentTradeData() {
     return _currentTradeData;
   }
-
+  ///可通用
   DateTime getSellStartTime() {
     return _dateSellStartTime;
   }
@@ -75,13 +75,15 @@ class TradeTimerUtil {
     return _reservationInfo;
   }
 
-  void addListener(GetTradDate tradDate) {
-    listeners.add(tradDate);
+  void addListener(GetTradDate listener) {
+    listeners.add(listener);
   }
 
-  void removeListener(GetTradDate tradDate) {
-    listeners.remove(tradDate);
+  void removeListener(GetTradDate listener) {
+    listeners.remove(listener);
   }
+
+  ///可通用
 
   void _startTimer() {
     debugPrint('$key start timer');

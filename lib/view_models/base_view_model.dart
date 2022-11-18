@@ -412,6 +412,9 @@ class BaseViewModel {
     String strGmtFormat = '(GMT{}{:02d}:00) ',
     String strFormat = '',
   }) {
+    if(strTime.isEmpty){
+      return "";
+    }
     var dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
     DateTime time = dateFormat.parse(strTime);
 
