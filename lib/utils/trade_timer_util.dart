@@ -133,13 +133,13 @@ class TradeTimerUtil {
 
   void _setTime(CheckReservationInfo reservationInfo) {
     /// if sellDate == null , sell day is today
-    if (reservationInfo.sellDate == "") {
+    if (reservationInfo.sellDate.isEmpty) {
       reservationInfo.sellDate = DateFormatUtil().getNowTimeWithDayFormat();
     }
 
     /// 現在時間（會員當地時間）
     _dateCurrentTime = DateTime.parse(
-        '${reservationInfo.sellDate} ${reservationInfo.localTime}');
+        '${DateFormatUtil().getNowTimeWithDayFormat()} ${reservationInfo.localTime}');
 
     /// 開賣日期＋開賣時間 就是sellDate
     /// 開賣時間(當地)
