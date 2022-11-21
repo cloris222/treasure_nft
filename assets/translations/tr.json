@@ -998,5 +998,8 @@
   "couponValue":"Bilet değeri",
   "over":"Bitti",
   "--//app use": "---",
-  "goPermissionSetting": "Tarama işlevi, telefonunuzda kamera izni gerektirir. Açmak için telefon ayarlarına git?"
+  "goPermissionSetting": "Tarama işlevi, telefonunuzda kamera izni gerektirir. Açmak için telefon ayarlarına git?",
+  "ticketValue":"Bilet değeri",
+  "drawPerson":"kişi",
+  "limitNFTandPool":"Sınırlı sayıda NFT'yi kazanmazsanız 80U iade edilecektir"
 }

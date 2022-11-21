@@ -998,5 +998,8 @@
   "couponValue":"Nilai tiket",
   "over":"Berakhir",
   "--//app use": "---",
-  "goPermissionSetting": "Fungsi pemindaian memerlukan izin kamera di ponsel Anda. Masuk ke pengaturan ponsel Anda untuk membukanya?"
+  "goPermissionSetting": "Fungsi pemindaian memerlukan izin kamera di ponsel Anda. Masuk ke pengaturan ponsel Anda untuk membukanya?",
+  "ticketValue":"Nilai tiket",
+  "drawPerson":"orang",
+  "limitNFTandPool":"80U akan dikembalikan jika Anda tidak memenangkan NFT edisi terbatas"
 }

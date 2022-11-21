@@ -998,5 +998,8 @@
   "couponValue":"valor del billete",
   "over":"sobre",
   "--//app use": "---",
-  "goPermissionSetting": "La función de escaneo requiere el permiso de la cámara en su teléfono. ¿Ir a la configuración de tu teléfono para abrirlo?"
+  "goPermissionSetting": "La función de escaneo requiere el permiso de la cámara en su teléfono. ¿Ir a la configuración de tu teléfono para abrirlo?",
+  "ticketValue":"valor del billete",
+  "drawPerson":"persona",
+  "limitNFTandPool":"Se reembolsarán 80U si no gana el NFT de edición limitada"
 }

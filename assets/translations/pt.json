@@ -998,5 +998,8 @@
   "couponValue":"Valor do bilhete",
   "over":"sobre",
   "--//app use": "---",
-  "goPermissionSetting": "A função de digitalização requer a permissão da câmera em seu telefone. Entre nas configurações do seu telefone para abri-lo?"
+  "goPermissionSetting": "A função de digitalização requer a permissão da câmera em seu telefone. Entre nas configurações do seu telefone para abri-lo?",
+  "ticketValue":"Valor do bilhete",
+  "drawPerson":"pessoa",
+  "limitNFTandPool":"80U serão reembolsados se você não ganhar a edição limitada NFT"
 }

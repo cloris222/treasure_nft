@@ -998,5 +998,8 @@
   "couponValue":"Ticket value",
   "over":"Ended",
   "--//app use": "---",
-  "goPermissionSetting": "The scan function requires the camera permission on your phone. Go into your phone settings to open it?"
+  "goPermissionSetting": "The scan function requires the camera permission on your phone. Go into your phone settings to open it?",
+  "ticketValue":"Ticket value",
+  "drawPerson":"person",
+  "limitNFTandPool":"80U will be refunded if you do not win the limited edition NFT"
 }

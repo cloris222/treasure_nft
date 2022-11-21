@@ -67,7 +67,7 @@
   "SoldOut": "terjual",
   "Wallet": "dompet",
   "language": "bahasa",
-  "sideMenuMember": "Nama ahli}",
+  "sideMenuMember": "ahli:{name}",
   "userCenter": "pusat peribadi",
   "shareCenter": "pusat perkongsian",
   "pointRecord": "Rekod mata",
@@ -998,5 +998,8 @@
   "couponValue":"Nilai tiket",
   "over":"Berakhir",
   "--//app use": "---",
-  "goPermissionSetting": "Fungsi imbasan memerlukan kebenaran kamera pada telefon anda. Pergi ke tetapan telefon anda untuk membukanya?"
+  "goPermissionSetting": "Fungsi imbasan memerlukan kebenaran kamera pada telefon anda. Pergi ke tetapan telefon anda untuk membukanya?",
+  "ticketValue":"Nilai tiket",
+  "drawPerson":"orang",
+  "limitNFTandPool":"80U akan dikembalikan jika anda tidak memenangi NFT edisi terhad"
 }

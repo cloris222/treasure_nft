@@ -998,5 +998,8 @@
   "couponValue":"티켓 가치",
   "over":"종료",
   "--//app use": "---",
-  "goPermissionSetting": "스캔 기능을 사용하려면 휴대폰의 카메라 권한이 필요합니다. 전화 설정으로 이동하여 여시겠습니까?"
+  "goPermissionSetting": "스캔 기능을 사용하려면 휴대폰의 카메라 권한이 필요합니다. 전화 설정으로 이동하여 여시겠습니까?",
+  "ticketValue":"티켓 가치",
+  "drawPerson":"사람",
+  "limitNFTandPool":"한정판 NFT에 당첨되지 않으면 80U가 환불됩니다."
 }

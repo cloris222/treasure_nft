@@ -998,5 +998,8 @@
   "couponValue":"Giá trị vé",
   "over":"đã kết thúc",
   "--//app use": "---",
-  "goPermissionSetting": "Chức năng quét yêu cầu quyền của máy ảnh trên điện thoại của bạn. Đi vào cài đặt điện thoại của bạn để mở nó?"
+  "goPermissionSetting": "Chức năng quét yêu cầu quyền của máy ảnh trên điện thoại của bạn. Đi vào cài đặt điện thoại của bạn để mở nó?",
+  "ticketValue":"Giá trị vé",
+  "drawPerson":"người",
+  "limitNFTandPool":"80U sẽ được hoàn lại nếu bạn không giành được NFT phiên bản giới hạn"
 }
