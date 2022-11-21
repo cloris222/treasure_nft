@@ -155,71 +155,47 @@ class CustomAppBar {
     required VoidCallback globalAction,
     required VoidCallback mainAction,
   }) {
-    return _getCustomAppBar(actions: [
-      Flexible(
-          child: Row(
-        children: [
-          const SizedBox(width: 5),
+    var space = const SizedBox(width: 5);
+    return _getCustomAppBar(
+        margin: const EdgeInsets.symmetric(horizontal: 5),
+        actions: [
           InkWell(
               onTap: mainAction,
-              child: Image.asset(
-                AppImagePath.mainAppBarLogo,
-                width: UIDefine.getWidth() / 2,
-              )),
-          SizedBox(
-            width: UIDefine.getWidth() / 15,
-          ),
-          Flexible(
-              child: Container(
-            margin: const EdgeInsets.only(top: 10, right: 5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                InkWell(
-                  onTap: searchAction,
-                  child: const Icon(
-                    Icons.search,
-                    color: Colors.grey,
-                    size: 30,
-                  ),
-                ),
-                InkWell(
-                    onTap: serverAction,
-                    child: Image.asset(
-                      AppImagePath.serverImage,
-                      width: 30,
-                      height: 30,
-                      fit: BoxFit.cover,
-                    )),
-                InkWell(
-                    onTap: avatarAction,
-                    child: Container(
-                      decoration: AppTheme.style.baseGradient(radius: 15),
-                      padding: const EdgeInsets.all(1),
-                      child: BaseViewModel().isLogin() &&
-                              GlobalData.userInfo.photoUrl.isNotEmpty
-                          ? CircleNetworkIcon(
-                              networkUrl: GlobalData.userInfo.photoUrl,
-                              radius: 15)
-                          : Image.asset(
-                              AppImagePath.avatarImg,
-                              width: 25,
-                              height: 25,
-                            ),
-                    )),
-                InkWell(
-                    onTap: globalAction,
-                    child: Image.asset(
-                      AppImagePath.globalImage,
-                      width: 30,
-                      height: 30,
-                      fit: BoxFit.cover,
-                    )),
-              ],
-            ),
-          ))
-        ],
-      ))
-    ]);
+              child: Image.asset(AppImagePath.mainAppBarLogo)),
+          const Spacer(),
+          Container(
+              margin: const EdgeInsets.only(top: 10),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    InkWell(
+                        onTap: searchAction,
+                        child: const Icon(Icons.search,
+                            color: Colors.grey, size: 30)),
+                    space,
+                    InkWell(
+                        onTap: serverAction,
+                        child: Image.asset(AppImagePath.serverImage,
+                            width: 30, height: 30, fit: BoxFit.cover)),
+                    space,
+                    InkWell(
+                        onTap: avatarAction,
+                        child: Container(
+                            decoration: AppTheme.style.baseGradient(radius: 15),
+                            padding: const EdgeInsets.all(1),
+                            child: BaseViewModel().isLogin() &&
+                                    GlobalData.userInfo.photoUrl.isNotEmpty
+                                ? CircleNetworkIcon(
+                                    networkUrl: GlobalData.userInfo.photoUrl,
+                                    radius: 15)
+                                : Image.asset(AppImagePath.avatarImg,
+                                    width: 25, height: 25))),
+                    space,
+                    InkWell(
+                        onTap: globalAction,
+                        child: Image.asset(AppImagePath.globalImage,
+                            width: 30, height: 30, fit: BoxFit.cover))
+                  ]))
+        ]);
   }
 }
