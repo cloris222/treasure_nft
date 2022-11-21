@@ -38,7 +38,7 @@ class _LevelMainCellState extends State<LevelMainCell> {
 
   Widget showLevelLabel() {
     return Text(
-      'Level ${widget.level}',
+      '${tr("level")} ${widget.level}',
       style:
           TextStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
     );
