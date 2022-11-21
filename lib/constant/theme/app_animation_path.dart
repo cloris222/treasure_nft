@@ -47,4 +47,7 @@ class AppAnimationPath {
   static const String showOpenWinsBox = '$animationPathJson/box_open_wings.json';
 
   static const String splashScreen = '$animationPathJson/logo_start_animation.mp4';
+
+  /// 活動預約成功
+  static const String activitySuccess = '$animationPathJson/confetti_transparent.gif';
 }
