@@ -2,8 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:treasure_nft_project/constant/theme/app_animation_path.dart';
+import 'package:treasure_nft_project/models/http/api/trade_api.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/view_models/trade/activity_viewmodel.dart';
+import 'package:treasure_nft_project/views/trade/trade_draw_result_page.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 
@@ -11,12 +14,16 @@ import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/theme/app_style.dart';
 import '../../constant/ui_define.dart';
+import '../../models/http/parameter/check_activiey_deposit.dart';
 import '../dialog/activity_rule_dialog.dart';
+import '../dialog/new_reservation_dialog.dart';
+import '../dialog/simple_custom_dialog.dart';
+import '../dialog/success_dialog.dart';
 
 class WorldCupView extends StatefulWidget {
-  const WorldCupView({Key? key, required this.buttonAction}) : super(key: key);
-
-  final VoidCallback buttonAction;
+  const WorldCupView({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<WorldCupView> createState() => _WorldCupViewState();
@@ -28,7 +35,50 @@ class _WorldCupViewState extends State<WorldCupView> {
   @override
   void initState() {
     viewModel = ActivityViewModel(
-      setState: () {},
+      setState: () {
+        if (mounted) {
+          setState(() {});
+        }
+      },
+      reservationSuccess: () {
+        viewModel.canReserve?.isUsed = true;
+        setState(() {});
+      },
+      bookPriceNotEnough: () {
+        SuccessDialog(context,
+                callOkFunction: () {},
+                isSuccess: false,
+                mainText: tr("reserve-failed'"))
+            .show();
+      },
+      notEnoughToPay: () {
+        SuccessDialog(context,
+                callOkFunction: () {},
+                isSuccess: false,
+                mainText: tr("reserve-failed'"),
+                subText: tr('APP_0013'))
+            .show();
+      },
+      depositNotEnough: () {
+        SuccessDialog(context,
+                callOkFunction: () {},
+                isSuccess: false,
+                mainText: tr("reserve-failed'"),
+                subText: tr('APP_0041'))
+            .show();
+      },
+      wrongTime: () {
+        SuccessDialog(context,
+                callOkFunction: () {},
+                isSuccess: false,
+                mainText: tr("reserve-failed'"),
+                subText: tr('APP_0063'))
+            .show();
+      },
+      errorMes: (errorCode) {
+        SimpleCustomDialog(context, mainText: tr(errorCode), isSuccess: false)
+            .show();
+      },
     );
     viewModel.initState();
     super.initState();
@@ -56,8 +106,18 @@ class _WorldCupViewState extends State<WorldCupView> {
           height: UIDefine.fontSize16,
         ),
         LoginButtonWidget(
-          btnText: tr("start-booking-prize"),
-          onPressed: widget.buttonAction,
+          btnText:
+              viewModel.isOpen ? tr("start-booking-prize") : tr("winnersList"),
+          onPressed: () {
+            if (viewModel.isOpen == true) {
+              _createReservation(context);
+            } else {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const TradeDrawResultPage()));
+            }
+          },
           width: UIDefine.getWidth() * 0.7,
         ),
         SizedBox(
@@ -73,7 +133,7 @@ class _WorldCupViewState extends State<WorldCupView> {
         color: Colors.black,
         fontWeight: FontWeight.w500);
     TextStyle contentStyle =
-        TextStyle(fontSize: UIDefine.fontSize12, color: Colors.grey);
+        TextStyle(fontSize: UIDefine.fontSize12, color: Colors.grey,fontWeight: FontWeight.w500);
     TextStyle blackContent = TextStyle(
         fontSize: UIDefine.fontSize12,
         color: Colors.black,
@@ -109,10 +169,10 @@ class _WorldCupViewState extends State<WorldCupView> {
                 '${tr("activity-countdown")} : ',
                 style: contentStyle,
               ),
-               Text(
-                  viewModel.getEndTimeLabel(),
-                  style: contentStyle,
-                ),
+              Text(
+                viewModel.getEndTimeLabel(),
+                style: contentStyle,
+              ),
             ],
           ),
           const SizedBox(
@@ -142,7 +202,8 @@ class _WorldCupViewState extends State<WorldCupView> {
                 style: blackContent,
               ),
               Text(
-                '200K USDT(+${tr("platformPrizePool")}100K USDT)',
+                '${BaseViewModel().numberCompatFormat((viewModel.canReserve?.memberPool ?? 0).toString())} '
+                    'USDT(+${tr("platformPrizePool")}${BaseViewModel().numberCompatFormat((viewModel.canReserve?.platformPool ?? 0).toString())} USDT)',
                 style: blackContent,
               )
             ],
@@ -228,8 +289,42 @@ class _WorldCupViewState extends State<WorldCupView> {
               )
             ],
           ),
-        )
+        ),
+        /// 預約活動成功後顯示動畫
+        Positioned(
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Visibility(
+              visible: (viewModel.canReserve?.isUsed ?? false) &&
+                  (viewModel.canReserve?.isOpen ?? false),
+              child: Image.asset(
+                AppAnimationPath.activitySuccess,
+                fit: BoxFit.cover,
+              ),
+            ))
       ],
     );
+  }
+
+  _createReservation(BuildContext context) async {
+    Navigator.of(context).push(PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) {
+          return NewReservationPopUpView(
+            reservationFee: '${viewModel.checkDeposit?.deposit}',
+            transactionTime: '${viewModel.checkDeposit?.tradingTime}',
+            transactionReward: '${viewModel.checkDeposit?.reward}',
+
+            /// 新增預約
+            confirmBtnAction: () {
+              viewModel.createReservation();
+              setState(() {});
+            },
+          );
+        },
+
+        /// 透明頁一定要加
+        opaque: false));
   }
 }

@@ -133,9 +133,7 @@ class _TradeMainViewState extends State<TradeMainView> {
           const DomainBar(),
           TradeCountDownView(tradeData: viewModel.currentData),
           _levelView(context),
-          WorldCupView(
-            buttonAction: () {  },
-          ),
+          WorldCupView(),
           checkDataInit()
         ],
       ),
@@ -225,7 +223,8 @@ class _TradeMainViewState extends State<TradeMainView> {
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           return LevelMainCell(
-            level: viewModel.division![index], tradeData: viewModel.currentData,
+            level: viewModel.division![index],
+            tradeData: viewModel.currentData,
           );
         });
   }

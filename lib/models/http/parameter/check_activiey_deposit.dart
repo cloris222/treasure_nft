@@ -19,13 +19,13 @@ class ActivityDeposit {
   int deposit;
   double reserveBalance;
   int tradingTime;
-  int reward;
+  double reward;
 
   factory ActivityDeposit.fromJson(Map<String, dynamic> json) => ActivityDeposit(
     deposit: json["deposit"],
     reserveBalance: json["reserveBalance"].toDouble(),
     tradingTime: json["tradingTime"],
-    reward: json["reward"],
+    reward: json["reward"].toDouble(),
   );
 
   Map<String, dynamic> toJson() => {
