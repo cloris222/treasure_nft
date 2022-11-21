@@ -32,7 +32,7 @@ class StompSocketUtil {
     stompClient = StompClient(
       config: StompConfig.SockJS(
         // useSockJS: true,
-        url: HttpSetting.developSocket,
+        url: HttpSetting.socketUrl,
         onDebugMessage: (msg) {
           if (msg != '<<< h') {
             debugPrint('$key $msg');

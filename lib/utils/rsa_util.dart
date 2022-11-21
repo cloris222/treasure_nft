@@ -22,7 +22,7 @@ class RSAEncode {
 
   static Future<String> encodeString(Map<String, String> content) async {
     String encoded = base64.encode(utf8.encode(jsonEncode(content)));
-    dynamic publicKey = RSAKeyParser().parse(splitStr(HttpSetting.developKey));
+    dynamic publicKey = RSAKeyParser().parse(splitStr(HttpSetting.postKey));
     final encrypt = Encrypter(RSA(publicKey: publicKey));
     return encrypt.encrypt(encoded).base64;
   }
@@ -30,7 +30,7 @@ class RSAEncode {
   /// MARK: JSON 长参数分段加密
   static Future<String> encodeLong(Map para) async {
     // 设置加密对象
-    dynamic publicKey = RSAKeyParser().parse(splitStr(HttpSetting.developKey));
+    dynamic publicKey = RSAKeyParser().parse(splitStr(HttpSetting.postKey));
     final encrypter = Encrypter(RSA(publicKey: publicKey));
     // map转成json字符串
     final jsonStr = base64.encode(utf8.encode(jsonEncode(para)));
@@ -61,7 +61,7 @@ class RSAEncode {
   }
 
   static Future<String> decodeString(String content) async {
-    dynamic publicKey = RSAKeyParser().parse(splitStr(HttpSetting.developKey));
+    dynamic publicKey = RSAKeyParser().parse(splitStr(HttpSetting.postKey));
     final encrypter = Encrypter(RSA(publicKey: publicKey));
     return encrypter.decrypt(Encrypted.fromBase64(content));
   }

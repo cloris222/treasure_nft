@@ -9,7 +9,7 @@ import '../data/explore_main_response_data.dart';
 import '../data/explore_reserve_insert_response_error_data.dart';
 
 class ExploreApi extends HttpManager {
-  ExploreApi({super.onConnectFail, super.baseUrl = HttpSetting.developUrl, super.addToken = false});
+  ExploreApi({super.onConnectFail, super.baseUrl = HttpSetting.appUrl, super.addToken = false});
 
   /// 查詢探索首頁
   Future<List<ExploreMainResponseData>> getExploreArtists(
@@ -86,7 +86,7 @@ class ExploreApi extends HttpManager {
 }
 
 class ExploreApiWithToken extends HttpManager {
-  ExploreApiWithToken({super.onConnectFail, super.baseUrl = HttpSetting.developUrl, super.showTrString});
+  ExploreApiWithToken({super.onConnectFail, super.baseUrl = HttpSetting.appUrl, super.showTrString});
 
   /// 查詢等級資訊
   Future<ExploreLevelInfoResponseData> getCheckLevelInfoAPI() async {

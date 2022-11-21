@@ -8,7 +8,7 @@ import '../data/collection_reservation_response_data.dart';
 import '../data/collection_ticket_response_data.dart';
 
 class CollectionApi extends HttpManager {
-  CollectionApi({super.onConnectFail, super.baseUrl = HttpSetting.developUrl});
+  CollectionApi({super.onConnectFail, super.baseUrl = HttpSetting.appUrl});
 
   /// 取得訂單信息列表
   Future<List<CollectionReservationResponseData>> getReservationResponse(
@@ -206,7 +206,7 @@ class CollectionApi extends HttpManager {
 }
 
 class CollectionApiCommon extends HttpManager {
-  CollectionApiCommon({super.onConnectFail, super.baseUrl = HttpSetting.developCommonUrl});
+  CollectionApiCommon({super.onConnectFail, super.baseUrl = HttpSetting.commonUrl});
 
   /// 查詢NFT合約擁有者地址
   Future<String> getContractOwnerResponse() async {

@@ -15,7 +15,7 @@ import '../parameter/team_order.dart';
 import '../parameter/team_share_info.dart';
 
 class GroupAPI extends HttpManager {
-  GroupAPI({super.onConnectFail, super.baseUrl = HttpSetting.developUrl});
+  GroupAPI({super.onConnectFail, super.baseUrl = HttpSetting.appUrl});
 
   /// 查詢團隊成員
   Future<TeamMembers> getMembers(

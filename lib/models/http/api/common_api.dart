@@ -8,7 +8,7 @@ import '../parameter/upload_img_video.dart';
 
 class CommonAPI extends HttpManager {
   CommonAPI(
-      {super.onConnectFail, super.baseUrl = HttpSetting.developCommonUrl});
+      {super.onConnectFail, super.baseUrl = HttpSetting.commonUrl});
 
   Future<ApiResponse> uploadImage(String imagePath) async {
     addDioHeader({'Content-Type': 'multipart/form-data'});

@@ -4,6 +4,7 @@ import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/models/http/http_setting.dart';
 import 'package:treasure_nft_project/utils/language_util.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
 import 'package:treasure_nft_project/views/home/widget/home_usdt_info.dart';
@@ -668,8 +669,7 @@ class VideoPlayWidgetState extends State<VideoPlayWidget> {
 
   @override
   void initState() {
-    _controller = VideoPlayerController.network(
-        'https://devimage.treasurenft.xyz/Treasure2.5/index/pc_ad_01.mp4')
+    _controller = VideoPlayerController.network(HttpSetting.homeAdUrl)
       ..initialize().then((value) {
         setState(() {});
         _controller.setLooping(true);

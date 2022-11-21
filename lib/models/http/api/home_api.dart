@@ -10,7 +10,7 @@ import 'package:treasure_nft_project/models/http/parameter/home_carousel.dart';
 import '../parameter/trading_volume_data.dart';
 
 class HomeAPI extends HttpManager {
-  HomeAPI({super.onConnectFail, super.baseUrl = HttpSetting.developUrl});
+  HomeAPI({super.onConnectFail, super.baseUrl = HttpSetting.appUrl});
 
   Future<List<HomeCarousel>> getCarouselItem() async {
     List<HomeCarousel> result = <HomeCarousel>[];

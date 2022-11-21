@@ -27,7 +27,7 @@ class HttpManager {
 
   HttpManager(
       {this.onConnectFail,
-      this.baseUrl = HttpSetting.developUrl,
+      this.baseUrl = HttpSetting.appUrl,
       this.addToken = true,
       this.showTrString = true}) {
     _dio

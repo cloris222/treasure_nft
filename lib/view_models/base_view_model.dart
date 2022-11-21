@@ -419,7 +419,7 @@ class BaseViewModel {
     DateTime time = dateFormat.parse(strTime);
 
     ///MARK: 計算
-    int systemZone = getZone(setSystemZone ?? HttpSetting.developTimeZone);
+    int systemZone = getZone(setSystemZone ?? HttpSetting.systemTimeZone);
     int localZone = getZone(GlobalData.userInfo.zone);
     if (isSystemTime) {
       ///MARK: 把時間轉成 GMT+0
