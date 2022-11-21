@@ -109,10 +109,10 @@ class _WorldCupViewState extends State<WorldCupView> {
                 '${tr("activity-countdown")} : ',
                 style: contentStyle,
               ),
-              Text(
-                viewModel.canReserve?.endTime ?? '',
-                style: contentStyle,
-              )
+               Text(
+                  viewModel.getEndTimeLabel(),
+                  style: contentStyle,
+                ),
             ],
           ),
           const SizedBox(
