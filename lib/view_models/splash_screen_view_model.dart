@@ -84,21 +84,22 @@ class SplashScreenViewModel extends BaseViewModel {
             GlobalData.userMemberId.isNotEmpty) {
           bool connectFail = false;
 
-          List<bool> checkList = List<bool>.generate(3, (index) => false);
-          uploadPersonalInfo().then((value) {
+
+         await uploadPersonalInfo().then((value) {
+           if (value == false) {
+              connectFail = true;
+            }
+          });
+
+          List<bool> checkList = List<bool>.generate(2, (index) => false);
+          uploadSignInInfo().then((value) {
             checkList[0] = true;
             if (value == false) {
               connectFail = true;
             }
           });
-          uploadSignInInfo().then((value) {
-            checkList[1] = true;
-            if (value == false) {
-              connectFail = true;
-            }
-          });
           uploadTemporaryData().then((value) {
-            checkList[2] = true;
+            checkList[1] = true;
             if (value == false) {
               connectFail = true;
             }
