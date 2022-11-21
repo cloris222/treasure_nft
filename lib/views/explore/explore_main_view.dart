@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:treasure_nft_project/widgets/domain_bar.dart';
 
 import '../../constant/ui_define.dart';
@@ -17,7 +18,7 @@ class _ExploreMainView extends State<ExploreMainView> {
 
   ExploreMainViewModel viewModel = ExploreMainViewModel();
   String currentExploreType = ''; // All類別打電文是帶空值
-  ScrollController listController = ScrollController();
+  ItemScrollController listController = ItemScrollController();
   PageController pageController = PageController();
   List<Widget> pages = <Widget>[];
   List<ExploreCategoryResponseData> dataList = [];
@@ -77,7 +78,9 @@ class _ExploreMainView extends State<ExploreMainView> {
   void _onPageChange(int value) {
     setState(() {
       currentExploreType = dataList[value].name;
-      // listController.jumpTo(value * 25);
+      if (value != 0) {
+        listController.scrollTo(index: value - 1, duration: const Duration(milliseconds: 300));
+      }
     });
   }
 

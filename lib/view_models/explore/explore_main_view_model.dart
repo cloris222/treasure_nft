@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../constant/call_back_function.dart';
@@ -18,7 +19,7 @@ class ExploreMainViewModel extends BaseViewModel {
   Widget getExploreTypeButtons(
       {required String currentExploreType,
         required List<ExploreCategoryResponseData> dataList,
-        required ScrollController controller,
+        required ItemScrollController controller,
         required Function(String exploreType) changePage}) {
     List<Widget> buttons = <Widget>[];
     for (int i = 0; i < dataList.length; i++) {
@@ -52,12 +53,16 @@ class ExploreMainViewModel extends BaseViewModel {
           )
       );
     }
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: buttons
-      ),
+    return SizedBox(
+        height: UIDefine.getScreenWidth(13),
+        child:  ScrollablePositionedList.builder(
+            scrollDirection: Axis.horizontal,
+            itemScrollController: controller,
+            itemCount: buttons.length,
+            itemBuilder: (context, index) {
+              return buttons[index];
+            }
+        )
     );
   }
 

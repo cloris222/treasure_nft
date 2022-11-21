@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../constant/ui_define.dart';
 import '../../view_models/collection/collection_main_view_model.dart';
@@ -18,10 +19,10 @@ class _CollectionMainView extends State<CollectionMainView> {
 
   CollectionMainViewModel viewModel = CollectionMainViewModel();
   String currentExploreType = 'Reservation';
-  ScrollController listController = ScrollController();
+  ItemScrollController listController = ItemScrollController();
   PageController pageController = PageController();
   List<Widget> pages = <Widget>[];
-  List<String> dataList = ['Reservation', 'Selling', 'Pending', 'Ticket'];
+  List<String> dataList = ['Reservation', 'Pending', 'Selling', 'Ticket'];
 
   @override
   void initState() {
@@ -74,7 +75,9 @@ class _CollectionMainView extends State<CollectionMainView> {
   void _onPageChange(int value) {
     setState(() {
       currentExploreType = dataList[value];
-      // listController.jumpTo(value * 25);
+      if (value != 0) {
+        listController.scrollTo(index: value - 1, duration: const Duration(milliseconds: 300));
+      }
     });
   }
 
