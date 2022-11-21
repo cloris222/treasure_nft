@@ -21,8 +21,6 @@ class CollectionApi extends HttpManager {
         'page': page,
         'size': size,
         'type': type,
-        'startTime': '',
-        'endTime': ''
       });
       for (Map<String, dynamic> json in response.data['pageList']) {
         result.add(CollectionReservationResponseData.fromJson(json));
