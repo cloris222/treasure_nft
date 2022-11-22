@@ -157,7 +157,7 @@ class CustomAppBar {
   }) {
     var space = const SizedBox(width: 5);
     return _getCustomAppBar(
-        margin: const EdgeInsets.symmetric(horizontal: 5),
+        margin:EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(3)),
         actions: [
           InkWell(
               onTap: mainAction,
