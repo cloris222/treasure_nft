@@ -49,4 +49,28 @@ class TradeDrawResultViewModel extends BaseViewModel {
     }
     return 0;
   }
+
+  String getPrize(int index) {
+    switch (index) {
+      case 1:
+        return '1st';
+      case 2:
+        return '2nd';
+      case 3:
+        return '3rd';
+    }
+    return '';
+  }
+
+  String getFullPrize(int index) {
+    switch (index) {
+      case 1:
+        return 'First';
+      case 2:
+        return 'Second';
+      case 3:
+        return 'Third';
+    }
+    return '';
+  }
 }

@@ -126,7 +126,7 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
   Widget _buildAwardTopItem(int index) {
     return Expanded(
       child: Opacity(
-          opacity: 0.8,
+          opacity: 0.87,
           child: Container(
               decoration: AppStyle()
                   .buildGradient(radius: 5, colors: AppColors.drawColorBg),
@@ -134,50 +134,53 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
               child:
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Image.asset(AppImagePath.tradeDrawInfoStar),
-                Flexible(
-                    child: Center(
-                  child: Text(' ${tr('bonus-win-$index')}',
+                Expanded(
+                    child: Column(children: [
+                  Text(viewModel.getPrize(index),
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w700,
                           fontSize: UIDefine.fontSize16)),
-                ))
+                  Text('prize',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w400,
+                          fontSize: UIDefine.fontSize16))
+                ]))
               ]))),
     );
   }
 
   Widget _buildActivityBottomItem(int index) {
     return Expanded(
-      child: Container(
-          decoration: AppStyle().styleColorsRadiusBackground(
-              radius: 5, color: Colors.white.withOpacity(0.3)),
-          padding: const EdgeInsets.all(5),
-          child: Column(children: [
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Flexible(
-                  child: Text(
-                      NumberFormatUtil()
-                          .integerFormat(viewModel.getPrizeAmount(index)),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+        child: Container(
+            decoration: AppStyle().styleColorsRadiusBackground(
+                radius: 5, color: Colors.white.withOpacity(0.3)),
+            padding: const EdgeInsets.all(5),
+            child: Column(children: [
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                Flexible(
+                    child: Text(
+                        NumberFormatUtil()
+                            .integerFormat(viewModel.getPrizeAmount(index)),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: UIDefine.fontSize16))),
+                const SizedBox(width: 5),
+                BaseIconWidget(
+                    imageAssetPath: AppImagePath.tradeDrawInfoCoin,
+                    size: UIDefine.fontSize18)
+              ]),
+              Center(
+                  child: Text('${viewModel.getPrizePerson(index)} person',
                       style: TextStyle(
                           color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: UIDefine.fontSize16))),
-              const SizedBox(width: 3),
-              BaseIconWidget(
-                  imageAssetPath: AppImagePath.tradeDrawInfoCoin,
-                  size: UIDefine.fontSize18)
-            ]),
-            Center(
-                child: Text(
-                    '${viewModel.getPrizePerson(index)} ${tr('drawPerson')}',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w400,
-                        fontSize: UIDefine.fontSize12)))
-          ])),
-    );
+                          fontWeight: FontWeight.w400,
+                          fontSize: UIDefine.fontSize16)))
+            ])));
   }
 
   ///MARK: 結果清單
@@ -236,7 +239,7 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Image.asset(AppImagePath.tradeDrawResultStar),
-                  Text(' ${tr('bonus-win-${index + 1}')}',
+                  Text(' ${viewModel.getFullPrize(index + 1)} prize',
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w700,
