@@ -20,6 +20,8 @@ class TradeDrawResultPage extends StatefulWidget {
 
 class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
   late TradeDrawResultViewModel viewModel;
+  var mainPadding = EdgeInsets.only(
+      left: UIDefine.getScreenWidth(8), right: UIDefine.getScreenWidth(8));
 
   @override
   void initState() {
@@ -39,24 +41,29 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
         title: tr('winnersList'),
         body: Stack(
           children: [
-            Container(
-              padding: EdgeInsets.only(
-                  left: UIDefine.getScreenWidth(8),
-                  right: UIDefine.getScreenWidth(8)),
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(AppImagePath.tradeDrawBg),
-                      fit: BoxFit.fill)),
-              child: Column(children: [
-                _buildActivityInfoView(),
-                _buildActivityAward(),
-                _buildDrawResultView()
-              ]),
-            ),
+            SizedBox(
+                width: UIDefine.getWidth(),
+                child: Image.asset(AppImagePath.tradeDrawBg,
+                    fit: BoxFit.fitWidth)),
+            Positioned.fill(
+                child: Container(
+                    padding: EdgeInsets.only(
+                        left: UIDefine.getScreenWidth(8),
+                        right: UIDefine.getScreenWidth(8)),
+                    child: Column(children: [
+                      Expanded(flex: 4, child: _buildActivityInfoView()),
+                      _buildActivityAward(),
+                      _buildBar(),
+                      Expanded(flex: 9, child: _buildDrawResultView())
+                    ]))),
             Positioned(
-                right: UIDefine.getScreenWidth(2),
-                top: UIDefine.getScreenHeight(5),
-                child: Image.asset(AppImagePath.tradeDrawCoin))
+                right: 0,
+                top: UIDefine.getScreenHeight(8),
+                child: Image.asset(
+                  AppImagePath.tradeDrawCoin,
+                  width: UIDefine.getWidth() * 0.3,
+                  fit: BoxFit.fitWidth,
+                ))
           ],
         ),
         needScrollView: true);
@@ -66,8 +73,10 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
   Widget _buildActivityInfoView() {
     return Container(
       width: UIDefine.getWidth(),
-      margin: EdgeInsets.symmetric(vertical: UIDefine.getScreenHeight(6)),
+      margin: EdgeInsets.only(bottom: UIDefine.getScreenHeight(5)),
+      alignment: Alignment.centerLeft,
       child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             GradientText(
@@ -108,28 +117,24 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
 
   ///MARK: 獎項清單
   Widget _buildActivityAward() {
-    return Container(
-      margin: EdgeInsets.only(
-          bottom: UIDefine.getScreenHeight(3)),
-      child: Column(
-        children: [
-          Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
-            _buildAwardTopItem(1),
-            SizedBox(width: UIDefine.getScreenWidth(3)),
-            _buildAwardTopItem(2),
-            SizedBox(width: UIDefine.getScreenWidth(3)),
-            _buildAwardTopItem(3)
-          ]),
-          SizedBox(height: UIDefine.getScreenHeight(1)),
-          Row(children: [
-            _buildActivityBottomItem(1),
-            SizedBox(width: UIDefine.getScreenWidth(3)),
-            _buildActivityBottomItem(2),
-            SizedBox(width: UIDefine.getScreenWidth(3)),
-            _buildActivityBottomItem(3)
-          ]),
-        ],
-      ),
+    return Column(
+      children: [
+        Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+          _buildAwardTopItem(1),
+          SizedBox(width: UIDefine.getScreenWidth(3)),
+          _buildAwardTopItem(2),
+          SizedBox(width: UIDefine.getScreenWidth(3)),
+          _buildAwardTopItem(3)
+        ]),
+        SizedBox(height: UIDefine.getScreenHeight(1)),
+        Row(children: [
+          _buildActivityBottomItem(1),
+          SizedBox(width: UIDefine.getScreenWidth(3)),
+          _buildActivityBottomItem(2),
+          SizedBox(width: UIDefine.getScreenWidth(3)),
+          _buildActivityBottomItem(3)
+        ]),
+      ],
     );
   }
 
@@ -195,14 +200,9 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
 
   ///MARK: 結果清單
   Widget _buildDrawResultView() {
-    return Container(
+    return SizedBox(
         width: UIDefine.getWidth(),
-        padding: EdgeInsets.only(
-          bottom: UIDefine.getScreenHeight(3),
-        ),
-        child: Column(children: [
-          _buildBar(),
-          SizedBox(height: UIDefine.getScreenHeight(1)),
+        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
           Row(children: [
             SizedBox(width: UIDefine.getScreenWidth(15)),
             Expanded(
@@ -217,6 +217,7 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
 
   Widget _buildBar() {
     return Container(
+        margin: EdgeInsets.symmetric(vertical: UIDefine.getScreenHeight(2)),
         height: UIDefine.getScreenHeight(3),
         alignment: Alignment.center,
         child: Row(children: const [
