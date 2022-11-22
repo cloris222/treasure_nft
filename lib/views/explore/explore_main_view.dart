@@ -21,7 +21,7 @@ class _ExploreMainView extends State<ExploreMainView> {
   ItemScrollController listController = ItemScrollController();
   PageController pageController = PageController();
   List<Widget> pages = <Widget>[];
-  List<ExploreCategoryResponseData> dataList = [];
+  List<ExploreCategoryResponseData> dataListToShow = [];
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class _ExploreMainView extends State<ExploreMainView> {
             margin: EdgeInsets.only(left: UIDefine.getScreenWidth(5), right: UIDefine.getScreenWidth(5), bottom: UIDefine.getScreenWidth(4.16)),
             child: viewModel.getExploreTypeButtons(
                 controller: listController,
-                dataList: dataList,
+                dataList: dataListToShow,
                 currentExploreType: currentExploreType,
                 changePage: (String exploreType) {
                   changePage(exploreType);
@@ -56,16 +56,27 @@ class _ExploreMainView extends State<ExploreMainView> {
   }
 
   void _setData(List<ExploreCategoryResponseData> value) {
-    dataList = value;
+    List<ExploreCategoryResponseData> respList = value;
+    for (int i = 0; i < respList.length; i++) {
+      if (respList[i].name == 'polygonNFT') {
+        dataListToShow.insert(0, respList[i]);
+      }
+      if (respList[i].name == 'artwork') {
+        dataListToShow.add(respList[i]);
+      }
+      if (respList[i].name == 'collection') {
+        dataListToShow.add(respList[i]);
+      }
+    }
     ExploreCategoryResponseData data = ExploreCategoryResponseData();
     data.frontName = 'All';
     data.name = '';
-    dataList.insert(0, data);
+    dataListToShow.insert(0, data);
   }
 
   void _setPage() {
-    pages = List<Widget>.generate(dataList.length,
-            (index) => viewModel.getExploreTypePage(dataList[index].name));
+    pages = List<Widget>.generate(dataListToShow.length,
+            (index) => viewModel.getExploreTypePage(dataListToShow[index].name));
   }
 
   void changePage(String exploreType) {
@@ -77,7 +88,7 @@ class _ExploreMainView extends State<ExploreMainView> {
 
   void _onPageChange(int value) {
     setState(() {
-      currentExploreType = dataList[value].name;
+      currentExploreType = dataListToShow[value].name;
       if (value != 0) {
         listController.scrollTo(index: value - 1, duration: const Duration(milliseconds: 300));
       }
@@ -85,8 +96,8 @@ class _ExploreMainView extends State<ExploreMainView> {
   }
 
   int getExploreTypeIndex(String type) {
-    for (int i = 0; i < dataList.length; i++) {
-      if (type == dataList[i].name) {
+    for (int i = 0; i < dataListToShow.length; i++) {
+      if (type == dataListToShow[i].name) {
         return i;
       }
     }

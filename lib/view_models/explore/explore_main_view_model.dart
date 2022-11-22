@@ -70,28 +70,28 @@ class ExploreMainViewModel extends BaseViewModel {
     switch(value) {
       case '':
         return tr('TopPicks');
-      case 'artwork':
-        return tr('art');
-      case 'bscNFT':
-        return tr('bSCNFT');
-      case 'collection':
-        return tr('collectibles');
-      case 'domain':
-        return tr('domainNames');
-      case 'ercNFT':
-        return tr('eRCNFT');
-      case 'facility':
-        return tr('utility');
-      case 'music':
-        return tr('music');
-      case 'photo':
-        return tr('photography');
       case 'polygonNFT':
         return tr('polygonNFT');
-      case 'sport':
-        return tr('sports');
-      case 'tradeCard':
-        return tr('tradingCards');
+      case 'artwork':
+        return tr('art');
+      case 'collection':
+        return tr('collectibles');
+      // case 'bscNFT':
+      //   return tr('bSCNFT');
+      // case 'domain':
+      //   return tr('domainNames');
+      // case 'ercNFT':
+      //   return tr('eRCNFT');
+      // case 'facility':
+      //   return tr('utility');
+      // case 'music':
+      //   return tr('music');
+      // case 'photo':
+      //   return tr('photography');
+      // case 'sport':
+      //   return tr('sports');
+      // case 'tradeCard':
+      //   return tr('tradingCards');
     }
     return '';
   }
