@@ -142,15 +142,17 @@ class _WorldCupViewState extends State<WorldCupView> {
       margin: EdgeInsets.all(UIDefine.fontSize10),
       decoration: AppStyle().styleColorBorderBackground(
           color: AppColors.bolderGrey, borderLine: 2),
-      padding: const EdgeInsets.all(10),
+      padding: EdgeInsets.all(UIDefine.fontSize10),
       child: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                tr("activity-title-text"),
-                style: titleStyle,
+              Expanded(
+                child: Text(
+                  tr("activity-title-text"),
+                  style: titleStyle,
+                ),
               ),
               InkWell(
                 onTap: () {
@@ -163,49 +165,30 @@ class _WorldCupViewState extends State<WorldCupView> {
           SizedBox(
             height: UIDefine.fontSize8,
           ),
-          Row(
-            children: [
-              Text(
-                '${tr("activity-countdown")} : ',
-                style: contentStyle,
-              ),
-              Text(
-                viewModel.getEndTimeLabel(),
-                style: contentStyle,
-              ),
-            ],
-          ),
+          Wrap(children: [Text('${tr("activity-countdown")} : ${viewModel.getEndTimeLabel()}',
+            style: contentStyle,
+          ),],),
           const SizedBox(
             height: 5,
           ),
-          Row(
-            children: [
-              Text(
-                '${tr("activity-time")} : ',
-                style: contentStyle,
-              ),
-              Text(
-                BaseViewModel().changeTimeZone(
-                    viewModel.canReserve?.drawTime ?? '',
-                    isShowGmt: true),
-                style: contentStyle,
-              )
-            ],
+        Wrap(
+            children: [Text(
+              '${tr("activity-time")} : ${ BaseViewModel().changeTimeZone(
+                  viewModel.canReserve?.drawTime ?? '',
+                  isShowGmt: true)}',
+              style: contentStyle,
+            ),],
           ),
           SizedBox(
-            height: UIDefine.fontSize14,
+            height: UIDefine.fontSize8,
           ),
-          Row(
+          Wrap(
             children: [
               Text(
-                '${tr("prizePool")} : ',
+                '${tr("prizePool")} : ${BaseViewModel().numberCompatFormat((viewModel.canReserve?.memberPool ?? 0).toString())}'
+                    'USDT(+${tr("platformPrizePool")} ${BaseViewModel().numberCompatFormat((viewModel.canReserve?.platformPool ?? 0).toString())} USDT)',
                 style: blackContent,
               ),
-              Text(
-                '${BaseViewModel().numberCompatFormat((viewModel.canReserve?.memberPool ?? 0).toString())} '
-                    'USDT(+${tr("platformPrizePool")}${BaseViewModel().numberCompatFormat((viewModel.canReserve?.platformPool ?? 0).toString())} USDT)',
-                style: blackContent,
-              )
             ],
           ),
         ],
@@ -258,14 +241,15 @@ class _WorldCupViewState extends State<WorldCupView> {
               const SizedBox(
                 height: 5,
               ),
-
-              /// 更新多國
-              Text(
-                '(${viewModel.canReserve?.depositForConsume ?? 0}U${tr("limitedNFT")}+${viewModel.canReserve?.depositForPool ?? 0}U${tr("bonusPool")})',
-                style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
+              Wrap(
+                children: [Text(
+                  '(${viewModel.canReserve?.depositForConsume ?? 0}U${tr("limitedNFT")}+${viewModel.canReserve?.depositForPool ?? 0}U${tr("bonusPool")})',
+                  style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),]
               ),
               const SizedBox(
                 height: 5,
