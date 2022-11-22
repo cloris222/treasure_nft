@@ -132,8 +132,10 @@ class _WorldCupViewState extends State<WorldCupView> {
         fontSize: UIDefine.fontSize18,
         color: Colors.black,
         fontWeight: FontWeight.w500);
-    TextStyle contentStyle =
-        TextStyle(fontSize: UIDefine.fontSize12, color: Colors.grey,fontWeight: FontWeight.w500);
+    TextStyle contentStyle = TextStyle(
+        fontSize: UIDefine.fontSize12,
+        color: Colors.grey,
+        fontWeight: FontWeight.w500);
     TextStyle blackContent = TextStyle(
         fontSize: UIDefine.fontSize12,
         color: Colors.black,
@@ -144,6 +146,7 @@ class _WorldCupViewState extends State<WorldCupView> {
           color: AppColors.bolderGrey, borderLine: 2),
       padding: EdgeInsets.all(UIDefine.fontSize10),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -165,19 +168,26 @@ class _WorldCupViewState extends State<WorldCupView> {
           SizedBox(
             height: UIDefine.fontSize8,
           ),
-          Wrap(children: [Text('${tr("activity-countdown")} : ${viewModel.getEndTimeLabel()}',
-            style: contentStyle,
-          ),],),
+          Wrap(
+            alignment: WrapAlignment.start,
+            children: [
+              Text(
+                '${tr("activity-countdown")} : ${viewModel.getEndTimeLabel()}',
+                textAlign: TextAlign.start,
+                style: contentStyle,
+              ),
+            ],
+          ),
           const SizedBox(
             height: 5,
           ),
-        Wrap(
-            children: [Text(
-              '${tr("activity-time")} : ${ BaseViewModel().changeTimeZone(
-                  viewModel.canReserve?.drawTime ?? '',
-                  isShowGmt: true)}',
-              style: contentStyle,
-            ),],
+          Wrap(
+            children: [
+              Text(
+                '${tr("activity-time")} : ${BaseViewModel().changeTimeZone(viewModel.canReserve?.drawTime ?? '', isShowGmt: true)}',
+                style: contentStyle,
+              ),
+            ],
           ),
           SizedBox(
             height: UIDefine.fontSize8,
@@ -186,7 +196,7 @@ class _WorldCupViewState extends State<WorldCupView> {
             children: [
               Text(
                 '${tr("prizePool")} : ${BaseViewModel().numberCompatFormat((viewModel.canReserve?.memberPool ?? 0).toString())}'
-                    'USDT(+${tr("platformPrizePool")} ${BaseViewModel().numberCompatFormat((viewModel.canReserve?.platformPool ?? 0).toString())} USDT)',
+                'USDT(+${tr("platformPrizePool")} ${BaseViewModel().numberCompatFormat((viewModel.canReserve?.platformPool ?? 0).toString())} USDT)',
                 style: blackContent,
               ),
             ],
@@ -241,16 +251,16 @@ class _WorldCupViewState extends State<WorldCupView> {
               const SizedBox(
                 height: 5,
               ),
-              Wrap(
-                children: [Text(
+              Wrap(children: [
+                Text(
                   '(${viewModel.canReserve?.depositForConsume ?? 0}U${tr("limitedNFT")}+${viewModel.canReserve?.depositForPool ?? 0}U${tr("bonusPool")})',
                   style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                   textAlign: TextAlign.center,
-                ),]
-              ),
+                ),
+              ]),
               const SizedBox(
                 height: 5,
               ),
@@ -274,6 +284,7 @@ class _WorldCupViewState extends State<WorldCupView> {
             ],
           ),
         ),
+
         /// 預約活動成功後顯示動畫
         Positioned(
             top: 0,
