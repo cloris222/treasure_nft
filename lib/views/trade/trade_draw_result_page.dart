@@ -37,44 +37,55 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
     return CustomAppbarView(
         needCover: true,
         title: tr('winnersList'),
-        body: Column(
-            children: [_buildActivityInfoView(), _buildDrawResultView()]),
+        body: Stack(
+          children: [
+            Container(
+              padding: EdgeInsets.only(
+                  left: UIDefine.getScreenWidth(8),
+                  right: UIDefine.getScreenWidth(8)),
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(AppImagePath.tradeDrawBg),
+                      fit: BoxFit.fill)),
+              child: Column(children: [
+                _buildActivityInfoView(),
+                _buildActivityAward(),
+                _buildDrawResultView()
+              ]),
+            ),
+            Positioned(
+                right: UIDefine.getScreenWidth(2),
+                top: UIDefine.getScreenHeight(5),
+                child: Image.asset(AppImagePath.tradeDrawCoin))
+          ],
+        ),
         needScrollView: true);
   }
 
   ///MARK: 活動資訊
   Widget _buildActivityInfoView() {
-    Widget space = SizedBox(height: UIDefine.getScreenHeight(3));
     return Container(
-        width: UIDefine.getWidth(),
-        padding: EdgeInsets.only(
-            top: UIDefine.getScreenHeight(4),
-            bottom: UIDefine.getScreenHeight(5),
-            left: UIDefine.getScreenWidth(5),
-            right: UIDefine.getScreenWidth(5)),
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(AppImagePath.tradeDrawInfoBg),
-                fit: BoxFit.fill)),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          GradientText(
-            'Winner List',
-            weight: FontWeight.bold,
-            size: UIDefine.fontSize32,
-            starColor: AppColors.drawColorBg[1],
-          ),
-          GradientText(
-            'Announcement',
-            weight: FontWeight.bold,
-            size: UIDefine.fontSize32,
-            starColor: AppColors.drawColorBg[1],
-          ),
-          space,
-          _buildActivityDate(),
-          space,
-          space,
-          _buildActivityAward()
-        ]));
+      width: UIDefine.getWidth(),
+      margin: EdgeInsets.symmetric(vertical: UIDefine.getScreenHeight(6)),
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            GradientText(
+              'Winner List',
+              weight: FontWeight.bold,
+              size: UIDefine.fontSize28,
+              starColor: AppColors.drawColorBg[1],
+            ),
+            GradientText(
+              'Announcement',
+              weight: FontWeight.bold,
+              size: UIDefine.fontSize28,
+              starColor: AppColors.drawColorBg[1],
+            ),
+            SizedBox(height: UIDefine.getScreenHeight(2)),
+            _buildActivityDate(),
+          ]),
+    );
   }
 
   Widget _buildActivityDate() {
@@ -83,43 +94,42 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
         fontSize: UIDefine.fontSize14,
         fontWeight: FontWeight.w500);
 
-    return Row(children: [
-      Expanded(
-          flex: 6,
-          child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-            Text(
-                'form ${viewModel.getActivityChangeTime(viewModel.drawResultInfo?.startAt ?? '')}',
-                textAlign: TextAlign.right,
-                style: textStyle),
-            Text(
-                'to ${viewModel.getActivityChangeTime(viewModel.drawResultInfo?.endAt ?? '')}',
-                textAlign: TextAlign.right,
-                style: textStyle)
-          ])),
-      const Expanded(flex: 2, child: SizedBox())
+    return Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+      Text(
+          'form ${viewModel.getActivityChangeTime(viewModel.drawResultInfo?.startAt ?? '')}',
+          textAlign: TextAlign.right,
+          style: textStyle),
+      Text(
+          'to ${viewModel.getActivityChangeTime(viewModel.drawResultInfo?.endAt ?? '')}',
+          textAlign: TextAlign.right,
+          style: textStyle)
     ]);
   }
 
   ///MARK: 獎項清單
   Widget _buildActivityAward() {
-    return Column(
-      children: [
-        Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
-          _buildAwardTopItem(1),
-          SizedBox(width: UIDefine.getScreenWidth(3)),
-          _buildAwardTopItem(2),
-          SizedBox(width: UIDefine.getScreenWidth(3)),
-          _buildAwardTopItem(3)
-        ]),
-        SizedBox(height: UIDefine.getScreenHeight(1)),
-        Row(children: [
-          _buildActivityBottomItem(1),
-          SizedBox(width: UIDefine.getScreenWidth(3)),
-          _buildActivityBottomItem(2),
-          SizedBox(width: UIDefine.getScreenWidth(3)),
-          _buildActivityBottomItem(3)
-        ]),
-      ],
+    return Container(
+      margin: EdgeInsets.only(
+          bottom: UIDefine.getScreenHeight(3)),
+      child: Column(
+        children: [
+          Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+            _buildAwardTopItem(1),
+            SizedBox(width: UIDefine.getScreenWidth(3)),
+            _buildAwardTopItem(2),
+            SizedBox(width: UIDefine.getScreenWidth(3)),
+            _buildAwardTopItem(3)
+          ]),
+          SizedBox(height: UIDefine.getScreenHeight(1)),
+          Row(children: [
+            _buildActivityBottomItem(1),
+            SizedBox(width: UIDefine.getScreenWidth(3)),
+            _buildActivityBottomItem(2),
+            SizedBox(width: UIDefine.getScreenWidth(3)),
+            _buildActivityBottomItem(3)
+          ]),
+        ],
+      ),
     );
   }
 
@@ -145,7 +155,7 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w400,
-                          fontSize: UIDefine.fontSize16))
+                          fontSize: UIDefine.fontSize14))
                 ]))
               ]))),
     );
@@ -172,14 +182,14 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
                 const SizedBox(width: 5),
                 BaseIconWidget(
                     imageAssetPath: AppImagePath.tradeDrawInfoCoin,
-                    size: UIDefine.fontSize18)
+                    size: UIDefine.fontSize12)
               ]),
               Center(
                   child: Text('${viewModel.getPrizePerson(index)} person',
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w400,
-                          fontSize: UIDefine.fontSize16)))
+                          fontSize: UIDefine.fontSize14)))
             ])));
   }
 
@@ -188,13 +198,8 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
     return Container(
         width: UIDefine.getWidth(),
         padding: EdgeInsets.only(
-            bottom: UIDefine.getScreenHeight(3),
-            left: UIDefine.getScreenWidth(5),
-            right: UIDefine.getScreenWidth(5)),
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(AppImagePath.tradeDrawResultBg),
-                fit: BoxFit.fill)),
+          bottom: UIDefine.getScreenHeight(3),
+        ),
         child: Column(children: [
           _buildBar(),
           SizedBox(height: UIDefine.getScreenHeight(1)),

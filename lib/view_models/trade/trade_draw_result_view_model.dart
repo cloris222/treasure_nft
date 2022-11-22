@@ -22,10 +22,10 @@ class TradeDrawResultViewModel extends BaseViewModel {
       return changeTimeZone(time,
           strGmtFormat: '(GMT{}{:02d}) ',
           setSystemZone: drawResultInfo!.zone,
-          strFormat: 'yyyy/MM/dd HH:mm:ss',
+          strFormat: 'yyyy-MM-dd HH:mm:ss',
           isShowGmt: true);
     }
-    return '(+00:00) 0000/00/00 00:00';
+    return '(+00:00) 0000-00-00 00:00';
   }
 
   int getPrizeAmount(int index) {
