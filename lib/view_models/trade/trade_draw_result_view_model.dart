@@ -20,9 +20,9 @@ class TradeDrawResultViewModel extends BaseViewModel {
   String getActivityChangeTime(String time) {
     if (drawResultInfo != null) {
       return changeTimeZone(time,
-          strGmtFormat: '(GMT{}{:d}) ',
+          strGmtFormat: '(GMT{}{:02d}) ',
           setSystemZone: drawResultInfo!.zone,
-          strFormat: 'yyyy/MM/dd HH:mm',
+          strFormat: 'yyyy/MM/dd HH:mm:ss',
           isShowGmt: true);
     }
     return '(+00:00) 0000/00/00 00:00';

@@ -4,6 +4,7 @@ import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
+import 'package:treasure_nft_project/widgets/gradient_text.dart';
 import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
 
 import '../../constant/theme/app_colors.dart';
@@ -47,7 +48,7 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
     return Container(
         width: UIDefine.getWidth(),
         padding: EdgeInsets.only(
-            top: UIDefine.getScreenHeight(8),
+            top: UIDefine.getScreenHeight(4),
             bottom: UIDefine.getScreenHeight(5),
             left: UIDefine.getScreenWidth(5),
             right: UIDefine.getScreenWidth(5)),
@@ -56,9 +57,21 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
                 image: AssetImage(AppImagePath.tradeDrawInfoBg),
                 fit: BoxFit.fill)),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Image.asset(AppImagePath.tradeDrawInfoTitle),
+          GradientText(
+            'Winner List',
+            weight: FontWeight.bold,
+            size: UIDefine.fontSize32,
+            starColor: AppColors.drawColorBg[1],
+          ),
+          GradientText(
+            'Announcement',
+            weight: FontWeight.bold,
+            size: UIDefine.fontSize32,
+            starColor: AppColors.drawColorBg[1],
+          ),
           space,
           _buildActivityDate(),
+          space,
           space,
           _buildActivityAward()
         ]));
@@ -67,25 +80,23 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
   Widget _buildActivityDate() {
     TextStyle textStyle = TextStyle(
         color: AppColors.mainThemeButton,
-        fontSize: UIDefine.fontSize12,
+        fontSize: UIDefine.fontSize14,
         fontWeight: FontWeight.w500);
 
     return Row(children: [
-      Expanded(flex: 1, child: Text('活動期間', style: textStyle)),
-      SizedBox(
-          height: UIDefine.getScreenHeight(5),
-          child: const VerticalDivider(
-              color: AppColors.mainThemeButton, thickness: 1.5, width: 3)),
       Expanded(
           flex: 6,
           child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
             Text(
                 'form ${viewModel.getActivityChangeTime(viewModel.drawResultInfo?.startAt ?? '')}',
+                textAlign: TextAlign.right,
                 style: textStyle),
             Text(
                 'to ${viewModel.getActivityChangeTime(viewModel.drawResultInfo?.endAt ?? '')}',
+                textAlign: TextAlign.right,
                 style: textStyle)
-          ]))
+          ])),
+      const Expanded(flex: 2, child: SizedBox())
     ]);
   }
 
