@@ -6,6 +6,7 @@ import 'package:treasure_nft_project/models/http/http_setting.dart';
 import 'package:treasure_nft_project/models/http/parameter/api_response.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_artist_record.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_carousel.dart';
+import 'package:treasure_nft_project/models/http/parameter/home_footer_data.dart';
 
 import '../parameter/trading_volume_data.dart';
 
@@ -22,10 +23,12 @@ class HomeAPI extends HttpManager {
     } catch (e) {
       print(e.toString());
     }
+
     /// save home carousel images
     List<String> encodeHomeCarousel =
         result.map((res) => json.encode(res.toJson())).toList();
     SharedPreferences prefs = await SharedPreferences.getInstance();
+
     /// to write
     prefs.setStringList("homeCarousel", encodeHomeCarousel);
 
@@ -54,5 +57,14 @@ class HomeAPI extends HttpManager {
   Future<TradingVolumeData> getTradingVolume() async {
     var response = await get('/index/platform/tradingVolume');
     return TradingVolumeData.fromJson(response.data);
+  }
+
+  Future<List<HomeFooterData>> getFooterSetting() async {
+    var response = await get('/index/footer/icon');
+    List<HomeFooterData> list = [];
+    for (Map<String, dynamic> json in response.data['pageList']) {
+      list.add(HomeFooterData.fromJson(json));
+    }
+    return list;
   }
 }
