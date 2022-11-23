@@ -31,121 +31,86 @@ class _HomeUsdtInfoState extends State<HomeUsdtInfo> {
   @override
   Widget build(BuildContext context) {
     TextStyle titleStyle = TextStyle(
-        fontSize: UIDefine.fontSize12,
+        fontSize: UIDefine.fontSize10,
         color: AppColors.textBlack,
         fontWeight: FontWeight.w300);
+    TextStyle titleBolderStyle = TextStyle(
+        fontSize: UIDefine.fontSize10,
+        color: AppColors.textBlack,
+        fontWeight: FontWeight.w600);
     TextStyle valueStyle = TextStyle(
-      fontSize: UIDefine.fontSize16,
-      color: AppColors.textBlack,
-    );
-    TextStyle hintStyle = TextStyle(
-      fontSize: UIDefine.fontSize12,
-      color: AppColors.textGrey,
-    );
+        fontSize: UIDefine.fontSize14,
+        fontWeight: FontWeight.w500,
+        color: AppColors.textBlack);
+    TextStyle hintStyle =
+        TextStyle(fontSize: UIDefine.fontSize8, color: AppColors.barFont01);
+
+    StrutStyle strutStyle =
+        const StrutStyle(forceStrutHeight: true, leading: 0.5);
 
     return SizedBox(
         width: UIDefine.getWidth(),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Flexible(
+        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          ///MARK: 交易額
+          Flexible(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(tr('vol'), style: titleStyle),
-                  viewModel.getPadding(1),
-                  Text('(${tr('usdt')})', style: titleStyle),
-                  viewModel.getPadding(1),
-                  Text('${data?.transactionAmount ?? '0'}M', style: valueStyle),
-                  viewModel.getPadding(1),
-                  Text(
-                    tr('last24h'),
-                    style: TextStyle(
-                      fontSize: UIDefine.fontSize12,
-                      color: AppColors.textGrey,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                Wrap(children: [
+                  Text(tr('vol'),
+                      style: titleBolderStyle, strutStyle: strutStyle),
+                  Text(' (${tr('usdt')})',
+                      style: titleStyle, strutStyle: strutStyle)
+                ]),
+                viewModel.buildSpace(height: 1),
+                Text('${data?.transactionAmount ?? '0'}M', style: valueStyle),
+                viewModel.buildSpace(height: 1),
+                Text(tr('last24h'), style: hintStyle)
+              ])),
 
-            viewModel.getPadding(1),
+          _buildLine(),
 
-            //分隔線
-            SizedBox(
-                height: UIDefine.getScreenHeight(10),
-                child: const VerticalDivider(
-                  width: 3,
-                  color: AppColors.dialogBlack,
-                  thickness: 0.5,
-                )),
-
-            viewModel.getPadding(1),
-
-            Flexible(
+          ///MARK: 費用
+          Flexible(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${tr("index-fee'")} (${tr('usdt')})',
-                    style: titleStyle,
-                  ),
-                  viewModel.getPadding(1),
-                  Text(
-                    '${data?.cost ?? '0'}M',
-                    style: TextStyle(
-                      fontSize: UIDefine.fontSize18,
-                      color: AppColors.textBlack,
-                    ),
-                  ),
-                  viewModel.getPadding(1),
-                  Text(
-                    tr('updated-3-min\''),
-                    style: TextStyle(
-                      fontSize: UIDefine.fontSize12,
-                      color: AppColors.textGrey,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                Wrap(children: [
+                  Text(tr("index-fee'"),
+                      style: titleBolderStyle, strutStyle: strutStyle),
+                  Text(' (${tr('usdt')})',
+                      style: titleStyle, strutStyle: strutStyle)
+                ]),
+                viewModel.buildSpace(height: 1),
+                Text('${data?.cost ?? '0'}M', style: valueStyle),
+                viewModel.buildSpace(height: 1),
+                Text(tr('updated-3-min\''), style: hintStyle)
+              ])),
 
-            viewModel.getPadding(1),
+          _buildLine(),
 
-            //分隔線
-            SizedBox(
-                height: UIDefine.getScreenHeight(10),
-                child: const VerticalDivider(
-                  width: 3,
-                  color: AppColors.dialogBlack,
-                  thickness: 0.5,
-                )),
-
-            viewModel.getPadding(1),
-
-            Flexible(
+          ///MARK: NFT
+          Flexible(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('${tr('NFTs')}(${tr('usdt')})', style: titleStyle),
-                  viewModel.getPadding(1),
-                  GradientText(
-                    '${data?.nfts ?? '0'}M',
-                    size: UIDefine.fontSize18,
-                    endColor: AppColors.subThemePurple,
-                  ),
-                  viewModel.getPadding(1),
-                  Text(
-                    tr('trading'),
-                    style: TextStyle(
-                      fontSize: UIDefine.fontSize12,
-                      color: AppColors.textGrey,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                Text('${tr('NFTs')} (${tr('usdt')})', style: titleStyle),
+                viewModel.buildSpace(height: 1),
+                GradientText('${data?.nfts ?? '0'}M',
+                    size: UIDefine.fontSize14, weight: FontWeight.w500),
+                viewModel.buildSpace(height: 1),
+                Text(tr('trading'), style: hintStyle)
+              ]))
+        ]));
+  }
+
+  Widget _buildLine() {
+    return Container(
+        margin: const EdgeInsets.symmetric(horizontal: 5),
+        height: UIDefine.getScreenHeight(10),
+        child: const VerticalDivider(
+          color: AppColors.pageUnChoose,
+          thickness: 1,
         ));
   }
 }

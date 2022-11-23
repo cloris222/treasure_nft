@@ -39,103 +39,64 @@ class _ArtistRecordItem extends State<ArtistRecordItemView> {
           GestureDetector(
             onTap: _onShowArt,
             child: Container(
-                // height: UIDefine.getScreenHeight(15),
-                padding: EdgeInsets.all(UIDefine.getScreenHeight(1.5)),
+                padding: const EdgeInsets.all(10),
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text('${widget.itemData.sort}'),
-                      viewModel.getPadding(1),
+                      Text('${widget.itemData.sort}',
+                          style: TextStyle(
+                              fontSize: UIDefine.fontSize14,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.font02)),
+                      viewModel.buildSpace(width: 1),
 
                       /// Avatar
                       SizedBox(
-                        height: UIDefine.getScreenWidth(16),
+                        height: UIDefine.getWidth() * 0.1,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(50),
                           child: Image.network(widget.itemData.avatarUrl,
                               fit: BoxFit.fill),
                         ),
                       ),
-                      viewModel.getPadding(1),
+                      viewModel.buildSpace(width: 1),
 
                       Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
                             /// NAME
-                            Text(
-                              widget.itemData.name,
-                              style: TextStyle(
-                                  fontSize: UIDefine.fontSize14,
-                                  color: AppColors.textBlack),
-                            ),
+                            Text(widget.itemData.name,
+                                style: TextStyle(
+                                    fontSize: UIDefine.fontSize14,
+                                    color: AppColors.textBlack,
+                                    fontWeight: FontWeight.w400)),
 
-                            viewModel.getPadding(1),
+                            viewModel.buildSpace(height: 1),
 
                             /// Vol. & Sales
-                            Row(
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    tr('tradeVol'),
-                                    style: TextStyle(
-                                        fontSize: UIDefine.fontSize12,
-                                        fontWeight: FontWeight.w300,
-                                        color: AppColors.textGrey),
-                                  ),
-                                ),
-                                viewModel.getPadding(1),
-                                Text(
-                                  viewModel.numberCompatFormat(
-                                      widget.itemData.ydayAmt),
-                                  style: TextStyle(
-                                      fontSize: UIDefine.fontSize14,
-                                      fontWeight: FontWeight.w300,
-                                      color: AppColors.textBlack),
-                                ),
-                                viewModel.getPadding(0.5),
-                                SizedBox(
-                                  height: UIDefine.getScreenWidth(5),
-                                  child: Image.asset(AppImagePath.tetherImg),
-                                ),
-                                viewModel.getPadding(3),
-                                Flexible(
-                                  child: Text(
-                                    tr('transcationAmount'),
-                                    style: TextStyle(
-                                        fontSize: UIDefine.fontSize12,
-                                        fontWeight: FontWeight.w300,
-                                        color: AppColors.textGrey),
-                                  ),
-                                ),
-                                viewModel.getPadding(1),
-                                Text(
-                                  viewModel.numberCompatFormat(
-                                      widget.itemData.amtTotal),
-                                  style: TextStyle(
-                                      fontSize: UIDefine.fontSize14,
-                                      fontWeight: FontWeight.w300,
-                                      color: AppColors.textBlack),
-                                ),
-                                viewModel.getPadding(0.5),
-                                SizedBox(
-                                  height: UIDefine.getScreenWidth(5),
-                                  child: Image.asset(AppImagePath.tetherImg),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-
+                            Row(children: [
+                              _buildVolView(
+                                  tr('lastDayAmount'), widget.itemData.ydayAmt),
+                              const SizedBox(width: 20),
+                              _buildVolView(tr('transcationAmount'),
+                                  widget.itemData.amtTotal),
+                            ])
+                          ])),
+                      viewModel.buildSpace(width: 5),
                       InkWell(
                         onTap: _flipView,
                         child: Container(
-                            alignment: Alignment.centerRight,
-                            child: Image.asset(show
+                          alignment: Alignment.center,
+                          width: UIDefine.getScreenWidth(4),
+                          child: Image.asset(
+                            show
                                 ? AppImagePath.upArrowGrey
-                                : AppImagePath.downArrowGrey)),
+                                : AppImagePath.downArrowGrey,
+                          ),
+                        ),
                       ),
                     ])),
           ),
@@ -151,11 +112,34 @@ class _ArtistRecordItem extends State<ArtistRecordItemView> {
     );
   }
 
+  Widget _buildVolView(String title, String count) {
+    return Expanded(
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      Text(title,
+          style: TextStyle(
+              fontSize: UIDefine.fontSize12,
+              fontWeight: FontWeight.w400,
+              color: AppColors.font02)),
+      Row(children: [
+        Text(viewModel.numberCompatFormat(count),
+            style: TextStyle(
+                fontSize: UIDefine.fontSize14,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textBlack)),
+        const SizedBox(width: 5),
+        SizedBox(
+            height: UIDefine.getScreenWidth(4),
+            child: Image.asset(AppImagePath.tetherImg)),
+      ])
+    ]));
+  }
+
   Widget _subView(BuildContext context) {
     return Column(
       children: [
         Divider(height: UIDefine.getScreenWidth(4.16)),
-        viewModel.getPadding(0.5),
+        viewModel.buildSpace(height: 0.5),
         Row(
           children: [
             _buildSubItem(
@@ -189,14 +173,14 @@ class _ArtistRecordItem extends State<ArtistRecordItemView> {
           Visibility(
               visible: hasCoin,
               child: TetherCoinWidget(
-                size: UIDefine.getScreenWidth(5),
+                size: UIDefine.getScreenWidth(4),
               ))
         ]),
         Center(
           child: Text(
             title,
             style: TextStyle(
-                fontSize: UIDefine.fontSize14, color: AppColors.dialogGrey),
+                fontSize: UIDefine.fontSize12, color: AppColors.dialogGrey),
           ),
         ),
       ],

@@ -17,7 +17,7 @@ class SponsorRowWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.asset(leftLogo),
-        vm.getPadding(5),
+        vm.buildSpace(width: 5),
         Image.asset(rightLogo),
       ],));
   }
