@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
+import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/http_setting.dart';
 import 'package:treasure_nft_project/utils/language_util.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
-import 'package:treasure_nft_project/views/home/widget/home_contact_view.dart';
+import 'package:treasure_nft_project/views/home/home_sub_usdt_view.dart';
+import 'package:treasure_nft_project/views/home/home_sub_contact_view.dart';
 import 'package:treasure_nft_project/views/home/widget/home_usdt_info.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
@@ -47,102 +49,31 @@ class _HomeMainViewState extends State<HomeMainView> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(children: [
-        Stack(children: [
-          SizedBox(
-              height: UIDefine.getScreenHeight(125),
-              child: Transform.scale(
-                  scaleX: 1.33,
-                  child: Image.asset(AppImagePath.firstBackground))),
-          Column(
-            children: [
-              const DomainBar(),
-              viewModel.getPadding(5),
-              Padding(
-                  padding: EdgeInsets.only(
-                      left: UIDefine.getScreenWidth(2),
-                      right: UIDefine.getScreenWidth(2)),
-                  child: _buildTitleText()),
-              Padding(
-                padding: EdgeInsets.only(
-                    left: UIDefine.getScreenWidth(6),
-                    right: UIDefine.getScreenWidth(6)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    viewModel.getPadding(3),
+        const DomainBar(),
+        viewModel.buildSpace(height: 10),
 
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          tr('index-product-text-1\''),
-                          style: TextStyle(
-                            fontSize: UIDefine.fontSize14,
-                            color: AppColors.textGrey,
-                          ),
-                        ),
-                        Text(
-                          tr('index-product-text-2\''),
-                          style: TextStyle(
-                            fontSize: UIDefine.fontSize12,
-                            color: AppColors.textGrey,
-                          ),
-                        ),
-                      ],
-                    ),
+        ///MARK: 標題
+        Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: _buildTitleText()),
 
-                    viewModel.getPadding(5),
+        ///MARK: USDT資訊
+        const HomeSubUsdtView(),
 
-                    /// Trade
-                    ActionButtonWidget(
-                      setHeight: UIDefine.getScreenHeight(8),
-                      btnText: tr('Trade'),
-                      onPressed: () {
-                        viewModel.isLogin()
-                            ? viewModel.pushAndRemoveUntil(
-                                context,
-                                const MainPage(
-                                    type: AppNavigationBarType.typeTrade))
-                            : viewModel.pushAndRemoveUntil(
-                                context,
-                                const MainPage(
-                                    type: AppNavigationBarType.typeLogin));
-                      },
-                    ),
+        viewModel.buildSpace(height: 3),
 
-                    viewModel.getPadding(5),
-
-                    /// USDT_Info
-                    const HomeUsdtInfo(),
-
-                    viewModel.getPadding(4),
-
-                    /// 輪播圖
-                    SizedBox(
-                      height: UIDefine.getHeight() * 0.5,
-                      child: const CarouselListView(),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ]),
-
-        viewModel.getPadding(3),
-
-        /// 畫家排行
+        /// 熱門系列 畫家排行
         hotCollection(),
+        viewModel.buildSpace(height: 3),
 
         /// View All
         TextButton(
           //圓角
           style: ButtonStyle(
-            shadowColor: MaterialStateProperty.all(Colors.black38),
+            shadowColor: MaterialStateProperty.all(AppColors.bolderGrey),
             backgroundColor: MaterialStateProperty.all(Colors.white),
             shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                side: const BorderSide(width: 2, color: Colors.black12),
+                side: const BorderSide(width: 2, color: AppColors.bolderGrey),
                 borderRadius: BorderRadius.circular(10))),
           ),
 
@@ -151,14 +82,16 @@ class _HomeMainViewState extends State<HomeMainView> {
                 const MainPage(type: AppNavigationBarType.typeExplore));
           },
           child: Padding(
-            padding:
-                const EdgeInsets.only(left: 10, top: 3, right: 10, bottom: 3),
+            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
             child: Text(tr('seeAll'),
-                style: const TextStyle(color: AppColors.textBlack)),
+                style: TextStyle(
+                    color: AppColors.textBlack,
+                    fontWeight: FontWeight.w500,
+                    fontSize: UIDefine.fontSize14)),
           ),
         ),
 
-        viewModel.getPadding(2),
+        viewModel.buildSpace(height: 2),
 
         /// 教學影片
         const VideoPlayWidget(),
@@ -173,7 +106,7 @@ class _HomeMainViewState extends State<HomeMainView> {
         ourInfo(),
 
         /// 聯絡方式
-        const HomeContactView(),
+        const HomeSubContactView(),
       ]),
     );
   }
@@ -184,19 +117,20 @@ class _HomeMainViewState extends State<HomeMainView> {
         (LanguageUtil.getSettingLanguageType() == LanguageType.Mandarin);
     double styleHeight = 1.1;
     TextStyle black = TextStyle(
-        fontSize: UIDefine.fontSize22,
+        fontSize: 22,
         fontWeight: FontWeight.bold,
         color: AppColors.textBlack,
         height: showZh ? 1.1 : null);
 
-    return SizedBox(
+    return Container(
         // height: UIDefine.getScreenHeight(8),
+        alignment: Alignment.centerLeft,
         child: showZh
-            ? Wrap(children: [
+            ? Wrap(alignment: WrapAlignment.start, children: [
                 Text('使用', style: black),
                 GradientText(
-                  ' Treasure NFT ',
-                  size: UIDefine.fontSize22,
+                  'Treasure NFT',
+                  size: UIDefine.fontSize20,
                   weight: FontWeight.bold,
                   styleHeight: styleHeight,
                 ),
@@ -207,39 +141,32 @@ class _HomeMainViewState extends State<HomeMainView> {
                 Text('收', style: black),
                 Text('益', style: black),
               ])
-            : Wrap(children: [
+            : Wrap(alignment: WrapAlignment.start, children: [
                 Text('Earn profit with',
                     style: TextStyle(
-                        fontSize: UIDefine.fontSize22,
+                        fontSize: UIDefine.fontSize20,
                         fontWeight: FontWeight.bold,
                         color: AppColors.textBlack)),
                 GradientText(' Treasure NFT',
-                    size: UIDefine.fontSize22, weight: FontWeight.bold)
+                    size: UIDefine.fontSize20, weight: FontWeight.bold)
               ]));
   }
 
   Widget hotCollection() {
     return Column(
       children: [
-        Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(
-                left: UIDefine.getScreenHeight(1.5),
-                right: UIDefine.getScreenHeight(1.5),
-              ),
-              child: Image.asset(AppImagePath.starIcon),
-            ),
-            Text(
-              tr('topCreator'),
-              style: TextStyle(
-                fontSize: UIDefine.fontSize24,
-                fontWeight: FontWeight.w400,
-                color: AppColors.textBlack,
-              ),
-            ),
-          ],
-        ),
+        Row(children: [
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 15),
+            child: Image.asset(AppImagePath.starIcon,
+                height: UIDefine.getScreenHeight(4.5), fit: BoxFit.fitHeight),
+          ),
+          Text(tr('topCreator'),
+              style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w400,
+                  color: AppColors.textBlack))
+        ]),
         // Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         //   Text(
         //     tr('Last_24_hours'),
@@ -253,7 +180,7 @@ class _HomeMainViewState extends State<HomeMainView> {
 
         Container(
             margin:
-                EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(15)),
+                EdgeInsets.symmetric(horizontal: UIDefine.getWidth() * 0.25),
             child: _buildChainDropDownBar()),
         const ArtistRecordListView(),
       ],
@@ -299,13 +226,13 @@ class _HomeMainViewState extends State<HomeMainView> {
               Color.fromARGB(255, 215, 224, 255)
             ])),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
-          viewModel.getPadding(5),
+          viewModel.buildSpace(height: 5),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              viewModel.getPadding(3),
+              viewModel.buildSpace(width: 3),
               Image.asset(AppImagePath.fileIcon),
-              viewModel.getPadding(3),
+              viewModel.buildSpace(width: 3),
               Text(
                 'Investors and patrons',
                 style: TextStyle(fontSize: UIDefine.fontSize24),
@@ -333,7 +260,7 @@ class _HomeMainViewState extends State<HomeMainView> {
             rightLogo: AppImagePath.ethereum,
           ),
           viewModel.getPaddingWithView(5, Image.asset(AppImagePath.tozfuft)),
-          viewModel.getPadding(3),
+          viewModel.buildSpace(width: 3),
         ]));
   }
 
@@ -343,15 +270,12 @@ class _HomeMainViewState extends State<HomeMainView> {
         borderRadius: BorderRadius.all(Radius.circular(10)));
     return Container(
         color: AppColors.mainBottomBg,
-        padding: EdgeInsets.only(
-            top: UIDefine.getScreenWidth(6),
-            left: UIDefine.getScreenWidth(6),
-            right: UIDefine.getScreenWidth(6)),
+        padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              viewModel.getPadding(1),
+              viewModel.buildSpace(height: 1),
 
               Text(
                 tr('emailIllustrate'),
@@ -365,7 +289,7 @@ class _HomeMainViewState extends State<HomeMainView> {
               //   style: TextStyle(fontSize: UIDefine.fontSize12),
               // ),
 
-              viewModel.getPadding(3),
+              viewModel.buildSpace(height: 3),
 
               Container(
                   height: UIDefine.getScreenHeight(7),
@@ -419,7 +343,7 @@ class _HomeMainViewState extends State<HomeMainView> {
                                                 fontWeight:
                                                     FontWeight.bold)))))))
                   ])),
-              viewModel.getPadding(5)
+              viewModel.buildSpace(height: 5)
             ]));
   }
 
@@ -427,10 +351,7 @@ class _HomeMainViewState extends State<HomeMainView> {
     double padding = 2;
     return Container(
         color: AppColors.mainBottomBg,
-        padding: EdgeInsets.only(
-            top: UIDefine.getScreenWidth(6),
-            left: UIDefine.getScreenWidth(6),
-            right: UIDefine.getScreenWidth(6)),
+        padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
         child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -444,7 +365,7 @@ class _HomeMainViewState extends State<HomeMainView> {
                         style: TextStyle(
                             fontSize: UIDefine.fontSize16,
                             color: AppColors.textBlack)),
-                    viewModel.getPadding(padding),
+                    viewModel.buildSpace(height: padding),
                     GestureDetector(
                         onTap: () {
                           viewModel.launchInBrowser(
@@ -453,8 +374,8 @@ class _HomeMainViewState extends State<HomeMainView> {
                         child: Text(tr('footer_docs'),
                             style: TextStyle(
                                 fontSize: UIDefine.fontSize14,
-                                color: AppColors.textGrey))),
-                    viewModel.getPadding(padding),
+                                color: AppColors.font02))),
+                    viewModel.buildSpace(height: padding),
                     GestureDetector(
                         onTap: () {
                           viewModel.launchInBrowser(
@@ -463,8 +384,8 @@ class _HomeMainViewState extends State<HomeMainView> {
                         child: Text(tr('footer_friends'),
                             style: TextStyle(
                                 fontSize: UIDefine.fontSize14,
-                                color: AppColors.textGrey))),
-                    viewModel.getPadding(padding),
+                                color: AppColors.font02))),
+                    viewModel.buildSpace(height: padding),
                     GestureDetector(
                         onTap: () {
                           viewModel.launchInBrowser(
@@ -473,7 +394,7 @@ class _HomeMainViewState extends State<HomeMainView> {
                         child: Text(tr('footer_howtoBuy'),
                             style: TextStyle(
                                 fontSize: UIDefine.fontSize14,
-                                color: AppColors.textGrey)))
+                                color: AppColors.font02)))
                   ])),
 
               /// News
@@ -488,7 +409,7 @@ class _HomeMainViewState extends State<HomeMainView> {
                         color: AppColors.textBlack,
                       ),
                     ),
-                    viewModel.getPadding(padding),
+                    viewModel.buildSpace(height: padding),
                     GestureDetector(
                         onTap: () {
                           viewModel.launchInBrowser(
@@ -497,7 +418,7 @@ class _HomeMainViewState extends State<HomeMainView> {
                         child: Text(tr('footer_blog'),
                             style: TextStyle(
                                 fontSize: UIDefine.fontSize14,
-                                color: AppColors.textGrey)))
+                                color: AppColors.font02)))
                   ])),
 
               /// Company
@@ -512,7 +433,7 @@ class _HomeMainViewState extends State<HomeMainView> {
                         color: AppColors.textBlack,
                       ),
                     ),
-                    viewModel.getPadding(padding),
+                    viewModel.buildSpace(height: padding),
                     GestureDetector(
                         onTap: () {
                           viewModel.pushPage(
@@ -525,8 +446,8 @@ class _HomeMainViewState extends State<HomeMainView> {
                         child: Text(tr('footer_privacy'),
                             style: TextStyle(
                                 fontSize: UIDefine.fontSize14,
-                                color: AppColors.textGrey))),
-                    viewModel.getPadding(padding),
+                                color: AppColors.font02))),
+                    viewModel.buildSpace(height: padding),
                     GestureDetector(
                         onTap: () {
                           viewModel.pushPage(
@@ -539,7 +460,7 @@ class _HomeMainViewState extends State<HomeMainView> {
                         child: Text(tr('footer_agreement'),
                             style: TextStyle(
                                 fontSize: UIDefine.fontSize14,
-                                color: AppColors.textGrey)))
+                                color: AppColors.font02)))
                   ]))
             ]));
   }

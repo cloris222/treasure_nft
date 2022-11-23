@@ -73,6 +73,7 @@ class AppStyle {
   }
 
   ///MARK: 陰影底
+  ///drop-shadow(offset-x offset-y blur-radius spread-radius color)
   BoxDecoration styleShadowBorderBackground(
       {double radius = 15.0,
       Color borderBgColor = Colors.white,

@@ -22,8 +22,8 @@ class HomeMainViewModel extends BaseViewModel {
     return await HomeAPI(onConnectFail: onConnectFail).getArtistRecord();
   }
 
-  Widget getPadding(double val) {
-    return Padding(padding: EdgeInsets.all(UIDefine.getScreenWidth(val)));
+  Widget buildSpace({double width = 0, double height = 0}) {
+    return SizedBox(height: height * 5, width: width * 5);
   }
 
   Widget getPaddingWithView(double val, Widget view) {

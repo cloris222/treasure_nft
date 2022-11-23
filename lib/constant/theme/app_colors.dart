@@ -51,4 +51,8 @@ class AppColors {
     Color(0xFF4E62C3),
   ];
   static const Color drawLine = Color(0xFF43F5F4);
+
+  ///MARK: figma Color
+  static const Color barFont01 = Color(0xFFB9C5D9);
+  static const Color font02 = Color(0xFF8797B0);
 }

@@ -3,24 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/enum/setting_enum.dart';
 
-import '../../../constant/theme/app_colors.dart';
-import '../../../constant/theme/app_image_path.dart';
-import '../../../constant/ui_define.dart';
-import '../../../view_models/home/home_contact_view_model.dart';
+import '../../constant/theme/app_colors.dart';
+import '../../constant/theme/app_image_path.dart';
+import '../../constant/ui_define.dart';
+import '../../view_models/home/home_sub_contact_view_model.dart';
 
-class HomeContactView extends StatefulWidget {
-  const HomeContactView({Key? key}) : super(key: key);
+class HomeSubContactView extends StatefulWidget {
+  const HomeSubContactView({Key? key}) : super(key: key);
 
   @override
-  State<HomeContactView> createState() => _HomeContactViewState();
+  State<HomeSubContactView> createState() => _HomeSubContactViewState();
 }
 
-class _HomeContactViewState extends State<HomeContactView> {
-  late HomeContactViewModel viewModel;
+class _HomeSubContactViewState extends State<HomeSubContactView> {
+  late HomeSubContactViewModel viewModel;
 
   @override
   void initState() {
-    viewModel = HomeContactViewModel();
+    viewModel = HomeSubContactViewModel();
     viewModel.initState().then((value) {
       if (mounted) {
         setState(() {});
@@ -35,10 +35,7 @@ class _HomeContactViewState extends State<HomeContactView> {
         color: AppColors.mainBottomBg,
         child: Column(children: [
           Padding(
-              padding: EdgeInsets.only(
-                  top: UIDefine.getScreenWidth(2),
-                  left: UIDefine.getScreenWidth(6),
-                  right: UIDefine.getScreenWidth(6)),
+              padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -75,7 +72,7 @@ class _HomeContactViewState extends State<HomeContactView> {
                     //           fontSize: UIDefine.fontSize14,
                     //           color: AppColors.textBlack,
                     //         ))),
-                    getPadding(5),
+                    getPadding(7),
                     Center(
                         child: Text('TreasureMeta Technology',
                             style: TextStyle(

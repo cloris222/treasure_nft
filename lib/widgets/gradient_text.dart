@@ -3,10 +3,11 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 
 class GradientText extends StatelessWidget {
-  GradientText(
+  const GradientText(
     this.text, {
+    super.key,
     this.size,
-    this.weight,
+    this.weight = FontWeight.w400,
     this.starColor = AppColors.mainThemeButton,
     this.endColor = AppColors.deepBlue,
     this.begin = Alignment.bottomLeft,
@@ -18,8 +19,8 @@ class GradientText extends StatelessWidget {
   });
 
   final String text;
-  double? size = UIDefine.fontSize20;
-  FontWeight? weight = FontWeight.w400;
+  final double? size;
+  final FontWeight weight;
   final Color starColor;
   final Color endColor;
   final AlignmentGeometry begin;
@@ -45,7 +46,9 @@ class GradientText extends StatelessWidget {
           maxLines: maxLines,
           overflow: overflow,
           style: TextStyle(
-              fontSize: size, fontWeight: weight, height: styleHeight)),
+              fontSize: size ?? UIDefine.fontSize20,
+              fontWeight: weight,
+              height: styleHeight)),
     );
   }
 }
