@@ -155,47 +155,54 @@ class CustomAppBar {
     required VoidCallback globalAction,
     required VoidCallback mainAction,
   }) {
-    var space = const SizedBox(width: 5);
+    var space = const SizedBox(width: 8);
+    double iconSize = 28;
     return _getCustomAppBar(
-        margin:EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(3)),
+        margin: const EdgeInsets.symmetric(horizontal: 10),
         actions: [
-          InkWell(
-              onTap: mainAction,
-              child: Image.asset(AppImagePath.mainAppBarLogo)),
-          const Spacer(),
-          Container(
-              margin: const EdgeInsets.only(top: 10),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    InkWell(
-                        onTap: searchAction,
-                        child: const Icon(Icons.search,
-                            color: Colors.grey, size: 30)),
-                    space,
-                    InkWell(
-                        onTap: serverAction,
-                        child: Image.asset(AppImagePath.serverImage,
-                            width: 30, height: 30, fit: BoxFit.cover)),
-                    space,
-                    InkWell(
-                        onTap: avatarAction,
-                        child: Container(
-                            decoration: AppTheme.style.baseGradient(radius: 15),
-                            padding: const EdgeInsets.all(1),
-                            child: BaseViewModel().isLogin() &&
-                                    GlobalData.userInfo.photoUrl.isNotEmpty
-                                ? CircleNetworkIcon(
-                                    networkUrl: GlobalData.userInfo.photoUrl,
-                                    radius: 15)
-                                : Image.asset(AppImagePath.avatarImg,
-                                    width: 25, height: 25))),
-                    space,
-                    InkWell(
-                        onTap: globalAction,
-                        child: Image.asset(AppImagePath.globalImage,
-                            width: 30, height: 30, fit: BoxFit.cover))
-                  ]))
+          Expanded(
+            child: Container(
+              alignment: Alignment.centerLeft,
+              child: InkWell(
+                  onTap: mainAction,
+                  child: Image.asset(AppImagePath.mainAppBarLogo,
+                      height: 35, fit: BoxFit.fitHeight)),
+            ),
+          ),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+            InkWell(
+                onTap: searchAction,
+                child:
+                    Icon(Icons.search, color: Colors.grey, size: iconSize)),
+            space,
+            InkWell(
+                onTap: serverAction,
+                child: Image.asset(AppImagePath.serverImage,
+                    width: iconSize, height: iconSize, fit: BoxFit.cover)),
+            space,
+            InkWell(
+                onTap: avatarAction,
+                child: Container(
+                    height: iconSize,
+                    width: iconSize,
+                    decoration: AppTheme.style.baseGradient(radius: 15),
+                    padding: const EdgeInsets.all(1),
+                    child: BaseViewModel().isLogin() &&
+                            GlobalData.userInfo.photoUrl.isNotEmpty
+                        ? CircleNetworkIcon(
+                            networkUrl: GlobalData.userInfo.photoUrl,
+                            radius: iconSize / 2)
+                        : Image.asset(AppImagePath.avatarImg,
+                            width: iconSize, height: iconSize))),
+            space,
+            InkWell(
+                onTap: globalAction,
+                child: Image.asset(AppImagePath.globalImage,
+                    width: iconSize, height: iconSize, fit: BoxFit.cover))
+          ])
         ]);
   }
 }
