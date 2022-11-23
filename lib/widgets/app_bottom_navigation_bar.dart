@@ -57,7 +57,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
 
               ///MARK: 背後bar
               Positioned(
-                bottom: 0,
+                bottom: 10,
                 left: 0,
                 right: 0,
                 child: Container(
@@ -83,8 +83,9 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
   final double itemHeight = kBottomNavigationBarHeight * 1.4;
   final double spaceHeight = kBottomNavigationBarHeight * 0.35;
   final double textHeight = kBottomNavigationBarHeight * 0.3;
-  final double iconHeight = kBottomNavigationBarHeight * 0.5;
+  final double iconHeight = kBottomNavigationBarHeight * 0.44;
   final double paddingSpace = kBottomNavigationBarHeight * 0.12;
+  final double textSize = kBottomNavigationBarHeight * 0.21;
 
   Widget buildText(AppNavigationBarType type) {
     return Expanded(
@@ -95,8 +96,9 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
               (type == AppNavigationBarType.typeTrade)
                   ? const SizedBox()
                   : getIcon(type),
+              const SizedBox(height: 1),
               Container(child: getText(type)),
-              SizedBox(height: 2)
+              const SizedBox(height: 2)
             ])));
   }
 
@@ -169,11 +171,11 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
                         color: AppColors.transParentHalf, radius: 100),
                 padding: const EdgeInsets.all(2.5),
                 child: Container(
-                    padding: EdgeInsets.all(paddingSpace * 0.5),
+                    padding: EdgeInsets.all(paddingSpace * 0.7),
                     decoration: AppStyle().styleColorsRadiusBackground(
                         color: Colors.white, radius: 100),
                     child: Image.asset(AppImagePath.mainTypeTrade,
-                        height: iconHeight, fit: BoxFit.fitHeight)))));
+                        height: iconHeight * 0.95, fit: BoxFit.fitHeight)))));
   }
 
   Widget getText(AppNavigationBarType type) {
@@ -215,8 +217,8 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
         maxLines: 1,
         overflow: TextOverflow.clip,
         style: TextStyle(
-            fontSize: UIDefine.fontSize12,
-            color: AppColors.dialogGrey,
+            fontSize: textSize,
+            color: AppColors.barFont01,
             fontWeight: FontWeight.w400));
   }
 
