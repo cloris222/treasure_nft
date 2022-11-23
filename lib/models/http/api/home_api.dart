@@ -59,11 +59,12 @@ class HomeAPI extends HttpManager {
     return TradingVolumeData.fromJson(response.data);
   }
 
-  Future<List<HomeFooterData>> getFooterSetting() async {
+  Future<Map<String, String>> getFooterSetting() async {
     var response = await get('/index/footer/icon');
-    List<HomeFooterData> list = [];
-    for (Map<String, dynamic> json in response.data['pageList']) {
-      list.add(HomeFooterData.fromJson(json));
+    Map<String, String> list = {};
+    for (Map<String, dynamic> json in response.data) {
+      HomeFooterData data = HomeFooterData.fromJson(json);
+      list[data.name] = data.status == "ENABLE" ? data.link : '';
     }
     return list;
   }

@@ -49,3 +49,14 @@ enum VideoStrEnum {
 }
 
 enum EarningIncomeType { ALL, TEAM, MINE }
+
+enum HomeFooter {
+  Email,
+  Tiktok,
+  Twitter,
+  Youtube,
+  Telegram,
+  Facebook,
+  Instagram,
+  Discord
+}

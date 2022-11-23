@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:format/format.dart';
+import 'package:treasure_nft_project/constant/enum/setting_enum.dart';
 
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
@@ -19,6 +21,11 @@ class _HomeContactViewState extends State<HomeContactView> {
   @override
   void initState() {
     viewModel = HomeContactViewModel();
+    viewModel.initState().then((value) {
+      if (mounted) {
+        setState(() {});
+      }
+    });
     super.initState();
   }
 
@@ -44,64 +51,7 @@ class _HomeContactViewState extends State<HomeContactView> {
                     getPadding(2),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              viewModel.launchInBrowser(
-                                  'mailto:treasurenft.metaverse@gmail.com');
-                            },
-                            child: Image.asset(AppImagePath.mail),
-                          ),
-
-                          GestureDetector(
-                              onTap: () {
-                                viewModel.launchInBrowser(
-                                    'https://www.tiktok.com/@treasurenft_xyz');
-                              },
-                              child: Image.asset(AppImagePath.tiktok)),
-
-                          GestureDetector(
-                              onTap: () {
-                                viewModel.launchInBrowser(
-                                    'https://twitter.com/Treasurenft_xyz');
-                              },
-                              child: Image.asset(AppImagePath.twitter)),
-
-                          // GestureDetector(
-                          //   onTap: () {
-                          //      viewModel.launchInBrowser('');
-                          //   },
-                          //   child: Image.asset(AppImagePath.yt),
-                          // ),
-
-                          GestureDetector(
-                              onTap: () {
-                                viewModel.launchInBrowser(
-                                    'https://t.me/TreasureNFTchat');
-                              },
-                              child: Image.asset(AppImagePath.tg)),
-
-                          GestureDetector(
-                              onTap: () {
-                                viewModel.launchInBrowser(
-                                    'https://www.facebook.com/Treasurenft-101676776000520');
-                              },
-                              child: Image.asset(AppImagePath.fb)),
-
-                          GestureDetector(
-                              onTap: () {
-                                viewModel.launchInBrowser(
-                                    'https://www.instagram.com/treasurenft_xyz/');
-                              },
-                              child: Image.asset(AppImagePath.ig)),
-
-                          GestureDetector(
-                              onTap: () {
-                                viewModel.launchInBrowser(
-                                    'https://discord.gg/H54mUVeQRQ');
-                              },
-                              child: Image.asset(AppImagePath.dc))
-                        ]),
+                        children: _buildFooterButtonList()),
                     // viewModel.getPadding(4),
                     // Text(
                     //   tr('document-title-2'),
@@ -138,5 +88,57 @@ class _HomeContactViewState extends State<HomeContactView> {
 
   Widget getPadding(double val) {
     return Padding(padding: EdgeInsets.all(UIDefine.getScreenWidth(val)));
+  }
+
+  List<Widget> _buildFooterButtonList() {
+    List<Widget> list = [];
+    for (var footer in HomeFooter.values) {
+      if (viewModel.status[footer.name]?.isNotEmpty ?? true) {
+        list.add(GestureDetector(
+            onTap: () {
+              viewModel.launchInBrowser(getFooterLinkPath(footer));
+            },
+            child: Image.asset(getFooterImgPath(footer))));
+      }
+    }
+
+    return list;
+  }
+
+  String getFooterImgPath(HomeFooter footer) {
+    switch (footer) {
+      case HomeFooter.Email:
+        return AppImagePath.mail;
+      case HomeFooter.Tiktok:
+        return AppImagePath.tiktok;
+      case HomeFooter.Twitter:
+        return AppImagePath.twitter;
+      case HomeFooter.Youtube:
+        return AppImagePath.yt;
+      case HomeFooter.Telegram:
+        return AppImagePath.tg;
+      case HomeFooter.Facebook:
+        return AppImagePath.fb;
+      case HomeFooter.Instagram:
+        return AppImagePath.ig;
+      case HomeFooter.Discord:
+        return AppImagePath.dc;
+    }
+  }
+
+  String getFooterLinkPath(HomeFooter footer) {
+    String link = viewModel.status[footer.name] ?? '';
+    switch (footer) {
+      case HomeFooter.Email:
+        return 'mailto:$link';
+      case HomeFooter.Tiktok:
+      case HomeFooter.Twitter:
+      case HomeFooter.Youtube:
+      case HomeFooter.Telegram:
+      case HomeFooter.Facebook:
+      case HomeFooter.Instagram:
+      case HomeFooter.Discord:
+        return link;
+    }
   }
 }
