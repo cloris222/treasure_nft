@@ -47,6 +47,15 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
   _setData(value) {
     data = value;
     productList = data.list.pageList;
+    print('阿賀0: ' + productList[0].price);
+    print('阿賀1: ' + productList[1].price);
+    print('阿賀2: ' + productList[2].price);
+    print('阿賀3: ' + productList[3].price);
+
+    print('阿0: ' + productList[0].growAmount);
+    print('阿1: ' + productList[1].growAmount);
+    print('阿2: ' + productList[2].growAmount);
+    print('阿3: ' + productList[3].growAmount);
     setState(() {});
   }
 

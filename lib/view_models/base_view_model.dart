@@ -275,13 +275,24 @@ class BaseViewModel {
     if (value == '') {
       return '';
     }
-    var formattedNumber = NumberFormat.compactCurrency(
+    String formattedNumber = NumberFormat.compactCurrency(
       decimalDigits: decimalDigits,
       locale: 'en_US',
       symbol: '',
     ).format(double.parse(value));
 
-    return formattedNumber;
+    RegExp regex = RegExp(r'([.]*0+)(?!.*\d)'); // 小數點後 去除尾數0
+    return formattedNumber.replaceAll(regex, '');
+  }
+
+  /// 保留小數點後兩位，且去零
+  String numberFormat(String value, {int decimalDigits = 2}) {
+    if (value == '') {
+      return '';
+    }
+    RegExp regex = RegExp(r'([.]*0+)(?!.*\d)'); // 小數點後 去除尾數0
+    String result = double.parse(value).toStringAsFixed(decimalDigits);
+    return result.replaceAll(regex, '');
   }
 
   ///MARK: 使用者監聽

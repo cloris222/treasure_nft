@@ -160,8 +160,6 @@ class HomePageWidgets {
     return widgets;
   }
 
-
-
   Widget artistInfo(dynamic data) {
     BaseViewModel viewModel = BaseViewModel();
     return Padding(
@@ -208,7 +206,7 @@ class HomePageWidgets {
 
   Widget productView(BuildContext context, dynamic data) {
     return SizedBox(
-      width: 163,
+      width: UIDefine.getScreenWidth(43.4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -220,31 +218,33 @@ class HomePageWidgets {
                 BaseViewModel().pushReplacement(context, MainPage(type: AppNavigationBarType.typeLogin));
               }
             },
-            child: Image.network(data.imgUrl, height: 163)
+            child: Image.network(data.imgUrl,
+              height: UIDefine.getScreenWidth(43.4), width: UIDefine.getScreenWidth(43.4),)
           ),
+
+          const SizedBox(height: 4),
 
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                data.ownerId,
-                style: TextStyle(fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w600),
+              SizedBox(
+                width: UIDefine.getScreenWidth(25),
+                child: Text(
+                  data.name,
+                  style: TextStyle(fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w600),
+                )
               ),
               Row(
                 children: [
                   Image.asset('assets/icon/icon/icon_trend_up_01.png'),
                   Text(
-                    data.growAmount,
+                    BaseViewModel().numberFormat(data.growAmount),
                     style: TextStyle(color: AppColors.growPrice, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w600),
                   ),
                 ],
               )
             ],
-          ),
-
-          Text(
-            data.name,
-            style: TextStyle(fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w600),
           ),
 
           const SizedBox(height: 4),
@@ -254,7 +254,7 @@ class HomePageWidgets {
               Image.asset('assets/icon/coins/icon_tether_01.png', width: UIDefine.getScreenWidth(4), height: UIDefine.getScreenWidth(4)),
               const SizedBox(width: 6),
               Text(
-                data.price,
+                BaseViewModel().numberFormat(data.price),
                 style: TextStyle(fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
               ),
             ],
