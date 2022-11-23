@@ -31,11 +31,11 @@ class _HomeUsdtInfoState extends State<HomeUsdtInfo> {
   @override
   Widget build(BuildContext context) {
     TextStyle titleStyle = TextStyle(
-        fontSize: UIDefine.fontSize10,
+        fontSize: UIDefine.fontSize12,
         color: AppColors.textBlack,
         fontWeight: FontWeight.w300);
     TextStyle titleBolderStyle = TextStyle(
-        fontSize: UIDefine.fontSize10,
+        fontSize: UIDefine.fontSize12,
         color: AppColors.textBlack,
         fontWeight: FontWeight.w600);
     TextStyle valueStyle = TextStyle(
@@ -43,7 +43,7 @@ class _HomeUsdtInfoState extends State<HomeUsdtInfo> {
         fontWeight: FontWeight.w500,
         color: AppColors.textBlack);
     TextStyle hintStyle =
-        TextStyle(fontSize: UIDefine.fontSize8, color: AppColors.barFont01);
+        TextStyle(fontSize: UIDefine.fontSize10, color: AppColors.barFont01);
 
     StrutStyle strutStyle =
         const StrutStyle(forceStrutHeight: true, leading: 0.5);

@@ -99,7 +99,7 @@ class _TradeCountDownViewState extends State<TradeCountDownView> {
 
   Widget _ruleAction(BuildContext context) {
     return Positioned(
-        top: 10,
+        top: UIDefine.getHeight()/50,
         right: 10,
         child: InkWell(
           onTap: () {
