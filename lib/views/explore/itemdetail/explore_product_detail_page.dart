@@ -106,7 +106,7 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
             Visibility(
               visible: _checkCountry(),
               child: Padding(
-                padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5), UIDefine.getScreenWidth(10),
+                padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5), UIDefine.getScreenWidth(5),
                     UIDefine.getScreenWidth(5), UIDefine.getScreenWidth(0)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

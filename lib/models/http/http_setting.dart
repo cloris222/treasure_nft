@@ -12,6 +12,8 @@ class HttpSetting {
   // static const String homeAdUrl =
   //     'https://image.treasurenft.xyz/Treasure2.5/index/pc_ad_01.mp4';
   // static const String systemTimeZone='GMT+4';
+  // static const String pcArtistUrl =
+  //     'https://treasurenft.xyz/#/userMap/exploreCreator?id={artistId}';
 
   ///MARK: develop Setting
   static const String appUrl = "https://dev.treasurenft.xyz/gateway/app";
@@ -24,6 +26,8 @@ class HttpSetting {
   static const String homeAdUrl =
       'https://devimage.treasurenft.xyz/Treasure2.5/index/pc_ad_01.mp4';
   static const String systemTimeZone = 'GMT+8';
+  static const String pcArtistUrl =
+      'https://dev.treasurenft.xyz/#/userMap/exploreCreator?id={artistId}';
 
   // receiveTimeout
   static const int receiveTimeout = 15000;

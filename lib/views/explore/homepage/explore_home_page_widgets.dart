@@ -154,9 +154,13 @@ class HomePageWidgets {
       }
       widgets.add(SizedBox(width: UIDefine.getScreenWidth(5)));
     }
-    widgets.add( // 分享 目前沒做事
-        Image.asset('assets/icon/icon/icon_share_03.png',
-            width: UIDefine.getScreenWidth(6), height: UIDefine.getScreenWidth(6)));
+    widgets.add(
+        GestureDetector(
+            onTap: () => callBack('Share'),
+            child: Image.asset('assets/icon/icon/icon_share_03.png',
+                width: UIDefine.getScreenWidth(6), height: UIDefine.getScreenWidth(6))
+        )
+    );
     return widgets;
   }
 
