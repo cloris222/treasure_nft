@@ -11,7 +11,12 @@ import 'orderinfo/order_info_selector_drop_down_bar.dart';
 
 ///MARK: 訂單信息
 class OrderInfoPage extends StatefulWidget {
-  const OrderInfoPage({Key? key}) : super(key: key);
+  const OrderInfoPage({
+    Key? key,
+    this.bFromWallet = false
+  }) : super(key: key);
+
+  final bool bFromWallet;
 
   @override
   State<StatefulWidget> createState() => _OrderInfoPage();
@@ -19,7 +24,6 @@ class OrderInfoPage extends StatefulWidget {
 
 class _OrderInfoPage extends State<OrderInfoPage> {
 
-  bool bFirst = true;
   int page = 1;
   late OrderInfoPageViewModel viewModel;
 
@@ -28,6 +32,7 @@ class _OrderInfoPage extends State<OrderInfoPage> {
   initState() {
     super.initState();
     viewModel = OrderInfoPageViewModel(setState: setState);
+    viewModel.initType(widget.bFromWallet);
     viewModel.requestAPI(page, 10);
   }
 
@@ -58,10 +63,12 @@ class _OrderInfoPage extends State<OrderInfoPage> {
               children: [
                 SizedBox(height: UIDefine.getScreenWidth(5.5)),
 
-                OrderInfoSelectorDropDownBar(getDropDownValue: (String value) {
-                  if (value == viewModel.currentType) {
-                    return;
-                  }
+                OrderInfoSelectorDropDownBar(
+                  bFromWallet: widget.bFromWallet,
+                  getDropDownValue: (String value) {
+                    if (value == viewModel.currentType) {
+                      return;
+                    }
                   viewModel.currentType = value;
                   viewModel.requestAPI(1, 10);
                 }),

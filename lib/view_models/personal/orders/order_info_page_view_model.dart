@@ -21,7 +21,13 @@ class OrderInfoPageViewModel extends BaseViewModel {
   List<OrderMessageListResponseData> dataList = [];
   num walletBalance = 0;
 
-  requestAPI(int page, int size, {ResponseErrorFunction? onConnectFail}) async {
+  void initType(bool bFromWallet) {
+    if (bFromWallet) {
+      currentType = 'DEPOSIT';
+    }
+  }
+
+  void requestAPI(int page, int size, {ResponseErrorFunction? onConnectFail}) async {
     if (currentType.isNotEmpty) {
       await OrderAPI(onConnectFail: onConnectFail)
           .getOrderMessageListResponse(page: page, size: size,
@@ -35,7 +41,7 @@ class OrderInfoPageViewModel extends BaseViewModel {
     }
   }
 
-  requestAPIForUpdate(int page, int size, {ResponseErrorFunction? onConnectFail}) async {
+  void requestAPIForUpdate(int page, int size, {ResponseErrorFunction? onConnectFail}) async {
     if (currentType.isNotEmpty) {
       await OrderAPI(onConnectFail: onConnectFail)
           .getOrderMessageListResponse(page: page, size: size,
@@ -186,7 +192,8 @@ class OrderInfoPageViewModel extends BaseViewModel {
     List<CardShowingData> dataList = [];
     CardShowingData data = CardShowingData();
     data.title = tr('reservationAmount');
-    data.content = resData.startPrice.toString() + ' ~ ' + resData.endPrice.toString();
+    data.content = BaseViewModel().numberFormat(resData.startPrice.toString()) + ' ~ '
+        + BaseViewModel().numberFormat(resData.endPrice.toString());
     data.bIcon = true;
     dataList.add(data);
 
@@ -194,6 +201,7 @@ class OrderInfoPageViewModel extends BaseViewModel {
     data.title = tr('reservationFee');
     data.content = resData.deposit.toString();
     data.bIcon = true;
+    data.bPrice = true;
     dataList.add(data);
 
     return dataList;
@@ -205,6 +213,7 @@ class OrderInfoPageViewModel extends BaseViewModel {
     CardShowingData data = CardShowingData();
     data.title = tr('amount');
     data.content = resData.amount>0? '+' + resData.amount.toString() : resData.amount.toString();
+    data.bPrice = true;
     dataList.add(data);
 
     return dataList;
@@ -228,6 +237,7 @@ class OrderInfoPageViewModel extends BaseViewModel {
     data = CardShowingData();
     data.title = tr('amount');
     data.content = resData.amount.toString();
+    data.bPrice = true;
     dataList.add(data);
 
     return dataList;
@@ -251,11 +261,13 @@ class OrderInfoPageViewModel extends BaseViewModel {
     data = CardShowingData();
     data.title = tr('amount');
     data.content = resData.amount.toString();
+    data.bPrice = true;
     dataList.add(data);
 
     data = CardShowingData();
     data.title = tr('serviceFee');
     data.content = resData.fee.toString();
+    data.bPrice = true;
     dataList.add(data);
 
     return dataList;
@@ -273,6 +285,7 @@ class OrderInfoPageViewModel extends BaseViewModel {
     data.title = resData.itemName;
     data.content = resData.buyPrice.toString();
     data.bIcon = true;
+    data.bPrice = true;
     dataList.add(data);
 
     data = CardShowingData();
@@ -316,12 +329,14 @@ class OrderInfoPageViewModel extends BaseViewModel {
     data.title = resData.itemName;
     data.content = resData.buyPrice.toString();
     data.bIcon = true;
+    data.bPrice = true;
     dataList.add(data);
 
     data = CardShowingData();
     data.title = tr('income');
     data.content = resData.income.toString();
     data.bIcon = true;
+    data.bPrice = true;
     dataList.add(data);
 
     data = CardShowingData();
@@ -354,18 +369,21 @@ class OrderInfoPageViewModel extends BaseViewModel {
     data.title = tr('buyPrice');
     data.content = resData.buyPrice.toString();
     data.bIcon = true;
+    data.bPrice = true;
     dataList.add(data);
 
     data = CardShowingData();
     data.title = tr("usdt-type-SELLING_FEE'");
     data.content = resData.serviceFee.toString();
     data.bIcon = true;
+    data.bPrice = true;
     dataList.add(data);
 
     data = CardShowingData();
     data.title = tr('creatorFee');
     data.content = resData.royalFee.toString();
     data.bIcon = true;
+    data.bPrice = true;
     dataList.add(data);
 
     return dataList;

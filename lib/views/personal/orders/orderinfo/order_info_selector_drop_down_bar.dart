@@ -7,9 +7,10 @@ import '../../../../constant/theme/app_theme.dart';
 import '../../../../constant/ui_define.dart';
 
 class OrderInfoSelectorDropDownBar extends StatelessWidget {
-  OrderInfoSelectorDropDownBar({super.key, required this.getDropDownValue});
+  OrderInfoSelectorDropDownBar({super.key, required this.getDropDownValue, this.bFromWallet = false});
 
   final onGetStringFunction getDropDownValue;
+  final bool bFromWallet;
 
   final List<String> _currencies = [
     'BUY',
@@ -37,10 +38,10 @@ class OrderInfoSelectorDropDownBar extends StatelessWidget {
       onChanged: (newValue) {
         getDropDownValue(newValue!);
       },
-      value: _currencies.first,
+      value: bFromWallet? _currencies[5] : _currencies.first,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.16),
-            UIDefine.getScreenWidth(7), UIDefine.getScreenWidth(4.16), UIDefine.getScreenWidth(3)),
+            UIDefine.getScreenWidth(4.5), UIDefine.getScreenWidth(4.16), UIDefine.getScreenWidth(0.5)),
         border: AppTheme.style.styleTextEditBorderBackground(
             color: AppColors.datePickerBorder, radius: 10, width: 3),
         focusedBorder: AppTheme.style.styleTextEditBorderBackground(
@@ -54,7 +55,7 @@ class OrderInfoSelectorDropDownBar extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Text(_getCategoryText(category),
-                    style: const TextStyle(color: AppColors.searchBar)),
+                    style: const TextStyle(color: AppColors.textGrey)),
               ],
             ));
       }).toList(),

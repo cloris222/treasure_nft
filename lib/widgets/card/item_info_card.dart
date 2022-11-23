@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../constant/ui_define.dart';
 import 'data/card_showing_data.dart';
@@ -101,7 +102,7 @@ class ItemInfoCard extends StatelessWidget {
                         Image.asset('assets/icon/coins/icon_tether_01.png', width: UIDefine.getScreenWidth(3.7), height: UIDefine.getScreenWidth(3.7)),
                         const SizedBox(width: 6),
                         Text(
-                          price,
+                          BaseViewModel().numberFormat(price),
                           style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                         )
                       ],

@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -285,14 +286,28 @@ class BaseViewModel {
     return formattedNumber.replaceAll(regex, '');
   }
 
-  /// 保留小數點後兩位，且去零
+  /// 指定小數點後幾位，且是無條件捨去
+  double truncateToDecimalPlaces(num value, int fractionalDigits) {
+    return (value * pow(10, fractionalDigits)).truncate() / pow(10, fractionalDigits);
+  }
+
+  /// 保留小數點後兩位，且去零，還有仟位符號
   String numberFormat(String value, {int decimalDigits = 2}) {
     if (value == '') {
       return '';
     }
-    RegExp regex = RegExp(r'([.]*0+)(?!.*\d)'); // 小數點後 去除尾數0
-    String result = double.parse(value).toStringAsFixed(decimalDigits);
-    return result.replaceAll(regex, '');
+    // 小數點後 去除尾數0
+    RegExp regex = RegExp(r'([.]*0+)(?!.*\d)');
+    double number = truncateToDecimalPlaces(double.parse(value), decimalDigits);
+
+    if (double.parse(value) >= 1000) {
+      List<String> num = number.toString().split('.');
+      var format = NumberFormat('0,000');
+      String test = format.format(int.parse(num[0]));
+      String finalNum = test + '.' + num[1];
+      return finalNum.replaceAll(regex, '');
+    }
+    return number.toString().replaceAll(regex, '');
   }
 
   ///MARK: 使用者監聽

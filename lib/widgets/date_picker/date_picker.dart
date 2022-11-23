@@ -56,7 +56,7 @@ class DatePickerState extends State<DatePickerWidget> {
           },
           child: Container(
             width: UIDefine.getWidth(),
-            height: UIDefine.getScreenHeight(5)+30,
+            height: UIDefine.getScreenHeight(6.8),
             decoration: viewModel.setBoxDecoration(),
 
 

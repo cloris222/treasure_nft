@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 
 import '../../constant/theme/app_colors.dart';
@@ -197,7 +198,10 @@ class _OrderInfoCard extends State<OrderInfoCard> {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        tr(widget.dataList[i].content),
+                        widget.dataList[i].bPrice ?
+                        BaseViewModel().numberFormat(widget.dataList[i].content)
+                            :
+                        widget.dataList[i].content,
                         style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                       )
                     ],
@@ -247,7 +251,7 @@ class _OrderInfoCard extends State<OrderInfoCard> {
                         Image.asset('assets/icon/coins/icon_tether_01.png', width: UIDefine.getScreenWidth(3.7), height: UIDefine.getScreenWidth(3.7)),
                         const SizedBox(width: 2.5),
                         Text(
-                          widget.price,
+                          BaseViewModel().numberFormat(widget.price),
                           style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                         )
                       ],

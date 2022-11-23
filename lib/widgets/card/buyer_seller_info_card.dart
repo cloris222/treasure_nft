@@ -8,6 +8,7 @@ import '../../constant/ui_define.dart';
 import '../../models/http/parameter/team_order.dart';
 import '../../view_models/base_view_model.dart';
 import '../../views/personal/orders/orderinfo/data/order_message_list_response_data.dart';
+import '../../views/personal/team/other_collect_page.dart';
 import 'data/card_showing_data.dart';
 
 class BuyerSellerInfoCard extends StatefulWidget {
@@ -120,11 +121,11 @@ class _BuyerSellerInfoCard extends State<BuyerSellerInfoCard> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
+                    Row( // 標題
                       children: [
                         Text(
                           i == dataList.length - 1 ?
-                          bShowMore? tr('seeLess') : tr('seeMore')
+                          bShowMore? tr('SeeLess') : tr('SeeMore')
                               :
                           tr(dataList[i].title), // 在外部要塞多語系的key
                           style: TextStyle(color: _setTextColor(dataList[i]),
@@ -140,7 +141,7 @@ class _BuyerSellerInfoCard extends State<BuyerSellerInfoCard> {
                       ],
                     ),
 
-                    Row(
+                    Row( // 內容
                       children: [
                         Visibility(
                             visible: _checkTitleShowCoins(dataList[i]),
@@ -150,6 +151,9 @@ class _BuyerSellerInfoCard extends State<BuyerSellerInfoCard> {
                         Container(
                           constraints: BoxConstraints(maxWidth: UIDefine.getScreenWidth(35)),
                           child: Text(
+                            _checkTitleShowCoins(dataList[i]) ? // 金額取小數點後兩位
+                            BaseViewModel().numberFormat(dataList[i].content)
+                                :
                             tr(dataList[i].content),
                             softWrap: true,
                             style: TextStyle(color: _setTextColor(dataList[i]),
@@ -168,7 +172,7 @@ class _BuyerSellerInfoCard extends State<BuyerSellerInfoCard> {
     return titleContent;
   }
 
-  List<Widget> _getMoreInfoWidget(int startIndex) {
+  List<Widget> _getMoreInfoWidget(int startIndex) { // 買家只有3項 賣家有6
     List<Widget> titleContent = [];
     if (moreInfoDataList.length-1 < startIndex) {
       return titleContent;
@@ -190,7 +194,7 @@ class _BuyerSellerInfoCard extends State<BuyerSellerInfoCard> {
                   fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
             ),
 
-            SizedBox(height: 6),
+            const SizedBox(height: 6),
 
             Row(
               children: [
@@ -198,10 +202,17 @@ class _BuyerSellerInfoCard extends State<BuyerSellerInfoCard> {
                     'assets/icon/coins/icon_tether_01.png', width: UIDefine.getScreenWidth(3.73), height: UIDefine.getScreenWidth(3.73))
                     : const SizedBox(),
                 moreInfoDataList[i].bIcon? const SizedBox(width: 4): const SizedBox(),
-                Text(
-                  tr(moreInfoDataList[i].content),
-                  style: TextStyle(color: AppColors.textBlack,
-                      fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+
+                GestureDetector( // 買賣家可以點擊，跳轉到收藏頁
+                  onTap: () => _onTapBuyerSeller(i),
+                  child: Text(
+                    i < 3 ?
+                    tr(moreInfoDataList[i].content)
+                        :
+                    BaseViewModel().numberFormat(moreInfoDataList[i].content), // 金額取小數點後兩位
+                    style: TextStyle(color: i == 1? AppColors.mainThemeButton : AppColors.textBlack,
+                        fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                  )
                 )
               ]
             )
@@ -209,6 +220,14 @@ class _BuyerSellerInfoCard extends State<BuyerSellerInfoCard> {
         ));
     }
     return titleContent;
+  }
+
+  void _onTapBuyerSeller(int index) {
+    if (index == 1) { // 固定位置中上是買賣家
+      bool isSeller = moreInfoDataList.length > 3;
+      BaseViewModel().pushPage(context,
+          OtherCollectPage(isSeller: isSeller, orderNo: widget.data.orderNo));
+    }
   }
 
   void _clickMore() {

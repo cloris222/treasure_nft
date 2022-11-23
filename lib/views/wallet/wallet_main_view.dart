@@ -263,6 +263,6 @@ class _WalletMainViewState extends State<WalletMainView> {
   }
 
   void _showWalletRecord() {
-    viewModel.pushPage(context, const OrderInfoPage());
+    viewModel.pushPage(context, const OrderInfoPage(bFromWallet: true));
   }
 }

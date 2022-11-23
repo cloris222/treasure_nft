@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
+import '../../view_models/base_view_model.dart';
 import 'data/card_showing_data.dart';
 
 /// A:活動獎勵 W:提領 D:充值 (外部先將部分Data存成 List<CardShowingData>)
@@ -121,7 +122,7 @@ class AWDInfoCard extends StatelessWidget {
       case 'SUCCESS':
         return AppColors.growPrice;
       case 'PENDING':
-        return AppColors.textGrey;
+        return AppColors.textWhite;
       case 'FAIL':
         return AppColors.textRed;
     }
@@ -201,6 +202,9 @@ class AWDInfoCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 4),
                   Text(
+                    dataList[i].bPrice ?
+                    BaseViewModel().numberFormat(dataList[i].content)
+                        :
                     tr(dataList[i].content),
                     style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                   )
