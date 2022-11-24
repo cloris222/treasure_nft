@@ -11,6 +11,7 @@ import 'package:treasure_nft_project/widgets/dialog/simple_custom_dialog.dart';
 
 import '../../../constant/theme/app_colors.dart';
 import '../../../view_models/collection/collection_transfer_view_model.dart';
+import '../../../widgets/button/countdown_button_widget.dart';
 
 /// 收藏 > 未上架Item > 轉出
 class CollectionTransferDialogView extends BaseDialog {
@@ -50,20 +51,25 @@ class CollectionTransferDialogView extends BaseDialog {
                 fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
           ),
 
-          SizedBox(height: UIDefine.getScreenWidth(11.11)),
+          SizedBox(height: UIDefine.getScreenWidth(8)),
+
+          SizedBox(
+              width: double.infinity,
+              child: Text(
+                tr("mail_valid_code"),
+                style: TextStyle(
+                    fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+              )
+          ),
+
+          SizedBox(height: UIDefine.getScreenWidth(3)),
 
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                tr("mail_valid_code"),
-                style: TextStyle(
-                    fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
-              ),
-
               /// 驗證碼輸入框
               SizedBox(
-                width: UIDefine.getScreenWidth(27.77),
+                width: UIDefine.getScreenWidth(36),
                 height: UIDefine.getScreenWidth(11.11),
                 child: TextField(
                   keyboardType: TextInputType.number,
@@ -88,43 +94,44 @@ class CollectionTransferDialogView extends BaseDialog {
               ),
 
               /// Get按鈕
-              Container(
-                height: UIDefine.getScreenWidth(11.11),
-                decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.mainThemeButton, width: 2),
-                    borderRadius: BorderRadius.circular(10)
-                ),
-                child: TextButton(
-                    onPressed: () {
-                      _pressGet();
-                    },
-                    child: Text(
-                      tr('get'), // 轉讓
-                      style: TextStyle(
-                          color: AppColors.mainThemeButton, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
-                    )
-                ),
-              )
+              CountdownButtonWidget(
+                buttonType: 2,
+                countdownSecond: 60,
+                margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                btnText: tr('get'),
+                isFillWidth: false,
+                setHeight: UIDefine.getScreenWidth(11.11),
+                onPress: _pressGet,
+                // onPressVerification: onPressVerification,
+              ),
             ],
           ),
 
           SizedBox(height: UIDefine.getScreenWidth(1)),
 
-          Visibility(
-            visible: bEmpty,
-            child: Text(
-              tr("rule_void"),
-              style: TextStyle(color: AppColors.reservationLevel5,
-                  fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w400),
+          Container(
+            width: double.infinity,
+            alignment: Alignment.centerLeft,
+            child: Visibility(
+              visible: bEmpty,
+              child: Text(
+                tr("rule_void"),
+                style: TextStyle(color: AppColors.reservationLevel5,
+                    fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w400),
+              ),
             ),
           ),
 
           SizedBox(height: UIDefine.getScreenWidth(3.33)),
 
-          Text(
-            tr("valid_time") + ': ' + leftTime,
-            style: TextStyle(color: AppColors.textRed,
-                fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+          Container(
+            width: double.infinity,
+            alignment: Alignment.centerLeft,
+            child: Text(
+              tr("valid_time") + ': ' + leftTime,
+              style: TextStyle(color: AppColors.textRed,
+                  fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+            ),
           ),
 
           SizedBox(height: UIDefine.getScreenWidth(8.33)),

@@ -170,7 +170,7 @@ class _CollectionBlindBoxItemView extends State<CollectionBlindBoxItemView> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text( // 達到Lv幾
-                        format(tr('reach'), {'level': data.rewardNft.unlockLevel}) ,
+                        format(tr('reach'), {'level': data.rewardNft.unlockLevel.toString()}) ,
                         style: TextStyle(color: _getLvTextColor(),
                             fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                       ),

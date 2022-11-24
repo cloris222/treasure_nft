@@ -965,7 +965,7 @@
   "itemPrice": "จำนวนสินค้า",
   "openBlindBox": "เปิดกล่องตาบอด",
   "status_GIVE": "Airdropped-รางวัล",
-  "reach": "ถึง Lv{ระดับ}",
+  "reach": "ถึง Lv{level}",
   "buyCount": "ซื้อ{จำนวน}ครั้ง",
   "open": "เปิ",
   "balanceMadeUp": "คุณสมบัติการจอง",

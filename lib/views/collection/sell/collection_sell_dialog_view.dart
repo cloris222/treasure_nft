@@ -123,7 +123,7 @@ class CollectionSellDialogView extends BaseDialog {
                               fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                         ),
                         Text(
-                          data.feeRate.toString() + ' %',
+                          '1 %',
                           style: TextStyle(color: AppColors.searchBar,
                               fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                         )

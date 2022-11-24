@@ -965,7 +965,7 @@
   "itemPrice": "Montante do produto",
   "openBlindBox": "Abra a caixa cega",
   "status_GIVE": "Recompensa lançada no ar",
-  "reach": "Alcance o Nv{nível}",
+  "reach": "Alcance o Nv{level}",
   "buyCount": "Compra{count}hora(s)",
   "open": "ligar",
   "balanceMadeUp": "Qualificação de reserva",

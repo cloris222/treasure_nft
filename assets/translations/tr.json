@@ -965,7 +965,7 @@
   "itemPrice": "NFT Fiyatı",
   "openBlindBox": "Kör kutuyu aç",
   "status_GIVE": "Airdropped-ödül",
-  "reach": "Sv{seviyeye ulaş",
+  "reach": "Sv {level} ulaş",
   "buyCount": "Satın alma{count}zaman(lar)",
   "open": "aç",
   "balanceMadeUp": "Rezervasyon kalifikasyonu",
