@@ -70,7 +70,7 @@ class _SliderPageViewState extends State<SliderPageView> {
 
   Widget _buildButtonList() {
     return SizedBox(
-        height: UIDefine.fontSize20 + UIDefine.getPixelHeight(50),
+        height: UIDefine.getPixelHeight(70),
         child: ScrollablePositionedList.builder(
             initialScrollIndex: widget.initialPage,
             scrollDirection: Axis.horizontal,
