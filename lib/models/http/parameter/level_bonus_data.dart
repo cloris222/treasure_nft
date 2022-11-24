@@ -75,10 +75,10 @@ class LevelBonusData {
         tradeBonus: json["tradeBonus"].toDouble(),
         nextLevelTradeBonus: json["nextLevelTradeBonus"].toDouble(),
         nextLevelTradeBonusPct: json["nextLevelTradeBonusPCT"],
-        moneyBoxExpireTime: json["moneyBoxExpireTime"],
-        moneyBoxExpireDate: json["moneyBoxExpireDate"],
-        tradeMoneyBoxExpireTime: json["tradeMoneyBoxExpireTime"],
-        tradeMoneyBoxExpireDate: json["tradeMoneyBoxExpireDate"],
+        moneyBoxExpireTime: json["moneyBoxExpireTime"] ?? 0,
+        moneyBoxExpireDate: json["moneyBoxExpireDate"] ?? '',
+        tradeMoneyBoxExpireTime: json["tradeMoneyBoxExpireTime"] ?? 0,
+        tradeMoneyBoxExpireDate: json["tradeMoneyBoxExpireDate"] ?? '',
       );
 
   Map<String, dynamic> toJson() => {
