@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../constant/call_back_function.dart';
 import '../constant/theme/app_colors.dart';
 import '../constant/theme/app_style.dart';
 import '../constant/ui_define.dart';
-import 'label/flex_two_text_widget.dart';
 
 class SliderPageView extends StatefulWidget {
   const SliderPageView({
@@ -30,6 +29,7 @@ class SliderPageView extends StatefulWidget {
 class _SliderPageViewState extends State<SliderPageView> {
   /// pageView
   late PageController pageController;
+  ItemScrollController listController = ItemScrollController();
 
   /// 判斷當前頁面
   late String currentType;
@@ -39,6 +39,12 @@ class _SliderPageViewState extends State<SliderPageView> {
     super.initState();
     pageController = PageController(initialPage: widget.initialPage);
     currentType = widget.titles[widget.initialPage];
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
   }
 
   @override
@@ -56,26 +62,27 @@ class _SliderPageViewState extends State<SliderPageView> {
                       margin: const EdgeInsets.symmetric(horizontal: 10),
                       child: Column(children: [
                         _buildButtonList(),
-                        Flexible(child: _buildPageView()),
+                        Expanded(child: _buildPageView()),
                         SizedBox(height: UIDefine.getScreenHeight(10))
                       ])))
             ]))));
   }
 
   Widget _buildButtonList() {
-    return Container(
-      height: UIDefine.fontSize16 + 50,
-      alignment: Alignment.bottomLeft,
-      child: ListView(
-          scrollDirection: Axis.horizontal,
-          children:
-              List<Widget>.from(widget.titles.map((e) => _buildButton(e)))),
-    );
+    return SizedBox(
+        height: UIDefine.fontSize20 + 50,
+        child: ScrollablePositionedList.builder(
+            initialScrollIndex: widget.initialPage,
+            scrollDirection: Axis.horizontal,
+            itemScrollController: listController,
+            itemCount: widget.titles.length,
+            itemBuilder: (context, index) {
+              return _buildButton(widget.titles[index]);
+            }));
   }
 
   Widget _buildButton(String type) {
     bool isCurrent = (currentType == type);
-
     return InkWell(
         onTap: () {
           setState(() {
@@ -107,8 +114,6 @@ class _SliderPageViewState extends State<SliderPageView> {
   Widget _buildPageView() {
     return PageView(
       controller: pageController,
-      scrollDirection: Axis.horizontal,
-      pageSnapping: true,
       onPageChanged: _onPageChange,
       children: widget.children,
     );
@@ -119,6 +124,11 @@ class _SliderPageViewState extends State<SliderPageView> {
       currentType = widget.titles[pageIndex];
       if (widget.getPageIndex != null) {
         widget.getPageIndex!(pageIndex);
+        if (pageIndex != 0) {
+          listController.scrollTo(
+              index: pageIndex - 1,
+              duration: const Duration(milliseconds: 300));
+        }
       }
     });
   }
