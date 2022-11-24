@@ -76,26 +76,26 @@ class RewardNft {
   RewardNft({
     this.orderNo = '',
     this.itemId = '',
-    this.currentLevel = '',
-    this.unlockLevel = '',
-    this.currentBuyCount = '',
-    this.unlockBuyCount = '',
+    this.currentLevel = 0,
+    this.unlockLevel = 0,
+    this.currentBuyCount = 0,
+    this.unlockBuyCount = 0,
   });
 
   String orderNo;
   String itemId;
-  String currentLevel;
-  String unlockLevel;
-  String currentBuyCount;
-  String unlockBuyCount;
+  num currentLevel;
+  num unlockLevel;
+  num currentBuyCount;
+  num unlockBuyCount;
 
   factory RewardNft.fromJson(Map<String, dynamic> json) => RewardNft(
     orderNo: json["orderNo"]??'',
     itemId: json["itemId"]??'',
-    currentLevel: json["currentLevel"]??'',
-    unlockLevel: json["unlockLevel"]??'',
-    currentBuyCount: json["currentBuyCount"]??'',
-    unlockBuyCount: json["unlockBuyCount"]??'',
+    currentLevel: json["currentLevel"]??0,
+    unlockLevel: json["unlockLevel"]??0,
+    currentBuyCount: json["currentBuyCount"]??0,
+    unlockBuyCount: json["unlockBuyCount"]??0,
   );
 
   Map<String, dynamic> toJson() => {

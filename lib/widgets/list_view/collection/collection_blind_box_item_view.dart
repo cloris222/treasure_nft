@@ -39,16 +39,20 @@ class _CollectionBlindBoxItemView extends State<CollectionBlindBoxItemView> {
   }
 
   bool bOpen = false;
-  late int currentLv, unlockLv, currentBuyCount, unlockBuyCount;
+  late num currentLv, unlockLv, currentBuyCount, unlockBuyCount;
 
   @override
   void initState() {
     super.initState();
     bOpen = data.boxOpen == 'TRUE';
-    currentLv = int.parse(data.rewardNft.currentLevel);
-    unlockLv = int.parse(data.rewardNft.unlockLevel);
-    currentBuyCount = int.parse(data.rewardNft.currentBuyCount);
-    unlockBuyCount = int.parse(data.rewardNft.unlockBuyCount);
+    // currentLv = int.parse(data.rewardNft.currentLevel);
+    currentLv = data.rewardNft.currentLevel;
+    // unlockLv = int.parse(data.rewardNft.unlockLevel);
+    unlockLv = data.rewardNft.unlockLevel;
+    // currentBuyCount = int.parse(data.rewardNft.currentBuyCount);
+    currentBuyCount = data.rewardNft.currentBuyCount;
+    // unlockBuyCount = int.parse(data.rewardNft.unlockBuyCount);
+    unlockBuyCount = data.rewardNft.unlockBuyCount;
   }
 
   @override
@@ -171,7 +175,7 @@ class _CollectionBlindBoxItemView extends State<CollectionBlindBoxItemView> {
                             fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                       ),
                       Text( // 目前進度 ex:1/3
-                        data.rewardNft.currentLevel + '/' + data.rewardNft.unlockLevel,
+                        data.rewardNft.currentLevel.toString() + '/' + data.rewardNft.unlockLevel.toString(),
                         style: TextStyle(color: _getLvTextColor(),
                             fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                       ),
@@ -182,7 +186,8 @@ class _CollectionBlindBoxItemView extends State<CollectionBlindBoxItemView> {
                     needShowFinishIcon: false,
                     needShowPercentage: false,
                     height: UIDefine.getScreenWidth(2),
-                    percentage: _getPercentage(data.rewardNft.currentLevel, data.rewardNft.unlockLevel),
+                    percentage: _getPercentage(data.rewardNft.currentLevel.toString(),
+                        data.rewardNft.unlockLevel.toString()),
                   )
                 ],
               ),
@@ -198,7 +203,7 @@ class _CollectionBlindBoxItemView extends State<CollectionBlindBoxItemView> {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          _showLockIcon(data.rewardNft.currentLevel, data.rewardNft.unlockLevel),
+                          _showLockIcon(data.rewardNft.currentLevel.toString(), data.rewardNft.unlockLevel.toString()),
                           const SizedBox(width: 4),
                           Text( // 購買次數幾
                             format(tr('buyCount'), {'count': data.rewardNft.unlockBuyCount}) ,
@@ -208,7 +213,7 @@ class _CollectionBlindBoxItemView extends State<CollectionBlindBoxItemView> {
                         ],
                       ),
                       Text( // 目前進度 ex:1/3
-                        data.rewardNft.currentBuyCount + '/' + data.rewardNft.unlockBuyCount,
+                        data.rewardNft.currentBuyCount.toString() + '/' + data.rewardNft.unlockBuyCount.toString(),
                         style: TextStyle(color: _getBuyCountTextColor(),
                             fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                       ),
@@ -222,7 +227,8 @@ class _CollectionBlindBoxItemView extends State<CollectionBlindBoxItemView> {
                     valueColor: _progressValueColor(),
                     backgroundColor: _progressBackgroundColor(),
                     height: UIDefine.getScreenWidth(2),
-                    percentage: _getPercentage(data.rewardNft.currentBuyCount, data.rewardNft.unlockBuyCount),
+                    percentage: _getPercentage(data.rewardNft.currentBuyCount.toString(),
+                        data.rewardNft.unlockBuyCount.toString()),
                   )
                 ],
               ),

@@ -166,7 +166,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
           ),
           SizedBox(height: UIDefine.getScreenWidth(2.4)),
           Text(
-              tr('tradingCycle') + ':  ' + 'T+ ' + data.tradePeriod,
+              tr('tradingCycle') + ':  ' + 'T+ ' + data.tradePeriod.toString(),
               style: TextStyle(fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500)
           ),
           SizedBox(height: UIDefine.getScreenWidth(4))
@@ -327,7 +327,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
         data.imgUrl,
         data.name,
         data.itemId,
-        data.growPrice,
+        data.growPrice.toString(),
         () => _onViewChange()
     ).show();
   }

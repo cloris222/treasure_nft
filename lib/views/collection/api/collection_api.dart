@@ -36,7 +36,6 @@ class CollectionApi extends HttpManager {
       {int page = 1, int size = 10, String status = ''}) async {
     List<CollectionNftItemResponseData> result =
     <CollectionNftItemResponseData>[];
-    try {
       ApiResponse response =
       await get('/NFTItem/mine', queryParameters: {
         'page': page,
@@ -46,9 +45,6 @@ class CollectionApi extends HttpManager {
       for (Map<String, dynamic> json in response.data['pageList']) {
         result.add(CollectionNftItemResponseData.fromJson(json));
       }
-    } catch (e) {
-      print(e.toString());
-    }
     return result;
   }
 
