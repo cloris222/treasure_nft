@@ -130,10 +130,8 @@ class _SliderPageViewState extends State<SliderPageView> {
         widget.onPageListener!(pageIndex);
       }
 
-      if (pageIndex != 0) {
-        listController.scrollTo(
-            index: pageIndex, duration: const Duration(milliseconds: 300));
-      }
+      listController.scrollTo(
+          index: pageIndex, duration: const Duration(milliseconds: 300));
     });
   }
 }
