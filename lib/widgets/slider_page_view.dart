@@ -12,7 +12,7 @@ class SliderPageView extends StatefulWidget {
     required this.titles,
     required this.initialPage,
     required this.children,
-    this.getPageIndex,
+    this.onPageListener,
   }) : super(key: key);
 
   /// button title
@@ -20,7 +20,7 @@ class SliderPageView extends StatefulWidget {
   final int initialPage;
   final List<Widget> children;
   final Widget topView;
-  final onGetIntFunction? getPageIndex;
+  final onGetIntFunction? onPageListener;
 
   @override
   State<SliderPageView> createState() => _SliderPageViewState();
@@ -124,8 +124,8 @@ class _SliderPageViewState extends State<SliderPageView> {
       currentType = widget.titles[pageIndex];
 
       ///MARK: 判斷是否有需要監聽換頁
-      if (widget.getPageIndex != null) {
-        widget.getPageIndex!(pageIndex);
+      if (widget.onPageListener != null) {
+        widget.onPageListener!(pageIndex);
       }
 
       if (pageIndex != 0) {

@@ -102,7 +102,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
         titles: titles,
         initialPage: 0,
         topView: _buildTopView(context),
-        getPageIndex: _getPageIndex,
+        onPageListener: _getPageIndex,
         children: [
           OrderDetailInfo(viewModel: viewModel, type: EarningIncomeType.ALL),
           OrderDetailInfo(viewModel: viewModel, type: EarningIncomeType.TEAM),

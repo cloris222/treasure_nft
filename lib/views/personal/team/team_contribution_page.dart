@@ -63,7 +63,7 @@ class BodyState extends State<Body> {
         titles: titles,
         initialPage: 0,
         topView: _buildTopView(),
-        getPageIndex: _onChangeView,
+        onPageListener: _onChangeView,
         children: [
           TeamContributionMemberView(viewModel: viewModel, type: 'A'),
           TeamContributionMemberView(viewModel: viewModel, type: 'B'),
