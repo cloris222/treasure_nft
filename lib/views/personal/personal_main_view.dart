@@ -73,7 +73,7 @@ class _PersonalMainViewState extends State<PersonalMainView> {
   }
 
   Widget _buildLine() {
-    return const Divider(color: AppColors.searchBar);
+    return const Divider(color: AppColors.searchBar, thickness: 1);
   }
 
   void _onViewUpdate() {
