@@ -113,9 +113,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
 
       ///MARK: 積分條
       CustomLinearProgress(
-          height: UIDefine.fontSize12,
-          percentage: viewModel.getPointPercentage(),
-          needShowPercentage: true),
+          percentage: viewModel.getPointPercentage(), needShowPercentage: true),
       _buildSpace(height: 2),
 
       ///MARK: 每日任務
@@ -211,7 +209,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
             child: ActionButtonWidget(
               isBorderStyle: true,
               isFillWidth: false,
-              btnText: tr('mis_award'),
+              btnText: tr('bonus'),
               onPressed: () => viewModel.showLeveLBonus(context),
             ),
           ))
@@ -254,7 +252,6 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
         margin: EdgeInsets.symmetric(vertical: UIDefine.getScreenHeight(1)),
         child: Row(children: [
           Expanded(
-            flex: 2,
             child: Text(
               title,
               maxLines: 1,
@@ -265,22 +262,19 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
                   color: AppColors.dialogGrey),
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Visibility(
-                    visible: showCoin,
-                    child: TetherCoinWidget(size: UIDefine.fontSize16)),
-                SizedBox(width: UIDefine.getScreenWidth(1)),
-                Text(context,
-                    style: TextStyle(
-                        fontSize: UIDefine.fontSize14,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.dialogBlack)),
-              ],
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Visibility(
+                  visible: showCoin,
+                  child: TetherCoinWidget(size: UIDefine.fontSize16)),
+              SizedBox(width: UIDefine.getScreenWidth(1)),
+              Text(context,
+                  style: TextStyle(
+                      fontSize: UIDefine.fontSize14,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.dialogBlack)),
+            ],
           )
         ]));
   }
@@ -290,8 +284,14 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
     return Column(children: [
       _buildSingleLevelTitle(level),
       _buildSpace(height: 2),
-      _buildSingleLevelInfoRequest(level),
-      _buildSpace(height: 2),
+      Visibility(
+          visible: level <= GlobalData.userInfo.level + 1,
+          child: Column(
+            children: [
+              _buildSingleLevelInfoRequest(level),
+              _buildSpace(height: 2),
+            ],
+          )),
       _buildSingleLevelInfo(level),
       _buildLine(),
       _buildItemChange(level)
@@ -345,16 +345,12 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
     return Column(children: [
       Row(children: [
         Expanded(
-            flex: 4,
             child: Text(title, maxLines: 1, overflow: TextOverflow.ellipsis)),
-        Expanded(
-          flex: 1,
-          child: Container(
-            alignment: Alignment.centerRight,
-            child: Text(percentage == 1
-                ? tr('Completed')
-                : '${NumberFormatUtil().removeTwoPointFormat(value)} / $request'),
-          ),
+        Container(
+          alignment: Alignment.centerRight,
+          child: Text(percentage == 1
+              ? tr('Completed')
+              : '${NumberFormatUtil().removeTwoPointFormat(value)} / $request'),
         ),
       ]),
       _buildSpace(height: 2),

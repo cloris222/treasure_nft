@@ -66,7 +66,6 @@ class AchievementItemWidget extends StatelessWidget {
                     color: AppColors.dialogGrey,
                     fontWeight: FontWeight.w500),
                 CustomLinearProgress(
-                    height: UIDefine.fontSize12,
                     percentage: data.nowValue / data.goalValue,
                     needShowPercentage: true),
               ])),

@@ -175,7 +175,6 @@ class PersonalSubUserInfoView extends StatelessWidget {
                     style: TextStyle(fontSize: UIDefine.fontSize12),
                   ),
                   CustomLinearProgress(
-                    height: UIDefine.fontSize12,
                     percentage: getPointPercentage(),
                   )
                 ])
