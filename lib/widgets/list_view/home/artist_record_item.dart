@@ -116,10 +116,10 @@ class _ArtistRecordItem extends State<ArtistRecordItemView> {
   Widget _buildVolView(String title, String count) {
     return Expanded(
         child:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Row(mainAxisAlignment: MainAxisAlignment.start, children: [
       Expanded(
         child: Wrap(
-          alignment: WrapAlignment.center,
+          alignment: WrapAlignment.start,
           children: [
             Text(title,
                 overflow: TextOverflow.ellipsis,
