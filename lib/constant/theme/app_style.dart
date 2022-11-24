@@ -72,6 +72,16 @@ class AppStyle {
     );
   }
 
+  BoxDecoration styleColorBorderBottomLine(
+      {Color color = Colors.grey,
+      Color backgroundColor = Colors.transparent,
+      double borderLine = 1}) {
+    return BoxDecoration(
+      color: backgroundColor,
+      border: Border(bottom: BorderSide(color: color, width: borderLine)),
+    );
+  }
+
   ///MARK: 陰影底
   ///drop-shadow(offset-x offset-y blur-radius spread-radius color)
   BoxDecoration styleShadowBorderBackground(

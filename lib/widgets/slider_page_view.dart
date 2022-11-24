@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../constant/call_back_function.dart';
 import '../constant/theme/app_colors.dart';
+import '../constant/theme/app_style.dart';
 import '../constant/ui_define.dart';
 import 'label/flex_two_text_widget.dart';
 
@@ -62,9 +63,14 @@ class _SliderPageViewState extends State<SliderPageView> {
   }
 
   Widget _buildButtonList() {
-    return Row(
-        children: List<Widget>.from(
-            widget.titles.map((e) => Flexible(child: _buildButton(e)))));
+    return Container(
+      height: UIDefine.fontSize16 + 50,
+      alignment: Alignment.bottomLeft,
+      child: ListView(
+          scrollDirection: Axis.horizontal,
+          children:
+              List<Widget>.from(widget.titles.map((e) => _buildButton(e)))),
+    );
   }
 
   Widget _buildButton(String type) {
@@ -77,22 +83,25 @@ class _SliderPageViewState extends State<SliderPageView> {
             pageController.jumpToPage(widget.titles.indexOf(type));
           });
         },
-        child: SizedBox(
-            width: UIDefine.getWidth(),
-            child: Column(children: [
-              const SizedBox(height: 5),
-              FlexTwoTextWidget(
-                  alignment: Alignment.bottomCenter,
-                  text: type,
-                  color: isCurrent ? AppColors.textBlack : AppColors.dialogGrey,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500),
-              const SizedBox(height: 5),
-              isCurrent
-                  ? const Divider(
-                      color: AppColors.mainThemeButton, thickness: 2)
-                  : const Divider(color: AppColors.textGrey)
-            ])));
+        child: Column(children: [
+          const SizedBox(height: 15),
+          Container(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+              decoration: AppStyle().styleColorBorderBottomLine(
+                  borderLine: isCurrent ? 2 : 1,
+                  color: isCurrent
+                      ? AppColors.mainThemeButton
+                      : AppColors.barFont01),
+              child: Text(
+                type,
+                style: TextStyle(
+                    color:
+                        isCurrent ? AppColors.textBlack : AppColors.dialogGrey,
+                    fontSize: UIDefine.fontSize16,
+                    fontWeight: FontWeight.w500),
+              )),
+          const SizedBox(height: 5),
+        ]));
   }
 
   Widget _buildPageView() {

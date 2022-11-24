@@ -69,6 +69,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView> {
                               children: [
                             /// NAME
                             Text(widget.itemData.name,
+                                overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                     fontSize: UIDefine.fontSize14,
                                     color: AppColors.textBlack,
