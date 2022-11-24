@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_theme.dart';
+import '../../utils/num_length_formatter.dart';
 
 class LoginTextWidget extends StatefulWidget {
   const LoginTextWidget(
       {Key? key,
       required this.hintText,
+      this.hintColor = AppColors.textGrey,
       this.isSecure = false,
       this.prefixIconAsset = '',
       this.onChanged,
@@ -15,9 +17,11 @@ class LoginTextWidget extends StatefulWidget {
       this.initColor = AppColors.bolderGrey,
       this.keyboardType,
       required this.controller,
-      this.contentPaddingRight = 0})
+      this.contentPaddingRight = 0,
+      this.bLimitDecimalLength = false})
       : super(key: key);
   final String hintText;
+  final Color hintColor;
   final bool isSecure;
   final String prefixIconAsset;
   final TextEditingController controller;
@@ -25,6 +29,7 @@ class LoginTextWidget extends StatefulWidget {
   final GestureTapCallback? onTap;
   final TextInputType? keyboardType;
   final double contentPaddingRight;
+  final bool bLimitDecimalLength;
 
   ///控制不同狀態下的框限顏色
   final Color enabledColor; //可用狀態
@@ -50,6 +55,10 @@ class _LoginTextWidgetState extends State<LoginTextWidget> {
   Widget _buildEdit() {
     return TextField(
         controller: widget.controller,
+        inputFormatters: widget.bLimitDecimalLength ?
+        [NumLengthInputFormatter(decimalLength: 2)] // 小數點限制兩位 整數預設99位
+           :
+        [],
         obscureText: widget.isSecure && isPasswordVisible,
         keyboardType: widget.keyboardType ?? TextInputType.text,
         textInputAction: TextInputAction.next,
@@ -57,7 +66,7 @@ class _LoginTextWidgetState extends State<LoginTextWidget> {
         onTap: widget.onTap,
         decoration: InputDecoration(
             hintText: widget.hintText,
-            hintStyle: const TextStyle(height: 1.1),
+            hintStyle: TextStyle(height: 1.1, color: widget.hintColor),
             labelStyle: const TextStyle(color: Colors.black),
             alignLabelWithHint: true,
             contentPadding: EdgeInsets.only(top: 0, left: 20, right: widget.contentPaddingRight),

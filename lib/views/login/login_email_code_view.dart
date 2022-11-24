@@ -15,6 +15,7 @@ class LoginEmailCodeView extends StatelessWidget {
       required this.hintText,
       required this.controller,
       required this.data,
+      this.hintColor = AppColors.textGrey,
       this.isSecure = false,
       this.onChanged,
       this.onEditTap,
@@ -25,6 +26,7 @@ class LoginEmailCodeView extends StatelessWidget {
       this.countdownSecond = 180})
       : super(key: key);
   final String hintText;
+  final Color hintColor;
   final TextEditingController controller;
   final bool isSecure;
   final ValidateResultData data;
@@ -47,6 +49,7 @@ class LoginEmailCodeView extends StatelessWidget {
             Flexible(
               child: LoginTextWidget(
                 hintText: hintText,
+                hintColor: hintColor,
                 controller: controller,
                 initColor:
                     data.result ? AppColors.bolderGrey : AppColors.textRed,

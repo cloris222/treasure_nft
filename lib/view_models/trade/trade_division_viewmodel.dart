@@ -42,6 +42,7 @@ class TradeDivisionViewModel extends BaseViewModel {
   void initState() {
     ///MARK: 監聽
     currentData = TradeTimerUtil().getCurrentTradeData();
+    ranges = TradeTimerUtil().getReservationInfo().reserveRanges;
     TradeTimerUtil().addListener(_onUpdateTrade);
 
     ///更新畫面
