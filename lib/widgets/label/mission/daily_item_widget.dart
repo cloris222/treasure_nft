@@ -14,6 +14,7 @@ import '../../../utils/number_format_util.dart';
 import '../../../views/main_page.dart';
 import '../../../views/personal/team/team_order_page.dart';
 import '../../app_bottom_navigation_bar.dart';
+import '../../button/text_button_widget.dart';
 import '../flex_two_text_widget.dart';
 
 class DailyItemWidget extends StatelessWidget {
@@ -38,23 +39,24 @@ class DailyItemWidget extends StatelessWidget {
           borderLine: 2),
       child: Container(
           margin: const EdgeInsets.all(15),
-          height: UIDefine.fontSize20 * 6.5,
           child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Flexible(
-                    child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                      Image.asset(
-                        getImagePath(status, index),
-                        height: UIDefine.fontSize20 * 4,
-                        fit: BoxFit.fitHeight,
-                      ),
-                      const SizedBox(width: 5),
-                      Flexible(child: _buildTaskInfo(context, status, code))
-                    ])),
+                SizedBox(
+                  height: UIDefine.getPixelHeight(110),
+                  child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.asset(
+                          getImagePath(status, index),
+                          height: UIDefine.getPixelHeight(80),
+                          fit: BoxFit.fitHeight,
+                        ),
+                        const SizedBox(width: 5),
+                        Expanded(child: _buildTaskInfo(context, status, code))
+                      ]),
+                ),
                 Text('${tr('mis_award')} : ${data.point} ${tr('point')}',
                     maxLines: 1,
                     style: TextStyle(
@@ -122,7 +124,7 @@ class DailyItemWidget extends StatelessWidget {
 
           return Visibility(
               visible: visible,
-              child: ActionButtonWidget(
+              child: TextButtonWidget(
                   fontSize: UIDefine.fontSize12,
                   isFillWidth: false,
                   isBorderStyle: true,
@@ -131,7 +133,7 @@ class DailyItemWidget extends StatelessWidget {
         }
       case TaskStatus.unTaken:
         {
-          return ActionButtonWidget(
+          return TextButtonWidget(
               fontSize: UIDefine.fontSize12,
               isFillWidth: false,
               btnText: tr('acceptReward'),
@@ -141,7 +143,7 @@ class DailyItemWidget extends StatelessWidget {
         }
       case TaskStatus.isTaken:
         {
-          return ActionButtonWidget(
+          return TextButtonWidget(
               fontSize: UIDefine.fontSize12,
               isFillWidth: false,
               setMainColor: AppColors.datePickerBorder,
@@ -178,20 +180,20 @@ class DailyItemWidget extends StatelessWidget {
         width: UIDefine.getWidth(),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Expanded(
-            child: Row(
-              children: [
-                Expanded(
-                  child: FlexTwoTextWidget(
-                      alignment: Alignment.topLeft,
-                      text: data.getDailyTaskText(),
-                      fontSize: 16,
-                      color: AppColors.dialogBlack,
-                      fontWeight: FontWeight.w600),
-                ),
-                _buildButton(context, status, code),
-              ],
+              child:
+                  Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Expanded(
+              child: FlexTwoTextWidget(
+                  alignment: Alignment.topLeft,
+                  text: data.getDailyTaskText(),
+                  fontSize: 16,
+                  color: AppColors.dialogBlack,
+                  fontWeight: FontWeight.w600),
             ),
-          ),
+            Container(
+                alignment: Alignment.topCenter,
+                child: _buildButton(context, status, code)),
+          ])),
           const SizedBox(height: 5),
           Expanded(
             child: FlexTwoTextWidget(

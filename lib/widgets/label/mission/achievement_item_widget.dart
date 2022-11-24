@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/widgets/button/text_button_widget.dart';
 
 import '../../../constant/call_back_function.dart';
 import '../../../constant/enum/task_enum.dart';
@@ -45,14 +46,13 @@ class AchievementItemWidget extends StatelessWidget {
               children: [
                 ///MARK: 任務內容
                 SizedBox(
-                  width: UIDefine.getWidth(),
-                  height: UIDefine.fontSize20 * 5,
+                  height: UIDefine.getPixelHeight(110),
                   child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Image.asset(
                           getImagePath(status, index),
-                          height: UIDefine.fontSize20 * 4,
+                          height: UIDefine.getPixelHeight(80),
                           fit: BoxFit.fitHeight,
                         ),
                         const SizedBox(width: 5),
@@ -97,18 +97,21 @@ class AchievementItemWidget extends StatelessWidget {
     return SizedBox(
         width: UIDefine.getWidth(),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Row(
-            children: [
-              Flexible(
-                child: FlexTwoTextWidget(
-                    alignment: Alignment.topLeft,
-                    text: data.getAchievementTaskText(),
-                    fontSize: 16,
-                    color: AppColors.dialogBlack,
-                    fontWeight: FontWeight.w600),
-              ),
-              _buildButton(context, status, code),
-            ],
+          Expanded(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: FlexTwoTextWidget(
+                      alignment: Alignment.topLeft,
+                      text: data.getAchievementTaskText(),
+                      fontSize: 16,
+                      color: AppColors.dialogBlack,
+                      fontWeight: FontWeight.w600),
+                ),
+                _buildButton(context, status, code),
+              ],
+            ),
           ),
           const SizedBox(height: 5),
           FlexTwoTextWidget(
@@ -123,7 +126,7 @@ class AchievementItemWidget extends StatelessWidget {
   Widget _buildButton(
       BuildContext context, TaskStatus status, AchievementCode code) {
     bool enable = (status == TaskStatus.unTaken);
-    return ActionButtonWidget(
+    return TextButtonWidget(
         fontSize: UIDefine.fontSize12,
         setMainColor:
             enable ? AppColors.mainThemeButton : AppColors.datePickerBorder,

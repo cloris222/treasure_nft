@@ -117,11 +117,20 @@ class _ArtistRecordItem extends State<ArtistRecordItemView> {
     return Expanded(
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      Text(title,
-          style: TextStyle(
-              fontSize: UIDefine.fontSize12,
-              fontWeight: FontWeight.w400,
-              color: AppColors.font02)),
+      Expanded(
+        child: Wrap(
+          alignment: WrapAlignment.center,
+          children: [
+            Text(title,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                style: TextStyle(
+                    fontSize: UIDefine.fontSize12,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.font02)),
+          ],
+        ),
+      ),
       Row(children: [
         Text(viewModel.numberCompatFormat(count),
             style: TextStyle(
@@ -163,26 +172,31 @@ class _ArtistRecordItem extends State<ArtistRecordItemView> {
 
   Widget _buildSubItem(
       {bool hasCoin = false, required double value, required String title}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Text(NumberFormatUtil().removeTwoPointFormat(value),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(children: [
+              Text(NumberFormatUtil().removeTwoPointFormat(value),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: UIDefine.fontSize14)),
+              SizedBox(width: UIDefine.getScreenWidth(1)),
+              Visibility(
+                  visible: hasCoin,
+                  child: TetherCoinWidget(
+                    size: UIDefine.getScreenWidth(4),
+                  ))
+            ]),
+            Text(
+              title,
               style: TextStyle(
-                  fontWeight: FontWeight.w600, fontSize: UIDefine.fontSize14)),
-          SizedBox(width: UIDefine.getScreenWidth(1)),
-          Visibility(
-              visible: hasCoin,
-              child: TetherCoinWidget(
-                size: UIDefine.getScreenWidth(4),
-              ))
-        ]),
-        Center(
-          child: Text(
-            title,
-            style: TextStyle(
-                fontSize: UIDefine.fontSize12, color: AppColors.dialogGrey),
-          ),
+                  fontSize: UIDefine.fontSize12, color: AppColors.dialogGrey),
+            ),
+          ],
         ),
       ],
     );
