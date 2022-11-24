@@ -48,6 +48,7 @@ class LoginEmailCodeView extends StatelessWidget {
           children: [
             Flexible(
               child: LoginTextWidget(
+                keyboardType: TextInputType.number,
                 hintText: hintText,
                 hintColor: hintColor,
                 controller: controller,

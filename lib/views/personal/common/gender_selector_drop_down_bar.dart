@@ -52,7 +52,7 @@ class GenderSelectorDropDownBar extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Text(_getCategoryText(category),
-                    style: const TextStyle(color: AppColors.searchBar)),
+                    style: const TextStyle(color: AppColors.textBlack)),
               ],
             ));
       }).toList(),

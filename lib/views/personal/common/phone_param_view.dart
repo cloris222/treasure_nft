@@ -43,6 +43,7 @@ class PhoneParamView extends StatelessWidget {
           Padding(
               padding: EdgeInsets.only(left: UIDefine.getScreenWidth(36)),
               child: LoginTextWidget(
+                keyboardType: TextInputType.number,
                 hintText: hintText,
                 controller: controller,
                 initColor:

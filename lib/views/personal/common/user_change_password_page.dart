@@ -73,7 +73,7 @@ class _UserChangePasswordPage extends State<UserChangePasswordPage> {
                LoginEmailCodeView(
                    countdownSecond: 180,
                    btnGetText: tr('send'),
-                   hintText: tr('mail_valid_code'),
+                   hintText: tr("placeholder-emailCode'"),
                    controller: viewModel.emailCodeController,
                    data: viewModel.emailCodeData,
                    onPressSendCode: () => viewModel.onPressSendCode(context),

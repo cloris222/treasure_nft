@@ -38,7 +38,7 @@ class OrderInfoSelectorDropDownBar extends StatelessWidget {
       onChanged: (newValue) {
         getDropDownValue(newValue!);
       },
-      value: bFromWallet? _currencies[5] : _currencies.first,
+      value: bFromWallet? _currencies[4] : _currencies.first, // index 4是充值
       decoration: InputDecoration(
         contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.16),
             UIDefine.getScreenWidth(4.5), UIDefine.getScreenWidth(4.16), UIDefine.getScreenWidth(0.5)),

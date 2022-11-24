@@ -38,7 +38,7 @@ class _OrderInfoCard extends State<OrderInfoCard> {
   @override
   void initState() {
     super.initState();
-    if (widget.status == 'SUCCESS') {
+    if (widget.status == 'PAYING') {
       if (widget.walletBalance < double.parse(widget.price)) {
         bNotEnoughMoney = true;
       }
@@ -124,6 +124,7 @@ class _OrderInfoCard extends State<OrderInfoCard> {
   Color _getLuckyStrawBorderColor() {
     switch(widget.status) {
       case 'SUCCESS':
+      case 'PAYING':
         return AppColors.growPrice;
       case 'PENDING':
         return AppColors.textRed;
@@ -138,6 +139,7 @@ class _OrderInfoCard extends State<OrderInfoCard> {
   Color _getLuckyStrawColor() {
     switch(widget.status) {
       case 'SUCCESS':
+      case 'PAYING':
         return AppColors.growPrice;
       case 'PENDING':
         return AppColors.textWhite;
@@ -152,6 +154,7 @@ class _OrderInfoCard extends State<OrderInfoCard> {
   String _getLuckyStrawString() {
     switch(widget.status) {
       case 'SUCCESS':
+      case 'PAYING':
         return tr("notification-SUCCESS'");
       case 'PENDING':
         return tr("notification-PENDING'");
@@ -166,6 +169,7 @@ class _OrderInfoCard extends State<OrderInfoCard> {
   Color _getLuckyStrawStringColor() {
     switch(widget.status) {
       case 'SUCCESS':
+      case 'PAYING':
         return AppColors.textWhite;
       case 'PENDING':
         return AppColors.textRed;
