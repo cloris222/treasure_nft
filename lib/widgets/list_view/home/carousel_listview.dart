@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:flutter_carousel_slider/carousel_slider_transforms.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_carousel.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
 
@@ -67,9 +68,10 @@ class _GetCarouselListView extends State<CarouselListView> {
   Widget build(BuildContext context) {
     CarouselSliderController sliderController = CarouselSliderController();
     GlobalKey<_GetCarouselListView> sliderKey = GlobalKey();
+    double itemHeight = UIDefine.getWidth() * 0.8;
 
     return SizedBox(
-      height: 430,
+      height: itemHeight > 430 ? itemHeight : 430,
       child: Container(
         /// 0px 6px 5px rgba(9, 9, 9, 0.15);
         decoration: AppStyle().styleShadowBorderBackground(

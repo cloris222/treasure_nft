@@ -77,13 +77,13 @@ class AppStyle {
   BoxDecoration styleShadowBorderBackground(
       {double radius = 15.0,
       Color borderBgColor = Colors.white,
-      Color borderColor = Colors.grey,
-      double borderWidth = 3,
+      Color borderColor = Colors.transparent,
+      double borderWidth = 0,
       double offsetX = 0,
-      double offsetY = 2,
+      double offsetY = 0,
       Color shadowColor = Colors.black12,
       double blurRadius = 0.7,
-      double spreadRadius = 2}) {
+      double spreadRadius = 0}) {
     return BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(radius)),
         color: Colors.white,

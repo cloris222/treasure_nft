@@ -173,36 +173,34 @@ class CustomAppBar {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-            InkWell(
-                onTap: searchAction,
-                child:
-                    Icon(Icons.search, color: Colors.grey, size: iconSize)),
-            space,
-            InkWell(
-                onTap: serverAction,
-                child: Image.asset(AppImagePath.serverImage,
-                    width: iconSize, height: iconSize, fit: BoxFit.cover)),
-            space,
-            InkWell(
-                onTap: avatarAction,
-                child: Container(
-                    height: iconSize,
-                    width: iconSize,
-                    decoration: AppTheme.style.baseGradient(radius: 15),
-                    padding: const EdgeInsets.all(1),
-                    child: BaseViewModel().isLogin() &&
-                            GlobalData.userInfo.photoUrl.isNotEmpty
-                        ? CircleNetworkIcon(
-                            networkUrl: GlobalData.userInfo.photoUrl,
-                            radius: iconSize / 2)
-                        : Image.asset(AppImagePath.avatarImg,
-                            width: iconSize, height: iconSize))),
-            space,
-            InkWell(
-                onTap: globalAction,
-                child: Image.asset(AppImagePath.globalImage,
-                    width: iconSize, height: iconSize, fit: BoxFit.cover))
-          ])
+                InkWell(
+                    onTap: searchAction,
+                    child:
+                        Icon(Icons.search, color: Colors.grey, size: iconSize)),
+                space,
+                InkWell(
+                    onTap: serverAction,
+                    child: Image.asset(AppImagePath.serverImage,
+                        width: iconSize, height: iconSize, fit: BoxFit.cover)),
+                space,
+                InkWell(
+                    onTap: avatarAction,
+                    child: Container(
+                        height: iconSize*0.9,
+                        width: iconSize*0.9,
+                        decoration: AppTheme.style.baseGradient(radius: 15),
+                        padding: const EdgeInsets.all(1),
+                        child: BaseViewModel().isLogin() &&
+                                GlobalData.userInfo.photoUrl.isNotEmpty
+                            ? CircleNetworkIcon(
+                                networkUrl: GlobalData.userInfo.photoUrl)
+                            : Image.asset(AppImagePath.avatarImg))),
+                space,
+                InkWell(
+                    onTap: globalAction,
+                    child: Image.asset(AppImagePath.globalImage,
+                        width: iconSize, height: iconSize, fit: BoxFit.cover))
+              ])
         ]);
   }
 }

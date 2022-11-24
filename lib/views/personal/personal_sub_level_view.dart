@@ -94,9 +94,17 @@ class PersonalSubLevelView extends StatelessWidget {
 
     return Container(
       width: UIDefine.getWidth(),
-      decoration: AppStyle().styleUserSetting(),
+
+      /// 0px 0px 4px rgba(49, 57, 92, 0.3);
+      decoration: AppStyle().styleShadowBorderBackground(
+          borderColor: Colors.transparent,
+          offsetX: 0,
+          offsetY: 0,
+          blurRadius: 4,
+          spreadRadius: 0,
+          shadowColor: const Color.fromRGBO(49, 57, 92, 0.3)),
       padding: const EdgeInsets.all(15),
-      child: Wrap(runSpacing: 5, children: [
+      child: Wrap(runSpacing: 10, children: [
         _buildPropertyParam(
             title: tr("wallet-balance'"), value: userProperty?.balance),
         space,
@@ -107,7 +115,7 @@ class PersonalSubLevelView extends StatelessWidget {
             title: tr('totalIncome'),
             value: userProperty?.income,
             needCoin: true),
-        const Divider(color: AppColors.searchBar),
+        const Divider(color: AppColors.searchBar, thickness: 1),
         _buildPropertyParam(
           title: tr("bonus_referral"),
           value: userProperty?.savingBalance,
@@ -155,7 +163,7 @@ class PersonalSubLevelView extends StatelessWidget {
               needCoin ? _buildIcon() : const SizedBox(),
               Text(' ${NumberFormatUtil().removeTwoPointFormat(value)}',
                   style: TextStyle(
-                      fontSize: UIDefine.fontSize14,
+                      fontSize: UIDefine.fontSize18,
                       fontWeight: FontWeight.w600))
             ],
           ),
@@ -212,7 +220,7 @@ class PersonalSubLevelView extends StatelessWidget {
         //       title: tr('luckyValue'),
         //       value: '${levelInfo?.couponRate.toStringAsFixed(0)}'),
         // ),
-        Flexible(child: PersonalParamItem(title: tr('fees'), value: '1.5%')),
+        Flexible(child: PersonalParamItem(title: tr('fees'), value: '1%')),
         Flexible(
           child: PersonalParamItem(
             title: tr('DailyMission'),
