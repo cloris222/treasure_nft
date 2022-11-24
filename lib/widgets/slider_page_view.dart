@@ -122,13 +122,15 @@ class _SliderPageViewState extends State<SliderPageView> {
   void _onPageChange(int pageIndex) {
     setState(() {
       currentType = widget.titles[pageIndex];
+
+      ///MARK: 判斷是否有需要監聽換頁
       if (widget.getPageIndex != null) {
         widget.getPageIndex!(pageIndex);
-        if (pageIndex != 0) {
-          listController.scrollTo(
-              index: pageIndex - 1,
-              duration: const Duration(milliseconds: 300));
-        }
+      }
+
+      if (pageIndex != 0) {
+        listController.scrollTo(
+            index: pageIndex, duration: const Duration(milliseconds: 300));
       }
     });
   }

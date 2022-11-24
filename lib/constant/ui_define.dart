@@ -100,6 +100,16 @@ class UIDefine {
     return temp;
   }
 
+//  一個除375. 一個除720.
+//  getScreenWidth / getScreenHeight.
+  static double getPixelWidth(double pixel) {
+    return getScreenHeight(pixel / 375 * 100);
+  }
+
+  static double getPixelHeight(double pixel) {
+    return getScreenHeight(pixel / 720 * 100);
+  }
+
   /// 取得字型大小
   static double _getFontSize(double fontSizeDefine) {
     double temp = _fontUnit * fontSizeDefine;
