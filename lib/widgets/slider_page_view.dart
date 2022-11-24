@@ -70,7 +70,7 @@ class _SliderPageViewState extends State<SliderPageView> {
 
   Widget _buildButtonList() {
     return SizedBox(
-        height: UIDefine.fontSize20 + 50,
+        height: UIDefine.fontSize20 + UIDefine.getPixelHeight(50),
         child: ScrollablePositionedList.builder(
             initialScrollIndex: widget.initialPage,
             scrollDirection: Axis.horizontal,
@@ -91,9 +91,11 @@ class _SliderPageViewState extends State<SliderPageView> {
           });
         },
         child: Column(children: [
-          const SizedBox(height: 15),
+          SizedBox(height: UIDefine.getPixelHeight(15)),
           Container(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+              padding: EdgeInsets.symmetric(
+                  vertical: UIDefine.getPixelHeight(10),
+                  horizontal: UIDefine.getPixelWidth(10)),
               decoration: AppStyle().styleColorBorderBottomLine(
                   borderLine: isCurrent ? 2 : 1,
                   color: isCurrent
@@ -107,7 +109,7 @@ class _SliderPageViewState extends State<SliderPageView> {
                     fontSize: UIDefine.fontSize16,
                     fontWeight: FontWeight.w500),
               )),
-          const SizedBox(height: 5),
+          SizedBox(height: UIDefine.getPixelHeight(5)),
         ]));
   }
 
