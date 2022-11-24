@@ -271,19 +271,29 @@ class BaseViewModel {
     SimpleCustomDialog(context, mainText: message, isSuccess: false).show();
   }
 
-  /// 自動轉換數字為 K & M
+  /// 自動轉換數字為 K & M (小數點後去0)
   String numberCompatFormat(String value, {int decimalDigits = 2}) {
     if (value == '') {
       return '';
     }
+
+    RegExp regex = RegExp(r'([.]*0+)(?!.*\d)'); // 小數點後 去除尾數0
+    if (value.contains('.')) {
+      value.replaceAll(regex, '');
+    }
+
     String formattedNumber = NumberFormat.compactCurrency(
       decimalDigits: decimalDigits,
       locale: 'en_US',
       symbol: '',
     ).format(double.parse(value));
 
-    RegExp regex = RegExp(r'([.]*0+)(?!.*\d)'); // 小數點後 去除尾數0
-    return formattedNumber.replaceAll(regex, '');
+    if (formattedNumber.contains('.')) {
+      String result = formattedNumber.replaceAll(regex, '');
+      return result;
+    }
+
+    return formattedNumber;
   }
 
   /// 指定小數點後幾位，且是無條件捨去
