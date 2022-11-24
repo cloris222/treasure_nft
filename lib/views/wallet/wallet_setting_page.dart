@@ -63,8 +63,9 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
           LoginEmailCodeView(
               countdownSecond: 60,
               onEditTap: viewModel.onClearData,
-              btnGetText: tr('send'),
+              btnGetText: tr('get'),
               hintText: tr('mail_valid_code'),
+              hintColor: AppColors.searchBar,
               controller: viewModel.codeController,
               data: viewModel.codeData,
               onPressSendCode: () => viewModel.sendEmailCode(context),

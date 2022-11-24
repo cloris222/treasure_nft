@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:format/format.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
@@ -52,12 +51,12 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
           SizedBox(height: UIDefine.getScreenWidth(5.5)),
           _buildAmountInputBar(),
           SizedBox(height: UIDefine.getScreenWidth(2.77)),
-          _buildTextContent(tr('canWithdrawFee'), viewModel.data.balance),
+          _buildTextContent(tr('canWithdrawFee'), viewModel.numberFormat(viewModel.data.balance)),
           SizedBox(height: UIDefine.getScreenWidth(2.77)),
           _buildTextContent(
-              tr('minAmount'), '${viewModel.data.minAmount} USDT'),
+              tr('minAmount'), '${viewModel.numberFormat(viewModel.data.minAmount)} USDT'),
           SizedBox(height: UIDefine.getScreenWidth(2.77)),
-          _buildTextContent(tr('withdrawFee'), '${viewModel.data.fee} USDT'),
+          _buildTextContent(tr('withdrawFee'), '${viewModel.numberFormat(viewModel.data.fee)} USDT'),
           SizedBox(height: UIDefine.getScreenWidth(8.27)),
 
           Container(
@@ -153,7 +152,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
           child: Stack(
             children: [
               LoginTextWidget(
-                hintText: '',
+                hintText: tr("placeholder-address'"),
                 controller: viewModel.addressController,
                 contentPaddingRight: UIDefine.getScreenWidth(20),
                 initColor: viewModel.addressData.result
@@ -246,7 +245,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
             children: [
               LoginTextWidget(
                 keyboardType: TextInputType.number,
-                hintText: '0.0000',
+                hintText: '0.00',
                 controller: viewModel.amountController,
                 contentPaddingRight: UIDefine.getScreenWidth(60),
                 initColor: viewModel.amountData.result
@@ -256,6 +255,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
                     ? AppColors.bolderGrey
                     : AppColors.textRed,
                 focusedColor: AppColors.mainThemeButton,
+                bLimitDecimalLength: true,
                 onTap: viewModel.onTap,
               ),
               Positioned(
@@ -339,8 +339,9 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
                 fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500)),
         LoginEmailCodeView(
             countdownSecond: 180,
-            btnGetText: tr('send'),
-            hintText: tr('mail_valid_code'),
+            btnGetText: tr('get'),
+            hintText: tr("placeholder-emailCode'"),
+            hintColor: AppColors.searchBar,
             controller: viewModel.emailCodeController,
             data: viewModel.emailCodeData,
             onPressSendCode: () => viewModel.onPressSendCode(context),
