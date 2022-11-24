@@ -14,11 +14,11 @@ class PointRecordItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
         decoration: AppStyle().styleColorBorderBackground(
             color: AppColors.bolderGrey, borderLine: 2),
         child: Container(
-            margin: const EdgeInsets.all(15),
+            margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: SizedBox(
               width: UIDefine.getWidth(),
               height: UIDefine.fontSize20 * 5,
@@ -44,7 +44,7 @@ class PointRecordItemWidget extends StatelessWidget {
             style: TextStyle(
                 color: AppColors.dialogBlack,
                 fontSize: UIDefine.fontSize16,
-                fontWeight: FontWeight.w500)),
+                fontWeight: FontWeight.w600)),
         Text(
             BaseViewModel()
                 .changeTimeZone(record.time, strFormat: 'yyyy-MM-dd HH:mm:ss'),
