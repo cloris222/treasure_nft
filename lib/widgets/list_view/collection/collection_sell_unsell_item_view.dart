@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../../constant/call_back_function.dart';
 import '../../../views/collection/data/collection_nft_item_response_data.dart';
@@ -106,7 +107,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                                   Image.asset('assets/icon/coins/icon_tether_01.png', width: UIDefine.getScreenWidth(3.7), height: UIDefine.getScreenWidth(3.7)),
                                   const SizedBox(width: 4),
                                   Text( // 商品價格
-                                    data.price.toString(),
+                                    BaseViewModel().numberFormat(data.price),
                                     style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                                   ),
                                 ],
@@ -117,7 +118,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                                   Image.asset('assets/icon/icon/icon_trend_up_01.png'),
                                   const SizedBox(width: 4),
                                   Text( // 商品漲幅價格
-                                    data.growAmount.toString(),
+                                    BaseViewModel().numberFormat(data.growAmount),
                                     style: TextStyle(color: AppColors.growPrice, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w400),
                                   ),
                                   const SizedBox(width: 4),
@@ -327,7 +328,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
         data.imgUrl,
         data.name,
         data.itemId,
-        data.growPrice.toString(),
+        data.growPrice,
         () => _onViewChange()
     ).show();
   }
