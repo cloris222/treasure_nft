@@ -3,7 +3,6 @@ import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../../constant/call_back_function.dart';
 import '../../../models/http/api/order_api.dart';
-import '../../../views/collection/api/collection_api.dart';
 import '../../../views/personal/orders/orderinfo/data/order_message_list_response_data.dart';
 import '../../../widgets/card/awd_info_card.dart';
 import '../../../widgets/card/buyer_seller_info_card.dart';
@@ -19,9 +18,14 @@ class OrderInfoPageViewModel extends BaseViewModel {
   String startDate = '';
   String endDate = '';
   List<OrderMessageListResponseData> dataList = [];
-  num walletBalance = 0;
+  // num walletBalance = 0;
 
-  void initType(bool bFromWallet) {
+  void init(bool bFromWallet) {
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+    startDate = formattedDate;
+    endDate = formattedDate;
+
     if (bFromWallet) {
       currentType = 'DEPOSIT';
     }
@@ -34,9 +38,9 @@ class OrderInfoPageViewModel extends BaseViewModel {
           type: currentType, startTime: startDate, endTime: endDate)
           .then((value) => {_setState(value)} );
 
-      await CollectionApi(onConnectFail: onConnectFail)
-          .getWalletBalanceResponse()
-          .then((value) => walletBalance = value);
+      // await CollectionApi(onConnectFail: onConnectFail) // 這裡的副本預約 不顯示餘額補足按鈕
+      //     .getWalletBalanceResponse()
+      //     .then((value) => walletBalance = value);
 
     }
   }
@@ -82,7 +86,7 @@ class OrderInfoPageViewModel extends BaseViewModel {
       case 'PRICE':
         return OrderInfoCard(
             orderNumber: data.orderNo, dateTime: BaseViewModel().changeTimeZone(data.createdAt, isShowGmt: true),
-            dataList: _priceListContent(data), status: data.status, walletBalance: walletBalance,
+            dataList: _priceListContent(data), status: data.status, walletBalance: 99999999, // 這裡的副本預約 不顯示餘額補足按鈕
             imageUrl: data.imgUrl, itemName: data.itemName, price: data.price.toString());
 
       case 'ACTIVITY':

@@ -32,7 +32,7 @@ class _OrderInfoPage extends State<OrderInfoPage> {
   initState() {
     super.initState();
     viewModel = OrderInfoPageViewModel(setState: setState);
-    viewModel.initType(widget.bFromWallet);
+    viewModel.init(widget.bFromWallet);
     viewModel.requestAPI(page, 10);
   }
 

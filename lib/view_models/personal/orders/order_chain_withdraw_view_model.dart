@@ -39,9 +39,8 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
   bool checkEmail = false;
   bool checkExperience = GlobalData.experienceInfo.isExperience;
 
-  initState() {
-    Future<WithdrawBalanceResponseData> result =
-        WithdrawApi().getWithdrawBalance();
+  requestAPI() {
+    Future<WithdrawBalanceResponseData> result = WithdrawApi().getWithdrawBalance(currentChain.name);
     result.then((value) => _setData(value));
   }
 
@@ -75,21 +74,21 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
   bool checkEmptyController() {
     return addressController.text.isNotEmpty &&
         amountController.text.isNotEmpty &&
-        passwordController.text.isNotEmpty &&
+        // passwordController.text.isNotEmpty &&
         emailCodeController.text.isNotEmpty;
   }
 
   bool checkData() {
     return addressData.result &&
         amountData.result &&
-        passwordData.result &&
+        // passwordData.result &&
         emailCodeData.result;
   }
 
   void _resetData() {
     addressData = ValidateResultData();
     amountData = ValidateResultData();
-    passwordData = ValidateResultData();
+    // passwordData = ValidateResultData();
     emailCodeData = ValidateResultData();
   }
 
@@ -98,8 +97,6 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
     await AuthAPI(
             onConnectFail: (message) => onBaseConnectFail(context, message))
         .sendAuthActionMail(action: LoginAction.withdraw);
-    SimpleCustomDialog(context, mainText: tr('pleaseGotoMailboxReceive'))
-        .show();
   }
 
   /// MARK: 檢查驗證碼是否正確
@@ -131,17 +128,17 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
             ValidateResultData(result: addressController.text.isNotEmpty);
         amountData =
             ValidateResultData(result: amountController.text.isNotEmpty);
-        passwordData =
-            ValidateResultData(result: passwordController.text.isNotEmpty);
+        // passwordData =
+        //     ValidateResultData(result: passwordController.text.isNotEmpty);
         emailCodeData =
             ValidateResultData(result: emailCodeController.text.isNotEmpty);
       });
       return;
+
     } else {
       ///MARK: 檢查是否驗證過信箱
       if (!checkExperience && !checkEmail) {
-        emailCodeData =
-            ValidateResultData(result: false, message: tr('rule_mail_valid'));
+        emailCodeData = ValidateResultData(result: false, message: tr('rule_mail_valid'));
       }
 
       ///MARK: 如果上面的檢查有部分錯誤時return
@@ -193,8 +190,8 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
   void _submitRequestApi(BuildContext context) {
     ///MARK: 打提交API
     WithdrawApi(onConnectFail: (message) => onBaseConnectFail(context, message))
-        .submitBalanceWithdraw(
-            address: addressController.text, amount: amountController.text)
+        .submitBalanceWithdraw(chain: currentChain.name, address: addressController.text,
+        amount: amountController.text, account: '')
         .then((value) async {
       SimpleCustomDialog(context, mainText: tr('success')).show();
       pushPage(context, const OrderWithdrawPage());
@@ -204,9 +201,9 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
   String _getChainName(CoinEnum currentChain) {
     switch (currentChain) {
       case CoinEnum.TRON:
-        return 'BSC-20';
-      case CoinEnum.BSC:
         return 'TRC-20';
+      case CoinEnum.BSC:
+        return 'BSC-20';
       case CoinEnum.ROLLOUT: // 這裡沒這選項
         break;
     }

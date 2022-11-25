@@ -169,7 +169,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
                       SizedBox(width: UIDefine.getScreenWidth(2.77)),
                       GestureDetector(
                           onTap: () => viewModel.amountController.text =
-                              viewModel.data.balance,
+                              viewModel.numberFormat(viewModel.data.balance),
                           child: Text(
                             tr('all'),
                             style: TextStyle(
@@ -269,7 +269,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
             style: TextStyle(
                 fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500)),
         LoginEmailCodeView(
-            countdownSecond: 180,
+            countdownSecond: 60,
             btnGetText: tr('get'),
             hintText: tr("placeholder-emailCode'"),
             hintColor: AppColors.searchBar,

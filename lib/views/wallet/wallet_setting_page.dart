@@ -84,16 +84,21 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
         bolderWith: 3,
         autoHeight: true,
         child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            child: Wrap(runSpacing: 15, children: [
+            margin: EdgeInsets.symmetric(
+                horizontal: UIDefine.getScreenWidth(2.7), vertical: UIDefine.getScreenWidth(2.7)),
+            child: Wrap(runSpacing: UIDefine.getScreenWidth(4), children: [
               Row(children: [
                 BaseIconWidget(
                     imageAssetPath: viewModel.getCoinImage(coin),
                     size: UIDefine.fontSize26),
-                Text("  ${viewModel.getCoinTitle(coin)}",
-                    style: TextStyle(
-                        fontSize: UIDefine.fontSize16,
-                        fontWeight: FontWeight.w500))
+                const SizedBox(width: 8),
+                SizedBox(
+                  width: UIDefine.getScreenWidth(68),
+                  child: Text(viewModel.getCoinTitle(coin),
+                      style: TextStyle(
+                          fontSize: UIDefine.fontSize16,
+                          fontWeight: FontWeight.w500))
+                )
               ]),
               const SizedBox(height: 5),
               Text(tr('address'),
@@ -103,8 +108,8 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
               TextField(
                   controller: controller,
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.fromLTRB(
-                        10, UIDefine.getScreenWidth(4.16), 0, 0),
+                    contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(2.77),
+                        UIDefine.getScreenWidth(4.16), 0, 0),
                     hintText: viewModel.getCoinHintText(coin),
                     hintStyle: const TextStyle(
                         height: 1.6, color: AppColors.searchBar),

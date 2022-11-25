@@ -37,7 +37,7 @@ class _CollectionMainView extends State<CollectionMainView> {
         const DomainBar(),
         Container(
             padding: EdgeInsets.only(top: UIDefine.getScreenWidth(0.97), bottom: UIDefine.getScreenWidth(0.97)),
-            margin: EdgeInsets.only(left: UIDefine.getScreenWidth(5), right: UIDefine.getScreenWidth(5), bottom: UIDefine.getScreenWidth(4.16)),
+            margin: EdgeInsets.only(left: UIDefine.getScreenWidth(5), right: UIDefine.getScreenWidth(5), bottom: UIDefine.getScreenWidth(0.8)),
             child: viewModel.getCollectionTypeButtons(
                 controller: listController,
                 dataList: dataList,
@@ -92,9 +92,10 @@ class _CollectionMainView extends State<CollectionMainView> {
 
   Widget _getDepositBtn() {
     return IconTextButtonWidget(
-        btnText: tr("depositNFT"),
-        iconPath: 'assets/icon/btn/btn_card_01_nor.png',
-        onPressed: () { viewModel.pushPage(context, DepositNftMainView()); }
+      height: UIDefine.getScreenWidth(10),
+      btnText: tr("depositNFT"),
+      iconPath: 'assets/icon/btn/btn_card_01_nor.png',
+      onPressed: () { viewModel.pushPage(context, DepositNftMainView()); }
     );
   }
 

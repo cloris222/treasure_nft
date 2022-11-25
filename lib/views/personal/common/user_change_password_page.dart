@@ -71,8 +71,8 @@ class _UserChangePasswordPage extends State<UserChangePasswordPage> {
                    style: TextStyle(
                        fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500)),
                LoginEmailCodeView(
-                   countdownSecond: 180,
-                   btnGetText: tr('send'),
+                   countdownSecond: 60,
+                   btnGetText: tr('get'),
                    hintText: tr("placeholder-emailCode'"),
                    controller: viewModel.emailCodeController,
                    data: viewModel.emailCodeData,

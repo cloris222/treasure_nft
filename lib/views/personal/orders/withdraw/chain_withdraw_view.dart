@@ -34,7 +34,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
   initState() {
     super.initState();
     viewModel = OrderChainWithdrawViewModel(setState: setState);
-    viewModel.initState();
+    viewModel.requestAPI();
   }
 
   @override
@@ -87,6 +87,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
         onChanged: (newValue) {
           setState(() {
             viewModel.currentChain = newValue!;
+            viewModel.requestAPI();
           });
         },
         value: viewModel.currentChain,
@@ -279,7 +280,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
                       SizedBox(width: UIDefine.getScreenWidth(2.77)),
                       GestureDetector(
                           onTap: () => viewModel.amountController.text =
-                              viewModel.data.balance,
+                              viewModel.numberFormat(viewModel.data.balance),
                           child: Text(
                             tr('all'),
                             style: TextStyle(
@@ -338,7 +339,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
             style: TextStyle(
                 fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500)),
         LoginEmailCodeView(
-            countdownSecond: 180,
+            countdownSecond: 60,
             btnGetText: tr('get'),
             hintText: tr("placeholder-emailCode'"),
             hintColor: AppColors.searchBar,

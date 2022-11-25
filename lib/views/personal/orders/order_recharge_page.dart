@@ -204,7 +204,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
                     viewModel.copyText(
                         copyText: GlobalData
                             .userWalletInfo?[viewModel.currentChain.name]);
-                    SimpleCustomDialog(context, isSuccess: true).show();
+                    viewModel.showToast(context, tr('copiedSuccess'));
                   },
                   child: Image.asset(AppImagePath.copyIcon))
             ],

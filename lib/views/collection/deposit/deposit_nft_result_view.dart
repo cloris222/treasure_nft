@@ -105,7 +105,7 @@ class _DepositNftResultView extends State<DepositNftResultView> {
                             GestureDetector(
                              onTap: () {
                                BaseViewModel().copyText(copyText: data);
-                               BaseViewModel().showToast(context, 'Copied !');
+                               BaseViewModel().showToast(context, tr('copiedSuccess'));
                              },
                              child: Image.asset('assets/icon/btn/btn_edit_01_nor.png', width: UIDefine.getScreenWidth(6), height: UIDefine.getScreenWidth(6))
                             )

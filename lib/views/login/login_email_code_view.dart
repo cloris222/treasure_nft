@@ -23,7 +23,7 @@ class LoginEmailCodeView extends StatelessWidget {
       required this.onPressCheckVerify,
       this.onPressVerification,
       this.btnGetText,
-      this.countdownSecond = 180})
+      this.countdownSecond = 60})
       : super(key: key);
   final String hintText;
   final Color hintColor;

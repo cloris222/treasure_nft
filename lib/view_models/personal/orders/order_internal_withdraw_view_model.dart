@@ -37,8 +37,7 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
   bool checkExperience = GlobalData.experienceInfo.isExperience;
 
   initState() {
-    Future<WithdrawBalanceResponseData> result =
-        WithdrawApi().getWithdrawBalance();
+    Future<WithdrawBalanceResponseData> result = WithdrawApi().getWithdrawBalance(null);
     result.then((value) => _setData(value));
   }
 
@@ -72,21 +71,21 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
   bool checkEmptyController() {
     return accountController.text.isNotEmpty &&
         amountController.text.isNotEmpty &&
-        passwordController.text.isNotEmpty &&
+        // passwordController.text.isNotEmpty &&
         emailCodeController.text.isNotEmpty;
   }
 
   bool checkData() {
     return accountData.result &&
         amountData.result &&
-        passwordData.result &&
+        // passwordData.result &&
         emailCodeData.result;
   }
 
   void _resetData() {
     accountData = ValidateResultData();
     amountData = ValidateResultData();
-    passwordData = ValidateResultData();
+    // passwordData = ValidateResultData();
     emailCodeData = ValidateResultData();
   }
 
@@ -95,8 +94,6 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
     await AuthAPI(
             onConnectFail: (message) => onBaseConnectFail(context, message))
         .sendAuthActionMail(action: LoginAction.withdraw);
-    SimpleCustomDialog(context, mainText: tr('pleaseGotoMailboxReceive'))
-        .show();
   }
 
   /// MARK: 檢查驗證碼是否正確
@@ -128,8 +125,8 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
             ValidateResultData(result: accountController.text.isNotEmpty);
         amountData =
             ValidateResultData(result: amountController.text.isNotEmpty);
-        passwordData =
-            ValidateResultData(result: passwordController.text.isNotEmpty);
+        // passwordData =
+        //     ValidateResultData(result: passwordController.text.isNotEmpty);
         emailCodeData =
             ValidateResultData(result: emailCodeController.text.isNotEmpty);
       });
@@ -164,10 +161,10 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
   }
 
   void sendConfirm(BuildContext context) {
-    ///MARK: 打提交API
+    ///MARK: 打提交API 餘額提現
     WithdrawApi(onConnectFail: (message) => onBaseConnectFail(context, message))
-        .submitBalanceWithdraw(
-            address: accountController.text, amount: amountController.text)
+        .submitBalanceWithdraw(chain: '', address: '',
+        amount: amountController.text, account: accountController.text)
         .then((value) async {
       SimpleCustomDialog(context, mainText: tr('success')).show();
       pushPage(context, const OrderWithdrawPage());

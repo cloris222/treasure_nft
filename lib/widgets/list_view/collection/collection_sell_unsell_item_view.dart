@@ -83,21 +83,21 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Image.network(data.imgUrl, width: UIDefine.getScreenWidth(20), height: UIDefine.getScreenWidth(20)),
+                  Image.network(data.imgUrl, width: UIDefine.getScreenWidth(26), height: UIDefine.getScreenWidth(26)),
                   SizedBox(width: UIDefine.getScreenWidth(2.7)),
                   IntrinsicWidth(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           SizedBox(
-                            width: UIDefine.getScreenWidth(67),
+                            width: UIDefine.getScreenWidth(60),
                               child: Text( // 商品名
                                 data.name,
-                                style: TextStyle(color: AppColors.dialogBlack, fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
+                                style: TextStyle(color: AppColors.dialogBlack, fontSize: UIDefine.fontSize18, fontWeight: FontWeight.w500),
                               )
                           ),
 
-                          SizedBox(height: UIDefine.getScreenWidth(5)),
+                          SizedBox(height: UIDefine.getScreenWidth(8)),
 
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

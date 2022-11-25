@@ -7,11 +7,17 @@ class WithdrawApi extends HttpManager {
   WithdrawApi({super.onConnectFail, super.baseUrl = HttpSetting.appUrl});
 
   /// 取得餘額提現資訊
-  Future<WithdrawBalanceResponseData> getWithdrawBalance() async {
+  Future<WithdrawBalanceResponseData> getWithdrawBalance(String? chain) async {
     WithdrawBalanceResponseData result = WithdrawBalanceResponseData();
+    ApiResponse response;
     try {
-      ApiResponse response = await get('/user/balance-withdraw');
-      response.printLog();
+      if (chain != null) {
+        response = await get('/user/balance-withdraw', queryParameters: {
+          'chain': chain
+        });
+      } else {
+        response = await get('/user/balance-withdraw');
+      }
       result = WithdrawBalanceResponseData.fromJson(response.data);
     } catch (e) {
       print(e.toString());
@@ -20,13 +26,14 @@ class WithdrawApi extends HttpManager {
   }
 
   Future<ApiResponse> submitBalanceWithdraw(
-      {required String address, required String amount}) async {
+      {required String chain, required String amount,
+        required String address, required String account}) async {
     ApiResponse response = await post('/user/balance-withdraw', data: {
-      'type': 'USDT',
+      'chain': chain,
+      'amount': amount,
       'address': address,
-      'amount': amount
+      'account': account
     });
-    response.printLog();
     return response;
   }
 

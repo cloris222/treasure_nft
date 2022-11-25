@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/dialog/base_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/simple_custom_dialog.dart';
@@ -83,14 +84,14 @@ class CollectionSellDialogView extends BaseDialog {
                       style: TextStyle(
                           fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
                     ),
-                    SizedBox(height: 6),
+                    const SizedBox(height: 6),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(child: _dropDownBar()),
                         SizedBox(width: UIDefine.getScreenWidth(2.77)),
                         Container(
-                          width: UIDefine.getScreenWidth(32.5),
+                          width: UIDefine.getScreenWidth(30),
                           height: UIDefine.getScreenWidth(12),
                           alignment: Alignment.centerLeft,
                           padding: const EdgeInsets.only(left: 10),
@@ -99,7 +100,7 @@ class CollectionSellDialogView extends BaseDialog {
                             borderRadius: const BorderRadius.all(Radius.circular(10))
                           ),
                           child: Text(
-                            growPrice,
+                            BaseViewModel().numberFormat(growPrice),
                             style: TextStyle(fontSize: UIDefine.fontSize14, color: AppColors.searchBar),
                           ),
                         ),
@@ -177,12 +178,13 @@ class CollectionSellDialogView extends BaseDialog {
 
   final List<String> _currencies = [
     "USDT",
-    // "BSC", // 現在網頁沒有BSC
+    // "BSC", // test 現在網頁沒有BSC
   ];
 
   Widget _dropDownBar() {
     return DropdownButtonFormField(
-      icon: Image.asset('assets/icon/btn/btn_arrow_02_down.png'),
+      icon: Image.asset('assets/icon/btn/btn_arrow_02_down.png',
+          width: UIDefine.getScreenWidth(4.5), height: UIDefine.getScreenWidth(4.5)),
       onChanged: (newValue) {
         // 將選擇的暫存在全域
         dropDownValue = newValue!;
@@ -191,8 +193,6 @@ class CollectionSellDialogView extends BaseDialog {
       decoration: InputDecoration(
         contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(2.5), 0,
             UIDefine.getScreenWidth(2.5), 0),
-        hintText: 'USDT',
-        hintStyle: const TextStyle(height: 1.6, color: AppColors.textBlack),
         border: const OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.bolderGrey, width: 1.5),
             borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -210,8 +210,10 @@ class CollectionSellDialogView extends BaseDialog {
               children: <Widget>[
                 Image.asset('assets/icon/coins/icon_tether_01.png', width: 14, height: 14),
                 SizedBox(width: UIDefine.getScreenWidth(2.5)),
-                Text(category,
-                    style: const TextStyle(color: AppColors.searchBar)),
+                Text(
+                  category,
+                  style: TextStyle(
+                      color: AppColors.searchBar, fontSize: UIDefine.fontSize14)),
               ],
             ));
       }).toList(),

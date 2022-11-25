@@ -10,15 +10,11 @@ import 'package:treasure_nft_project/views/home/widget/search_action_button.dart
 
 class DatePickerWidget extends StatefulWidget {
 
-  String startDate;
-  String endDate;
   final onDateFunction dateCallback;
   bool displayALL;
   bool displayButton;
 
   DatePickerWidget({super.key,
-    this.startDate = 'Select date',
-    this.endDate = '',
     this.displayALL = true,
     this.displayButton = true,
     required this.dateCallback,
@@ -34,14 +30,16 @@ class DatePickerState extends State<DatePickerWidget> {
   TeamMemberViewModel viewModel = TeamMemberViewModel();
   Search buttonType = Search.All;
 
-  String startDate = '';
-  String endDate = '';
+  late String startDate;
+  late String endDate;
 
   @override
   void initState() {
     super.initState();
-    startDate = widget.startDate;
-    endDate = widget.endDate;
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+    startDate = formattedDate;
+    endDate = formattedDate;
   }
 
   @override
