@@ -60,7 +60,7 @@ class _SliderPageViewState extends State<SliderPageView> {
               SliverFillRemaining(
                   child: Container(
                       margin: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Column(children: [
+                      child: Column(mainAxisSize: MainAxisSize.min, children: [
                         _buildButtonList(),
                         Expanded(child: _buildPageView()),
                         SizedBox(height: UIDefine.getScreenHeight(10))
@@ -70,7 +70,7 @@ class _SliderPageViewState extends State<SliderPageView> {
 
   Widget _buildButtonList() {
     return SizedBox(
-        height: UIDefine.getPixelHeight(70),
+        height: UIDefine.getPixelHeight(75),
         child: ScrollablePositionedList.builder(
             initialScrollIndex: widget.initialPage,
             scrollDirection: Axis.horizontal,

@@ -39,8 +39,8 @@ class DailyItemWidget extends StatelessWidget {
           borderLine: 2),
       child: Container(
           margin: EdgeInsets.symmetric(
-              vertical: UIDefine.getPixelWidth(15),
-              horizontal: UIDefine.getPixelWidth(15)),
+              vertical: UIDefine.getPixelHeight(15),
+              horizontal: UIDefine.getPixelHeight(15)),
           child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -50,21 +50,34 @@ class DailyItemWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Image.asset(
-                        getImagePath(status, index),
-                        height: UIDefine.getPixelHeight(80),
-                        fit: BoxFit.fitHeight,
-                      ),
+                      SizedBox(
+                          height: UIDefine.getPixelHeight(80),
+                          width: UIDefine.getPixelHeight(80),
+                          child: Image.asset(
+                            getImagePath(status, index),
+                            fit: BoxFit.fill,
+                          )),
                       const SizedBox(width: 5),
-                      Expanded(child: _buildTaskInfo(context, status, code))
+                      Expanded(
+                          child: Padding(
+                              padding: EdgeInsets.only(
+                                  top: UIDefine.getPixelHeight(4),
+                                  right: UIDefine.getPixelHeight(4)),
+                              child: _buildTaskInfo(context, status, code)))
                     ]),
-                SizedBox(height: UIDefine.getPixelHeight(10)),
-                Text('${tr('mis_award')} : ${data.point} ${tr('point')}',
-                    maxLines: 1,
-                    style: TextStyle(
-                        fontSize: UIDefine.fontSize14,
-                        color: AppColors.dialogGrey,
-                        fontWeight: FontWeight.w500))
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: UIDefine.getPixelHeight(10),
+                      left: UIDefine.getPixelHeight(4),
+                      right: UIDefine.getPixelHeight(4)),
+                  child: Text(
+                      '${tr('mis_award')} : ${data.point} ${tr('point')}',
+                      maxLines: 1,
+                      style: TextStyle(
+                          fontSize: UIDefine.fontSize14,
+                          color: AppColors.dialogGrey,
+                          fontWeight: FontWeight.w500)),
+                )
               ])),
     );
   }
@@ -163,10 +176,10 @@ class DailyItemWidget extends StatelessWidget {
         strStatus = 'disable';
         break;
       case TaskStatus.unTaken:
-        strStatus = 'finish';
+        strStatus = 'focus';
         break;
       case TaskStatus.isTaken:
-        strStatus = 'focus';
+        strStatus = 'finish';
         break;
     }
     return format(

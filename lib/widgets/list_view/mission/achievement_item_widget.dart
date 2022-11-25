@@ -37,8 +37,8 @@ class AchievementItemWidget extends StatelessWidget {
           borderLine: 2),
       child: Container(
           margin: EdgeInsets.symmetric(
-              vertical: UIDefine.getPixelWidth(15),
-              horizontal: UIDefine.getPixelWidth(15)),
+              vertical: UIDefine.getPixelHeight(15),
+              horizontal: UIDefine.getPixelHeight(15)),
           child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -49,24 +49,41 @@ class AchievementItemWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Image.asset(
-                        getImagePath(status, index),
-                        height: UIDefine.getPixelHeight(80),
-                        fit: BoxFit.fitHeight,
-                      ),
+                      SizedBox(
+                          height: UIDefine.getPixelHeight(80),
+                          width: UIDefine.getPixelHeight(80),
+                          child: Image.asset(
+                            getImagePath(status, index),
+                            fit: BoxFit.fill,
+                          )),
                       const SizedBox(width: 5),
-                      Expanded(child: _buildTaskInfo(context, status, code))
+                      Expanded(
+                          child: Padding(
+                              padding: EdgeInsets.only(
+                                  top: UIDefine.getPixelHeight(4),
+                                  right: UIDefine.getPixelHeight(4)),
+                              child: _buildTaskInfo(context, status, code)))
                     ]),
-                SizedBox(height: UIDefine.getPixelHeight(10)),
-                WarpTwoTextWidget(
-                    fontSize: UIDefine.fontSize14,
-                    text: data.getAchievementCurrentTaskSubText(code),
-                    color: AppColors.dialogGrey,
-                    fontWeight: FontWeight.w500),
-                SizedBox(height: UIDefine.getPixelHeight(5)),
-                CustomLinearProgress(
-                    percentage: data.nowValue / data.goalValue,
-                    needShowPercentage: true),
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: UIDefine.getPixelHeight(10),
+                      left: UIDefine.getPixelHeight(4),
+                      right: UIDefine.getPixelHeight(4)),
+                  child: WarpTwoTextWidget(
+                      fontSize: UIDefine.fontSize14,
+                      text: data.getAchievementCurrentTaskSubText(code),
+                      color: AppColors.dialogGrey,
+                      fontWeight: FontWeight.w500),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: UIDefine.getPixelHeight(5),
+                      left: UIDefine.getPixelHeight(4),
+                      right: UIDefine.getPixelHeight(4)),
+                  child: CustomLinearProgress(
+                      percentage: data.nowValue / data.goalValue,
+                      needShowPercentage: true),
+                ),
               ])),
     );
   }

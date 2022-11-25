@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/task_info_data.dart';
 import 'package:treasure_nft_project/view_models/personal/level/level_achievement_view_model.dart';
 import 'package:treasure_nft_project/widgets/list_view/mission/daily_item_widget.dart';
@@ -19,7 +20,7 @@ class AchievementDailyView extends StatelessWidget {
           return _buildItem(context, viewModel.dailyList[index]);
         },
         separatorBuilder: (context, index) {
-          return const SizedBox(height: 10);
+          return  SizedBox(height: UIDefine.getPixelHeight(15));
         },
         itemCount: viewModel.dailyList.length + 1);
   }
