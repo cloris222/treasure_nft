@@ -3,6 +3,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/personal/common/user_change_password_page.dart';
 import 'package:treasure_nft_project/views/personal/common/user_info_setting_page.dart';
@@ -25,36 +26,64 @@ class UserSettingPage extends StatefulWidget {
 }
 
 class _UserSettingPageState extends State<UserSettingPage> {
+  String version = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _initPackageInfo();
+  }
+
+  void _initPackageInfo() {
+    PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
+      setState(() {
+        version = packageInfo.version;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget space = const SizedBox(height: 15);
     return CustomAppbarView(
         needCover: true,
-        needScrollView: true,
+        needScrollView: false,
         title: tr('account'),
         type: AppNavigationBarType.typePersonal,
-        body: Column(children: [
-          PersonalSubUserInfoView(
-              enableModify: true, onViewUpdate: () => setState(() {})),
-          Container(
-            padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5),
-                UIDefine.getScreenWidth(5), UIDefine.getScreenWidth(5.5), 0),
-            child: _getGrayBolderButton(context, true),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+          Column(
+            children: [
+              PersonalSubUserInfoView(
+                  enableModify: true, onViewUpdate: () => setState(() {})),
+              Container(
+                padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5),
+                    UIDefine.getScreenWidth(5), UIDefine.getScreenWidth(5.5), 0),
+                child: _getGrayBolderButton(context, true),
+              ),
+              space,
+              Container(
+                padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5), 0,
+                    UIDefine.getScreenWidth(5.5), 0),
+                child: _getGrayBolderButton(context, false),
+              ),
+              space,
+              Container(
+                  padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5), 0,
+                      UIDefine.getScreenWidth(5.5), 0),
+                  child: LoginBolderButtonWidget(
+                      btnText: tr('logout'),
+                      onPressed: () => _onPressLogout(context))),
+            ],
           ),
-          space,
+
           Container(
-            padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5), 0,
-                UIDefine.getScreenWidth(5.5), 0),
-            child: _getGrayBolderButton(context, false),
+            margin: EdgeInsets.only(right: UIDefine.getScreenWidth(5.5), bottom: UIDefine.getScreenWidth(3)),
+            alignment: Alignment.centerRight,
+            child: Text(tr('version') + ' v' + version, // test 版本要有多國
+                style: TextStyle(fontSize: UIDefine.fontSize12, color: AppColors.textGrey))
           ),
-          space,
-          Container(
-              padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5), 0,
-                  UIDefine.getScreenWidth(5.5), 0),
-              child: LoginBolderButtonWidget(
-                  btnText: tr('logout'),
-                  onPressed: () => _onPressLogout(context))),
-          SizedBox(height: UIDefine.getScreenHeight(10))
         ]));
   }
 

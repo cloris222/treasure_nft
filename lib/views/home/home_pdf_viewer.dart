@@ -51,8 +51,6 @@ class PDFViewerPageState extends State<PDFViewerPage> {
       }, widget.title),
 
       body:PdfViewPinch(
-        documentLoader: const Center(child: CircularProgressIndicator()),
-        pageLoader: const Center(child: CircularProgressIndicator()),
         controller: _pdfController,
         onDocumentLoaded: (document) {
           setState(() {
