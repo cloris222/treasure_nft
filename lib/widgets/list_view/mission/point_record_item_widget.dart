@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/constant/theme/app_style.dart';
+import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/models/http/parameter/point_record_data.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
-import '../../../constant/theme/app_colors.dart';
-import '../../../constant/theme/app_style.dart';
-import '../../../constant/ui_define.dart';
-import '../../../models/http/parameter/point_record_data.dart';
 
 class PointRecordItemWidget extends StatelessWidget {
   const PointRecordItemWidget({Key? key, required this.record})

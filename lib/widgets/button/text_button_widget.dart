@@ -43,7 +43,7 @@ class TextButtonWidget extends ActionButtonWidget {
         child: Container(
             padding: EdgeInsets.symmetric(
                 vertical: backgroundVertical ?? UIDefine.getPixelHeight(5),
-                horizontal: backgroundHorizontal ?? UIDefine.getPixelWidth(5)),
+                horizontal: backgroundHorizontal ?? UIDefine.getPixelWidth(10)),
             decoration: AppStyle().styleColorBorderBackground(
                 borderLine: borderSize,
                 radius: radius,

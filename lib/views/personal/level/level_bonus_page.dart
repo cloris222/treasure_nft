@@ -1,16 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:format/format.dart';
+import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
+import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/view_models/personal/level/level_bonus_view_model.dart';
+import 'package:treasure_nft_project/views/custom_appbar_view.dart';
+import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart';
-
-import '../../../constant/theme/app_colors.dart';
-import '../../../constant/ui_define.dart';
-import '../../../view_models/personal/level/level_bonus_viewmodel.dart';
-import '../../../widgets/app_bottom_navigation_bar.dart';
-import '../../custom_appbar_view.dart';
 
 class LevelBonusPage extends StatefulWidget {
   const LevelBonusPage({Key? key}) : super(key: key);

@@ -103,7 +103,7 @@ class UIDefine {
 //  一個除375. 一個除720.
 //  getScreenWidth / getScreenHeight.
   static double getPixelWidth(double pixel) {
-    return getScreenHeight(pixel / 375 * 100);
+    return getScreenWidth(pixel / 375 * 100);
   }
 
   static double getPixelHeight(double pixel) {

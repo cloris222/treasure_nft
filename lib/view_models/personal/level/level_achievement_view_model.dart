@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/enum/task_enum.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/api/mission_api.dart';
-import 'package:treasure_nft_project/models/http/api/trade_api.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
+import 'package:treasure_nft_project/models/http/parameter/medal_info_data.dart';
+import 'package:treasure_nft_project/models/http/parameter/task_info_data.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
-
-import '../../../constant/call_back_function.dart';
-import '../../../models/http/parameter/check_experience_info.dart';
-import '../../../models/http/parameter/check_level_info.dart';
-import '../../../models/http/parameter/medal_info_data.dart';
-import '../../../models/http/parameter/task_info_data.dart';
-import '../../../views/personal/level/achievement/achievement_achieve_finish_page.dart';
+import 'package:treasure_nft_project/views/personal/level/achievement/achievement_achieve_finish_page.dart';
 
 class LevelAchievementViewModel extends BaseViewModel {
   LevelAchievementViewModel(

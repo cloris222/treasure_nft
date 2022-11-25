@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/enum/task_enum.dart';
 import 'package:treasure_nft_project/models/http/parameter/task_info_data.dart';
+import 'package:treasure_nft_project/view_models/personal/level/level_achievement_view_model.dart';
+import 'package:treasure_nft_project/widgets/list_view/mission/achievement_item_widget.dart';
 
-import '../../../../constant/enum/task_enum.dart';
-import '../../../../view_models/personal/level/level_achievement_viewmodel.dart';
-import '../../../../widgets/label/mission/achievement_item_widget.dart';
 
 ///MARK: 成就任務
 class AchievementAchieveView extends StatelessWidget {

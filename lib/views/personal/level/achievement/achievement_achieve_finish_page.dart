@@ -1,17 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:treasure_nft_project/constant/enum/task_enum.dart';
 import 'package:treasure_nft_project/constant/theme/app_animation_path.dart';
+import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/models/http/parameter/task_info_data.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
+import 'package:treasure_nft_project/widgets/gradient_text.dart';
 import 'package:treasure_nft_project/widgets/label/icon/medal_icon_widget.dart';
-
-import '../../../../constant/enum/task_enum.dart';
-import '../../../../constant/theme/app_colors.dart';
-import '../../../../models/http/parameter/task_info_data.dart';
-import '../../../../widgets/button/login_button_widget.dart';
-import '../../../../widgets/gradient_text.dart';
 
 class AchievementAchieveFinishPage extends StatelessWidget {
   AchievementAchieveFinishPage(

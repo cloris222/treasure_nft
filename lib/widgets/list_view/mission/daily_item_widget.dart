@@ -1,21 +1,20 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:format/format.dart';
+import 'package:treasure_nft_project/constant/call_back_function.dart';
+import 'package:treasure_nft_project/constant/enum/task_enum.dart';
+import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/models/http/parameter/task_info_data.dart';
+import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
-import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
-import '../../../constant/call_back_function.dart';
-import '../../../constant/enum/task_enum.dart';
-import '../../../constant/theme/app_colors.dart';
-import '../../../constant/theme/app_image_path.dart';
-import '../../../models/http/parameter/task_info_data.dart';
-import '../../../utils/number_format_util.dart';
-import '../../../views/main_page.dart';
-import '../../../views/personal/team/team_order_page.dart';
-import '../../app_bottom_navigation_bar.dart';
-import '../../button/text_button_widget.dart';
-import '../flex_two_text_widget.dart';
+import 'package:treasure_nft_project/views/main_page.dart';
+import 'package:treasure_nft_project/views/personal/team/team_order_page.dart';
+import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
+import 'package:treasure_nft_project/widgets/button/text_button_widget.dart';
+import 'package:treasure_nft_project/widgets/label/warp_two_text_widget.dart';
 
 class DailyItemWidget extends StatelessWidget {
   const DailyItemWidget({Key? key, required this.data, required this.getPoint})
@@ -33,30 +32,33 @@ class DailyItemWidget extends StatelessWidget {
     ///MARK:建立畫面
     return Container(
       decoration: AppStyle().styleColorBorderBackground(
+          radius: 8,
           color: status == TaskStatus.unTaken
               ? AppColors.mainThemeButton
               : AppColors.bolderGrey,
           borderLine: 2),
       child: Container(
-          margin: const EdgeInsets.all(15),
+          margin: EdgeInsets.symmetric(
+              vertical: UIDefine.getPixelWidth(15),
+              horizontal: UIDefine.getPixelWidth(15)),
           child: Column(
+              mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: UIDefine.getPixelHeight(110),
-                  child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Image.asset(
-                          getImagePath(status, index),
-                          height: UIDefine.getPixelHeight(80),
-                          fit: BoxFit.fitHeight,
-                        ),
-                        const SizedBox(width: 5),
-                        Expanded(child: _buildTaskInfo(context, status, code))
-                      ]),
-                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        getImagePath(status, index),
+                        height: UIDefine.getPixelHeight(80),
+                        fit: BoxFit.fitHeight,
+                      ),
+                      const SizedBox(width: 5),
+                      Expanded(child: _buildTaskInfo(context, status, code))
+                    ]),
+                SizedBox(height: UIDefine.getPixelHeight(10)),
                 Text('${tr('mis_award')} : ${data.point} ${tr('point')}',
                     maxLines: 1,
                     style: TextStyle(
@@ -176,33 +178,28 @@ class DailyItemWidget extends StatelessWidget {
 
   Widget _buildTaskInfo(
       BuildContext context, TaskStatus status, DailyCode code) {
-    return SizedBox(
-        width: UIDefine.getWidth(),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Expanded(
-              child:
-                  Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
             Expanded(
-              child: FlexTwoTextWidget(
-                  alignment: Alignment.topLeft,
+              child: WarpTwoTextWidget(
                   text: data.getDailyTaskText(),
-                  fontSize: 16,
+                  fontSize: UIDefine.fontSize16,
                   color: AppColors.dialogBlack,
                   fontWeight: FontWeight.w600),
             ),
             Container(
                 alignment: Alignment.topCenter,
                 child: _buildButton(context, status, code)),
-          ])),
-          const SizedBox(height: 5),
-          Expanded(
-            child: FlexTwoTextWidget(
-                alignment: Alignment.topLeft,
-                fontSize: 14,
-                text: data.getDailyTaskSubText(),
-                color: AppColors.dialogGrey,
-                fontWeight: FontWeight.w600),
-          )
-        ]));
+          ]),
+      const SizedBox(height: 5),
+      WarpTwoTextWidget(
+          fontSize: UIDefine.fontSize14,
+          text: data.getDailyTaskSubText(),
+          color: AppColors.dialogGrey,
+          fontWeight: FontWeight.w400)
+    ]);
   }
 }

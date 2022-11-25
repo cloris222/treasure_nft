@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/api/level_api.dart';
+import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
+import 'package:treasure_nft_project/models/http/parameter/level_info_data.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/views/personal/level/level_bonus_page.dart';
 
-import '../../../constant/call_back_function.dart';
-import '../../../models/http/api/user_info_api.dart';
-import '../../../models/http/parameter/level_info_data.dart';
-import '../../../views/personal/level/level_bonus_page.dart';
 
 class LevelDetailViewModel extends BaseViewModel {
   LevelDetailViewModel({required this.setState});

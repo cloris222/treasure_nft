@@ -1,12 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/views/personal/personal_sub_user_info_view.dart';
-
-import '../../../constant/enum/team_enum.dart';
-import '../../../view_models/personal/level/level_point_viewmodel.dart';
-import '../../../widgets/app_bottom_navigation_bar.dart';
-import '../../../widgets/date_picker/custom_date_picker.dart';
-import '../../custom_appbar_view.dart';
+import 'package:treasure_nft_project/view_models/personal/level/level_point_view_model.dart';
+import 'package:treasure_nft_project/views/custom_appbar_view.dart';
+import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 
 ///MARK: 積分
 
