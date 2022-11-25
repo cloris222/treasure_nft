@@ -70,7 +70,7 @@ class _SliderPageViewState extends State<SliderPageView> {
 
   Widget _buildButtonList() {
     return SizedBox(
-        height: UIDefine.getPixelHeight(75),
+        height: UIDefine.getPixelHeight(80),
         child: ScrollablePositionedList.builder(
             initialScrollIndex: widget.initialPage,
             scrollDirection: Axis.horizontal,
@@ -91,11 +91,11 @@ class _SliderPageViewState extends State<SliderPageView> {
           });
         },
         child: Column(children: [
-          SizedBox(height: UIDefine.getPixelHeight(15)),
+          SizedBox(height: UIDefine.getPixelHeight(20)),
           Container(
               padding: EdgeInsets.symmetric(
                   vertical: UIDefine.getPixelHeight(10),
-                  horizontal: UIDefine.getPixelWidth(10)),
+                  horizontal: UIDefine.getPixelWidth(15)),
               decoration: AppStyle().styleColorBorderBottomLine(
                   borderLine: isCurrent ? 2 : 1,
                   color: isCurrent
