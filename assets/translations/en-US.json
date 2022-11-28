@@ -1001,5 +1001,11 @@
   "goPermissionSetting": "The scan function requires the camera permission on your phone. Go into your phone settings to open it?",
   "ticketValue":"Ticket value",
   "drawPerson":"person",
-  "limitNFTandPool":"80U will be refunded if you do not win the limited edition NFT"
+  "limitNFTandPool":"80U will be refunded if you do not win the limited edition NFT",
+  "version":"Version",
+  "copiedSuccess":"Successfully copied",
+  "goPermissionStorage":"To save the QR code, you need to enable the permission. Go to the settings to enable it?",
+  "httpErrorConnectTimeout":"Connection timeout with API server",
+  "httpErrorNoInternet":"No Internet",
+  "httpErrorOther":"Unexpected error occurred"
 }

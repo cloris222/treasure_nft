@@ -1001,5 +1001,11 @@
   "goPermissionSetting": "A função de digitalização requer a permissão da câmera em seu telefone. Entre nas configurações do seu telefone para abri-lo?",
   "ticketValue":"Valor do bilhete",
   "drawPerson":"pessoa",
-  "limitNFTandPool":"80U serão reembolsados se você não ganhar a edição limitada NFT"
+  "limitNFTandPool":"80U serão reembolsados se você não ganhar a edição limitada NFT",
+  "version":"Versão",
+  "copiedSuccess":"Copiado com sucesso",
+  "goPermissionStorage":"Para salvar o código QR, você precisa habilitar a permissão.Vá para as configurações para habilitá-lo?",
+  "httpErrorConnectTimeout":"Tempo limite de conexão com o servidor de API",
+  "httpErrorNoInternet":"Sem internet",
+  "httpErrorOther":"Ocorreu um erro inesperado"
 }

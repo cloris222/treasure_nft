@@ -1001,5 +1001,11 @@
   "goPermissionSetting": "Fungsi pemindaian memerlukan izin kamera di ponsel Anda. Masuk ke pengaturan ponsel Anda untuk membukanya?",
   "ticketValue":"Nilai tiket",
   "drawPerson":"orang",
-  "limitNFTandPool":"80U akan dikembalikan jika Anda tidak memenangkan NFT edisi terbatas"
+  "limitNFTandPool":"80U akan dikembalikan jika Anda tidak memenangkan NFT edisi terbatas",
+  "version":"Versi: kapan",
+  "copiedSuccess":"Berhasil disalin",
+  "goPermissionStorage":"Untuk menyimpan kode QR, Anda harus mengaktifkan izin.Buka pengaturan untuk mengaktifkannya?",
+  "httpErrorConnectTimeout":"Batas waktu koneksi dengan server API",
+  "httpErrorNoInternet":"Tidak ada internet",
+  "httpErrorOther":"Terjadi kesalahan tak terduga"
 }

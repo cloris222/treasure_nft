@@ -1001,5 +1001,11 @@
   "goPermissionSetting": "Fungsi imbasan memerlukan kebenaran kamera pada telefon anda. Pergi ke tetapan telefon anda untuk membukanya?",
   "ticketValue":"Nilai tiket",
   "drawPerson":"orang",
-  "limitNFTandPool":"80U akan dikembalikan jika anda tidak memenangi NFT edisi terhad"
+  "limitNFTandPool":"80U akan dikembalikan jika anda tidak memenangi NFT edisi terhad",
+  "version":"Versi",
+  "copiedSuccess":"Berjaya disalin",
+  "goPermissionStorage":"Untuk menyimpan kod QR, anda perlu mendayakan kebenaran.Pergi ke tetapan untuk mendayakannya?",
+  "httpErrorConnectTimeout":"Tamat masa sambungan dengan pelayan API",
+  "httpErrorNoInternet":"Tiada Internet",
+  "httpErrorOther":"Ralat yang tidak dijangka berlaku"
 }

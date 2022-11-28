@@ -128,11 +128,6 @@ class AppSharedPreferences {
   static Future<void> setProfitRecord(List<CheckEarningIncomeData> list) async {
     await _setJson(
         "ProfitRecord", List<dynamic>.from(list.map((x) => x.toJson())));
-    getProfitRecord().then((value) {
-      for (var element in value) {
-        print('!!!ProfitRecord:${element.toJson().toString()}');
-      }
-    });
   }
 
   static Future<List<CheckEarningIncomeData>> getProfitRecord() async {
