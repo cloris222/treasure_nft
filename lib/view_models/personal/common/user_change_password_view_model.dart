@@ -9,7 +9,7 @@ import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import '../../../constant/call_back_function.dart';
 import '../../../constant/enum/login_enum.dart';
 import '../../../models/data/validate_result_data.dart';
-import '../../../models/http/api/admin_api.dart';
+import '../../../models/http/api/updatepwd_api.dart';
 import '../../../models/http/api/auth_api.dart';
 import '../../../widgets/dialog/simple_custom_dialog.dart';
 
@@ -150,7 +150,7 @@ class UserChangePasswordViewModel extends BaseViewModel {
       }
 
       ///MARK: 修改密碼API
-      AdminAPI(onConnectFail: (message) => onBaseConnectFail(context, message))
+      UpdatePwdAPI(onConnectFail: (message) => onBaseConnectFail(context, message))
           .updatePassword(
               oldPassword: oldPasswordController.text,
               newPassword: newPasswordController.text)
