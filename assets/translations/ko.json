@@ -1001,5 +1001,11 @@
   "goPermissionSetting": "스캔 기능을 사용하려면 휴대폰의 카메라 권한이 필요합니다. 전화 설정으로 이동하여 여시겠습니까?",
   "ticketValue":"티켓 가치",
   "drawPerson":"사람",
-  "limitNFTandPool":"한정판 NFT에 당첨되지 않으면 80U가 환불됩니다."
+  "limitNFTandPool":"한정판 NFT에 당첨되지 않으면 80U가 환불됩니다.",
+  "version":"버전",
+  "copiedSuccess":"복사 성공",
+  "goPermissionStorage":"QR 코드를 저장하려면 권한을 활성화해야 합니다.설정으로 이동하여 활성화하시겠습니까?",
+  "httpErrorConnectTimeout":"API 서버와의 연결 시간 초과",
+  "httpErrorNoInternet":"인터넷 없음",
+  "httpErrorOther":"예기치 않은 오류가 발생했습니다"
 }

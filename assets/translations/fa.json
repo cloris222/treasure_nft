@@ -1001,5 +1001,11 @@
   "goPermissionSetting": "عملکرد اسکن به اجازه دوربین گوشی شما نیاز دارد. برای باز کردن آن به تنظیمات گوشی خود بروید؟",
   "ticketValue":"ارزش بلیط",
   "drawPerson":"شخص",
-  "limitNFTandPool":"اگر نسخه محدود NFT را برنده نشدید، 80U بازپرداخت می شود"
+  "limitNFTandPool":"اگر نسخه محدود NFT را برنده نشدید، 80U بازپرداخت می شود",
+  "version":"نسخه",
+  "copiedSuccess":"با موفقیت کپی شد",
+  "goPermissionStorage":"برای ذخیره کد QR، باید مجوز را فعال کنید.به تنظیمات بروید تا فعال شود؟",
+  "httpErrorConnectTimeout":"پایان زمان اتصال با سرور API",
+  "httpErrorNoInternet":"بدون اینترنت",
+  "httpErrorOther":"خطای غیرمنتظره ای رخ داد"
 }

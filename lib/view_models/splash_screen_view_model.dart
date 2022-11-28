@@ -84,9 +84,8 @@ class SplashScreenViewModel extends BaseViewModel {
             GlobalData.userMemberId.isNotEmpty) {
           bool connectFail = false;
 
-
-         await uploadPersonalInfo().then((value) {
-           if (value == false) {
+          await uploadPersonalInfo().then((value) {
+            if (value == false) {
               connectFail = true;
             }
           });
@@ -111,8 +110,12 @@ class SplashScreenViewModel extends BaseViewModel {
                 return !checkList.contains(false) || connectFail;
               });
           if (!connectFail) {
+            debugPrint('AutoLogin:Success!');
             startUserListener();
             GlobalData.showLoginAnimate = true;
+          } else {
+            debugPrint('AutoLogin:Fail!');
+            clearUserLoginInfo();
           }
         }
       }

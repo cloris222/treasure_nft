@@ -1002,7 +1002,10 @@
   "ticketValue":"券值",
   "drawPerson":"人",
   "limitNFTandPool":"沒有中獎限量版NFT則會退還80U",
-  "version": "版本",
-  "copiedSuccess": "複製成功!",
-  "goPermissionStorage": "保存二維碼需先開啟儲存權限才能使用，是否前往設定頁面做設定？"
+  "version":"版本",
+  "copiedSuccess":"複製成功!",
+  "goPermissionStorage":"保存二維碼需先開啟儲存權限才能使用，是否前往設定頁面做設定？",
+  "httpErrorConnectTimeout":"連接超時",
+  "httpErrorNoInternet":"連接失敗",
+  "httpErrorOther":"連接發生意外錯誤"
 }

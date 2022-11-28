@@ -1001,5 +1001,11 @@
   "goPermissionSetting": "La función de escaneo requiere el permiso de la cámara en su teléfono. ¿Ir a la configuración de tu teléfono para abrirlo?",
   "ticketValue":"valor del billete",
   "drawPerson":"persona",
-  "limitNFTandPool":"Se reembolsarán 80U si no gana el NFT de edición limitada"
+  "limitNFTandPool":"Se reembolsarán 80U si no gana el NFT de edición limitada",
+  "version":"Versión",
+  "copiedSuccess":"Copiado con éxito",
+  "goPermissionStorage":"Para guardar el código QR, debe habilitar el permiso.Ir a la configuración para habilitarlo?",
+  "httpErrorConnectTimeout":"Tiempo de espera de conexión con el servidor API",
+  "httpErrorNoInternet":"Sin internet",
+  "httpErrorOther":"Ocurrió un error inesperado"
 }

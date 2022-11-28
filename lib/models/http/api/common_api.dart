@@ -7,8 +7,7 @@ import '../parameter/country_phone_data.dart';
 import '../parameter/upload_img_video.dart';
 
 class CommonAPI extends HttpManager {
-  CommonAPI(
-      {super.onConnectFail, super.baseUrl = HttpSetting.commonUrl});
+  CommonAPI({super.onConnectFail, super.baseUrl = HttpSetting.commonUrl});
 
   Future<ApiResponse> uploadImage(String imagePath) async {
     addDioHeader({'Content-Type': 'multipart/form-data'});
@@ -17,10 +16,37 @@ class CommonAPI extends HttpManager {
   }
 
   Future<List<CountryPhoneData>> getCountryList() async {
-    var response = await get('/query/areaCode');
     List<CountryPhoneData> list = [];
-    for (Map<String, dynamic> json in response.data) {
-      list.add(CountryPhoneData.fromJson(json));
+    try {
+      var response = await get('/query/areaCode');
+
+      for (Map<String, dynamic> json in response.data) {
+        list.add(CountryPhoneData.fromJson(json));
+      }
+    } catch (e) {
+      list.clear();
+      //v0.0.2 2022/11/28 手動++
+      list.add(CountryPhoneData(country: 'Canada', areaCode: '1'));
+      list.add(CountryPhoneData(country: 'SaudiArabia', areaCode: '966'));
+      list.add(CountryPhoneData(country: 'Jordan', areaCode: '962'));
+      list.add(CountryPhoneData(country: 'Spain', areaCode: '34'));
+      list.add(CountryPhoneData(country: 'Brazil', areaCode: '55'));
+      list.add(CountryPhoneData(country: 'Singapore', areaCode: '65'));
+      list.add(CountryPhoneData(country: 'America', areaCode: '1'));
+      list.add(CountryPhoneData(country: 'Kuwait', areaCode: '965'));
+      list.add(CountryPhoneData(country: 'Iran', areaCode: '98'));
+      list.add(CountryPhoneData(country: 'Taiwan', areaCode: '886'));
+      list.add(CountryPhoneData(country: 'Philippines', areaCode: '63'));
+      list.add(CountryPhoneData(country: 'Turkey', areaCode: '90'));
+      list.add(CountryPhoneData(country: 'UnitedKingdom', areaCode: '44'));
+      list.add(CountryPhoneData(country: 'Korea', areaCode: '82'));
+      list.add(CountryPhoneData(country: 'Thailand', areaCode: '66'));
+      list.add(CountryPhoneData(country: 'Laos', areaCode: '856'));
+      list.add(CountryPhoneData(country: 'Indonesia', areaCode: '62'));
+      list.add(CountryPhoneData(country: 'Malaysia', areaCode: '60'));
+      list.add(CountryPhoneData(country: 'TimorTimur', areaCode: '670'));
+      list.add(CountryPhoneData(country: 'Japan', areaCode: '81'));
+      list.add(CountryPhoneData(country: 'PapuaNewGuinea', areaCode: '675'));
     }
     return list;
   }

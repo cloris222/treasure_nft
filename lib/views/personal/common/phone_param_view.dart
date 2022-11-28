@@ -43,7 +43,7 @@ class PhoneParamView extends StatelessWidget {
         alignment: Alignment.centerLeft,
         children: [
           Padding(
-              padding: EdgeInsets.only(left: UIDefine.getScreenWidth(36)),
+              padding: EdgeInsets.only(left: UIDefine.getScreenWidth(40)),
               child: LoginTextWidget(
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp(r"\d"))
@@ -65,10 +65,10 @@ class PhoneParamView extends StatelessWidget {
             child: Container(
               alignment: Alignment.center,
               height: UIDefine.getPixelHeight(60),
+              width: UIDefine.getScreenWidth(40),
               margin:
                   EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(5)),
               child: Container(
-                  width: UIDefine.getScreenWidth(38),
                   decoration: const BoxDecoration(
                       color: AppColors.mainThemeButton,
                       borderRadius: BorderRadius.only(
@@ -105,20 +105,21 @@ class PhoneParamView extends StatelessWidget {
               : ''),
       decoration: InputDecoration(
         iconColor: AppColors.mainThemeButton,
-        contentPadding: EdgeInsets.fromLTRB(
-            UIDefine.getScreenWidth(2.5), 0, UIDefine.getScreenWidth(1), 0),
+        contentPadding:
+            EdgeInsets.fromLTRB(UIDefine.getScreenWidth(2.5), 0, 0, 0),
         border: InputBorder.none,
       ),
       items: GlobalData.country.map((CountryPhoneData data) {
         return DropdownMenuItem(
             value: data.country,
-            child: Row(
-              children: <Widget>[
-                Text('+${data.areaCode} ${_getSubString(tr(data.country))}',
-                    style: TextStyle(
-                        color: AppColors.textWhite,
-                        fontSize: UIDefine.fontSize12)),
-              ],
+            child: SizedBox(
+              width: UIDefine.getScreenWidth(30),
+              child: Text(
+                  '+${data.areaCode} ${_getSubString(tr(data.country))}',
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      color: AppColors.textWhite,
+                      fontSize: UIDefine.fontSize12)),
             ));
       }).toList(),
     );

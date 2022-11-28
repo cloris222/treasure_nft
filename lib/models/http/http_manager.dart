@@ -83,9 +83,15 @@ class HttpManager {
     });
   }
 
-  void callFailConnect(String message) {
+  void callFailConnect(String message, {bool isOther = false}) {
     if (onConnectFail != null) {
       onConnectFail!(message);
+    }
+
+    ///MARK: 未開啟網路連線時
+    else if (isOther) {
+      var viewModel = BaseViewModel();
+      viewModel.showToast(viewModel.getGlobalContext(), message);
     }
   }
 
@@ -117,7 +123,8 @@ class HttpManager {
       return _checkResponse(response);
     } on DioError catch (e) {
       final errorMessage = HttpExceptions.fromDioError(e).toString();
-      callFailConnect(errorMessage);
+      debugPrint('connect errorMessage:$errorMessage');
+      callFailConnect(errorMessage, isOther: e.type == DioErrorType.other);
       throw errorMessage;
     } catch (e) {
       callFailConnect(e.toString());
@@ -156,7 +163,7 @@ class HttpManager {
       return _checkResponse(response);
     } on DioError catch (e) {
       final errorMessage = HttpExceptions.fromDioError(e).toString();
-      callFailConnect(errorMessage);
+      callFailConnect(errorMessage, isOther: e.type == DioErrorType.other);
       throw errorMessage;
     } catch (e) {
       callFailConnect(e.toString());
@@ -192,7 +199,7 @@ class HttpManager {
       return _checkResponse(response);
     } on DioError catch (e) {
       final errorMessage = HttpExceptions.fromDioError(e).toString();
-      callFailConnect(errorMessage);
+      callFailConnect(errorMessage, isOther: e.type == DioErrorType.other);
       throw errorMessage;
     } catch (e) {
       callFailConnect(e.toString());
@@ -222,7 +229,7 @@ class HttpManager {
       return ApiResponse.fromJson(response.data);
     } on DioError catch (e) {
       final errorMessage = HttpExceptions.fromDioError(e).toString();
-      callFailConnect(errorMessage);
+      callFailConnect(errorMessage, isOther: e.type == DioErrorType.other);
       throw errorMessage;
     } catch (e) {
       callFailConnect(e.toString());

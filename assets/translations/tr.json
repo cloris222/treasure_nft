@@ -1001,5 +1001,11 @@
   "goPermissionSetting": "Tarama işlevi, telefonunuzda kamera izni gerektirir. Açmak için telefon ayarlarına git?",
   "ticketValue":"Bilet değeri",
   "drawPerson":"kişi",
-  "limitNFTandPool":"Sınırlı sayıda NFT'yi kazanmazsanız 80U iade edilecektir"
+  "limitNFTandPool":"Sınırlı sayıda NFT'yi kazanmazsanız 80U iade edilecektir",
+  "version":"Sürüm",
+  "copiedSuccess":"Başarıyla kopyalandı",
+  "goPermissionStorage":"QR kodunu kaydetmek için izni etkinleştirmeniz gerekir.Etkinleştirmek için ayarlara gidin?",
+  "httpErrorConnectTimeout":"API sunucusuyla bağlantı zaman aşımı",
+  "httpErrorNoInternet":"İnternet yok",
+  "httpErrorOther":"Beklenmedik hata oluştu"
 }
