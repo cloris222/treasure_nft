@@ -54,6 +54,7 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
         topView: _buildTopView);
     viewModel.initListView();
   }
+
   Widget _buildBody() {
     return Padding(
       padding: EdgeInsets.only(
@@ -74,32 +75,37 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
         /// 日期選擇器 & 按鈕
         CustomDatePickerWidget(
           dateCallback: (String startDate, String endDate) {
-           if(startDate!=startDate||endDate!=endDate){
-             viewModel.startDate = startDate;
-             viewModel.endDate = endDate;
-             viewModel.initListView();
-           }
+            if (startDate != startDate || endDate != endDate) {
+              viewModel.startDate = startDate;
+              viewModel.endDate = endDate;
+              viewModel.initListView();
+            }
           },
         ),
-        viewMemberModel.getPadding(3),
+
+        SizedBox(height: UIDefine.getPixelHeight(10)),
 
         /// 輸入Bar
         _searchBar(),
-        viewMemberModel.getPadding(2),
+        SizedBox(height: UIDefine.getPixelHeight(10)),
 
-        Row(children: [
-          Expanded(child: _priceAndTimeDropDownBar()),
-          SizedBox(width: UIDefine.getScreenWidth(2.77)),
-          GestureDetector(
-              onTap: () => _onPressSort(),
-              child: Container(
-                alignment: Alignment.center,
-                width: UIDefine.getScreenWidth(17.77),
-                height: UIDefine.getScreenWidth(13.88),
-                decoration: viewMemberModel.setBoxDecoration(),
-                child: Image.asset('assets/icon/btn/btn_sort_01_nor.png'),
-              ))
-        ]),
+        SizedBox(
+          ///MARK: v0.0.2 壓高度
+          height: UIDefine.getPixelHeight(40),
+          child: Row(children: [
+            Expanded(child: _priceAndTimeDropDownBar()),
+            SizedBox(width: UIDefine.getScreenWidth(2.77)),
+            GestureDetector(
+                onTap: () => _onPressSort(),
+                child: Container(
+                  alignment: Alignment.center,
+                  width: UIDefine.getScreenWidth(17.77),
+                  height: UIDefine.getScreenWidth(13.88),
+                  decoration: viewMemberModel.setBoxDecoration(),
+                  child: Image.asset('assets/icon/btn/btn_sort_01_nor.png'),
+                ))
+          ]),
+        ),
 
         viewMemberModel.getPadding(3),
       ],
@@ -114,15 +120,17 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
   }
 
   Widget _searchBar() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        SizedBox(
-          width: UIDefine.getScreenWidth(30),
-          child: _buyOrSellDropDownBar(),
-        ),
-        SizedBox(
-            width: UIDefine.getScreenWidth(55),
+    return SizedBox(
+      ///MARK: v0.0.2 壓高度
+      height: UIDefine.getPixelHeight(40),
+      child: Row(
+        children: [
+          SizedBox(
+            width: UIDefine.getScreenWidth(30),
+            child: _buyOrSellDropDownBar(),
+          ),
+          SizedBox(width: UIDefine.getPixelWidth(5)),
+          Expanded(
             child: TextField(
                 onChanged: (text) {
                   if (text != viewModel.nameAcct) {
@@ -132,8 +140,8 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
                 },
                 style: TextStyle(fontSize: UIDefine.fontSize14),
                 decoration: InputDecoration(
-                  contentPadding: EdgeInsets.fromLTRB(
-                      0, UIDefine.getScreenWidth(4.16), 0, 0),
+                  isDense: true,
+                  contentPadding: EdgeInsets.zero,
                   prefixIcon:
                       Image.asset('assets/icon/btn/btn_discover_01_nor.png'),
                   hintText: tr("select-placeholder'"),
@@ -144,8 +152,10 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
                   border: viewMemberModel.setOutlineInputBorder(),
                   focusedBorder: viewMemberModel.setOutlineInputBorder(),
                   enabledBorder: viewMemberModel.setOutlineInputBorder(),
-                ))),
-      ],
+                )),
+          ),
+        ],
+      ),
     );
   }
 
@@ -161,7 +171,7 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
       value: viewModel.sortType,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.16),
-            UIDefine.getScreenWidth(4.16), UIDefine.getScreenWidth(4.16), 0),
+            0, UIDefine.getScreenWidth(4.16), 0),
         border: viewMemberModel.setOutlineInputBorder(),
         focusedBorder: viewMemberModel.setOutlineInputBorder(),
         enabledBorder: viewMemberModel.setOutlineInputBorder(),
@@ -190,8 +200,7 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
       },
       value: _currenciesOne.first,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.16),
-            UIDefine.getScreenWidth(4.16), UIDefine.getScreenWidth(4.16), 0),
+        contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.16),0, UIDefine.getScreenWidth(4.16), 0),
         border: viewMemberModel.setOutlineInputBorder(),
         focusedBorder: viewMemberModel.setOutlineInputBorder(),
         enabledBorder: viewMemberModel.setOutlineInputBorder(),
