@@ -129,6 +129,7 @@ class _MainPageState extends State<MainPage> {
         bottomNavigationBar: AppBottomNavigationBar(
           initType: GlobalData.mainBottomType,
           bottomFunction: _changePage,
+          bStartTimer: true,
         ));
   }
 

@@ -24,8 +24,10 @@ typedef AppBottomFunction = Function(AppNavigationBarType type);
 
 class AppBottomNavigationBar extends StatefulWidget {
   const AppBottomNavigationBar(
-      {Key? key, required this.initType, this.bottomFunction})
+      {Key? key, required this.initType, this.bottomFunction, this.bStartTimer = false})
       : super(key: key);
+
+  final bool bStartTimer;
   final AppNavigationBarType initType;
   final AppBottomFunction? bottomFunction;
 
@@ -86,11 +88,13 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> with Wi
   }
 
   void _unreadTimingRequest() {
-    timer = Timer.periodic(const Duration(seconds: 10), (timer) {
-      if (GlobalData.userToken.isNotEmpty) {
-        _requestUnreadCollection();
-      }
-    });
+    if (widget.bStartTimer) {
+      timer = Timer.periodic(const Duration(seconds: 10), (timer) {
+        if (GlobalData.userToken.isNotEmpty) {
+          _requestUnreadCollection();
+        }
+      });
+    }
   }
 
   @override
