@@ -4,7 +4,6 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
-import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/personal/orders/order_detail_page.dart';
 import 'package:treasure_nft_project/views/personal/personal_sub_user_info_view.dart';
 import 'package:treasure_nft_project/views/personal/team/share_picture_style.dart';
@@ -42,24 +41,19 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
   @override
   Widget build(BuildContext context) {
     return CustomAppbarView(
-      needCover: true,
-      needScrollView: true,
-      title: tr('shareCenter'),
-      body: Column(
-        children: [
+        needCover: true,
+        needScrollView: true,
+        title: tr('shareCenter'),
+        body: Column(children: [
           const PersonalSubUserInfoView(),
           Container(
               margin: const EdgeInsets.symmetric(horizontal: 10),
-              child: Column(
-                children: [
-                  _buildInviteView(context),
-                  _buildQRcodeView(context),
-                ],
-              ))
-        ],
-      ),
-      type: AppNavigationBarType.typePersonal,
-    );
+              child: Column(children: [
+                _buildInviteView(context),
+                _buildQRcodeView(context)
+              ]))
+        ]),
+        type: AppNavigationBarType.typePersonal);
   }
 
   Widget _buildInviteView(BuildContext context) {
@@ -69,153 +63,102 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
         fontSize: UIDefine.fontSize14,
         fontWeight: FontWeight.w500,
         color: AppColors.dialogGrey);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(
-          height: 20,
-        ),
-        Text(
-          tr("shareCenterTitle"),
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      SizedBox(height: UIDefine.getPixelHeight(10)),
+      Text(tr("shareCenterTitle"),
           style: TextStyle(
-              fontSize: UIDefine.fontSize20, fontWeight: FontWeight.bold),
-        ),
-        Container(
-          margin: const EdgeInsets.symmetric(vertical: 20),
-          child: Text(
-            tr("shareCenterSubTitle"),
+              fontSize: UIDefine.fontSize20, fontWeight: FontWeight.bold)),
+      Container(
+        margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(10)),
+        child: Text(tr("shareCenterSubTitle"),
             style: TextStyle(
-                fontSize: UIDefine.fontSize12, fontWeight: FontWeight.normal),
-          ),
-        ),
-        Container(
-          height: UIDefine.getHeight() / 8,
+                fontSize: UIDefine.fontSize12, fontWeight: FontWeight.normal)),
+      ),
+      Container(
           decoration: AppStyle().styleColorBorderBackground(
-            radius: 15,
-            color: AppColors.bolderGrey,
-            backgroundColor: Colors.transparent,
-            borderLine: 2,
-          ),
+              radius: 15,
+              color: AppColors.bolderGrey,
+              backgroundColor: Colors.transparent,
+              borderLine: 2),
           child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              margin: EdgeInsets.symmetric(
+                  horizontal: UIDefine.getPixelWidth(10),
+                  vertical: UIDefine.getPixelHeight(15)),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => OrderDetailPage()));
-                      },
-                      child: Row(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => OrderDetailPage()));
+                        },
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(children: [
+                                Image.asset(AppImagePath.rewardGradient),
+                                const SizedBox(width: 5),
+                                Text(tr("teamIncome"),
+                                    style: TextStyle(
+                                        fontSize: UIDefine.fontSize14,
+                                        color: AppColors.textBlack))
+                              ]),
+                              Row(children: [
+                                Text(
+                                    '${viewModel.shareCenterInfo?.teamIncome.toString()} ${tr("usdt")}'),
+                                Image.asset(AppImagePath.rightArrow)
+                              ])
+                            ])),
+                    SizedBox(height: UIDefine.getPixelHeight(10)),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Image.asset(AppImagePath.rewardGradient),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            tr("teamIncome"),
-                            style: TextStyle(
-                                fontSize: UIDefine.fontSize14,
-                                color: AppColors.textBlack),
-                          )
-                        ],
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                            '${viewModel.shareCenterInfo?.teamIncome.toString()}'),
-                        Image.asset(AppImagePath.rightArrow),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Image.asset(AppImagePath.clockGradient),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          tr("24HourNo1'"),
-                          style: TextStyle(
-                              fontSize: UIDefine.fontSize14,
-                              color: AppColors.textBlack),
-                        )
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                            '${viewModel.shareCenterInfo?.no1DirectIncome.toString()}USDT'),
-                        Row(
-                          children: [
-                            Text(
-                              'ID',
-                              style: styleGrey,
-                            ),
-                            Text(
-                              viewModel.shareCenterInfo?.no1DirectId ?? "",
-                              style: styleGrey,
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-        )
-      ],
-    );
+                          Row(children: [
+                            Image.asset(AppImagePath.clockGradient),
+                            const SizedBox(width: 5),
+                            Text(tr("24HourNo1'"),
+                                style: TextStyle(
+                                    fontSize: UIDefine.fontSize14,
+                                    color: AppColors.textBlack))
+                          ]),
+                          Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                    '${viewModel.shareCenterInfo?.no1DirectIncome.toString()} ${tr('usdt')}'),
+                              ])
+                        ]),
+                    Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                      Text('ID', style: styleGrey),
+                      Text(viewModel.shareCenterInfo?.no1DirectId ?? "",
+                          style: styleGrey)
+                    ])
+                  ])))
+    ]);
   }
 
   Widget _buildQRcodeView(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const SizedBox(
-          height: 20,
-        ),
-        Text(
-            tr(
-              "referralQRcode",
-            ),
-            style: TextStyle(
-                fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w600)),
-        const SizedBox(
-          height: 10,
-        ),
+    return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+      SizedBox(height: UIDefine.getPixelHeight(20)),
+      Text(tr("referralQRcode"),
+          style: TextStyle(
+              fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500)),
+      SizedBox(height: UIDefine.getPixelHeight(10)),
 
-        /// QRCode
-        QrImage(
+      /// QRCode
+      QrImage(
           errorStateBuilder: (context, error) => Text(error.toString()),
           data: link,
           version: QrVersions.auto,
           size: UIDefine.getScreenWidth(41.6),
-          foregroundColor: AppColors.mainThemeButton,
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        _copyArea(context)
-      ],
-    );
+          foregroundColor: AppColors.mainThemeButton),
+      SizedBox(height: UIDefine.getPixelHeight(20)),
+      _copyArea(context)
+    ]);
   }
 
   Widget _copyArea(BuildContext context) {
@@ -225,88 +168,64 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
         fontSize: UIDefine.fontSize14,
         fontWeight: FontWeight.w500,
         color: AppColors.dialogGrey);
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 20),
+    return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+      Container(
+          margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelHeight(10)),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                tr("inviteCode"),
-                style: styleBlack,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    GlobalData.userInfo.inviteCode,
-                    textAlign: TextAlign.start,
-                    style: styleGrey,
-                  ),
-                  IconButton(
-                      onPressed: () {
-                        viewModel.copyText(copyText: GlobalData.userInfo.inviteCode);
-                      },
-                      icon: Image.asset(AppImagePath.copyIcon))
-                ],
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(tr("inviteCode"), style: styleBlack),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(GlobalData.userInfo.inviteCode,
+                          textAlign: TextAlign.start, style: styleGrey),
+                      InkWell(
+                          onTap: () {
+                            viewModel.copyText(
+                                copyText: GlobalData.userInfo.inviteCode);
+                            viewModel.showToast(context, tr('copiedSuccess'));
+                          },
+                          child: Image.asset(AppImagePath.copyIcon))
+                    ])
+              ])),
+      SizedBox(height: UIDefine.getPixelHeight(10)),
+      Container(
+          margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelHeight(10)),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                tr("referralLink"),
-                style: styleBlack,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              SizedBox(
-                height: UIDefine.getHeight() / 15,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                      child: Text(
-                        link,
-                        textAlign: TextAlign.start,
-                        style: styleGrey,
-                      ),
-                    ),
-                    IconButton(
-                        onPressed: () {
-                          viewModel.copyText(copyText: link);
-                        },
-                        icon: Image.asset(AppImagePath.copyIcon))
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: UIDefine.getHeight()/20,
-              ),
-              ActionButtonWidget(btnText: tr("share"), onPressed: (){
-                Navigator.of(context).push(PageRouteBuilder(
-                    opaque: false,
-                    pageBuilder: (context, animation, secondaryAnimation){
-                      return SharePicStyle(link: link,);
-                    }));
-              }),
-              const SizedBox(
-                height: 50,
-              ),
-            ],
-          ),
-        )
-      ],
-    );
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(tr("referralLink"), style: styleBlack),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                          child: Text(link,
+                              textAlign: TextAlign.start, style: styleGrey)),
+                      InkWell(
+                          onTap: () {
+                            viewModel.copyText(copyText: link);
+                            viewModel.showToast(context, tr('copiedSuccess'));
+                          },
+                          child: Image.asset(AppImagePath.copyIcon))
+                    ]),
+                SizedBox(height: UIDefine.getPixelHeight(50)),
+                ActionButtonWidget(
+                    btnText: tr("share"),
+                    onPressed: () {
+                      Navigator.of(context).push(PageRouteBuilder(
+                          opaque: false,
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) {
+                            return SharePicStyle(
+                              link: link,
+                            );
+                          }));
+                    }),
+                SizedBox(height: UIDefine.getPixelHeight(50))
+              ]))
+    ]);
   }
 }

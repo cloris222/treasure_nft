@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../../constant/enum/coin_enum.dart';
 import '../../../constant/global_data.dart';
@@ -11,6 +12,7 @@ import '../../../constant/theme/app_style.dart';
 import '../../../constant/theme/app_theme.dart';
 import '../../../view_models/personal/orders/order_recharge_viewmodel.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
+import '../../../widgets/dialog/common_custom_dialog.dart';
 import '../../../widgets/dialog/simple_custom_dialog.dart';
 import '../../../widgets/label/coin/tether_coin_widget.dart';
 import '../../custom_appbar_view.dart';
@@ -142,7 +144,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
               ),
               const SizedBox(height: 5),
               InkWell(
-                onTap: () => viewModel.onSaveQrcode(context, repaintKey),
+                onTap: () => _onSaveQRCode(),
                 child: Container(
                   decoration: AppStyle().styleUserSetting(),
                   padding:
@@ -264,5 +266,44 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
           style: TextStyle(
               fontSize: UIDefine.fontSize12, color: AppColors.dialogGrey))
     ]);
+  }
+
+  Future<PermissionStatus> _getStoragePermission() async {
+    PermissionStatus status = await Permission.storage.status;
+    if (!status.isGranted) {
+      final result = await Permission.storage.request();
+      return result;
+    } else {
+      return status;
+    }
+  }
+
+  void showStorageDialog() {
+    CommonCustomDialog(context,
+        bOneButton: false,
+        type: DialogImageType.warning,
+        title: tr("G_0403"),
+        content: tr('goPermissionStorage'),
+        leftBtnText: tr('cancel'),
+        rightBtnText: tr('confirm'), onLeftPress: () {
+      Navigator.pop(context);
+    }, onRightPress: () {
+      openAppSettings();
+      Navigator.pop(context);
+    }).show();
+  }
+
+  void _onSaveQRCode() async {
+    PermissionStatus status = await _getStoragePermission();
+    if (status == PermissionStatus.permanentlyDenied) {
+      showStorageDialog();
+    }
+
+    if (status.isGranted) {
+      // 檢查權限
+      if (mounted) {
+        viewModel.onSaveQrcode(context, repaintKey);
+      }
+    }
   }
 }
