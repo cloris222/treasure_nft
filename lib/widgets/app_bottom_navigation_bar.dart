@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
@@ -32,11 +33,64 @@ class AppBottomNavigationBar extends StatefulWidget {
   State<AppBottomNavigationBar> createState() => _AppBottomNavigationBarState();
 }
 
-class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
+class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> with WidgetsBindingObserver {
+
+  Timer? timer;
+  int unreadCount = 0; // 收藏未讀數
+
   @override
   void initState() {
     super.initState();
     GlobalData.mainBottomType = widget.initType;
+    _requestUnreadCollection();
+    _unreadTimingRequest();
+
+    /// 生命週期
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    switch (state) {
+      case AppLifecycleState.resumed:
+        debugPrint('-----App onResumed------');
+        _requestUnreadCollection();
+        _unreadTimingRequest();
+        break;
+
+      case AppLifecycleState.paused:
+        timer?.cancel();
+        break;
+
+      case AppLifecycleState.detached:
+      case AppLifecycleState.inactive:
+        break;
+    }
+  }
+
+  void _requestUnreadCollection() {
+    BaseViewModel().requestUnreadCollection().then((value) {
+      if (value > 0) { // 未讀數
+        setState(() {
+          unreadCount = value.toInt();
+        });
+      }
+    });
+  }
+
+  void _unreadTimingRequest() {
+    timer = Timer.periodic(const Duration(seconds: 10), (timer) {
+      if (GlobalData.userToken.isNotEmpty) {
+        _requestUnreadCollection();
+      }
+    });
   }
 
   @override
@@ -92,14 +146,52 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
         child: GestureDetector(
             onTap: () => _navigationTapped(
                 AppNavigationBarType.values.indexOf(type), setState),
-            child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
               (type == AppNavigationBarType.typeTrade)
                   ? const SizedBox()
                   : getIcon(type),
               const SizedBox(height: 1),
               Container(child: getText(type)),
               const SizedBox(height: 2)
-            ])));
+            ]))
+    );
+  }
+
+  Widget _getCollectionIcon(bool isSelect) {
+    String asset = isSelect
+        ? AppImagePath.mainTypeCollection
+        : AppImagePath.mainTypeCollectionOFF;
+    return Stack(
+      children: [
+        Padding(
+          padding: EdgeInsets.only(top: UIDefine.getScreenWidth(2.5), right: UIDefine.getScreenWidth(2.75)),
+          child:  Image.asset(asset, height: iconHeight, fit: BoxFit.fitHeight)
+        ),
+
+        Positioned(
+          right: 0, top: 0,
+          child: Opacity(
+            opacity: unreadCount > 0 ? 1.0 : 0.0, // 0.0=透明
+            child: Container(
+              alignment: Alignment.center,
+              width: UIDefine.getScreenWidth(5),
+              height: UIDefine.getScreenWidth(5),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  color: AppColors.textRed),
+              child: Text(
+                unreadCount.toString(),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: UIDefine.fontSize8,
+                ),
+              ),
+            ),
+          ))
+      ],
+    );
   }
 
   Widget getIcon(AppNavigationBarType type) {
@@ -114,12 +206,8 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
         }
         break;
       case AppNavigationBarType.typeCollection:
-        {
-          asset = isSelect
-              ? AppImagePath.mainTypeCollection
-              : AppImagePath.mainTypeCollectionOFF;
-        }
-        break;
+        return _getCollectionIcon(isSelect);
+
       case AppNavigationBarType.typeTrade:
         {
           asset = isSelect
@@ -187,10 +275,8 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
         }
         break;
       case AppNavigationBarType.typeCollection:
-        {
-          text = tr('Collection');
-        }
-        break;
+        return _getCollectionText();
+
       case AppNavigationBarType.typeTrade:
         {
           text = tr('Trade');
@@ -220,6 +306,19 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
             fontSize: textSize,
             color: AppColors.barFont01,
             fontWeight: FontWeight.w400));
+  }
+
+  Widget _getCollectionText() {
+    return Padding(
+        padding: EdgeInsets.only(right: UIDefine.getScreenWidth(2.75)),
+        child: Text(tr('Collection'),
+            maxLines: 1,
+            overflow: TextOverflow.clip,
+            style: TextStyle(
+                fontSize: textSize,
+                color: AppColors.barFont01,
+                fontWeight: FontWeight.w400))
+    );
   }
 
   _navigationTapped(int index, void Function(VoidCallback fn) setState) {

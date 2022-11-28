@@ -86,7 +86,7 @@ class OrderInfoPageViewModel extends BaseViewModel {
       case 'PRICE':
         return OrderInfoCard(
             orderNumber: data.orderNo, dateTime: BaseViewModel().changeTimeZone(data.createdAt, isShowGmt: true),
-            dataList: _priceListContent(data), status: data.status, walletBalance: 99999999, // 這裡的副本預約 不顯示餘額補足按鈕
+            dataList: _priceListContent(data), status: data.status, // 訂單信息的副本預約，不要顯示餘額補足按鈕
             imageUrl: data.imgUrl, itemName: data.itemName, price: data.price.toString());
 
       case 'ACTIVITY':

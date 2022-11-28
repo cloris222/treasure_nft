@@ -120,8 +120,10 @@ class CollectionMainViewModel extends BaseViewModel {
         .getOpenBoxResponse(action: action, itemId: itemId);
   }
 
-  Future<num> getWalletBalanceResponse({ResponseErrorFunction? onConnectFail}) async {
+  Future<String> requestMakeUpBalance(
+      {required String recordNo, ResponseErrorFunction? onConnectFail}) async {
     return await CollectionApi(onConnectFail: onConnectFail)
-        .getWalletBalanceResponse();
+        .requestMakeUpBalance(recordNo: recordNo);
   }
+
 }

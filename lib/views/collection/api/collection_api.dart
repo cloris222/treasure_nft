@@ -184,13 +184,29 @@ class CollectionApi extends HttpManager {
     return result;
   }
 
-  /// 查詢錢包餘額
-  Future<num> getWalletBalanceResponse() async {
-    num result = 0;
+  /// 取得收藏未讀通知數(需要補餘額的count)
+  Future<num> requestUnreadCollection() async {
+     num result = 0;
     try {
       ApiResponse response =
-      await get('/user/balance');
+      await get('/notify/unread/collection');
       result = response.data;
+    } catch (e) {
+      print(e.toString());
+    }
+    return result;
+  }
+
+  /// 補足餘額
+  Future<String> requestMakeUpBalance({
+    required String recordNo}) async {
+    String result = '';
+    try {
+      ApiResponse response =
+      await post('/reserve/make-up-balance', data: {
+        'recordNo': recordNo,
+      });
+      result = response.message;
     } catch (e) {
       print(e.toString());
     }

@@ -7,25 +7,26 @@ import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
+import '../../view_models/collection/collection_main_view_model.dart';
+import '../dialog/simple_custom_dialog.dart';
 import 'data/card_showing_data.dart';
 
 /// 無圖片的訂單信息_副本預約 (外部先將部分Data存成 List<CardShowingData>)
 class OrderInfoCard extends StatefulWidget {
   const OrderInfoCard({super.key,
-  this.status = '', this.walletBalance = 0, this.onEnoughMoney,
+  this.status = '', this.isPaying = false,
   required this.imageUrl, required this.itemName, this.price = '',
   required this.orderNumber,required this.dateTime, required this.dataList
   });
 
   final String status;
-  final num walletBalance;
   final String itemName;
   final String imageUrl;
   final String price;
   final String orderNumber;
   final String dateTime;
+  final bool isPaying; // 如果True，代表交易中但餘額不足
   final List<CardShowingData> dataList;
-  final onClickFunction? onEnoughMoney;
 
   @override
   State<StatefulWidget> createState() => _OrderInfoCard();
@@ -33,15 +34,14 @@ class OrderInfoCard extends StatefulWidget {
 
 class _OrderInfoCard extends State<OrderInfoCard> {
 
+  CollectionMainViewModel viewModel = CollectionMainViewModel();
   bool bNotEnoughMoney = false;
 
   @override
   void initState() {
     super.initState();
-    if (widget.status == 'PAYING') {
-      if (widget.walletBalance < double.parse(widget.price)) {
-        bNotEnoughMoney = true;
-      }
+    if (widget.isPaying) {
+      bNotEnoughMoney = true;
     }
   }
 
@@ -124,7 +124,6 @@ class _OrderInfoCard extends State<OrderInfoCard> {
   Color _getLuckyStrawBorderColor() {
     switch(widget.status) {
       case 'SUCCESS':
-      case 'PAYING':
         return AppColors.growPrice;
       case 'PENDING':
         return AppColors.textRed;
@@ -139,7 +138,6 @@ class _OrderInfoCard extends State<OrderInfoCard> {
   Color _getLuckyStrawColor() {
     switch(widget.status) {
       case 'SUCCESS':
-      case 'PAYING':
         return AppColors.growPrice;
       case 'PENDING':
         return AppColors.textWhite;
@@ -154,7 +152,6 @@ class _OrderInfoCard extends State<OrderInfoCard> {
   String _getLuckyStrawString() {
     switch(widget.status) {
       case 'SUCCESS':
-      case 'PAYING':
         return tr("notification-SUCCESS'");
       case 'PENDING':
         return tr("notification-PENDING'");
@@ -169,7 +166,6 @@ class _OrderInfoCard extends State<OrderInfoCard> {
   Color _getLuckyStrawStringColor() {
     switch(widget.status) {
       case 'SUCCESS':
-      case 'PAYING':
         return AppColors.textWhite;
       case 'PENDING':
         return AppColors.textRed;
@@ -284,8 +280,7 @@ class _OrderInfoCard extends State<OrderInfoCard> {
                 btnText: tr('balanceMadeUp'),
                 setHeight: UIDefine.getScreenWidth(12),
                 onPressed: () {
-                  setState(() { bNotEnoughMoney = false; });
-                  widget.onEnoughMoney!();
+                  _onMakeUpBalance();
                 })
         )
 
@@ -298,6 +293,18 @@ class _OrderInfoCard extends State<OrderInfoCard> {
       return true;
     }
     return false;
+  }
+
+  /// 按下補足餘額
+  void _onMakeUpBalance() {
+    viewModel.requestMakeUpBalance(
+        recordNo: widget.orderNumber, onConnectFail: (errMessage) {
+          viewModel.onBaseConnectFail(context, errMessage);
+        })
+        .then((value) {
+      SimpleCustomDialog(context, isSuccess: true).show();
+      setState(() { bNotEnoughMoney = false; });
+    });
   }
 
 }

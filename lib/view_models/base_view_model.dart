@@ -13,7 +13,7 @@ import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/models/http/api/order_api.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/user_info_data.dart';
-import 'package:treasure_nft_project/utils/number_format_util.dart';
+import 'package:treasure_nft_project/views/collection/api/collection_api.dart';
 import 'package:treasure_nft_project/views/full_animation_page.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/views/notify/notify_level_up_page.dart';
@@ -21,7 +21,6 @@ import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/image_dialog.dart';
 
 import '../constant/call_back_function.dart';
-import '../constant/enum/setting_enum.dart';
 import '../constant/global_data.dart';
 import '../constant/theme/app_animation_path.dart';
 import '../constant/theme/app_colors.dart';
@@ -180,6 +179,11 @@ class BaseViewModel {
     SimpleCustomDialog(context,
             mainText: tr('signSuccessfully'), isSuccess: true)
         .show();
+  }
+
+  ///MARK: 取得收藏未讀通知數(需要補餘額的count)
+  Future<num> requestUnreadCollection() async {
+    return await CollectionApi().requestUnreadCollection();
   }
 
   ///MARK: 登出使用者資料

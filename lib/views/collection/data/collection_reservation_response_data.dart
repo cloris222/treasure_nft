@@ -23,6 +23,7 @@ class CollectionReservationResponseData {
     this.startPrice = 0,
     this.endPrice = 0,
     this.price = 0,
+    this.isPaying = false,
   });
 
   String orderNo;
@@ -38,6 +39,7 @@ class CollectionReservationResponseData {
   num startPrice;
   num endPrice;
   num price;
+  bool isPaying;
 
   factory CollectionReservationResponseData.fromJson(Map<String, dynamic> json) => CollectionReservationResponseData(
     orderNo: json["orderNo"]??'',
@@ -53,6 +55,7 @@ class CollectionReservationResponseData {
     startPrice: json["startPrice"]??0,
     endPrice: json["endPrice"]??0,
     price: json["price"]??0,
+    isPaying: json["isPaying"]??false,
   );
 
   Map<String, dynamic> toJson() => {
@@ -69,5 +72,6 @@ class CollectionReservationResponseData {
     "startPrice": startPrice,
     "endPrice": endPrice,
     "price": price,
+    "isPaying": isPaying
   };
 }

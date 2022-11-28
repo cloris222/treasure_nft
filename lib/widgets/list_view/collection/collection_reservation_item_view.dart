@@ -13,13 +13,9 @@ import '../../../views/collection/data/collection_reservation_response_data.dart
 class CollectionReservationItemView extends StatefulWidget {
   const CollectionReservationItemView({super.key,
   required this.collectionReservationResponseData,
-  required this.walletBalance,
-  this.onEnoughMoney
   });
 
   final CollectionReservationResponseData collectionReservationResponseData;
-  final num walletBalance;
-  final onClickFunction? onEnoughMoney;
 
   @override
   State<StatefulWidget> createState() => _CollectionReservationItemView();
@@ -53,7 +49,7 @@ class _CollectionReservationItemView extends State<CollectionReservationItemView
     } else if (data.type == 'PRICE') {
       return OrderInfoCard(
           status: data.status,
-          walletBalance: widget.walletBalance,
+          isPaying: data.isPaying,
           orderNumber: data.orderNo,
           itemName: data.itemName,
           imageUrl: data.imgUrl,
@@ -63,9 +59,6 @@ class _CollectionReservationItemView extends State<CollectionReservationItemView
               data.startPrice.toString() + ' ~ ' + data.endPrice.toString(),
               data.deposit.toString(),
           ),
-          onEnoughMoney: () {
-            widget.onEnoughMoney!();
-          },
       );
 
     } else {
