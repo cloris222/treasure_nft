@@ -155,7 +155,7 @@ class GroupAPI extends HttpManager {
       {required String orderNo, required bool isSeller}) async {
     var response = await get('/user/query/user', queryParameters: {
       "orderNo": orderNo,
-      "type": isSeller ? "MAKER" : "TAKER"
+      "type": isSeller ? "TAKER" : "MAKER"
     });
     return OtherUserInfo.fromJson(response.data);
   }

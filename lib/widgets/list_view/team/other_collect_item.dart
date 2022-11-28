@@ -13,7 +13,11 @@ class OtherCollectItem extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget space = SizedBox(height: UIDefine.getScreenHeight(1));
     return Column(children: [
-      Image.network(data.nftImgUrl),
+      Image.network(
+        data.nftImgUrl,
+        width: UIDefine.getScreenWidth(42), height: UIDefine.getScreenWidth(42),
+        fit: BoxFit.fill,
+      ),
       space,
       Container(
           alignment: Alignment.centerLeft,

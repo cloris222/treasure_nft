@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/api/group_api.dart';
 import '../../../models/http/parameter/other_collect_data.dart';
 import '../../../models/http/parameter/other_user_info.dart';
@@ -27,7 +28,13 @@ class OtherCollectViewModel extends BaseListViewModel {
 
   @override
   Widget itemView(int index, data) {
-    return OtherCollectItem(data: data);
+    return Padding(
+      padding: index % 2 == 0 ?
+      EdgeInsets.only(left: UIDefine.getScreenWidth(4))
+        :
+      EdgeInsets.only(right: UIDefine.getScreenWidth(4)),
+      child: OtherCollectItem(data: data)
+    );
   }
 
   @override
