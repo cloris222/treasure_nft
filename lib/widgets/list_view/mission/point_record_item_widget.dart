@@ -14,40 +14,39 @@ class PointRecordItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+        margin: EdgeInsets.symmetric(
+            vertical: UIDefine.getPixelHeight(5),
+            horizontal: UIDefine.getPixelWidth(20)),
         decoration: AppStyle().styleColorBorderBackground(
-            color: AppColors.bolderGrey, borderLine: 2),
+            color: AppColors.bolderGrey, borderLine: 2, radius: 8),
         child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            child: SizedBox(
-              width: UIDefine.getWidth(),
-              height: UIDefine.fontSize20 * 5,
-              child:
-                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                Image.asset(
-                  record.getImagePath(),
-                  height: UIDefine.fontSize20 * 4,
-                  fit: BoxFit.fitHeight,
-                ),
-                const SizedBox(width: 5),
-                Flexible(child: _buildRecordInfo())
-              ]),
-            )));
+            margin: EdgeInsets.symmetric(
+                horizontal: UIDefine.getPixelWidth(15),
+                vertical: UIDefine.getPixelHeight(10)),
+            child:
+                Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+              Image.asset(
+                record.getImagePath(),
+                height: UIDefine.getPixelHeight(80),
+                fit: BoxFit.fitHeight,
+              ),
+              SizedBox(width: UIDefine.getPixelWidth(10)),
+              Expanded(child: _buildRecordInfo())
+            ])));
   }
 
   Widget _buildRecordInfo() {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
         Text(record.getTitle(),
             style: TextStyle(
                 color: AppColors.dialogBlack,
-                fontSize: UIDefine.fontSize16,
+                fontSize: UIDefine.fontSize14,
                 fontWeight: FontWeight.w600)),
-        Text(
-            BaseViewModel()
-                .changeTimeZone(record.time, strFormat: 'yyyy-MM-dd HH:mm:ss'),
+        SizedBox(height: UIDefine.getPixelHeight(5)),
+        Text(BaseViewModel().changeTimeZone(record.time),
             style: TextStyle(
                 color: AppColors.searchBar,
                 fontSize: UIDefine.fontSize12,
@@ -55,12 +54,12 @@ class PointRecordItemWidget extends StatelessWidget {
         Text('${tr('type')} : ${record.getStringType()}',
             style: TextStyle(
                 color: AppColors.dialogGrey,
-                fontSize: UIDefine.fontSize14,
+                fontSize: UIDefine.fontSize12,
                 fontWeight: FontWeight.w500)),
         Text('${tr('lv_point')} : ${record.getStringPoint()}',
             style: TextStyle(
                 color: AppColors.dialogGrey,
-                fontSize: UIDefine.fontSize14,
+                fontSize: UIDefine.fontSize12,
                 fontWeight: FontWeight.w500))
       ],
     );

@@ -81,7 +81,7 @@ class PointRecordData {
   }
 
   String getStringPoint() {
-    return '${amount > 0 ? '+' : ''}$amount';
+    return '${amount > 0 ? '' : ''}$amount';
   }
 
   String getImagePath() {
