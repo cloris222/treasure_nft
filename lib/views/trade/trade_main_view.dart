@@ -187,10 +187,10 @@ class _TradeMainViewState extends State<TradeMainView> {
                     ),
                     LevelDetailLabel(
                       title: tr("availableBalance"),
-                      content: TradeTimerUtil()
-                          .getReservationInfo()
-                          .reserveBalance
-                          .toStringAsFixed(2),
+                      content: TradeTimerUtil().getReservationInfo().reserveBalance > 0 ?
+                      TradeTimerUtil().getReservationInfo().reserveBalance.toStringAsFixed(2)
+                         :
+                      '0',
                       rightFontWeight: FontWeight.bold,
                     ),
                     LevelDetailLabel(

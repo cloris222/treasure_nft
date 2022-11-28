@@ -73,8 +73,10 @@ class ReservationDialog extends BaseCloseDialog {
                 LevelDetailLabel(
                   title: tr('availableBalance'),
                   showCoins: true,
-                  content:
-                  reservationViewModel.checkReserve.reserveBalance.toStringAsFixed(2),
+                  content: reservationViewModel.checkReserve.reserveBalance > 0 ?
+                  reservationViewModel.checkReserve.reserveBalance.toStringAsFixed(2)
+                     :
+                  '0',
                   rightFontWeight: FontWeight.bold,
                 ),
                 LevelDetailLabel(
