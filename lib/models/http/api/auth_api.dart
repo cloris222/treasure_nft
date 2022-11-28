@@ -39,7 +39,7 @@ class AuthAPI extends HttpManager {
       'action': action.name,
       'email': mail,
       'type': 'MAIL',
-      'code': authCode,
+      'code': authCode.trim(),
       'phone': '',
       'countryName': 'Taiwan'
     });

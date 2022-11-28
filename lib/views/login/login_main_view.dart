@@ -97,6 +97,7 @@ class _LoginMainViewState extends State<LoginMainView> {
               data: viewModel.accountData,
               onTap: viewModel.onTap),
           LoginParamView(
+              bAccountFormatter: true,
               titleText: tr('password'),
               hintText: tr("placeholder-password"),
               controller: viewModel.passwordController,

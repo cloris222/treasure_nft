@@ -16,7 +16,8 @@ class LoginParamView extends StatelessWidget {
       this.isSecure = false,
       this.onChanged,
       this.onTap,
-      this.keyboardType})
+      this.keyboardType,
+      this.bAccountFormatter = false})
       : super(key: key);
   final String titleText;
   final String hintText;
@@ -26,6 +27,9 @@ class LoginParamView extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final GestureTapCallback? onTap;
   final TextInputType? keyboardType;
+
+  ///MARK: 帳號輸入資訊限制
+  final bool bAccountFormatter;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +45,7 @@ class LoginParamView extends StatelessWidget {
         isSecure: isSecure,
         onChanged: onChanged,
         onTap: onTap,
+        bAccountFormatter: bAccountFormatter,
       ),
       ErrorTextWidget(data: data, alignment: Alignment.centerRight)
     ]);

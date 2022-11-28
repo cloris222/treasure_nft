@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 
-import '../../models/http/parameter/country_phone_data.dart';
 import '../../view_models/login/register_main_viewmodel.dart';
 import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/label/common_text_widget.dart';
@@ -53,6 +52,7 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
         children: [
           ///MARK:帳號
           LoginParamView(
+              bAccountFormatter: true,
               titleText: tr('account'),
               hintText: tr("placeholder-account'"),
               controller: viewModel.accountController,
@@ -61,6 +61,7 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
 
           ///MARK:密碼
           LoginParamView(
+              bAccountFormatter: true,
               titleText: tr('password'),
               hintText: tr("placeholder-password"),
               controller: viewModel.passwordController,
@@ -71,6 +72,7 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
 
           ///MARK:再次確認密碼
           LoginParamView(
+              bAccountFormatter: true,
               titleText: tr("placeholder-password-again'"),
               hintText: tr("placeholder-password-again'"),
               controller: viewModel.rePasswordController,
@@ -112,6 +114,7 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
 
           ///MARK:暱稱
           LoginParamView(
+              bAccountFormatter: true,
               titleText: tr('nickname'),
               hintText: tr("placeholder-nickname'"),
               controller: viewModel.nicknameController,
@@ -119,7 +122,6 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
               onTap: viewModel.onTap),
 
           ///MARK:邀請瑪
-
           LoginParamView(
               titleText: tr('referralCode'),
               hintText: tr("placeholder-referralCode'"),

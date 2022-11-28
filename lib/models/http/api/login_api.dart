@@ -9,7 +9,7 @@ class LoginAPI extends HttpManager {
   Future<ApiResponse> login(
       {required String account, required String password}) async {
     return post('/user/login',
-        data: {'account': account, 'password': password});
+        data: {'account': account.trim(), 'password': password.trim()});
   }
 
   ///MARK: 會員登出
@@ -27,13 +27,13 @@ class LoginAPI extends HttpManager {
       required String phoneCountry,
       required String inviteCode}) async {
     return post('/user/register', data: {
-      'account': account,
-      'password': password,
-      'email': email,
-      'phone': phone,
+      'account': account.trim(),
+      'password': password.trim(),
+      'email': email.trim(),
+      'phone': phone.trim(),
       'phoneCountry': phoneCountry,
-      'name': nickname,
-      'inviteCode': inviteCode,
+      'name': nickname.trim(),
+      'inviteCode': inviteCode.trim(),
     });
   }
 
@@ -41,6 +41,6 @@ class LoginAPI extends HttpManager {
   Future<ApiResponse> forgetPassword(
       {required String account, required String email}) async {
     return post('/user/forget/password',
-        data: {'account': account, 'email': email});
+        data: {'account': account.trim(), 'email': email.trim()});
   }
 }

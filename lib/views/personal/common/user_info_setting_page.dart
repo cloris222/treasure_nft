@@ -41,81 +41,83 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
   @override
   Widget build(BuildContext context) {
     return CustomAppbarView(
-      needScrollView: false,
-      title: tr("userInfo"),
-      type: AppNavigationBarType.typePersonal,
-      body: SingleChildScrollView(
-        child: Padding(
-            padding: EdgeInsets.all(UIDefine.getScreenWidth(5.5)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                    margin: const EdgeInsets.symmetric(vertical: 5),
-                    child: Text(tr('nationality'),
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: UIDefine.fontSize14))),
-                _getNationalityForm(),
-                SizedBox(height: UIDefine.getScreenWidth(4.16)),
-                _getUnEditFormView(tr('account'), GlobalData.userInfo.account),
-                SizedBox(height: UIDefine.getScreenWidth(4.16)),
-                LoginParamView(
-                    titleText: tr('nickname'),
-                    hintText: tr("placeholder-nickname'"),
-                    controller: viewModel.nickNameController,
-                    data: viewModel.nickNameData,
-                    onTap: viewModel.onTap,
-                    onChanged: viewModel.onNicknameChanged),
-                SizedBox(height: UIDefine.getScreenWidth(4.16)),
-                PhoneParamView(
-                    initCountry: GlobalData.userInfo.phoneCountry.isNotEmpty
-                        ? GlobalData.userInfo.phoneCountry
-                        : null,
-                    titleText: tr('phone'),
-                    hintText: tr("placeholder-phone'"),
-                    controller: viewModel.phoneController,
-                    data: viewModel.phoneData,
-                    onTap: viewModel.onTap,
-                    getDropDownValue: (String value) {
-                      viewModel.setPhoneCountry(value);
-                    }),
-                SizedBox(height: UIDefine.getScreenWidth(4.16)),
-                _getUnEditFormView(tr('email'), GlobalData.userInfo.email),
-                SizedBox(height: UIDefine.getScreenWidth(4.16)),
-                GenderSelectorDropDownBar(getDropDownValue: (String value) {
-                  viewModel.setGender(value);
-                }),
-                SizedBox(height: UIDefine.getScreenWidth(4.16)),
-                Container(
-                    margin: const EdgeInsets.symmetric(vertical: 5),
-                    child: Text(tr('birthday'),
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: UIDefine.fontSize14))),
-                DatePickerOne(
-                  initDate: GlobalData.userInfo.birthday.isNotEmpty
-                      ? GlobalData.userInfo.birthday
-                      : null,
-                  onTap: viewModel.onTap,
-                  getValue: (String value) {
-                    viewModel.setBirthday(value);
-                  },
-                  data: viewModel.birthdayData,
-                  enabledColor: viewModel.birthdayData.result
-                      ? AppColors.bolderGrey
-                      : AppColors.textRed,
-                ),
-                SizedBox(height: UIDefine.getScreenWidth(6)),
-                LoginButtonWidget(
-                    // Save按鈕
-                    isGradient: false,
-                    btnText: tr('save'),
-                    onPressed: () => viewModel.onPressSave(context))
-              ]
-            ))
-      )
-    );
+        needScrollView: false,
+        title: tr("userInfo"),
+        type: AppNavigationBarType.typePersonal,
+        body: SingleChildScrollView(
+            child: Padding(
+                padding: EdgeInsets.all(UIDefine.getScreenWidth(5.5)),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                          margin: const EdgeInsets.symmetric(vertical: 5),
+                          child: Text(tr('nationality'),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: UIDefine.fontSize14))),
+                      _getNationalityForm(),
+                      SizedBox(height: UIDefine.getScreenWidth(4.16)),
+                      _getUnEditFormView(
+                          tr('account'), GlobalData.userInfo.account),
+                      SizedBox(height: UIDefine.getScreenWidth(4.16)),
+                      LoginParamView(
+                          bAccountFormatter: true,
+                          titleText: tr('nickname'),
+                          hintText: tr("placeholder-nickname'"),
+                          controller: viewModel.nickNameController,
+                          data: viewModel.nickNameData,
+                          onTap: viewModel.onTap,
+                          onChanged: viewModel.onNicknameChanged),
+                      SizedBox(height: UIDefine.getScreenWidth(4.16)),
+                      PhoneParamView(
+                          initCountry:
+                              GlobalData.userInfo.phoneCountry.isNotEmpty
+                                  ? GlobalData.userInfo.phoneCountry
+                                  : null,
+                          titleText: tr('phone'),
+                          hintText: tr("placeholder-phone'"),
+                          controller: viewModel.phoneController,
+                          data: viewModel.phoneData,
+                          onTap: viewModel.onTap,
+                          getDropDownValue: (String value) {
+                            viewModel.setPhoneCountry(value);
+                          }),
+                      SizedBox(height: UIDefine.getScreenWidth(4.16)),
+                      _getUnEditFormView(
+                          tr('email'), GlobalData.userInfo.email),
+                      SizedBox(height: UIDefine.getScreenWidth(4.16)),
+                      GenderSelectorDropDownBar(
+                          getDropDownValue: (String value) {
+                        viewModel.setGender(value);
+                      }),
+                      SizedBox(height: UIDefine.getScreenWidth(4.16)),
+                      Container(
+                          margin: const EdgeInsets.symmetric(vertical: 5),
+                          child: Text(tr('birthday'),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: UIDefine.fontSize14))),
+                      DatePickerOne(
+                        initDate: GlobalData.userInfo.birthday.isNotEmpty
+                            ? GlobalData.userInfo.birthday
+                            : null,
+                        onTap: viewModel.onTap,
+                        getValue: (String value) {
+                          viewModel.setBirthday(value);
+                        },
+                        data: viewModel.birthdayData,
+                        enabledColor: viewModel.birthdayData.result
+                            ? AppColors.bolderGrey
+                            : AppColors.textRed,
+                      ),
+                      SizedBox(height: UIDefine.getScreenWidth(6)),
+                      LoginButtonWidget(
+                          // Save按鈕
+                          isGradient: false,
+                          btnText: tr('save'),
+                          onPressed: () => viewModel.onPressSave(context))
+                    ]))));
   }
 
   Widget _getNationalityForm() {

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 
 import '../../../constant/call_back_function.dart';
@@ -39,10 +40,14 @@ class PhoneParamView extends StatelessWidget {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       _buildTextTitle(titleText),
       Stack(
+        alignment: Alignment.centerLeft,
         children: [
           Padding(
               padding: EdgeInsets.only(left: UIDefine.getScreenWidth(36)),
               child: LoginTextWidget(
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r"\d"))
+                ],
                 keyboardType: TextInputType.number,
                 hintText: hintText,
                 controller: controller,
@@ -55,16 +60,23 @@ class PhoneParamView extends StatelessWidget {
                 onChanged: onChanged,
                 onTap: onTap,
               )),
-          Container(
-              margin: const EdgeInsets.only(top: 11),
-              width: UIDefine.getScreenWidth(38),
-              height: UIDefine.getScreenWidth(12.2),
-              decoration: const BoxDecoration(
-                  color: AppColors.mainThemeButton,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      bottomLeft: Radius.circular(10))),
-              child: _dropDownBar())
+          Positioned(
+            left: 0,
+            child: Container(
+              alignment: Alignment.center,
+              height: UIDefine.getPixelHeight(60),
+              margin:
+                  EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(5)),
+              child: Container(
+                  width: UIDefine.getScreenWidth(38),
+                  decoration: const BoxDecoration(
+                      color: AppColors.mainThemeButton,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          bottomLeft: Radius.circular(10))),
+                  child: _dropDownBar()),
+            ),
+          )
         ],
       ),
       ErrorTextWidget(data: data, alignment: Alignment.centerRight)

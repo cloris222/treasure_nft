@@ -47,44 +47,49 @@ class _UserSettingPageState extends State<UserSettingPage> {
     Widget space = const SizedBox(height: 15);
     return CustomAppbarView(
         needCover: true,
-        needScrollView: false,
+        needScrollView: true,
         title: tr('account'),
         type: AppNavigationBarType.typePersonal,
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              PersonalSubUserInfoView(
-                  enableModify: true, onViewUpdate: () => setState(() {})),
-              Container(
-                padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5),
-                    UIDefine.getScreenWidth(5), UIDefine.getScreenWidth(5.5), 0),
-                child: _getGrayBolderButton(context, true),
+              Column(
+                children: [
+                  PersonalSubUserInfoView(
+                      enableModify: true, onViewUpdate: () => setState(() {})),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(
+                        UIDefine.getScreenWidth(5.5),
+                        UIDefine.getScreenWidth(5),
+                        UIDefine.getScreenWidth(5.5),
+                        0),
+                    child: _getGrayBolderButton(context, true),
+                  ),
+                  space,
+                  Container(
+                    padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5),
+                        0, UIDefine.getScreenWidth(5.5), 0),
+                    child: _getGrayBolderButton(context, false),
+                  ),
+                  space,
+                  Container(
+                      padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5),
+                          0, UIDefine.getScreenWidth(5.5), 0),
+                      child: LoginBolderButtonWidget(
+                          btnText: tr('logout'),
+                          onPressed: () => _onPressLogout(context))),
+                ],
               ),
-              space,
               Container(
-                padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5), 0,
-                    UIDefine.getScreenWidth(5.5), 0),
-                child: _getGrayBolderButton(context, false),
-              ),
-              space,
-              Container(
-                  padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5), 0,
-                      UIDefine.getScreenWidth(5.5), 0),
-                  child: LoginBolderButtonWidget(
-                      btnText: tr('logout'),
-                      onPressed: () => _onPressLogout(context))),
-            ],
-          ),
-
-          Container(
-            margin: EdgeInsets.only(right: UIDefine.getScreenWidth(5.5), bottom: UIDefine.getScreenWidth(3)),
-            alignment: Alignment.centerRight,
-            child: Text(tr('version') + ' v' + version, // test 版本要有多國
-                style: TextStyle(fontSize: UIDefine.fontSize12, color: AppColors.textGrey))
-          ),
-        ]));
+                  margin: EdgeInsets.only(
+                      right: UIDefine.getScreenWidth(5.5),
+                      bottom: UIDefine.getScreenWidth(3)),
+                  alignment: Alignment.centerRight,
+                  child: Text(tr('version') + ' v' + version, // test 版本要有多國
+                      style: TextStyle(
+                          fontSize: UIDefine.fontSize12,
+                          color: AppColors.textGrey))),
+            ]));
   }
 
   Widget _getGrayBolderButton(BuildContext context, bool bLockIcon) {
@@ -159,7 +164,8 @@ class _UserSettingPageState extends State<UserSettingPage> {
         .logout()
         .then((value) async {
       await BaseViewModel().clearUserLoginInfo();
-      BaseViewModel().pushAndRemoveUntil(context, const MainPage());
+      BaseViewModel().pushAndRemoveUntil(
+          context, const MainPage(type: AppNavigationBarType.typeLogin));
     });
   }
 }
