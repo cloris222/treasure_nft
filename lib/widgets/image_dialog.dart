@@ -53,10 +53,10 @@ class ImageDialog extends BaseDialog {
               : const Text(''),
           SizedBox(height: UIDefine.getScreenHeight(5)),
           Container(
+            alignment: Alignment.center,
             margin: EdgeInsets.zero,
             child: ActionButtonWidget(
-                margin:
-                    EdgeInsets.symmetric(horizontal: UIDefine.getWidth() / 5),
+                isFillWidth: false,
                 btnText: buttonText ?? tr("check"),
                 onPressed: _onPress,
                 isBorderStyle: false),
