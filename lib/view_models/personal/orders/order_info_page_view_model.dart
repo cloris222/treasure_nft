@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../../constant/call_back_function.dart';
@@ -21,14 +22,71 @@ class OrderInfoPageViewModel extends BaseViewModel {
   // num walletBalance = 0;
 
   void init(bool bFromWallet) {
-    DateTime now = DateTime.now();
-    String formattedDate = DateFormat('yyyy-MM-dd').format(now);
-    startDate = formattedDate;
-    endDate = formattedDate;
-
     if (bFromWallet) {
       currentType = 'DEPOSIT';
     }
+
+    /// 取得日期 by 帳號所屬國家
+    String timeZoneCode = _getTimeZoneCode(GlobalData.userInfo.country);
+    DateTime now = DateTime.now();
+    var formatterYear = DateFormat.y(timeZoneCode);
+    var formatterMonth = DateFormat.M(timeZoneCode);
+    var formatterDay = DateFormat.d(timeZoneCode);
+
+    String year = formatterYear.format(now);
+    String month = formatterMonth.format(now);
+    String day = formatterDay.format(now);
+
+    startDate = year + '-' + month + '-' + day;
+    endDate = startDate;
+  }
+
+  String _getTimeZoneCode(String countryName) {
+    switch(countryName) {
+      case 'Canada':
+        return 'en_CA';
+      case 'SaudiArabia':
+        return 'ar_SA';
+      case 'Jordan':
+        return 'ar_JO';
+      case 'Spain':
+        return 'es_ES';
+      case 'Brazil':
+        return 'pt_BR';
+      case 'Singapore':
+        return 'en_SG';
+      case 'America':
+        return 'en_US';
+      case 'Kuwait':
+        return 'ar_KW';
+      case 'Iran':
+        return 'fa_IR';
+      case 'Taiwan':
+        return 'zh_TW';
+      case 'Philippines':
+        return 'en_PH';
+      case 'Turkey':
+        return 'tr_TR';
+      case 'UnitedKingdom':
+        return 'en_GB';
+      case 'Korea':
+        return 'ko_KR';
+      case 'Thailand':
+        return 'th_TH';
+      case 'Laos':
+        return 'lo_LA';
+      case 'Indonesia':
+        return 'in_ID';
+      case 'Malaysia':
+        return 'ms_MY';
+      case 'TimorTimur':
+        return 'pt_TL';
+      case 'Japan':
+        return 'ja_JP';
+      case 'PapuaNewGuinea':
+        return 'en_PG';
+    }
+    return '';
   }
 
   void requestAPI(int page, int size, {ResponseErrorFunction? onConnectFail}) async {
