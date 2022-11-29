@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:treasure_nft_project/constant/enum/trade_enum.dart';
+import 'package:treasure_nft_project/models/data/activity_model_data.dart';
 import 'package:treasure_nft_project/models/http/api/trade_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/check_activiey_deposit.dart';
 import 'package:treasure_nft_project/models/http/parameter/check_activity_reserve.dart';
@@ -21,11 +23,11 @@ class ActivityViewModel extends BaseViewModel {
   final onClickFunction setState;
   ActivityReserveInfo? canReserve;
   ActivityDeposit? checkDeposit;
-  bool isOpen = true;
 
   late DateTime _localTime;
   late DateTime _drawTime;
   String countdownTime = '00:00:00:00';
+  late ActivityData activityData;
 
   /// 計算倒數用
   CountDownTimerUtil? _timer;
@@ -39,6 +41,7 @@ class ActivityViewModel extends BaseViewModel {
   ResponseErrorFunction errorMes;
 
   void initState() async {
+    activityData = ActivityData(status: ActivityState.Activity, showButton: true);
     canReserve = await TradeAPI().getActivityReserveAPI();
 
     ///查詢預約金
@@ -52,9 +55,9 @@ class ActivityViewModel extends BaseViewModel {
   }
 
   String getEndTimeLabel() {
-    if (isOpen == false) {
+    if(activityData.status == ActivityState.End){
       return tr("over");
-    } else {
+    }else {
       return countdownTime;
     }
   }
@@ -64,12 +67,15 @@ class ActivityViewModel extends BaseViewModel {
     _localTime = DateTime.parse(reservationInfo.localTime);
 
     /// 開獎時間(當地)
-     _drawTime = DateTime.parse(reservationInfo.drawTime);
-    /// 測試用
-    // _drawTime = DateTime.parse('2022-11-21 18:35:00');
+    _drawTime = DateTime.parse(reservationInfo.drawTime);
 
+    /// 測試用
+    //_drawTime = DateTime.parse('2022-11-29 18:35:00');
+
+    /// 當地時間超過開獎時間
     if (_localTime.compareTo(_drawTime) > 0) {
-      isOpen = false;
+      activityData.status = ActivityState.End;
+      activityData.showButton = true;
       setState();
       return;
     }
@@ -81,7 +87,11 @@ class ActivityViewModel extends BaseViewModel {
           callBackListener: MyCallBackListener(myCallBack: (duration) {
             countdownTime = duration;
             if (duration == '00:00:00:00') {
-              isOpen = false;
+              activityData.status = ActivityState.End;
+              activityData.showButton = true;
+            } else if (duration.compareTo('00:01:00:00') <= 0) {
+              activityData.status = ActivityState.HideButton;
+              activityData.showButton = false;
             }
             setState();
           }),

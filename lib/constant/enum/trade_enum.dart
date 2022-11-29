@@ -22,3 +22,9 @@ enum SellingState {
   /// 預約中
   Reserving,
 }
+
+enum ActivityState{
+  Activity,//預約時間（顯示button)
+  HideButton,// 隱藏預約button
+  End // 顯示中獎名單
+}

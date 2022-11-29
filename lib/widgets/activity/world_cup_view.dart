@@ -2,7 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:treasure_nft_project/constant/enum/trade_enum.dart';
 import 'package:treasure_nft_project/constant/theme/app_animation_path.dart';
+import 'package:treasure_nft_project/models/data/activity_model_data.dart';
 import 'package:treasure_nft_project/models/http/api/trade_api.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/view_models/trade/activity_viewmodel.dart';
@@ -84,6 +86,16 @@ class _WorldCupViewState extends State<WorldCupView> {
     super.initState();
   }
 
+  String showButtonLabel() {
+    if (viewModel.activityData.status == ActivityState.Activity) {
+      return tr("start-booking-prize");
+    } else if (viewModel.activityData.status == ActivityState.HideButton) {
+      return '';
+    } else {
+      return  tr("winnersList");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -105,20 +117,22 @@ class _WorldCupViewState extends State<WorldCupView> {
         SizedBox(
           height: UIDefine.fontSize16,
         ),
-        LoginButtonWidget(
-          btnText:
-              viewModel.isOpen ? tr("start-booking-prize") : tr("winnersList"),
-          onPressed: () {
-            if (viewModel.isOpen == true) {
-              _createReservation(context);
-            } else {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const TradeDrawResultPage()));
-            }
-          },
-          width: UIDefine.getWidth() * 0.7,
+        Visibility(
+          visible: viewModel.activityData.status != ActivityState.HideButton,
+          child: LoginButtonWidget(
+            btnText: showButtonLabel(),
+            onPressed: () {
+              if (viewModel.activityData.status == ActivityState.Activity) {
+                _createReservation(context);
+              } else {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const TradeDrawResultPage()));
+              }
+            },
+            width: UIDefine.getWidth() * 0.7,
+          ),
         ),
         SizedBox(
           height: UIDefine.fontSize16,
