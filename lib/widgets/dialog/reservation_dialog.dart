@@ -104,7 +104,7 @@ class ReservationDialog extends BaseCloseDialog {
         ActionButtonWidget(
           btnText: tr('check'),
           onPressed: confirmBtnAction,
-          margin: EdgeInsets.symmetric(horizontal: UIDefine.getWidth() / 6),
+          isFillWidth: false,
         ),
       ],
     );

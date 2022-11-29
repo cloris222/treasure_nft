@@ -16,8 +16,7 @@ class AnimationDialog extends BaseDialog {
   Widget initContent(BuildContext context, StateSetter setState) {
     return Stack(
       children: [
-        Container(
-          height: UIDefine.getHeight()/1.8,),
+        Container(constraints: BoxConstraints(minHeight: UIDefine.getPixelHeight(380)),),
         Lottie.asset(animationPathJson),
         Positioned(
           bottom: 0,
@@ -36,11 +35,10 @@ class AnimationDialog extends BaseDialog {
             ),
             Text(
               tr("reserve-success-text'"),
-              style: TextStyle(fontSize: UIDefine.fontSize16),
+              style: TextStyle(fontSize: UIDefine.fontSize14,color: Colors.black54),
+              textAlign: TextAlign.center,
             ),
-            ActionButtonWidget(
-                margin:
-                    EdgeInsets.symmetric(horizontal: UIDefine.getWidth() / 5),
+            ActionButtonWidget(isFillWidth: false,
                 isBorderStyle: false,
                 btnText: tr("confirm"),
                 onPressed: () {
