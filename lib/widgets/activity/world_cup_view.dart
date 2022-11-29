@@ -50,7 +50,8 @@ class _WorldCupViewState extends State<WorldCupView> {
         SuccessDialog(context,
                 callOkFunction: () {},
                 isSuccess: false,
-                mainText: tr("reserve-failed'"))
+                mainText: tr("reserve-failed'"),
+                subText: tr('APP_0064'))
             .show();
       },
       notEnoughToPay: () {
@@ -81,6 +82,54 @@ class _WorldCupViewState extends State<WorldCupView> {
         SimpleCustomDialog(context, mainText: tr(errorCode), isSuccess: false)
             .show();
       },
+      accountFrozen: () {
+        SuccessDialog(context,
+            callOkFunction: () {},
+            isSuccess: false,
+            mainText: tr("reserve-failed'"),
+            subText: tr('EO_001_6'))
+            .show();
+      },
+      activityNotFound: () {
+        SuccessDialog(context,
+            callOkFunction: () {},
+            isSuccess: false,
+            mainText: tr("reserve-failed'"),
+            subText: tr('A_0032'))
+            .show();
+      },
+      tradeForbidden: () {
+        SuccessDialog(context,
+            callOkFunction: () {},
+            isSuccess: false,
+            mainText: tr("reserve-failed'"),
+            subText: tr('APP_0054'))
+            .show();
+      },
+      levelNotEnough: () {
+        SuccessDialog(context,
+            callOkFunction: () {},
+            isSuccess: false,
+            mainText: tr("reserve-failed'"),
+            subText: tr('EO_001_6'))
+            .show();
+      },
+      activityReserveFull: () {
+        SuccessDialog(context,
+            callOkFunction: () {},
+            isSuccess: false,
+            mainText: tr("reserve-failed'"),
+            subText: tr('APP_0075'))
+            .show();
+      },
+      personalFull: () {
+        SuccessDialog(context,
+            callOkFunction: () {},
+            isSuccess: false,
+            mainText: tr("reserve-failed'"),
+            subText: tr('APP_0076'))
+            .show();
+      },
     );
     viewModel.initState();
     super.initState();
@@ -92,7 +141,7 @@ class _WorldCupViewState extends State<WorldCupView> {
     } else if (viewModel.activityData.status == ActivityState.HideButton) {
       return '';
     } else {
-      return  tr("winnersList");
+      return tr("winnersList");
     }
   }
 
