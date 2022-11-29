@@ -44,10 +44,10 @@ class _UserSettingPageState extends State<UserSettingPage> {
 
   @override
   Widget build(BuildContext context) {
-    Widget space = const SizedBox(height: 15);
+    Widget space = SizedBox(height: UIDefine.getScreenWidth(4));
     return CustomAppbarView(
         needCover: true,
-        needScrollView: true,
+        needScrollView: false,
         title: tr('account'),
         type: AppNavigationBarType.typePersonal,
         body: Column(
@@ -57,7 +57,7 @@ class _UserSettingPageState extends State<UserSettingPage> {
                 children: [
                   PersonalSubUserInfoView(
                       enableModify: true, onViewUpdate: () => setState(() {})),
-                  Container(
+                  Container( // 修改密碼
                     padding: EdgeInsets.fromLTRB(
                         UIDefine.getScreenWidth(5.5),
                         UIDefine.getScreenWidth(5),
@@ -66,29 +66,30 @@ class _UserSettingPageState extends State<UserSettingPage> {
                     child: _getGrayBolderButton(context, true),
                   ),
                   space,
-                  Container(
+                  Container( // 使用者設定
                     padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5),
                         0, UIDefine.getScreenWidth(5.5), 0),
                     child: _getGrayBolderButton(context, false),
                   ),
                   space,
-                  Container(
-                      padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5),
-                          0, UIDefine.getScreenWidth(5.5), 0),
-                      child: LoginBolderButtonWidget(
-                          btnText: tr('logout'),
-                          onPressed: () => _onPressLogout(context))),
+                  Container( // 版本號
+                    margin: EdgeInsets.only(
+                        left: UIDefine.getScreenWidth(5.5)),
+                    alignment: Alignment.centerLeft,
+                    child: Text(tr('version') + ' v' + version,
+                        style: TextStyle(
+                            fontSize: UIDefine.fontSize12,
+                            color: AppColors.textGrey))),
                 ],
               ),
-              Container(
-                  margin: EdgeInsets.only(
-                      right: UIDefine.getScreenWidth(5.5),
-                      bottom: UIDefine.getScreenWidth(3)),
-                  alignment: Alignment.centerRight,
-                  child: Text(tr('version') + ' v' + version, // test 版本要有多國
-                      style: TextStyle(
-                          fontSize: UIDefine.fontSize12,
-                          color: AppColors.textGrey))),
+
+              Container( // 登出按鈕
+                  padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5),
+                      0, UIDefine.getScreenWidth(5.5), UIDefine.getScreenWidth(8)),
+                  child: LoginBolderButtonWidget(
+                      btnText: tr('logout'),
+                      onPressed: () => _onPressLogout(context))),
+
             ]));
   }
 
