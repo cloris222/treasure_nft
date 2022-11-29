@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
-import 'package:treasure_nft_project/views/personal/common/network_video_view.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/personal/common/user_course_video_page.dart';
 import 'package:treasure_nft_project/widgets/label/flex_two_text_widget.dart';
 import '../../../constant/enum/setting_enum.dart';
@@ -92,22 +92,13 @@ class _UserNovicePageState extends State<UserNovicePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        // Expanded(
-                        //     child: NetworkVideoView(
-                        //       networkPath: getVideoPath(VideoStrEnum.values[index]),
-                        //       assetImagePath: format(
-                        //           AppImagePath.videoCover, {'index': index + 1}),
-                        //     )),
                         Expanded(
                           child: InkWell(
                             onTap: () {
-                              Navigator.push(
+                              BaseViewModel().pushOpacityPage(
                                   context,
-                                  MaterialPageRoute(
-                                      builder: (context) => CourseVideoPage(
-                                            videoStr:
-                                                VideoStrEnum.values[index],
-                                          )));
+                                  CourseVideoPage(
+                                      videoStr: VideoStrEnum.values[index]));
                             },
                             child: Image.asset(
                               format(AppImagePath.videoCover,
