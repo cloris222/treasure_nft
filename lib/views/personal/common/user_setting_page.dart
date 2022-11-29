@@ -50,45 +50,42 @@ class _UserSettingPageState extends State<UserSettingPage> {
         needScrollView: true,
         title: tr('account'),
         type: AppNavigationBarType.typePersonal,
-        body: Column(
-            children: [
-              Column(
-                children: [
-                  PersonalSubUserInfoView(
-                      enableModify: true, onViewUpdate: () => setState(() {})),
-                  Container( // 修改密碼
-                    padding: EdgeInsets.fromLTRB(
-                        UIDefine.getScreenWidth(5.5),
-                        UIDefine.getScreenWidth(5),
-                        UIDefine.getScreenWidth(5.5),
-                        0),
-                    child: _getGrayBolderButton(context, true),
-                  ),
-                  space,
-                  Container( // 使用者設定
-                    padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5),
-                        0, UIDefine.getScreenWidth(5.5), 0),
-                    child: _getGrayBolderButton(context, false),
-                  ),
-                  space,
-                  Container( // 登出按鈕
-                      padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5),
-                          0, UIDefine.getScreenWidth(5.5), 0),
-                      child: LoginBolderButtonWidget(
-                          btnText: tr('logout'),
-                          onPressed: () => _onPressLogout(context))),
-                  space,
-                  Container( // 版本號
-                      margin: EdgeInsets.only(
-                          left: UIDefine.getScreenWidth(5.5)),
-                      alignment: Alignment.centerLeft,
-                      child: Text(tr('version') + ' v' + version,
-                          style: TextStyle(
-                              fontSize: UIDefine.fontSize12,
-                              color: AppColors.textGrey))),
-                ],
-              ),
-            ]));
+        body: Column(children: [
+          PersonalSubUserInfoView(
+              enableModify: true, onViewUpdate: () => setState(() {})),
+          Container(
+            // 修改密碼
+            padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5),
+                UIDefine.getScreenWidth(5), UIDefine.getScreenWidth(5.5), 0),
+            child: _getGrayBolderButton(context, true),
+          ),
+          space,
+          Container(
+            // 使用者設定
+            padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5), 0,
+                UIDefine.getScreenWidth(5.5), 0),
+            child: _getGrayBolderButton(context, false),
+          ),
+          space,
+          Container(
+              // 版本號
+              margin: EdgeInsets.only(left: UIDefine.getScreenWidth(5.5)),
+              alignment: Alignment.centerLeft,
+              child: Text('${tr('version')} v$version',
+                  style: TextStyle(
+                      fontSize: UIDefine.fontSize12,
+                      color: AppColors.textGrey))),
+          space,
+          SizedBox(height: UIDefine.getPixelHeight(100)),
+          Container(
+              // 登出按鈕
+              padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5), 0,
+                  UIDefine.getScreenWidth(5.5), 0),
+              child: LoginBolderButtonWidget(
+                  btnText: tr('logout'),
+                  onPressed: () => _onPressLogout(context))),
+          space,
+        ]));
   }
 
   Widget _getGrayBolderButton(BuildContext context, bool bLockIcon) {
