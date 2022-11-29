@@ -10,6 +10,7 @@ import 'package:treasure_nft_project/utils/language_util.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
 import 'package:treasure_nft_project/views/home/home_sub_usdt_view.dart';
 import 'package:treasure_nft_project/views/home/home_sub_contact_view.dart';
+import 'package:treasure_nft_project/views/home/home_sub_video_view.dart';
 import 'package:treasure_nft_project/views/home/widget/home_usdt_info.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
@@ -94,7 +95,7 @@ class _HomeMainViewState extends State<HomeMainView> {
         viewModel.buildSpace(height: 2),
 
         /// 教學影片
-        const VideoPlayWidget(),
+        const HomeSubVideoView(),
 
         /// 贊助
         // sponsor(),
@@ -463,78 +464,5 @@ class _HomeMainViewState extends State<HomeMainView> {
                                 color: AppColors.font02)))
                   ]))
             ]));
-  }
-}
-
-class VideoPlayWidget extends StatefulWidget {
-  const VideoPlayWidget({super.key});
-
-  @override
-  State<StatefulWidget> createState() => VideoPlayWidgetState();
-}
-
-class VideoPlayWidgetState extends State<VideoPlayWidget> {
-  late VideoPlayerController _controller;
-
-  @override
-  void initState() {
-    _controller = VideoPlayerController.network(HttpSetting.homeAdUrl)
-      ..initialize().then((value) {
-        setState(() {});
-        _controller.setLooping(true);
-      });
-
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-        width: UIDefine.getWidth(),
-        height: UIDefine.getScreenHeight(27),
-        child: Container(
-          child: _controller.value.isInitialized
-              ? _controller.value.isPlaying
-                  ? InkWell(
-                      onTap: _onStop,
-                      child: AspectRatio(
-                          aspectRatio: _controller.value.aspectRatio,
-                          child: VideoPlayer(_controller)))
-                  : Container(
-                      color: Colors.white,
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.all(UIDefine.getScreenWidth(2)),
-                      child: InkWell(
-                          onTap: _onStart,
-                          child: Stack(alignment: Alignment.center, children: [
-                            Image.asset(AppImagePath.videoImg,
-                                height: UIDefine.getScreenHeight(15)),
-                            Opacity(
-                                opacity: 0.87,
-                                child: CircleAvatar(
-                                    radius: UIDefine.getScreenWidth(8),
-                                    backgroundColor: Colors.white,
-                                    child: Icon(Icons.play_arrow,
-                                        color: Colors.black,
-                                        size: UIDefine.getScreenWidth(8))))
-                          ])))
-              : Container(),
-        ));
-  }
-
-  void _onStop() {
-    _controller.pause().then((value) => setState(() {}));
-  }
-
-  void _onStart() {
-    _controller
-        .seekTo(const Duration(seconds: 0))
-        .then((value) => _controller.play().then((value) => setState(() {})));
   }
 }

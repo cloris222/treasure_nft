@@ -41,24 +41,28 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
         title: tr('winnersList'),
         body: Stack(
           children: [
-            SizedBox(
+            Container(
                 width: UIDefine.getWidth(),
-                child: Image.asset(AppImagePath.tradeDrawBg,
-                    fit: BoxFit.fitWidth)),
-            Positioned.fill(
-                child: Container(
-                    padding: EdgeInsets.only(
-                        left: UIDefine.getScreenWidth(8),
-                        right: UIDefine.getScreenWidth(8)),
-                    child: Column(children: [
-                      Expanded(flex: 4, child: _buildActivityInfoView()),
-                      _buildActivityAward(),
-                      _buildBar(),
-                      Expanded(flex: 9, child: _buildDrawResultView())
-                    ]))),
+                constraints:
+                    BoxConstraints(minHeight: UIDefine.getPixelHeight(1115)),
+                padding: EdgeInsets.only(
+                  top:UIDefine.getPixelHeight(70),
+                    left: UIDefine.getScreenWidth(8),
+                    right: UIDefine.getScreenWidth(8)),
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage(AppImagePath.tradeDrawBg),
+                        fit: BoxFit.fill)),
+                child: Column(children: [
+                  _buildActivityInfoView(),
+                  SizedBox(height: UIDefine.getPixelHeight(70)),
+                  _buildActivityAward(),
+                  _buildBar(),
+                  _buildDrawResultView()
+                ])),
             Positioned(
                 right: 0,
-                top: UIDefine.getScreenHeight(8),
+                top: UIDefine.getPixelHeight(50),
                 child: Image.asset(
                   AppImagePath.tradeDrawCoin,
                   width: UIDefine.getWidth() * 0.3,
@@ -91,7 +95,7 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
               size: UIDefine.fontSize28,
               starColor: AppColors.drawColorBg[1],
             ),
-            SizedBox(height: UIDefine.getScreenHeight(2)),
+            SizedBox(height: UIDefine.getPixelHeight(20)),
             _buildActivityDate(),
           ]),
     );
