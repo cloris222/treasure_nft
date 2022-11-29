@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/views/personal/common/network_video_view.dart';
 import 'package:treasure_nft_project/views/personal/common/user_course_video_page.dart';
 import 'package:treasure_nft_project/widgets/label/flex_two_text_widget.dart';
 import '../../../constant/enum/setting_enum.dart';
@@ -91,6 +92,12 @@ class _UserNovicePageState extends State<UserNovicePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        // Expanded(
+                        //     child: NetworkVideoView(
+                        //       networkPath: getVideoPath(VideoStrEnum.values[index]),
+                        //       assetImagePath: format(
+                        //           AppImagePath.videoCover, {'index': index + 1}),
+                        //     )),
                         Expanded(
                           child: InkWell(
                             onTap: () {
@@ -110,15 +117,36 @@ class _UserNovicePageState extends State<UserNovicePage> {
                           ),
                         ),
                         FlexTwoTextWidget(
-                          text: tr(VideoStrEnum.values[index].name),
-                          textAlign: TextAlign.center,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                            alignment:Alignment.center
-                        ),
+                            text: tr(VideoStrEnum.values[index].name),
+                            textAlign: TextAlign.center,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            alignment: Alignment.center),
                       ],
                     )),
               ]));
         });
+  }
+
+  String getVideoPath(VideoStrEnum videoStrPath) {
+    switch (videoStrPath) {
+      case VideoStrEnum.howSignUp:
+        return 'https://image.treasurenft.xyz/video/mb_tutorial_01.mp4';
+
+      case VideoStrEnum.howToDeposit:
+        return 'https://image.treasurenft.xyz/video/mb_tutorial_02.mp4';
+
+      case VideoStrEnum.howToBuy:
+        return 'https://image.treasurenft.xyz/video/mb_tutorial_03.mp4';
+
+      case VideoStrEnum.howToWithdraw:
+        return 'https://image.treasurenft.xyz/video/mb_tutorial_04.mp4';
+
+      case VideoStrEnum.howToViewInvitations:
+        return 'https://image.treasurenft.xyz/video/mb_tutorial_05.mp4';
+
+      case VideoStrEnum.howToViewEarnings:
+        return 'https://image.treasurenft.xyz/video/mb_tutorial_06.mp4';
+    }
   }
 }
