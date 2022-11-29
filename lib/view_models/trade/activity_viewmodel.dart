@@ -89,6 +89,7 @@ class ActivityViewModel extends BaseViewModel {
             if (duration == '00:00:00:00') {
               activityData.status = ActivityState.End;
               activityData.showButton = true;
+              /// 開賣前一小時隱藏button
             } else if (duration.compareTo('00:01:00:00') <= 0) {
               activityData.status = ActivityState.HideButton;
               activityData.showButton = false;
