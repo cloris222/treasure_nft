@@ -14,8 +14,8 @@ class GenderSelectorDropDownBar extends StatelessWidget {
   final onGetStringFunction getDropDownValue;
 
   final List<String> _currencies = [
-    "Male",
-    "FeMale",
+    "man",
+    "woman",
   ];
 
   @override
@@ -62,9 +62,9 @@ class GenderSelectorDropDownBar extends StatelessWidget {
   String _getCategoryText(String value) {
     // 下拉選單 多國
     switch (value) {
-      case 'Male':
+      case 'man':
         return tr('male');
-      case 'FeMale':
+      case 'woman':
         return tr('female');
     }
     return '';
