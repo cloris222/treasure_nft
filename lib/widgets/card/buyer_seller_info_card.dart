@@ -81,31 +81,31 @@ class _BuyerSellerInfoCard extends State<BuyerSellerInfoCard> {
           )
         ),
 
-        SizedBox(height: UIDefine.getScreenWidth(2.8)),
-        Container(width: double.infinity, height: 1, color: AppColors.searchBar),
-
         Visibility(
-          visible: bShowMore,
-          child: Padding(
-            padding: EdgeInsets.only(left: UIDefine.getScreenWidth(8.25), right: UIDefine.getScreenWidth(8.25)),
-            child: Column(
-              children: [
-                SizedBox(height: UIDefine.getScreenWidth(2.8)),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: _getMoreInfoWidget(0)
-                ),
+            visible: bShowMore,
+            child: Padding(
+                padding: EdgeInsets.only(left: UIDefine.getScreenWidth(8.25), right: UIDefine.getScreenWidth(8.25)),
+                child: Column(
+                  children: [
+                    SizedBox(height: UIDefine.getScreenWidth(2.8)),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: _getMoreInfoWidget(0)
+                    ),
 
-                SizedBox(height: UIDefine.getScreenWidth(2.8)),
+                    SizedBox(height: UIDefine.getScreenWidth(2.8)),
 
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: _getMoreInfoWidget(3)
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: _getMoreInfoWidget(3)
+                    )
+                  ],
                 )
-              ],
             )
-          )
-        )
+        ),
+        SizedBox(height: UIDefine.getScreenWidth(2)),
+
+        Container(width: double.infinity, height: 1, color: AppColors.searchBar),
       ],
     );
   }
