@@ -47,11 +47,10 @@ class _UserSettingPageState extends State<UserSettingPage> {
     Widget space = SizedBox(height: UIDefine.getScreenWidth(4));
     return CustomAppbarView(
         needCover: true,
-        needScrollView: false,
+        needScrollView: true,
         title: tr('account'),
         type: AppNavigationBarType.typePersonal,
         body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 children: [
@@ -72,24 +71,23 @@ class _UserSettingPageState extends State<UserSettingPage> {
                     child: _getGrayBolderButton(context, false),
                   ),
                   space,
+                  Container( // 登出按鈕
+                      padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5),
+                          0, UIDefine.getScreenWidth(5.5), 0),
+                      child: LoginBolderButtonWidget(
+                          btnText: tr('logout'),
+                          onPressed: () => _onPressLogout(context))),
+                  space,
                   Container( // 版本號
-                    margin: EdgeInsets.only(
-                        left: UIDefine.getScreenWidth(5.5)),
-                    alignment: Alignment.centerLeft,
-                    child: Text(tr('version') + ' v' + version,
-                        style: TextStyle(
-                            fontSize: UIDefine.fontSize12,
-                            color: AppColors.textGrey))),
+                      margin: EdgeInsets.only(
+                          left: UIDefine.getScreenWidth(5.5)),
+                      alignment: Alignment.centerLeft,
+                      child: Text(tr('version') + ' v' + version,
+                          style: TextStyle(
+                              fontSize: UIDefine.fontSize12,
+                              color: AppColors.textGrey))),
                 ],
               ),
-
-              Container( // 登出按鈕
-                  padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5),
-                      0, UIDefine.getScreenWidth(5.5), UIDefine.getScreenWidth(8)),
-                  child: LoginBolderButtonWidget(
-                      btnText: tr('logout'),
-                      onPressed: () => _onPressLogout(context))),
-
             ]));
   }
 
@@ -104,7 +102,7 @@ class _UserSettingPageState extends State<UserSettingPage> {
               padding: const EdgeInsets.all(2),
               child: Container(
                   alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.all(UIDefine.getScreenWidth(2)),
+                  padding: EdgeInsets.all(UIDefine.getScreenWidth(1.5)),
                   decoration: (const BoxDecoration(
                     color: AppColors.textWhite,
                     borderRadius: BorderRadius.all(Radius.circular(10)),
