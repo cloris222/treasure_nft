@@ -40,19 +40,19 @@ class CollectionTicketResponseData {
   String winPrizeStatus;
 
   factory CollectionTicketResponseData.fromJson(Map<String, dynamic> json) => CollectionTicketResponseData(
-    orderNo: json["orderNo"],
-    type: json["type"],
-    createdAt: json["createdAt"],
-    lotteryNo: json["lotteryNo"],
-    deposit: json["deposit"],
-    ticketValue: json["ticketValue"],
-    itemName: json["itemName"],
-    imgUrl: json["imgUrl"],
-    itemPrice: json["itemPrice"],
-    itemStatus: json["itemStatus"],
+    orderNo: json["orderNo"]??'',
+    type: json["type"]??'',
+    createdAt: json["createdAt"]??'',
+    lotteryNo: json["lotteryNo"]??'',
+    deposit: json["deposit"]??0,
+    ticketValue: json["ticketValue"]??0,
+    itemName: json["itemName"]??'',
+    imgUrl: json["imgUrl"]??'',
+    itemPrice: json["itemPrice"]??0,
+    itemStatus: json["itemStatus"]??'',
     winPrize: json["winPrize"] ?? 0,
-    winPrizeAmount: json["winPrizeAmount"],
-    winPrizeStatus: json["winPrizeStatus"],
+    winPrizeAmount: json["winPrizeAmount"]??0,
+    winPrizeStatus: json["winPrizeStatus"]??'',
   );
 
   Map<String, dynamic> toJson() => {

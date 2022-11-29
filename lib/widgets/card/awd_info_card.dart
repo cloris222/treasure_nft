@@ -16,7 +16,7 @@ class AWDInfoCard extends StatelessWidget {
   });
 
   String status;
-  String type;
+  String type; // ACTIVITY_AWARD:活動獎勵, LEVEL_UP_ADD:升等獎勵(儲金罐), AD_PRIZE:活動副本(獎金)
   String datetime;
   List<CardShowingData> dataList;
 
@@ -90,14 +90,14 @@ class AWDInfoCard extends StatelessWidget {
   }
 
   Widget _getActivityName() {
-    if (type.contains('ACTIVITY')) {
+    if (type.contains('ACTIVITY') || type.contains('PRIZE')) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 6),
+          const SizedBox(height: 2),
           Text(
-            '???????', // test 活動名, 後端欄位尚未完成
-            style: TextStyle(fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
+            tr('world-cups-event'), // 活動名 (後端沒給欄位 目前寫死)
+            style: TextStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w600),
           )
         ],
       );
@@ -158,7 +158,10 @@ class AWDInfoCard extends StatelessWidget {
       return tr('activitiesUSDT');
 
     } else if (type.contains('LEVEL')) {
-      return tr('bonus');
+      return tr('goldStorageTank');
+
+    } else if (type.contains('PRIZE')) {
+      return tr('activitiesUSDT');
 
     } else if (type.contains('DEPOSIT')) {
       return tr('recharge');
@@ -170,7 +173,7 @@ class AWDInfoCard extends StatelessWidget {
   }
   
   _getImage() {
-    if (type.contains('ACTIVITY') || type.contains('LEVEL')) {
+    if (type.contains('ACTIVITY') || type.contains('LEVEL') || type.contains('PRIZE')) {
       return Image.asset('assets/icon/icon/icon_file_03.png');
 
     } else if (type.contains('DEPOSIT')) {

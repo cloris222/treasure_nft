@@ -295,12 +295,13 @@ class _EventInfoCard extends State<EventInfoCard> {
           Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 0, 3),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: i == 0 ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     tr(widget.dataList[i].title), // 在外部要塞多語系的key
                     style: TextStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                   ),
+
                   Row(
                     children: [
                       Visibility(
@@ -309,8 +310,8 @@ class _EventInfoCard extends State<EventInfoCard> {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        tr(widget.dataList[i].content),
-                        style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                        tr(': ' + widget.dataList[i].content),
+                        style: TextStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                       )
                     ],
                   )
