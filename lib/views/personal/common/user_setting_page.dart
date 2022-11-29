@@ -110,7 +110,7 @@ class _UserSettingPageState extends State<UserSettingPage> {
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   )),
                   child: Padding(
-                      padding: EdgeInsets.all(UIDefine.getScreenWidth(2.77)),
+                      padding: EdgeInsets.all(UIDefine.getScreenWidth(2)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

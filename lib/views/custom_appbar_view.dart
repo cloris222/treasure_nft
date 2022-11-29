@@ -39,16 +39,16 @@ class CustomAppbarView extends StatelessWidget {
               height: UIDefine.getHeight(),
               width: UIDefine.getWidth(),
               padding: EdgeInsets.only(
-                  top: needCover ? 5 : 20,
+                  top: needCover ? UIDefine.getScreenWidth(1.38) : UIDefine.getScreenWidth(5.5),
                   bottom: MediaQuery.of(context).viewInsets.bottom > 0
-                      ? 5
-                      : 5 + GlobalData.navigationBarPadding),
+                      ? UIDefine.getScreenWidth(1.38)
+                      : UIDefine.getScreenWidth(1.38) + GlobalData.navigationBarPadding),
               child:
                   needScrollView ? SingleChildScrollView(child: body) : body),
           Positioned(
               top: 0,
               child: Container(
-                  height: 20,
+                  height: UIDefine.getScreenWidth(5.5),
                   width: UIDefine.getWidth(),
                   decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(

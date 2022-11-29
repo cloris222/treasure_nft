@@ -63,7 +63,8 @@ class PersonalSubUserInfoView extends StatelessWidget {
           child: Container(
               alignment: Alignment.topCenter,
               width: UIDefine.getWidth(),
-              padding: const EdgeInsets.all(20),
+              height: UIDefine.getScreenWidth(56),
+              padding: EdgeInsets.all(UIDefine.getScreenWidth(5.5)),
               decoration: BoxDecoration(image: image),
               child: _buildFloatView(context)))
     ]);
@@ -75,7 +76,7 @@ class PersonalSubUserInfoView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            margin: const EdgeInsets.only(right: 10),
+            margin: EdgeInsets.only(right: UIDefine.getScreenWidth(2.7)),
             alignment: Alignment.centerRight,
             width: UIDefine.getWidth(),
             child: showLevelInfo
@@ -94,14 +95,14 @@ class PersonalSubUserInfoView extends StatelessWidget {
           GestureDetector(
               onTap: () => _showModifyAvatar(context),
               child: Container(
-                  margin: const EdgeInsets.only(bottom: 15),
+                  margin: EdgeInsets.only(bottom: UIDefine.getScreenWidth(4)),
                   child: userInfo.photoUrl.isNotEmpty
                       ? CircleNetworkIcon(
                           networkUrl: userInfo.photoUrl, radius: 35)
                       : Image.asset(
                           AppImagePath.avatarImg,
-                          width: 70,
-                          height: 70,
+                          width: UIDefine.getScreenWidth(18.66),
+                          height: UIDefine.getScreenWidth(18.66),
                         ))),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Text(userInfo.name,
@@ -119,7 +120,7 @@ class PersonalSubUserInfoView extends StatelessWidget {
                   right: showPoint
                       ? UIDefine.getWidth() / 8
                       : UIDefine.getWidth() / 4,
-                  top: 15),
+                  top: UIDefine.getScreenWidth(4)),
               child: Row(children: [
                 Flexible(
                     child: InkWell(
