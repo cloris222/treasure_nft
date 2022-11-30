@@ -43,7 +43,7 @@ class PhoneParamView extends StatelessWidget {
         alignment: Alignment.centerLeft,
         children: [
           Padding(
-              padding: EdgeInsets.only(left: UIDefine.getScreenWidth(40)),
+              padding: EdgeInsets.only(left: UIDefine.getScreenWidth(37)),
               child: LoginTextWidget(
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp(r"\d"))

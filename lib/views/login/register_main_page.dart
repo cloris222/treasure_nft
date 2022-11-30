@@ -123,7 +123,7 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
 
           ///MARK:邀請瑪
           LoginParamView(
-              titleText: tr('referralCode'),
+              titleText: '${tr('referralCode')} (${tr('optional')})',
               hintText: tr("placeholder-referralCode'"),
               controller: viewModel.referralController,
               data: viewModel.referralData,
