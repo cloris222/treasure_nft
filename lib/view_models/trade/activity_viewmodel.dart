@@ -18,6 +18,12 @@ class ActivityViewModel extends BaseViewModel {
     required this.depositNotEnough,
     required this.wrongTime,
     required this.errorMes,
+    required this.accountFrozen,
+    required this.activityNotFound,
+    required this.tradeForbidden,
+    required this.levelNotEnough,
+    required this.activityReserveFull,
+    required this.personalFull,
   });
 
   final onClickFunction setState;
@@ -38,10 +44,17 @@ class ActivityViewModel extends BaseViewModel {
   VoidCallback bookPriceNotEnough;
   VoidCallback reservationSuccess;
   VoidCallback wrongTime;
+  VoidCallback accountFrozen;
+  VoidCallback activityNotFound;
+  VoidCallback tradeForbidden;
+  VoidCallback levelNotEnough;
+  VoidCallback activityReserveFull;
+  VoidCallback personalFull;
   ResponseErrorFunction errorMes;
 
   void initState() async {
-    activityData = ActivityData(status: ActivityState.Activity, showButton: true);
+    activityData =
+        ActivityData(status: ActivityState.Activity, showButton: true);
     canReserve = await TradeAPI().getActivityReserveAPI();
 
     ///查詢預約金
@@ -55,9 +68,9 @@ class ActivityViewModel extends BaseViewModel {
   }
 
   String getEndTimeLabel() {
-    if(activityData.status == ActivityState.End){
+    if (activityData.status == ActivityState.End) {
       return tr("over");
-    }else {
+    } else {
       return countdownTime;
     }
   }
@@ -89,6 +102,7 @@ class ActivityViewModel extends BaseViewModel {
             if (duration == '00:00:00:00') {
               activityData.status = ActivityState.End;
               activityData.showButton = true;
+
               /// 開賣前一小時隱藏button
             } else if (duration.compareTo('00:01:00:00') <= 0) {
               activityData.status = ActivityState.HideButton;
@@ -128,6 +142,35 @@ class ActivityViewModel extends BaseViewModel {
       case 'APP_0064':
         bookPriceNotEnough();
         break;
+
+      /// 帳號被凍結
+      case 'EO_001_6':
+        accountFrozen();
+        break;
+
+      /// 查無活動名稱
+      case 'A_0032':
+        activityNotFound();
+        break;
+
+      /// 禁止交易
+      case 'APP_0054':
+        tradeForbidden();
+        break;
+
+      /// 等級不足
+      case 'APP_0055':
+        levelNotEnough();
+        break;
+
+      /// 活動副本預約次數已滿
+      case 'APP_0075':
+        activityReserveFull();
+        break;
+
+      /// 活動個人預約次數已滿
+      case 'APP_0076':
+        personalFull();
     }
   }
 }
