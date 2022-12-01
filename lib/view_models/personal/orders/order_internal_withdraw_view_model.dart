@@ -143,6 +143,20 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
         setState(() {});
         return;
       }
+
+      ///MARK: 提領金額是否大於最低金額
+      if (num.parse(amountController.text) < num.parse(data.minAmount)) {
+        CommonCustomDialog(context,
+            title: tr("point-FAIL'"),
+            content: '${tr("errorMinAmount")}${data.minAmount} USDT',
+            type: DialogImageType.fail,
+            rightBtnText: tr('confirm'),
+            onLeftPress: () {}, onRightPress: () {
+              Navigator.pop(context);
+            }).show();
+        return;
+      }
+
       if (alertInfo.isReserve) {
         CommonCustomDialog(context,
             title: tr("reservenotDrawn"),

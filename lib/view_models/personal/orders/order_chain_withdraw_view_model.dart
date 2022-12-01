@@ -148,10 +148,10 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
       }
 
       ///MARK: 提領金額是否大於最低金額
-      if (int.parse(amountController.text) < int.parse(data.minAmount)) {
+      if (num.parse(amountController.text) < num.parse(data.minAmount)) {
         CommonCustomDialog(context,
             title: tr("point-FAIL'"),
-            content: tr("errorMinAmount") + data.minAmount + ' USDT',
+            content: '${tr("errorMinAmount")}${data.minAmount} USDT',
             type: DialogImageType.fail,
             rightBtnText: tr('confirm'),
             onLeftPress: () {}, onRightPress: () {
