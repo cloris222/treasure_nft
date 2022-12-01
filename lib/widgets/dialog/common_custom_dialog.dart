@@ -106,7 +106,7 @@ class CommonCustomDialog extends BaseDialog {
   }
 
   Widget _solidButton() {
-    // 實心按鈕
+    /// 實心按鈕
     return ActionButtonWidget(
         btnText: rightBtnText,
         onPressed: () => onRightPress(),
@@ -114,26 +114,10 @@ class CommonCustomDialog extends BaseDialog {
         fontWeight: FontWeight.w500,
         fontSize: UIDefine.fontSize16,
         isFillWidth: false);
-    // return Container(
-    //   width: UIDefine.getScreenWidth(32),
-    //   decoration: BoxDecoration(
-    //       color: AppColors.mainThemeButton,
-    //       borderRadius: BorderRadius.circular(10)),
-    //   child: TextButton(
-    //       onPressed: () {
-    //         onRightPress();
-    //       },
-    //       child: Text(
-    //         rightBtnText,
-    //         style: TextStyle(
-    //             color: AppColors.textWhite,
-    //             fontSize: UIDefine.fontSize16,
-    //             fontWeight: FontWeight.w500),
-    //       )),
-    // );
   }
 
   Widget _hollowButton() {
+    /// 空心按鈕
     return ActionButtonWidget(
       isFillWidth: false,
       isBorderStyle: true,
@@ -142,24 +126,6 @@ class CommonCustomDialog extends BaseDialog {
       radius: 10,
       fontWeight: FontWeight.w500,
       fontSize: UIDefine.fontSize16,
-    );
-    // 空心按鈕
-    return Container(
-      width: UIDefine.getScreenWidth(32),
-      decoration: BoxDecoration(
-          border: Border.all(color: AppColors.mainThemeButton, width: 2),
-          borderRadius: BorderRadius.circular(10)),
-      child: TextButton(
-          onPressed: () {
-            onLeftPress();
-          },
-          child: Text(
-            leftBtnText,
-            style: TextStyle(
-                color: AppColors.mainThemeButton,
-                fontSize: UIDefine.fontSize16,
-                fontWeight: FontWeight.w500),
-          )),
     );
   }
 }
