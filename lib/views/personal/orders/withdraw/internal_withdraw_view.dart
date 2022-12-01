@@ -63,9 +63,9 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
               isGradient: false,
               btnText: tr('submit'),
               onPressed: () {
-                if (viewModel.checkEmail) {
+                // if (viewModel.checkEmail) {
                   viewModel.onPressSave(context, widget.getWalletAlert());
-                }
+                // }
               },
               enable: viewModel.checkEnable()),
           SizedBox(height: UIDefine.getScreenWidth(11.1))

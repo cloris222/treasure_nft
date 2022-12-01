@@ -72,7 +72,7 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
     return accountController.text.isNotEmpty &&
         amountController.text.isNotEmpty &&
         // passwordController.text.isNotEmpty &&
-        emailCodeController.text.isNotEmpty;
+        (emailCodeController.text.isNotEmpty || checkExperience);
   }
 
   bool checkData() {
