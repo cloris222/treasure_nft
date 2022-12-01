@@ -86,7 +86,10 @@ class _GetCollectionMainListview extends State<GetCollectionMainListview> {
       return _getReservationListViewItem(reserveList[index], index);
 
     } else if (currentType == 'Selling') { // 上架中
-      return _getSellingListViewItem(itemsList[index], index);
+      if (index == 0) {
+        return const SizedBox(); // 上架中不會有充值按鈕(但共用itemList 所以要判)
+      }
+      return _getSellingListViewItem(itemsList[index - 1], index - 1);
 
     } else if (currentType == 'Pending') { // 未上架
       if (index - 1 < 0) {
