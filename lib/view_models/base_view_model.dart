@@ -183,7 +183,10 @@ class BaseViewModel {
 
   ///MARK: 取得收藏未讀通知數(需要補餘額的count)
   Future<num> requestUnreadCollection() async {
-    return await CollectionApi().requestUnreadCollection();
+    return await CollectionApi(onConnectFail: (errorMessage) {
+      ///MARK: 偷偷把讀取失敗藏起來 避免一直彈窗
+    })
+        .requestUnreadCollection();
   }
 
   ///MARK: 登出使用者資料
@@ -302,7 +305,8 @@ class BaseViewModel {
 
   /// 指定小數點後幾位，且是無條件捨去
   double truncateToDecimalPlaces(num value, int fractionalDigits) {
-    return (value * pow(10, fractionalDigits)).truncate() / pow(10, fractionalDigits);
+    return (value * pow(10, fractionalDigits)).truncate() /
+        pow(10, fractionalDigits);
   }
 
   /// 保留小數點後兩位，且去零，還有仟位符號
@@ -452,7 +456,7 @@ class BaseViewModel {
     String strGmtFormat = '(GMT{}{:02d}:00) ',
     String strFormat = '',
   }) {
-    if(strTime.isEmpty){
+    if (strTime.isEmpty) {
       return "";
     }
     var dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');

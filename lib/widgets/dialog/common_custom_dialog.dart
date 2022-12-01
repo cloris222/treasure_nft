@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import 'package:treasure_nft_project/widgets/dialog/base_dialog.dart';
 
 import '../../constant/theme/app_colors.dart';
@@ -96,9 +97,9 @@ class CommonCustomDialog extends BaseDialog {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _hollowButton(),
+          Expanded(child: _hollowButton()),
           SizedBox(width: UIDefine.getScreenWidth(2.7)),
-          _solidButton()
+          Expanded(child: _solidButton())
         ],
       );
     }
@@ -106,26 +107,42 @@ class CommonCustomDialog extends BaseDialog {
 
   Widget _solidButton() {
     // 實心按鈕
-    return Container(
-      width: UIDefine.getScreenWidth(32),
-      decoration: BoxDecoration(
-          color: AppColors.mainThemeButton,
-          borderRadius: BorderRadius.circular(10)),
-      child: TextButton(
-          onPressed: () {
-            onRightPress();
-          },
-          child: Text(
-            rightBtnText,
-            style: TextStyle(
-                color: AppColors.textWhite,
-                fontSize: UIDefine.fontSize16,
-                fontWeight: FontWeight.w500),
-          )),
-    );
+    return ActionButtonWidget(
+        btnText: rightBtnText,
+        onPressed: () => onRightPress(),
+        radius: 10,
+        fontWeight: FontWeight.w500,
+        fontSize: UIDefine.fontSize16,
+        isFillWidth: false);
+    // return Container(
+    //   width: UIDefine.getScreenWidth(32),
+    //   decoration: BoxDecoration(
+    //       color: AppColors.mainThemeButton,
+    //       borderRadius: BorderRadius.circular(10)),
+    //   child: TextButton(
+    //       onPressed: () {
+    //         onRightPress();
+    //       },
+    //       child: Text(
+    //         rightBtnText,
+    //         style: TextStyle(
+    //             color: AppColors.textWhite,
+    //             fontSize: UIDefine.fontSize16,
+    //             fontWeight: FontWeight.w500),
+    //       )),
+    // );
   }
 
   Widget _hollowButton() {
+    return ActionButtonWidget(
+      isFillWidth: false,
+      isBorderStyle: true,
+      btnText: rightBtnText,
+      onPressed: () => onLeftPress(),
+      radius: 10,
+      fontWeight: FontWeight.w500,
+      fontSize: UIDefine.fontSize16,
+    );
     // 空心按鈕
     return Container(
       width: UIDefine.getScreenWidth(32),

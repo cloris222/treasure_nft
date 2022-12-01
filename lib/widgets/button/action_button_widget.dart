@@ -12,6 +12,7 @@ class ActionButtonWidget extends StatelessWidget {
       this.setTransColor = Colors.transparent,
       this.setHeight,
       this.fontSize,
+      this.fontWeight,
       this.margin,
       this.padding,
       this.isBorderStyle = false,
@@ -25,6 +26,7 @@ class ActionButtonWidget extends StatelessWidget {
   final Color setTransColor; //取代透明色,用於倒數框
   final double? setHeight;
   final double? fontSize;
+  final FontWeight? fontWeight;
   final bool isBorderStyle; //false 時 為填滿顏色 true 為 只有框線色
   final bool isFillWidth;
   final EdgeInsetsGeometry? margin;
@@ -57,7 +59,9 @@ class ActionButtonWidget extends StatelessWidget {
         child: Text(
           btnText,
           style: TextStyle(
-              color: textColor, fontSize: fontSize ?? UIDefine.fontSize16),
+              color: textColor,
+              fontSize: fontSize ?? UIDefine.fontSize16,
+              fontWeight: fontWeight),
         ));
 
     return isFillWidth
