@@ -14,22 +14,25 @@ class AnimationDialog extends BaseDialog {
 
   @override
   Widget initContent(BuildContext context, StateSetter setState) {
-    return Stack(
+    return Column(
       children: [
-        Container(constraints: BoxConstraints(minHeight: UIDefine.getPixelHeight(400)),),
-        Lottie.asset(animationPathJson),
-        Positioned(
-          bottom: 0,
-            left: 0,
-            right: 0,
-            child: Column(
+        Stack(
+          children: [
+            Lottie.asset(animationPathJson),
+            Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Text(
+                  tr("reserve-success'"),textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: UIDefine.fontSize22),
+                ))
+          ],
+        ),
+        Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              tr("reserve-success'"),
-              style: TextStyle(fontSize: UIDefine.fontSize22),
-            ),
             const SizedBox(
               height: 10,
             ),
@@ -45,7 +48,8 @@ class AnimationDialog extends BaseDialog {
                   Navigator.pop(context);
                 })
           ],
-        ))
+        )
+
       ],
     );
   }
