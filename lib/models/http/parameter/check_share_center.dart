@@ -4,9 +4,11 @@
 
 import 'dart:convert';
 
-CheckShareCenter checkShareCenterFromJson(String str) => CheckShareCenter.fromJson(json.decode(str));
+CheckShareCenter checkShareCenterFromJson(String str) =>
+    CheckShareCenter.fromJson(json.decode(str));
 
-String checkShareCenterToJson(CheckShareCenter data) => json.encode(data.toJson());
+String checkShareCenterToJson(CheckShareCenter data) =>
+    json.encode(data.toJson());
 
 class CheckShareCenter {
   CheckShareCenter({
@@ -16,22 +18,23 @@ class CheckShareCenter {
     required this.no1DirectIncome,
   });
 
-  double directRecommend;
-  double teamIncome;
+  num directRecommend;
+  num teamIncome;
   String no1DirectId;
-  int no1DirectIncome;
+  num no1DirectIncome;
 
-  factory CheckShareCenter.fromJson(Map<String, dynamic> json) => CheckShareCenter(
-    directRecommend: json["directRecommend"].toDouble() ,
-    teamIncome: json["teamIncome"].toDouble()?? 0.0,
-    no1DirectId: json["no1DirectId"]??'',
-    no1DirectIncome: json["no1DirectIncome"],
-  );
+  factory CheckShareCenter.fromJson(Map<String, dynamic> json) =>
+      CheckShareCenter(
+        directRecommend: json["directRecommend"] ?? 0,
+        teamIncome: json["teamIncome"] ?? 0,
+        no1DirectId: json["no1DirectId"] ?? '',
+        no1DirectIncome: json["no1DirectIncome"] ?? 0,
+      );
 
   Map<String, dynamic> toJson() => {
-    "directRecommend": directRecommend,
-    "teamIncome": teamIncome,
-    "no1DirectId": no1DirectId,
-    "no1DirectIncome": no1DirectIncome,
-  };
+        "directRecommend": directRecommend,
+        "teamIncome": teamIncome,
+        "no1DirectId": no1DirectId,
+        "no1DirectIncome": no1DirectIncome,
+      };
 }

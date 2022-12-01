@@ -86,7 +86,7 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
                   vertical: UIDefine.getPixelHeight(15)),
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     InkWell(
@@ -113,7 +113,7 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
                                 Image.asset(AppImagePath.rightArrow)
                               ])
                             ])),
-                    SizedBox(height: UIDefine.getPixelHeight(10)),
+                    SizedBox(height: UIDefine.getPixelHeight(5)),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -132,11 +132,9 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
                                     '${viewModel.shareCenterInfo?.no1DirectIncome.toString()} ${tr('usdt')}'),
                               ])
                         ]),
-                    Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                      Text('ID', style: styleGrey),
-                      Text(viewModel.shareCenterInfo?.no1DirectId ?? "",
-                          style: styleGrey)
-                    ])
+                    SizedBox(height: UIDefine.getPixelHeight(5)),
+                    Text('ID ${viewModel.shareCenterInfo?.no1DirectId ?? ""}',
+                        style: styleGrey),
                   ])))
     ]);
   }
