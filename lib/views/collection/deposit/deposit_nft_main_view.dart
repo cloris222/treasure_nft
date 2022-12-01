@@ -147,7 +147,7 @@ class _DepositNftMainView extends State<DepositNftMainView> {
                     _pressNext();
                   },
                   child: Text(
-                    tr('paymentCompleted'), // 完成付款
+                    tr('Next'), // 下一步
                     style: TextStyle(
                         color: AppColors.textWhite, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
                   )

@@ -2,12 +2,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
 import '../../view_models/collection/collection_main_view_model.dart';
+import '../app_bottom_navigation_bar.dart';
 import '../dialog/simple_custom_dialog.dart';
 import 'data/card_showing_data.dart';
 
@@ -302,8 +304,13 @@ class _OrderInfoCard extends State<OrderInfoCard> {
           viewModel.onBaseConnectFail(context, errMessage);
         })
         .then((value) {
-      SimpleCustomDialog(context, isSuccess: true).show();
-      setState(() { bNotEnoughMoney = false; });
+          if (value == 'SUCCESS') {
+            SimpleCustomDialog(context, isSuccess: true).show();
+            setState(() { bNotEnoughMoney = false; });
+
+            // 更新bottomNavigationBar的狀態
+            GlobalData.bottomNavigationNotifier.minus();
+          }
     });
   }
 

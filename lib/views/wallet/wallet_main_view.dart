@@ -10,7 +10,6 @@ import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/theme/app_style.dart';
 import '../../view_models/wallet/wallet_main_view_model.dart';
-import '../../widgets/dialog/simple_custom_dialog.dart';
 import '../../widgets/label/coin/tether_coin_widget.dart';
 import '../../widgets/label/wallet_info_item.dart';
 import '../personal/orders/order_info_page.dart';
@@ -134,7 +133,7 @@ class _WalletMainViewState extends State<WalletMainView> {
                   onTap: () {
                     viewModel.copyText(
                         copyText: GlobalData.userWalletInfo?['TRON']);
-                    SimpleCustomDialog(context, isSuccess: true).show();
+                    viewModel.showToast(context, tr('copiedSuccess'));
                   },
                   child: Image.asset(AppImagePath.copyIcon))
             ],
