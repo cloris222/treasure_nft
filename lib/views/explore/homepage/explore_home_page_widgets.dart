@@ -34,7 +34,7 @@ class HomePageWidgets {
           children: [
             Column(
               children: [
-                Image.network(data.introPhoneUrl, height: UIDefine.getScreenWidth(44), fit: BoxFit.fill),
+                Image.network(data.introPhoneUrl, fit: BoxFit.fill),
 
                 Container(
                   height: UIDefine.getScreenWidth(17),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:treasure_nft_project/view_models/collection/collection_main_view_model.dart';
 
@@ -5,6 +6,8 @@ import '../../../constant/ui_define.dart';
 import '../../../views/collection/data/collection_nft_item_response_data.dart';
 import '../../../views/collection/data/collection_reservation_response_data.dart';
 import '../../../views/collection/data/collection_ticket_response_data.dart';
+import '../../../views/collection/deposit/deposit_nft_main_view.dart';
+import '../../button/icon_text_button_widget.dart';
 import 'collection_blind_box_item_view.dart';
 import 'collection_sell_unsell_item_view.dart';
 import 'collection_reservation_item_view.dart';
@@ -68,10 +71,10 @@ class _GetCollectionMainListview extends State<GetCollectionMainListview> {
       },
       child: ListView.separated(
           shrinkWrap: true,
+          itemCount: _getItemCount(),
           itemBuilder: (context, index) {
             return _createItemBuilder(context, index);
           },
-          itemCount: _getItemCount(),
           separatorBuilder: (BuildContext context, int index) {
             return _createSeparatorBuilder(context, index);
           })
@@ -86,7 +89,11 @@ class _GetCollectionMainListview extends State<GetCollectionMainListview> {
       return _getSellingListViewItem(itemsList[index], index);
 
     } else if (currentType == 'Pending') { // 未上架
-      return _getPendingListViewItem(itemsList[index], index);
+      if (index - 1 < 0) {
+        return _getDepositAndSwitchBtn();
+      } else {
+        return _getPendingListViewItem(itemsList[index - 1], index - 1);
+      }
 
     } else { // 我的票券
       return _getTicketListViewItem(ticketList[index], index);
@@ -104,7 +111,17 @@ class _GetCollectionMainListview extends State<GetCollectionMainListview> {
     } else if (currentType == 'Ticket'){
       return ticketList.length;
     }
-    return itemsList.length;
+
+    return itemsList.length + 1; // 未上架要有按鈕
+  }
+
+  Widget _getDepositAndSwitchBtn() {
+    return IconTextButtonWidget(
+        height: UIDefine.getScreenWidth(10),
+        btnText: tr("depositNFT"),
+        iconPath: 'assets/icon/btn/btn_card_01_nor.png',
+        onPressed: () { viewModel.pushPage(context, DepositNftMainView()); }
+    );
   }
 
   Widget _getReservationListViewItem(CollectionReservationResponseData data, int index) {
