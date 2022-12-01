@@ -103,6 +103,7 @@ class OrderDetailViewModel extends BaseListViewModel {
       typeCallback: _callType,
       initType: currentType,
       typeList: const [
+        Search.All,
         Search.Today,
         Search.Yesterday,
         Search.SevenDays,
