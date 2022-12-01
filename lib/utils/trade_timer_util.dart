@@ -27,7 +27,7 @@ class TradeTimerUtil {
   final bool printTimeLog = false;
 
   ///MARK: 查詢預約資訊
-  late CheckReservationInfo _reservationInfo;
+  CheckReservationInfo? _reservationInfo;
 
   ///MARK: 要判斷 天數
   late DateTime _dateCurrentTime;
@@ -35,7 +35,8 @@ class TradeTimerUtil {
   late DateTime _dateSellEndTime;
 
   ///MARK: 計算出來的結果
-  late TradeData _currentTradeData;
+  TradeData _currentTradeData = TradeData(
+      duration: const Duration(seconds: 0), status: SellingState.NotYet);
   List<GetTradDate> listeners = [];
 
   ///MARK: 隨機更新時間
@@ -43,20 +44,21 @@ class TradeTimerUtil {
 
   ///MARK: 可放更新的值進來
   void start({CheckReservationInfo? setInfo}) async {
-    if (_countdownTimer != null) {
-      _closeTimer();
-    }
-
-    debugPrint('$key init timer');
-
     ///MARK: 取得開賣時間
     if (setInfo == null) {
+      ///如果在這裡就壞了 就不會進到下一步
       _reservationInfo = await TradeAPI().getCheckReservationInfoAPI(0);
     } else {
       _reservationInfo = setInfo;
     }
-    _setTime(_reservationInfo);
-    _startTimer();
+
+    debugPrint('$key init timer');
+    ///MARK: 判斷有拿到值才做更新
+    if (_reservationInfo != null) {
+      _closeTimer();
+      _setTime(_reservationInfo!);
+      _startTimer();
+    }
   }
 
   void stop() {
@@ -66,12 +68,13 @@ class TradeTimerUtil {
   TradeData getCurrentTradeData() {
     return _currentTradeData;
   }
+
   ///可通用
   DateTime getSellStartTime() {
     return _dateSellStartTime;
   }
 
-  CheckReservationInfo getReservationInfo() {
+  CheckReservationInfo? getReservationInfo() {
     return _reservationInfo;
   }
 

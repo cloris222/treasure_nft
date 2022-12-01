@@ -25,8 +25,7 @@ class TradeDivisionViewModel extends BaseViewModel {
 
   final onClickFunction setState;
   final int level;
-  AddNewReservation? newReservation;
-  late List<ReserveRange> ranges;
+  List<ReserveRange> ranges = [];
   int second = 0;
   VoidCallback notEnoughToPay;
   VoidCallback bookPriceNotEnough;
@@ -42,14 +41,15 @@ class TradeDivisionViewModel extends BaseViewModel {
   void initState() {
     ///MARK: 監聽
     currentData = TradeTimerUtil().getCurrentTradeData();
-    ranges = TradeTimerUtil().getReservationInfo().reserveRanges;
+
+    ///MARK: 會拿到別的層級資訊
+    // ranges = TradeTimerUtil().getReservationInfo()?.reserveRanges ?? [];
     TradeTimerUtil().addListener(_onUpdateTrade);
 
     ///更新畫面
     TradeAPI().getCheckReservationInfoAPI(level).then((value) {
       TradeTimerUtil().start(setInfo: value);
-
-      ranges = TradeTimerUtil().getReservationInfo().reserveRanges;
+      ranges = value.reserveRanges;
 
       /// 如果是體驗帳號 且 level 1 副本顯示內容不同
       if (GlobalData.experienceInfo.isExperience == true &&

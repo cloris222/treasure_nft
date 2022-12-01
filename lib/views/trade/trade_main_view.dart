@@ -5,6 +5,7 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
+import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/utils/trade_timer_util.dart';
 import 'package:treasure_nft_project/widgets/activity/world_cup_view.dart';
 import 'package:treasure_nft_project/widgets/count_down_timer.dart';
@@ -142,32 +143,28 @@ class _TradeMainViewState extends State<TradeMainView> {
 
   Widget _levelView(BuildContext context) {
     TextStyle titleStyle = TextStyle(fontSize: UIDefine.fontSize16);
+    double balance = TradeTimerUtil().getReservationInfo()?.balance ?? 0;
+    double reserveBalance =
+        TradeTimerUtil().getReservationInfo()?.reserveBalance ?? 0;
+    if (reserveBalance < 0) {
+      reserveBalance = 0;
+    }
+
     return Container(
       margin: EdgeInsets.symmetric(
           vertical: 10, horizontal: UIDefine.getWidth() / 30),
       child: Column(
         children: [
           Row(children: [
-            Image.asset(
-              viewModel.getLevelImg(),
-              width: UIDefine.getWidth() / 11,
-              height: UIDefine.getWidth() / 11,
-            ),
-            const SizedBox(
-              width: 10,
-            ),
+            Image.asset(viewModel.getLevelImg(),
+                width: UIDefine.getWidth() / 11,
+                height: UIDefine.getWidth() / 11),
+            const SizedBox(width: 10),
             Text(tr('level'), style: titleStyle),
-            const SizedBox(
-              width: 5,
-            ),
-            Text(
-              '${GlobalData.userInfo.level}',
-              style: titleStyle,
-            )
+            const SizedBox(width: 5),
+            Text('${GlobalData.userInfo.level}', style: titleStyle)
           ]),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           Container(
             decoration: AppStyle().styleColorBorderBackground(
                 color: AppColors.bolderGrey, borderLine: 2),
@@ -179,18 +176,13 @@ class _TradeMainViewState extends State<TradeMainView> {
                     LevelDetailLabel(
                       title: tr("wallet-balance'"),
                       showCoins: false,
-                      content: TradeTimerUtil()
-                          .getReservationInfo()
-                          .balance
-                          .toStringAsFixed(2),
+                      content: NumberFormatUtil().removeTwoPointFormat(balance),
                       rightFontWeight: FontWeight.bold,
                     ),
                     LevelDetailLabel(
                       title: tr("availableBalance"),
-                      content: TradeTimerUtil().getReservationInfo().reserveBalance > 0 ?
-                      TradeTimerUtil().getReservationInfo().reserveBalance.toStringAsFixed(2)
-                         :
-                      '0',
+                      content: NumberFormatUtil()
+                          .removeTwoPointFormat(reserveBalance),
                       rightFontWeight: FontWeight.bold,
                     ),
                     LevelDetailLabel(
@@ -218,12 +210,12 @@ class _TradeMainViewState extends State<TradeMainView> {
       return _levelZero(context);
     }
     return ListView.builder(
-        itemCount: viewModel.division?.length ?? 0,
+        itemCount: viewModel.division.length,
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           return LevelMainCell(
-            level: viewModel.division![index],
+            level: viewModel.division[index],
             tradeData: viewModel.currentData,
           );
         });

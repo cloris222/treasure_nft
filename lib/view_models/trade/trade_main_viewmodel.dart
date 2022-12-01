@@ -24,9 +24,8 @@ class TradeMainViewModel extends BaseViewModel {
       required this.experienceDisable});
 
   final onClickFunction setState;
-  List<int>? division;
-  AddNewReservation? newReservation;
-  late List<ReserveRange> ranges;
+  List<int> division = [];
+  List<ReserveRange> ranges = [];
   VoidCallback notEnoughToPay;
   VoidCallback bookPriceNotEnough;
   VoidCallback reservationSuccess;
@@ -51,7 +50,7 @@ class TradeMainViewModel extends BaseViewModel {
     });
     TradeAPI().getCheckReservationInfoAPI(0).then((value) {
       TradeTimerUtil().start(setInfo: value);
-      ranges = TradeTimerUtil().getReservationInfo().reserveRanges;
+      ranges = value.reserveRanges;
 
       /// 如果是體驗帳號 且 level 1 副本顯示內容不同
       if (GlobalData.experienceInfo.isExperience == true &&

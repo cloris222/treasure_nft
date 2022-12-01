@@ -7,24 +7,20 @@ import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/models/http/parameter/check_reserve_deposit.dart';
-import 'package:treasure_nft_project/widgets/count_down_timer.dart';
+import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/widgets/dialog/animation_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/success_dialog.dart';
-import 'package:treasure_nft_project/widgets/dialog/trade_rule_dialot.dart';
 import 'package:treasure_nft_project/widgets/trade_countdown_view.dart';
-import '../../constant/enum/trade_enum.dart';
-import '../../constant/theme/app_image_path.dart';
 import '../../models/http/api/trade_api.dart';
-import '../../utils/date_format_util.dart';
 import '../../utils/trade_timer_util.dart';
 import '../../view_models/trade/trade_division_viewmodel.dart';
-import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/dialog/new_reservation_dialog.dart';
 import '../../widgets/dialog/simple_custom_dialog.dart';
 import '../../widgets/label/level_detail.dart';
 import '../../widgets/list_view/trade/level_area_division_cell.dart';
 import '../custom_appbar_view.dart';
 
+///MARK: 第二層 副本入口
 class TradeDivisionView extends StatefulWidget {
   const TradeDivisionView({
     Key? key,
@@ -136,7 +132,9 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
     return CustomAppbarView(
         needCover: true,
         needScrollView: true,
-        title: widget.level == 0 ? tr('noviceArea') : '${tr("level")} ${widget.level}',
+        title: widget.level == 0
+            ? tr('noviceArea')
+            : '${tr("level")} ${widget.level}',
         body: Column(children: [
           const SizedBox(
             height: 5,
@@ -149,69 +147,53 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
 
   Widget _levelView(BuildContext context) {
     TextStyle titleStyle = TextStyle(fontSize: UIDefine.fontSize16);
+    double balance = TradeTimerUtil().getReservationInfo()?.balance ?? 0;
+    double reserveBalance =
+        TradeTimerUtil().getReservationInfo()?.reserveBalance ?? 0;
+    if (reserveBalance < 0) {
+      reserveBalance = 0;
+    }
+
     return Container(
-      margin: EdgeInsets.symmetric(
-          vertical: 10, horizontal: UIDefine.getWidth() / 30),
-      child: Column(
-        children: [
+        margin: EdgeInsets.symmetric(
+            vertical: 10, horizontal: UIDefine.getWidth() / 30),
+        child: Column(children: [
           Row(children: [
             Image.asset(
               viewModel.getLevelImg(),
               width: UIDefine.getWidth() / 11,
               height: UIDefine.getWidth() / 11,
             ),
-            const SizedBox(
-              width: 10,
-            ),
+            const SizedBox(width: 10),
             Text(tr('level'), style: titleStyle),
-            const SizedBox(
-              width: 5,
-            ),
-            Text(
-              '${GlobalData.userInfo.level}',
-              style: titleStyle,
-            )
+            const SizedBox(width: 5),
+            Text('${GlobalData.userInfo.level}', style: titleStyle)
           ]),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           Container(
-            decoration: AppStyle().styleColorBorderBackground(
-                color: AppColors.bolderGrey, borderLine: 2),
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              children: [
-                Column(
-                  children: [
-                    LevelDetailLabel(
+              decoration: AppStyle().styleColorBorderBackground(
+                  color: AppColors.bolderGrey, borderLine: 2),
+              padding: const EdgeInsets.all(10),
+              child: Column(children: [
+                Column(children: [
+                  LevelDetailLabel(
                       title: tr("wallet-balance'"),
                       showCoins: false,
-                      content:
-                      TradeTimerUtil().getReservationInfo().balance.toStringAsFixed(2),
-                      rightFontWeight: FontWeight.bold,
-                    ),
-                    LevelDetailLabel(
+                      content: NumberFormatUtil().removeTwoPointFormat(balance),
+                      rightFontWeight: FontWeight.bold),
+                  LevelDetailLabel(
                       title: tr("availableBalance"),
-                      content: TradeTimerUtil().getReservationInfo().reserveBalance > 0 ?
-                      TradeTimerUtil().getReservationInfo().reserveBalance.toStringAsFixed(2)
-                          :
-                      '0',
-                      rightFontWeight: FontWeight.bold,
-                    ),
-                    LevelDetailLabel(
+                      content: NumberFormatUtil()
+                          .removeTwoPointFormat(reserveBalance),
+                      rightFontWeight: FontWeight.bold),
+                  LevelDetailLabel(
                       title: tr('amountRangeNFT'),
                       showCoins: false,
                       content: viewModel.getRange(),
-                      rightFontWeight: FontWeight.bold,
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+                      rightFontWeight: FontWeight.bold)
+                ])
+              ]))
+        ]));
   }
 
   Widget checkDataInit(TradeData tradeData) {
@@ -220,7 +202,7 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
 
   Widget _levelArea(BuildContext context, TradeData tradeData) {
     return ListView.builder(
-        itemCount: TradeTimerUtil().getReservationInfo().reserveRanges.length,
+        itemCount: viewModel.ranges.length,
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
