@@ -16,7 +16,7 @@ class AnimationDialog extends BaseDialog {
   Widget initContent(BuildContext context, StateSetter setState) {
     return Stack(
       children: [
-        Container(constraints: BoxConstraints(minHeight: UIDefine.getPixelHeight(380)),),
+        Container(constraints: BoxConstraints(minHeight: UIDefine.getPixelHeight(400)),),
         Lottie.asset(animationPathJson),
         Positioned(
           bottom: 0,
