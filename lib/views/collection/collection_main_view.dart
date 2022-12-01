@@ -22,6 +22,7 @@ class _CollectionMainView extends State<CollectionMainView> {
   ItemScrollController listController = ItemScrollController();
   PageController pageController = PageController();
   List<Widget> pages = <Widget>[];
+  // bool _switchHostingValue = false;
   List<String> dataList = ['Reservation', 'Pending', 'Selling', 'Ticket'];
 
   @override
@@ -45,11 +46,12 @@ class _CollectionMainView extends State<CollectionMainView> {
                 changePage: (String exploreType) {
                   _changePage(exploreType);
                 })),
-        Visibility(
-          visible: currentExploreType == 'Pending',
-          child: _getDepositBtn()
-        ),
-        SizedBox(height: UIDefine.getScreenWidth(2.77)),
+        // 如要置頂不滑動才放此Class
+        // Visibility(
+        //   visible: currentExploreType == 'Pending',
+        //   child: _getDepositBtn()
+        // ),
+        // SizedBox(height: UIDefine.getScreenWidth(2)),
         Flexible(
             child: PageView(
               controller: pageController,
@@ -90,6 +92,7 @@ class _CollectionMainView extends State<CollectionMainView> {
     return -1;
   }
 
+  // 如要置頂不滑動才放此Class
   Widget _getDepositBtn() {
     return IconTextButtonWidget(
       height: UIDefine.getScreenWidth(10),
