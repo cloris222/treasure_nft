@@ -17,7 +17,8 @@ class UserInfoSettingViewModel extends BaseViewModel {
 
   final ViewChange setState;
 
-  TextEditingController nickNameController = TextEditingController(text: GlobalData.userInfo.name);
+  TextEditingController nickNameController =
+      TextEditingController(text: GlobalData.userInfo.name);
   TextEditingController phoneController =
       TextEditingController(text: GlobalData.userInfo.phone);
   String birthday = '';
@@ -84,7 +85,7 @@ class UserInfoSettingViewModel extends BaseViewModel {
       nickNameData = ValidateResultData(
           result: RegularExpressionUtil()
               .checkFormatNickName(nickNameController.text),
-          message: '無效的用戶名，只能包含英文與數字，必須少於30個字'); // test 這句沒有多國
+          message: tr('accountLimitHint'));
     } else {
       nickNameData = ValidateResultData();
     }
@@ -101,6 +102,9 @@ class UserInfoSettingViewModel extends BaseViewModel {
       });
       return;
     } else {
+      ///MARK: 檢查暱稱是否符合規範
+      _checkNickname();
+
       ///MARK: 如果上面的檢查有部分錯誤時return
       if (!_checkData()) {
         setState(() {});

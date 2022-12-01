@@ -5,6 +5,7 @@ import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/label/custom_linear_progress.dart';
+import 'package:treasure_nft_project/widgets/label/warp_two_text_widget.dart';
 import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
@@ -104,10 +105,12 @@ class PersonalSubUserInfoView extends StatelessWidget {
                           height: UIDefine.getScreenWidth(18.66),
                         ))),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Text(userInfo.name,
-                style: TextStyle(
-                    fontSize: UIDefine.fontSize18,
-                    fontWeight: FontWeight.w600)),
+            Flexible(
+              child: WarpTwoTextWidget(
+                  text: userInfo.name,
+                  fontSize: UIDefine.fontSize18,
+                  fontWeight: FontWeight.w600),
+            ),
             const SizedBox(width: 5),
             _buildMedalIcon(context)
           ]),

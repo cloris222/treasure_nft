@@ -46,7 +46,7 @@ class _UserChangePasswordPage extends State<UserChangePasswordPage> {
           children: [
             LoginParamView(
                 isSecure: true,
-                bAccountFormatter: true,
+                bPasswordFormatter: true,
                 titleText: tr('oldPassword'),
                 hintText: tr("placeholder-old-password'"),
                 controller: viewModel.oldPasswordController,
@@ -55,7 +55,7 @@ class _UserChangePasswordPage extends State<UserChangePasswordPage> {
             SizedBox(height: UIDefine.getScreenWidth(4.16)),
             LoginParamView(
                 isSecure: true,
-                bAccountFormatter: true,
+                bPasswordFormatter: true,
                 titleText: tr('newPassword'),
                 hintText: tr("placeholder-new-password'"),
                 controller: viewModel.newPasswordController,
@@ -64,7 +64,7 @@ class _UserChangePasswordPage extends State<UserChangePasswordPage> {
             SizedBox(height: UIDefine.getScreenWidth(4.16)),
             LoginParamView(
                 isSecure: true,
-                bAccountFormatter: true,
+                bPasswordFormatter: true,
                 titleText: tr('confirmPW'),
                 hintText: tr("placeholder-password-again'"),
                 controller: viewModel.rePasswordController,

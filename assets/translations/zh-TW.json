@@ -1011,5 +1011,6 @@
   "goPermissionStorage":"保存二維碼需先開啟儲存權限才能使用，是否前往設定頁面做設定？",
   "httpErrorConnectTimeout":"連接超時",
   "httpErrorNoInternet":"連接失敗",
-  "httpErrorOther":"連接發生意外錯誤"
+  "httpErrorOther":"連接發生意外錯誤",
+  "accountLimitHint":"無效的用戶名，只能包含英文與數字，必須少於30個字"
 }

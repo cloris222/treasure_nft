@@ -21,7 +21,7 @@ class LoginTextWidget extends StatefulWidget {
       required this.controller,
       this.contentPaddingRight = 0,
       this.bLimitDecimalLength = false,
-      this.bAccountFormatter = false,
+      this.bPasswordFormatter = false,
       this.inputFormatters = const []})
       : super(key: key);
   final String hintText;
@@ -37,8 +37,8 @@ class LoginTextWidget extends StatefulWidget {
   ///MARK: 小數點限制兩位
   final bool bLimitDecimalLength;
 
-  ///MARK: 帳號輸入資訊限制
-  final bool bAccountFormatter;
+  ///MARK: 密碼輸入資訊限制
+  final bool bPasswordFormatter;
 
   ///MARK: 自定義 在前兩者限制為false啟用
   final List<TextInputFormatter> inputFormatters;
@@ -60,7 +60,7 @@ class _LoginTextWidgetState extends State<LoginTextWidget> {
     return Container(
         alignment: Alignment.center,
         height: UIDefine.getPixelHeight(60),
-        margin:  EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(5)),
+        margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(5)),
         child: _buildEdit());
   }
 
@@ -69,7 +69,7 @@ class _LoginTextWidgetState extends State<LoginTextWidget> {
         controller: widget.controller,
         inputFormatters: widget.bLimitDecimalLength
             ? [NumLengthInputFormatter(decimalLength: 2)] // 小數點限制兩位 整數預設99位
-            : widget.bAccountFormatter //英文+數字，且不能超過30個字元
+            : widget.bPasswordFormatter //英文+數字，且不能超過30個字元
                 ? [
                     FilteringTextInputFormatter.allow(RegExp(r"[a-zA-Z\d]")),
                     LengthLimitingTextInputFormatter(30),

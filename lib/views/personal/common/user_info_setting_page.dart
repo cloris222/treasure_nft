@@ -62,7 +62,6 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
                           tr('account'), GlobalData.userInfo.account),
                       SizedBox(height: UIDefine.getScreenWidth(4.16)),
                       LoginParamView(
-                          bAccountFormatter: true,
                           titleText: tr('nickname'),
                           hintText: tr("placeholder-nickname'"),
                           controller: viewModel.nickNameController,

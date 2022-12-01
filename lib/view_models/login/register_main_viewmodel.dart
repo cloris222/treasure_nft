@@ -165,6 +165,10 @@ class RegisterMainViewModel extends BaseViewModel {
             ValidateResultData(result: false, message: tr('rule_mail_valid'));
       }
 
+      ///MARK: 檢查帳號&暱稱是否符合規範
+      accountData = checkAccount(accountController.text);
+      nicknameData = checkAccount(nicknameController.text);
+
       ///MARK: 檢查密碼是否相符
       checkPassword();
 
@@ -252,5 +256,27 @@ class RegisterMainViewModel extends BaseViewModel {
 
   void setPhoneCountry(String value) {
     phoneCountry = value;
+  }
+
+  ValidateResultData checkAccount(String value) {
+    if (value.isNotEmpty) {
+      return ValidateResultData(
+          result: RegularExpressionUtil().checkFormatNickName(value),
+          message: tr('accountLimitHint'));
+    } else {
+      return ValidateResultData();
+    }
+  }
+
+  void onAccountChanged(String value) {
+    setState((){
+      accountData = checkAccount(value);
+    });
+  }
+
+  void onNicknameChange(String value) {
+    setState((){
+      nicknameData = checkAccount(value);
+    });
   }
 }

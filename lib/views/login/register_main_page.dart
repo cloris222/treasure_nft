@@ -52,16 +52,15 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
         children: [
           ///MARK:帳號
           LoginParamView(
-              bAccountFormatter: true,
               titleText: tr('account'),
               hintText: tr("placeholder-account'"),
               controller: viewModel.accountController,
               data: viewModel.accountData,
-              onTap: viewModel.onTap),
+              onTap: viewModel.onTap,onChanged: viewModel.onAccountChanged,),
 
           ///MARK:密碼
           LoginParamView(
-              bAccountFormatter: true,
+              bPasswordFormatter: true,
               titleText: tr('password'),
               hintText: tr("placeholder-password"),
               controller: viewModel.passwordController,
@@ -72,7 +71,7 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
 
           ///MARK:再次確認密碼
           LoginParamView(
-              bAccountFormatter: true,
+              bPasswordFormatter: true,
               titleText: tr("placeholder-password-again'"),
               hintText: tr("placeholder-password-again'"),
               controller: viewModel.rePasswordController,
@@ -114,12 +113,11 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
 
           ///MARK:暱稱
           LoginParamView(
-              bAccountFormatter: true,
               titleText: tr('nickname'),
               hintText: tr("placeholder-nickname'"),
               controller: viewModel.nicknameController,
               data: viewModel.nicknameData,
-              onTap: viewModel.onTap),
+              onTap: viewModel.onTap,onChanged: viewModel.onNicknameChange,),
 
           ///MARK:邀請瑪
           LoginParamView(
