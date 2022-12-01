@@ -96,7 +96,7 @@ class OrderWithdrawConfirmDialogView extends BaseDialog {
   Widget _solidButton() {
     // 實心按鈕
     return Container(
-      width: UIDefine.getScreenWidth(32),
+      width: UIDefine.getScreenWidth(30),
       decoration: BoxDecoration(
           color: AppColors.mainThemeButton,
           borderRadius: BorderRadius.circular(10)),
@@ -117,7 +117,7 @@ class OrderWithdrawConfirmDialogView extends BaseDialog {
   Widget _hollowButton() {
     // 空心按鈕
     return Container(
-      width: UIDefine.getScreenWidth(32),
+      width: UIDefine.getScreenWidth(30),
       decoration: BoxDecoration(
           border: Border.all(color: AppColors.mainThemeButton, width: 2),
           borderRadius: BorderRadius.circular(10)),

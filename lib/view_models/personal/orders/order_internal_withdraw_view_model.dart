@@ -10,8 +10,8 @@ import '../../../models/data/validate_result_data.dart';
 import '../../../models/http/api/auth_api.dart';
 import '../../../models/http/api/withdraw_api.dart';
 import '../../../models/http/parameter/withdraw_alert_info.dart';
-import '../../../views/personal/orders/order_withdraw_page.dart';
 import '../../../views/personal/orders/withdraw/data/withdraw_balance_response_data.dart';
+import '../../../views/wallet/wallet_main_view.dart';
 import '../../../widgets/dialog/common_custom_dialog.dart';
 import '../../../widgets/dialog/simple_custom_dialog.dart';
 
@@ -167,7 +167,7 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
         amount: amountController.text, account: accountController.text)
         .then((value) async {
       SimpleCustomDialog(context, mainText: tr('success')).show();
-      pushPage(context, const OrderWithdrawPage());
+      pushPage(context, const WalletMainView());
     });
   }
 }

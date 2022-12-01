@@ -9,6 +9,7 @@ import '../models/http/parameter/user_info_data.dart';
 import '../models/http/parameter/user_order_info.dart';
 import '../models/http/parameter/user_property.dart';
 import '../widgets/app_bottom_navigation_bar.dart';
+import '../widgets/changenotifiers/bottom_navigation_notifier.dart';
 
 class GlobalData {
   GlobalData._();
@@ -45,4 +46,7 @@ class GlobalData {
   static UserOrderInfo? userOrderInfo; //取得訂單記數資訊
   static double? totalIncome;// 查詢收益明細 “裡面的總收入”
   static Map<String, dynamic>? userWalletInfo;
+
+  ///MARK: Notifier監聽
+  static BottomNavigationNotifier bottomNavigationNotifier = BottomNavigationNotifier();
 }

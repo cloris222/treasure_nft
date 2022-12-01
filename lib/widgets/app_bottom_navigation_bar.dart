@@ -8,6 +8,7 @@ import '../constant/theme/app_image_path.dart';
 import '../constant/theme/app_style.dart';
 import '../view_models/base_view_model.dart';
 import '../views/main_page.dart';
+import 'changenotifiers/bottom_navigation_notifier.dart';
 
 //MARK: 定義主分頁類型
 enum AppNavigationBarType {
@@ -38,7 +39,7 @@ class AppBottomNavigationBar extends StatefulWidget {
 class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> with WidgetsBindingObserver {
 
   Timer? timer;
-  int unreadCount = 0; // 收藏未讀數
+  late BottomNavigationNotifier _bottomNavigationNotifier; // 收藏未讀數監聽
 
   @override
   void initState() {
@@ -49,11 +50,15 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> with Wi
 
     /// 生命週期
     WidgetsBinding.instance.addObserver(this);
+
+    _bottomNavigationNotifier = GlobalData.bottomNavigationNotifier;
+    _bottomNavigationNotifier.addListener(() => mounted ? setState(() {}) : null);
   }
 
   @override
   void dispose() {
     timer?.cancel();
+    _bottomNavigationNotifier.removeListener(() {});
     super.dispose();
   }
 
@@ -81,7 +86,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> with Wi
     BaseViewModel().requestUnreadCollection().then((value) {
       if (value > 0) { // 未讀數
         setState(() {
-          unreadCount = value.toInt();
+          _bottomNavigationNotifier.unreadCount = value.toInt();
         });
       }
     });
@@ -177,7 +182,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> with Wi
         Positioned(
           right: 0, top: 0,
           child: Opacity(
-            opacity: unreadCount > 0 ? 1.0 : 0.0, // 0.0=透明
+            opacity: _bottomNavigationNotifier.unreadCount > 0 ? 1.0 : 0.0, // 0.0=透明
             child: Container(
               alignment: Alignment.center,
               width: UIDefine.getScreenWidth(5),
@@ -186,7 +191,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> with Wi
                   borderRadius: BorderRadius.circular(100),
                   color: AppColors.textRed),
               child: Text(
-                unreadCount.toString(),
+                _bottomNavigationNotifier.unreadCount.toString(),
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: UIDefine.fontSize8,

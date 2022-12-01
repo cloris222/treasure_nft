@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
-import 'package:treasure_nft_project/views/personal/orders/order_withdraw_page.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 
 import '../../../constant/call_back_function.dart';
@@ -15,6 +14,7 @@ import '../../../models/http/api/withdraw_api.dart';
 import '../../../models/http/parameter/withdraw_alert_info.dart';
 import '../../../views/personal/orders/withdraw/data/withdraw_balance_response_data.dart';
 import '../../../views/personal/orders/withdraw/order_withdraw_confirm_dialog_view.dart';
+import '../../../views/wallet/wallet_main_view.dart';
 import '../../../widgets/dialog/simple_custom_dialog.dart';
 
 class OrderChainWithdrawViewModel extends BaseViewModel {
@@ -194,7 +194,7 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
         amount: amountController.text, account: '')
         .then((value) async {
       SimpleCustomDialog(context, mainText: tr('success')).show();
-      pushPage(context, const OrderWithdrawPage());
+      pushPage(context, const WalletMainView());
     });
   }
 
@@ -203,7 +203,7 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
       case CoinEnum.TRON:
         return 'TRC-20';
       case CoinEnum.BSC:
-        return 'BSC-20';
+        return 'BSC';
       case CoinEnum.ROLLOUT: // 這裡沒這選項
         break;
     }
