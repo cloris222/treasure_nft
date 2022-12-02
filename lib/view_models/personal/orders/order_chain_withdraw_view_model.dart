@@ -39,14 +39,19 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
   bool checkEmail = false;
   bool checkExperience = GlobalData.experienceInfo.isExperience;
 
+  ///MARK: 實際手續費
+  num currentAmount = 0;
+
   requestAPI() {
-    Future<WithdrawBalanceResponseData> result = WithdrawApi().getWithdrawBalance(currentChain.name);
+    Future<WithdrawBalanceResponseData> result =
+        WithdrawApi().getWithdrawBalance(currentChain.name);
     result.then((value) => _setData(value));
   }
 
   _setData(WithdrawBalanceResponseData resData) {
     setState(() {
       data = resData;
+      currentAmount = num.parse(data.fee);
     });
   }
 
@@ -75,7 +80,7 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
     return addressController.text.isNotEmpty &&
         amountController.text.isNotEmpty &&
         // passwordController.text.isNotEmpty &&
-        emailCodeController.text.isNotEmpty;
+        (emailCodeController.text.isNotEmpty || checkExperience);
   }
 
   bool checkData() {
@@ -134,16 +139,29 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
             ValidateResultData(result: emailCodeController.text.isNotEmpty);
       });
       return;
-
     } else {
       ///MARK: 檢查是否驗證過信箱
       if (!checkExperience && !checkEmail) {
-        emailCodeData = ValidateResultData(result: false, message: tr('rule_mail_valid'));
+        emailCodeData =
+            ValidateResultData(result: false, message: tr('rule_mail_valid'));
       }
 
       ///MARK: 如果上面的檢查有部分錯誤時return
       if (!checkData()) {
         setState(() {});
+        return;
+      }
+
+      ///MARK: 提領金額是否大於手續費
+      if (num.parse(amountController.text) < currentAmount) {
+        CommonCustomDialog(context,
+            title: tr("point-FAIL'"),
+            content: tr('APP_0067'),
+            type: DialogImageType.fail,
+            rightBtnText: tr('confirm'),
+            onLeftPress: () {}, onRightPress: () {
+          Navigator.pop(context);
+        }).show();
         return;
       }
 
@@ -190,8 +208,11 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
   void _submitRequestApi(BuildContext context) {
     ///MARK: 打提交API
     WithdrawApi(onConnectFail: (message) => onBaseConnectFail(context, message))
-        .submitBalanceWithdraw(chain: currentChain.name, address: addressController.text,
-        amount: amountController.text, account: '')
+        .submitBalanceWithdraw(
+            chain: currentChain.name,
+            address: addressController.text,
+            amount: amountController.text,
+            account: '')
         .then((value) async {
       SimpleCustomDialog(context, mainText: tr('success')).show();
       pushPage(context, const WalletMainView());
@@ -208,5 +229,17 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
         break;
     }
     return '';
+  }
+
+  void onAmountChange(String value) {
+    ///提現金額 * 手續費(%) + 手續費(固定點數) 取到小數第二位無條件捨去
+    setState(() {
+      if (value.isEmpty) {
+        currentAmount = num.parse(data.fee);
+      } else {
+        currentAmount = (num.parse(value) * num.parse(data.feeRate) / 100) +
+            num.parse(data.fee);
+      }
+    });
   }
 }
