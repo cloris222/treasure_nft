@@ -104,13 +104,15 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
                 focusedColor: AppColors.mainThemeButton,
                 onTap: viewModel.onTap,
               ),
-              Positioned(
-                  right: UIDefine.getScreenWidth(5.5),
-                  top: UIDefine.getScreenWidth(6.38),
-                  child: GestureDetector(
-                      onTap: () => _onScanQRCode(),
-                      child:
-                          Image.asset('assets/icon/icon/icon_scanning_01.png')))
+              // 內部轉帳不用掃碼
+              // Positioned(
+              //     right: UIDefine.getScreenWidth(5.5),
+              //     top: UIDefine.getScreenWidth(6.38),
+              //     child: GestureDetector(
+              //         onTap: () => _onScanQRCode(),
+              //         child:
+              //             Image.asset('assets/icon/icon/icon_scanning_01.png'))
+              // )
             ],
           ),
         ),
