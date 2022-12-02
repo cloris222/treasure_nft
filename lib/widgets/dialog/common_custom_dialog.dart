@@ -121,7 +121,7 @@ class CommonCustomDialog extends BaseDialog {
     return ActionButtonWidget(
       isFillWidth: false,
       isBorderStyle: true,
-      btnText: rightBtnText,
+      btnText: leftBtnText,
       onPressed: () => onLeftPress(),
       radius: 10,
       fontWeight: FontWeight.w500,
