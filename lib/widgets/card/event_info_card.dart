@@ -310,7 +310,7 @@ class _EventInfoCard extends State<EventInfoCard> {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        tr(': ' + widget.dataList[i].content),
+                        tr(widget.dataList[i].content),
                         style: TextStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                       )
                     ],
