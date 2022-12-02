@@ -48,7 +48,7 @@ enum VideoStrEnum {
   howToViewEarnings
 }
 
-enum EarningIncomeType { ALL, TEAM, MINE }
+enum EarningIncomeType { ALL, TEAM, MINE ,SAVINGS}
 
 enum HomeFooter {
   Email,

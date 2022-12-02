@@ -60,8 +60,9 @@ class OrderAPI extends HttpManager {
   }
 
   /// 暫存查詢收益明細 “裡面的總收入”
-  Future<double> saveTempTotalIncome() async {
-    GlobalData.totalIncome = await getPersonalIncome();
+  Future<double> saveTempTotalIncome(
+      {EarningIncomeType type = EarningIncomeType.ALL}) async {
+    GlobalData.totalIncome = await getPersonalIncome(type: type);
     return GlobalData.totalIncome ?? 0.0;
   }
 
@@ -83,6 +84,8 @@ class OrderAPI extends HttpManager {
         return 'TEAM';
       case EarningIncomeType.MINE:
         return 'MINE';
+      case EarningIncomeType.SAVINGS:
+        return 'SAVINGS';
     }
   }
 
@@ -115,7 +118,7 @@ class OrderAPI extends HttpManager {
   ///MARK: 取得團隊分享訊息  (共用團隊分享的Data Class)
   Future<TeamShareInfo> getOrderShareInfo(String orderNo) async {
     var response =
-    await get('/order/share-info', queryParameters: {'orderNo': orderNo});
+        await get('/order/share-info', queryParameters: {'orderNo': orderNo});
     return TeamShareInfo.fromJson(response.data);
   }
 }

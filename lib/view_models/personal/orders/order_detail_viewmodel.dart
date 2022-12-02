@@ -8,6 +8,7 @@ import 'package:treasure_nft_project/utils/app_shared_Preferences.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/base_list_view_model.dart';
 import 'package:treasure_nft_project/widgets/card/item_info_card.dart';
+import 'package:treasure_nft_project/widgets/card/saves_info_card.dart';
 
 import '../../../models/http/parameter/user_property.dart';
 import '../../../widgets/card/data/card_showing_data.dart';
@@ -34,7 +35,7 @@ class OrderDetailViewModel extends BaseListViewModel {
     } else {
       reloadItems = [];
     }
-    OrderAPI().saveTempTotalIncome().then((value) {
+    OrderAPI().saveTempTotalIncome(type: type).then((value) {
       income = value;
       onListChange();
     });
@@ -43,18 +44,22 @@ class OrderDetailViewModel extends BaseListViewModel {
 
   @override
   Widget itemView(int index, data) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: ItemInfoCard(
-        itemName: data.itemName,
-        dateTime: changeTimeZone(data.time),
-        imageUrl: data.imgUrl,
-        price: data.price.toString(),
-        bShowPriceAtEnd: true,
-        dataList: _getItemData(
-            data.sellerName, data.orderNo, data.income, data.rebate),
-      ),
-    );
+    return type == EarningIncomeType.SAVINGS
+        ? Container(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: SavesInfoCard(data: data))
+        : Container(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: ItemInfoCard(
+              itemName: data.itemName,
+              dateTime: changeTimeZone(data.time),
+              imageUrl: data.imgUrl,
+              price: data.price.toString(),
+              bShowPriceAtEnd: true,
+              dataList: _getItemData(
+                  data.sellerName, data.orderNo, data.income, data.rebate),
+            ),
+          );
   }
 
   @override
@@ -68,7 +73,7 @@ class OrderDetailViewModel extends BaseListViewModel {
   }
 
   List<CardShowingData> _getItemData(
-      String nickName, String orderNo, double income, num rebate) {
+      String nickName, String orderNo, num income, num rebate) {
     List<CardShowingData> dataList = [];
     CardShowingData data = CardShowingData();
 

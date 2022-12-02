@@ -24,6 +24,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
     tr("TopPicks"),
     tr("Team"),
     tr("mine"),
+    tr("goldStorageTank")
   ];
 
   @override
@@ -107,6 +108,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
           OrderDetailInfo(viewModel: viewModel, type: EarningIncomeType.ALL),
           OrderDetailInfo(viewModel: viewModel, type: EarningIncomeType.TEAM),
           OrderDetailInfo(viewModel: viewModel, type: EarningIncomeType.MINE),
+          OrderDetailInfo(viewModel: viewModel, type:EarningIncomeType.SAVINGS)
         ]);
   }
 

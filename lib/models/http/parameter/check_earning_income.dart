@@ -11,19 +11,21 @@ String checkEarningIncomeInfoToJson(CheckEarningIncomeData data) =>
     json.encode(data.toJson());
 
 class CheckEarningIncomeData {
-  CheckEarningIncomeData({
-    required this.orderNo,
-    required this.time,
-    required this.itemId,
-    required this.itemName,
-    required this.sellerName,
-    required this.sellerRelated,
-    required this.imgUrl,
-    required this.price,
-    required this.income,
-    required this.rebate,
-    required this.originImgUrl,
-  });
+  CheckEarningIncomeData(
+      {required this.orderNo,
+      required this.time,
+      required this.itemId,
+      required this.itemName,
+      required this.sellerName,
+      required this.sellerRelated,
+      required this.imgUrl,
+      required this.price,
+      required this.income,
+      required this.rebate,
+      required this.originImgUrl,
+      required this.saveId,
+      required this.saveAmount,
+      required this.saveType});
 
   String orderNo;
   String time;
@@ -32,25 +34,32 @@ class CheckEarningIncomeData {
   String sellerName;
   String sellerRelated;
   String imgUrl;
-  double price;
-  double income;
-  double rebate;
+  num price;
+  num income;
+  num rebate;
   String originImgUrl;
+
+  ///MARK: v0.0.4 增加儲金罐
+  String saveId;
+  num saveAmount;
+  String saveType;
 
   factory CheckEarningIncomeData.fromJson(Map<String, dynamic> json) =>
       CheckEarningIncomeData(
-        orderNo: json["orderNo"],
-        time: json["time"],
-        itemId: json["itemId"],
-        itemName: json["itemName"],
-        sellerName: json["sellerName"],
-        sellerRelated: json["sellerRelated"],
-        imgUrl: json["imgUrl"],
-        price: json["price"].toDouble(),
-        income: json["income"].toDouble(),
-        rebate: json["rebate"]?.toDouble()??0.0,
-        originImgUrl: json["originImgUrl"],
-      );
+          orderNo: json["orderNo"] ?? '',
+          time: json["time"] ?? '',
+          itemId: json["itemId"] ?? '',
+          itemName: json["itemName"] ?? '',
+          sellerName: json["sellerName"] ?? '',
+          sellerRelated: json["sellerRelated"] ?? '',
+          imgUrl: json["imgUrl"] ?? '',
+          price: json["price"] ?? 0,
+          income: json["income"] ?? 0,
+          rebate: json["rebate"] ?? 0,
+          originImgUrl: json["originImgUrl"] ?? '',
+          saveId: json['id'] ?? '',
+          saveAmount: json['amount'] ?? 0,
+          saveType: json['type'] ?? '');
 
   Map<String, dynamic> toJson() => {
         "orderNo": orderNo,
@@ -64,5 +73,8 @@ class CheckEarningIncomeData {
         "income": income,
         "rebate": rebate,
         "originImgUrl": originImgUrl,
+        "id": saveId,
+        "amount": saveAmount,
+        "type": saveType,
       };
 }
