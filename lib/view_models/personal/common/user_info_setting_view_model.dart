@@ -35,12 +35,6 @@ class UserInfoSettingViewModel extends BaseViewModel {
     });
   }
 
-  void onTap() {
-    setState(() {
-      _resetData();
-    });
-  }
-
   void dispose() {
     nickNameController.dispose();
     phoneController.dispose();
@@ -51,7 +45,7 @@ class UserInfoSettingViewModel extends BaseViewModel {
     birthday = value;
     setState(() {
       // 選擇後才reset, DatePicker onTap內要開啟選擇器 故無法直接callBack click
-      _resetData();
+      birthdayData = ValidateResultData();
     });
   }
 
@@ -92,6 +86,8 @@ class UserInfoSettingViewModel extends BaseViewModel {
   }
 
   void onPressSave(BuildContext context) {
+    _resetData();
+
     ///MARK: 檢查是否有欄位未填
     if (!_checkEmptyController()) {
       setState(() {

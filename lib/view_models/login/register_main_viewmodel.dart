@@ -143,6 +143,7 @@ class RegisterMainViewModel extends BaseViewModel {
 
   ///MARK: 註冊
   void onPressRegister(BuildContext context) {
+    resetData();
     ///MARK: 檢查是否有欄位未填
     if (!checkEmptyController()) {
       setState(() {
@@ -206,6 +207,7 @@ class RegisterMainViewModel extends BaseViewModel {
     popPage(context);
   }
 
+  @Deprecated("不要了")
   void onTap() {
     setState(() {
       resetData();
@@ -269,13 +271,13 @@ class RegisterMainViewModel extends BaseViewModel {
   }
 
   void onAccountChanged(String value) {
-    setState((){
+    setState(() {
       accountData = checkAccount(value);
     });
   }
 
   void onNicknameChange(String value) {
-    setState((){
+    setState(() {
       nicknameData = checkAccount(value);
     });
   }

@@ -66,7 +66,6 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
                           hintText: tr("placeholder-nickname'"),
                           controller: viewModel.nickNameController,
                           data: viewModel.nickNameData,
-                          onTap: viewModel.onTap,
                           onChanged: viewModel.onNicknameChanged),
                       SizedBox(height: UIDefine.getScreenWidth(4.16)),
                       PhoneParamView(
@@ -78,7 +77,6 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
                           hintText: tr("placeholder-phone'"),
                           controller: viewModel.phoneController,
                           data: viewModel.phoneData,
-                          onTap: viewModel.onTap,
                           getDropDownValue: (String value) {
                             viewModel.setPhoneCountry(value);
                           }),
@@ -101,7 +99,6 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
                         initDate: GlobalData.userInfo.birthday.isNotEmpty
                             ? GlobalData.userInfo.birthday
                             : null,
-                        onTap: viewModel.onTap,
                         getValue: (String value) {
                           viewModel.setBirthday(value);
                         },

@@ -38,8 +38,8 @@ class _LoginMainViewState extends State<LoginMainView> {
       const DomainBar(),
       _buildTop(),
       Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10),
-          padding: const EdgeInsets.only(bottom: 20),
+          margin:  EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(10)),
+          padding:  EdgeInsets.only(bottom: UIDefine.getPixelHeight(30)),
           child: _buildBottom())
     ]));
   }

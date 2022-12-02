@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 
 import '../../view_models/login/register_main_viewmodel.dart';
@@ -40,7 +41,9 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
       type: AppNavigationBarType.typeLogin,
       body: SingleChildScrollView(
           child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              margin: EdgeInsets.symmetric(
+                  vertical: UIDefine.getPixelHeight(10),
+                  horizontal: UIDefine.getPixelWidth(20)),
               child: _buildBody())),
     );
   }
@@ -52,11 +55,12 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
         children: [
           ///MARK:帳號
           LoginParamView(
-              titleText: tr('account'),
-              hintText: tr("placeholder-account'"),
-              controller: viewModel.accountController,
-              data: viewModel.accountData,
-              onTap: viewModel.onTap,onChanged: viewModel.onAccountChanged,),
+            titleText: tr('account'),
+            hintText: tr("placeholder-account'"),
+            controller: viewModel.accountController,
+            data: viewModel.accountData,
+            onChanged: viewModel.onAccountChanged,
+          ),
 
           ///MARK:密碼
           LoginParamView(
@@ -66,7 +70,6 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
               controller: viewModel.passwordController,
               isSecure: true,
               data: viewModel.passwordData,
-              onTap: viewModel.onTap,
               onChanged: viewModel.onPasswordChanged),
 
           ///MARK:再次確認密碼
@@ -77,7 +80,6 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
               controller: viewModel.rePasswordController,
               isSecure: true,
               data: viewModel.rePasswordData,
-              onTap: viewModel.onTap,
               onChanged: viewModel.onPasswordChanged),
 
           PhoneParamView(
@@ -85,7 +87,6 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
               hintText: tr("placeholder-phone'"),
               controller: viewModel.phoneController,
               data: viewModel.phoneData,
-              onTap: viewModel.onTap,
               getDropDownValue: (String value) {
                 viewModel.setPhoneCountry(value);
               }),
@@ -96,7 +97,6 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
             hintText: tr("placeholder-email'"),
             controller: viewModel.emailController,
             data: viewModel.emailData,
-            onTap: viewModel.onTap,
             onChanged: viewModel.onEmailChange,
           ),
 
@@ -107,7 +107,6 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
             onPressSendCode: () => viewModel.onPressSendCode(context),
             onPressCheckVerify: () => viewModel.onPressCheckVerify(context),
             data: viewModel.emailCodeData,
-            onEditTap: viewModel.onTap,
             onPressVerification: viewModel.checkEmailFormat,
           ),
 
@@ -117,15 +116,14 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
               hintText: tr("placeholder-nickname'"),
               controller: viewModel.nicknameController,
               data: viewModel.nicknameData,
-              onTap: viewModel.onTap,onChanged: viewModel.onNicknameChange,),
+              onChanged: viewModel.onNicknameChange),
 
           ///MARK:邀請瑪
           LoginParamView(
               titleText: '${tr('referralCode')} (${tr('optional')})',
               hintText: tr("placeholder-referralCode'"),
               controller: viewModel.referralController,
-              data: viewModel.referralData,
-              onTap: viewModel.onTap),
+              data: viewModel.referralData),
 
           ///MARK: 註冊按鈕
           LoginButtonWidget(
