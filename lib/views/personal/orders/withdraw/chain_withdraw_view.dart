@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/simple_custom_dialog.dart';
 
@@ -51,12 +52,14 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
           SizedBox(height: UIDefine.getScreenWidth(5.5)),
           _buildAmountInputBar(),
           SizedBox(height: UIDefine.getScreenWidth(2.77)),
-          _buildTextContent(tr('canWithdrawFee'), viewModel.numberFormat(viewModel.data.balance)),
+          _buildTextContent(tr('canWithdrawFee'),
+              viewModel.numberFormat(viewModel.data.balance)),
           SizedBox(height: UIDefine.getScreenWidth(2.77)),
-          _buildTextContent(
-              tr('minAmount'), '${viewModel.numberFormat(viewModel.data.minAmount)} USDT'),
+          _buildTextContent(tr('minAmount'),
+              '${viewModel.numberFormat(viewModel.data.minAmount)} USDT'),
           SizedBox(height: UIDefine.getScreenWidth(2.77)),
-          _buildTextContent(tr('withdrawFee'), '${viewModel.numberFormat(viewModel.data.fee)} USDT'),
+          _buildTextContent(tr('withdrawFee'),
+              '${NumberFormatUtil().removeTwoPointFormat(viewModel.currentAmount)} USDT'),
           SizedBox(height: UIDefine.getScreenWidth(8.27)),
 
           Container(
@@ -258,6 +261,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
                 focusedColor: AppColors.mainThemeButton,
                 bLimitDecimalLength: true,
                 onTap: viewModel.onTap,
+                onChanged: viewModel.onAmountChange,
               ),
               Positioned(
                   right: UIDefine.getScreenWidth(5.5),
