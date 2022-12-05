@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 import '../../../constant/call_back_function.dart';
 import '../../../models/http/api/order_api.dart';
@@ -26,68 +28,134 @@ class OrderInfoPageViewModel extends BaseViewModel {
       currentType = 'DEPOSIT';
     }
 
-    /// 取得日期 by 帳號所屬國家
-    String timeZoneCode = _getTimeZoneCode(GlobalData.userInfo.country);
-    DateTime now = DateTime.now();
-    var formatterYear = DateFormat.y(timeZoneCode);
-    var formatterMonth = DateFormat.M(timeZoneCode);
-    var formatterDay = DateFormat.d(timeZoneCode);
+    /// 取得日期 by 帳號所屬國家名: 會自動換成該國慣用用法 ex: 台灣會有年月日單位且分開取：2022年 12月 2日
+    // String timeZoneCode = _getTimeZoneCode(GlobalData.userInfo.country);
+    // DateTime now = DateTime.now();
+    // var formatterYear = DateFormat.y(timeZoneCode);
+    // var formatterMonth = DateFormat.M(timeZoneCode);
+    // var formatterDay = DateFormat.d(timeZoneCode);
+    //
+    // String year = formatterYear.format(now);
+    // String month = formatterMonth.format(now);
+    // String day = formatterDay.format(now);
+    //
+    // startDate = year + '-' + month + '-' + day;
+    // endDate = startDate;
 
-    String year = formatterYear.format(now);
-    String month = formatterMonth.format(now);
-    String day = formatterDay.format(now);
-
-    startDate = year + '-' + month + '-' + day;
+    /// 取得日期 by 帳號所屬國家時區(洲名/都市) ex：年月日純數字但需分開取 2022 12 2
+    tz.initializeTimeZones();
+    String timeZoneCode2 = _getTimeZoneCode(GlobalData.userInfo.country);
+    var istanbulTimeZone = tz.getLocation(timeZoneCode2);
+    int year = tz.TZDateTime.now(istanbulTimeZone).year;
+    int month = tz.TZDateTime.now(istanbulTimeZone).month;
+    int day = tz.TZDateTime.now(istanbulTimeZone).day;
+    startDate = year.toString() + '-' + _formatMMDD(month) + '-' + _formatMMDD(day);
     endDate = startDate;
+  }
+
+  String _formatMMDD(int value) {
+    if (value < 10) {
+      return '0' + value.toString();
+    }
+    return value.toString();
   }
 
   String _getTimeZoneCode(String countryName) {
     switch(countryName) {
       case 'Canada':
-        return 'en_CA';
+        return 'America/Toronto';
       case 'SaudiArabia':
-        return 'ar_SA';
+        return 'Africa/Nairobi';
       case 'Jordan':
-        return 'ar_JO';
+        return 'Africa/Nairobi';
       case 'Spain':
-        return 'es_ES';
+        return 'Europe/Madrid';
       case 'Brazil':
-        return 'pt_BR';
+        return 'America/Sao_Paulo';
       case 'Singapore':
-        return 'en_SG';
+        return 'Asia/Singapore';
       case 'America':
-        return 'en_US';
+        return 'America/Toronto';
       case 'Kuwait':
-        return 'ar_KW';
+        return 'Asia/Riyadh';
       case 'Iran':
-        return 'fa_IR';
+        return 'Asia/Tehran';
       case 'Taiwan':
-        return 'zh_TW';
+        return 'Asia/Taipei';
       case 'Philippines':
-        return 'en_PH';
+        return 'Asia/Taipei';
       case 'Turkey':
-        return 'tr_TR';
+        return 'Europe/Istanbul';
       case 'UnitedKingdom':
-        return 'en_GB';
+        return 'Europe/London';
       case 'Korea':
-        return 'ko_KR';
+        return 'Asia/Tokyo';
       case 'Thailand':
-        return 'th_TH';
+        return 'Asia/Bangkok';
       case 'Laos':
-        return 'lo_LA';
+        return 'Asia/Bangkok';
       case 'Indonesia':
-        return 'in_ID';
+        return 'Asia/Bangkok';
       case 'Malaysia':
-        return 'ms_MY';
+        return 'Asia/Singapore';
       case 'TimorTimur':
-        return 'pt_TL';
+        return 'Asia/Makassar';
       case 'Japan':
-        return 'ja_JP';
+        return 'Asia/Tokyo';
       case 'PapuaNewGuinea':
-        return 'en_PG';
+        return 'Pacific/Port_Moresby';
     }
     return '';
   }
+
+  /// 這個會自動換成該國慣用用法 ex: 台灣會有年月日單位, 阿拉伯會是阿拉伯語非數字
+  // String _getTimeZoneCode(String countryName) {
+  //   switch(countryName) {
+  //     case 'Canada':
+  //       return 'en_CA';
+  //     case 'SaudiArabia':
+  //       return 'ar_SA';
+  //     case 'Jordan':
+  //       return 'ar_JO';
+  //     case 'Spain':
+  //       return 'es_ES';
+  //     case 'Brazil':
+  //       return 'pt_BR';
+  //     case 'Singapore':
+  //       return 'en_SG';
+  //     case 'America':
+  //       return 'en_US';
+  //     case 'Kuwait':
+  //       return 'ar_KW';
+  //     case 'Iran':
+  //       return 'fa_IR';
+  //     case 'Taiwan':
+  //       return 'zh_TW';
+  //     case 'Philippines':
+  //       return 'en_PH';
+  //     case 'Turkey':
+  //       return 'tr_TR';
+  //     case 'UnitedKingdom':
+  //       return 'en_GB';
+  //     case 'Korea':
+  //       return 'ko_KR';
+  //     case 'Thailand':
+  //       return 'th_TH';
+  //     case 'Laos':
+  //       return 'lo_LA';
+  //     case 'Indonesia':
+  //       return 'in_ID';
+  //     case 'Malaysia':
+  //       return 'ms_MY';
+  //     case 'TimorTimur':
+  //       return 'pt_TL';
+  //     case 'Japan':
+  //       return 'ja_JP';
+  //     case 'PapuaNewGuinea':
+  //       return 'en_PG';
+  //   }
+  //   return '';
+  // }
 
   void requestAPI(int page, int size, {ResponseErrorFunction? onConnectFail}) async {
     if (currentType.isNotEmpty) {

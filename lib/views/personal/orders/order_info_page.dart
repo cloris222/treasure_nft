@@ -73,14 +73,17 @@ class _OrderInfoPage extends State<OrderInfoPage> {
                   viewModel.requestAPI(1, 10);
                 }),
 
-                DatePickerWidget(displayButton: false, dateCallback: (String startDate, String endDate) {
-                  if (startDate == viewModel.startDate && endDate == viewModel.endDate) {
-                    return;
-                  }
-                  viewModel.startDate = startDate;
-                  viewModel.endDate = endDate;
-                  viewModel.requestAPI(1, 10);
-                }),
+                DatePickerWidget(
+                    displayButton: false, bUsePhoneTime: false,
+                    startDate: viewModel.startDate, endDate: viewModel.endDate,
+                    dateCallback: (String startDate, String endDate) {
+                      if (startDate == viewModel.startDate && endDate == viewModel.endDate) {
+                        return;
+                      }
+                      viewModel.startDate = startDate;
+                      viewModel.endDate = endDate;
+                      viewModel.requestAPI(1, 10);
+                    }),
 
                 viewModel.dataList.isNotEmpty ?
                 _getListView()

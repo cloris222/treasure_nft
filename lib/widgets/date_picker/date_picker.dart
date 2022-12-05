@@ -9,16 +9,21 @@ import 'package:treasure_nft_project/view_models/personal/team/team_member_viewm
 import 'package:treasure_nft_project/views/home/widget/search_action_button.dart';
 
 class DatePickerWidget extends StatefulWidget {
+  DatePickerWidget({super.key,
+  this.displayALL = true,
+  this.displayButton = true,
+  required this.dateCallback,
+  required this.startDate,
+  required this.endDate,
+  required this.bUsePhoneTime
+  });
 
   final onDateFunction dateCallback;
   bool displayALL;
   bool displayButton;
-
-  DatePickerWidget({super.key,
-    this.displayALL = true,
-    this.displayButton = true,
-    required this.dateCallback,
-  });
+  String startDate;
+  String endDate;
+  bool bUsePhoneTime;
 
   @override
   State<StatefulWidget> createState() {
@@ -36,10 +41,16 @@ class DatePickerState extends State<DatePickerWidget> {
   @override
   void initState() {
     super.initState();
-    DateTime now = DateTime.now();
-    String formattedDate = DateFormat('yyyy-MM-dd').format(now);
-    startDate = formattedDate;
-    endDate = formattedDate;
+    if (widget.bUsePhoneTime) {
+      DateTime now = DateTime.now();
+      String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+      startDate = formattedDate;
+      endDate = formattedDate;
+
+    } else {
+      startDate = widget.startDate;
+      endDate = widget.endDate;
+    }
   }
 
   @override
