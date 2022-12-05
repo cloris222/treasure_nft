@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
@@ -83,7 +84,12 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Image.network(data.imgUrl, width: UIDefine.getScreenWidth(26), height: UIDefine.getScreenWidth(26)),
+                  CachedNetworkImage(
+                    imageUrl: data.imgUrl,
+                    width: UIDefine.getScreenWidth(26),
+                    height: UIDefine.getScreenWidth(26),
+                    errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
+                  ),
                   SizedBox(width: UIDefine.getScreenWidth(2.7)),
                   IntrinsicWidth(
                       child: Column(

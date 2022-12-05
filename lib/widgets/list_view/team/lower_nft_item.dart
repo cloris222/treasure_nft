@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
@@ -38,7 +39,12 @@ class _LowerNFTItem extends State<LowerNFTItemView> {
 
               SizedBox(
                 width: UIDefine.getScreenWidth(20),
-                child:Image.network(widget.itemData.originImgUrl),
+                child: CachedNetworkImage(
+                  imageUrl: widget.itemData.originImgUrl,
+                  width: UIDefine.getScreenWidth(19.5),
+                  height: UIDefine.getScreenWidth(19.5),
+                  errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
+                ),
               ),
 
               viewModel.getPadding(1),

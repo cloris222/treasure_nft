@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
@@ -59,7 +60,12 @@ class CollectionSellDialogView extends BaseDialog {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.network(imgUrl, width: UIDefine.getScreenWidth(42), height: UIDefine.getScreenWidth(42)),
+                    CachedNetworkImage(
+                      imageUrl: imgUrl,
+                      width: UIDefine.getScreenWidth(42),
+                      height: UIDefine.getScreenWidth(42),
+                      errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
+                    ),
                     SizedBox(height: UIDefine.getScreenWidth(5)),
                     Text(
                       name,

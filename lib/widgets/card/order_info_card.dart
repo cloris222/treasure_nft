@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
@@ -223,7 +225,12 @@ class _OrderInfoCard extends State<OrderInfoCard> {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(widget.imageUrl, width: UIDefine.getScreenWidth(21.3), height: UIDefine.getScreenWidth(21.3)),
+            CachedNetworkImage(
+              imageUrl: widget.imageUrl,
+              width: UIDefine.getScreenWidth(21.3),
+              height: UIDefine.getScreenWidth(21.3),
+              errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
+            ),
             SizedBox(width: UIDefine.getScreenWidth(2.77)),
 
             Column(

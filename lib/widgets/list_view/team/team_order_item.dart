@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
@@ -30,7 +31,11 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
       Stack(
         alignment: Alignment.topLeft,
         children: [
-          Image.network(widget.itemData.imgUrl, fit: BoxFit.contain),
+          CachedNetworkImage(
+            imageUrl: widget.itemData.imgUrl,
+            fit: BoxFit.contain,
+            errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
+          ),
           Positioned(child: _buildOrderType())
         ],
       ),

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
@@ -42,7 +43,11 @@ class _ExploreMainItemView extends State<ExploreMainItemView> {
                   child: Container(
                     alignment: Alignment.topCenter,
                     // height: UIDefine.getScreenWidth(40),
-                    child: Image.network(exploreMainResponseData.introPhoneUrl, fit: BoxFit.fill),
+                    child: CachedNetworkImage(
+                      imageUrl: exploreMainResponseData.introPhoneUrl,
+                      fit: BoxFit.fill,
+                      errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
+                    ),
                   ),
                 ),
                 ClipRRect(

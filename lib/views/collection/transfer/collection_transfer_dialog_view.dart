@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
@@ -39,9 +40,12 @@ class CollectionTransferDialogView extends BaseDialog {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.network(imgUrl,
-              width: UIDefine.getScreenWidth(42.2),
-              height: UIDefine.getScreenWidth(42.2)),
+          CachedNetworkImage(
+            imageUrl: imgUrl,
+            width: UIDefine.getScreenWidth(42.2),
+            height: UIDefine.getScreenWidth(42.2),
+            errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
+          ),
 
           SizedBox(height: UIDefine.getScreenWidth(11.11)),
 

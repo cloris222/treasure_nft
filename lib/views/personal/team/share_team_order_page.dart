@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -177,11 +178,12 @@ class _ShareTeamOrderPageState extends State<ShareTeamOrderPage> {
           height: itemSize,
           width: UIDefine.getWidth(),
           child: Row(children: [
-            Image.network(
-              itemData.imgUrl,
+            CachedNetworkImage(
+              imageUrl: itemData.imgUrl,
               height: itemSize,
               width: itemSize,
               fit: BoxFit.contain,
+              errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
             ),
             Expanded(
                 child: Column(children: [

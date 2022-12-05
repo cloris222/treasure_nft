@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
@@ -56,8 +57,11 @@ class _ArtistRecordItem extends State<ArtistRecordItemView> {
                         height: UIDefine.getWidth() * 0.1,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(50),
-                          child: Image.network(widget.itemData.avatarUrl,
-                              fit: BoxFit.fill),
+                          child: CachedNetworkImage(
+                            imageUrl: widget.itemData.avatarUrl,
+                            fit: BoxFit.fill,
+                            errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
+                          ),
                         ),
                       ),
                       viewModel.buildSpace(width: 1),

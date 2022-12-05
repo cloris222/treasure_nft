@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -258,10 +259,15 @@ class _CollectionBlindBoxItemView extends State<CollectionBlindBoxItemView> {
     return Stack(
       alignment: Alignment.center,
       children: [
-        Image.network(imgUrl,
-            opacity: const AlwaysStoppedAnimation(0.3),
+        Opacity(
+          opacity: 0.3,
+          child: CachedNetworkImage(
+            imageUrl: imgUrl,
             width: UIDefine.getScreenWidth(19.5),
-            height: UIDefine.getScreenWidth(19.5)),
+            height: UIDefine.getScreenWidth(19.5),
+            errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
+          ),
+        ),
         Image.asset('assets/icon/icon/icon_lock_01.png')
       ],
     );

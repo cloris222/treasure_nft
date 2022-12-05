@@ -1,6 +1,8 @@
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
@@ -88,8 +90,13 @@ class ItemInfoCard extends StatelessWidget {
                 children: [
                   /// 商品圖
                   imageUrl!=''?
-                  Image.network(imageUrl, width: UIDefine.getScreenWidth(22), height: UIDefine.getScreenWidth(22))
-                  :
+                  CachedNetworkImage(
+                    imageUrl: imageUrl,
+                    width: UIDefine.getScreenWidth(22),
+                    height: UIDefine.getScreenWidth(22),
+                    errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
+                  )
+                      :
                   const SizedBox(),
 
                   SizedBox(height: UIDefine.getScreenWidth(2.5)),

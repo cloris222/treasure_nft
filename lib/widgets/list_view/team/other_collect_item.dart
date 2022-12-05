@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
@@ -13,10 +14,11 @@ class OtherCollectItem extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget space = SizedBox(height: UIDefine.getScreenHeight(1));
     return Column(children: [
-      Image.network(
-        data.nftImgUrl,
-        width: UIDefine.getScreenWidth(42), height: UIDefine.getScreenWidth(42),
-        fit: BoxFit.fill,
+      CachedNetworkImage(
+        imageUrl: data.nftImgUrl,
+        height: UIDefine.getScreenWidth(42),
+        width: UIDefine.getScreenWidth(42),
+        errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
       ),
       space,
       Container(

@@ -1,4 +1,5 @@
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
@@ -34,7 +35,11 @@ class HomePageWidgets {
           children: [
             Column(
               children: [
-                Image.network(data.introPhoneUrl, fit: BoxFit.fill),
+                CachedNetworkImage(
+                  imageUrl: data.introPhoneUrl,
+                  fit: BoxFit.fill,
+                  errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
+                ),
 
                 Container(
                   height: UIDefine.getScreenWidth(17),
@@ -222,8 +227,12 @@ class HomePageWidgets {
                 BaseViewModel().pushReplacement(context, MainPage(type: AppNavigationBarType.typeLogin));
               }
             },
-            child: Image.network(data.imgUrl,
-              height: UIDefine.getScreenWidth(43.4), width: UIDefine.getScreenWidth(43.4),)
+            child: CachedNetworkImage(
+              imageUrl: data.imgUrl,
+              height: UIDefine.getScreenWidth(43.4),
+              width: UIDefine.getScreenWidth(43.4),
+              errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
+            ),
           ),
 
           const SizedBox(height: 4),

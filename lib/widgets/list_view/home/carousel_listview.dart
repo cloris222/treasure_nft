@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:flutter_carousel_slider/carousel_slider_transforms.dart';
@@ -44,10 +45,13 @@ class _GetCarouselListView extends State<CarouselListView> {
 
   Future preload() async {
     for (int i = 0; i < list.length; i++) {
-      imageList.add(Image.network(
-        list[i].imageUrl,
-        fit: BoxFit.cover,
-      ));
+      imageList.add(
+          CachedNetworkImage(
+            imageUrl: list[i].imageUrl,
+            fit: BoxFit.cover,
+            errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
+          ),
+      );
     }
   }
 

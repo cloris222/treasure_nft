@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_colors.dart';
+import '../../constant/ui_define.dart';
 import '../../view_models/base_view_model.dart';
 
 /// 開盲盒的動畫 + Show商品圖
@@ -76,7 +78,12 @@ class _OpenBoxAnimationPage extends State<OpenBoxAnimationPage> with SingleTicke
 
                     Visibility(
                       visible: bShowItem,
-                      child: Image.network(widget.imgUrl, width: 140, height: 140)
+                      child: CachedNetworkImage(
+                        imageUrl: widget.imgUrl,
+                        width: UIDefine.getScreenWidth(37.33),
+                        height: UIDefine.getScreenWidth(37.33),
+                        errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
+                      ),
                     )
                   ],
                 )

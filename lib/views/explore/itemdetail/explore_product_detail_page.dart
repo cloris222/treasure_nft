@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:format/format.dart';
@@ -160,8 +161,14 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
 
             /// 商品大圖
             data.imgUrl != ''?
-            Image.network(data.imgUrl, width: UIDefine.getScreenWidth(100), height: UIDefine.getScreenWidth(100))
-            : Container(),
+            CachedNetworkImage(
+              imageUrl: data.imgUrl,
+              width: UIDefine.getScreenWidth(100),
+              height: UIDefine.getScreenWidth(100),
+              errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
+            )
+              :
+            Container(),
 
             /// 折線圖標題
             Container(

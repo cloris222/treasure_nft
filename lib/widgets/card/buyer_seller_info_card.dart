@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:treasure_nft_project/views/personal/team/share_team_order_page.dart';
 
@@ -53,7 +55,12 @@ class _BuyerSellerInfoCard extends State<BuyerSellerInfoCard> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image.network(widget.data.imgUrl, width: UIDefine.getScreenWidth(14.5), height: UIDefine.getScreenWidth(14.5)),
+                  CachedNetworkImage(
+                    imageUrl: widget.data.imgUrl,
+                    height: UIDefine.getScreenWidth(14.5),
+                    width: UIDefine.getScreenWidth(14.5),
+                    errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
+                  ),
                   SizedBox(height: UIDefine.getScreenWidth(2.77)),
                   Visibility(
                     visible: widget.bShowShare,
