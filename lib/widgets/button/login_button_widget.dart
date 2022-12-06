@@ -16,7 +16,8 @@ class LoginButtonWidget extends StatelessWidget {
       this.fontWeight,
       this.isGradient = true,
       this.isFlip = false,
-      this.radius = 10})
+      this.radius = 10,
+      this.showIcon = false,})
       : super(key: key);
   final String btnText;
   final VoidCallback onPressed;
@@ -28,6 +29,7 @@ class LoginButtonWidget extends StatelessWidget {
   final bool isGradient;
   final bool isFlip;
   final double radius;
+  final bool showIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -47,13 +49,24 @@ class LoginButtonWidget extends StatelessWidget {
                   .styleColorsRadiusBackground(color: AppColors.buttonGrey),
           width: width ?? UIDefine.getWidth(),
           height: height ?? 50,
-          child: Text(btnText,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: fontSize ?? UIDefine.fontSize16,
-                  fontWeight: fontWeight))),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Visibility(
+                visible: showIcon,
+                  child: Icon(Icons.storefront,color: Colors.white,size: UIDefine.fontSize18,)),
+              Visibility(
+                  visible: showIcon,
+                  child: SizedBox(width: UIDefine.getPixelWidth(5),)),
+              Text(btnText,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: fontSize ?? UIDefine.fontSize16,
+                      fontWeight: fontWeight)),
+            ],
+          )),
     );
   }
 }
