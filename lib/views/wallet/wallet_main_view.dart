@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
+import 'package:treasure_nft_project/views/wallet/data/app_purchase.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import 'package:treasure_nft_project/widgets/domain_bar.dart';
@@ -188,8 +189,14 @@ class _WalletMainViewState extends State<WalletMainView> {
                 ]))));
   }
 
-  Widget _appPurchase(){
-    return LoginButtonWidget(btnText: tr("usdt-type-BUY_ITEM'"),showIcon: true, onPressed: (){});
+  Widget _appPurchase() {
+    return LoginButtonWidget(
+        btnText: tr("usdt-type-BUY_ITEM'"),
+        showIcon: true,
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AppPurchase()));
+        });
   }
 
   Widget _buildWalletAccount() {
