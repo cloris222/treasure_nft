@@ -18,6 +18,7 @@ import '../../constant/theme/app_style.dart';
 import '../../constant/ui_define.dart';
 import '../../models/http/parameter/check_activiey_deposit.dart';
 import '../dialog/activity_rule_dialog.dart';
+import '../dialog/animation_dialog.dart';
 import '../dialog/new_reservation_dialog.dart';
 import '../dialog/simple_custom_dialog.dart';
 import '../dialog/success_dialog.dart';
@@ -44,6 +45,7 @@ class _WorldCupViewState extends State<WorldCupView> {
       },
       reservationSuccess: () {
         viewModel.canReserve?.isUsed = true;
+        AnimationDialog(context, AppAnimationPath.reserveSuccess).show();
         setState(() {});
       },
       bookPriceNotEnough: () {
