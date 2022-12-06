@@ -22,4 +22,13 @@ class RegularExpressionUtil {
     }
     return false;
   }
+
+  ///MARK: 檢查 鑄造名稱
+  bool checkFormatCreateName(String value) {
+    if (value.isNotEmpty) {
+      String pattern = '^[a-zA-Z0-9_#]{1,30}\$';
+      return _checkFormat(pattern, value);
+    }
+    return false;
+  }
 }
