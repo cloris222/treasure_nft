@@ -101,7 +101,7 @@ class _NewReservationPopUpViewState extends State<NewReservationPopUpView> {
           GradientText(
             tr("reserve"),
             size: UIDefine.fontSize24,
-            weight: FontWeight.w600,
+            weight: FontWeight.w500,
           ),
           SizedBox(
             height: UIDefine.getHeight() / 25,
@@ -110,19 +110,19 @@ class _NewReservationPopUpViewState extends State<NewReservationPopUpView> {
             title: tr('reservationFee'),
             showCoins: false,
             content: widget.reservationFee,
-            rightFontWeight: FontWeight.bold,
+            rightFontWeight: FontWeight.w500,
           ),
           LevelDetailLabel(
             title: tr('transactionHour'),
             showCoins: false,
             content: widget.transactionTime,
-            rightFontWeight: FontWeight.bold,
+            rightFontWeight: FontWeight.w500,
           ),
           LevelDetailLabel(
             title: tr('transactionReward'),
             showCoins: false,
             content: '${widget.transactionReward}%',
-            rightFontWeight: FontWeight.bold,
+            rightFontWeight: FontWeight.w500,
           ),
           SizedBox(
             height: UIDefine.getHeight() / 30,
@@ -132,7 +132,7 @@ class _NewReservationPopUpViewState extends State<NewReservationPopUpView> {
             height: UIDefine.getHeight() / 20,
             btnText: tr('check'),
             fontSize: UIDefine.fontSize14,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w500,
             onPressed: widget.confirmBtnAction
           )
         ],

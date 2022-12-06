@@ -138,7 +138,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
             Text(
               tr('getAddress'),
               style: TextStyle(
-                  fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w600),
+                  fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
             ),
             GestureDetector(
                 onTap: _onQuickFill,
@@ -147,7 +147,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
                   style: TextStyle(
                       color: AppColors.mainThemeButton,
                       fontSize: UIDefine.fontSize12,
-                      fontWeight: FontWeight.w600),
+                      fontWeight: FontWeight.w500),
                 ))
           ],
         ),
@@ -241,7 +241,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
         Text(
           tr('quantity'),
           style: TextStyle(
-              fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w600),
+              fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
         ),
         SizedBox(
           width: UIDefine.getScreenWidth(90),
@@ -290,7 +290,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
                             style: TextStyle(
                                 color: AppColors.mainThemeButton,
                                 fontSize: UIDefine.fontSize12,
-                                fontWeight: FontWeight.w600),
+                                fontWeight: FontWeight.w500),
                           ))
                     ],
                   ))

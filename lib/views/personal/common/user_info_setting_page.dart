@@ -54,7 +54,7 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
                           margin: const EdgeInsets.symmetric(vertical: 5),
                           child: Text(tr('nationality'),
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w500,
                                   fontSize: UIDefine.fontSize14))),
                       _getNationalityForm(),
                       SizedBox(height: UIDefine.getScreenWidth(4.16)),
@@ -93,7 +93,7 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
                           margin: const EdgeInsets.symmetric(vertical: 5),
                           child: Text(tr('birthday'),
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w500,
                                   fontSize: UIDefine.fontSize14))),
                       DatePickerOne(
                         initDate: GlobalData.userInfo.birthday.isNotEmpty
@@ -129,7 +129,7 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
         SizedBox(width: UIDefine.getScreenWidth(2.7)),
         Text('${GlobalData.userInfo.country} (${GlobalData.userInfo.zone})',
             style: TextStyle(
-                fontWeight: FontWeight.w600, fontSize: UIDefine.fontSize14)),
+                fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14)),
       ],
     );
   }
@@ -142,7 +142,7 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
             margin: const EdgeInsets.symmetric(vertical: 5),
             child: Text(title,
                 style: TextStyle(
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w500,
                     fontSize: UIDefine.fontSize14))),
         Container(
             alignment: Alignment.centerLeft,

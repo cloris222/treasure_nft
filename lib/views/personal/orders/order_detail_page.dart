@@ -57,7 +57,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
     TextStyle styleBlack = TextStyle(
         color: AppColors.opacityBackground,
         fontSize: UIDefine.fontSize18,
-        fontWeight: FontWeight.bold);
+        fontWeight: FontWeight.w500);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

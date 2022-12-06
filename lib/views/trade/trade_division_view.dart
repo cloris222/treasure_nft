@@ -180,17 +180,17 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
                       title: tr("wallet-balance'"),
                       showCoins: false,
                       content: NumberFormatUtil().removeTwoPointFormat(balance),
-                      rightFontWeight: FontWeight.bold),
+                      rightFontWeight: FontWeight.w500),
                   LevelDetailLabel(
                       title: tr("availableBalance"),
                       content: NumberFormatUtil()
                           .removeTwoPointFormat(reserveBalance),
-                      rightFontWeight: FontWeight.bold),
+                      rightFontWeight: FontWeight.w500),
                   LevelDetailLabel(
                       title: tr('amountRangeNFT'),
                       showCoins: false,
                       content: viewModel.getRange(),
-                      rightFontWeight: FontWeight.bold)
+                      rightFontWeight: FontWeight.w500)
                 ])
               ]))
         ]));

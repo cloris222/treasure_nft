@@ -83,7 +83,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
             Text(
               tr('getAccount'),
               style: TextStyle(
-                  fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w600),
+                  fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
             ),
           ],
         ),
@@ -129,7 +129,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
         Text(
           tr('quantity'),
           style: TextStyle(
-              fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w600),
+              fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
         ),
         SizedBox(
           width: UIDefine.getScreenWidth(90),
@@ -177,7 +177,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
                             style: TextStyle(
                                 color: AppColors.mainThemeButton,
                                 fontSize: UIDefine.fontSize12,
-                                fontWeight: FontWeight.w600),
+                                fontWeight: FontWeight.w500),
                           ))
                     ],
                   ))

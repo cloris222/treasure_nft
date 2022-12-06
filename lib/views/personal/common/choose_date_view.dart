@@ -73,7 +73,7 @@ class ChooseDateView extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 5),
         child: Text(text,
             style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: UIDefine.fontSize14)));
+                fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14)));
   }
 
   Widget _buildSecureView() {

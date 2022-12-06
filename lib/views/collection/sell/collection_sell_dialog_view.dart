@@ -118,7 +118,7 @@ class CollectionSellDialogView extends BaseDialog {
                     Text(
                       tr('fees'),
                       style: TextStyle(
-                          fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w600),
+                          fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                     ),
                     SizedBox(height: 6),
                     Row(

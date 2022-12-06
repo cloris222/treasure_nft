@@ -60,7 +60,7 @@ class PersonalSubLevelView extends StatelessWidget {
             style: TextStyle(
                 color: AppColors.dialogBlack,
                 fontSize: UIDefine.fontSize18,
-                fontWeight: FontWeight.bold),
+                fontWeight: FontWeight.w500),
           ),
         ],
       ),
@@ -78,13 +78,13 @@ class PersonalSubLevelView extends StatelessWidget {
       Text(tr('totalAssets'),
           style: TextStyle(
               fontSize: UIDefine.fontSize20,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w500,
               color: AppColors.dialogBlack)),
       Flexible(child: Container()),
       Text(tr(' ${NumberFormatUtil().removeTwoPointFormat(userProperty?.totalBalance)}'),
           style: TextStyle(
               fontSize: UIDefine.fontSize20,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w500,
               color: AppColors.dialogBlack))
     ]);
   }
@@ -164,7 +164,7 @@ class PersonalSubLevelView extends StatelessWidget {
               Text(' ${NumberFormatUtil().removeTwoPointFormat(value)}',
                   style: TextStyle(
                       fontSize: UIDefine.fontSize18,
-                      fontWeight: FontWeight.w600))
+                      fontWeight: FontWeight.w500))
             ],
           ),
         ),
@@ -197,7 +197,7 @@ class PersonalSubLevelView extends StatelessWidget {
                   " ${NumberFormatUtil().integerFormat(start)}-${NumberFormatUtil().integerFormat(end)}",
                   style: TextStyle(
                       fontSize: UIDefine.fontSize14,
-                      fontWeight: FontWeight.w600)),
+                      fontWeight: FontWeight.w500)),
             ],
           ),
         ),

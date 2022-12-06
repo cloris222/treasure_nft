@@ -68,7 +68,7 @@ class ReservationDialog extends BaseCloseDialog {
                   title: tr('reserveCount'),
                   showCoins: false,
                   content: '1',
-                  rightFontWeight: FontWeight.bold,
+                  rightFontWeight: FontWeight.w500,
                 ),
                 LevelDetailLabel(
                   title: tr('availableBalance'),
@@ -77,25 +77,25 @@ class ReservationDialog extends BaseCloseDialog {
                   reservationViewModel.checkReserve.reserveBalance.toStringAsFixed(2)
                      :
                   '0',
-                  rightFontWeight: FontWeight.bold,
+                  rightFontWeight: FontWeight.w500,
                 ),
                 LevelDetailLabel(
                   title: tr('reservationFee'),
                   showCoins: true,
                   content: '${reservationViewModel.checkReserve.deposit}',
-                  rightFontWeight: FontWeight.bold,
+                  rightFontWeight: FontWeight.w500,
                 ),
                 LevelDetailLabel(
                   title: tr('transactionHour'),
                   showCoins: false,
                   content: '${reservationViewModel.checkReserve.tradingTime}',
-                  rightFontWeight: FontWeight.bold,
+                  rightFontWeight: FontWeight.w500,
                 ),
                 LevelDetailLabel(
                   title: tr('transactionReward'),
                   showCoins: false,
                   content: '${reservationViewModel.checkReserve.reward}%',
-                  rightFontWeight: FontWeight.bold,
+                  rightFontWeight: FontWeight.w500,
                 ),
               ],
             )

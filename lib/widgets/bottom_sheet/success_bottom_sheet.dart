@@ -45,7 +45,7 @@ class SuccessBottomSheet extends BaseBottomSheet {
                     style: TextStyle(
                         color: AppColors.textBlack,
                         fontSize: UIDefine.fontSize20,
-                        fontWeight: FontWeight.w600)),
+                        fontWeight: FontWeight.w500)),
                 subText.isNotEmpty
                     ? Container(
                         margin: const EdgeInsets.only(top: 10, bottom: 10),

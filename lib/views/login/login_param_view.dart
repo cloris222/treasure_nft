@@ -61,6 +61,6 @@ class LoginParamView extends StatelessWidget {
         // margin: const EdgeInsets.symmetric(vertical: 5), // (Ethan改) LoginTextWidget已有上下5 margin 間距過大
         child: Text(text,
             style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: UIDefine.fontSize14)));
+                fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14)));
   }
 }

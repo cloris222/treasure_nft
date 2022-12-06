@@ -199,7 +199,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
           size: UIDefine.fontSize26),
       Text(' ${tr('level')} $level ',
           style: TextStyle(
-              fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w600)),
+              fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500)),
       LevelIconWidget(level: level, size: UIDefine.fontSize26),
       Flexible(child: Container()),
       Visibility(

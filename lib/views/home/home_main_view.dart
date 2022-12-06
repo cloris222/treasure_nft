@@ -119,7 +119,7 @@ class _HomeMainViewState extends State<HomeMainView> {
     double styleHeight = 1.1;
     TextStyle black = TextStyle(
         fontSize: 22,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w500,
         color: AppColors.textBlack,
         height: showZh ? 1.1 : null);
 
@@ -132,7 +132,7 @@ class _HomeMainViewState extends State<HomeMainView> {
                 GradientText(
                   'Treasure NFT',
                   size: UIDefine.fontSize20,
-                  weight: FontWeight.bold,
+                  weight: FontWeight.w500,
                   styleHeight: styleHeight,
                 ),
                 Text('交', style: black),
@@ -146,10 +146,10 @@ class _HomeMainViewState extends State<HomeMainView> {
                 Text('Earn profit with',
                     style: TextStyle(
                         fontSize: UIDefine.fontSize20,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w500,
                         color: AppColors.textBlack)),
                 GradientText(' Treasure NFT',
-                    size: UIDefine.fontSize20, weight: FontWeight.bold)
+                    size: UIDefine.fontSize20, weight: FontWeight.w500)
               ]));
   }
 
@@ -342,7 +342,7 @@ class _HomeMainViewState extends State<HomeMainView> {
                                                 color: AppColors.textWhite,
                                                 fontSize: UIDefine.fontSize16,
                                                 fontWeight:
-                                                    FontWeight.bold)))))))
+                                                    FontWeight.w500)))))))
                   ])),
               viewModel.buildSpace(height: 5)
             ]));
