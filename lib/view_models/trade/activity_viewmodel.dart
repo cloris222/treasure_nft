@@ -30,6 +30,7 @@ class ActivityViewModel extends BaseViewModel {
   ActivityReserveInfo? canReserve;
   ActivityDeposit? checkDeposit;
 
+  late bool isReserveTime;
   late DateTime _localTime;
   late DateTime _drawTime;
   late DateTime _startTime;
@@ -78,6 +79,9 @@ class ActivityViewModel extends BaseViewModel {
   }
 
   _countdownTimer(ActivityReserveInfo reservationInfo) {
+    /// 是否在預約時間
+    isReserveTime = reservationInfo.isReServeTime;
+
     /// 現在時間(當地)
     _localTime = DateTime.parse(reservationInfo.localTime);
 
@@ -104,23 +108,27 @@ class ActivityViewModel extends BaseViewModel {
             if (duration == '00:00:00:00') {
               activityData.status = ActivityState.HideButton;
               activityData.showButton = false;
+              isReserveTime = false;
 
               /// 活動期間內才能預約
             } else if (_localTime.compareTo(_startTime) >= 0 &&
                 _localTime.compareTo(_endTime) <= 0) {
               activityData.showButton = true;
               activityData.status = ActivityState.Activity;
+              isReserveTime = true;
             }
 
             /// 開賣前一小時隱藏button
             else if (duration.compareTo('00:01:00:00') <= 0) {
               activityData.status = ActivityState.HideButton;
               activityData.showButton = false;
+              isReserveTime = false;
 
               /// 開賣結束後一小時，顯示中獎名單
             } else if (duration.compareTo(showListTime.toString()) >= 0) {
               activityData.status = ActivityState.End;
               activityData.showButton = true;
+              isReserveTime = false;
             }
             setState();
           }),

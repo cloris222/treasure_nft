@@ -37,6 +37,7 @@ class _WorldCupViewState extends State<WorldCupView> {
 
   @override
   void initState() {
+
     viewModel = ActivityViewModel(
       setState: () {
         if (mounted) {
@@ -135,6 +136,8 @@ class _WorldCupViewState extends State<WorldCupView> {
     );
     viewModel.initState();
     super.initState();
+    print('!!!!!!!!${viewModel.activityData.status}');
+    print('!!!!!!!!${viewModel.activityData.showButton}');
   }
 
   String showButtonLabel() {
@@ -169,7 +172,7 @@ class _WorldCupViewState extends State<WorldCupView> {
           height: UIDefine.fontSize16,
         ),
         Visibility(
-          visible: viewModel.activityData.status != ActivityState.HideButton,
+          visible: viewModel.activityData.status != ActivityState.HideButton && (viewModel.isReserveTime = true),
           child: LoginButtonWidget(
             btnText: showButtonLabel(),
             onPressed: () {

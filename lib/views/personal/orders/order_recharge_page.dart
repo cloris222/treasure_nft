@@ -258,13 +258,14 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
                   fontSize: UIDefine.fontSize16, color: AppColors.dialogBlack))
         ],
       ),
-      const SizedBox(height: 10),
+      SizedBox(height: UIDefine.getScreenWidth(2.77)),
       Text(
           '${tr("minimum-rechargeAmount-start'")} ${viewModel.currentChain == CoinEnum.TRON ? 'USDT-TRC20' : 'USDT-BSC'} ${tr("minimum-rechargeAmount-end'")}',
           maxLines: 2,
           textAlign: TextAlign.start,
           style: TextStyle(
-              fontSize: UIDefine.fontSize12, color: AppColors.dialogGrey))
+              fontSize: UIDefine.fontSize12, color: AppColors.dialogGrey)),
+      SizedBox(height: UIDefine.getScreenWidth(6)),
     ]);
   }
 
