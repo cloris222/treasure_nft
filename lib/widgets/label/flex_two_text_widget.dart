@@ -10,7 +10,7 @@ class FlexTwoTextWidget extends StatelessWidget {
     this.fontSize = 12,
     required this.text,
     this.color = AppColors.dialogBlack,
-    this.fontWeight = FontWeight.w600,
+    this.fontWeight = FontWeight.w500,
     this.textAlign = TextAlign.start,
     this.alignment = Alignment.topCenter,
   }) : super(key: key);

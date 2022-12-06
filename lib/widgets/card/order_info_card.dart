@@ -98,7 +98,7 @@ class _OrderInfoCard extends State<OrderInfoCard> {
                         padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
                         child: Text(
                           _getLuckyStrawString(),
-                          style: TextStyle(color: _getLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w600),
+                          style: TextStyle(color: _getLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
                         )
                     )
                 )

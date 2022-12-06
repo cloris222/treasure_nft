@@ -79,7 +79,7 @@ class _EventInfoCard extends State<EventInfoCard> {
                         const SizedBox(width: 4),
                         Text(
                           _getLuckyStrawString(),
-                          style: TextStyle(color: _getLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w600),
+                          style: TextStyle(color: _getLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
                         )
                       ],
                     )
@@ -111,7 +111,7 @@ class _EventInfoCard extends State<EventInfoCard> {
                         const SizedBox(width: 4),
                         Text(
                           _getPrizeLuckyStrawString(),
-                          style: TextStyle(color: _getPrizeLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w600),
+                          style: TextStyle(color: _getPrizeLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
                         )
                       ],
                     )

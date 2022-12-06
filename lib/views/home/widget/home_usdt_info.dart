@@ -37,7 +37,7 @@ class _HomeUsdtInfoState extends State<HomeUsdtInfo> {
     TextStyle titleBolderStyle = TextStyle(
         fontSize: UIDefine.fontSize12,
         color: AppColors.textBlack,
-        fontWeight: FontWeight.w600);
+        fontWeight: FontWeight.w500);
     TextStyle valueStyle = TextStyle(
         fontSize: UIDefine.fontSize14,
         fontWeight: FontWeight.w500,

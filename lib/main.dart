@@ -56,6 +56,16 @@ class MyApp extends StatelessWidget {
       navigatorKey: GlobalData.globalKey,
       title: 'TreasureNft',
       theme: AppTheme.define(),
+      builder: (context, widget) {
+        ///MARK:textScaleFactor 控制文字比例大小
+        ///MARK:boldText 控制文字粗體(測試無效果，可能要看看IOS)
+        return MediaQuery(
+            data: MediaQuery.of(context).copyWith(
+              textScaleFactor: 1,
+               boldText: false,
+            ),
+            child: widget ?? const SizedBox());
+      },
       home: const SplashScreenPage(),
     );
   }

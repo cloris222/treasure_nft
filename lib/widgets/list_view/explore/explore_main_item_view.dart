@@ -76,7 +76,7 @@ class _ExploreMainItemView extends State<ExploreMainItemView> {
                   Container(
                     padding: EdgeInsets.fromLTRB(0, 0, 0, UIDefine.getScreenWidth(4.3)),
                     child: Text(exploreMainResponseData.artistName,
-                      style: TextStyle(color: Colors.black, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w600),),
+                      style: TextStyle(color: Colors.black, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),),
                   ),
 
                   SizedBox(width: UIDefine.getScreenWidth(2.4)),

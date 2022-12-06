@@ -49,7 +49,7 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
             widget.itemData.getItemName(),
             maxLines: 1,
             style: TextStyle(
-                fontSize: UIDefine.fontSize14, fontWeight: FontWeight.bold),
+                fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
           ),
 
           /// Share
@@ -245,7 +245,7 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
             style: TextStyle(
                 color: Colors.white,
                 fontSize: UIDefine.fontSize12,
-                fontWeight: FontWeight.w600)));
+                fontWeight: FontWeight.w500)));
   }
 
   void _onPressShare() {

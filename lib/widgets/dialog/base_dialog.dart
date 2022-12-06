@@ -87,7 +87,7 @@ abstract class BaseDialog {
         children: [
           AppTheme.style.styleFillText(title,
               alignment: Alignment.center,
-              style: const TextStyle(fontWeight: FontWeight.bold)),
+              style: const TextStyle(fontWeight: FontWeight.w500)),
           createDialogCloseIcon(),
         ],
       );

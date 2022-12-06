@@ -122,7 +122,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
             style: TextStyle(
                 fontSize: UIDefine.fontSize16,
                 color: AppColors.dialogBlack,
-                fontWeight: FontWeight.w600)),
+                fontWeight: FontWeight.w500)),
         Container(
           alignment: Alignment.center,
           margin: EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(10)),
@@ -199,7 +199,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
                       style: TextStyle(
                           fontSize: UIDefine.fontSize14,
                           color: AppColors.dialogGrey,
-                          fontWeight: FontWeight.bold))),
+                          fontWeight: FontWeight.w500))),
               const SizedBox(width: 10),
               InkWell(
                   onTap: () {
@@ -239,7 +239,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
               style: TextStyle(
                   fontSize: UIDefine.fontSize14,
                   color: AppColors.dialogGrey,
-                  fontWeight: FontWeight.bold))
+                  fontWeight: FontWeight.w500))
         ],
       ),
     );

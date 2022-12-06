@@ -44,7 +44,7 @@ class PersonalSubOrderView extends StatelessWidget {
       Text(tr('myOrder'),
           style: TextStyle(
               fontSize: UIDefine.fontSize20,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w500,
               color: AppColors.dialogBlack)),
       const SizedBox(width: 5),
       Expanded(

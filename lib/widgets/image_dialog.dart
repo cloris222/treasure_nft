@@ -42,7 +42,7 @@ class ImageDialog extends BaseDialog {
                 style: TextStyle(
                     color: AppColors.textBlack,
                     fontSize: mainTextSize ?? UIDefine.fontSize24,
-                    fontWeight: FontWeight.w600)),
+                    fontWeight: FontWeight.w500)),
           ),
           subText.isNotEmpty
               ? Text(subText,

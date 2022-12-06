@@ -60,7 +60,7 @@ class _LowerNFTItem extends State<LowerNFTItemView> {
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontSize: UIDefine.fontSize14,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
 

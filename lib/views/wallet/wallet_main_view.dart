@@ -73,7 +73,7 @@ class _WalletMainViewState extends State<WalletMainView> {
       Text(
         tr('assets'),
         style: TextStyle(
-            fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w600),
+            fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
       )
     ]);
   }
@@ -197,13 +197,13 @@ class _WalletMainViewState extends State<WalletMainView> {
         const SizedBox(width: 5),
         Text(tr('usdt'),
             style: TextStyle(
-                fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w600)),
+                fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500)),
         Flexible(child: Container()),
         Text(
             NumberFormatUtil()
                 .removeTwoPointFormat(GlobalData.userProperty?.balance),
             style: TextStyle(
-                fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w600))
+                fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500))
       ])
     ]);
   }

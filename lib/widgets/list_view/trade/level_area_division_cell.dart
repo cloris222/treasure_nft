@@ -183,7 +183,7 @@ class _DivisionCellState extends State<DivisionCell> {
                           : GradientText(
                               tr('matching'),
                               size: UIDefine.fontSize14,
-                              weight: FontWeight.bold,
+                              weight: FontWeight.w500,
                               starColor: AppColors.mainThemeButton,
                               endColor: AppColors.subThemePurple,
                             ))

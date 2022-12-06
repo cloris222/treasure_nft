@@ -120,7 +120,7 @@ class AchievementItemWidget extends StatelessWidget {
                   text: data.getAchievementTaskText(),
                   fontSize: UIDefine.fontSize16,
                   color: AppColors.dialogBlack,
-                  fontWeight: FontWeight.w600),
+                  fontWeight: FontWeight.w500),
             ),
             Container(
                 alignment: Alignment.topCenter,

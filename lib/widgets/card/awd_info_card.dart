@@ -69,7 +69,7 @@ class AWDInfoCard extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
                   child: Text(
                     _getLuckyStrawString(),
-                    style: TextStyle(color: _getLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w600),
+                    style: TextStyle(color: _getLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
                   )
                 )
               )
@@ -97,7 +97,7 @@ class AWDInfoCard extends StatelessWidget {
           const SizedBox(height: 2),
           Text(
             tr('world-cups-event'), // 活動名 (後端沒給欄位 目前寫死)
-            style: TextStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w600),
+            style: TextStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
           )
         ],
       );

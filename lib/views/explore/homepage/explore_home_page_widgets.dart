@@ -81,7 +81,7 @@ class HomePageWidgets {
               padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5), 0,
                   0, UIDefine.getScreenWidth(5)),
               child: Text(data.artistName,
-                style: TextStyle(color: Colors.black, fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w600),),
+                style: TextStyle(color: Colors.black, fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500),),
             ),
 
             SizedBox(width: UIDefine.getScreenWidth(4)),
@@ -100,7 +100,7 @@ class HomePageWidgets {
           child: Visibility(
             visible: creatorName==''? false : true,
             child: Text(creatorName,
-              style: TextStyle(color: Colors.black, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w600),),
+              style: TextStyle(color: Colors.black, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),),
           ),
         ),
       ],
@@ -204,7 +204,7 @@ class HomePageWidgets {
             bIcon? Image.asset('assets/icon/coins/icon_tether_01.png', width: UIDefine.getScreenWidth(4.44), height: UIDefine.getScreenWidth(4.44)) : Container(),
             const SizedBox(width: 4),
             Text(amount,
-              style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w600),),
+              style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),),
           ],
         ),
         Text(title,
@@ -245,7 +245,7 @@ class HomePageWidgets {
                 width: UIDefine.getScreenWidth(25),
                 child: Text(
                   data.name,
-                  style: TextStyle(fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w600),
+                  style: TextStyle(fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
                 )
               ),
               Row(
@@ -253,7 +253,7 @@ class HomePageWidgets {
                   Image.asset('assets/icon/icon/icon_trend_up_01.png'),
                   Text(
                     BaseViewModel().numberFormat(data.growAmount),
-                    style: TextStyle(color: AppColors.growPrice, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w600),
+                    style: TextStyle(color: AppColors.growPrice, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
                   ),
                 ],
               )

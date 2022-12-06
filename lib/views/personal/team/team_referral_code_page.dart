@@ -58,7 +58,7 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
 
   Widget _buildInviteView(BuildContext context) {
     TextStyle styleBlack =
-        TextStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w600);
+        TextStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500);
     TextStyle styleGrey = TextStyle(
         fontSize: UIDefine.fontSize14,
         fontWeight: FontWeight.w500,
@@ -67,7 +67,7 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
       SizedBox(height: UIDefine.getPixelHeight(10)),
       Text(tr("shareCenterTitle"),
           style: TextStyle(
-              fontSize: UIDefine.fontSize20, fontWeight: FontWeight.bold)),
+              fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500)),
       Container(
         margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(10)),
         child: Text(tr("shareCenterSubTitle"),
@@ -161,7 +161,7 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
 
   Widget _copyArea(BuildContext context) {
     TextStyle styleBlack =
-        TextStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w600);
+        TextStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500);
     TextStyle styleGrey = TextStyle(
         fontSize: UIDefine.fontSize14,
         fontWeight: FontWeight.w500,

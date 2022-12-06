@@ -68,13 +68,13 @@ class _LoginMainViewState extends State<LoginMainView> {
                       style: TextStyle(
                           fontSize: UIDefine.fontSize24,
                           color: Colors.white,
-                          fontWeight: FontWeight.w600)),
+                          fontWeight: FontWeight.w500)),
                   TextSpan(
                       text: tr('Login'),
                       style: TextStyle(
                           fontSize: UIDefine.fontSize34,
                           color: Colors.white,
-                          fontWeight: FontWeight.w600))
+                          fontWeight: FontWeight.w500))
                 ])),
               )),
           Positioned(

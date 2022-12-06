@@ -85,13 +85,13 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
           children: [
             GradientText(
               'Winner List',
-              weight: FontWeight.bold,
+              weight: FontWeight.w500,
               size: UIDefine.fontSize28,
               starColor: AppColors.drawColorBg[1],
             ),
             GradientText(
               'Announcement',
-              weight: FontWeight.bold,
+              weight: FontWeight.w500,
               size: UIDefine.fontSize28,
               starColor: AppColors.drawColorBg[1],
             ),
@@ -186,7 +186,7 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             color: Colors.white,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.w500,
                             fontSize: UIDefine.fontSize16))),
                 const SizedBox(width: 5),
                 BaseIconWidget(

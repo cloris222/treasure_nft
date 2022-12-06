@@ -44,7 +44,7 @@ class PointRecordItemWidget extends StatelessWidget {
             style: TextStyle(
                 color: AppColors.dialogBlack,
                 fontSize: UIDefine.fontSize14,
-                fontWeight: FontWeight.w600)),
+                fontWeight: FontWeight.w500)),
         SizedBox(height: UIDefine.getPixelHeight(5)),
         Text(BaseViewModel().changeTimeZone(record.time),
             style: TextStyle(

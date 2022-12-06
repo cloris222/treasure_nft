@@ -40,14 +40,14 @@ class _DepositNftMainView extends State<DepositNftMainView> {
               children: [
                 Text(
                   tr("chooseNetwork"),
-                  style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w600),
+                  style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
                 ),
 
                 const SizedBox(height: 4),
 
                 Text(
                   tr("supportNetwork"),
-                  style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w600),
+                  style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                 ),
 
                 const SizedBox(height: 20),
@@ -81,7 +81,7 @@ class _DepositNftMainView extends State<DepositNftMainView> {
                                       SizedBox(width: UIDefine.getScreenWidth(3)),
                                       Text(
                                         'Polygon',
-                                        style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w600),
+                                        style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
                                       )
                                     ],
                                   )
@@ -122,7 +122,7 @@ class _DepositNftMainView extends State<DepositNftMainView> {
                                       SizedBox(width: UIDefine.getScreenWidth(3)),
                                       Text(
                                         'BSC',
-                                        style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w600),
+                                        style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
                                       )
                                     ],
                                   )

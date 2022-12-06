@@ -44,7 +44,7 @@ class WalletInfoItem extends StatelessWidget {
             style: TextStyle(
                 fontSize: UIDefine.fontSize14,
                 color: AppColors.dialogBlack,
-                fontWeight: FontWeight.bold))
+                fontWeight: FontWeight.w500))
       ],
     );
   }
