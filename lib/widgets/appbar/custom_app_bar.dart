@@ -72,7 +72,7 @@ class CustomAppBar {
                   child: Text(title,
                       style: TextStyle(
                           fontSize: UIDefine.fontSize24,
-                          fontWeight: FontWeight.w600)),
+                          fontWeight: FontWeight.w500)),
                 ),
               ),
               Positioned(
@@ -130,7 +130,7 @@ class CustomAppBar {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.white,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w500,
                         fontSize: fontSize ?? UIDefine.fontSize18),
                   ),
                 ),

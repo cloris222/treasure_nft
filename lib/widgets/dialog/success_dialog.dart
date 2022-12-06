@@ -44,7 +44,7 @@ class SuccessDialog extends BaseDialog {
                 style: TextStyle(
                     color: AppColors.textBlack,
                     fontSize: mainTextSize,
-                    fontWeight: FontWeight.bold)),
+                    fontWeight: FontWeight.w500)),
           ),
           subText.isNotEmpty
               ? Text(subText,

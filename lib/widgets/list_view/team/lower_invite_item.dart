@@ -41,7 +41,7 @@ class LowerInviteItemView extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             fontSize: UIDefine.fontSize12,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w500,
                             color: AppColors.dialogGrey)),
                     space,
                     _buildParam(tr('nickname'), itemData.userName),

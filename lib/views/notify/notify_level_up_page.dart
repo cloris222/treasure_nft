@@ -63,9 +63,9 @@ class NotifyLevelUpPage extends StatelessWidget {
     var space = const SizedBox(width: 5);
     var levelHeight = pageHeight * 0.07;
     var lvText =
-        GradientText('LV', weight: FontWeight.bold, size: levelHeight * 0.5);
+        GradientText('LV', weight: FontWeight.w500, size: levelHeight * 0.5);
     var levelStyle = TextStyle(
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w500,
         fontSize: levelHeight * 0.5,
         color: AppColors.textBlack);
     return SizedBox(

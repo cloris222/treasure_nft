@@ -230,7 +230,7 @@ class _SharePicStyleState extends State<SharePicStyle> {
 
   Widget _shareImgBottom(BuildContext context, int index) {
     TextStyle styleBlack =
-        TextStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w600);
+        TextStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500);
     TextStyle styleGrey = TextStyle(
         fontSize: UIDefine.fontSize14,
         fontWeight: FontWeight.w500,

@@ -37,7 +37,7 @@ class PersonalParamItem extends StatelessWidget {
     TextStyle style = TextStyle(
         fontSize: UIDefine.fontSize18,
         color: AppColors.dialogBlack,
-        fontWeight: FontWeight.bold);
+        fontWeight: FontWeight.w500);
     return value != null
         ? Text(value!, style: style)
         : assetImagePath != null

@@ -26,7 +26,7 @@ class MemberDetailItemView extends StatelessWidget {
     TextStyle contentStyle = TextStyle(
         color: AppColors.dialogBlack,
         fontSize: UIDefine.fontSize12,
-        fontWeight: FontWeight.w600);
+        fontWeight: FontWeight.w500);
 
     return Container(
         padding: EdgeInsets.all(UIDefine.getScreenWidth(5)),
@@ -316,7 +316,7 @@ class MemberDetailItemView extends StatelessWidget {
           Center(
             child: Text(tr('noData'),
                 style: TextStyle(
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w500,
                     color: AppColors.emptyCoffee.withOpacity(0.3),
                     fontSize: UIDefine.fontSize16)),
           ),

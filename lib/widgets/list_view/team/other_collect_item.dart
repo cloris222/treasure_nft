@@ -28,7 +28,7 @@ class OtherCollectItem extends StatelessWidget {
             maxLines: 2,
             textAlign: TextAlign.start,
             style: TextStyle(
-                fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w600),
+                fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
           )),
       space,
       Row(children: [

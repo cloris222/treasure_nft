@@ -39,7 +39,7 @@ class PersonalSubCommonView extends StatelessWidget {
             softWrap: false,
             style: TextStyle(
                 fontSize: UIDefine.fontSize20,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w500,
                 color: AppColors.dialogBlack)),
       )
     ]);

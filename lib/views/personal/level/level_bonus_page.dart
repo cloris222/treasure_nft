@@ -110,7 +110,7 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
               style: TextStyle(
                   color: AppColors.dialogBlack,
                   fontSize: UIDefine.fontSize20,
-                  fontWeight: FontWeight.w600)),
+                  fontWeight: FontWeight.w500)),
           _buildSpace(height: 1),
           Row(mainAxisSize: MainAxisSize.min, children: [
             const TetherCoinWidget(),
@@ -119,7 +119,7 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
                 style: TextStyle(
                     color: AppColors.dialogBlack,
                     fontSize: UIDefine.fontSize20,
-                    fontWeight: FontWeight.w600))
+                    fontWeight: FontWeight.w500))
           ])
         ]));
   }

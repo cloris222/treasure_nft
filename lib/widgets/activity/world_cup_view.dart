@@ -273,7 +273,7 @@ class _WorldCupViewState extends State<WorldCupView> {
     TextStyle blackContent = TextStyle(
         fontSize: UIDefine.fontSize14,
         color: Colors.black,
-        fontWeight: FontWeight.bold);
+        fontWeight: FontWeight.w500);
     return Stack(
       children: [
         SizedBox(
@@ -303,7 +303,7 @@ class _WorldCupViewState extends State<WorldCupView> {
                     '${viewModel.canReserve?.deposit ?? ''}',
                     style: TextStyle(
                         fontSize: UIDefine.fontSize20,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.w500),
                   ),
                   Image.asset(
                     AppImagePath.tetherImg,
@@ -319,7 +319,7 @@ class _WorldCupViewState extends State<WorldCupView> {
                   '(${viewModel.canReserve?.depositForConsume ?? 0}U${tr("limitedNFT")}+${viewModel.canReserve?.depositForPool ?? 0}U${tr("bonusPool")})',
                   style: const TextStyle(
                       fontSize: 14,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w500,
                       color: Colors.white),
                   textAlign: TextAlign.center,
                 ),

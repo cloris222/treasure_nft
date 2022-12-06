@@ -147,7 +147,7 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
                 children: [
                   Text(
                     data.name,
-                    style: TextStyle(fontSize: UIDefine.fontSize26, fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: UIDefine.fontSize26, fontWeight: FontWeight.w500),
                   ),
                   const SizedBox(height: 6),
                   _oneRowForm(tr('owner'), _setShowingForm(data.ownerName), false, false),
@@ -254,7 +254,7 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
             //           Text(
             //             levelData.buyRangeStart.toString() + ' ~ ' + levelData.buyRangeEnd.toString(),
             //             style: TextStyle(
-            //                 color: AppColors.textBlack, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w600),
+            //                 color: AppColors.textBlack, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
             //           )
             //         ],
             //       )

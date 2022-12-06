@@ -58,7 +58,7 @@ class _UserNovicePageState extends State<UserNovicePage> {
         Text(
           tr("instructionalVideo"),
           style: TextStyle(
-              fontWeight: FontWeight.w600, fontSize: UIDefine.fontSize20),
+              fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize20),
         )
       ],
     );
@@ -111,7 +111,7 @@ class _UserNovicePageState extends State<UserNovicePage> {
                             text: tr(VideoStrEnum.values[index].name),
                             textAlign: TextAlign.center,
                             fontSize: 14,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.w500,
                             alignment: Alignment.center),
                       ],
                     )),

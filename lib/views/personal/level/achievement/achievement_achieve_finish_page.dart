@@ -60,7 +60,7 @@ class AchievementAchieveFinishPage extends StatelessWidget {
     return Column(children: [
       GradientText(
         data.getAchievementTaskText(),
-        weight: FontWeight.bold,
+        weight: FontWeight.w500,
         size: UIDefine.fontSize28,
         starColor: AppColors.reservationLevel2,
         endColor: AppColors.reservationLevel4,
@@ -78,7 +78,7 @@ class AchievementAchieveFinishPage extends StatelessWidget {
         style: TextStyle(
             fontSize: UIDefine.fontSize16,
             color: AppColors.textGrey,
-            fontWeight: FontWeight.w600),
+            fontWeight: FontWeight.w500),
       ),
       _buildSpace(height: 4),
       LoginButtonWidget(

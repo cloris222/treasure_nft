@@ -45,7 +45,7 @@ class _ServerWebPageState extends State<ServerWebPage> {
                         'X',
                         style: TextStyle(
                             color:  Colors.white,
-                            fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.w500),
                       ))),
               Visibility(
                   visible: showLoading,

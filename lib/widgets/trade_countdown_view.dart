@@ -75,7 +75,7 @@ class _TradeCountDownViewState extends State<TradeCountDownView> {
                       style: TextStyle(
                           color: AppColors.textRed,
                           fontSize: UIDefine.fontSize24,
-                          fontWeight: FontWeight.w600),
+                          fontWeight: FontWeight.w500),
                     )
                   : CountDownTimer(
                       duration: tradeData.duration,
@@ -86,7 +86,7 @@ class _TradeCountDownViewState extends State<TradeCountDownView> {
                 btnText:
                     '(${GlobalData.userInfo.zone}) ${DateFormatUtil().getDateWith12HourInSecondFormat(TradeTimerUtil().getSellStartTime())}',
                 fontSize: UIDefine.fontSize14,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w500,
                 onPressed: () {},
               )
             ],
@@ -116,7 +116,7 @@ class _TradeCountDownViewState extends State<TradeCountDownView> {
             child: Text(
               tr('trade-rules'),
               style: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: UIDefine.fontSize14),
+                  fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14),
             ),
           ),
         ));

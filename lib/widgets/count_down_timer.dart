@@ -31,7 +31,7 @@ class _CountDownTimerState extends State<CountDownTimer> {
     return GradientText(
       '$days : $hours : $minutes : $seconds',
       size: UIDefine.fontSize24,
-      weight: FontWeight.bold,
+      weight: FontWeight.w500,
       starColor: AppColors.mainThemeButton,
       endColor: AppColors.subThemePurple,
     );

@@ -48,7 +48,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView> {
                       Text('${widget.itemData.sort}',
                           style: TextStyle(
                               fontSize: UIDefine.fontSize14,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w500,
                               color: AppColors.font02)),
                       viewModel.buildSpace(width: 1),
 
@@ -139,7 +139,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView> {
         Text(viewModel.numberCompatFormat(count),
             style: TextStyle(
                 fontSize: UIDefine.fontSize14,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w500,
                 color: AppColors.textBlack)),
         const SizedBox(width: 5),
         SizedBox(
@@ -186,7 +186,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView> {
             Row(children: [
               Text(NumberFormatUtil().removeTwoPointFormat(value),
                   style: TextStyle(
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w500,
                       fontSize: UIDefine.fontSize14)),
               SizedBox(width: UIDefine.getScreenWidth(1)),
               Visibility(

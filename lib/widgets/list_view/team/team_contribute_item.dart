@@ -33,7 +33,7 @@ class TeamContributeItemView extends StatelessWidget {
                     style: TextStyle(
                         fontSize: UIDefine.fontSize12,
                         color: AppColors.textBlack,
-                        fontWeight: FontWeight.w600),
+                        fontWeight: FontWeight.w500),
                     textAlign: TextAlign.start)
               ]))
         ]));
