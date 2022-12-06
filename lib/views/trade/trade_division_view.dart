@@ -14,11 +14,13 @@ import 'package:treasure_nft_project/widgets/trade_countdown_view.dart';
 import '../../models/http/api/trade_api.dart';
 import '../../utils/trade_timer_util.dart';
 import '../../view_models/trade/trade_division_viewmodel.dart';
+import '../../widgets/dialog/common_custom_dialog.dart';
 import '../../widgets/dialog/new_reservation_dialog.dart';
 import '../../widgets/dialog/simple_custom_dialog.dart';
 import '../../widgets/label/level_detail.dart';
 import '../../widgets/list_view/trade/level_area_division_cell.dart';
 import '../custom_appbar_view.dart';
+import '../personal/orders/order_withdraw_page.dart';
 
 ///MARK: 第二層 副本入口
 class TradeDivisionView extends StatefulWidget {
@@ -222,15 +224,30 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
                     return NewReservationPopUpView(
                       confirmBtnAction: () async {
                         Navigator.pop(context);
+                        bool bExp = viewModel.checkExp();
+                        if (!bExp) {
+                          /// add new reservation
+                          await viewModel.addNewReservation(index);
 
-                        /// add new reservation
-                        await viewModel.addNewReservation(index);
+                          /// if reservation success 預約狀態 = true
+                          viewModel.ranges[index].used = true;
 
-                        /// if reservation success 預約狀態 = true
-                        viewModel.ranges[index].used = true;
+                          /// 狀態更新
+                          setState(() {});
 
-                        /// 狀態更新
-                        setState(() {});
+                        } else {
+                          CommonCustomDialog(context,
+                              type: DialogImageType.warning,
+                              title: tr('exp_finish_title'),
+                              content: tr('exp_finish_content_1') + '\n' + tr('exp_finish_content_2'),
+                              rightBtnText: tr('前往提領'), // test 少多國
+                              onLeftPress: (){},
+                              onRightPress: () {
+                                Navigator.pop(this.context);
+                                viewModel.pushPage(this.context, OrderWithdrawPage());
+                              })
+                              .show();
+                        }
                       },
                       reservationFee: '${checkReserveDeposit.deposit}',
                       transactionTime: '${checkReserveDeposit.tradingTime}',

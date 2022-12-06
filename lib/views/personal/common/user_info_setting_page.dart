@@ -127,7 +127,7 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
             width: UIDefine.getScreenWidth(11.11),
             height: UIDefine.getScreenWidth(11.11)),
         SizedBox(width: UIDefine.getScreenWidth(2.7)),
-        Text('${GlobalData.userInfo.country} (${GlobalData.userInfo.zone})',
+        Text('${tr(GlobalData.userInfo.country)} (${GlobalData.userInfo.zone})',
             style: TextStyle(
                 fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14)),
       ],

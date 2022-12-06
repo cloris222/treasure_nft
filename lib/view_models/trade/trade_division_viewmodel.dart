@@ -71,6 +71,13 @@ class TradeDivisionViewModel extends BaseViewModel {
     TradeTimerUtil().removeListener(_onUpdateTrade);
   }
 
+  bool checkExp() {
+    if (GlobalData.experienceInfo.isExperience) {
+      return true;
+    }
+    return false;
+  }
+
   /// 新增預約
   addNewReservation(int index) async {
     /// 確認體驗帳號狀態
