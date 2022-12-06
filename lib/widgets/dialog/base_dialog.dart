@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/theme/app_theme.dart';
+
 abstract class BaseDialog {
   BaseDialog(this.context,
       {this.radius = 35.0,
@@ -15,7 +17,7 @@ abstract class BaseDialog {
   double contentSizeHeight;
   Color backgroundColor;
 
-  void initValue();
+  Future<void> initValue();
 
   Widget initTitle();
 
@@ -26,18 +28,19 @@ abstract class BaseDialog {
   }
 
   Future<void> show() async {
-    initValue();
+    await initValue();
     await showDialog<void>(
       context: context,
       barrierDismissible: isDialogCancel,
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: backgroundColor,
+          insetPadding: defaultInsetPadding(),
           elevation: 0,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(radius))),
           title: initTitle(),
-          content: StatefulBuilder(builder: initContent),
+          content: SingleChildScrollView(child: StatefulBuilder(builder: initContent)),
           actions: initAction(),
         );
       },
@@ -61,10 +64,11 @@ abstract class BaseDialog {
         transitionDuration: const Duration(milliseconds: 1500),
         transitionBuilder: (context, animation, secondaryAnimation, child) {
           return SlideTransition(
-              position:
-                  Tween<Offset>(begin: const Offset(0.0, 1.0), end: const Offset(0.0, 0.0))
-                      .animate(CurvedAnimation(
-                          parent: animation, curve: Curves.fastOutSlowIn)),
+              position: Tween<Offset>(
+                      begin: const Offset(0.0, 1.0),
+                      end: const Offset(0.0, 0.0))
+                  .animate(CurvedAnimation(
+                      parent: animation, curve: Curves.fastOutSlowIn)),
               child: FadeTransition(
                   opacity: Tween(begin: 0.0, end: 1.0).animate(
                       CurvedAnimation(parent: animation, curve: Curves.linear)),
@@ -83,7 +87,7 @@ abstract class BaseDialog {
         children: [
           AppTheme.style.styleFillText(title,
               alignment: Alignment.center,
-              style: const TextStyle(fontWeight: FontWeight.bold)),
+              style: const TextStyle(fontWeight: FontWeight.w500)),
           createDialogCloseIcon(),
         ],
       );
@@ -98,7 +102,7 @@ abstract class BaseDialog {
   Widget createDialogCloseIcon() {
     return IconButton(
         onPressed: onCancel,
-        icon: Image.asset(AppImagePath.dialogClose, width: 15, height: 15));
+        icon: Image.asset(AppImagePath.closeDialogBtn, width: 15, height: 15));
   }
 
   Widget createImageWidget(
@@ -113,5 +117,9 @@ abstract class BaseDialog {
 
   void clearFocus() {
     FocusScope.of(context).unfocus();
+  }
+
+  EdgeInsets defaultInsetPadding () {
+    return const EdgeInsets.symmetric(horizontal: 40.0, vertical: 24.0);
   }
 }

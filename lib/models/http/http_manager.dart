@@ -1,13 +1,17 @@
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/views/main_page.dart';
+import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 
 import '../../constant/call_back_function.dart';
+import '../../constant/global_data.dart';
 import '../../utils/language_util.dart';
+import '../../utils/rsa_util.dart';
 import 'http_exceptions.dart';
 import 'http_setting.dart';
 import 'parameter/api_response.dart';
-
 
 ///MARK: 參考網站
 ///https://dhruvnakum.xyz/networking-in-flutter-dio#heading-repository
@@ -18,8 +22,14 @@ class HttpManager {
   String baseUrl;
   final bool addToken;
 
+  ///MARK: 是否自動轉多國
+  final bool showTrString;
+
   HttpManager(
-      {this.onConnectFail, this.baseUrl = HttpSetting.developUrl, this.addToken = true}) {
+      {this.onConnectFail,
+      this.baseUrl = HttpSetting.appUrl,
+      this.addToken = true,
+      this.showTrString = true}) {
     _dio
       ..options.baseUrl = baseUrl
       ..options.connectTimeout = HttpSetting.connectionTimeout
@@ -30,22 +40,26 @@ class HttpManager {
   ApiResponse _checkResponse(Response response) {
     debugPrint(response.realUri.toString());
     var result = ApiResponse.fromJson(response.data);
-    ///MARK:不需要檢查則直接跳過這個function
-    return result;
+
+    ///偷懶看LOG用
+    result.printLog();
+
     ///MARK: 檢查結果
-    // if (檢查正確) {
-    //   ///偷懶看LOG用
-    //   result.printLog();
-    //   return result;
-    // } else if (帳號已登出的狀況) {
-    //   var vm = BaseViewModel();
-    //   vm.showToast(vm.getGlobalContext(), result.message);
-    //   vm.globalPushAndRemoveUntil(const LoginMainPage());
-    // }
+    if (result.code == "G_0000" ||
+        result.code == "APP_0062" ||
+        result.code == "APP_0041") {
+      return result;
+    } else if ((result.code.compareTo("G_0201") == 0) ||
+        (result.code.compareTo("G_0202") == 0)) {
+      BaseViewModel().clearUserLoginInfo();
+      BaseViewModel().globalPushAndRemoveUntil(
+          const MainPage(type: AppNavigationBarType.typeLogin));
+    }
+
     ///MARK: 檢查結果 有異常時 直接拋出錯誤
     //取代錯誤code
     response.statusCode = 404;
-    response.data['message'] = tr(result.message);
+    response.data['message'] = showTrString ? tr(result.code) : result.code;
     throw DioError(
         requestOptions: response.requestOptions,
         response: response,
@@ -54,8 +68,11 @@ class HttpManager {
 
   Future<void> _initDio() async {
     if (addToken) {
-      // _dio.options.headers["Authorization"] = "Bearer ${GlobalData.userToken}";
-      debugPrint("Authorization:${_dio.options.headers['Authorization']}");
+      if (GlobalData.userToken.isNotEmpty) {
+        _dio.options.headers["Authorization"] =
+            "Bearer ${GlobalData.userToken}";
+        debugPrint("Authorization:${_dio.options.headers['Authorization']}");
+      }
     }
   }
 
@@ -66,14 +83,20 @@ class HttpManager {
     });
   }
 
-  void callFailConnect(String message) {
+  void callFailConnect(String message, {bool isOther = false}) {
     if (onConnectFail != null) {
       onConnectFail!(message);
+    }
+
+    ///MARK: 未開啟網路連線時
+    else if (isOther) {
+      var viewModel = BaseViewModel();
+      viewModel.showToast(viewModel.getGlobalContext(), message);
     }
   }
 
   String getLanguage() {
-    return LanguageUtil.getStrLanguageForHttp();
+    return LanguageUtil.getAppStrLanguageForHttp();
   }
 
   double getDouble(json, String key) {
@@ -100,7 +123,8 @@ class HttpManager {
       return _checkResponse(response);
     } on DioError catch (e) {
       final errorMessage = HttpExceptions.fromDioError(e).toString();
-      callFailConnect(errorMessage);
+      debugPrint('connect errorMessage:$errorMessage');
+      callFailConnect(errorMessage, isOther: e.type == DioErrorType.other);
       throw errorMessage;
     } catch (e) {
       callFailConnect(e.toString());
@@ -117,12 +141,19 @@ class HttpManager {
     CancelToken? cancelToken,
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
+    bool isEncode = true,
   }) async {
     await _initDio();
     try {
       final Response response = await _dio.post(
         url,
-        data: data,
+        data: data != null
+            ? isEncode
+                ? {
+                    'data': [await RSAEncode.encodeLong(data)]
+                  }
+                : data
+            : null,
         queryParameters: queryParameters,
         options: options,
         cancelToken: cancelToken,
@@ -132,7 +163,7 @@ class HttpManager {
       return _checkResponse(response);
     } on DioError catch (e) {
       final errorMessage = HttpExceptions.fromDioError(e).toString();
-      callFailConnect(errorMessage);
+      callFailConnect(errorMessage, isOther: e.type == DioErrorType.other);
       throw errorMessage;
     } catch (e) {
       callFailConnect(e.toString());
@@ -154,7 +185,11 @@ class HttpManager {
     try {
       final Response response = await _dio.put(
         url,
-        data: data,
+        data: data != null
+            ? {
+                'data': [await RSAEncode.encodeLong(data)]
+              }
+            : null,
         queryParameters: queryParameters,
         options: options,
         cancelToken: cancelToken,
@@ -164,7 +199,7 @@ class HttpManager {
       return _checkResponse(response);
     } on DioError catch (e) {
       final errorMessage = HttpExceptions.fromDioError(e).toString();
-      callFailConnect(errorMessage);
+      callFailConnect(errorMessage, isOther: e.type == DioErrorType.other);
       throw errorMessage;
     } catch (e) {
       callFailConnect(e.toString());
@@ -194,7 +229,7 @@ class HttpManager {
       return ApiResponse.fromJson(response.data);
     } on DioError catch (e) {
       final errorMessage = HttpExceptions.fromDioError(e).toString();
-      callFailConnect(errorMessage);
+      callFailConnect(errorMessage, isOther: e.type == DioErrorType.other);
       throw errorMessage;
     } catch (e) {
       callFailConnect(e.toString());

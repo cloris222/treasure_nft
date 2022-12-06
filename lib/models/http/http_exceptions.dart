@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 
 class HttpExceptions implements Exception {
   late String message;
@@ -6,13 +8,16 @@ class HttpExceptions implements Exception {
   HttpExceptions.fromDioError(DioError dioError) {
     switch (dioError.type) {
       case DioErrorType.cancel:
+        debugPrint('Request to API server was cancelled');
         message = "Request to API server was cancelled";
         break;
       case DioErrorType.connectTimeout:
-        message = "Connection timeout with API server";
+        debugPrint('Connection timeout with API server');
+        message = tr('httpErrorConnectTimeout');
         break;
       case DioErrorType.receiveTimeout:
-        message = "Receive timeout in connection with API server";
+        debugPrint('Receive timeout in connection with API server');
+        message = tr('httpErrorConnectTimeout');
         break;
       case DioErrorType.response:
         message = _handleError(
@@ -21,17 +26,21 @@ class HttpExceptions implements Exception {
         );
         break;
       case DioErrorType.sendTimeout:
-        message = "Send timeout in connection with API server";
+        debugPrint("Send timeout in connection with API server");
+        message = tr('httpErrorConnectTimeout');
         break;
       case DioErrorType.other:
         if (dioError.message.contains("SocketException")) {
-          message = 'No Internet';
+          debugPrint("No Internet");
+          message = tr('httpErrorNoInternet');
           break;
         }
-        message = "Unexpected error occurred";
+        debugPrint("Unexpected error occurred");
+        message = tr("httpErrorOther");
         break;
       default:
-        message = "Something went wrong";
+        debugPrint("Something went wrong");
+        message = tr("httpErrorOther");
         break;
     }
   }
@@ -45,7 +54,7 @@ class HttpExceptions implements Exception {
       case 403:
         return 'Forbidden';
       case 404:
-        return error['message'];
+        return error['message'] ?? 'Error 404';
       case 500:
         return 'Internal server error';
       case 502:

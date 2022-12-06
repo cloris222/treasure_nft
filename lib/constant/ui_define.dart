@@ -16,6 +16,7 @@ class UIDefine {
   /// 字型大小
   static double fontSize36 = 0.0;
   static double fontSize34 = 0.0; // 34sp
+  static double fontSize32 = 0.0; // 34sp
   static double fontSize30 = 0.0; // 30sp
   static double fontSize28 = 0.0; // 28sp
   static double fontSize26 = 0.0; // 26sp
@@ -51,6 +52,7 @@ class UIDefine {
     /// 算法約為：字體sp / 360 * 100%
     fontSize36 = _getFontSize(10);
     fontSize34 = _getFontSize(9.44);
+    fontSize32 = _getFontSize(8.88);
     fontSize30 = _getFontSize(8.33);
     fontSize28 = _getFontSize(7.78);
     fontSize26 = _getFontSize(7.22);
@@ -98,9 +100,29 @@ class UIDefine {
     return temp;
   }
 
+//  一個除375. 一個除720.
+//  getScreenWidth / getScreenHeight.
+  static double getPixelWidth(double pixel) {
+    return getScreenWidth(pixel / 375 * 100);
+  }
+
+  static double getPixelHeight(double pixel) {
+    return getScreenHeight(pixel / 720 * 100);
+  }
+
   /// 取得字型大小
   static double _getFontSize(double fontSizeDefine) {
     double temp = _fontUnit * fontSizeDefine;
     return temp;
+  }
+
+  /// get screen width
+  static double getWidth() {
+    return _screenWidth;
+  }
+
+  /// get screen height
+  static double getHeight() {
+    return _screenHeight;
   }
 }

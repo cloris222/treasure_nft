@@ -20,9 +20,19 @@ abstract class BaseListViewModel extends BaseViewModel {
   final int maxLoad;
   final onClickFunction onListChange;
   final bool shrinkWrap;
-  final bool hasTopView;
   final ScrollPhysics? physics;
-  final bool isAutoReloadMore; //是否自動讀取
+
+  ///MARK: 是否有上方view
+  final bool hasTopView;
+
+  ///MARK: 是否自動讀取(僅支援listview)
+  final bool isAutoReloadMore;
+
+  ///MARK:判斷初始化是否讀取完畢
+  bool _isInitFinish = false;
+
+  ///MARK:可以放暫存的資料
+  List<dynamic> reloadItems = [];
 
   ///MARK: 讀取資料
   Future<List<dynamic>> loadData(int page, int size);
@@ -43,8 +53,15 @@ abstract class BaseListViewModel extends BaseViewModel {
   ///MARK:移除項目清單
   List<int> removeItems = <int>[];
 
+  ///MARK: 建立上方view
   @protected
   Widget buildTopView() {
+    return const SizedBox();
+  }
+
+  ///MARK: 建立間隔view
+  @protected
+  Widget buildSeparatorView(BuildContext context, int index) {
     return const SizedBox();
   }
 
@@ -64,24 +81,88 @@ abstract class BaseListViewModel extends BaseViewModel {
     nextItems = await loadData(currentPage + 1, maxLoad);
   }
 
-  bool _checkHasNextPage() {
-    return nextItems.isNotEmpty;
-  }
-
   void _readMorePage() {
     currentPage += 1;
   }
 
-  Widget buildListView() {
-    int length = currentItems.length;
-
-    if (hasTopView) {
-      length += 1;
+  List<dynamic> getShowList() {
+    if (!_isInitFinish && reloadItems.isNotEmpty) {
+      return reloadItems;
     }
+    return currentItems;
+  }
+
+  Widget buildListView() {
+    List<dynamic> list = getShowList();
+    int length = list.length;
 
     if (_showWaitLoad || (!isAutoReloadMore && nextItems.isNotEmpty)) {
       length += 1;
     }
+    return _buildListListener(
+        listBody: ListView.separated(
+            itemCount: length,
+            shrinkWrap: hasTopView ? true : shrinkWrap,
+            physics:
+                hasTopView ? const NeverScrollableScrollPhysics() : physics,
+            scrollDirection: Axis.vertical,
+            itemBuilder: (context, index) {
+              int itemIndex = index;
+              if (itemIndex != list.length) {
+                return Visibility(
+                    visible: !removeItems.contains(itemIndex),
+                    child: itemView(itemIndex, list[itemIndex]));
+              } else {
+                if (!_showWaitLoad &&
+                    (!isAutoReloadMore && nextItems.isNotEmpty)) {
+                  return _buildReadMore();
+                }
+                return _buildLoading();
+              }
+            },
+            separatorBuilder: (BuildContext context, int index) =>
+                buildSeparatorView(context, index)));
+  }
+
+  Widget buildGridView({
+    required int crossAxisCount,
+    double mainAxisSpacing = 0.0,
+    double crossAxisSpacing = 0.0,
+    double childAspectRatio = 1.0,
+  }) {
+    List<dynamic> list = getShowList();
+    int length = list.length;
+
+    bool showInitLoading = (list.isEmpty && _showWaitLoad);
+    if (_showWaitLoad) {
+      length += 1;
+    }
+    return _buildListListener(
+        listBody: GridView.builder(
+            itemCount: length,
+            shrinkWrap: hasTopView ? true : shrinkWrap,
+            physics:
+                hasTopView ? const NeverScrollableScrollPhysics() : physics,
+            scrollDirection: Axis.vertical,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: showInitLoading ? 1 : crossAxisCount,
+              childAspectRatio: showInitLoading ? 1.5 : childAspectRatio,
+              mainAxisSpacing: mainAxisSpacing,
+              crossAxisSpacing: crossAxisSpacing,
+            ),
+            itemBuilder: (context, index) {
+              int itemIndex = index;
+              if (itemIndex != list.length) {
+                return Visibility(
+                    visible: !removeItems.contains(itemIndex),
+                    child: itemView(itemIndex, list[itemIndex]));
+              } else {
+                return _buildLoading();
+              }
+            }));
+  }
+
+  _buildListListener({required Widget listBody}) {
     return NotificationListener<ScrollEndNotification>(
         onNotification: (scrollEnd) {
           final metrics = scrollEnd.metrics;
@@ -98,32 +179,12 @@ abstract class BaseListViewModel extends BaseViewModel {
           }
           return true;
         },
-        child: ListView.builder(
-            itemCount: length,
-            shrinkWrap: shrinkWrap,
-            physics: physics,
-            scrollDirection: Axis.vertical,
-            itemBuilder: (context, index) {
-              int itemIndex = index;
-              if (hasTopView && index == 0) {
-                return buildTopView();
-              }
-
-              if (hasTopView) {
-                itemIndex -= 1;
-              }
-              if (itemIndex != currentItems.length) {
-                return Visibility(
-                    visible: !removeItems.contains(itemIndex),
-                    child: itemView(itemIndex, currentItems[itemIndex]));
-              } else {
-                if (!_showWaitLoad &&
-                    (!isAutoReloadMore && nextItems.isNotEmpty)) {
-                  return _buildReadMore();
-                }
-                return _buildLoading();
-              }
-            }));
+        child: hasTopView
+            ? SingleChildScrollView(
+                child: Column(
+                children: [buildTopView(), listBody],
+              ))
+            : listBody);
   }
 
   _buildLoading() {
@@ -158,6 +219,7 @@ abstract class BaseListViewModel extends BaseViewModel {
     await _clearListView();
     await _uploadList();
     _showWaitLoad = false;
+    _isInitFinish = true;
     onListChange();
   }
 
@@ -177,10 +239,12 @@ abstract class BaseListViewModel extends BaseViewModel {
       await _uploadList();
     }
     _showWaitLoad = false;
+    _isInitFinish = true;
     onListChange();
   }
 
   Future<void> _clearListView() async {
+    _isInitFinish = false;
     currentPage = 1;
     currentItems.clear();
     nextItems.clear();

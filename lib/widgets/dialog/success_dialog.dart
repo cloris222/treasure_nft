@@ -44,7 +44,7 @@ class SuccessDialog extends BaseDialog {
                 style: TextStyle(
                     color: AppColors.textBlack,
                     fontSize: mainTextSize,
-                    fontWeight: FontWeight.bold)),
+                    fontWeight: FontWeight.w500)),
           ),
           subText.isNotEmpty
               ? Text(subText,
@@ -53,12 +53,12 @@ class SuccessDialog extends BaseDialog {
                       color: AppColors.textGrey, fontSize: UIDefine.fontSize12))
               : const Text(''),
           Container(
-            margin: buttonMargin,
+            margin: EdgeInsets.zero,
             child: ActionButtonWidget(
-                margin: const EdgeInsets.only(top: 10),
-                btnText: tr('ok'),
+                margin: EdgeInsets.symmetric(horizontal: UIDefine.getWidth() / 5),
+                btnText: tr("check"),
                 onPressed: _onPress,
-                isBorderStyle: true),
+                isBorderStyle: false),
           )
         ]);
   }
@@ -69,7 +69,7 @@ class SuccessDialog extends BaseDialog {
   }
 
   @override
-  void initValue() {}
+  Future<void> initValue() async {}
 
   void _onPress() {
     closeDialog();
