@@ -5,26 +5,29 @@ import '../../constant/ui_define.dart';
 import 'action_button_widget.dart';
 
 class TextButtonWidget extends ActionButtonWidget {
-  const TextButtonWidget(
-      {super.key,
-      required super.btnText,
-      required super.onPressed,
-      super.setMainColor,
-      super.setSubColor,
-      super.setTransColor,
-      super.fontSize,
-      super.margin,
-      super.padding,
-      super.isBorderStyle,
-      super.isFillWidth = false,
-      super.radius = 5,
-      this.backgroundHorizontal,
-      this.backgroundVertical,
-      this.borderSize = 2});
+  const TextButtonWidget({super.key,
+    required super.btnText,
+    required super.onPressed,
+    super.setMainColor,
+    super.setSubColor,
+    super.setTransColor,
+    super.fontSize,
+    super.margin,
+    super.padding,
+    super.isBorderStyle,
+    super.isFillWidth = false,
+    super.radius = 5,
+    super.fontWeight,
+    super.setHeight,
+    this.backgroundHorizontal,
+    this.backgroundVertical,
+    this.borderSize = 2,
+    this.textAlign});
 
   final double? backgroundVertical;
   final double? backgroundHorizontal;
   final double borderSize;
+  final TextAlign? textAlign;
 
   @override
   Widget createButton(BuildContext context) {
@@ -51,16 +54,21 @@ class TextButtonWidget extends ActionButtonWidget {
                 backgroundColor: primaryColor),
             child: Text(
               btnText,
+              textAlign: textAlign,
               style: TextStyle(
+                fontWeight: fontWeight,
                   color: textColor, fontSize: fontSize ?? UIDefine.fontSize16),
             )));
 
     return isFillWidth
         ? Container(
-            width: MediaQuery.of(context).size.width,
-            margin: margin,
-            padding: padding,
-            child: actionButton)
+        width: MediaQuery
+            .of(context)
+            .size
+            .width,
+        margin: margin,
+        padding: padding,
+        child: actionButton)
         : Container(margin: margin, padding: padding, child: actionButton);
   }
 }

@@ -5,11 +5,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
+import 'package:treasure_nft_project/widgets/button/text_button_widget.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
 import '../../../utils/ios_payment/consumable_store.dart';
@@ -30,7 +31,7 @@ class _AppPurchaseState extends State<AppPurchase> {
   static const String NFT_3 = 'com.treasurenft.level3';
   static const String NFT_4 = 'com.treasurenft.level4';
 
-  final List<String> _kProductIds = <String>[
+  static const List<String> _kProductIds = <String>[
     NFT_1,
     NFT_2,
     NFT_3,
@@ -170,18 +171,83 @@ class _AppPurchaseState extends State<AppPurchase> {
     return Scaffold(
       appBar: CustomAppBar.getCornerAppBar(() {
         Navigator.pop(context);
-      }, tr("usdt-type-BUY_ITEM'"),fontSize: UIDefine.fontSize24,arrowFontSize: UIDefine.fontSize24),
-      body:  Stack(
+      }, tr("usdt-type-BUY_ITEM'"),
+          fontSize: UIDefine.fontSize24, arrowFontSize: UIDefine.fontSize24),
+      body: Stack(
         children: stack,
       ),
     );
   }
-  Widget _productCard(String id){
-    return Column(children: [
-      Row(children: [Image.asset(AppImagePath.rewardGradient), Text(id)],)
-    ],);
-  }
 
+  Widget _productCard(String id) {
+    var imageName = '';
+    var buttonName = '';
+    var buttonColor = 0;
+    switch (id) {
+      case NFT_1:
+        imageName = AppImagePath.purchaseImg1;
+        buttonName = 'Silver';
+        buttonColor = 0XFF54514D;
+        break;
+      case NFT_2:
+        imageName = AppImagePath.purchaseImg2;
+        buttonName = 'Golden';
+        buttonColor = 0XFFECAF46;
+        break;
+      case NFT_3:
+        imageName = AppImagePath.purchaseImg3;
+        buttonName = 'Platinum';
+        buttonColor = 0XFF93A0D2;
+        break;
+      case NFT_4:
+        imageName = AppImagePath.purchaseImg4;
+        buttonName = 'Diamond';
+        buttonColor = 0XFF79BAD2;
+        break;
+    }
+
+    return Column(
+      children: [
+        Row(
+          children: [
+            Container(
+                margin: EdgeInsets.symmetric(
+                    horizontal: UIDefine.getPixelWidth(10)),
+                child: Image.asset(AppImagePath.rewardGradient)),
+            Text(
+              id,
+              style: TextStyle(
+                  fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500),
+            )
+          ],
+        ),
+        Stack(
+          children: [
+            Image.asset(
+              imageName,
+              fit: BoxFit.fitWidth,
+              width: UIDefine.getWidth(),
+            ),
+            Positioned(
+                left: UIDefine.getWidth() * 0.65,
+                right: UIDefine.getPixelWidth(5),
+                bottom: UIDefine.getPixelHeight(5),
+                child: TextButtonWidget(
+                  setHeight: UIDefine.getPixelHeight(48),
+                  radius: 10,
+                  textAlign: TextAlign.center,
+                  isFillWidth: true,
+                  fontWeight: FontWeight.w500,
+                  fontSize: UIDefine.fontSize16,
+                  btnText: buttonName,
+                  setMainColor: Color(buttonColor),
+                  onPressed: () {},
+                )),
+          ],
+        )
+      ],
+    );
+  }
 
   Card _buildProductList() {
     if (_loading) {
