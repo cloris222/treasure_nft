@@ -71,8 +71,8 @@ class TradeDivisionViewModel extends BaseViewModel {
     TradeTimerUtil().removeListener(_onUpdateTrade);
   }
 
-  bool checkExp() {
-    if (GlobalData.experienceInfo.isExperience) {
+  bool checkExpired() {
+    if (GlobalData.experienceInfo.status == 'EXPIRED') {
       return true;
     }
     return false;
@@ -83,25 +83,30 @@ class TradeDivisionViewModel extends BaseViewModel {
     /// 確認體驗帳號狀態
     await TradeAPI(onConnectFail: _experienceExpired, showTrString: false)
         .getExperienceInfoAPI()
-        .then((value) {
+        .then((value) async {
       if (value.isExperience == true && value.status == 'EXPIRED') {
         experienceExpired();
+
       } else if (value.isExperience == true && value.status == 'DISABLE') {
         experienceDisable();
-      }
-    });
 
-    /// 新增預約
-    await TradeAPI(onConnectFail: _onAddReservationFail, showTrString: false)
+      } else {
+        /// 新增預約
+        await TradeAPI(onConnectFail: _onAddReservationFail, showTrString: false)
         .postAddNewReservationAPI(
-            type: "PRICE",
-            reserveCount: 1,
-            startPrice: ranges[index].startPrice,
-            endPrice: ranges[index].endPrice,
-            priceIndex: ranges[index].index);
+        type: "PRICE",
+        reserveCount: 1,
+        startPrice: ranges[index].startPrice,
+        endPrice: ranges[index].endPrice,
+        priceIndex: ranges[index].index);
 
-    /// 如果預約成功 會進call back function
-    reservationSuccess();
+        /// 如果預約成功 會進call back function & 預約狀態 = true
+        reservationSuccess();
+        ranges[index].used = true;
+        setState();
+      }
+
+    });
   }
 
   /// display star ~ end price range

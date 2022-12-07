@@ -88,11 +88,16 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
 
       /// 體驗帳號狀態過期
       experienceExpired: () {
-        SuccessDialog(context,
-                callOkFunction: () {},
-                isSuccess: false,
-                mainText: tr("reserve-failed'"),
-                subText: tr('APP_0057'))
+        CommonCustomDialog(context,
+            type: DialogImageType.warning,
+            title: tr('exp_finish_title'),
+            content: '${tr('exp_finish_content_1')}\n${tr('exp_finish_content_2')}',
+            rightBtnText: tr('goWithdraw'), // test 少多國 (前往提領)
+            onLeftPress: (){},
+            onRightPress: () {
+              Navigator.pop(context);
+              viewModel.pushPage(context, const OrderWithdrawPage());
+            })
             .show();
       },
 
@@ -224,30 +229,8 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
                     return NewReservationPopUpView(
                       confirmBtnAction: () async {
                         Navigator.pop(context);
-                        bool bExp = viewModel.checkExp();
-                        if (!bExp) {
-                          /// add new reservation
-                          await viewModel.addNewReservation(index);
-
-                          /// if reservation success 預約狀態 = true
-                          viewModel.ranges[index].used = true;
-
-                          /// 狀態更新
-                          setState(() {});
-
-                        } else {
-                          CommonCustomDialog(context,
-                              type: DialogImageType.warning,
-                              title: tr('exp_finish_title'),
-                              content: tr('exp_finish_content_1') + '\n' + tr('exp_finish_content_2'),
-                              rightBtnText: tr('前往提領'), // test 少多國
-                              onLeftPress: (){},
-                              onRightPress: () {
-                                Navigator.pop(this.context);
-                                viewModel.pushPage(this.context, OrderWithdrawPage());
-                              })
-                              .show();
-                        }
+                        /// add new reservation
+                        await viewModel.addNewReservation(index);
                       },
                       reservationFee: '${checkReserveDeposit.deposit}',
                       transactionTime: '${checkReserveDeposit.tradingTime}',
