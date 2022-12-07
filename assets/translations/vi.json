@@ -1053,5 +1053,6 @@
   "httpErrorConnectTimeout":"Hết thời gian chờ kết nối với máy chủ API",
   "httpErrorNoInternet":"Không có mạng",
   "httpErrorOther":"Đã xảy ra lỗi không mong muốn",
-  "accountLimitHint":"Tên người dùng không hợp lệ. Tên người dùng chỉ có thể chứa tiếng Anh và số và phải ít hơn 30 ký tự."
+  "accountLimitHint":"Tên người dùng không hợp lệ. Tên người dùng chỉ có thể chứa tiếng Anh và số và phải ít hơn 30 ký tự.",
+  "createLimitHint":"Tên người dùng không hợp lệ. Tên người dùng chỉ có thể chứa tiếng Anh、số、dưới điểm và dấu thăng và phải ít hơn 30 ký tự."
 }

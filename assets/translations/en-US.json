@@ -1053,5 +1053,8 @@
   "httpErrorConnectTimeout":"Connection timeout with API server",
   "httpErrorNoInternet":"No Internet",
   "httpErrorOther":"Unexpected error occurred",
-  "accountLimitHint":"Username invalid. The username can only contain English and numbers and must be less than 30 characters."
+  "accountLimitHint":"Username invalid. The username can only contain English and numbers and must be less than 30 characters.",
+  "createLimitHint":"Username invalid. The username can only contain English、numbers 、under score and pound sign and must be less than 30 characters."
+
+
 }
