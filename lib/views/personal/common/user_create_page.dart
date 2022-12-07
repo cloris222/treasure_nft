@@ -84,15 +84,15 @@ class _UserCreatePageState extends State<UserCreatePage> {
         hintText: tr("name2-placeholder'"),
         controller: viewModel.nameController,
         data: viewModel.nameData,
-        onTap: viewModel.onTap,
+        onChanged: viewModel.onNameChange,
       ),
       LoginParamView(
+        bLimitDecimalLength: true,
         keyboardType: TextInputType.number,
         titleText: tr('mintAmount'),
         hintText: tr("mintAmount-placeholder'"),
         controller: viewModel.priceController,
         data: viewModel.priceData,
-        onTap: viewModel.onTap,
       ),
       ChooseDateView(
         titleText: tr('sellDate'),
@@ -109,7 +109,7 @@ class _UserCreatePageState extends State<UserCreatePage> {
             child: ActionButtonWidget(
           setHeight: UIDefine.getScreenHeight(8),
           btnText: tr('cancel'),
-          onPressed: viewModel.onCancel,
+          onPressed: () => viewModel.onCancel(context),
           isBorderStyle: true,
         )),
         const SizedBox(width: 20),

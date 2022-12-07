@@ -68,7 +68,10 @@ class _LoginTextWidgetState extends State<LoginTextWidget> {
     return TextField(
         controller: widget.controller,
         inputFormatters: widget.bLimitDecimalLength
-            ? [NumLengthInputFormatter(decimalLength: 2)] // 小數點限制兩位 整數預設99位
+            ? [
+                NumLengthInputFormatter(decimalLength: 2),
+                FilteringTextInputFormatter.allow(RegExp(r"[\d.]")),
+              ] // 小數點限制兩位 整數預設99位
             : widget.bPasswordFormatter //英文+數字，且不能超過30個字元
                 ? [
                     FilteringTextInputFormatter.allow(RegExp(r"[a-zA-Z\d]")),

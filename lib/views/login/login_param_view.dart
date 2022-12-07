@@ -7,18 +7,19 @@ import '../../widgets/label/error_text_widget.dart';
 import '../../widgets/text_field/login_text_widget.dart';
 
 class LoginParamView extends StatelessWidget {
-  const LoginParamView(
-      {Key? key,
-      required this.titleText,
-      required this.hintText,
-      required this.controller,
-      required this.data,
-      this.isSecure = false,
-      this.onChanged,
-      this.onTap,
-      this.keyboardType,
-      this.bPasswordFormatter = false})
-      : super(key: key);
+  const LoginParamView({
+    Key? key,
+    required this.titleText,
+    required this.hintText,
+    required this.controller,
+    required this.data,
+    this.isSecure = false,
+    this.onChanged,
+    this.onTap,
+    this.keyboardType,
+    this.bPasswordFormatter = false,
+    this.bLimitDecimalLength = false,
+  }) : super(key: key);
   final String titleText;
   final String hintText;
   final TextEditingController controller;
@@ -30,6 +31,9 @@ class LoginParamView extends StatelessWidget {
 
   ///MARK: 帳號輸入資訊限制
   final bool bPasswordFormatter;
+
+  ///MARK: 小數點限制兩位
+  final bool bLimitDecimalLength;
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +50,7 @@ class LoginParamView extends StatelessWidget {
         onChanged: onChanged,
         onTap: onTap,
         bPasswordFormatter: bPasswordFormatter,
+        bLimitDecimalLength: bLimitDecimalLength,
       ),
       ErrorTextWidget(data: data, alignment: Alignment.centerRight)
     ]);

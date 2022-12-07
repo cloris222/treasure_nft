@@ -5,6 +5,7 @@ import 'package:treasure_nft_project/models/http/api/common_api.dart';
 import 'package:treasure_nft_project/models/http/api/mine_api.dart';
 import 'package:treasure_nft_project/utils/image_picker_util.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
+import 'package:treasure_nft_project/utils/regular_expression_util.dart';
 import 'package:treasure_nft_project/utils/time_pick_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
@@ -56,10 +57,10 @@ class UserCreateViewModel extends BaseViewModel {
   }
 
   void onChooseDate(BuildContext context) async {
-    resetData();
     String date = await TimePickUtil().pickAfterDate(context);
     setState(() {
       dateController.text = date;
+      dateData = ValidateResultData();
     });
   }
 
@@ -79,7 +80,9 @@ class UserCreateViewModel extends BaseViewModel {
     setState(() {});
   }
 
-  void onCancel() {}
+  void onCancel(BuildContext context) {
+    popPage(context);
+  }
 
   void onConfirm(BuildContext context) async {
     if (uploadImage == null) {
@@ -99,6 +102,12 @@ class UserCreateViewModel extends BaseViewModel {
             result: priceController.text.isNotEmpty, message: tr('require'));
         dateData = ValidateResultData(
             result: dateController.text.isNotEmpty, message: tr('require'));
+      });
+    } else if (!RegularExpressionUtil()
+        .checkFormatCreateName(nameController.text)) {
+      setState(() {
+        nameData =
+            ValidateResultData(result: false, message: tr('createLimitHint'));
       });
     }
 
@@ -137,7 +146,15 @@ class UserCreateViewModel extends BaseViewModel {
     }
   }
 
-  void onTap() {
-    resetData();
+  void onNameChange(String value) {
+    setState(() {
+      if (value.isNotEmpty) {
+        nameData = ValidateResultData(
+            result: RegularExpressionUtil().checkFormatCreateName(value),
+            message: tr('createLimitHint'));
+      } else {
+        nameData = ValidateResultData();
+      }
+    });
   }
 }
