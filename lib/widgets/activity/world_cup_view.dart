@@ -37,7 +37,6 @@ class _WorldCupViewState extends State<WorldCupView> {
 
   @override
   void initState() {
-
     viewModel = ActivityViewModel(
       setState: () {
         if (mounted) {
@@ -87,50 +86,50 @@ class _WorldCupViewState extends State<WorldCupView> {
       },
       accountFrozen: () {
         SuccessDialog(context,
-            callOkFunction: () {},
-            isSuccess: false,
-            mainText: tr("reserve-failed'"),
-            subText: tr('EO_001_6'))
+                callOkFunction: () {},
+                isSuccess: false,
+                mainText: tr("reserve-failed'"),
+                subText: tr('EO_001_6'))
             .show();
       },
       activityNotFound: () {
         SuccessDialog(context,
-            callOkFunction: () {},
-            isSuccess: false,
-            mainText: tr("reserve-failed'"),
-            subText: tr('A_0032'))
+                callOkFunction: () {},
+                isSuccess: false,
+                mainText: tr("reserve-failed'"),
+                subText: tr('A_0032'))
             .show();
       },
       tradeForbidden: () {
         SuccessDialog(context,
-            callOkFunction: () {},
-            isSuccess: false,
-            mainText: tr("reserve-failed'"),
-            subText: tr('APP_0054'))
+                callOkFunction: () {},
+                isSuccess: false,
+                mainText: tr("reserve-failed'"),
+                subText: tr('APP_0054'))
             .show();
       },
       levelNotEnough: () {
         SuccessDialog(context,
-            callOkFunction: () {},
-            isSuccess: false,
-            mainText: tr("reserve-failed'"),
-            subText: tr('EO_001_6'))
+                callOkFunction: () {},
+                isSuccess: false,
+                mainText: tr("reserve-failed'"),
+                subText: tr('EO_001_6'))
             .show();
       },
       activityReserveFull: () {
         SuccessDialog(context,
-            callOkFunction: () {},
-            isSuccess: false,
-            mainText: tr("reserve-failed'"),
-            subText: tr('APP_0075'))
+                callOkFunction: () {},
+                isSuccess: false,
+                mainText: tr("reserve-failed'"),
+                subText: tr('APP_0075'))
             .show();
       },
       personalFull: () {
         SuccessDialog(context,
-            callOkFunction: () {},
-            isSuccess: false,
-            mainText: tr("reserve-failed'"),
-            subText: tr('APP_0076'))
+                callOkFunction: () {},
+                isSuccess: false,
+                mainText: tr("reserve-failed'"),
+                subText: tr('APP_0076'))
             .show();
       },
     );
@@ -172,7 +171,7 @@ class _WorldCupViewState extends State<WorldCupView> {
           height: UIDefine.fontSize16,
         ),
         Visibility(
-          visible: viewModel.activityData.status != ActivityState.HideButton && (viewModel.isReserveTime = true),
+          visible: viewModel.activityData.showButton,
           child: LoginButtonWidget(
             btnText: showButtonLabel(),
             onPressed: () {
