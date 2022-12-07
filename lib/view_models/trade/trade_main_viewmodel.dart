@@ -10,6 +10,7 @@ import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../models/http/api/trade_api.dart';
 import '../../models/http/parameter/add_new_reservation.dart';
+import '../../models/http/parameter/check_activity_reserve.dart';
 
 class TradeMainViewModel extends BaseViewModel {
   TradeMainViewModel(
@@ -36,12 +37,20 @@ class TradeMainViewModel extends BaseViewModel {
   ResponseErrorFunction errorMes;
 
   late TradeData currentData;
+  /// 查詢活動是否開放
+  bool isOpen = false;
 
   void initState() {
     ///MARK: timer監聽
     currentData = TradeTimerUtil().getCurrentTradeData();
     setState();
     TradeTimerUtil().addListener(_onUpdateTrade);
+
+    /// 查詢活動是否開放 （要改ＱＱ應急用）
+    TradeAPI().getActivityReserveAPI().then((value) {
+      isOpen = value.isOpen;
+      setState();
+    });
 
     ///更新畫面
     TradeAPI().getDivisionAPI().then((value) {

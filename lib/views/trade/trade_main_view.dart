@@ -134,7 +134,8 @@ class _TradeMainViewState extends State<TradeMainView> {
           const DomainBar(),
           TradeCountDownView(tradeData: viewModel.currentData),
           _levelView(context),
-          WorldCupView(),
+          Visibility(
+              visible: viewModel.isOpen, child: WorldCupView()),
           checkDataInit()
         ],
       ),
