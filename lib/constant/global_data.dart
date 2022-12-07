@@ -49,4 +49,7 @@ class GlobalData {
 
   ///MARK: Notifier監聽
   static BottomNavigationNotifier bottomNavigationNotifier = BottomNavigationNotifier();
+
+  ///MARK: Stomp 控管用
+  static bool bShowBuySuccessAnimate = false; //控管目前是否有顯示中獎
 }

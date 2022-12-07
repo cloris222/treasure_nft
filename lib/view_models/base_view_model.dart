@@ -371,21 +371,25 @@ class BaseViewModel {
   }
 
   void showBuySuccessAnimate() async {
-    await pushOpacityPage(
+    if (!GlobalData.bShowBuySuccessAnimate) {
+      GlobalData.bShowBuySuccessAnimate = true;
+      await pushOpacityPage(
+          getGlobalContext(),
+          const FullAnimationPage(
+              animationPath: AppAnimationPath.buyNFTSuccess, limitTimer: 4));
+      await ImageDialog(
         getGlobalContext(),
-        const FullAnimationPage(
-            animationPath: AppAnimationPath.buyNFTSuccess, limitTimer: 4));
-    ImageDialog(
-      getGlobalContext(),
-      mainText: tr('buy_remind_title'),
-      subText: tr('buy_remind_content'),
-      buttonText: tr('gotoPost'),
-      assetImagePath: AppImagePath.notifyGift,
-      callOkFunction: () {
-        pushAndRemoveUntil(getGlobalContext(),
-            const MainPage(type: AppNavigationBarType.typeCollection));
-      },
-    ).show();
+        mainText: tr('buy_remind_title'),
+        subText: tr('buy_remind_content'),
+        buttonText: tr('gotoPost'),
+        assetImagePath: AppImagePath.notifyGift,
+        callOkFunction: () {
+          pushAndRemoveUntil(getGlobalContext(),
+              const MainPage(type: AppNavigationBarType.typeCollection));
+        },
+      ).show();
+      GlobalData.bShowBuySuccessAnimate = false;
+    }
   }
 
   void showLevelUpAnimate(int oldLevel, int newLevel) async {
