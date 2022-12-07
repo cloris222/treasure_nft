@@ -5,6 +5,7 @@ import 'package:treasure_nft_project/models/data/activity_model_data.dart';
 import 'package:treasure_nft_project/models/http/api/trade_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/check_activiey_deposit.dart';
 import 'package:treasure_nft_project/models/http/parameter/check_activity_reserve.dart';
+import 'package:treasure_nft_project/utils/date_format_util.dart';
 import 'package:treasure_nft_project/utils/timer_util.dart';
 import '../../constant/call_back_function.dart';
 import '../base_view_model.dart';
@@ -35,11 +36,13 @@ class ActivityViewModel extends BaseViewModel {
   late DateTime _drawTime;
   late DateTime _startTime;
   late DateTime _endTime;
+  late DateTime _showListTime;
   String countdownTime = '00:00:00:00';
   late ActivityData activityData;
 
   /// 計算倒數用
-  CountDownTimerUtil? _timer;
+  CountDownTimerUtil? _sellTimer;
+  CountDownTimerUtil? _drawTimer;
 
   /// create reservation
   VoidCallback depositNotEnough;
@@ -67,7 +70,8 @@ class ActivityViewModel extends BaseViewModel {
 
   void dispose() async {
     /// 清除倒數計時器
-    _timer?.cancelTimer();
+    _sellTimer?.cancelTimer();
+    _drawTimer?.cancelTimer();
   }
 
   String getEndTimeLabel() {
@@ -89,46 +93,71 @@ class ActivityViewModel extends BaseViewModel {
     _drawTime = DateTime.parse(reservationInfo.drawTime);
 
     /// 活動期間內才能預約
-    _startTime = DateTime.parse(reservationInfo.startTime);
-    _endTime = DateTime.parse(reservationInfo.endTime);
+    _startTime = DateTime.parse(
+        '${DateFormatUtil().getNowTimeWithDayFormat()} ${reservationInfo.startTime}');
+    _endTime = DateTime.parse(
+        '${DateFormatUtil().getNowTimeWithDayFormat()} ${reservationInfo.endTime}');
 
     /// 開賣結束後一小時，顯示中獎名單
-    var showListTime =
-        DateTime.parse(reservationInfo.drawTime).add(const Duration(hours: 1));
+    _showListTime = _drawTime.add(const Duration(hours: 1));
 
-    /// 測試用
-    //_drawTime = DateTime.parse('2022-11-29 18:35:00');
+    ///MARK:可否預約
+    if (isReserveTime) {
+      activityData.status = ActivityState.Activity;
+      activityData.showButton = true;
+      setState();
+      _countdownSellTime();
+    } else {
+      ///MARK: 是否可顯示開獎
+      if (_localTime.compareTo(_showListTime) >= 0) {
+        activityData.status = ActivityState.End;
+        activityData.showButton = true;
+        setState();
+      } else {
+        activityData.status = ActivityState.End;
+        activityData.showButton = false;
+        _countdownDrawResultTime();
+      }
+    }
+  }
 
+  ///MARK: 倒數至開獎時間
+  _countdownSellTime() {
     var countdownSeconds = _drawTime.difference(_localTime).inSeconds;
-
-    _timer = CountDownTimerUtil()
+    _sellTimer = CountDownTimerUtil()
       ..init(
           callBackListener: MyCallBackListener(myCallBack: (duration) {
             countdownTime = duration;
-            if (duration == '00:00:00:00') {
+            ///MARL:已到開賣時間
+            if (duration.compareTo('00:00:00:00') == 0) {
               activityData.status = ActivityState.HideButton;
               activityData.showButton = false;
-              isReserveTime = false;
-
-              /// 活動期間內才能預約
-            } else if (_localTime.compareTo(_startTime) >= 0 &&
-                _localTime.compareTo(_endTime) <= 0) {
-              activityData.showButton = true;
-              activityData.status = ActivityState.Activity;
-              isReserveTime = true;
+              _countdownDrawResultTime();
             }
 
             /// 開賣前一小時隱藏button
             else if (duration.compareTo('00:01:00:00') <= 0) {
-              activityData.status = ActivityState.HideButton;
               activityData.showButton = false;
-              isReserveTime = false;
+              activityData.status = ActivityState.Activity;
+            }
+            setState();
+          }),
+          endTimeSeconds: countdownSeconds);
+  }
 
-              /// 開賣結束後一小時，顯示中獎名單
-            } else if (duration.compareTo(showListTime.toString()) >= 0) {
+  ///MARK: 倒數至中獎名單顯示
+  _countdownDrawResultTime() {
+    var countdownSeconds = _showListTime.difference(_localTime).inSeconds;
+    _sellTimer = CountDownTimerUtil()
+      ..init(
+          callBackListener: MyCallBackListener(myCallBack: (duration) {
+            countdownTime = duration;
+
+            ///MARL:已到顯示中獎名單的時間
+            if (duration.compareTo('00:00:00:00') == 0) {
               activityData.status = ActivityState.End;
               activityData.showButton = true;
-              isReserveTime = false;
+              _countdownDrawResultTime();
             }
             setState();
           }),
