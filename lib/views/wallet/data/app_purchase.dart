@@ -291,7 +291,7 @@ class _AppPurchaseState extends State<AppPurchase> {
               fit: BoxFit.cover,
             ),
             title: Text(
-              productDetails.title,
+              productDetails.title, //price
             ),
             subtitle: Text(
               productDetails.description,
