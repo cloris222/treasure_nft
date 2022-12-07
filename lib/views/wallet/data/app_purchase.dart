@@ -11,10 +11,13 @@ import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import 'package:treasure_nft_project/widgets/button/text_button_widget.dart';
+import '../../../constant/theme/app_animation_path.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
 import '../../../utils/ios_payment/consumable_store.dart';
+import '../../../view_models/base_view_model.dart';
 import '../../../widgets/appbar/custom_app_bar.dart';
+import '../open_box_animation_page.dart';
 
 class AppPurchase extends StatefulWidget {
   const AppPurchase({Key? key}) : super(key: key);
@@ -241,7 +244,21 @@ class _AppPurchaseState extends State<AppPurchase> {
                   fontSize: UIDefine.fontSize16,
                   btnText: buttonName,
                   setMainColor: Color(buttonColor),
-                  onPressed: () {},
+                  onPressed: () {
+                    /// 確認購買成功後顯示動畫＋商品圖
+                    BaseViewModel().pushOpacityPage(
+                        context,
+                        OpenBoxAnimationPage(
+                            imgUrl: "data.imgUrl",
+                            animationPath: AppAnimationPath.showOpenWinsBox,
+                            backgroundColor: AppColors.opacityBackground.withOpacity(0.65),
+                            callBack: () {
+                              setState(() {
+                                //bOpen = true;
+                              });
+                            })
+                    );
+                  },
                 )),
           ],
         )
