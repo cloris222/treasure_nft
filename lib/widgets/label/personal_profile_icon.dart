@@ -89,7 +89,7 @@ class _PersonalProfileIconState extends State<PersonalProfileIcon> {
           width: widget.width,
           child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image(image: provider))),
+              child: Image(image: provider, fit: BoxFit.cover))),
     );
   }
 
