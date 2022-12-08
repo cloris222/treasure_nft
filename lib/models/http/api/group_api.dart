@@ -151,11 +151,12 @@ class GroupAPI extends HttpManager {
   }
 
   ///MARK: 查詢買/賣家 用戶資訊
+  ///TAKER : 買家 <BR> MAKER: 賣家
   Future<OtherUserInfo> getOtherUserInfo(
       {required String orderNo, required bool isSeller}) async {
     var response = await get('/user/query/user', queryParameters: {
       "orderNo": orderNo,
-      "type": isSeller ? "TAKER" : "MAKER"
+      "type": isSeller ? "MAKER" : "TAKER"
     });
     return OtherUserInfo.fromJson(response.data);
   }
