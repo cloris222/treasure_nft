@@ -36,12 +36,57 @@ class _LoginMainViewState extends State<LoginMainView> {
     return SingleChildScrollView(
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       const DomainBar(),
-      _buildTop(),
+      _buildTop2(),
       Container(
-          margin:  EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(10)),
-          padding:  EdgeInsets.only(bottom: UIDefine.getPixelHeight(30)),
+          margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(10)),
+          padding: EdgeInsets.only(bottom: UIDefine.getPixelHeight(30)),
           child: _buildBottom())
     ]));
+  }
+
+  Widget _buildTop2() {
+    return Container(
+        margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(20)),
+        alignment: Alignment.centerLeft,
+        child: Stack(children: [
+          SizedBox(
+              width: UIDefine.getWidth(), height: UIDefine.getPixelHeight(300)),
+          Positioned(
+              child: Image.asset(AppImagePath.loginBg,
+                  height: UIDefine.getPixelHeight(300), fit: BoxFit.fitHeight)),
+          Positioned(
+              top: UIDefine.getPixelHeight(100),
+              bottom: 0,
+              left: UIDefine.getPixelWidth(20),
+              right: UIDefine.getPixelWidth(20),
+              child: Column(children: [
+                Container(
+                  alignment: Alignment.bottomLeft,
+                  child: Text('${tr('welcomeBack')} ,',
+                      style: TextStyle(
+                          fontSize: UIDefine.fontSize24,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500)),
+                ),
+                Expanded(
+                    child: Row(
+                  children: [
+                    Expanded(
+                        child: Container(
+                      alignment: Alignment.topLeft,
+                      child: Text(tr('Login'),
+                          style: TextStyle(
+                              fontSize: UIDefine.fontSize34,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500)),
+                    )),
+                    Expanded(
+                        child: Image.asset(AppImagePath.loginPhoto,
+                            fit: BoxFit.fill))
+                  ],
+                )),
+              ])),
+        ]));
   }
 
   Widget _buildTop() {
