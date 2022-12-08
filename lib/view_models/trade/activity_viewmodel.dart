@@ -58,10 +58,14 @@ class ActivityViewModel extends BaseViewModel {
   VoidCallback personalFull;
   ResponseErrorFunction errorMes;
 
+  /// 查詢活動是否開放
+  bool isOpen = false;
+
   void initState() async {
     activityData =
         ActivityData(status: ActivityState.Activity, showButton: true);
     canReserve = await TradeAPI().getActivityReserveAPI();
+    isOpen = canReserve?.isOpen ?? false;
 
     ///查詢預約金
     checkDeposit = await TradeAPI().getActivityDeposit('1');
@@ -102,21 +106,23 @@ class ActivityViewModel extends BaseViewModel {
     _showListTime = _drawTime.add(const Duration(hours: 1));
 
     ///MARK:可否預約
-    if (isReserveTime) {
-      activityData.status = ActivityState.Activity;
-      activityData.showButton = true;
-      setState();
-      _countdownSellTime();
-    } else {
-      ///MARK: 是否可顯示開獎
-      if (_localTime.compareTo(_showListTime) >= 0) {
-        activityData.status = ActivityState.End;
+    if (isOpen) {
+      if (isReserveTime) {
+        activityData.status = ActivityState.Activity;
         activityData.showButton = true;
         setState();
+        _countdownSellTime();
       } else {
-        activityData.status = ActivityState.End;
-        activityData.showButton = false;
-        _countdownDrawResultTime();
+        ///MARK: 是否可顯示開獎
+        if (_localTime.compareTo(_showListTime) >= 0) {
+          activityData.status = ActivityState.End;
+          activityData.showButton = true;
+          setState();
+        } else {
+          activityData.status = ActivityState.End;
+          activityData.showButton = false;
+          _countdownDrawResultTime();
+        }
       }
     }
   }
@@ -128,6 +134,7 @@ class ActivityViewModel extends BaseViewModel {
       ..init(
           callBackListener: MyCallBackListener(myCallBack: (duration) {
             countdownTime = duration;
+
             ///MARL:已到開賣時間
             if (duration.compareTo('00:00:00:00') == 0) {
               activityData.status = ActivityState.HideButton;
