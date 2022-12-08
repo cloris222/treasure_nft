@@ -49,6 +49,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
   void initState() {
     controller = AnimationController(
       duration: const Duration(milliseconds: 300),
+      reverseDuration: const Duration(microseconds: 1),
       vsync: this,
     )..addListener(() => this.setState(() {})); // 监听动画变更，更新页面
 

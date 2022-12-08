@@ -23,8 +23,11 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
   void didUpdateWidget(covariant ArtistRecordListView oldWidget) {
     if (widget.showArtAnimate != oldWidget.showArtAnimate) {
       if (widget.showArtAnimate) {
-        animateIndex = 0;
         _playAnimate();
+      } else {
+        setState(() {
+          animateIndex = -1;
+        });
       }
     }
     super.didUpdateWidget(oldWidget);
@@ -70,9 +73,6 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
   }
 
   void _playAnimate() async {
-    setState(() {
-      animateIndex = 0;
-    });
     _loopAnimate();
   }
 
