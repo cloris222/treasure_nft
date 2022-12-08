@@ -6,7 +6,9 @@ import '../../../constant/theme/app_colors.dart';
 import 'artist_record_item.dart';
 
 class ArtistRecordListView extends StatefulWidget {
-  const ArtistRecordListView({super.key});
+  const ArtistRecordListView({super.key, required this.showArtAnimate});
+
+  final bool showArtAnimate;
 
   @override
   State<StatefulWidget> createState() => _ArtistRecordListView();
@@ -14,7 +16,16 @@ class ArtistRecordListView extends StatefulWidget {
 
 class _ArtistRecordListView extends State<ArtistRecordListView> {
   HomeMainViewModel viewModel = HomeMainViewModel();
-  late List list = [];
+  List list = [];
+  int animateIndex = -1;
+
+  @override
+  void didUpdateWidget(covariant ArtistRecordListView oldWidget) {
+    if (widget.showArtAnimate && !oldWidget.showArtAnimate) {
+      _playAnimate();
+    }
+    super.didUpdateWidget(oldWidget);
+  }
 
   @override
   void initState() {
@@ -28,6 +39,7 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
   Widget createItemBuilder(BuildContext context, int index) {
     return ArtistRecordItemView(
       itemData: list[index],
+      showAnimate: animateIndex >= index
     );
   }
 
@@ -54,5 +66,23 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
           }),
       createSeparatorBuilder(context, 1)
     ]);
+  }
+
+  void _playAnimate() async {
+    setState(() {
+      animateIndex = 0;
+    });
+    _loopAnimate();
+  }
+
+  _loopAnimate() {
+    Future.delayed(const Duration(milliseconds: 200)).then((value) {
+      setState(() {
+        animateIndex += 1;
+      });
+      if (animateIndex < list.length) {
+        _loopAnimate();
+      }
+    });
   }
 }
