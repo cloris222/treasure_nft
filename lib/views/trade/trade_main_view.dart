@@ -225,7 +225,7 @@ class _TradeMainViewState extends State<TradeMainView> {
   Widget _levelZero(BuildContext context) {
     TradeData tradeData = viewModel.currentData;
     return ListView.builder(
-        itemCount: 1,
+        itemCount: viewModel.ranges.length,
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
