@@ -38,9 +38,9 @@ class LoginAPI extends HttpManager {
   }
 
   ///MARK: 忘記密碼
-  Future<ApiResponse> forgetPassword(
-      {required String account, required String email}) async {
-    return post('/user/forget/password',
-        data: {'account': account.trim(), 'email': email.trim()});
+  Future<ApiResponse> forgetPassword({required String email}) async {
+    return post('/user/forget/password', data: {
+      'email': email.trim()
+    });
   }
 }
