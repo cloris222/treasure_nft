@@ -44,12 +44,14 @@ class _HomeMainViewState extends State<HomeMainView> {
   @override
   void initState() {
     scrollController.addListener(() {
-      if (scrollController.offset > UIDefine.getPixelHeight(400)) {
-        if (!showArtAnimate) {
-          setState(() {
-            showArtAnimate = true;
-          });
-        }
+      if (scrollController.offset > UIDefine.getPixelHeight(387)) {
+        setState(() {
+          showArtAnimate = true;
+        });
+      } else {
+        setState(() {
+          showArtAnimate = false;
+        });
       }
     });
     super.initState();

@@ -21,8 +21,11 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
 
   @override
   void didUpdateWidget(covariant ArtistRecordListView oldWidget) {
-    if (widget.showArtAnimate && !oldWidget.showArtAnimate) {
-      _playAnimate();
+    if (widget.showArtAnimate != oldWidget.showArtAnimate) {
+      if (widget.showArtAnimate) {
+        animateIndex = 0;
+        _playAnimate();
+      }
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -38,9 +41,7 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
 
   Widget createItemBuilder(BuildContext context, int index) {
     return ArtistRecordItemView(
-      itemData: list[index],
-      showAnimate: animateIndex >= index
-    );
+        itemData: list[index], showAnimate: animateIndex >= index);
   }
 
   Widget createSeparatorBuilder(BuildContext context, int index) {

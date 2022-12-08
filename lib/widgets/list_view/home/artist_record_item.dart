@@ -28,17 +28,19 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
     with SingleTickerProviderStateMixin {
   HomeMainViewModel viewModel = HomeMainViewModel();
   bool show = false;
-  bool startAnimate = false;
   late AnimationController controller;
   late Animation<double> animation;
 
   @override
   void didUpdateWidget(covariant ArtistRecordItemView oldWidget) {
-    if (widget.showAnimate && !oldWidget.showAnimate) {
-      setState(() {
-        startAnimate = true;
-        controller.forward();
-      });
+    if (widget.showAnimate != oldWidget.showAnimate) {
+      if (widget.showAnimate) {
+        setState(() {
+          controller.forward();
+        });
+      } else {
+        controller.reset();
+      }
     }
     super.didUpdateWidget(oldWidget);
   }
