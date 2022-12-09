@@ -10,6 +10,7 @@ import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../models/http/api/trade_api.dart';
 import '../../models/http/parameter/add_new_reservation.dart';
+import '../../models/http/parameter/check_activity_reserve.dart';
 
 class TradeMainViewModel extends BaseViewModel {
   TradeMainViewModel(

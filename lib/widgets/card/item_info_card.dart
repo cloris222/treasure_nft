@@ -94,6 +94,7 @@ class ItemInfoCard extends StatelessWidget {
                     imageUrl: imageUrl,
                     width: UIDefine.getScreenWidth(22),
                     height: UIDefine.getScreenWidth(22),
+                    fit: BoxFit.cover,
                     errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
                   )
                       :

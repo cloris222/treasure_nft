@@ -337,6 +337,7 @@ class _EventInfoCard extends State<EventInfoCard> {
               imageUrl: widget.imageUrl,
               height: UIDefine.getScreenWidth(21.3),
               width: UIDefine.getScreenWidth(21.3),
+              fit: BoxFit.cover,
               errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
             )
                :

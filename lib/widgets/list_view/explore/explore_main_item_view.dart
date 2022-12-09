@@ -42,10 +42,11 @@ class _ExploreMainItemView extends State<ExploreMainItemView> {
                       topRight: Radius.circular(10)),
                   child: Container(
                     alignment: Alignment.topCenter,
-                    // height: UIDefine.getScreenWidth(40),
                     child: CachedNetworkImage(
+                      width: double.infinity,
+                      height: UIDefine.getScreenWidth(40),
+                      fit: BoxFit.cover,
                       imageUrl: exploreMainResponseData.introPhoneUrl,
-                      fit: BoxFit.fill,
                       errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
                     ),
                   ),

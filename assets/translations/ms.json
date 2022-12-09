@@ -1053,5 +1053,8 @@
   "httpErrorConnectTimeout":"Tamat masa sambungan dengan pelayan API",
   "httpErrorNoInternet":"Tiada Internet",
   "httpErrorOther":"Ralat yang tidak dijangka berlaku",
-  "accountLimitHint":"Nama pengguna tidak sah. Nama pengguna hanya boleh mengandungi bahasa Inggeris dan nombor dan mestilah kurang daripada 30 aksara."
+  "accountLimitHint":"Nama pengguna tidak sah. Nama pengguna hanya boleh mengandungi bahasa Inggeris dan nombor dan mestilah kurang daripada 30 aksara.",
+  "createLimitHint":"Nama pengguna tidak sah. Nama pengguna hanya boleh mengandungi bahasa Inggeris、nombor 、di bawah markah dan tanda paun dan mestilah kurang daripada 30 aksara."
+
+
 }

@@ -229,6 +229,7 @@ class _OrderInfoCard extends State<OrderInfoCard> {
               imageUrl: widget.imageUrl,
               width: UIDefine.getScreenWidth(21.3),
               height: UIDefine.getScreenWidth(21.3),
+              fit: BoxFit.cover,
               errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
             ),
             SizedBox(width: UIDefine.getScreenWidth(2.77)),

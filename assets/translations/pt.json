@@ -1053,5 +1053,8 @@
   "httpErrorConnectTimeout":"Tempo limite de conexão com o servidor de API",
   "httpErrorNoInternet":"Sem internet",
   "httpErrorOther":"Ocorreu um erro inesperado",
-  "accountLimitHint":"Nome de usuário inválido. O nome de usuário pode conter apenas inglês e números e deve ter menos de 30 caracteres."
+  "accountLimitHint":"Nome de usuário inválido. O nome de usuário pode conter apenas inglês e números e deve ter menos de 30 caracteres.",
+  "createLimitHint":"Nome de usuário inválido. O nome de usuário pode conter apenas inglês, números, pontuação e sinal de libra e deve ter menos de 30 caracteres."
+
+
 }

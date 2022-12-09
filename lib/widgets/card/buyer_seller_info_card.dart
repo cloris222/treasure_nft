@@ -59,6 +59,7 @@ class _BuyerSellerInfoCard extends State<BuyerSellerInfoCard> {
                     imageUrl: widget.data.imgUrl,
                     height: UIDefine.getScreenWidth(14.5),
                     width: UIDefine.getScreenWidth(14.5),
+                    fit: BoxFit.cover,
                     errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
                   ),
                   SizedBox(height: UIDefine.getScreenWidth(2.77)),

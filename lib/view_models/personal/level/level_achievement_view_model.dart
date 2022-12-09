@@ -79,6 +79,9 @@ class LevelAchievementViewModel extends BaseViewModel {
 
     achieveList = await MissionAPI().getAchieveTask();
     setState(() {});
+    MissionAPI()
+        .getMedalList()
+        .then((value) => setState(() => medalList = value));
   }
 
   void setMedalCode(BuildContext context, String code) {

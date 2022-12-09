@@ -38,9 +38,28 @@ class _HomeMainViewState extends State<HomeMainView> {
 
   TextEditingController emailEditingController = TextEditingController();
   FocusNode emailFocusNode = FocusNode();
+  ScrollController scrollController = ScrollController();
+  bool showArtAnimate = false;
+
+  @override
+  void initState() {
+    scrollController.addListener(() {
+      if (scrollController.offset > UIDefine.getPixelHeight(387)) {
+        setState(() {
+          showArtAnimate = true;
+        });
+      } else {
+        setState(() {
+          showArtAnimate = false;
+        });
+      }
+    });
+    super.initState();
+  }
 
   @override
   void dispose() {
+    scrollController.dispose();
     emailEditingController.dispose();
     emailFocusNode.dispose();
     super.dispose();
@@ -49,6 +68,7 @@ class _HomeMainViewState extends State<HomeMainView> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      controller: scrollController,
       child: Column(children: [
         const DomainBar(),
         viewModel.buildSpace(height: 10),
@@ -183,7 +203,7 @@ class _HomeMainViewState extends State<HomeMainView> {
             margin:
                 EdgeInsets.symmetric(horizontal: UIDefine.getWidth() * 0.25),
             child: _buildChainDropDownBar()),
-        const ArtistRecordListView(),
+        ArtistRecordListView(showArtAnimate: showArtAnimate),
       ],
     );
   }

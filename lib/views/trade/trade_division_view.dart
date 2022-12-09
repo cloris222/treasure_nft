@@ -92,7 +92,7 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
             type: DialogImageType.warning,
             title: tr('exp_finish_title'),
             content: '${tr('exp_finish_content_1')}\n${tr('exp_finish_content_2')}',
-            rightBtnText: tr('goWithdraw'), // test 少多國 (前往提領)
+            rightBtnText: tr('gotoExtract'),
             onLeftPress: (){},
             onRightPress: () {
               Navigator.pop(context);

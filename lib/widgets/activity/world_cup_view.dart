@@ -135,8 +135,6 @@ class _WorldCupViewState extends State<WorldCupView> {
     );
     viewModel.initState();
     super.initState();
-    print('!!!!!!!!${viewModel.activityData.status}');
-    print('!!!!!!!!${viewModel.activityData.showButton}');
   }
 
   String showButtonLabel() {
@@ -151,47 +149,51 @@ class _WorldCupViewState extends State<WorldCupView> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-            width: UIDefine.getWidth(),
-            child: Container(
-              margin: EdgeInsets.all(UIDefine.fontSize14),
-              child: Image.asset(
-                AppImagePath.worldCupTitleImg,
-                fit: BoxFit.contain,
+    return viewModel.isOpen
+        ? Column(
+            children: [
+              SizedBox(
+                  width: UIDefine.getWidth(),
+                  child: Container(
+                    margin: EdgeInsets.all(UIDefine.fontSize14),
+                    child: Image.asset(
+                      AppImagePath.worldCupTitleImg,
+                      fit: BoxFit.contain,
+                    ),
+                  )),
+              _infoView(context),
+              SizedBox(
+                height: UIDefine.fontSize10,
               ),
-            )),
-        _infoView(context),
-        SizedBox(
-          height: UIDefine.fontSize10,
-        ),
-        _reservationView(context),
-        SizedBox(
-          height: UIDefine.fontSize16,
-        ),
-        Visibility(
-          visible: viewModel.activityData.showButton,
-          child: LoginButtonWidget(
-            btnText: showButtonLabel(),
-            onPressed: () {
-              if (viewModel.activityData.status == ActivityState.Activity) {
-                _createReservation(context);
-              } else {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const TradeDrawResultPage()));
-              }
-            },
-            width: UIDefine.getWidth() * 0.7,
-          ),
-        ),
-        SizedBox(
-          height: UIDefine.fontSize16,
-        ),
-      ],
-    );
+              _reservationView(context),
+              SizedBox(
+                height: UIDefine.fontSize16,
+              ),
+              Visibility(
+                visible: viewModel.activityData.showButton,
+                child: LoginButtonWidget(
+                  btnText: showButtonLabel(),
+                  onPressed: () {
+                    if (viewModel.activityData.status ==
+                        ActivityState.Activity) {
+                      _createReservation(context);
+                    } else {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const TradeDrawResultPage()));
+                    }
+                  },
+                  width: UIDefine.getWidth() * 0.7,
+                ),
+              ),
+              SizedBox(
+                height: UIDefine.fontSize16,
+              ),
+            ],
+          )
+        : const SizedBox();
   }
 
   Widget _infoView(BuildContext context) {

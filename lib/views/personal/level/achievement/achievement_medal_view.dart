@@ -16,14 +16,25 @@ class AchievementMedalView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            childAspectRatio: 0.7,
-            mainAxisSpacing: 2,
-            crossAxisSpacing: 2),
-        itemCount: viewModel.medalList.length + 3,
-        itemBuilder: _buildIcon);
+    List<List<Widget>> lists = [];
+    int nListCount =
+        (viewModel.medalList.isNotEmpty) ? viewModel.medalList.length ~/ 3 : 0;
+    for (int i = 0; i < nListCount + 1; i++) {
+      List<Widget> row = [];
+      row.add(Expanded(child: _buildIcon(context, i * 3)));
+      row.add(Expanded(child: _buildIcon(context, i * 3+1)));
+      row.add(Expanded(child: _buildIcon(context, i * 3+2)));
+      lists.add(row);
+    }
+
+    return ListView.builder(
+        itemBuilder: (context, index) {
+          return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: lists[index]);
+        },
+        itemCount: lists.length);
   }
 
   Widget _buildIcon(BuildContext context, int index) {
@@ -38,6 +49,7 @@ class AchievementMedalView extends StatelessWidget {
               ? AppColors.bolderGrey
               : Colors.transparent,
         ),
+        constraints: BoxConstraints(minHeight: UIDefine.getPixelHeight(160)),
         padding: const EdgeInsets.all(5),
         child: InkWell(
           onTap: () {
@@ -49,11 +61,12 @@ class AchievementMedalView extends StatelessWidget {
             padding: const EdgeInsets.all(5),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 MedalIconWidget(
                   medal: data.code,
                   enable: data.isFinished,
-                  size: UIDefine.getScreenWidth(20),
+                  size: UIDefine.getPixelHeight(75),
                 ),
                 const SizedBox(height: 5),
                 WarpTwoTextWidget(

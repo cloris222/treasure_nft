@@ -14,29 +14,30 @@ class ForgotMainViewModel extends BaseViewModel {
 
   final ViewChange setState;
 
-  TextEditingController accountController = TextEditingController();
+  // TextEditingController accountController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  ValidateResultData accountData = ValidateResultData();
+  // ValidateResultData accountData = ValidateResultData();
   ValidateResultData emailData = ValidateResultData();
 
   void dispose() {
-    accountController.dispose();
+    // accountController.dispose();
     emailController.dispose();
   }
 
   bool checkEmptyController() {
-    return accountController.text.isNotEmpty && emailController.text.isNotEmpty;
+    // return accountController.text.isNotEmpty;
+    return emailController.text.isNotEmpty;
   }
 
   void resetData() {
-    accountData = ValidateResultData();
+    // accountData = ValidateResultData();
     emailData = ValidateResultData();
   }
 
   void onPressCancel() {
     setState(() {
       resetData();
-      accountController.text = '';
+      // accountController.text = '';
       emailController.text = '';
     });
   }
@@ -44,15 +45,13 @@ class ForgotMainViewModel extends BaseViewModel {
   void onPressConfirm(BuildContext context) {
     if (!checkEmptyController()) {
       setState(() {
-        accountData =
-            ValidateResultData(result: accountController.text.isNotEmpty);
+        // accountData = ValidateResultData(result: accountController.text.isNotEmpty);
         emailData = ValidateResultData(result: emailController.text.isNotEmpty);
       });
       return;
     } else {
       LoginAPI(onConnectFail: (message) => _onConnectFail(context, message))
-          .forgetPassword(
-              account: accountController.text, email: emailController.text)
+          .forgetPassword(email: emailController.text)
           .then((value) async {
         popPage(context);
         SimpleCustomDialog(context,

@@ -36,8 +36,10 @@ class HomePageWidgets {
             Column(
               children: [
                 CachedNetworkImage(
+                  width: double.infinity,
+                  height: UIDefine.getScreenWidth(50),
                   imageUrl: data.introPhoneUrl,
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                   errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
                 ),
 

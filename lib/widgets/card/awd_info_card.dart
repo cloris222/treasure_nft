@@ -157,8 +157,11 @@ class AWDInfoCard extends StatelessWidget {
     if (type.contains('ACTIVITY')) {
       return tr('activitiesUSDT');
 
-    } else if (type.contains('LEVEL')) {
-      return tr('goldStorageTank');
+    } else if (type == 'LEVEL_UP_ADD') {
+      return tr('bonus_referral');
+
+    } else if (type == 'LEVEL_UP_ADD_TRADE') {
+      return tr('bonus_trade');
 
     } else if (type.contains('PRIZE')) {
       return tr('activitiesUSDT');

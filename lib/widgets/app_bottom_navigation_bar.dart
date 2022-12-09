@@ -143,12 +143,19 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> with Wi
             ])));
   }
 
-  final double itemHeight = kBottomNavigationBarHeight * 1.4;
-  final double spaceHeight = kBottomNavigationBarHeight * 0.35;
-  final double textHeight = kBottomNavigationBarHeight * 0.3;
-  final double iconHeight = kBottomNavigationBarHeight * 0.44;
-  final double paddingSpace = kBottomNavigationBarHeight * 0.12;
-  final double textSize = kBottomNavigationBarHeight * 0.21;
+  // final double itemHeight = kBottomNavigationBarHeight * 1.4;  // 78.4
+  // final double spaceHeight = kBottomNavigationBarHeight * 0.35;  // 19.6
+  // final double textHeight = kBottomNavigationBarHeight * 0.3;  // 16.8
+  // final double iconHeight = kBottomNavigationBarHeight * 0.44;  // 24.64
+  // final double paddingSpace = kBottomNavigationBarHeight * 0.12;  // 6.72
+  // final double textSize = kBottomNavigationBarHeight * 0.21;  // 11.76
+
+  final double itemHeight = UIDefine.getScreenWidth(20.9);  // 78.4
+  final double spaceHeight = UIDefine.getScreenWidth(5.22);  // 19.6
+  final double textHeight = UIDefine.getScreenWidth(4.48);  // 16.8
+  final double iconHeight = UIDefine.getScreenWidth(6.57);  // 24.64
+  final double paddingSpace = UIDefine.getScreenWidth(1.79);  // 6.72
+  final double textSize = UIDefine.getScreenWidth(3.13);  // 11.76
 
   Widget buildText(AppNavigationBarType type) {
     return Expanded(
