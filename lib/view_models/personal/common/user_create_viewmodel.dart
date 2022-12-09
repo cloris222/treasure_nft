@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:treasure_nft_project/models/http/api/common_api.dart';
 import 'package:treasure_nft_project/models/http/api/mine_api.dart';
+import 'package:treasure_nft_project/utils/image_compress_util.dart';
 import 'package:treasure_nft_project/utils/image_picker_util.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/utils/regular_expression_util.dart';
@@ -10,6 +11,7 @@ import 'package:treasure_nft_project/utils/time_pick_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
+import 'dart:io';
 
 import '../../../constant/call_back_function.dart';
 import '../../../models/data/validate_result_data.dart';
@@ -126,11 +128,11 @@ class UserCreateViewModel extends BaseViewModel {
 
     ///MARK: 上傳鑄造
     else {
-      var response = await CommonAPI(
-              onConnectFail: (message) => onBaseConnectFail(context, message))
+      var response = await CommonAPI(onConnectFail: (message) => onBaseConnectFail(context, message))
           .uploadImage(uploadImage!.path);
-      await MineAPI(
-              onConnectFail: (message) => onBaseConnectFail(context, message))
+      _compressUpload(context);
+
+      await MineAPI(onConnectFail: (message) => onBaseConnectFail(context, message))
           .mineNFT(
               imageUrl: response.data,
               name: nameController.text,
@@ -144,6 +146,16 @@ class UserCreateViewModel extends BaseViewModel {
         SimpleCustomDialog(context, isSuccess: true).show();
       });
     }
+  }
+
+  /// 上傳壓縮過後的圖片
+  void _compressUpload(BuildContext context) {
+    ImageCompressUtil().imageCompressAndGetFile(File(uploadImage!.path)).then((value) {
+      CommonAPI(onConnectFail: (message) => onBaseConnectFail(context, message))
+          .uploadImageByFile(value!);
+      // debugPrint('原路徑：${uploadImage!.path}');
+      // debugPrint('壓縮後的路徑：${value.path}');
+    });
   }
 
   void onNameChange(String value) {
