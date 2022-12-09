@@ -73,12 +73,12 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> with Wi
         break;
 
       case AppLifecycleState.paused:
+        debugPrint('-----App paused------');
         timer?.cancel();
         break;
 
       case AppLifecycleState.detached:
       case AppLifecycleState.inactive:
-        break;
     }
   }
 

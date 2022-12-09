@@ -15,6 +15,12 @@ class CommonAPI extends HttpManager {
     return post('/upload/file', data: await upload.formData(), isEncode: false);
   }
 
+  Future<ApiResponse> uploadImageByFile(File file) async {
+    addDioHeader({'Content-Type': 'multipart/form-data'});
+    UploadImageAndVideo upload = UploadImageAndVideo(file: file);
+    return post('/upload/file', data: await upload.formData(), isEncode: false);
+  }
+
   Future<List<CountryPhoneData>> getCountryList() async {
     List<CountryPhoneData> list = [];
     try {
