@@ -5,6 +5,7 @@ import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/label/custom_linear_progress.dart';
+import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 import 'package:treasure_nft_project/widgets/label/warp_two_text_widget.dart';
 import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_colors.dart';
@@ -50,23 +51,28 @@ class PersonalSubUserInfoView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DecorationImage image;
-    if (userInfo.bannerUrl.isNotEmpty) {
-      image = DecorationImage(
-          image: NetworkImage(userInfo.bannerUrl), fit: BoxFit.fill);
-    } else {
+    DecorationImage? image;
+    if (userInfo.bannerUrl.isEmpty) {
       image = const DecorationImage(
           image: AssetImage(AppImagePath.defaultBanner), fit: BoxFit.fill);
     }
     return Stack(children: [
       GestureDetector(
           onTap: () => _showModifyBanner(context),
-          child: Container(
-              alignment: Alignment.topCenter,
-              width: UIDefine.getWidth(),
-              padding: EdgeInsets.all(UIDefine.getScreenWidth(5.5)),
-              decoration: BoxDecoration(image: image),
-              child: _buildFloatView(context)))
+          child: image == null
+              ? GraduallyNetworkImage(
+                  imageUrl: userInfo.bannerUrl,
+                  width: UIDefine.getWidth(),
+                  fit: BoxFit.fill,
+                  childAlignment: Alignment.topCenter,
+                  childPadding: EdgeInsets.all(UIDefine.getScreenWidth(5.5)),
+                  child: _buildFloatView(context))
+              : Container(
+                  alignment: Alignment.topCenter,
+                  width: UIDefine.getWidth(),
+                  padding: EdgeInsets.all(UIDefine.getScreenWidth(5.5)),
+                  decoration: BoxDecoration(image: image),
+                  child: _buildFloatView(context)))
     ]);
   }
 

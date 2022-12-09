@@ -1,7 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
@@ -333,12 +332,11 @@ class _EventInfoCard extends State<EventInfoCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             bIsItem?
-            CachedNetworkImage(
+            GraduallyNetworkImage(
               imageUrl: widget.imageUrl,
               height: UIDefine.getScreenWidth(21.3),
               width: UIDefine.getScreenWidth(21.3),
               fit: BoxFit.cover,
-              errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
             )
                :
             Image.asset('assets/icon/img/img_bonus.png',

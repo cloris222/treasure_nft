@@ -1,7 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
+import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 
 import '../../../models/http/parameter/other_collect_data.dart';
 import '../../label/coin/tether_coin_widget.dart';
@@ -14,11 +14,10 @@ class OtherCollectItem extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget space = SizedBox(height: UIDefine.getScreenHeight(1));
     return Column(children: [
-      CachedNetworkImage(
+      GraduallyNetworkImage(
         imageUrl: data.nftImgUrl,
         height: UIDefine.getScreenWidth(42),
         width: UIDefine.getScreenWidth(42),
-        errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
       ),
       space,
       Container(

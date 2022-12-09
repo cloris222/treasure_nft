@@ -1,11 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/lower_nft_data.dart';
 import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
-
+import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 
 class LowerNFTItemView extends StatefulWidget {
   const LowerNFTItemView({super.key, required this.itemData});
@@ -39,11 +38,10 @@ class _LowerNFTItem extends State<LowerNFTItemView> {
 
               SizedBox(
                 width: UIDefine.getScreenWidth(20),
-                child: CachedNetworkImage(
+                child: GraduallyNetworkImage(
                   imageUrl: widget.itemData.originImgUrl,
                   width: UIDefine.getScreenWidth(19.5),
                   height: UIDefine.getScreenWidth(19.5),
-                  errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
                 ),
               ),
 

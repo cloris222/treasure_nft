@@ -1,5 +1,3 @@
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
@@ -7,6 +5,7 @@ import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
+import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 
 import '../../../constant/ui_define.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
@@ -35,12 +34,11 @@ class HomePageWidgets {
           children: [
             Column(
               children: [
-                CachedNetworkImage(
+                GraduallyNetworkImage(
                   width: double.infinity,
                   height: UIDefine.getScreenWidth(50),
                   imageUrl: data.introPhoneUrl,
                   fit: BoxFit.cover,
-                  errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
                 ),
 
                 Container(
@@ -229,11 +227,10 @@ class HomePageWidgets {
                 BaseViewModel().pushReplacement(context, MainPage(type: AppNavigationBarType.typeLogin));
               }
             },
-            child: CachedNetworkImage(
+            child: GraduallyNetworkImage(
               imageUrl: data.imgUrl,
               height: UIDefine.getScreenWidth(43.4),
               width: UIDefine.getScreenWidth(43.4),
-              errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
             ),
           ),
 

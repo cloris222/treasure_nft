@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
@@ -9,7 +8,7 @@ import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
 import 'package:treasure_nft_project/views/personal/team/share_team_order_page.dart';
-import 'package:treasure_nft_project/widgets/dialog/simple_custom_dialog.dart';
+import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 
 import '../../../views/personal/team/other_collect_page.dart';
 
@@ -31,10 +30,9 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
       Stack(
         alignment: Alignment.topLeft,
         children: [
-          CachedNetworkImage(
+          GraduallyNetworkImage(
             imageUrl: widget.itemData.imgUrl,
             fit: BoxFit.contain,
-            errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
           ),
           Positioned(child: _buildOrderType())
         ],

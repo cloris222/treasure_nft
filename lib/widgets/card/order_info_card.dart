@@ -1,12 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
+import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
@@ -225,12 +222,11 @@ class _OrderInfoCard extends State<OrderInfoCard> {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CachedNetworkImage(
+            GraduallyNetworkImage(
               imageUrl: widget.imageUrl,
               width: UIDefine.getScreenWidth(21.3),
               height: UIDefine.getScreenWidth(21.3),
-              fit: BoxFit.cover,
-              errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
+              fit: BoxFit.cover
             ),
             SizedBox(width: UIDefine.getScreenWidth(2.77)),
 

@@ -28,7 +28,7 @@ class LanguageUtil {
   }
 
   static LanguageType getSettingLanguageType() {
-    debugPrint('_appLang: ${_appLang.name}');
+   // debugPrint('_appLang: ${_appLang.name}');
     return _appLang;
   }
 

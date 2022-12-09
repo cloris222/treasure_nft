@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:flutter_carousel_slider/carousel_slider_transforms.dart';
@@ -8,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_carousel.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
+import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 
 import '../../../constant/theme/app_style.dart';
 import 'carousel_item.dart';
@@ -46,10 +45,9 @@ class _GetCarouselListView extends State<CarouselListView> {
   Future preload() async {
     for (int i = 0; i < list.length; i++) {
       imageList.add(
-          CachedNetworkImage(
+          GraduallyNetworkImage(
             imageUrl: list[i].imageUrl,
             fit: BoxFit.cover,
-            errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
           ),
       );
     }

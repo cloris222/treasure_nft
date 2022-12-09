@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
@@ -11,6 +10,7 @@ import 'package:treasure_nft_project/models/http/api/common_api.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/utils/image_picker_util.dart';
 import 'package:treasure_nft_project/widgets/dialog/base_dialog.dart';
+import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 
 import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_image_path.dart';
@@ -137,7 +137,7 @@ class EditAvatarDialog extends BaseDialog {
   _onUploadImage(BuildContext context) async {
     if (uploadFile != null) {
       ///MARK:上傳圖片
-     var imageResponse = await CommonAPI().uploadImage(uploadFile!.path);
+      var imageResponse = await CommonAPI().uploadImage(uploadFile!.path);
       if (isAvatar) {
         await UserInfoAPI().setUserAvtar(imageResponse.data);
         GlobalData.userInfo.photoUrl = imageResponse.data;
@@ -155,21 +155,25 @@ class EditAvatarDialog extends BaseDialog {
   }
 
   Widget _buildUserBanner(StateSetter setState) {
-    DecorationImage image;
+    DecorationImage? image;
     if (uploadFile != null) {
       image = DecorationImage(
           image: FileImage(File(uploadFile!.path)), fit: BoxFit.fill);
-    } else if (GlobalData.userInfo.bannerUrl.isNotEmpty) {
-      image = DecorationImage(
-          image: NetworkImage(GlobalData.userInfo.bannerUrl), fit: BoxFit.fill);
-    } else {
+    } else if (GlobalData.userInfo.bannerUrl.isEmpty) {
       image = const DecorationImage(
           image: AssetImage(AppImagePath.defaultBanner), fit: BoxFit.fill);
     }
 
-    return Container(
-        height: UIDefine.getHeight() / 4,
-        width: UIDefine.getWidth(),
-        decoration: BoxDecoration(image: image));
+    return image == null
+        ? GraduallyNetworkImage(
+            imageUrl: GlobalData.userInfo.bannerUrl,
+            height: UIDefine.getHeight() / 4,
+            width: UIDefine.getWidth(),
+            fit: BoxFit.fill,
+          )
+        : Container(
+            height: UIDefine.getHeight() / 4,
+            width: UIDefine.getWidth(),
+            decoration: BoxDecoration(image: image));
   }
 }
