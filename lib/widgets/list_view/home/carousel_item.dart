@@ -1,19 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/constant/theme/app_colors.dart';
-import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_carousel.dart';
+import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 
 class CarouselItemView extends StatelessWidget {
   const CarouselItemView({
     super.key,
     required this.itemData,
-    required this.decorationImage,
   });
 
   final HomeCarousel itemData;
-  final Widget decorationImage;
 
   @override
   Widget build(BuildContext context) {
@@ -24,18 +21,22 @@ class CarouselItemView extends StatelessWidget {
           child: ClipRRect(
             borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-            child: decorationImage,
+            child: GraduallyNetworkImage(
+                width: UIDefine.getPixelWidth(340),
+                height: UIDefine.getHeight(),
+                imageUrl: itemData.imageUrl,
+                fit: BoxFit.cover),
           ),
         ),
       ),
       Container(
-          height: 50,
+          height: UIDefine.getPixelHeight(50),
           alignment: Alignment.center,
           padding: const EdgeInsets.only(left: 15),
           child: Text(
             itemData.name,
-            style: const TextStyle(
-              fontSize: 16,
+            style: TextStyle(
+              fontSize: UIDefine.fontSize16,
               fontWeight: FontWeight.w400,
             ),
           )),

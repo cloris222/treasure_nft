@@ -22,14 +22,11 @@ class _GetCarouselListView extends State<CarouselListView> {
   HomeMainViewModel viewModel = HomeMainViewModel();
   late List<HomeCarousel> list = [];
 
-  List<Widget> imageList = [];
-
   @override
   void initState() {
     super.initState();
     viewModel.getHomeCarousel().then((value) async {
       list = value;
-      await preload();
       setState(() {});
 
       /// to read pre load image
@@ -42,17 +39,6 @@ class _GetCarouselListView extends State<CarouselListView> {
     });
   }
 
-  Future preload() async {
-    for (int i = 0; i < list.length; i++) {
-      imageList.add(
-          GraduallyNetworkImage(
-            imageUrl: list[i].imageUrl,
-            fit: BoxFit.cover,
-          ),
-      );
-    }
-  }
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -62,7 +48,6 @@ class _GetCarouselListView extends State<CarouselListView> {
   Widget createItemBuilder(BuildContext context, int index) {
     return CarouselItemView(
       itemData: list[index],
-      decorationImage: imageList[index],
     );
   }
 
