@@ -19,15 +19,18 @@ class CarouselItemView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Expanded(
-        child: ClipRRect(
-          borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-          child: decorationImage,
+        child: Container(
+          alignment: Alignment.topCenter,
+          child: ClipRRect(
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+            child: decorationImage,
+          ),
         ),
       ),
       Container(
           height: 50,
-          alignment: Alignment.centerLeft,
+          alignment: Alignment.center,
           padding: const EdgeInsets.only(left: 15),
           child: Text(
             itemData.name,
