@@ -49,7 +49,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
       type: AppNavigationBarType.typePersonal,
       body: SingleChildScrollView(
           child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
+              margin:  EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
               child: _buildBody())),
     );
   }
@@ -182,7 +182,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
         }
       }
       return SizedBox(
-        height: UIDefine.getHeight() * 0.9,
+        height: UIDefine.getPixelHeight(600),
         child: PageView(controller: viewModel.pageController, children: pages),
       );
     }

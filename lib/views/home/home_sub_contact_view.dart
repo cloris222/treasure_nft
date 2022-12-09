@@ -49,36 +49,13 @@ class _HomeSubContactViewState extends State<HomeSubContactView> {
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: _buildFooterButtonList()),
-                    // viewModel.getPadding(4),
-                    // Text(
-                    //   tr('document-title-2'),
-                    //   style: TextStyle(
-                    //       fontSize: UIDefine.fontSize16,
-                    //       color: AppColors.textBlack,
-                    //       height: 1.3),
-                    // ),
-                    // viewModel.getPadding(2),
-                    // Text(
-                    //   tr('document-text-1'),
-                    //   style: TextStyle(
-                    //       fontSize: UIDefine.fontSize14,
-                    //       color: AppColors.textGrey,
-                    //       height: 1.3),
-                    // ),
-                    // viewModel.getPadding(10),
-                    // Center(
-                    //     child: Text('Copyright 2022',
-                    //         style: TextStyle(
-                    //           fontSize: UIDefine.fontSize14,
-                    //           color: AppColors.textBlack,
-                    //         ))),
                     getPadding(7),
                     Center(
                         child: Text('TreasureMeta Technology',
                             style: TextStyle(
                                 fontSize: UIDefine.fontSize14,
                                 color: AppColors.textBlack))),
-                    getPadding(5),
+                    SizedBox(height: UIDefine.getPixelHeight(70),)
                   ]))
         ]));
   }

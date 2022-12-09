@@ -110,7 +110,7 @@ class _MainPageState extends State<MainPage> {
           padding: EdgeInsets.only(
               bottom: MediaQuery.of(context).viewInsets.bottom > 0
                   ? 0
-                  : GlobalData.navigationBarPadding),
+                  : UIDefine.getPixelHeight(70)),
           child: PageView(
             controller: pageController,
             physics: const NeverScrollableScrollPhysics(),

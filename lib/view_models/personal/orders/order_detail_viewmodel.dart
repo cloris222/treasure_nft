@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:treasure_nft_project/constant/enum/setting_enum.dart';
 import 'package:treasure_nft_project/constant/enum/team_enum.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/api/order_api.dart';
 import 'package:treasure_nft_project/utils/app_shared_Preferences.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
@@ -46,10 +47,18 @@ class OrderDetailViewModel extends BaseListViewModel {
   Widget itemView(int index, data) {
     return type == EarningIncomeType.SAVINGS
         ? Container(
-            padding: const EdgeInsets.symmetric(vertical: 10),
+            padding: EdgeInsets.only(
+                top: 10,
+                bottom: index == currentItems.length - 1
+                    ? UIDefine.getPixelHeight(130)
+                    : 10),
             child: SavesInfoCard(data: data))
         : Container(
-            padding: const EdgeInsets.symmetric(vertical: 10),
+            padding: EdgeInsets.only(
+                top: 10,
+                bottom: index == currentItems.length - 1
+                    ? UIDefine.getPixelHeight(130)
+                    : 10),
             child: ItemInfoCard(
               itemName: data.itemName,
               dateTime: changeTimeZone(data.time),
