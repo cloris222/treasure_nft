@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 import 'dart:io';
 
@@ -9,6 +11,7 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/models/http/api/ios_payment_api.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import 'package:treasure_nft_project/widgets/button/text_button_widget.dart';
 import '../../../constant/theme/app_animation_path.dart';
@@ -251,13 +254,13 @@ class _AppPurchaseState extends State<AppPurchase> {
                         OpenBoxAnimationPage(
                             imgUrl: "data.imgUrl",
                             animationPath: AppAnimationPath.showOpenWinsBox,
-                            backgroundColor: AppColors.opacityBackground.withOpacity(0.65),
+                            backgroundColor:
+                                AppColors.opacityBackground.withOpacity(0.65),
                             callBack: () {
                               setState(() {
                                 //bOpen = true;
                               });
-                            })
-                    );
+                            }));
                   },
                 )),
           ],
@@ -296,54 +299,103 @@ class _AppPurchaseState extends State<AppPurchase> {
       }
       return MapEntry<String, PurchaseDetails>(purchase.productID, purchase);
     }));
-    productList.addAll(_kProductIds.map((e) => _productCard(e)));
     productList.addAll(_products.map(
       (ProductDetails productDetails) {
         PurchaseDetails? previousPurchase = purchases[productDetails.id];
-        return ListTile(
-            leading: Image.asset(
-              AppImagePath.appLogoPath,
-              width: 35,
-              height: 35,
-              fit: BoxFit.cover,
-            ),
-            title: Text(
-              productDetails.title, //price
-            ),
-            subtitle: Text(
-              productDetails.description,
-            ),
-            trailing: previousPurchase != null
-                ? IconButton(
-                    onPressed: () => confirmPriceChange(context),
-                    icon: const Icon(Icons.upgrade))
-                : TextButton(
-                    style: TextButton.styleFrom(
-                      backgroundColor: AppColors.bolderGrey,
-                      primary: Colors.white,
-                    ),
-                    onPressed: () {
-                      late PurchaseParam purchaseParam = PurchaseParam(
-                        productDetails: productDetails,
-                        applicationUserName: null,
-                      );
+        var imageName = '';
+        var buttonName = '';
+        var buttonColor = 0;
+        switch (productDetails.id) {
+          case NFT_1:
+            imageName = AppImagePath.purchaseImg1;
+            buttonName = 'Silver';
+            buttonColor = 0XFF54514D;
+            break;
+          case NFT_2:
+            imageName = AppImagePath.purchaseImg2;
+            buttonName = 'Golden';
+            buttonColor = 0XFFECAF46;
+            break;
+          case NFT_3:
+            imageName = AppImagePath.purchaseImg3;
+            buttonName = 'Platinum';
+            buttonColor = 0XFF93A0D2;
+            break;
+          case NFT_4:
+            imageName = AppImagePath.purchaseImg4;
+            buttonName = 'Diamond';
+            buttonColor = 0XFF79BAD2;
+            break;
+        }
 
-                      if ((productDetails.id == NFT_1) ||
-                          (productDetails.id == NFT_2) ||
-                          (productDetails.id == NFT_3) ||
-                          (productDetails.id == NFT_4)) {
-                        _inAppPurchase
-                            .buyConsumable(
-                                purchaseParam: purchaseParam,
-                                autoConsume: _kAutoConsume || Platform.isIOS)
-                            .then((value) {});
-                      } else {
-                        _inAppPurchase.buyNonConsumable(
-                            purchaseParam: purchaseParam);
-                      }
-                    },
-                    child: Text(productDetails.price),
-                  ));
+        return Container(
+          margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(20)),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Container(
+                      margin: EdgeInsets.only(
+                          left: UIDefine.getPixelWidth(15),
+                          right: UIDefine.getPixelWidth(10)),
+                      child: Image.asset(
+                        AppImagePath.rewardGradient,
+                      )),
+                  Text(
+                    productDetails.title,
+                    style: TextStyle(
+                        fontSize: UIDefine.fontSize24,
+                        fontWeight: FontWeight.w500),
+                  )
+                ],
+              ),
+              Stack(
+                children: [
+                  Image.asset(
+                    imageName,
+                    fit: BoxFit.fitWidth,
+                    width: UIDefine.getWidth(),
+                  ),
+                  Positioned(
+                      left: UIDefine.getWidth() * 0.65,
+                      right: UIDefine.getPixelWidth(5),
+                      bottom: UIDefine.getPixelHeight(5),
+                      child: TextButtonWidget(
+                        setHeight: UIDefine.getPixelHeight(48),
+                        radius: 10,
+                        textAlign: TextAlign.center,
+                        isFillWidth: true,
+                        fontWeight: FontWeight.w500,
+                        fontSize: UIDefine.fontSize16,
+                        btnText: buttonName,
+                        setMainColor: Color(buttonColor),
+                        onPressed: () {
+                          late PurchaseParam purchaseParam = PurchaseParam(
+                            productDetails: productDetails,
+                            applicationUserName: null,
+                          );
+                          if ((productDetails.id == NFT_1) ||
+                              (productDetails.id == NFT_2) ||
+                              (productDetails.id == NFT_3) ||
+                              (productDetails.id == NFT_4)) {
+                            _inAppPurchase
+                                .buyConsumable(
+                                    purchaseParam: purchaseParam,
+                                    autoConsume:
+                                        _kAutoConsume || Platform.isIOS)
+                                .then((value) {
+                            });
+                          } else {
+                            _inAppPurchase.buyNonConsumable(
+                                purchaseParam: purchaseParam);
+                          }
+                        },
+                      )),
+                ],
+              ),
+            ],
+          ),
+        );
       },
     ));
 
@@ -439,15 +491,30 @@ class _AppPurchaseState extends State<AppPurchase> {
             purchaseDetails.status == PurchaseStatus.restored) {
           print('AAA-購買成功');
           bool valid = await _verifyPurchase(purchaseDetails);
-          // if (valid) {
-          //   ///post
-          //   iOSPaymentAPI().postCheckiOSPurchase(
-          //       purchaseDetails.verificationData.localVerificationData);
-          //   deliverProduct(purchaseDetails);
-          // } else {
-          //   _handleInvalidPurchase(purchaseDetails);
-          //   return;
-          // }
+          if (valid) {
+            /// check receipt api
+            IOSPaymentAPI().postCheckIOSReceipt(
+                purchaseDetails.verificationData.localVerificationData);
+            deliverProduct(purchaseDetails);
+            /// 確認購買成功後顯示動畫＋商品圖
+            await BaseViewModel().pushOpacityPage(
+                context,
+                OpenBoxAnimationPage(
+                    imgUrl: "data.imgUrl",
+                    animationPath:
+                    AppAnimationPath.showOpenWinsBox,
+                    backgroundColor: AppColors
+                        .opacityBackground
+                        .withOpacity(0.65),
+                    callBack: () {
+                      setState(() {
+                        //bOpen = true;
+                      });
+                    }));
+          } else {
+            _handleInvalidPurchase(purchaseDetails);
+            return;
+          }
         }
         if (purchaseDetails.pendingCompletePurchase) {
           await _inAppPurchase.completePurchase(purchaseDetails);
