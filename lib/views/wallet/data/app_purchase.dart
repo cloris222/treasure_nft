@@ -185,90 +185,6 @@ class _AppPurchaseState extends State<AppPurchase> {
     );
   }
 
-  Widget _productCard(String id) {
-    var imageName = '';
-    var buttonName = '';
-    var buttonColor = 0;
-    switch (id) {
-      case NFT_1:
-        imageName = AppImagePath.purchaseImg1;
-        buttonName = 'Silver';
-        buttonColor = 0XFF54514D;
-        break;
-      case NFT_2:
-        imageName = AppImagePath.purchaseImg2;
-        buttonName = 'Golden';
-        buttonColor = 0XFFECAF46;
-        break;
-      case NFT_3:
-        imageName = AppImagePath.purchaseImg3;
-        buttonName = 'Platinum';
-        buttonColor = 0XFF93A0D2;
-        break;
-      case NFT_4:
-        imageName = AppImagePath.purchaseImg4;
-        buttonName = 'Diamond';
-        buttonColor = 0XFF79BAD2;
-        break;
-    }
-
-    return Column(
-      children: [
-        Row(
-          children: [
-            Container(
-                margin: EdgeInsets.symmetric(
-                    horizontal: UIDefine.getPixelWidth(10)),
-                child: Image.asset(AppImagePath.rewardGradient)),
-            Text(
-              id,
-              style: TextStyle(
-                  fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500),
-            )
-          ],
-        ),
-        Stack(
-          children: [
-            Image.asset(
-              imageName,
-              fit: BoxFit.fitWidth,
-              width: UIDefine.getWidth(),
-            ),
-            Positioned(
-                left: UIDefine.getWidth() * 0.65,
-                right: UIDefine.getPixelWidth(5),
-                bottom: UIDefine.getPixelHeight(5),
-                child: TextButtonWidget(
-                  setHeight: UIDefine.getPixelHeight(48),
-                  radius: 10,
-                  textAlign: TextAlign.center,
-                  isFillWidth: true,
-                  fontWeight: FontWeight.w500,
-                  fontSize: UIDefine.fontSize16,
-                  btnText: buttonName,
-                  setMainColor: Color(buttonColor),
-                  onPressed: () {
-                    /// 確認購買成功後顯示動畫＋商品圖
-                    BaseViewModel().pushOpacityPage(
-                        context,
-                        OpenBoxAnimationPage(
-                            imgUrl: "data.imgUrl",
-                            animationPath: AppAnimationPath.showOpenWinsBox,
-                            backgroundColor:
-                                AppColors.opacityBackground.withOpacity(0.65),
-                            callBack: () {
-                              setState(() {
-                                //bOpen = true;
-                              });
-                            }));
-                  },
-                )),
-          ],
-        )
-      ],
-    );
-  }
-
   Card _buildProductList() {
     if (_loading) {
       return const Card(
@@ -493,14 +409,14 @@ class _AppPurchaseState extends State<AppPurchase> {
           bool valid = await _verifyPurchase(purchaseDetails);
           if (valid) {
             /// check receipt api
-            IOSPaymentAPI().postCheckIOSReceipt(
+           var response = await IOSPaymentAPI().postCheckIOSReceipt(
                 purchaseDetails.verificationData.localVerificationData);
             deliverProduct(purchaseDetails);
             /// 確認購買成功後顯示動畫＋商品圖
             await BaseViewModel().pushOpacityPage(
                 context,
                 OpenBoxAnimationPage(
-                    imgUrl: "data.imgUrl",
+                    imgUrl: response.result[0].imgUrl,
                     animationPath:
                     AppAnimationPath.showOpenWinsBox,
                     backgroundColor: AppColors

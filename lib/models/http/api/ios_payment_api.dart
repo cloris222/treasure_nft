@@ -1,11 +1,12 @@
 import 'package:treasure_nft_project/models/http/http_manager.dart';
+import '../parameter/ios_purchase.dart';
 
-import '../parameter/api_response.dart';
-
-class IOSPaymentAPI extends HttpManager{
+class IOSPaymentAPI extends HttpManager {
   IOSPaymentAPI({super.onConnectFail});
 
-  Future<ApiResponse> postCheckIOSReceipt(String receipt){
-    return post('/purchase/check/ios',data: {"receipt": receipt});
+  Future<IosPurchaseData> postCheckIOSReceipt(String receipt) async {
+    var response =
+        await post('/purchase/check/ios', data: {"receipt": receipt});
+    return IosPurchaseData.fromJson(response.data);
   }
 }
