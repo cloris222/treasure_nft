@@ -1,13 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import 'package:treasure_nft_project/widgets/label/custom_linear_progress.dart';
+import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 
 import '../../../constant/call_back_function.dart';
 import '../../../constant/theme/app_animation_path.dart';
@@ -261,11 +259,10 @@ class _CollectionBlindBoxItemView extends State<CollectionBlindBoxItemView> {
       children: [
         Opacity(
           opacity: 0.3,
-          child: CachedNetworkImage(
+          child: GraduallyNetworkImage(
             imageUrl: imgUrl,
             width: UIDefine.getScreenWidth(19.5),
             height: UIDefine.getScreenWidth(19.5),
-            errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
           ),
         ),
         Image.asset('assets/icon/icon/icon_lock_01.png')

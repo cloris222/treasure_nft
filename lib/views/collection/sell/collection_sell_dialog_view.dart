@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
@@ -6,6 +5,7 @@ import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/dialog/base_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/simple_custom_dialog.dart';
+import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 
 import '../../../constant/call_back_function.dart';
 import '../../../constant/ui_define.dart';
@@ -60,11 +60,10 @@ class CollectionSellDialogView extends BaseDialog {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    CachedNetworkImage(
+                    GraduallyNetworkImage(
                       imageUrl: imgUrl,
                       width: UIDefine.getScreenWidth(42),
                       height: UIDefine.getScreenWidth(42),
-                      errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
                     ),
                     SizedBox(height: UIDefine.getScreenWidth(5)),
                     Text(

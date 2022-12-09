@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 
 class CircleNetworkIcon extends StatelessWidget {
   const CircleNetworkIcon({
@@ -13,9 +14,11 @@ class CircleNetworkIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-        radius: radius,
-        backgroundImage: NetworkImage(networkUrl),
-        backgroundColor: backgroundColor);
+    return GraduallyNetworkImage(
+        imageUrl: networkUrl,
+        imageWidgetBuilder: (context, imageProvider) => CircleAvatar(
+            radius: radius,
+            backgroundImage: imageProvider,
+            backgroundColor: backgroundColor));
   }
 }

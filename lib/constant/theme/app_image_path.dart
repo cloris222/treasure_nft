@@ -26,6 +26,7 @@ class AppImagePath {
   static const String dialogCancel = '$appImgPath/img_error_01.png';
   static const String appBarLeftArrow = '$appBtnFolderPath/btn_back_01_nor.png';
   static const String copyIcon = '$appBtnFolderPath/btn_edit_01_nor.png';
+  static const String preloadIcon = '$appImgPath/img_loding_01.png';
 
   static const String mainTypeExplore = '$appBtmBarPath/btn_explore_01_pre.png';
   static const String mainTypeExploreOFF =
@@ -195,7 +196,8 @@ class AppImagePath {
   static const String emptyCoffee = '$appImgPath/img_coffee_01.png';
 
   /// world cup
-  static const String worldCupTitleImg = '$appImgPath/img_title_football_01.png';
+  static const String worldCupTitleImg =
+      '$appImgPath/img_title_football_01.png';
   static const String questionBtn = '$appBtnFolderPath/btn_info_01_nor.png';
   static const String worldCupBackground = '$appImgPath/img_bn_football_01.png';
 
@@ -203,10 +205,10 @@ class AppImagePath {
   static const String tradeDrawBg = '$appImgPath/img_event_bg_03.png';
   static const String tradeDrawCoin = '$appImgPath/img_event_bg_04.png';
 
-  static const String tradeDrawInfoStar ='$appIconFolderPath/icon_star_04.png';
-  static const String tradeDrawInfoCoin ='$appIconFolderPath/icon_usdt_01.png';
+  static const String tradeDrawInfoStar = '$appIconFolderPath/icon_star_04.png';
+  static const String tradeDrawInfoCoin = '$appIconFolderPath/icon_usdt_01.png';
   static const String tradeDrawResultTitle =
       '$appImgPath/img_event_font_02.png';
-  static const String tradeDrawResultStar='$appIconFolderPath/icon_star_03.png';
-
+  static const String tradeDrawResultStar =
+      '$appIconFolderPath/icon_star_03.png';
 }

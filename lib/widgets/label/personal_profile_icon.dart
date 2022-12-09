@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 
 import '../../view_models/base_view_model.dart';
 
@@ -54,10 +55,8 @@ class _PersonalProfileIconState extends State<PersonalProfileIcon> {
   }
 
   _buildIcon() {
-    ImageProvider provider;
-    if (avatar.isNotEmpty) {
-      provider = NetworkImage(avatar);
-    } else {
+    ImageProvider? provider;
+    if (avatar.isEmpty) {
       provider = const AssetImage("assets/no_image.png");
     }
     // if (isSelfIcon()) {
@@ -87,9 +86,17 @@ class _PersonalProfileIconState extends State<PersonalProfileIcon> {
           ),
           height: widget.height,
           width: widget.width,
-          child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image(image: provider, fit: BoxFit.cover))),
+          child: provider == null
+              ? GraduallyNetworkImage(
+                  imageUrl: avatar,
+                  imageWidgetBuilder: (context, imageProvider) {
+                    return ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image(image: imageProvider, fit: BoxFit.cover));
+                  })
+              : ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image(image: provider, fit: BoxFit.cover))),
     );
   }
 

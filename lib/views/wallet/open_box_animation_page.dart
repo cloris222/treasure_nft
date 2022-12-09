@@ -1,6 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 
 import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_colors.dart';
@@ -78,11 +78,10 @@ class _OpenBoxAnimationPage extends State<OpenBoxAnimationPage> with SingleTicke
 
                     Visibility(
                       visible: bShowItem,
-                      child: CachedNetworkImage(
+                      child: GraduallyNetworkImage(
                         imageUrl: widget.imgUrl,
                         width: UIDefine.getScreenWidth(37.33),
                         height: UIDefine.getScreenWidth(37.33),
-                        errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
                       ),
                     )
                   ],

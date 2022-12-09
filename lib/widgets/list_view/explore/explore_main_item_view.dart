@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/explore/homepage/explore_artist_home_page_view.dart';
+import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 
 import '../../../constant/ui_define.dart';
 import '../../../views/explore/data/explore_main_response_data.dart';
@@ -42,12 +43,11 @@ class _ExploreMainItemView extends State<ExploreMainItemView> {
                       topRight: Radius.circular(10)),
                   child: Container(
                     alignment: Alignment.topCenter,
-                    child: CachedNetworkImage(
+                    child: GraduallyNetworkImage(
                       width: double.infinity,
                       height: UIDefine.getScreenWidth(40),
                       fit: BoxFit.cover,
                       imageUrl: exploreMainResponseData.introPhoneUrl,
-                      errorWidget: (context, url, error) => const Icon(Icons.cancel_rounded),
                     ),
                   ),
                 ),

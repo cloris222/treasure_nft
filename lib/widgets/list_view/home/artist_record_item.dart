@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
@@ -7,6 +6,7 @@ import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_artist_record.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
+import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 
 import '../../../utils/number_format_util.dart';
 import '../../../views/explore/data/explore_main_response_data.dart';
@@ -101,11 +101,9 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
                           height: UIDefine.getWidth() * 0.1,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(50),
-                            child: CachedNetworkImage(
+                            child: GraduallyNetworkImage(
                               imageUrl: widget.itemData.avatarUrl,
                               fit: BoxFit.fill,
-                              errorWidget: (context, url, error) =>
-                                  const Icon(Icons.cancel_rounded),
                             ),
                           ),
                         ),
