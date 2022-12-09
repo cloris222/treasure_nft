@@ -98,7 +98,6 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    print('MMM:${MediaQuery.of(context).boldText}');
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: CustomAppBar.mainAppBar(
