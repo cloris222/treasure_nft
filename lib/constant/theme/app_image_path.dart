@@ -61,7 +61,7 @@ class AppImagePath {
   static const String loginPhoto = '$appImgPath/img_login_photo_01.png';
 
   /// trade page
-  static const String countDownBackground = '$appImgPath/img_trade_bg_01.png';
+  static const String countDownBackground = '$appImgPath/img_trade_bg_01.jpg';
   static const String clockBlue = '$appImgPath/img_clock_01.png';
   static const String clockRed = '$appImgPath/img_clock_02.png';
   static const String closeDialogBtn =
@@ -73,16 +73,16 @@ class AppImagePath {
   static const String reserving = '$appIconFolderPath/icon_rotate_02.png';
 
   /// lock mission
-  static const String level0 = '$lockMission/mb_level_bg_00.png';
-  static const String level0Locked = '$lockMission/mb_level_00_lock.png';
+  static const String level0 = '$lockMission/mb_level_bg_00.jpg';
+  static const String level0Locked = '$lockMission/mb_level_00_lock.jpg';
   static const String levelMission = '$lockMission/mb_level_bg_{level}_5.png';
   static const String levelMissionLocked =
-      '$lockMission/mb_level_{level}_lock.png';
+      '$lockMission/mb_level_{level}_lock.jpg';
   static const String divisionLevel =
-      '$lockMission/mb_level_bg_{level}_{index}.png';
+      '$lockMission/mb_level_bg_{level}_{index}.jpg';
 
   /// home page
-  static const String firstBackground = '$appImgPath/img_main_bg_01.png';
+  static const String firstBackground = '$appImgPath/img_main_bg_01.jpg';
   static const String starIcon = '$appIconFolderPath/icon_star_01.png';
   static const String downArrow = '$appBtnFolderPath/btn_arrow_01_down.png';
   static const String upArrowGrey = '$appBtnFolderPath/btn_arrow_02_up.png';
@@ -110,7 +110,7 @@ class AppImagePath {
   static const String videoImg = '$appLogoPath/logo_treasurenft_02.png';
 
   /// personal page
-  static const String defaultBanner = '$appImgPath/img_banner_01_defult.png';
+  static const String defaultBanner = '$appImgPath/img_banner_01_defult.jpg';
   static const String rightArrow =
       '$appBtnFolderPath/btn_arrow_right_01_nor.png';
   static const String dailyIcon = '$appBtnFolderPath/btn_date_01_nor.png';
@@ -186,7 +186,7 @@ class AppImagePath {
   /// Sharing Center
   static const String rewardGradient = '$appIconFolderPath/icon_rewards_01.png';
   static const String clockGradient = '$appIconFolderPath/icon_clock_02.png';
-  static const String shareBackground = '$appImgPath/img_share_01.png';
+  static const String shareBackground = '$appImgPath/img_share_01.jpg';
   static const String shareText1 = '$appImgPath/img_share_font_03.png';
   static const String shareText2 = '$appImgPath/img_share_font_04.png';
   static const String shareTitleImg = '$appImgPath/img_share_logo.png';
@@ -199,10 +199,10 @@ class AppImagePath {
   static const String worldCupTitleImg =
       '$appImgPath/img_title_football_01.png';
   static const String questionBtn = '$appBtnFolderPath/btn_info_01_nor.png';
-  static const String worldCupBackground = '$appImgPath/img_bn_football_01.png';
+  static const String worldCupBackground = '$appImgPath/img_bn_football_01.jpg';
 
   /// draw result
-  static const String tradeDrawBg = '$appImgPath/img_event_bg_03.png';
+  static const String tradeDrawBg = '$appImgPath/img_event_bg_03.jpg';
   static const String tradeDrawCoin = '$appImgPath/img_event_bg_04.png';
 
   static const String tradeDrawInfoStar = '$appIconFolderPath/icon_star_04.png';
