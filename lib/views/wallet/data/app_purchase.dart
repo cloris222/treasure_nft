@@ -12,6 +12,7 @@ import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/api/ios_payment_api.dart';
+import 'package:treasure_nft_project/models/http/parameter/ios_purchase/ios_product_data.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import 'package:treasure_nft_project/widgets/button/text_button_widget.dart';
 import '../../../constant/theme/app_animation_path.dart';
@@ -90,9 +91,13 @@ class _AppPurchaseState extends State<AppPurchase> {
           .getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();
       await iosPlatformAddition.setDelegate(ExamplePaymentQueueDelegate());
     }
-
+    /// call api check product list
+    var response = await IOSPaymentAPI().getPurchaseList();
+    Set<String> productIds = Set<String>.from(response.map((e) => e.productId));
     ProductDetailsResponse productDetailResponse =
-        await _inAppPurchase.queryProductDetails(_kProductIds.toSet());
+        await _inAppPurchase.queryProductDetails(productIds);
+    /// 直接從蘋果後台取得資料
+    // await _inAppPurchase.queryProductDetails(_kProductIds.toSet());
     if (productDetailResponse.error != null) {
       setState(() {
         _queryProductError = productDetailResponse.error!.message;
@@ -299,8 +304,7 @@ class _AppPurchaseState extends State<AppPurchase> {
                                     purchaseParam: purchaseParam,
                                     autoConsume:
                                         _kAutoConsume || Platform.isIOS)
-                                .then((value) {
-                            });
+                                .then((value) {});
                           } else {
                             _inAppPurchase.buyNonConsumable(
                                 purchaseParam: purchaseParam);
@@ -409,19 +413,18 @@ class _AppPurchaseState extends State<AppPurchase> {
           bool valid = await _verifyPurchase(purchaseDetails);
           if (valid) {
             /// check receipt api
-           var response = await IOSPaymentAPI().postCheckIOSReceipt(
+            var response = await IOSPaymentAPI().postCheckIOSReceipt(
                 purchaseDetails.verificationData.localVerificationData);
             deliverProduct(purchaseDetails);
+
             /// 確認購買成功後顯示動畫＋商品圖
             await BaseViewModel().pushOpacityPage(
                 context,
                 OpenBoxAnimationPage(
                     imgUrl: response.result[0].imgUrl,
-                    animationPath:
-                    AppAnimationPath.showOpenWinsBox,
-                    backgroundColor: AppColors
-                        .opacityBackground
-                        .withOpacity(0.65),
+                    animationPath: AppAnimationPath.showOpenWinsBox,
+                    backgroundColor:
+                        AppColors.opacityBackground.withOpacity(0.65),
                     callBack: () {
                       setState(() {
                         //bOpen = true;
