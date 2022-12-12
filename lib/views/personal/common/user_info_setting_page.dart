@@ -121,12 +121,12 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Image.asset(
-            format(AppImagePath.languageIcon,
-                {'country': GlobalData.userInfo.country}),
-            width: UIDefine.getScreenWidth(11.11),
-            height: UIDefine.getScreenWidth(11.11)),
-        SizedBox(width: UIDefine.getScreenWidth(2.7)),
+        // Image.asset( // 拿掉國旗 20221212
+        //     format(AppImagePath.languageIcon,
+        //         {'country': GlobalData.userInfo.country}),
+        //     width: UIDefine.getScreenWidth(11.11),
+        //     height: UIDefine.getScreenWidth(11.11)),
+        // SizedBox(width: UIDefine.getScreenWidth(2.7)),
         Text('${tr(GlobalData.userInfo.country)} (${GlobalData.userInfo.zone})',
             style: TextStyle(
                 fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14)),
