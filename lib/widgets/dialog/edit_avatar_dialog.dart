@@ -137,7 +137,7 @@ class EditAvatarDialog extends BaseDialog {
   _onUploadImage(BuildContext context) async {
     if (uploadFile != null) {
       ///MARK:上傳圖片
-      var imageResponse = await CommonAPI().uploadImage(uploadFile!.path);
+      var imageResponse = await CommonAPI().uploadImage(uploadFile!.path, uploadOriginalName: false);
       if (isAvatar) {
         await UserInfoAPI().setUserAvtar(imageResponse.data);
         GlobalData.userInfo.photoUrl = imageResponse.data;

@@ -1,6 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/api/common_api.dart';
 import 'package:treasure_nft_project/models/http/api/mine_api.dart';
 import 'package:treasure_nft_project/utils/image_compress_util.dart';
@@ -72,7 +75,7 @@ class UserCreateViewModel extends BaseViewModel {
   }
 
   void onChooseImage() async {
-    uploadImage = await ImagePickerUtil().selectImage();
+    uploadImage = await ImagePickerUtil().selectImage(needCompress: false);
 
     ///MARK: 要不要做判斷?
     if (uploadImage != null) {
@@ -128,11 +131,26 @@ class UserCreateViewModel extends BaseViewModel {
 
     ///MARK: 上傳鑄造
     else {
-      var response = await CommonAPI(onConnectFail: (message) => onBaseConnectFail(context, message))
-          .uploadImage(uploadImage!.path);
-      _compressUpload(context);
+      String path = uploadImage!.path;
+      var name = path.substring(path.lastIndexOf("/") + 1, path.length);
+      var suffix = name.substring(name.lastIndexOf(".") + 1, name.length);
+      var createOriginalName =
+          '${GlobalData.userMemberId}_${DateTime.now().millisecondsSinceEpoch.toString()}.$suffix';
+      int index = createOriginalName.lastIndexOf('.');
+      var createComPressName =
+          '${createOriginalName.substring(0, index)}_compre${createOriginalName.substring(index)}';
 
-      await MineAPI(onConnectFail: (message) => onBaseConnectFail(context, message))
+      var response = await CommonAPI(
+              onConnectFail: (message) => onBaseConnectFail(context, message))
+          .uploadImage(uploadImage!.path,
+              uploadOriginalName: true, setFileName: createOriginalName);
+      ///MARK: 暫時排除gif
+      if (suffix.compareTo("gif") != 0) {
+        _compressUpload(context, createComPressName);
+      }
+
+      await MineAPI(
+              onConnectFail: (message) => onBaseConnectFail(context, message))
           .mineNFT(
               imageUrl: response.data,
               name: nameController.text,
@@ -149,10 +167,13 @@ class UserCreateViewModel extends BaseViewModel {
   }
 
   /// 上傳壓縮過後的圖片
-  void _compressUpload(BuildContext context) {
-    ImageCompressUtil().imageCompressAndGetFile(File(uploadImage!.path)).then((value) {
+  void _compressUpload(BuildContext context, String createComPressName) {
+    ImageCompressUtil()
+        .imageCompressAndGetFile(File(uploadImage!.path))
+        .then((value) {
       CommonAPI(onConnectFail: (message) => onBaseConnectFail(context, message))
-          .uploadImageByFile(value!);
+          .uploadImageByFile(value!,
+              uploadOriginalName: true, setFileName: createComPressName);
       // debugPrint('原路徑：${uploadImage!.path}');
       // debugPrint('壓縮後的路徑：${value.path}');
     });

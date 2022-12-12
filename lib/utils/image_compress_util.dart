@@ -30,7 +30,7 @@ class ImageCompressUtil {
     String suffix = fileName.split('.').last; // png , jpg , jpeg
 
     var dir = await path_provider.getTemporaryDirectory();
-    var targetPath = dir.absolute.path + "/" + name + "_compre." + suffix;
+    var targetPath = "${dir.absolute.path}/${name}_compre.$suffix";
 
     var result = await FlutterImageCompress.compressAndGetFile(
       file.absolute.path,

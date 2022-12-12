@@ -1,7 +1,6 @@
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/cupertino.dart';
 
-
 class ImagePickerUtil {
   // select video
   Future<XFile?> selectVideo() async {
@@ -56,10 +55,10 @@ class ImagePickerUtil {
 //   }
 // }
 
-  Future<XFile?> selectImage() async {
+  Future<XFile?> selectImage({bool needCompress = true}) async {
     try {
-      XFile? selectedImages = await ImagePicker()
-          .pickImage(source: ImageSource.gallery, imageQuality: 50);
+      XFile? selectedImages = await ImagePicker().pickImage(
+          source: ImageSource.gallery, imageQuality: needCompress ? 50 : null);
       if (selectedImages != null) {
         //read every single image
         return selectedImages;

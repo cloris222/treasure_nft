@@ -9,16 +9,22 @@ import '../parameter/upload_img_video.dart';
 class CommonAPI extends HttpManager {
   CommonAPI({super.onConnectFail, super.baseUrl = HttpSetting.commonUrl});
 
-  Future<ApiResponse> uploadImage(String imagePath) async {
+  Future<ApiResponse> uploadImage(String imagePath,
+      {required bool uploadOriginalName, String? setFileName}) async {
     addDioHeader({'Content-Type': 'multipart/form-data'});
-    UploadImageAndVideo upload = UploadImageAndVideo(file: File(imagePath));
-    return post('/upload/file', data: await upload.formData(), isEncode: false);
+    UploadImageAndVideo upload = UploadImageAndVideo(
+        file: File(imagePath), uploadOriginalName: uploadOriginalName);
+    return post('/upload/file',
+        data: await upload.formData(setFileName: setFileName), isEncode: false);
   }
 
-  Future<ApiResponse> uploadImageByFile(File file) async {
+  Future<ApiResponse> uploadImageByFile(File file,
+      {required bool uploadOriginalName, required String setFileName}) async {
     addDioHeader({'Content-Type': 'multipart/form-data'});
-    UploadImageAndVideo upload = UploadImageAndVideo(file: file);
-    return post('/upload/file', data: await upload.formData(), isEncode: false);
+    UploadImageAndVideo upload =
+        UploadImageAndVideo(file: file, uploadOriginalName: uploadOriginalName);
+    return post('/upload/file',
+        data: await upload.formData(setFileName: setFileName), isEncode: false);
   }
 
   Future<List<CountryPhoneData>> getCountryList() async {
