@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
@@ -52,7 +53,9 @@ class _WalletMainViewState extends State<WalletMainView> {
               _buildWalletInfo(),
               _buildWalletAddress(),
               _buildWalletFunction(),
-              _appPurchase(),
+              Visibility(
+                visible: Platform.isIOS,
+                  child: _appPurchase()),
               _buildWalletAccount(),
               _buildWalletHistory(),
               _buildRecordListView(),

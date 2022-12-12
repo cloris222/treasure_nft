@@ -196,10 +196,10 @@ class AppImagePath {
   static const String emptyCoffee = '$appImgPath/img_coffee_01.png';
 
   /// iOS app purchase pc
-  static const String purchaseImg1 = '$appImgPath/img_silver_01.png';
-  static const String purchaseImg2 = '$appImgPath/img_golden_01.png';
-  static const String purchaseImg3 = '$appImgPath/img_platinum_01.png';
-  static const String purchaseImg4 = '$appImgPath/img_diamond_01.png';
+  static const String purchaseImg1 = '$appImgPath/img_silver_01.jpg';
+  static const String purchaseImg2 = '$appImgPath/img_golden_01.jpg';
+  static const String purchaseImg3 = '$appImgPath/img_platinum_01.jpg';
+  static const String purchaseImg4 = '$appImgPath/img_diamond_01.jpg';
 
   /// world cup
   static const String worldCupTitleImg =
