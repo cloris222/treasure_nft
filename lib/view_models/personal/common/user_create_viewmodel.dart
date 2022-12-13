@@ -144,10 +144,7 @@ class UserCreateViewModel extends BaseViewModel {
               onConnectFail: (message) => onBaseConnectFail(context, message))
           .uploadImage(uploadImage!.path,
               uploadOriginalName: true, setFileName: createOriginalName);
-      ///MARK: 暫時排除gif
-      if (suffix.compareTo("gif") != 0) {
-        _compressUpload(context, createComPressName);
-      }
+         _compressUpload(context, createComPressName);
 
       await MineAPI(
               onConnectFail: (message) => onBaseConnectFail(context, message))
