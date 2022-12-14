@@ -18,13 +18,17 @@ class AnimationDialog extends BaseDialog {
       children: [
         Stack(
           children: [
-            Lottie.asset(animationPathJson),
+            Container(
+                constraints:
+                    BoxConstraints(minHeight: UIDefine.getPixelHeight(280),minWidth: UIDefine.getWidth()*0.9),
+                child: Lottie.asset(animationPathJson)),
             Positioned(
                 bottom: 0,
                 left: 0,
                 right: 0,
                 child: Text(
-                  tr("reserve-success'"),textAlign: TextAlign.center,
+                  tr("reserve-success'"),
+                  textAlign: TextAlign.center,
                   style: TextStyle(fontSize: UIDefine.fontSize22),
                 ))
           ],
@@ -38,10 +42,12 @@ class AnimationDialog extends BaseDialog {
             ),
             Text(
               tr("reserve-success-text'"),
-              style: TextStyle(fontSize: UIDefine.fontSize14,color: Colors.black54),
+              style: TextStyle(
+                  fontSize: UIDefine.fontSize14, color: Colors.black54),
               textAlign: TextAlign.center,
             ),
-            ActionButtonWidget(isFillWidth: false,
+            ActionButtonWidget(
+                isFillWidth: false,
                 isBorderStyle: false,
                 btnText: tr("confirm"),
                 onPressed: () {
@@ -49,7 +55,6 @@ class AnimationDialog extends BaseDialog {
                 })
           ],
         )
-
       ],
     );
   }
