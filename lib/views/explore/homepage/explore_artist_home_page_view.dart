@@ -9,7 +9,7 @@ import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../custom_appbar_view.dart';
 import '../data/explore_artist_detail_response_data.dart';
 import '../data/explore_main_response_data.dart';
-import 'explore_home_page_widgets.dart';
+import 'home_page_widgets.dart';
 
 class ExploreArtistHomePageView extends StatefulWidget {
   const ExploreArtistHomePageView({super.key, required this.artistData});
@@ -31,6 +31,7 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
   bool bSort = true;
   String sortBy = 'price';
   int page = 1;
+  bool bDownloading = false;
 
   ExploreMainResponseData get artistData {
     return widget.artistData;
@@ -65,9 +66,11 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
               if (isTop) {
                 debugPrint('At the top');
               } else {
-                debugPrint('At the bottom');
-                page += 1;
-                _updateView();
+                if (!bDownloading) { // 防止短時間載入過多造成OOM
+                  bDownloading = true;
+                  page += 1;
+                  _updateView();
+                }
               }
             }
             return true;
@@ -181,6 +184,9 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: productList.length,
                     itemBuilder: (context, index) {
+                      if (index == productList.length - 1) { // 開啟'到底更新'的Flag
+                        bDownloading = false;
+                      }
                       if (index % 2 == 0 && index == productList.length - 1) {
                         return Padding(
                             padding: EdgeInsets.fromLTRB(
@@ -230,8 +236,9 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
     Future<ExploreArtistDetailResponseData> resList =
         viewModel.getArtistDetailResponse(
             artistData.artistId, searchValue, page, 10, sortBy);
-    resList.then((value) => productList.addAll(value.list.pageList));
-    setState(() {});
+    resList.then((value) => setState(() {
+      productList.addAll(value.list.pageList);
+    }));
   }
 
   _onPressSort() {

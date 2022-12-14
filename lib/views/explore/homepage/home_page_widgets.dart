@@ -37,6 +37,7 @@ class HomePageWidgets {
                 GraduallyNetworkImage(
                   width: double.infinity,
                   height: UIDefine.getScreenWidth(50),
+                  cacheWidth: 1440,
                   imageUrl: data.introPhoneUrl,
                   fit: BoxFit.cover,
                 ),
