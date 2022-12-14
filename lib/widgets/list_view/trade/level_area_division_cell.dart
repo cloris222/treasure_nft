@@ -21,13 +21,15 @@ class DivisionCell extends StatefulWidget {
       required this.reservationAction,
       required this.range,
       required this.level,
-      required this.tradeData})
+      required this.tradeData,
+      required this.imageIndex})
       : super(key: key);
 
   final int level;
   final ReserveRange range;
   final VoidCallback reservationAction;
   final TradeData tradeData;
+  final int imageIndex;
 
   @override
   State<DivisionCell> createState() => _DivisionCellState();
@@ -96,9 +98,9 @@ class _DivisionCellState extends State<DivisionCell> {
     if (GlobalData.userInfo.level == 0) {
       return AppImagePath.level0;
     }
-    int index = widget.range.index ?? 0;
+    // int index = widget.range.index ?? 0;
     return format(AppImagePath.divisionLevel,
-        ({'level': '0${widget.level}', 'index': '${index + 1}'}));
+        ({'level': '0${widget.level}', 'index': '${widget.imageIndex +1}'}));
   }
 
   Color getReservationBtnColor() {
