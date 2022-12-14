@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import '../../constant/ui_define.dart';
 
 ///MARK: 漸進式讀取圖片
 class GraduallyNetworkImage extends StatelessWidget {
@@ -61,6 +63,10 @@ class GraduallyNetworkImage extends StatelessWidget {
       height: height,
       fit: fit,
       imageUrl: lowUrl,
+      memCacheWidth: (UIDefine.getWidth() * 0.9).toInt(),
+      cacheManager: CacheManager(
+        Config("flutterCampus", stalePeriod: const Duration(minutes: 5)),
+      ),
       imageBuilder: _buildImageBuilder(),
       placeholder: (context, url) => _buildLoadingIcon(),
       errorWidget: (context, url, error) => _buildLoadNormal(fail: true),
@@ -73,6 +79,10 @@ class GraduallyNetworkImage extends StatelessWidget {
       height: height,
       fit: fit,
       imageUrl: imageUrl,
+      memCacheWidth: (UIDefine.getWidth() * 0.9).toInt(),
+      cacheManager: CacheManager(
+        Config("flutterCampus", stalePeriod: const Duration(minutes: 5)),
+      ),
       imageBuilder: _buildImageBuilder(),
       placeholder: (context, url) =>
           fail ? _buildLoadingIcon() : _buildLoadLowPath(),
