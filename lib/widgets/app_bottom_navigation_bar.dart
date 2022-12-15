@@ -59,6 +59,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> with Wi
   void dispose() {
     timer?.cancel();
     _bottomNavigationNotifier.removeListener(() {});
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
