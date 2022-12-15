@@ -265,7 +265,7 @@ class _TradeMainViewState extends State<TradeMainView> {
             },
             range: viewModel.ranges[index],
             level: 0,
-            tradeData: tradeData,
+            tradeData: tradeData, imageIndex: index,
           );
         });
   }

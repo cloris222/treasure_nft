@@ -243,7 +243,7 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
             },
             range: viewModel.ranges[index],
             level: widget.level,
-            tradeData: tradeData,
+            tradeData: tradeData, imageIndex: index,
           );
         });
   }

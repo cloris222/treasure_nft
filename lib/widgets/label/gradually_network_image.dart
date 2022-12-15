@@ -9,6 +9,7 @@ class GraduallyNetworkImage extends StatelessWidget {
   const GraduallyNetworkImage(
       {Key? key,
       required this.imageUrl,
+      this.cacheWidth,
       this.width,
       this.height,
       this.fit,
@@ -25,6 +26,7 @@ class GraduallyNetworkImage extends StatelessWidget {
   final BoxFit? fit;
   final Widget? errorWidget;
   final Widget? loadWidget;
+  final int? cacheWidth;
 
   /// Optional builder to further customize the display of the image.
   /// 供Container背景用
@@ -63,7 +65,7 @@ class GraduallyNetworkImage extends StatelessWidget {
       height: height,
       fit: fit,
       imageUrl: lowUrl,
-      memCacheWidth: (UIDefine.getWidth() * 0.9).toInt(),
+      memCacheWidth: cacheWidth ?? 480,
       cacheManager: CacheManager(
         Config("flutterCampus", stalePeriod: const Duration(minutes: 5)),
       ),
@@ -79,7 +81,7 @@ class GraduallyNetworkImage extends StatelessWidget {
       height: height,
       fit: fit,
       imageUrl: imageUrl,
-      memCacheWidth: (UIDefine.getWidth() * 0.9).toInt(),
+      memCacheWidth: cacheWidth ?? 480,
       cacheManager: CacheManager(
         Config("flutterCampus", stalePeriod: const Duration(minutes: 5)),
       ),

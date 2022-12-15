@@ -46,6 +46,7 @@ class _ExploreMainItemView extends State<ExploreMainItemView> {
                     child: GraduallyNetworkImage(
                       width: double.infinity,
                       height: UIDefine.getScreenWidth(40),
+                      cacheWidth: 1440,
                       fit: BoxFit.cover,
                       imageUrl: exploreMainResponseData.introPhoneUrl,
                     ),

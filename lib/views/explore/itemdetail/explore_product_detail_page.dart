@@ -162,6 +162,7 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
             data.imgUrl != ''?
             GraduallyNetworkImage(
               imageUrl: data.imgUrl,
+              cacheWidth: 1440,
               width: UIDefine.getScreenWidth(100),
               height: UIDefine.getScreenWidth(100),
             )
