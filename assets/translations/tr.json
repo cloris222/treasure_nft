@@ -1054,5 +1054,11 @@
   "httpErrorNoInternet":"İnternet yok",
   "httpErrorOther":"Beklenmedik hata oluştu",
   "accountLimitHint":"Kullanıcı adı geçersiz. Kullanıcı adı yalnızca İngilizce ve sayılar içerebilir ve 30 karakterden kısa olmalıdır.",
-  "createLimitHint":"Kullanıcı adı geçersiz. Kullanıcı adı yalnızca İngilizce 、 sayılar 、 alt puan ve pound işareti içerebilir ve 30 karakterden kısa olmalıdır."
+  "createLimitHint":"Kullanıcı adı geçersiz. Kullanıcı adı yalnızca İngilizce 、 sayılar 、 alt puan ve pound işareti içerebilir ve 30 karakterden kısa olmalıdır.",
+  "hintSelect":"Seçme",
+  "collectionDescribeTitle":"Betimlemek",
+  "collectionDescribeContent":"Bu açıklama koleksiyonda gösterilecek",
+  "collectionDescribeHint":"Koleksiyonunuzun ayrıntılı bir açıklamasını sağlayın...",
+  "deleteAccount":"Hesabı sil",
+  "deleteAccountHint":"Hesabınızı silmek istediğinizden emin misiniz? Bu geri alınamaz."
 }

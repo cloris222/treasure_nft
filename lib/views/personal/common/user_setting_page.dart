@@ -4,10 +4,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/personal/common/user_change_password_page.dart';
 import 'package:treasure_nft_project/views/personal/common/user_info_setting_page.dart';
 import 'package:treasure_nft_project/views/personal/personal_sub_user_info_view.dart';
+import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
+import 'package:treasure_nft_project/widgets/dialog/simple_custom_dialog.dart';
 
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/ui_define.dart';
@@ -84,6 +87,14 @@ class _UserSettingPageState extends State<UserSettingPage> {
               child: LoginBolderButtonWidget(
                   btnText: tr('logout'),
                   onPressed: () => _onPressLogout(context))),
+          space,
+          Container(
+              // 登出按鈕
+              padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5), 0,
+                  UIDefine.getScreenWidth(5.5), 0),
+              child: LoginBolderButtonWidget(
+                  btnText: tr('deleteAccount'),
+                  onPressed: () => _onPressDeleteAccount(context))),
           space,
         ]));
   }
@@ -163,5 +174,26 @@ class _UserSettingPageState extends State<UserSettingPage> {
       BaseViewModel().pushAndRemoveUntil(
           context, const MainPage(type: AppNavigationBarType.typeLogin));
     });
+  }
+
+  void _onPressDeleteAccount(BuildContext context) {
+    BaseViewModel viewModel = BaseViewModel();
+    CommonCustomDialog(context,
+        bOneButton: false,
+        type: DialogImageType.warning,
+        title: tr('deleteAccount'),
+        content: tr('deleteAccountHint'),
+        leftBtnText: tr('cancel'),
+        rightBtnText: tr('confirm'), onLeftPress: () {
+      viewModel.popPage(context);
+    }, onRightPress: () {
+      viewModel.popPage(context);
+      UserInfoAPI().deleteAccount().then((value) async {
+        await SimpleCustomDialog(context, isSuccess: true).show();
+        await viewModel.clearUserLoginInfo();
+        viewModel.pushPage(
+            context, const MainPage(type: AppNavigationBarType.typeMain));
+      });
+    }).show();
   }
 }

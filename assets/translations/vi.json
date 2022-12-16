@@ -1054,5 +1054,11 @@
   "httpErrorNoInternet":"Không có mạng",
   "httpErrorOther":"Đã xảy ra lỗi không mong muốn",
   "accountLimitHint":"Tên người dùng không hợp lệ. Tên người dùng chỉ có thể chứa tiếng Anh và số và phải ít hơn 30 ký tự.",
-  "createLimitHint":"Tên người dùng không hợp lệ. Tên người dùng chỉ có thể chứa tiếng Anh、số、dưới điểm và dấu thăng và phải ít hơn 30 ký tự."
+  "createLimitHint":"Tên người dùng không hợp lệ. Tên người dùng chỉ có thể chứa tiếng Anh、số、dưới điểm và dấu thăng và phải ít hơn 30 ký tự.",
+  "hintSelect":"Lựa chọn",
+  "collectionDescribeTitle":"Mô tả",
+  "collectionDescribeContent":"Mô tả này sẽ được hiển thị trong bộ sưu tập",
+  "collectionDescribeHint":"Cung cấp mô tả chi tiết về bộ sưu tập của bạn...",
+  "deleteAccount":"Xóa tài khoản",
+  "deleteAccountHint":"Bạn có chắc rằng bạn muốn xóa tài khoản của bạn? Điều này không thể được hoàn tác."
 }

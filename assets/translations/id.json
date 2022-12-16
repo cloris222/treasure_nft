@@ -1054,8 +1054,11 @@
   "httpErrorNoInternet":"Tidak ada internet",
   "httpErrorOther":"Terjadi kesalahan tak terduga",
   "accountLimitHint":"Nama pengguna tidak valid. Nama pengguna hanya boleh berisi bahasa Inggris dan angka dan harus kurang dari 30 karakter.",
-  "createLimitHint":"Nama pengguna tidak valid. Nama pengguna hanya boleh berisi bahasa Inggris, angka, di bawah tanda skor dan pound dan harus kurang dari 30 karakter."
-
-
-
+  "createLimitHint":"Nama pengguna tidak valid. Nama pengguna hanya boleh berisi bahasa Inggris, angka, di bawah tanda skor dan pound dan harus kurang dari 30 karakter.",
+  "hintSelect":"Pilih",
+  "collectionDescribeTitle":"Menggambarkan",
+  "collectionDescribeContent":"Deskripsi ini akan ditampilkan dalam koleksi",
+  "collectionDescribeHint":"Berikan penjelasan rinci tentang koleksi Anda...",
+  "deleteAccount":"Hapus akun",
+  "deleteAccountHint":"Apakah Anda yakin ingin menghapus akun Anda? Ini tidak dapat dibatalkan."
 }

@@ -79,4 +79,8 @@ class UserInfoAPI extends HttpManager {
       'birthday': birthday
     });
   }
+
+  Future<ApiResponse> deleteAccount() async {
+    return await post('/user/close');
+  }
 }
