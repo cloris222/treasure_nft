@@ -36,9 +36,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>would your allow use camera scan QR code?</string>
+	<string>would you allow Treasure_NFT use camera to scan QR code?</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>would you allow to save QR code to your gallery</string>
+	<string>would you allow Treasure_NFT upload image from your gallery and save QR Code image to your album?</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>would your allow Treasure_NFT to tracking your activity across other companies' apps and websites?</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

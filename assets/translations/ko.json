@@ -1054,7 +1054,11 @@
   "httpErrorNoInternet":"인터넷 없음",
   "httpErrorOther":"예기치 않은 오류가 발생했습니다",
   "accountLimitHint":"사용자 이름이 잘못되었습니다. 사용자 이름은 영문과 숫자만 포함할 수 있으며 30자 미만이어야 합니다.",
-  "createLimitHint":"사용자 이름이 잘못되었습니다. 사용자 이름은 영문, 숫자, 밑줄, 파운드 기호만 포함할 수 있으며 30자 미만이어야 합니다."
-
-
+  "createLimitHint":"사용자 이름이 잘못되었습니다. 사용자 이름은 영문, 숫자, 밑줄, 파운드 기호만 포함할 수 있으며 30자 미만이어야 합니다.",
+  "hintSelect":"고르다",
+  "collectionDescribeTitle":"설명하다",
+  "collectionDescribeContent":"이 설명은 컬렉션에 표시됩니다.",
+  "collectionDescribeHint":"컬렉션에 대한 자세한 설명을 제공하십시오...",
+  "deleteAccount":"계정 삭제",
+  "deleteAccountHint":"계정을 삭제하시겠습니까? 이 취소 할 수 없습니다."
 }

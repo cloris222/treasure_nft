@@ -1054,7 +1054,11 @@
   "httpErrorNoInternet":"No Internet",
   "httpErrorOther":"Unexpected error occurred",
   "accountLimitHint":"Username invalid. The username can only contain English and numbers and must be less than 30 characters.",
-  "createLimitHint":"Username invalid. The username can only contain English、numbers 、under score and pound sign and must be less than 30 characters."
-
-
+  "createLimitHint":"Username invalid. The username can only contain English、numbers 、under score and pound sign and must be less than 30 characters.",
+  "hintSelect":"Select",
+  "collectionDescribeTitle":"Describe",
+  "collectionDescribeContent":"This description will be displayed in the collection",
+  "collectionDescribeHint":"Provide a detailed description of your collection...",
+  "deleteAccount":"Delete account",
+  "deleteAccountHint":"Are you sure you want to delete your account? This cannot be undone."
 }

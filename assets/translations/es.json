@@ -1054,7 +1054,11 @@
   "httpErrorNoInternet":"Sin internet",
   "httpErrorOther":"Ocurrió un error inesperado",
   "accountLimitHint":"Nombre de usuario inválido. El nombre de usuario solo puede contener inglés y números y debe tener menos de 30 caracteres.",
-  "createLimitHint":"Nombre de usuario inválido. El nombre de usuario solo puede contener números en inglés, bajo puntuación y signo de libra y debe tener menos de 30 caracteres."
-
-
+  "createLimitHint":"Nombre de usuario inválido. El nombre de usuario solo puede contener números en inglés, bajo puntuación y signo de libra y debe tener menos de 30 caracteres.",
+  "hintSelect":"Seleccione",
+  "collectionDescribeTitle":"Describir",
+  "collectionDescribeContent":"Esta descripción se mostrará en la colección.",
+  "collectionDescribeHint":"Proporcione una descripción detallada de su colección...",
+  "deleteAccount":"Borrar cuenta",
+  "deleteAccountHint":"¿Está seguro de que desea eliminar su cuenta? Esto no se puede deshacer."
 }
