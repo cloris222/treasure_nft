@@ -34,6 +34,26 @@ class AppColors {
   static const Color mainBottomBg = Color(0xFFE0EAF7);
   static const Color reservationLevel0 = Color(0xFFF8B148);
 
+  ///MARK: 漸層
+  static const List<Color> gradientBaseColorBg = [
+    Color(0xFF5CBFFE),
+    Color(0xFFA0F5D0),
+    Color(0xFFFFD7C8)
+  ];
+
+  static const List<Color> gradientBaseFlipColorBg = [
+    Color(0xFFFFD7C8),
+    Color(0xFFA0F5D0),
+    Color(0xFF5CBFFE)
+  ];
+
+  ///MARK: 漸層
+  static const List<Color> gradientBackgroundColorBg = [
+    Color(0xFF99BCED),
+    Color(0xFF99F8CF),
+    Color(0xFFFFD6C7)
+  ];
+
   /// trade btn
   static const Color reservationLevel1 = Color(0xFF27BEB5);
   static const Color reservationLevel2 = Color(0xFF34ACD7);

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/views/home/widget/home_usdt_info.dart';
+import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
@@ -23,48 +24,33 @@ class HomeSubUsdtView extends StatelessWidget {
           image: DecorationImage(
               image: AssetImage(AppImagePath.firstBackground),
               fit: BoxFit.fill)),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        viewModel.buildSpace(height: 2),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          /// Trade
+          LoginButtonWidget(
+              radius: 43,
+              btnText: tr('exploreNow'),
+              fontSize: UIDefine.fontSize24,
+              onPressed: () {
+                viewModel.isLogin()
+                    ? viewModel.pushAndRemoveUntil(context,
+                        const MainPage(type: AppNavigationBarType.typeTrade))
+                    : viewModel.pushAndRemoveUntil(context,
+                        const MainPage(type: AppNavigationBarType.typeLogin));
+              }),
 
-        Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(tr('index-product-text-1\''),
-                  style: TextStyle(
-                      fontSize: UIDefine.fontSize14,
-                      color: AppColors.textGrey)),
-              Text(tr('index-product-text-2\''),
-                  style: TextStyle(
-                      fontSize: UIDefine.fontSize14, color: AppColors.textGrey))
-            ]),
+          viewModel.buildSpace(height: 5),
 
-        viewModel.buildSpace(height: 5),
+          /// USDT_Info
+          const HomeUsdtInfo(),
 
-        /// Trade
-        ActionButtonWidget(
-            radius: 8,
-            setHeight: 45,
-            btnText: tr('Trade'),
-            fontSize: UIDefine.fontSize12,
-            onPressed: () {
-              viewModel.isLogin()
-                  ? viewModel.pushAndRemoveUntil(context,
-                      const MainPage(type: AppNavigationBarType.typeTrade))
-                  : viewModel.pushAndRemoveUntil(context,
-                      const MainPage(type: AppNavigationBarType.typeLogin));
-            }),
+          viewModel.buildSpace(height: 10),
 
-        viewModel.buildSpace(height: 5),
-
-        /// USDT_Info
-        const HomeUsdtInfo(),
-
-        viewModel.buildSpace(height: 10),
-
-        /// 輪播圖
-        const CarouselListView()
-      ]),
+          /// 輪播圖
+          const CarouselListView()
+        ],
+      ),
     );
   }
 }

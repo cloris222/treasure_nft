@@ -70,12 +70,12 @@ class _HomeMainViewState extends State<HomeMainView> {
     return SingleChildScrollView(
       controller: scrollController,
       child: Column(children: [
-        const DomainBar(),
-        viewModel.buildSpace(height: 10),
-
+        // const DomainBar(),
         ///MARK: 標題
         Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(
+                horizontal: UIDefine.getPixelWidth(20),
+                vertical: UIDefine.getPixelHeight(10)),
             child: _buildTitleText()),
 
         ///MARK: USDT資訊
@@ -133,44 +133,17 @@ class _HomeMainViewState extends State<HomeMainView> {
   }
 
   Widget _buildTitleText() {
-    ///MARK: 調整文字與英文未對齊的問題
-    bool showZh =
-        (LanguageUtil.getSettingLanguageType() == LanguageType.Mandarin);
-    double styleHeight = 1.1;
-    TextStyle black = TextStyle(
-        fontSize: 22,
-        fontWeight: FontWeight.w500,
-        color: AppColors.textBlack,
-        height: showZh ? 1.1 : null);
-
-    return Container(
-        // height: UIDefine.getScreenHeight(8),
-        alignment: Alignment.centerLeft,
-        child: showZh
-            ? Wrap(alignment: WrapAlignment.start, children: [
-                Text('使用', style: black),
-                GradientText(
-                  'Treasure NFT',
-                  size: UIDefine.fontSize20,
-                  weight: FontWeight.w500,
-                  styleHeight: styleHeight,
-                ),
-                Text('交', style: black),
-                Text('易', style: black),
-                Text('賺', style: black),
-                Text('取', style: black),
-                Text('收', style: black),
-                Text('益', style: black),
-              ])
-            : Wrap(alignment: WrapAlignment.start, children: [
-                Text('Earn profit with',
-                    style: TextStyle(
-                        fontSize: UIDefine.fontSize20,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.textBlack)),
-                GradientText(' Treasure NFT',
-                    size: UIDefine.fontSize20, weight: FontWeight.w500)
-              ]));
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Text(tr('index-h1-1'),
+          style: TextStyle(
+              fontSize: UIDefine.fontSize32,
+              fontWeight: FontWeight.w500,
+              color: AppColors.textBlack)),
+      SizedBox(height: UIDefine.getPixelWidth(20)),
+      Text(tr('index-subtitle-1'),
+          style: TextStyle(
+              fontSize: UIDefine.fontSize14, color: AppColors.textGrey)),
+    ]);
   }
 
   Widget hotCollection() {
