@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/views/home/widget/home_usdt_info.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 
-import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/ui_define.dart';
 import '../../view_models/home/home_main_viewmodel.dart';
 import '../../widgets/app_bottom_navigation_bar.dart';
-import '../../widgets/button/action_button_widget.dart';
 import '../../widgets/list_view/home/carousel_listview.dart';
 import '../main_page.dart';
 
@@ -19,7 +17,9 @@ class HomeSubUsdtView extends StatelessWidget {
   Widget build(BuildContext context) {
     HomeMainViewModel viewModel = HomeMainViewModel();
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      padding: EdgeInsets.symmetric(
+          horizontal: UIDefine.getPixelWidth(20),
+          vertical: UIDefine.getPixelHeight(10)),
       decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage(AppImagePath.firstBackground),
@@ -29,15 +29,13 @@ class HomeSubUsdtView extends StatelessWidget {
         children: [
           /// Trade
           LoginButtonWidget(
+              width: UIDefine.getPixelWidth(210),
               radius: 43,
               btnText: tr('exploreNow'),
               fontSize: UIDefine.fontSize24,
               onPressed: () {
-                viewModel.isLogin()
-                    ? viewModel.pushAndRemoveUntil(context,
-                        const MainPage(type: AppNavigationBarType.typeTrade))
-                    : viewModel.pushAndRemoveUntil(context,
-                        const MainPage(type: AppNavigationBarType.typeLogin));
+                viewModel.pushAndRemoveUntil(context,
+                    const MainPage(type: AppNavigationBarType.typeExplore));
               }),
 
           viewModel.buildSpace(height: 5),

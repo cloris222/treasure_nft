@@ -1,7 +1,19 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:math';
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/models/http/parameter/home_artist_record.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
+import 'package:treasure_nft_project/views/login/circle_network_icon.dart';
+import 'package:treasure_nft_project/views/main_page.dart';
+import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
+import 'package:treasure_nft_project/widgets/button/login_bolder_button_widget.dart';
+import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart';
+import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
+import 'package:treasure_nft_project/widgets/label/warp_two_text_widget.dart';
 import '../../../constant/theme/app_colors.dart';
 import 'artist_record_item.dart';
 
@@ -18,6 +30,7 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
   HomeMainViewModel viewModel = HomeMainViewModel();
   List list = [];
   int animateIndex = -1;
+  ArtistRecord? randomArt;
 
   @override
   void didUpdateWidget(covariant ArtistRecordListView oldWidget) {
@@ -38,6 +51,7 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
     super.initState();
     viewModel.getArtistRecord().then((value) => {
           list = value,
+          randomArt = list[Random().nextInt(list.length)],
           setState(() {}),
         });
   }
@@ -56,7 +70,10 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
+    return Column(mainAxisSize: MainAxisSize.min, children: [
+      SizedBox(height: UIDefine.getPixelHeight(20)),
+      _buildTopGallery(),
+      _buildArtistTitle(),
       ListView.separated(
           padding: EdgeInsets.zero,
           physics: const NeverScrollableScrollPhysics(),
@@ -68,7 +85,8 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
           separatorBuilder: (BuildContext context, int index) {
             return createSeparatorBuilder(context, index);
           }),
-      createSeparatorBuilder(context, 1)
+      createSeparatorBuilder(context, 1),
+      SizedBox(height: UIDefine.getPixelHeight(20)),
     ]);
   }
 
@@ -85,5 +103,130 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
         _loopAnimate();
       }
     });
+  }
+
+  Widget _buildTopGallery() {
+    if (randomArt != null) {
+      return Container(
+          margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
+          child: Column(mainAxisSize: MainAxisSize.min, children: [
+            _buildGalleryItem(randomArt!, 0),
+            SizedBox(height: UIDefine.getPixelHeight(10)),
+            Row(
+              children: [
+                Expanded(child: _buildGalleryItem(randomArt!, 1)),
+                SizedBox(width: UIDefine.getPixelWidth(10)),
+                Expanded(child: _buildGalleryItem(randomArt!, 2)),
+                SizedBox(width: UIDefine.getPixelWidth(10)),
+                Expanded(child: _buildGalleryItem(randomArt!, 3)),
+              ],
+            )
+          ]));
+    }
+    return const SizedBox();
+  }
+
+  Widget _buildGalleryItem(ArtistRecord record, int index) {
+    return record.imgUrl.length > index
+        ? Column(mainAxisSize: MainAxisSize.min, children: [
+            ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(15)),
+                child: GraduallyNetworkImage(imageUrl: record.imgUrl[index])),
+            SizedBox(height: UIDefine.getPixelHeight(5)),
+            index == 0
+                ? Row(children: [
+                    CircleNetworkIcon(
+                        networkUrl: record.avatarUrl,
+                        radius: UIDefine.getPixelHeight(15)),
+                    SizedBox(width: UIDefine.getPixelWidth(3)),
+                    Expanded(
+                      child: WarpTwoTextWidget(
+                          text: record.name,
+                          fontWeight: FontWeight.w500,
+                          fontSize: UIDefine.fontSize16,
+                          maxLines: 1),
+                    ),
+                    Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(tr('highestBid')),
+                          SizedBox(height: UIDefine.getPixelHeight(5)),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                TetherCoinWidget(size: UIDefine.fontSize16),
+                                SizedBox(width: UIDefine.getPixelWidth(3)),
+                                Text(
+                                  '${BaseViewModel().numberCompatFormat(record.baseYdayAmt)} USDT',
+                                  style: TextStyle(
+                                      fontSize: UIDefine.fontSize14,
+                                      fontWeight: FontWeight.w500),
+                                )
+                              ])
+                        ])
+                  ])
+                : Row(
+                    children: [
+                      Expanded(
+                          child:
+                              CircleNetworkIcon(networkUrl: record.avatarUrl)),
+                      SizedBox(width: UIDefine.getPixelWidth(5)),
+                      Container(
+                        decoration: AppStyle().styleColorBorderBackground(
+                            radius: 8, color: AppColors.tetherGreen),
+                        padding: EdgeInsets.all(UIDefine.getPixelWidth(5)),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TetherCoinWidget(size: UIDefine.fontSize10),
+                              SizedBox(width: UIDefine.getPixelWidth(3)),
+                              Text(
+                                '${BaseViewModel().numberCompatFormat(record.baseYdayAmt)} USDT',
+                                style: TextStyle(
+                                    color: AppColors.tetherGreen,
+                                    fontSize: UIDefine.getPixelHeight(9),
+                                    fontWeight: FontWeight.w500),
+                              )
+                            ]),
+                      )
+                    ],
+                  ),
+            SizedBox(height: UIDefine.getPixelHeight(5)),
+          ])
+        : const SizedBox();
+  }
+
+  Widget _buildArtistTitle() {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(tr('top-creator'),
+              style: TextStyle(
+                  fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(tr('Last_24_hours'),
+                  style: TextStyle(
+                      fontSize: UIDefine.fontSize12,
+                      color: AppColors.homeGrey)),
+              LoginBolderButtonWidget(
+                  radius: 40,
+                  textSize: UIDefine.fontSize14,
+                  fontWeight: FontWeight.w500,
+                  height: UIDefine.getPixelHeight(30),
+                  width: UIDefine.getPixelWidth(100),
+                  btnText: tr('more'),
+                  onPressed: () => viewModel.pushPage(context,
+                      const MainPage(type: AppNavigationBarType.typeExplore)))
+            ],
+          )
+        ],
+      ),
+    );
   }
 }

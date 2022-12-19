@@ -4,7 +4,8 @@
 
 import 'dart:convert';
 
-ArtistRecord artistRecordFromJson(String str) => ArtistRecord.fromJson(json.decode(str));
+ArtistRecord artistRecordFromJson(String str) =>
+    ArtistRecord.fromJson(json.decode(str));
 
 String artistRecordToJson(ArtistRecord data) => json.encode(data.toJson());
 
@@ -27,6 +28,7 @@ class ArtistRecord {
     this.tradeRate = '',
     this.ownerCount = 0,
     this.itemCount = 0,
+    this.imgUrl = const [],
   });
 
   String id;
@@ -46,44 +48,49 @@ class ArtistRecord {
   String tradeRate; //交易率%
   int ownerCount; //持有帳號數量
   int itemCount; //發行數量
+  List<String> imgUrl; //隨機傳4張圖片
 
   factory ArtistRecord.fromJson(Map<String, dynamic> json) => ArtistRecord(
-    id: json["id"],
-    name: json["name"],
-    twitter: json["twitter"],
-    avatarUrl: json["avatarUrl"],
-    intro: json["intro"],
-    baseAmtTotal: json["baseAmtTotal"],
-    baseYdayAmt: json["baseYdayAmt"],
-    baseItemPrice: json["baseItemPrice"],
-    baseOwnerCount: json["baseOwnerCount"],
-    introPhoneUrl: json["introPhoneUrl"],
-    introPcUrl: json["introPcUrl"],
-    sort: json["sort"],
-    amtTotal: json["amtTotal"],
-    ydayAmt: json["ydayAmt"],
-    tradeRate: json["tradeRate"],
-    ownerCount: json["ownerCount"],
-    itemCount: json["itemCount"],
-  );
+        id: json["id"],
+        name: json["name"],
+        twitter: json["twitter"],
+        avatarUrl: json["avatarUrl"],
+        intro: json["intro"],
+        baseAmtTotal: json["baseAmtTotal"],
+        baseYdayAmt: json["baseYdayAmt"],
+        baseItemPrice: json["baseItemPrice"],
+        baseOwnerCount: json["baseOwnerCount"],
+        introPhoneUrl: json["introPhoneUrl"],
+        introPcUrl: json["introPcUrl"],
+        sort: json["sort"],
+        amtTotal: json["amtTotal"],
+        ydayAmt: json["ydayAmt"],
+        tradeRate: json["tradeRate"],
+        ownerCount: json["ownerCount"],
+        itemCount: json["itemCount"],
+        imgUrl: json.containsKey("imgUrl")
+            ? List<String>.from(json["imgUrl"].map((x) => x))
+            : [],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "twitter": twitter,
-    "avatarUrl": avatarUrl,
-    "intro": intro,
-    "baseAmtTotal": baseAmtTotal,
-    "baseYdayAmt": baseYdayAmt,
-    "baseItemPrice": baseItemPrice,
-    "baseOwnerCount": baseOwnerCount,
-    "introPhoneUrl": introPhoneUrl,
-    "introPcUrl": introPcUrl,
-    "sort": sort,
-    "amtTotal": amtTotal,
-    "ydayAmt": ydayAmt,
-    "tradeRate": tradeRate,
-    "ownerCount": ownerCount,
-    "itemCount": itemCount,
-  };
+        "id": id,
+        "name": name,
+        "twitter": twitter,
+        "avatarUrl": avatarUrl,
+        "intro": intro,
+        "baseAmtTotal": baseAmtTotal,
+        "baseYdayAmt": baseYdayAmt,
+        "baseItemPrice": baseItemPrice,
+        "baseOwnerCount": baseOwnerCount,
+        "introPhoneUrl": introPhoneUrl,
+        "introPcUrl": introPcUrl,
+        "sort": sort,
+        "amtTotal": amtTotal,
+        "ydayAmt": ydayAmt,
+        "tradeRate": tradeRate,
+        "ownerCount": ownerCount,
+        "itemCount": itemCount,
+        "imgUrl": List<dynamic>.from(imgUrl.map((x) => x)),
+      };
 }

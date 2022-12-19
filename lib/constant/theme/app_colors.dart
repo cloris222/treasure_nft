@@ -26,6 +26,8 @@ class AppColors {
   static const Color pageUnChoose = Color(0xFFD9D9D9);
   static const Color jarCoinBg = Color(0xFF003268);
   static const Color homeArtBg = Color(0xFFEFF4FA);
+  static const Color homeGrey = Color(0xFF999999);
+  static const Color tetherGreen = Color(0xFF00AC4F);
   static const Color emptyCoffee = Color(0xFF5FC8AE);
 
   ///MARK:主題色彩
@@ -49,9 +51,9 @@ class AppColors {
 
   ///MARK: 漸層
   static const List<Color> gradientBackgroundColorBg = [
-    Color(0xFF99BCED),
-    Color(0xFF99F8CF),
-    Color(0xFFFFD6C7)
+    Color(0x4C99BCED),
+    Color(0x4C99F8CF),
+    Color(0x4CFFD6C7)
   ];
 
   /// trade btn

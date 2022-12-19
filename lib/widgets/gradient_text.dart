@@ -16,6 +16,7 @@ class GradientText extends StatelessWidget {
     this.overflow,
     this.strutStyle,
     this.styleHeight,
+    this.colors,
   });
 
   final String text;
@@ -29,16 +30,21 @@ class GradientText extends StatelessWidget {
   final TextOverflow? overflow;
   final StrutStyle? strutStyle;
   final double? styleHeight;
+  final List<Color>? colors;
 
   @override
   Widget build(BuildContext context) {
     return ShaderMask(
       blendMode: BlendMode.srcIn,
-      shaderCallback: (bounds) =>
-          LinearGradient(begin: begin, end: end, colors: [
-        starColor,
-        endColor,
-      ]).createShader(
+      shaderCallback: (bounds) => LinearGradient(
+              begin: begin,
+              end: end,
+              colors: colors ??
+                  [
+                    starColor,
+                    endColor,
+                  ])
+          .createShader(
         Rect.fromLTWH(0, 0, bounds.width, bounds.height),
       ),
       child: Text(text,
