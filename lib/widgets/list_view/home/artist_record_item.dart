@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/models/http/parameter/collect_top_info.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_artist_record.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
@@ -11,10 +12,14 @@ import '../../../views/explore/homepage/explore_artist_home_page_view.dart';
 
 class ArtistRecordItemView extends StatefulWidget {
   const ArtistRecordItemView(
-      {super.key, required this.itemData, required this.showAnimate});
+      {super.key,
+      required this.itemData,
+      required this.showAnimate,
+      required this.index});
 
-  final ArtistRecord itemData;
+  final CollectTopInfo itemData;
   final bool showAnimate;
+  final int index;
 
   @override
   State<StatefulWidget> createState() => _ArtistRecordItem();
@@ -77,7 +82,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text('${widget.itemData.sort}',
+                      Text('${widget.index + 1}',
                           style: TextStyle(
                               fontSize: UIDefine.fontSize14,
                               fontWeight: FontWeight.w500,
@@ -103,7 +108,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                             /// NAME
-                            Text(widget.itemData.name,
+                            Text(widget.itemData.artistName,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                     fontSize: UIDefine.fontSize14,
@@ -112,7 +117,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
 
                             viewModel.buildSpace(height: 1),
 
-                            _buildVolView(widget.itemData.ydayAmt),
+                            _buildVolView('${widget.itemData.volume}'),
                           ])),
                       viewModel.buildSpace(width: 5),
                     ])),
@@ -138,8 +143,8 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
 
   void _onShowArt() {
     ExploreMainResponseData data = ExploreMainResponseData(
-        artistName: widget.itemData.name,
-        artistId: widget.itemData.id,
+        artistName: widget.itemData.artistName,
+        artistId: 'AA',
         avatarUrl: widget.itemData.avatarUrl,
         introPhoneUrl: widget.itemData.introPhoneUrl,
         introPcUrl: widget.itemData.introPcUrl);

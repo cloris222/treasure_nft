@@ -28,9 +28,12 @@ class ArtistRecordListView extends StatefulWidget {
 
 class _ArtistRecordListView extends State<ArtistRecordListView> {
   HomeMainViewModel viewModel = HomeMainViewModel();
-  List list = [];
+  List artList = [];
   int animateIndex = -1;
   ArtistRecord? randomArt;
+
+  ///MARK: 收藏集排行
+  List collectList = [];
 
   @override
   void didUpdateWidget(covariant ArtistRecordListView oldWidget) {
@@ -50,15 +53,18 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
   void initState() {
     super.initState();
     viewModel.getArtistRecord().then((value) => {
-          list = value,
-          randomArt = list[Random().nextInt(list.length)],
+          artList = value,
+          randomArt = artList[Random().nextInt(artList.length)],
           setState(() {}),
         });
+    viewModel.getCollectTop().then((value) => setState(() {
+          collectList = value;
+        }));
   }
 
   Widget createItemBuilder(BuildContext context, int index) {
     return ArtistRecordItemView(
-        itemData: list[index], showAnimate: animateIndex >= index);
+        itemData: artList[index], showAnimate: animateIndex >= index,index: index);
   }
 
   Widget createSeparatorBuilder(BuildContext context, int index) {
@@ -81,7 +87,7 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
           itemBuilder: (context, index) {
             return createItemBuilder(context, index);
           },
-          itemCount: list.length,
+          itemCount: collectList.length,
           separatorBuilder: (BuildContext context, int index) {
             return createSeparatorBuilder(context, index);
           }),
@@ -99,7 +105,7 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
       setState(() {
         animateIndex += 1;
       });
-      if (animateIndex < list.length) {
+      if (animateIndex < artList.length) {
         _loopAnimate();
       }
     });
@@ -135,9 +141,13 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
             SizedBox(height: UIDefine.getPixelHeight(5)),
             index == 0
                 ? Row(children: [
-                    CircleNetworkIcon(
-                        networkUrl: record.avatarUrl,
-                        radius: UIDefine.getPixelHeight(15)),
+                    SizedBox(
+                      width: UIDefine.getPixelWidth(30),
+                      height: UIDefine.getPixelWidth(30),
+                      child: CircleNetworkIcon(
+                          networkUrl: record.avatarUrl,
+                          radius: UIDefine.getPixelHeight(15)),
+                    ),
                     SizedBox(width: UIDefine.getPixelWidth(3)),
                     Expanded(
                       child: WarpTwoTextWidget(
@@ -168,9 +178,12 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
                   ])
                 : Row(
                     children: [
-                      Expanded(
-                          child:
-                              CircleNetworkIcon(networkUrl: record.avatarUrl)),
+                      Flexible(
+                          child: SizedBox(
+                              width: UIDefine.getPixelWidth(30),
+                              height: UIDefine.getPixelWidth(30),
+                              child: CircleNetworkIcon(
+                                  networkUrl: record.avatarUrl))),
                       SizedBox(width: UIDefine.getPixelWidth(5)),
                       Container(
                         decoration: AppStyle().styleColorBorderBackground(
@@ -199,7 +212,9 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
 
   Widget _buildArtistTitle() {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
+      margin: EdgeInsets.symmetric(
+          horizontal: UIDefine.getPixelWidth(20),
+          vertical: UIDefine.getPixelHeight(20)),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,

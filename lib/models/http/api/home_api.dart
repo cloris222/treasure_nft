@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treasure_nft_project/models/http/http_manager.dart';
 import 'package:treasure_nft_project/models/http/http_setting.dart';
 import 'package:treasure_nft_project/models/http/parameter/api_response.dart';
+import 'package:treasure_nft_project/models/http/parameter/collect_top_info.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_artist_record.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_carousel.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_footer_data.dart';
@@ -65,6 +66,20 @@ class HomeAPI extends HttpManager {
     for (Map<String, dynamic> json in response.data) {
       HomeFooterData data = HomeFooterData.fromJson(json);
       list[data.name] = data.status == "ENABLE" ? data.link : '';
+    }
+    return list;
+  }
+
+  ///MARK: 取得收藏集排行榜
+  Future<List<CollectTopInfo>> getCollectTop() async {
+    var response = await get('/index/artists/top');
+    List<CollectTopInfo> list = [];
+    try {
+      for (Map<String, dynamic> json in response.data['pageList']) {
+        list.add(CollectTopInfo.fromJson(json));
+      }
+    } catch (e) {
+      // print(e.toString());
     }
     return list;
   }
