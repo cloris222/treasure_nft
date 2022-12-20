@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
@@ -12,12 +14,12 @@ import '../../../views/collection/transfer/collection_transfer_dialog_view.dart'
 
 /// 收藏 上架中/未上架 ItemView
 class CollectionSellUnSellItemView extends StatefulWidget {
-  const CollectionSellUnSellItemView({super.key,
-  required this.collectionNftItemResponseData,
-  required this.index,
-  required this.type,
-  required this.callBack
-  });
+  const CollectionSellUnSellItemView(
+      {super.key,
+      required this.collectionNftItemResponseData,
+      required this.index,
+      required this.type,
+      required this.callBack});
 
   final CollectionNftItemResponseData collectionNftItemResponseData;
   final int index;
@@ -26,11 +28,9 @@ class CollectionSellUnSellItemView extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() => _SellUnSellItemInfoCard();
-
 }
 
 class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
-
   CollectionNftItemResponseData get data {
     return widget.collectionNftItemResponseData;
   }
@@ -46,8 +46,11 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
     return Stack(
       children: [
         Container(
-          margin: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5), 0, UIDefine.getScreenWidth(5), 0),
-          decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: AppColors.searchBar, width: 1))),
+          margin: EdgeInsets.fromLTRB(
+              UIDefine.getScreenWidth(5), 0, UIDefine.getScreenWidth(5), 0),
+          decoration: const BoxDecoration(
+              border: Border(
+                  bottom: BorderSide(color: AppColors.searchBar, width: 1))),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -64,7 +67,10 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                       const SizedBox(width: 6),
                       Text(
                         _getStatusTitle(),
-                        style: TextStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
+                        style: TextStyle(
+                            color: AppColors.dialogGrey,
+                            fontSize: UIDefine.fontSize16,
+                            fontWeight: FontWeight.w500),
                       )
                     ],
                   ),
@@ -92,52 +98,67 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                   SizedBox(width: UIDefine.getScreenWidth(2.7)),
                   IntrinsicWidth(
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      SizedBox(
+                          width: UIDefine.getScreenWidth(60),
+                          child: Text(
+                            // 商品名
+                            data.name,
+                            style: TextStyle(
+                                color: AppColors.dialogBlack,
+                                fontSize: UIDefine.fontSize18,
+                                fontWeight: FontWeight.w500),
+                          )),
+                      SizedBox(height: UIDefine.getScreenWidth(8)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          SizedBox(
-                            width: UIDefine.getScreenWidth(60),
-                              child: Text( // 商品名
-                                data.name,
-                                style: TextStyle(color: AppColors.dialogBlack, fontSize: UIDefine.fontSize18, fontWeight: FontWeight.w500),
-                              )
-                          ),
-
-                          SizedBox(height: UIDefine.getScreenWidth(8)),
-
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                children: [
-                                  Image.asset('assets/icon/coins/icon_tether_01.png', width: UIDefine.getScreenWidth(3.7), height: UIDefine.getScreenWidth(3.7)),
-                                  const SizedBox(width: 4),
-                                  Text( // 商品價格
-                                    BaseViewModel().numberFormat(data.price),
-                                    style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
-                                  ),
-                                ],
+                              Image.asset(
+                                  'assets/icon/coins/icon_tether_01.png',
+                                  width: UIDefine.getScreenWidth(3.7),
+                                  height: UIDefine.getScreenWidth(3.7)),
+                              const SizedBox(width: 4),
+                              Text(
+                                // 商品價格
+                                BaseViewModel().numberFormat(data.price),
+                                style: TextStyle(
+                                    color: AppColors.textBlack,
+                                    fontSize: UIDefine.fontSize14,
+                                    fontWeight: FontWeight.w500),
                               ),
-
-                              Row(
-                                children: [
-                                  Image.asset('assets/icon/icon/icon_trend_up_01.png'),
-                                  const SizedBox(width: 4),
-                                  Text( // 商品漲幅價格
-                                    BaseViewModel().numberFormat(data.growAmount),
-                                    style: TextStyle(color: AppColors.growPrice, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w400),
-                                  ),
-                                  const SizedBox(width: 4),
-                                  Text( // 計價單位
-                                    'USD',
-                                    style: TextStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w700),
-                                  ),
-                                ],
-                              )
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Image.asset(
+                                  'assets/icon/icon/icon_trend_up_01.png'),
+                              const SizedBox(width: 4),
+                              Text(
+                                // 商品漲幅價格
+                                BaseViewModel().numberFormat(data.growAmount),
+                                style: TextStyle(
+                                    color: AppColors.growPrice,
+                                    fontSize: UIDefine.fontSize12,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                              const SizedBox(width: 4),
+                              Text(
+                                // 計價單位
+                                'USD',
+                                style: TextStyle(
+                                    color: AppColors.dialogGrey,
+                                    fontSize: UIDefine.fontSize12,
+                                    fontWeight: FontWeight.w700),
+                              ),
                             ],
                           )
                         ],
                       )
-                  )
+                    ],
+                  ))
                 ],
               ),
 
@@ -147,7 +168,6 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
               _getBottomBtn(),
 
               SizedBox(height: UIDefine.getScreenWidth(2.2))
-
             ],
           ),
         ),
@@ -166,22 +186,20 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            tr('nextTradeDate') + ':  ' + data.nextTradeDate,
-            style: TextStyle(fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500)
-          ),
+          Text(tr('nextTradeDate') + ':  ' + data.nextTradeDate,
+              style: TextStyle(
+                  fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500)),
           SizedBox(height: UIDefine.getScreenWidth(2.4)),
-          Text(
-              tr('tradingCycle') + ':  ' + 'T+ ' + data.tradePeriod.toString(),
-              style: TextStyle(fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500)
-          ),
+          Text(tr('tradingCycle') + ':  ' + 'T+ ' + data.tradePeriod.toString(),
+              style: TextStyle(
+                  fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500)),
           SizedBox(height: UIDefine.getScreenWidth(4))
         ],
       );
     }
     return SizedBox();
   }
-  
+
   Widget _getTimerView() {
     if (itemType == 'Pending') {
       if (data.status == 'PAYING') {
@@ -191,7 +209,10 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
             const SizedBox(width: 6),
             Text(
               timeLeft,
-              style: TextStyle(color: AppColors.mainThemeButton, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w700),
+              style: TextStyle(
+                  color: AppColors.mainThemeButton,
+                  fontSize: UIDefine.fontSize12,
+                  fontWeight: FontWeight.w700),
             )
           ],
         );
@@ -202,7 +223,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
 
   Widget _getIcon() {
     String imgPath = '';
-    switch(data.status) {
+    switch (data.status) {
       case 'SELLING':
       case 'DISABLE':
       case 'PAYING':
@@ -219,7 +240,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
 
   String _getStatusTitle() {
     String title = '';
-    switch(data.status) {
+    switch (data.status) {
       case 'SELLING':
         title = tr("status_SELLING");
         break;
@@ -241,62 +262,69 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
 
   Widget _getBottomBtn() {
     if (itemType == 'Pending') {
-      if (data.status == '???????') { // test 要判斷是否為拆分的商品, 後端還沒完成該欄位
+      if (data.status == '???????') {
+        // test 要判斷是否為拆分的商品, 後端還沒完成該欄位
         return Container(
           width: UIDefine.getScreenWidth(88),
           decoration: BoxDecoration(
               color: AppColors.mainThemeButton,
-              borderRadius: BorderRadius.circular(6)
-          ),
+              borderRadius: BorderRadius.circular(6)),
           child: TextButton(
-              onPressed: () {  },
+              onPressed: () {},
               child: Text(
                 tr('sell'), // 完成付款
                 style: TextStyle(
-                    color: AppColors.textWhite, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
-              )
-          ),
+                    color: AppColors.textWhite,
+                    fontSize: UIDefine.fontSize16,
+                    fontWeight: FontWeight.w500),
+              )),
         );
-
       } else if (data.status == 'PENDING') {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              width: UIDefine.getScreenWidth(44),
-              height: UIDefine.getScreenWidth(11),
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColors.mainThemeButton, width: 2),
-                borderRadius: BorderRadius.circular(10)
-              ),
-              child: TextButton(
-                  onPressed: () {
-                    _pressTransfer();
-                  },
-                  child: Text(
-                    tr('transfer'), // 轉讓
-                    style: TextStyle(
-                        color: AppColors.mainThemeButton, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
-                  )
-              ),
+            Platform.isIOS
+                ? const SizedBox()
+                : Expanded(
+                    child: Container(
+                      height: UIDefine.getScreenWidth(11),
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: AppColors.mainThemeButton, width: 2),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: TextButton(
+                          onPressed: () {
+                            _pressTransfer();
+                          },
+                          child: Text(
+                            tr('transfer'), // 轉讓
+                            style: TextStyle(
+                                color: AppColors.mainThemeButton,
+                                fontSize: UIDefine.fontSize16,
+                                fontWeight: FontWeight.w500),
+                          )),
+                    ),
+                  ),
+            SizedBox(
+              width: Platform.isIOS ? null : UIDefine.getPixelWidth(10),
             ),
-
-            Container(
-              width: UIDefine.getScreenWidth(44),
-              height: UIDefine.getScreenWidth(11),
-              decoration: BoxDecoration(
-                  color: AppColors.mainThemeButton,
-                  borderRadius: BorderRadius.circular(10)
-              ),
-              child: TextButton(
-                  onPressed: () {
-                    _pressSell();
-                  },
-                  child: Text(
-                    tr('sell'), // 販售
-                    style: TextStyle(
-                        color: AppColors.textWhite, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
-                  )
+            Expanded(
+              child: Container(
+                height: UIDefine.getScreenWidth(11),
+                decoration: BoxDecoration(
+                    color: AppColors.mainThemeButton,
+                    borderRadius: BorderRadius.circular(10)),
+                child: TextButton(
+                    onPressed: () {
+                      _pressSell();
+                    },
+                    child: Text(
+                      tr('sell'), // 販售
+                      style: TextStyle(
+                          color: AppColors.textWhite,
+                          fontSize: UIDefine.fontSize16,
+                          fontWeight: FontWeight.w500),
+                    )),
               ),
             )
           ],
@@ -309,7 +337,6 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
   Widget _getGrayCover() {
     if (itemType == 'Selling') {
       return Container(color: AppColors.transParentHalf);
-
     } else {
       if (data.status == 'AUDITING') {
         return Container(color: AppColors.transParentHalf);
@@ -320,26 +347,16 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
   }
 
   void _pressTransfer() {
-    CollectionTransferDialogView(
-        context,
-        data.imgUrl,
-        data.name,
-        data.itemId).show();
+    CollectionTransferDialogView(context, data.imgUrl, data.name, data.itemId)
+        .show();
   }
 
   void _pressSell() {
-    CollectionSellDialogView(
-        context,
-        data.imgUrl,
-        data.name,
-        data.itemId,
-        data.growPrice,
-        () => _onViewChange()
-    ).show();
+    CollectionSellDialogView(context, data.imgUrl, data.name, data.itemId,
+        data.growPrice, () => _onViewChange()).show();
   }
 
   void _onViewChange() {
     widget.callBack(widget.index);
   }
-
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
@@ -59,11 +61,13 @@ class PersonalSubCommonView extends StatelessWidget {
                   title: tr('paymentSetting'),
                   assetImagePath: AppImagePath.userSettingIcon,
                   onPress: () => _showUserSettingPage(context))),
-          Flexible(
-              child: PersonalParamItem(
-                  title: tr('create'),
-                  assetImagePath: AppImagePath.userCreateIcon,
-                  onPress: () => _showUserCreatePage(context)))
+          Platform.isIOS
+              ? const SizedBox()
+              : Flexible(
+                  child: PersonalParamItem(
+                      title: tr('create'),
+                      assetImagePath: AppImagePath.userCreateIcon,
+                      onPress: () => _showUserCreatePage(context)))
         ]));
   }
 
