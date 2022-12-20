@@ -5,6 +5,7 @@ import 'package:treasure_nft_project/models/http/api/home_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/collect_top_info.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_artist_record.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_carousel.dart';
+import 'package:treasure_nft_project/models/http/parameter/random_collect_info.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -50,5 +51,9 @@ class HomeMainViewModel extends BaseViewModel {
 
   Future<List<CollectTopInfo>> getCollectTop() async {
     return HomeAPI().getCollectTop();
+  }
+
+  Future<List<RandomCollectInfo>> getRandomCollect() async {
+    return HomeAPI().getRandomCollectList();
   }
 }

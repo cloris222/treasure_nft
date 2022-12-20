@@ -8,6 +8,7 @@ import 'package:treasure_nft_project/models/http/parameter/collect_top_info.dart
 import 'package:treasure_nft_project/models/http/parameter/home_artist_record.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_carousel.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_footer_data.dart';
+import 'package:treasure_nft_project/models/http/parameter/random_collect_info.dart';
 
 import '../parameter/trading_volume_data.dart';
 
@@ -81,6 +82,18 @@ class HomeAPI extends HttpManager {
     } catch (e) {
       // print(e.toString());
     }
+    return list;
+  }
+
+  ///MARK: 取得隨機收藏冊
+  Future<List<RandomCollectInfo>> getRandomCollectList() async {
+    var response = await get('/index/collection/fetured/nfts');
+    List<RandomCollectInfo> list = [];
+    try {
+      for (Map<String, dynamic> json in response.data) {
+        list.add(RandomCollectInfo.fromJson(json));
+      }
+    } catch (e) {}
     return list;
   }
 }
