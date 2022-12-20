@@ -27,7 +27,7 @@ class _ExploreMainView extends State<ExploreMainView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(children: [
-        const DomainBar(),
+        // const DomainBar(),
         Container(
             padding: EdgeInsets.only(top: UIDefine.getScreenWidth(0.97), bottom: UIDefine.getScreenWidth(0.97)),
             margin: EdgeInsets.only(left: UIDefine.getScreenWidth(5), right: UIDefine.getScreenWidth(5), bottom: UIDefine.getScreenWidth(4.16)),
