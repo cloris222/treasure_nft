@@ -54,30 +54,45 @@ class _HomeSubRandomViewState extends State<HomeSubRandomView> {
   }
 
   Widget _buildSubView(BuildContext context, RandomCollectInfo info) {
-    return SizedBox(
-      height: UIDefine.getPixelHeight(300),
-      child: Row(
-        children: [
-          Expanded(child: _buildImage(info, 0)),
-          SizedBox(
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _buildSubTopView(context, info),
+        Text(info.collectionName,style: ,)
+      ],
+    );
+  }
+
+  Widget _buildSubTopView(BuildContext context, RandomCollectInfo info) {
+    return Container(
+      height: UIDefine.getPixelHeight(270),
+      margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(10)),
+      child: Row(children: [
+        Expanded(child: _buildImage(info, 0)),
+        SizedBox(
             width: UIDefine.getPixelWidth(100),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                SizedBox(height: UIDefine.getPixelWidth(3)),
                 Expanded(child: _buildImage(info, 1)),
+                SizedBox(height: UIDefine.getPixelWidth(5)),
                 Expanded(child: _buildImage(info, 2)),
-                Expanded(child: _buildImage(info, 3))
+                SizedBox(height: UIDefine.getPixelWidth(5)),
+                Expanded(child: _buildImage(info, 3)),
+                SizedBox(height: UIDefine.getPixelWidth(3)),
               ],
-            ),
-          )
-        ],
-      ),
+            ))
+      ]),
     );
   }
 
   Widget _buildImage(RandomCollectInfo info, int index) {
     return info.nftItemInfo.length > index
-        ? GraduallyNetworkImage(imageUrl: info.nftItemInfo[index].imgUrl)
+        ? ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(15)),
+            child:
+                GraduallyNetworkImage(imageUrl: info.nftItemInfo[index].imgUrl))
         : const SizedBox();
   }
 }
