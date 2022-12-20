@@ -29,6 +29,8 @@ class AppColors {
   static const Color homeGrey = Color(0xFF999999);
   static const Color tetherGreen = Color(0xFF00AC4F);
   static const Color emptyCoffee = Color(0xFF5FC8AE);
+  static const Color rateGreen = Color(0xFF1DCAB3);
+  static const Color rateRed = Color(0xFFFF002F);
 
   ///MARK:主題色彩
   static const Color mainThemeButton = Color(0xFF3B82F6);

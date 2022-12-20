@@ -35,7 +35,7 @@ class _HomeMainViewState extends State<HomeMainView> {
   @override
   void initState() {
     scrollController.addListener(() {
-      bool show = scrollController.offset > UIDefine.getPixelHeight(1200);
+      bool show = scrollController.offset > UIDefine.getPixelHeight(1275);
       if (show != showArtAnimate) {
         setState(() {
           showArtAnimate = show;

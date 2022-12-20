@@ -75,7 +75,7 @@ class HomeAPI extends HttpManager {
     var response = await get('/index/artists/top');
     List<CollectTopInfo> list = [];
     try {
-      for (Map<String, dynamic> json in response.data['pageList']) {
+      for (Map<String, dynamic> json in response.data) {
         list.add(CollectTopInfo.fromJson(json));
       }
     } catch (e) {

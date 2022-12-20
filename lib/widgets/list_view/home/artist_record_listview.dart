@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_artist_record.dart';
@@ -10,7 +11,6 @@ import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
 import 'package:treasure_nft_project/views/login/circle_network_icon.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
-import 'package:treasure_nft_project/widgets/button/login_bolder_button_widget.dart';
 import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 import 'package:treasure_nft_project/widgets/label/warp_two_text_widget.dart';
@@ -64,7 +64,9 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
 
   Widget createItemBuilder(BuildContext context, int index) {
     return ArtistRecordItemView(
-        itemData: artList[index], showAnimate: animateIndex >= index,index: index);
+        itemData: collectList[index],
+        showAnimate: animateIndex >= index,
+        index: index);
   }
 
   Widget createSeparatorBuilder(BuildContext context, int index) {
@@ -229,15 +231,30 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
                   style: TextStyle(
                       fontSize: UIDefine.fontSize12,
                       color: AppColors.homeGrey)),
-              LoginBolderButtonWidget(
-                  radius: 40,
-                  textSize: UIDefine.fontSize14,
-                  fontWeight: FontWeight.w500,
-                  height: UIDefine.getPixelHeight(30),
-                  width: UIDefine.getPixelWidth(100),
-                  btnText: tr('more'),
-                  onPressed: () => viewModel.pushPage(context,
-                      const MainPage(type: AppNavigationBarType.typeExplore)))
+              GestureDetector(
+                  onTap: () => viewModel.pushPage(context,
+                      const MainPage(type: AppNavigationBarType.typeExplore)),
+                  child: Container(
+                      color: Colors.transparent,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(tr('more'),
+                              style: TextStyle(
+                                  fontSize: UIDefine.fontSize14,
+                                  fontWeight: FontWeight.w500)),
+                          Image.asset(AppImagePath.rightArrow)
+                        ],
+                      )))
+              // LoginBolderButtonWidget(
+              //     radius: 40,
+              //     textSize: UIDefine.fontSize14,
+              //     fontWeight: FontWeight.w500,
+              //     height: UIDefine.getPixelHeight(30),
+              //     width: UIDefine.getPixelWidth(100),
+              //     btnText: tr('more'),
+              //     onPressed: () => viewModel.pushPage(context,
+              //         const MainPage(type: AppNavigationBarType.typeExplore)))
             ],
           )
         ],

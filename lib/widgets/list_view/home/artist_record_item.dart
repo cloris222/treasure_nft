@@ -3,7 +3,7 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/collect_top_info.dart';
-import 'package:treasure_nft_project/models/http/parameter/home_artist_record.dart';
+import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 
@@ -77,7 +77,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
           GestureDetector(
             onTap: _onShowArt,
             child: Container(
-                padding: const EdgeInsets.all(10),
+                padding: EdgeInsets.all(UIDefine.getPixelHeight(10)),
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -102,11 +102,11 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
                       ),
                       viewModel.buildSpace(width: 1.5),
 
-                      Expanded(
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
+                      Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
                             /// NAME
                             Text(widget.itemData.artistName,
                                 overflow: TextOverflow.ellipsis,
@@ -118,8 +118,17 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
                             viewModel.buildSpace(height: 1),
 
                             _buildVolView('${widget.itemData.volume}'),
-                          ])),
-                      viewModel.buildSpace(width: 5),
+                          ]),
+                      const Spacer(),
+                      Text(
+                          '${widget.itemData.growthRate >= 0 ? '+' : '-'} ${NumberFormatUtil().removeTwoPointFormat(widget.itemData.growthRate)}%',
+                          style: TextStyle(
+                              color: widget.itemData.growthRate >= 0
+                                  ? AppColors.rateGreen
+                                  : AppColors.rateRed,
+                              fontSize: UIDefine.fontSize20,
+                              fontWeight: FontWeight.w500)),
+                      viewModel.buildSpace(width: 1.5),
                     ])),
           ),
         ],
@@ -144,7 +153,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
   void _onShowArt() {
     ExploreMainResponseData data = ExploreMainResponseData(
         artistName: widget.itemData.artistName,
-        artistId: 'AA',
+        artistId: widget.itemData.artistId,
         avatarUrl: widget.itemData.avatarUrl,
         introPhoneUrl: widget.itemData.introPhoneUrl,
         introPcUrl: widget.itemData.introPcUrl);
