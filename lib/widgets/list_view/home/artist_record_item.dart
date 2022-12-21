@@ -121,7 +121,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
                           ]),
                       const Spacer(),
                       Text(
-                          '${widget.itemData.growthRate >= 0 ? '+' : '-'} ${NumberFormatUtil().removeTwoPointFormat(widget.itemData.growthRate)}%',
+                          '${widget.itemData.growthRate >= 0 ? '+' : ''} ${NumberFormatUtil().removeTwoPointFormat(widget.itemData.growthRate)}%',
                           style: TextStyle(
                               color: widget.itemData.growthRate >= 0
                                   ? AppColors.rateGreen

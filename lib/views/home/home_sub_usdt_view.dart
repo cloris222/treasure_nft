@@ -11,32 +11,37 @@ import '../../widgets/list_view/home/carousel_listview.dart';
 import '../main_page.dart';
 
 class HomeSubUsdtView extends StatelessWidget {
-  const HomeSubUsdtView({Key? key}) : super(key: key);
+  const HomeSubUsdtView({Key? key, required this.viewModel}) : super(key: key);
+  final HomeMainViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
-    HomeMainViewModel viewModel = HomeMainViewModel();
     return Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: UIDefine.getPixelWidth(20),
-          vertical: UIDefine.getPixelHeight(10)),
+      padding: viewModel.getMainPadding(height: 10),
       decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage(AppImagePath.firstBackground),
               fit: BoxFit.fill)),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           /// Trade
-          LoginButtonWidget(
-              width: UIDefine.getPixelWidth(210),
-              radius: 43,
-              btnText: tr('exploreNow'),
-              fontSize: UIDefine.fontSize24,
-              onPressed: () {
-                viewModel.pushAndRemoveUntil(context,
-                    const MainPage(type: AppNavigationBarType.typeExplore));
-              }),
+          Row(
+            children: [
+              LoginButtonWidget(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: UIDefine.getPixelWidth(15)),
+                  isFillWidth: false,
+                  radius: 43,
+                  btnText: tr('exploreNow'),
+                  fontSize: UIDefine.fontSize24,
+                  onPressed: () {
+                    viewModel.pushAndRemoveUntil(context,
+                        const MainPage(type: AppNavigationBarType.typeExplore));
+                  }),
+            ],
+          ),
 
           viewModel.buildSpace(height: 5),
 

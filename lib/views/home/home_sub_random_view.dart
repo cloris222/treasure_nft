@@ -5,18 +5,25 @@ import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/random_collect_info.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
+import 'package:treasure_nft_project/views/login/circle_network_icon.dart';
+import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 
 /// 隨機收藏集
 class HomeSubRandomView extends StatefulWidget {
-  const HomeSubRandomView({Key? key}) : super(key: key);
+  const HomeSubRandomView({Key? key, required this.viewModel})
+      : super(key: key);
+  final HomeMainViewModel viewModel;
 
   @override
   State<HomeSubRandomView> createState() => _HomeSubRandomViewState();
 }
 
 class _HomeSubRandomViewState extends State<HomeSubRandomView> {
-  HomeMainViewModel viewModel = HomeMainViewModel();
+  HomeMainViewModel get viewModel {
+    return widget.viewModel;
+  }
+
   List<RandomCollectInfo> list = [];
 
   @override
@@ -31,20 +38,13 @@ class _HomeSubRandomViewState extends State<HomeSubRandomView> {
         width: UIDefine.getWidth(),
         decoration: AppStyle().buildGradient(
             radius: 0, colors: AppColors.gradientBackgroundColorBg),
-        padding: EdgeInsets.symmetric(
-            horizontal: UIDefine.getPixelWidth(30),
-            vertical: UIDefine.getPixelHeight(30)),
+        padding: viewModel.getMainPadding(height: 30),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
-          Container(
-            padding:
-                EdgeInsets.symmetric(horizontal: UIDefine.getWidth() * 0.15),
-            child: Text(tr('collection-fetured').toUpperCase(),
-                style: TextStyle(
-                    color: AppColors.textBlack,
-                    fontSize: UIDefine.fontSize24,
-                    fontWeight: FontWeight.w500)),
-          ),
+          Text(tr('collection-fetured').toUpperCase(),
+              style: viewModel.getMainTitleStyle()),
+          SizedBox(height: UIDefine.getPixelHeight(30)),
           ListView.builder(
+              padding: EdgeInsets.zero,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) =>
@@ -54,13 +54,34 @@ class _HomeSubRandomViewState extends State<HomeSubRandomView> {
   }
 
   Widget _buildSubView(BuildContext context, RandomCollectInfo info) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        _buildSubTopView(context, info),
-        // Text(info.collectionName,style: ,)
-      ],
-    );
+    return Column(mainAxisSize: MainAxisSize.min, children: [
+      _buildSubTopView(context, info),
+      SizedBox(height: UIDefine.getPixelHeight(5)),
+      Container(
+        alignment: Alignment.centerLeft,
+        child: Text(info.collectionName, style: viewModel.getSubTitleStyle()),
+      ),
+      SizedBox(height: UIDefine.getPixelHeight(5)),
+      Row(children: [
+        SizedBox(
+            width: UIDefine.getPixelWidth(30),
+            height: UIDefine.getPixelWidth(30),
+            child: CircleNetworkIcon(networkUrl: info.creatorAvatarUrl)),
+        Text(' by ${info.creator}', style: viewModel.getContextStyle()),
+        const Spacer(),
+        LoginButtonWidget(
+            btnText: '${tr('total')} ${info.itemCount} ${tr('item')}',
+            isFillWidth: false,
+            margin: EdgeInsets.zero,
+            fontSize: UIDefine.fontSize12,
+            fontWeight: FontWeight.w500,
+            height: UIDefine.getPixelHeight(40),
+            padding:
+                EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(8)),
+            radius: 19,
+            onPressed: () {})
+      ])
+    ]);
   }
 
   Widget _buildSubTopView(BuildContext context, RandomCollectInfo info) {
