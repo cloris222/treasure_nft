@@ -5,6 +5,7 @@ import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/language_util.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
+import 'package:treasure_nft_project/views/home/home_sub_discover_nft_view.dart';
 import 'package:treasure_nft_project/views/home/home_sub_illustrate_view.dart';
 import 'package:treasure_nft_project/views/home/home_sub_info_view.dart';
 import 'package:treasure_nft_project/views/home/home_sub_random_view.dart';
@@ -84,7 +85,12 @@ class _HomeMainViewState extends State<HomeMainView> {
         HomeSubRandomView(viewModel: viewModel),
         viewModel.buildSpace(height: 3),
 
+        /// 邀請註冊
         HomeSubSignupView(viewModel: viewModel),
+        viewModel.buildSpace(height: 3),
+
+        /// Discover NFT
+        HomeSubDiscoverNftView(viewModel: viewModel),
 
         /// 教學影片
         // const HomeSubVideoView(),
