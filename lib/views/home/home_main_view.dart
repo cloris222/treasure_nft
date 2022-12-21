@@ -1,20 +1,20 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/language_util.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
 import 'package:treasure_nft_project/views/home/home_sub_illustrate_view.dart';
+import 'package:treasure_nft_project/views/home/home_sub_info_view.dart';
 import 'package:treasure_nft_project/views/home/home_sub_random_view.dart';
+import 'package:treasure_nft_project/views/home/home_sub_signup_view.dart';
 import 'package:treasure_nft_project/views/home/home_sub_usdt_view.dart';
 import 'package:treasure_nft_project/views/home/home_sub_contact_view.dart';
 import 'package:treasure_nft_project/widgets/gradient_text.dart';
 import 'package:treasure_nft_project/widgets/list_view/home/artist_record_listview.dart';
 import '../../constant/enum/setting_enum.dart';
 import '../../widgets/dialog/simple_custom_dialog.dart';
-import 'home_pdf_viewer.dart';
 import 'widget/sponsor_row_widget.dart';
 
 class HomeMainView extends StatefulWidget {
@@ -67,21 +67,24 @@ class _HomeMainViewState extends State<HomeMainView> {
             child: _buildTitleText()),
 
         ///MARK: USDT資訊
-        const HomeSubUsdtView(),
+        HomeSubUsdtView(viewModel: viewModel),
 
         viewModel.buildSpace(height: 3),
 
-        const HomeSubIllustrateView(),
+        HomeSubIllustrateView(viewModel: viewModel),
 
         viewModel.buildSpace(height: 3),
 
         /// 熱門系列 畫家排行
-        ArtistRecordListView(showArtAnimate: showArtAnimate),
+        ArtistRecordListView(
+            viewModel: viewModel, showArtAnimate: showArtAnimate),
         viewModel.buildSpace(height: 3),
 
         /// 隨機收藏集
-        const HomeSubRandomView(),
+        HomeSubRandomView(viewModel: viewModel),
         viewModel.buildSpace(height: 3),
+
+        HomeSubSignupView(viewModel: viewModel),
 
         /// 教學影片
         // const HomeSubVideoView(),
@@ -93,7 +96,7 @@ class _HomeMainViewState extends State<HomeMainView> {
         mailSubmit(),
 
         /// 資訊頁
-        ourInfo(),
+        HomeSubInfoView(viewModel: viewModel),
 
         /// 聯絡方式
         const HomeSubContactView(),
@@ -145,11 +148,9 @@ class _HomeMainViewState extends State<HomeMainView> {
                   ])),
         viewModel.buildSpace(height: 2),
         Text(tr('index-product-text-1\''),
-            style: TextStyle(
-                fontSize: UIDefine.fontSize14, color: AppColors.textGrey)),
+            style: viewModel.getContextStyle(color: AppColors.textGrey)),
         Text(tr('index-product-text-2\''),
-            style: TextStyle(
-                fontSize: UIDefine.fontSize14, color: AppColors.textGrey))
+            style: viewModel.getContextStyle(color: AppColors.textGrey))
       ],
     );
   }
@@ -199,7 +200,10 @@ class _HomeMainViewState extends State<HomeMainView> {
             leftLogo: AppImagePath.polygon,
             rightLogo: AppImagePath.ethereum,
           ),
-          viewModel.getPaddingWithView(5, Image.asset(AppImagePath.tozfuft)),
+          Padding(
+            padding: EdgeInsets.all(UIDefine.getScreenWidth(5)),
+            child: Image.asset(AppImagePath.tozfuft),
+          ),
           viewModel.buildSpace(width: 3),
         ]));
   }
@@ -284,124 +288,6 @@ class _HomeMainViewState extends State<HomeMainView> {
                                                     FontWeight.w500)))))))
                   ])),
               viewModel.buildSpace(height: 5)
-            ]));
-  }
-
-  Widget ourInfo() {
-    double padding = 2;
-    return Container(
-        color: AppColors.mainBottomBg,
-        padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-        child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              /// Resources
-              Flexible(
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                    Text(tr('footer_resource'),
-                        style: TextStyle(
-                            fontSize: UIDefine.fontSize16,
-                            color: AppColors.textBlack)),
-                    viewModel.buildSpace(height: padding),
-                    GestureDetector(
-                        onTap: () {
-                          viewModel.launchInBrowser(
-                              'https://treasurenft.gitbook.io/treasurenft-1/');
-                        },
-                        child: Text(tr('footer_docs'),
-                            style: TextStyle(
-                                fontSize: UIDefine.fontSize14,
-                                color: AppColors.font02))),
-                    viewModel.buildSpace(height: padding),
-                    GestureDetector(
-                        onTap: () {
-                          viewModel.launchInBrowser(
-                              'https://treasurenft-metaverse.gitbook.io/how-to-use/earn/how-to-share-invitations');
-                        },
-                        child: Text(tr('footer_friends'),
-                            style: TextStyle(
-                                fontSize: UIDefine.fontSize14,
-                                color: AppColors.font02))),
-                    viewModel.buildSpace(height: padding),
-                    GestureDetector(
-                        onTap: () {
-                          viewModel.launchInBrowser(
-                              'https://treasurenft-metaverse.gitbook.io/how-to-use/earn/how-to-trade');
-                        },
-                        child: Text(tr('footer_howtoBuy'),
-                            style: TextStyle(
-                                fontSize: UIDefine.fontSize14,
-                                color: AppColors.font02)))
-                  ])),
-
-              /// News
-              Flexible(
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                    Text(
-                      tr('footer_news'),
-                      style: TextStyle(
-                        fontSize: UIDefine.fontSize16,
-                        color: AppColors.textBlack,
-                      ),
-                    ),
-                    viewModel.buildSpace(height: padding),
-                    GestureDetector(
-                        onTap: () {
-                          viewModel.launchInBrowser(
-                              'https://medium.com/@Treasurenft_xyz');
-                        },
-                        child: Text(tr('footer_blog'),
-                            style: TextStyle(
-                                fontSize: UIDefine.fontSize14,
-                                color: AppColors.font02)))
-                  ])),
-
-              /// Company
-              Flexible(
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                    Text(
-                      tr('footer_company'),
-                      style: TextStyle(
-                        fontSize: UIDefine.fontSize16,
-                        color: AppColors.textBlack,
-                      ),
-                    ),
-                    viewModel.buildSpace(height: padding),
-                    GestureDetector(
-                        onTap: () {
-                          viewModel.pushPage(
-                              GlobalData.globalKey.currentContext!,
-                              PDFViewerPage(
-                                title: tr('footer_privacy'),
-                                assetPath: 'assets/pdf/PrivacyPolicy.pdf',
-                              ));
-                        },
-                        child: Text(tr('footer_privacy'),
-                            style: TextStyle(
-                                fontSize: UIDefine.fontSize14,
-                                color: AppColors.font02))),
-                    viewModel.buildSpace(height: padding),
-                    GestureDetector(
-                        onTap: () {
-                          viewModel.pushPage(
-                              GlobalData.globalKey.currentContext!,
-                              PDFViewerPage(
-                                title: tr('footer_agreement'),
-                                assetPath: 'assets/pdf/TermsOfUse.pdf',
-                              ));
-                        },
-                        child: Text(tr('footer_agreement'),
-                            style: TextStyle(
-                                fontSize: UIDefine.fontSize14,
-                                color: AppColors.font02)))
-                  ]))
             ]));
   }
 }

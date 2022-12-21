@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
+import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/api/home_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/collect_top_info.dart';
@@ -12,6 +13,45 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../models/http/parameter/trading_volume_data.dart';
 
 class HomeMainViewModel extends BaseViewModel {
+  ///Widget Style----------
+  Widget buildSpace({double width = 0, double height = 0}) {
+    return SizedBox(
+        height: UIDefine.getPixelHeight(height * 5),
+        width: UIDefine.getPixelWidth(width * 5));
+  }
+
+  ///MARK: 主標題
+  TextStyle getMainTitleStyle() {
+    return TextStyle(
+        fontSize: UIDefine.fontSize20,
+        fontWeight: FontWeight.w500,
+        color: AppColors.textBlack);
+  }
+
+  ///MARK: 副標題
+  TextStyle getSubTitleStyle() {
+    return TextStyle(
+        fontSize: UIDefine.fontSize16,
+        fontWeight: FontWeight.w500,
+        color: AppColors.textBlack);
+  }
+
+  ///MARK: 內容
+  TextStyle getContextStyle({Color color=AppColors.textBlack}) {
+    return TextStyle(
+        fontSize: UIDefine.fontSize14,
+        fontWeight: FontWeight.w400,
+        color: color);
+  }
+
+  ///MARK: 共用的左右間距
+  EdgeInsetsGeometry getMainPadding({double width = 20, double height = 0}) {
+    return EdgeInsets.symmetric(
+        horizontal: UIDefine.getPixelWidth(width),
+        vertical: UIDefine.getPixelHeight(height));
+  }
+
+  ///API----------
   /// 取得輪播圖
   Future<List<HomeCarousel>> getHomeCarousel(
       {ResponseErrorFunction? onConnectFail}) async {
@@ -22,17 +62,6 @@ class HomeMainViewModel extends BaseViewModel {
   Future<List<ArtistRecord>> getArtistRecord(
       {ResponseErrorFunction? onConnectFail}) async {
     return await HomeAPI(onConnectFail: onConnectFail).getArtistRecord();
-  }
-
-  Widget buildSpace({double width = 0, double height = 0}) {
-    return SizedBox(height: height * 5, width: width * 5);
-  }
-
-  Widget getPaddingWithView(double val, Widget view) {
-    return Padding(
-      padding: EdgeInsets.all(UIDefine.getScreenWidth(val)),
-      child: view,
-    );
   }
 
   /// 外部連結

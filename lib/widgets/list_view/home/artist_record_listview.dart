@@ -18,16 +18,21 @@ import '../../../constant/theme/app_colors.dart';
 import 'artist_record_item.dart';
 
 class ArtistRecordListView extends StatefulWidget {
-  const ArtistRecordListView({super.key, required this.showArtAnimate});
+  const ArtistRecordListView(
+      {super.key, required this.showArtAnimate, required this.viewModel});
 
   final bool showArtAnimate;
+  final HomeMainViewModel viewModel;
 
   @override
   State<StatefulWidget> createState() => _ArtistRecordListView();
 }
 
 class _ArtistRecordListView extends State<ArtistRecordListView> {
-  HomeMainViewModel viewModel = HomeMainViewModel();
+  HomeMainViewModel get viewModel {
+    return widget.viewModel;
+  }
+
   List artList = [];
   int animateIndex = -1;
   ArtistRecord? randomArt;
@@ -93,8 +98,8 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
           separatorBuilder: (BuildContext context, int index) {
             return createSeparatorBuilder(context, index);
           }),
-      createSeparatorBuilder(context, 1),
-      SizedBox(height: UIDefine.getPixelHeight(20)),
+      // createSeparatorBuilder(context, 1),
+      SizedBox(height: UIDefine.getPixelHeight(10)),
     ]);
   }
 
