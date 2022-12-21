@@ -25,46 +25,90 @@ class ExploreMainViewModel extends BaseViewModel {
     for (int i = 0; i < dataList.length; i++) {
       bool isCurrent = (dataList[i].name == currentExploreType);
       buttons.add(
-          IntrinsicWidth(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: UIDefine.getScreenWidth(12),
-                  child: TextButton(
-                    onPressed: () {
-                      changePage(dataList[i].name);
-                    },
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(2.77), 0, UIDefine.getScreenWidth(2.77), 0),
-                      child: Text(
-                        _getTabTitle(dataList[i].name),
-                        style: TextStyle(color: _getButtonColor(isCurrent), fontSize: UIDefine.fontSize16),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  height: _getLineHeight(isCurrent),
-                  color: _getLineColor(isCurrent),
-                ),
-              ],
+        SizedBox(
+          height: UIDefine.getScreenWidth(12),
+          child: TextButton(
+            onPressed: () {
+              changePage(dataList[i].name);
+            },
+            child: Container(
+              alignment: Alignment.bottomCenter,
+              padding: EdgeInsets.fromLTRB(
+                  UIDefine.getScreenWidth(2.77), 0,
+                  UIDefine.getScreenWidth(2.77), 0),
+              child: Text(
+                _getTabTitle(dataList[i].name),
+                style: TextStyle(color: _getButtonColor(isCurrent),
+                    fontSize: _getTextSize(isCurrent), fontWeight: FontWeight.w500),
+                textAlign: TextAlign.center,
+              ),
             ),
+          ),
+        ),
+      );
+    }
+      return SizedBox(
+          height: UIDefine.getScreenWidth(13),
+          child: ScrollablePositionedList.builder(
+              scrollDirection: Axis.horizontal,
+              itemScrollController: controller,
+              itemCount: buttons.length,
+              itemBuilder: (context, index) {
+                return buttons[index];
+              }
           )
       );
     }
-    return SizedBox(
-        height: UIDefine.getScreenWidth(13),
-        child:  ScrollablePositionedList.builder(
-            scrollDirection: Axis.horizontal,
-            itemScrollController: controller,
-            itemCount: buttons.length,
-            itemBuilder: (context, index) {
-              return buttons[index];
-            }
-        )
-    );
-  }
+
+  // Widget getExploreTypeButtons( // 第一版的UI樣式
+  //     {required String currentExploreType,
+  //       required List<ExploreCategoryResponseData> dataList,
+  //       required ItemScrollController controller,
+  //       required Function(String exploreType) changePage}) {
+  //   List<Widget> buttons = <Widget>[];
+  //   for (int i = 0; i < dataList.length; i++) {
+  //     bool isCurrent = (dataList[i].name == currentExploreType);
+  //     buttons.add(
+  //         IntrinsicWidth(
+  //           child: Column(
+  //             children: [
+  //               SizedBox(
+  //                 height: UIDefine.getScreenWidth(12),
+  //                 child: TextButton(
+  //                   onPressed: () {
+  //                     changePage(dataList[i].name);
+  //                   },
+  //                   child: Container(
+  //                     padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(2.77), 0, UIDefine.getScreenWidth(2.77), 0),
+  //                     child: Text(
+  //                       _getTabTitle(dataList[i].name),
+  //                       style: TextStyle(color: _getButtonColor(isCurrent), fontSize: UIDefine.fontSize16),
+  //                       textAlign: TextAlign.center,
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ),
+  //               Container(
+  //                 height: _getLineHeight(isCurrent),
+  //                 color: _getLineColor(isCurrent),
+  //               ),
+  //             ],
+  //           ),
+  //         )
+  //     );
+  //   }
+  //   return SizedBox(
+  //       height: UIDefine.getScreenWidth(13),
+  //       child:  ScrollablePositionedList.builder(
+  //           scrollDirection: Axis.horizontal,
+  //           itemScrollController: controller,
+  //           itemCount: buttons.length,
+  //           itemBuilder: (context, index) {
+  //             return buttons[index];
+  //           }
+  //       )
+  //   );
+  // }
 
   String _getTabTitle(String value) {
     switch(value) {
@@ -109,6 +153,11 @@ class ExploreMainViewModel extends BaseViewModel {
   Color _getButtonColor(bool isCurrent) {
     if (isCurrent) return Colors.black;
     return Colors.grey;
+  }
+
+  double _getTextSize(bool isCurrent) {
+    if (isCurrent) return UIDefine.fontSize20;
+    return UIDefine.fontSize14;
   }
 
   Future<List<ExploreMainResponseData>> getExploreResponse(

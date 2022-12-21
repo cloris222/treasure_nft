@@ -23,18 +23,19 @@ class _GetExploreMainListView extends State<GetExploreMainListView> {
   int page = 1;
 
   Widget createItemBuilder(BuildContext context, int index) {
-    return getLikesListViewItem(widget.list[index], index);
+    return getExploreListViewItem(widget.list[index], index);
   }
 
   Widget createSeparatorBuilder(BuildContext context, int index) {
-    return SizedBox(height: UIDefine.getScreenWidth(4.16));
+    // return SizedBox(height: UIDefine.getScreenWidth(4.16)); // 第一版UI
+    return SizedBox(height: UIDefine.getScreenWidth(1));
   }
 
   int getItemCount() {
     return widget.list.length;
   }
 
-  Widget getLikesListViewItem(ExploreMainResponseData data, int index) {
+  Widget getExploreListViewItem(ExploreMainResponseData data, int index) {
     return ExploreMainItemView(
         exploreMainResponseData: data,
     );
@@ -59,12 +60,51 @@ class _GetExploreMainListView extends State<GetExploreMainListView> {
       child: ListView.separated(
           shrinkWrap: true,
           itemBuilder: (context, index) {
-            return createItemBuilder(context, index);
+            // return createItemBuilder(context, index); // 第一版UI
+            // if (index == productList.length - 1) { // 開啟'到底更新'的Flag
+            //   bDownloading = false;
+            // }
+            if (index % 2 == 0 && index == widget.list.length - 1) {
+              return Padding(
+                  padding: EdgeInsets.fromLTRB(
+                      UIDefine.getScreenWidth(5),
+                      0,
+                      0,
+                      UIDefine.getScreenWidth(0)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      createItemBuilder(
+                          context, index),
+                    ],
+                  ));
+            }
+            if (index % 2 != 0) {
+              return Container();
+            }
+            return Padding(
+              padding: EdgeInsets.fromLTRB(
+                  UIDefine.getScreenWidth(5),
+                  0,
+                  UIDefine.getScreenWidth(5),
+                  UIDefine.getScreenWidth(0)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  createItemBuilder(
+                      context, index),
+                  createItemBuilder(
+                      context, index + 1)
+                ],
+              ),
+            );
           },
           itemCount: getItemCount(),
           separatorBuilder: (BuildContext context, int index) {
             return createSeparatorBuilder(context, index);
-          }),
+          },
+
+     ),
     );
   }
 
