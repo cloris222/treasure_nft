@@ -53,9 +53,9 @@ class _WalletMainViewState extends State<WalletMainView> {
               _buildWalletInfo(),
               _buildWalletAddress(),
               _buildWalletFunction(),
-              Visibility(
-                visible: Platform.isIOS,
-                  child: _appPurchase()),
+              // Visibility(
+              //   visible: Platform.isIOS,
+              //     child: _appPurchase()),
               _buildWalletAccount(),
               _buildWalletHistory(),
               _buildRecordListView(),
@@ -158,9 +158,10 @@ class _WalletMainViewState extends State<WalletMainView> {
             onPress: _showRechargePage),
         const SizedBox(width: 15),
         _buildWalletFunctionItem(
-            title: tr('uc_withdraw'),
+            title:
+                Platform.isIOS ? tr("usdt-type-BUY_ITEM'") : tr('uc_withdraw'),
             assetPath: AppImagePath.walletWithdrawIcon,
-            onPress: _showWithdrawPage),
+            onPress: Platform.isIOS ? _showAppPurchase : _showWithdrawPage),
         const SizedBox(width: 15),
         _buildWalletFunctionItem(
             title: tr('uc_setting'),
@@ -196,10 +197,7 @@ class _WalletMainViewState extends State<WalletMainView> {
     return LoginButtonWidget(
         btnText: tr("usdt-type-BUY_ITEM'"),
         showIcon: true,
-        onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AppPurchase()));
-        });
+        onPressed: _showAppPurchase);
   }
 
   Widget _buildWalletAccount() {
@@ -279,5 +277,9 @@ class _WalletMainViewState extends State<WalletMainView> {
 
   void _showWalletRecord() {
     viewModel.pushPage(context, const OrderInfoPage(bFromWallet: true));
+  }
+
+  void _showAppPurchase() {
+    viewModel.pushPage(context, const AppPurchase());
   }
 }
