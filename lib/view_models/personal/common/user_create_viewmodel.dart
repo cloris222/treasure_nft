@@ -171,8 +171,8 @@ class UserCreateViewModel extends BaseViewModel {
       CommonAPI(onConnectFail: (message) => onBaseConnectFail(context, message))
           .uploadImageByFile(value!,
               uploadOriginalName: true, setFileName: createComPressName);
-      // debugPrint('原路徑：${uploadImage!.path}');
-      // debugPrint('壓縮後的路徑：${value.path}');
+      // GlobalData.printLog('原路徑：${uploadImage!.path}');
+      // GlobalData.printLog('壓縮後的路徑：${value.path}');
     });
   }
 

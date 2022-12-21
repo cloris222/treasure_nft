@@ -1,5 +1,5 @@
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 
 class ImagePickerUtil {
   // select video
@@ -51,7 +51,7 @@ class ImagePickerUtil {
 //     }
 //     setState(() {});
 //   } on PlatformException catch (e) {
-//     debugPrint('Failed to pick image: $e');
+//     GlobalData.printLog('Failed to pick image: $e');
 //   }
 // }
 
@@ -64,7 +64,7 @@ class ImagePickerUtil {
         return selectedImages;
       }
     } catch (e) {
-      debugPrint('Failed to pick image: $e');
+      GlobalData.printLog('Failed to pick image: $e');
     }
     return null;
   }

@@ -24,7 +24,7 @@ class SplashScreenViewModel extends BaseViewModel {
   final String key = 'Splash:';
 
   void initState() async {
-    debugPrint('$key runInitApp:init');
+    GlobalData.printLog('$key runInitApp:init');
     controller = VideoPlayerController.asset(AppAnimationPath.splashScreen);
     await controller.initialize();
     await controller.play();
@@ -33,7 +33,7 @@ class SplashScreenViewModel extends BaseViewModel {
         const Duration(milliseconds: 500), (_) => _setCountDown());
     runInitApp().then((value) {
       isInitAppFinish = true;
-      debugPrint('$key isInitAppFinish:true');
+      GlobalData.printLog('$key isInitAppFinish:true');
     });
   }
 
@@ -47,14 +47,14 @@ class SplashScreenViewModel extends BaseViewModel {
       ///MARK: 計算影片是否撥放完畢
       var newPosition = controller.value.position;
       var newDuration = controller.value.duration;
-      debugPrint('$key _oldPosition:${_oldPosition.inSeconds}');
-      debugPrint('$key newPosition:${newPosition.inSeconds}');
-      debugPrint('$key newDuration:${newDuration.inSeconds}');
+      GlobalData.printLog('$key _oldPosition:${_oldPosition.inSeconds}');
+      GlobalData.printLog('$key newPosition:${newPosition.inSeconds}');
+      GlobalData.printLog('$key newDuration:${newDuration.inSeconds}');
       if ((_oldPosition.compareTo(newPosition) == 0 &&
               _oldPosition.compareTo(Duration.zero) != 0) ||
           (newDuration.compareTo(newPosition) == 0 ||
               newDuration.compareTo(newPosition) == -1)) {
-        debugPrint('$key isVideoFinish:true');
+        GlobalData.printLog('$key isVideoFinish:true');
 
         isVideoFinish = true;
         // controller.setLooping(true);
@@ -72,7 +72,7 @@ class SplashScreenViewModel extends BaseViewModel {
   Future<void> runInitApp() async {
     ///MARK: 等兩秒 讓動畫播
     await Future.delayed(const Duration(seconds: 3));
-    debugPrint('$key runInitApp:start');
+    GlobalData.printLog('$key runInitApp:start');
     await getCountry();
 
     ///MARK: 自動登入
@@ -110,11 +110,11 @@ class SplashScreenViewModel extends BaseViewModel {
                 return !checkList.contains(false) || connectFail;
               });
           if (!connectFail) {
-            debugPrint('AutoLogin:Success!');
+            GlobalData.printLog('AutoLogin:Success!');
             startUserListener();
             GlobalData.showLoginAnimate = true;
           } else {
-            debugPrint('AutoLogin:Fail!');
+            GlobalData.printLog('AutoLogin:Fail!');
             clearUserLoginInfo();
           }
         }

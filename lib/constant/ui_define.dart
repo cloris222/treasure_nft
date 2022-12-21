@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 
 /// UI/字體 自適應
 class UIDefine {
@@ -68,13 +69,13 @@ class UIDefine {
 
     if (kDebugMode) {
       // Release不顯示
-      print("狀態列高度:${_statusBarHeight.toString()}");
-      print("導航列高度:${_navigationBarHeight.toString()}");
-      print("螢幕寬度:${_screenWidth.toString()}");
-      print("螢幕高度:${_screenHeight.toString()}");
-      print("螢幕寬度單位:${_screenWidthUnit.toString()}");
-      print("螢幕高度單位:${_screenHeightUnit.toString()}");
-      print("字型單位:${_fontUnit.toString()}");
+      GlobalData.printLog("狀態列高度:${_statusBarHeight.toString()}");
+      GlobalData.printLog("導航列高度:${_navigationBarHeight.toString()}");
+      GlobalData.printLog("螢幕寬度:${_screenWidth.toString()}");
+      GlobalData.printLog("螢幕高度:${_screenHeight.toString()}");
+      GlobalData.printLog("螢幕寬度單位:${_screenWidthUnit.toString()}");
+      GlobalData.printLog("螢幕高度單位:${_screenHeightUnit.toString()}");
+      GlobalData.printLog("字型單位:${_fontUnit.toString()}");
     }
   }
 

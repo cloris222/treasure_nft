@@ -13,6 +13,7 @@ class HttpSetting {
   static const String systemTimeZone='GMT+4';
   static const String pcArtistUrl =
       'https://treasurenft.xyz/#/userMap/exploreCreator?id={artistId}';
+  static const bool debugMode = false;
 
   ///MARK: develop Setting
   // static const String appUrl = "https://dev.treasurenft.xyz/gateway/app";
@@ -26,7 +27,7 @@ class HttpSetting {
   // static const String systemTimeZone = 'GMT+8';
   // static const String pcArtistUrl =
   //     'https://dev.treasurenft.xyz/#/userMap/exploreCreator?id={artistId}';
-
+  // static const bool debugMode = true;
   // receiveTimeout
   static const int receiveTimeout = 15000;
 

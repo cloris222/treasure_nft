@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:treasure_nft_project/view_models/collection/collection_main_view_model.dart';
-
+import 'package:treasure_nft_project/constant/global_data.dart';
 import '../../../constant/ui_define.dart';
 import '../../../views/collection/data/collection_nft_item_response_data.dart';
 import '../../../views/collection/data/collection_reservation_response_data.dart';
@@ -61,9 +61,9 @@ class _GetCollectionMainListview extends State<GetCollectionMainListview> {
         if (metrics.atEdge) {
           bool isTop = metrics.pixels == 0;
           if (isTop) {
-            debugPrint('At the top');
+            GlobalData.printLog('At the top');
           } else {
-            debugPrint('At the bottom');
+            GlobalData.printLog('At the bottom');
             updateView();
           }
         }

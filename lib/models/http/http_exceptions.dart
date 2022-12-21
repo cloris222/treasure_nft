@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 
 class HttpExceptions implements Exception {
   late String message;
@@ -8,15 +8,15 @@ class HttpExceptions implements Exception {
   HttpExceptions.fromDioError(DioError dioError) {
     switch (dioError.type) {
       case DioErrorType.cancel:
-        debugPrint('Request to API server was cancelled');
+        GlobalData.printLog('Request to API server was cancelled');
         message = "Request to API server was cancelled";
         break;
       case DioErrorType.connectTimeout:
-        debugPrint('Connection timeout with API server');
+        GlobalData.printLog('Connection timeout with API server');
         message = tr('httpErrorConnectTimeout');
         break;
       case DioErrorType.receiveTimeout:
-        debugPrint('Receive timeout in connection with API server');
+        GlobalData.printLog('Receive timeout in connection with API server');
         message = tr('httpErrorConnectTimeout');
         break;
       case DioErrorType.response:
@@ -26,20 +26,20 @@ class HttpExceptions implements Exception {
         );
         break;
       case DioErrorType.sendTimeout:
-        debugPrint("Send timeout in connection with API server");
+        GlobalData.printLog("Send timeout in connection with API server");
         message = tr('httpErrorConnectTimeout');
         break;
       case DioErrorType.other:
         if (dioError.message.contains("SocketException")) {
-          debugPrint("No Internet");
+          GlobalData.printLog("No Internet");
           message = tr('httpErrorNoInternet');
           break;
         }
-        debugPrint("Unexpected error occurred");
+        GlobalData.printLog("Unexpected error occurred");
         message = tr("httpErrorOther");
         break;
       default:
-        debugPrint("Something went wrong");
+        GlobalData.printLog("Something went wrong");
         message = tr("httpErrorOther");
         break;
     }

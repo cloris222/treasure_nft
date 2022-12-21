@@ -68,13 +68,13 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> with Wi
     super.didChangeAppLifecycleState(state);
     switch (state) {
       case AppLifecycleState.resumed:
-        debugPrint('-----App onResumed------');
+        GlobalData.printLog('-----App onResumed------');
         _requestUnreadCollection();
         _unreadTimingRequest();
         break;
 
       case AppLifecycleState.paused:
-        debugPrint('-----App paused------');
+        GlobalData.printLog('-----App paused------');
         timer?.cancel();
         break;
 

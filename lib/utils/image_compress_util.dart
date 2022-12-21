@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
-
-import 'package:flutter/cupertino.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
@@ -42,8 +41,8 @@ class ImageCompressUtil {
       rotate: 0,
     );
 
-    debugPrint("壓縮前Size：${file.lengthSync() / 1024}");
-    debugPrint("壓縮後Size：${(result?.lengthSync())! / 1024}");
+    GlobalData.printLog("壓縮前Size：${file.lengthSync() / 1024}");
+    GlobalData.printLog("壓縮後Size：${(result?.lengthSync())! / 1024}");
 
     return result;
   }
@@ -57,8 +56,8 @@ class ImageCompressUtil {
       quality: 94,
       rotate: 90,
     );
-    debugPrint(file.lengthSync().toString());
-    debugPrint(result?.length.toString());
+    GlobalData.printLog(file.lengthSync().toString());
+    GlobalData.printLog(result?.length.toString());
     return result;
   }
 
@@ -84,8 +83,8 @@ class ImageCompressUtil {
       quality: 96,
       rotate: 135,
     );
-    debugPrint(list.length.toString());
-    debugPrint(result.length.toString());
+    GlobalData.printLog(list.length.toString());
+    GlobalData.printLog(result.length.toString());
     return result;
   }
 }

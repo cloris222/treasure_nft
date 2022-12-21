@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
@@ -38,7 +37,7 @@ class HttpManager {
   }
 
   ApiResponse _checkResponse(Response response) {
-    debugPrint(response.realUri.toString());
+    GlobalData.printLog(response.realUri.toString());
     var result = ApiResponse.fromJson(response.data);
 
     ///偷懶看LOG用
@@ -71,7 +70,8 @@ class HttpManager {
       if (GlobalData.userToken.isNotEmpty) {
         _dio.options.headers["Authorization"] =
             "Bearer ${GlobalData.userToken}";
-        debugPrint("Authorization:${_dio.options.headers['Authorization']}");
+        GlobalData.printLog(
+            "Authorization:${_dio.options.headers['Authorization']}");
       }
     }
   }
@@ -79,7 +79,7 @@ class HttpManager {
   Future<void> addDioHeader(Map<String, String> header) async {
     header.forEach((key, value) {
       _dio.options.headers[key] = value;
-      debugPrint("addDioHeader $key:${_dio.options.headers[key]}");
+      GlobalData.printLog("addDioHeader $key:${_dio.options.headers[key]}");
     });
   }
 
@@ -123,9 +123,9 @@ class HttpManager {
       return _checkResponse(response);
     } on DioError catch (e) {
       final errorMessage = HttpExceptions.fromDioError(e).toString();
-      debugPrint('connect errorMessage:$errorMessage');
+      GlobalData.printLog('connect errorMessage:$errorMessage');
       callFailConnect(errorMessage, isOther: e.type == DioErrorType.other);
-      throw errorMessage;
+      throw HttpSetting.debugMode ? errorMessage : '';
     } catch (e) {
       callFailConnect(e.toString());
       rethrow;
@@ -164,7 +164,7 @@ class HttpManager {
     } on DioError catch (e) {
       final errorMessage = HttpExceptions.fromDioError(e).toString();
       callFailConnect(errorMessage, isOther: e.type == DioErrorType.other);
-      throw errorMessage;
+      throw HttpSetting.debugMode ? errorMessage : '';
     } catch (e) {
       callFailConnect(e.toString());
       rethrow;
@@ -200,7 +200,7 @@ class HttpManager {
     } on DioError catch (e) {
       final errorMessage = HttpExceptions.fromDioError(e).toString();
       callFailConnect(errorMessage, isOther: e.type == DioErrorType.other);
-      throw errorMessage;
+      throw HttpSetting.debugMode ? errorMessage : '';
     } catch (e) {
       callFailConnect(e.toString());
       rethrow;
@@ -230,7 +230,7 @@ class HttpManager {
     } on DioError catch (e) {
       final errorMessage = HttpExceptions.fromDioError(e).toString();
       callFailConnect(errorMessage, isOther: e.type == DioErrorType.other);
-      throw errorMessage;
+      throw HttpSetting.debugMode ? errorMessage : '';
     } catch (e) {
       callFailConnect(e.toString());
       rethrow;

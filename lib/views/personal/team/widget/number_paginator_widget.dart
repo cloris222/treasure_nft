@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/view_models/personal/team/number_paginator_controller.dart';
 import 'package:treasure_nft_project/views/personal/team/widget/paginator_button.dart';
-
+import 'package:treasure_nft_project/constant/global_data.dart';
 
 class NumberPaginatorWidget extends StatefulWidget {
   final int totalPages;
@@ -42,7 +42,7 @@ class NumberPaginatorWidgetState extends State<NumberPaginatorWidget> {
               visible: _controller.currentPage > 1,
               child: PaginatorButton(
                 onPressed: () {
-                  debugPrint('leftButtonPress: ${_controller.currentPage}');
+                  GlobalData.printLog('leftButtonPress: ${_controller.currentPage}');
                   _controller.currentPage > 0
                       ? _controller.prev() : null;
                   setState(() {});

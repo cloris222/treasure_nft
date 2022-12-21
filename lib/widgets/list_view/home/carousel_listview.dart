@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_carousel.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
-import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 
 import '../../../constant/theme/app_style.dart';
 import 'carousel_item.dart';
@@ -42,7 +42,7 @@ class _GetCarouselListView extends State<CarouselListView> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    debugPrint('precacheImage:');
+    GlobalData.printLog('precacheImage:');
   }
 
   Widget createItemBuilder(BuildContext context, int index) {
