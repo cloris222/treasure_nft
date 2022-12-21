@@ -203,4 +203,41 @@ class CustomAppBar {
               ])
         ]);
   }
+
+  /// 只有Logo + 多國設定 + 客服
+  static AppBar mainNewAppBar({
+    required VoidCallback serverAction,
+    required VoidCallback globalAction,
+    required VoidCallback mainAction,
+  }) {
+    var space = const SizedBox(width: 8);
+    double iconSize = 28;
+    return _getCustomAppBar(
+        margin: const EdgeInsets.symmetric(horizontal: 10),
+        actions: [
+          Expanded(
+            child: Container(
+              alignment: Alignment.centerLeft,
+              child: InkWell(
+                  onTap: mainAction,
+                  child: Image.asset(AppImagePath.mainAppBarLogo,
+                      height: 35, fit: BoxFit.fitHeight)),
+            ),
+          ),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                InkWell(
+                    onTap: globalAction,
+                    child: Image.asset(AppImagePath.globalImage,
+                        width: iconSize, height: iconSize, fit: BoxFit.cover)),
+                space,
+                InkWell(
+                    onTap: serverAction,
+                    child: Image.asset(AppImagePath.serverImage,
+                        width: iconSize, height: iconSize, fit: BoxFit.cover))
+              ])
+        ]);
+  }
 }
