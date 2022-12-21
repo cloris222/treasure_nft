@@ -1,5 +1,8 @@
 import 'dart:io';
 
+import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:treasure_nft_project/models/http/parameter/animation_path_data.dart';
+
 import '../http_manager.dart';
 import '../http_setting.dart';
 import '../parameter/api_response.dart';
@@ -59,6 +62,19 @@ class CommonAPI extends HttpManager {
       list.add(CountryPhoneData(country: 'TimorTimur', areaCode: '670'));
       list.add(CountryPhoneData(country: 'Japan', areaCode: '81'));
       list.add(CountryPhoneData(country: 'PapuaNewGuinea', areaCode: '675'));
+    }
+    return list;
+  }
+
+  Future<List<AnimationPathData>> getBucketAnimation() async {
+    List<AnimationPathData> list = [];
+    try {
+      var response = await get('/bucket/files');
+      for (Map<String, dynamic> json in response.data) {
+        list.add(AnimationPathData.fromJson(json));
+      }
+    } catch (e) {
+      GlobalData.printLog(e.toString());
     }
     return list;
   }
