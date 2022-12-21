@@ -58,7 +58,7 @@ class _HomeSubRandomViewState extends State<HomeSubRandomView> {
       mainAxisSize: MainAxisSize.min,
       children: [
         _buildSubTopView(context, info),
-        Text(info.collectionName,style: ,)
+        // Text(info.collectionName,style: ,)
       ],
     );
   }
