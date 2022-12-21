@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
-
+import 'package:treasure_nft_project/constant/global_data.dart';
 import '../constant/call_back_function.dart';
 import '../constant/ui_define.dart';
 import 'base_view_model.dart';
@@ -169,9 +169,9 @@ abstract class BaseListViewModel extends BaseViewModel {
           if (metrics.atEdge) {
             bool isTop = metrics.pixels == 0;
             if (isTop) {
-              debugPrint('At the top');
+              GlobalData.printLog('At the top');
             } else {
-              debugPrint('At the bottom');
+              GlobalData.printLog('At the bottom');
               if (nextItems.isNotEmpty && isAutoReloadMore) {
                 _onMorePress();
               }

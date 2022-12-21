@@ -9,7 +9,7 @@ import 'package:treasure_nft_project/views/custom_appbar_view.dart';
 import 'package:treasure_nft_project/views/personal/team/team_member_detail_page.dart';
 import 'package:treasure_nft_project/views/personal/team/widget/all_members_card.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
-import 'package:treasure_nft_project/widgets/date_picker/date_picker.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 
 import '../../../widgets/date_picker/custom_date_picker.dart';
 
@@ -170,7 +170,7 @@ class BodyState extends State<Body> {
                         setState(() {}),
                       }),
             });
-    debugPrint('startDate: $startDate');
+    GlobalData.printLog('startDate: $startDate');
   }
 
   void showMemberDetail(String type) {

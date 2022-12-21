@@ -1,9 +1,5 @@
-import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:stomp_dart_client/stomp.dart';
 import 'package:stomp_dart_client/stomp_config.dart';
-import 'package:stomp_dart_client/stomp_frame.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 
 import '../models/http/http_setting.dart';
@@ -35,30 +31,30 @@ class StompSocketUtil {
         url: HttpSetting.socketUrl,
         onDebugMessage: (msg) {
           if (msg != '<<< h') {
-            debugPrint('$key $msg');
+            GlobalData.printLog('$key $msg');
           }
         },
         onConnect: (frame) {
-          debugPrint('$key _onConnect');
+          GlobalData.printLog('$key _onConnect');
           onConnect(frame);
         },
         beforeConnect: () async {
-          debugPrint('$key wait connecting...');
+          GlobalData.printLog('$key wait connecting...');
         },
         onWebSocketError: (dynamic error) {
-          debugPrint('$key ${error.toString()}');
+          GlobalData.printLog('$key ${error.toString()}');
         },
         onStompError: (d) {
-          debugPrint('$key error stomp${d.command.toString()}');
+          GlobalData.printLog('$key error stomp${d.command.toString()}');
         },
         onDisconnect: (f) {
-          debugPrint('$key disconnected${f.command.toString()}');
+          GlobalData.printLog('$key disconnected${f.command.toString()}');
         },
         onUnhandledFrame: (f) {
-          debugPrint('$key onUnhandledFrame${f.command.toString()}');
+          GlobalData.printLog('$key onUnhandledFrame${f.command.toString()}');
         },
         onWebSocketDone: () {
-          debugPrint('$key onWebSocketDone}');
+          GlobalData.printLog('$key onWebSocketDone}');
         },
         stompConnectHeaders: {
           'Authorization': GlobalData.userToken,

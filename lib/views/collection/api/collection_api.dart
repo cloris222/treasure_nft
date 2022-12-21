@@ -6,6 +6,7 @@ import '../data/collection_level_fee_response_data.dart';
 import '../data/collection_nft_item_response_data.dart';
 import '../data/collection_reservation_response_data.dart';
 import '../data/collection_ticket_response_data.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 
 class CollectionApi extends HttpManager {
   CollectionApi({super.onConnectFail, super.baseUrl = HttpSetting.appUrl});
@@ -26,7 +27,7 @@ class CollectionApi extends HttpManager {
         result.add(CollectionReservationResponseData.fromJson(json));
       }
     } catch (e) {
-      print(e.toString());
+      GlobalData.printLog(e.toString());
     }
     return result;
   }
@@ -66,7 +67,7 @@ class CollectionApi extends HttpManager {
         result.add(CollectionTicketResponseData.fromJson(json));
       }
     } catch (e) {
-      print(e.toString());
+      GlobalData.printLog(e.toString());
     }
     return result;
   }
@@ -85,7 +86,7 @@ class CollectionApi extends HttpManager {
       });
       result = response.message;
     } catch (e) {
-      print(e.toString());
+      GlobalData.printLog(e.toString());
     }
     return result;
   }
@@ -107,7 +108,7 @@ class CollectionApi extends HttpManager {
       });
       result = response.message;
     } catch (e) {
-      print(e.toString());
+      GlobalData.printLog(e.toString());
     }
     return result;
   }
@@ -124,7 +125,7 @@ class CollectionApi extends HttpManager {
       });
       result = response.message;
     } catch (e) {
-      print(e.toString());
+      GlobalData.printLog(e.toString());
     }
     return result;
   }
@@ -140,7 +141,7 @@ class CollectionApi extends HttpManager {
       });
       result = CollectionLevelFeeResponseData.fromJson(response.data);
     } catch (e) {
-      print(e.toString());
+      GlobalData.printLog(e.toString());
     }
     return result;
   }
@@ -162,7 +163,7 @@ class CollectionApi extends HttpManager {
         result = response.message;
       }
     } catch (e) {
-      print(e.toString());
+      GlobalData.printLog(e.toString());
     }
     return result;
   }
@@ -179,7 +180,7 @@ class CollectionApi extends HttpManager {
       });
       result = response.message;
     } catch (e) {
-      print(e.toString());
+      GlobalData.printLog(e.toString());
     }
     return result;
   }
@@ -192,7 +193,7 @@ class CollectionApi extends HttpManager {
       await get('/notify/unread/collection');
       result = response.data;
     } catch (e) {
-      print(e.toString());
+      GlobalData.printLog(e.toString());
     }
     return result;
   }
@@ -208,7 +209,7 @@ class CollectionApi extends HttpManager {
       });
       result = response.message;
     } catch (e) {
-      print(e.toString());
+      GlobalData.printLog(e.toString());
     }
     return result;
   }
@@ -226,7 +227,7 @@ class CollectionApiCommon extends HttpManager {
       await get('/query/contractOwner');
       result = response.data;
     } catch (e) {
-      print(e.toString());
+      GlobalData.printLog(e.toString());
     }
     return result;
   }

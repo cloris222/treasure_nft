@@ -1,8 +1,7 @@
 // To parse this JSON data, do
 //
 //     final apiResponse = apiResponseFromJson(jsonString);
-import 'package:flutter/cupertino.dart';
-
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'dart:convert';
 
 ApiResponse apiResponseFromJson(String str) =>
@@ -31,9 +30,9 @@ class ApiResponse {
       };
 
   void printLog(){
-    debugPrint('===========printLog===========');
-    debugPrint('code:$code');
-    debugPrint('message:$message');
-    debugPrint('data:$data');
+    GlobalData.printLog('===========printLog===========');
+    GlobalData.printLog('code:$code');
+    GlobalData.printLog('message:$message');
+    GlobalData.printLog('data:$data');
   }
 }

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:math';
-import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 
 import '../constant/call_back_function.dart';
@@ -52,7 +52,7 @@ class TradeTimerUtil {
       _reservationInfo = setInfo;
     }
 
-    debugPrint('$key init timer');
+    GlobalData.printLog('$key init timer');
     ///MARK: 判斷有拿到值才做更新
     if (_reservationInfo != null) {
       _closeTimer();
@@ -89,18 +89,18 @@ class TradeTimerUtil {
   ///可通用
 
   void _startTimer() {
-    debugPrint('$key start timer');
+    GlobalData.printLog('$key start timer');
 
     /// 區間為 01:01~59:31
     _updateTime =
         '${NumberFormatUtil().integerTwoFormat(Random().nextInt(58) + 1)}:${NumberFormatUtil().integerTwoFormat(Random().nextInt(30) + 1)}';
-    debugPrint('$key random time $_updateTime');
+    GlobalData.printLog('$key random time $_updateTime');
     _countdownTimer =
         Timer.periodic(const Duration(seconds: 1), (_) => _setCountDown());
   }
 
   void _closeTimer() {
-    debugPrint('$key close timer');
+    GlobalData.printLog('$key close timer');
     _countdownTimer?.cancel();
   }
 
@@ -112,7 +112,7 @@ class TradeTimerUtil {
       if (DateFormatUtil()
               .buildFormat(strFormat: 'mm:ss', time: _dateCurrentTime) ==
           _updateTime) {
-        debugPrint('$key restart Timer');
+        GlobalData.printLog('$key restart Timer');
         start();
       } else {
         _currentTradeData = _countSellDate();
@@ -120,8 +120,8 @@ class TradeTimerUtil {
           element(_currentTradeData);
         }
         if (printTimeLog) {
-          debugPrint('$key status:${_currentTradeData.status.name}');
-          debugPrint('$key time:${_printDuration(_currentTradeData.duration)}');
+          GlobalData.printLog('$key status:${_currentTradeData.status.name}');
+          GlobalData.printLog('$key time:${_printDuration(_currentTradeData.duration)}');
         }
       }
     }
@@ -158,11 +158,11 @@ class TradeTimerUtil {
     var duration = const Duration();
 
     if (printTimeLog) {
-      debugPrint(
+      GlobalData.printLog(
           "$key _dateCurrentTime:${DateFormatUtil().getFullWithDateFormat(_dateCurrentTime)}");
-      debugPrint(
+      GlobalData.printLog(
           "$key _dateCurrentTime:${DateFormatUtil().getFullWithDateFormat(_dateSellStartTime)}");
-      debugPrint(
+      GlobalData.printLog(
           "$key _dateSellEndTime:${DateFormatUtil().getFullWithDateFormat(_dateSellEndTime)}");
     }
 

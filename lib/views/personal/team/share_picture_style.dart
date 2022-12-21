@@ -47,7 +47,7 @@ class _SharePicStyleState extends State<SharePicStyle> {
       ui.Image image = await boundary.toImage(pixelRatio: dpr);
       return await image.toByteData(format: ui.ImageByteFormat.png);
     } catch (e) {
-      debugPrint(e.toString());
+      GlobalData.printLog(e.toString());
     }
     return null;
   }

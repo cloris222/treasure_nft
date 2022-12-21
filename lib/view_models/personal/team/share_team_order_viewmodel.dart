@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/api/mission_api.dart';
 import 'package:treasure_nft_project/models/http/api/order_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_order.dart';
@@ -68,7 +69,7 @@ class ShareTeamOrderViewModel extends BaseViewModel {
       ui.Image image = await boundary.toImage(pixelRatio: dpr);
       return await image.toByteData(format: ui.ImageByteFormat.png);
     } catch (e) {
-      debugPrint(e.toString());
+      GlobalData.printLog(e.toString());
     }
     return null;
   }

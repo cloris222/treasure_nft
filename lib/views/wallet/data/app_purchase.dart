@@ -22,7 +22,7 @@ import '../../../utils/ios_payment/consumable_store.dart';
 import '../../../view_models/base_view_model.dart';
 import '../../../widgets/appbar/custom_app_bar.dart';
 import '../open_box_animation_page.dart';
-
+import 'package:treasure_nft_project/constant/global_data.dart';
 class AppPurchase extends StatefulWidget {
   const AppPurchase({Key? key}) : super(key: key);
 
@@ -400,16 +400,16 @@ class _AppPurchaseState extends State<AppPurchase> {
     purchaseDetailsList.forEach((PurchaseDetails purchaseDetails) async {
       if (purchaseDetails.status == PurchaseStatus.pending) {
         ///支付中
-        print('AAA-支付中 ${purchaseDetailsList.length}');
+        GlobalData.printLog('AAA-支付中 ${purchaseDetailsList.length}');
         showPendingUI();
       } else {
         if (purchaseDetails.status == PurchaseStatus.error ||
             purchaseDetails.status == PurchaseStatus.canceled) {
-          print('AAA-支付GG  ${purchaseDetailsList.length}');
+          GlobalData.printLog('AAA-支付GG  ${purchaseDetailsList.length}');
           handleError(purchaseDetails.error!);
         } else if (purchaseDetails.status == PurchaseStatus.purchased ||
             purchaseDetails.status == PurchaseStatus.restored) {
-          print('AAA-購買成功');
+          GlobalData.printLog('AAA-購買成功');
           bool valid = await _verifyPurchase(purchaseDetails);
           if (valid) {
             /// check receipt api

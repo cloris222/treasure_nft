@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
+import 'package:treasure_nft_project/constant/global_data.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_theme.dart';
 import '../../../constant/ui_define.dart';
@@ -64,7 +64,7 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
             if (metrics.atEdge) {
               bool isTop = metrics.pixels == 0;
               if (isTop) {
-                debugPrint('At the top');
+                GlobalData.printLog('At the top');
               } else {
                 if (!bDownloading) { // 防止短時間載入過多造成OOM
                   bDownloading = true;

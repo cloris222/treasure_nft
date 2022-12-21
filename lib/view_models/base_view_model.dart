@@ -330,7 +330,7 @@ class BaseViewModel {
 
   ///MARK: 使用者監聽
   void startUserListener() {
-    debugPrint('---startUserListener');
+    GlobalData.printLog('---startUserListener');
     StompSocketUtil().connect(onConnect: _onStompConnect);
     TradeTimerUtil().addListener(_onTradeTimerListener);
     TradeTimerUtil().start();
@@ -338,7 +338,7 @@ class BaseViewModel {
 
   ///MARK: 關閉使用者監聽
   void stopUserListener() {
-    debugPrint('---stopUserListener');
+    GlobalData.printLog('---stopUserListener');
     StompSocketUtil().disconnect();
     TradeTimerUtil().removeListener(_onTradeTimerListener);
     TradeTimerUtil().stop();
@@ -349,7 +349,7 @@ class BaseViewModel {
     StompSocketUtil().stompClient!.subscribe(
           destination: '/user/notify/${GlobalData.userMemberId}',
           callback: (frame) {
-            debugPrint('${StompSocketUtil().key} ${frame.body}');
+            GlobalData.printLog('${StompSocketUtil().key} ${frame.body}');
             var result = json.decode(frame.body!);
             if (result['toUserId'] == GlobalData.userMemberId) {
               showBuySuccessAnimate();
@@ -361,7 +361,7 @@ class BaseViewModel {
     StompSocketUtil().stompClient!.subscribe(
           destination: '/user/levelUp/${GlobalData.userMemberId}',
           callback: (frame) {
-            debugPrint('${StompSocketUtil().key} ${frame.body}');
+            GlobalData.printLog('${StompSocketUtil().key} ${frame.body}');
             var result = json.decode(frame.body!);
             if (result['toUserId'] == GlobalData.userMemberId) {
               showLevelUpAnimate(result['oldLevel'], result['newLevel']);
@@ -507,15 +507,15 @@ class BaseViewModel {
       Duration timeOut = const Duration(seconds: 30),
       String logKey = 'checkFutureTime',
       bool printLog = true}) async {
-    if (printLog) debugPrint('$logKey: ---timeStart!!!!');
+    if (printLog) GlobalData.printLog('$logKey: ---timeStart!!!!');
     while (timeOut.inSeconds > 0) {
       await Future.delayed(const Duration(milliseconds: 500));
       timeOut = timeOut - const Duration(microseconds: 500);
       if (onCheckFinish()) {
-        if (printLog) debugPrint('$logKey: ---timeFinish!!!!');
+        if (printLog) GlobalData.printLog('$logKey: ---timeFinish!!!!');
         return;
       }
     }
-    if (printLog) debugPrint('$logKey: ---timeOut!!!!');
+    if (printLog) GlobalData.printLog('$logKey: ---timeOut!!!!');
   }
 }

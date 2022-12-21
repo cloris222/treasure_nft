@@ -110,7 +110,7 @@ class OrderAPI extends HttpManager {
         result.add(OrderMessageListResponseData.fromJson(json));
       }
     } catch (e) {
-      print(e.toString());
+      GlobalData.printLog(e.toString());
     }
     return result;
   }

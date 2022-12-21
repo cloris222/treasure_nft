@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
+import 'package:treasure_nft_project/constant/global_data.dart';
 import '../../../constant/ui_define.dart';
 import '../../../view_models/explore/explore_main_view_model.dart';
 import '../../../views/explore/data/explore_main_response_data.dart';
@@ -49,9 +50,9 @@ class _GetExploreMainListView extends State<GetExploreMainListView> {
         if (metrics.atEdge) {
           bool isTop = metrics.pixels == 0;
           if (isTop) {
-            debugPrint('At the top');
+            GlobalData.printLog('At the top');
           } else {
-            debugPrint('At the bottom');
+            GlobalData.printLog('At the bottom');
             updateView();
           }
         }

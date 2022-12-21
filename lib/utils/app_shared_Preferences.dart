@@ -1,9 +1,6 @@
 import 'dart:convert';
-
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:treasure_nft_project/models/http/parameter/home_carousel.dart';
-
+import 'package:treasure_nft_project/constant/global_data.dart';
 import '../models/http/parameter/check_earning_income.dart';
 import '../views/wallet/data/BalanceRecordResponseData.dart';
 
@@ -97,11 +94,11 @@ class AppSharedPreferences {
   }
 
   static Future<void> printAll() async {
-    debugPrint('pref_ printAll------');
-    debugPrint('pref_getLanguage:${await getLanguage()}');
-    debugPrint('pref_getMemberID:${await getMemberID()}');
-    debugPrint('pref_getToken:${await getToken()}');
-    debugPrint('pref_getLogIn:${await getLogIn()}');
+    GlobalData.printLog('pref_ printAll------');
+    GlobalData.printLog('pref_getLanguage:${await getLanguage()}');
+    GlobalData.printLog('pref_getMemberID:${await getMemberID()}');
+    GlobalData.printLog('pref_getToken:${await getToken()}');
+    GlobalData.printLog('pref_getLogIn:${await getLogIn()}');
   }
 
   ///MARK: ----使用者設定 end ----

@@ -146,7 +146,7 @@ class EditAvatarDialog extends BaseDialog {
         GlobalData.userInfo.bannerUrl = imageResponse.data;
       }
       // Share.shareXFiles([uploadFile!]);
-      // print('!!!!!!!!!${uploadFile!.path}');
+      // GlobalData.printLog('!!!!!!!!!${uploadFile!.path}');
       onChange();
       closeDialog();
     } else {
