@@ -53,11 +53,17 @@ class LoginButtonWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Visibility(
-                visible: showIcon,
-                  child: Icon(Icons.storefront,color: Colors.white,size: UIDefine.fontSize18,)),
+                  visible: showIcon,
+                  child: Icon(
+                    Icons.storefront,
+                    color: Colors.white,
+                    size: UIDefine.fontSize18,
+                  )),
               Visibility(
                   visible: showIcon,
-                  child: SizedBox(width: UIDefine.getPixelWidth(5),)),
+                  child: SizedBox(
+                    width: UIDefine.getPixelWidth(5),
+                  )),
               Text(btnText,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,

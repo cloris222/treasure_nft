@@ -27,18 +27,17 @@ class AppStyle {
     return BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(radius)),
         border: Border.all(color: borderColor, width: 1),
-        gradient: const LinearGradient(
-            colors: [AppColors.mainThemeButton, AppColors.subThemePurple]));
+        gradient: const LinearGradient(colors: AppColors.gradientBaseColorBg));
   }
 
-  /// 漸層色紫藍色
+  /// 漸層色紫藍色(反轉)
   BoxDecoration baseFlipGradient(
       {double radius = 0, Color borderColor = Colors.transparent}) {
     return BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(radius)),
         border: Border.all(color: borderColor, width: 1),
-        gradient: const LinearGradient(
-            colors: [AppColors.subThemePurple, AppColors.mainThemeButton]));
+        gradient:
+            const LinearGradient(colors: AppColors.gradientBaseFlipColorBg));
   }
 
   /// 自定義漸層

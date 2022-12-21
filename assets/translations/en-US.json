@@ -47,7 +47,7 @@
   "checkin":"Check-in",
   "dailyMissionRewards":"Daily Task Reward",
   "signSuccessfully":"Check-in success",
-  "more":"more",
+  "more":"More",
   "pleaseMailboxReceiveNewPassword":"New password is sent to your email.",
   "forgotModal":"Forgot Password",
 
@@ -1036,9 +1036,31 @@
   "tokenId":"Token ID",
   "automaticHosting":"Auto sale",
   "setup":"Settings",
-
-
-
+  "depositAddress":"Deposit Address",
+  "footer_intro1":"TreasureNFT is a Web3 revenue platform based on NFT collections",
+  "top-creator":"TOP COLLECTIONS OVER",
+  "index_intro1":"Earning income in TreasureNFT is very simple, just RESERVE, TRADE, and EARN",
+  "highestBid":"Highest Bid",
+  "index-h1-1":"DISCOVER,AND COLLECT DIGITAL ART NFTS",
+  "collection-fetured":"Collection fetured nfts",
+  "index-subtitle-1":"Digital marketplace for crypto collectibles and non-fungible tokens(NFTs)BuySelland discover exclusive digital assets.",
+  "exploreNow":"Explore Now",
+  "sunday":"Sunday",
+  "monday":"Monday",
+  "tuesday":"Tuesday",
+  "wednesday":"Wednesday",
+  "thursday":"Thursday",
+  "friday":"Friday",
+  "saturday":"Saturday",
+  "create-sell-title":"create and sell your nfts",
+  "signUp":"Sign Up Now",
+  "discoverNfts":"Discover more nfts",
+  "allFilter":"All Filters",
+  "index-illustrate-text-1":"Explore, discover, and earn Web3 top NFT here OF THE WORLD HERE",
+  "index-illustrate-text-2":"Fast Transaction",
+  "index-illustrate-text-3":"Growth Transaction",
+  "index-illustrate-text-4":"TreasureNFT adopts an innovative algorithmic trading model, and introduces a dual integration mechanism of transaction rewards and promotion rewards.",
+  "index-illustrate-text-5":"TreasureNFT reduce the entry threshold of the NFT market and expand the boundaries of the NFT market through a new algorithmic trading model and inclusive financial model.",
 
 
 

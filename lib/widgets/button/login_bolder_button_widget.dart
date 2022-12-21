@@ -11,23 +11,30 @@ class LoginBolderButtonWidget extends StatelessWidget {
       required this.btnText,
       required this.onPressed,
       this.width,
-      this.height})
+      this.height,
+      this.radius = 10,
+      this.textSize,
+      this.fontWeight})
       : super(key: key);
   final String btnText;
   final VoidCallback onPressed;
   final double? width;
   final double? height;
+  final double radius;
+  final double? textSize;
+  final FontWeight? fontWeight;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
         onTap: onPressed,
         child: GradientBolderWidget(
-          width: width,
+            radius: radius,
+            width: width,
             height: height,
             child: GradientText(btnText,
-                size: UIDefine.fontSize16,
-                starColor: AppColors.mainThemeButton,
-                endColor: AppColors.subThemePurple)));
+                size: textSize ?? UIDefine.fontSize16,
+                weight: fontWeight ?? FontWeight.w400,
+                colors: AppColors.gradientBaseColorBg)));
   }
 }

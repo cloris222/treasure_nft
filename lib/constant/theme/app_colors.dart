@@ -26,13 +26,37 @@ class AppColors {
   static const Color pageUnChoose = Color(0xFFD9D9D9);
   static const Color jarCoinBg = Color(0xFF003268);
   static const Color homeArtBg = Color(0xFFEFF4FA);
+  static const Color homeGrey = Color(0xFF999999);
+  static const Color tetherGreen = Color(0xFF00AC4F);
   static const Color emptyCoffee = Color(0xFF5FC8AE);
+  static const Color rateGreen = Color(0xFF1DCAB3);
+  static const Color rateRed = Color(0xFFFF002F);
 
   ///MARK:主題色彩
   static const Color mainThemeButton = Color(0xFF3B82F6);
   static const Color subThemePurple = Color(0xFF9657D7);
   static const Color mainBottomBg = Color(0xFFE0EAF7);
   static const Color reservationLevel0 = Color(0xFFF8B148);
+
+  ///MARK: 漸層
+  static const List<Color> gradientBaseColorBg = [
+    Color(0xFF5CBFFE),
+    Color(0xFFA0F5D0),
+    Color(0xFFFFD7C8)
+  ];
+
+  static const List<Color> gradientBaseFlipColorBg = [
+    Color(0xFFFFD7C8),
+    Color(0xFFA0F5D0),
+    Color(0xFF5CBFFE)
+  ];
+
+  ///MARK: 漸層
+  static const List<Color> gradientBackgroundColorBg = [
+    Color(0x4C99BCED),
+    Color(0x4C99F8CF),
+    Color(0x4CFFD6C7)
+  ];
 
   /// trade btn
   static const Color reservationLevel1 = Color(0xFF27BEB5);

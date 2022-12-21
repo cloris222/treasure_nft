@@ -3,25 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
-import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
-import 'package:treasure_nft_project/models/http/http_setting.dart';
 import 'package:treasure_nft_project/utils/language_util.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
+import 'package:treasure_nft_project/views/home/home_sub_illustrate_view.dart';
+import 'package:treasure_nft_project/views/home/home_sub_random_view.dart';
 import 'package:treasure_nft_project/views/home/home_sub_usdt_view.dart';
 import 'package:treasure_nft_project/views/home/home_sub_contact_view.dart';
-import 'package:treasure_nft_project/views/home/home_sub_video_view.dart';
-import 'package:treasure_nft_project/views/home/widget/home_usdt_info.dart';
-import 'package:treasure_nft_project/views/main_page.dart';
-import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
-import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
-import 'package:treasure_nft_project/widgets/domain_bar.dart';
 import 'package:treasure_nft_project/widgets/gradient_text.dart';
 import 'package:treasure_nft_project/widgets/list_view/home/artist_record_listview.dart';
-import 'package:treasure_nft_project/widgets/list_view/home/carousel_listview.dart';
-import 'package:video_player/video_player.dart';
 import '../../constant/enum/setting_enum.dart';
-import '../../constant/theme/app_theme.dart';
 import '../../widgets/dialog/simple_custom_dialog.dart';
 import 'home_pdf_viewer.dart';
 import 'widget/sponsor_row_widget.dart';
@@ -44,13 +35,10 @@ class _HomeMainViewState extends State<HomeMainView> {
   @override
   void initState() {
     scrollController.addListener(() {
-      if (scrollController.offset > UIDefine.getPixelHeight(387)) {
+      bool show = scrollController.offset > UIDefine.getPixelHeight(1275);
+      if (show != showArtAnimate) {
         setState(() {
-          showArtAnimate = true;
-        });
-      } else {
-        setState(() {
-          showArtAnimate = false;
+          showArtAnimate = show;
         });
       }
     });
@@ -70,12 +58,12 @@ class _HomeMainViewState extends State<HomeMainView> {
     return SingleChildScrollView(
       controller: scrollController,
       child: Column(children: [
-        const DomainBar(),
-        viewModel.buildSpace(height: 10),
-
+        // const DomainBar(),
         ///MARK: 標題
         Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(
+                horizontal: UIDefine.getPixelWidth(20),
+                vertical: UIDefine.getPixelHeight(10)),
             child: _buildTitleText()),
 
         ///MARK: USDT資訊
@@ -83,39 +71,20 @@ class _HomeMainViewState extends State<HomeMainView> {
 
         viewModel.buildSpace(height: 3),
 
-        /// 熱門系列 畫家排行
-        hotCollection(),
+        const HomeSubIllustrateView(),
+
         viewModel.buildSpace(height: 3),
 
-        /// View All
-        TextButton(
-          //圓角
-          style: ButtonStyle(
-            shadowColor: MaterialStateProperty.all(AppColors.bolderGrey),
-            backgroundColor: MaterialStateProperty.all(Colors.white),
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                side: const BorderSide(width: 2, color: AppColors.bolderGrey),
-                borderRadius: BorderRadius.circular(10))),
-          ),
+        /// 熱門系列 畫家排行
+        ArtistRecordListView(showArtAnimate: showArtAnimate),
+        viewModel.buildSpace(height: 3),
 
-          onPressed: () {
-            viewModel.pushAndRemoveUntil(context,
-                const MainPage(type: AppNavigationBarType.typeExplore));
-          },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-            child: Text(tr('seeAll'),
-                style: TextStyle(
-                    color: AppColors.textBlack,
-                    fontWeight: FontWeight.w500,
-                    fontSize: UIDefine.fontSize14)),
-          ),
-        ),
-
-        viewModel.buildSpace(height: 2),
+        /// 隨機收藏集
+        const HomeSubRandomView(),
+        viewModel.buildSpace(height: 3),
 
         /// 教學影片
-        const HomeSubVideoView(),
+        // const HomeSubVideoView(),
 
         /// 贊助
         // sponsor(),
@@ -143,96 +112,46 @@ class _HomeMainViewState extends State<HomeMainView> {
         color: AppColors.textBlack,
         height: showZh ? 1.1 : null);
 
-    return Container(
-        // height: UIDefine.getScreenHeight(8),
-        alignment: Alignment.centerLeft,
-        child: showZh
-            ? Wrap(alignment: WrapAlignment.start, children: [
-                Text('使用', style: black),
-                GradientText(
-                  'Treasure NFT',
-                  size: UIDefine.fontSize20,
-                  weight: FontWeight.w500,
-                  styleHeight: styleHeight,
-                ),
-                Text('交', style: black),
-                Text('易', style: black),
-                Text('賺', style: black),
-                Text('取', style: black),
-                Text('收', style: black),
-                Text('益', style: black),
-              ])
-            : Wrap(alignment: WrapAlignment.start, children: [
-                Text('Earn profit with',
-                    style: TextStyle(
-                        fontSize: UIDefine.fontSize20,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.textBlack)),
-                GradientText(' Treasure NFT',
-                    size: UIDefine.fontSize20, weight: FontWeight.w500)
-              ]));
-  }
-
-  Widget hotCollection() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(children: [
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 15),
-            child: Image.asset(AppImagePath.starIcon,
-                height: UIDefine.getScreenHeight(4.5), fit: BoxFit.fitHeight),
-          ),
-          Text(tr('topCreator'),
-              style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.textBlack))
-        ]),
-        // Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        //   Text(
-        //     tr('Last_24_hours'),
-        //     style: TextStyle(
-        //       fontSize: UIDefine.fontSize20,
-        //       color: AppColors.mainThemeButton,
-        //     ),
-        //   ),
-        //   Image.asset(AppImagePath.downArrow),
-        // ]),
-
         Container(
-            margin:
-                EdgeInsets.symmetric(horizontal: UIDefine.getWidth() * 0.25),
-            child: _buildChainDropDownBar()),
-        ArtistRecordListView(showArtAnimate: showArtAnimate),
+            // height: UIDefine.getScreenHeight(8),
+            alignment: Alignment.centerLeft,
+            child: showZh
+                ? Wrap(alignment: WrapAlignment.start, children: [
+                    Text('使用', style: black),
+                    GradientText(
+                      'Treasure NFT',
+                      size: UIDefine.fontSize20,
+                      weight: FontWeight.w500,
+                      styleHeight: styleHeight,
+                    ),
+                    Text('交', style: black),
+                    Text('易', style: black),
+                    Text('賺', style: black),
+                    Text('取', style: black),
+                    Text('收', style: black),
+                    Text('益', style: black),
+                  ])
+                : Wrap(alignment: WrapAlignment.start, children: [
+                    Text('Earn profit with',
+                        style: TextStyle(
+                            fontSize: UIDefine.fontSize20,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.textBlack)),
+                    GradientText(' Treasure NFT',
+                        size: UIDefine.fontSize20, weight: FontWeight.w500)
+                  ])),
+        viewModel.buildSpace(height: 2),
+        Text(tr('index-product-text-1\''),
+            style: TextStyle(
+                fontSize: UIDefine.fontSize14, color: AppColors.textGrey)),
+        Text(tr('index-product-text-2\''),
+            style: TextStyle(
+                fontSize: UIDefine.fontSize14, color: AppColors.textGrey))
       ],
     );
-  }
-
-  Widget _buildChainDropDownBar() {
-    return DropdownButtonFormField(
-        icon: Image.asset(AppImagePath.downArrow),
-        onChanged: (newValue) {},
-        value: 1,
-        isExpanded: true,
-        alignment: Alignment.center,
-        decoration: InputDecoration(
-          // contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.16),
-          //     UIDefine.getScreenWidth(4.16), UIDefine.getScreenWidth(4.16), 0),
-          hintStyle:
-              const TextStyle(height: 1.6, color: AppColors.mainThemeButton),
-          border: AppTheme.style.styleTextEditBorderBackground(
-              color: Colors.transparent, radius: 10),
-          focusedBorder: AppTheme.style.styleTextEditBorderBackground(
-              color: Colors.transparent, radius: 10),
-          enabledBorder: AppTheme.style.styleTextEditBorderBackground(
-              color: Colors.transparent, radius: 10),
-        ),
-        items: [
-          DropdownMenuItem(
-              value: 1,
-              child: Text(tr('Last_24_hours'),
-                  style: const TextStyle(color: AppColors.mainThemeButton))),
-        ]);
   }
 
   Widget sponsor() {
