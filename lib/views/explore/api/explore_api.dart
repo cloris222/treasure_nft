@@ -7,6 +7,7 @@ import '../data/explore_item_response_data.dart';
 import '../data/explore_level_info_response_data.dart';
 import '../data/explore_main_response_data.dart';
 import '../data/explore_reserve_insert_response_error_data.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 
 class ExploreApi extends HttpManager {
   ExploreApi({super.onConnectFail, super.baseUrl = HttpSetting.appUrl, super.addToken = false});
@@ -27,7 +28,7 @@ class ExploreApi extends HttpManager {
         result.add(ExploreMainResponseData.fromJson(json));
       }
     } catch (e) {
-      print(e.toString());
+      GlobalData.printLog(e.toString());
     }
     return result;
   }
@@ -43,7 +44,7 @@ class ExploreApi extends HttpManager {
         result.add(ExploreCategoryResponseData.fromJson(json));
       }
     } catch (e) {
-      print(e.toString());
+      GlobalData.printLog(e.toString());
     }
     return result;
   }
@@ -63,7 +64,7 @@ class ExploreApi extends HttpManager {
       });
       result = ExploreArtistDetailResponseData.fromJson(response.data);
     } catch (e) {
-      print(e.toString());
+      GlobalData.printLog(e.toString());
     }
     return result;
   }
@@ -79,7 +80,7 @@ class ExploreApi extends HttpManager {
       });
       result = ExploreItemResponseData.fromJson(response.data);
     } catch (e) {
-      print(e.toString());
+      GlobalData.printLog(e.toString());
     }
     return result;
   }
@@ -111,7 +112,7 @@ class ExploreApiWithToken extends HttpManager {
         result = response.message;
       }
     } catch (e) {
-      print(e.toString());
+      GlobalData.printLog(e.toString());
     }
     return result;
   }

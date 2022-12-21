@@ -1,5 +1,5 @@
 import 'notification.dart';
-
+import 'package:treasure_nft_project/constant/global_data.dart';
 ///MARK: 觀察者
 
 ///MARK:參考網頁
@@ -10,6 +10,6 @@ class Observer {
   Observer(this.name);
 
   void notify(Notification notification) {
-    print("[${notification.createdTime}] Hey $name, ${notification.key}!");
+    GlobalData.printLog("[${notification.createdTime}] Hey $name, ${notification.key}!");
   }
 }

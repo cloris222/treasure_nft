@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/http_manager.dart';
 import 'package:treasure_nft_project/models/http/http_setting.dart';
 import 'package:treasure_nft_project/models/http/parameter/api_response.dart';
@@ -21,7 +22,7 @@ class HomeAPI extends HttpManager {
         result.add(HomeCarousel.fromJson(json));
       }
     } catch (e) {
-      print(e.toString());
+      GlobalData.printLog(e.toString());
     }
 
     /// save home carousel images
@@ -48,7 +49,7 @@ class HomeAPI extends HttpManager {
         result.add(ArtistRecord.fromJson(json));
       }
     } catch (e) {
-      print(e.toString());
+      GlobalData.printLog(e.toString());
     }
     return result;
   }

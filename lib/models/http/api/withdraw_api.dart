@@ -1,3 +1,5 @@
+import 'package:treasure_nft_project/constant/global_data.dart';
+
 import '../../../views/personal/orders/withdraw/data/withdraw_balance_response_data.dart';
 import '../http_manager.dart';
 import '../http_setting.dart';
@@ -20,7 +22,7 @@ class WithdrawApi extends HttpManager {
       }
       result = WithdrawBalanceResponseData.fromJson(response.data);
     } catch (e) {
-      print(e.toString());
+      GlobalData.printLog(e.toString());
     }
     return result;
   }

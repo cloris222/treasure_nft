@@ -2,7 +2,7 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
+import 'package:treasure_nft_project/constant/global_data.dart';
 import '../constant/enum/setting_enum.dart';
 import 'app_shared_Preferences.dart';
 
@@ -15,7 +15,7 @@ class LanguageUtil {
   /// 初始化語言
   static Future<void> init() async {
     _strLanguage = await AppSharedPreferences.getLanguage();
-    debugPrint('_strLanguage:$_strLanguage!!');
+    GlobalData.printLog('_strLanguage:$_strLanguage!!');
   }
 
   static void update(BuildContext context) {
@@ -28,7 +28,7 @@ class LanguageUtil {
   }
 
   static LanguageType getSettingLanguageType() {
-   // debugPrint('_appLang: ${_appLang.name}');
+   // GlobalData.printLog('_appLang: ${_appLang.name}');
     return _appLang;
   }
 
@@ -44,7 +44,7 @@ class LanguageUtil {
 
   static Future<void> setLanguageUtil(
       BuildContext context, LanguageType currentLanguage) async {
-    // debugPrint('currentLanguage: ${currentLanguage.name}');
+    // GlobalData.printLog('currentLanguage: ${currentLanguage.name}');
     _appLang = currentLanguage;
     _strLanguage = getAppStrLanguage();
     await AppSharedPreferences.setLanguage(_strLanguage);
@@ -190,7 +190,7 @@ class LanguageUtil {
 
   static LanguageType getLanguageTypeFromLocale(Locale locale) {
     /// 不支援的語言 會自動變成英文!!
-    debugPrint(
+    GlobalData.printLog(
         'getLanguageTypeFromLocale :${locale.languageCode}-${locale.countryCode}');
 
     if (locale.languageCode == 'zh' && locale.countryCode == 'TW') {

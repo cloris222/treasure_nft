@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import '../../../view_models/personal/orders/order_info_page_view_model.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/date_picker/date_picker.dart';
@@ -44,9 +45,9 @@ class _OrderInfoPage extends State<OrderInfoPage> {
       if (metrics.atEdge) {
         bool isTop = metrics.pixels == 0;
         if (isTop) {
-          debugPrint('At the top');
+          GlobalData.printLog('At the top');
         } else {
-          debugPrint('At the bottom');
+          GlobalData.printLog('At the bottom');
           page += 1;
           viewModel.requestAPIForUpdate(page, 10);
         }
