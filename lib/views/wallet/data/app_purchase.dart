@@ -86,6 +86,14 @@ class _AppPurchaseState extends State<AppPurchase> {
       return;
     }
 
+    /// 結束上一次購買流程
+    var paymentWrapper = SKPaymentQueueWrapper();
+    var transactions = await paymentWrapper.transactions();
+    transactions.forEach((transaction) async {
+      await paymentWrapper.finishTransaction(transaction);
+    });
+
+
     if (Platform.isIOS) {
       var iosPlatformAddition = _inAppPurchase
           .getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();
