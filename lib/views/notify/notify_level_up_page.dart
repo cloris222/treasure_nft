@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:treasure_nft_project/utils/animation_download_util.dart';
 import 'package:treasure_nft_project/widgets/label/icon/level_icon_widget.dart';
 
 import '../../constant/theme/app_animation_path.dart';
@@ -21,6 +24,8 @@ class NotifyLevelUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double padding = MediaQuery.of(context).padding.top;
+    String? path = AnimationDownloadUtil()
+        .getAnimationFilePath(AppAnimationPath.showLevelUp);
     return Scaffold(
         backgroundColor: AppColors.opacityBackground,
         body: Container(
@@ -37,8 +42,9 @@ class NotifyLevelUpPage extends StatelessWidget {
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  child: Lottie.asset(AppAnimationPath.showLevelUp,
-                      fit: BoxFit.fill)),
+                  child: path != null
+                      ? Lottie.file(File(path), fit: BoxFit.fill)
+                      : const SizedBox()),
               Positioned(
                   top: pageHeight * 0.4,
                   child: LevelIconWidget(

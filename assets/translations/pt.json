@@ -1060,5 +1060,6 @@
   "collectionDescribeContent":"Esta descrição será exibida na coleção",
   "collectionDescribeHint":"Forneça uma descrição detalhada de sua coleção...",
   "deleteAccount":"Deletar conta",
-  "deleteAccountHint":"Tem certeza de que deseja excluir sua conta? Isto não pode ser desfeito."
+  "deleteAccountHint":"Tem certeza de que deseja excluir sua conta? Isto não pode ser desfeito.",
+  "goPermissionAnimation":"Para garantir que a animação do APP funcione totalmente, você precisa habilitar a permissão de armazenamento. Você quer ir para a página de configuração para configuração?"
 }

@@ -1,22 +1,19 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:treasure_nft_project/constant/enum/trade_enum.dart';
 import 'package:treasure_nft_project/constant/theme/app_animation_path.dart';
-import 'package:treasure_nft_project/models/data/activity_model_data.dart';
-import 'package:treasure_nft_project/models/http/api/trade_api.dart';
+import 'package:treasure_nft_project/utils/animation_download_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/view_models/trade/activity_viewmodel.dart';
 import 'package:treasure_nft_project/views/trade/trade_draw_result_page.dart';
-import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/theme/app_style.dart';
 import '../../constant/ui_define.dart';
-import '../../models/http/parameter/check_activiey_deposit.dart';
 import '../dialog/activity_rule_dialog.dart';
 import '../dialog/animation_dialog.dart';
 import '../dialog/new_reservation_dialog.dart';
@@ -280,6 +277,9 @@ class _WorldCupViewState extends State<WorldCupView> {
         fontSize: UIDefine.fontSize14,
         color: Colors.black,
         fontWeight: FontWeight.w500);
+
+    String? path = AnimationDownloadUtil()
+        .getAnimationFilePath(AppAnimationPath.activitySuccess);
     return Stack(
       children: [
         SizedBox(
@@ -363,10 +363,12 @@ class _WorldCupViewState extends State<WorldCupView> {
             child: Visibility(
               visible: (viewModel.canReserve?.isUsed ?? false) &&
                   (viewModel.canReserve?.isOpen ?? false),
-              child: Image.asset(
-                AppAnimationPath.activitySuccess,
-                fit: BoxFit.cover,
-              ),
+              child: path != null
+                  ? Image.file(
+                      File(path),
+                      fit: BoxFit.cover,
+                    )
+                  : const SizedBox(),
             ))
       ],
     );

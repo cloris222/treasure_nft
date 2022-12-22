@@ -1060,5 +1060,6 @@
   "collectionDescribeContent":"Bu açıklama koleksiyonda gösterilecek",
   "collectionDescribeHint":"Koleksiyonunuzun ayrıntılı bir açıklamasını sağlayın...",
   "deleteAccount":"Hesabı sil",
-  "deleteAccountHint":"Hesabınızı silmek istediğinizden emin misiniz? Bu geri alınamaz."
+  "deleteAccountHint":"Hesabınızı silmek istediğinizden emin misiniz? Bu geri alınamaz.",
+  "goPermissionAnimation":"APP animasyonunun tam olarak çalıştığından emin olmak için depolama iznini etkinleştirmeniz gerekir. Ayar için ayar sayfasına gitmek istiyor musunuz?"
 }

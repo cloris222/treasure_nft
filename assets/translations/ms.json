@@ -1060,5 +1060,6 @@
   "collectionDescribeContent":"Penerangan ini akan dipaparkan dalam koleksi",
   "collectionDescribeHint":"Berikan penerangan terperinci tentang koleksi anda...",
   "deleteAccount":"Padam akaun",
-  "deleteAccountHint":"Adakah anda pasti mahu memadamkan akaun anda? Perkara ini tidak boleh diubah."
+  "deleteAccountHint":"Adakah anda pasti mahu memadamkan akaun anda? Perkara ini tidak boleh diubah.",
+  "goPermissionAnimation":"Untuk memastikan animasi APP berfungsi sepenuhnya, anda perlu mendayakan kebenaran storan. Adakah anda mahu pergi ke halaman tetapan untuk tetapan?"
 }
