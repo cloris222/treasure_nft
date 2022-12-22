@@ -37,6 +37,8 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>would you allow Treasure_NFT use camera to scan QR code?</string>
+	<key>NSDownloadsFolderUsageDescription</key>
+	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>would you allow Treasure_NFT upload image from your gallery and save QR Code image to your album?</string>
 	<key>NSUserTrackingUsageDescription</key>
