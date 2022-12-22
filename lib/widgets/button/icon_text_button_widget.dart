@@ -1,22 +1,21 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-
+import 'package:treasure_nft_project/constant/global_data.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_style.dart';
 import '../../constant/ui_define.dart';
 
-class IconTextButtonWidget extends StatelessWidget {
-  const IconTextButtonWidget({super.key,
-  required this.btnText,
-  required this.iconPath,
-  required this.onPressed,
-  this.width,
-  this.enable = true,
-  this.height,
-  this.fontSize,
-  this.fontWeight
-  });
+class IconTextButtonWidget extends StatefulWidget {
+  const IconTextButtonWidget(
+      {super.key,
+      required this.btnText,
+      required this.iconPath,
+      required this.onPressed,
+      this.width,
+      this.enable = true,
+      this.height,
+      this.fontSize,
+      this.fontWeight,
+      this.needTimes = 1});
 
   final String btnText;
   final String iconPath;
@@ -26,34 +25,55 @@ class IconTextButtonWidget extends StatelessWidget {
   final double? height;
   final double? fontSize;
   final FontWeight? fontWeight;
+  final int needTimes;
+
+  @override
+  State<IconTextButtonWidget> createState() => _IconTextButtonWidgetState();
+}
+
+class _IconTextButtonWidgetState extends State<IconTextButtonWidget> {
+  DateTime? _delay;
+
+  /// 防止重複點擊button
+  void intervalClick(int needTime) {
+    if (_delay == null ||
+        DateTime.now().difference(_delay!) > Duration(seconds: needTime)) {
+      GlobalData.printLog("允許點擊");
+      _delay = DateTime.now();
+      widget.onPressed();
+    } else {
+      ///强制用户一定要间隔3s后才能成功点击. 而不是以上一次点击成功的时间开始计算.
+      GlobalData.printLog("重複點擊");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onPressed,
+      onTap: () => intervalClick(widget.needTimes),
       child: Container(
           alignment: Alignment.center,
-          margin: EdgeInsets.symmetric(vertical: UIDefine.getScreenWidth(2), horizontal: UIDefine.getScreenWidth(5)),
-          decoration: enable
+          margin: EdgeInsets.symmetric(
+              vertical: UIDefine.getScreenWidth(2),
+              horizontal: UIDefine.getScreenWidth(5)),
+          decoration: widget.enable
               ? AppStyle().baseGradient(radius: 10)
               : AppStyle()
-              .styleColorsRadiusBackground(color: AppColors.buttonGrey),
-          width: width ?? UIDefine.getWidth(),
-          height: height ?? 50,
+                  .styleColorsRadiusBackground(color: AppColors.buttonGrey),
+          width: widget.width ?? UIDefine.getWidth(),
+          height: widget.height ?? 50,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(iconPath),
+              Image.asset(widget.iconPath),
               const SizedBox(width: 4),
-              Text(btnText,
+              Text(widget.btnText,
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: fontSize ?? UIDefine.fontSize16,
-                      fontWeight: fontWeight ))
+                      fontSize: widget.fontSize ?? UIDefine.fontSize16,
+                      fontWeight: widget.fontWeight))
             ],
-          )
-      ),
+          )),
     );
   }
-
 }

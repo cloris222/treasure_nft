@@ -1,28 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 
 import '../../constant/ui_define.dart';
 import 'action_button_widget.dart';
 
 class TextButtonWidget extends ActionButtonWidget {
-  const TextButtonWidget({super.key,
-    required super.btnText,
-    required super.onPressed,
-    super.setMainColor,
-    super.setSubColor,
-    super.setTransColor,
-    super.fontSize,
-    super.margin,
-    super.padding,
-    super.isBorderStyle,
-    super.isFillWidth = false,
-    super.radius = 5,
-    super.fontWeight,
-    super.setHeight,
-    this.backgroundHorizontal,
-    this.backgroundVertical,
-    this.borderSize = 2,
-    this.textAlign});
+  const TextButtonWidget(
+      {super.key,
+      required super.btnText,
+      required super.onPressed,
+      super.setMainColor,
+      super.setSubColor,
+      super.setTransColor,
+      super.fontSize,
+      super.margin,
+      super.padding,
+      super.isBorderStyle,
+      super.isFillWidth = false,
+      super.radius = 5,
+      super.fontWeight,
+      super.setHeight,
+      this.backgroundHorizontal,
+      this.backgroundVertical,
+      this.borderSize = 2,
+      this.textAlign,
+      super.needTimes});
 
   final double? backgroundVertical;
   final double? backgroundHorizontal;
@@ -30,45 +33,66 @@ class TextButtonWidget extends ActionButtonWidget {
   final TextAlign? textAlign;
 
   @override
-  Widget createButton(BuildContext context) {
-    Color primaryColor, borderColor, textColor;
-    if (isBorderStyle) {
-      primaryColor = setSubColor;
-      borderColor = setMainColor;
-      textColor = setMainColor;
+  State<TextButtonWidget> createState() => _TextButtonWidgetState();
+}
+
+class _TextButtonWidgetState extends State<TextButtonWidget> {
+  DateTime? _delay;
+  /// 防止重複點擊button
+  void intervalClick(int needTime) {
+    if (_delay == null ||
+        DateTime.now().difference(_delay!) > Duration(seconds: needTime)) {
+      GlobalData.printLog("允許點擊");
+      _delay = DateTime.now();
+      widget.onPressed();
     } else {
-      primaryColor = setMainColor;
-      borderColor = setTransColor;
-      textColor = setSubColor;
+      ///强制用户一定要间隔3s后才能成功点击. 而不是以上一次点击成功的时间开始计算.
+      GlobalData.printLog("重複點擊");
+    }
+  }
+  @override
+  Widget build(BuildContext context) {
+    Color primaryColor, borderColor, textColor;
+    if (widget.isBorderStyle) {
+      primaryColor = widget.setSubColor;
+      borderColor = widget.setMainColor;
+      textColor = widget.setMainColor;
+    } else {
+      primaryColor = widget.setMainColor;
+      borderColor = widget.setTransColor;
+      textColor = widget.setSubColor;
     }
     var actionButton = InkWell(
-        onTap: () => onPressed(),
+        onTap: () => intervalClick(widget.needTimes),
         child: Container(
             padding: EdgeInsets.symmetric(
-                vertical: backgroundVertical ?? UIDefine.getPixelHeight(5),
-                horizontal: backgroundHorizontal ?? UIDefine.getPixelWidth(10)),
+                vertical:
+                    widget.backgroundVertical ?? UIDefine.getPixelHeight(5),
+                horizontal:
+                    widget.backgroundHorizontal ?? UIDefine.getPixelWidth(10)),
             decoration: AppStyle().styleColorBorderBackground(
-                borderLine: borderSize,
-                radius: radius,
+                borderLine: widget.borderSize,
+                radius: widget.radius,
                 color: borderColor,
                 backgroundColor: primaryColor),
             child: Text(
-              btnText,
-              textAlign: textAlign,
+              widget.btnText,
+              textAlign: widget.textAlign,
               style: TextStyle(
-                fontWeight: fontWeight,
-                  color: textColor, fontSize: fontSize ?? UIDefine.fontSize16),
+                  fontWeight: widget.fontWeight,
+                  color: textColor,
+                  fontSize: widget.fontSize ?? UIDefine.fontSize16),
             )));
 
-    return isFillWidth
+    return widget.isFillWidth
         ? Container(
-        width: MediaQuery
-            .of(context)
-            .size
-            .width,
-        margin: margin,
-        padding: padding,
-        child: actionButton)
-        : Container(margin: margin, padding: padding, child: actionButton);
+            width: MediaQuery.of(context).size.width,
+            margin: widget.margin,
+            padding: widget.padding,
+            child: actionButton)
+        : Container(
+            margin: widget.margin,
+            padding: widget.padding,
+            child: actionButton);
   }
 }
