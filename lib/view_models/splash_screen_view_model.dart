@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
+import 'package:treasure_nft_project/utils/animation_download_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:video_player/video_player.dart';
 import '../constant/global_data.dart';
@@ -26,6 +27,7 @@ class SplashScreenViewModel extends BaseViewModel {
   void initState() async {
     GlobalData.printLog('$key runInitApp:init');
     controller = VideoPlayerController.asset(AppAnimationPath.splashScreen);
+    AnimationDownloadUtil().init();
     await controller.initialize();
     await controller.play();
     onViewChange();

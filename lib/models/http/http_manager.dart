@@ -236,4 +236,26 @@ class HttpManager {
       rethrow;
     }
   }
+
+  ///MARK: 下載檔案
+  Future<Response> downloadFile(String url, String savePath, String fileName,
+      {ProgressCallback? onReceiveProgress}) async {
+    var cancelToken = CancelToken();
+    await _initDio();
+    try {
+      return await _dio.download(
+        url,
+        savePath,
+        onReceiveProgress: onReceiveProgress,
+        cancelToken: cancelToken,
+      );
+    } on DioError catch (e) {
+      final errorMessage = HttpExceptions.fromDioError(e).toString();
+      callFailConnect(errorMessage, isOther: e.type == DioErrorType.other);
+      throw HttpSetting.debugMode ? errorMessage : '';
+    } catch (e) {
+      callFailConnect(e.toString());
+      rethrow;
+    }
+  }
 }
