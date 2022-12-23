@@ -1061,5 +1061,6 @@
   "collectionDescribeHint":"컬렉션에 대한 자세한 설명을 제공하십시오...",
   "deleteAccount":"계정 삭제",
   "deleteAccountHint":"계정을 삭제하시겠습니까? 이 취소 할 수 없습니다.",
-  "goPermissionAnimation":"APP 애니메이션이 제대로 작동하려면 저장 권한을 활성화해야 합니다. 설정을 위해 설정 페이지로 이동하시겠습니까?"
+  "goPermissionAnimation":"APP 애니메이션이 제대로 작동하려면 저장 권한을 활성화해야 합니다. 설정을 위해 설정 페이지로 이동하시겠습니까?",
+  "appPurchaseDescription":"이 제품을 구매하면 {price}USDT 상당의 NFT 아트 컬렉션을 얻을 수 있습니다."
 }

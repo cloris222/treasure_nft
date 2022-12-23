@@ -1061,5 +1061,6 @@
   "collectionDescribeHint":"Proporcione una descripción detallada de su colección...",
   "deleteAccount":"Borrar cuenta",
   "deleteAccountHint":"¿Está seguro de que desea eliminar su cuenta? Esto no se puede deshacer.",
-  "goPermissionAnimation":"Para garantizar que la animación de la aplicación funcione completamente, debe habilitar el permiso de almacenamiento. ¿Desea ir a la página de configuración para la configuración?"
+  "goPermissionAnimation":"Para garantizar que la animación de la aplicación funcione completamente, debe habilitar el permiso de almacenamiento. ¿Desea ir a la página de configuración para la configuración?",
+  "appPurchaseDescription":"Al comprar este producto, puede obtener una colección de arte NFT por un valor de {price}USDT."
 }
