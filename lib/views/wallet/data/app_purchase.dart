@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:format/format.dart';
 
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
@@ -23,6 +24,7 @@ import '../../../view_models/base_view_model.dart';
 import '../../../widgets/appbar/custom_app_bar.dart';
 import '../open_box_animation_page.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
+
 class AppPurchase extends StatefulWidget {
   const AppPurchase({Key? key}) : super(key: key);
 
@@ -93,17 +95,18 @@ class _AppPurchaseState extends State<AppPurchase> {
       await paymentWrapper.finishTransaction(transaction);
     });
 
-
     if (Platform.isIOS) {
       var iosPlatformAddition = _inAppPurchase
           .getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();
       await iosPlatformAddition.setDelegate(ExamplePaymentQueueDelegate());
     }
+
     /// call api check product list
     var response = await IOSPaymentAPI().getPurchaseList();
     Set<String> productIds = Set<String>.from(response.map((e) => e.productId));
     ProductDetailsResponse productDetailResponse =
         await _inAppPurchase.queryProductDetails(productIds);
+
     /// 直接從蘋果後台取得資料
     // await _inAppPurchase.queryProductDetails(_kProductIds.toSet());
     if (productDetailResponse.error != null) {
@@ -234,26 +237,31 @@ class _AppPurchaseState extends State<AppPurchase> {
         var imageName = '';
         var buttonName = '';
         var buttonColor = 0;
+        var price = '';
         switch (productDetails.id) {
           case NFT_1:
             imageName = AppImagePath.purchaseImg1;
             buttonName = 'Silver';
             buttonColor = 0XFF54514D;
+            price = '7';
             break;
           case NFT_2:
             imageName = AppImagePath.purchaseImg2;
             buttonName = 'Golden';
             buttonColor = 0XFFECAF46;
+            price = '21';
             break;
           case NFT_3:
             imageName = AppImagePath.purchaseImg3;
             buttonName = 'Platinum';
             buttonColor = 0XFF93A0D2;
+            price = '35';
             break;
           case NFT_4:
             imageName = AppImagePath.purchaseImg4;
             buttonName = 'Diamond';
             buttonColor = 0XFF79BAD2;
+            price = '70';
             break;
         }
 
@@ -261,20 +269,33 @@ class _AppPurchaseState extends State<AppPurchase> {
           margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(20)),
           child: Column(
             children: [
-              Row(
+              Column(
                 children: [
+                  Row(
+                    children: [
+                      Container(
+                          margin: EdgeInsets.only(
+                              left: UIDefine.getPixelWidth(15),
+                              right: UIDefine.getPixelWidth(10)),
+                          child: Image.asset(
+                            AppImagePath.rewardGradient,
+                          )),
+                      Text(
+                        productDetails.title,
+                        style: TextStyle(
+                            fontSize: UIDefine.fontSize24,
+                            fontWeight: FontWeight.w500),
+                      )
+                    ],
+                  ),
                   Container(
-                      margin: EdgeInsets.only(
-                          left: UIDefine.getPixelWidth(15),
-                          right: UIDefine.getPixelWidth(10)),
-                      child: Image.asset(
-                        AppImagePath.rewardGradient,
-                      )),
-                  Text(
-                    productDetails.title,
-                    style: TextStyle(
-                        fontSize: UIDefine.fontSize24,
-                        fontWeight: FontWeight.w500),
+                    margin: EdgeInsets.only(left: UIDefine.getPixelWidth(15),bottom: UIDefine.getPixelHeight(3)),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      format(tr("appPurchaseDescription"), {"price": '$price '}),
+                      style: TextStyle(
+                          color: Colors.grey, fontSize: UIDefine.fontSize14),
+                    ),
                   )
                 ],
               ),

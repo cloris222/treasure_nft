@@ -1061,5 +1061,6 @@
   "collectionDescribeHint":"Provide a detailed description of your collection...",
   "deleteAccount":"Delete account",
   "deleteAccountHint":"Are you sure you want to delete your account? This cannot be undone.",
-  "goPermissionAnimation":"To ensure APP animation fully functioned, you need to enable the storage permission. Do you want to go to the setting page for setting?"
+  "goPermissionAnimation":"To ensure APP animation fully functioned, you need to enable the storage permission. Do you want to go to the setting page for setting?",
+  "appPurchaseDescription":"Buying this product, you can get a NFT art collection worth {price}USDT."
 }

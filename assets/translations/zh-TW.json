@@ -1061,5 +1061,6 @@
   "collectionDescribeHint":"提供您的收藏集的詳細描述...",
   "deleteAccount":"刪除帳號",
   "deleteAccountHint":"您是否確認要刪除此帳號呢，此操作無法恢復",
-  "goPermissionAnimation":"為確保APP動畫正常運行，您需要啟用儲存權限，是否前往設定頁面做設定？"
+  "goPermissionAnimation":"為確保APP動畫正常運行，您需要啟用儲存權限，是否前往設定頁面做設定？",
+  "appPurchaseDescription":"購買此商品,您可獲得價值{price}USDT的NFT藝術收藏品"
 }
