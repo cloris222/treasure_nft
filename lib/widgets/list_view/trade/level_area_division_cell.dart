@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:format/format.dart';
@@ -5,6 +7,7 @@ import 'package:lottie/lottie.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_animation_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
+import 'package:treasure_nft_project/utils/animation_download_util.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
@@ -37,8 +40,7 @@ class DivisionCell extends StatefulWidget {
 
 class _DivisionCellState extends State<DivisionCell> {
   String getRange() {
-
-    if(GlobalData.userInfo.level == 0){
+    if (GlobalData.userInfo.level == 0) {
       return '${tr("level")} 0';
     }
 
@@ -59,15 +61,15 @@ class _DivisionCellState extends State<DivisionCell> {
     }
   }
 
-
   /// 是否解鎖副本 && 開賣狀態動畫顯示
-  showImg() {
+  Widget showImg() {
     if (widget.range.lock == true) {
-      return getLockImg();
+      return Image.asset(getLockImg());
     } else if (widget.range.used == true) {
-      return showGif();
+      String? path = AnimationDownloadUtil().getAnimationFilePath(showGif());
+      return path != null ? Image.file(File(path)) : Image.asset(getLevelImg());
     } else {
-      return getLevelImg();
+      return Image.asset(getLevelImg());
     }
   }
 
@@ -100,7 +102,7 @@ class _DivisionCellState extends State<DivisionCell> {
     }
     // int index = widget.range.index ?? 0;
     return format(AppImagePath.divisionLevel,
-        ({'level': '0${widget.level}', 'index': '${widget.imageIndex +1}'}));
+        ({'level': '0${widget.level}', 'index': '${widget.imageIndex + 1}'}));
   }
 
   Color getReservationBtnColor() {
@@ -170,9 +172,7 @@ class _DivisionCellState extends State<DivisionCell> {
                     height: 25,
                     child: Visibility(
                       visible: widget.range.used,
-                      child: Lottie.asset(widget.level == 0
-                          ? AppAnimationPath.beginnerReserving
-                          : AppAnimationPath.rotating),
+                      child: _buildReserving(),
                     ),
                   ),
                   const SizedBox(
@@ -195,7 +195,7 @@ class _DivisionCellState extends State<DivisionCell> {
           ),
           Stack(
             children: [
-              Image.asset(showImg()),
+              showImg(),
               Positioned(
                 right: 0,
                 bottom: 0,
@@ -222,5 +222,15 @@ class _DivisionCellState extends State<DivisionCell> {
         ],
       ),
     );
+  }
+
+  /// 如果是預約狀態（顯示轉圈動畫）
+  Widget _buildReserving() {
+    String? path = AnimationDownloadUtil().getAnimationFilePath(
+        widget.level == 0
+            ? AppAnimationPath.beginnerReserving
+            : AppAnimationPath.rotating);
+
+    return path != null ? Lottie.file(File(path)) : const SizedBox();
   }
 }

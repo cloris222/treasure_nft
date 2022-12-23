@@ -13,6 +13,7 @@ import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/models/http/api/order_api.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/user_info_data.dart';
+import 'package:treasure_nft_project/utils/animation_download_util.dart';
 import 'package:treasure_nft_project/views/collection/api/collection_api.dart';
 import 'package:treasure_nft_project/views/full_animation_page.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
@@ -373,10 +374,14 @@ class BaseViewModel {
   void showBuySuccessAnimate() async {
     if (!GlobalData.bShowBuySuccessAnimate) {
       GlobalData.bShowBuySuccessAnimate = true;
-      await pushOpacityPage(
-          getGlobalContext(),
-          const FullAnimationPage(
-              animationPath: AppAnimationPath.buyNFTSuccess, limitTimer: 4));
+      String? path = AnimationDownloadUtil()
+          .getAnimationFilePath(AppAnimationPath.buyNFTSuccess);
+      if (path != null) {
+        await pushOpacityPage(
+            getGlobalContext(),
+            FullAnimationPage(
+                isFile: true, animationPath: path, limitTimer: 4));
+      }
       await ImageDialog(
         getGlobalContext(),
         mainText: tr('buy_remind_title'),
@@ -413,22 +418,31 @@ class BaseViewModel {
 
     ///MARK: 儲金罐動畫
     else {
-      pushOpacityPage(
-          getGlobalContext(),
-          FullAnimationPage(
-              animationPath: AppAnimationPath.showCoinJar,
-              limitTimer: 3,
-              backgroundColor: AppColors.jarCoinBg.withOpacity(0.8)));
+      String? jarPath = AnimationDownloadUtil()
+          .getAnimationFilePath(AppAnimationPath.showCoinJar);
+      if (jarPath != null) {
+        pushOpacityPage(
+            getGlobalContext(),
+            FullAnimationPage(
+                isFile: true,
+                animationPath: jarPath,
+                limitTimer: 3,
+                backgroundColor: AppColors.jarCoinBg.withOpacity(0.8)));
+      }
     }
   }
 
   ///MARK: 倒數五分鐘顯示開賣中動畫
   void _onTradeTimerListener(TradeData data) {
     if (data.duration == const Duration(minutes: 5)) {
-      pushOpacityPage(
-          getGlobalContext(),
-          const FullAnimationPage(
-              animationPath: AppAnimationPath.showWaitSell, limitTimer: 4));
+      String? path = AnimationDownloadUtil()
+          .getAnimationFilePath(AppAnimationPath.showWaitSell);
+      if (path != null) {
+        pushOpacityPage(
+            getGlobalContext(),
+            FullAnimationPage(
+                isFile: true, animationPath: path, limitTimer: 4));
+      }
     }
   }
 

@@ -12,7 +12,6 @@ import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_animation_path.dart';
 import '../../models/data/validate_result_data.dart';
 import '../../models/http/api/login_api.dart';
-import '../../utils/stomp_socket_util.dart';
 import '../../views/full_animation_page.dart';
 import '../../views/main_page.dart';
 import '../../widgets/dialog/simple_custom_dialog.dart';
@@ -144,6 +143,7 @@ class RegisterMainViewModel extends BaseViewModel {
   ///MARK: 註冊
   void onPressRegister(BuildContext context) {
     resetData();
+
     ///MARK: 檢查是否有欄位未填
     if (!checkEmptyController()) {
       setState(() {
@@ -189,6 +189,7 @@ class RegisterMainViewModel extends BaseViewModel {
               phoneCountry: phoneCountry)
           .then((value) async {
         ///MARK: 註冊成功動畫
+
         BaseViewModel().pushOpacityPage(
             context,
             FullAnimationPage(

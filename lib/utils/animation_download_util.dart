@@ -1,11 +1,15 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/api/common_api.dart';
 import 'package:treasure_nft_project/models/http/http_manager.dart';
 import 'package:treasure_nft_project/models/http/parameter/animation_path_data.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 
 class AnimationDownloadUtil {
   /// 單例
@@ -25,23 +29,24 @@ class AnimationDownloadUtil {
   String _animatePath = '';
   bool hasPermission = false;
 
-  File? getAnimationFile(String fileName) {
+  String? getAnimationFilePath(String fileName) {
     if (assetFiles.containsKey(fileName)) {
-      return File(assetFiles[fileName]!);
+      return assetFiles[fileName];
     }
     return null;
   }
 
   void init() async {
     ///MARK: 檢查權限
-    PermissionStatus status = await _getStoragePermission();
-    if (status == PermissionStatus.permanentlyDenied) {
-      // showStorageDialog();
-    }
-    if (status.isGranted) {
+    PermissionStatus status = await _getStoragePermission(true);
+    GlobalData.printLog('$key Permission $status');
+    if (status == PermissionStatus.permanentlyDenied ||
+        status == PermissionStatus.denied) {
+      showStorageDialog();
+    } else {
       hasPermission = true;
+      start();
     }
-    start();
   }
 
   void start() async {
@@ -62,6 +67,12 @@ class AnimationDownloadUtil {
       }
       bool isDownloadFinish = true;
       for (AnimationPathData data in paths) {
+        ///MARK: 排除部分動畫
+        if (_blockPath(data)) {
+          GlobalData.printLog('$key${data.name} is block');
+          continue;
+        }
+
         File file = File('$_animatePath/${data.name}');
         GlobalData.printLog('$key${file.path}');
         bool needDownload = true;
@@ -114,14 +125,15 @@ class AnimationDownloadUtil {
     Future.delayed(const Duration(seconds: 10)).then((value) => start());
   }
 
-  Future<PermissionStatus> _getStoragePermission() async {
+  Future<PermissionStatus> _getStoragePermission(bool needRequest) async {
     PermissionStatus status = await Permission.storage.status;
     if (!status.isGranted) {
-      final result = await Permission.storage.request();
-      return result;
-    } else {
-      return status;
+      if (needRequest) {
+        final result = await Permission.storage.request();
+        return result;
+      }
     }
+    return status;
   }
 
   void showDownloadProgress(received, total, String fileName) {
@@ -129,5 +141,52 @@ class AnimationDownloadUtil {
       GlobalData.printLog(
           '$key${fileName}_ ${(received / total * 100).toStringAsFixed(0)}%');
     }
+  }
+
+  void showStorageDialog() async {
+    BuildContext context = BaseViewModel().getGlobalContext();
+
+    CommonCustomDialog(
+      context,
+      bOneButton: false,
+      type: DialogImageType.warning,
+      title: tr("G_0403"),
+      content: tr('goPermissionAnimation'),
+      leftBtnText: tr('cancel'),
+      rightBtnText: tr('confirm'),
+      onLeftPress: () {
+        Navigator.pop(context);
+      },
+      onRightPress: () async {
+        Navigator.pop(context);
+        showSetting();
+      },
+    ).show();
+  }
+
+  void showSetting() async {
+    GlobalData.printLog('$key open app setting');
+    openAppSettings();
+
+    GlobalData.printLog('$key wait check Storage permission start');
+    for (int i = 0; i < 12; i++) {
+      await Future.delayed(const Duration(seconds: 5));
+      PermissionStatus status = await _getStoragePermission(false);
+      if (status == PermissionStatus.permanentlyDenied ||
+          status == PermissionStatus.denied) {
+        GlobalData.printLog('$key check Storage permission deny');
+        continue;
+      } else {
+        GlobalData.printLog('$key check Storage permission ok');
+        hasPermission = true;
+        start();
+        break;
+      }
+    }
+    GlobalData.printLog('$key wait check Storage permission finish');
+  }
+
+  bool _blockPath(AnimationPathData data) {
+    return (data.name.compareTo("mb_signup_success_01.gif") == 0);
   }
 }

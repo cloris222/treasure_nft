@@ -2,6 +2,7 @@
 
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/utils/animation_download_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/collection/collection_main_view.dart';
 import 'package:treasure_nft_project/views/explore/explore_main_view.dart';
@@ -56,10 +57,15 @@ class _MainPageState extends State<MainPage> {
     pageController = PageController(initialPage: initialPage);
     Future.delayed(const Duration(seconds: 2))
         .then((value) => showAnimateView());
+    if (GlobalData.firstLaunch) {
+      GlobalData.firstLaunch = false;
+      AnimationDownloadUtil().init();
+    }
   }
+
   Future<void> initPlugin() async {
     final TrackingStatus status =
-    await AppTrackingTransparency.trackingAuthorizationStatus;
+        await AppTrackingTransparency.trackingAuthorizationStatus;
     setState(() => _authStatus = '$status');
     // If the system can show an authorization request dialog
     if (status == TrackingStatus.notDetermined) {
@@ -69,7 +75,7 @@ class _MainPageState extends State<MainPage> {
       await Future.delayed(const Duration(milliseconds: 200));
       // Request system's tracking authorization dialog
       final TrackingStatus status =
-      await AppTrackingTransparency.requestTrackingAuthorization();
+          await AppTrackingTransparency.requestTrackingAuthorization();
       setState(() => _authStatus = '$status');
     }
 
@@ -84,8 +90,8 @@ class _MainPageState extends State<MainPage> {
           title: const Text('Dear User'),
           content: const Text(
             'We care about your privacy and data security. We keep this app free by showing ads. '
-                'Can we continue to use your data to tailor ads for you?\n\nYou can change your choice anytime in the app settings. '
-                'Our partners will collect data and use a unique identifier on your device to show you ads.',
+            'Can we continue to use your data to tailor ads for you?\n\nYou can change your choice anytime in the app settings. '
+            'Our partners will collect data and use a unique identifier on your device to show you ads.',
           ),
           actions: [
             TextButton(
@@ -98,20 +104,24 @@ class _MainPageState extends State<MainPage> {
 
   void showAnimateView() {
     ///MARK: 代表手機自動登入
-    if (GlobalData.showLoginAnimate) {
+    String? path = AnimationDownloadUtil()
+        .getAnimationFilePath(viewModel.getLoginTimeAnimationPath());
+    if (GlobalData.showLoginAnimate && path != null) {
       GlobalData.showLoginAnimate = false;
       viewModel
           .pushOpacityPage(
               context,
               FullAnimationPage(
+                  isFile: true,
                   limitTimer: 3,
-                  animationPath: viewModel.getLoginTimeAnimationPath(),
+                  animationPath: path,
                   nextOpacityPage: true,
                   isPushNextPage: true))
           .then((value) {
         showSignView();
       });
     } else {
+      GlobalData.showLoginAnimate = false;
       showSignView();
     }
   }
@@ -203,7 +213,6 @@ class _MainPageState extends State<MainPage> {
 
   void _serverAction() {
     viewModel.pushPage(context, const ServerWebPage());
-    // viewModel.pushPage(context, const SplashScreenPage());
   }
 
   void _avatarAction() {

@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:treasure_nft_project/utils/animation_download_util.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import 'package:treasure_nft_project/widgets/dialog/base_dialog.dart';
 
@@ -14,14 +17,19 @@ class AnimationDialog extends BaseDialog {
 
   @override
   Widget initContent(BuildContext context, StateSetter setState) {
+    String? path =
+        AnimationDownloadUtil().getAnimationFilePath(animationPathJson);
+
     return Column(
       children: [
         Stack(
           children: [
             Container(
-                constraints:
-                    BoxConstraints(minHeight: UIDefine.getPixelHeight(280),minWidth: UIDefine.getWidth()*0.9),
-                child: Lottie.asset(animationPathJson)),
+                constraints: BoxConstraints(
+                    minHeight: UIDefine.getPixelHeight(280),
+                    minWidth: UIDefine.getWidth() * 0.9),
+                child:
+                    path != null ? Lottie.file(File(path)) : const SizedBox()),
             Positioned(
                 bottom: 0,
                 left: 0,

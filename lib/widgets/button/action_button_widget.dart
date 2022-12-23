@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import '../../constant/theme/app_colors.dart';
 
-class ActionButtonWidget extends StatelessWidget {
+class ActionButtonWidget extends StatefulWidget {
   const ActionButtonWidget(
       {Key? key,
       required this.btnText,
@@ -17,7 +18,8 @@ class ActionButtonWidget extends StatelessWidget {
       this.padding,
       this.isBorderStyle = false,
       this.isFillWidth = true,
-      this.radius = 10})
+      this.radius = 10,
+      this.needTimes = 1})
       : super(key: key);
   final String btnText;
   final VoidCallback onPressed;
@@ -32,6 +34,27 @@ class ActionButtonWidget extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
   final EdgeInsetsGeometry? padding;
   final double radius;
+  final int needTimes;
+
+  @override
+  State<ActionButtonWidget> createState() => _ActionButtonWidgetState();
+}
+
+class _ActionButtonWidgetState extends State<ActionButtonWidget> {
+  DateTime? _delay;
+
+  /// 防止重複點擊button
+  void intervalClick(int needTime) {
+    if (_delay == null ||
+        DateTime.now().difference(_delay!) > Duration(seconds: needTime)) {
+      GlobalData.printLog("允許點擊");
+      _delay = DateTime.now();
+      widget.onPressed();
+    } else {
+      ///强制用户一定要间隔3s后才能成功点击. 而不是以上一次点击成功的时间开始计算.
+      GlobalData.printLog("重複點擊");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,41 +63,41 @@ class ActionButtonWidget extends StatelessWidget {
 
   Widget createButton(BuildContext context) {
     Color primaryColor, borderColor, textColor;
-    if (isBorderStyle) {
-      primaryColor = setSubColor;
-      borderColor = setMainColor;
-      textColor = setMainColor;
+    if (widget.isBorderStyle) {
+      primaryColor = widget.setSubColor;
+      borderColor = widget.setMainColor;
+      textColor = widget.setMainColor;
     } else {
-      primaryColor = setMainColor;
-      borderColor = setTransColor;
-      textColor = setSubColor;
+      primaryColor = widget.setMainColor;
+      borderColor = widget.setTransColor;
+      textColor = widget.setSubColor;
     }
     var actionButton = ElevatedButton(
         style: ElevatedButton.styleFrom(
             primary: primaryColor,
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(radius),
+                borderRadius: BorderRadius.circular(widget.radius),
                 side: BorderSide(color: borderColor))),
-        onPressed: onPressed,
+        onPressed: () => intervalClick(widget.needTimes),
         child: Text(
-          btnText,
+          widget.btnText,
           style: TextStyle(
               color: textColor,
-              fontSize: fontSize ?? UIDefine.fontSize16,
-              fontWeight: fontWeight),
+              fontSize: widget.fontSize ?? UIDefine.fontSize16,
+              fontWeight: widget.fontWeight),
         ));
 
-    return isFillWidth
+    return widget.isFillWidth
         ? Container(
-            height: setHeight,
+            height: widget.setHeight,
             width: MediaQuery.of(context).size.width,
-            margin: margin,
-            padding: padding,
+            margin: widget.margin,
+            padding: widget.padding,
             child: actionButton)
         : Container(
-            height: setHeight,
-            margin: margin,
-            padding: padding,
+            height: widget.setHeight,
+            margin: widget.margin,
+            padding: widget.padding,
             child: actionButton);
   }
 }

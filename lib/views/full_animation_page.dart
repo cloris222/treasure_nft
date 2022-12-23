@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:gif/gif.dart';
@@ -18,6 +19,7 @@ class FullAnimationPage extends StatefulWidget {
       this.limitTimer = 5,
       this.nextPage,
       this.isGIF = false,
+      this.isFile = false,
       this.isPushNextPage = false,
       this.nextOpacityPage = false,
       this.backgroundColor = AppColors.opacityBackground})
@@ -25,6 +27,9 @@ class FullAnimationPage extends StatefulWidget {
 
   ///MARK: 判斷是否為GIF
   final bool isGIF;
+
+  ///MARK: 判斷是否為File
+  final bool isFile;
 
   ///MARK: 動畫路徑
   final String animationPath;
@@ -105,12 +110,21 @@ class _FullAnimationPageState extends State<FullAnimationPage>
             child: Stack(
               children: [
                 widget.isGIF
-                    ? Gif(
-                        autostart: Autostart.loop,
-                        controller: gifController,
-                        image: AssetImage(widget.animationPath),
-                      )
-                    : Lottie.asset(widget.animationPath, fit: BoxFit.contain),
+                    ? widget.isFile
+                        ? Gif(
+                            autostart: Autostart.loop,
+                            controller: gifController,
+                            image: FileImage(File(widget.animationPath)))
+                        : Gif(
+                            autostart: Autostart.loop,
+                            controller: gifController,
+                            image: AssetImage(widget.animationPath),
+                          )
+                    : widget.isFile
+                        ? Lottie.file(File(widget.animationPath),
+                            fit: BoxFit.contain)
+                        : Lottie.asset(widget.animationPath,
+                            fit: BoxFit.contain),
                 Positioned(
                     top: 10,
                     right: 10,
