@@ -38,14 +38,15 @@ class AnimationDownloadUtil {
 
   void init() async {
     ///MARK: 檢查權限
-    PermissionStatus status = await _getStoragePermission();
-    if (status == PermissionStatus.permanentlyDenied) {
+    PermissionStatus status = await _getStoragePermission(true);
+    GlobalData.printLog('$key Permission $status');
+    if (status == PermissionStatus.permanentlyDenied ||
+        status == PermissionStatus.denied) {
       showStorageDialog();
-    }
-    if (status.isGranted) {
+    } else {
       hasPermission = true;
+      start();
     }
-    start();
   }
 
   void start() async {
@@ -66,6 +67,12 @@ class AnimationDownloadUtil {
       }
       bool isDownloadFinish = true;
       for (AnimationPathData data in paths) {
+        ///MARK: 排除部分動畫
+        if (_blockPath(data)) {
+          GlobalData.printLog('$key${data.name} is block');
+          continue;
+        }
+
         File file = File('$_animatePath/${data.name}');
         GlobalData.printLog('$key${file.path}');
         bool needDownload = true;
@@ -118,14 +125,15 @@ class AnimationDownloadUtil {
     Future.delayed(const Duration(seconds: 10)).then((value) => start());
   }
 
-  Future<PermissionStatus> _getStoragePermission() async {
+  Future<PermissionStatus> _getStoragePermission(bool needRequest) async {
     PermissionStatus status = await Permission.storage.status;
     if (!status.isGranted) {
-      final result = await Permission.storage.request();
-      return result;
-    } else {
-      return status;
+      if (needRequest) {
+        final result = await Permission.storage.request();
+        return result;
+      }
     }
+    return status;
   }
 
   void showDownloadProgress(received, total, String fileName) {
@@ -163,12 +171,12 @@ class AnimationDownloadUtil {
     GlobalData.printLog('$key wait check Storage permission start');
     for (int i = 0; i < 12; i++) {
       await Future.delayed(const Duration(seconds: 5));
-      PermissionStatus status = await _getStoragePermission();
-      if (status == PermissionStatus.permanentlyDenied) {
+      PermissionStatus status = await _getStoragePermission(false);
+      if (status == PermissionStatus.permanentlyDenied ||
+          status == PermissionStatus.denied) {
         GlobalData.printLog('$key check Storage permission deny');
         continue;
-      }
-      if (status.isGranted) {
+      } else {
         GlobalData.printLog('$key check Storage permission ok');
         hasPermission = true;
         start();
@@ -176,5 +184,9 @@ class AnimationDownloadUtil {
       }
     }
     GlobalData.printLog('$key wait check Storage permission finish');
+  }
+
+  bool _blockPath(AnimationPathData data) {
+    return (data.name.compareTo("mb_signup_success_01.gif") == 0);
   }
 }
