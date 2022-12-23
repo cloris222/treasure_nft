@@ -4,12 +4,19 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/api/home_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_artist_record.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_carousel.dart';
+import 'package:treasure_nft_project/utils/observer_pattern/subject.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../models/http/parameter/trading_volume_data.dart';
 
 class HomeMainViewModel extends BaseViewModel {
+  Subject homeSubject = Subject();
+
+  List<HomeCarousel> homeCarouselList = [];
+  List<ArtistRecord> homeArtistRecordList = [];
+  Map<String, String> status = {};
+
   /// 取得輪播圖
   Future<List<HomeCarousel>> getHomeCarousel(
       {ResponseErrorFunction? onConnectFail}) async {
@@ -45,5 +52,12 @@ class HomeMainViewModel extends BaseViewModel {
 
   Future<TradingVolumeData> getUsdtInfo() async {
     return HomeAPI().getTradingVolume();
+  }
+
+  Future<void> getContactInfo() async {
+    ///MARK: 取得聯絡資訊
+    status = await HomeAPI().getFooterSetting();
+    // homeSubject.notifyObservers(notification);
+
   }
 }

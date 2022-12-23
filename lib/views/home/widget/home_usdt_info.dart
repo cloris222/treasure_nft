@@ -8,14 +8,18 @@ import '../../../view_models/home/home_main_viewmodel.dart';
 import '../../../widgets/gradient_text.dart';
 
 class HomeUsdtInfo extends StatefulWidget {
-  const HomeUsdtInfo({Key? key}) : super(key: key);
+  const HomeUsdtInfo({Key? key, required this.viewModel}) : super(key: key);
+  final HomeMainViewModel viewModel;
 
   @override
   State<HomeUsdtInfo> createState() => _HomeUsdtInfoState();
 }
 
 class _HomeUsdtInfoState extends State<HomeUsdtInfo> {
-  HomeMainViewModel viewModel = HomeMainViewModel();
+  HomeMainViewModel get viewModel {
+    return widget.viewModel;
+  }
+
   TradingVolumeData? data;
 
   @override

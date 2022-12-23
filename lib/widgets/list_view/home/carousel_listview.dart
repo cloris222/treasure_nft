@@ -12,14 +12,19 @@ import '../../../constant/theme/app_style.dart';
 import 'carousel_item.dart';
 
 class CarouselListView extends StatefulWidget {
-  const CarouselListView({super.key});
+  const CarouselListView({super.key, required this.viewModel});
+
+  final HomeMainViewModel viewModel;
 
   @override
   State<StatefulWidget> createState() => _GetCarouselListView();
 }
 
 class _GetCarouselListView extends State<CarouselListView> {
-  HomeMainViewModel viewModel = HomeMainViewModel();
+  HomeMainViewModel get viewModel {
+    return widget.viewModel;
+  }
+
   late List<HomeCarousel> list = [];
 
   @override

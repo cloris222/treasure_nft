@@ -67,69 +67,69 @@ class _HomeMainViewState extends State<HomeMainView> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      controller: scrollController,
-      child: Column(children: [
-        const DomainBar(),
-        viewModel.buildSpace(height: 10),
+    return ListView(
+        padding: EdgeInsets.zero,
+        controller: scrollController,
+        children: [
+          const DomainBar(),
+          viewModel.buildSpace(height: 10),
 
-        ///MARK: 標題
-        Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: _buildTitleText()),
+          ///MARK: 標題
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: _buildTitleText()),
 
-        ///MARK: USDT資訊
-        const HomeSubUsdtView(),
+          ///MARK: USDT資訊
+          HomeSubUsdtView(viewModel: viewModel),
 
-        viewModel.buildSpace(height: 3),
+          viewModel.buildSpace(height: 3),
 
-        /// 熱門系列 畫家排行
-        hotCollection(),
-        viewModel.buildSpace(height: 3),
+          /// 熱門系列 畫家排行
+          hotCollection(),
+          viewModel.buildSpace(height: 3),
 
-        /// View All
-        TextButton(
-          //圓角
-          style: ButtonStyle(
-            shadowColor: MaterialStateProperty.all(AppColors.bolderGrey),
-            backgroundColor: MaterialStateProperty.all(Colors.white),
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                side: const BorderSide(width: 2, color: AppColors.bolderGrey),
-                borderRadius: BorderRadius.circular(10))),
+          /// View All
+          TextButton(
+            //圓角
+            style: ButtonStyle(
+              shadowColor: MaterialStateProperty.all(AppColors.bolderGrey),
+              backgroundColor: MaterialStateProperty.all(Colors.white),
+              shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                  side: const BorderSide(width: 2, color: AppColors.bolderGrey),
+                  borderRadius: BorderRadius.circular(10))),
+            ),
+
+            onPressed: () {
+              viewModel.pushAndRemoveUntil(context,
+                  const MainPage(type: AppNavigationBarType.typeExplore));
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              child: Text(tr('seeAll'),
+                  style: TextStyle(
+                      color: AppColors.textBlack,
+                      fontWeight: FontWeight.w500,
+                      fontSize: UIDefine.fontSize14)),
+            ),
           ),
 
-          onPressed: () {
-            viewModel.pushAndRemoveUntil(context,
-                const MainPage(type: AppNavigationBarType.typeExplore));
-          },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-            child: Text(tr('seeAll'),
-                style: TextStyle(
-                    color: AppColors.textBlack,
-                    fontWeight: FontWeight.w500,
-                    fontSize: UIDefine.fontSize14)),
-          ),
-        ),
+          viewModel.buildSpace(height: 2),
 
-        viewModel.buildSpace(height: 2),
+          /// 教學影片
+          const HomeSubVideoView(),
 
-        /// 教學影片
-        const HomeSubVideoView(),
+          /// 贊助
+          // sponsor(),
 
-        /// 贊助
-        // sponsor(),
+          /// Email訂閱
+          mailSubmit(),
 
-        /// Email訂閱
-        mailSubmit(),
+          /// 資訊頁
+          ourInfo(),
 
-        /// 資訊頁
-        ourInfo(),
-
-        /// 聯絡方式
-        const HomeSubContactView(),
-      ]),
-    );
+          /// 聯絡方式
+          const HomeSubContactView(),
+        ]);
   }
 
   Widget _buildTitleText() {
