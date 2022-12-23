@@ -1,9 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/subject_key.dart';
+import 'package:treasure_nft_project/utils/observer_pattern/home/home_observer.dart';
 
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/ui_define.dart';
-import '../../../models/http/parameter/trading_volume_data.dart';
 import '../../../view_models/home/home_main_viewmodel.dart';
 import '../../../widgets/gradient_text.dart';
 
@@ -20,16 +21,26 @@ class _HomeUsdtInfoState extends State<HomeUsdtInfo> {
     return widget.viewModel;
   }
 
-  TradingVolumeData? data;
+  late HomeObserver observer;
 
   @override
   void initState() {
-    super.initState();
-    viewModel.getUsdtInfo().then((value) {
-      setState(() {
-        data = value;
-      });
+    String key = SubjectKey.keyHomeUSDT;
+    observer = HomeObserver(key, onNotify: (notificationKey) {
+      if (notificationKey == key) {
+        if (mounted) {
+          setState(() {});
+        }
+      }
     });
+    viewModel.homeSubject.registerObserver(observer);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    viewModel.homeSubject.unregisterObserver(observer);
+    super.dispose();
   }
 
   @override
@@ -67,7 +78,8 @@ class _HomeUsdtInfoState extends State<HomeUsdtInfo> {
                       style: titleStyle, strutStyle: strutStyle)
                 ]),
                 viewModel.buildSpace(height: 1),
-                Text('${data?.transactionAmount ?? '0'}M', style: valueStyle),
+                Text('${viewModel.volumeData?.transactionAmount ?? '0'}M',
+                    style: valueStyle),
                 viewModel.buildSpace(height: 1),
                 Text(tr('last24h'), style: hintStyle)
               ])),
@@ -86,7 +98,8 @@ class _HomeUsdtInfoState extends State<HomeUsdtInfo> {
                       style: titleStyle, strutStyle: strutStyle)
                 ]),
                 viewModel.buildSpace(height: 1),
-                Text('${data?.cost ?? '0'}M', style: valueStyle),
+                Text('${viewModel.volumeData?.cost ?? '0'}M',
+                    style: valueStyle),
                 viewModel.buildSpace(height: 1),
                 Text(tr('updated-3-min\''), style: hintStyle)
               ])),
@@ -100,7 +113,7 @@ class _HomeUsdtInfoState extends State<HomeUsdtInfo> {
                   children: [
                 Text('${tr('NFTs')} (${tr('usdt')})', style: titleStyle),
                 viewModel.buildSpace(height: 1),
-                GradientText('${data?.nfts ?? '0'}M',
+                GradientText('${viewModel.volumeData?.nfts ?? '0'}M',
                     size: UIDefine.fontSize14, weight: FontWeight.w500),
                 viewModel.buildSpace(height: 1),
                 Text(tr('trading'), style: hintStyle)

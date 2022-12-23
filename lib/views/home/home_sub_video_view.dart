@@ -1,49 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:video_player/video_player.dart';
+import 'package:treasure_nft_project/constant/subject_key.dart';
+import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
+import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/observer_pattern/home/home_observer.dart';
+import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
 import 'package:chewie/chewie.dart';
 
-import '../../constant/theme/app_image_path.dart';
-import '../../constant/ui_define.dart';
-import '../../models/http/http_setting.dart';
-
 class HomeSubVideoView extends StatefulWidget {
-  const HomeSubVideoView({Key? key}) : super(key: key);
+  const HomeSubVideoView({Key? key, required this.viewModel}) : super(key: key);
+  final HomeMainViewModel viewModel;
 
   @override
   State<HomeSubVideoView> createState() => _HomeSubVideoViewState();
 }
 
 class _HomeSubVideoViewState extends State<HomeSubVideoView> {
-  late VideoPlayerController _videoController;
-  ChewieController? _playerController;
+  HomeMainViewModel get viewModel {
+    return widget.viewModel;
+  }
+
+  late HomeObserver observer;
 
   @override
   void initState() {
-    _videoController = VideoPlayerController.network(HttpSetting.homeAdUrl)
-      ..initialize().then((value) {
-        setState(() {
-          _playerController = ChewieController(
-              videoPlayerController: _videoController,
-              looping: true,
-              customControls: const CupertinoControls(
-                backgroundColor: Color.fromRGBO(41, 41, 41, 0.7),
-                iconColor: Color.fromARGB(255, 200, 200, 200),
-              ),
-              deviceOrientationsOnEnterFullScreen: [
-                DeviceOrientation.landscapeLeft,
-                DeviceOrientation.landscapeRight,
-              ]);
-        });
-      });
-
+    String key = SubjectKey.keyHomeVideo;
+    observer = HomeObserver(key, onNotify: (notificationKey) {
+      if (notificationKey == key) {
+        if (mounted) {
+          setState(() {});
+        }
+      }
+    });
+    viewModel.homeSubject.registerObserver(observer);
     super.initState();
   }
 
   @override
   void dispose() {
-    _videoController.dispose();
-    _playerController?.dispose();
+    viewModel.homeSubject.unregisterObserver(observer);
+    _onStop();
     super.dispose();
   }
 
@@ -51,14 +46,15 @@ class _HomeSubVideoViewState extends State<HomeSubVideoView> {
   Widget build(BuildContext context) {
     return SizedBox(
         width: UIDefine.getWidth(),
-        height: _videoController.value.isInitialized
-            ? (UIDefine.getWidth() / _videoController.value.aspectRatio)
+        height: viewModel.videoController.value.isInitialized
+            ? (UIDefine.getWidth() /
+                viewModel.videoController.value.aspectRatio)
             : UIDefine.getPixelHeight(200),
         child: Container(
-          child: _videoController.value.isInitialized
-              ? _videoController.value.isPlaying
+          child: viewModel.videoController.value.isInitialized
+              ? viewModel.videoController.value.isPlaying
                   ? Chewie(
-                      controller: _playerController!,
+                      controller: viewModel.playerController!,
                     )
                   : Container(
                       color: Colors.white,
@@ -83,11 +79,17 @@ class _HomeSubVideoViewState extends State<HomeSubVideoView> {
   }
 
   void _onStop() {
-    _videoController.pause().then((value) => setState(() {}));
+    viewModel.videoController.pause().then((value) => onViewChange());
   }
 
   void _onStart() {
-    _videoController.seekTo(const Duration(seconds: 0)).then(
-        (value) => _videoController.play().then((value) => setState(() {})));
+    viewModel.videoController.seekTo(const Duration(seconds: 0)).then((value) =>
+        viewModel.videoController.play().then((value) => onViewChange()));
+  }
+
+  void onViewChange() {
+    if (mounted) {
+      setState(() {});
+    }
   }
 }

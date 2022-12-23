@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
@@ -17,10 +15,14 @@ import '../../label/coin/tether_coin_widget.dart';
 
 class ArtistRecordItemView extends StatefulWidget {
   const ArtistRecordItemView(
-      {super.key, required this.itemData, required this.showAnimate});
+      {super.key,
+      required this.itemData,
+      required this.showAnimate,
+      required this.viewModel});
 
   final ArtistRecord itemData;
   final bool showAnimate;
+  final HomeMainViewModel viewModel;
 
   @override
   State<StatefulWidget> createState() => _ArtistRecordItem();
@@ -28,14 +30,17 @@ class ArtistRecordItemView extends StatefulWidget {
 
 class _ArtistRecordItem extends State<ArtistRecordItemView>
     with SingleTickerProviderStateMixin {
-  HomeMainViewModel viewModel = HomeMainViewModel();
+  HomeMainViewModel get viewModel {
+    return widget.viewModel;
+  }
+
   bool show = false;
   late AnimationController controller;
   late Animation<double> animation;
 
   @override
   void didUpdateWidget(covariant ArtistRecordItemView oldWidget) {
-    if (Platform.isIOS) {
+    if (viewModel.needRecordAnimation) {
       if (widget.showAnimate != oldWidget.showAnimate) {
         if (widget.showAnimate) {
           setState(() {
@@ -64,7 +69,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
 
   @override
   Widget build(BuildContext context) {
-    return Platform.isIOS
+    return viewModel.needRecordAnimation
         ? AnimatedBuilder(
             builder: (BuildContext context, Widget? child) {
               return Transform(

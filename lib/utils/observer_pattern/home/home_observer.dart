@@ -1,5 +1,5 @@
 import 'package:treasure_nft_project/constant/call_back_function.dart';
-import 'package:treasure_nft_project/utils/observer_pattern/notification.dart';
+import 'package:treasure_nft_project/utils/observer_pattern/notification_data.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/observer.dart';
 
 class HomeObserver extends Observer {
@@ -8,7 +8,7 @@ class HomeObserver extends Observer {
   final onGetStringFunction onNotify;
 
   @override
-  void notify(Notification notification) {
+  void notify(NotificationData notification) {
     onNotify(notification.key);
   }
 }

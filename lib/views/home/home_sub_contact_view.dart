@@ -1,32 +1,47 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/enum/setting_enum.dart';
-
-import '../../constant/theme/app_colors.dart';
-import '../../constant/theme/app_image_path.dart';
-import '../../constant/ui_define.dart';
-import '../../view_models/home/home_sub_contact_view_model.dart';
+import 'package:treasure_nft_project/constant/subject_key.dart';
+import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
+import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/observer_pattern/home/home_observer.dart';
+import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
 
 class HomeSubContactView extends StatefulWidget {
-  const HomeSubContactView({Key? key}) : super(key: key);
+  const HomeSubContactView({Key? key, required this.viewModel})
+      : super(key: key);
+  final HomeMainViewModel viewModel;
 
   @override
   State<HomeSubContactView> createState() => _HomeSubContactViewState();
 }
 
 class _HomeSubContactViewState extends State<HomeSubContactView> {
-  late HomeSubContactViewModel viewModel;
+  HomeMainViewModel get viewModel {
+    return widget.viewModel;
+  }
+
+  late HomeObserver observer;
 
   @override
   void initState() {
-    viewModel = HomeSubContactViewModel();
-    viewModel.initState().then((value) {
-      if (mounted) {
-        setState(() {});
+    String key = SubjectKey.keyHomeContact;
+    observer = HomeObserver(key, onNotify: (notificationKey) {
+      if (notificationKey == key) {
+        if (mounted) {
+          setState(() {});
+        }
       }
     });
+    viewModel.homeSubject.registerObserver(observer);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    viewModel.homeSubject.unregisterObserver(observer);
+    super.dispose();
   }
 
   @override
@@ -40,7 +55,6 @@ class _HomeSubContactViewState extends State<HomeSubContactView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     getPadding(5),
-
                     Text(tr('footer_contactUs'),
                         style: TextStyle(
                             fontSize: UIDefine.fontSize16,
@@ -55,7 +69,9 @@ class _HomeSubContactViewState extends State<HomeSubContactView> {
                             style: TextStyle(
                                 fontSize: UIDefine.fontSize14,
                                 color: AppColors.textBlack))),
-                    SizedBox(height: UIDefine.getPixelHeight(70),)
+                    SizedBox(
+                      height: UIDefine.getPixelHeight(70),
+                    )
                   ]))
         ]));
   }
