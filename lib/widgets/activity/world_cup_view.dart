@@ -384,6 +384,7 @@ class _WorldCupViewState extends State<WorldCupView> {
 
             /// 新增預約
             confirmBtnAction: () {
+              Navigator.pop(context);
               viewModel.createReservation();
               setState(() {});
             },
