@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:treasure_nft_project/utils/observer_pattern/notification_data.dart';
 
 import '../models/data/trade_model_data.dart';
 import '../models/http/parameter/country_phone_data.dart';
@@ -15,6 +16,9 @@ typedef onGetBoolFunction = void Function(bool value);
 typedef onDateFunction = void Function(String startDate, String endDate);
 typedef onDateTypeFunction = void Function(Search type);
 typedef onReturnBoolFunction = bool Function();
+
+///MARK: 監聽用
+typedef NotificationDataFunction = void Function(NotificationData notification);
 
 ///MARK: setState
 typedef ViewChange = void Function(VoidCallback fn);

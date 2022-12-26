@@ -12,11 +12,11 @@ import '../../widgets/list_view/home/carousel_listview.dart';
 import '../main_page.dart';
 
 class HomeSubUsdtView extends StatelessWidget {
-  const HomeSubUsdtView({Key? key}) : super(key: key);
+  const HomeSubUsdtView({Key? key, required this.viewModel}) : super(key: key);
+  final HomeMainViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
-    HomeMainViewModel viewModel = HomeMainViewModel();
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       decoration: const BoxDecoration(
@@ -58,12 +58,12 @@ class HomeSubUsdtView extends StatelessWidget {
         viewModel.buildSpace(height: 5),
 
         /// USDT_Info
-        const HomeUsdtInfo(),
+        HomeUsdtInfo(viewModel: viewModel),
 
         viewModel.buildSpace(height: 10),
 
         /// 輪播圖
-        const CarouselListView()
+        CarouselListView(viewModel: viewModel)
       ]),
     );
   }

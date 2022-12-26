@@ -1,4 +1,4 @@
-import 'notification.dart';
+import 'notification_data.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 ///MARK: 觀察者
 
@@ -9,7 +9,7 @@ class Observer {
 
   Observer(this.name);
 
-  void notify(Notification notification) {
+  void notify(NotificationData notification) {
     GlobalData.printLog("[${notification.createdTime}] Hey $name, ${notification.key}!");
   }
 }

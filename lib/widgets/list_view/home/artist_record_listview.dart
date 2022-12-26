@@ -1,50 +1,51 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/constant/subject_key.dart';
+import 'package:treasure_nft_project/utils/observer_pattern/home/home_observer.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
 import '../../../constant/theme/app_colors.dart';
 import 'artist_record_item.dart';
 
 class ArtistRecordListView extends StatefulWidget {
-  const ArtistRecordListView({super.key, required this.showArtAnimate});
+  const ArtistRecordListView({super.key, required this.viewModel});
 
-  final bool showArtAnimate;
+  final HomeMainViewModel viewModel;
 
   @override
   State<StatefulWidget> createState() => _ArtistRecordListView();
 }
 
 class _ArtistRecordListView extends State<ArtistRecordListView> {
-  HomeMainViewModel viewModel = HomeMainViewModel();
-  List list = [];
-  int animateIndex = -1;
-
-  @override
-  void didUpdateWidget(covariant ArtistRecordListView oldWidget) {
-    if (widget.showArtAnimate != oldWidget.showArtAnimate) {
-      if (widget.showArtAnimate) {
-        _playAnimate();
-      } else {
-        setState(() {
-          animateIndex = -1;
-        });
-      }
-    }
-    super.didUpdateWidget(oldWidget);
+  HomeMainViewModel get viewModel {
+    return widget.viewModel;
   }
+
+  late HomeObserver observer;
 
   @override
   void initState() {
+    String key = SubjectKey.keyHomeArtRecords;
+    observer = HomeObserver(key, onNotify: (notification) {
+      if (notification.key == key) {
+        if (mounted) {
+          setState(() {});
+        }
+      }
+    });
+    viewModel.homeSubject.registerObserver(observer);
     super.initState();
-    viewModel.getArtistRecord().then((value) => {
-          list = value,
-          setState(() {}),
-        });
+  }
+
+  @override
+  void dispose() {
+    viewModel.homeSubject.unregisterObserver(observer);
+    super.dispose();
   }
 
   Widget createItemBuilder(BuildContext context, int index) {
     return ArtistRecordItemView(
-        itemData: list[index], showAnimate: animateIndex >= index);
+        viewModel: viewModel,
+        itemData: viewModel.homeArtistRecordList[index],
+        subjectKey: '${SubjectKey.keyHomeAnimationStart}_$index');
   }
 
   Widget createSeparatorBuilder(BuildContext context, int index) {
@@ -64,26 +65,11 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
           itemBuilder: (context, index) {
             return createItemBuilder(context, index);
           },
-          itemCount: list.length,
+          itemCount: viewModel.homeArtistRecordList.length,
           separatorBuilder: (BuildContext context, int index) {
             return createSeparatorBuilder(context, index);
           }),
       createSeparatorBuilder(context, 1)
     ]);
-  }
-
-  void _playAnimate() async {
-    _loopAnimate();
-  }
-
-  _loopAnimate() {
-    Future.delayed(const Duration(milliseconds: 200)).then((value) {
-      setState(() {
-        animateIndex += 1;
-      });
-      if (animateIndex < list.length) {
-        _loopAnimate();
-      }
-    });
   }
 }

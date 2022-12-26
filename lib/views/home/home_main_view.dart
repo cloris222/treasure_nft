@@ -1,30 +1,24 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/enum/setting_enum.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
-import 'package:treasure_nft_project/constant/theme/app_style.dart';
+import 'package:treasure_nft_project/constant/theme/app_theme.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
-import 'package:treasure_nft_project/models/http/http_setting.dart';
 import 'package:treasure_nft_project/utils/language_util.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
+import 'package:treasure_nft_project/views/home/home_pdf_viewer.dart';
 import 'package:treasure_nft_project/views/home/home_sub_usdt_view.dart';
 import 'package:treasure_nft_project/views/home/home_sub_contact_view.dart';
 import 'package:treasure_nft_project/views/home/home_sub_video_view.dart';
-import 'package:treasure_nft_project/views/home/widget/home_usdt_info.dart';
+import 'package:treasure_nft_project/views/home/widget/sponsor_row_widget.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
-import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
+import 'package:treasure_nft_project/widgets/dialog/simple_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/domain_bar.dart';
 import 'package:treasure_nft_project/widgets/gradient_text.dart';
 import 'package:treasure_nft_project/widgets/list_view/home/artist_record_listview.dart';
-import 'package:treasure_nft_project/widgets/list_view/home/carousel_listview.dart';
-import 'package:video_player/video_player.dart';
-import '../../constant/enum/setting_enum.dart';
-import '../../constant/theme/app_theme.dart';
-import '../../widgets/dialog/simple_custom_dialog.dart';
-import 'home_pdf_viewer.dart';
-import 'widget/sponsor_row_widget.dart';
 
 class HomeMainView extends StatefulWidget {
   const HomeMainView({Key? key}) : super(key: key);
@@ -43,17 +37,23 @@ class _HomeMainViewState extends State<HomeMainView> {
 
   @override
   void initState() {
+    viewModel.initHomeAdVideo();
     scrollController.addListener(() {
-      if (scrollController.offset > UIDefine.getPixelHeight(387)) {
-        setState(() {
-          showArtAnimate = true;
-        });
-      } else {
-        setState(() {
-          showArtAnimate = false;
-        });
+      if (viewModel.needRecordAnimation) {
+        bool show = scrollController.offset > UIDefine.getPixelHeight(387);
+        if (show != showArtAnimate) {
+          if (mounted) {
+            showArtAnimate = show;
+            if (showArtAnimate) {
+              viewModel.playAnimate();
+            } else {
+              viewModel.resetAnimate();
+            }
+          }
+        }
       }
     });
+    viewModel.initState();
     super.initState();
   }
 
@@ -62,74 +62,82 @@ class _HomeMainViewState extends State<HomeMainView> {
     scrollController.dispose();
     emailEditingController.dispose();
     emailFocusNode.dispose();
+    viewModel.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      controller: scrollController,
-      child: Column(children: [
-        const DomainBar(),
-        viewModel.buildSpace(height: 10),
+    return ListView(
+        padding: EdgeInsets.zero,
+        controller: scrollController,
+        children: [
+          const DomainBar(),
+          viewModel.buildSpace(height: 10),
 
-        ///MARK: 標題
-        Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: _buildTitleText()),
+          ///MARK: 標題
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: _buildTitleText()),
 
-        ///MARK: USDT資訊
-        const HomeSubUsdtView(),
+          ///MARK: USDT資訊
+          HomeSubUsdtView(viewModel: viewModel),
 
-        viewModel.buildSpace(height: 3),
+          viewModel.buildSpace(height: 3),
 
-        /// 熱門系列 畫家排行
-        hotCollection(),
-        viewModel.buildSpace(height: 3),
+          /// 熱門系列 畫家排行
+          hotCollection(),
+          viewModel.buildSpace(height: 3),
 
-        /// View All
-        TextButton(
-          //圓角
-          style: ButtonStyle(
-            shadowColor: MaterialStateProperty.all(AppColors.bolderGrey),
-            backgroundColor: MaterialStateProperty.all(Colors.white),
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                side: const BorderSide(width: 2, color: AppColors.bolderGrey),
-                borderRadius: BorderRadius.circular(10))),
+          /// View All
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                //圓角
+                style: ButtonStyle(
+                  shadowColor: MaterialStateProperty.all(AppColors.bolderGrey),
+                  backgroundColor: MaterialStateProperty.all(Colors.white),
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      side: const BorderSide(
+                          width: 2, color: AppColors.bolderGrey),
+                      borderRadius: BorderRadius.circular(10))),
+                ),
+
+                onPressed: () {
+                  viewModel.pushAndRemoveUntil(context,
+                      const MainPage(type: AppNavigationBarType.typeExplore));
+                },
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                  child: Text(tr('seeAll'),
+                      style: TextStyle(
+                          color: AppColors.textBlack,
+                          fontWeight: FontWeight.w500,
+                          fontSize: UIDefine.fontSize14)),
+                ),
+              ),
+            ],
           ),
 
-          onPressed: () {
-            viewModel.pushAndRemoveUntil(context,
-                const MainPage(type: AppNavigationBarType.typeExplore));
-          },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-            child: Text(tr('seeAll'),
-                style: TextStyle(
-                    color: AppColors.textBlack,
-                    fontWeight: FontWeight.w500,
-                    fontSize: UIDefine.fontSize14)),
-          ),
-        ),
+          viewModel.buildSpace(height: 2),
 
-        viewModel.buildSpace(height: 2),
+          /// 教學影片
+          HomeSubVideoView(viewModel: viewModel),
 
-        /// 教學影片
-        const HomeSubVideoView(),
+          /// 贊助
+          // sponsor(),
 
-        /// 贊助
-        // sponsor(),
+          /// Email訂閱
+          mailSubmit(),
 
-        /// Email訂閱
-        mailSubmit(),
+          /// 資訊頁
+          ourInfo(),
 
-        /// 資訊頁
-        ourInfo(),
-
-        /// 聯絡方式
-        const HomeSubContactView(),
-      ]),
-    );
+          /// 聯絡方式
+          HomeSubContactView(viewModel: viewModel),
+        ]);
   }
 
   Widget _buildTitleText() {
@@ -203,7 +211,7 @@ class _HomeMainViewState extends State<HomeMainView> {
             margin:
                 EdgeInsets.symmetric(horizontal: UIDefine.getWidth() * 0.25),
             child: _buildChainDropDownBar()),
-        ArtistRecordListView(showArtAnimate: showArtAnimate),
+        ArtistRecordListView(viewModel: viewModel),
       ],
     );
   }
@@ -260,23 +268,28 @@ class _HomeMainViewState extends State<HomeMainView> {
               ),
             ],
           ),
-          const SponsorRowWidget(
+          SponsorRowWidget(
+            viewModel: viewModel,
             leftLogo: AppImagePath.openSea,
             rightLogo: AppImagePath.coinBase,
           ),
-          const SponsorRowWidget(
+          SponsorRowWidget(
+            viewModel: viewModel,
             leftLogo: AppImagePath.mintBase,
             rightLogo: AppImagePath.trustWallet,
           ),
-          const SponsorRowWidget(
+          SponsorRowWidget(
+            viewModel: viewModel,
             leftLogo: AppImagePath.tron,
             rightLogo: AppImagePath.binance,
           ),
-          const SponsorRowWidget(
+          SponsorRowWidget(
+            viewModel: viewModel,
             leftLogo: AppImagePath.minTable,
             rightLogo: AppImagePath.zora,
           ),
-          const SponsorRowWidget(
+          SponsorRowWidget(
+            viewModel: viewModel,
             leftLogo: AppImagePath.polygon,
             rightLogo: AppImagePath.ethereum,
           ),
@@ -460,6 +473,7 @@ class _HomeMainViewState extends State<HomeMainView> {
                           viewModel.pushPage(
                               GlobalData.globalKey.currentContext!,
                               PDFViewerPage(
+                                viewModel: viewModel,
                                 title: tr('footer_privacy'),
                                 assetPath: 'assets/pdf/PrivacyPolicy.pdf',
                               ));
@@ -474,6 +488,7 @@ class _HomeMainViewState extends State<HomeMainView> {
                           viewModel.pushPage(
                               GlobalData.globalKey.currentContext!,
                               PDFViewerPage(
+                                viewModel: viewModel,
                                 title: tr('footer_agreement'),
                                 assetPath: 'assets/pdf/TermsOfUse.pdf',
                               ));
