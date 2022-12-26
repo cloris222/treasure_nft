@@ -64,7 +64,8 @@ class _HomeSubRandomViewState extends State<HomeSubRandomView> {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) =>
-                  _buildSubView(context, viewModel.homeRandomCollectList[index]),
+                  _buildSubView(
+                      context, viewModel.homeRandomCollectList[index]),
               itemCount: viewModel.homeRandomCollectList.length)
         ]));
   }
@@ -93,7 +94,7 @@ class _HomeSubRandomViewState extends State<HomeSubRandomView> {
             fontWeight: FontWeight.w500,
             height: UIDefine.getPixelHeight(40),
             padding:
-                EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(8)),
+            EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(8)),
             radius: 19,
             onPressed: () {})
       ])
@@ -106,6 +107,7 @@ class _HomeSubRandomViewState extends State<HomeSubRandomView> {
       margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(10)),
       child: Row(children: [
         Expanded(child: _buildImage(info, 0)),
+        SizedBox(width: UIDefine.getPixelWidth(5)),
         SizedBox(
             width: UIDefine.getPixelWidth(100),
             child: Column(
@@ -127,9 +129,13 @@ class _HomeSubRandomViewState extends State<HomeSubRandomView> {
   Widget _buildImage(RandomCollectInfo info, int index) {
     return info.nftItemInfo.length > index
         ? ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(15)),
-            child:
-                GraduallyNetworkImage(imageUrl: info.nftItemInfo[index].imgUrl))
+        borderRadius: const BorderRadius.all(Radius.circular(15)),
+        child: SizedBox(
+          width: UIDefine.getWidth(),
+          height: UIDefine.getHeight(),
+          child: GraduallyNetworkImage(
+              imageUrl: info.nftItemInfo[index].imgUrl, fit: BoxFit.cover),
+        ))
         : const SizedBox();
   }
 }

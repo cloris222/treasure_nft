@@ -30,12 +30,13 @@ class HomeSubUsdtView extends StatelessWidget {
           Row(
             children: [
               LoginButtonWidget(
+                  margin: EdgeInsets.zero,
                   padding: EdgeInsets.symmetric(
                       horizontal: UIDefine.getPixelWidth(15)),
                   isFillWidth: false,
                   radius: 43,
                   btnText: tr('exploreNow'),
-                  fontSize: UIDefine.fontSize24,
+                  fontSize: UIDefine.fontSize20,
                   onPressed: () {
                     viewModel.pushAndRemoveUntil(context,
                         const MainPage(type: AppNavigationBarType.typeExplore));
@@ -48,7 +49,7 @@ class HomeSubUsdtView extends StatelessWidget {
           /// USDT_Info
           HomeUsdtInfo(viewModel: viewModel),
 
-          viewModel.buildSpace(height: 10),
+          viewModel.buildSpace(height: 5),
 
           /// 輪播圖
           CarouselListView(viewModel: viewModel)
