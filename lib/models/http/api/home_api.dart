@@ -6,10 +6,13 @@ import 'package:treasure_nft_project/models/http/http_manager.dart';
 import 'package:treasure_nft_project/models/http/http_setting.dart';
 import 'package:treasure_nft_project/models/http/parameter/api_response.dart';
 import 'package:treasure_nft_project/models/http/parameter/collect_top_info.dart';
+import 'package:treasure_nft_project/models/http/parameter/discover_collect_data.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_artist_record.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_carousel.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_footer_data.dart';
 import 'package:treasure_nft_project/models/http/parameter/random_collect_info.dart';
+import 'package:treasure_nft_project/views/explore/api/explore_api.dart';
+import 'package:treasure_nft_project/views/explore/data/explore_category_response_data.dart';
 
 import '../parameter/trading_volume_data.dart';
 
@@ -96,5 +99,36 @@ class HomeAPI extends HttpManager {
       }
     } catch (e) {}
     return list;
+  }
+
+  ///MARK: Discover More NFTS
+  Future<List<DiscoverCollectData>> getDiscoverMoreNFT(
+      {String category = ''}) async {
+    var response = await get('/index/discover/moreNfts',
+        queryParameters: {"page": 1, "size": 10, "categoryName": category});
+    List<DiscoverCollectData> list = [];
+    try {
+      for (Map<String, dynamic> json in response.data) {
+        list.add(DiscoverCollectData.fromJson(json['pageList']));
+      }
+    } catch (e) {}
+    return list;
+  }
+
+  Future<List<ExploreCategoryResponseData>> getDiscoverTag() async {
+    List<ExploreCategoryResponseData> tags = [];
+    var respList = await ExploreApi().getExploreCategory();
+    for (int i = 0; i < respList.length; i++) {
+      if (respList[i].name == 'polygonNFT') {
+        tags.insert(0, respList[i]);
+      }
+      if (respList[i].name == 'artwork') {
+        tags.add(respList[i]);
+      }
+      if (respList[i].name == 'collection') {
+        tags.add(respList[i]);
+      }
+    }
+    return tags;
   }
 }
