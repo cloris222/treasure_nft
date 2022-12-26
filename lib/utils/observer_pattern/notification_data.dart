@@ -1,5 +1,5 @@
-class Notification {
-  Notification({required this.key, this.data}) {
+class NotificationData {
+  NotificationData({required this.key, this.data}) {
     createdTime = DateTime.now();
   }
 

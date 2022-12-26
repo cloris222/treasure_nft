@@ -1,10 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/subject_key.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_artist_record.dart';
+import 'package:treasure_nft_project/utils/observer_pattern/home/home_observer.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 
@@ -15,10 +17,14 @@ import '../../label/coin/tether_coin_widget.dart';
 
 class ArtistRecordItemView extends StatefulWidget {
   const ArtistRecordItemView(
-      {super.key, required this.itemData, required this.showAnimate});
+      {super.key,
+      required this.itemData,
+      required this.viewModel,
+      required this.subjectKey});
 
   final ArtistRecord itemData;
-  final bool showAnimate;
+  final HomeMainViewModel viewModel;
+  final String subjectKey;
 
   @override
   State<StatefulWidget> createState() => _ArtistRecordItem();
@@ -26,137 +32,151 @@ class ArtistRecordItemView extends StatefulWidget {
 
 class _ArtistRecordItem extends State<ArtistRecordItemView>
     with SingleTickerProviderStateMixin {
-  HomeMainViewModel viewModel = HomeMainViewModel();
+  HomeMainViewModel get viewModel {
+    return widget.viewModel;
+  }
+
   bool show = false;
   late AnimationController controller;
-  late Animation<double> animation;
-
-  @override
-  void didUpdateWidget(covariant ArtistRecordItemView oldWidget) {
-    if (widget.showAnimate != oldWidget.showAnimate) {
-      if (widget.showAnimate) {
-        setState(() {
-          controller.forward();
-        });
-      } else {
-        controller.reset();
-      }
-    }
-    super.didUpdateWidget(oldWidget);
-  }
+  late HomeObserver observer;
 
   @override
   void initState() {
     controller = AnimationController(
-      duration: const Duration(milliseconds: 300),
+      lowerBound: 0,
+      upperBound: 360,
+      duration: const Duration(milliseconds: 1200),
       reverseDuration: const Duration(microseconds: 1),
       vsync: this,
-    )..addListener(() => this.setState(() {})); // 监听动画变更，更新页面
+    )..addListener(() => setState(() {})); // 监听动画变更，更新页面
 
-    // 定义动画更新区间的值
-    animation = Tween<double>(begin: 270, end: 360).animate(controller);
+    observer = HomeObserver(widget.subjectKey, onNotify: (notification) {
+      if (mounted) {
+        if (notification.key == widget.subjectKey) {
+          controller.forward(from: 270);
+        } else if (notification.key == SubjectKey.keyHomeAnimationReset) {
+          controller.reset();
+        } else if (notification.key == SubjectKey.keyHomeAnimationWait) {
+          controller.value = 270;
+        }
+      }
+    });
+    viewModel.homeSubject.registerObserver(observer);
     super.initState();
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    viewModel.homeSubject.unregisterObserver(observer);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      builder: (BuildContext context, Widget? child) {
-        return Transform(
-          transform: Matrix4.identity()
-            ..setEntry(3, 2, 0.0001) // 第三参数定义视图距离，值越小物体就离你越远，看着就有立体感
-            // 旋转Y轴角度，pi为圆半径，animation.value为动态获取的动画值
-            ..rotateX(3.14 * animation.value / 180),
-          alignment: FractionalOffset.center, // 以轴中心开始动画
-          child: child,
-        );
-      },
-      animation: animation,
-      child: Container(
-        decoration: show
-            ? AppStyle().styleColorsRadiusBackground(color: AppColors.homeArtBg)
-            : null,
-        padding: show
-            ? EdgeInsets.symmetric(vertical: UIDefine.getScreenHeight(2))
-            : null,
-        child: Column(
-          children: [
-            GestureDetector(
-              onTap: _onShowArt,
-              child: Container(
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text('${widget.itemData.sort}',
-                            style: TextStyle(
-                                fontSize: UIDefine.fontSize14,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.font02)),
-                        viewModel.buildSpace(width: 1),
+    return viewModel.needRecordAnimation
+        ? AnimatedBuilder(
+            builder: (BuildContext context, Widget? child) {
+              return Transform(
+                transform: Matrix4.identity()
+                  ..setEntry(3, 2, 0.0001) // 第三参数定义视图距离，值越小物体就离你越远，看着就有立体感
+                  // 旋转Y轴角度，pi为圆半径，animation.value为动态获取的动画值
+                  ..rotateX(3.14 * controller.value / 180),
+                alignment: FractionalOffset.center, // 以轴中心开始动画
+                child: child,
+              );
+            },
+            animation: controller,
+            child: _buildItem(),
+          )
+        : _buildItem();
+  }
 
-                        /// Avatar
-                        SizedBox(
-                          height: UIDefine.getWidth() * 0.1,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(50),
-                            child: GraduallyNetworkImage(
-                              imageUrl: widget.itemData.avatarUrl,
-                              fit: BoxFit.fill,
-                            ),
+  Widget _buildItem() {
+    return Container(
+      decoration: show
+          ? AppStyle().styleColorsRadiusBackground(color: AppColors.homeArtBg)
+          : null,
+      padding: show
+          ? EdgeInsets.symmetric(vertical: UIDefine.getScreenHeight(2))
+          : null,
+      child: Column(
+        children: [
+          GestureDetector(
+            onTap: _onShowArt,
+            child: Container(
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text('${widget.itemData.sort}',
+                          style: TextStyle(
+                              fontSize: UIDefine.fontSize14,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.font02)),
+                      viewModel.buildSpace(width: 1),
+
+                      /// Avatar
+                      SizedBox(
+                        height: UIDefine.getWidth() * 0.1,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: GraduallyNetworkImage(
+                            imageUrl: widget.itemData.avatarUrl,
+                            fit: BoxFit.fill,
                           ),
                         ),
-                        viewModel.buildSpace(width: 1),
+                      ),
+                      viewModel.buildSpace(width: 1),
 
-                        Expanded(
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                              /// NAME
-                              Text(widget.itemData.name,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      fontSize: UIDefine.fontSize14,
-                                      color: AppColors.textBlack,
-                                      fontWeight: FontWeight.w400)),
+                      Expanded(
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                            /// NAME
+                            Text(widget.itemData.name,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontSize: UIDefine.fontSize14,
+                                    color: AppColors.textBlack,
+                                    fontWeight: FontWeight.w400)),
 
-                              viewModel.buildSpace(height: 1),
+                            viewModel.buildSpace(height: 1),
 
-                              /// Vol. & Sales
-                              Row(children: [
-                                _buildVolView(tr('lastDayAmount'),
-                                    widget.itemData.ydayAmt),
-                                const SizedBox(width: 20),
-                                _buildVolView(tr('transcationAmount'),
-                                    widget.itemData.amtTotal),
-                              ])
-                            ])),
-                        viewModel.buildSpace(width: 5),
-                        InkWell(
-                          onTap: _flipView,
-                          child: Container(
-                            alignment: Alignment.center,
-                            width: UIDefine.getScreenWidth(4),
-                            child: Image.asset(
-                              show
-                                  ? AppImagePath.upArrowGrey
-                                  : AppImagePath.downArrowGrey,
-                            ),
+                            /// Vol. & Sales
+                            Row(children: [
+                              _buildVolView(
+                                  tr('lastDayAmount'), widget.itemData.ydayAmt),
+                              const SizedBox(width: 20),
+                              _buildVolView(tr('transcationAmount'),
+                                  widget.itemData.amtTotal),
+                            ])
+                          ])),
+                      viewModel.buildSpace(width: 5),
+                      InkWell(
+                        onTap: _flipView,
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: UIDefine.getScreenWidth(4),
+                          child: Image.asset(
+                            show
+                                ? AppImagePath.upArrowGrey
+                                : AppImagePath.downArrowGrey,
                           ),
                         ),
-                      ])),
-            ),
-            Visibility(
-                visible: show,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: UIDefine.getScreenWidth(5)),
-                  child: _subView(context),
-                ))
-          ],
-        ),
+                      ),
+                    ])),
+          ),
+          Visibility(
+              visible: show,
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: UIDefine.getScreenWidth(5)),
+                child: _subView(context),
+              ))
+        ],
       ),
     );
   }
