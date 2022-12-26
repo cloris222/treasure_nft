@@ -35,13 +35,15 @@ class HomeMainViewModel extends BaseViewModel {
   void initState() async {
     /// to read pre load image
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String>? decodeHomeCarouselString =
-        prefs.getStringList("homeCarousel");
-    homeCarouselList = decodeHomeCarouselString!
-        .map((res) => HomeCarousel.fromJson(json.decode(res)))
-        .toList();
-    homeSubject
-        .notifyObservers(NotificationData(key: SubjectKey.keyHomeCarousel));
+    if (prefs.containsKey("homeCarousel")) {
+      List<String>? decodeHomeCarouselString =
+          prefs.getStringList("homeCarousel");
+      homeCarouselList = decodeHomeCarouselString!
+          .map((res) => HomeCarousel.fromJson(json.decode(res)))
+          .toList();
+      homeSubject
+          .notifyObservers(NotificationData(key: SubjectKey.keyHomeCarousel));
+    }
 
     getHomeCarousel();
     getArtistRecord();
@@ -128,6 +130,8 @@ class HomeMainViewModel extends BaseViewModel {
 
   ///MARK: 動畫翻轉
   void playAnimate() async {
+    homeSubject.notifyObservers(
+        NotificationData(key: SubjectKey.keyHomeAnimationWait));
     _loopAnimate();
   }
 

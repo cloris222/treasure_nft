@@ -38,25 +38,26 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
 
   bool show = false;
   late AnimationController controller;
-  late Animation<double> animation;
   late HomeObserver observer;
 
   @override
   void initState() {
     controller = AnimationController(
-      duration: const Duration(milliseconds: 300),
+      lowerBound: 0,
+      upperBound: 360,
+      duration: const Duration(milliseconds: 1200),
       reverseDuration: const Duration(microseconds: 1),
       vsync: this,
     )..addListener(() => setState(() {})); // 监听动画变更，更新页面
 
-    // 定义动画更新区间的值
-    animation = Tween<double>(begin: 270, end: 360).animate(controller);
     observer = HomeObserver(widget.subjectKey, onNotify: (notification) {
       if (mounted) {
         if (notification.key == widget.subjectKey) {
-          controller.forward();
+          controller.forward(from: 270);
         } else if (notification.key == SubjectKey.keyHomeAnimationReset) {
           controller.reset();
+        } else if (notification.key == SubjectKey.keyHomeAnimationWait) {
+          controller.value = 270;
         }
       }
     });
@@ -80,12 +81,12 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
                 transform: Matrix4.identity()
                   ..setEntry(3, 2, 0.0001) // 第三参数定义视图距离，值越小物体就离你越远，看着就有立体感
                   // 旋转Y轴角度，pi为圆半径，animation.value为动态获取的动画值
-                  ..rotateX(3.14 * animation.value / 180),
+                  ..rotateX(3.14 * controller.value / 180),
                 alignment: FractionalOffset.center, // 以轴中心开始动画
                 child: child,
               );
             },
-            animation: animation,
+            animation: controller,
             child: _buildItem(),
           )
         : _buildItem();

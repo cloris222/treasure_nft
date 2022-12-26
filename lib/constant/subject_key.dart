@@ -10,4 +10,5 @@ class SubjectKey {
   static const String keyHomeVideo = 'homeVideo';
   static const String keyHomeAnimationStart = 'homeAnimationStart';
   static const String keyHomeAnimationReset = 'homeAnimationReset';
+  static const String keyHomeAnimationWait = 'keyHomeAnimationWait';
 }
