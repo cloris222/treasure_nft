@@ -37,8 +37,7 @@ class _HomeMainViewState extends State<HomeMainView> {
   void initState() {
     scrollController.addListener(() {
       if (viewModel.needRecordAnimation) {
-        bool show = scrollController.offset > UIDefine.getPixelHeight(1275) &&
-            scrollController.offset < UIDefine.getPixelHeight(2200);
+        bool show = scrollController.offset > UIDefine.getPixelHeight(1275);
         if (show != showArtAnimate) {
           if (mounted) {
             showArtAnimate = show;
