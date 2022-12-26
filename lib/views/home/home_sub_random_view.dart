@@ -1,9 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/subject_key.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/random_collect_info.dart';
+import 'package:treasure_nft_project/utils/observer_pattern/home/home_observer.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
 import 'package:treasure_nft_project/views/login/circle_network_icon.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
@@ -24,12 +26,26 @@ class _HomeSubRandomViewState extends State<HomeSubRandomView> {
     return widget.viewModel;
   }
 
-  List<RandomCollectInfo> list = [];
+  late HomeObserver observer;
 
   @override
   void initState() {
-    viewModel.getRandomCollect().then((value) => setState(() => list = value));
+    String key = SubjectKey.keyHomeRandomCollect;
+    observer = HomeObserver(key, onNotify: (notification) {
+      if (notification.key == key) {
+        if (mounted) {
+          setState(() {});
+        }
+      }
+    });
+    viewModel.homeSubject.registerObserver(observer);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    viewModel.homeSubject.unregisterObserver(observer);
+    super.dispose();
   }
 
   @override
@@ -48,8 +64,8 @@ class _HomeSubRandomViewState extends State<HomeSubRandomView> {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) =>
-                  _buildSubView(context, list[index]),
-              itemCount: list.length)
+                  _buildSubView(context, viewModel.homeRandomCollectList[index]),
+              itemCount: viewModel.homeRandomCollectList.length)
         ]));
   }
 
@@ -86,7 +102,7 @@ class _HomeSubRandomViewState extends State<HomeSubRandomView> {
 
   Widget _buildSubTopView(BuildContext context, RandomCollectInfo info) {
     return Container(
-      height: UIDefine.getPixelHeight(270),
+      height: UIDefine.getPixelHeight(240),
       margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(10)),
       child: Row(children: [
         Expanded(child: _buildImage(info, 0)),

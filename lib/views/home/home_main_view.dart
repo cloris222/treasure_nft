@@ -36,13 +36,22 @@ class _HomeMainViewState extends State<HomeMainView> {
   @override
   void initState() {
     scrollController.addListener(() {
-      bool show = scrollController.offset > UIDefine.getPixelHeight(1275);
-      if (show != showArtAnimate) {
-        setState(() {
-          showArtAnimate = show;
-        });
+      if (viewModel.needRecordAnimation) {
+        bool show = scrollController.offset > UIDefine.getPixelHeight(1275) &&
+            scrollController.offset < UIDefine.getPixelHeight(2200);
+        if (show != showArtAnimate) {
+          if (mounted) {
+            showArtAnimate = show;
+            if (showArtAnimate) {
+              viewModel.playAnimate();
+            } else {
+              viewModel.resetAnimate();
+            }
+          }
+        }
       }
     });
+    viewModel.initState();
     super.initState();
   }
 
@@ -51,63 +60,63 @@ class _HomeMainViewState extends State<HomeMainView> {
     scrollController.dispose();
     emailEditingController.dispose();
     emailFocusNode.dispose();
+    viewModel.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      controller: scrollController,
-      child: Column(children: [
-        // const DomainBar(),
-        ///MARK: 標題
-        Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: UIDefine.getPixelWidth(20),
-                vertical: UIDefine.getPixelHeight(10)),
-            child: _buildTitleText()),
+    return ListView(
+        padding: EdgeInsets.zero,
+        controller: scrollController,
+        children: [
+          // const DomainBar(),
+          ///MARK: 標題
+          Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: UIDefine.getPixelWidth(20),
+                  vertical: UIDefine.getPixelHeight(10)),
+              child: _buildTitleText()),
 
-        ///MARK: USDT資訊
-        HomeSubUsdtView(viewModel: viewModel),
+          ///MARK: USDT資訊
+          HomeSubUsdtView(viewModel: viewModel),
 
-        viewModel.buildSpace(height: 3),
+          viewModel.buildSpace(height: 3),
 
-        HomeSubIllustrateView(viewModel: viewModel),
+          HomeSubIllustrateView(viewModel: viewModel),
 
-        viewModel.buildSpace(height: 3),
+          viewModel.buildSpace(height: 3),
 
-        /// 熱門系列 畫家排行
-        ArtistRecordListView(
-            viewModel: viewModel, showArtAnimate: showArtAnimate),
-        viewModel.buildSpace(height: 3),
+          /// 熱門系列 畫家排行
+          ArtistRecordListView(viewModel: viewModel),
+          viewModel.buildSpace(height: 3),
 
-        /// 隨機收藏集
-        HomeSubRandomView(viewModel: viewModel),
-        viewModel.buildSpace(height: 3),
+          /// 隨機收藏集
+          HomeSubRandomView(viewModel: viewModel),
+          viewModel.buildSpace(height: 3),
 
-        /// 邀請註冊
-        HomeSubSignupView(viewModel: viewModel),
-        viewModel.buildSpace(height: 3),
+          /// 邀請註冊
+          HomeSubSignupView(viewModel: viewModel),
+          viewModel.buildSpace(height: 3),
 
-        /// Discover NFT
-        HomeSubDiscoverNftView(viewModel: viewModel),
+          /// Discover NFT
+          HomeSubDiscoverNftView(viewModel: viewModel),
 
-        /// 教學影片
-        // const HomeSubVideoView(),
+          /// 教學影片
+          // const HomeSubVideoView(),
 
-        /// 贊助
-        // sponsor(),
+          /// 贊助
+          // sponsor(),
 
-        /// Email訂閱
-        mailSubmit(),
+          /// Email訂閱
+          mailSubmit(),
 
-        /// 資訊頁
-        HomeSubInfoView(viewModel: viewModel),
+          /// 資訊頁
+          HomeSubInfoView(viewModel: viewModel),
 
-        /// 聯絡方式
-        const HomeSubContactView(),
-      ]),
-    );
+          /// 聯絡方式
+          HomeSubContactView(viewModel: viewModel),
+        ]);
   }
 
   Widget _buildTitleText() {

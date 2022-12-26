@@ -1,11 +1,11 @@
-import 'dart:math';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/subject_key.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_artist_record.dart';
+import 'package:treasure_nft_project/utils/observer_pattern/home/home_observer.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
 import 'package:treasure_nft_project/views/login/circle_network_icon.dart';
@@ -18,10 +18,8 @@ import '../../../constant/theme/app_colors.dart';
 import 'artist_record_item.dart';
 
 class ArtistRecordListView extends StatefulWidget {
-  const ArtistRecordListView(
-      {super.key, required this.showArtAnimate, required this.viewModel});
+  const ArtistRecordListView({super.key, required this.viewModel});
 
-  final bool showArtAnimate;
   final HomeMainViewModel viewModel;
 
   @override
@@ -33,45 +31,36 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
     return widget.viewModel;
   }
 
-  List artList = [];
-  int animateIndex = -1;
-  ArtistRecord? randomArt;
-
-  ///MARK: 收藏集排行
-  List collectList = [];
-
-  @override
-  void didUpdateWidget(covariant ArtistRecordListView oldWidget) {
-    if (widget.showArtAnimate != oldWidget.showArtAnimate) {
-      if (widget.showArtAnimate) {
-        _playAnimate();
-      } else {
-        setState(() {
-          animateIndex = -1;
-        });
-      }
-    }
-    super.didUpdateWidget(oldWidget);
-  }
+  late HomeObserver observer;
 
   @override
   void initState() {
+    String key = SubjectKey.keyHomeArtRecords;
+    observer = HomeObserver(key, onNotify: (notification) {
+      if (notification.key == SubjectKey.keyHomeArtRecords ||
+          notification.key == SubjectKey.keyHomeCollectTop) {
+        if (mounted) {
+          setState(() {});
+
+        }
+      }
+    });
+    viewModel.homeSubject.registerObserver(observer);
     super.initState();
-    viewModel.getArtistRecord().then((value) => {
-          artList = value,
-          randomArt = artList[Random().nextInt(artList.length)],
-          setState(() {}),
-        });
-    viewModel.getCollectTop().then((value) => setState(() {
-          collectList = value;
-        }));
+  }
+
+  @override
+  void dispose() {
+    viewModel.homeSubject.unregisterObserver(observer);
+    super.dispose();
   }
 
   Widget createItemBuilder(BuildContext context, int index) {
     return ArtistRecordItemView(
-        itemData: collectList[index],
-        showAnimate: animateIndex >= index,
-        index: index);
+        itemData: viewModel.homeCollectTopList[index],
+        index: index,
+        viewModel: viewModel,
+        subjectKey: '${SubjectKey.keyHomeAnimationStart}_$index');
   }
 
   Widget createSeparatorBuilder(BuildContext context, int index) {
@@ -94,7 +83,7 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
           itemBuilder: (context, index) {
             return createItemBuilder(context, index);
           },
-          itemCount: collectList.length,
+          itemCount: viewModel.homeCollectTopList.length,
           separatorBuilder: (BuildContext context, int index) {
             return createSeparatorBuilder(context, index);
           }),
@@ -103,35 +92,20 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
     ]);
   }
 
-  void _playAnimate() async {
-    _loopAnimate();
-  }
-
-  _loopAnimate() {
-    Future.delayed(const Duration(milliseconds: 200)).then((value) {
-      setState(() {
-        animateIndex += 1;
-      });
-      if (animateIndex < artList.length) {
-        _loopAnimate();
-      }
-    });
-  }
-
   Widget _buildTopGallery() {
-    if (randomArt != null) {
+    if (viewModel.randomArt != null) {
       return Container(
           margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
           child: Column(mainAxisSize: MainAxisSize.min, children: [
-            _buildGalleryItem(randomArt!, 0),
+            _buildGalleryItem(viewModel.randomArt!, 0),
             SizedBox(height: UIDefine.getPixelHeight(10)),
             Row(
               children: [
-                Expanded(child: _buildGalleryItem(randomArt!, 1)),
+                Expanded(child: _buildGalleryItem(viewModel.randomArt!, 1)),
                 SizedBox(width: UIDefine.getPixelWidth(10)),
-                Expanded(child: _buildGalleryItem(randomArt!, 2)),
+                Expanded(child: _buildGalleryItem(viewModel.randomArt!, 2)),
                 SizedBox(width: UIDefine.getPixelWidth(10)),
-                Expanded(child: _buildGalleryItem(randomArt!, 3)),
+                Expanded(child: _buildGalleryItem(viewModel.randomArt!, 3)),
               ],
             )
           ]));

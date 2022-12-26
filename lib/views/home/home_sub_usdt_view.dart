@@ -46,12 +46,12 @@ class HomeSubUsdtView extends StatelessWidget {
           viewModel.buildSpace(height: 5),
 
           /// USDT_Info
-          const HomeUsdtInfo(),
+          HomeUsdtInfo(viewModel: viewModel),
 
           viewModel.buildSpace(height: 10),
 
           /// 輪播圖
-          const CarouselListView()
+          CarouselListView(viewModel: viewModel)
         ],
       ),
     );

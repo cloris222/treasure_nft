@@ -1,10 +1,9 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:flutter_carousel_slider/carousel_slider_transforms.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:treasure_nft_project/constant/subject_key.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
-import 'package:treasure_nft_project/models/http/parameter/home_carousel.dart';
+import 'package:treasure_nft_project/utils/observer_pattern/home/home_observer.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 
@@ -12,31 +11,39 @@ import '../../../constant/theme/app_style.dart';
 import 'carousel_item.dart';
 
 class CarouselListView extends StatefulWidget {
-  const CarouselListView({super.key});
+  const CarouselListView({super.key, required this.viewModel});
+
+  final HomeMainViewModel viewModel;
 
   @override
   State<StatefulWidget> createState() => _GetCarouselListView();
 }
 
 class _GetCarouselListView extends State<CarouselListView> {
-  HomeMainViewModel viewModel = HomeMainViewModel();
-  late List<HomeCarousel> list = [];
+  HomeMainViewModel get viewModel {
+    return widget.viewModel;
+  }
+
+  late HomeObserver observer;
 
   @override
   void initState() {
-    super.initState();
-    viewModel.getHomeCarousel().then((value) async {
-      list = value;
-      setState(() {});
-
-      /// to read pre load image
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      List<String>? decodeHomeCarouselString =
-          prefs.getStringList("homeCarousel");
-      List<HomeCarousel> decodeHomeCarousel = decodeHomeCarouselString!
-          .map((res) => HomeCarousel.fromJson(json.decode(res)))
-          .toList();
+    String key = SubjectKey.keyHomeCarousel;
+    observer = HomeObserver(key, onNotify: (notification) {
+      if (notification.key == key) {
+        if (mounted) {
+          setState(() {});
+        }
+      }
     });
+    viewModel.homeSubject.registerObserver(observer);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    viewModel.homeSubject.unregisterObserver(observer);
+    super.dispose();
   }
 
   @override
@@ -47,7 +54,7 @@ class _GetCarouselListView extends State<CarouselListView> {
 
   Widget createItemBuilder(BuildContext context, int index) {
     return CarouselItemView(
-      itemData: list[index],
+      itemData: viewModel.homeCarouselList[index],
     );
   }
 
@@ -77,7 +84,7 @@ class _GetCarouselListView extends State<CarouselListView> {
             return createItemBuilder(context, index);
           },
           slideTransform: const DefaultTransform(),
-          itemCount: list.length,
+          itemCount: viewModel.homeCarouselList.length,
           enableAutoSlider: true,
           autoSliderTransitionTime: const Duration(seconds: 1),
         ),

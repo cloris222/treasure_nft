@@ -1,4 +1,4 @@
-import 'notification.dart';
+import 'notification_data.dart';
 import 'observer.dart';
 
 ///MARK: 被觀察者
@@ -20,7 +20,7 @@ class Subject {
   }
 
   // 通知观察者
-  void notifyObservers(Notification notification) {
+  void notifyObservers(NotificationData notification) {
     for (var observer in _observers) {
       observer.notify(notification);
     }
