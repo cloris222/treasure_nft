@@ -27,8 +27,8 @@ class _HomeSubContactViewState extends State<HomeSubContactView> {
   @override
   void initState() {
     String key = SubjectKey.keyHomeContact;
-    observer = HomeObserver(key, onNotify: (notificationKey) {
-      if (notificationKey == key) {
+    observer = HomeObserver(key, onNotify: (notification) {
+      if (notification.key == key) {
         if (mounted) {
           setState(() {});
         }

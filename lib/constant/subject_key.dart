@@ -8,4 +8,6 @@ class SubjectKey {
   static const String keyHomeArtRecords = 'homeArtRecords';
   static const String keyHomeContact = 'homeContact';
   static const String keyHomeVideo = 'homeVideo';
+  static const String keyHomeAnimationStart = 'homeAnimationStart';
+  static const String keyHomeAnimationReset = 'homeAnimationReset';
 }

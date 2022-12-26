@@ -26,8 +26,8 @@ class _HomeUsdtInfoState extends State<HomeUsdtInfo> {
   @override
   void initState() {
     String key = SubjectKey.keyHomeUSDT;
-    observer = HomeObserver(key, onNotify: (notificationKey) {
-      if (notificationKey == key) {
+    observer = HomeObserver(key, onNotify: (notification) {
+      if (notification.key == key) {
         if (mounted) {
           setState(() {});
         }

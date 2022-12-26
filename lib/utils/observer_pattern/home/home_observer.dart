@@ -5,10 +5,10 @@ import 'package:treasure_nft_project/utils/observer_pattern/observer.dart';
 class HomeObserver extends Observer {
   HomeObserver(super.name, {required this.onNotify});
 
-  final onGetStringFunction onNotify;
+  final NotificationDataFunction onNotify;
 
   @override
   void notify(NotificationData notification) {
-    onNotify(notification.key);
+    onNotify(notification);
   }
 }

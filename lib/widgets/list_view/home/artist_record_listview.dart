@@ -6,10 +6,8 @@ import '../../../constant/theme/app_colors.dart';
 import 'artist_record_item.dart';
 
 class ArtistRecordListView extends StatefulWidget {
-  const ArtistRecordListView(
-      {super.key, required this.showArtAnimate, required this.viewModel});
+  const ArtistRecordListView({super.key, required this.viewModel});
 
-  final bool showArtAnimate;
   final HomeMainViewModel viewModel;
 
   @override
@@ -21,30 +19,13 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
     return widget.viewModel;
   }
 
-  int animateIndex = -1;
   late HomeObserver observer;
-
-  @override
-  void didUpdateWidget(covariant ArtistRecordListView oldWidget) {
-    if (viewModel.needRecordAnimation) {
-      if (widget.showArtAnimate != oldWidget.showArtAnimate) {
-        if (widget.showArtAnimate) {
-          _playAnimate();
-        } else {
-          setState(() {
-            animateIndex = -1;
-          });
-        }
-      }
-    }
-    super.didUpdateWidget(oldWidget);
-  }
 
   @override
   void initState() {
     String key = SubjectKey.keyHomeArtRecords;
-    observer = HomeObserver(key, onNotify: (notificationKey) {
-      if (notificationKey == key) {
+    observer = HomeObserver(key, onNotify: (notification) {
+      if (notification.key == key) {
         if (mounted) {
           setState(() {});
         }
@@ -64,7 +45,7 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
     return ArtistRecordItemView(
         viewModel: viewModel,
         itemData: viewModel.homeArtistRecordList[index],
-        showAnimate: animateIndex >= index);
+        subjectKey: '${SubjectKey.keyHomeAnimationStart}_$index');
   }
 
   Widget createSeparatorBuilder(BuildContext context, int index) {
@@ -90,20 +71,5 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
           }),
       createSeparatorBuilder(context, 1)
     ]);
-  }
-
-  void _playAnimate() async {
-    _loopAnimate();
-  }
-
-  _loopAnimate() {
-    Future.delayed(const Duration(milliseconds: 200)).then((value) {
-      setState(() {
-        animateIndex += 1;
-      });
-      if (animateIndex < viewModel.homeArtistRecordList.length) {
-        _loopAnimate();
-      }
-    });
   }
 }

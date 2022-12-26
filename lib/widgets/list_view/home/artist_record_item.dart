@@ -1,10 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/subject_key.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_artist_record.dart';
+import 'package:treasure_nft_project/utils/observer_pattern/home/home_observer.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 
@@ -17,12 +19,12 @@ class ArtistRecordItemView extends StatefulWidget {
   const ArtistRecordItemView(
       {super.key,
       required this.itemData,
-      required this.showAnimate,
-      required this.viewModel});
+      required this.viewModel,
+      required this.subjectKey});
 
   final ArtistRecord itemData;
-  final bool showAnimate;
   final HomeMainViewModel viewModel;
+  final String subjectKey;
 
   @override
   State<StatefulWidget> createState() => _ArtistRecordItem();
@@ -37,22 +39,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
   bool show = false;
   late AnimationController controller;
   late Animation<double> animation;
-
-  @override
-  void didUpdateWidget(covariant ArtistRecordItemView oldWidget) {
-    if (viewModel.needRecordAnimation) {
-      if (widget.showAnimate != oldWidget.showAnimate) {
-        if (widget.showAnimate) {
-          setState(() {
-            controller.forward();
-          });
-        } else {
-          controller.reset();
-        }
-      }
-    }
-    super.didUpdateWidget(oldWidget);
-  }
+  late HomeObserver observer;
 
   @override
   void initState() {
@@ -64,7 +51,24 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
 
     // 定义动画更新区间的值
     animation = Tween<double>(begin: 270, end: 360).animate(controller);
+    observer = HomeObserver(widget.subjectKey, onNotify: (notification) {
+      if (mounted) {
+        if (notification.key == widget.subjectKey) {
+          controller.forward();
+        } else if (notification.key == SubjectKey.keyHomeAnimationReset) {
+          controller.reset();
+        }
+      }
+    });
+    viewModel.homeSubject.registerObserver(observer);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    viewModel.homeSubject.unregisterObserver(observer);
+    super.dispose();
   }
 
   @override

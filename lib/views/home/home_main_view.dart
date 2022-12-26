@@ -43,9 +43,12 @@ class _HomeMainViewState extends State<HomeMainView> {
         bool show = scrollController.offset > UIDefine.getPixelHeight(387);
         if (show != showArtAnimate) {
           if (mounted) {
-            setState(() {
-              showArtAnimate = show;
-            });
+            showArtAnimate = show;
+            if (showArtAnimate) {
+              viewModel.playAnimate();
+            } else {
+              viewModel.resetAnimate();
+            }
           }
         }
       }
@@ -208,8 +211,7 @@ class _HomeMainViewState extends State<HomeMainView> {
             margin:
                 EdgeInsets.symmetric(horizontal: UIDefine.getWidth() * 0.25),
             child: _buildChainDropDownBar()),
-        ArtistRecordListView(
-            viewModel: viewModel, showArtAnimate: showArtAnimate),
+        ArtistRecordListView(viewModel: viewModel),
       ],
     );
   }

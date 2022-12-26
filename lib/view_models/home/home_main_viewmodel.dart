@@ -123,4 +123,28 @@ class HomeMainViewModel extends BaseViewModel {
       throw 'Could not launch $url';
     }
   }
+
+  int animateIndex = -1;
+
+  ///MARK: 動畫翻轉
+  void playAnimate() async {
+    _loopAnimate();
+  }
+
+  void resetAnimate() async {
+    animateIndex = -1;
+    homeSubject.notifyObservers(
+        NotificationData(key: SubjectKey.keyHomeAnimationReset));
+  }
+
+  _loopAnimate() {
+    Future.delayed(const Duration(milliseconds: 200)).then((value) {
+      animateIndex += 1;
+      homeSubject.notifyObservers(NotificationData(
+          key: '${SubjectKey.keyHomeAnimationStart}_$animateIndex'));
+      if (animateIndex < homeArtistRecordList.length) {
+        _loopAnimate();
+      }
+    });
+  }
 }
