@@ -41,7 +41,6 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
           notification.key == SubjectKey.keyHomeCollectTop) {
         if (mounted) {
           setState(() {});
-
         }
       }
     });
@@ -114,11 +113,19 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
   }
 
   Widget _buildGalleryItem(ArtistRecord record, int index) {
+    double? imageSize = (index == 0
+        ? UIDefine.getPixelHeight(300)
+        : null);
+
     return record.imgUrl.length > index
         ? Column(mainAxisSize: MainAxisSize.min, children: [
             ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(15)),
-                child: GraduallyNetworkImage(imageUrl: record.imgUrl[index])),
+                child: SizedBox(
+                    width: imageSize,
+                    height: imageSize,
+                    child:
+                        GraduallyNetworkImage(imageUrl: record.imgUrl[index]))),
             SizedBox(height: UIDefine.getPixelHeight(5)),
             index == 0
                 ? Row(children: [

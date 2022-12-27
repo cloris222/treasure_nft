@@ -13,4 +13,6 @@ class SubjectKey {
   ///Home new ui
   static const String keyHomeCollectTop = 'homeCollectTop';
   static const String keyHomeRandomCollect = 'homeRandomCollect';
+  static const String keyHomeDiscoverTags = 'homeDiscoverTags';
+  static const String keyHomeDiscoverData = 'homeDiscoverData';
 }

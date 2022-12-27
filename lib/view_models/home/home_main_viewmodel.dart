@@ -10,12 +10,14 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/api/home_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/collect_top_info.dart';
+import 'package:treasure_nft_project/models/http/parameter/discover_collect_data.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_artist_record.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_carousel.dart';
 import 'package:treasure_nft_project/models/http/parameter/random_collect_info.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/notification_data.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/subject.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/views/explore/data/explore_category_response_data.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../models/http/parameter/trading_volume_data.dart';
@@ -34,6 +36,8 @@ class HomeMainViewModel extends BaseViewModel {
   List<CollectTopInfo> homeCollectTopList = [];
   List<RandomCollectInfo> homeRandomCollectList = [];
   ArtistRecord? randomArt;
+  List<ExploreCategoryResponseData> tags = [];
+  List<DiscoverCollectData> discoverList = [];
 
   ///Widget Style----------
   Widget buildSpace({double width = 0, double height = 0}) {
@@ -93,6 +97,7 @@ class HomeMainViewModel extends BaseViewModel {
     getCollectTop();
     getRandomCollect();
     getContactInfo();
+    getDiscoverTag();
   }
 
   void dispose() {
@@ -140,6 +145,19 @@ class HomeMainViewModel extends BaseViewModel {
     status = await HomeAPI().getFooterSetting();
     homeSubject
         .notifyObservers(NotificationData(key: SubjectKey.keyHomeContact));
+  }
+
+  Future<void> getDiscoverTag() async {
+    tags = await HomeAPI().getDiscoverTag();
+    homeSubject
+        .notifyObservers(NotificationData(key: SubjectKey.keyHomeDiscoverTags));
+    getDiscoverList(tags.first);
+  }
+
+  Future<void> getDiscoverList(ExploreCategoryResponseData tag) async {
+    discoverList = await HomeAPI().getDiscoverMoreNFT(category: tag.name);
+    homeSubject
+        .notifyObservers(NotificationData(key: SubjectKey.keyHomeDiscoverData));
   }
 
   /// 外部連結

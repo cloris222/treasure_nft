@@ -108,8 +108,8 @@ class HomeAPI extends HttpManager {
         queryParameters: {"page": 1, "size": 10, "categoryName": category});
     List<DiscoverCollectData> list = [];
     try {
-      for (Map<String, dynamic> json in response.data) {
-        list.add(DiscoverCollectData.fromJson(json['pageList']));
+      for (Map<String, dynamic> json in response.data['pageList']) {
+        list.add(DiscoverCollectData.fromJson(json));
       }
     } catch (e) {}
     return list;
@@ -129,6 +129,10 @@ class HomeAPI extends HttpManager {
         tags.add(respList[i]);
       }
     }
+    ExploreCategoryResponseData data = ExploreCategoryResponseData();
+    data.frontName = 'All';
+    data.name = '';
+    tags.insert(0, data);
     return tags;
   }
 }
