@@ -179,7 +179,7 @@ class _GetCollectionMainListview extends State<GetCollectionMainListview> {
   }
 
   void _updateItem(int index) { // 解鎖
-    itemsList[index].status == 'PENDING';
+    itemsList[index].status = 'PENDING';
     setState(() {});
   }
 

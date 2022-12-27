@@ -310,7 +310,7 @@ class _CollectionBlindBoxItemView extends State<CollectionBlindBoxItemView> {
   }
 
   bool _showOpenButton() {
-    if (currentLv >= unlockLv && currentBuyCount > unlockBuyCount) {
+    if (currentLv >= unlockLv && currentBuyCount >= unlockBuyCount) {
       return true;
     }
     return false;
