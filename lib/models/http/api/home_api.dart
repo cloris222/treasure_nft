@@ -105,7 +105,7 @@ class HomeAPI extends HttpManager {
   Future<List<DiscoverCollectData>> getDiscoverMoreNFT(
       {String category = ''}) async {
     var response = await get('/index/discover/moreNfts',
-        queryParameters: {"page": 1, "size": 10, "categoryName": category});
+        queryParameters: {"page": 1, "size": 8, "categoryName": category});
     List<DiscoverCollectData> list = [];
     try {
       for (Map<String, dynamic> json in response.data['pageList']) {

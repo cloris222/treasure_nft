@@ -36,6 +36,9 @@ class HomeMainViewModel extends BaseViewModel {
   List<CollectTopInfo> homeCollectTopList = [];
   List<RandomCollectInfo> homeRandomCollectList = [];
   ArtistRecord? randomArt;
+
+  ///discover nft
+  ExploreCategoryResponseData currentTag = ExploreCategoryResponseData();
   List<ExploreCategoryResponseData> tags = [];
   List<DiscoverCollectData> discoverList = [];
 
@@ -49,7 +52,7 @@ class HomeMainViewModel extends BaseViewModel {
   ///MARK: 主標題
   TextStyle getMainTitleStyle() {
     return TextStyle(
-        fontSize: UIDefine.fontSize20,
+        fontSize: UIDefine.fontSize24,
         fontWeight: FontWeight.w500,
         color: AppColors.textBlack);
   }
@@ -57,8 +60,8 @@ class HomeMainViewModel extends BaseViewModel {
   ///MARK: 副標題
   TextStyle getSubTitleStyle() {
     return TextStyle(
-        fontSize: UIDefine.fontSize16,
-        fontWeight: FontWeight.w500,
+        fontSize: UIDefine.fontSize18,
+        fontWeight: FontWeight.w400,
         color: AppColors.textBlack);
   }
 
