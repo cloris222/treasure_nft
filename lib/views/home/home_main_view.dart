@@ -66,67 +66,83 @@ class _HomeMainViewState extends State<HomeMainView> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-        padding: EdgeInsets.zero,
-        controller: scrollController,
-        children: [
-          // const DomainBar(),
-          ///MARK: 標題
-          Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: UIDefine.getPixelWidth(20),
-                  vertical: UIDefine.getPixelHeight(10)),
-              child: _buildTitleText()),
+    return Stack(
+      children: [
+        ListView(
+            padding: EdgeInsets.zero,
+            controller: scrollController,
+            children: [
+              // const DomainBar(),
+              ///MARK: 標題
+              Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: UIDefine.getPixelWidth(20),
+                      vertical: UIDefine.getPixelHeight(10)),
+                  child: _buildTitleText()),
 
-          ///MARK: USDT資訊
-          HomeSubUsdtView(viewModel: viewModel),
+              ///MARK: USDT資訊
+              HomeSubUsdtView(viewModel: viewModel),
 
-          viewModel.buildSpace(height: 3),
+              viewModel.buildSpace(height: 3),
 
-          HomeSubIllustrateView(viewModel: viewModel),
+              HomeSubIllustrateView(viewModel: viewModel),
 
-          viewModel.buildSpace(height: 3),
+              viewModel.buildSpace(height: 3),
 
-          /// 熱門系列 畫家排行
-          ArtistRecordListView(viewModel: viewModel),
-          viewModel.buildSpace(height: 3),
+              /// 熱門系列 畫家排行
+              ArtistRecordListView(viewModel: viewModel),
+              viewModel.buildSpace(height: 3),
 
-          /// 隨機收藏集
-          HomeSubRandomView(viewModel: viewModel),
-          viewModel.buildSpace(height: 3),
+              /// 隨機收藏集
+              HomeSubRandomView(viewModel: viewModel),
+              viewModel.buildSpace(height: 3),
 
-          /// 邀請註冊
-          HomeSubSignupView(viewModel: viewModel),
-          viewModel.buildSpace(height: 3),
+              /// 邀請註冊
+              HomeSubSignupView(viewModel: viewModel),
+              viewModel.buildSpace(height: 3),
 
-          /// Discover NFT
-          HomeSubDiscoverNftView(viewModel: viewModel),
+              /// Discover NFT
+              HomeSubDiscoverNftView(viewModel: viewModel),
 
-          /// 聯絡方式
-          HomeSubContactView(viewModel: viewModel),
+              /// 聯絡方式
+              HomeSubContactView(viewModel: viewModel),
 
-          /// 資訊頁
-          HomeSubInfoView(viewModel: viewModel),
+              /// 資訊頁
+              HomeSubInfoView(viewModel: viewModel),
 
-          /// Email訂閱
-          mailSubmit(),
+              /// Email訂閱
+              mailSubmit(),
 
-          /// 教學影片
-          // const HomeSubVideoView(),
+              /// 教學影片
+              // const HomeSubVideoView(),
 
-          /// 贊助
-          // sponsor(),
+              /// 贊助
+              // sponsor(),
 
-          viewModel.buildSpace(height: 3),
-          Center(
-              child: Text('TreasureMeta Technology',
-                  style: TextStyle(
-                      fontSize: UIDefine.fontSize14,
-                      color: AppColors.textBlack))),
-          SizedBox(
-            height: UIDefine.getPixelHeight(70),
-          )
-        ]);
+              viewModel.buildSpace(height: 3),
+              Center(
+                  child: Text('TreasureMeta Technology',
+                      style: TextStyle(
+                          fontSize: UIDefine.fontSize14,
+                          color: AppColors.textBlack))),
+              SizedBox(
+                height: UIDefine.getPixelHeight(70),
+              )
+            ]),
+        Positioned(
+            right: UIDefine.getPixelWidth(15),
+            bottom: UIDefine.getPixelWidth(15),
+            child: GestureDetector(
+              onTap: () => scrollController.jumpTo(0),
+              child: Container(
+                width: UIDefine.getPixelWidth(50),
+                height: UIDefine.getPixelWidth(50),
+                decoration: AppStyle().baseGradient(radius: 50),
+                child: Image.asset(AppImagePath.upArrowWhite),
+              ),
+            ))
+      ],
+    );
   }
 
   Widget _buildTitleText() {
