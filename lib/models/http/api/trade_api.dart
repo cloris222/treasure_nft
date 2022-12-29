@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/http_manager.dart';
 import 'package:treasure_nft_project/models/http/parameter/api_response.dart';
@@ -93,6 +95,10 @@ class TradeAPI extends HttpManager {
 
   /// app交易頁面Enter按鈕是否顯示
   Future<void> getTradeEnterButtonStatus() async {
+    if(Platform.isAndroid){
+      GlobalData.appTradeEnterButtonStatus=true;
+      return;
+    }
     try {
       var response = await get('/button/trade/enter');
       GlobalData.appTradeEnterButtonStatus =
