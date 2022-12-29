@@ -138,26 +138,27 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
   Widget _buildTabButton(ExploreCategoryResponseData type) {
     bool isCurrent = (type.frontName == viewModel.currentTag.frontName);
 
-    return SizedBox(
-        height: UIDefine.getScreenWidth(12),
-        child: TextButton(
-            onPressed: () {
-              changePage(type);
-            },
-            child: Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(
-                    horizontal: UIDefine.getPixelWidth(15),
-                    vertical: UIDefine.getPixelWidth(3)),
-                decoration: _getButtonBackground(isCurrent),
-                child: Text(
-                  type.getTabTitle(),
-                  style: TextStyle(
-                      color: _getButtonColor(isCurrent),
-                      fontSize: UIDefine.fontSize12,
-                      fontWeight: FontWeight.w500),
-                  textAlign: TextAlign.center,
-                ))));
+    return GestureDetector(
+        onTap: () {
+          changePage(type);
+        },
+        child: Container(
+            alignment: Alignment.center,
+            padding: EdgeInsets.symmetric(
+                horizontal: UIDefine.getPixelWidth(15),
+                vertical: UIDefine.getPixelWidth(3)),
+            margin: EdgeInsets.symmetric(
+                horizontal: UIDefine.getPixelWidth(5),
+                vertical: UIDefine.getPixelWidth(5)),
+            decoration: _getButtonBackground(isCurrent),
+            child: Text(
+              type.getTabTitle(),
+              style: TextStyle(
+                  color: _getButtonColor(isCurrent),
+                  fontSize: UIDefine.fontSize12,
+                  fontWeight: FontWeight.w500),
+              textAlign: TextAlign.center,
+            )));
   }
 
   BoxDecoration _getButtonBackground(bool isCurrent) {

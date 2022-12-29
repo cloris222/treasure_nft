@@ -49,22 +49,21 @@ class _GetCarouselListView extends State<CarouselListView> {
 
   @override
   Widget build(BuildContext context) {
-    double itemHeight = UIDefine.getWidth() * 0.8;
-    itemHeight = itemHeight > 430 ? itemHeight : 430;
-    return SizedBox(
-      height: itemHeight,
-      child: Swiper(
-        loop: true,
-        itemWidth: itemHeight * 0.8,
-        itemHeight: itemHeight * 0.8,
-        duration: 600,
-        itemBuilder: (BuildContext context, int index) {
-          return createItemBuilder(context, index);
-        },
-        curve: Curves.easeInToLinear,
-        itemCount: viewModel.homeCarouselList.length,
-        layout: SwiperLayout.STACK,
-      ),
+    double itemHeight = UIDefine.getMinSize() * 0.8;
+    itemHeight = itemHeight > UIDefine.getPixelWidth(360)
+        ? itemHeight
+        : UIDefine.getPixelWidth(360);
+    return Swiper(
+      // autoplay: true,
+      itemWidth: itemHeight * 0.8,
+      itemHeight: itemHeight * 0.8,
+      itemBuilder: (BuildContext context, int index) {
+        return createItemBuilder(context, index);
+      },
+      curve: Curves.easeInToLinear,
+      itemCount: viewModel.homeCarouselList.length,
+      layout: SwiperLayout.STACK,
+      axisDirection: AxisDirection.right,
     );
   }
 }

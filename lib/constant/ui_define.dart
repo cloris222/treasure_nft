@@ -126,4 +126,12 @@ class UIDefine {
   static double getHeight() {
     return _screenHeight;
   }
+
+  /// 取得最短邊
+  static double getMinSize() {
+    if (_screenHeight > _screenWidth) {
+      return _screenWidth;
+    }
+    return _screenHeight;
+  }
 }

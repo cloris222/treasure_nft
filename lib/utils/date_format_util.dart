@@ -148,4 +148,13 @@ class DateFormatUtil {
     DateTime dateTime = _getNow().subtract(Duration(days: day));
     return getTimeWithDayFormat(time: dateTime);
   }
+
+  String getDiffTime(DateTime time) {
+    Duration duration = time.difference(_getNow());
+    String strDigits(int n) => n.toString().padLeft(2, '0');
+    final hours = strDigits((duration.inHours.remainder(24)));
+    final minutes = strDigits((duration.inMinutes.remainder(60)));
+    final seconds = strDigits((duration.inSeconds.remainder(60)));
+    return '${hours}h ${minutes}m ${seconds}s';
+  }
 }

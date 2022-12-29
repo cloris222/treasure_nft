@@ -113,8 +113,13 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
   }
 
   Widget _buildGalleryItem(ArtistRecord record, int index) {
+    double itemHeight = UIDefine.getWidth() * 0.8;
+    itemHeight = itemHeight > UIDefine.getPixelWidth(390)
+        ? itemHeight
+        : UIDefine.getPixelWidth(390);
+
     double? imageSize = (index == 0
-        ? UIDefine.getPixelHeight(300)
+        ? itemHeight
         : null);
 
     return record.imgUrl.length > index
@@ -125,7 +130,7 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
                     width: imageSize,
                     height: imageSize,
                     child:
-                        GraduallyNetworkImage(imageUrl: record.imgUrl[index]))),
+                        GraduallyNetworkImage(imageUrl: record.imgUrl[index],fit: BoxFit.cover))),
             SizedBox(height: UIDefine.getPixelHeight(5)),
             index == 0
                 ? Row(children: [
