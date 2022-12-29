@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/http_manager.dart';
 import 'package:treasure_nft_project/models/http/parameter/api_response.dart';
@@ -11,6 +13,7 @@ import '../parameter/draw_result_info.dart';
 
 class TradeAPI extends HttpManager {
   TradeAPI({super.onConnectFail, super.showTrString});
+
   /// 活動用參數 1:世界盃
   final String activityID = "1";
   final String activityType = "WORLDCUP";
@@ -65,14 +68,15 @@ class TradeAPI extends HttpManager {
 
   ///MARK: 查詢開獎結果
   Future<DrawResultInfo> getActivityDrawResultInfoAPI() async {
-    var response = await get('/activity-dungeon/draw-result', queryParameters: {'id': activityID});
+    var response = await get('/activity-dungeon/draw-result',
+        queryParameters: {'id': activityID});
     return DrawResultInfo.fromJson(response.data);
   }
 
   /// 查詢活動 是否可預約
   Future<ActivityReserveInfo> getActivityReserveAPI() async {
-    var response =
-        await get('/activity-dungeon/can-reserve', queryParameters: {'id': activityID});
+    var response = await get('/activity-dungeon/can-reserve',
+        queryParameters: {'id': activityID});
     return ActivityReserveInfo.fromJson(response.data);
   }
 
@@ -87,5 +91,20 @@ class TradeAPI extends HttpManager {
   Future<ApiResponse> postActivityInsert() async {
     return post('/activity-dungeon/insert',
         data: {'id': activityID, 'code': activityType});
+  }
+
+  /// app交易頁面Enter按鈕是否顯示
+  Future<void> getTradeEnterButtonStatus() async {
+    if(Platform.isAndroid){
+      GlobalData.appTradeEnterButtonStatus=true;
+      return;
+    }
+    try {
+      var response = await get('/button/trade/enter');
+      GlobalData.appTradeEnterButtonStatus =
+          response.data['appTradeEnterButtonStatus'] == 'ENABLE';
+    } catch (e) {
+      GlobalData.appTradeEnterButtonStatus = false;
+    }
   }
 }

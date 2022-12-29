@@ -208,7 +208,7 @@ class _LevelMainCellState extends State<LevelMainCell> {
                 right: 0,
                 bottom: 0,
                 child: Visibility(
-                  visible: widget.tradeData.status != SellingState.Selling,
+                  visible: widget.tradeData.status != SellingState.Selling &&  GlobalData.appTradeEnterButtonStatus,
                   child: ActionButtonWidget(
                       setHeight: 40,
                       isFillWidth: false,

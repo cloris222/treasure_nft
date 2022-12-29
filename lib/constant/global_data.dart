@@ -59,4 +59,7 @@ class GlobalData {
 
   ///MARK: Stomp 控管用
   static bool bShowBuySuccessAnimate = false; //控管目前是否有顯示中獎
+
+  /// 交易頁的Enter按鈕是否顯示
+  static bool appTradeEnterButtonStatus = false;
 }

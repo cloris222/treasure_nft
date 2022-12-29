@@ -1002,6 +1002,9 @@
   "tokenId": "Token ID",
   "automaticHosting": "سپردن خودکار",
   "setup": "تنظیمات",
+  "invaildEmail":"ایمیل نامعتبر",
+
+
   "--//app use": "---",
   "goPermissionSetting": "عملکرد اسکن به اجازه دوربین گوشی شما نیاز دارد. برای باز کردن آن به تنظیمات گوشی خود بروید؟",
   "ticketValue": "ارزش بلیط",

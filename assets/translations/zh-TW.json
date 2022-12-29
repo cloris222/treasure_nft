@@ -161,7 +161,7 @@
   "userInfo":"使用者設定",
   "collection":"收藏",
   "transfer":"轉出",
-  "postSale":"刊登出售",
+  "postSale":"上架出售",
   "onSale":"開賣中",
   "disabled":"不可交易",
   "check":"確認",
@@ -1036,6 +1036,7 @@
   "tokenId":"Token ID",
   "automaticHosting":"自動託管",
   "setup":"設置",
+  "invaildEmail":"信箱錯誤",
 
 
 

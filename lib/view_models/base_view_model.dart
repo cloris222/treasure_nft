@@ -134,7 +134,7 @@ class BaseViewModel {
     bool connectFail = false;
     onFail(message) => connectFail = true;
 
-    List<bool> checkList = List<bool>.generate(2, (index) => false);
+    List<bool> checkList = List<bool>.generate(3, (index) => false);
 
     UserInfoAPI(onConnectFail: onFail)
         .getPersonInfo()
@@ -142,6 +142,7 @@ class BaseViewModel {
     TradeAPI(onConnectFail: onFail)
         .getExperienceInfoAPI()
         .then((value) => checkList[1] = true);
+    TradeAPI().getTradeEnterButtonStatus().then((value) => checkList[2] = true);
 
     await checkFutureTime(
         logKey: 'uploadPersonalInfo',
