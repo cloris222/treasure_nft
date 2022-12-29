@@ -479,7 +479,7 @@
   "profit-loss-ratio'":"Profit and Loss Ratio",
   "accumulated-profit-loss'":"Total Revenue",
   "day":"day",
-  "reservationFee":"Reservation fee",
+  "reservationFee":"Reservation deposit",
   "notification-THROW'":"abstain",
 
   "--// usdt details":"---",
@@ -539,7 +539,7 @@
   "recharge":"Deposit",
   "historyLog":"History",
   "point":"Points",
-  "quantity":"Items",
+  "quantity":"Amount",
   "quantity-placeholder'":"Enter withdrawal amount",
   "exchangeRate":"Rate",
   "fee":"Service Fee",
@@ -1036,6 +1036,7 @@
   "tokenId":"Token ID",
   "automaticHosting":"Auto sale",
   "setup":"Settings",
+  "invaildEmail":"Invaild email",
 
 
 

@@ -62,7 +62,7 @@ class ForgotMainViewModel extends BaseViewModel {
   }
 
   _onConnectFail(BuildContext context, String message) {
-    SimpleCustomDialog(context,isSuccess: false, mainText: tr('accountOrMailboxError')).show();
+    SimpleCustomDialog(context,isSuccess: false, mainText: tr('invaildEmail')).show();
   }
 
   void onTap() {
