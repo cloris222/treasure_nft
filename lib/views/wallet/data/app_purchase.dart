@@ -237,31 +237,30 @@ class _AppPurchaseState extends State<AppPurchase> {
         var imageName = '';
         var buttonName = '';
         var buttonColor = 0;
-        var price = '';
         switch (productDetails.id) {
           case NFT_1:
             imageName = AppImagePath.purchaseImg1;
             buttonName = 'Silver';
             buttonColor = 0XFF54514D;
-            price = '7';
+
             break;
           case NFT_2:
             imageName = AppImagePath.purchaseImg2;
             buttonName = 'Golden';
             buttonColor = 0XFFECAF46;
-            price = '21';
+
             break;
           case NFT_3:
             imageName = AppImagePath.purchaseImg3;
             buttonName = 'Platinum';
             buttonColor = 0XFF93A0D2;
-            price = '35';
+
             break;
           case NFT_4:
             imageName = AppImagePath.purchaseImg4;
             buttonName = 'Diamond';
             buttonColor = 0XFF79BAD2;
-            price = '70';
+
             break;
         }
 
@@ -292,7 +291,7 @@ class _AppPurchaseState extends State<AppPurchase> {
                     margin: EdgeInsets.only(left: UIDefine.getPixelWidth(15),bottom: UIDefine.getPixelHeight(3)),
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      format(tr("appPurchaseDescription"), {"price": '$price '}),
+                      tr("appPurchaseDescription"),
                       style: TextStyle(
                           color: Colors.grey, fontSize: UIDefine.fontSize14),
                     ),

@@ -1062,5 +1062,5 @@
   "deleteAccount":"Deletar conta",
   "deleteAccountHint":"Tem certeza de que deseja excluir sua conta? Isto não pode ser desfeito.",
   "goPermissionAnimation":"Para garantir que a animação do APP funcione totalmente, você precisa habilitar a permissão de armazenamento. Você quer ir para a página de configuração para configuração?",
-  "appPurchaseDescription":"Ao comprar este produto, você pode obter uma coleção de arte NFT no valor de {price}USDT."
+  "appPurchaseDescription":"Ao comprar este produto, você pode obter uma coleção de arte no valor de."
 }
