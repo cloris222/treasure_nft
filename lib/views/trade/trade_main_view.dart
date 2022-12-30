@@ -8,19 +8,12 @@ import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/utils/trade_timer_util.dart';
 import 'package:treasure_nft_project/widgets/activity/world_cup_view.dart';
-import 'package:treasure_nft_project/widgets/count_down_timer.dart';
 import 'package:treasure_nft_project/widgets/dialog/new_reservation_dialog.dart';
-import 'package:treasure_nft_project/widgets/dialog/trade_rule_dialot.dart';
-import 'package:treasure_nft_project/widgets/domain_bar.dart';
 import 'package:treasure_nft_project/widgets/trade_countdown_view.dart';
-import '../../constant/enum/trade_enum.dart';
 import '../../constant/theme/app_animation_path.dart';
-import '../../constant/theme/app_image_path.dart';
 import '../../models/http/api/trade_api.dart';
 import '../../models/http/parameter/check_reserve_deposit.dart';
-import '../../utils/date_format_util.dart';
 import '../../view_models/trade/trade_main_viewmodel.dart';
-import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/dialog/animation_dialog.dart';
 import '../../widgets/dialog/simple_custom_dialog.dart';
 import '../../widgets/dialog/success_dialog.dart';
@@ -131,11 +124,12 @@ class _TradeMainViewState extends State<TradeMainView> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          const DomainBar(),
           TradeCountDownView(tradeData: viewModel.currentData),
           _levelView(context),
           const WorldCupView(),
-          checkDataInit()
+          checkDataInit(),
+          Padding(
+              padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding))
         ],
       ),
     );
@@ -265,7 +259,8 @@ class _TradeMainViewState extends State<TradeMainView> {
             },
             range: viewModel.ranges[index],
             level: 0,
-            tradeData: tradeData, imageIndex: index,
+            tradeData: tradeData,
+            imageIndex: index,
           );
         });
   }

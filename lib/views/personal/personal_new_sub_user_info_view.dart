@@ -40,6 +40,8 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
             onTap: () => _showModifyAvatar(context),
             child: Container(
                 decoration: AppTheme.style.baseGradient(radius: 100),
+                height: UIDefine.getPixelWidth(75),
+                width: UIDefine.getPixelWidth(75),
                 padding: const EdgeInsets.all(2),
                 child: userInfo.photoUrl.isNotEmpty
                     ? CircleNetworkIcon(

@@ -44,10 +44,11 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
           SizedBox(height: UIDefine.getScreenWidth(5.5)),
           _buildAmountInputBar(),
           SizedBox(height: UIDefine.getScreenWidth(2.77)),
-          _buildTextContent(tr('canWithdrawFee'), viewModel.numberFormat(viewModel.data.balance)),
+          _buildTextContent(tr('canWithdrawFee'),
+              viewModel.numberFormat(viewModel.data.balance)),
           SizedBox(height: UIDefine.getScreenWidth(2.77)),
-          _buildTextContent(
-              tr('minAmount'), '${viewModel.numberFormat(viewModel.data.minAmount)} USDT'),
+          _buildTextContent(tr('minAmount'),
+              '${viewModel.numberFormat(viewModel.data.minAmount)} USDT'),
           SizedBox(height: UIDefine.getScreenWidth(8.27)),
 
           Container(
@@ -64,11 +65,12 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
               btnText: tr('submit'),
               onPressed: () {
                 // if (viewModel.checkEmail) {
-                  viewModel.onPressSave(context, widget.getWalletAlert());
+                viewModel.onPressSave(context, widget.getWalletAlert());
                 // }
               },
               enable: viewModel.checkEnable()),
-          SizedBox(height: UIDefine.getScreenWidth(11.1))
+          SizedBox(height: UIDefine.getScreenWidth(11.1)),
+          SizedBox(height: UIDefine.navigationBarPadding)
         ],
       )),
     );

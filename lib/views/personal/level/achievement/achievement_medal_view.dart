@@ -18,16 +18,17 @@ class AchievementMedalView extends StatelessWidget {
   Widget build(BuildContext context) {
     List<List<Widget>> lists = [];
     int nListCount =
-    (viewModel.medalList.isNotEmpty) ? viewModel.medalList.length ~/ 3 : 0;
+        (viewModel.medalList.isNotEmpty) ? viewModel.medalList.length ~/ 3 : 0;
     for (int i = 0; i < nListCount + 1; i++) {
       List<Widget> row = [];
       row.add(Expanded(child: _buildIcon(context, i * 3)));
-      row.add(Expanded(child: _buildIcon(context, i * 3+1)));
-      row.add(Expanded(child: _buildIcon(context, i * 3+2)));
+      row.add(Expanded(child: _buildIcon(context, i * 3 + 1)));
+      row.add(Expanded(child: _buildIcon(context, i * 3 + 2)));
       lists.add(row);
     }
 
     return ListView.builder(
+        padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
         itemBuilder: (context, index) {
           return Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

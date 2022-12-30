@@ -6,7 +6,6 @@ import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/views/wallet/data/app_purchase.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
-import 'package:treasure_nft_project/widgets/domain_bar.dart';
 
 import '../../constant/global_data.dart';
 import '../../constant/theme/app_colors.dart';
@@ -42,9 +41,9 @@ class _WalletMainViewState extends State<WalletMainView> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(children: [
-        const DomainBar(),
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
           child: Wrap(
             runSpacing: 25,
             children: [

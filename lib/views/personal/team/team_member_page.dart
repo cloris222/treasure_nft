@@ -10,6 +10,7 @@ import 'package:treasure_nft_project/views/personal/team/team_member_detail_page
 import 'package:treasure_nft_project/views/personal/team/widget/all_members_card.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 
 import '../../../widgets/date_picker/custom_date_picker.dart';
 
@@ -21,7 +22,6 @@ class TeamMemberPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
-      title: tr("teamMember"),
       type: AppNavigationBarType.typePersonal,
       body: const Body(),
     );
@@ -61,8 +61,10 @@ class BodyState extends State<Body> {
         child: Padding(
             padding: EdgeInsets.only(
                 left: UIDefine.getScreenWidth(6),
-                right: UIDefine.getScreenWidth(6)),
+                right: UIDefine.getScreenWidth(6),
+                bottom: UIDefine.navigationBarPadding),
             child: Column(children: [
+              TitleAppBar(title: tr('teamMember')),
               viewModel.getPadding(3),
 
               /// 日期選擇器 & 按鈕

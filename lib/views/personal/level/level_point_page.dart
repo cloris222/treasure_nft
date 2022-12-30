@@ -1,5 +1,5 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/personal/level/level_point_view_model.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
@@ -19,11 +19,13 @@ class _LevelPointPageState extends State<LevelPointPage> {
   @override
   void initState() {
     super.initState();
-    viewModel = LevelPointViewModel(onListChange: () {
-      if (mounted) {
-        setState(() {});
-      }
-    });
+    viewModel = LevelPointViewModel(
+        onListChange: () {
+          if (mounted) {
+            setState(() {});
+          }
+        },
+        padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding));
     viewModel.initState();
   }
 
@@ -32,7 +34,6 @@ class _LevelPointPageState extends State<LevelPointPage> {
     return CustomAppbarView(
       needCover: true,
       needScrollView: false,
-      title: tr('pointRecord'),
       body: _buildBody(),
       type: AppNavigationBarType.typePersonal,
     );

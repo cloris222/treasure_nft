@@ -1,18 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/views/home/home_main_view.dart';
-
-import '../../../constant/global_data.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_theme.dart';
 import '../../../constant/ui_define.dart';
 import '../../../view_models/base_view_model.dart';
 import '../../../view_models/explore/explore_artist_home_page_view_model.dart';
-import '../../../widgets/app_bottom_navigation_bar.dart';
-import '../../../widgets/appbar/custom_app_bar.dart';
-import '../../../widgets/label/gradually_network_image.dart';
 import '../../custom_appbar_view.dart';
 import '../../server_web_page.dart';
 import '../../setting_language_page.dart';
@@ -31,6 +25,7 @@ class ExploreArtistHomePageView extends StatefulWidget {
 
 class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
   ExploreArtistHomePageViewModel viewModel = ExploreArtistHomePageViewModel();
+
   // bool bMore = false; // 第一版UI
   bool bShowMore = false;
   ExploreArtistDetailResponseData data =
@@ -63,105 +58,107 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: CustomAppBar.mainNewAppBar(
-          serverAction: _serverAction,
-          globalAction: _globalAction,
-          mainAction: _mainAction),
-
+    return CustomAppbarView(
+      needScrollView: false,
       body: NotificationListener<ScrollEndNotification>(
-        onNotification: (scrollEnd) {
-          final metrics = scrollEnd.metrics;
-          if (metrics.atEdge) {
-            bool isTop = metrics.pixels == 0;
-            if (isTop) {
-              GlobalData.printLog('At the top');
-            } else {
-              if (!bDownloading) { // 防止短時間載入過多造成OOM
-                bDownloading = true;
-                page += 1;
-                _updateView();
+          onNotification: (scrollEnd) {
+            final metrics = scrollEnd.metrics;
+            if (metrics.atEdge) {
+              bool isTop = metrics.pixels == 0;
+              if (isTop) {
+                GlobalData.printLog('At the top');
+              } else {
+                if (!bDownloading) {
+                  // 防止短時間載入過多造成OOM
+                  bDownloading = true;
+                  page += 1;
+                  _updateView();
+                }
               }
             }
-          }
-          return true;
-        },
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              HomePageWidgets().newHomePageTop(artistData, data, bShowMore,
-                  popBack: _popBack,
-                  shareAction: _shareAction,
-                  searchAction: _searchAction,
-                  sortAction: _sortAction,
-                  seeMoreAction: () {
-                    setState(() {
-                      bShowMore = !bShowMore;
-                    });
-                  }
-              ),
+            return true;
+          },
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                HomePageWidgets().newHomePageTop(artistData, data, bShowMore,
+                    popBack: _popBack,
+                    shareAction: _shareAction,
+                    searchAction: _searchAction,
+                    sortAction: _sortAction, seeMoreAction: () {
+                  setState(() {
+                    bShowMore = !bShowMore;
+                  });
+                }),
+                Stack(
+                  children: [
+                    /// 黑色底
+                    Container(
+                        color: AppColors.textBlack,
+                        width: double.infinity,
+                        height: UIDefine.getScreenWidth(10)),
 
-              Stack(
-                children: [
-                  /// 黑色底
-                  Container(color: AppColors.textBlack, width: double.infinity, height: UIDefine.getScreenWidth(10)),
-
-                  Container(
-                      padding: EdgeInsets.only(top: UIDefine.getScreenWidth(4.5)),
-                      decoration: const BoxDecoration(
-                          color: AppColors.textWhite,
-                          borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
-                      child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: productList.length,
-                          itemBuilder: (context, index) {
-                            if (index == productList.length - 1) { // 開啟'到底更新'的Flag
-                              bDownloading = false;
-                            }
-                            if (index % 2 == 0 && index == productList.length - 1) {
+                    Container(
+                        padding:
+                            EdgeInsets.only(top: UIDefine.getScreenWidth(4.5)),
+                        decoration: const BoxDecoration(
+                            color: AppColors.textWhite,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10))),
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: productList.length,
+                            itemBuilder: (context, index) {
+                              if (index == productList.length - 1) {
+                                // 開啟'到底更新'的Flag
+                                bDownloading = false;
+                              }
+                              if (index % 2 == 0 &&
+                                  index == productList.length - 1) {
+                                return Padding(
+                                    padding: EdgeInsets.fromLTRB(
+                                        UIDefine.getScreenWidth(4.5),
+                                        0,
+                                        0,
+                                        UIDefine.getScreenWidth(4.5)),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        HomePageWidgets().productView(
+                                            context, productList[index]),
+                                      ],
+                                    ));
+                              }
+                              if (index % 2 != 0) {
+                                return Container();
+                              }
                               return Padding(
-                                  padding: EdgeInsets.fromLTRB(
-                                      UIDefine.getScreenWidth(4.5),
-                                      0,
-                                      0,
-                                      UIDefine.getScreenWidth(4.5)),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      HomePageWidgets().productView(
-                                          context, productList[index]),
-                                    ],
-                                  ));
-                            }
-                            if (index % 2 != 0) {
-                              return Container();
-                            }
-                            return Padding(
-                              padding: EdgeInsets.fromLTRB(
-                                  UIDefine.getScreenWidth(4.5),
-                                  0,
-                                  UIDefine.getScreenWidth(4.5),
-                                  UIDefine.getScreenWidth(4.5)),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  HomePageWidgets().productView(
-                                      context, productList[index]),
-                                  HomePageWidgets().productView(
-                                      context, productList[index + 1])
-                                ],
-                              ),
-                            );
-                          })
-                  )
-                ],
-              )
-            ],
-          ),
-        )
-      )
+                                padding: EdgeInsets.fromLTRB(
+                                    UIDefine.getScreenWidth(4.5),
+                                    0,
+                                    UIDefine.getScreenWidth(4.5),
+                                    UIDefine.getScreenWidth(4.5)),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    HomePageWidgets().productView(
+                                        context, productList[index]),
+                                    HomePageWidgets().productView(
+                                        context, productList[index + 1])
+                                  ],
+                                ),
+                              );
+                            }))
+                  ],
+                ),
+                SizedBox(height: UIDefine.navigationBarPadding)
+              ],
+            ),
+          )),
     );
   }
 
@@ -351,8 +348,8 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
         viewModel.getArtistDetailResponse(
             artistData.artistId, searchValue, page, 10, sortBy);
     resList.then((value) => setState(() {
-      productList.addAll(value.list.pageList);
-    }));
+          productList.addAll(value.list.pageList);
+        }));
   }
 
   _onPressSort() {
@@ -445,8 +442,9 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
     );
   }
 
-  String _getCategoryText(String value) { // 下拉選單 多國
-    switch(value) {
+  String _getCategoryText(String value) {
+    // 下拉選單 多國
+    switch (value) {
       case 'Price':
         return tr('price');
       case 'Time':
@@ -485,5 +483,4 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
   void _sortAction() {
     // test 等規格出來
   }
-
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 
@@ -83,12 +84,12 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
-      title: tr("Details"),
       type: AppNavigationBarType.typeExplore,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            TitleAppBar(title: tr('Details')),
             /// 原AppBar, 會一起滑動
             // /// AppBar
             // CustomAppBar.getCornerAppBar(
@@ -183,7 +184,7 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
             chartView,
 
             /// 底部間距
-            SizedBox(height: UIDefine.getScreenWidth(10))
+            SizedBox(height: UIDefine.getScreenWidth(10)),
 
             ///MARK: 按鈕(含)以下都拿掉 2022/11/04 Ethan
             // /// 預約按鈕+預約券總數量
@@ -260,6 +261,7 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
             //     ],
             //   )
             // )
+            SizedBox(height: UIDefine.navigationBarPadding)
           ],
         ),
       ),

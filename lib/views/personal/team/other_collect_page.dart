@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/ui_define.dart';
@@ -38,22 +39,22 @@ class _OtherCollectPageState extends State<OtherCollectPage> {
             setState(() {});
           }
         },
-        topView: _buildTopView);
+        topView: _buildTopView,
+        padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding));
     viewModel.initState(widget.orderNo, widget.isSeller);
   }
 
   @override
   Widget build(BuildContext context) {
     return CustomAppbarView(
-        needCover: true,
-        needScrollView: false,
-        title: tr('collection'),
-        body: viewModel.buildGridView(
-            crossAxisCount: 2,
-            childAspectRatio: 0.8,
-            mainAxisSpacing: UIDefine.getScreenHeight(2),
-            crossAxisSpacing: UIDefine.getScreenWidth(2),
-          ),
+      needCover: true,
+      needScrollView: false,
+      body: viewModel.buildGridView(
+        crossAxisCount: 2,
+        childAspectRatio: 0.8,
+        mainAxisSpacing: UIDefine.getScreenHeight(2),
+        crossAxisSpacing: UIDefine.getScreenWidth(2),
+      ),
     );
   }
 
@@ -61,6 +62,7 @@ class _OtherCollectPageState extends State<OtherCollectPage> {
     Widget space = SizedBox(height: UIDefine.getScreenHeight(2));
     return Column(
       children: [
+        TitleAppBar(title: tr('collection')),
         PersonalSubUserInfoView(
             setUserInfo: data,
             showPoint: false,
@@ -78,74 +80,77 @@ class _OtherCollectPageState extends State<OtherCollectPage> {
 
   Widget _buildSearchNameView() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(4)),
-      child: TextField(
-          onChanged: (text) {
-            // 撈產品資料 by text
-            viewModel.nftName = text;
-            viewModel.initListView();
-          },
-          style: TextStyle(fontSize: UIDefine.fontSize14),
-          decoration: InputDecoration(
-            prefixIcon: Image.asset('assets/icon/btn/btn_discover_01_nor.png'),
-            hintText: tr("select-placeholder'"),
-            hintStyle: const TextStyle(height: 1.6, color: AppColors.searchBar),
-            labelStyle: const TextStyle(color: Colors.black),
-            alignLabelWithHint: true,
-            border: borderType,
-            focusedBorder: borderType,
-            enabledBorder: borderType,
-          ))
-    );
+        padding: EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(4)),
+        child: TextField(
+            onChanged: (text) {
+              // 撈產品資料 by text
+              viewModel.nftName = text;
+              viewModel.initListView();
+            },
+            style: TextStyle(fontSize: UIDefine.fontSize14),
+            decoration: InputDecoration(
+              prefixIcon:
+                  Image.asset('assets/icon/btn/btn_discover_01_nor.png'),
+              hintText: tr("select-placeholder'"),
+              hintStyle:
+                  const TextStyle(height: 1.6, color: AppColors.searchBar),
+              labelStyle: const TextStyle(color: Colors.black),
+              alignLabelWithHint: true,
+              border: borderType,
+              focusedBorder: borderType,
+              enabledBorder: borderType,
+            )));
   }
 
   Widget _buildSortView() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(4)),
-      child: Row(children: [
-        Expanded(child: _buildDropDownBar()),
-        SizedBox(width: UIDefine.getScreenWidth(2.77)),
-        GestureDetector(
-            onTap: () => _onPressSort(),
-            child: Container(
-              alignment: Alignment.center,
-              width: UIDefine.getScreenWidth(17.77),
-              height: UIDefine.getScreenWidth(13.88),
-              decoration: BoxDecoration(
-                  border: Border.all(width: 3, color: AppColors.datePickerBorder),
-                  borderRadius: BorderRadius.circular(10)),
-              child: Image.asset('assets/icon/btn/btn_sort_01_nor.png'),
-            ))
-      ])
-    );
+        padding: EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(4)),
+        child: Row(children: [
+          Expanded(child: _buildDropDownBar()),
+          SizedBox(width: UIDefine.getScreenWidth(2.77)),
+          GestureDetector(
+              onTap: () => _onPressSort(),
+              child: Container(
+                alignment: Alignment.center,
+                width: UIDefine.getScreenWidth(17.77),
+                height: UIDefine.getScreenWidth(13.88),
+                decoration: BoxDecoration(
+                    border:
+                        Border.all(width: 3, color: AppColors.datePickerBorder),
+                    borderRadius: BorderRadius.circular(10)),
+                child: Image.asset('assets/icon/btn/btn_sort_01_nor.png'),
+              ))
+        ]));
   }
 
   Widget _buildDropDownBar() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(0)),
-      child: DropdownButtonFormField(
-        icon: Image.asset('assets/icon/btn/btn_arrow_02_down.png'),
-        onChanged: (newValue) {},
-        value: _currenciesTwo.first,
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.16),
-              UIDefine.getScreenWidth(4.16), UIDefine.getScreenWidth(4.16), 0),
-          border: borderType,
-          focusedBorder: borderType,
-          enabledBorder: borderType,
-        ),
-        items: _currenciesTwo.map((String category) {
-          return DropdownMenuItem(
-              value: category,
-              child: Row(
-                children: <Widget>[
-                  Text(_getCategoryText(category),
-                      style: const TextStyle(color: AppColors.searchBar)),
-                ],
-              ));
-        }).toList(),
-      )
-    );
+        padding: EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(0)),
+        child: DropdownButtonFormField(
+          icon: Image.asset('assets/icon/btn/btn_arrow_02_down.png'),
+          onChanged: (newValue) {},
+          value: _currenciesTwo.first,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.fromLTRB(
+                UIDefine.getScreenWidth(4.16),
+                UIDefine.getScreenWidth(4.16),
+                UIDefine.getScreenWidth(4.16),
+                0),
+            border: borderType,
+            focusedBorder: borderType,
+            enabledBorder: borderType,
+          ),
+          items: _currenciesTwo.map((String category) {
+            return DropdownMenuItem(
+                value: category,
+                child: Row(
+                  children: <Widget>[
+                    Text(_getCategoryText(category),
+                        style: const TextStyle(color: AppColors.searchBar)),
+                  ],
+                ));
+          }).toList(),
+        ));
   }
 
   String _getCategoryText(String value) {

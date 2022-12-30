@@ -57,9 +57,10 @@ class _MainPageState extends State<MainPage> {
     Future.delayed(const Duration(seconds: 2))
         .then((value) => showAnimateView());
   }
+
   Future<void> initPlugin() async {
     final TrackingStatus status =
-    await AppTrackingTransparency.trackingAuthorizationStatus;
+        await AppTrackingTransparency.trackingAuthorizationStatus;
     setState(() => _authStatus = '$status');
     // If the system can show an authorization request dialog
     if (status == TrackingStatus.notDetermined) {
@@ -69,7 +70,7 @@ class _MainPageState extends State<MainPage> {
       await Future.delayed(const Duration(milliseconds: 200));
       // Request system's tracking authorization dialog
       final TrackingStatus status =
-      await AppTrackingTransparency.requestTrackingAuthorization();
+          await AppTrackingTransparency.requestTrackingAuthorization();
       setState(() => _authStatus = '$status');
     }
 
@@ -84,8 +85,8 @@ class _MainPageState extends State<MainPage> {
           title: const Text('Dear User'),
           content: const Text(
             'We care about your privacy and data security. We keep this app free by showing ads. '
-                'Can we continue to use your data to tailor ads for you?\n\nYou can change your choice anytime in the app settings. '
-                'Our partners will collect data and use a unique identifier on your device to show you ads.',
+            'Can we continue to use your data to tailor ads for you?\n\nYou can change your choice anytime in the app settings. '
+            'Our partners will collect data and use a unique identifier on your device to show you ads.',
           ),
           actions: [
             TextButton(
@@ -139,38 +140,43 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: CustomAppBar.mainAppBar(
-            searchAction: _searchAction,
-            serverAction: _serverAction,
-            avatarAction: _avatarAction,
-            globalAction: _globalAction,
-            mainAction: _mainAction),
-        body: Padding(
-          padding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).viewInsets.bottom > 0
-                  ? 0
-                  : UIDefine.getPixelHeight(70)),
-          child: PageView(
-            controller: pageController,
-            physics: const NeverScrollableScrollPhysics(),
-            children: [
-              const ExploreMainView(),
-              const CollectionMainView(),
-              const TradeMainView(),
-              const WalletMainView(),
-              PersonalMainView(onViewChange: () => setState(() {})),
-              const HomeMainView(),
-              const LoginMainView()
-            ],
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.white,
+      appBar: CustomAppBar.mainAppBar(
+          serverAction: _serverAction,
+          globalAction: _globalAction,
+          mainAction: _mainAction),
+      body: Stack(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: PageView(
+              controller: pageController,
+              physics: const NeverScrollableScrollPhysics(),
+              children: [
+                const ExploreMainView(),
+                const CollectionMainView(),
+                const TradeMainView(),
+                const WalletMainView(),
+                PersonalMainView(onViewChange: () => setState(() {})),
+                const HomeMainView(),
+                const LoginMainView()
+              ],
+            ),
           ),
-        ),
-        extendBody: true,
-        bottomNavigationBar: AppBottomNavigationBar(
-          initType: GlobalData.mainBottomType,
-          bottomFunction: _changePage,
-          bStartTimer: true,
-        ));
+          Positioned(
+              bottom: 0,
+              right: 0,
+              left: 0,
+              child: AppBottomNavigationBar(
+                initType: GlobalData.mainBottomType,
+                bottomFunction: _changePage,
+                bStartTimer: true,
+              ))
+        ],
+      ),
+      extendBody: true,
+    );
   }
 
   _changePage(AppNavigationBarType type) {

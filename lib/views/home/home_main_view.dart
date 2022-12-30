@@ -69,7 +69,7 @@ class _HomeMainViewState extends State<HomeMainView> {
     return Stack(
       children: [
         ListView(
-            padding: EdgeInsets.zero,
+            padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
             controller: scrollController,
             children: [
               // const DomainBar(),
@@ -131,7 +131,8 @@ class _HomeMainViewState extends State<HomeMainView> {
             ]),
         Positioned(
             right: UIDefine.getPixelWidth(15),
-            bottom: UIDefine.getPixelWidth(15),
+            bottom:
+                UIDefine.getPixelWidth(15) + UIDefine.navigationBarPadding,
             child: GestureDetector(
               onTap: () => scrollController.jumpTo(0),
               child: Container(

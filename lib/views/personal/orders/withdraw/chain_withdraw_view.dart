@@ -42,7 +42,8 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-          left: UIDefine.getScreenWidth(5), right: UIDefine.getScreenWidth(5)),
+          left: UIDefine.getScreenWidth(5),
+          right: UIDefine.getScreenWidth(5)),
       child: SingleChildScrollView(
           child: Column(
         children: [
@@ -78,7 +79,8 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
                 viewModel.onPressSave(context, widget.getWalletAlert());
               },
               enable: viewModel.checkEnable()),
-          SizedBox(height: UIDefine.getScreenWidth(11.1))
+          SizedBox(height: UIDefine.getScreenWidth(11.1)),
+          SizedBox(height: UIDefine.navigationBarPadding)
         ],
       )),
     );

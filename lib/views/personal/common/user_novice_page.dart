@@ -4,6 +4,7 @@ import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/personal/common/user_course_video_page.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/widgets/label/flex_two_text_widget.dart';
 import '../../../constant/enum/setting_enum.dart';
 import '../../../constant/theme/app_colors.dart';
@@ -27,7 +28,6 @@ class _UserNovicePageState extends State<UserNovicePage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
-      title: tr("uc_novice"),
       type: AppNavigationBarType.typePersonal,
       body: SingleChildScrollView(
         child: Container(
@@ -36,11 +36,13 @@ class _UserNovicePageState extends State<UserNovicePage> {
               vertical: UIDefine.getHeight() / 30),
           child: Column(
             children: [
+              TitleAppBar(title: tr('uc_novice')),
               _buildTitle(context),
               Container(
                   margin:
                       EdgeInsets.symmetric(vertical: UIDefine.getHeight() / 40),
-                  child: _buildVideoGrid(context))
+                  child: _buildVideoGrid(context)),
+              SizedBox(height: UIDefine.navigationBarPadding)
             ],
           ),
         ),

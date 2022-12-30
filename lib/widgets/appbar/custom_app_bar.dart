@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
-import 'package:treasure_nft_project/constant/theme/app_style.dart';
 
 import '../../constant/theme/app_image_path.dart';
-import '../../constant/theme/app_theme.dart';
 import '../../constant/ui_define.dart';
-import '../../view_models/base_view_model.dart';
-import '../../views/login/circle_network_icon.dart';
 
 class CustomAppBar {
   const CustomAppBar._();
@@ -149,9 +144,7 @@ class CustomAppBar {
   }
 
   static AppBar mainAppBar({
-    required VoidCallback searchAction,
     required VoidCallback serverAction,
-    required VoidCallback avatarAction,
     required VoidCallback globalAction,
     required VoidCallback mainAction,
   }) {
@@ -173,33 +166,28 @@ class CustomAppBar {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                InkWell(
-                    onTap: searchAction,
-                    child:
-                        Icon(Icons.search, color: Colors.grey, size: iconSize)),
-                space,
-                InkWell(
+                GestureDetector(
                     onTap: serverAction,
-                    child: Image.asset(AppImagePath.serverImage,
-                        width: iconSize, height: iconSize, fit: BoxFit.cover)),
-                space,
-                InkWell(
-                    onTap: avatarAction,
                     child: Container(
-                        height: iconSize*0.9,
-                        width: iconSize*0.9,
-                        decoration: AppTheme.style.baseGradient(radius: 15),
-                        padding: const EdgeInsets.all(1),
-                        child: BaseViewModel().isLogin() &&
-                                GlobalData.userInfo.photoUrl.isNotEmpty
-                            ? CircleNetworkIcon(
-                                networkUrl: GlobalData.userInfo.photoUrl)
-                            : Image.asset(AppImagePath.avatarImg))),
+                      color: Colors.transparent,
+                      child: Image.asset(AppImagePath.serverImage,
+                          width: iconSize, height: iconSize, fit: BoxFit.cover),
+                    )),
                 space,
-                InkWell(
+                GestureDetector(
                     onTap: globalAction,
-                    child: Image.asset(AppImagePath.globalImage,
-                        width: iconSize, height: iconSize, fit: BoxFit.cover))
+                    child: Container(
+                      color: Colors.transparent,
+                      child: Image.asset(AppImagePath.globalImage,
+                          width: iconSize, height: iconSize, fit: BoxFit.cover),
+                    )),
+                space,
+                GestureDetector(
+                    onTap: mainAction,
+                    child: Container(
+                        color: Colors.transparent,
+                        child: Icon(Icons.home,
+                            size: iconSize, color: Colors.grey)))
               ])
         ]);
   }

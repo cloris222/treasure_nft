@@ -14,6 +14,7 @@ class AchievementAchieveView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
+        padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
         itemBuilder: (context, index) {
           if (index >= viewModel.achieveList.length) {
             return const SizedBox(height: kBottomNavigationBarHeight * 2);

@@ -31,6 +31,8 @@ class UIDefine {
   static double fontSize10 = 0.0; // 10sp
   static double fontSize8 = 0.0; // 8sp
 
+  static double navigationBarPadding = 0.0;
+
   /// 初始化
   static void initial(MediaQueryData mediaQueryData) {
     if (_isFirst) {
@@ -66,6 +68,7 @@ class UIDefine {
     fontSize12 = _getFontSize(3.33);
     fontSize10 = _getFontSize(3.0);
     fontSize8 = _getFontSize(2.23);
+    navigationBarPadding = UIDefine.getPixelWidth(80);
 
     if (kDebugMode) {
       // Release不顯示

@@ -12,10 +12,9 @@ import 'package:treasure_nft_project/views/personal/level/achievement/achievemen
 import 'package:treasure_nft_project/views/personal/level/achievement/achievement_medal_view.dart';
 import 'package:treasure_nft_project/views/personal/personal_sub_user_info_view.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/slider_page_view.dart';
-
-
 
 ///MARK: 成就
 class LevelAchievementPage extends StatefulWidget {
@@ -83,7 +82,6 @@ class _LevelAchievementPageState extends State<LevelAchievementPage> {
     return CustomAppbarView(
       needCover: true,
       needScrollView: true,
-      title: tr('achievement'),
       body: _buildPageView(context),
     );
   }
@@ -92,8 +90,13 @@ class _LevelAchievementPageState extends State<LevelAchievementPage> {
     return SliderPageView(
         titles: titles,
         initialPage: TaskType.values.indexOf(widget.initType),
-        topView:
+        topView: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TitleAppBar(title: tr('achievement')),
             PersonalSubUserInfoView(userLevelInfo: GlobalData.userLevelInfo),
+          ],
+        ),
         children: [
           AchievementDailyView(viewModel: viewModel),
           AchievementAchieveView(viewModel: viewModel),

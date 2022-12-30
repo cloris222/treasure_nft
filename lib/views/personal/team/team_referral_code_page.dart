@@ -7,6 +7,7 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/views/personal/orders/order_detail_page.dart';
 import 'package:treasure_nft_project/views/personal/personal_sub_user_info_view.dart';
 import 'package:treasure_nft_project/views/personal/team/share_picture_style.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
@@ -43,14 +44,15 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
     return CustomAppbarView(
         needCover: true,
         needScrollView: true,
-        title: tr('shareCenter'),
         body: Column(children: [
           const PersonalSubUserInfoView(),
           Container(
               margin: const EdgeInsets.symmetric(horizontal: 10),
               child: Column(children: [
+                TitleAppBar(title: tr('shareCenter')),
                 _buildInviteView(context),
-                _buildQRcodeView(context)
+                _buildQRcodeView(context),
+                SizedBox(height: UIDefine.navigationBarPadding)
               ]))
         ]),
         type: AppNavigationBarType.typePersonal);

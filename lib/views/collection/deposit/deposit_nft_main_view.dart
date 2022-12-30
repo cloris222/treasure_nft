@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 
 import '../../../constant/ui_define.dart';
@@ -27,7 +28,6 @@ class _DepositNftMainView extends State<DepositNftMainView> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
-      title: tr("depositNFT"),
       type: AppNavigationBarType.typeCollection,
       body: Padding(
         padding: EdgeInsets.all(UIDefine.getScreenWidth(5)),
@@ -38,6 +38,7 @@ class _DepositNftMainView extends State<DepositNftMainView> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                TitleAppBar(title: tr('depositNFT')),
                 Text(
                   tr("chooseNetwork"),
                   style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
@@ -152,7 +153,8 @@ class _DepositNftMainView extends State<DepositNftMainView> {
                         color: AppColors.textWhite, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
                   )
               ),
-            )
+            ),
+            SizedBox(height: UIDefine.navigationBarPadding)
           ],
         )
       ),

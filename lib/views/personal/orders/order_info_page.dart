@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import '../../../view_models/personal/orders/order_info_page_view_model.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/date_picker/date_picker.dart';
@@ -56,46 +57,52 @@ class _OrderInfoPage extends State<OrderInfoPage> {
     },
       child: CustomAppbarView(
           needScrollView: true,
-          title: tr('Notification_nav'),
           type: AppNavigationBarType.typePersonal,
-          body: Padding(
-            padding: EdgeInsets.all(UIDefine.getScreenWidth(2.77)),
-            child: Column(
-              children: [
-                SizedBox(height: UIDefine.getScreenWidth(5.5)),
+          body: Column(
+            children: [
+              TitleAppBar(title: tr('Notification_nav')),
+              Padding(
+                padding: EdgeInsets.all(UIDefine.getScreenWidth(2.77)),
+                child: Column(
 
-                OrderInfoSelectorDropDownBar(
-                  bFromWallet: widget.bFromWallet,
-                  getDropDownValue: (String value) {
-                    if (value == viewModel.currentType) {
-                      return;
-                    }
-                  viewModel.currentType = value;
-                  viewModel.requestAPI(1, 10);
-                }),
+                  children: [
+                    SizedBox(height: UIDefine.getScreenWidth(5.5)),
 
-                DatePickerWidget(
-                    displayButton: false, bUsePhoneTime: false,
-                    startDate: viewModel.startDate, endDate: viewModel.endDate,
-                    dateCallback: (String startDate, String endDate) {
-                      if (startDate == viewModel.startDate && endDate == viewModel.endDate) {
-                        return;
-                      }
-                      viewModel.startDate = startDate;
-                      viewModel.endDate = endDate;
+                    OrderInfoSelectorDropDownBar(
+                      bFromWallet: widget.bFromWallet,
+                      getDropDownValue: (String value) {
+                        if (value == viewModel.currentType) {
+                          return;
+                        }
+                      viewModel.currentType = value;
                       viewModel.requestAPI(1, 10);
                     }),
 
-                viewModel.dataList.isNotEmpty ?
-                _getListView()
-                    :
-                Text(
-                  tr("ES_0007"),
-                  style: TextStyle(color: AppColors.textGrey,
-                      fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
-                )
-              ],
-            ),
+                    DatePickerWidget(
+                        displayButton: false, bUsePhoneTime: false,
+                        startDate: viewModel.startDate, endDate: viewModel.endDate,
+                        dateCallback: (String startDate, String endDate) {
+                          if (startDate == viewModel.startDate && endDate == viewModel.endDate) {
+                            return;
+                          }
+                          viewModel.startDate = startDate;
+                          viewModel.endDate = endDate;
+                          viewModel.requestAPI(1, 10);
+                        }),
+
+                    viewModel.dataList.isNotEmpty ?
+                    _getListView()
+                        :
+                    Text(
+                      tr("ES_0007"),
+                      style: TextStyle(color: AppColors.textGrey,
+                          fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
+                    ),
+                    SizedBox(height: UIDefine.navigationBarPadding)
+                  ],
+                ),
+              ),
+            ],
           )
       )
     );

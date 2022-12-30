@@ -4,6 +4,7 @@ import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/widgets/gradient_text.dart';
 import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
 
@@ -38,7 +39,6 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
         needCover: true,
-        title: tr('winnersList'),
         body: Stack(
           children: [
             Container(
@@ -46,7 +46,7 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
                 constraints:
                     BoxConstraints(minHeight: UIDefine.getPixelHeight(1115)),
                 padding: EdgeInsets.only(
-                  top:UIDefine.getPixelHeight(70),
+                    top: UIDefine.getPixelHeight(70),
                     left: UIDefine.getScreenWidth(8),
                     right: UIDefine.getScreenWidth(8)),
                 decoration: const BoxDecoration(
@@ -54,11 +54,13 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
                         image: AssetImage(AppImagePath.tradeDrawBg),
                         fit: BoxFit.fill)),
                 child: Column(children: [
+                  TitleAppBar(title: tr("winnersList")),
                   _buildActivityInfoView(),
                   SizedBox(height: UIDefine.getPixelHeight(70)),
                   _buildActivityAward(),
                   _buildBar(),
-                  _buildDrawResultView()
+                  _buildDrawResultView(),
+                  SizedBox(height: UIDefine.navigationBarPadding)
                 ])),
             Positioned(
                 right: 0,

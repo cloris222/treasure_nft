@@ -12,6 +12,7 @@ import 'package:treasure_nft_project/view_models/personal/level/level_detail_vie
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
 import 'package:treasure_nft_project/views/personal/level/level_achievement_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart';
 import 'package:treasure_nft_project/widgets/label/custom_linear_progress.dart';
@@ -45,11 +46,11 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
-      title: tr("level"),
       type: AppNavigationBarType.typePersonal,
       body: SingleChildScrollView(
           child: Container(
               margin:  EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
+              padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
               child: _buildBody())),
     );
   }
@@ -57,6 +58,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
   Widget _buildBody() {
     return Column(
       children: [
+        TitleAppBar(title: tr('level')),
         _buildSpace(),
         _buildCurrentLevelStatus(),
         _buildLine(),

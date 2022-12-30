@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:treasure_nft_project/models/http/api/wallet_api.dart';
 import 'package:treasure_nft_project/views/personal/orders/withdraw/order_withdraw_type_page.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 
 import '../../../constant/ui_define.dart';
 import '../../../models/http/parameter/withdraw_alert_info.dart';
@@ -52,10 +53,10 @@ class _OrderWithdrawPage extends State<OrderWithdrawPage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
-      title: tr("walletWithdraw"),
       type: widget.type,
       body: Column(
         children: [
+          TitleAppBar(title: tr('walletWithdraw')),
           Container(
             padding: EdgeInsets.only(
                 top: UIDefine.getScreenWidth(0.97),

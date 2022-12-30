@@ -9,6 +9,7 @@ import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/personal/common/user_change_password_page.dart';
 import 'package:treasure_nft_project/views/personal/common/user_info_setting_page.dart';
 import 'package:treasure_nft_project/views/personal/personal_sub_user_info_view.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/simple_custom_dialog.dart';
 
@@ -51,9 +52,9 @@ class _UserSettingPageState extends State<UserSettingPage> {
     return CustomAppbarView(
         needCover: true,
         needScrollView: true,
-        title: tr('account'),
         type: AppNavigationBarType.typePersonal,
         body: Column(children: [
+          TitleAppBar(title: tr('account')),
           PersonalSubUserInfoView(
               enableModify: true, onViewUpdate: () => setState(() {})),
           Container(
@@ -96,6 +97,7 @@ class _UserSettingPageState extends State<UserSettingPage> {
                   btnText: tr('deleteAccount'),
                   onPressed: () => _onPressDeleteAccount(context))),
           space,
+          SizedBox(height: UIDefine.navigationBarPadding)
         ]));
   }
 

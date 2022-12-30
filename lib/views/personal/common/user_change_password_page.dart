@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 
 import '../../../constant/ui_define.dart';
 import '../../../view_models/personal/common/user_change_password_view_model.dart';
@@ -36,7 +37,6 @@ class _UserChangePasswordPage extends State<UserChangePasswordPage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
-      title: tr("changePassword"),
       type: AppNavigationBarType.typePersonal,
       body: SingleChildScrollView(
           child: Padding(
@@ -44,6 +44,7 @@ class _UserChangePasswordPage extends State<UserChangePasswordPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            TitleAppBar(title: tr('changePassword')),
             LoginParamView(
                 isSecure: true,
                 bPasswordFormatter: true,
@@ -91,7 +92,8 @@ class _UserChangePasswordPage extends State<UserChangePasswordPage> {
                 isGradient: false,
                 btnText: tr('save'),
                 onPressed: () => viewModel.onPressSave(context),
-                enable: viewModel.checkEmail)
+                enable: viewModel.checkEmail),
+            SizedBox(height: UIDefine.navigationBarPadding)
           ],
         ),
       )),

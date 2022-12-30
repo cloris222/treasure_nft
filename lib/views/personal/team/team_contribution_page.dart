@@ -7,6 +7,7 @@ import 'package:treasure_nft_project/view_models/personal/team/team_member_viewm
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
 import 'package:treasure_nft_project/views/personal/team/team_contribution_member_view.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/widgets/date_picker/custom_date_picker.dart';
 
 import '../../../view_models/personal/team/team_contribution_viewmodel.dart';
@@ -20,7 +21,6 @@ class TeamContributionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
-      title: tr("teamContribution"),
       type: AppNavigationBarType.typePersonal,
       body: const Body(),
     );
@@ -53,7 +53,8 @@ class BodyState extends State<Body> {
       if (mounted) {
         setState(() {});
       }
-    });
+    },
+    padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding));
     viewModel.initState();
   }
 
@@ -77,6 +78,7 @@ class BodyState extends State<Body> {
             left: UIDefine.getScreenWidth(6),
             right: UIDefine.getScreenWidth(6)),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
+          TitleAppBar(title: tr('teamContribution')),
           memberViewModel.getPadding(2),
 
           /// 日期選擇器 & 按鈕

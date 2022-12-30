@@ -1,11 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/views/personal/common/phone_param_view.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 
-import '../../../constant/theme/app_image_path.dart';
 import '../../../constant/ui_define.dart';
 import '../../../view_models/personal/common/user_info_setting_view_model.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
@@ -42,7 +41,6 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
         needScrollView: false,
-        title: tr("userInfo"),
         type: AppNavigationBarType.typePersonal,
         body: SingleChildScrollView(
             child: Padding(
@@ -50,6 +48,7 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      TitleAppBar(title: tr('userInfo')),
                       Container(
                           margin: const EdgeInsets.symmetric(vertical: 5),
                           child: Text(tr('nationality'),
@@ -112,7 +111,8 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
                           // Save按鈕
                           isGradient: false,
                           btnText: tr('save'),
-                          onPressed: () => viewModel.onPressSave(context))
+                          onPressed: () => viewModel.onPressSave(context)),
+                      SizedBox(height: UIDefine.navigationBarPadding)
                     ]))));
   }
 

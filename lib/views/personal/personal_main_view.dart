@@ -9,21 +9,13 @@ import 'package:treasure_nft_project/views/personal/personal_new_sub_level_view.
 import 'package:treasure_nft_project/views/personal/personal_new_sub_order_view.dart';
 import 'package:treasure_nft_project/views/personal/personal_new_sub_team_view.dart';
 import 'package:treasure_nft_project/views/personal/personal_new_sub_user_info_view.dart';
-import 'package:treasure_nft_project/views/personal/personal_sub_common_view.dart';
-import 'package:treasure_nft_project/views/personal/personal_sub_level_view.dart';
-import 'package:treasure_nft_project/views/personal/personal_sub_order_view.dart';
-import 'package:treasure_nft_project/views/personal/personal_sub_team_view.dart';
-import 'package:treasure_nft_project/views/personal/personal_sub_user_info_view.dart';
-import 'package:treasure_nft_project/widgets/domain_bar.dart';
 
 import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
-import '../../constant/theme/app_theme.dart';
 import '../../view_models/base_view_model.dart';
 import '../../view_models/personal/personal_main_viewmodel.dart';
 import '../../widgets/app_bottom_navigation_bar.dart';
-import '../login/circle_network_icon.dart';
 import '../server_web_page.dart';
 import '../setting_language_page.dart';
 
@@ -52,6 +44,7 @@ class _PersonalMainViewState extends State<PersonalMainView> {
       children: [
     SingleChildScrollView(
     child: Container(
+      padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
     color: Colors.white,
         child: Column(children: [
           // const DomainBar(),
@@ -108,51 +101,6 @@ class _PersonalMainViewState extends State<PersonalMainView> {
                 const SizedBox(height: 10)
               ]))
         ]))),
-
-        Positioned(
-          right: UIDefine.getScreenWidth(20), left: UIDefine.getScreenWidth(20),
-            bottom: UIDefine.getScreenWidth(4.15),
-          child: Card(
-            elevation: 6,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(36)),
-            color: AppColors.textWhite,
-            child: Container(
-              padding: EdgeInsets.all(UIDefine.getScreenWidth(3.5)),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    InkWell(
-                        onTap: () => _globalAction,
-                        child: Image.asset(AppImagePath.globalImage,
-                            width: UIDefine.getScreenWidth(7.46), height: UIDefine.getScreenWidth(7.46), fit: BoxFit.cover)),
-                    const SizedBox(width: 8),
-                    InkWell(
-                        onTap: () => _serverAction,
-                        child: Image.asset(AppImagePath.serverImage,
-                            width: UIDefine.getScreenWidth(7.46), height: UIDefine.getScreenWidth(7.46), fit: BoxFit.cover)),
-                    const SizedBox(width: 8),
-                    InkWell(
-                        onTap: () => _avatarAction,
-                        child: Container(
-                            height: UIDefine.getScreenWidth(6.72),
-                            width: UIDefine.getScreenWidth(6.72),
-                            decoration: AppTheme.style.baseGradient(radius: 15),
-                            padding: const EdgeInsets.all(1),
-                            child: BaseViewModel().isLogin() &&
-                                GlobalData.userInfo.photoUrl.isNotEmpty
-                                ? CircleNetworkIcon(
-                                networkUrl: GlobalData.userInfo.photoUrl)
-                                : Image.asset(AppImagePath.avatarImg))),
-                    const SizedBox(width: 8),
-                    InkWell(
-                        onTap: () => _searchAction,
-                        child:
-                        Icon(Icons.search, color: Colors.grey, size: UIDefine.getScreenWidth(7.46)))
-                  ])
-            ),
-          )
-        ),
 
         Positioned(
           top: UIDefine.getScreenWidth(6), right: UIDefine.getScreenWidth(6),

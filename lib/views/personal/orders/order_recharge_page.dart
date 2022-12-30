@@ -4,6 +4,7 @@ import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 
 import '../../../constant/enum/coin_enum.dart';
 import '../../../constant/global_data.dart';
@@ -13,7 +14,6 @@ import '../../../constant/theme/app_theme.dart';
 import '../../../view_models/personal/orders/order_recharge_viewmodel.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/dialog/common_custom_dialog.dart';
-import '../../../widgets/dialog/simple_custom_dialog.dart';
 import '../../../widgets/label/coin/tether_coin_widget.dart';
 import '../../custom_appbar_view.dart';
 
@@ -43,7 +43,6 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
-      title: tr("walletRecharge"),
       type: widget.type,
       body: SingleChildScrollView(child: _buildBody()),
     );
@@ -54,6 +53,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(
         children: [
+          TitleAppBar(title: tr('walletRecharge')),
           _buildChoseAddress(),
           Wrap(
             runSpacing: 20,
@@ -64,7 +64,8 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
               _buildAddressChain(),
               _buildAddressHint(),
             ],
-          )
+          ),
+          SizedBox(height: UIDefine.navigationBarPadding)
         ],
       ),
     );

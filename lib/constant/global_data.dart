@@ -18,7 +18,6 @@ class GlobalData {
 
   static GlobalKey<NavigatorState> globalKey = GlobalKey();
   static bool firstLaunch = true;
-  static const double navigationBarPadding = kBottomNavigationBarHeight * 1.1;
   static List<CountryPhoneData> country = [];
 
   static printLog(String? logMessage) {

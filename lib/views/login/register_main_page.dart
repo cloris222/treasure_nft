@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 
 import '../../view_models/login/register_main_viewmodel.dart';
 import '../../widgets/button/login_button_widget.dart';
@@ -37,13 +38,13 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
-      title: tr("register"),
       type: AppNavigationBarType.typeLogin,
       body: SingleChildScrollView(
           child: Container(
               margin: EdgeInsets.symmetric(
                   vertical: UIDefine.getPixelHeight(10),
                   horizontal: UIDefine.getPixelWidth(20)),
+              padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
               child: _buildBody())),
     );
   }
@@ -53,6 +54,7 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
+          TitleAppBar(title: tr('register')),
           ///MARK:帳號
           LoginParamView(
             titleText: tr('account'),

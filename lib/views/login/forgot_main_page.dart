@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 
 import '../../view_models/login/forgot_main_viewmodel.dart';
 import '../../widgets/app_bottom_navigation_bar.dart';
@@ -35,11 +36,11 @@ class _ForgotMainPageState extends State<ForgotMainPage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
-      title: tr("forgot"),
       type: AppNavigationBarType.typeLogin,
       body: SingleChildScrollView(
           child: Container(
               margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
               child: _buildBody())),
     );
   }
@@ -49,6 +50,7 @@ class _ForgotMainPageState extends State<ForgotMainPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
+          TitleAppBar(title: tr('forgot')),
           // ///MARK:帳號
           // LoginParamView(
           //     titleText: tr('account'),
@@ -66,7 +68,9 @@ class _ForgotMainPageState extends State<ForgotMainPage> {
               controller: viewModel.emailController,
               data: viewModel.emailData,
               onTap: viewModel.onTap),
-          SizedBox(height: UIDefine.getScreenWidth(6),),
+          SizedBox(
+            height: UIDefine.getScreenWidth(6),
+          ),
           Row(children: [
             Flexible(
                 child: LoginBolderButtonWidget(

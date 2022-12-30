@@ -59,6 +59,7 @@ class _GetExploreMainListView extends State<GetExploreMainListView> {
         return true;
       },
       child: ListView.separated(
+          padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
           shrinkWrap: true,
           itemBuilder: (context, index) {
             // return createItemBuilder(context, index); // 第一版UI

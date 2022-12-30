@@ -4,6 +4,7 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 
 import '../../../view_models/personal/team/team_order_viewmodel.dart';
 import '../../../widgets/date_picker/custom_date_picker.dart';
@@ -36,7 +37,6 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
-      title: tr("teamOrder"),
       type: AppNavigationBarType.typePersonal,
       body: _buildBody(),
     );
@@ -70,6 +70,7 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
   Widget _buildTopView() {
     return Column(
       children: [
+        TitleAppBar(title: tr('teamOrder')),
         // viewMemberModel.getPadding(1),
 
         /// 日期選擇器 & 按鈕
@@ -108,6 +109,7 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
         ),
 
         viewMemberModel.getPadding(3),
+        SizedBox(height: UIDefine.navigationBarPadding)
       ],
     );
   }
@@ -170,8 +172,8 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
       },
       value: viewModel.sortType,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.16),
-            0, UIDefine.getScreenWidth(4.16), 0),
+        contentPadding: EdgeInsets.fromLTRB(
+            UIDefine.getScreenWidth(4.16), 0, UIDefine.getScreenWidth(4.16), 0),
         border: viewMemberModel.setOutlineInputBorder(),
         focusedBorder: viewMemberModel.setOutlineInputBorder(),
         enabledBorder: viewMemberModel.setOutlineInputBorder(),
@@ -200,7 +202,8 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
       },
       value: _currenciesOne.first,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.16),0, UIDefine.getScreenWidth(4.16), 0),
+        contentPadding: EdgeInsets.fromLTRB(
+            UIDefine.getScreenWidth(4.16), 0, UIDefine.getScreenWidth(4.16), 0),
         border: viewMemberModel.setOutlineInputBorder(),
         focusedBorder: viewMemberModel.setOutlineInputBorder(),
         enabledBorder: viewMemberModel.setOutlineInputBorder(),

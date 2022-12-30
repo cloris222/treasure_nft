@@ -9,6 +9,7 @@ import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/view_models/personal/level/level_bonus_view_model.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart';
 
 class LevelBonusPage extends StatefulWidget {
@@ -32,7 +33,6 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
-      title: tr("bonus"),
       type: AppNavigationBarType.typePersonal,
       body: SingleChildScrollView(
           child: Container(
@@ -45,7 +45,13 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
 
   Widget _buildBody() {
     return Column(
-      children: [_buildTradeView(), _buildLine(), _buildShareView()],
+      children: [
+        TitleAppBar(title: tr('bonus')),
+        _buildTradeView(),
+        _buildLine(),
+        _buildShareView(),
+        SizedBox(height: UIDefine.navigationBarPadding)
+      ],
     );
   }
 

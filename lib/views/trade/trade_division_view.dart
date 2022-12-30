@@ -8,6 +8,7 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/models/http/parameter/check_reserve_deposit.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/widgets/dialog/animation_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/success_dialog.dart';
 import 'package:treasure_nft_project/widgets/trade_countdown_view.dart';
@@ -91,14 +92,13 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
         CommonCustomDialog(context,
             type: DialogImageType.warning,
             title: tr('exp_finish_title'),
-            content: '${tr('exp_finish_content_1')}\n${tr('exp_finish_content_2')}',
+            content:
+                '${tr('exp_finish_content_1')}\n${tr('exp_finish_content_2')}',
             rightBtnText: tr('gotoExtract'),
-            onLeftPress: (){},
-            onRightPress: () {
-              Navigator.pop(context);
-              viewModel.pushPage(context, const OrderWithdrawPage());
-            })
-            .show();
+            onLeftPress: () {}, onRightPress: () {
+          Navigator.pop(context);
+          viewModel.pushPage(context, const OrderWithdrawPage());
+        }).show();
       },
 
       /// 體驗帳號狀態關閉
@@ -139,16 +139,17 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
     return CustomAppbarView(
         needCover: true,
         needScrollView: true,
-        title: widget.level == 0
-            ? tr('noviceArea')
-            : '${tr("level")} ${widget.level}',
         body: Column(children: [
+          TitleAppBar(title: widget.level == 0
+              ? tr('noviceArea')
+              : '${tr("level")} ${widget.level}'),
           const SizedBox(
             height: 5,
           ),
           TradeCountDownView(tradeData: viewModel.currentData),
           _levelView(context),
-          checkDataInit(tradeData)
+          checkDataInit(tradeData),
+          SizedBox(height: UIDefine.navigationBarPadding)
         ]));
   }
 
@@ -229,6 +230,7 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
                     return NewReservationPopUpView(
                       confirmBtnAction: () async {
                         Navigator.pop(context);
+
                         /// add new reservation
                         await viewModel.addNewReservation(index);
                       },
@@ -243,7 +245,8 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
             },
             range: viewModel.ranges[index],
             level: widget.level,
-            tradeData: tradeData, imageIndex: index,
+            tradeData: tradeData,
+            imageIndex: index,
           );
         });
   }

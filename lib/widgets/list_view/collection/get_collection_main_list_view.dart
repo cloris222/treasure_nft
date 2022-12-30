@@ -70,6 +70,7 @@ class _GetCollectionMainListview extends State<GetCollectionMainListview> {
         return true;
       },
       child: ListView.separated(
+          padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
           shrinkWrap: true,
           itemCount: _getItemCount(),
           itemBuilder: (context, index) {

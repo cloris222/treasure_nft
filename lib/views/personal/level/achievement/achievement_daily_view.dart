@@ -13,6 +13,7 @@ class AchievementDailyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
+        padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
         itemBuilder: (context, index) {
           if (index >= viewModel.dailyList.length) {
             return const SizedBox(height: kBottomNavigationBarHeight * 2);
@@ -20,7 +21,7 @@ class AchievementDailyView extends StatelessWidget {
           return _buildItem(context, viewModel.dailyList[index]);
         },
         separatorBuilder: (context, index) {
-          return  SizedBox(height: UIDefine.getPixelHeight(15));
+          return SizedBox(height: UIDefine.getPixelHeight(15));
         },
         itemCount: viewModel.dailyList.length + 1);
   }

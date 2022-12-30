@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import '../../../constant/call_back_function.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/ui_define.dart';
@@ -40,7 +41,6 @@ class _DepositNftResultView extends State<DepositNftResultView> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
-      title: tr("depositNFT"),
       type: AppNavigationBarType.typeCollection,
 
       body: Padding(
@@ -48,6 +48,7 @@ class _DepositNftResultView extends State<DepositNftResultView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            TitleAppBar(title: tr('depositNFT')),
             SizedBox(height: UIDefine.getScreenWidth(5)),
 
             /// QRCode
@@ -145,7 +146,8 @@ class _DepositNftResultView extends State<DepositNftResultView> {
                       ],
                     )
                 )
-            )
+            ),
+            SizedBox(height: UIDefine.navigationBarPadding)
           ],
         ),
       ),

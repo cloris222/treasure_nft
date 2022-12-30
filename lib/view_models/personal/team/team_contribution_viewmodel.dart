@@ -9,7 +9,7 @@ import '../../../models/http/parameter/team_contribute_data.dart';
 import '../../../widgets/list_view/team/team_contribute_item.dart';
 
 class TeamContributionViewModel extends BaseListViewModel {
-  TeamContributionViewModel({required super.onListChange});
+  TeamContributionViewModel({required super.onListChange,super.padding});
 
   TeamContribute teamContribute = TeamContribute();
   String startDate = '';

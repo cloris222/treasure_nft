@@ -5,7 +5,6 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/login/login_main_viewmodel.dart';
 
 import '../../widgets/button/login_button_widget.dart';
-import '../../widgets/domain_bar.dart';
 import '../../widgets/label/common_text_widget.dart';
 import 'login_param_view.dart';
 
@@ -35,11 +34,10 @@ class _LoginMainViewState extends State<LoginMainView> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      const DomainBar(),
       _buildTop(),
       Container(
           margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(10)),
-          padding: EdgeInsets.only(bottom: UIDefine.getPixelHeight(30)),
+          padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
           child: _buildBottom())
     ]));
   }
