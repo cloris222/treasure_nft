@@ -53,9 +53,9 @@ class BalanceRecordItemView extends StatelessWidget {
           ],
         ),
 
-        SizedBox(height: UIDefine.getScreenWidth(5.5)),
-        Container(width: double.infinity, height: 1, color: AppColors.searchBar),
-        SizedBox(height: UIDefine.getScreenWidth(5.5))
+        // SizedBox(height: UIDefine.getScreenWidth(5.5)),
+        // Container(width: double.infinity, height: 1, color: AppColors.searchBar),
+        // SizedBox(height: UIDefine.getScreenWidth(5.5))
       ],
     );
   }

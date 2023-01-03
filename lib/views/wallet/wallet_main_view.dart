@@ -30,6 +30,7 @@ class WalletMainView extends StatefulWidget {
 
 class _WalletMainViewState extends State<WalletMainView> {
   late WalletMainViewModel viewModel;
+  Color baseBackgroundColor = const Color(0xFFF9F9F9);
 
   @override
   void initState() {
@@ -40,86 +41,137 @@ class _WalletMainViewState extends State<WalletMainView> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(children: [
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 20),
-          padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
-          child: Wrap(
-            runSpacing: 25,
-            children: [
-              const SizedBox(width: 1),
-              _buildTitle(),
-              _buildWalletInfo(),
-              _buildWalletAddress(),
-              _buildWalletFunction(),
-              // Visibility(
-              //   visible: Platform.isIOS,
-              //     child: _appPurchase()),
-              _buildWalletAccount(),
-              _buildWalletHistory(),
-              _buildRecordListView(),
-              _bottomMargin()
-            ],
+    return Container(
+      color: baseBackgroundColor,
+      child: SingleChildScrollView(
+        child: Column(children: [
+          _buildWalletInfo(),
+          Padding(
+            padding: EdgeInsets.only(
+                bottom: UIDefine.navigationBarPadding,
+                left: UIDefine.getPixelWidth(20),
+                right: UIDefine.getPixelWidth(20)),
+            child: Wrap(
+              runSpacing: UIDefine.getPixelWidth(10),
+              children: [
+                _buildWalletAddress(),
+                _buildWalletFunction(),
+                _buildWalletHistory(),
+              ],
+            ),
           ),
-        ),
-      ]),
+        ]),
+      ),
     );
   }
 
   Widget _buildTitle() {
     return Row(children: [
-      Image.asset(
-        AppImagePath.walletIcon,
-        width: UIDefine.fontSize26,
-        height: UIDefine.fontSize26,
-        fit: BoxFit.contain,
-      ),
-      const SizedBox(width: 10),
-      Text(
-        tr('assets'),
-        style: TextStyle(
-            fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
-      )
+      Icon(Icons.arrow_back_ios,
+          size: UIDefine.getPixelWidth(26), color: Colors.black),
     ]);
   }
 
   Widget _buildWalletInfo() {
-    return Container(
-      width: UIDefine.getWidth(),
-      decoration: AppStyle().styleUserSetting(),
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 5),
-      child: Row(
-        children: [
-          Flexible(
-              child: WalletInfoItem(
-                  title: tr('totalAccountEarnings'),
-                  value: GlobalData.userProperty?.income)),
-          Flexible(
-              child: WalletInfoItem(
-                  title: tr('extracted'),
-                  value: GlobalData.userProperty?.withdraw)),
-          Flexible(
-              child: WalletInfoItem(
-                  title: tr('notExtracted'),
-                  value: GlobalData.userProperty?.balance)),
-        ],
-      ),
+    return Stack(
+      children: [
+        SizedBox(
+            height: UIDefine.getPixelWidth(280), width: UIDefine.getWidth()),
+        Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: UIDefine.getPixelWidth(80),
+            child: Container(
+                decoration: AppStyle().styleColorsRadiusBackground(
+                    color: AppColors.mainThemeButton, radius: 0))),
+        Positioned(
+            top: UIDefine.getPixelWidth(180),
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Container(
+                decoration: AppStyle().styleColorsRadiusBackground(
+                    color: baseBackgroundColor, radius: 12))),
+        Positioned(
+          bottom: UIDefine.getPixelWidth(10),
+          left: UIDefine.getPixelWidth(20),
+          right: UIDefine.getPixelWidth(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(height: UIDefine.getPixelWidth(10)),
+              _buildTitle(),
+              SizedBox(height: UIDefine.getPixelWidth(10)),
+              Container(
+                width: UIDefine.getWidth(),
+                decoration: AppStyle().styleNewUserSetting(),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 5),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text('${tr('uc_myAccount')}(USDT)',
+                        style: TextStyle(fontSize: UIDefine.fontSize14)),
+                    SizedBox(height: UIDefine.getPixelWidth(20)),
+                    Text(
+                        NumberFormatUtil().removeTwoPointFormat(
+                            GlobalData.userProperty?.totalBalance ?? 0),
+                        style: TextStyle(
+                            fontSize: UIDefine.fontSize40,
+                            fontWeight: FontWeight.w500)),
+                    SizedBox(height: UIDefine.getPixelWidth(30)),
+                    Row(
+                      children: [
+                        Flexible(
+                            child: WalletInfoItem(
+                                title: tr('totalAccountEarnings'),
+                                value: GlobalData.userProperty?.income)),
+                        Flexible(
+                            child: WalletInfoItem(
+                                title: tr('extracted'),
+                                value: GlobalData.userProperty?.withdraw)),
+                        Flexible(
+                            child: WalletInfoItem(
+                                title: tr('notExtracted'),
+                                value: GlobalData.userProperty?.balance)),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
   Widget _buildWalletAddress() {
     return Container(
       width: UIDefine.getWidth(),
-      decoration: AppStyle().styleUserSetting(),
+      decoration: AppStyle().styleColorsRadiusBackground(),
       padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            '${tr('rechargeUaddr')}(TRC-20)',
-            style: TextStyle(
-                fontSize: UIDefine.fontSize16, color: AppColors.dialogBlack),
+          Row(
+            children: [
+              Text(
+                'Polygon',
+                style: TextStyle(
+                    fontSize: UIDefine.fontSize12,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.dialogBlack),
+              ),
+              SizedBox(width: UIDefine.getPixelWidth(10)),
+              Text(
+                tr('depositAddress'),
+                style: TextStyle(
+                    fontSize: UIDefine.fontSize12,
+                    color: AppColors.dialogBlack),
+              ),
+            ],
           ),
           const SizedBox(height: 5),
           Row(
@@ -131,8 +183,8 @@ class _WalletMainViewState extends State<WalletMainView> {
                           : '',
                       maxLines: 2,
                       style: TextStyle(
-                          fontSize: UIDefine.fontSize14,
-                          color: AppColors.dialogBlack,
+                          fontSize: UIDefine.fontSize12,
+                          color: AppColors.homeGrey,
                           fontWeight: FontWeight.w400))),
               const SizedBox(width: 10),
               InkWell(
@@ -150,24 +202,28 @@ class _WalletMainViewState extends State<WalletMainView> {
   }
 
   Widget _buildWalletFunction() {
-    return Row(
-      children: [
-        _buildWalletFunctionItem(
-            title: tr('uc_recharge'),
-            assetPath: AppImagePath.walletRechargeIcon,
-            onPress: _showRechargePage),
-        const SizedBox(width: 15),
-        _buildWalletFunctionItem(
-            title:
-                Platform.isIOS ? tr("usdt-type-BUY_ITEM'") : tr('uc_withdraw'),
-            assetPath: AppImagePath.walletWithdrawIcon,
-            onPress: Platform.isIOS ? _showAppPurchase : _showWithdrawPage),
-        const SizedBox(width: 15),
-        _buildWalletFunctionItem(
-            title: tr('uc_setting'),
-            assetPath: AppImagePath.walletSettingIcon,
-            onPress: _showWalletSettingIcon),
-      ],
+    return Container(
+      decoration: AppStyle().styleColorsRadiusBackground(),
+      child: Row(
+        children: [
+          _buildWalletFunctionItem(
+              title: tr('uc_recharge'),
+              assetPath: AppImagePath.walletRechargeIcon,
+              onPress: _showRechargePage),
+          const SizedBox(width: 15),
+          _buildWalletFunctionItem(
+              title: Platform.isIOS
+                  ? tr("usdt-type-BUY_ITEM'")
+                  : tr('uc_withdraw'),
+              assetPath: AppImagePath.walletWithdrawIcon,
+              onPress: Platform.isIOS ? _showAppPurchase : _showWithdrawPage),
+          const SizedBox(width: 15),
+          _buildWalletFunctionItem(
+              title: tr('uc_setting'),
+              assetPath: AppImagePath.walletSettingIcon,
+              onPress: _showWalletSettingIcon),
+        ],
+      ),
     );
   }
 
@@ -175,17 +231,18 @@ class _WalletMainViewState extends State<WalletMainView> {
       {required String title,
       required String assetPath,
       required GestureTapCallback onPress}) {
-    return Flexible(
+    return Expanded(
         child: InkWell(
             onTap: onPress,
             child: Container(
                 width: UIDefine.getWidth(),
                 alignment: Alignment.center,
-                decoration: AppStyle().styleUserSetting(),
-                padding:
-                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                padding: EdgeInsets.symmetric(
+                    vertical: UIDefine.getPixelWidth(20),
+                    horizontal: UIDefine.getPixelWidth(15)),
                 child: Column(children: [
                   Image.asset(assetPath),
+                  SizedBox(height: UIDefine.getPixelWidth(10)),
                   Text(title,
                       style: TextStyle(
                           fontSize: UIDefine.fontSize14,
@@ -223,20 +280,47 @@ class _WalletMainViewState extends State<WalletMainView> {
   }
 
   Widget _buildWalletHistory() {
-    return Row(
-      children: [
-        Text(tr('historyLog'),
-            style: TextStyle(
-                fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500)),
-        Flexible(child: Container()),
-        InkWell(
-          onTap: _showWalletRecord,
-          child: Image.asset(AppImagePath.walletLogIcon,
-              width: UIDefine.fontSize22,
-              height: UIDefine.fontSize22,
-              fit: BoxFit.contain),
-        )
-      ],
+    return Container(
+      decoration: AppStyle().styleColorsRadiusBackground(),
+      padding: EdgeInsets.symmetric(
+          vertical: UIDefine.getPixelWidth(20),
+          horizontal: UIDefine.getPixelWidth(15)),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(children: [
+            Text(tr('historyLog'),
+                style: TextStyle(
+                    fontSize: UIDefine.fontSize16,
+                    fontWeight: FontWeight.w500)),
+            Flexible(child: Container()),
+            InkWell(
+              onTap: _showWalletRecord,
+              child: Text(tr('all'),
+                  style: TextStyle(
+                      fontSize: UIDefine.fontSize14,
+                      color: const Color(0xFF666666))),
+            ),
+            InkWell(
+              onTap: _showWalletRecord,
+              child: Image.asset(AppImagePath.rightArrow,
+                  width: UIDefine.fontSize22,
+                  height: UIDefine.fontSize22,
+                  fit: BoxFit.contain),
+            )
+          ]),
+          Visibility(
+            visible: viewModel.balanceRecordResponseDataList.isNotEmpty,
+            child: Container(
+                margin:
+                    EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(10)),
+                width: double.infinity,
+                height: 1,
+                color: AppColors.searchBar),
+          ),
+          _buildRecordListView(),
+        ],
+      ),
     );
   }
 

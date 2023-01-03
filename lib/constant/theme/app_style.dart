@@ -114,6 +114,16 @@ class AppStyle {
         backgroundColor: Colors.transparent);
   }
 
+  ///0px 3px 13px #E0EDE6;
+  BoxDecoration styleNewUserSetting() {
+    return styleShadowBorderBackground(
+        shadowColor: const Color(0xFFE0EDE6),
+        radius: 15,
+        offsetX: 0,
+        offsetY: 3,
+        blurRadius: 13);
+  }
+
   ///MARK: 登入用
   OutlineInputBorder styleTextEditBorderBackground(
       {double radius = 15.0, Color color = Colors.grey, double width = 1.5}) {

@@ -15,6 +15,7 @@ class UIDefine {
   static double _fontUnit = 0.0; // 字型單位
 
   /// 字型大小
+  static double fontSize40 = 0.0;
   static double fontSize36 = 0.0;
   static double fontSize34 = 0.0; // 34sp
   static double fontSize32 = 0.0; // 34sp
@@ -53,6 +54,7 @@ class UIDefine {
         : _screenHeightUnit;
 
     /// 算法約為：字體sp / 360 * 100%
+    fontSize40 = _getFontSize(11.11);
     fontSize36 = _getFontSize(10);
     fontSize34 = _getFontSize(9.44);
     fontSize32 = _getFontSize(8.88);
