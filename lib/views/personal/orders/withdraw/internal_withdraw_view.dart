@@ -70,7 +70,6 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
               },
               enable: viewModel.checkEnable()),
           SizedBox(height: UIDefine.getScreenWidth(11.1)),
-          SizedBox(height: UIDefine.navigationBarPadding)
         ],
       )),
     );

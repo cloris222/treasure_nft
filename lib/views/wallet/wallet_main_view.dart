@@ -5,6 +5,7 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/views/wallet/data/app_purchase.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
+import 'package:treasure_nft_project/widgets/bottom_sheet/page_bottom_sheet.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 
 import '../../constant/global_data.dart';
@@ -261,17 +262,21 @@ class _WalletMainViewState extends State<WalletMainView> {
   }
 
   void _showRechargePage() {
-    viewModel.pushPage(context,
-        const OrderRechargePage(type: AppNavigationBarType.typeWallet));
+    PageBottomSheet(context,
+            page:
+                const OrderRechargePage(type: AppNavigationBarType.typeWallet))
+        .show();
   }
 
   void _showWithdrawPage() {
-    viewModel.pushPage(context,
-        const OrderWithdrawPage(type: AppNavigationBarType.typeWallet));
+    PageBottomSheet(context,
+            page:
+                const OrderWithdrawPage(type: AppNavigationBarType.typeWallet))
+        .show();
   }
 
   void _showWalletSettingIcon() {
-    viewModel.pushPage(context, const WalletSettingPage());
+    PageBottomSheet(context, page: const WalletSettingPage()).show();
   }
 
   void _showWalletRecord() {

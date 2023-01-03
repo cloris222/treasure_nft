@@ -80,7 +80,6 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
               },
               enable: viewModel.checkEnable()),
           SizedBox(height: UIDefine.getScreenWidth(11.1)),
-          SizedBox(height: UIDefine.navigationBarPadding)
         ],
       )),
     );

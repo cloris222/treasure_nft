@@ -15,7 +15,6 @@ import '../../../view_models/personal/orders/order_recharge_viewmodel.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/dialog/common_custom_dialog.dart';
 import '../../../widgets/label/coin/tether_coin_widget.dart';
-import '../../custom_appbar_view.dart';
 
 ///MARK: 充值
 class OrderRechargePage extends StatefulWidget {
@@ -41,19 +40,28 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomAppbarView(
-      needScrollView: false,
-      type: widget.type,
-      body: SingleChildScrollView(child: _buildBody()),
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Column(
+        children: [
+          Container(
+            padding:
+                EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
+            child:
+                TitleAppBar(title: tr('walletRecharge'), needArrowIcon: false),
+          ),
+          Expanded(child: SingleChildScrollView(child: _buildBody())),
+        ],
+      ),
     );
   }
 
   Widget _buildBody() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
       child: Column(
         children: [
-          TitleAppBar(title: tr('walletRecharge')),
+          SizedBox(height: UIDefine.getScreenWidth(0.97)),
           _buildChoseAddress(),
           Wrap(
             runSpacing: 20,
@@ -64,8 +72,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
               _buildAddressChain(),
               _buildAddressHint(),
             ],
-          ),
-          SizedBox(height: UIDefine.navigationBarPadding)
+          )
         ],
       ),
     );
