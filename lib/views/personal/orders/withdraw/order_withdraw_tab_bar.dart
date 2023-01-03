@@ -1,53 +1,50 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import '../../../../constant/ui_define.dart';
 
 class OrderWithdrawTabBar {
-
   Widget getCollectionTypeButtons(
       {required String currentExploreType,
-        required List<String> dataList,
-        required Function(String exploreType) changePage}) {
+      required List<String> dataList,
+      required Function(String exploreType) changePage}) {
     List<Widget> buttons = <Widget>[];
     for (int i = 0; i < dataList.length; i++) {
       bool isCurrent = (dataList[i] == currentExploreType);
-      buttons.add(
-          IntrinsicWidth(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: UIDefine.getScreenWidth(12),
-                  child: TextButton(
-                    onPressed: () {
-                      changePage(dataList[i]);
-                    },
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.5), 0, UIDefine.getScreenWidth(3), 0),
-                      child: Text(
-                        _getTabTitle(dataList[i]),
-                        style: TextStyle(color: _getButtonColor(isCurrent), fontSize: UIDefine.fontSize16),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  height: _getLineHeight(isCurrent),
-                  color: _getLineColor(isCurrent),
-                ),
-              ],
+      buttons.add(IntrinsicWidth(
+        child: InkWell(
+          onTap: () {
+            changePage(dataList[i]);
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(
+                horizontal: UIDefine.getPixelWidth(15),
+                vertical: UIDefine.getPixelWidth(10)),
+            decoration: isCurrent ? AppStyle().baseGradient(radius: 18) : null,
+            child: Text(
+              _getTabTitle(dataList[i]),
+              maxLines: 1,
+              style: TextStyle(
+                  color: _getButtonColor(isCurrent),
+                  fontSize: UIDefine.fontSize12,
+                  fontWeight: _getTextWeight(isCurrent)),
+              textAlign: TextAlign.center,
             ),
-          )
-      );
+          ),
+        ),
+      ));
     }
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: buttons
+    return Container(
+      decoration: AppStyle().styleColorsRadiusBackground(
+          color: const Color(0xFFEEEEEE), radius: 18),
+      child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround, children: buttons),
     );
   }
 
   String _getTabTitle(String value) {
-    switch(value) {
+    switch (value) {
       case 'Chain':
         return tr('chainTransfer');
       case 'Internal':
@@ -67,8 +64,12 @@ class OrderWithdrawTabBar {
   }
 
   Color _getButtonColor(bool isCurrent) {
-    if (isCurrent) return Colors.black;
-    return Colors.grey;
+    if (isCurrent) return Colors.white;
+    return AppColors.textHintBlack;
   }
 
+  FontWeight? _getTextWeight(bool isCurrent) {
+    if (isCurrent) return FontWeight.w500;
+    return null;
+  }
 }

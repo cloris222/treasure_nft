@@ -8,9 +8,11 @@ class AppColors {
   static const Color textBlack = Color(0xFF1F1F39);
   static const Color textRed = Color(0xFFEC6898);
   static const Color textGrey = Color(0xFF7A7C7D);
+  static const Color textHintBlack = Color(0xFF666666);
+  static const Color textHintGrey = Color(0xFFC1C1C1);
   static const Color dialogGrey = Color(0xFF8797B0);
   static const Color dialogBlack = Color(0xFF3D4045);
-  static const Color bolderGrey = Color(0xFFE0EAF6);
+  static const Color bolderGrey = Color(0xFFE6E5EA);
   static const Color deepBlue = Color(0xFF4F5CBF);
   static const Color buttonGrey = Color(0xFFE0EAF7);
   static const Color searchBar = Color(0xFFB9C5D9);
@@ -31,6 +33,7 @@ class AppColors {
   static const Color emptyCoffee = Color(0xFF5FC8AE);
   static const Color rateGreen = Color(0xFF1DCAB3);
   static const Color rateRed = Color(0xFFFF002F);
+  static const Color defaultBackgroundSpace = Color(0xFFF9F9F9);
 
   ///MARK:主題色彩
   static const Color mainThemeButton = Color(0xFF3B82F6);

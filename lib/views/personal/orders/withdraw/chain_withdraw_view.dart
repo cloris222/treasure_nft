@@ -2,9 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
+import 'package:treasure_nft_project/widgets/button/login_bolder_button_widget.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/simple_custom_dialog.dart';
+import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
 
 import '../../../../constant/enum/coin_enum.dart';
 import '../../../../constant/theme/app_theme.dart';
@@ -40,12 +43,29 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
 
   @override
   Widget build(BuildContext context) {
+    return SingleChildScrollView(
+        child: Column(
+      children: [
+        _buildWithdrawTopView(),
+        Container(
+            width: double.infinity,
+            height: UIDefine.getPixelWidth(15),
+            color: AppColors.defaultBackgroundSpace),
+        _buildWithdrawEmailView(),
+        Container(
+            width: double.infinity,
+            height: UIDefine.getPixelWidth(2),
+            color: AppColors.defaultBackgroundSpace),
+        _buildWithdrawSubmit(),
+      ],
+    ));
+  }
+
+  Widget _buildWithdrawTopView() {
     return Padding(
-      padding: EdgeInsets.only(
-          left: UIDefine.getScreenWidth(5),
-          right: UIDefine.getScreenWidth(5)),
-      child: SingleChildScrollView(
-          child: Column(
+      padding: EdgeInsets.all(UIDefine.getScreenWidth(5)),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           _buildChainDropDownBar(),
           SizedBox(height: UIDefine.getScreenWidth(5.5)),
@@ -53,35 +73,59 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
           SizedBox(height: UIDefine.getScreenWidth(5.5)),
           _buildAmountInputBar(),
           SizedBox(height: UIDefine.getScreenWidth(2.77)),
-          _buildTextContent(tr('canWithdrawFee'),
-              viewModel.numberFormat(viewModel.data.balance)),
+          _buildWithdrawInfo(),
           SizedBox(height: UIDefine.getScreenWidth(2.77)),
-          _buildTextContent(tr('minAmount'),
-              '${viewModel.numberFormat(viewModel.data.minAmount)} USDT'),
-          SizedBox(height: UIDefine.getScreenWidth(2.77)),
-          _buildTextContent(tr('withdrawFee'),
-              '${NumberFormatUtil().removeTwoPointFormat(viewModel.currentAmount)} USDT'),
-          SizedBox(height: UIDefine.getScreenWidth(8.27)),
+        ],
+      ),
+    );
+  }
 
-          Container(
-              width: double.infinity, height: 1.5, color: AppColors.dialogGrey),
+  _buildWithdrawEmailView() {
+    return Visibility(
+      visible: !viewModel.checkExperience,
+      child: Padding(
+        padding: EdgeInsets.all(UIDefine.getScreenWidth(5)),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // viewModel.checkExperience?  _buildPasswordInputBar() : _buildEmailVerify(), // test 體驗號功能未開
+            viewModel.checkExperience ? const SizedBox() : _buildEmailVerify(),
+          ],
+        ),
+      ),
+    );
+  }
 
-          SizedBox(height: UIDefine.getScreenWidth(8.27)),
-          // viewModel.checkExperience?  _buildPasswordInputBar() : _buildEmailVerify(), // test 體驗號功能未開
-          viewModel.checkExperience ? const SizedBox() : _buildEmailVerify(),
-
-          SizedBox(height: UIDefine.getScreenWidth(16.54)),
+  _buildWithdrawSubmit() {
+    return Padding(
+      padding: EdgeInsets.all(UIDefine.getPixelWidth(15)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          LoginBolderButtonWidget(
+              fontSize: UIDefine.fontSize16,
+              isFillWidth: false,
+              radius: 17,
+              padding:
+                  EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
+              btnText: tr('cancel'),
+              onPressed: () {
+                viewModel.popPage(context);
+              }),
           LoginButtonWidget(
-              // Save按鈕
-              isGradient: false,
+              fontSize: UIDefine.fontSize16,
+              isFillWidth: false,
+              radius: 17,
+              padding:
+                  EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
+              isGradient: true,
               btnText: tr('submit'),
               onPressed: () {
                 viewModel.onPressSave(context, widget.getWalletAlert());
               },
               enable: viewModel.checkEnable()),
-          SizedBox(height: UIDefine.getScreenWidth(11.1)),
         ],
-      )),
+      ),
     );
   }
 
@@ -142,14 +186,10 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
                   fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
             ),
             GestureDetector(
-                onTap: _onQuickFill,
-                child: Text(
-                  tr('quickFill'),
-                  style: TextStyle(
-                      color: AppColors.mainThemeButton,
-                      fontSize: UIDefine.fontSize12,
-                      fontWeight: FontWeight.w500),
-                ))
+              onTap: _onQuickFill,
+              child: GradientThirdText(tr('quickFill'),
+                  size: UIDefine.fontSize12, weight: FontWeight.w500),
+            )
           ],
         ),
         SizedBox(
@@ -284,15 +324,13 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
                           color: AppColors.dialogGrey),
                       SizedBox(width: UIDefine.getScreenWidth(2.77)),
                       GestureDetector(
-                          onTap: () => viewModel.amountController.text =
-                              viewModel.numberFormat(viewModel.data.balance),
-                          child: Text(
-                            tr('all'),
-                            style: TextStyle(
-                                color: AppColors.mainThemeButton,
-                                fontSize: UIDefine.fontSize12,
-                                fontWeight: FontWeight.w500),
-                          ))
+                        onTap: () => viewModel.amountController.text =
+                            viewModel.numberFormat(viewModel.data.balance),
+                        child: GradientThirdText(
+                            '${tr('all')} ${tr('walletWithdraw')}',
+                            size: UIDefine.fontSize14,
+                            weight: FontWeight.w500),
+                      )
                     ],
                   ))
             ],
@@ -347,12 +385,32 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
             countdownSecond: 60,
             btnGetText: tr('get'),
             hintText: tr("placeholder-emailCode'"),
-            hintColor: AppColors.searchBar,
             controller: viewModel.emailCodeController,
             data: viewModel.emailCodeData,
             onPressSendCode: () => viewModel.onPressSendCode(context),
             onPressCheckVerify: () => viewModel.onPressCheckVerify(context)),
       ],
+    );
+  }
+
+  Widget _buildWithdrawInfo() {
+    return Container(
+      decoration: AppStyle().styleColorsRadiusBackground(
+          color: const Color(0xFFF7F7F7), radius: 4),
+      padding: EdgeInsets.all(UIDefine.getPixelWidth(10)),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _buildTextContent(tr('canWithdrawFee'),
+              viewModel.numberFormat(viewModel.data.balance)),
+          SizedBox(height: UIDefine.getScreenWidth(2.77)),
+          _buildTextContent(tr('minAmount'),
+              '${viewModel.numberFormat(viewModel.data.minAmount)} USDT'),
+          SizedBox(height: UIDefine.getScreenWidth(2.77)),
+          _buildTextContent(tr('withdrawFee'),
+              '${NumberFormatUtil().removeTwoPointFormat(viewModel.currentAmount)} USDT'),
+        ],
+      ),
     );
   }
 }

@@ -70,7 +70,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
               _buildAddressInfo(),
               _buildAddressPath(),
               _buildAddressChain(),
-              _buildAddressHint(),
+              const SizedBox(width: 1),
             ],
           )
         ],
@@ -131,6 +131,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
                 fontSize: UIDefine.fontSize16,
                 color: AppColors.dialogBlack,
                 fontWeight: FontWeight.w500)),
+        _buildAddressHint(),
         Container(
           alignment: Alignment.center,
           margin: EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(10)),
@@ -161,21 +162,14 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
                 ),
               ),
               const SizedBox(height: 5),
-              Text(tr("recharge-hint-1'"),
-                  maxLines: 2,
-                  style: TextStyle(
-                      fontSize: UIDefine.fontSize14,
-                      color: AppColors.dialogBlack,
-                      fontWeight: FontWeight.w500)),
-              Text(tr("recharge-hint-2'"),
-                  maxLines: 2,
-                  style: TextStyle(
-                      fontSize: UIDefine.fontSize14,
-                      color: AppColors.dialogBlack,
-                      fontWeight: FontWeight.w500))
             ],
           ),
         ),
+        Text("${tr("recharge-hint-1'")} ${tr("recharge-hint-2'")}",
+            maxLines: 2,
+            style: TextStyle(
+                fontSize: UIDefine.fontSize12,
+                color: AppColors.homeGrey)),
         const SizedBox(width: 1),
       ],
     );
@@ -192,7 +186,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
           Text(
             tr('rechargeUaddr'),
             style: TextStyle(
-                fontSize: UIDefine.fontSize16,
+                fontSize: UIDefine.fontSize12,
                 color: AppColors.dialogBlack,
                 fontWeight: FontWeight.w500),
           ),
@@ -205,7 +199,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
                           '',
                       maxLines: 2,
                       style: TextStyle(
-                          fontSize: UIDefine.fontSize14,
+                          fontSize: UIDefine.fontSize12,
                           color: AppColors.dialogGrey,
                           fontWeight: FontWeight.w500))),
               const SizedBox(width: 10),
@@ -229,24 +223,23 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
       width: UIDefine.getWidth(),
       decoration: AppStyle().styleUserSetting(),
       padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
         children: [
           Text(
             tr('chain'),
             style: TextStyle(
-                fontSize: UIDefine.fontSize16,
+                fontSize: UIDefine.fontSize12,
                 color: AppColors.dialogBlack,
                 fontWeight: FontWeight.w500),
           ),
-          const SizedBox(height: 5),
+          const SizedBox(width: 5),
           Text(
               viewModel.currentChain == CoinEnum.TRON
                   ? 'TRON (TRC-20)'
                   : 'BSC (BEP-20)',
               style: TextStyle(
-                  fontSize: UIDefine.fontSize14,
-                  color: AppColors.dialogGrey,
+                  fontSize: UIDefine.fontSize12,
+                  color: AppColors.textHintBlack,
                   fontWeight: FontWeight.w500))
         ],
       ),
@@ -259,11 +252,11 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
         children: [
           Text(tr("minimum-rechargeAmount'"),
               style: TextStyle(
-                  fontSize: UIDefine.fontSize16, color: AppColors.dialogBlack)),
-          Flexible(child: Container()),
+                  fontSize: UIDefine.fontSize12, color: AppColors.homeGrey)),
+          SizedBox(width: UIDefine.getPixelWidth(5)),
           Text('10 USDT',
               style: TextStyle(
-                  fontSize: UIDefine.fontSize16, color: AppColors.dialogBlack))
+                  fontSize: UIDefine.fontSize12, color: AppColors.homeGrey))
         ],
       ),
       SizedBox(height: UIDefine.getScreenWidth(2.77)),
@@ -272,7 +265,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
           maxLines: 2,
           textAlign: TextAlign.start,
           style: TextStyle(
-              fontSize: UIDefine.fontSize12, color: AppColors.dialogGrey)),
+              fontSize: UIDefine.fontSize12, color: AppColors.textRed)),
       SizedBox(height: UIDefine.getScreenWidth(6)),
     ]);
   }

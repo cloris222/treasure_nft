@@ -65,8 +65,7 @@ class _OrderWithdrawPage extends State<OrderWithdrawPage> {
                 bottom: UIDefine.getScreenWidth(0.97)),
             margin: EdgeInsets.only(
                 left: UIDefine.getScreenWidth(5),
-                right: UIDefine.getScreenWidth(5),
-                bottom: UIDefine.getScreenWidth(4.16)),
+                right: UIDefine.getScreenWidth(5)),
             child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: OrderWithdrawTabBar().getCollectionTypeButtons(
@@ -76,8 +75,8 @@ class _OrderWithdrawPage extends State<OrderWithdrawPage> {
                       _changePage(exploreType);
                     })),
           ),
-          SizedBox(height: UIDefine.getScreenWidth(2.77)),
-          Flexible(
+          SizedBox(height: UIDefine.getPixelWidth(10)),
+          Expanded(
               child: PageView(
             controller: pageController,
             onPageChanged: _onPageChange,

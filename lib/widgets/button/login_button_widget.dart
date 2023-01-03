@@ -19,7 +19,7 @@ class LoginButtonWidget extends StatelessWidget {
       this.radius = 10,
       this.showIcon = false,
       this.isFillWidth = true,
-      this.margin = const EdgeInsets.symmetric(vertical: 10),
+      this.margin = const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
       this.padding})
       : super(key: key);
   final String btnText;
@@ -44,7 +44,10 @@ class LoginButtonWidget extends StatelessWidget {
       child: Container(
           alignment: Alignment.center,
           margin: margin,
-          padding: padding,
+          padding: padding ??
+              EdgeInsets.symmetric(
+                  horizontal: UIDefine.getPixelWidth(10),
+                  vertical: UIDefine.getPixelWidth(5)),
           decoration: enable
               ? isGradient
                   ? isFlip
@@ -52,8 +55,12 @@ class LoginButtonWidget extends StatelessWidget {
                       : AppStyle().baseGradient(radius: radius)
                   : AppStyle().styleColorsRadiusBackground(
                       color: AppColors.mainThemeButton)
-              : AppStyle()
-                  .styleColorsRadiusBackground(color: AppColors.buttonGrey),
+              : isGradient
+                  ? AppStyle().buildGradient(
+                      radius: radius,
+                      colors: AppColors.gradientBackgroundColorBg)
+                  : AppStyle()
+                      .styleColorsRadiusBackground(color: AppColors.buttonGrey),
           width: width ?? (isFillWidth ? UIDefine.getWidth() : null),
           height: height ?? 50,
           child: Row(

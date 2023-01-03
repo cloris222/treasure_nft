@@ -5,7 +5,7 @@ class PageBottomSheet extends BaseBottomSheet {
   PageBottomSheet(super.context,
       {required this.page,
       super.needPercentage = true,
-      super.percentage = 0.87});
+      super.percentage = 0.87 + 0.03});
 
   final Widget page;
 

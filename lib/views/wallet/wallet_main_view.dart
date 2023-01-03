@@ -30,7 +30,6 @@ class WalletMainView extends StatefulWidget {
 
 class _WalletMainViewState extends State<WalletMainView> {
   late WalletMainViewModel viewModel;
-  Color baseBackgroundColor = const Color(0xFFF9F9F9);
 
   @override
   void initState() {
@@ -42,7 +41,7 @@ class _WalletMainViewState extends State<WalletMainView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: baseBackgroundColor,
+      color: AppColors.defaultBackgroundSpace,
       child: SingleChildScrollView(
         child: Column(children: [
           _buildWalletInfo(),
@@ -92,7 +91,7 @@ class _WalletMainViewState extends State<WalletMainView> {
             bottom: 0,
             child: Container(
                 decoration: AppStyle().styleColorsRadiusBackground(
-                    color: baseBackgroundColor, radius: 12))),
+                    color: AppColors.defaultBackgroundSpace, radius: 12))),
         Positioned(
           bottom: UIDefine.getPixelWidth(10),
           left: UIDefine.getPixelWidth(20),
@@ -299,7 +298,7 @@ class _WalletMainViewState extends State<WalletMainView> {
               child: Text(tr('all'),
                   style: TextStyle(
                       fontSize: UIDefine.fontSize14,
-                      color: const Color(0xFF666666))),
+                      color: AppColors.textHintBlack)),
             ),
             InkWell(
               onTap: _showWalletRecord,

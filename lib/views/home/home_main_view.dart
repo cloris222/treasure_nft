@@ -268,7 +268,7 @@ class _HomeMainViewState extends State<HomeMainView> {
                 tr('emailIllustrate'),
                 textAlign: TextAlign.start,
                 style:
-                    viewModel.getContextStyle(color: const Color(0xFF666666)),
+                    viewModel.getContextStyle(color: AppColors.textHintBlack),
               ),
               // Text('feature releases, NFT drops, and tips and tricks',
               //   style: TextStyle(fontSize: UIDefine.fontSize12),

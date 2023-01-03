@@ -1,6 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:treasure_nft_project/constant/theme/app_style.dart';
+import 'package:treasure_nft_project/widgets/button/login_bolder_button_widget.dart';
+import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
 import '../../../../constant/theme/app_colors.dart';
 import '../../../../constant/ui_define.dart';
 import '../../../../models/http/parameter/withdraw_alert_info.dart';
@@ -34,44 +37,105 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
 
   @override
   Widget build(BuildContext context) {
+    return SingleChildScrollView(
+        child: Column(
+      children: [
+        _buildWithdrawTopView(),
+        Container(
+            width: double.infinity,
+            height: UIDefine.getPixelWidth(15),
+            color: AppColors.defaultBackgroundSpace),
+        _buildWithdrawEmailView(),
+        Container(
+            width: double.infinity,
+            height: UIDefine.getPixelWidth(2),
+            color: AppColors.defaultBackgroundSpace),
+        _buildWithdrawSubmit(),
+      ],
+    ));
+  }
+
+  Widget _buildWithdrawTopView() {
     return Padding(
-      padding: EdgeInsets.only(
-          left: UIDefine.getScreenWidth(5), right: UIDefine.getScreenWidth(5)),
-      child: SingleChildScrollView(
-          child: Column(
+      padding: EdgeInsets.all(UIDefine.getScreenWidth(5)),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           _buildAddressInputBar(),
           SizedBox(height: UIDefine.getScreenWidth(5.5)),
           _buildAmountInputBar(),
           SizedBox(height: UIDefine.getScreenWidth(2.77)),
+          _buildWithdrawInfo()
+        ],
+      ),
+    );
+  }
+
+  _buildWithdrawEmailView() {
+    return Visibility(
+      visible: !viewModel.checkExperience,
+      child: Padding(
+        padding: EdgeInsets.all(UIDefine.getScreenWidth(5)),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // viewModel.checkExperience?  _buildPasswordInputBar() : _buildEmailVerify(), // test 體驗號功能未開
+            viewModel.checkExperience ? const SizedBox() : _buildEmailVerify(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _buildWithdrawSubmit() {
+    return Padding(
+      padding: EdgeInsets.all(UIDefine.getPixelWidth(15)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          LoginBolderButtonWidget(
+              fontSize: UIDefine.fontSize16,
+              isFillWidth: false,
+              radius: 17,
+              padding:
+                  EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
+              btnText: tr('cancel'),
+              onPressed: () {
+                viewModel.popPage(context);
+              }),
+          LoginButtonWidget(
+              fontSize: UIDefine.fontSize16,
+              isFillWidth: false,
+              radius: 17,
+              padding:
+                  EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
+              isGradient: true,
+              btnText: tr('submit'),
+              onPressed: () {
+                viewModel.onPressSave(context, widget.getWalletAlert());
+              },
+              enable: viewModel.checkEnable()),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildWithdrawInfo() {
+    return Container(
+      decoration: AppStyle().styleColorsRadiusBackground(
+          color: const Color(0xFFF7F7F7), radius: 4),
+      padding: EdgeInsets.all(UIDefine.getPixelWidth(10)),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
           _buildTextContent(tr('canWithdrawFee'),
               viewModel.numberFormat(viewModel.data.balance)),
           SizedBox(height: UIDefine.getScreenWidth(2.77)),
           _buildTextContent(tr('minAmount'),
               '${viewModel.numberFormat(viewModel.data.minAmount)} USDT'),
-          SizedBox(height: UIDefine.getScreenWidth(8.27)),
-
-          Container(
-              width: double.infinity, height: 1.5, color: AppColors.dialogGrey),
-
-          SizedBox(height: UIDefine.getScreenWidth(8.27)),
-          // viewModel.checkExperience?  _buildPasswordInputBar() : _buildEmailVerify(), // test 體驗號功能未開
-          viewModel.checkExperience ? const SizedBox() : _buildEmailVerify(),
-
-          SizedBox(height: UIDefine.getScreenWidth(16.54)),
-          LoginButtonWidget(
-              // Save按鈕
-              isGradient: false,
-              btnText: tr('submit'),
-              onPressed: () {
-                // if (viewModel.checkEmail) {
-                viewModel.onPressSave(context, widget.getWalletAlert());
-                // }
-              },
-              enable: viewModel.checkEnable()),
-          SizedBox(height: UIDefine.getScreenWidth(11.1)),
+          SizedBox(height: UIDefine.getScreenWidth(2.27)),
         ],
-      )),
+      ),
     );
   }
 
@@ -171,15 +235,13 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
                           color: AppColors.dialogGrey),
                       SizedBox(width: UIDefine.getScreenWidth(2.77)),
                       GestureDetector(
-                          onTap: () => viewModel.amountController.text =
-                              viewModel.numberFormat(viewModel.data.balance),
-                          child: Text(
-                            tr('all'),
-                            style: TextStyle(
-                                color: AppColors.mainThemeButton,
-                                fontSize: UIDefine.fontSize12,
-                                fontWeight: FontWeight.w500),
-                          ))
+                        onTap: () => viewModel.amountController.text =
+                            viewModel.numberFormat(viewModel.data.balance),
+                        child: GradientThirdText(
+                            '${tr('all')} ${tr('walletWithdraw')}',
+                            size: UIDefine.fontSize14,
+                            weight: FontWeight.w500),
+                      )
                     ],
                   ))
             ],
@@ -275,7 +337,6 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
             countdownSecond: 60,
             btnGetText: tr('get'),
             hintText: tr("placeholder-emailCode'"),
-            hintColor: AppColors.searchBar,
             controller: viewModel.emailCodeController,
             data: viewModel.emailCodeData,
             onPressSendCode: () => viewModel.onPressSendCode(context),

@@ -18,7 +18,7 @@ class HomeSubInfoView extends StatelessWidget {
         fontWeight: FontWeight.w500);
     TextStyle contentStyle = TextStyle(
         fontSize: UIDefine.fontSize14,
-        color: const Color(0xFF666666),
+        color: AppColors.textHintBlack,
         fontWeight: FontWeight.w400);
     double padding = 2;
     return Container(

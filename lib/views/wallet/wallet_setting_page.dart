@@ -63,12 +63,7 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildSettingParam(CoinEnum.TRON, viewModel.trcController),
-              const SizedBox(height: 20),
-              _buildSettingParam(CoinEnum.BSC, viewModel.bscController),
-              const SizedBox(height: 20),
-              _buildSettingParam(CoinEnum.ROLLOUT, viewModel.rolloutController),
-              const SizedBox(height: 20),
+             _buildSettingEdit(),
               Text(tr('emailValid'),
                   style: TextStyle(
                       fontSize: UIDefine.fontSize14,
@@ -78,14 +73,12 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
                   onEditTap: viewModel.onClearData,
                   btnGetText: tr('get'),
                   hintText: tr("placeholder-emailCode'"),
-                  hintColor: AppColors.searchBar,
                   controller: viewModel.codeController,
                   data: viewModel.codeData,
                   onPressSendCode: () => viewModel.sendEmailCode(context),
                   onPressCheckVerify: () => viewModel.checkEmailCode(context)),
               const SizedBox(height: 10),
               LoginButtonWidget(
-                  isGradient: false,
                   btnText: tr('save'),
                   onPressed: () => viewModel.onSavePayment(context),
                   enable: viewModel.checkEmail),
@@ -127,16 +120,30 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
                     0),
                 hintText: viewModel.getCoinHintText(coin),
                 hintStyle: const TextStyle(
-                    height: 1.6, color: AppColors.searchBar),
+                    height: 1.6, color: AppColors.bolderGrey),
                 labelStyle: const TextStyle(color: Colors.black),
                 alignLabelWithHint: true,
                 border: AppTheme.style.styleTextEditBorderBackground(
-                    color: AppColors.searchBar, radius: 10),
+                    color: AppColors.bolderGrey, radius: 10),
                 focusedBorder: AppTheme.style.styleTextEditBorderBackground(
-                    color: AppColors.searchBar, radius: 10),
+                    color: AppColors.bolderGrey, radius: 10),
                 enabledBorder: AppTheme.style.styleTextEditBorderBackground(
-                    color: AppColors.searchBar, radius: 10),
+                    color: AppColors.bolderGrey, radius: 10),
               ))
         ]));
   }
+
+ Widget _buildSettingEdit() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _buildSettingParam(CoinEnum.TRON, viewModel.trcController),
+        SizedBox(height: UIDefine.getPixelWidth(15)),
+        _buildSettingParam(CoinEnum.BSC, viewModel.bscController),
+        SizedBox(height: UIDefine.getPixelWidth(15)),
+        _buildSettingParam(CoinEnum.ROLLOUT, viewModel.rolloutController),
+        SizedBox(height: UIDefine.getPixelWidth(15)),
+      ],
+    );
+ }
 }
