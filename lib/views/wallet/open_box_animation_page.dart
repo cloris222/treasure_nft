@@ -33,6 +33,7 @@ class _OpenBoxAnimationPage extends State<OpenBoxAnimationPage>
   bool bShowItem = false;
   bool bCompleted = false;
   late AnimationController controller;
+  String? path;
 
   @override
   void initState() {
@@ -46,13 +47,19 @@ class _OpenBoxAnimationPage extends State<OpenBoxAnimationPage>
         bCompleted = true;
       }
     });
+    path = AnimationDownloadUtil().getAnimationFilePath(widget.animationPath);
+    if (path == null) {
+      Future.delayed(const Duration(seconds: 3)).then((value) {
+        widget.callBack(); // 看完動畫跳出去後才更新外面的View (避免背景露餡抽到啥)
+        BaseViewModel().popPage(context);
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     double padding = MediaQuery.of(context).padding.top;
-    String? path =
-        AnimationDownloadUtil().getAnimationFilePath(widget.animationPath);
+
     return GestureDetector(
         onTap: () => _onTapPage(context),
         child: Scaffold(
@@ -71,7 +78,7 @@ class _OpenBoxAnimationPage extends State<OpenBoxAnimationPage>
                     children: [
                       path != null
                           ? Lottie.file(
-                              File(path),
+                              File(path!),
                               fit: BoxFit.contain,
                               controller: controller,
                               repeat: false,
@@ -85,13 +92,13 @@ class _OpenBoxAnimationPage extends State<OpenBoxAnimationPage>
                               width: UIDefine.getScreenWidth(37.33),
                               height: UIDefine.getScreenWidth(37.33)),
                       Visibility(
-                        visible: bShowItem,
+                        visible: bShowItem || path == null,
                         child: GraduallyNetworkImage(
                           imageUrl: widget.imgUrl,
                           width: UIDefine.getScreenWidth(37.33),
                           height: UIDefine.getScreenWidth(37.33),
                         ),
-                      )
+                      ),
                     ],
                   )),
             )));
