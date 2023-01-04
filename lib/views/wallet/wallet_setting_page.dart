@@ -42,8 +42,8 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
       body: Column(
         children: [
           Container(
-              margin: EdgeInsets.symmetric(
-                  horizontal: UIDefine.getPixelWidth(20)),
+              margin:
+                  EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
               child:
                   TitleAppBar(title: tr("uc_setting"), needArrowIcon: false)),
           Expanded(child: SingleChildScrollView(child: _buildBody())),
@@ -63,7 +63,7 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-             _buildSettingEdit(),
+              _buildSettingEdit(),
               Text(tr('emailValid'),
                   style: TextStyle(
                       fontSize: UIDefine.fontSize14,
@@ -78,10 +78,16 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
                   onPressSendCode: () => viewModel.sendEmailCode(context),
                   onPressCheckVerify: () => viewModel.checkEmailCode(context)),
               const SizedBox(height: 10),
-              LoginButtonWidget(
-                  btnText: tr('save'),
-                  onPressed: () => viewModel.onSavePayment(context),
-                  enable: viewModel.checkEmail),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  LoginButtonWidget(
+                      isFillWidth: false,
+                      btnText: tr('Next'),
+                      onPressed: () => viewModel.onCheckPayment(context),
+                      enable: viewModel.checkEmail),
+                ],
+              ),
             ],
           )),
     );
@@ -108,8 +114,7 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
           const SizedBox(height: 5),
           Text(tr('address'),
               style: TextStyle(
-                  fontSize: UIDefine.fontSize14,
-                  fontWeight: FontWeight.w500)),
+                  fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500)),
           TextField(
               controller: controller,
               decoration: InputDecoration(
@@ -119,8 +124,8 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
                     0,
                     0),
                 hintText: viewModel.getCoinHintText(coin),
-                hintStyle: const TextStyle(
-                    height: 1.6, color: AppColors.bolderGrey),
+                hintStyle:
+                    const TextStyle(height: 1.6, color: AppColors.bolderGrey),
                 labelStyle: const TextStyle(color: Colors.black),
                 alignLabelWithHint: true,
                 border: AppTheme.style.styleTextEditBorderBackground(
@@ -133,7 +138,7 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
         ]));
   }
 
- Widget _buildSettingEdit() {
+  Widget _buildSettingEdit() {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -145,5 +150,5 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
         SizedBox(height: UIDefine.getPixelWidth(15)),
       ],
     );
- }
+  }
 }
