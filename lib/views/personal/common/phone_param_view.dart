@@ -55,7 +55,7 @@ class PhoneParamView extends StatelessWidget {
                     data.result ? AppColors.bolderGrey : AppColors.textRed,
                 enabledColor:
                     data.result ? AppColors.bolderGrey : AppColors.textRed,
-                focusedColor: AppColors.mainThemeButton,
+                bFocusedGradientBolder: true,
                 isSecure: isSecure,
                 onChanged: onChanged,
                 onTap: onTap,

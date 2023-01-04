@@ -206,7 +206,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
                 enabledColor: viewModel.addressData.result
                     ? AppColors.bolderGrey
                     : AppColors.textRed,
-                focusedColor: AppColors.mainThemeButton,
+                bFocusedGradientBolder: true,
                 onTap: viewModel.onTap,
               ),
               Positioned(
@@ -299,7 +299,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
                 enabledColor: viewModel.amountData.result
                     ? AppColors.bolderGrey
                     : AppColors.textRed,
-                focusedColor: AppColors.mainThemeButton,
+                bFocusedGradientBolder: true,
                 bLimitDecimalLength: true,
                 onTap: viewModel.onTap,
                 onChanged: viewModel.onAmountChange,

@@ -166,7 +166,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
                 enabledColor: viewModel.accountData.result
                     ? AppColors.bolderGrey
                     : AppColors.textRed,
-                focusedColor: AppColors.mainThemeButton,
+                bFocusedGradientBolder: true,
                 onTap: viewModel.onTap,
               ),
               // 內部轉帳不用掃碼
@@ -211,7 +211,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
                 enabledColor: viewModel.amountData.result
                     ? AppColors.bolderGrey
                     : AppColors.textRed,
-                focusedColor: AppColors.mainThemeButton,
+                bFocusedGradientBolder: true,
                 bLimitDecimalLength: true,
                 onTap: viewModel.onTap,
               ),

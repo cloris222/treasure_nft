@@ -68,6 +68,7 @@ dependencies:
   in_app_purchase: ^3.0.7
   app_tracking_transparency: ^2.0.3
   card_swiper : ^2.0.4
+  gradient_borders: ^0.2.0
 
 dev_dependencies:
   flutter_test:
