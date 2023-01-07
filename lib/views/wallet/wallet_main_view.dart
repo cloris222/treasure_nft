@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/views/wallet/data/app_purchase.dart';
@@ -22,7 +23,8 @@ import 'balance_record_item_view.dart';
 import 'wallet_setting_page.dart';
 
 class WalletMainView extends StatefulWidget {
-  const WalletMainView({Key? key}) : super(key: key);
+  const WalletMainView({Key? key, required this.onPrePage}) : super(key: key);
+  final onClickFunction onPrePage;
 
   @override
   State<WalletMainView> createState() => _WalletMainViewState();
@@ -66,8 +68,11 @@ class _WalletMainViewState extends State<WalletMainView> {
 
   Widget _buildTitle() {
     return Row(children: [
-      Icon(Icons.arrow_back_ios,
-          size: UIDefine.getPixelWidth(26), color: Colors.black),
+      GestureDetector(
+        onTap: _onBackView,
+        child: Icon(Icons.arrow_back_ios,
+            size: UIDefine.getPixelWidth(26), color: Colors.black),
+      ),
     ]);
   }
 
@@ -368,5 +373,9 @@ class _WalletMainViewState extends State<WalletMainView> {
 
   void _showAppPurchase() {
     viewModel.pushPage(context, const AppPurchase());
+  }
+
+  void _onBackView() {
+    widget.onPrePage();
   }
 }

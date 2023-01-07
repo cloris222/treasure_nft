@@ -96,6 +96,51 @@ class BaseViewModel {
     );
   }
 
+  ///MARK: 返回前頁
+  Future<void> popPreView(BuildContext context) async {
+    await Navigator.pushAndRemoveUntil<void>(
+      context,
+      MaterialPageRoute<void>(
+          builder: (BuildContext context) =>
+              MainPage(type: getPreBottomType())),
+      (route) => false,
+    );
+  }
+
+  void setCurrentBottomType(AppNavigationBarType type) {
+    ///MARK:判斷是否為最後一筆
+    if (!GlobalData.isPrePage) {
+      GlobalData.isPrePage = false;
+    }
+    if (GlobalData.preTypeList.isNotEmpty) {
+      ///MARK: 最後一頁跟前一頁一樣 就不加入
+      if (GlobalData.mainBottomType != GlobalData.preTypeList.last) {
+        GlobalData.preTypeList.add(GlobalData.mainBottomType);
+
+        ///MARK: 最多只接受10筆
+        if (GlobalData.preTypeList.length > 10) {
+          GlobalData.preTypeList.removeAt(0);
+        }
+      }
+    } else {
+      GlobalData.preTypeList.add(GlobalData.mainBottomType);
+    }
+    GlobalData.mainBottomType = type;
+  }
+
+  AppNavigationBarType getPreBottomType() {
+    AppNavigationBarType preType = AppNavigationBarType.typeMain;
+    if (GlobalData.preTypeList.isNotEmpty) {
+      preType = GlobalData.preTypeList.removeLast();
+      if (preType == AppNavigationBarType.typeLogin &&
+          BaseViewModel().isLogin()) {
+        preType = AppNavigationBarType.typeMain;
+      }
+    }
+    GlobalData.mainBottomType = preType;
+    return preType;
+  }
+
   Future<void> pushOtherPersonalInfo(
       BuildContext context, String userId) async {
     // test
@@ -322,7 +367,7 @@ class BaseViewModel {
       List<String> num = number.toString().split('.');
       var format = NumberFormat('0,000');
       String test = format.format(int.parse(num[0]));
-      String finalNum = test + '.' + num[1];
+      String finalNum = '$test.${num[1]}';
       return finalNum.replaceAll(regex, '');
     }
     return number.toString().replaceAll(regex, '');

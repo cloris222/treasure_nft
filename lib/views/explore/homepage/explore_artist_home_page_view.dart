@@ -464,8 +464,6 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
 
   void _mainAction() {
     viewModel.pushPage(context, const HomeMainView());
-    // GlobalData.mainBottomType = AppNavigationBarType.typeMain;
-    // pageController.jumpToPage(getViewIndex(GlobalData.mainBottomType));
   }
 
   void _shareAction() {

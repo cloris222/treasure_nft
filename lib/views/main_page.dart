@@ -45,12 +45,12 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     initPlugin();
     int initialPage = getViewIndex(widget.type);
-    GlobalData.mainBottomType = widget.type;
+    viewModel.setCurrentBottomType(widget.type);
     if ((GlobalData.mainBottomType != AppNavigationBarType.typeMain &&
             GlobalData.mainBottomType != AppNavigationBarType.typeExplore) &&
         !BaseViewModel().isLogin()) {
       initialPage = 6;
-      GlobalData.mainBottomType = AppNavigationBarType.typeLogin;
+      viewModel.setCurrentBottomType(AppNavigationBarType.typeLogin);
     }
 
     pageController = PageController(initialPage: initialPage);
@@ -149,7 +149,8 @@ class _MainPageState extends State<MainPage> {
       body: Stack(
         children: [
           Padding(
-            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
             child: PageView(
               controller: pageController,
               physics: const NeverScrollableScrollPhysics(),
@@ -157,7 +158,7 @@ class _MainPageState extends State<MainPage> {
                 const ExploreMainView(),
                 const CollectionMainView(),
                 const TradeMainView(),
-                const WalletMainView(),
+                WalletMainView(onPrePage: _onPrePage),
                 PersonalMainView(onViewChange: () => setState(() {})),
                 const HomeMainView(),
                 const LoginMainView()
@@ -180,11 +181,12 @@ class _MainPageState extends State<MainPage> {
   }
 
   _changePage(AppNavigationBarType type) {
+    viewModel.setCurrentBottomType(type);
     pageController.jumpToPage(getViewIndex(type));
   }
 
   void _searchAction() {
-    GlobalData.mainBottomType = AppNavigationBarType.typeExplore;
+    viewModel.setCurrentBottomType(AppNavigationBarType.typeExplore);
     pageController.jumpToPage(0);
   }
 
@@ -215,9 +217,9 @@ class _MainPageState extends State<MainPage> {
   void _avatarAction() {
     setState(() {
       if (BaseViewModel().isLogin()) {
-        GlobalData.mainBottomType = AppNavigationBarType.typePersonal;
+        viewModel.setCurrentBottomType(AppNavigationBarType.typePersonal);
       } else {
-        GlobalData.mainBottomType = AppNavigationBarType.typeLogin;
+        viewModel.setCurrentBottomType(AppNavigationBarType.typeLogin);
       }
       pageController.jumpToPage(getViewIndex(GlobalData.mainBottomType));
     });
@@ -230,8 +232,14 @@ class _MainPageState extends State<MainPage> {
 
   void _mainAction() {
     setState(() {
-      GlobalData.mainBottomType = AppNavigationBarType.typeMain;
+      viewModel.setCurrentBottomType(AppNavigationBarType.typeMain);
       pageController.jumpToPage(getViewIndex(GlobalData.mainBottomType));
+    });
+  }
+
+  void _onPrePage() {
+    setState(() {
+      pageController.jumpToPage(getViewIndex(viewModel.getPreBottomType()));
     });
   }
 }

@@ -39,7 +39,9 @@ class GlobalData {
   static String userMemberId = '';
 
   ///MARK: 控管bar的圖案顯示
+  static bool isPrePage = false;
   static AppNavigationBarType mainBottomType = AppNavigationBarType.typeMain;
+  static List<AppNavigationBarType> preTypeList = [];
 
   ///MARK: 提供給選擇日期使用
   static String strDataPickerStart = '';

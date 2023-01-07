@@ -133,17 +133,17 @@ class _PersonalMainViewState extends State<PersonalMainView> {
   }
 
   void _searchAction() {
-    GlobalData.mainBottomType = AppNavigationBarType.typeExplore;
-    BaseViewModel().pushPage(context, ExploreMainView());
+    viewModel.setCurrentBottomType(AppNavigationBarType.typeExplore);
+    BaseViewModel().pushPage(context, const ExploreMainView());
   }
 
   void _avatarAction() {
     setState(() {
       if (BaseViewModel().isLogin()) {
-        GlobalData.mainBottomType = AppNavigationBarType.typePersonal;
+        viewModel.setCurrentBottomType(AppNavigationBarType.typePersonal);
         // BaseViewModel().pushPage(context, page);
       } else {
-        GlobalData.mainBottomType = AppNavigationBarType.typeLogin;
+        viewModel.setCurrentBottomType(AppNavigationBarType.typeLogin);
         // BaseViewModel().pushPage(context, page);
       }
     });

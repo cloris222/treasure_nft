@@ -41,11 +41,12 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar>
     with WidgetsBindingObserver {
   Timer? timer;
   late BottomNavigationNotifier _bottomNavigationNotifier; // 收藏未讀數監聽
+  BaseViewModel viewModel = BaseViewModel();
 
   @override
   void initState() {
     super.initState();
-    GlobalData.mainBottomType = widget.initType;
+    viewModel.setCurrentBottomType(widget.initType);
     _requestUnreadCollection();
     _unreadTimingRequest();
 
@@ -223,25 +224,23 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar>
   }
 
   _navigationTapped(int index, void Function(VoidCallback fn) setState) {
-    GlobalData.mainBottomType = AppNavigationBarType.values[index];
-    if ((GlobalData.mainBottomType != AppNavigationBarType.typeMain &&
-            GlobalData.mainBottomType != AppNavigationBarType.typeExplore) &&
+    var type = AppNavigationBarType.values[index];
+    if ((type != AppNavigationBarType.typeMain &&
+            type != AppNavigationBarType.typeExplore) &&
         !BaseViewModel().isLogin()) {
       index = 6;
-      GlobalData.mainBottomType = AppNavigationBarType.typeLogin;
+      type = AppNavigationBarType.typeLogin;
     }
-
     if (widget.bottomFunction != null) {
       setState(() {
-        widget.bottomFunction!(GlobalData.mainBottomType);
+        widget.bottomFunction!(type);
       });
     } else {
       //清除所有頁面並回到首頁
       Navigator.pushAndRemoveUntil<void>(
         context,
         MaterialPageRoute<void>(
-            builder: (BuildContext context) =>
-                MainPage(type: GlobalData.mainBottomType)),
+            builder: (BuildContext context) => MainPage(type: type)),
         ModalRoute.withName('/'),
       );
     }
