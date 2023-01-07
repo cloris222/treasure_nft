@@ -1,14 +1,18 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
+
 import '../constant/theme/app_colors.dart';
 
 import '../constant/enum/style_enum.dart';
 
 class CustomTextStyle {
-  TextStyle getBaseStyle(
+  const CustomTextStyle._();
+
+  static TextStyle getBaseStyle(
       {Color color = AppColors.textBlack,
       double? fontSize,
       FontWeight? fontWeight,
-      CustomTextFamily fontFamily = CustomTextFamily.PosteramaText}) {
+      CustomTextFamily fontFamily = CustomTextFamily.PosteramaText,
+      FontStyle? fontStyle}) {
     return TextStyle(
         color: color,
         fontSize: fontSize,
@@ -17,6 +21,7 @@ class CustomTextStyle {
             ? (fontWeight.index > FontWeight.w500.index
                 ? FontWeight.w500
                 : fontWeight)
-            : null);
+            : null,
+        fontStyle: fontStyle);
   }
 }
