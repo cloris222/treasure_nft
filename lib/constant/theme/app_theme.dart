@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 import 'app_colors.dart';
 import 'app_style.dart';
@@ -8,19 +9,18 @@ class AppTheme {
   const AppTheme._();
 
   static final style = AppStyle();
+
   ///MARK: 可以放一些測試資料
 
   ///MARK: 從女權拿來的
-  static ThemeData define(){
+  static ThemeData define() {
     return ThemeData(
         backgroundColor: Colors.white,
         primarySwatch: Colors.blue,
         primaryColor: Colors.black,
         primaryIconTheme: const IconThemeData(color: Colors.black),
-        primaryTextTheme: const TextTheme(
-            subtitle1: TextStyle(color: Colors.black, fontFamily: "Aveny")),
-        textTheme:
-        const TextTheme(subtitle1: TextStyle(color: Colors.black)));
+        primaryTextTheme: TextTheme(subtitle1: CustomTextStyle.getBaseStyle()),
+        textTheme: TextTheme(subtitle1: CustomTextStyle.getBaseStyle()));
   }
 
   static ThemeData defineDemo() {
@@ -45,7 +45,7 @@ class AppTheme {
           style: ElevatedButton.styleFrom(
               primary: Colors.white,
               // padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-              textStyle: const TextStyle(
+              textStyle: CustomTextStyle.getBaseStyle(
                 fontStyle: FontStyle.italic,
                 fontSize: 24,
               ))),
@@ -54,7 +54,7 @@ class AppTheme {
       //文字字体 https://doc.flutterchina.club/custom-fonts/
       // fontFamily: 'Raleway',
       // 字体主题，包括标题、body等文字样式
-      // textTheme: TextTheme(button:TextStyle(fontStyle: Colors.pink)),
+      // textTheme: TextTheme(button:CustomTextStyle.getBaseStyle(fontStyle: Colors.pink)),
       // IconThemeData iconTheme, // Icon的默认样式
       // TargetPlatform platform, //指定平台，应用特定平台控件风格
       // ColorScheme ? colorScheme,
