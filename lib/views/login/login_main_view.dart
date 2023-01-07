@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/login/login_main_viewmodel.dart';
 
@@ -50,7 +49,7 @@ class _LoginMainViewState extends State<LoginMainView> {
           SizedBox(
               width: UIDefine.getWidth(), height: UIDefine.getPixelHeight(280)),
           Positioned(
-              child: Image.asset(AppImagePath.loginBg,
+              child: Image.asset('',
                   height: UIDefine.getPixelHeight(280), fit: BoxFit.fitHeight)),
           Positioned(
               top: UIDefine.getPixelHeight(90),
@@ -73,7 +72,7 @@ class _LoginMainViewState extends State<LoginMainView> {
                     SizedBox.expand(
                       child: Container(
                           alignment: Alignment.bottomRight,
-                          child: Image.asset(AppImagePath.loginPhoto)),
+                          child: Image.asset('')),
                     ),
                     Positioned(
                         left: 0,

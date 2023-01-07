@@ -105,26 +105,10 @@ flutter:
     - assets/icon/img/1.5x/
     - assets/icon/img/2x/
     - assets/icon/img/3x/
-    - assets/icon/img/achievement_mission/
-    - assets/icon/img/achievement_mission/1.5x/
-    - assets/icon/img/achievement_mission/2x/
-    - assets/icon/img/achievement_mission/3x/
-    - assets/icon/img/achievement_emblem/
-    - assets/icon/img/achievement_emblem/1.5x/
-    - assets/icon/img/achievement_emblem/2x/
-    - assets/icon/img/achievement_emblem/3x/
-    - assets/icon/img/daily_mission/
-    - assets/icon/img/daily_mission/1.5x/
-    - assets/icon/img/daily_mission/2x/
-    - assets/icon/img/daily_mission/3x/
-    - assets/icon/img/rank_emblem/
-    - assets/icon/img/rank_emblem/1.5x/
-    - assets/icon/img/rank_emblem/2x/
-    - assets/icon/img/rank_emblem/3x/
-    - assets/icon/img/auto_avatar/
-    - assets/icon/img/auto_avatar/1.5x/
-    - assets/icon/img/auto_avatar/2x/
-    - assets/icon/img/auto_avatar/3x/
+    - assets/icon/img/lock_mission/
+    - assets/icon/img/lock_mission/1.5x/
+    - assets/icon/img/lock_mission/2x/
+    - assets/icon/img/lock_mission/3x/
     - assets/icon/btn/
     - assets/icon/btn/1.5x/
     - assets/icon/btn/2x/
@@ -133,14 +117,6 @@ flutter:
     - assets/icon/coins/1.5x/
     - assets/icon/coins/2x/
     - assets/icon/coins/3x/
-    - assets/icon/footer/
-    - assets/icon/footer/1.5x/
-    - assets/icon/footer/2x/
-    - assets/icon/footer/3x/
-    - assets/icon/btm_bar/
-    - assets/icon/btm_bar/1.5x/
-    - assets/icon/btm_bar/2x/
-    - assets/icon/btm_bar/3x/
     - assets/icon/daily/
     - assets/icon/daily/1.5x/
     - assets/icon/daily/2x/
@@ -153,14 +129,6 @@ flutter:
     - assets/icon/icon/1.5x/
     - assets/icon/icon/2x/
     - assets/icon/icon/3x/
-    - assets/icon/logo/
-    - assets/icon/logo/1.5x/
-    - assets/icon/logo/2x/
-    - assets/icon/logo/3x/
-    - assets/icon/img/lock_mission/
-    - assets/icon/img/lock_mission/1.5x/
-    - assets/icon/img/lock_mission/2x/
-    - assets/icon/img/lock_mission/3x/
     - assets/animation/
     - assets/icon/language/
     - assets/icon/language/1.5x/

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
@@ -24,12 +25,12 @@ class HomeSubIllustrateView extends StatelessWidget {
             style: viewModel.getMainTitleStyle(),
           ),
           _buildSubView(
-            const Icon(Icons.add),
+            Image.asset(AppImagePath.fastIcon, fit: BoxFit.contain),
             tr('index-illustrate-text-2'),
             tr('index-illustrate-text-4'),
           ),
           _buildSubView(
-            const Icon(Icons.add),
+            Image.asset(AppImagePath.growthIcon, fit: BoxFit.contain),
             tr('index-illustrate-text-3'),
             tr('index-illustrate-text-5'),
           )
@@ -45,7 +46,10 @@ class HomeSubIllustrateView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              icon,
+              SizedBox(
+                  width: UIDefine.getPixelWidth(40),
+                  height: UIDefine.getPixelWidth(40),
+                  child: icon),
               SizedBox(width: UIDefine.getPixelWidth(10)),
               Expanded(
                   child: Column(

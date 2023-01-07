@@ -182,8 +182,7 @@ class DailyItemWidget extends StatelessWidget {
         strStatus = 'finish';
         break;
     }
-    return format(
-        '${AppImagePath.dailyMission}/dm_{index}_01_{strStatus}.png', {
+    return format(AppImagePath.dailyPath, {
       'index': NumberFormatUtil().integerTwoFormat(index + 1),
       'strStatus': strStatus
     });

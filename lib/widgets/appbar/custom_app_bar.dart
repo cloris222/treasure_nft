@@ -185,9 +185,10 @@ class CustomAppBar {
                 GestureDetector(
                     onTap: mainAction,
                     child: Container(
-                        color: Colors.transparent,
-                        child: Icon(Icons.home,
-                            size: iconSize, color: Colors.grey)))
+                      color: Colors.transparent,
+                      child: Image.asset(AppImagePath.homeImage,
+                          width: iconSize, height: iconSize, fit: BoxFit.cover),
+                    )),
               ])
         ]);
   }

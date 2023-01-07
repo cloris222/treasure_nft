@@ -101,8 +101,7 @@ class AchievementItemWidget extends StatelessWidget {
         strStatus = 'focus';
         break;
     }
-    return format(
-        '${AppImagePath.achievementMission}/ma_{index}_01_{strStatus}.png', {
+    return format(AppImagePath.achievementPath, {
       'index': NumberFormatUtil().integerTwoFormat(index + 1),
       'strStatus': strStatus
     });
