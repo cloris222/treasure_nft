@@ -48,7 +48,7 @@ class IconTextButtonWidget extends StatelessWidget {
               Image.asset(iconPath),
               const SizedBox(width: 4),
               Text(btnText,
-                  style: CustomTextStyle.getBaseStyle(
+                  style: AppTextStyle.getBaseStyle(
                       color: Colors.white,
                       fontSize: fontSize ?? UIDefine.fontSize16,
                       fontWeight: fontWeight ))

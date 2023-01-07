@@ -50,7 +50,7 @@ class PersonalSubLevelView extends StatelessWidget {
               '${tr('nationality')} : ',
               softWrap: false,
               overflow: TextOverflow.ellipsis,
-              style: CustomTextStyle.getBaseStyle(
+              style: AppTextStyle.getBaseStyle(
                   color: AppColors.dialogGrey,
                   fontSize: UIDefine.fontSize16,
                   fontWeight: FontWeight.w500),
@@ -58,7 +58,7 @@ class PersonalSubLevelView extends StatelessWidget {
           ),
           Text(
             '${tr(GlobalData.userInfo.country)} (${GlobalData.userInfo.zone})',
-            style: CustomTextStyle.getBaseStyle(
+            style: AppTextStyle.getBaseStyle(
                 color: AppColors.dialogBlack,
                 fontSize: UIDefine.fontSize18,
                 fontWeight: FontWeight.w500),
@@ -77,13 +77,13 @@ class PersonalSubLevelView extends StatelessWidget {
       ),
       const SizedBox(width: 5),
       Text(tr('totalAssets'),
-          style: CustomTextStyle.getBaseStyle(
+          style: AppTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize20,
               fontWeight: FontWeight.w500,
               color: AppColors.dialogBlack)),
       Flexible(child: Container()),
       Text(tr(' ${NumberFormatUtil().removeTwoPointFormat(userProperty?.totalBalance)}'),
-          style: CustomTextStyle.getBaseStyle(
+          style: AppTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize20,
               fontWeight: FontWeight.w500,
               color: AppColors.dialogBlack))
@@ -147,7 +147,7 @@ class PersonalSubLevelView extends StatelessWidget {
             maxLines: 1,
             softWrap: false,
             overflow: TextOverflow.ellipsis,
-            style: CustomTextStyle.getBaseStyle(
+            style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize14,
                 color: AppColors.dialogGrey,
                 fontWeight: FontWeight.w500),
@@ -163,7 +163,7 @@ class PersonalSubLevelView extends StatelessWidget {
             children: [
               needCoin ? _buildIcon() : const SizedBox(),
               Text(' ${NumberFormatUtil().removeTwoPointFormat(value)}',
-                  style: CustomTextStyle.getBaseStyle(
+                  style: AppTextStyle.getBaseStyle(
                       fontSize: UIDefine.fontSize18,
                       fontWeight: FontWeight.w500))
             ],
@@ -183,7 +183,7 @@ class PersonalSubLevelView extends StatelessWidget {
           child: Text(
             title,
             maxLines: 1,
-            style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
+            style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
           ),
         ),
       ),
@@ -196,7 +196,7 @@ class PersonalSubLevelView extends StatelessWidget {
               _buildIcon(),
               Text(
                   " ${NumberFormatUtil().integerFormat(start)}-${NumberFormatUtil().integerFormat(end)}",
-                  style: CustomTextStyle.getBaseStyle(
+                  style: AppTextStyle.getBaseStyle(
                       fontSize: UIDefine.fontSize14,
                       fontWeight: FontWeight.w500)),
             ],

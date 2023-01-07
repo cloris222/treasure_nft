@@ -33,14 +33,14 @@ class BalanceRecordItemView extends StatelessWidget {
 
                     Text(
                       _getTitle(),
-                      style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                      style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),
                 const SizedBox(height: 3),
                 Text(
                   BaseViewModel().changeTimeZone(data.time),
-                  style: CustomTextStyle.getBaseStyle(color: AppColors.dialogGrey,
+                  style: AppTextStyle.getBaseStyle(color: AppColors.dialogGrey,
                       fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
                 ),
               ],
@@ -48,7 +48,7 @@ class BalanceRecordItemView extends StatelessWidget {
 
             Text(
               _getAmount(),
-              style: CustomTextStyle.getBaseStyle(color: _getColor(),
+              style: AppTextStyle.getBaseStyle(color: _getColor(),
                   fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
             ),
           ],

@@ -53,7 +53,7 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
                       Container(
                           margin: const EdgeInsets.symmetric(vertical: 5),
                           child: Text(tr('nationality'),
-                              style: CustomTextStyle.getBaseStyle(
+                              style: AppTextStyle.getBaseStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: UIDefine.fontSize14))),
                       _getNationalityForm(),
@@ -92,7 +92,7 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
                       Container(
                           margin: const EdgeInsets.symmetric(vertical: 5),
                           child: Text(tr('birthday'),
-                              style: CustomTextStyle.getBaseStyle(
+                              style: AppTextStyle.getBaseStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: UIDefine.fontSize14))),
                       DatePickerOne(
@@ -129,7 +129,7 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
         //     height: UIDefine.getScreenWidth(11.11)),
         // SizedBox(width: UIDefine.getScreenWidth(2.7)),
         Text('${tr(GlobalData.userInfo.country)} (${GlobalData.userInfo.zone})',
-            style: CustomTextStyle.getBaseStyle(
+            style: AppTextStyle.getBaseStyle(
                 fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14)),
       ],
     );
@@ -142,7 +142,7 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
         Container(
             margin: const EdgeInsets.symmetric(vertical: 5),
             child: Text(title,
-                style: CustomTextStyle.getBaseStyle(
+                style: AppTextStyle.getBaseStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: UIDefine.fontSize14))),
         Container(
@@ -156,7 +156,7 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
                 color: AppColors.datePickerBorder,
                 borderRadius: BorderRadius.all(Radius.circular(10))),
             child: Text(content,
-                style: CustomTextStyle.getBaseStyle(
+                style: AppTextStyle.getBaseStyle(
                     color: AppColors.dialogGrey,
                     fontWeight: FontWeight.w500,
                     fontSize: UIDefine.fontSize14))),

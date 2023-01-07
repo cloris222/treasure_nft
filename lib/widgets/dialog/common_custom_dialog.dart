@@ -55,7 +55,7 @@ class CommonCustomDialog extends BaseDialog {
                 SizedBox(height: UIDefine.getScreenWidth(2.7)),
                 Text(title,
                     textAlign: TextAlign.center,
-                    style: CustomTextStyle.getBaseStyle(
+                    style: AppTextStyle.getBaseStyle(
                         color: AppColors.textBlack,
                         fontSize: UIDefine.fontSize24,
                         fontWeight: FontWeight.w500))
@@ -68,7 +68,7 @@ class CommonCustomDialog extends BaseDialog {
                 SizedBox(height: UIDefine.getScreenWidth(2.7)),
                 Text(content,
                     textAlign: TextAlign.center,
-                    style: CustomTextStyle.getBaseStyle(
+                    style: AppTextStyle.getBaseStyle(
                         color: AppColors.dialogGrey,
                         fontSize: UIDefine.fontSize14,
                         fontWeight: FontWeight.w500))

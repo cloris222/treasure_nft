@@ -26,6 +26,10 @@ class GlobalData {
     }
   }
 
+  static isDebugMode() {
+    return HttpSetting.debugMode;
+  }
+
   ///MARK: 判斷是否為要顯示登入動畫
   static bool showLoginAnimate = false;
 

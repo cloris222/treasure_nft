@@ -30,7 +30,7 @@ class AnimationDialog extends BaseDialog {
                 child: Text(
                   tr("reserve-success'"),
                   textAlign: TextAlign.center,
-                  style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize22),
+                  style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize22),
                 ))
           ],
         ),
@@ -43,7 +43,7 @@ class AnimationDialog extends BaseDialog {
             ),
             Text(
               tr("reserve-success-text'"),
-              style: CustomTextStyle.getBaseStyle(
+              style: AppTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize14, color: Colors.black54),
               textAlign: TextAlign.center,
             ),

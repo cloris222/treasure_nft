@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 
 import '../constant/theme/app_colors.dart';
 
 import '../constant/enum/style_enum.dart';
 
-class CustomTextStyle {
-  const CustomTextStyle._();
+class AppTextStyle {
+  const AppTextStyle._();
 
   static TextStyle getBaseStyle(
       {Color color = AppColors.textBlack,
       double? fontSize,
       FontWeight? fontWeight,
-      CustomTextFamily fontFamily = CustomTextFamily.PosteramaText,
+      AppTextFamily fontFamily = AppTextFamily.PosteramaText,
       FontStyle? fontStyle,
       double? height}) {
     return TextStyle(
@@ -19,7 +20,10 @@ class CustomTextStyle {
         fontSize: fontSize,
         fontFamily: fontFamily.name,
         fontWeight: fontWeight != null
-            ? (fontWeight.index > FontWeight.w500.index
+
+            ///MARK: 在release mode才加判斷
+            ? (fontWeight.index > FontWeight.w500.index &&
+                    !GlobalData.isDebugMode()
                 ? FontWeight.w500
                 : fontWeight)
             : null,

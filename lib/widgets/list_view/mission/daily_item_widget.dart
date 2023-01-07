@@ -74,7 +74,7 @@ class DailyItemWidget extends StatelessWidget {
                   child: Text(
                       '${tr('mis_award')} : ${data.point} ${tr('point')}',
                       maxLines: 1,
-                      style: CustomTextStyle.getBaseStyle(
+                      style: AppTextStyle.getBaseStyle(
                           fontSize: UIDefine.fontSize14,
                           color: AppColors.dialogGrey,
                           fontWeight: FontWeight.w500)),

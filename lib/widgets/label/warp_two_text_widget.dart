@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/enum/style_enum.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
@@ -14,7 +15,8 @@ class WarpTwoTextWidget extends StatelessWidget {
       this.fontWeight = FontWeight.w400,
       this.textAlign = TextAlign.start,
       this.warpAlignment = WrapAlignment.start,
-      this.overflow = TextOverflow.ellipsis})
+      this.overflow = TextOverflow.ellipsis,
+      this.family = AppTextFamily.PosteramaText})
       : super(key: key);
 
   final String text;
@@ -25,6 +27,7 @@ class WarpTwoTextWidget extends StatelessWidget {
   final WrapAlignment warpAlignment;
   final TextOverflow overflow;
   final int maxLines;
+  final AppTextFamily family;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,8 @@ class WarpTwoTextWidget extends StatelessWidget {
           overflow: overflow,
           maxLines: maxLines,
           textAlign: textAlign,
-          style: CustomTextStyle.getBaseStyle(
+          style: AppTextStyle.getBaseStyle(
+              fontFamily: family,
               fontSize: fontSize ?? UIDefine.fontSize12,
               fontWeight: fontWeight,
               color: color))

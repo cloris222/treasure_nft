@@ -141,7 +141,7 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
                     viewModel.initListView();
                   }
                 },
-                style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
+                style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
                 decoration: InputDecoration(
                   isDense: true,
                   contentPadding: EdgeInsets.zero,
@@ -149,8 +149,8 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
                       Image.asset('assets/icon/btn/btn_discover_01_nor.png'),
                   hintText: tr("select-placeholder'"),
                   hintStyle:
-                       CustomTextStyle.getBaseStyle(height: 1.6, color: AppColors.searchBar),
-                  labelStyle:  CustomTextStyle.getBaseStyle(color: Colors.black),
+                       AppTextStyle.getBaseStyle(height: 1.6, color: AppColors.searchBar),
+                  labelStyle:  AppTextStyle.getBaseStyle(color: Colors.black),
                   alignLabelWithHint: true,
                   border: viewMemberModel.setOutlineInputBorder(),
                   focusedBorder: viewMemberModel.setOutlineInputBorder(),
@@ -185,7 +185,7 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
             child: Row(
               children: <Widget>[
                 Text(_getCategoryText(category),
-                    style:  CustomTextStyle.getBaseStyle(color: AppColors.searchBar)),
+                    style:  AppTextStyle.getBaseStyle(color: AppColors.searchBar)),
               ],
             ));
       }).toList(),
@@ -215,7 +215,7 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
             child: Row(
               children: <Widget>[
                 Text(_getCategoryText(category),
-                    style:  CustomTextStyle.getBaseStyle(color: AppColors.searchBar)),
+                    style:  AppTextStyle.getBaseStyle(color: AppColors.searchBar)),
               ],
             ));
       }).toList(),

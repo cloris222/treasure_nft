@@ -59,7 +59,7 @@ class ActionButtonWidget extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           btnText,
-          style: CustomTextStyle.getBaseStyle(
+          style: AppTextStyle.getBaseStyle(
               color: textColor,
               fontSize: fontSize ?? UIDefine.fontSize16,
               fontWeight: fontWeight),

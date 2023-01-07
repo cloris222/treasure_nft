@@ -39,7 +39,7 @@ class AllMembersCard extends StatelessWidget {
                     children: [
                       Text(
                         leftTitle,
-                        style: CustomTextStyle.getBaseStyle(
+                        style: AppTextStyle.getBaseStyle(
                           color: AppColors.textGrey,
                           fontSize: UIDefine.fontSize12,
                         ),
@@ -47,7 +47,7 @@ class AllMembersCard extends StatelessWidget {
                       viewModel.getPadding(1),
                       Text(
                         leftValue,
-                        style: CustomTextStyle.getBaseStyle(
+                        style: AppTextStyle.getBaseStyle(
                           color: AppColors.mainThemeButton,
                           fontSize: UIDefine.fontSize14,
                         ),
@@ -63,7 +63,7 @@ class AllMembersCard extends StatelessWidget {
                     children: [
                       Text(
                         rightTitle,
-                        style: CustomTextStyle.getBaseStyle(
+                        style: AppTextStyle.getBaseStyle(
                           color: AppColors.textGrey,
                           fontSize: UIDefine.fontSize12,
                         ),
@@ -71,7 +71,7 @@ class AllMembersCard extends StatelessWidget {
                       viewModel.getPadding(1),
                       Text(
                         rightValue,
-                        style: CustomTextStyle.getBaseStyle(
+                        style: AppTextStyle.getBaseStyle(
                           color: AppColors.mainThemeButton,
                           fontSize: UIDefine.fontSize14,
                         ),

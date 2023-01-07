@@ -148,7 +148,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
           children: [
             Text(
               tr('getAccount'),
-              style: CustomTextStyle.getBaseStyle(
+              style: AppTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
             ),
           ],
@@ -194,7 +194,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
       children: [
         Text(
           tr('quantity'),
-          style: CustomTextStyle.getBaseStyle(
+          style: AppTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
         ),
         SizedBox(
@@ -225,7 +225,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
                     children: [
                       Text(
                         'USDT',
-                        style: CustomTextStyle.getBaseStyle(
+                        style: AppTextStyle.getBaseStyle(
                             fontSize: UIDefine.fontSize14,
                             fontWeight: FontWeight.w500),
                       ),
@@ -301,14 +301,14 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
       children: [
         Text(
           title,
-          style: CustomTextStyle.getBaseStyle(
+          style: AppTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize14,
               fontWeight: FontWeight.w500,
               color: AppColors.dialogGrey),
         ),
         Text(
           content,
-          style: CustomTextStyle.getBaseStyle(
+          style: AppTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize16,
               fontWeight: FontWeight.w500,
               color: AppColors.dialogBlack),
@@ -332,7 +332,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(tr('emailValid'),
-            style: CustomTextStyle.getBaseStyle(
+            style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500)),
         LoginEmailCodeView(
             countdownSecond: 60,

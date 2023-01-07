@@ -41,13 +41,13 @@ class CheckWalletSettingDialog extends BaseDialog {
         alignment: WrapAlignment.center,
         children: [
           Text(tr('pleaseAddress'),
-              style: CustomTextStyle.getBaseStyle(
+              style: AppTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize16,
                   fontWeight: FontWeight.w500,
                   color: textColor)),
           Column(mainAxisSize: MainAxisSize.min, children: checkAddress),
           Text(tr('appSaveWalletHint'),
-              style: CustomTextStyle.getBaseStyle(
+              style: AppTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize14,
                   fontWeight: FontWeight.w400,
                   color: textColor)),
@@ -76,12 +76,12 @@ class CheckWalletSettingDialog extends BaseDialog {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text('${tr('address')} ($type)',
-              style: CustomTextStyle.getBaseStyle(
+              style: AppTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize14,
                   fontWeight: FontWeight.w400,
                   color: textColor)),
           Text(account,
-              style: CustomTextStyle.getBaseStyle(
+              style: AppTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize14,
                   fontWeight: FontWeight.w500,
                   color: textColor))

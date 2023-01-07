@@ -106,7 +106,7 @@ class _SliderPageViewState extends State<SliderPageView> {
                       : AppColors.barFont01),
               child: Text(
                 type,
-                style: CustomTextStyle.getBaseStyle(
+                style: AppTextStyle.getBaseStyle(
                     color:
                         isCurrent ? AppColors.textBlack : AppColors.dialogGrey,
                     fontSize: UIDefine.fontSize16,

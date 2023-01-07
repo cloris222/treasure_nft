@@ -60,7 +60,7 @@ class _UserNovicePageState extends State<UserNovicePage> {
         ),
         Text(
           tr("instructionalVideo"),
-          style: CustomTextStyle.getBaseStyle(
+          style: AppTextStyle.getBaseStyle(
               fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize20),
         )
       ],

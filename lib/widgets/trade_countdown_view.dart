@@ -82,7 +82,7 @@ class _TradeCountDownViewState extends State<TradeCountDownView> {
                   tradeData.status == SellingState.Selling
                       ? Text(
                           tr('onSale'),
-                          style: CustomTextStyle.getBaseStyle(
+                          style: AppTextStyle.getBaseStyle(
                               color: AppColors.textRed,
                               fontSize: UIDefine.fontSize24,
                               fontWeight: FontWeight.w500),
@@ -123,7 +123,7 @@ class _TradeCountDownViewState extends State<TradeCountDownView> {
         ),
         child: Text(
           tr('trade-rules'),
-          style: CustomTextStyle.getBaseStyle(
+          style: AppTextStyle.getBaseStyle(
               fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14),
         ),
       ),

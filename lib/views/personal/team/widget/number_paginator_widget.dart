@@ -60,7 +60,7 @@ class NumberPaginatorWidgetState extends State<NumberPaginatorWidget> {
               child: PaginatorButton(
                 onPressed: () {},
                 child: Text('${_controller.currentPage-1}',
-                    style:  CustomTextStyle.getBaseStyle(
+                    style:  AppTextStyle.getBaseStyle(
                       color: AppColors.textGrey,
                     )
                 ),
@@ -71,7 +71,7 @@ class NumberPaginatorWidgetState extends State<NumberPaginatorWidget> {
               onPressed: () {},
               selected: true,
               child: Text('${_controller.currentPage}',
-                  style:  CustomTextStyle.getBaseStyle(
+                  style:  AppTextStyle.getBaseStyle(
                     color: AppColors.mainThemeButton
                   )
               ),
@@ -84,7 +84,7 @@ class NumberPaginatorWidgetState extends State<NumberPaginatorWidget> {
               child: PaginatorButton(
                 onPressed: () {},
                 child: Text('${_controller.currentPage+1}',
-                    style:  CustomTextStyle.getBaseStyle(
+                    style:  AppTextStyle.getBaseStyle(
                       color: AppColors.textGrey,
                     )
                 ),

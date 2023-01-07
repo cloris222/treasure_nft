@@ -40,7 +40,7 @@ class PersonalSubCommonView extends StatelessWidget {
       Flexible(
         child: Text(tr('usualFun'),
             softWrap: false,
-            style: CustomTextStyle.getBaseStyle(
+            style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize20,
                 fontWeight: FontWeight.w500,
                 color: AppColors.dialogBlack)),

@@ -84,7 +84,7 @@ class _SharePicStyleState extends State<SharePicStyle> {
           Text(
             tr("choosestyle"),
             style:
-                CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize20, color: Colors.white),
+                AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize20, color: Colors.white),
           ),
           const SizedBox(
             height: 5,
@@ -92,7 +92,7 @@ class _SharePicStyleState extends State<SharePicStyle> {
           Text(
             tr("style${pageIndex + 1}"),
             style:
-                CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize16, color: Colors.white),
+                AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize16, color: Colors.white),
           ),
           _buildSpace(),
           Expanded(
@@ -183,7 +183,7 @@ class _SharePicStyleState extends State<SharePicStyle> {
               children: [
                 Text(
                   GlobalData.userInfo.name,
-                  style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12),
+                  style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12),
                 ),
                 const SizedBox(height: 10),
                 Row(
@@ -231,8 +231,8 @@ class _SharePicStyleState extends State<SharePicStyle> {
 
   Widget _shareImgBottom(BuildContext context, int index) {
     TextStyle styleBlack =
-        CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500);
-    TextStyle styleGrey = CustomTextStyle.getBaseStyle(
+        AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500);
+    TextStyle styleGrey = AppTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize14,
         fontWeight: FontWeight.w500,
         color: AppColors.dialogGrey);

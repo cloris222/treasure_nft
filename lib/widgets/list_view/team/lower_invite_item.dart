@@ -40,7 +40,7 @@ class LowerInviteItemView extends StatelessWidget {
                     Text(BaseViewModel().changeTimeZone(itemData.time),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: CustomTextStyle.getBaseStyle(
+                        style: AppTextStyle.getBaseStyle(
                             fontSize: UIDefine.fontSize12,
                             fontWeight: FontWeight.w500,
                             color: AppColors.dialogGrey)),
@@ -58,13 +58,13 @@ class LowerInviteItemView extends StatelessWidget {
   Widget _buildParam(String title, String value) {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       Text(title,
-          style: CustomTextStyle.getBaseStyle(
+          style: AppTextStyle.getBaseStyle(
             fontSize: UIDefine.fontSize12,
           )),
       Text(
         value.trim(),
         overflow: TextOverflow.clip,
-        style: CustomTextStyle.getBaseStyle(
+        style: AppTextStyle.getBaseStyle(
             fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
       )
     ]);

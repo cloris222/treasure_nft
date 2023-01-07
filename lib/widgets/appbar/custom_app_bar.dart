@@ -66,7 +66,7 @@ class CustomAppBar {
                 child: Container(
                   alignment: Alignment.center,
                   child: Text(title,
-                      style: CustomTextStyle.getBaseStyle(
+                      style: AppTextStyle.getBaseStyle(
                           fontSize: UIDefine.fontSize24,
                           fontWeight: FontWeight.w500)),
                 ),
@@ -124,7 +124,7 @@ class CustomAppBar {
                   child: Text(
                     title,
                     textAlign: TextAlign.center,
-                    style: CustomTextStyle.getBaseStyle(
+                    style: AppTextStyle.getBaseStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w500,
                         fontSize: fontSize ?? UIDefine.fontSize18),

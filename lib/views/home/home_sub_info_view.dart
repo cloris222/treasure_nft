@@ -13,11 +13,11 @@ class HomeSubInfoView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle titleStyle = CustomTextStyle.getBaseStyle(
+    TextStyle titleStyle = AppTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize16,
         color: AppColors.textBlack,
         fontWeight: FontWeight.w500);
-    TextStyle contentStyle = CustomTextStyle.getBaseStyle(
+    TextStyle contentStyle = AppTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize14,
         color: AppColors.textHintBlack,
         fontWeight: FontWeight.w400);

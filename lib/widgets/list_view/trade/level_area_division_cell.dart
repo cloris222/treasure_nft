@@ -131,7 +131,7 @@ class _DivisionCellState extends State<DivisionCell> {
   @override
   Widget build(BuildContext context) {
     TextStyle style =
-        CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500);
+        AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500);
     return Container(
       margin: EdgeInsets.symmetric(
           horizontal: UIDefine.getWidth() / 20, vertical: 10),

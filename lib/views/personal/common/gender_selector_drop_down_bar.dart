@@ -53,7 +53,7 @@ class GenderSelectorDropDownBar extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Text(_getCategoryText(category),
-                    style:  CustomTextStyle.getBaseStyle(color: AppColors.textBlack)),
+                    style:  AppTextStyle.getBaseStyle(color: AppColors.textBlack)),
               ],
             ));
       }).toList(),
@@ -75,7 +75,7 @@ class GenderSelectorDropDownBar extends StatelessWidget {
     return Container(
         margin: const EdgeInsets.symmetric(vertical: 5),
         child: Text(text,
-            style: CustomTextStyle.getBaseStyle(
+            style: AppTextStyle.getBaseStyle(
                 fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14)));
   }
 }

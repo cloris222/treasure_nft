@@ -122,6 +122,11 @@ class UIDefine {
     return temp;
   }
 
+  ///字體sp / 360 * 100%
+  static double getFontSp(int fontSp) {
+    return _getFontSize(fontSp / 360 * 100) ;
+  }
+
   /// get screen width
   static double getWidth() {
     return _screenWidth;

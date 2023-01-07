@@ -35,7 +35,7 @@ class PersonalNewSubOrderView extends StatelessWidget {
                 children: [
                   Flexible(
                     child: Text(tr('myOrder'), // 標題 我的訂單
-                        style: CustomTextStyle.getBaseStyle(color: AppColors.dialogBlack,
+                        style: AppTextStyle.getBaseStyle(color: AppColors.dialogBlack,
                             fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500)),
                   ),
 
@@ -45,7 +45,7 @@ class PersonalNewSubOrderView extends StatelessWidget {
                       child: Row(
                         children: [
                           Text(tr('seeOrder'), // 查看訂單
-                              style: CustomTextStyle.getBaseStyle(color: AppColors.dialogBlack,
+                              style: AppTextStyle.getBaseStyle(color: AppColors.dialogBlack,
                                   fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500)),
                           const SizedBox(width: 4),
                           Image.asset(AppImagePath.rightArrow)

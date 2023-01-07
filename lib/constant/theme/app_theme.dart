@@ -19,8 +19,8 @@ class AppTheme {
         primarySwatch: Colors.blue,
         primaryColor: Colors.black,
         primaryIconTheme: const IconThemeData(color: Colors.black),
-        primaryTextTheme: TextTheme(subtitle1: CustomTextStyle.getBaseStyle()),
-        textTheme: TextTheme(subtitle1: CustomTextStyle.getBaseStyle()));
+        primaryTextTheme: TextTheme(subtitle1: AppTextStyle.getBaseStyle()),
+        textTheme: TextTheme(subtitle1: AppTextStyle.getBaseStyle()));
   }
 
   static ThemeData defineDemo() {
@@ -45,7 +45,7 @@ class AppTheme {
           style: ElevatedButton.styleFrom(
               primary: Colors.white,
               // padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-              textStyle: CustomTextStyle.getBaseStyle(
+              textStyle: AppTextStyle.getBaseStyle(
                 fontStyle: FontStyle.italic,
                 fontSize: 24,
               ))),

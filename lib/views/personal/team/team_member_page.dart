@@ -92,7 +92,7 @@ class BodyState extends State<Body> {
                 height: UIDefine.getScreenHeight(10),
                 child: Text(
                   tr('AllMembers'),
-                  style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
+                  style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
                 ),
               ),
 

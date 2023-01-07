@@ -52,11 +52,11 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
   }
 
   Widget _buildTotalEarningsTitle(BuildContext context) {
-    TextStyle styleGrey = CustomTextStyle.getBaseStyle(
+    TextStyle styleGrey = AppTextStyle.getBaseStyle(
         color: AppColors.textGrey,
         fontSize: UIDefine.fontSize18,
         fontWeight: FontWeight.w500);
-    TextStyle styleBlack = CustomTextStyle.getBaseStyle(
+    TextStyle styleBlack = AppTextStyle.getBaseStyle(
         color: AppColors.opacityBackground,
         fontSize: UIDefine.fontSize18,
         fontWeight: FontWeight.w500);

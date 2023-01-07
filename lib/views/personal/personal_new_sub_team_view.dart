@@ -30,7 +30,7 @@ class PersonalNewSubTeamView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(tr('myTeam'), // 標題 我的團隊
-                style: CustomTextStyle.getBaseStyle(color: AppColors.dialogBlack,
+                style: AppTextStyle.getBaseStyle(color: AppColors.dialogBlack,
                     fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500)),
 
             _getLine(),

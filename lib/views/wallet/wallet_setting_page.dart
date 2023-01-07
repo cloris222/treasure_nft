@@ -66,7 +66,7 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
             children: [
               _buildSettingEdit(),
               Text(tr('emailValid'),
-                  style: CustomTextStyle.getBaseStyle(
+                  style: AppTextStyle.getBaseStyle(
                       fontSize: UIDefine.fontSize14,
                       fontWeight: FontWeight.w500)),
               LoginEmailCodeView(
@@ -108,13 +108,13 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
             SizedBox(
                 width: UIDefine.getScreenWidth(68),
                 child: Text(viewModel.getCoinTitle(coin),
-                    style: CustomTextStyle.getBaseStyle(
+                    style: AppTextStyle.getBaseStyle(
                         fontSize: UIDefine.fontSize16,
                         fontWeight: FontWeight.w500)))
           ]),
           const SizedBox(height: 5),
           Text(tr('address'),
-              style: CustomTextStyle.getBaseStyle(
+              style: AppTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500)),
           TextField(
               controller: controller,
@@ -126,8 +126,8 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
                     0),
                 hintText: viewModel.getCoinHintText(coin),
                 hintStyle:
-                     CustomTextStyle.getBaseStyle(height: 1.6, color: AppColors.bolderGrey),
-                labelStyle:  CustomTextStyle.getBaseStyle(color: Colors.black),
+                     AppTextStyle.getBaseStyle(height: 1.6, color: AppColors.bolderGrey),
+                labelStyle:  AppTextStyle.getBaseStyle(color: Colors.black),
                 alignLabelWithHint: true,
                 border: AppTheme.style.styleTextEditBorderBackground(
                     color: AppColors.bolderGrey, radius: 10),

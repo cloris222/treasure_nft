@@ -61,7 +61,7 @@ class _LoginMainViewState extends State<LoginMainView> {
                 Container(
                   alignment: Alignment.bottomLeft,
                   child: Text('${tr('welcomeBack')} ,',
-                      style: CustomTextStyle.getBaseStyle(
+                      style: AppTextStyle.getBaseStyle(
                           fontSize: UIDefine.fontSize24,
                           color: Colors.white,
                           fontWeight: FontWeight.w500)),
@@ -79,7 +79,7 @@ class _LoginMainViewState extends State<LoginMainView> {
                         left: 0,
                         top: 0,
                         child: Text(tr('Login'),
-                            style: CustomTextStyle.getBaseStyle(
+                            style: AppTextStyle.getBaseStyle(
                                 fontSize: UIDefine.fontSize34,
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500)))

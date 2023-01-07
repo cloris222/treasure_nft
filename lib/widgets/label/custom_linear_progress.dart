@@ -76,7 +76,7 @@ class CustomLinearProgress extends StatelessWidget {
                       size: UIDefine.fontSize16)
                   : Text(
                       '$flex%',
-                      style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12),
+                      style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12),
                     ),
             ))
       ],

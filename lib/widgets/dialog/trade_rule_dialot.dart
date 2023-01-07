@@ -11,7 +11,7 @@ class TradeRuleDialog extends BaseCloseDialog {
   @override
   Widget buildBody() {
     TextStyle ruleStyle =
-    CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12, color: AppColors.dialogBlack);
+    AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12, color: AppColors.dialogBlack);
    return Wrap(
      spacing: 10,
      runSpacing: 10,

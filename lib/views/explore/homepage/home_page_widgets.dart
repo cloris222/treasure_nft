@@ -229,7 +229,7 @@ class HomePageWidgets {
                       padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(0), 0,
                           0, UIDefine.getScreenWidth(0)),
                       child: Text(data.artistId,
-                        style: CustomTextStyle.getBaseStyle(color: Colors.white, fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500)),
+                        style: AppTextStyle.getBaseStyle(color: Colors.white, fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500)),
                     ),
 
                     SizedBox(width: UIDefine.getScreenWidth(1.5)),
@@ -243,7 +243,7 @@ class HomePageWidgets {
                 ),
                 const SizedBox(height: 5),
                 Text('BY ${adData.creatorName}',
-                  style: CustomTextStyle.getBaseStyle(color: AppColors.textGrey, fontSize: UIDefine.fontSize14)),
+                  style: AppTextStyle.getBaseStyle(color: AppColors.textGrey, fontSize: UIDefine.fontSize14)),
               ],
             )
           ],
@@ -263,7 +263,7 @@ class HomePageWidgets {
                 width: UIDefine.getScreenWidth(80),
                 child: Text(
                   bSeeMore ? adData.artistInfo : _shortString(adData.artistInfo),
-                  style: CustomTextStyle.getBaseStyle(
+                  style: AppTextStyle.getBaseStyle(
                       color: AppColors.textWhite,
                       fontSize: UIDefine.fontSize12,
                       fontWeight: FontWeight.w500),
@@ -393,12 +393,12 @@ class HomePageWidgets {
             bIcon? const SizedBox(width: 4) : const SizedBox(),
             Text(amount,
               // style: CustomTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),), // 第一版UI
-              style: CustomTextStyle.getBaseStyle(color: AppColors.textWhite, fontSize: UIDefine.fontSize18, fontWeight: FontWeight.w500),),
+              style: AppTextStyle.getBaseStyle(color: AppColors.textWhite, fontSize: UIDefine.fontSize18, fontWeight: FontWeight.w500),),
           ],
         ),
         Text(title,
           // style: CustomTextStyle.getBaseStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w400),), // 第一版UI
-          style: CustomTextStyle.getBaseStyle(color: AppColors.textWhite, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w400),),
+          style: AppTextStyle.getBaseStyle(color: AppColors.textWhite, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w400),),
       ],
     );
   }
@@ -437,7 +437,7 @@ class HomePageWidgets {
                 SizedBox(
                     child: Text(
                       data.name,
-                      style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+                      style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
                     )
                 ),
               ],
@@ -455,7 +455,7 @@ class HomePageWidgets {
                     const SizedBox(width: 6),
                     Text(
                       BaseViewModel().numberFormat(data.price),
-                      style: CustomTextStyle.getBaseStyle(color: AppColors.textGrey, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+                      style: AppTextStyle.getBaseStyle(color: AppColors.textGrey, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
                     )
                   ],
                 ),
@@ -466,7 +466,7 @@ class HomePageWidgets {
                     Image.asset('assets/icon/icon/icon_trend_down_01.png'),
                     Text(
                       BaseViewModel().numberFormat(data.growAmount),
-                      style: CustomTextStyle.getBaseStyle(color: AppColors.textGrey, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+                      style: AppTextStyle.getBaseStyle(color: AppColors.textGrey, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
                     ),
                   ],
                 )

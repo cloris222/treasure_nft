@@ -38,7 +38,7 @@ class ReservationDialog extends BaseCloseDialog {
       children: [
         Text(
           tr('reserve'),
-          style: CustomTextStyle.getBaseStyle(
+          style: AppTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
         ),
         Column(
@@ -46,7 +46,7 @@ class ReservationDialog extends BaseCloseDialog {
           children: [
             Text(
               tr('numberAppointments'),
-              style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
+              style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
             ),
             const SizedBox(
               height: 5,
@@ -55,7 +55,7 @@ class ReservationDialog extends BaseCloseDialog {
               enabled: false,
               decoration: InputDecoration(
                   hintText: '1',
-                  hintStyle:  CustomTextStyle.getBaseStyle(color: AppColors.textGrey),
+                  hintStyle:  AppTextStyle.getBaseStyle(color: AppColors.textGrey),
                   border: AppStyle().styleTextEditBorderBackground(radius: 10),
                   filled: true,
                   fillColor: AppColors.textWhite,

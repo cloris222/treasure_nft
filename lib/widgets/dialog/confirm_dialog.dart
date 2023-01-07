@@ -29,7 +29,7 @@ class ConfirmDialog extends BaseDialog {
         Container(alignment: Alignment.topRight,child: createGeneralTitle()),
       Container(
         margin: mainMargin,
-          child: Text(mainText,textAlign: TextAlign.center,style: CustomTextStyle.getBaseStyle(color: Colors.grey,fontSize: UIDefine.fontSize18),)),
+          child: Text(mainText,textAlign: TextAlign.center,style: AppTextStyle.getBaseStyle(color: Colors.grey,fontSize: UIDefine.fontSize18),)),
       Container(
           margin: buttonMargin,
     child: ActionButtonWidget(isBorderStyle: true,btnText: tr('confirm'), onPressed: _onPress,isFillWidth: false,))

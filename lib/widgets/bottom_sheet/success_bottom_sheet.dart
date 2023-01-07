@@ -43,7 +43,7 @@ class SuccessBottomSheet extends BaseBottomSheet {
               children: [
                 Text(mainText,
                     textAlign: TextAlign.center,
-                    style: CustomTextStyle.getBaseStyle(
+                    style: AppTextStyle.getBaseStyle(
                         color: AppColors.textBlack,
                         fontSize: UIDefine.fontSize20,
                         fontWeight: FontWeight.w500)),
@@ -52,7 +52,7 @@ class SuccessBottomSheet extends BaseBottomSheet {
                         margin: const EdgeInsets.only(top: 10, bottom: 10),
                         child: Text(subText,
                             textAlign: TextAlign.center,
-                            style: CustomTextStyle.getBaseStyle(
+                            style: AppTextStyle.getBaseStyle(
                                 color: AppColors.textGrey, fontSize: UIDefine.fontSize12)),
                       )
                     : Container(margin: const EdgeInsets.only(top: 10)),

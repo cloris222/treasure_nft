@@ -32,14 +32,14 @@ class TeamContributionMemberView extends StatelessWidget {
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text(
             '$type${tr('levelMember')}',
-            style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
+            style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
           ),
           memberViewModel.getPadding(1),
           SizedBox(
               width: UIDefine.getScreenWidth(25),
               child: Text(
                 tr('bonus'),
-                style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
+                style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
               ))
         ]));
   }

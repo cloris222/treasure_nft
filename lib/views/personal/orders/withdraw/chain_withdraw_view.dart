@@ -143,7 +143,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
         decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.16),
               UIDefine.getScreenWidth(4.16), UIDefine.getScreenWidth(4.16), 0),
-          hintStyle:  CustomTextStyle.getBaseStyle(height: 1.6, color: AppColors.textBlack),
+          hintStyle:  AppTextStyle.getBaseStyle(height: 1.6, color: AppColors.textBlack),
           border: AppTheme.style.styleTextEditBorderBackground(
               color: AppColors.bolderGrey, radius: 10),
           focusedBorder: AppTheme.style.styleTextEditBorderBackground(
@@ -157,7 +157,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
               child: Row(children: [
                 TetherCoinWidget(size: UIDefine.fontSize24),
                 Text('  USDT-TRC20',
-                    style: CustomTextStyle.getBaseStyle(
+                    style: AppTextStyle.getBaseStyle(
                         color: viewModel.currentChain == CoinEnum.TRON
                             ? AppColors.deepBlue
                             : AppColors.searchBar))
@@ -167,7 +167,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
               child: Row(children: [
                 TetherCoinWidget(size: UIDefine.fontSize24),
                 Text('  USDT-BSC',
-                    style: CustomTextStyle.getBaseStyle(
+                    style: AppTextStyle.getBaseStyle(
                         color: viewModel.currentChain == CoinEnum.BSC
                             ? AppColors.deepBlue
                             : AppColors.searchBar))
@@ -183,7 +183,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
           children: [
             Text(
               tr('getAddress'),
-              style: CustomTextStyle.getBaseStyle(
+              style: AppTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
             ),
             GestureDetector(
@@ -282,7 +282,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
       children: [
         Text(
           tr('quantity'),
-          style: CustomTextStyle.getBaseStyle(
+          style: AppTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
         ),
         SizedBox(
@@ -314,7 +314,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
                     children: [
                       Text(
                         'USDT',
-                        style: CustomTextStyle.getBaseStyle(
+                        style: AppTextStyle.getBaseStyle(
                             fontSize: UIDefine.fontSize14,
                             fontWeight: FontWeight.w500),
                       ),
@@ -349,14 +349,14 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
       children: [
         Text(
           title,
-          style: CustomTextStyle.getBaseStyle(
+          style: AppTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize14,
               fontWeight: FontWeight.w500,
               color: AppColors.dialogGrey),
         ),
         Text(
           content,
-          style: CustomTextStyle.getBaseStyle(
+          style: AppTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize16,
               fontWeight: FontWeight.w500,
               color: AppColors.dialogBlack),
@@ -380,7 +380,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(tr('emailValid'),
-            style: CustomTextStyle.getBaseStyle(
+            style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500)),
         LoginEmailCodeView(
             countdownSecond: 60,

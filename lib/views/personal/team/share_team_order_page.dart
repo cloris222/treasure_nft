@@ -116,7 +116,7 @@ class _ShareTeamOrderPageState extends State<ShareTeamOrderPage> {
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(
             GlobalData.userInfo.name,
-            style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12),
+            style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12),
           ),
           const SizedBox(height: 10),
           Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
@@ -169,7 +169,7 @@ class _ShareTeamOrderPageState extends State<ShareTeamOrderPage> {
 
   Widget _buildOrderInfo() {
     double itemSize = UIDefine.getWidth() * 0.3;
-    TextStyle titleStyle = CustomTextStyle.getBaseStyle(
+    TextStyle titleStyle = AppTextStyle.getBaseStyle(
         color: AppColors.dialogGrey,
         fontWeight: FontWeight.w500,
         fontSize: UIDefine.fontSize12);
@@ -198,7 +198,7 @@ class _ShareTeamOrderPageState extends State<ShareTeamOrderPage> {
                     '${NumberFormatUtil().removeTwoPointFormat(viewModel.teamShareInfo?.profitPCT ?? 0)}%'
                         :
                     '${NumberFormatUtil().removeTwoPointFormat(viewModel.teamShareInfo?.promotePct ?? 0)}%',
-                    style: CustomTextStyle.getBaseStyle(
+                    style: AppTextStyle.getBaseStyle(
                         color: AppColors.mainThemeButton,
                         fontSize: UIDefine.fontSize28,
                         fontWeight: FontWeight.w500)),
@@ -219,7 +219,7 @@ class _ShareTeamOrderPageState extends State<ShareTeamOrderPage> {
                     Text(
                         NumberFormatUtil()
                             .removeTwoPointFormat(itemData.income),
-                        style: CustomTextStyle.getBaseStyle(
+                        style: AppTextStyle.getBaseStyle(
                             color: AppColors.textBlack,
                             fontSize: UIDefine.fontSize16,
                             fontWeight: FontWeight.w500))
@@ -259,12 +259,12 @@ class _ShareTeamOrderPageState extends State<ShareTeamOrderPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(tr('inviteCode'),
-                      style: CustomTextStyle.getBaseStyle(
+                      style: AppTextStyle.getBaseStyle(
                           color: AppColors.dialogGrey,
                           fontWeight: FontWeight.w500,
                           fontSize: UIDefine.fontSize12)),
                   Text(GlobalData.userInfo.inviteCode,
-                      style: CustomTextStyle.getBaseStyle(
+                      style: AppTextStyle.getBaseStyle(
                           color: AppColors.dialogBlack,
                           fontWeight: FontWeight.w500,
                           fontSize: UIDefine.fontSize16))

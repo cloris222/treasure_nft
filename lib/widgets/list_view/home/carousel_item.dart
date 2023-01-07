@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/enum/style_enum.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
@@ -22,14 +23,15 @@ class CarouselItemView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle titleStyle = CustomTextStyle.getBaseStyle(
+    TextStyle titleStyle = AppTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize10,
         fontWeight: FontWeight.w400,
         color: AppColors.textWhite);
-    TextStyle contextStyle = CustomTextStyle.getBaseStyle(
+    TextStyle contextStyle = AppTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize12,
-        fontWeight: FontWeight.w500,
-        color: AppColors.textWhite);
+        fontWeight: FontWeight.w600,
+        color: AppColors.textWhite,
+        fontFamily: AppTextFamily.Posterama1927);
 
     return Stack(
       children: [
@@ -51,7 +53,7 @@ class CarouselItemView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(itemData.name,
-                    style: CustomTextStyle.getBaseStyle(
+                    style: AppTextStyle.getBaseStyle(
                         fontSize: UIDefine.fontSize20,
                         fontWeight: FontWeight.w400,
                         color: AppColors.textWhite)),
@@ -60,7 +62,7 @@ class CarouselItemView extends StatelessWidget {
                   CircleNetworkIcon(networkUrl: itemData.avatarUrl, radius: 15),
                   SizedBox(width: UIDefine.getPixelWidth(8)),
                   Text(itemData.creator,
-                      style: CustomTextStyle.getBaseStyle(
+                      style: AppTextStyle.getBaseStyle(
                           fontSize: UIDefine.fontSize14,
                           fontWeight: FontWeight.w400,
                           color: AppColors.textWhite))

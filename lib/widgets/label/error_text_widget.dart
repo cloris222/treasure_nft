@@ -23,7 +23,7 @@ class ErrorTextWidget extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(data.getMessage(),
-                style: CustomTextStyle.getBaseStyle(
+                style: AppTextStyle.getBaseStyle(
                     color: data.textColor,
                     fontSize: fontSize ?? UIDefine.fontSize14))));
   }

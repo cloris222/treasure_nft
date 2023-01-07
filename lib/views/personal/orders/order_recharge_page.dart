@@ -91,7 +91,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
         decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.16),
               UIDefine.getScreenWidth(4.16), UIDefine.getScreenWidth(4.16), 0),
-          hintStyle:  CustomTextStyle.getBaseStyle(height: 1.6, color: AppColors.textBlack),
+          hintStyle:  AppTextStyle.getBaseStyle(height: 1.6, color: AppColors.textBlack),
           border: AppTheme.style.styleTextEditBorderBackground(
               color: AppColors.searchBar, radius: 10),
           focusedBorder: AppTheme.style.styleTextEditBorderBackground(
@@ -105,7 +105,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
               child: Row(children: [
                 TetherCoinWidget(size: UIDefine.fontSize24),
                 Text('  USDT-TRC20',
-                    style: CustomTextStyle.getBaseStyle(
+                    style: AppTextStyle.getBaseStyle(
                         color: viewModel.currentChain == CoinEnum.TRON
                             ? AppColors.deepBlue
                             : AppColors.searchBar))
@@ -115,7 +115,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
               child: Row(children: [
                 TetherCoinWidget(size: UIDefine.fontSize24),
                 Text('  USDT-BSC',
-                    style: CustomTextStyle.getBaseStyle(
+                    style: AppTextStyle.getBaseStyle(
                         color: viewModel.currentChain == CoinEnum.BSC
                             ? AppColors.deepBlue
                             : AppColors.searchBar))
@@ -128,7 +128,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
       runSpacing: 10,
       children: [
         Text(tr('rechargeNetwork'),
-            style: CustomTextStyle.getBaseStyle(
+            style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize16,
                 color: AppColors.dialogBlack,
                 fontWeight: FontWeight.w500)),
@@ -168,7 +168,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
         ),
         Text("${tr("recharge-hint-1'")} ${tr("recharge-hint-2'")}",
             maxLines: 2,
-            style: CustomTextStyle.getBaseStyle(
+            style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize12,
                 color: AppColors.homeGrey)),
         const SizedBox(width: 1),
@@ -186,7 +186,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
         children: [
           Text(
             tr('rechargeUaddr'),
-            style: CustomTextStyle.getBaseStyle(
+            style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize12,
                 color: AppColors.dialogBlack,
                 fontWeight: FontWeight.w500),
@@ -199,7 +199,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
                       GlobalData.userWalletInfo?[viewModel.currentChain.name] ??
                           '',
                       maxLines: 2,
-                      style: CustomTextStyle.getBaseStyle(
+                      style: AppTextStyle.getBaseStyle(
                           fontSize: UIDefine.fontSize12,
                           color: AppColors.dialogGrey,
                           fontWeight: FontWeight.w500))),
@@ -228,7 +228,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
         children: [
           Text(
             tr('chain'),
-            style: CustomTextStyle.getBaseStyle(
+            style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize12,
                 color: AppColors.dialogBlack,
                 fontWeight: FontWeight.w500),
@@ -238,7 +238,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
               viewModel.currentChain == CoinEnum.TRON
                   ? 'TRON (TRC-20)'
                   : 'BSC (BEP-20)',
-              style: CustomTextStyle.getBaseStyle(
+              style: AppTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize12,
                   color: AppColors.textHintBlack,
                   fontWeight: FontWeight.w500))
@@ -252,11 +252,11 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
       Row(
         children: [
           Text(tr("minimum-rechargeAmount'"),
-              style: CustomTextStyle.getBaseStyle(
+              style: AppTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize12, color: AppColors.homeGrey)),
           SizedBox(width: UIDefine.getPixelWidth(5)),
           Text('10 USDT',
-              style: CustomTextStyle.getBaseStyle(
+              style: AppTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize12, color: AppColors.homeGrey))
         ],
       ),
@@ -265,7 +265,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
           '${tr("minimum-rechargeAmount-start'")} ${viewModel.currentChain == CoinEnum.TRON ? 'USDT-TRC20' : 'USDT-BSC'} ${tr("minimum-rechargeAmount-end'")}',
           maxLines: 2,
           textAlign: TextAlign.start,
-          style: CustomTextStyle.getBaseStyle(
+          style: AppTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize12, color: AppColors.textRed)),
       SizedBox(height: UIDefine.getScreenWidth(6)),
     ]);

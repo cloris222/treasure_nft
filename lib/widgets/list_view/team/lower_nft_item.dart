@@ -57,7 +57,7 @@ class _LowerNFTItem extends State<LowerNFTItemView> {
 
                   Text(widget.itemData.name,
                       overflow: TextOverflow.ellipsis,
-                      style: CustomTextStyle.getBaseStyle(
+                      style: AppTextStyle.getBaseStyle(
                         fontSize: UIDefine.fontSize14,
                         fontWeight: FontWeight.w500,
                       ),
@@ -74,7 +74,7 @@ class _LowerNFTItem extends State<LowerNFTItemView> {
                   viewModel.getPadding(1),
 
                   Text(widget.itemData.currentPrice.toString(),
-                    style: CustomTextStyle.getBaseStyle(
+                    style: AppTextStyle.getBaseStyle(
                       fontSize: UIDefine.fontSize14,
                     ),),
                 ],)

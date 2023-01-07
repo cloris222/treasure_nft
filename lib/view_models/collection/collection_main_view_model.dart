@@ -40,7 +40,7 @@ class CollectionMainViewModel extends BaseViewModel {
                       padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.5), 0, UIDefine.getScreenWidth(3), 0),
                       child: Text(
                         _getTabTitle(dataList[i]),
-                        style: CustomTextStyle.getBaseStyle(color: _getButtonColor(isCurrent), fontSize: UIDefine.fontSize16),
+                        style: AppTextStyle.getBaseStyle(color: _getButtonColor(isCurrent), fontSize: UIDefine.fontSize16),
                         textAlign: TextAlign.center,
                       ),
                     ),

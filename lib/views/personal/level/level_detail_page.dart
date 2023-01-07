@@ -88,7 +88,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
       LevelIconWidget(
           level: GlobalData.userInfo.level, size: UIDefine.getScreenHeight(20)),
       Text('${tr('level')} ${GlobalData.userInfo.level}',
-          style: CustomTextStyle.getBaseStyle(
+          style: AppTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize30, fontWeight: FontWeight.w500)),
       _buildSpace(height: 2),
 
@@ -96,7 +96,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
       Row(children: [
         Text(
           '${tr('lv_point')} : ${GlobalData.userLevelInfo?.point} / ${GlobalData.userLevelInfo?.pointRequired} (${viewModel.getStrPointPercentage()})',
-          style: CustomTextStyle.getBaseStyle(
+          style: AppTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w400),
         ),
         Flexible(child: Container()),
@@ -131,7 +131,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
             SizedBox(width: UIDefine.getScreenWidth(2)),
             Text(
               tr('pt_DAILY'),
-              style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize16),
+              style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize16),
             ),
             Flexible(child: Container()),
             BaseIconWidget(
@@ -153,7 +153,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
             SizedBox(width: UIDefine.getScreenWidth(2)),
             Text(
               tr('achievement'),
-              style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize16),
+              style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize16),
             ),
             Flexible(child: Container()),
             BaseIconWidget(
@@ -201,7 +201,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
               : AppImagePath.levelLock,
           size: UIDefine.fontSize26),
       Text(' ${tr('level')} $level ',
-          style: CustomTextStyle.getBaseStyle(
+          style: AppTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500)),
       LevelIconWidget(level: level, size: UIDefine.fontSize26),
       Flexible(child: Container()),
@@ -258,7 +258,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
               title,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: CustomTextStyle.getBaseStyle(
+              style: AppTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize14,
                   fontWeight: FontWeight.w500,
                   color: AppColors.dialogGrey),
@@ -272,7 +272,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
                   child: TetherCoinWidget(size: UIDefine.fontSize16)),
               SizedBox(width: UIDefine.getScreenWidth(1)),
               Text(context,
-                  style: CustomTextStyle.getBaseStyle(
+                  style: AppTextStyle.getBaseStyle(
                       fontSize: UIDefine.fontSize14,
                       fontWeight: FontWeight.w500,
                       color: AppColors.dialogBlack)),

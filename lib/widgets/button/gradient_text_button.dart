@@ -50,7 +50,7 @@ class GradientTextButton extends ActionButtonWidget {
             child: Text(
               btnText,
               textAlign: textAlign,
-              style: CustomTextStyle.getBaseStyle(
+              style: AppTextStyle.getBaseStyle(
                   fontWeight: fontWeight,
                   color: textColor, fontSize: fontSize ?? UIDefine.fontSize16),
             )));

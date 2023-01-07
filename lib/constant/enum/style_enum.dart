@@ -1,1 +1,1 @@
-enum CustomTextFamily { PosteramaText, Posterama1927 }
+enum AppTextFamily { PosteramaText, Posterama1927 }

@@ -134,7 +134,7 @@ class _BuyerSellerInfoCard extends State<BuyerSellerInfoCard> {
                           bShowMore? tr('SeeLess') : tr('SeeMore')
                               :
                           tr(dataList[i].title), // 在外部要塞多語系的key
-                          style: CustomTextStyle.getBaseStyle(color: _setTextColor(dataList[i]),
+                          style: AppTextStyle.getBaseStyle(color: _setTextColor(dataList[i]),
                               fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                         ),
 
@@ -162,7 +162,7 @@ class _BuyerSellerInfoCard extends State<BuyerSellerInfoCard> {
                                 :
                             tr(dataList[i].content),
                             softWrap: true,
-                            style: CustomTextStyle.getBaseStyle(color: _setTextColor(dataList[i]),
+                            style: AppTextStyle.getBaseStyle(color: _setTextColor(dataList[i]),
                                 fontSize: i == dataList.length - 1 ? UIDefine.fontSize12 : UIDefine.fontSize14,
                                 fontWeight: FontWeight.w500),
                           )
@@ -196,7 +196,7 @@ class _BuyerSellerInfoCard extends State<BuyerSellerInfoCard> {
           children: [
             Text(
               tr(moreInfoDataList[i].title),
-              style: CustomTextStyle.getBaseStyle(color: AppColors.textGrey,
+              style: AppTextStyle.getBaseStyle(color: AppColors.textGrey,
                   fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
             ),
 
@@ -216,7 +216,7 @@ class _BuyerSellerInfoCard extends State<BuyerSellerInfoCard> {
                     tr(moreInfoDataList[i].content)
                         :
                     BaseViewModel().numberFormat(moreInfoDataList[i].content), // 金額取小數點後兩位
-                    style: CustomTextStyle.getBaseStyle(color: i == 1? AppColors.mainThemeButton : AppColors.textBlack,
+                    style: AppTextStyle.getBaseStyle(color: i == 1? AppColors.mainThemeButton : AppColors.textBlack,
                         fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                   )
                 )

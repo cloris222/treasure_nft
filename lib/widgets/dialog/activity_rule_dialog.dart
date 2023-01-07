@@ -14,7 +14,7 @@ class ActivityRuleDialog extends BaseCloseDialog {
   @override
   Widget buildBody() {
     TextStyle ruleStyle =
-        CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14, color: AppColors.dialogBlack);
+        AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14, color: AppColors.dialogBlack);
     return Wrap(
       spacing: 10,
       runSpacing: 10,

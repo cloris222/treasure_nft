@@ -77,7 +77,7 @@ class _UserSettingPageState extends State<UserSettingPage> {
               margin: EdgeInsets.only(left: UIDefine.getScreenWidth(5.5)),
               alignment: Alignment.centerLeft,
               child: Text('${tr('version')} v$version',
-                  style: CustomTextStyle.getBaseStyle(
+                  style: AppTextStyle.getBaseStyle(
                       fontSize: UIDefine.fontSize12,
                       color: AppColors.textGrey))),
           space,
@@ -141,7 +141,7 @@ class _UserSettingPageState extends State<UserSettingPage> {
                                     bLockIcon
                                         ? tr('changePassword')
                                         : tr('userInfo'),
-                                    style: CustomTextStyle.getBaseStyle(
+                                    style: AppTextStyle.getBaseStyle(
                                         color: AppColors.textBlack,
                                         fontSize: UIDefine.fontSize14,
                                         fontWeight: FontWeight.w500),

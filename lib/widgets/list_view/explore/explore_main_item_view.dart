@@ -72,7 +72,7 @@ class _ExploreMainItemView extends State<ExploreMainItemView> {
                               child: Text(
                                 exploreMainResponseData.artistName,
                                 overflow: TextOverflow.ellipsis,
-                                style: CustomTextStyle.getBaseStyle(color: Colors.black, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),),
+                                style: AppTextStyle.getBaseStyle(color: Colors.black, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),),
                             ),
 
                             SizedBox(width: UIDefine.getScreenWidth(2)),

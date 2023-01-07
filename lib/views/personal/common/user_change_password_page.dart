@@ -75,7 +75,7 @@ class _UserChangePasswordPage extends State<UserChangePasswordPage> {
                 onChanged: viewModel.onPasswordChanged),
             SizedBox(height: UIDefine.getScreenWidth(5.5)),
             Text(tr('emailValid'),
-                style: CustomTextStyle.getBaseStyle(
+                style: AppTextStyle.getBaseStyle(
                     fontSize: UIDefine.fontSize14,
                     fontWeight: FontWeight.w500)),
             LoginEmailCodeView(

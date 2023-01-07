@@ -207,7 +207,7 @@ abstract class BaseListViewModel extends BaseViewModel {
             onPressed: _onMorePress,
             child: Text(
               tr('more'),
-              style: CustomTextStyle.getBaseStyle(
+              style: AppTextStyle.getBaseStyle(
                   color: AppColors.textBlack, fontSize: UIDefine.fontSize12),
             )));
   }

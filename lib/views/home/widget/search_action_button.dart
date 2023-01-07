@@ -66,7 +66,7 @@ class SearchActionButton extends StatelessWidget {
             child: Center(
             child:Text(
               btnText,
-              style: CustomTextStyle.getBaseStyle(color: textColor, fontSize: fontSize??UIDefine.fontSize12),
+              style: AppTextStyle.getBaseStyle(color: textColor, fontSize: fontSize??UIDefine.fontSize12),
             ))
         ),
        );

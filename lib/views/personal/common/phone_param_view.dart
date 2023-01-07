@@ -88,7 +88,7 @@ class PhoneParamView extends StatelessWidget {
     return Container(
         margin: const EdgeInsets.symmetric(vertical: 5),
         child: Text(text,
-            style: CustomTextStyle.getBaseStyle(
+            style: AppTextStyle.getBaseStyle(
                 fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14)));
   }
 
@@ -118,7 +118,7 @@ class PhoneParamView extends StatelessWidget {
               child: Text(
                   '+${data.areaCode} ${_getSubString(tr(data.country))}',
                   overflow: TextOverflow.ellipsis,
-                  style: CustomTextStyle.getBaseStyle(
+                  style: AppTextStyle.getBaseStyle(
                       color: AppColors.textWhite,
                       fontSize: UIDefine.fontSize12)),
             ));

@@ -18,7 +18,7 @@ class DomainBar extends StatelessWidget {
         child: Text(
           tr('officialSite_title'),
           textAlign: TextAlign.left,
-          style: CustomTextStyle.getBaseStyle(
+          style: AppTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize12,
               color: Colors.white,
               fontWeight: FontWeight.w300),

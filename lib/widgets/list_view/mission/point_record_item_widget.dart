@@ -42,23 +42,23 @@ class PointRecordItemWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(record.getTitle(),
-            style: CustomTextStyle.getBaseStyle(
+            style: AppTextStyle.getBaseStyle(
                 color: AppColors.dialogBlack,
                 fontSize: UIDefine.fontSize14,
                 fontWeight: FontWeight.w500)),
         SizedBox(height: UIDefine.getPixelHeight(5)),
         Text(BaseViewModel().changeTimeZone(record.time),
-            style: CustomTextStyle.getBaseStyle(
+            style: AppTextStyle.getBaseStyle(
                 color: AppColors.searchBar,
                 fontSize: UIDefine.fontSize12,
                 fontWeight: FontWeight.w500)),
         Text('${tr('type')} : ${record.getStringType()}',
-            style: CustomTextStyle.getBaseStyle(
+            style: AppTextStyle.getBaseStyle(
                 color: AppColors.dialogGrey,
                 fontSize: UIDefine.fontSize12,
                 fontWeight: FontWeight.w500)),
         Text('${tr('lv_point')} : ${record.getStringPoint()}',
-            style: CustomTextStyle.getBaseStyle(
+            style: AppTextStyle.getBaseStyle(
                 color: AppColors.dialogGrey,
                 fontSize: UIDefine.fontSize12,
                 fontWeight: FontWeight.w500))

@@ -36,7 +36,7 @@ class CommonTextWidget extends StatelessWidget {
         width: fillWidth ? UIDefine.getWidth() : null,
         child: Text(
           text,
-          style: CustomTextStyle.getBaseStyle(
+          style: AppTextStyle.getBaseStyle(
               fontSize: fontSize ?? UIDefine.fontSize14,
               color: isConnectText
                   ? AppColors.mainThemeButton

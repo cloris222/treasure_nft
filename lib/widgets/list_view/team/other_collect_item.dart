@@ -27,7 +27,7 @@ class OtherCollectItem extends StatelessWidget {
             data.nftName,
             maxLines: 2,
             textAlign: TextAlign.start,
-            style: CustomTextStyle.getBaseStyle(
+            style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
           )),
       space,
@@ -36,7 +36,7 @@ class OtherCollectItem extends StatelessWidget {
         SizedBox(width: UIDefine.getScreenWidth(1)),
         Text(
           NumberFormatUtil().removeTwoPointFormat(data.nftCurrentPrice),
-          style: CustomTextStyle.getBaseStyle(
+          style: AppTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
         )
       ])

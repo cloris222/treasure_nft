@@ -43,7 +43,7 @@ class WalletInfoItem extends StatelessWidget {
           child: Text(NumberFormatUtil().removeTwoPointFormat(value),
               maxLines: 1,
               textAlign: TextAlign.start,
-              style: CustomTextStyle.getBaseStyle(
+              style: AppTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize14,
                   color: AppColors.dialogBlack,
                   fontWeight: FontWeight.w500)),
@@ -59,7 +59,7 @@ class WalletInfoItem extends StatelessWidget {
         title,
         maxLines: 2,
         textAlign: TextAlign.center,
-        style: CustomTextStyle.getBaseStyle(
+        style: AppTextStyle.getBaseStyle(
             fontSize: UIDefine.fontSize14, color: AppColors.dialogBlack),
       ),
     );

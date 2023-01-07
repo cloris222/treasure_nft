@@ -34,7 +34,7 @@ class PersonalNewSubLevelView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(tr('我的資產'), // test 缺多國 標題 我的資產
-                style: CustomTextStyle.getBaseStyle(color: AppColors.dialogBlack,
+                style: AppTextStyle.getBaseStyle(color: AppColors.dialogBlack,
                     fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500)),
             _getLine(),
 
@@ -86,7 +86,7 @@ class PersonalNewSubLevelView extends StatelessWidget {
         children: [
           Text(title, // 小標題
               overflow: TextOverflow.ellipsis,
-              style: CustomTextStyle.getBaseStyle(color: AppColors.dialogGrey,
+              style: AppTextStyle.getBaseStyle(color: AppColors.dialogGrey,
                   fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500)),
           const SizedBox(height: 6),
           Row(
@@ -100,7 +100,7 @@ class PersonalNewSubLevelView extends StatelessWidget {
               Text( useFormat ?
               ' ${NumberFormatUtil().removeTwoPointFormat(value)}'
                   : value??'', // 數值
-                  style: CustomTextStyle.getBaseStyle(
+                  style: AppTextStyle.getBaseStyle(
                       fontSize: fontSize?? UIDefine.fontSize16,
                       fontWeight: FontWeight.w500))
             ],

@@ -50,7 +50,7 @@ class CollectionTransferDialogView extends BaseDialog {
 
           Text(
             name,
-            style: CustomTextStyle.getBaseStyle(
+            style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
           ),
 
@@ -60,7 +60,7 @@ class CollectionTransferDialogView extends BaseDialog {
               width: double.infinity,
               child: Text(
                 tr("mail_valid_code"),
-                style: CustomTextStyle.getBaseStyle(
+                style: AppTextStyle.getBaseStyle(
                     fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
               )
           ),
@@ -90,7 +90,7 @@ class CollectionTransferDialogView extends BaseDialog {
                     filled: true,
                     fillColor: AppColors.textWhite,
                     hintText: tr("code"),
-                    hintStyle: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize10, color: AppColors.searchBar),
+                    hintStyle: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize10, color: AppColors.searchBar),
                     contentPadding: const EdgeInsets.only(left: 10, bottom: 6, top: 6)
                   ),
                 )
@@ -119,7 +119,7 @@ class CollectionTransferDialogView extends BaseDialog {
               visible: bEmpty,
               child: Text(
                 tr("rule_void"),
-                style: CustomTextStyle.getBaseStyle(color: AppColors.reservationLevel5,
+                style: AppTextStyle.getBaseStyle(color: AppColors.reservationLevel5,
                     fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w400),
               ),
             ),
@@ -132,7 +132,7 @@ class CollectionTransferDialogView extends BaseDialog {
             alignment: Alignment.centerLeft,
             child: Text(
               tr("valid_time") + ': ' + leftTime,
-              style: CustomTextStyle.getBaseStyle(color: AppColors.textRed,
+              style: AppTextStyle.getBaseStyle(color: AppColors.textRed,
                   fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
             ),
           ),
@@ -154,7 +154,7 @@ class CollectionTransferDialogView extends BaseDialog {
                     },
                     child: Text(
                       tr('cancel'), // 轉讓
-                      style: CustomTextStyle.getBaseStyle(
+                      style: AppTextStyle.getBaseStyle(
                           color: AppColors.mainThemeButton, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
                     )
                 ),
@@ -172,7 +172,7 @@ class CollectionTransferDialogView extends BaseDialog {
                     },
                     child: Text(
                       tr('verify'), // 販售
-                      style: CustomTextStyle.getBaseStyle(
+                      style: AppTextStyle.getBaseStyle(
                           color: AppColors.textWhite, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
                     )
                 ),
@@ -191,7 +191,7 @@ class CollectionTransferDialogView extends BaseDialog {
       child: Text(
         tr("transferCheck"),
         style:
-        CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500),
+        AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500),
       )
     );
   }

@@ -27,7 +27,7 @@ class SavesInfoCard extends StatelessWidget {
           const SizedBox(height: 5),
           Text(
             BaseViewModel().changeTimeZone(data.time),
-            style: CustomTextStyle.getBaseStyle(
+            style: AppTextStyle.getBaseStyle(
                 color: AppColors.searchBar,
                 fontSize: UIDefine.fontSize12,
                 fontWeight: FontWeight.w500),
@@ -49,7 +49,7 @@ class SavesInfoCard extends StatelessWidget {
             data.saveType == "LEVEL_UP_ADD"
                 ? tr('bonus_referral')
                 : tr('bonus_trade'),
-            style: CustomTextStyle.getBaseStyle(
+            style: AppTextStyle.getBaseStyle(
                 color: AppColors.textBlack,
                 fontSize: UIDefine.fontSize20,
                 fontWeight: FontWeight.w500))
@@ -63,14 +63,14 @@ class SavesInfoCard extends StatelessWidget {
       children: [
         Text(
           tr('mintAmount'), // 在外部要塞多語系的key
-          style: CustomTextStyle.getBaseStyle(
+          style: AppTextStyle.getBaseStyle(
               color: AppColors.dialogGrey,
               fontSize: UIDefine.fontSize14,
               fontWeight: FontWeight.w500),
         ),
         Text(
           '+${NumberFormatUtil().removeTwoPointFormat(data.saveAmount)}',
-          style: CustomTextStyle.getBaseStyle(
+          style: AppTextStyle.getBaseStyle(
               color: AppColors.textBlack,
               fontSize: UIDefine.fontSize14,
               fontWeight: FontWeight.w500),

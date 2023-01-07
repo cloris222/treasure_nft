@@ -16,7 +16,7 @@ class BottomSheetTitle extends StatelessWidget {
           height: UIDefine.getPixelWidth(50),
           alignment: Alignment.center,
           child: Text(title,
-              style: CustomTextStyle.getBaseStyle(
+              style: AppTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500)),
         ),
         Positioned(

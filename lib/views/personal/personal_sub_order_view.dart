@@ -43,7 +43,7 @@ class PersonalSubOrderView extends StatelessWidget {
       ),
       const SizedBox(width: 5),
       Text(tr('myOrder'),
-          style: CustomTextStyle.getBaseStyle(
+          style: AppTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize20,
               fontWeight: FontWeight.w500,
               color: AppColors.dialogBlack)),
@@ -59,7 +59,7 @@ class PersonalSubOrderView extends StatelessWidget {
                     child: Text(tr('seeOrder'),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: CustomTextStyle.getBaseStyle(
+                        style: AppTextStyle.getBaseStyle(
                             fontSize: UIDefine.fontSize12,
                             color: AppColors.dialogGrey,
                             fontWeight: FontWeight.w500)),

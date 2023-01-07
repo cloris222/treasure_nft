@@ -34,7 +34,7 @@ class FlexTwoTextWidget extends StatelessWidget {
             textAlign: textAlign,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: CustomTextStyle.getBaseStyle(
+            style: AppTextStyle.getBaseStyle(
                 fontSize: getFontSize(fontSize),
                 color: color,
                 fontWeight: fontWeight)));

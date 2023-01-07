@@ -389,14 +389,14 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
           searchValue = text;
           _getNewProductListResponse();
         },
-        style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
+        style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
         decoration: InputDecoration(
           contentPadding:
               EdgeInsets.fromLTRB(0, UIDefine.getScreenWidth(4.16), 0, 0),
           prefixIcon: Image.asset('assets/icon/btn/btn_discover_01_nor.png'),
           hintText: tr("select-placeholder'"),
-          hintStyle:  CustomTextStyle.getBaseStyle(height: 1.6, color: AppColors.searchBar),
-          labelStyle:  CustomTextStyle.getBaseStyle(color: Colors.black),
+          hintStyle:  AppTextStyle.getBaseStyle(height: 1.6, color: AppColors.searchBar),
+          labelStyle:  AppTextStyle.getBaseStyle(color: Colors.black),
           alignLabelWithHint: true,
           border: AppTheme.style.styleTextEditBorderBackground(
               color: AppColors.searchBar, radius: 10),
@@ -436,7 +436,7 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
             child: Row(
               children: <Widget>[
                 Text(_getCategoryText(category),
-                    style:  CustomTextStyle.getBaseStyle(color: AppColors.searchBar)),
+                    style:  AppTextStyle.getBaseStyle(color: AppColors.searchBar)),
               ],
             ));
       }).toList(),

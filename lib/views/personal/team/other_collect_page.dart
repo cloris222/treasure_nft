@@ -88,14 +88,14 @@ class _OtherCollectPageState extends State<OtherCollectPage> {
               viewModel.nftName = text;
               viewModel.initListView();
             },
-            style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
+            style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
             decoration: InputDecoration(
               prefixIcon:
                   Image.asset('assets/icon/btn/btn_discover_01_nor.png'),
               hintText: tr("select-placeholder'"),
               hintStyle:
-                   CustomTextStyle.getBaseStyle(height: 1.6, color: AppColors.searchBar),
-              labelStyle:  CustomTextStyle.getBaseStyle(color: Colors.black),
+                   AppTextStyle.getBaseStyle(height: 1.6, color: AppColors.searchBar),
+              labelStyle:  AppTextStyle.getBaseStyle(color: Colors.black),
               alignLabelWithHint: true,
               border: borderType,
               focusedBorder: borderType,
@@ -147,7 +147,7 @@ class _OtherCollectPageState extends State<OtherCollectPage> {
                 child: Row(
                   children: <Widget>[
                     Text(_getCategoryText(category),
-                        style:  CustomTextStyle.getBaseStyle(color: AppColors.searchBar)),
+                        style:  AppTextStyle.getBaseStyle(color: AppColors.searchBar)),
                   ],
                 ));
           }).toList(),

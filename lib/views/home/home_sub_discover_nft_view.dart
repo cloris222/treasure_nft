@@ -154,7 +154,7 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
             decoration: _getButtonBackground(isCurrent),
             child: Text(
               type.getTabTitle(),
-              style: CustomTextStyle.getBaseStyle(
+              style: AppTextStyle.getBaseStyle(
                   color: _getButtonColor(isCurrent),
                   fontSize: UIDefine.fontSize12,
                   fontWeight: FontWeight.w500),
@@ -248,7 +248,7 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
                 alignment: Alignment.centerLeft,
                 child: Text(data.name,
                     maxLines: 1,
-                    style: CustomTextStyle.getBaseStyle(
+                    style: AppTextStyle.getBaseStyle(
                         fontSize: UIDefine.fontSize14,
                         fontWeight: FontWeight.w500,
                         color: AppColors.textBlack))),
@@ -261,7 +261,7 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
                   TetherCoinWidget(size: UIDefine.getPixelWidth(14)),
                   Text(
                       ' ${NumberFormatUtil().removeTwoPointFormat(data.currentPrice)} USDT',
-                      style: CustomTextStyle.getBaseStyle(
+                      style: AppTextStyle.getBaseStyle(
                           fontSize: UIDefine.fontSize12,
                           fontWeight: FontWeight.w400,
                           color: AppColors.tetherGreen))

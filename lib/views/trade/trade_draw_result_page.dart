@@ -105,7 +105,7 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
   }
 
   Widget _buildActivityDate() {
-    TextStyle textStyle = CustomTextStyle.getBaseStyle(
+    TextStyle textStyle = AppTextStyle.getBaseStyle(
         color: AppColors.mainThemeButton,
         fontSize: UIDefine.fontSize14,
         fontWeight: FontWeight.w500);
@@ -159,12 +159,12 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
                 Expanded(
                     child: Column(children: [
                   Text(viewModel.getPrize(index),
-                      style: CustomTextStyle.getBaseStyle(
+                      style: AppTextStyle.getBaseStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w700,
                           fontSize: UIDefine.fontSize16)),
                   Text('prize',
-                      style: CustomTextStyle.getBaseStyle(
+                      style: AppTextStyle.getBaseStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w400,
                           fontSize: UIDefine.fontSize14))
@@ -187,7 +187,7 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
                             .integerFormat(viewModel.getPrizeAmount(index)),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: CustomTextStyle.getBaseStyle(
+                        style: AppTextStyle.getBaseStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
                             fontSize: UIDefine.fontSize16))),
@@ -198,7 +198,7 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
               ]),
               Center(
                   child: Text('${viewModel.getPrizePerson(index)} person',
-                      style: CustomTextStyle.getBaseStyle(
+                      style: AppTextStyle.getBaseStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w400,
                           fontSize: UIDefine.fontSize14)))
@@ -253,7 +253,7 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Image.asset(AppImagePath.tradeDrawResultStar),
                   Text(' ${viewModel.getFullPrize(index + 1)} prize',
-                      style: CustomTextStyle.getBaseStyle(
+                      style: AppTextStyle.getBaseStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w700,
                           fontSize: UIDefine.fontSize16))
@@ -277,7 +277,7 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
                         child: Text(
                             viewModel.drawResultInfo!.prizeList[index]
                                 .winners[subIndex],
-                            style: CustomTextStyle.getBaseStyle(
+                            style: AppTextStyle.getBaseStyle(
                                 color: Colors.white,
                                 fontSize: UIDefine.fontSize12,
                                 fontWeight: FontWeight.w500)),

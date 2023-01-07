@@ -29,7 +29,7 @@ class ListDialog extends BaseDialog {
         children: [
 
           Text('$mainText',
-              style: CustomTextStyle.getBaseStyle(
+              style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize24,
                 fontWeight: FontWeight.w500
               )

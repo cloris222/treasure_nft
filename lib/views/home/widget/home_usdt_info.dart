@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/enum/style_enum.dart';
 import 'package:treasure_nft_project/constant/subject_key.dart';
 import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/home/home_observer.dart';
@@ -22,6 +23,7 @@ class _HomeUsdtInfoState extends State<HomeUsdtInfo> {
   }
 
   late HomeObserver observer;
+
   @override
   void initState() {
     String key = SubjectKey.keyHomeUSDT;
@@ -44,14 +46,15 @@ class _HomeUsdtInfoState extends State<HomeUsdtInfo> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle titleBolderStyle = CustomTextStyle.getBaseStyle(
-        fontSize: UIDefine.fontSize12,
+    TextStyle titleBolderStyle = AppTextStyle.getBaseStyle(
+        fontSize: UIDefine.fontSize14,
         color: AppColors.homeGrey,
-        fontWeight: FontWeight.w300);
-    TextStyle valueStyle = CustomTextStyle.getBaseStyle(
-        fontSize: UIDefine.fontSize24,
-        fontWeight: FontWeight.w500,
-        color: AppColors.textBlack);
+        fontWeight: FontWeight.w400);
+    TextStyle valueStyle = AppTextStyle.getBaseStyle(
+        fontSize: UIDefine.fontSize26,
+        fontWeight: FontWeight.w600,
+        color: AppColors.textBlack,
+        fontFamily: AppTextFamily.Posterama1927);
 
     StrutStyle strutStyle =
         const StrutStyle(forceStrutHeight: true, leading: 0.5);
@@ -64,7 +67,8 @@ class _HomeUsdtInfoState extends State<HomeUsdtInfo> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                Text('${viewModel.volumeData?.transactionAmount ?? '0'}K+', style: valueStyle),
+                Text('${viewModel.volumeData?.transactionAmount ?? '0'}K+',
+                    style: valueStyle),
                 viewModel.buildSpace(height: 1),
                 Wrap(children: [
                   Text(tr('vol'),
@@ -80,7 +84,8 @@ class _HomeUsdtInfoState extends State<HomeUsdtInfo> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                Text('${viewModel.volumeData?.cost ?? '0'}K+', style: valueStyle),
+                Text('${viewModel.volumeData?.cost ?? '0'}K+',
+                    style: valueStyle),
                 viewModel.buildSpace(height: 1),
                 Wrap(children: [
                   Text(tr("index-fee'"),
@@ -96,7 +101,8 @@ class _HomeUsdtInfoState extends State<HomeUsdtInfo> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                Text('${viewModel.volumeData?.nfts ?? '0'}K+', style: valueStyle),
+                Text('${viewModel.volumeData?.nfts ?? '0'}K+',
+                    style: valueStyle),
                 viewModel.buildSpace(height: 1),
                 Text('${tr('NFTs')} ', style: titleBolderStyle),
                 viewModel.buildSpace(height: 1),

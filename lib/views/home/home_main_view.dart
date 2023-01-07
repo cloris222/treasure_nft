@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/enum/style_enum.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
@@ -123,7 +124,7 @@ class _HomeMainViewState extends State<HomeMainView> {
               viewModel.buildSpace(height: 3),
               Center(
                   child: Text('TreasureMeta Technology',
-                      style: CustomTextStyle.getBaseStyle(
+                      style: AppTextStyle.getBaseStyle(
                           fontSize: UIDefine.fontSize14,
                           color: AppColors.textBlack))),
               SizedBox(
@@ -150,10 +151,17 @@ class _HomeMainViewState extends State<HomeMainView> {
     ///MARK: 調整文字與英文未對齊的問題
     bool showZh =
         (LanguageUtil.getSettingLanguageType() == LanguageType.Mandarin);
+
+    ///MARK: 一堆title 的參數
     double styleHeight = 1.1;
-    TextStyle black = CustomTextStyle.getBaseStyle(
-        fontSize: 22,
-        fontWeight: FontWeight.w500,
+    double titleFontSize = UIDefine.fontSize30;
+    AppTextFamily titleFamily = AppTextFamily.Posterama1927;
+    FontWeight titleFontWeight = FontWeight.w900;
+
+    TextStyle black = AppTextStyle.getBaseStyle(
+        fontSize: titleFontSize,
+        fontFamily: titleFamily,
+        fontWeight: titleFontWeight,
         color: AppColors.textBlack,
         height: showZh ? 1.1 : null);
 
@@ -168,8 +176,9 @@ class _HomeMainViewState extends State<HomeMainView> {
                     Text('使用', style: black),
                     GradientText(
                       'Treasure NFT',
-                      size: UIDefine.fontSize20,
-                      weight: FontWeight.w500,
+                      size: titleFontSize,
+                      fontFamily: titleFamily,
+                      weight: titleFontWeight,
                       styleHeight: styleHeight,
                     ),
                     Text('交', style: black),
@@ -181,12 +190,17 @@ class _HomeMainViewState extends State<HomeMainView> {
                   ])
                 : Wrap(alignment: WrapAlignment.start, children: [
                     Text('Earn profit with',
-                        style: CustomTextStyle.getBaseStyle(
-                            fontSize: UIDefine.fontSize20,
-                            fontWeight: FontWeight.w500,
+                        style: AppTextStyle.getBaseStyle(
+                            fontSize: titleFontSize,
+                            fontFamily: titleFamily,
+                            fontWeight: titleFontWeight,
                             color: AppColors.textBlack)),
-                    GradientText(' Treasure NFT',
-                        size: UIDefine.fontSize20, weight: FontWeight.w500)
+                    GradientText(
+                      ' Treasure NFT',
+                      size: titleFontSize,
+                      fontFamily: titleFamily,
+                      weight: titleFontWeight,
+                    )
                   ])),
         viewModel.buildSpace(height: 2),
         Text(tr('index-product-text-1\''),
@@ -219,7 +233,7 @@ class _HomeMainViewState extends State<HomeMainView> {
               Text(
                 'Investors and patrons',
                 style:
-                    CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize24),
+                    AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize24),
               ),
             ],
           ),
@@ -294,7 +308,7 @@ class _HomeMainViewState extends State<HomeMainView> {
                         focusNode: emailFocusNode,
                         decoration: InputDecoration(
                             hintText: tr('placeholder-email-address\''),
-                            hintStyle: CustomTextStyle.getBaseStyle(
+                            hintStyle: AppTextStyle.getBaseStyle(
                                 color: AppColors.textGrey),
                             enabledBorder: outlineInputBorder,
                             focusedBorder: outlineInputBorder,
@@ -327,7 +341,7 @@ class _HomeMainViewState extends State<HomeMainView> {
                                       child: Center(
                                           child: Text(tr('submit'),
                                               style:
-                                                  CustomTextStyle.getBaseStyle(
+                                                  AppTextStyle.getBaseStyle(
                                                       color:
                                                           AppColors.textWhite,
                                                       fontSize:

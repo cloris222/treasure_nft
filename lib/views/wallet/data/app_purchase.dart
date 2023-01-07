@@ -217,7 +217,7 @@ class _AppPurchaseState extends State<AppPurchase> {
     if (_notFoundIds.isNotEmpty) {
       productList.add(ListTile(
           title: Text('[${_notFoundIds.join(", ")}] not found',
-              style: CustomTextStyle.getBaseStyle(color: ThemeData.light().errorColor)),
+              style: AppTextStyle.getBaseStyle(color: ThemeData.light().errorColor)),
           subtitle: const Text(
               'This app needs special configuration to run. Please see example/README.md for instructions.')));
     }
@@ -283,7 +283,7 @@ class _AppPurchaseState extends State<AppPurchase> {
                           )),
                       Text(
                         productDetails.title,
-                        style: CustomTextStyle.getBaseStyle(
+                        style: AppTextStyle.getBaseStyle(
                             fontSize: UIDefine.fontSize24,
                             fontWeight: FontWeight.w500),
                       )
@@ -294,7 +294,7 @@ class _AppPurchaseState extends State<AppPurchase> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       format(tr("appPurchaseDescription"), {"price": '$price '}),
-                      style: CustomTextStyle.getBaseStyle(
+                      style: AppTextStyle.getBaseStyle(
                           color: Colors.grey, fontSize: UIDefine.fontSize14),
                     ),
                   )

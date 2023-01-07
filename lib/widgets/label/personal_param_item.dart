@@ -35,7 +35,7 @@ class PersonalParamItem extends StatelessWidget {
   }
 
   Widget _buildTop() {
-    TextStyle style = CustomTextStyle.getBaseStyle(
+    TextStyle style = AppTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize18,
         color: AppColors.dialogBlack,
         fontWeight: FontWeight.w500);

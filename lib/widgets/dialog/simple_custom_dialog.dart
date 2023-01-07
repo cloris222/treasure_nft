@@ -34,7 +34,7 @@ class SimpleCustomDialog extends BaseDialog {
           margin: mainMargin,
           child: Text(mainText ?? tr('success'),
               textAlign: TextAlign.center,
-              style: CustomTextStyle.getBaseStyle(
+              style: AppTextStyle.getBaseStyle(
                   color: AppColors.dialogBlack,
                   fontSize: mainTextSize,
                   fontWeight: FontWeight.w500)),

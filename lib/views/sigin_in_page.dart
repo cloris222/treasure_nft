@@ -82,7 +82,7 @@ class SignInPage extends StatelessWidget {
         child: Text('　  ${tr('dailyMissionRewards')}',
             softWrap: true,
             maxLines: 3,
-            style: CustomTextStyle.getBaseStyle(
+            style: AppTextStyle.getBaseStyle(
                 fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize20)),
       ),
       Positioned(

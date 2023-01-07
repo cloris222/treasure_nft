@@ -56,7 +56,7 @@ class OrderInfoSelectorDropDownBar extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Text(_getCategoryText(category),
-                    style:  CustomTextStyle.getBaseStyle(color: AppColors.textGrey)),
+                    style:  AppTextStyle.getBaseStyle(color: AppColors.textGrey)),
               ],
             ));
       }).toList(),

@@ -48,7 +48,7 @@ class AWDInfoCard extends StatelessWidget {
                       const SizedBox(width: 4),
                       Text(
                         _getTitle(),
-                        style: CustomTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
+                        style: AppTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
@@ -56,7 +56,7 @@ class AWDInfoCard extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     datetime,
-                    style: CustomTextStyle.getBaseStyle(color: AppColors.searchBar, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+                    style: AppTextStyle.getBaseStyle(color: AppColors.searchBar, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
                   ),
                 ],
               ),
@@ -70,7 +70,7 @@ class AWDInfoCard extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
                   child: Text(
                     _getLuckyStrawString(),
-                    style: CustomTextStyle.getBaseStyle(color: _getLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+                    style: AppTextStyle.getBaseStyle(color: _getLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
                   )
                 )
               )
@@ -98,7 +98,7 @@ class AWDInfoCard extends StatelessWidget {
           const SizedBox(height: 2),
           Text(
             tr('world-cups-event'), // 活動名 (後端沒給欄位 目前寫死)
-            style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+            style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
           )
         ],
       );
@@ -199,7 +199,7 @@ class AWDInfoCard extends StatelessWidget {
             children: [
               Text(
                 tr(dataList[i].title), // 在外部要塞多語系的key
-                style: CustomTextStyle.getBaseStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                style: AppTextStyle.getBaseStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
               ),
               Row(
                 children: [
@@ -213,7 +213,7 @@ class AWDInfoCard extends StatelessWidget {
                     BaseViewModel().numberFormat(dataList[i].content)
                         :
                     tr(dataList[i].content),
-                    style: CustomTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                    style: AppTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                   )
                 ],
               )

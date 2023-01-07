@@ -43,7 +43,7 @@ class EditAvatarDialog extends BaseDialog {
             children: [
               Text(
                 tr('edit'),
-                style: CustomTextStyle.getBaseStyle(
+                style: AppTextStyle.getBaseStyle(
                     fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w400),
               ),
               IconButton(

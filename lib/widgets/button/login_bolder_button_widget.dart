@@ -59,7 +59,7 @@ class LoginBolderButtonWidget extends StatelessWidget {
               child: Text(btnText,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: CustomTextStyle.getBaseStyle(
+                  style: AppTextStyle.getBaseStyle(
                       fontSize: fontSize ?? UIDefine.fontSize20,
                       fontWeight: fontWeight ?? FontWeight.w400))),
         ));

@@ -103,7 +103,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text('${widget.index + 1}',
-                        style: CustomTextStyle.getBaseStyle(
+                        style: AppTextStyle.getBaseStyle(
                             fontSize: UIDefine.fontSize14,
                             fontWeight: FontWeight.w500,
                             color: AppColors.font02)),
@@ -130,7 +130,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
                           /// NAME
                           Text(widget.itemData.artistName,
                               overflow: TextOverflow.ellipsis,
-                              style: CustomTextStyle.getBaseStyle(
+                              style: AppTextStyle.getBaseStyle(
                                   fontSize: UIDefine.fontSize14,
                                   color: AppColors.textBlack,
                                   fontWeight: FontWeight.w400)),
@@ -142,7 +142,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
                     const Spacer(),
                     Text(
                         '${widget.itemData.growthRate >= 0 ? '+' : ''} ${NumberFormatUtil().removeTwoPointFormat(widget.itemData.growthRate)}%',
-                        style: CustomTextStyle.getBaseStyle(
+                        style: AppTextStyle.getBaseStyle(
                             color: widget.itemData.growthRate >= 0
                                 ? AppColors.rateGreen
                                 : AppColors.rateRed,
@@ -162,7 +162,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
           child: Image.asset(AppImagePath.tetherImg)),
       const SizedBox(width: 5),
       Text(viewModel.numberCompatFormat(count),
-          style: CustomTextStyle.getBaseStyle(
+          style: AppTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize14,
               fontWeight: FontWeight.w500,
               color: AppColors.textBlack)),

@@ -114,7 +114,7 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
         width: UIDefine.getWidth(),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(title,
-              style: CustomTextStyle.getBaseStyle(
+              style: AppTextStyle.getBaseStyle(
                   color: AppColors.dialogBlack,
                   fontSize: UIDefine.fontSize20,
                   fontWeight: FontWeight.w500)),
@@ -123,7 +123,7 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
             const TetherCoinWidget(),
             const SizedBox(width: 5),
             Text(NumberFormatUtil().removeTwoPointFormat(currentCoin ?? 0),
-                style: CustomTextStyle.getBaseStyle(
+                style: AppTextStyle.getBaseStyle(
                     color: AppColors.dialogBlack,
                     fontSize: UIDefine.fontSize20,
                     fontWeight: FontWeight.w500))
@@ -145,7 +145,7 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
     });
     return Text(text,
         maxLines: 2,
-        style: CustomTextStyle.getBaseStyle(
+        style: AppTextStyle.getBaseStyle(
             color: AppColors.dialogGrey,
             fontSize: UIDefine.fontSize14,
             fontWeight: FontWeight.w500));
@@ -156,7 +156,7 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
     String text = format(tr('reach_level_all_hint'), {'level': level ?? 0});
     return Text(text,
         maxLines: 2,
-        style: CustomTextStyle.getBaseStyle(
+        style: AppTextStyle.getBaseStyle(
             color: AppColors.dialogGrey,
             fontSize: UIDefine.fontSize14,
             fontWeight: FontWeight.w500));
@@ -175,7 +175,7 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
     });
     return Text(text,
         maxLines: 2,
-        style: CustomTextStyle.getBaseStyle(
+        style: AppTextStyle.getBaseStyle(
             color: AppColors.dialogGrey,
             fontSize: UIDefine.fontSize12,
             fontWeight: FontWeight.w500));

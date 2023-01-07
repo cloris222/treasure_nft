@@ -76,19 +76,19 @@ class DatePickerState extends State<DatePickerWidget> {
               viewModel.getPadding(1),
 
               Text(startDate,
-                style:  CustomTextStyle.getBaseStyle(color: AppColors.textGrey),
+                style:  AppTextStyle.getBaseStyle(color: AppColors.textGrey),
               ),
 
               viewModel.getPadding(1),
               Visibility(
                   visible: endDate != '',
                   child:  Text('～',
-                    style: CustomTextStyle.getBaseStyle(color: AppColors.textGrey),
+                    style: AppTextStyle.getBaseStyle(color: AppColors.textGrey),
                   )),
               viewModel.getPadding(1),
 
               Text(endDate,
-                style:  CustomTextStyle.getBaseStyle(color: AppColors.textGrey),
+                style:  AppTextStyle.getBaseStyle(color: AppColors.textGrey),
               )
 
             ],),

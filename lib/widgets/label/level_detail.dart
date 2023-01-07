@@ -32,7 +32,7 @@ class LevelDetailLabel extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text(title,
-              style: CustomTextStyle.getBaseStyle(
+              style: AppTextStyle.getBaseStyle(
                   color: AppColors.dialogGrey,
                   fontSize: UIDefine.fontSize14,
                   fontWeight: leftFontWeight)),
@@ -49,7 +49,7 @@ class LevelDetailLabel extends StatelessWidget {
                 width: 5,
               ),
               Text(content,
-                  style: CustomTextStyle.getBaseStyle(
+                  style: AppTextStyle.getBaseStyle(
                       color: AppColors.textBlack,
                       fontSize: UIDefine.fontSize14,
                       fontWeight: rightFontWeight)),

@@ -22,6 +22,7 @@ class HomeSubIllustrateView extends StatelessWidget {
         children: [
           Text(
             tr('index-illustrate-text-1'),
+            textAlign: TextAlign.center,
             style: viewModel.getMainTitleStyle(),
           ),
           _buildSubView(

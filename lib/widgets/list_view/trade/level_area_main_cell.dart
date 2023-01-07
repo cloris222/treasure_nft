@@ -38,7 +38,7 @@ class _LevelMainCellState extends State<LevelMainCell> {
     return Text(
       '${tr("level")} ${widget.level}',
       style:
-          CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
+          AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
     );
   }
 
@@ -52,7 +52,7 @@ class _LevelMainCellState extends State<LevelMainCell> {
       width: 5,
     );
     TextStyle style =
-        CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500);
+        AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500);
     if (widget.level == 0) {
       return Row(
         children: [

@@ -128,14 +128,14 @@ class BodyState extends State<Body> {
     return Flexible(
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(title,
-            style: CustomTextStyle.getBaseStyle(
+            style: AppTextStyle.getBaseStyle(
                 color: AppColors.textGrey, fontSize: UIDefine.fontSize12)),
         memberViewModel.getPadding(1),
         Row(children: [
           memberViewModel.getCoinImage(),
           memberViewModel.getPadding(0.5),
           Text(NumberFormatUtil().removeTwoPointFormat(value),
-              style: CustomTextStyle.getBaseStyle(
+              style: AppTextStyle.getBaseStyle(
                   color: AppColors.textBlack, fontSize: UIDefine.fontSize14))
         ])
       ]),

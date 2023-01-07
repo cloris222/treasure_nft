@@ -192,15 +192,15 @@ class _WorldCupViewState extends State<WorldCupView> {
   }
 
   Widget _infoView(BuildContext context) {
-    TextStyle titleStyle = CustomTextStyle.getBaseStyle(
+    TextStyle titleStyle = AppTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize18,
         color: Colors.black,
         fontWeight: FontWeight.w500);
-    TextStyle contentStyle = CustomTextStyle.getBaseStyle(
+    TextStyle contentStyle = AppTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize12,
         color: Colors.grey,
         fontWeight: FontWeight.w500);
-    TextStyle blackContent = CustomTextStyle.getBaseStyle(
+    TextStyle blackContent = AppTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize12,
         color: Colors.black,
         fontWeight: FontWeight.w500);
@@ -271,7 +271,7 @@ class _WorldCupViewState extends State<WorldCupView> {
   }
 
   Widget _reservationView(BuildContext context) {
-    TextStyle blackContent = CustomTextStyle.getBaseStyle(
+    TextStyle blackContent = AppTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize14,
         color: Colors.black,
         fontWeight: FontWeight.w500);
@@ -302,7 +302,7 @@ class _WorldCupViewState extends State<WorldCupView> {
                 children: [
                   Text(
                     '${viewModel.canReserve?.deposit ?? ''}',
-                    style: CustomTextStyle.getBaseStyle(
+                    style: AppTextStyle.getBaseStyle(
                         fontSize: UIDefine.fontSize20,
                         fontWeight: FontWeight.w500),
                   ),
@@ -318,7 +318,7 @@ class _WorldCupViewState extends State<WorldCupView> {
               Wrap(children: [
                 Text(
                   '(${viewModel.canReserve?.depositForConsume ?? 0}U${tr("limitedNFT")}+${viewModel.canReserve?.depositForPool ?? 0}U${tr("bonusPool")})',
-                  style:  CustomTextStyle.getBaseStyle(
+                  style:  AppTextStyle.getBaseStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                       color: Colors.white),

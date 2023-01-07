@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
+import 'package:treasure_nft_project/constant/enum/style_enum.dart';
 import 'package:treasure_nft_project/constant/subject_key.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
@@ -52,23 +53,25 @@ class HomeMainViewModel extends BaseViewModel {
 
   ///MARK: 主標題
   TextStyle getMainTitleStyle() {
-    return CustomTextStyle.getBaseStyle(
+    return AppTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize24,
-        fontWeight: FontWeight.w500,
-        color: AppColors.textBlack);
+        fontWeight: FontWeight.w900,
+        color: AppColors.textBlack,
+        fontFamily: AppTextFamily.Posterama1927);
   }
 
   ///MARK: 副標題
   TextStyle getSubTitleStyle() {
-    return CustomTextStyle.getBaseStyle(
-        fontSize: UIDefine.fontSize18,
-        fontWeight: FontWeight.w400,
-        color: AppColors.textBlack);
+    return AppTextStyle.getBaseStyle(
+        fontSize: UIDefine.fontSize20,
+        fontWeight: FontWeight.w600,
+        color: AppColors.textBlack,
+        fontFamily: AppTextFamily.Posterama1927);
   }
 
   ///MARK: 內容
   TextStyle getContextStyle({Color color = AppColors.textBlack}) {
-    return CustomTextStyle.getBaseStyle(
+    return AppTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize14,
         fontWeight: FontWeight.w400,
         color: color);

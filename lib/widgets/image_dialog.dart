@@ -42,7 +42,7 @@ class ImageDialog extends BaseDialog {
             margin: mainMargin,
             child: Text(mainText ?? '${tr('success')} !',
                 textAlign: TextAlign.center,
-                style: CustomTextStyle.getBaseStyle(
+                style: AppTextStyle.getBaseStyle(
                     color: AppColors.textBlack,
                     fontSize: mainTextSize ?? UIDefine.fontSize24,
                     fontWeight: FontWeight.w500)),
@@ -50,7 +50,7 @@ class ImageDialog extends BaseDialog {
           subText.isNotEmpty
               ? Text(subText,
                   textAlign: TextAlign.center,
-                  style: CustomTextStyle.getBaseStyle(
+                  style: AppTextStyle.getBaseStyle(
                       color: AppColors.textGrey,
                       fontSize: subTextSize ?? UIDefine.fontSize14))
               : const Text(''),

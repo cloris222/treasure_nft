@@ -55,7 +55,7 @@ class _DatePickerOne extends State<DatePickerOne> {
                   _getPadding(1),
                   Text(
                     widget.initDate ?? date,
-                    style:  CustomTextStyle.getBaseStyle(color: AppColors.textGrey),
+                    style:  AppTextStyle.getBaseStyle(color: AppColors.textGrey),
                   ),
                 ],
               ),

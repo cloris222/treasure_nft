@@ -44,7 +44,7 @@ class SuccessDialog extends BaseDialog {
             margin: mainMargin,
             child: Text(mainText ?? '${tr('success')} !',
                 textAlign: TextAlign.center,
-                style: CustomTextStyle.getBaseStyle(
+                style: AppTextStyle.getBaseStyle(
                     color: AppColors.textBlack,
                     fontSize: mainTextSize,
                     fontWeight: FontWeight.w500)),
@@ -52,7 +52,7 @@ class SuccessDialog extends BaseDialog {
           subText.isNotEmpty
               ? Text(subText,
                   textAlign: TextAlign.center,
-                  style: CustomTextStyle.getBaseStyle(
+                  style: AppTextStyle.getBaseStyle(
                       color: AppColors.textGrey, fontSize: UIDefine.fontSize12))
               : const Text(''),
           Container(

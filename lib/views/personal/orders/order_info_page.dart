@@ -96,7 +96,7 @@ class _OrderInfoPage extends State<OrderInfoPage> {
                         :
                     Text(
                       tr("ES_0007"),
-                      style: CustomTextStyle.getBaseStyle(color: AppColors.textGrey,
+                      style: AppTextStyle.getBaseStyle(color: AppColors.textGrey,
                           fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
                     ),
                     SizedBox(height: UIDefine.navigationBarPadding)

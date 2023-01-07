@@ -51,8 +51,8 @@ class ChooseDateView extends StatelessWidget {
               textInputAction: TextInputAction.next,
               decoration: InputDecoration(
                 hintText: hintText,
-                hintStyle:  CustomTextStyle.getBaseStyle(height: 1.1),
-                labelStyle: CustomTextStyle.getBaseStyle(color: Colors.black),
+                hintStyle:  AppTextStyle.getBaseStyle(height: 1.1),
+                labelStyle: AppTextStyle.getBaseStyle(color: Colors.black),
                 alignLabelWithHint: true,
                 contentPadding: const EdgeInsets.only(top: 0, left: 20),
                 disabledBorder: AppTheme.style
@@ -72,7 +72,7 @@ class ChooseDateView extends StatelessWidget {
     return Container(
         margin: const EdgeInsets.symmetric(vertical: 5),
         child: Text(text,
-            style: CustomTextStyle.getBaseStyle(
+            style: AppTextStyle.getBaseStyle(
                 fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14)));
   }
 

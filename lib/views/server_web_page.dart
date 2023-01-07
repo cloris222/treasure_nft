@@ -43,7 +43,7 @@ class _ServerWebPageState extends State<ServerWebPage> {
                       },
                       icon:  Text(
                         'X',
-                        style: CustomTextStyle.getBaseStyle(
+                        style: AppTextStyle.getBaseStyle(
                             color:  Colors.white,
                             fontWeight: FontWeight.w500),
                       ))),

@@ -83,7 +83,7 @@ class LoginButtonWidget extends StatelessWidget {
               Text(btnText,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: CustomTextStyle.getBaseStyle(
+                  style: AppTextStyle.getBaseStyle(
                       color: Colors.white,
                       fontSize: fontSize ?? UIDefine.fontSize16,
                       fontWeight: fontWeight)),

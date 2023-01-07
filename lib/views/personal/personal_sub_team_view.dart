@@ -42,7 +42,7 @@ class PersonalSubTeamView extends StatelessWidget {
       ),
       const SizedBox(width: 5),
       Text(tr('myTeam'),
-          style: CustomTextStyle.getBaseStyle(
+          style: AppTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize20,
               fontWeight: FontWeight.w500,
               color: AppColors.dialogBlack))

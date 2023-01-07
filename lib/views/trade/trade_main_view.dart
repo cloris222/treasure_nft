@@ -137,7 +137,7 @@ class _TradeMainViewState extends State<TradeMainView> {
   }
 
   Widget _levelView(BuildContext context) {
-    TextStyle titleStyle = CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize16);
+    TextStyle titleStyle = AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize16);
     double balance = TradeTimerUtil().getReservationInfo()?.balance ?? 0;
     double reserveBalance =
         TradeTimerUtil().getReservationInfo()?.reserveBalance ?? 0;

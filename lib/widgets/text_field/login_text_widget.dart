@@ -91,8 +91,8 @@ class _LoginTextWidgetState extends State<LoginTextWidget> {
         onTap: widget.onTap,
         decoration: InputDecoration(
             hintText: widget.hintText,
-            hintStyle: CustomTextStyle.getBaseStyle(height: 1.1, color: widget.hintColor),
-            labelStyle:  CustomTextStyle.getBaseStyle(color: Colors.black),
+            hintStyle: AppTextStyle.getBaseStyle(height: 1.1, color: widget.hintColor),
+            labelStyle:  AppTextStyle.getBaseStyle(color: Colors.black),
             alignLabelWithHint: true,
             contentPadding: EdgeInsets.only(
                 top: 0, left: 20, right: widget.contentPaddingRight),

@@ -92,7 +92,7 @@ class PersonalSubUserInfoView extends StatelessWidget {
                     onTap: () => _showLevelInfoPage(context),
                     child: Row(mainAxisSize: MainAxisSize.min, children: [
                       Text(tr('levelDetail'),
-                          style: CustomTextStyle.getBaseStyle(
+                          style: AppTextStyle.getBaseStyle(
                               fontSize: UIDefine.fontSize12,
                               color: AppColors.dialogGrey)),
                       Image.asset(AppImagePath.rightArrow,
@@ -149,7 +149,7 @@ class PersonalSubUserInfoView extends StatelessWidget {
                                   size: UIDefine.fontSize18),
                               const SizedBox(width: 5),
                               Text('${tr('level')} ${userInfo.level}',
-                                  style: CustomTextStyle.getBaseStyle(
+                                  style: AppTextStyle.getBaseStyle(
                                       fontSize: UIDefine.fontSize12,
                                       color: AppColors.dialogBlack)),
                             ])))),
@@ -173,7 +173,7 @@ class PersonalSubUserInfoView extends StatelessWidget {
                                       SizedBox(height: UIDefine.fontSize18),
                                       Text(
                                           '${userInfo.point} ${tr('lv_point')}',
-                                          style: CustomTextStyle.getBaseStyle(
+                                          style: AppTextStyle.getBaseStyle(
                                               fontSize: UIDefine.fontSize12,
                                               color: AppColors.dialogBlack)),
                                     ]))))
@@ -183,7 +183,7 @@ class PersonalSubUserInfoView extends StatelessWidget {
               ? Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
                   Text(
                     '${NumberFormatUtil().integerFormat(getPointPercentage() * 100)}%',
-                    style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12),
+                    style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12),
                   ),
                   CustomLinearProgress(
                     percentage: getPointPercentage(),

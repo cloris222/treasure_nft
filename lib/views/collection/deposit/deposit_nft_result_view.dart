@@ -67,7 +67,7 @@ class _DepositNftResultView extends State<DepositNftResultView> {
             /// 文字
             Text(
               tr("Polygon-text'"), // 完成付款 Polygon
-              style: CustomTextStyle.getBaseStyle(
+              style: AppTextStyle.getBaseStyle(
                   color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
             ),
 
@@ -89,7 +89,7 @@ class _DepositNftResultView extends State<DepositNftResultView> {
                       children: [
                         Text(
                           tr("Polygon-address'"),
-                          style: CustomTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                          style: AppTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                         ),
 
                         const SizedBox(height: 4),
@@ -100,7 +100,7 @@ class _DepositNftResultView extends State<DepositNftResultView> {
                               width: UIDefine.getScreenWidth(70),
                               child: Text(
                                 data,
-                                style: CustomTextStyle.getBaseStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w400),
+                                style: AppTextStyle.getBaseStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w400),
                               )
                             ),
                             SizedBox(width: UIDefine.getScreenWidth(3)),
@@ -135,14 +135,14 @@ class _DepositNftResultView extends State<DepositNftResultView> {
                       children: [
                         Text(
                           tr("chain"),
-                          style: CustomTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                          style: AppTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                         ),
 
                         SizedBox(width: UIDefine.getScreenWidth(3)),
 
                         Text(
                           widget.netWork,
-                          style: CustomTextStyle.getBaseStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w400),
+                          style: AppTextStyle.getBaseStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w400),
                         )
                       ],
                     )

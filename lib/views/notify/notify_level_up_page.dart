@@ -65,7 +65,7 @@ class NotifyLevelUpPage extends StatelessWidget {
     var levelHeight = pageHeight * 0.07;
     var lvText =
         GradientText('LV', weight: FontWeight.w500, size: levelHeight * 0.5);
-    var levelStyle = CustomTextStyle.getBaseStyle(
+    var levelStyle = AppTextStyle.getBaseStyle(
         fontWeight: FontWeight.w500,
         fontSize: levelHeight * 0.5,
         color: AppColors.textBlack);

@@ -39,7 +39,7 @@ class ExploreMainViewModel extends BaseViewModel {
                   UIDefine.getScreenWidth(2.77), 0),
               child: Text(
                 _getTabTitle(dataList[i].name),
-                style: CustomTextStyle.getBaseStyle(color: _getButtonColor(isCurrent),
+                style: AppTextStyle.getBaseStyle(color: _getButtonColor(isCurrent),
                     fontSize: _getTextSize(isCurrent), fontWeight: FontWeight.w500),
                 textAlign: TextAlign.center,
               ),

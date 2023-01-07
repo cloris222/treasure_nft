@@ -30,7 +30,7 @@ class PersonalNewSubCommonView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(tr('usualFun'), // 標題 常用功能
-                style: CustomTextStyle.getBaseStyle(color: AppColors.dialogBlack,
+                style: AppTextStyle.getBaseStyle(color: AppColors.dialogBlack,
                     fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500)),
 
             _getLine(),

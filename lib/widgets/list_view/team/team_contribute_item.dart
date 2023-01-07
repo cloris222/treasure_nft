@@ -21,7 +21,7 @@ class TeamContributeItemView extends StatelessWidget {
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text('$itemCount. ${itemData.name}',
-              style: CustomTextStyle.getBaseStyle(
+              style: AppTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize12,
                   color: AppColors.dialogGrey,
                   fontWeight: FontWeight.w500)),
@@ -31,7 +31,7 @@ class TeamContributeItemView extends StatelessWidget {
                 viewModel.getCoinImage(),
                 viewModel.getPadding(1),
                 Text(NumberFormatUtil().removeTwoPointFormat(itemData.share),
-                    style: CustomTextStyle.getBaseStyle(
+                    style: AppTextStyle.getBaseStyle(
                         fontSize: UIDefine.fontSize12,
                         color: AppColors.textBlack,
                         fontWeight: FontWeight.w500),

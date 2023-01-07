@@ -76,7 +76,7 @@ class AchievementAchieveFinishPage extends StatelessWidget {
         data.getAchievementGoalTaskSubText(code),
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
-        style: CustomTextStyle.getBaseStyle(
+        style: AppTextStyle.getBaseStyle(
             fontSize: UIDefine.fontSize16,
             color: AppColors.textGrey,
             fontWeight: FontWeight.w500),

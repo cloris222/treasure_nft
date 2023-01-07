@@ -40,7 +40,7 @@ class CustomAmountDialog extends BaseDialog {
             children: [
               Text(
                 tr('custom'),
-                style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
+                style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
               ),
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 20),

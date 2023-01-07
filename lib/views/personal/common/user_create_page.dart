@@ -82,7 +82,7 @@ class _UserCreatePageState extends State<UserCreatePage> {
         ),
         SizedBox(height: UIDefine.getScreenHeight(1)),
         Text(tr('imageSupport'),
-            style: CustomTextStyle.getBaseStyle(
+            style: AppTextStyle.getBaseStyle(
                 color: AppColors.dialogGrey, fontSize: UIDefine.fontSize12)),
         LoginParamView(
           titleText: tr('itemName'),

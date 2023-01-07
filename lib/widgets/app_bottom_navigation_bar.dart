@@ -163,7 +163,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar>
                             color: AppColors.textRed),
                         child: Text(
                           _bottomNavigationNotifier.unreadCount.toString(),
-                          style: CustomTextStyle.getBaseStyle(
+                          style: AppTextStyle.getBaseStyle(
                             color: Colors.white,
                             fontSize: UIDefine.fontSize8,
                           ),

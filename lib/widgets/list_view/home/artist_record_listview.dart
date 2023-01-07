@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/enum/style_enum.dart';
 import 'package:treasure_nft_project/constant/subject_key.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
@@ -119,9 +120,7 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
         ? itemHeight
         : UIDefine.getPixelWidth(390);
 
-    double? imageSize = (index == 0
-        ? itemHeight
-        : null);
+    double? imageSize = (index == 0 ? itemHeight : null);
 
     return record.imgUrl.length > index
         ? Column(mainAxisSize: MainAxisSize.min, children: [
@@ -130,8 +129,8 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
                 child: SizedBox(
                     width: imageSize,
                     height: imageSize,
-                    child:
-                        GraduallyNetworkImage(imageUrl: record.imgUrl[index],fit: BoxFit.cover))),
+                    child: GraduallyNetworkImage(
+                        imageUrl: record.imgUrl[index], fit: BoxFit.cover))),
             SizedBox(height: UIDefine.getPixelHeight(5)),
             index == 0
                 ? Row(children: [
@@ -146,57 +145,76 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
                     Expanded(
                       child: WarpTwoTextWidget(
                           text: record.name,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w600,
                           fontSize: UIDefine.fontSize16,
+                          family: AppTextFamily.Posterama1927,
                           maxLines: 1),
                     ),
                     Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text(tr('highestBid')),
+                          Text(tr('highestBid'),
+                              style: AppTextStyle.getBaseStyle(
+                                  fontSize: UIDefine.fontSize10,
+                                  fontWeight: FontWeight.w400)),
                           SizedBox(height: UIDefine.getPixelHeight(5)),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                TetherCoinWidget(size: UIDefine.fontSize16),
+                                TetherCoinWidget(size: UIDefine.fontSize14),
                                 SizedBox(width: UIDefine.getPixelWidth(3)),
                                 Text(
                                   '${BaseViewModel().numberCompatFormat(record.baseYdayAmt)} USDT',
-                                  style: CustomTextStyle.getBaseStyle(
-                                      fontSize: UIDefine.fontSize14,
-                                      fontWeight: FontWeight.w500),
+                                  style: AppTextStyle.getBaseStyle(
+                                      fontSize: UIDefine.fontSize12,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: AppTextFamily.Posterama1927),
                                 )
                               ])
                         ])
                   ])
-                : Row(
+                : Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      Flexible(
-                          child: SizedBox(
-                              width: UIDefine.getPixelWidth(30),
-                              height: UIDefine.getPixelWidth(30),
-                              child: CircleNetworkIcon(
-                                  networkUrl: record.avatarUrl))),
-                      SizedBox(width: UIDefine.getPixelWidth(5)),
-                      Container(
-                        decoration: AppStyle().styleColorBorderBackground(
-                            radius: 8, color: AppColors.tetherGreen),
-                        padding: EdgeInsets.all(UIDefine.getPixelWidth(5)),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              TetherCoinWidget(size: UIDefine.fontSize10),
-                              SizedBox(width: UIDefine.getPixelWidth(3)),
-                              Text(
-                                '${BaseViewModel().numberCompatFormat(record.baseYdayAmt)} USDT',
-                                style: CustomTextStyle.getBaseStyle(
-                                    color: AppColors.tetherGreen,
-                                    fontSize: UIDefine.getPixelHeight(9),
-                                    fontWeight: FontWeight.w500),
-                              )
-                            ]),
-                      )
+                      WarpTwoTextWidget(
+                          text: record.name,
+                          fontWeight: FontWeight.w600,
+                          fontSize: UIDefine.fontSize14,
+                          family: AppTextFamily.Posterama1927,
+                          maxLines: 1),
+                      Row(
+                        children: [
+                          Flexible(
+                              child: SizedBox(
+                                  width: UIDefine.getPixelWidth(30),
+                                  height: UIDefine.getPixelWidth(30),
+                                  child: CircleNetworkIcon(
+                                      networkUrl: record.avatarUrl))),
+                          SizedBox(width: UIDefine.getPixelWidth(5)),
+                          Container(
+                            decoration: AppStyle().styleColorBorderBackground(
+                                radius: 8, color: AppColors.tetherGreen),
+                            padding: EdgeInsets.all(UIDefine.getPixelWidth(5)),
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  TetherCoinWidget(size: UIDefine.fontSize10),
+                                  SizedBox(width: UIDefine.getPixelWidth(3)),
+                                  Text(
+                                    '${BaseViewModel().numberCompatFormat(record.baseYdayAmt)} USDT',
+                                    style: AppTextStyle.getBaseStyle(
+                                        color: AppColors.tetherGreen,
+                                        fontSize: UIDefine.fontSize8,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily:
+                                            AppTextFamily.Posterama1927),
+                                  )
+                                ]),
+                          )
+                        ],
+                      ),
                     ],
                   ),
             SizedBox(height: UIDefine.getPixelHeight(5)),
@@ -214,15 +232,19 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(tr('top-creator'),
-              style: CustomTextStyle.getBaseStyle(
-                  fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500)),
+              style: AppTextStyle.getBaseStyle(
+                  fontSize: UIDefine.fontSize18,
+                  fontWeight: FontWeight.w900,
+                  fontFamily: AppTextFamily.Posterama1927)),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(tr('Last_24_hours'),
-                  style: CustomTextStyle.getBaseStyle(
+                  style: AppTextStyle.getBaseStyle(
                       fontSize: UIDefine.fontSize12,
-                      color: AppColors.homeGrey)),
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.homeGrey,
+                      fontFamily: AppTextFamily.Posterama1927)),
               GestureDetector(
                   onTap: () => viewModel.pushPage(context,
                       const MainPage(type: AppNavigationBarType.typeExplore)),
@@ -232,9 +254,10 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(tr('more'),
-                              style: CustomTextStyle.getBaseStyle(
+                              style: AppTextStyle.getBaseStyle(
                                   fontSize: UIDefine.fontSize14,
-                                  fontWeight: FontWeight.w500)),
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: AppTextFamily.Posterama1927)),
                           Image.asset(AppImagePath.rightArrow)
                         ],
                       )))

@@ -26,7 +26,7 @@ class OrderWithdrawTabBar {
             child: Text(
               _getTabTitle(dataList[i]),
               maxLines: 1,
-              style: CustomTextStyle.getBaseStyle(
+              style: AppTextStyle.getBaseStyle(
                   color: _getButtonColor(isCurrent),
                   fontSize: UIDefine.fontSize12,
                   fontWeight: _getTextWeight(isCurrent)),
