@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 import '../../constant/ui_define.dart';
 import 'data/card_showing_data.dart';
@@ -46,13 +47,13 @@ class ItemInfoCard extends StatelessWidget {
                   /// 標題
                   Text(
                     itemName,
-                    style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
+                    style: CustomTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
                   ),
                   SizedBox(height: 5),
                   /// 副標題
                   Text(
                     dateTime,
-                    style: TextStyle(color: AppColors.searchBar, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+                    style: CustomTextStyle.getBaseStyle(color: AppColors.searchBar, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
                   ),
                   SizedBox(height: 10)
                 ],
@@ -68,7 +69,7 @@ class ItemInfoCard extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
                   child: Text(
                     _getLuckyStrawString(),
-                    style: TextStyle(color: _getLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+                    style: CustomTextStyle.getBaseStyle(color: _getLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
                   )
                 )
               )
@@ -106,7 +107,7 @@ class ItemInfoCard extends StatelessWidget {
                         const SizedBox(width: 6),
                         Text(
                           BaseViewModel().numberFormat(price),
-                          style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                          style: CustomTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                         )
                       ],
                     )
@@ -187,7 +188,7 @@ class ItemInfoCard extends StatelessWidget {
             children: [
               Text(
                 tr(dataList[i].title), // 在外部要塞多語系的key
-                style: TextStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                style: CustomTextStyle.getBaseStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
               ),
               Row(
                 children: [
@@ -198,7 +199,7 @@ class ItemInfoCard extends StatelessWidget {
                   const SizedBox(width: 8),
                   Text(
                     tr(dataList[i].content),
-                    style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                    style: CustomTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                   )
                 ],
               )

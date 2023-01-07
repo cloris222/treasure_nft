@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
@@ -34,7 +35,7 @@ class PersonalNewSubOrderView extends StatelessWidget {
                 children: [
                   Flexible(
                     child: Text(tr('myOrder'), // 標題 我的訂單
-                        style: TextStyle(color: AppColors.dialogBlack,
+                        style: CustomTextStyle.getBaseStyle(color: AppColors.dialogBlack,
                             fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500)),
                   ),
 
@@ -44,7 +45,7 @@ class PersonalNewSubOrderView extends StatelessWidget {
                       child: Row(
                         children: [
                           Text(tr('seeOrder'), // 查看訂單
-                              style: TextStyle(color: AppColors.dialogBlack,
+                              style: CustomTextStyle.getBaseStyle(color: AppColors.dialogBlack,
                                   fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500)),
                           const SizedBox(width: 4),
                           Image.asset(AppImagePath.rightArrow)

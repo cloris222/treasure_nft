@@ -6,6 +6,7 @@ import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
@@ -13,7 +14,6 @@ import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart'
 import '../../../constant/theme/app_theme.dart';
 import '../../../constant/ui_define.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
-import '../../../widgets/label/personal_profile_icon.dart';
 import '../../login/circle_network_icon.dart';
 import '../data/explore_artist_detail_response_data.dart';
 import '../data/explore_main_response_data.dart';
@@ -89,7 +89,7 @@ class HomePageWidgets {
   //             padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5), 0,
   //                 0, UIDefine.getScreenWidth(5)),
   //             child: Text(data.artistName,
-  //               style: TextStyle(color: Colors.black, fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500),),
+  //               style: CustomTextStyle.getBaseStyle(color: Colors.black, fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500),),
   //           ),
   //
   //           SizedBox(width: UIDefine.getScreenWidth(4)),
@@ -108,7 +108,7 @@ class HomePageWidgets {
   //         child: Visibility(
   //           visible: creatorName==''? false : true,
   //           child: Text(creatorName,
-  //             style: TextStyle(color: Colors.black, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),),
+  //             style: CustomTextStyle.getBaseStyle(color: Colors.black, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),),
   //         ),
   //       ),
   //     ],
@@ -229,7 +229,7 @@ class HomePageWidgets {
                       padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(0), 0,
                           0, UIDefine.getScreenWidth(0)),
                       child: Text(data.artistId,
-                        style: TextStyle(color: Colors.white, fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500)),
+                        style: CustomTextStyle.getBaseStyle(color: Colors.white, fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500)),
                     ),
 
                     SizedBox(width: UIDefine.getScreenWidth(1.5)),
@@ -243,7 +243,7 @@ class HomePageWidgets {
                 ),
                 const SizedBox(height: 5),
                 Text('BY ${adData.creatorName}',
-                  style: TextStyle(color: AppColors.textGrey, fontSize: UIDefine.fontSize14)),
+                  style: CustomTextStyle.getBaseStyle(color: AppColors.textGrey, fontSize: UIDefine.fontSize14)),
               ],
             )
           ],
@@ -263,7 +263,7 @@ class HomePageWidgets {
                 width: UIDefine.getScreenWidth(80),
                 child: Text(
                   bSeeMore ? adData.artistInfo : _shortString(adData.artistInfo),
-                  style: TextStyle(
+                  style: CustomTextStyle.getBaseStyle(
                       color: AppColors.textWhite,
                       fontSize: UIDefine.fontSize12,
                       fontWeight: FontWeight.w500),
@@ -392,13 +392,13 @@ class HomePageWidgets {
             bIcon? Image.asset('assets/icon/coins/icon_tether_01.png', width: UIDefine.getScreenWidth(4.44), height: UIDefine.getScreenWidth(4.44)) : Container(),
             bIcon? const SizedBox(width: 4) : const SizedBox(),
             Text(amount,
-              // style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),), // 第一版UI
-              style: TextStyle(color: AppColors.textWhite, fontSize: UIDefine.fontSize18, fontWeight: FontWeight.w500),),
+              // style: CustomTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),), // 第一版UI
+              style: CustomTextStyle.getBaseStyle(color: AppColors.textWhite, fontSize: UIDefine.fontSize18, fontWeight: FontWeight.w500),),
           ],
         ),
         Text(title,
-          // style: TextStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w400),), // 第一版UI
-          style: TextStyle(color: AppColors.textWhite, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w400),),
+          // style: CustomTextStyle.getBaseStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w400),), // 第一版UI
+          style: CustomTextStyle.getBaseStyle(color: AppColors.textWhite, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w400),),
       ],
     );
   }
@@ -437,7 +437,7 @@ class HomePageWidgets {
                 SizedBox(
                     child: Text(
                       data.name,
-                      style: TextStyle(fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+                      style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
                     )
                 ),
               ],
@@ -455,7 +455,7 @@ class HomePageWidgets {
                     const SizedBox(width: 6),
                     Text(
                       BaseViewModel().numberFormat(data.price),
-                      style: TextStyle(color: AppColors.textGrey, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+                      style: CustomTextStyle.getBaseStyle(color: AppColors.textGrey, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
                     )
                   ],
                 ),
@@ -466,7 +466,7 @@ class HomePageWidgets {
                     Image.asset('assets/icon/icon/icon_trend_down_01.png'),
                     Text(
                       BaseViewModel().numberFormat(data.growAmount),
-                      style: TextStyle(color: AppColors.textGrey, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+                      style: CustomTextStyle.getBaseStyle(color: AppColors.textGrey, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
                     ),
                   ],
                 )
@@ -508,7 +508,7 @@ class HomePageWidgets {
   //               width: UIDefine.getScreenWidth(25),
   //               child: Text(
   //                 data.name,
-  //                 style: TextStyle(fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+  //                 style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
   //               )
   //             ),
   //             Row(
@@ -516,7 +516,7 @@ class HomePageWidgets {
   //                 Image.asset('assets/icon/icon/icon_trend_up_01.png'),
   //                 Text(
   //                   BaseViewModel().numberFormat(data.growAmount),
-  //                   style: TextStyle(color: AppColors.growPrice, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+  //                   style: CustomTextStyle.getBaseStyle(color: AppColors.growPrice, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
   //                 ),
   //               ],
   //             )
@@ -531,7 +531,7 @@ class HomePageWidgets {
   //             const SizedBox(width: 6),
   //             Text(
   //               BaseViewModel().numberFormat(data.price),
-  //               style: TextStyle(fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+  //               style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
   //             ),
   //           ],
   //         )

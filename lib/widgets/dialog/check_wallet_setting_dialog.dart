@@ -8,6 +8,7 @@ import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/button/login_bolder_button_widget.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import 'package:treasure_nft_project/widgets/dialog/base_dialog.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 class CheckWalletSettingDialog extends BaseDialog {
   CheckWalletSettingDialog(super.context,
@@ -40,13 +41,13 @@ class CheckWalletSettingDialog extends BaseDialog {
         alignment: WrapAlignment.center,
         children: [
           Text(tr('pleaseAddress'),
-              style: TextStyle(
+              style: CustomTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize16,
                   fontWeight: FontWeight.w500,
                   color: textColor)),
           Column(mainAxisSize: MainAxisSize.min, children: checkAddress),
           Text(tr('appSaveWalletHint'),
-              style: TextStyle(
+              style: CustomTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize14,
                   fontWeight: FontWeight.w400,
                   color: textColor)),
@@ -75,12 +76,12 @@ class CheckWalletSettingDialog extends BaseDialog {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text('${tr('address')} ($type)',
-              style: TextStyle(
+              style: CustomTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize14,
                   fontWeight: FontWeight.w400,
                   color: textColor)),
           Text(account,
-              style: TextStyle(
+              style: CustomTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize14,
                   fontWeight: FontWeight.w500,
                   color: textColor))

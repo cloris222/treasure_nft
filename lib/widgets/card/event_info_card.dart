@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
@@ -61,7 +62,7 @@ class _EventInfoCard extends State<EventInfoCard> {
                     const SizedBox(width: 6),
                     Text(
                       tr('lotteryNumber'),
-                      style: TextStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
+                      style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
                     )
                   ],
                 ),
@@ -78,7 +79,7 @@ class _EventInfoCard extends State<EventInfoCard> {
                         const SizedBox(width: 4),
                         Text(
                           _getLuckyStrawString(),
-                          style: TextStyle(color: _getLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+                          style: CustomTextStyle.getBaseStyle(color: _getLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
                         )
                       ],
                     )
@@ -95,7 +96,7 @@ class _EventInfoCard extends State<EventInfoCard> {
                 /// 這張的獎號
                 Text(
                   widget.lotteryNo,
-                  style: TextStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
+                  style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
                 ),
                 /// 中籤icon 2
                 Container(
@@ -110,7 +111,7 @@ class _EventInfoCard extends State<EventInfoCard> {
                         const SizedBox(width: 4),
                         Text(
                           _getPrizeLuckyStrawString(),
-                          style: TextStyle(color: _getPrizeLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+                          style: CustomTextStyle.getBaseStyle(color: _getPrizeLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
                         )
                       ],
                     )
@@ -121,14 +122,14 @@ class _EventInfoCard extends State<EventInfoCard> {
             /// 時間
             Text(
               widget.createdAt,
-              style: TextStyle(color: AppColors.searchBar, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+              style: CustomTextStyle.getBaseStyle(color: AppColors.searchBar, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
             ),
 
             /// 活動獎池Title
             SizedBox(height: UIDefine.getScreenWidth(2.7)),
             Text(
               tr('activity-title-text'),
-              style: TextStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+              style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
             ),
             SizedBox(height: UIDefine.getScreenWidth(2.7)),
 
@@ -300,7 +301,7 @@ class _EventInfoCard extends State<EventInfoCard> {
                 children: [
                   Text(
                     tr(widget.dataList[i].title), // 在外部要塞多語系的key
-                    style: TextStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                    style: CustomTextStyle.getBaseStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                   ),
 
                   Row(
@@ -312,7 +313,7 @@ class _EventInfoCard extends State<EventInfoCard> {
                       const SizedBox(width: 4),
                       Text(
                         tr(widget.dataList[i].content),
-                        style: TextStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                        style: CustomTextStyle.getBaseStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                       )
                     ],
                   )
@@ -350,7 +351,7 @@ class _EventInfoCard extends State<EventInfoCard> {
                     width: UIDefine.getScreenWidth(50),
                     child: Text(
                       bIsItem? widget.itemName: tr('awardMoney'),
-                      style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize18, fontWeight: FontWeight.w500),
+                      style: CustomTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize18, fontWeight: FontWeight.w500),
                     )
                 ),
 
@@ -360,7 +361,7 @@ class _EventInfoCard extends State<EventInfoCard> {
                   children: [
                     Text(
                       bIsItem? tr('theAmountGoods') : tr('itemValue'),
-                      style: TextStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                      style: CustomTextStyle.getBaseStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                     ),
 
                     SizedBox(width: UIDefine.getScreenWidth(3)),
@@ -371,7 +372,7 @@ class _EventInfoCard extends State<EventInfoCard> {
                         const SizedBox(width: 2.5),
                         Text(
                           widget.price,
-                          style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                          style: CustomTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                         )
                       ],
                     )

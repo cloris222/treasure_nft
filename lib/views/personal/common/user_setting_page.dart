@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/personal/common/user_change_password_page.dart';
 import 'package:treasure_nft_project/views/personal/common/user_info_setting_page.dart';
@@ -76,7 +77,7 @@ class _UserSettingPageState extends State<UserSettingPage> {
               margin: EdgeInsets.only(left: UIDefine.getScreenWidth(5.5)),
               alignment: Alignment.centerLeft,
               child: Text('${tr('version')} v$version',
-                  style: TextStyle(
+                  style: CustomTextStyle.getBaseStyle(
                       fontSize: UIDefine.fontSize12,
                       color: AppColors.textGrey))),
           space,
@@ -140,7 +141,7 @@ class _UserSettingPageState extends State<UserSettingPage> {
                                     bLockIcon
                                         ? tr('changePassword')
                                         : tr('userInfo'),
-                                    style: TextStyle(
+                                    style: CustomTextStyle.getBaseStyle(
                                         color: AppColors.textBlack,
                                         fontSize: UIDefine.fontSize14,
                                         fontWeight: FontWeight.w500),

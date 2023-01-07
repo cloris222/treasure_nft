@@ -1,9 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 class DomainBar extends StatelessWidget {
   const DomainBar({super.key});
@@ -19,7 +18,7 @@ class DomainBar extends StatelessWidget {
         child: Text(
           tr('officialSite_title'),
           textAlign: TextAlign.left,
-          style: TextStyle(
+          style: CustomTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize12,
               color: Colors.white,
               fontWeight: FontWeight.w300),

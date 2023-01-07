@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
+
 import '../constant/call_back_function.dart';
 import '../constant/theme/app_colors.dart';
 import '../constant/theme/app_style.dart';
@@ -103,7 +106,7 @@ class _SliderPageViewState extends State<SliderPageView> {
                       : AppColors.barFont01),
               child: Text(
                 type,
-                style: TextStyle(
+                style: CustomTextStyle.getBaseStyle(
                     color:
                         isCurrent ? AppColors.textBlack : AppColors.dialogGrey,
                     fontSize: UIDefine.fontSize16,

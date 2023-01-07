@@ -1,22 +1,17 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:treasure_nft_project/constant/enum/trade_enum.dart';
 import 'package:treasure_nft_project/constant/theme/app_animation_path.dart';
-import 'package:treasure_nft_project/models/data/activity_model_data.dart';
-import 'package:treasure_nft_project/models/http/api/trade_api.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/view_models/trade/activity_viewmodel.dart';
 import 'package:treasure_nft_project/views/trade/trade_draw_result_page.dart';
-import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/theme/app_style.dart';
 import '../../constant/ui_define.dart';
-import '../../models/http/parameter/check_activiey_deposit.dart';
 import '../dialog/activity_rule_dialog.dart';
 import '../dialog/animation_dialog.dart';
 import '../dialog/new_reservation_dialog.dart';
@@ -197,15 +192,15 @@ class _WorldCupViewState extends State<WorldCupView> {
   }
 
   Widget _infoView(BuildContext context) {
-    TextStyle titleStyle = TextStyle(
+    TextStyle titleStyle = CustomTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize18,
         color: Colors.black,
         fontWeight: FontWeight.w500);
-    TextStyle contentStyle = TextStyle(
+    TextStyle contentStyle = CustomTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize12,
         color: Colors.grey,
         fontWeight: FontWeight.w500);
-    TextStyle blackContent = TextStyle(
+    TextStyle blackContent = CustomTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize12,
         color: Colors.black,
         fontWeight: FontWeight.w500);
@@ -276,7 +271,7 @@ class _WorldCupViewState extends State<WorldCupView> {
   }
 
   Widget _reservationView(BuildContext context) {
-    TextStyle blackContent = TextStyle(
+    TextStyle blackContent = CustomTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize14,
         color: Colors.black,
         fontWeight: FontWeight.w500);
@@ -307,7 +302,7 @@ class _WorldCupViewState extends State<WorldCupView> {
                 children: [
                   Text(
                     '${viewModel.canReserve?.deposit ?? ''}',
-                    style: TextStyle(
+                    style: CustomTextStyle.getBaseStyle(
                         fontSize: UIDefine.fontSize20,
                         fontWeight: FontWeight.w500),
                   ),
@@ -323,7 +318,7 @@ class _WorldCupViewState extends State<WorldCupView> {
               Wrap(children: [
                 Text(
                   '(${viewModel.canReserve?.depositForConsume ?? 0}U${tr("limitedNFT")}+${viewModel.canReserve?.depositForPool ?? 0}U${tr("bonusPool")})',
-                  style: const TextStyle(
+                  style:  CustomTextStyle.getBaseStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                       color: Colors.white),

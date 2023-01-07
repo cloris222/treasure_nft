@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import '../../constant/theme/app_colors.dart';
 
 class ActionButtonWidget extends StatelessWidget {
@@ -58,7 +59,7 @@ class ActionButtonWidget extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           btnText,
-          style: TextStyle(
+          style: CustomTextStyle.getBaseStyle(
               color: textColor,
               fontSize: fontSize ?? UIDefine.fontSize16,
               fontWeight: fontWeight),

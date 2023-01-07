@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/widgets/button/login_bolder_button_widget.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
@@ -142,7 +143,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
         decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.16),
               UIDefine.getScreenWidth(4.16), UIDefine.getScreenWidth(4.16), 0),
-          hintStyle: const TextStyle(height: 1.6, color: AppColors.textBlack),
+          hintStyle:  CustomTextStyle.getBaseStyle(height: 1.6, color: AppColors.textBlack),
           border: AppTheme.style.styleTextEditBorderBackground(
               color: AppColors.bolderGrey, radius: 10),
           focusedBorder: AppTheme.style.styleTextEditBorderBackground(
@@ -156,7 +157,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
               child: Row(children: [
                 TetherCoinWidget(size: UIDefine.fontSize24),
                 Text('  USDT-TRC20',
-                    style: TextStyle(
+                    style: CustomTextStyle.getBaseStyle(
                         color: viewModel.currentChain == CoinEnum.TRON
                             ? AppColors.deepBlue
                             : AppColors.searchBar))
@@ -166,7 +167,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
               child: Row(children: [
                 TetherCoinWidget(size: UIDefine.fontSize24),
                 Text('  USDT-BSC',
-                    style: TextStyle(
+                    style: CustomTextStyle.getBaseStyle(
                         color: viewModel.currentChain == CoinEnum.BSC
                             ? AppColors.deepBlue
                             : AppColors.searchBar))
@@ -182,7 +183,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
           children: [
             Text(
               tr('getAddress'),
-              style: TextStyle(
+              style: CustomTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
             ),
             GestureDetector(
@@ -281,7 +282,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
       children: [
         Text(
           tr('quantity'),
-          style: TextStyle(
+          style: CustomTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
         ),
         SizedBox(
@@ -313,7 +314,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
                     children: [
                       Text(
                         'USDT',
-                        style: TextStyle(
+                        style: CustomTextStyle.getBaseStyle(
                             fontSize: UIDefine.fontSize14,
                             fontWeight: FontWeight.w500),
                       ),
@@ -348,14 +349,14 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
       children: [
         Text(
           title,
-          style: TextStyle(
+          style: CustomTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize14,
               fontWeight: FontWeight.w500,
               color: AppColors.dialogGrey),
         ),
         Text(
           content,
-          style: TextStyle(
+          style: CustomTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize16,
               fontWeight: FontWeight.w500,
               color: AppColors.dialogBlack),
@@ -379,7 +380,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(tr('emailValid'),
-            style: TextStyle(
+            style: CustomTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500)),
         LoginEmailCodeView(
             countdownSecond: 60,

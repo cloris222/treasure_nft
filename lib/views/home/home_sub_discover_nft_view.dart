@@ -8,6 +8,7 @@ import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/discover_collect_data.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/home/home_observer.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
@@ -153,7 +154,7 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
             decoration: _getButtonBackground(isCurrent),
             child: Text(
               type.getTabTitle(),
-              style: TextStyle(
+              style: CustomTextStyle.getBaseStyle(
                   color: _getButtonColor(isCurrent),
                   fontSize: UIDefine.fontSize12,
                   fontWeight: FontWeight.w500),
@@ -247,7 +248,7 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
                 alignment: Alignment.centerLeft,
                 child: Text(data.name,
                     maxLines: 1,
-                    style: TextStyle(
+                    style: CustomTextStyle.getBaseStyle(
                         fontSize: UIDefine.fontSize14,
                         fontWeight: FontWeight.w500,
                         color: AppColors.textBlack))),
@@ -260,7 +261,7 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
                   TetherCoinWidget(size: UIDefine.getPixelWidth(14)),
                   Text(
                       ' ${NumberFormatUtil().removeTwoPointFormat(data.currentPrice)} USDT',
-                      style: TextStyle(
+                      style: CustomTextStyle.getBaseStyle(
                           fontSize: UIDefine.fontSize12,
                           fontWeight: FontWeight.w400,
                           color: AppColors.tetherGreen))

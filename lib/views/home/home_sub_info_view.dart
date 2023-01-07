@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
 import 'package:treasure_nft_project/views/home/home_pdf_viewer.dart';
 
@@ -12,11 +13,11 @@ class HomeSubInfoView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle titleStyle = TextStyle(
+    TextStyle titleStyle = CustomTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize16,
         color: AppColors.textBlack,
         fontWeight: FontWeight.w500);
-    TextStyle contentStyle = TextStyle(
+    TextStyle contentStyle = CustomTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize14,
         color: AppColors.textHintBlack,
         fontWeight: FontWeight.w400);

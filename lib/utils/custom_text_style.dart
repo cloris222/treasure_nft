@@ -12,7 +12,8 @@ class CustomTextStyle {
       double? fontSize,
       FontWeight? fontWeight,
       CustomTextFamily fontFamily = CustomTextFamily.PosteramaText,
-      FontStyle? fontStyle}) {
+      FontStyle? fontStyle,
+      double? height}) {
     return TextStyle(
         color: color,
         fontSize: fontSize,
@@ -22,6 +23,7 @@ class CustomTextStyle {
                 ? FontWeight.w500
                 : fontWeight)
             : null,
-        fontStyle: fontStyle);
+        fontStyle: fontStyle,
+        height: height);
   }
 }

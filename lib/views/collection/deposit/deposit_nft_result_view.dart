@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import '../../../constant/call_back_function.dart';
 import '../../../constant/theme/app_colors.dart';
@@ -66,7 +67,7 @@ class _DepositNftResultView extends State<DepositNftResultView> {
             /// 文字
             Text(
               tr("Polygon-text'"), // 完成付款 Polygon
-              style: TextStyle(
+              style: CustomTextStyle.getBaseStyle(
                   color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
             ),
 
@@ -88,7 +89,7 @@ class _DepositNftResultView extends State<DepositNftResultView> {
                       children: [
                         Text(
                           tr("Polygon-address'"),
-                          style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                          style: CustomTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                         ),
 
                         const SizedBox(height: 4),
@@ -99,7 +100,7 @@ class _DepositNftResultView extends State<DepositNftResultView> {
                               width: UIDefine.getScreenWidth(70),
                               child: Text(
                                 data,
-                                style: TextStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w400),
+                                style: CustomTextStyle.getBaseStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w400),
                               )
                             ),
                             SizedBox(width: UIDefine.getScreenWidth(3)),
@@ -134,14 +135,14 @@ class _DepositNftResultView extends State<DepositNftResultView> {
                       children: [
                         Text(
                           tr("chain"),
-                          style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                          style: CustomTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                         ),
 
                         SizedBox(width: UIDefine.getScreenWidth(3)),
 
                         Text(
                           widget.netWork,
-                          style: TextStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w400),
+                          style: CustomTextStyle.getBaseStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w400),
                         )
                       ],
                     )

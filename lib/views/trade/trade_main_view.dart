@@ -10,6 +10,7 @@ import 'package:treasure_nft_project/utils/trade_timer_util.dart';
 import 'package:treasure_nft_project/widgets/activity/world_cup_view.dart';
 import 'package:treasure_nft_project/widgets/dialog/new_reservation_dialog.dart';
 import 'package:treasure_nft_project/widgets/trade_countdown_view.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import '../../constant/theme/app_animation_path.dart';
 import '../../models/http/api/trade_api.dart';
 import '../../models/http/parameter/check_reserve_deposit.dart';
@@ -136,7 +137,7 @@ class _TradeMainViewState extends State<TradeMainView> {
   }
 
   Widget _levelView(BuildContext context) {
-    TextStyle titleStyle = TextStyle(fontSize: UIDefine.fontSize16);
+    TextStyle titleStyle = CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize16);
     double balance = TradeTimerUtil().getReservationInfo()?.balance ?? 0;
     double reserveBalance =
         TradeTimerUtil().getReservationInfo()?.reserveBalance ?? 0;

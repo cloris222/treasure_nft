@@ -11,6 +11,7 @@ import 'package:treasure_nft_project/views/personal/team/widget/all_members_card
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 import '../../../widgets/date_picker/custom_date_picker.dart';
 
@@ -91,7 +92,7 @@ class BodyState extends State<Body> {
                 height: UIDefine.getScreenHeight(10),
                 child: Text(
                   tr('AllMembers'),
-                  style: TextStyle(fontSize: UIDefine.fontSize14),
+                  style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
                 ),
               ),
 

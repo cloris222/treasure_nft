@@ -4,6 +4,7 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_contribute_list_data.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 class TeamContributeItemView extends StatelessWidget {
   const TeamContributeItemView(
@@ -20,7 +21,7 @@ class TeamContributeItemView extends StatelessWidget {
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text('$itemCount. ${itemData.name}',
-              style: TextStyle(
+              style: CustomTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize12,
                   color: AppColors.dialogGrey,
                   fontWeight: FontWeight.w500)),
@@ -30,7 +31,7 @@ class TeamContributeItemView extends StatelessWidget {
                 viewModel.getCoinImage(),
                 viewModel.getPadding(1),
                 Text(NumberFormatUtil().removeTwoPointFormat(itemData.share),
-                    style: TextStyle(
+                    style: CustomTextStyle.getBaseStyle(
                         fontSize: UIDefine.fontSize12,
                         color: AppColors.textBlack,
                         fontWeight: FontWeight.w500),

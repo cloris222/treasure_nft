@@ -7,6 +7,7 @@ import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
 import 'package:treasure_nft_project/views/home/widget/search_action_button.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 class DatePickerWidget extends StatefulWidget {
   DatePickerWidget({super.key,
@@ -75,19 +76,19 @@ class DatePickerState extends State<DatePickerWidget> {
               viewModel.getPadding(1),
 
               Text(startDate,
-                style: const TextStyle(color: AppColors.textGrey),
+                style:  CustomTextStyle.getBaseStyle(color: AppColors.textGrey),
               ),
 
               viewModel.getPadding(1),
               Visibility(
                   visible: endDate != '',
-                  child: const Text('～',
-                    style: TextStyle(color: AppColors.textGrey),
+                  child:  Text('～',
+                    style: CustomTextStyle.getBaseStyle(color: AppColors.textGrey),
                   )),
               viewModel.getPadding(1),
 
               Text(endDate,
-                style: const TextStyle(color: AppColors.textGrey),
+                style:  CustomTextStyle.getBaseStyle(color: AppColors.textGrey),
               )
 
             ],),

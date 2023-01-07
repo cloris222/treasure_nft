@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../constant/call_back_function.dart';
@@ -38,7 +39,7 @@ class ExploreMainViewModel extends BaseViewModel {
                   UIDefine.getScreenWidth(2.77), 0),
               child: Text(
                 _getTabTitle(dataList[i].name),
-                style: TextStyle(color: _getButtonColor(isCurrent),
+                style: CustomTextStyle.getBaseStyle(color: _getButtonColor(isCurrent),
                     fontSize: _getTextSize(isCurrent), fontWeight: FontWeight.w500),
                 textAlign: TextAlign.center,
               ),
@@ -82,7 +83,7 @@ class ExploreMainViewModel extends BaseViewModel {
   //                     padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(2.77), 0, UIDefine.getScreenWidth(2.77), 0),
   //                     child: Text(
   //                       _getTabTitle(dataList[i].name),
-  //                       style: TextStyle(color: _getButtonColor(isCurrent), fontSize: UIDefine.fontSize16),
+  //                       style: CustomTextStyle.getBaseStyle(color: _getButtonColor(isCurrent), fontSize: UIDefine.fontSize16),
   //                       textAlign: TextAlign.center,
   //                     ),
   //                   ),

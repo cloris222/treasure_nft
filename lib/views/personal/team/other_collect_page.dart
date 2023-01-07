@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/ui_define.dart';
@@ -87,14 +88,14 @@ class _OtherCollectPageState extends State<OtherCollectPage> {
               viewModel.nftName = text;
               viewModel.initListView();
             },
-            style: TextStyle(fontSize: UIDefine.fontSize14),
+            style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
             decoration: InputDecoration(
               prefixIcon:
                   Image.asset('assets/icon/btn/btn_discover_01_nor.png'),
               hintText: tr("select-placeholder'"),
               hintStyle:
-                  const TextStyle(height: 1.6, color: AppColors.searchBar),
-              labelStyle: const TextStyle(color: Colors.black),
+                   CustomTextStyle.getBaseStyle(height: 1.6, color: AppColors.searchBar),
+              labelStyle:  CustomTextStyle.getBaseStyle(color: Colors.black),
               alignLabelWithHint: true,
               border: borderType,
               focusedBorder: borderType,
@@ -146,7 +147,7 @@ class _OtherCollectPageState extends State<OtherCollectPage> {
                 child: Row(
                   children: <Widget>[
                     Text(_getCategoryText(category),
-                        style: const TextStyle(color: AppColors.searchBar)),
+                        style:  CustomTextStyle.getBaseStyle(color: AppColors.searchBar)),
                   ],
                 ));
           }).toList(),

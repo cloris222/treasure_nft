@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/utils/timer_util.dart';
 import 'package:treasure_nft_project/widgets/dialog/base_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
@@ -49,7 +50,7 @@ class CollectionTransferDialogView extends BaseDialog {
 
           Text(
             name,
-            style: TextStyle(
+            style: CustomTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
           ),
 
@@ -59,7 +60,7 @@ class CollectionTransferDialogView extends BaseDialog {
               width: double.infinity,
               child: Text(
                 tr("mail_valid_code"),
-                style: TextStyle(
+                style: CustomTextStyle.getBaseStyle(
                     fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
               )
           ),
@@ -89,7 +90,7 @@ class CollectionTransferDialogView extends BaseDialog {
                     filled: true,
                     fillColor: AppColors.textWhite,
                     hintText: tr("code"),
-                    hintStyle: TextStyle(fontSize: UIDefine.fontSize10, color: AppColors.searchBar),
+                    hintStyle: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize10, color: AppColors.searchBar),
                     contentPadding: const EdgeInsets.only(left: 10, bottom: 6, top: 6)
                   ),
                 )
@@ -118,7 +119,7 @@ class CollectionTransferDialogView extends BaseDialog {
               visible: bEmpty,
               child: Text(
                 tr("rule_void"),
-                style: TextStyle(color: AppColors.reservationLevel5,
+                style: CustomTextStyle.getBaseStyle(color: AppColors.reservationLevel5,
                     fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w400),
               ),
             ),
@@ -131,7 +132,7 @@ class CollectionTransferDialogView extends BaseDialog {
             alignment: Alignment.centerLeft,
             child: Text(
               tr("valid_time") + ': ' + leftTime,
-              style: TextStyle(color: AppColors.textRed,
+              style: CustomTextStyle.getBaseStyle(color: AppColors.textRed,
                   fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
             ),
           ),
@@ -153,7 +154,7 @@ class CollectionTransferDialogView extends BaseDialog {
                     },
                     child: Text(
                       tr('cancel'), // 轉讓
-                      style: TextStyle(
+                      style: CustomTextStyle.getBaseStyle(
                           color: AppColors.mainThemeButton, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
                     )
                 ),
@@ -171,7 +172,7 @@ class CollectionTransferDialogView extends BaseDialog {
                     },
                     child: Text(
                       tr('verify'), // 販售
-                      style: TextStyle(
+                      style: CustomTextStyle.getBaseStyle(
                           color: AppColors.textWhite, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
                     )
                 ),
@@ -190,7 +191,7 @@ class CollectionTransferDialogView extends BaseDialog {
       child: Text(
         tr("transferCheck"),
         style:
-        TextStyle(fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500),
+        CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500),
       )
     );
   }

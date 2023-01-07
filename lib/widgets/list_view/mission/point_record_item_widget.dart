@@ -5,6 +5,7 @@ import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/point_record_data.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 class PointRecordItemWidget extends StatelessWidget {
   const PointRecordItemWidget({Key? key, required this.record})
@@ -41,23 +42,23 @@ class PointRecordItemWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(record.getTitle(),
-            style: TextStyle(
+            style: CustomTextStyle.getBaseStyle(
                 color: AppColors.dialogBlack,
                 fontSize: UIDefine.fontSize14,
                 fontWeight: FontWeight.w500)),
         SizedBox(height: UIDefine.getPixelHeight(5)),
         Text(BaseViewModel().changeTimeZone(record.time),
-            style: TextStyle(
+            style: CustomTextStyle.getBaseStyle(
                 color: AppColors.searchBar,
                 fontSize: UIDefine.fontSize12,
                 fontWeight: FontWeight.w500)),
         Text('${tr('type')} : ${record.getStringType()}',
-            style: TextStyle(
+            style: CustomTextStyle.getBaseStyle(
                 color: AppColors.dialogGrey,
                 fontSize: UIDefine.fontSize12,
                 fontWeight: FontWeight.w500)),
         Text('${tr('lv_point')} : ${record.getStringPoint()}',
-            style: TextStyle(
+            style: CustomTextStyle.getBaseStyle(
                 color: AppColors.dialogGrey,
                 fontSize: UIDefine.fontSize12,
                 fontWeight: FontWeight.w500))

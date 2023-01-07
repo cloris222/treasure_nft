@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 
 import '../../../constant/ui_define.dart';
@@ -74,7 +75,7 @@ class _UserChangePasswordPage extends State<UserChangePasswordPage> {
                 onChanged: viewModel.onPasswordChanged),
             SizedBox(height: UIDefine.getScreenWidth(5.5)),
             Text(tr('emailValid'),
-                style: TextStyle(
+                style: CustomTextStyle.getBaseStyle(
                     fontSize: UIDefine.fontSize14,
                     fontWeight: FontWeight.w500)),
             LoginEmailCodeView(

@@ -7,6 +7,7 @@ import 'package:treasure_nft_project/models/http/parameter/team_member_detail.da
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
 import 'package:treasure_nft_project/widgets/dialog/list_dialog.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'lower_invite_listview.dart';
 import 'lower_nft_listview.dart';
 
@@ -18,12 +19,12 @@ class MemberDetailItemView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TeamMemberViewModel viewModel = TeamMemberViewModel();
-    TextStyle titleStyle = TextStyle(
+    TextStyle titleStyle = CustomTextStyle.getBaseStyle(
         color: AppColors.dialogGrey,
         fontSize: UIDefine.fontSize12,
         fontWeight: FontWeight.w500);
 
-    TextStyle contentStyle = TextStyle(
+    TextStyle contentStyle = CustomTextStyle.getBaseStyle(
         color: AppColors.dialogBlack,
         fontSize: UIDefine.fontSize12,
         fontWeight: FontWeight.w500);
@@ -115,7 +116,7 @@ class MemberDetailItemView extends StatelessWidget {
                               children: [
                                 Text(
                                   tr('NFTs'),
-                                  style: const TextStyle(
+                                  style:  CustomTextStyle.getBaseStyle(
                                       color: AppColors.mainThemeButton),
                                 ),
                                 Padding(
@@ -124,7 +125,7 @@ class MemberDetailItemView extends StatelessWidget {
                                 )),
                                 Text(
                                   itemData.itemCount.toString(),
-                                  style: const TextStyle(
+                                  style:  CustomTextStyle.getBaseStyle(
                                       color: AppColors.mainThemeButton),
                                 ),
                               ],
@@ -178,7 +179,7 @@ class MemberDetailItemView extends StatelessWidget {
                           children: [
                             Text(
                               ' ',
-                              style: TextStyle(
+                              style: CustomTextStyle.getBaseStyle(
                                 color: AppColors.textGrey,
                                 fontSize: UIDefine.fontSize12,
                               ),
@@ -186,7 +187,7 @@ class MemberDetailItemView extends StatelessWidget {
                             viewModel.getPadding(1),
                             Text(
                               ' ',
-                              style: TextStyle(
+                              style: CustomTextStyle.getBaseStyle(
                                 color: AppColors.textBlack,
                                 fontSize: UIDefine.fontSize12,
                               ),
@@ -224,14 +225,14 @@ class MemberDetailItemView extends StatelessWidget {
                                       tr('invite'),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
+                                      style:  CustomTextStyle.getBaseStyle(
                                           color: AppColors.mainThemeButton),
                                     ),
                                   ),
                                   viewModel.getPadding(3),
                                   Text(
                                     itemData.inviteCount.toString(),
-                                    style: const TextStyle(
+                                    style:  CustomTextStyle.getBaseStyle(
                                         color: AppColors.mainThemeButton),
                                   ),
                                 ],
@@ -306,7 +307,7 @@ class MemberDetailItemView extends StatelessWidget {
                 space,
                 Text(
                   'No Notifications',
-                  style: TextStyle(
+                  style: CustomTextStyle.getBaseStyle(
                       fontWeight: FontWeight.w500,
                       color: AppColors.emptyCoffee,
                       fontSize: UIDefine.fontSize14),
@@ -315,7 +316,7 @@ class MemberDetailItemView extends StatelessWidget {
               ]),
           Center(
             child: Text(tr('noData'),
-                style: TextStyle(
+                style: CustomTextStyle.getBaseStyle(
                     fontWeight: FontWeight.w500,
                     color: AppColors.emptyCoffee.withOpacity(0.3),
                     fontSize: UIDefine.fontSize16)),

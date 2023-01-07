@@ -5,7 +5,7 @@ import 'app_colors.dart';
 ///MARK: 放會重複用到的Style
 class AppStyle {
   Widget styleFillText(String text,
-      {TextStyle style = const TextStyle(),
+      {required TextStyle style,
       double minHeight = 20,
       EdgeInsetsGeometry margin = EdgeInsets.zero,
       AlignmentGeometry alignment = Alignment.centerLeft,

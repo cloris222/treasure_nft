@@ -7,6 +7,7 @@ import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/level_info_data.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/personal/level/level_detail_view_model.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
@@ -87,7 +88,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
       LevelIconWidget(
           level: GlobalData.userInfo.level, size: UIDefine.getScreenHeight(20)),
       Text('${tr('level')} ${GlobalData.userInfo.level}',
-          style: TextStyle(
+          style: CustomTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize30, fontWeight: FontWeight.w500)),
       _buildSpace(height: 2),
 
@@ -95,7 +96,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
       Row(children: [
         Text(
           '${tr('lv_point')} : ${GlobalData.userLevelInfo?.point} / ${GlobalData.userLevelInfo?.pointRequired} (${viewModel.getStrPointPercentage()})',
-          style: TextStyle(
+          style: CustomTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w400),
         ),
         Flexible(child: Container()),
@@ -130,7 +131,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
             SizedBox(width: UIDefine.getScreenWidth(2)),
             Text(
               tr('pt_DAILY'),
-              style: TextStyle(fontSize: UIDefine.fontSize16),
+              style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize16),
             ),
             Flexible(child: Container()),
             BaseIconWidget(
@@ -152,7 +153,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
             SizedBox(width: UIDefine.getScreenWidth(2)),
             Text(
               tr('achievement'),
-              style: TextStyle(fontSize: UIDefine.fontSize16),
+              style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize16),
             ),
             Flexible(child: Container()),
             BaseIconWidget(
@@ -200,7 +201,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
               : AppImagePath.levelLock,
           size: UIDefine.fontSize26),
       Text(' ${tr('level')} $level ',
-          style: TextStyle(
+          style: CustomTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500)),
       LevelIconWidget(level: level, size: UIDefine.fontSize26),
       Flexible(child: Container()),
@@ -257,7 +258,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
               title,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
+              style: CustomTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize14,
                   fontWeight: FontWeight.w500,
                   color: AppColors.dialogGrey),
@@ -271,7 +272,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
                   child: TetherCoinWidget(size: UIDefine.fontSize16)),
               SizedBox(width: UIDefine.getScreenWidth(1)),
               Text(context,
-                  style: TextStyle(
+                  style: CustomTextStyle.getBaseStyle(
                       fontSize: UIDefine.fontSize14,
                       fontWeight: FontWeight.w500,
                       color: AppColors.dialogBlack)),

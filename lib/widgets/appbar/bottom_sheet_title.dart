@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 class BottomSheetTitle extends StatelessWidget {
   const BottomSheetTitle({Key? key, required this.title}) : super(key: key);
@@ -15,7 +16,7 @@ class BottomSheetTitle extends StatelessWidget {
           height: UIDefine.getPixelWidth(50),
           alignment: Alignment.center,
           child: Text(title,
-              style: TextStyle(
+              style: CustomTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500)),
         ),
         Positioned(

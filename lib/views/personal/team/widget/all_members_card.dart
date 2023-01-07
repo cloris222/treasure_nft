@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
 
 class AllMembersCard extends StatelessWidget {
@@ -38,7 +39,7 @@ class AllMembersCard extends StatelessWidget {
                     children: [
                       Text(
                         leftTitle,
-                        style: TextStyle(
+                        style: CustomTextStyle.getBaseStyle(
                           color: AppColors.textGrey,
                           fontSize: UIDefine.fontSize12,
                         ),
@@ -46,7 +47,7 @@ class AllMembersCard extends StatelessWidget {
                       viewModel.getPadding(1),
                       Text(
                         leftValue,
-                        style: TextStyle(
+                        style: CustomTextStyle.getBaseStyle(
                           color: AppColors.mainThemeButton,
                           fontSize: UIDefine.fontSize14,
                         ),
@@ -62,7 +63,7 @@ class AllMembersCard extends StatelessWidget {
                     children: [
                       Text(
                         rightTitle,
-                        style: TextStyle(
+                        style: CustomTextStyle.getBaseStyle(
                           color: AppColors.textGrey,
                           fontSize: UIDefine.fontSize12,
                         ),
@@ -70,7 +71,7 @@ class AllMembersCard extends StatelessWidget {
                       viewModel.getPadding(1),
                       Text(
                         rightValue,
-                        style: TextStyle(
+                        style: CustomTextStyle.getBaseStyle(
                           color: AppColors.mainThemeButton,
                           fontSize: UIDefine.fontSize14,
                         ),

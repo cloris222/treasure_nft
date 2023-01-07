@@ -4,6 +4,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 import '../../../constant/global_data.dart';
 import '../../../constant/theme/app_colors.dart';
@@ -115,7 +116,7 @@ class _ShareTeamOrderPageState extends State<ShareTeamOrderPage> {
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(
             GlobalData.userInfo.name,
-            style: TextStyle(fontSize: UIDefine.fontSize12),
+            style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12),
           ),
           const SizedBox(height: 10),
           Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
@@ -168,7 +169,7 @@ class _ShareTeamOrderPageState extends State<ShareTeamOrderPage> {
 
   Widget _buildOrderInfo() {
     double itemSize = UIDefine.getWidth() * 0.3;
-    TextStyle titleStyle = TextStyle(
+    TextStyle titleStyle = CustomTextStyle.getBaseStyle(
         color: AppColors.dialogGrey,
         fontWeight: FontWeight.w500,
         fontSize: UIDefine.fontSize12);
@@ -197,7 +198,7 @@ class _ShareTeamOrderPageState extends State<ShareTeamOrderPage> {
                     '${NumberFormatUtil().removeTwoPointFormat(viewModel.teamShareInfo?.profitPCT ?? 0)}%'
                         :
                     '${NumberFormatUtil().removeTwoPointFormat(viewModel.teamShareInfo?.promotePct ?? 0)}%',
-                    style: TextStyle(
+                    style: CustomTextStyle.getBaseStyle(
                         color: AppColors.mainThemeButton,
                         fontSize: UIDefine.fontSize28,
                         fontWeight: FontWeight.w500)),
@@ -218,7 +219,7 @@ class _ShareTeamOrderPageState extends State<ShareTeamOrderPage> {
                     Text(
                         NumberFormatUtil()
                             .removeTwoPointFormat(itemData.income),
-                        style: TextStyle(
+                        style: CustomTextStyle.getBaseStyle(
                             color: AppColors.textBlack,
                             fontSize: UIDefine.fontSize16,
                             fontWeight: FontWeight.w500))
@@ -258,12 +259,12 @@ class _ShareTeamOrderPageState extends State<ShareTeamOrderPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(tr('inviteCode'),
-                      style: TextStyle(
+                      style: CustomTextStyle.getBaseStyle(
                           color: AppColors.dialogGrey,
                           fontWeight: FontWeight.w500,
                           fontSize: UIDefine.fontSize12)),
                   Text(GlobalData.userInfo.inviteCode,
-                      style: TextStyle(
+                      style: CustomTextStyle.getBaseStyle(
                           color: AppColors.dialogBlack,
                           fontWeight: FontWeight.w500,
                           fontSize: UIDefine.fontSize16))

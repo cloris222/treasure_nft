@@ -6,6 +6,7 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 import '../../../constant/call_back_function.dart';
 import '../../../views/collection/data/collection_nft_item_response_data.dart';
@@ -67,7 +68,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                       const SizedBox(width: 6),
                       Text(
                         _getStatusTitle(),
-                        style: TextStyle(
+                        style: CustomTextStyle.getBaseStyle(
                             color: AppColors.dialogGrey,
                             fontSize: UIDefine.fontSize16,
                             fontWeight: FontWeight.w500),
@@ -105,7 +106,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                           child: Text(
                             // 商品名
                             data.name,
-                            style: TextStyle(
+                            style: CustomTextStyle.getBaseStyle(
                                 color: AppColors.dialogBlack,
                                 fontSize: UIDefine.fontSize18,
                                 fontWeight: FontWeight.w500),
@@ -124,7 +125,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                               Text(
                                 // 商品價格
                                 BaseViewModel().numberFormat(data.price),
-                                style: TextStyle(
+                                style: CustomTextStyle.getBaseStyle(
                                     color: AppColors.textBlack,
                                     fontSize: UIDefine.fontSize14,
                                     fontWeight: FontWeight.w500),
@@ -139,7 +140,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                               Text(
                                 // 商品漲幅價格
                                 BaseViewModel().numberFormat(data.growAmount),
-                                style: TextStyle(
+                                style: CustomTextStyle.getBaseStyle(
                                     color: AppColors.growPrice,
                                     fontSize: UIDefine.fontSize12,
                                     fontWeight: FontWeight.w400),
@@ -148,7 +149,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                               Text(
                                 // 計價單位
                                 'USD',
-                                style: TextStyle(
+                                style: CustomTextStyle.getBaseStyle(
                                     color: AppColors.dialogGrey,
                                     fontSize: UIDefine.fontSize12,
                                     fontWeight: FontWeight.w700),
@@ -187,11 +188,11 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(tr('nextTradeDate') + ':  ' + data.nextTradeDate,
-              style: TextStyle(
+              style: CustomTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500)),
           SizedBox(height: UIDefine.getScreenWidth(2.4)),
           Text(tr('tradingCycle') + ':  ' + 'T+ ' + data.tradePeriod.toString(),
-              style: TextStyle(
+              style: CustomTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500)),
           SizedBox(height: UIDefine.getScreenWidth(4))
         ],
@@ -209,7 +210,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
             const SizedBox(width: 6),
             Text(
               timeLeft,
-              style: TextStyle(
+              style: CustomTextStyle.getBaseStyle(
                   color: AppColors.mainThemeButton,
                   fontSize: UIDefine.fontSize12,
                   fontWeight: FontWeight.w700),
@@ -273,7 +274,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
               onPressed: () {},
               child: Text(
                 tr('sell'), // 完成付款
-                style: TextStyle(
+                style: CustomTextStyle.getBaseStyle(
                     color: AppColors.textWhite,
                     fontSize: UIDefine.fontSize16,
                     fontWeight: FontWeight.w500),
@@ -298,7 +299,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                           },
                           child: Text(
                             tr('transfer'), // 轉讓
-                            style: TextStyle(
+                            style: CustomTextStyle.getBaseStyle(
                                 color: AppColors.mainThemeButton,
                                 fontSize: UIDefine.fontSize16,
                                 fontWeight: FontWeight.w500),
@@ -320,7 +321,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                     },
                     child: Text(
                       tr('sell'), // 販售
-                      style: TextStyle(
+                      style: CustomTextStyle.getBaseStyle(
                           color: AppColors.textWhite,
                           fontSize: UIDefine.fontSize16,
                           fontWeight: FontWeight.w500),

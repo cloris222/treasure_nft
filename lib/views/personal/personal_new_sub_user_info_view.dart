@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
+
 import '../../constant/call_back_function.dart';
 import '../../constant/global_data.dart';
 import '../../constant/theme/app_colors.dart';
@@ -92,7 +94,7 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
                                     size: UIDefine.fontSize18),
                                 const SizedBox(width: 5),
                                 Text('${tr('level')} ${userInfo.level}',
-                                    style: TextStyle(
+                                    style: CustomTextStyle.getBaseStyle(
                                         fontSize: UIDefine.fontSize12,
                                         color: AppColors.dialogBlack)),
                                 SizedBox(width: UIDefine.getScreenWidth(2)),
@@ -116,7 +118,7 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
                                 SizedBox(height: UIDefine.fontSize18),
                                 Text(
                                     '${userInfo.point} ${tr('lv_point')}',
-                                    style: TextStyle(
+                                    style: CustomTextStyle.getBaseStyle(
                                         fontSize: UIDefine.fontSize12,
                                         color: AppColors.dialogBlack)),
                                 SizedBox(width: UIDefine.getScreenWidth(2)),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gradient_borders/input_borders/gradient_outline_input_border.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_theme.dart';
 import '../../utils/num_length_formatter.dart';
@@ -90,8 +91,8 @@ class _LoginTextWidgetState extends State<LoginTextWidget> {
         onTap: widget.onTap,
         decoration: InputDecoration(
             hintText: widget.hintText,
-            hintStyle: TextStyle(height: 1.1, color: widget.hintColor),
-            labelStyle: const TextStyle(color: Colors.black),
+            hintStyle: CustomTextStyle.getBaseStyle(height: 1.1, color: widget.hintColor),
+            labelStyle:  CustomTextStyle.getBaseStyle(color: Colors.black),
             alignLabelWithHint: true,
             contentPadding: EdgeInsets.only(
                 top: 0, left: 20, right: widget.contentPaddingRight),

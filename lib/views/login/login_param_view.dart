@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
@@ -60,7 +61,7 @@ class LoginParamView extends StatelessWidget {
     return Container(
         // margin: const EdgeInsets.symmetric(vertical: 5), // (Ethan改) LoginTextWidget已有上下5 margin 間距過大
         child: Text(text,
-            style: TextStyle(
+            style: CustomTextStyle.getBaseStyle(
                 fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14)));
   }
 }

@@ -6,6 +6,7 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/check_earning_income.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 class SavesInfoCard extends StatelessWidget {
   const SavesInfoCard({Key? key, required this.data}) : super(key: key);
@@ -26,7 +27,7 @@ class SavesInfoCard extends StatelessWidget {
           const SizedBox(height: 5),
           Text(
             BaseViewModel().changeTimeZone(data.time),
-            style: TextStyle(
+            style: CustomTextStyle.getBaseStyle(
                 color: AppColors.searchBar,
                 fontSize: UIDefine.fontSize12,
                 fontWeight: FontWeight.w500),
@@ -48,7 +49,7 @@ class SavesInfoCard extends StatelessWidget {
             data.saveType == "LEVEL_UP_ADD"
                 ? tr('bonus_referral')
                 : tr('bonus_trade'),
-            style: TextStyle(
+            style: CustomTextStyle.getBaseStyle(
                 color: AppColors.textBlack,
                 fontSize: UIDefine.fontSize20,
                 fontWeight: FontWeight.w500))
@@ -62,14 +63,14 @@ class SavesInfoCard extends StatelessWidget {
       children: [
         Text(
           tr('mintAmount'), // 在外部要塞多語系的key
-          style: TextStyle(
+          style: CustomTextStyle.getBaseStyle(
               color: AppColors.dialogGrey,
               fontSize: UIDefine.fontSize14,
               fontWeight: FontWeight.w500),
         ),
         Text(
           '+${NumberFormatUtil().removeTwoPointFormat(data.saveAmount)}',
-          style: TextStyle(
+          style: CustomTextStyle.getBaseStyle(
               color: AppColors.textBlack,
               fontSize: UIDefine.fontSize14,
               fontWeight: FontWeight.w500),

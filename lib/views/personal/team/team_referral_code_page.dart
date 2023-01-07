@@ -9,6 +9,7 @@ import 'package:treasure_nft_project/views/personal/personal_sub_user_info_view.
 import 'package:treasure_nft_project/views/personal/team/share_picture_style.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
 import '../../../view_models/personal/team/share_center_viewmodel.dart';
@@ -60,20 +61,20 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
 
   Widget _buildInviteView(BuildContext context) {
     TextStyle styleBlack =
-        TextStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500);
-    TextStyle styleGrey = TextStyle(
+        CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500);
+    TextStyle styleGrey = CustomTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize14,
         fontWeight: FontWeight.w500,
         color: AppColors.dialogGrey);
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       SizedBox(height: UIDefine.getPixelHeight(10)),
       Text(tr("shareCenterTitle"),
-          style: TextStyle(
+          style: CustomTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500)),
       Container(
         margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(10)),
         child: Text(tr("shareCenterSubTitle"),
-            style: TextStyle(
+            style: CustomTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize12, fontWeight: FontWeight.normal)),
       ),
       Container(
@@ -105,7 +106,7 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
                                 Image.asset(AppImagePath.rewardGradient),
                                 const SizedBox(width: 5),
                                 Text(tr("teamIncome"),
-                                    style: TextStyle(
+                                    style: CustomTextStyle.getBaseStyle(
                                         fontSize: UIDefine.fontSize14,
                                         color: AppColors.textBlack))
                               ]),
@@ -123,7 +124,7 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
                             Image.asset(AppImagePath.clockGradient),
                             const SizedBox(width: 5),
                             Text(tr("24HourNo1'"),
-                                style: TextStyle(
+                                style: CustomTextStyle.getBaseStyle(
                                     fontSize: UIDefine.fontSize14,
                                     color: AppColors.textBlack))
                           ]),
@@ -145,7 +146,7 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
     return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
       SizedBox(height: UIDefine.getPixelHeight(20)),
       Text(tr("referralQRcode"),
-          style: TextStyle(
+          style: CustomTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500)),
       SizedBox(height: UIDefine.getPixelHeight(10)),
 
@@ -163,8 +164,8 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
 
   Widget _copyArea(BuildContext context) {
     TextStyle styleBlack =
-        TextStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500);
-    TextStyle styleGrey = TextStyle(
+        CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500);
+    TextStyle styleGrey = CustomTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize14,
         fontWeight: FontWeight.w500,
         color: AppColors.dialogGrey);

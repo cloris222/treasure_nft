@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import '../../constant/theme/app_colors.dart';
 import 'coin/tether_coin_widget.dart';
 
@@ -42,7 +43,7 @@ class WalletInfoItem extends StatelessWidget {
           child: Text(NumberFormatUtil().removeTwoPointFormat(value),
               maxLines: 1,
               textAlign: TextAlign.start,
-              style: TextStyle(
+              style: CustomTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize14,
                   color: AppColors.dialogBlack,
                   fontWeight: FontWeight.w500)),
@@ -58,7 +59,7 @@ class WalletInfoItem extends StatelessWidget {
         title,
         maxLines: 2,
         textAlign: TextAlign.center,
-        style: TextStyle(
+        style: CustomTextStyle.getBaseStyle(
             fontSize: UIDefine.fontSize14, color: AppColors.dialogBlack),
       ),
     );

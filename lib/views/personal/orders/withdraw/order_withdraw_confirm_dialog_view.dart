@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/widgets/dialog/base_dialog.dart';
 
 import '../../../../constant/ui_define.dart';
@@ -37,7 +38,7 @@ class OrderWithdrawConfirmDialogView extends BaseDialog {
           Text(
             tr('pleaseAddress'),
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500),
+            style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500),
           ),
 
           SizedBox(height: UIDefine.getScreenWidth(8.27)),
@@ -54,7 +55,7 @@ class OrderWithdrawConfirmDialogView extends BaseDialog {
               children: [
                 Text(
                   tr('address') + ' (' + chain + ')',
-                  style: TextStyle(
+                  style: CustomTextStyle.getBaseStyle(
                       color: AppColors.mainThemeButton,
                       fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
                 ),
@@ -63,7 +64,7 @@ class OrderWithdrawConfirmDialogView extends BaseDialog {
 
                 Text(
                   address,
-                  style: TextStyle(fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
+                  style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
                 ),
               ],
             ),
@@ -74,7 +75,7 @@ class OrderWithdrawConfirmDialogView extends BaseDialog {
           Text(
             tr('checkAddressHint'),
             textAlign: TextAlign.center,
-            style: TextStyle(color: AppColors.dialogGrey,
+            style: CustomTextStyle.getBaseStyle(color: AppColors.dialogGrey,
                 fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
           ),
 
@@ -106,7 +107,7 @@ class OrderWithdrawConfirmDialogView extends BaseDialog {
           },
           child: Text(
             tr('confirm'),
-            style: TextStyle(
+            style: CustomTextStyle.getBaseStyle(
                 color: AppColors.textWhite,
                 fontSize: UIDefine.fontSize16,
                 fontWeight: FontWeight.w500),
@@ -127,7 +128,7 @@ class OrderWithdrawConfirmDialogView extends BaseDialog {
           },
           child: Text(
             tr('cancel'),
-            style: TextStyle(
+            style: CustomTextStyle.getBaseStyle(
                 color: AppColors.mainThemeButton,
                 fontSize: UIDefine.fontSize16,
                 fontWeight: FontWeight.w500),

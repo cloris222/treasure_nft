@@ -7,6 +7,7 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/task_info_data.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import 'package:treasure_nft_project/widgets/gradient_text.dart';
@@ -75,7 +76,7 @@ class AchievementAchieveFinishPage extends StatelessWidget {
         data.getAchievementGoalTaskSubText(code),
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
-        style: TextStyle(
+        style: CustomTextStyle.getBaseStyle(
             fontSize: UIDefine.fontSize16,
             color: AppColors.textGrey,
             fontWeight: FontWeight.w500),

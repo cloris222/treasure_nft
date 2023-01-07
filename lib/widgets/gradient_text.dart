@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 class GradientText extends StatelessWidget {
   const GradientText(
@@ -51,7 +52,7 @@ class GradientText extends StatelessWidget {
           strutStyle: strutStyle,
           maxLines: maxLines,
           overflow: overflow,
-          style: TextStyle(
+          style: CustomTextStyle.getBaseStyle(
               fontSize: size ?? UIDefine.fontSize20,
               fontWeight: weight,
               height: styleHeight)),

@@ -14,6 +14,7 @@ import 'package:treasure_nft_project/models/http/parameter/discover_collect_data
 import 'package:treasure_nft_project/models/http/parameter/home_artist_record.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_carousel.dart';
 import 'package:treasure_nft_project/models/http/parameter/random_collect_info.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/notification_data.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/subject.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
@@ -51,7 +52,7 @@ class HomeMainViewModel extends BaseViewModel {
 
   ///MARK: 主標題
   TextStyle getMainTitleStyle() {
-    return TextStyle(
+    return CustomTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize24,
         fontWeight: FontWeight.w500,
         color: AppColors.textBlack);
@@ -59,7 +60,7 @@ class HomeMainViewModel extends BaseViewModel {
 
   ///MARK: 副標題
   TextStyle getSubTitleStyle() {
-    return TextStyle(
+    return CustomTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize18,
         fontWeight: FontWeight.w400,
         color: AppColors.textBlack);
@@ -67,7 +68,7 @@ class HomeMainViewModel extends BaseViewModel {
 
   ///MARK: 內容
   TextStyle getContextStyle({Color color = AppColors.textBlack}) {
-    return TextStyle(
+    return CustomTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize14,
         fontWeight: FontWeight.w400,
         color: color);

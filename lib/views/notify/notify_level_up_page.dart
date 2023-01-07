@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/widgets/label/icon/level_icon_widget.dart';
 
 import '../../constant/theme/app_animation_path.dart';
@@ -64,7 +65,7 @@ class NotifyLevelUpPage extends StatelessWidget {
     var levelHeight = pageHeight * 0.07;
     var lvText =
         GradientText('LV', weight: FontWeight.w500, size: levelHeight * 0.5);
-    var levelStyle = TextStyle(
+    var levelStyle = CustomTextStyle.getBaseStyle(
         fontWeight: FontWeight.w500,
         fontSize: levelHeight * 0.5,
         color: AppColors.textBlack);

@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/widgets/button/login_bolder_button_widget.dart';
 import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
 import '../../../../constant/theme/app_colors.dart';
@@ -147,7 +148,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
           children: [
             Text(
               tr('getAccount'),
-              style: TextStyle(
+              style: CustomTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
             ),
           ],
@@ -193,7 +194,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
       children: [
         Text(
           tr('quantity'),
-          style: TextStyle(
+          style: CustomTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
         ),
         SizedBox(
@@ -224,7 +225,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
                     children: [
                       Text(
                         'USDT',
-                        style: TextStyle(
+                        style: CustomTextStyle.getBaseStyle(
                             fontSize: UIDefine.fontSize14,
                             fontWeight: FontWeight.w500),
                       ),
@@ -300,14 +301,14 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
       children: [
         Text(
           title,
-          style: TextStyle(
+          style: CustomTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize14,
               fontWeight: FontWeight.w500,
               color: AppColors.dialogGrey),
         ),
         Text(
           content,
-          style: TextStyle(
+          style: CustomTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize16,
               fontWeight: FontWeight.w500,
               color: AppColors.dialogBlack),
@@ -331,7 +332,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(tr('emailValid'),
-            style: TextStyle(
+            style: CustomTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500)),
         LoginEmailCodeView(
             countdownSecond: 60,

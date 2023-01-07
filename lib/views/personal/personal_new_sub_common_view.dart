@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
+
 import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
@@ -28,7 +30,7 @@ class PersonalNewSubCommonView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(tr('usualFun'), // 標題 常用功能
-                style: TextStyle(color: AppColors.dialogBlack,
+                style: CustomTextStyle.getBaseStyle(color: AppColors.dialogBlack,
                     fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500)),
 
             _getLine(),

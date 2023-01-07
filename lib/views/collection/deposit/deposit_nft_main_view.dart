@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 
@@ -41,14 +42,14 @@ class _DepositNftMainView extends State<DepositNftMainView> {
                 TitleAppBar(title: tr('depositNFT')),
                 Text(
                   tr("chooseNetwork"),
-                  style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
+                  style: CustomTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
                 ),
 
                 const SizedBox(height: 4),
 
                 Text(
                   tr("supportNetwork"),
-                  style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                  style: CustomTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                 ),
 
                 const SizedBox(height: 20),
@@ -82,7 +83,7 @@ class _DepositNftMainView extends State<DepositNftMainView> {
                                       SizedBox(width: UIDefine.getScreenWidth(3)),
                                       Text(
                                         'Polygon',
-                                        style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
+                                        style: CustomTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
                                       )
                                     ],
                                   )
@@ -123,7 +124,7 @@ class _DepositNftMainView extends State<DepositNftMainView> {
                                       SizedBox(width: UIDefine.getScreenWidth(3)),
                                       Text(
                                         'BSC',
-                                        style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
+                                        style: CustomTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
                                       )
                                     ],
                                   )
@@ -149,7 +150,7 @@ class _DepositNftMainView extends State<DepositNftMainView> {
                   },
                   child: Text(
                     tr('Next'), // 下一步
-                    style: TextStyle(
+                    style: CustomTextStyle.getBaseStyle(
                         color: AppColors.textWhite, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
                   )
               ),

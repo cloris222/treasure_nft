@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/view_models/login/login_main_viewmodel.dart';
 
 import '../../widgets/button/login_button_widget.dart';
@@ -60,7 +61,7 @@ class _LoginMainViewState extends State<LoginMainView> {
                 Container(
                   alignment: Alignment.bottomLeft,
                   child: Text('${tr('welcomeBack')} ,',
-                      style: TextStyle(
+                      style: CustomTextStyle.getBaseStyle(
                           fontSize: UIDefine.fontSize24,
                           color: Colors.white,
                           fontWeight: FontWeight.w500)),
@@ -78,7 +79,7 @@ class _LoginMainViewState extends State<LoginMainView> {
                         left: 0,
                         top: 0,
                         child: Text(tr('Login'),
-                            style: TextStyle(
+                            style: CustomTextStyle.getBaseStyle(
                                 fontSize: UIDefine.fontSize34,
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500)))
@@ -109,13 +110,13 @@ class _LoginMainViewState extends State<LoginMainView> {
   //                   text: TextSpan(children: <TextSpan>[
   //                 TextSpan(
   //                     text: '${tr('welcomeBack')} ,\n',
-  //                     style: TextStyle(
+  //                     style: CustomTextStyle.getBaseStyle(
   //                         fontSize: UIDefine.fontSize24,
   //                         color: Colors.white,
   //                         fontWeight: FontWeight.w500)),
   //                 TextSpan(
   //                     text: tr('Login'),
-  //                     style: TextStyle(
+  //                     style: CustomTextStyle.getBaseStyle(
   //                         fontSize: UIDefine.fontSize34,
   //                         color: Colors.white,
   //                         fontWeight: FontWeight.w500))

@@ -14,6 +14,7 @@ import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 import 'package:treasure_nft_project/widgets/label/warp_two_text_widget.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import '../../../constant/theme/app_colors.dart';
 import 'artist_record_item.dart';
 
@@ -162,7 +163,7 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
                                 SizedBox(width: UIDefine.getPixelWidth(3)),
                                 Text(
                                   '${BaseViewModel().numberCompatFormat(record.baseYdayAmt)} USDT',
-                                  style: TextStyle(
+                                  style: CustomTextStyle.getBaseStyle(
                                       fontSize: UIDefine.fontSize14,
                                       fontWeight: FontWeight.w500),
                                 )
@@ -189,7 +190,7 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
                               SizedBox(width: UIDefine.getPixelWidth(3)),
                               Text(
                                 '${BaseViewModel().numberCompatFormat(record.baseYdayAmt)} USDT',
-                                style: TextStyle(
+                                style: CustomTextStyle.getBaseStyle(
                                     color: AppColors.tetherGreen,
                                     fontSize: UIDefine.getPixelHeight(9),
                                     fontWeight: FontWeight.w500),
@@ -213,13 +214,13 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(tr('top-creator'),
-              style: TextStyle(
+              style: CustomTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500)),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(tr('Last_24_hours'),
-                  style: TextStyle(
+                  style: CustomTextStyle.getBaseStyle(
                       fontSize: UIDefine.fontSize12,
                       color: AppColors.homeGrey)),
               GestureDetector(
@@ -231,7 +232,7 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(tr('more'),
-                              style: TextStyle(
+                              style: CustomTextStyle.getBaseStyle(
                                   fontSize: UIDefine.fontSize14,
                                   fontWeight: FontWeight.w500)),
                           Image.asset(AppImagePath.rightArrow)

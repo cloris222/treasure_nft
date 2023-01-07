@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import '../constant/theme/app_colors.dart';
 import '../constant/theme/app_image_path.dart';
 import '../view_models/base_view_model.dart';
@@ -162,7 +163,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar>
                             color: AppColors.textRed),
                         child: Text(
                           _bottomNavigationNotifier.unreadCount.toString(),
-                          style: TextStyle(
+                          style: CustomTextStyle.getBaseStyle(
                             color: Colors.white,
                             fontSize: UIDefine.fontSize8,
                           ),

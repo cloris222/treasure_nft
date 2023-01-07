@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/subject_key.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/home/home_observer.dart';
 
 import '../../../constant/theme/app_colors.dart';
@@ -43,11 +44,11 @@ class _HomeUsdtInfoState extends State<HomeUsdtInfo> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle titleBolderStyle = TextStyle(
+    TextStyle titleBolderStyle = CustomTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize12,
         color: AppColors.homeGrey,
         fontWeight: FontWeight.w300);
-    TextStyle valueStyle = TextStyle(
+    TextStyle valueStyle = CustomTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize24,
         fontWeight: FontWeight.w500,
         color: AppColors.textBlack);

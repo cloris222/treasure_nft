@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 import '../../constant/theme/app_colors.dart';
 
@@ -32,7 +33,7 @@ class WarpTwoTextWidget extends StatelessWidget {
           overflow: overflow,
           maxLines: maxLines,
           textAlign: textAlign,
-          style: TextStyle(
+          style: CustomTextStyle.getBaseStyle(
               fontSize: fontSize ?? UIDefine.fontSize12,
               fontWeight: fontWeight,
               color: color))

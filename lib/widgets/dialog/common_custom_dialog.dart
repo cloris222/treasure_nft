@@ -3,6 +3,7 @@ import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import 'package:treasure_nft_project/widgets/dialog/base_dialog.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 import '../../constant/theme/app_colors.dart';
 
@@ -54,7 +55,7 @@ class CommonCustomDialog extends BaseDialog {
                 SizedBox(height: UIDefine.getScreenWidth(2.7)),
                 Text(title,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: CustomTextStyle.getBaseStyle(
                         color: AppColors.textBlack,
                         fontSize: UIDefine.fontSize24,
                         fontWeight: FontWeight.w500))
@@ -67,7 +68,7 @@ class CommonCustomDialog extends BaseDialog {
                 SizedBox(height: UIDefine.getScreenWidth(2.7)),
                 Text(content,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: CustomTextStyle.getBaseStyle(
                         color: AppColors.dialogGrey,
                         fontSize: UIDefine.fontSize14,
                         fontWeight: FontWeight.w500))

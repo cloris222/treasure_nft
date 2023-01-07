@@ -7,6 +7,7 @@ import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/personal/common/user_create_page.dart';
 import 'package:treasure_nft_project/views/personal/common/user_novice_page.dart';
 import 'package:treasure_nft_project/views/personal/common/user_setting_page.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_colors.dart';
@@ -39,7 +40,7 @@ class PersonalSubCommonView extends StatelessWidget {
       Flexible(
         child: Text(tr('usualFun'),
             softWrap: false,
-            style: TextStyle(
+            style: CustomTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize20,
                 fontWeight: FontWeight.w500,
                 color: AppColors.dialogBlack)),

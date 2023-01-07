@@ -6,6 +6,7 @@ import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import 'package:treasure_nft_project/widgets/label/custom_linear_progress.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 import '../../../constant/call_back_function.dart';
 import '../../../constant/theme/app_animation_path.dart';
@@ -107,7 +108,7 @@ class _CollectionBlindBoxItemView extends State<CollectionBlindBoxItemView> {
             const SizedBox(width: 6),
             Text(
               tr('status_GIVE'),
-              style: TextStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
+              style: CustomTextStyle.getBaseStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
             )
           ],
         ),
@@ -128,7 +129,7 @@ class _CollectionBlindBoxItemView extends State<CollectionBlindBoxItemView> {
                     width: UIDefine.getScreenWidth(67),
                     child: Text( // 商品名
                       data.name,
-                      style: TextStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
+                      style: CustomTextStyle.getBaseStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
                     )
                 ),
 
@@ -142,7 +143,7 @@ class _CollectionBlindBoxItemView extends State<CollectionBlindBoxItemView> {
                     const SizedBox(width: 4),
                     Text( // 商品價格
                       data.price.toString(),
-                      style: TextStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                      style: CustomTextStyle.getBaseStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),
@@ -170,12 +171,12 @@ class _CollectionBlindBoxItemView extends State<CollectionBlindBoxItemView> {
                     children: [
                       Text( // 達到Lv幾
                         format(tr('reach'), {'level': data.rewardNft.unlockLevel.toString()}) ,
-                        style: TextStyle(color: _getLvTextColor(),
+                        style: CustomTextStyle.getBaseStyle(color: _getLvTextColor(),
                             fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                       ),
                       Text( // 目前進度 ex:1/3
                         data.rewardNft.currentLevel.toString() + '/' + data.rewardNft.unlockLevel.toString(),
-                        style: TextStyle(color: _getLvTextColor(),
+                        style: CustomTextStyle.getBaseStyle(color: _getLvTextColor(),
                             fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                       ),
                     ],
@@ -206,14 +207,14 @@ class _CollectionBlindBoxItemView extends State<CollectionBlindBoxItemView> {
                           const SizedBox(width: 4),
                           Text( // 購買次數幾
                             format(tr('buyCount'), {'count': data.rewardNft.unlockBuyCount}) ,
-                            style: TextStyle(color: _getBuyCountTextColor(),
+                            style: CustomTextStyle.getBaseStyle(color: _getBuyCountTextColor(),
                                 fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                           )
                         ],
                       ),
                       Text( // 目前進度 ex:1/3
                         data.rewardNft.currentBuyCount.toString() + '/' + data.rewardNft.unlockBuyCount.toString(),
-                        style: TextStyle(color: _getBuyCountTextColor(),
+                        style: CustomTextStyle.getBaseStyle(color: _getBuyCountTextColor(),
                             fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                       ),
                     ],

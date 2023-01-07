@@ -5,6 +5,7 @@ import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/lower_invite_data.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 class LowerInviteItemView extends StatelessWidget {
   const LowerInviteItemView({super.key, required this.itemData});
@@ -39,7 +40,7 @@ class LowerInviteItemView extends StatelessWidget {
                     Text(BaseViewModel().changeTimeZone(itemData.time),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
+                        style: CustomTextStyle.getBaseStyle(
                             fontSize: UIDefine.fontSize12,
                             fontWeight: FontWeight.w500,
                             color: AppColors.dialogGrey)),
@@ -57,13 +58,13 @@ class LowerInviteItemView extends StatelessWidget {
   Widget _buildParam(String title, String value) {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       Text(title,
-          style: TextStyle(
+          style: CustomTextStyle.getBaseStyle(
             fontSize: UIDefine.fontSize12,
           )),
       Text(
         value.trim(),
         overflow: TextOverflow.clip,
-        style: TextStyle(
+        style: CustomTextStyle.getBaseStyle(
             fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
       )
     ]);

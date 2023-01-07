@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 import '../../constant/theme/app_colors.dart';
 
@@ -35,7 +36,7 @@ class CommonTextWidget extends StatelessWidget {
         width: fillWidth ? UIDefine.getWidth() : null,
         child: Text(
           text,
-          style: TextStyle(
+          style: CustomTextStyle.getBaseStyle(
               fontSize: fontSize ?? UIDefine.fontSize14,
               color: isConnectText
                   ? AppColors.mainThemeButton

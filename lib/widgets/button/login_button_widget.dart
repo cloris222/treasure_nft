@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 import '../../constant/theme/app_colors.dart';
 
@@ -82,7 +83,7 @@ class LoginButtonWidget extends StatelessWidget {
               Text(btnText,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
+                  style: CustomTextStyle.getBaseStyle(
                       color: Colors.white,
                       fontSize: fontSize ?? UIDefine.fontSize16,
                       fontWeight: fontWeight)),

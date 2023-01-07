@@ -9,6 +9,7 @@ import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
 import 'package:treasure_nft_project/views/personal/team/share_team_order_page.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 import '../../../views/personal/team/other_collect_page.dart';
 
@@ -46,7 +47,7 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
           Text(
             widget.itemData.getItemName(),
             maxLines: 1,
-            style: TextStyle(
+            style: CustomTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
           ),
 
@@ -67,7 +68,7 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
       /// Time
       Wrap(children: [
         Text(viewModel.changeTimeZone(widget.itemData.time),
-            style: TextStyle(
+            style: CustomTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize12, color: AppColors.textGrey))
       ]),
 
@@ -80,7 +81,7 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
           children: [
             Text(
               tr('buyer'),
-              style: TextStyle(
+              style: CustomTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize12,
                 color: AppColors.textGrey,
               ),
@@ -92,7 +93,7 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
                 child: Text(
                   widget.itemData.buyerName,
                   textAlign: TextAlign.end,
-                  style: TextStyle(
+                  style: CustomTextStyle.getBaseStyle(
                       fontSize: UIDefine.fontSize12,
                       color: AppColors.mainThemeButton,
                       fontWeight: FontWeight.w500),
@@ -110,7 +111,7 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
           children: [
             Text(
               tr('seller'),
-              style: TextStyle(
+              style: CustomTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize12,
                 color: AppColors.textGrey,
               ),
@@ -122,7 +123,7 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
                 child: Text(
                   widget.itemData.sellerName,
                   textAlign: TextAlign.end,
-                  style: TextStyle(
+                  style: CustomTextStyle.getBaseStyle(
                       fontSize: UIDefine.fontSize12,
                       color: AppColors.mainThemeButton,
                       fontWeight: FontWeight.w500),
@@ -143,7 +144,7 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text(
             tr('income'),
-            style: TextStyle(
+            style: CustomTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize12,
               color: AppColors.textGrey,
             ),
@@ -155,7 +156,7 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
               viewModel.getPadding(0.5),
               Text(
                 NumberFormatUtil().removeTwoPointFormat(widget.itemData.income),
-                style: TextStyle(
+                style: CustomTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize12,
                 ),
               ),
@@ -176,7 +177,7 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text(
             tr('goldStorageTank'),
-            style: TextStyle(
+            style: CustomTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize12,
               color: AppColors.textGrey,
             ),
@@ -189,7 +190,7 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
               Text(
                 NumberFormatUtil()
                     .removeTwoPointFormat(widget.itemData.moneyBox),
-                style: TextStyle(
+                style: CustomTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize12,
                 ),
               ),
@@ -210,7 +211,7 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
             viewModel.getPadding(0.5),
             Text(
               NumberFormatUtil().removeTwoPointFormat(widget.itemData.price),
-              style: TextStyle(
+              style: CustomTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize12,
               ),
             ),
@@ -240,7 +241,7 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
         child: Text(text,
             maxLines: 1,
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: CustomTextStyle.getBaseStyle(
                 color: Colors.white,
                 fontSize: UIDefine.fontSize12,
                 fontWeight: FontWeight.w500)));

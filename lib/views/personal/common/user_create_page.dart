@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
@@ -81,7 +82,7 @@ class _UserCreatePageState extends State<UserCreatePage> {
         ),
         SizedBox(height: UIDefine.getScreenHeight(1)),
         Text(tr('imageSupport'),
-            style: TextStyle(
+            style: CustomTextStyle.getBaseStyle(
                 color: AppColors.dialogGrey, fontSize: UIDefine.fontSize12)),
         LoginParamView(
           titleText: tr('itemName'),

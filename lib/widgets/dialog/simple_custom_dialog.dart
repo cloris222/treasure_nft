@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:treasure_nft_project/widgets/dialog/base_dialog.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
@@ -33,7 +34,7 @@ class SimpleCustomDialog extends BaseDialog {
           margin: mainMargin,
           child: Text(mainText ?? tr('success'),
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: CustomTextStyle.getBaseStyle(
                   color: AppColors.dialogBlack,
                   fontSize: mainTextSize,
                   fontWeight: FontWeight.w500)),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import '../../../view_models/personal/orders/order_info_page_view_model.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
@@ -95,7 +96,7 @@ class _OrderInfoPage extends State<OrderInfoPage> {
                         :
                     Text(
                       tr("ES_0007"),
-                      style: TextStyle(color: AppColors.textGrey,
+                      style: CustomTextStyle.getBaseStyle(color: AppColors.textGrey,
                           fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
                     ),
                     SizedBox(height: UIDefine.navigationBarPadding)

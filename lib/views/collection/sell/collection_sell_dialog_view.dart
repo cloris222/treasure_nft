@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/dialog/base_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
@@ -68,7 +69,7 @@ class CollectionSellDialogView extends BaseDialog {
                     SizedBox(height: UIDefine.getScreenWidth(5)),
                     Text(
                       name,
-                      style: TextStyle(
+                      style: CustomTextStyle.getBaseStyle(
                           fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
                     ),
                   ],
@@ -80,13 +81,13 @@ class CollectionSellDialogView extends BaseDialog {
                     SizedBox(height: UIDefine.getScreenWidth(5)),
                     Text(
                       tr("listItemforSale"),
-                      style: TextStyle(
+                      style: CustomTextStyle.getBaseStyle(
                           fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500),
                     ),
                     SizedBox(height: UIDefine.getScreenWidth(5)),
                     Text(
                       tr('price'),
-                      style: TextStyle(
+                      style: CustomTextStyle.getBaseStyle(
                           fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
                     ),
                     const SizedBox(height: 6),
@@ -106,7 +107,7 @@ class CollectionSellDialogView extends BaseDialog {
                           ),
                           child: Text(
                             BaseViewModel().numberFormat(growPrice),
-                            style: TextStyle(fontSize: UIDefine.fontSize14, color: AppColors.searchBar),
+                            style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14, color: AppColors.searchBar),
                           ),
                         ),
                       ],
@@ -116,7 +117,7 @@ class CollectionSellDialogView extends BaseDialog {
                     SizedBox(height: UIDefine.getScreenWidth(10)),
                     Text(
                       tr('fees'),
-                      style: TextStyle(
+                      style: CustomTextStyle.getBaseStyle(
                           fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                     ),
                     SizedBox(height: 6),
@@ -125,12 +126,12 @@ class CollectionSellDialogView extends BaseDialog {
                       children: [
                         Text(
                           tr("serviceFee"),
-                          style: TextStyle(color: AppColors.searchBar,
+                          style: CustomTextStyle.getBaseStyle(color: AppColors.searchBar,
                               fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                         ),
                         Text(
                           '1 %',
-                          style: TextStyle(color: AppColors.searchBar,
+                          style: CustomTextStyle.getBaseStyle(color: AppColors.searchBar,
                               fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                         )
                       ],
@@ -141,12 +142,12 @@ class CollectionSellDialogView extends BaseDialog {
                       children: [
                         Text(
                           tr("creatorFee"),
-                          style: TextStyle(color: AppColors.searchBar,
+                          style: CustomTextStyle.getBaseStyle(color: AppColors.searchBar,
                               fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                         ),
                         Text(
                           data.royalRate.toString() + ' %',
-                          style: TextStyle(color: AppColors.searchBar,
+                          style: CustomTextStyle.getBaseStyle(color: AppColors.searchBar,
                               fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                         )
                       ],
@@ -169,7 +170,7 @@ class CollectionSellDialogView extends BaseDialog {
                       },
                       child: Text(
                         tr("completeList"), // 完成上架
-                        style: TextStyle(
+                        style: CustomTextStyle.getBaseStyle(
                             color: AppColors.textWhite, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
                       )
                   ),
@@ -217,7 +218,7 @@ class CollectionSellDialogView extends BaseDialog {
                 SizedBox(width: UIDefine.getScreenWidth(2.5)),
                 Text(
                   category,
-                  style: TextStyle(
+                  style: CustomTextStyle.getBaseStyle(
                       color: AppColors.searchBar, fontSize: UIDefine.fontSize14)),
               ],
             ));

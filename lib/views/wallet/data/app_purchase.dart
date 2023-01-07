@@ -16,6 +16,7 @@ import 'package:treasure_nft_project/models/http/api/ios_payment_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/ios_purchase/ios_product_data.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import 'package:treasure_nft_project/widgets/button/text_button_widget.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import '../../../constant/theme/app_animation_path.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
@@ -216,7 +217,7 @@ class _AppPurchaseState extends State<AppPurchase> {
     if (_notFoundIds.isNotEmpty) {
       productList.add(ListTile(
           title: Text('[${_notFoundIds.join(", ")}] not found',
-              style: TextStyle(color: ThemeData.light().errorColor)),
+              style: CustomTextStyle.getBaseStyle(color: ThemeData.light().errorColor)),
           subtitle: const Text(
               'This app needs special configuration to run. Please see example/README.md for instructions.')));
     }
@@ -282,7 +283,7 @@ class _AppPurchaseState extends State<AppPurchase> {
                           )),
                       Text(
                         productDetails.title,
-                        style: TextStyle(
+                        style: CustomTextStyle.getBaseStyle(
                             fontSize: UIDefine.fontSize24,
                             fontWeight: FontWeight.w500),
                       )
@@ -293,7 +294,7 @@ class _AppPurchaseState extends State<AppPurchase> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       format(tr("appPurchaseDescription"), {"price": '$price '}),
-                      style: TextStyle(
+                      style: CustomTextStyle.getBaseStyle(
                           color: Colors.grey, fontSize: UIDefine.fontSize14),
                     ),
                   )

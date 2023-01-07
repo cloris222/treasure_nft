@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/views/home/home_main_view.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_theme.dart';
@@ -217,7 +218,7 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
   //                     0),
   //                 child: Text(
   //                   bMore ? data.artistInfo : _shortString(data.artistInfo),
-  //                   style: TextStyle(
+  //                   style: CustomTextStyle.getBaseStyle(
   //                       color: AppColors.dialogGrey,
   //                       fontSize: UIDefine.fontSize12,
   //                       fontWeight: FontWeight.w500),
@@ -236,7 +237,7 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
   //                     children: [
   //                       Text(
   //                         bMore ? tr('SeeLess') : tr('SeeMore'),
-  //                         style: TextStyle(
+  //                         style: CustomTextStyle.getBaseStyle(
   //                             color: AppColors.mainThemeButton,
   //                             fontSize: UIDefine.fontSize14,
   //                             fontWeight: FontWeight.w500),
@@ -388,14 +389,14 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
           searchValue = text;
           _getNewProductListResponse();
         },
-        style: TextStyle(fontSize: UIDefine.fontSize14),
+        style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
         decoration: InputDecoration(
           contentPadding:
               EdgeInsets.fromLTRB(0, UIDefine.getScreenWidth(4.16), 0, 0),
           prefixIcon: Image.asset('assets/icon/btn/btn_discover_01_nor.png'),
           hintText: tr("select-placeholder'"),
-          hintStyle: const TextStyle(height: 1.6, color: AppColors.searchBar),
-          labelStyle: const TextStyle(color: Colors.black),
+          hintStyle:  CustomTextStyle.getBaseStyle(height: 1.6, color: AppColors.searchBar),
+          labelStyle:  CustomTextStyle.getBaseStyle(color: Colors.black),
           alignLabelWithHint: true,
           border: AppTheme.style.styleTextEditBorderBackground(
               color: AppColors.searchBar, radius: 10),
@@ -435,7 +436,7 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
             child: Row(
               children: <Widget>[
                 Text(_getCategoryText(category),
-                    style: const TextStyle(color: AppColors.searchBar)),
+                    style:  CustomTextStyle.getBaseStyle(color: AppColors.searchBar)),
               ],
             ));
       }).toList(),

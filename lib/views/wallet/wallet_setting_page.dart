@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/enum/coin_enum.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_theme.dart';
@@ -65,7 +66,7 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
             children: [
               _buildSettingEdit(),
               Text(tr('emailValid'),
-                  style: TextStyle(
+                  style: CustomTextStyle.getBaseStyle(
                       fontSize: UIDefine.fontSize14,
                       fontWeight: FontWeight.w500)),
               LoginEmailCodeView(
@@ -107,13 +108,13 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
             SizedBox(
                 width: UIDefine.getScreenWidth(68),
                 child: Text(viewModel.getCoinTitle(coin),
-                    style: TextStyle(
+                    style: CustomTextStyle.getBaseStyle(
                         fontSize: UIDefine.fontSize16,
                         fontWeight: FontWeight.w500)))
           ]),
           const SizedBox(height: 5),
           Text(tr('address'),
-              style: TextStyle(
+              style: CustomTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500)),
           TextField(
               controller: controller,
@@ -125,8 +126,8 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
                     0),
                 hintText: viewModel.getCoinHintText(coin),
                 hintStyle:
-                    const TextStyle(height: 1.6, color: AppColors.bolderGrey),
-                labelStyle: const TextStyle(color: Colors.black),
+                     CustomTextStyle.getBaseStyle(height: 1.6, color: AppColors.bolderGrey),
+                labelStyle:  CustomTextStyle.getBaseStyle(color: Colors.black),
                 alignLabelWithHint: true,
                 border: AppTheme.style.styleTextEditBorderBackground(
                     color: AppColors.bolderGrey, radius: 10),

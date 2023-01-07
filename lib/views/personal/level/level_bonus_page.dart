@@ -4,6 +4,7 @@ import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/view_models/personal/level/level_bonus_view_model.dart';
@@ -113,7 +114,7 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
         width: UIDefine.getWidth(),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(title,
-              style: TextStyle(
+              style: CustomTextStyle.getBaseStyle(
                   color: AppColors.dialogBlack,
                   fontSize: UIDefine.fontSize20,
                   fontWeight: FontWeight.w500)),
@@ -122,7 +123,7 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
             const TetherCoinWidget(),
             const SizedBox(width: 5),
             Text(NumberFormatUtil().removeTwoPointFormat(currentCoin ?? 0),
-                style: TextStyle(
+                style: CustomTextStyle.getBaseStyle(
                     color: AppColors.dialogBlack,
                     fontSize: UIDefine.fontSize20,
                     fontWeight: FontWeight.w500))
@@ -144,7 +145,7 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
     });
     return Text(text,
         maxLines: 2,
-        style: TextStyle(
+        style: CustomTextStyle.getBaseStyle(
             color: AppColors.dialogGrey,
             fontSize: UIDefine.fontSize14,
             fontWeight: FontWeight.w500));
@@ -155,7 +156,7 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
     String text = format(tr('reach_level_all_hint'), {'level': level ?? 0});
     return Text(text,
         maxLines: 2,
-        style: TextStyle(
+        style: CustomTextStyle.getBaseStyle(
             color: AppColors.dialogGrey,
             fontSize: UIDefine.fontSize14,
             fontWeight: FontWeight.w500));
@@ -174,7 +175,7 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
     });
     return Text(text,
         maxLines: 2,
-        style: TextStyle(
+        style: CustomTextStyle.getBaseStyle(
             color: AppColors.dialogGrey,
             fontSize: UIDefine.fontSize12,
             fontWeight: FontWeight.w500));

@@ -8,6 +8,7 @@ import 'package:treasure_nft_project/views/wallet/data/app_purchase.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/bottom_sheet/page_bottom_sheet.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 import '../../constant/global_data.dart';
 import '../../constant/theme/app_colors.dart';
@@ -116,12 +117,12 @@ class _WalletMainViewState extends State<WalletMainView> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text('${tr('uc_myAccount')}(USDT)',
-                        style: TextStyle(fontSize: UIDefine.fontSize14)),
+                        style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14)),
                     SizedBox(height: UIDefine.getPixelWidth(20)),
                     Text(
                         NumberFormatUtil().removeTwoPointFormat(
                             GlobalData.userProperty?.totalBalance ?? 0),
-                        style: TextStyle(
+                        style: CustomTextStyle.getBaseStyle(
                             fontSize: UIDefine.fontSize40,
                             fontWeight: FontWeight.w500)),
                     SizedBox(height: UIDefine.getPixelWidth(30)),
@@ -163,7 +164,7 @@ class _WalletMainViewState extends State<WalletMainView> {
             children: [
               Text(
                 'Polygon',
-                style: TextStyle(
+                style: CustomTextStyle.getBaseStyle(
                     fontSize: UIDefine.fontSize12,
                     fontWeight: FontWeight.w500,
                     color: AppColors.dialogBlack),
@@ -171,7 +172,7 @@ class _WalletMainViewState extends State<WalletMainView> {
               SizedBox(width: UIDefine.getPixelWidth(10)),
               Text(
                 tr('depositAddress'),
-                style: TextStyle(
+                style: CustomTextStyle.getBaseStyle(
                     fontSize: UIDefine.fontSize12,
                     color: AppColors.dialogBlack),
               ),
@@ -186,7 +187,7 @@ class _WalletMainViewState extends State<WalletMainView> {
                           ? GlobalData.userWalletInfo!['TRON']
                           : '',
                       maxLines: 2,
-                      style: TextStyle(
+                      style: CustomTextStyle.getBaseStyle(
                           fontSize: UIDefine.fontSize12,
                           color: AppColors.homeGrey,
                           fontWeight: FontWeight.w400))),
@@ -248,7 +249,7 @@ class _WalletMainViewState extends State<WalletMainView> {
                   Image.asset(assetPath),
                   SizedBox(height: UIDefine.getPixelWidth(10)),
                   Text(title,
-                      style: TextStyle(
+                      style: CustomTextStyle.getBaseStyle(
                           fontSize: UIDefine.fontSize14,
                           color: AppColors.dialogGrey))
                 ]))));
@@ -264,20 +265,20 @@ class _WalletMainViewState extends State<WalletMainView> {
   Widget _buildWalletAccount() {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(tr('uc_myAccount'),
-          style: TextStyle(
+          style: CustomTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500)),
       const SizedBox(height: 10),
       Row(children: [
         TetherCoinWidget(size: UIDefine.fontSize26),
         const SizedBox(width: 5),
         Text(tr('usdt'),
-            style: TextStyle(
+            style: CustomTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500)),
         Flexible(child: Container()),
         Text(
             NumberFormatUtil()
                 .removeTwoPointFormat(GlobalData.userProperty?.balance),
-            style: TextStyle(
+            style: CustomTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500))
       ])
     ]);
@@ -294,14 +295,14 @@ class _WalletMainViewState extends State<WalletMainView> {
         children: [
           Row(children: [
             Text(tr('historyLog'),
-                style: TextStyle(
+                style: CustomTextStyle.getBaseStyle(
                     fontSize: UIDefine.fontSize16,
                     fontWeight: FontWeight.w500)),
             Flexible(child: Container()),
             InkWell(
               onTap: _showWalletRecord,
               child: Text(tr('all'),
-                  style: TextStyle(
+                  style: CustomTextStyle.getBaseStyle(
                       fontSize: UIDefine.fontSize14,
                       color: AppColors.textHintBlack)),
             ),

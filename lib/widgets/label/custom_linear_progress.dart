@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
@@ -75,7 +76,7 @@ class CustomLinearProgress extends StatelessWidget {
                       size: UIDefine.fontSize16)
                   : Text(
                       '$flex%',
-                      style: TextStyle(fontSize: UIDefine.fontSize12),
+                      style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12),
                     ),
             ))
       ],

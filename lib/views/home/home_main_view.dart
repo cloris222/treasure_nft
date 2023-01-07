@@ -4,6 +4,7 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/utils/language_util.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
 import 'package:treasure_nft_project/views/home/home_sub_discover_nft_view.dart';
@@ -122,7 +123,7 @@ class _HomeMainViewState extends State<HomeMainView> {
               viewModel.buildSpace(height: 3),
               Center(
                   child: Text('TreasureMeta Technology',
-                      style: TextStyle(
+                      style: CustomTextStyle.getBaseStyle(
                           fontSize: UIDefine.fontSize14,
                           color: AppColors.textBlack))),
               SizedBox(
@@ -131,8 +132,7 @@ class _HomeMainViewState extends State<HomeMainView> {
             ]),
         Positioned(
             right: UIDefine.getPixelWidth(15),
-            bottom:
-                UIDefine.getPixelWidth(15) + UIDefine.navigationBarPadding,
+            bottom: UIDefine.getPixelWidth(15) + UIDefine.navigationBarPadding,
             child: GestureDetector(
               onTap: () => scrollController.jumpTo(0),
               child: Container(
@@ -151,7 +151,7 @@ class _HomeMainViewState extends State<HomeMainView> {
     bool showZh =
         (LanguageUtil.getSettingLanguageType() == LanguageType.Mandarin);
     double styleHeight = 1.1;
-    TextStyle black = TextStyle(
+    TextStyle black = CustomTextStyle.getBaseStyle(
         fontSize: 22,
         fontWeight: FontWeight.w500,
         color: AppColors.textBlack,
@@ -181,7 +181,7 @@ class _HomeMainViewState extends State<HomeMainView> {
                   ])
                 : Wrap(alignment: WrapAlignment.start, children: [
                     Text('Earn profit with',
-                        style: TextStyle(
+                        style: CustomTextStyle.getBaseStyle(
                             fontSize: UIDefine.fontSize20,
                             fontWeight: FontWeight.w500,
                             color: AppColors.textBlack)),
@@ -218,7 +218,8 @@ class _HomeMainViewState extends State<HomeMainView> {
               viewModel.buildSpace(width: 3),
               Text(
                 'Investors and patrons',
-                style: TextStyle(fontSize: UIDefine.fontSize24),
+                style:
+                    CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize24),
               ),
             ],
           ),
@@ -271,10 +272,10 @@ class _HomeMainViewState extends State<HomeMainView> {
                     viewModel.getContextStyle(color: AppColors.textHintBlack),
               ),
               // Text('feature releases, NFT drops, and tips and tricks',
-              //   style: TextStyle(fontSize: UIDefine.fontSize12),
+              //   style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12),
               // ),
               // Text('for navigating DeepLink.',
-              //   style: TextStyle(fontSize: UIDefine.fontSize12),
+              //   style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12),
               // ),
 
               viewModel.buildSpace(height: 3),
@@ -293,8 +294,8 @@ class _HomeMainViewState extends State<HomeMainView> {
                         focusNode: emailFocusNode,
                         decoration: InputDecoration(
                             hintText: tr('placeholder-email-address\''),
-                            hintStyle:
-                                const TextStyle(color: AppColors.textGrey),
+                            hintStyle: CustomTextStyle.getBaseStyle(
+                                color: AppColors.textGrey),
                             enabledBorder: outlineInputBorder,
                             focusedBorder: outlineInputBorder,
                             border: outlineInputBorder,
@@ -325,11 +326,14 @@ class _HomeMainViewState extends State<HomeMainView> {
                                       decoration: AppStyle().baseGradient(),
                                       child: Center(
                                           child: Text(tr('submit'),
-                                              style: TextStyle(
-                                                  color: AppColors.textWhite,
-                                                  fontSize: UIDefine.fontSize16,
-                                                  fontWeight:
-                                                      FontWeight.w500))))))),
+                                              style:
+                                                  CustomTextStyle.getBaseStyle(
+                                                      color:
+                                                          AppColors.textWhite,
+                                                      fontSize:
+                                                          UIDefine.fontSize16,
+                                                      fontWeight: FontWeight
+                                                          .w500))))))),
                     )
                   ])),
               viewModel.buildSpace(height: 5)

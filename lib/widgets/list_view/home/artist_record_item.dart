@@ -8,6 +8,7 @@ import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/home/home_observer.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 import '../../../views/explore/data/explore_main_response_data.dart';
 import '../../../views/explore/homepage/explore_artist_home_page_view.dart';
@@ -102,7 +103,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text('${widget.index + 1}',
-                        style: TextStyle(
+                        style: CustomTextStyle.getBaseStyle(
                             fontSize: UIDefine.fontSize14,
                             fontWeight: FontWeight.w500,
                             color: AppColors.font02)),
@@ -129,7 +130,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
                           /// NAME
                           Text(widget.itemData.artistName,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
+                              style: CustomTextStyle.getBaseStyle(
                                   fontSize: UIDefine.fontSize14,
                                   color: AppColors.textBlack,
                                   fontWeight: FontWeight.w400)),
@@ -141,7 +142,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
                     const Spacer(),
                     Text(
                         '${widget.itemData.growthRate >= 0 ? '+' : ''} ${NumberFormatUtil().removeTwoPointFormat(widget.itemData.growthRate)}%',
-                        style: TextStyle(
+                        style: CustomTextStyle.getBaseStyle(
                             color: widget.itemData.growthRate >= 0
                                 ? AppColors.rateGreen
                                 : AppColors.rateRed,
@@ -161,7 +162,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
           child: Image.asset(AppImagePath.tetherImg)),
       const SizedBox(width: 5),
       Text(viewModel.numberCompatFormat(count),
-          style: TextStyle(
+          style: CustomTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize14,
               fontWeight: FontWeight.w500,
               color: AppColors.textBlack)),

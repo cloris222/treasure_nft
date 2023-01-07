@@ -1,5 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
+
 import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
@@ -39,7 +42,7 @@ class ImageDialog extends BaseDialog {
             margin: mainMargin,
             child: Text(mainText ?? '${tr('success')} !',
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: CustomTextStyle.getBaseStyle(
                     color: AppColors.textBlack,
                     fontSize: mainTextSize ?? UIDefine.fontSize24,
                     fontWeight: FontWeight.w500)),
@@ -47,7 +50,7 @@ class ImageDialog extends BaseDialog {
           subText.isNotEmpty
               ? Text(subText,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: CustomTextStyle.getBaseStyle(
                       color: AppColors.textGrey,
                       fontSize: subTextSize ?? UIDefine.fontSize14))
               : const Text(''),

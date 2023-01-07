@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
+
 import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
 
@@ -32,7 +34,7 @@ class FlexTwoTextWidget extends StatelessWidget {
             textAlign: textAlign,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(
+            style: CustomTextStyle.getBaseStyle(
                 fontSize: getFontSize(fontSize),
                 color: color,
                 fontWeight: fontWeight)));

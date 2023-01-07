@@ -1,15 +1,12 @@
-import 'dart:ui';
 
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/explore/homepage/explore_artist_home_page_view.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 import '../../../constant/ui_define.dart';
 import '../../../views/explore/data/explore_main_response_data.dart';
-import '../../label/personal_profile_icon.dart';
 
 class ExploreMainItemView extends StatefulWidget {
   const ExploreMainItemView({super.key, required this.exploreMainResponseData});
@@ -75,7 +72,7 @@ class _ExploreMainItemView extends State<ExploreMainItemView> {
                               child: Text(
                                 exploreMainResponseData.artistName,
                                 overflow: TextOverflow.ellipsis,
-                                style: TextStyle(color: Colors.black, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),),
+                                style: CustomTextStyle.getBaseStyle(color: Colors.black, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),),
                             ),
 
                             SizedBox(width: UIDefine.getScreenWidth(2)),
@@ -149,7 +146,7 @@ class _ExploreMainItemView extends State<ExploreMainItemView> {
   //                 Container(
   //                   padding: EdgeInsets.fromLTRB(0, 0, 0, UIDefine.getScreenWidth(4.3)),
   //                   child: Text(exploreMainResponseData.artistName,
-  //                     style: TextStyle(color: Colors.black, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),),
+  //                     style: CustomTextStyle.getBaseStyle(color: Colors.black, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),),
   //                 ),
   //
   //                 SizedBox(width: UIDefine.getScreenWidth(2.4)),

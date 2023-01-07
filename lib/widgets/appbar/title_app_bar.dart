@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 class TitleAppBar extends StatelessWidget {
   const TitleAppBar({Key? key, required this.title, this.needArrowIcon = true})
@@ -18,7 +19,7 @@ class TitleAppBar extends StatelessWidget {
           height: UIDefine.getPixelWidth(50),
           alignment: Alignment.center,
           child: Text(title,
-              style: TextStyle(
+              style: CustomTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize24,
                   fontWeight: FontWeight.w500)),
         ),

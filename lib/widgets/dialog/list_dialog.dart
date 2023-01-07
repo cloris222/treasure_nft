@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'base_dialog.dart';
 
 
@@ -28,7 +29,7 @@ class ListDialog extends BaseDialog {
         children: [
 
           Text('$mainText',
-              style: TextStyle(
+              style: CustomTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize24,
                 fontWeight: FontWeight.w500
               )

@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/views/personal/common/phone_param_view.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 
@@ -52,7 +53,7 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
                       Container(
                           margin: const EdgeInsets.symmetric(vertical: 5),
                           child: Text(tr('nationality'),
-                              style: TextStyle(
+                              style: CustomTextStyle.getBaseStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: UIDefine.fontSize14))),
                       _getNationalityForm(),
@@ -91,7 +92,7 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
                       Container(
                           margin: const EdgeInsets.symmetric(vertical: 5),
                           child: Text(tr('birthday'),
-                              style: TextStyle(
+                              style: CustomTextStyle.getBaseStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: UIDefine.fontSize14))),
                       DatePickerOne(
@@ -128,7 +129,7 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
         //     height: UIDefine.getScreenWidth(11.11)),
         // SizedBox(width: UIDefine.getScreenWidth(2.7)),
         Text('${tr(GlobalData.userInfo.country)} (${GlobalData.userInfo.zone})',
-            style: TextStyle(
+            style: CustomTextStyle.getBaseStyle(
                 fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14)),
       ],
     );
@@ -141,7 +142,7 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
         Container(
             margin: const EdgeInsets.symmetric(vertical: 5),
             child: Text(title,
-                style: TextStyle(
+                style: CustomTextStyle.getBaseStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: UIDefine.fontSize14))),
         Container(
@@ -155,7 +156,7 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
                 color: AppColors.datePickerBorder,
                 borderRadius: BorderRadius.all(Radius.circular(10))),
             child: Text(content,
-                style: TextStyle(
+                style: CustomTextStyle.getBaseStyle(
                     color: AppColors.dialogGrey,
                     fontWeight: FontWeight.w500,
                     fontSize: UIDefine.fontSize14))),

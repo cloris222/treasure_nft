@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
+
 import '../../../constant/ui_define.dart';
 import '../../../view_models/personal/team/team_contribution_viewmodel.dart';
 import '../../../view_models/personal/team/team_member_viewmodel.dart';
@@ -30,14 +32,14 @@ class TeamContributionMemberView extends StatelessWidget {
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text(
             '$type${tr('levelMember')}',
-            style: TextStyle(fontSize: UIDefine.fontSize14),
+            style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
           ),
           memberViewModel.getPadding(1),
           SizedBox(
               width: UIDefine.getScreenWidth(25),
               child: Text(
                 tr('bonus'),
-                style: TextStyle(fontSize: UIDefine.fontSize14),
+                style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
               ))
         ]));
   }

@@ -12,6 +12,7 @@ import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/widgets/dialog/animation_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/success_dialog.dart';
 import 'package:treasure_nft_project/widgets/trade_countdown_view.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import '../../models/http/api/trade_api.dart';
 import '../../utils/trade_timer_util.dart';
 import '../../view_models/trade/trade_division_viewmodel.dart';
@@ -154,7 +155,7 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
   }
 
   Widget _levelView(BuildContext context) {
-    TextStyle titleStyle = TextStyle(fontSize: UIDefine.fontSize16);
+    TextStyle titleStyle = CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize16);
     double balance = TradeTimerUtil().getReservationInfo()?.balance ?? 0;
     double reserveBalance =
         TradeTimerUtil().getReservationInfo()?.reserveBalance ?? 0;

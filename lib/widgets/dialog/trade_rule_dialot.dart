@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import '../../constant/theme/app_colors.dart';
 import 'base_close_dialog.dart';
 
@@ -10,7 +11,7 @@ class TradeRuleDialog extends BaseCloseDialog {
   @override
   Widget buildBody() {
     TextStyle ruleStyle =
-    TextStyle(fontSize: UIDefine.fontSize12, color: AppColors.dialogBlack);
+    CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12, color: AppColors.dialogBlack);
    return Wrap(
      spacing: 10,
      runSpacing: 10,

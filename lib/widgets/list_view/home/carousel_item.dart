@@ -8,6 +8,7 @@ import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/views/login/circle_network_icon.dart';
 import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 class CarouselItemView extends StatelessWidget {
   const CarouselItemView({
@@ -21,11 +22,11 @@ class CarouselItemView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle titleStyle = TextStyle(
+    TextStyle titleStyle = CustomTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize10,
         fontWeight: FontWeight.w400,
         color: AppColors.textWhite);
-    TextStyle contextStyle = TextStyle(
+    TextStyle contextStyle = CustomTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize12,
         fontWeight: FontWeight.w500,
         color: AppColors.textWhite);
@@ -50,7 +51,7 @@ class CarouselItemView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(itemData.name,
-                    style: TextStyle(
+                    style: CustomTextStyle.getBaseStyle(
                         fontSize: UIDefine.fontSize20,
                         fontWeight: FontWeight.w400,
                         color: AppColors.textWhite)),
@@ -59,7 +60,7 @@ class CarouselItemView extends StatelessWidget {
                   CircleNetworkIcon(networkUrl: itemData.avatarUrl, radius: 15),
                   SizedBox(width: UIDefine.getPixelWidth(8)),
                   Text(itemData.creator,
-                      style: TextStyle(
+                      style: CustomTextStyle.getBaseStyle(
                           fontSize: UIDefine.fontSize14,
                           fontWeight: FontWeight.w400,
                           color: AppColors.textWhite))

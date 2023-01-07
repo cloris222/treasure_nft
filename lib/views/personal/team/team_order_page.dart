@@ -5,6 +5,7 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 import '../../../view_models/personal/team/team_order_viewmodel.dart';
 import '../../../widgets/date_picker/custom_date_picker.dart';
@@ -140,7 +141,7 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
                     viewModel.initListView();
                   }
                 },
-                style: TextStyle(fontSize: UIDefine.fontSize14),
+                style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
                 decoration: InputDecoration(
                   isDense: true,
                   contentPadding: EdgeInsets.zero,
@@ -148,8 +149,8 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
                       Image.asset('assets/icon/btn/btn_discover_01_nor.png'),
                   hintText: tr("select-placeholder'"),
                   hintStyle:
-                      const TextStyle(height: 1.6, color: AppColors.searchBar),
-                  labelStyle: const TextStyle(color: Colors.black),
+                       CustomTextStyle.getBaseStyle(height: 1.6, color: AppColors.searchBar),
+                  labelStyle:  CustomTextStyle.getBaseStyle(color: Colors.black),
                   alignLabelWithHint: true,
                   border: viewMemberModel.setOutlineInputBorder(),
                   focusedBorder: viewMemberModel.setOutlineInputBorder(),
@@ -184,7 +185,7 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
             child: Row(
               children: <Widget>[
                 Text(_getCategoryText(category),
-                    style: const TextStyle(color: AppColors.searchBar)),
+                    style:  CustomTextStyle.getBaseStyle(color: AppColors.searchBar)),
               ],
             ));
       }).toList(),
@@ -214,7 +215,7 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
             child: Row(
               children: <Widget>[
                 Text(_getCategoryText(category),
-                    style: const TextStyle(color: AppColors.searchBar)),
+                    style:  CustomTextStyle.getBaseStyle(color: AppColors.searchBar)),
               ],
             ));
       }).toList(),

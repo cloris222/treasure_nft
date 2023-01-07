@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/ui_define.dart';
@@ -65,7 +66,7 @@ class CustomAppBar {
                 child: Container(
                   alignment: Alignment.center,
                   child: Text(title,
-                      style: TextStyle(
+                      style: CustomTextStyle.getBaseStyle(
                           fontSize: UIDefine.fontSize24,
                           fontWeight: FontWeight.w500)),
                 ),
@@ -123,7 +124,7 @@ class CustomAppBar {
                   child: Text(
                     title,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: CustomTextStyle.getBaseStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w500,
                         fontSize: fontSize ?? UIDefine.fontSize18),

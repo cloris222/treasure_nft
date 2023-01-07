@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 import '../../../constant/call_back_function.dart';
 import '../../../constant/theme/app_colors.dart';
@@ -52,7 +53,7 @@ class GenderSelectorDropDownBar extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Text(_getCategoryText(category),
-                    style: const TextStyle(color: AppColors.textBlack)),
+                    style:  CustomTextStyle.getBaseStyle(color: AppColors.textBlack)),
               ],
             ));
       }).toList(),
@@ -74,7 +75,7 @@ class GenderSelectorDropDownBar extends StatelessWidget {
     return Container(
         margin: const EdgeInsets.symmetric(vertical: 5),
         child: Text(text,
-            style: TextStyle(
+            style: CustomTextStyle.getBaseStyle(
                 fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14)));
   }
 }

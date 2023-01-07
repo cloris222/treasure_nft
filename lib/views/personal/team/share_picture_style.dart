@@ -8,6 +8,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'dart:ui' as ui;
 import 'package:cross_file/cross_file.dart';
 import 'package:flutter/services.dart';
@@ -83,7 +84,7 @@ class _SharePicStyleState extends State<SharePicStyle> {
           Text(
             tr("choosestyle"),
             style:
-                TextStyle(fontSize: UIDefine.fontSize20, color: Colors.white),
+                CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize20, color: Colors.white),
           ),
           const SizedBox(
             height: 5,
@@ -91,7 +92,7 @@ class _SharePicStyleState extends State<SharePicStyle> {
           Text(
             tr("style${pageIndex + 1}"),
             style:
-                TextStyle(fontSize: UIDefine.fontSize16, color: Colors.white),
+                CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize16, color: Colors.white),
           ),
           _buildSpace(),
           Expanded(
@@ -182,7 +183,7 @@ class _SharePicStyleState extends State<SharePicStyle> {
               children: [
                 Text(
                   GlobalData.userInfo.name,
-                  style: TextStyle(fontSize: UIDefine.fontSize12),
+                  style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12),
                 ),
                 const SizedBox(height: 10),
                 Row(
@@ -230,8 +231,8 @@ class _SharePicStyleState extends State<SharePicStyle> {
 
   Widget _shareImgBottom(BuildContext context, int index) {
     TextStyle styleBlack =
-        TextStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500);
-    TextStyle styleGrey = TextStyle(
+        CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500);
+    TextStyle styleGrey = CustomTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize14,
         fontWeight: FontWeight.w500,
         color: AppColors.dialogGrey);

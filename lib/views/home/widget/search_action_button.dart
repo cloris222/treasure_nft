@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 
 class SearchActionButton extends StatelessWidget {
   const SearchActionButton(
@@ -65,7 +66,7 @@ class SearchActionButton extends StatelessWidget {
             child: Center(
             child:Text(
               btnText,
-              style: TextStyle(color: textColor, fontSize: fontSize??UIDefine.fontSize12),
+              style: CustomTextStyle.getBaseStyle(color: textColor, fontSize: fontSize??UIDefine.fontSize12),
             ))
         ),
        );
