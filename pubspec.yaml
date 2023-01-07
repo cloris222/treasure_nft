@@ -58,7 +58,7 @@ dependencies:
   share_plus: any
   qr_code_scanner: ^1.0.1
   stomp_dart_client: ^0.4.4
-  flutter_inappwebview : 5.4.3
+  flutter_inappwebview: 5.4.3
   scrollable_positioned_list: ^0.3.5
   package_info_plus: ^3.0.2
   chewie: ^1.3.6
@@ -67,7 +67,7 @@ dependencies:
   flutter_image_compress: ^1.1.3
   in_app_purchase: ^3.0.7
   app_tracking_transparency: ^2.0.3
-  card_swiper : ^2.0.4
+  card_swiper: ^2.0.4
   gradient_borders: ^0.2.0
 
 dev_dependencies:
@@ -135,6 +135,7 @@ flutter:
     - assets/icon/language/2x/
     - assets/icon/language/3x/
     - assets/pdf/
+    - assets/fonts/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -147,7 +148,13 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
+  fonts:
+    - family: PosteramaText
+      fonts:
+        - asset: assets/fonts/PosteramaText-Regular.otf
+    - family: Posterama1927
+      fonts:
+        - asset: assets/fonts/Posterama_1927.otf
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf
