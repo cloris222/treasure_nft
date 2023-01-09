@@ -67,31 +67,30 @@ class _WalletMainViewState extends State<WalletMainView> {
     );
   }
 
-  Widget _buildTitle() {
-    return Row(children: [
-      GestureDetector(
-        onTap: _onBackView,
-        child: Icon(Icons.arrow_back_ios,
-            size: UIDefine.getPixelWidth(26), color: Colors.black),
+  Widget _buildPreButton() {
+    return GestureDetector(
+      onTap: _onBackView,
+      child: Image.asset(
+        AppImagePath.arrowLeftBlack,
+        height: UIDefine.getPixelWidth(24),
+        fit: BoxFit.fitHeight,
       ),
-    ]);
+    );
   }
 
   Widget _buildWalletInfo() {
     return Stack(
       children: [
         SizedBox(
-            height: UIDefine.getPixelWidth(280), width: UIDefine.getWidth()),
+            height: UIDefine.getPixelWidth(300), width: UIDefine.getWidth()),
         Positioned(
             top: 0,
             left: 0,
             right: 0,
-            bottom: UIDefine.getPixelWidth(80),
-            child: Container(
-                decoration: AppStyle().styleColorsRadiusBackground(
-                    color: AppColors.mainThemeButton, radius: 0))),
+            bottom: UIDefine.getPixelWidth(70),
+            child: Image.asset(AppImagePath.backgroundLand, fit: BoxFit.cover)),
         Positioned(
-            top: UIDefine.getPixelWidth(180),
+            top: UIDefine.getPixelWidth(200),
             left: 0,
             right: 0,
             bottom: 0,
@@ -99,14 +98,16 @@ class _WalletMainViewState extends State<WalletMainView> {
                 decoration: AppStyle().styleColorsRadiusBackground(
                     color: AppColors.defaultBackgroundSpace, radius: 12))),
         Positioned(
-          bottom: UIDefine.getPixelWidth(10),
+          top: 0,
+          bottom: 0,
           left: UIDefine.getPixelWidth(20),
           right: UIDefine.getPixelWidth(20),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: UIDefine.getPixelWidth(10)),
-              _buildTitle(),
+              _buildPreButton(),
               SizedBox(height: UIDefine.getPixelWidth(10)),
               Container(
                 width: UIDefine.getWidth(),
@@ -117,14 +118,15 @@ class _WalletMainViewState extends State<WalletMainView> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text('${tr('uc_myAccount')}(USDT)',
-                        style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14)),
+                        style: AppTextStyle.getBaseStyle(
+                            fontSize: UIDefine.fontSize14)),
                     SizedBox(height: UIDefine.getPixelWidth(20)),
                     Text(
                         NumberFormatUtil().removeTwoPointFormat(
                             GlobalData.userProperty?.totalBalance ?? 0),
                         style: AppTextStyle.getBaseStyle(
                             fontSize: UIDefine.fontSize40,
-                            fontWeight: FontWeight.w500)),
+                            fontWeight: FontWeight.w600)),
                     SizedBox(height: UIDefine.getPixelWidth(30)),
                     Row(
                       children: [
@@ -166,15 +168,15 @@ class _WalletMainViewState extends State<WalletMainView> {
                 'Polygon',
                 style: AppTextStyle.getBaseStyle(
                     fontSize: UIDefine.fontSize12,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.dialogBlack),
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textThreeBlack),
               ),
               SizedBox(width: UIDefine.getPixelWidth(10)),
               Text(
                 tr('depositAddress'),
                 style: AppTextStyle.getBaseStyle(
                     fontSize: UIDefine.fontSize12,
-                    color: AppColors.dialogBlack),
+                    color: AppColors.textSixBlack),
               ),
             ],
           ),
@@ -189,10 +191,10 @@ class _WalletMainViewState extends State<WalletMainView> {
                       maxLines: 2,
                       style: AppTextStyle.getBaseStyle(
                           fontSize: UIDefine.fontSize12,
-                          color: AppColors.homeGrey,
+                          color: AppColors.textNineBlack,
                           fontWeight: FontWeight.w400))),
               const SizedBox(width: 10),
-              InkWell(
+              GestureDetector(
                   onTap: () {
                     viewModel.copyText(
                         copyText: GlobalData.userWalletInfo?['TRON']);
@@ -250,8 +252,8 @@ class _WalletMainViewState extends State<WalletMainView> {
                   SizedBox(height: UIDefine.getPixelWidth(10)),
                   Text(title,
                       style: AppTextStyle.getBaseStyle(
-                          fontSize: UIDefine.fontSize14,
-                          color: AppColors.dialogGrey))
+                          fontSize: UIDefine.fontSize12,
+                          color: AppColors.textThreeBlack))
                 ]))));
   }
 
@@ -297,14 +299,15 @@ class _WalletMainViewState extends State<WalletMainView> {
             Text(tr('historyLog'),
                 style: AppTextStyle.getBaseStyle(
                     fontSize: UIDefine.fontSize16,
-                    fontWeight: FontWeight.w500)),
+                    color: AppColors.textThreeBlack,
+                    fontWeight: FontWeight.w600)),
             Flexible(child: Container()),
             InkWell(
               onTap: _showWalletRecord,
               child: Text(tr('all'),
                   style: AppTextStyle.getBaseStyle(
                       fontSize: UIDefine.fontSize14,
-                      color: AppColors.textHintBlack)),
+                      color: AppColors.textSixBlack)),
             ),
             InkWell(
               onTap: _showWalletRecord,
@@ -320,8 +323,8 @@ class _WalletMainViewState extends State<WalletMainView> {
                 margin:
                     EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(10)),
                 width: double.infinity,
-                height: 1,
-                color: AppColors.searchBar),
+                height: 0.5,
+                color: const Color(0xFFE1E1E1)),
           ),
           _buildRecordListView(),
         ],

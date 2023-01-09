@@ -170,7 +170,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
             maxLines: 2,
             style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize12,
-                color: AppColors.homeGrey)),
+                color: AppColors.textNineBlack)),
         const SizedBox(width: 1),
       ],
     );
@@ -240,7 +240,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
                   : 'BSC (BEP-20)',
               style: AppTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize12,
-                  color: AppColors.textHintBlack,
+                  color: AppColors.textSixBlack,
                   fontWeight: FontWeight.w500))
         ],
       ),
@@ -253,11 +253,11 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
         children: [
           Text(tr("minimum-rechargeAmount'"),
               style: AppTextStyle.getBaseStyle(
-                  fontSize: UIDefine.fontSize12, color: AppColors.homeGrey)),
+                  fontSize: UIDefine.fontSize12, color: AppColors.textNineBlack)),
           SizedBox(width: UIDefine.getPixelWidth(5)),
           Text('10 USDT',
               style: AppTextStyle.getBaseStyle(
-                  fontSize: UIDefine.fontSize12, color: AppColors.homeGrey))
+                  fontSize: UIDefine.fontSize12, color: AppColors.textNineBlack))
         ],
       ),
       SizedBox(height: UIDefine.getScreenWidth(2.77)),

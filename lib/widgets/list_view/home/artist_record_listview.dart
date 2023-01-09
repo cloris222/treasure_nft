@@ -243,7 +243,7 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
                   style: AppTextStyle.getBaseStyle(
                       fontSize: UIDefine.fontSize12,
                       fontWeight: FontWeight.w600,
-                      color: AppColors.homeGrey,
+                      color: AppColors.textNineBlack,
                       fontFamily: AppTextFamily.Posterama1927)),
               GestureDetector(
                   onTap: () => viewModel.pushPage(context,

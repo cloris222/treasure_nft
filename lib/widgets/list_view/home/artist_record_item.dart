@@ -168,7 +168,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
           style: AppTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize12,
               fontWeight: FontWeight.w600,
-              color: AppColors.textHintBlack,
+              color: AppColors.textSixBlack,
               fontFamily: AppTextFamily.Posterama1927)),
     ]);
   }

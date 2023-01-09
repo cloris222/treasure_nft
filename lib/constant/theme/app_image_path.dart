@@ -15,7 +15,7 @@ class AppImagePath {
   static const String dialogSuccess = '$_iconPath/icon_checked_03.png';
   static const String dialogWarning = '$_iconPath/icon_warning_01.png';
   static const String dialogCancel = '$_iconPath/icon_cross_01.png';
-  static const String copyIcon = '$_btnPath/btn_edit_01_nor.png';
+  static const String copyIcon = '$_btnPath/btn_copy_01.png';
   static const String preloadIcon = '$_imgPath/img_loding_01.png';
 
   ///MARK: Arrow Icon
@@ -24,8 +24,13 @@ class AppImagePath {
   static const String arrowDown = '$_btnPath/btn_arrow_01_down.png';
   static const String arrowDownGrey = '$_btnPath/btn_arrow_02_down.png';
   static const String arrowLeft = '$_btnPath/btn_back_01_nor.png';
+  static const String arrowLeftBlack = '$_btnPath/btn_arrowleft_01.png';
   static const String arrowRight = '$_btnPath/btn_arrow_right_01_nor.png';
   static const String arrowRightBlack = '$_btnPath/btn_arrow_04_right.png';
+
+  ///MARK: image background
+
+  static const String backgroundLand = '$_imgPath/img_background_01.png';
 
   ///MARK: bottom navigation
   static const String mainTypeExplore = '$_btnPath/btn_explore_02.png';
@@ -131,10 +136,9 @@ class AppImagePath {
   static const String languageCheckIcon = '$_iconPath/icon_check_ok_03.png';
 
   ///錢包
-  static const String walletIcon = '$_iconPath/icon_wallet_01.png';
-  static const String walletRechargeIcon = '$_iconPath/icon_card_01.png';
-  static const String walletWithdrawIcon = '$_iconPath/icon_extraction_02.png';
-  static const String walletSettingIcon = '$_iconPath/icon_setting_01.png';
+  static const String walletRechargeIcon = '$_btnPath/btn_deposit_01.png';
+  static const String walletWithdrawIcon = '$_btnPath/btn_withdraw_01.png';
+  static const String walletSettingIcon = '$_btnPath/btn_setting_01.png';
   static const String walletLogIcon = '$_iconPath/icon_file_03.png';
 
   ///等級

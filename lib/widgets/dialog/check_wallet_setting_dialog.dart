@@ -20,7 +20,7 @@ class CheckWalletSettingDialog extends BaseDialog {
   final String accountTRON;
   final String accountBSC;
   final String accountROLLOUT;
-  final Color textColor = const Color(0xFF333333);
+  final Color textColor = AppColors.textThreeBlack;
   final onClickFunction onConfirm;
 
   @override

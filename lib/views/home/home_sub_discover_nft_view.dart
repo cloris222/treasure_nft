@@ -126,7 +126,7 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
   Widget _buildTags() {
     return Container(
         alignment: Alignment.center,
-        height: UIDefine.getPixelWidth(25), 
+        height: UIDefine.getPixelWidth(25),
         margin: EdgeInsets.only(bottom: UIDefine.getPixelWidth(20)),
         child: ScrollablePositionedList.builder(
             scrollDirection: Axis.horizontal,
@@ -149,8 +149,7 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
             padding: EdgeInsets.symmetric(
                 horizontal: UIDefine.getPixelWidth(15),
                 vertical: UIDefine.getPixelWidth(3)),
-            margin: EdgeInsets.symmetric(
-                horizontal: UIDefine.getPixelWidth(5)),
+            margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(5)),
             decoration: _getButtonBackground(isCurrent),
             child: Text(
               type.getTabTitle(),
@@ -287,7 +286,7 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
             borderLine: 1,
             radius: 14,
             backgroundColor: Colors.transparent,
-            color: const Color(0xFF999999),
+            color: AppColors.textNineBlack,
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,

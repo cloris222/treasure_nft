@@ -48,7 +48,7 @@ class _HomeUsdtInfoState extends State<HomeUsdtInfo> {
   Widget build(BuildContext context) {
     TextStyle titleBolderStyle = AppTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize14,
-        color: AppColors.homeGrey,
+        color: AppColors.textNineBlack,
         fontWeight: FontWeight.w400);
     TextStyle valueStyle = AppTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize26,

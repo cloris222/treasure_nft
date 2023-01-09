@@ -58,7 +58,7 @@ class _HomeSubContactViewState extends State<HomeSubContactView> {
           Text(
             tr('footer_intro1'),
             style: viewModel.getContextStyle(
-                fontSize: UIDefine.fontSize12, color: AppColors.textHintBlack),
+                fontSize: UIDefine.fontSize12, color: AppColors.textSixBlack),
           ),
           getPadding(2),
           Wrap(children: _buildFooterButtonList())

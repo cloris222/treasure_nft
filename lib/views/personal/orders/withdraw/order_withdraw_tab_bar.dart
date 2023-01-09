@@ -66,7 +66,7 @@ class OrderWithdrawTabBar {
 
   Color _getButtonColor(bool isCurrent) {
     if (isCurrent) return Colors.white;
-    return AppColors.textHintBlack;
+    return AppColors.textSixBlack;
   }
 
   FontWeight? _getTextWeight(bool isCurrent) {

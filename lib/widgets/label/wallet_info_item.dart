@@ -46,7 +46,7 @@ class WalletInfoItem extends StatelessWidget {
               style: AppTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize14,
                   color: AppColors.dialogBlack,
-                  fontWeight: FontWeight.w500)),
+                  fontWeight: FontWeight.w700)),
         )
       ],
     );
@@ -60,7 +60,7 @@ class WalletInfoItem extends StatelessWidget {
         maxLines: 2,
         textAlign: TextAlign.center,
         style: AppTextStyle.getBaseStyle(
-            fontSize: UIDefine.fontSize14, color: AppColors.dialogBlack),
+            fontSize: UIDefine.fontSize12, color: AppColors.textNineBlack),
       ),
     );
   }
