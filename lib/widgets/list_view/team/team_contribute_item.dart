@@ -4,7 +4,7 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_contribute_list_data.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
-import 'package:treasure_nft_project/utils/custom_text_style.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 class TeamContributeItemView extends StatelessWidget {
   const TeamContributeItemView(

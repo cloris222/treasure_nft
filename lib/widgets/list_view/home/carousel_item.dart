@@ -9,7 +9,7 @@ import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/views/login/circle_network_icon.dart';
 import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
-import 'package:treasure_nft_project/utils/custom_text_style.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 class CarouselItemView extends StatelessWidget {
   const CarouselItemView({

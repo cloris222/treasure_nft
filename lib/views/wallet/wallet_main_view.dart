@@ -8,7 +8,7 @@ import 'package:treasure_nft_project/views/wallet/data/app_purchase.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/bottom_sheet/page_bottom_sheet.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
-import 'package:treasure_nft_project/utils/custom_text_style.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 import '../../constant/global_data.dart';
 import '../../constant/theme/app_colors.dart';

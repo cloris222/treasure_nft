@@ -16,7 +16,7 @@ import 'package:treasure_nft_project/models/http/api/ios_payment_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/ios_purchase/ios_product_data.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import 'package:treasure_nft_project/widgets/button/text_button_widget.dart';
-import 'package:treasure_nft_project/utils/custom_text_style.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 import '../../../constant/theme/app_animation_path.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';

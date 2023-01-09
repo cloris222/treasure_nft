@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import 'package:treasure_nft_project/utils/custom_text_style.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 import '../../../constant/ui_define.dart';
 import '../../../view_models/personal/team/team_contribution_viewmodel.dart';

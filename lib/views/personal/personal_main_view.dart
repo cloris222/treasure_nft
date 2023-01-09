@@ -40,77 +40,54 @@ class _PersonalMainViewState extends State<PersonalMainView> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-    SingleChildScrollView(
-    child: Container(
-      padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
-    color: Colors.white,
-        child: Column(children: [
-          // const DomainBar(),
-
-          ///MARK: 不可以上const
-          // PersonalSubUserInfoView( // 第一版UI
-          //   showLevelInfo: true,
-          //   enableModify: true,
-          //   onViewUpdate: () {
-          //     setState(() {});
-          //     widget.onViewChange();
-          //   },
-          // ),
-
-          Padding(
-              padding: EdgeInsets.all(UIDefine.getScreenWidth(5.5)),
-              child: PersonalNewSubUserInfoView(
-                  onViewUpdate: () {
+    return SingleChildScrollView(
+        child: Container(
+            padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(AppImagePath.backgroundUser),
+                    fit: BoxFit.fill)),
+            child: Column(children: [
+              Padding(
+                  padding: EdgeInsets.all(UIDefine.getScreenWidth(5.5)),
+                  child: PersonalNewSubUserInfoView(onViewUpdate: () {
                     setState(() {});
                     widget.onViewChange();
-                  }
-              )
-          ),
-
-          Container(
-              margin: EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(3.5)),
-              child: Column(children: [
-                // PersonalSubLevelView( // 第一版UI
-                //   userProperty: GlobalData.userProperty,
-                //   levelInfo: GlobalData.userLevelInfo,
-                //   onViewUpdate: _onViewUpdate,
-                // ),
-                PersonalNewSubLevelView(
-                  userProperty: GlobalData.userProperty,
-                  levelInfo: GlobalData.userLevelInfo,
-                  onViewUpdate: _onViewUpdate,
-                ),
-                // _buildLine(),
-                // PersonalSubOrderView(
-                //     userOrderInfo: GlobalData.userOrderInfo),
-                // _buildLine(),
-                PersonalNewSubOrderView(userOrderInfo: GlobalData.userOrderInfo),
-                // PersonalSubTeamView(levelInfo: GlobalData.userLevelInfo),
-                // _buildLine(),
-                PersonalNewSubTeamView(levelInfo: GlobalData.userLevelInfo),
-                // PersonalSubCommonView(onViewUpdate: () {
-                //   setState(() {});
-                //   widget.onViewChange();
-                // }),
-                PersonalNewSubCommonView(onViewUpdate: () {
-                  setState(() {});
-                  widget.onViewChange();
-                }),
-                const SizedBox(height: 10)
-              ]))
-        ]))),
-
-        Positioned(
-          top: UIDefine.getScreenWidth(6), right: UIDefine.getScreenWidth(6),
-          child: GestureDetector(
-            onTap: () => _onDateIcon(),
-            child: Image.asset(AppImagePath.dateIcon),
-          )
-        )
-      ],
-    );
+                  })),
+              Container(
+                  margin: EdgeInsets.symmetric(
+                      horizontal: UIDefine.getScreenWidth(3.5)),
+                  child: Column(children: [
+                    // PersonalSubLevelView( // 第一版UI
+                    //   userProperty: GlobalData.userProperty,
+                    //   levelInfo: GlobalData.userLevelInfo,
+                    //   onViewUpdate: _onViewUpdate,
+                    // ),
+                    PersonalNewSubLevelView(
+                      userProperty: GlobalData.userProperty,
+                      levelInfo: GlobalData.userLevelInfo,
+                      onViewUpdate: _onViewUpdate,
+                    ),
+                    // _buildLine(),
+                    // PersonalSubOrderView(
+                    //     userOrderInfo: GlobalData.userOrderInfo),
+                    // _buildLine(),
+                    PersonalNewSubOrderView(
+                        userOrderInfo: GlobalData.userOrderInfo),
+                    // PersonalSubTeamView(levelInfo: GlobalData.userLevelInfo),
+                    // _buildLine(),
+                    PersonalNewSubTeamView(levelInfo: GlobalData.userLevelInfo),
+                    // PersonalSubCommonView(onViewUpdate: () {
+                    //   setState(() {});
+                    //   widget.onViewChange();
+                    // }),
+                    PersonalNewSubCommonView(onViewUpdate: () {
+                      setState(() {});
+                      widget.onViewChange();
+                    }),
+                    const SizedBox(height: 10)
+                  ]))
+            ])));
   }
 
   Widget _buildLine() {

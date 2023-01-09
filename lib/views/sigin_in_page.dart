@@ -6,7 +6,7 @@ import 'package:treasure_nft_project/utils/date_format_util.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
-import 'package:treasure_nft_project/utils/custom_text_style.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 import '../constant/theme/app_colors.dart';
 import '../constant/theme/app_image_path.dart';
 import '../constant/ui_define.dart';

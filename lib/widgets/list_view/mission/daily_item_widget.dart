@@ -15,7 +15,7 @@ import 'package:treasure_nft_project/views/personal/team/team_order_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/button/text_button_widget.dart';
 import 'package:treasure_nft_project/widgets/label/warp_two_text_widget.dart';
-import 'package:treasure_nft_project/utils/custom_text_style.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 class DailyItemWidget extends StatelessWidget {
   const DailyItemWidget({Key? key, required this.data, required this.getPoint})

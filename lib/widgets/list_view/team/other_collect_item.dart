@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
-import 'package:treasure_nft_project/utils/custom_text_style.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 import '../../../models/http/parameter/other_collect_data.dart';
 import '../../label/coin/tether_coin_widget.dart';

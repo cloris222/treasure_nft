@@ -6,7 +6,7 @@ import 'package:treasure_nft_project/views/personal/team/team_contribution_page.
 import 'package:treasure_nft_project/views/personal/team/team_member_page.dart';
 import 'package:treasure_nft_project/views/personal/team/team_order_page.dart';
 import 'package:treasure_nft_project/views/personal/team/team_referral_code_page.dart';
-import 'package:treasure_nft_project/utils/custom_text_style.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_style.dart';

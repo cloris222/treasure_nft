@@ -9,7 +9,7 @@ import 'package:treasure_nft_project/views/personal/team/team_contribution_membe
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/widgets/date_picker/custom_date_picker.dart';
-import 'package:treasure_nft_project/utils/custom_text_style.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 import '../../../view_models/personal/team/team_contribution_viewmodel.dart';
 import '../../../widgets/slider_page_view.dart';

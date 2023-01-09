@@ -20,7 +20,6 @@ class AppImagePath {
   static const String preloadIcon = '$_imgPath/img_loding_01.png';
   static const String closeIcon = '$_btnPath/btn_cross_01.png';
 
-
   ///MARK: Arrow Icon
   static const String arrowUpGrey = '$_btnPath/btn_arrow_02_up.png';
   static const String arrowUpWhite = '$_btnPath/btn_arrow_03_up.png';
@@ -33,6 +32,7 @@ class AppImagePath {
 
   ///MARK: image background
   static const String backgroundLand = '$_imgPath/img_background_01.png';
+  static const String backgroundUser = '$_imgPath/img_background_04.png';
 
   ///MARK: bottom navigation
   static const String mainTypeExplore = '$_btnPath/btn_explore_02.png';
@@ -65,7 +65,7 @@ class AppImagePath {
   static const String clockRed = '$_imgPath/img_clock_02.png';
 
   ///  rank level
-  static const String level = '$_iconPath/badges_lv{level}.png';
+  static const String level = '$_iconPath/icon_level_0{level}.png';
   static const String beginner = '$_iconPath/icon_star_01.png';
   static const String reserving = '$_iconPath/icon_rotate_02.png';
 
@@ -150,7 +150,7 @@ class AppImagePath {
   static const String bonusIcon = '$_imgPath/img_Piggy Bank_01.png';
 
   /// Team
-  static const String dateIcon = '$_iconPath/icon_date_01.png';
+  static const String dateIcon = '$_btnPath/btn_calendar_01.png';
   static const String checkIcon02 = '$_imgPath/img_check_02.png';
   static const String shareIcon02 = '$_iconPath/icon_share_02.png';
 

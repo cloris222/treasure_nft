@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/explore/homepage/explore_artist_home_page_view.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
-import 'package:treasure_nft_project/utils/custom_text_style.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 import '../../../constant/ui_define.dart';
 import '../../../views/explore/data/explore_main_response_data.dart';

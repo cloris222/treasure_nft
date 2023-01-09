@@ -7,7 +7,7 @@ import 'package:treasure_nft_project/models/http/parameter/team_member_detail.da
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
 import 'package:treasure_nft_project/widgets/dialog/list_dialog.dart';
-import 'package:treasure_nft_project/utils/custom_text_style.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'lower_invite_listview.dart';
 import 'lower_nft_listview.dart';
 

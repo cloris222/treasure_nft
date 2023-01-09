@@ -7,7 +7,7 @@ import '../../constant/theme/app_image_path.dart';
 import '../../constant/ui_define.dart';
 import '../../models/data/validate_result_data.dart';
 import '../label/error_text_widget.dart';
-import 'package:treasure_nft_project/utils/custom_text_style.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 /// 單日日期選擇器
 class DatePickerOne extends StatefulWidget {

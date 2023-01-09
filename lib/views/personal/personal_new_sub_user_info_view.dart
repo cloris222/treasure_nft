@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import 'package:treasure_nft_project/utils/custom_text_style.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 import '../../constant/call_back_function.dart';
 import '../../constant/global_data.dart';
@@ -20,15 +20,16 @@ import 'level/level_detail_page.dart';
 import 'level/level_point_page.dart';
 
 class PersonalNewSubUserInfoView extends StatelessWidget {
-  const PersonalNewSubUserInfoView({
-  super.key,
-  this.setUserInfo,
-  this.onViewUpdate
-  });
+  const PersonalNewSubUserInfoView(
+      {super.key,
+      this.setUserInfo,
+      this.onViewUpdate,
+      this.showDailyTask = false});
 
   ///MARK: 是否顯示他人
   final UserInfoData? setUserInfo;
   final onClickFunction? onViewUpdate;
+  final bool showDailyTask;
 
   UserInfoData get userInfo {
     return setUserInfo ?? GlobalData.userInfo;
@@ -41,91 +42,95 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
         GestureDetector(
             onTap: () => _showModifyAvatar(context),
             child: Container(
-                decoration: AppTheme.style.baseGradient(radius: 100),
-                height: UIDefine.getPixelWidth(75),
-                width: UIDefine.getPixelWidth(75),
+                decoration: AppTheme.style.styleColorBorderBackground(
+                    radius: 60,
+                    color: Colors.transparent,
+                    backgroundColor: Colors.transparent),
+                height: UIDefine.getPixelWidth(60),
+                width: UIDefine.getPixelWidth(60),
                 padding: const EdgeInsets.all(2),
                 child: userInfo.photoUrl.isNotEmpty
                     ? CircleNetworkIcon(
-                    networkUrl: userInfo.photoUrl, radius: 35)
+                        networkUrl: userInfo.photoUrl, radius: 35)
                     : Image.asset(
-                  AppImagePath.avatarImg,
-                  width: UIDefine.getScreenWidth(18.66), height: UIDefine.getScreenWidth(18.66),
-                ))
-        ),
-        
+                        AppImagePath.avatarImg,
+                        width: UIDefine.getScreenWidth(18.66),
+                        height: UIDefine.getScreenWidth(18.66),
+                      ))),
         SizedBox(width: UIDefine.getScreenWidth(2.7)),
-        
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                WarpTwoTextWidget(
-                    text: userInfo.name,
-                    fontSize: UIDefine.fontSize18,
-                    fontWeight: FontWeight.w500),
-                const SizedBox(width: 5),
-                _buildMedalIcon(context)
-              ],
-            ),
+        Expanded(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  WarpTwoTextWidget(
+                      text: userInfo.name,
+                      fontSize: UIDefine.fontSize18,
+                      fontWeight: FontWeight.w600),
+                  const SizedBox(width: 5),
+                  _buildMedalIcon(context),
+                  const Spacer(),
+                  Image.asset(AppImagePath.dateIcon)
+                ],
+              ),
+              SizedBox(height: UIDefine.getScreenWidth(2.77)),
 
-            SizedBox(height: UIDefine.getScreenWidth(2.77)),
+              ///MARK:使用者的ID和邀請碼
+              _buildOtherDetailInfo(),
 
-            Row(
-              children: [
+              ///MARK: 使用者的按鈕
+              Row(children: [
                 InkWell(
-                      onTap: () => _showLevelInfoPage(context),
-                      child: Container(
-                          padding: const EdgeInsets.all(5),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            border: Border.all(color: AppColors.textGrey),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-
-                          child: Row(
-                              children: [
-                                const SizedBox(width: 5),
-                                LevelIconWidget(
-                                    level: userInfo.level,
-                                    size: UIDefine.fontSize18),
-                                const SizedBox(width: 5),
-                                Text('${tr('level')} ${userInfo.level}',
-                                    style: AppTextStyle.getBaseStyle(
-                                        fontSize: UIDefine.fontSize12,
-                                        color: AppColors.dialogBlack)),
-                                SizedBox(width: UIDefine.getScreenWidth(2)),
-                                Image.asset(AppImagePath.arrowRight)
-                              ]))),
+                    onTap: () => _showLevelInfoPage(context),
+                    child: Container(
+                        padding: const EdgeInsets.all(5),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          border: Border.all(color: AppColors.textGrey),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Row(children: [
+                          const SizedBox(width: 5),
+                          LevelIconWidget(
+                              level: userInfo.level, size: UIDefine.fontSize18),
+                          const SizedBox(width: 5),
+                          Text('${tr('level')} ${userInfo.level}',
+                              style: AppTextStyle.getBaseStyle(
+                                  fontSize: UIDefine.fontSize12,
+                                  color: AppColors.dialogBlack)),
+                          SizedBox(width: UIDefine.getScreenWidth(2)),
+                          Image.asset(AppImagePath.arrowRight)
+                        ]))),
                 const SizedBox(width: 6),
                 InkWell(
-                      onTap: () => _showPointPage(context),
-                      child: Container(
-                          padding: const EdgeInsets.all(5),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            border: Border.all(color: AppColors.textGrey),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const SizedBox(width: 5),
-                                SizedBox(height: UIDefine.fontSize18),
-                                Text(
-                                    '${userInfo.point} ${tr('lv_point')}',
-                                    style: AppTextStyle.getBaseStyle(
-                                        fontSize: UIDefine.fontSize12,
-                                        color: AppColors.dialogBlack)),
-                                SizedBox(width: UIDefine.getScreenWidth(2)),
-                                Image.asset(AppImagePath.arrowRight)
-                              ])))
-            ])
-          ],
+                    onTap: () => _showPointPage(context),
+                    child: Container(
+                        padding: const EdgeInsets.all(5),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          border: Border.all(color: AppColors.textGrey),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const SizedBox(width: 5),
+                              SizedBox(height: UIDefine.fontSize18),
+                              Text('${userInfo.point} ${tr('lv_point')}',
+                                  style: AppTextStyle.getBaseStyle(
+                                      fontSize: UIDefine.fontSize12,
+                                      color: AppColors.dialogBlack)),
+                              SizedBox(width: UIDefine.getScreenWidth(2)),
+                              Image.asset(AppImagePath.arrowRight)
+                            ])))
+              ])
+            ],
+          ),
         )
       ],
     );
@@ -143,6 +148,29 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
     return Container();
   }
 
+  Widget _buildOtherDetailInfo() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text('(${userInfo.account})',
+            style: AppTextStyle.getBaseStyle(
+                fontSize: UIDefine.fontSize14,
+                color: AppColors.textThreeBlack)),
+        Row(
+          children: [
+            Text('UID : ',
+                style: AppTextStyle.getBaseStyle(
+                    fontSize: UIDefine.fontSize14,
+                    color: AppColors.textThreeBlack)),
+            Text(userInfo.inviteCode),
+            Image.asset(AppImagePath.copyIcon,
+                height: UIDefine.getPixelWidth(15))
+          ],
+        )
+      ],
+    );
+  }
+
   void _showModifyAvatar(BuildContext context) {
     EditAvatarDialog(context, isAvatar: true, onChange: () {
       if (onViewUpdate != null) {
@@ -158,5 +186,4 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
   void _showPointPage(BuildContext context) {
     BaseViewModel().pushPage(context, const LevelPointPage());
   }
-  
 }

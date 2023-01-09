@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/utils/custom_text_style.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 import 'app_colors.dart';
 import 'app_style.dart';

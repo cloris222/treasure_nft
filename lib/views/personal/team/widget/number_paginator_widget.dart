@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
-import 'package:treasure_nft_project/utils/custom_text_style.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/view_models/personal/team/number_paginator_controller.dart';
 import 'package:treasure_nft_project/views/personal/team/widget/paginator_button.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
