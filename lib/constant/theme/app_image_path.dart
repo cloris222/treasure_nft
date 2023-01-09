@@ -15,8 +15,11 @@ class AppImagePath {
   static const String dialogSuccess = '$_iconPath/icon_checked_03.png';
   static const String dialogWarning = '$_iconPath/icon_warning_01.png';
   static const String dialogCancel = '$_iconPath/icon_cross_01.png';
+  static const String dialogCloseBtn = '$_btnPath/btn_cancel_01_nor.png';
   static const String copyIcon = '$_btnPath/btn_copy_01.png';
   static const String preloadIcon = '$_imgPath/img_loding_01.png';
+  static const String closeIcon = '$_btnPath/btn_cross_01.png';
+
 
   ///MARK: Arrow Icon
   static const String arrowUpGrey = '$_btnPath/btn_arrow_02_up.png';
@@ -29,7 +32,6 @@ class AppImagePath {
   static const String arrowRightBlack = '$_btnPath/btn_arrow_04_right.png';
 
   ///MARK: image background
-
   static const String backgroundLand = '$_imgPath/img_background_01.png';
 
   ///MARK: bottom navigation
@@ -61,7 +63,6 @@ class AppImagePath {
   static const String countDownBackground = '$_imgPath/img_trade_bg_01.jpg';
   static const String clockBlue = '$_imgPath/img_clock_01.png';
   static const String clockRed = '$_imgPath/img_clock_02.png';
-  static const String closeDialogBtn = '$_btnPath/btn_cancel_01_nor.png';
 
   ///  rank level
   static const String level = '$_iconPath/badges_lv{level}.png';

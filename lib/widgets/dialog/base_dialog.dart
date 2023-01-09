@@ -103,7 +103,7 @@ abstract class BaseDialog {
   Widget createDialogCloseIcon() {
     return IconButton(
         onPressed: onCancel,
-        icon: Image.asset(AppImagePath.closeDialogBtn, width: 15, height: 15));
+        icon: Image.asset(AppImagePath.dialogCloseBtn, width: 15, height: 15));
   }
 
   Widget createImageWidget(

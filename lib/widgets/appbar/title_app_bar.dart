@@ -20,8 +20,7 @@ class TitleAppBar extends StatelessWidget {
           alignment: Alignment.center,
           child: Text(title,
               style: AppTextStyle.getBaseStyle(
-                  fontSize: UIDefine.fontSize24,
-                  fontWeight: FontWeight.w500)),
+                  fontSize: UIDefine.fontSize18, fontWeight: FontWeight.w600)),
         ),
         Positioned(
           left: -UIDefine.getPixelWidth(10),
@@ -42,8 +41,7 @@ class TitleAppBar extends StatelessWidget {
             visible: !needArrowIcon,
             child: IconButton(
                 onPressed: () => BaseViewModel().popPage(context),
-                icon: Image.asset(AppImagePath.closeDialogBtn,
-                    color: Colors.black,
+                icon: Image.asset(AppImagePath.closeIcon,
                     height: UIDefine.fontSize20,
                     width: UIDefine.fontSize20,
                     fit: BoxFit.contain)),

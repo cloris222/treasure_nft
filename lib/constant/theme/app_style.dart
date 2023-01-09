@@ -109,7 +109,7 @@ class AppStyle {
 
   BoxDecoration styleUserSetting() {
     return styleColorBorderBackground(
-        color: AppColors.searchBar,
+        color: AppColors.bolderGrey,
         radius: 15,
         backgroundColor: Colors.transparent);
   }
