@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/enum/setting_enum.dart';
 import 'package:treasure_nft_project/constant/subject_key.dart';
+import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/home/home_observer.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
 import '../../constant/theme/app_image_path.dart';
@@ -51,21 +52,16 @@ class _HomeSubContactViewState extends State<HomeSubContactView> {
             left: UIDefine.getPixelWidth(20),
             right: UIDefine.getPixelWidth(20)),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Image.asset(AppImagePath.mainAppBarLogo),
+          Image.asset(AppImagePath.mainAppBarLogo,
+              height: UIDefine.getPixelWidth(30), fit: BoxFit.fitHeight),
           getPadding(2),
           Text(
             tr('footer_intro1'),
-            style: viewModel.getContextStyle(),
+            style: viewModel.getContextStyle(
+                fontSize: UIDefine.fontSize12, color: AppColors.textHintBlack),
           ),
           getPadding(2),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: _buildFooterButtonList()),
-            ],
-          )
+          Wrap(children: _buildFooterButtonList())
         ]));
   }
 
@@ -81,7 +77,13 @@ class _HomeSubContactViewState extends State<HomeSubContactView> {
             onTap: () {
               viewModel.launchInBrowser(getFooterLinkPath(footer));
             },
-            child: Image.asset(getFooterImgPath(footer))));
+            child: Container(
+                width: UIDefine.getPixelWidth(30),
+                height: UIDefine.getPixelWidth(30),
+                margin: EdgeInsets.symmetric(
+                    horizontal: UIDefine.getPixelWidth(5),
+                    vertical: UIDefine.getPixelWidth(10)),
+                child: Image.asset(getFooterImgPath(footer)))));
       }
     }
 

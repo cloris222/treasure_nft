@@ -135,7 +135,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
             ),
             Flexible(child: Container()),
             BaseIconWidget(
-                imageAssetPath: AppImagePath.rightArrow,
+                imageAssetPath: AppImagePath.arrowRight,
                 size: UIDefine.fontSize18)
           ])),
       _buildSpace(height: 2),
@@ -157,7 +157,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
             ),
             Flexible(child: Container()),
             BaseIconWidget(
-                imageAssetPath: AppImagePath.rightArrow,
+                imageAssetPath: AppImagePath.arrowRight,
                 size: UIDefine.fontSize18)
           ]))
     ]);

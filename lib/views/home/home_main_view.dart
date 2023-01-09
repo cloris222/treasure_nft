@@ -32,7 +32,6 @@ class _HomeMainViewState extends State<HomeMainView> {
   HomeMainViewModel viewModel = HomeMainViewModel();
 
   TextEditingController emailEditingController = TextEditingController();
-  FocusNode emailFocusNode = FocusNode();
   ScrollController scrollController = ScrollController();
   bool showArtAnimate = false;
 
@@ -61,89 +60,92 @@ class _HomeMainViewState extends State<HomeMainView> {
   void dispose() {
     scrollController.dispose();
     emailEditingController.dispose();
-    emailFocusNode.dispose();
     viewModel.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        ListView(
-            padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
-            controller: scrollController,
-            children: [
-              // const DomainBar(),
-              ///MARK: 標題
-              Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: UIDefine.getPixelWidth(20),
-                      vertical: UIDefine.getPixelHeight(10)),
-                  child: _buildTitleText()),
+    return GestureDetector(
+      onTap: () => viewModel.clearAllFocus(),
+      child: Stack(
+        children: [
+          ListView(
+              padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
+              controller: scrollController,
+              children: [
+                // const DomainBar(),
+                ///MARK: 標題
+                Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: UIDefine.getPixelWidth(20),
+                        vertical: UIDefine.getPixelHeight(10)),
+                    child: _buildTitleText()),
 
-              ///MARK: USDT資訊
-              HomeSubUsdtView(viewModel: viewModel),
+                ///MARK: USDT資訊
+                HomeSubUsdtView(viewModel: viewModel),
 
-              viewModel.buildSpace(height: 3),
+                viewModel.buildSpace(height: 3),
 
-              HomeSubIllustrateView(viewModel: viewModel),
+                HomeSubIllustrateView(viewModel: viewModel),
 
-              viewModel.buildSpace(height: 3),
+                viewModel.buildSpace(height: 3),
 
-              /// 熱門系列 畫家排行
-              ArtistRecordListView(viewModel: viewModel),
-              viewModel.buildSpace(height: 3),
+                /// 熱門系列 畫家排行
+                ArtistRecordListView(viewModel: viewModel),
+                viewModel.buildSpace(height: 3),
 
-              /// 隨機收藏集
-              HomeSubRandomView(viewModel: viewModel),
-              viewModel.buildSpace(height: 3),
+                /// 隨機收藏集
+                HomeSubRandomView(viewModel: viewModel),
+                viewModel.buildSpace(height: 3),
 
-              /// 邀請註冊
-              HomeSubSignupView(viewModel: viewModel),
-              viewModel.buildSpace(height: 3),
+                /// 邀請註冊
+                HomeSubSignupView(viewModel: viewModel),
+                viewModel.buildSpace(height: 3),
 
-              /// Discover NFT
-              HomeSubDiscoverNftView(viewModel: viewModel),
+                /// Discover NFT
+                HomeSubDiscoverNftView(viewModel: viewModel),
 
-              /// 聯絡方式
-              HomeSubContactView(viewModel: viewModel),
+                /// 聯絡方式
+                HomeSubContactView(viewModel: viewModel),
 
-              /// 資訊頁
-              HomeSubInfoView(viewModel: viewModel),
+                /// 資訊頁
+                HomeSubInfoView(viewModel: viewModel),
 
-              /// Email訂閱
-              mailSubmit(),
+                /// Email訂閱
+                mailSubmit(),
 
-              /// 教學影片
-              // const HomeSubVideoView(),
+                /// 教學影片
+                // const HomeSubVideoView(),
 
-              /// 贊助
-              // sponsor(),
+                /// 贊助
+                // sponsor(),
 
-              viewModel.buildSpace(height: 3),
-              Center(
-                  child: Text('TreasureMeta Technology',
-                      style: AppTextStyle.getBaseStyle(
-                          fontSize: UIDefine.fontSize14,
-                          color: AppColors.textBlack))),
-              SizedBox(
-                height: UIDefine.getPixelHeight(70),
-              )
-            ]),
-        Positioned(
-            right: UIDefine.getPixelWidth(15),
-            bottom: UIDefine.getPixelWidth(15) + UIDefine.navigationBarPadding,
-            child: GestureDetector(
-              onTap: () => scrollController.jumpTo(0),
-              child: Container(
-                width: UIDefine.getPixelWidth(50),
-                height: UIDefine.getPixelWidth(50),
-                decoration: AppStyle().baseGradient(radius: 50),
-                child: Image.asset(AppImagePath.upArrowWhite),
-              ),
-            ))
-      ],
+                viewModel.buildSpace(height: 3),
+                Center(
+                    child: Text('TreasureMeta Technology',
+                        style: AppTextStyle.getBaseStyle(
+                            fontSize: UIDefine.fontSize14,
+                            color: AppColors.textBlack))),
+                SizedBox(
+                  height: UIDefine.getPixelHeight(70),
+                )
+              ]),
+          Positioned(
+              right: UIDefine.getPixelWidth(15),
+              bottom:
+                  UIDefine.getPixelWidth(15) + UIDefine.navigationBarPadding,
+              child: GestureDetector(
+                onTap: () => scrollController.jumpTo(0),
+                child: Container(
+                  width: UIDefine.getPixelWidth(50),
+                  height: UIDefine.getPixelWidth(50),
+                  decoration: AppStyle().baseGradient(radius: 50),
+                  child: Image.asset(AppImagePath.arrowUpWhite),
+                ),
+              ))
+        ],
+      ),
     );
   }
 
@@ -188,20 +190,22 @@ class _HomeMainViewState extends State<HomeMainView> {
                     Text('收', style: black),
                     Text('益', style: black),
                   ])
-                : Wrap(alignment: WrapAlignment.start, children: [
-                    Text('Earn profit with',
-                        style: AppTextStyle.getBaseStyle(
-                            fontSize: titleFontSize,
-                            fontFamily: titleFamily,
-                            fontWeight: titleFontWeight,
-                            color: AppColors.textBlack)),
-                    GradientText(
-                      ' Treasure NFT',
-                      size: titleFontSize,
-                      fontFamily: titleFamily,
-                      weight: titleFontWeight,
-                    )
-                  ])),
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                        Text('Earn profit with',
+                            style: AppTextStyle.getBaseStyle(
+                                fontSize: titleFontSize,
+                                fontFamily: titleFamily,
+                                fontWeight: titleFontWeight,
+                                color: AppColors.textBlack)),
+                        GradientText(
+                          'Treasure NFT',
+                          size: titleFontSize,
+                          fontFamily: titleFamily,
+                          weight: titleFontWeight,
+                        )
+                      ])),
         viewModel.buildSpace(height: 2),
         Text(tr('index-product-text-1\''),
             style: viewModel.getContextStyle(color: AppColors.textGrey)),
@@ -232,8 +236,7 @@ class _HomeMainViewState extends State<HomeMainView> {
               viewModel.buildSpace(width: 3),
               Text(
                 'Investors and patrons',
-                style:
-                    AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize24),
+                style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize24),
               ),
             ],
           ),
@@ -267,10 +270,9 @@ class _HomeMainViewState extends State<HomeMainView> {
 
   Widget mailSubmit() {
     OutlineInputBorder outlineInputBorder = const OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.transparent, width: 1),
+        borderSide: BorderSide(color: Color(0xFFF3F3F3), width: 1),
         borderRadius: BorderRadius.all(Radius.circular(10)));
     return Container(
-        // color: AppColors.mainBottomBg,
         padding: EdgeInsets.only(
             top: UIDefine.getPixelWidth(20),
             left: UIDefine.getPixelWidth(20),
@@ -282,8 +284,9 @@ class _HomeMainViewState extends State<HomeMainView> {
               Text(
                 tr('emailIllustrate'),
                 textAlign: TextAlign.start,
-                style:
-                    viewModel.getContextStyle(color: AppColors.textHintBlack),
+                style: viewModel.getContextStyle(
+                    color: AppColors.textHintBlack,
+                    fontSize: UIDefine.fontSize12),
               ),
               // Text('feature releases, NFT drops, and tips and tricks',
               //   style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12),
@@ -294,18 +297,11 @@ class _HomeMainViewState extends State<HomeMainView> {
 
               viewModel.buildSpace(height: 3),
 
-              Container(
-                  height: UIDefine.getScreenHeight(7),
-                  padding: EdgeInsets.symmetric(
-                      horizontal: UIDefine.getPixelWidth(5)),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: const Color(0xFFF3F3F3),
-                  ),
+              SizedBox(
+                  height: UIDefine.getPixelWidth(50),
                   child: Stack(alignment: Alignment.centerRight, children: [
                     TextField(
                         controller: emailEditingController,
-                        focusNode: emailFocusNode,
                         decoration: InputDecoration(
                             hintText: tr('placeholder-email-address\''),
                             hintStyle: AppTextStyle.getBaseStyle(
@@ -340,14 +336,11 @@ class _HomeMainViewState extends State<HomeMainView> {
                                       decoration: AppStyle().baseGradient(),
                                       child: Center(
                                           child: Text(tr('submit'),
-                                              style:
-                                                  AppTextStyle.getBaseStyle(
-                                                      color:
-                                                          AppColors.textWhite,
-                                                      fontSize:
-                                                          UIDefine.fontSize16,
-                                                      fontWeight: FontWeight
-                                                          .w500))))))),
+                                              style: AppTextStyle.getBaseStyle(
+                                                  color: AppColors.textWhite,
+                                                  fontSize: UIDefine.fontSize16,
+                                                  fontWeight:
+                                                      FontWeight.w500))))))),
                     )
                   ])),
               viewModel.buildSpace(height: 5)

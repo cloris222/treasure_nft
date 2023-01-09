@@ -126,7 +126,8 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
   Widget _buildTags() {
     return Container(
         alignment: Alignment.center,
-        height: UIDefine.getScreenWidth(13),
+        height: UIDefine.getPixelWidth(25), 
+        margin: EdgeInsets.only(bottom: UIDefine.getPixelWidth(20)),
         child: ScrollablePositionedList.builder(
             scrollDirection: Axis.horizontal,
             itemScrollController: listController,
@@ -149,15 +150,14 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
                 horizontal: UIDefine.getPixelWidth(15),
                 vertical: UIDefine.getPixelWidth(3)),
             margin: EdgeInsets.symmetric(
-                horizontal: UIDefine.getPixelWidth(5),
-                vertical: UIDefine.getPixelWidth(5)),
+                horizontal: UIDefine.getPixelWidth(5)),
             decoration: _getButtonBackground(isCurrent),
             child: Text(
               type.getTabTitle(),
               style: AppTextStyle.getBaseStyle(
                   color: _getButtonColor(isCurrent),
                   fontSize: UIDefine.fontSize12,
-                  fontWeight: FontWeight.w500),
+                  fontWeight: FontWeight.w400),
               textAlign: TextAlign.center,
             )));
   }
@@ -250,7 +250,7 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
                     maxLines: 1,
                     style: AppTextStyle.getBaseStyle(
                         fontSize: UIDefine.fontSize14,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                         color: AppColors.textBlack))),
             Container(
               margin:
@@ -263,7 +263,7 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
                       ' ${NumberFormatUtil().removeTwoPointFormat(data.currentPrice)} USDT',
                       style: AppTextStyle.getBaseStyle(
                           fontSize: UIDefine.fontSize12,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w600,
                           color: AppColors.tetherGreen))
                 ],
               ),
@@ -279,12 +279,12 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
               context, const MainPage(type: AppNavigationBarType.typeExplore));
         },
         child: Container(
-          margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(5)),
+          margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(15)),
           padding: EdgeInsets.symmetric(
               vertical: UIDefine.getPixelWidth(5),
               horizontal: UIDefine.getPixelWidth(10)),
           decoration: AppStyle().styleColorBorderBackground(
-            borderLine: 2,
+            borderLine: 1,
             radius: 14,
             backgroundColor: Colors.transparent,
             color: const Color(0xFF999999),
@@ -294,10 +294,10 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
             children: [
               Text(
                 '${tr('more')} NFTs',
-                style: viewModel.getContextStyle(),
+                style: viewModel.getContextStyle(fontWeight: FontWeight.w600),
               ),
               BaseIconWidget(
-                  imageAssetPath: AppImagePath.rightArrow,
+                  imageAssetPath: AppImagePath.arrowRightBlack,
                   size: UIDefine.getPixelWidth(20))
             ],
           ),

@@ -179,7 +179,7 @@ class HomePageWidgets {
       children: [
         GestureDetector(
           onTap: popBack,
-          child: Image.asset(AppImagePath.appBarLeftArrow),
+          child: Image.asset(AppImagePath.arrowLeft),
         ),
         Row(
           children: [
@@ -270,7 +270,7 @@ class HomePageWidgets {
                 )
               ),
 
-              Image.asset(AppImagePath.downArrow)
+              Image.asset(AppImagePath.arrowDown)
             ],
           )
         ),

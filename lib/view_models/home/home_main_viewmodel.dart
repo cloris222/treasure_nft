@@ -70,10 +70,13 @@ class HomeMainViewModel extends BaseViewModel {
   }
 
   ///MARK: 內容
-  TextStyle getContextStyle({Color color = AppColors.textBlack}) {
+  TextStyle getContextStyle(
+      {Color color = AppColors.textBlack,
+      FontWeight fontWeight = FontWeight.w400,
+      double? fontSize}) {
     return AppTextStyle.getBaseStyle(
-        fontSize: UIDefine.fontSize14,
-        fontWeight: FontWeight.w400,
+        fontSize: fontSize ?? UIDefine.fontSize14,
+        fontWeight: fontWeight,
         color: color);
   }
 

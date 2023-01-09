@@ -48,7 +48,7 @@ class PersonalNewSubOrderView extends StatelessWidget {
                               style: AppTextStyle.getBaseStyle(color: AppColors.dialogBlack,
                                   fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500)),
                           const SizedBox(width: 4),
-                          Image.asset(AppImagePath.rightArrow)
+                          Image.asset(AppImagePath.arrowRight)
                         ],
                       )
                   )

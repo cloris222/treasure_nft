@@ -308,7 +308,7 @@ class _WalletMainViewState extends State<WalletMainView> {
             ),
             InkWell(
               onTap: _showWalletRecord,
-              child: Image.asset(AppImagePath.rightArrow,
+              child: Image.asset(AppImagePath.arrowRight,
                   width: UIDefine.fontSize22,
                   height: UIDefine.fontSize22,
                   fit: BoxFit.contain),

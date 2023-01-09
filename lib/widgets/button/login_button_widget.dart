@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/enum/style_enum.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/custom_text_style.dart';
@@ -21,7 +22,8 @@ class LoginButtonWidget extends StatelessWidget {
       this.showIcon = false,
       this.isFillWidth = true,
       this.margin = const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-      this.padding})
+      this.padding,
+      this.fontFamily = AppTextFamily.PosteramaText})
       : super(key: key);
   final String btnText;
   final VoidCallback onPressed;
@@ -37,6 +39,7 @@ class LoginButtonWidget extends StatelessWidget {
   final bool isFillWidth;
   final EdgeInsetsGeometry margin;
   final EdgeInsetsGeometry? padding;
+  final AppTextFamily fontFamily;
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +89,8 @@ class LoginButtonWidget extends StatelessWidget {
                   style: AppTextStyle.getBaseStyle(
                       color: Colors.white,
                       fontSize: fontSize ?? UIDefine.fontSize16,
-                      fontWeight: fontWeight)),
+                      fontWeight: fontWeight,
+                      fontFamily: fontFamily)),
             ],
           )),
     );

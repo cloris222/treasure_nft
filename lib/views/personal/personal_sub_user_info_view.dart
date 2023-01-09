@@ -95,7 +95,7 @@ class PersonalSubUserInfoView extends StatelessWidget {
                           style: AppTextStyle.getBaseStyle(
                               fontSize: UIDefine.fontSize12,
                               color: AppColors.dialogGrey)),
-                      Image.asset(AppImagePath.rightArrow,
+                      Image.asset(AppImagePath.arrowRight,
                           height: UIDefine.fontSize16)
                     ]))
                 : const Text(''),

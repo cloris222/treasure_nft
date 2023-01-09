@@ -65,7 +65,7 @@ class PersonalSubOrderView extends StatelessWidget {
                             fontWeight: FontWeight.w500)),
                   ),
                   const SizedBox(width: 5),
-                  Image.asset(AppImagePath.rightArrow)
+                  Image.asset(AppImagePath.arrowRight)
                 ]),
               )))
     ]);

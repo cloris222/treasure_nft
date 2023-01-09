@@ -98,7 +98,7 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
                                         fontSize: UIDefine.fontSize12,
                                         color: AppColors.dialogBlack)),
                                 SizedBox(width: UIDefine.getScreenWidth(2)),
-                                Image.asset(AppImagePath.rightArrow)
+                                Image.asset(AppImagePath.arrowRight)
                               ]))),
                 const SizedBox(width: 6),
                 InkWell(
@@ -122,7 +122,7 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
                                         fontSize: UIDefine.fontSize12,
                                         color: AppColors.dialogBlack)),
                                 SizedBox(width: UIDefine.getScreenWidth(2)),
-                                Image.asset(AppImagePath.rightArrow)
+                                Image.asset(AppImagePath.arrowRight)
                               ])))
             ])
           ],

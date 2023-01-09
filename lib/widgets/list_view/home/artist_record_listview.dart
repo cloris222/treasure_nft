@@ -258,7 +258,7 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
                                   fontSize: UIDefine.fontSize14,
                                   fontWeight: FontWeight.w600,
                                   fontFamily: AppTextFamily.Posterama1927)),
-                          Image.asset(AppImagePath.rightArrow)
+                          Image.asset(AppImagePath.arrowRight)
                         ],
                       )))
               // LoginBolderButtonWidget(

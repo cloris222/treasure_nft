@@ -113,7 +113,7 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
                               Row(children: [
                                 Text(
                                     '${viewModel.shareCenterInfo?.teamIncome.toString()} ${tr("usdt")}'),
-                                Image.asset(AppImagePath.rightArrow)
+                                Image.asset(AppImagePath.arrowRight)
                               ])
                             ])),
                     SizedBox(height: UIDefine.getPixelHeight(5)),

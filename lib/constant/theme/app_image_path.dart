@@ -15,10 +15,19 @@ class AppImagePath {
   static const String dialogSuccess = '$_iconPath/icon_checked_03.png';
   static const String dialogWarning = '$_iconPath/icon_warning_01.png';
   static const String dialogCancel = '$_iconPath/icon_cross_01.png';
-  static const String appBarLeftArrow = '$_btnPath/btn_back_01_nor.png';
   static const String copyIcon = '$_btnPath/btn_edit_01_nor.png';
   static const String preloadIcon = '$_imgPath/img_loding_01.png';
 
+  ///MARK: Arrow Icon
+  static const String arrowUpGrey = '$_btnPath/btn_arrow_02_up.png';
+  static const String arrowUpWhite = '$_btnPath/btn_arrow_03_up.png';
+  static const String arrowDown = '$_btnPath/btn_arrow_01_down.png';
+  static const String arrowDownGrey = '$_btnPath/btn_arrow_02_down.png';
+  static const String arrowLeft = '$_btnPath/btn_back_01_nor.png';
+  static const String arrowRight = '$_btnPath/btn_arrow_right_01_nor.png';
+  static const String arrowRightBlack = '$_btnPath/btn_arrow_04_right.png';
+
+  ///MARK: bottom navigation
   static const String mainTypeExplore = '$_btnPath/btn_explore_02.png';
   static const String mainTypeExploreOFF = '$_btnPath/btn_explore_01.png';
   static const String mainTypeCollection = '$_btnPath/btn_collection_02.png';
@@ -66,10 +75,6 @@ class AppImagePath {
   /// home page
   static const String firstBackground = '$_imgPath/img_main_bg_01.jpg';
   static const String starIcon = '$_iconPath/icon_star_01.png';
-  static const String downArrow = '$_btnPath/btn_arrow_01_down.png';
-  static const String upArrowGrey = '$_btnPath/btn_arrow_02_up.png';
-  static const String upArrowWhite = '$_btnPath/btn_arrow_03_up.png';
-  static const String downArrowGrey = '$_btnPath/btn_arrow_02_down.png';
   static const String fileIcon = '$_iconPath/icon_file_01.png';
   static const String openSea = '$_iconPath/logo_opensea_01.png';
   static const String coinBase = '$_iconPath/logo_coinbase_01.png';
@@ -96,7 +101,6 @@ class AppImagePath {
 
   /// personal page
   static const String defaultBanner = '$_imgPath/img_banner_01_defult.jpg';
-  static const String rightArrow = '$_btnPath/btn_arrow_right_01_nor.png';
   static const String dailyIcon = '$_btnPath/btn_date_01_nor.png';
   static const String medalIcon = '$_imgPath/img_medal_{mainNumber}_01.png';
   static const String unableMedalIcon =

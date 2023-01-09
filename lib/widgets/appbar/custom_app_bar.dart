@@ -76,7 +76,7 @@ class CustomAppBar {
                 bottom: 0,
                 child: IconButton(
                     onPressed: onTap,
-                    icon: Image.asset(AppImagePath.appBarLeftArrow,
+                    icon: Image.asset(AppImagePath.arrowLeft,
                         fit: BoxFit.contain,
                         width: UIDefine.fontSize34,
                         height: UIDefine.fontSize34)),
@@ -134,7 +134,7 @@ class CustomAppBar {
                   margin: EdgeInsets.only(left: leftPadding),
                   child: IconButton(
                       onPressed: onTap,
-                      icon: Image.asset(AppImagePath.appBarLeftArrow,
+                      icon: Image.asset(AppImagePath.arrowLeft,
                           width: arrowFontSize ?? UIDefine.fontSize18,
                           fit: BoxFit.contain)),
                 ),

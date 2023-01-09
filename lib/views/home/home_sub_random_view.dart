@@ -1,10 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/enum/style_enum.dart';
 import 'package:treasure_nft_project/constant/subject_key.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/random_collect_info.dart';
+import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/home/home_observer.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
 import 'package:treasure_nft_project/views/login/circle_network_icon.dart';
@@ -57,26 +59,30 @@ class _HomeSubRandomViewState extends State<HomeSubRandomView> {
         padding: viewModel.getMainPadding(height: 30),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           Text(tr('collection-fetured').toUpperCase(),
+              textAlign: TextAlign.center,
               style: viewModel.getMainTitleStyle()),
           SizedBox(height: UIDefine.getPixelHeight(30)),
           ListView.builder(
               padding: EdgeInsets.zero,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) =>
-                  _buildSubView(
-                      context, viewModel.homeRandomCollectList[index]),
+              itemBuilder: (context, index) => _buildSubView(
+                  context, viewModel.homeRandomCollectList[index]),
               itemCount: viewModel.homeRandomCollectList.length)
         ]));
   }
 
   Widget _buildSubView(BuildContext context, RandomCollectInfo info) {
     return Column(mainAxisSize: MainAxisSize.min, children: [
-      _buildSubTopView(context, info),
+      _buildSubImageView(context, info),
       SizedBox(height: UIDefine.getPixelHeight(5)),
       Container(
         alignment: Alignment.centerLeft,
-        child: Text(info.collectionName, style: viewModel.getSubTitleStyle()),
+        child: Text(info.collectionName,
+            style: AppTextStyle.getBaseStyle(
+                fontSize: UIDefine.fontSize18,
+                fontWeight: FontWeight.w400,
+                color: AppColors.textBlack)),
       ),
       SizedBox(height: UIDefine.getPixelHeight(5)),
       Row(children: [
@@ -91,17 +97,18 @@ class _HomeSubRandomViewState extends State<HomeSubRandomView> {
             isFillWidth: false,
             margin: EdgeInsets.zero,
             fontSize: UIDefine.fontSize12,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w600,
+            fontFamily: AppTextFamily.Posterama1927,
             height: UIDefine.getPixelHeight(40),
             padding:
-            EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(8)),
+                EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(8)),
             radius: 19,
             onPressed: () {})
       ])
     ]);
   }
 
-  Widget _buildSubTopView(BuildContext context, RandomCollectInfo info) {
+  Widget _buildSubImageView(BuildContext context, RandomCollectInfo info) {
     return Container(
       height: UIDefine.getPixelHeight(240),
       margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(10)),
@@ -129,13 +136,13 @@ class _HomeSubRandomViewState extends State<HomeSubRandomView> {
   Widget _buildImage(RandomCollectInfo info, int index) {
     return info.nftItemInfo.length > index
         ? ClipRRect(
-        borderRadius: const BorderRadius.all(Radius.circular(15)),
-        child: SizedBox(
-          width: UIDefine.getWidth(),
-          height: UIDefine.getHeight(),
-          child: GraduallyNetworkImage(
-              imageUrl: info.nftItemInfo[index].imgUrl, fit: BoxFit.cover),
-        ))
+            borderRadius: const BorderRadius.all(Radius.circular(15)),
+            child: SizedBox(
+              width: UIDefine.getWidth(),
+              height: UIDefine.getHeight(),
+              child: GraduallyNetworkImage(
+                  imageUrl: info.nftItemInfo[index].imgUrl, fit: BoxFit.cover),
+            ))
         : const SizedBox();
   }
 }

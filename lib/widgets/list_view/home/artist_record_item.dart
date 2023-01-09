@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/enum/style_enum.dart';
 import 'package:treasure_nft_project/constant/subject_key.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
@@ -104,9 +105,10 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
                   children: [
                     Text('${widget.index + 1}',
                         style: AppTextStyle.getBaseStyle(
-                            fontSize: UIDefine.fontSize14,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.font02)),
+                            fontSize: UIDefine.fontSize16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black,
+                            fontFamily: AppTextFamily.Posterama1927)),
                     viewModel.buildSpace(width: 1),
 
                     /// Avatar
@@ -132,7 +134,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
                               overflow: TextOverflow.ellipsis,
                               style: AppTextStyle.getBaseStyle(
                                   fontSize: UIDefine.fontSize14,
-                                  color: AppColors.textBlack,
+                                  color: Colors.black,
                                   fontWeight: FontWeight.w400)),
 
                           viewModel.buildSpace(height: 1),
@@ -146,8 +148,9 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
                             color: widget.itemData.growthRate >= 0
                                 ? AppColors.rateGreen
                                 : AppColors.rateRed,
-                            fontSize: UIDefine.fontSize20,
-                            fontWeight: FontWeight.w500)),
+                            fontSize: UIDefine.fontSize16,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: AppTextFamily.Posterama1927)),
                     viewModel.buildSpace(width: 1.5),
                   ])),
         ),
@@ -163,9 +166,10 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
       const SizedBox(width: 5),
       Text(viewModel.numberCompatFormat(count),
           style: AppTextStyle.getBaseStyle(
-              fontSize: UIDefine.fontSize14,
-              fontWeight: FontWeight.w500,
-              color: AppColors.textBlack)),
+              fontSize: UIDefine.fontSize12,
+              fontWeight: FontWeight.w600,
+              color: AppColors.textHintBlack,
+              fontFamily: AppTextFamily.Posterama1927)),
     ]);
   }
 

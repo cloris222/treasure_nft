@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/enum/style_enum.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
@@ -17,8 +18,13 @@ class HomeSubSignupView extends StatelessWidget {
     return Container(
         padding: viewModel.getMainPadding(),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
-          Text(tr('create-sell-title').toUpperCase(),
-              style: viewModel.getMainTitleStyle()),
+          Padding(
+            padding:
+                EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(30)),
+            child: Text(tr('create-sell-title').toUpperCase(),
+                textAlign: TextAlign.center,
+                style: viewModel.getMainTitleStyle()),
+          ),
           SizedBox(height: UIDefine.getPixelHeight(20)),
           Text(tr('index_intro1'),
               style: viewModel.getContextStyle(color: AppColors.textGrey)),
@@ -27,6 +33,7 @@ class HomeSubSignupView extends StatelessWidget {
             LoginButtonWidget(
                 radius: 43,
                 btnText: tr('signUp').toUpperCase(),
+                fontFamily: AppTextFamily.Posterama1927,
                 isFillWidth: false,
                 padding: EdgeInsets.symmetric(
                     horizontal: UIDefine.getPixelWidth(10)),
