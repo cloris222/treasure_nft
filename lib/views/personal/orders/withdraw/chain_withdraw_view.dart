@@ -5,19 +5,17 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
+import 'package:treasure_nft_project/widgets/%20dropdownButton/chain_dropdown_button.dart';
 import 'package:treasure_nft_project/widgets/button/login_bolder_button_widget.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/simple_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
 
-import '../../../../constant/enum/coin_enum.dart';
-import '../../../../constant/theme/app_theme.dart';
 import '../../../../constant/ui_define.dart';
 import '../../../../models/http/parameter/withdraw_alert_info.dart';
 import '../../../../utils/qrcode_scanner_util.dart';
 import '../../../../view_models/personal/orders/order_chain_withdraw_view_model.dart';
 import '../../../../widgets/button/login_button_widget.dart';
-import '../../../../widgets/label/coin/tether_coin_widget.dart';
 import '../../../../widgets/label/error_text_widget.dart';
 import '../../../../widgets/text_field/login_text_widget.dart';
 import '../../../login/login_email_code_view.dart';
@@ -131,48 +129,14 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
   }
 
   Widget _buildChainDropDownBar() {
-    return DropdownButtonFormField(
-        icon: Image.asset('assets/icon/btn/btn_arrow_02_down.png'),
-        onChanged: (newValue) {
+    return ChainDropDownButton(
+        onChainChange: (chain) {
           setState(() {
-            viewModel.currentChain = newValue!;
+            viewModel.currentChain = chain;
             viewModel.requestAPI();
           });
         },
-        value: viewModel.currentChain,
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.16),
-              UIDefine.getScreenWidth(4.16), UIDefine.getScreenWidth(4.16), 0),
-          hintStyle:  AppTextStyle.getBaseStyle(height: 1.6, color: AppColors.textBlack),
-          border: AppTheme.style.styleTextEditBorderBackground(
-              color: AppColors.bolderGrey, radius: 10),
-          focusedBorder: AppTheme.style.styleTextEditBorderBackground(
-              color: AppColors.bolderGrey, radius: 10),
-          enabledBorder: AppTheme.style.styleTextEditBorderBackground(
-              color: AppColors.bolderGrey, radius: 10),
-        ),
-        items: [
-          DropdownMenuItem(
-              value: CoinEnum.TRON,
-              child: Row(children: [
-                TetherCoinWidget(size: UIDefine.fontSize24),
-                Text('  USDT-TRC20',
-                    style: AppTextStyle.getBaseStyle(
-                        color: viewModel.currentChain == CoinEnum.TRON
-                            ? AppColors.deepBlue
-                            : AppColors.searchBar))
-              ])),
-          DropdownMenuItem(
-              value: CoinEnum.BSC,
-              child: Row(children: [
-                TetherCoinWidget(size: UIDefine.fontSize24),
-                Text('  USDT-BSC',
-                    style: AppTextStyle.getBaseStyle(
-                        color: viewModel.currentChain == CoinEnum.BSC
-                            ? AppColors.deepBlue
-                            : AppColors.searchBar))
-              ]))
-        ]);
+        currentChain: viewModel.currentChain);
   }
 
   Widget _buildAddressInputBar() {
@@ -183,13 +147,12 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
           children: [
             Text(
               tr('getAddress'),
-              style: AppTextStyle.getBaseStyle(
-                  fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+              style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
             ),
             GestureDetector(
               onTap: _onQuickFill,
-              child: GradientThirdText(tr('quickFill'),
-                  size: UIDefine.fontSize12, weight: FontWeight.w500),
+              child:
+                  GradientThirdText(tr('quickFill'), size: UIDefine.fontSize12),
             )
           ],
         ),
@@ -282,8 +245,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
       children: [
         Text(
           tr('quantity'),
-          style: AppTextStyle.getBaseStyle(
-              fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+          style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
         ),
         SizedBox(
           width: UIDefine.getScreenWidth(90),
@@ -316,7 +278,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
                         'USDT',
                         style: AppTextStyle.getBaseStyle(
                             fontSize: UIDefine.fontSize14,
-                            fontWeight: FontWeight.w500),
+                            fontWeight: FontWeight.w400),
                       ),
                       SizedBox(width: UIDefine.getScreenWidth(2.77)),
                       Container(
@@ -329,8 +291,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
                             viewModel.numberFormat(viewModel.data.balance),
                         child: GradientThirdText(
                             '${tr('all')} ${tr('walletWithdraw')}',
-                            size: UIDefine.fontSize14,
-                            weight: FontWeight.w500),
+                            size: UIDefine.fontSize14),
                       )
                     ],
                   ))
@@ -350,16 +311,14 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
         Text(
           title,
           style: AppTextStyle.getBaseStyle(
-              fontSize: UIDefine.fontSize14,
-              fontWeight: FontWeight.w500,
-              color: AppColors.dialogGrey),
+              fontSize: UIDefine.fontSize12, color: AppColors.textSixBlack),
         ),
         Text(
           content,
           style: AppTextStyle.getBaseStyle(
-              fontSize: UIDefine.fontSize16,
-              fontWeight: FontWeight.w500,
-              color: AppColors.dialogBlack),
+              fontSize: UIDefine.fontSize12,
+              fontWeight: FontWeight.w400,
+              color: AppColors.textThreeBlack),
         ),
       ],
     );
@@ -380,8 +339,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(tr('emailValid'),
-            style: AppTextStyle.getBaseStyle(
-                fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500)),
+            style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14)),
         LoginEmailCodeView(
             countdownSecond: 60,
             btnGetText: tr('get'),

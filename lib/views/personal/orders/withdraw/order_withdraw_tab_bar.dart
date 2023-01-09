@@ -70,7 +70,7 @@ class OrderWithdrawTabBar {
   }
 
   FontWeight? _getTextWeight(bool isCurrent) {
-    if (isCurrent) return FontWeight.w500;
+    if (isCurrent) return FontWeight.w600;
     return null;
   }
 }

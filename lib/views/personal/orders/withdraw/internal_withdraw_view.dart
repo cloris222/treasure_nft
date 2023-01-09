@@ -148,8 +148,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
           children: [
             Text(
               tr('getAccount'),
-              style: AppTextStyle.getBaseStyle(
-                  fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+              style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
             ),
           ],
         ),
@@ -227,7 +226,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
                         'USDT',
                         style: AppTextStyle.getBaseStyle(
                             fontSize: UIDefine.fontSize14,
-                            fontWeight: FontWeight.w500),
+                            fontWeight: FontWeight.w400),
                       ),
                       SizedBox(width: UIDefine.getScreenWidth(2.77)),
                       Container(
@@ -240,8 +239,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
                             viewModel.numberFormat(viewModel.data.balance),
                         child: GradientThirdText(
                             '${tr('all')} ${tr('walletWithdraw')}',
-                            size: UIDefine.fontSize14,
-                            weight: FontWeight.w500),
+                            size: UIDefine.fontSize14),
                       )
                     ],
                   ))
@@ -302,16 +300,14 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
         Text(
           title,
           style: AppTextStyle.getBaseStyle(
-              fontSize: UIDefine.fontSize14,
-              fontWeight: FontWeight.w500,
-              color: AppColors.dialogGrey),
+              fontSize: UIDefine.fontSize12, color: AppColors.textSixBlack),
         ),
         Text(
           content,
           style: AppTextStyle.getBaseStyle(
-              fontSize: UIDefine.fontSize16,
-              fontWeight: FontWeight.w500,
-              color: AppColors.dialogBlack),
+              fontSize: UIDefine.fontSize12,
+              fontWeight: FontWeight.w400,
+              color: AppColors.textThreeBlack),
         ),
       ],
     );
@@ -332,8 +328,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(tr('emailValid'),
-            style: AppTextStyle.getBaseStyle(
-                fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500)),
+            style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14)),
         LoginEmailCodeView(
             countdownSecond: 60,
             btnGetText: tr('get'),

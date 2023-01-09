@@ -11,7 +11,7 @@ class LoginTextWidget extends StatefulWidget {
   const LoginTextWidget(
       {Key? key,
       required this.hintText,
-      this.hintColor = AppColors.textGrey,
+      this.hintColor = AppColors.textHintGrey,
       this.isSecure = false,
       this.prefixIconAsset = '',
       this.onChanged,

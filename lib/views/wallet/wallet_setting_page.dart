@@ -22,6 +22,9 @@ class WalletSettingPage extends StatefulWidget {
 
 class _WalletSettingPageState extends State<WalletSettingPage> {
   late WalletSettingViewModel viewModel;
+  EdgeInsetsGeometry mainPadding = EdgeInsets.symmetric(
+      horizontal: UIDefine.getPixelWidth(20),
+      vertical: UIDefine.getPixelWidth(10));
 
   @override
   void initState() {
@@ -56,41 +59,34 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
   Widget _buildBody() {
     return GestureDetector(
       onTap: () => viewModel.clearAllFocus(),
-      child: Container(
-          color: Colors.transparent,
-          margin: EdgeInsets.symmetric(
-              horizontal: UIDefine.getPixelWidth(20),
-              vertical: UIDefine.getPixelWidth(20)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildSettingEdit(),
-              Text(tr('emailValid'),
-                  style: AppTextStyle.getBaseStyle(
-                      fontSize: UIDefine.fontSize14,
-                      fontWeight: FontWeight.w500)),
-              LoginEmailCodeView(
-                  countdownSecond: 60,
-                  onEditTap: viewModel.onClearData,
-                  btnGetText: tr('get'),
-                  hintText: tr("placeholder-emailCode'"),
-                  controller: viewModel.codeController,
-                  data: viewModel.codeData,
-                  onPressSendCode: () => viewModel.sendEmailCode(context),
-                  onPressCheckVerify: () => viewModel.checkEmailCode(context)),
-              const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  LoginButtonWidget(
-                      isFillWidth: false,
-                      btnText: tr('Next'),
-                      onPressed: () => viewModel.onCheckPayment(context),
-                      enable: viewModel.checkEmail),
-                ],
-              ),
-            ],
-          )),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildSettingEdit(),
+          Container(
+              width: UIDefine.getWidth(),
+              height: UIDefine.getPixelWidth(5),
+              color: AppColors.defaultBackgroundSpace),
+          _buildEmailValid(),
+          Container(
+              width: double.infinity,
+              height: UIDefine.getPixelWidth(2),
+              color: AppColors.defaultBackgroundSpace),
+          Padding(
+            padding: mainPadding,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                LoginButtonWidget(
+                    isFillWidth: false,
+                    btnText: tr('Next'),
+                    onPressed: () => viewModel.onCheckPayment(context),
+                    enable: viewModel.checkEmail),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -98,7 +94,7 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
     return Container(
         margin: EdgeInsets.symmetric(
             horizontal: UIDefine.getScreenWidth(2.7),
-            vertical: UIDefine.getScreenWidth(2.7)),
+            vertical: UIDefine.getPixelWidth(5)),
         child: Wrap(runSpacing: UIDefine.getScreenWidth(4), children: [
           Row(children: [
             BaseIconWidget(
@@ -109,13 +105,12 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
                 width: UIDefine.getScreenWidth(68),
                 child: Text(viewModel.getCoinTitle(coin),
                     style: AppTextStyle.getBaseStyle(
-                        fontSize: UIDefine.fontSize16,
-                        fontWeight: FontWeight.w500)))
+                        fontSize: UIDefine.fontSize14,
+                        fontWeight: FontWeight.w600)))
           ]),
           const SizedBox(height: 5),
           Text(tr('address'),
-              style: AppTextStyle.getBaseStyle(
-                  fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500)),
+              style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14)),
           TextField(
               controller: controller,
               decoration: InputDecoration(
@@ -125,9 +120,9 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
                     0,
                     0),
                 hintText: viewModel.getCoinHintText(coin),
-                hintStyle:
-                     AppTextStyle.getBaseStyle(height: 1.6, color: AppColors.bolderGrey),
-                labelStyle:  AppTextStyle.getBaseStyle(color: Colors.black),
+                hintStyle: AppTextStyle.getBaseStyle(
+                    height: 1.6, color: AppColors.bolderGrey),
+                labelStyle: AppTextStyle.getBaseStyle(color: Colors.black),
                 alignLabelWithHint: true,
                 border: AppTheme.style.styleTextEditBorderBackground(
                     color: AppColors.bolderGrey, radius: 10),
@@ -140,16 +135,43 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
   }
 
   Widget _buildSettingEdit() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        _buildSettingParam(CoinEnum.TRON, viewModel.trcController),
-        SizedBox(height: UIDefine.getPixelWidth(15)),
-        _buildSettingParam(CoinEnum.BSC, viewModel.bscController),
-        SizedBox(height: UIDefine.getPixelWidth(15)),
-        _buildSettingParam(CoinEnum.ROLLOUT, viewModel.rolloutController),
-        SizedBox(height: UIDefine.getPixelWidth(15)),
-      ],
+    return Padding(
+      padding: mainPadding,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _buildSettingParam(CoinEnum.TRON, viewModel.trcController),
+          SizedBox(height: UIDefine.getPixelWidth(15)),
+          _buildSettingParam(CoinEnum.BSC, viewModel.bscController),
+          SizedBox(height: UIDefine.getPixelWidth(15)),
+          _buildSettingParam(CoinEnum.ROLLOUT, viewModel.rolloutController),
+          SizedBox(height: UIDefine.getPixelWidth(15)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEmailValid() {
+    return Padding(
+      padding: mainPadding,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(tr('emailValid'),
+              style: AppTextStyle.getBaseStyle(
+                  fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500)),
+          LoginEmailCodeView(
+              countdownSecond: 60,
+              onEditTap: viewModel.onClearData,
+              btnGetText: tr('get'),
+              hintText: tr("placeholder-emailCode'"),
+              controller: viewModel.codeController,
+              data: viewModel.codeData,
+              onPressSendCode: () => viewModel.sendEmailCode(context),
+              onPressCheckVerify: () => viewModel.checkEmailCode(context)),
+        ],
+      ),
     );
   }
 }
