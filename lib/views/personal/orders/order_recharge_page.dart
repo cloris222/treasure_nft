@@ -6,6 +6,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:treasure_nft_project/utils/custom_text_style.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
+import 'package:treasure_nft_project/widgets/gradient_text.dart';
 
 import '../../../constant/enum/coin_enum.dart';
 import '../../../constant/global_data.dart';
@@ -85,55 +86,65 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
   Widget _buildLine() {
     return Container(
         width: UIDefine.getWidth(),
-        height: UIDefine.getPixelWidth(2),
+        height: UIDefine.getPixelWidth(5),
         color: AppColors.defaultBackgroundSpace);
   }
 
   Widget _buildChoseAddress() {
-    return DropdownButtonFormField(
-        icon: Image.asset('assets/icon/btn/btn_arrow_02_down.png'),
-        onChanged: (newValue) {
-          setState(() {
-            viewModel.currentChain = newValue!;
-          });
-        },
-        value: viewModel.currentChain,
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.16),
-              UIDefine.getScreenWidth(4.16), UIDefine.getScreenWidth(4.16), 0),
-          hintStyle: AppTextStyle.getBaseStyle(
-              height: 1.6, color: AppColors.textBlack),
-          border: AppTheme.style.styleTextEditBorderBackground(
-              color: AppColors.searchBar, radius: 10),
-          focusedBorder: AppTheme.style.styleTextEditBorderBackground(
-              color: AppColors.searchBar, radius: 10),
-          enabledBorder: AppTheme.style.styleTextEditBorderBackground(
-              color: AppColors.searchBar, radius: 10),
-        ),
-        items: [
-          DropdownMenuItem(
-              value: CoinEnum.TRON,
-              child: Row(children: [
-                TetherCoinWidget(size: UIDefine.fontSize24),
-                Text('  USDT-TRC20',
-                    style: AppTextStyle.getBaseStyle(
-                        fontSize: UIDefine.fontSize14,
-                        color: viewModel.currentChain == CoinEnum.TRON
-                            ? Colors.black
-                            : AppColors.searchBar))
-              ])),
-          DropdownMenuItem(
-              value: CoinEnum.BSC,
-              child: Row(children: [
-                TetherCoinWidget(size: UIDefine.fontSize24),
-                Text('  USDT-BSC',
-                    style: AppTextStyle.getBaseStyle(
-                        fontSize: UIDefine.fontSize14,
-                        color: viewModel.currentChain == CoinEnum.BSC
-                            ? Colors.black
-                            : AppColors.searchBar))
-              ]))
-        ]);
+    return Padding(
+      padding: mainPadding,
+      child: DropdownButtonFormField(
+          icon: Image.asset('assets/icon/btn/btn_arrow_02_down.png'),
+          onChanged: (newValue) {
+            setState(() {
+              viewModel.currentChain = newValue!;
+            });
+          },
+          value: viewModel.currentChain,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.fromLTRB(
+                UIDefine.getScreenWidth(4.16),
+                UIDefine.getScreenWidth(4.16),
+                UIDefine.getScreenWidth(4.16),
+                0),
+            hintStyle: AppTextStyle.getBaseStyle(
+                height: 1.6, color: AppColors.textBlack),
+            border: AppTheme.style.styleTextEditBorderBackground(
+                color: AppColors.searchBar, radius: 10),
+            focusedBorder: AppTheme.style.styleTextEditBorderBackground(
+                color: AppColors.searchBar, radius: 10),
+            enabledBorder: AppTheme.style.styleTextEditBorderBackground(
+                color: AppColors.searchBar, radius: 10),
+          ),
+          items: [
+            DropdownMenuItem(
+                value: CoinEnum.TRON,
+                child: Row(children: [
+                  TetherCoinWidget(size: UIDefine.fontSize24),
+                  viewModel.currentChain == CoinEnum.TRON
+                      ? GradientText(
+                          '  USDT-TRC20',
+                          size: UIDefine.fontSize14,
+                          colors: AppColors.gradientBaseColorBg,
+                        )
+                      : Text('  USDT-TRC20',
+                          style: AppTextStyle.getBaseStyle(
+                              fontSize: UIDefine.fontSize14,
+                              color: Colors.black))
+                ])),
+            DropdownMenuItem(
+                value: CoinEnum.BSC,
+                child: Row(children: [
+                  TetherCoinWidget(size: UIDefine.fontSize24),
+                  Text('  USDT-BSC',
+                      style: AppTextStyle.getBaseStyle(
+                          fontSize: UIDefine.fontSize14,
+                          color: viewModel.currentChain == CoinEnum.BSC
+                              ? Colors.black
+                              : AppColors.searchBar))
+                ]))
+          ]),
+    );
   }
 
   Widget _buildAddressInfo() {
