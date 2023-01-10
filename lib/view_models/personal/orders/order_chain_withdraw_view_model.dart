@@ -170,7 +170,7 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
       if (num.parse(amountController.text) < num.parse(data.minAmount)) {
         CommonCustomDialog(context,
             title: tr("point-FAIL'"),
-            content: '${tr("errorMinAmount")}${data.minAmount} USDT',
+            content: format(tr("errorMinAmount"), {"amount": data.minAmount}),
             type: DialogImageType.fail,
             rightBtnText: tr('confirm'),
             onLeftPress: () {}, onRightPress: () {
@@ -216,7 +216,8 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
             account: '')
         .then((value) async {
       SimpleCustomDialog(context, mainText: tr('success')).show();
-      pushAndRemoveUntil(context, MainPage(type: AppNavigationBarType.typeWallet));
+      pushAndRemoveUntil(
+          context, MainPage(type: AppNavigationBarType.typeWallet));
     });
   }
 
