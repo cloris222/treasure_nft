@@ -137,11 +137,13 @@ class _HomeMainViewState extends State<HomeMainView> {
                   UIDefine.getPixelWidth(15) + UIDefine.navigationBarPadding,
               child: GestureDetector(
                 onTap: () => scrollController.jumpTo(0),
-                child: Container(
+                child: SizedBox(
                   width: UIDefine.getPixelWidth(50),
                   height: UIDefine.getPixelWidth(50),
-                  decoration: AppStyle().baseGradient(radius: 50),
-                  child: Image.asset(AppImagePath.arrowUpWhite),
+                  child: Image.asset(
+                    AppImagePath.arrowUpHome,
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ))
         ],

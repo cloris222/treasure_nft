@@ -28,11 +28,11 @@ class HomeSubIllustrateView extends StatelessWidget {
           _buildSubView(
             Image.asset(AppImagePath.fastIcon, fit: BoxFit.contain),
             tr('index-illustrate-text-2'),
-            tr('index-illustrate-text-4'),
+            tr('index-illustrate-text-3'),
           ),
           _buildSubView(
             Image.asset(AppImagePath.growthIcon, fit: BoxFit.contain),
-            tr('index-illustrate-text-3'),
+            tr('index-illustrate-text-4'),
             tr('index-illustrate-text-5'),
           )
         ],

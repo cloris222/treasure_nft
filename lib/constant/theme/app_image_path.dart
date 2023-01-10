@@ -23,6 +23,7 @@ class AppImagePath {
   ///MARK: Arrow Icon
   static const String arrowUpGrey = '$_btnPath/btn_arrow_02_up.png';
   static const String arrowUpWhite = '$_btnPath/btn_arrow_03_up.png';
+  static const String arrowUpHome = '$_btnPath/btn_arrowup_01.png';
   static const String arrowDown = '$_btnPath/btn_arrow_01_down.png';
   static const String arrowDownGrey = '$_btnPath/btn_arrow_02_down.png';
   static const String arrowLeft = '$_btnPath/btn_back_01_nor.png';
@@ -99,7 +100,7 @@ class AppImagePath {
   static const String yt = '$_iconPath/icon_socialmedia_07.png';
   static const String tg = '$_iconPath/icon_socialmedia_05.png';
   static const String fb = '$_iconPath/icon_socialmedia_01.png';
-  static const String ig = '$_iconPath/icon_socialmedia_03.png';
+  static const String ig = '$_iconPath/icon_socialmedia_10.png';
   static const String dc = '$_iconPath/icon_socialmedia_06.png';
   static const String invitePhoto = '$_imgPath/img_login_photo_01.png';
   static const String fastIcon = '$_iconPath/icon_fasttransaction_01.png';
