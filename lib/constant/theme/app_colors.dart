@@ -24,6 +24,7 @@ class AppColors {
   static const Color transParentHalf = Color(0x80E1DBDB);
   static const Color prizeOrange = Color(0xFFF29049);
   static const Color prizePurple = Color(0xFF996CDD);
+  static const Color personalBar = Color(0xFFF2F2F2);
 
   static const Color datePickerBorder = Color(0xFFE0EAF6);
 

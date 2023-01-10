@@ -32,7 +32,7 @@ class AppImagePath {
 
   ///MARK: image background
   static const String backgroundLand = '$_imgPath/img_background_01.png';
-  static const String backgroundUser = '$_imgPath/img_background_04.png';
+  static const String backgroundUser = '$_imgPath/img_background_05.png';
 
   ///MARK: bottom navigation
   static const String mainTypeExplore = '$_btnPath/btn_explore_02.png';
@@ -114,23 +114,23 @@ class AppImagePath {
 
   ///personal 我的訂單
   static const String myOrderIcon = '$_iconPath/icon_file_02.png';
-  static const String myNftIcon = '$_iconPath/icon_mint_02.png';
-  static const String myBalDetailIcon = '$_iconPath/icon_file_04.png';
-  static const String myRechargeIcon = '$_iconPath/icon_card_03.png';
-  static const String myWithdrawIcon = '$_iconPath/icon_extraction_04.png';
+  static const String myNftIcon = '$_btnPath/btn_mynft_01.png';
+  static const String myBalDetailIcon = '$_btnPath/btn_receipt_01.png';
+  static const String myRechargeIcon = '$_btnPath/btn_deposit_02.png';
+  static const String myWithdrawIcon = '$_btnPath/btn_withdraw_02.png';
 
   ///personal 我的團隊
   static const String myTeamIcon = '$_iconPath/icon_group_01_nor.png';
-  static const String myTeamMemberIcon = '$_iconPath/icon_group_03.png';
-  static const String myTeamContributionIcon = '$_iconPath/icon_trophy_03.png';
-  static const String myTeamOrderIcon = '$_iconPath/icon_file_04.png';
-  static const String myReferralCodeIcon = '$_iconPath/icon_qrcode_03.png';
+  static const String myTeamMemberIcon = '$_btnPath/btn_team_01.png';
+  static const String myTeamContributionIcon = '$_btnPath/btn_trophy_01.png';
+  static const String myTeamOrderIcon = '$_btnPath/btn_list_01.png';
+  static const String myReferralCodeIcon = '$_btnPath/btn_share_02.png';
 
   ///personal 常用功能
   static const String userCommonIcon = '$_iconPath/icon_hammer_02.png';
-  static const String userNoviceIcon = '$_iconPath/icon_user_03.png';
-  static const String userSettingIcon = '$_iconPath/icon_setting_02.png';
-  static const String userCreateIcon = '$_iconPath/icon_hammer_03.png';
+  static const String userNoviceIcon = '$_btnPath/btn_paperplain_01.png';
+  static const String userSettingIcon = '$_btnPath/btn_setting_01.png';
+  static const String userCreateIcon = '$_btnPath/btn_hammer_01.png';
 
   ///language 多國語言
   static const String languageIcon = '$_languagePath/img_{country}.png';

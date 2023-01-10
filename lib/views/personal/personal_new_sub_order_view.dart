@@ -17,6 +17,7 @@ import 'orders/order_withdraw_page.dart';
 
 class PersonalNewSubOrderView extends StatelessWidget {
   const PersonalNewSubOrderView({super.key, this.userOrderInfo});
+
   final UserOrderInfo? userOrderInfo;
 
   @override
@@ -26,84 +27,83 @@ class PersonalNewSubOrderView extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         color: AppColors.textWhite,
         child: Container(
-          padding: EdgeInsets.all(UIDefine.getScreenWidth(3.5)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                    child: Text(tr('myOrder'), // 標題 我的訂單
-                        style: AppTextStyle.getBaseStyle(color: AppColors.dialogBlack,
-                            fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500)),
-                  ),
-
-                  GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () => _showOrderInfo(context),
-                      child: Row(
-                        children: [
-                          Text(tr('seeOrder'), // 查看訂單
-                              style: AppTextStyle.getBaseStyle(color: AppColors.dialogBlack,
-                                  fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500)),
-                          const SizedBox(width: 4),
-                          Image.asset(AppImagePath.arrowRight)
-                        ],
-                      )
-                  )
-                ],
-              ),
-
-              _getLine(),
-
-              Row(
-                children: [
-                  Flexible(
-                    child: PersonalParamItem(
-                        title: tr('ord_all'), value: '${userOrderInfo?.total}'),
-                  ),
-                  Flexible(
-                    child: PersonalParamItem(
-                        title: tr('ord_pro'), value: '${userOrderInfo?.pending}'),
-                  ),
+            padding: EdgeInsets.all(UIDefine.getScreenWidth(3.5)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Text(tr('myOrder'), // 標題 我的訂單
+                          style: AppTextStyle.getBaseStyle(
+                              color: AppColors.textBlack,
+                              fontSize: UIDefine.fontSize16,
+                              fontWeight: FontWeight.w600)),
+                    ),
+                    GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () => _showOrderInfo(context),
+                        child: Row(
+                          children: [
+                            Text(tr('seeOrder'), // 查看訂單
+                                style: AppTextStyle.getBaseStyle(
+                                    color: AppColors.textSixBlack,
+                                    fontSize: UIDefine.fontSize14)),
+                            const SizedBox(width: 4),
+                            Image.asset(AppImagePath.arrowRight)
+                          ],
+                        ))
+                  ],
+                ),
+                _getLine(),
+                Row(
+                  children: [
+                    Flexible(
+                      child: PersonalParamItem(
+                          title: tr('ord_all'),
+                          value: '${userOrderInfo?.total}'),
+                    ),
+                    Flexible(
+                      child: PersonalParamItem(
+                          title: tr('ord_pro'),
+                          value: '${userOrderInfo?.pending}'),
+                    ),
+                    Flexible(
+                        child: PersonalParamItem(
+                            title: tr('ord_bought'),
+                            value: '${userOrderInfo?.bought}')),
+                    Flexible(
+                      child: PersonalParamItem(
+                          title: tr('ord_sold'),
+                          value: '${userOrderInfo?.sold}'),
+                    ),
+                  ],
+                ),
+                Row(children: [
                   Flexible(
                       child: PersonalParamItem(
-                          title: tr('ord_bought'), value: '${userOrderInfo?.bought}')),
+                          title: tr('uc_myNFT'),
+                          assetImagePath: AppImagePath.myNftIcon,
+                          onPress: () => _showMyNftPage(context))),
                   Flexible(
-                    child: PersonalParamItem(
-                        title: tr('ord_sold'), value: '${userOrderInfo?.sold}'),
-                  ),
-                ],
-              ),
-
-              Row(children: [
-                Flexible(
-                    child: PersonalParamItem(
-                        title: tr('uc_myNFT'),
-                        assetImagePath: AppImagePath.myNftIcon,
-                        onPress: () => _showMyNftPage(context))),
-                Flexible(
-                    child: PersonalParamItem(
-                        title: tr('uc_balDetail'),
-                        assetImagePath: AppImagePath.myBalDetailIcon,
-                        onPress: () => _showMyBalDetailPage(context))),
-                Flexible(
-                    child: PersonalParamItem(
-                        title: tr('uc_recharge'),
-                        assetImagePath: AppImagePath.myRechargeIcon,
-                        onPress: () => _showMyRechargePage(context))),
-                Flexible(
-                    child: PersonalParamItem(
-                        title: tr('uc_withdraw'),
-                        assetImagePath: AppImagePath.myWithdrawIcon,
-                        onPress: () => _showMyWithDrawPage(context)))
-              ])
-
-            ],
-          )
-        )
-    );
+                      child: PersonalParamItem(
+                          title: tr('uc_balDetail'),
+                          assetImagePath: AppImagePath.myBalDetailIcon,
+                          onPress: () => _showMyBalDetailPage(context))),
+                  Flexible(
+                      child: PersonalParamItem(
+                          title: tr('uc_recharge'),
+                          assetImagePath: AppImagePath.myRechargeIcon,
+                          onPress: () => _showMyRechargePage(context))),
+                  Flexible(
+                      child: PersonalParamItem(
+                          title: tr('uc_withdraw'),
+                          assetImagePath: AppImagePath.myWithdrawIcon,
+                          onPress: () => _showMyWithDrawPage(context)))
+                ])
+              ],
+            )));
   }
 
   Widget _getLine() {
@@ -111,8 +111,7 @@ class PersonalNewSubOrderView extends StatelessWidget {
         margin: EdgeInsets.symmetric(vertical: UIDefine.getScreenWidth(2.7)),
         width: double.infinity,
         height: 1,
-        color: AppColors.searchBar
-    );
+        color: AppColors.personalBar);
   }
 
   void _showOrderInfo(BuildContext context) {
@@ -135,5 +134,4 @@ class PersonalNewSubOrderView extends StatelessWidget {
   void _showMyWithDrawPage(BuildContext context) {
     BaseViewModel().pushPage(context, const OrderWithdrawPage());
   }
-
 }

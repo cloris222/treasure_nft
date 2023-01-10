@@ -36,15 +36,15 @@ class PersonalParamItem extends StatelessWidget {
 
   Widget _buildTop() {
     TextStyle style = AppTextStyle.getBaseStyle(
-        fontSize: UIDefine.fontSize18,
-        color: AppColors.dialogBlack,
-        fontWeight: FontWeight.w500);
+        fontSize: UIDefine.fontSize16,
+        color: AppColors.textBlack,
+        fontWeight: FontWeight.w600);
     return value != null
         ? Text(value!, style: style)
         : assetImagePath != null
             ? Image.asset(
                 assetImagePath!,
-                height: UIDefine.fontSize22,
+                height: UIDefine.getPixelWidth(30),
                 fit: BoxFit.fitHeight,
               )
             : Text('', style: style);
@@ -53,10 +53,9 @@ class PersonalParamItem extends StatelessWidget {
   Widget _buildTitle() {
     return FlexTwoTextWidget(
       text: title,
-      fontSize: 14,
+      fontSize: 12,
       textAlign: TextAlign.center,
-      color: AppColors.dialogGrey,
-      fontWeight: FontWeight.w500,
+      color: AppColors.textSixBlack,
     );
   }
 }

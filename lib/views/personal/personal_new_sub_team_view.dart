@@ -30,8 +30,8 @@ class PersonalNewSubTeamView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(tr('myTeam'), // 標題 我的團隊
-                style: AppTextStyle.getBaseStyle(color: AppColors.dialogBlack,
-                    fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500)),
+                style: AppTextStyle.getBaseStyle(color: AppColors.textBlack,
+                    fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w600)),
 
             _getLine(),
 
@@ -90,7 +90,7 @@ class PersonalNewSubTeamView extends StatelessWidget {
         margin: EdgeInsets.symmetric(vertical: UIDefine.getScreenWidth(2.7)),
         width: double.infinity,
         height: 1,
-        color: AppColors.searchBar
+        color: AppColors.personalBar
     );
   }
 
