@@ -53,7 +53,7 @@ class AchievementItemWidget extends StatelessWidget {
                           height: UIDefine.getPixelHeight(80),
                           width: UIDefine.getPixelHeight(80),
                           child: Image.asset(
-                            getImagePath(status, index),
+                            getImagePath(status, code),
                             fit: BoxFit.fill,
                           )),
                       const SizedBox(width: 5),
@@ -88,7 +88,7 @@ class AchievementItemWidget extends StatelessWidget {
     );
   }
 
-  String getImagePath(TaskStatus status, int index) {
+  String getImagePath(TaskStatus status, AchievementCode code) {
     String strStatus;
     switch (status) {
       case TaskStatus.notFinish:
@@ -101,8 +101,13 @@ class AchievementItemWidget extends StatelessWidget {
         strStatus = 'focus';
         break;
     }
+
+    if (code == AchievementCode.AchRsvScs ||
+        code == AchievementCode.AchBuyScs) {
+      code = AchievementCode.AchContSignIn;
+    }
     return format(AppImagePath.achievementPath, {
-      'index': NumberFormatUtil().integerTwoFormat(index + 1),
+      'index': NumberFormatUtil().integerTwoFormat(code.index + 1),
       'strStatus': strStatus
     });
   }
