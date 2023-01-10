@@ -33,7 +33,7 @@ class PersonalNewSubLevelView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(tr('我的資產'), // test 缺多國 標題 我的資產
+            Text(tr('myAssets'),
                 style: AppTextStyle.getBaseStyle(color: AppColors.dialogBlack,
                     fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500)),
             _getLine(),
