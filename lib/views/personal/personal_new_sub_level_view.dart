@@ -44,20 +44,28 @@ class PersonalNewSubLevelView extends StatelessWidget {
             _getLine(),
 
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _getContentWithCoin(tr("wallet-balance'"), userProperty?.balance.toString(), null),
                 _getContentWithCoin(tr('nftAssets'), userProperty?.nftBalance.toString(), null),
-                _getContentWithCoin(tr('totalIncome'), userProperty?.income.toString(), null)
+
               ],
             ),
 
             SizedBox(height: UIDefine.getScreenWidth(2.7)),
 
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
+                _getContentWithCoin(tr('totalIncome'), userProperty?.income.toString(), null),
                 _getContentWithCoin(tr('bonus_referral'), userProperty?.savingBalance.toString(), null),
+              ],
+            ),
+            SizedBox(height: UIDefine.getScreenWidth(2.7)),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
                 _getContentWithCoin(tr('bonus_trade'), userProperty?.tradingSavingBalance.toString(), null),
                 _getContentWithCoin(tr('fees'), '1%', null, showIcon: false, useFormat: false)
               ],

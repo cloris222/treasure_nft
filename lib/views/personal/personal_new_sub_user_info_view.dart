@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/views/personal/level/level_achievement_page.dart';
 
 import '../../constant/call_back_function.dart';
 import '../../constant/global_data.dart';
@@ -43,11 +44,11 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
             onTap: () => _showModifyAvatar(context),
             child: Container(
                 decoration: AppTheme.style.styleColorBorderBackground(
-                    radius: 60,
+                    radius: 40,
                     color: Colors.transparent,
                     backgroundColor: Colors.transparent),
-                height: UIDefine.getPixelWidth(60),
-                width: UIDefine.getPixelWidth(60),
+                height: UIDefine.getPixelWidth(65),
+                width: UIDefine.getPixelWidth(65),
                 padding: const EdgeInsets.all(2),
                 child: userInfo.photoUrl.isNotEmpty
                     ? CircleNetworkIcon(
@@ -70,16 +71,20 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
                       text: userInfo.name,
                       fontSize: UIDefine.fontSize18,
                       fontWeight: FontWeight.w600),
-                  const SizedBox(width: 5),
+                  SizedBox(width: UIDefine.getPixelWidth(5)),
                   _buildMedalIcon(context),
                   const Spacer(),
-                  Image.asset(AppImagePath.dateIcon)
+                  GestureDetector(
+                      onTap: () => _onPressDailyTask(context),
+                      child: Visibility(
+                          visible: showDailyTask,
+                          child: Image.asset(AppImagePath.dateIcon)))
                 ],
               ),
-              SizedBox(height: UIDefine.getScreenWidth(2.77)),
+              SizedBox(height: UIDefine.getPixelWidth(5)),
 
               ///MARK:使用者的ID和邀請碼
-              _buildOtherDetailInfo(),
+              _buildOtherDetailInfo(context),
 
               ///MARK: 使用者的按鈕
               Row(children: [
@@ -101,7 +106,7 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
                           Text('${tr('level')} ${userInfo.level}',
                               style: AppTextStyle.getBaseStyle(
                                   fontSize: UIDefine.fontSize12,
-                                  color: AppColors.dialogBlack)),
+                                  color: AppColors.textBlack)),
                           SizedBox(width: UIDefine.getScreenWidth(2)),
                           Image.asset(AppImagePath.arrowRight)
                         ]))),
@@ -113,7 +118,7 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           color: Colors.transparent,
-                          border: Border.all(color: AppColors.textGrey),
+                          border: Border.all(color: AppColors.textNineBlack),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Row(
@@ -124,7 +129,8 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
                               Text('${userInfo.point} ${tr('lv_point')}',
                                   style: AppTextStyle.getBaseStyle(
                                       fontSize: UIDefine.fontSize12,
-                                      color: AppColors.dialogBlack)),
+                                      color: AppColors.textBlack,
+                                      fontWeight: FontWeight.w400)),
                               SizedBox(width: UIDefine.getScreenWidth(2)),
                               Image.asset(AppImagePath.arrowRight)
                             ])))
@@ -148,25 +154,31 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
     return Container();
   }
 
-  Widget _buildOtherDetailInfo() {
+  Widget _buildOtherDetailInfo(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('(${userInfo.account})',
             style: AppTextStyle.getBaseStyle(
-                fontSize: UIDefine.fontSize14,
+                fontSize: UIDefine.fontSize12,
                 color: AppColors.textThreeBlack)),
-        Row(
-          children: [
-            Text('UID : ',
-                style: AppTextStyle.getBaseStyle(
-                    fontSize: UIDefine.fontSize14,
-                    color: AppColors.textThreeBlack)),
-            Text(userInfo.inviteCode),
-            Image.asset(AppImagePath.copyIcon,
-                height: UIDefine.getPixelWidth(15))
-          ],
-        )
+        Row(children: [
+          Text('UID : ',
+              style: AppTextStyle.getBaseStyle(
+                  fontSize: UIDefine.fontSize12,
+                  color: AppColors.textThreeBlack)),
+          Text(userInfo.inviteCode),
+          GestureDetector(
+              onTap: () {
+                BaseViewModel().copyText(copyText: userInfo.inviteCode);
+                BaseViewModel().showToast(context, tr('copiedSuccess'));
+              },
+              child: Padding(
+                  padding: EdgeInsets.all(UIDefine.getPixelWidth(5)),
+                  child: Image.asset(AppImagePath.copyIcon,
+                      height: UIDefine.getPixelWidth(15))))
+        ]),
       ],
     );
   }
@@ -185,5 +197,9 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
 
   void _showPointPage(BuildContext context) {
     BaseViewModel().pushPage(context, const LevelPointPage());
+  }
+
+  void _onPressDailyTask(BuildContext context) {
+    BaseViewModel().pushPage(context, const LevelAchievementPage());
   }
 }
