@@ -12,7 +12,7 @@ class LoginBolderButtonWidget extends StatelessWidget {
       required this.onPressed,
       this.width,
       this.height,
-      this.radius = 10,
+      this.radius = 15,
       this.fontSize,
       this.fontWeight,
       this.isFillWidth = true,
@@ -60,8 +60,8 @@ class LoginBolderButtonWidget extends StatelessWidget {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: AppTextStyle.getBaseStyle(
-                      fontSize: fontSize ?? UIDefine.fontSize20,
-                      fontWeight: fontWeight ?? FontWeight.w400))),
+                      fontSize: fontSize ?? UIDefine.fontSize16,
+                      fontWeight: fontWeight))),
         ));
   }
 }

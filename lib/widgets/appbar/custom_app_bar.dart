@@ -168,18 +168,18 @@ class CustomAppBar {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 GestureDetector(
-                    onTap: serverAction,
-                    child: Container(
-                      color: Colors.transparent,
-                      child: Image.asset(AppImagePath.serverImage,
-                          width: iconSize, height: iconSize, fit: BoxFit.cover),
-                    )),
-                space,
-                GestureDetector(
                     onTap: globalAction,
                     child: Container(
                       color: Colors.transparent,
                       child: Image.asset(AppImagePath.globalImage,
+                          width: iconSize, height: iconSize, fit: BoxFit.cover),
+                    )),
+                space,
+                GestureDetector(
+                    onTap: serverAction,
+                    child: Container(
+                      color: Colors.transparent,
+                      child: Image.asset(AppImagePath.serverImage,
                           width: iconSize, height: iconSize, fit: BoxFit.cover),
                     )),
                 space,

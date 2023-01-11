@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/views/login/login_common_view.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
-import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 
 import '../../view_models/login/register_main_viewmodel.dart';
 import '../../widgets/button/login_button_widget.dart';
@@ -40,12 +40,16 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
       needScrollView: false,
       type: AppNavigationBarType.typeLogin,
       body: SingleChildScrollView(
-          child: Container(
-              margin: EdgeInsets.symmetric(
-                  vertical: UIDefine.getPixelHeight(10),
-                  horizontal: UIDefine.getPixelWidth(20)),
-              padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
-              child: _buildBody())),
+          child: LoginCommonView(
+        pageHeight: UIDefine.getPixelWidth(1050),
+        title: tr('register'),
+        body: Container(
+            margin: EdgeInsets.symmetric(
+                vertical: UIDefine.getPixelHeight(10),
+                horizontal: UIDefine.getPixelWidth(20)),
+            padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
+            child: _buildBody()),
+      )),
     );
   }
 
@@ -54,8 +58,15 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          TitleAppBar(title: tr('register')),
-          ///MARK:帳號
+          ///MARK:暱稱
+          LoginParamView(
+              titleText: tr('nickname'),
+              hintText: tr("placeholder-nickname'"),
+              controller: viewModel.nicknameController,
+              data: viewModel.nicknameData,
+              onChanged: viewModel.onNicknameChange),
+
+          ///MARK: 帳號
           LoginParamView(
             titleText: tr('account'),
             hintText: tr("placeholder-account'"),
@@ -111,14 +122,6 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
             data: viewModel.emailCodeData,
             onPressVerification: viewModel.checkEmailFormat,
           ),
-
-          ///MARK:暱稱
-          LoginParamView(
-              titleText: tr('nickname'),
-              hintText: tr("placeholder-nickname'"),
-              controller: viewModel.nicknameController,
-              data: viewModel.nicknameData,
-              onChanged: viewModel.onNicknameChange),
 
           ///MARK:邀請瑪
           LoginParamView(

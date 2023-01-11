@@ -18,7 +18,7 @@ class LoginButtonWidget extends StatelessWidget {
       this.fontWeight,
       this.isGradient = true,
       this.isFlip = false,
-      this.radius = 10,
+      this.radius = 12,
       this.showIcon = false,
       this.isFillWidth = true,
       this.margin = const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
@@ -89,7 +89,7 @@ class LoginButtonWidget extends StatelessWidget {
                   style: AppTextStyle.getBaseStyle(
                       color: Colors.white,
                       fontSize: fontSize ?? UIDefine.fontSize16,
-                      fontWeight: fontWeight,
+                      fontWeight: fontWeight ?? FontWeight.w600,
                       fontFamily: fontFamily)),
             ],
           )),
