@@ -45,11 +45,10 @@ class AchievementMedalView extends StatelessWidget {
     MedalInfoData data = viewModel.medalList[index];
 
     return Container(
-        decoration: AppStyle().styleColorsRadiusBackground(
-          color: (data.code == GlobalData.userInfo.medal)
-              ? AppColors.bolderGrey
-              : Colors.transparent,
-        ),
+        decoration: (data.code == GlobalData.userInfo.medal)
+            ? AppStyle().buildGradient(
+                radius: 7, colors: AppColors.gradientBackgroundColorBg)
+            : AppStyle().styleColorsRadiusBackground(radius: 0),
         constraints: BoxConstraints(minHeight: UIDefine.getPixelHeight(160)),
         padding: const EdgeInsets.all(5),
         child: InkWell(

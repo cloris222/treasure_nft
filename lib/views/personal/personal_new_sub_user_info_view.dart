@@ -155,8 +155,8 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
                 Text(
                   '${NumberFormatUtil().integerFormat(getPointPercentage() * 100)}%',
                   style: AppTextStyle.getBaseStyle(
-                      fontSize: UIDefine.fontSize12,
-                      color: AppColors.textNineBlack,fontWeight: FontWeight.w600),
+                      fontSize: UIDefine.fontSize10,
+                      color: AppColors.textNineBlack,fontWeight: FontWeight.w400),
                 ),
                 CustomLinearProgress(
                   percentage: getPointPercentage(),
