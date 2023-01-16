@@ -74,8 +74,8 @@ class AchievementMedalView extends StatelessWidget {
                   maxLines: 4,
                   text: data.getMedalText(),
                   textAlign: TextAlign.center,
-                  fontWeight: FontWeight.w500,
-                  fontSize: UIDefine.fontSize14,
+                  color: AppColors.textThreeBlack,
+                  fontSize: UIDefine.fontSize12,
                 )
               ],
             ),
