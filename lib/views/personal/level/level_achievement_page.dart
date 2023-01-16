@@ -90,22 +90,34 @@ class _LevelAchievementPageState extends State<LevelAchievementPage> {
     );
   }
 
+  Widget _buildPreButton() {
+    return GestureDetector(
+      onTap: () => viewModel.popPage(context),
+      child: Image.asset(
+        AppImagePath.arrowLeftBlack,
+        height: UIDefine.getPixelWidth(24),
+        fit: BoxFit.fitHeight,
+      ),
+    );
+  }
+
   Widget _buildPageView(BuildContext context) {
     return SliderPageView(
         backgroundColor: AppColors.defaultBackgroundSpace,
-        buttonDecoration:AppStyle().styleColorsRadiusBackground(hasBottomRight: false,hasBottomLef: false),
+        buttonDecoration: AppStyle().styleColorsRadiusBackground(
+            hasBottomRight: false, hasBottomLef: false),
         titles: titles,
         initialPage: TaskType.values.indexOf(widget.initType),
         topView: Stack(
           alignment: Alignment.center,
           children: [
             SizedBox(
-                height: UIDefine.getPixelWidth(180),
+                height: UIDefine.getPixelWidth(210),
                 width: UIDefine.getWidth(),
                 child: Image.asset(AppImagePath.backgroundLand,
                     fit: BoxFit.cover)),
             Positioned(
-                top: UIDefine.getPixelWidth(110),
+                top: UIDefine.getPixelWidth(140),
                 left: 0,
                 right: 0,
                 bottom: 0,
@@ -115,12 +127,19 @@ class _LevelAchievementPageState extends State<LevelAchievementPage> {
                         hasBottomRight: false,
                         color: AppColors.defaultBackgroundSpace,
                         radius: 12))),
-            Container(
-                margin: EdgeInsets.all(UIDefine.getPixelWidth(10)),
-                padding: EdgeInsets.all(UIDefine.getPixelWidth(10)),
-                decoration: AppStyle().styleNewUserSetting(),
-                child: PersonalNewSubUserInfoView(
-                    userLevelInfo: GlobalData.userLevelInfo)),
+            Positioned(top: UIDefine.getPixelWidth(6), left:  UIDefine.getPixelWidth(10), child: _buildPreButton()),
+            Positioned(
+              top: UIDefine.getPixelWidth(30),
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                  margin: EdgeInsets.all(UIDefine.getPixelWidth(10)),
+                  padding: EdgeInsets.all(UIDefine.getPixelWidth(10)),
+                  decoration: AppStyle().styleNewUserSetting(),
+                  child: PersonalNewSubUserInfoView(
+                      userLevelInfo: GlobalData.userLevelInfo)),
+            ),
           ],
         ),
         children: [

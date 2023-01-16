@@ -1,8 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
+import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import 'package:treasure_nft_project/widgets/dialog/base_dialog.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 
@@ -47,13 +46,20 @@ class AnimationDialog extends BaseDialog {
                   fontSize: UIDefine.fontSize14, color: Colors.black54),
               textAlign: TextAlign.center,
             ),
-            ActionButtonWidget(
-                isFillWidth: false,
-                isBorderStyle: false,
-                btnText: tr("confirm"),
-                onPressed: () {
-                  Navigator.pop(context);
-                })
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                LoginButtonWidget(
+                    isFillWidth: false,
+                    btnText: tr("confirm"),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    }),
+              ],
+            )
           ],
         )
       ],

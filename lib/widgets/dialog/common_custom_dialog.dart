@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
-import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
+import 'package:treasure_nft_project/widgets/button/login_bolder_button_widget.dart';
+import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import 'package:treasure_nft_project/widgets/dialog/base_dialog.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 
@@ -108,7 +109,7 @@ class CommonCustomDialog extends BaseDialog {
 
   Widget _solidButton() {
     /// 實心按鈕
-    return ActionButtonWidget(
+    return LoginButtonWidget(
         btnText: rightBtnText,
         onPressed: () => onRightPress(),
         radius: 10,
@@ -119,9 +120,8 @@ class CommonCustomDialog extends BaseDialog {
 
   Widget _hollowButton() {
     /// 空心按鈕
-    return ActionButtonWidget(
+    return LoginBolderButtonWidget(
       isFillWidth: false,
-      isBorderStyle: true,
       btnText: leftBtnText,
       onPressed: () => onLeftPress(),
       radius: 10,

@@ -14,7 +14,7 @@ class CustomLinearProgress extends StatelessWidget {
       required this.percentage,
       this.backgroundColor = AppColors.transParentHalf,
       this.valueColor = AppColors.mainThemeButton,
-      this.height = 10,
+      this.height = 4,
       this.radius = 15,
       this.needShowPercentage = false,
       this.needShowFinishIcon = true,
