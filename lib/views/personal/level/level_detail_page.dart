@@ -1,5 +1,7 @@
+import 'package:card_swiper/card_swiper.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/enum/task_enum.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
@@ -13,12 +15,12 @@ import 'package:treasure_nft_project/view_models/personal/level/level_detail_vie
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
 import 'package:treasure_nft_project/views/personal/level/level_achievement_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
-import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
+import 'package:treasure_nft_project/widgets/button/text_button_widget.dart';
+import 'package:treasure_nft_project/widgets/label/background_with_land.dart';
 import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart';
 import 'package:treasure_nft_project/widgets/label/custom_linear_progress.dart';
 import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
-import 'package:treasure_nft_project/widgets/label/icon/level_icon_widget.dart';
 
 ///MARK: 等級詳細
 class LevelDetailPage extends StatefulWidget {
@@ -43,134 +45,180 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
     super.dispose();
   }
 
+  EdgeInsetsGeometry mainPadding =
+      EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20));
+
   @override
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
       type: AppNavigationBarType.typePersonal,
       body: SingleChildScrollView(
-          child: Container(
-              margin:  EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
+          child: Padding(
               padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
               child: _buildBody())),
     );
   }
 
   Widget _buildBody() {
-    return Column(
-      children: [
-        TitleAppBar(title: tr('level')),
-        _buildSpace(),
-        _buildCurrentLevelStatus(),
-        _buildLine(),
-        _buildCurrentLevelInfo(),
-        _buildLine(),
-        _buildAllLevelInfo(),
-      ],
-    );
+    return Column(children: [
+      BackgroundWithLand(
+        mainHeight: 230,
+        bottomHeight: 100,
+        onBackPress: () => viewModel.popPage(context),
+        body: Center(child: _buildCurrentLevelStatus()),
+      ),
+      Container(
+          padding: mainPadding,
+          color: AppColors.defaultBackgroundSpace,
+          child: Column(children: [
+            _buildOtherButton(),
+            _buildCurrentLevelInfo(),
+            _buildAllLevelBar(),
+            _buildAllLevelInfo(),
+          ]))
+    ]);
   }
 
   Widget _buildSpace({double height = 4}) {
     return SizedBox(height: UIDefine.getScreenHeight(height));
   }
 
-  Widget _buildLine() {
-    return Column(children: [
-      _buildSpace(),
-      const Divider(color: AppColors.searchBar),
-      _buildSpace()
+  ///MARK: 建立現在等級狀態
+  Widget _buildCurrentLevelStatus() {
+    return Stack(children: [
+      SizedBox(
+        height: UIDefine.getPixelWidth(180),
+        child: Image.asset(
+            format(
+                AppImagePath.levelBar, ({'level': GlobalData.userInfo.level})),
+            fit: BoxFit.fitHeight),
+      ),
+      Positioned(
+          left: UIDefine.getPixelWidth(24),
+          top: UIDefine.getPixelWidth(24),
+          child: Text('${tr('level')} ${GlobalData.userInfo.level}',
+              style: AppTextStyle.getBaseStyle(
+                  fontSize: UIDefine.fontSize18,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white))),
+      Positioned(
+          left: UIDefine.getPixelWidth(24),
+          bottom: UIDefine.getPixelWidth(24),
+          right: UIDefine.getPixelWidth(24),
+          child: Column(mainAxisSize: MainAxisSize.min, children: [
+            ///MARK: 積分
+            Row(children: [
+              Text(
+                '${tr('lv_point')} : ${GlobalData.userLevelInfo?.point} / ${GlobalData.userLevelInfo?.pointRequired} (${viewModel.getStrPointPercentage()})',
+                style: AppTextStyle.getBaseStyle(
+                    fontSize: UIDefine.fontSize12, color: Colors.white),
+              ),
+              Flexible(child: Container()),
+            ]),
+
+            ///MARK: 積分條
+            Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(top: UIDefine.getPixelWidth(8)),
+                  child: CustomLinearProgress(
+                      height: UIDefine.getPixelWidth(8),
+                      percentage: viewModel.getPointPercentage()),
+                ),
+              ),
+              SizedBox(width: UIDefine.getPixelWidth(30)),
+              TextButtonWidget(
+                  margin: EdgeInsets.only(right: UIDefine.getPixelWidth(20)),
+                  btnText: tr('levelUp'),
+                  onPressed: () => viewModel.onPressLevelUp(context),
+                  backgroundHorizontal: UIDefine.getPixelWidth(15),
+                  setSubColor: Colors.transparent,
+                  isFillWidth: false,
+                  fontWeight: FontWeight.w600,
+                  fontSize: UIDefine.fontSize12,
+                  setMainColor: Colors.white,
+                  radius: 13,
+                  isBorderStyle: true)
+            ])
+          ]))
     ]);
   }
 
-  ///MARK: 建立現在等級狀態
-  Widget _buildCurrentLevelStatus() {
-    return Column(children: [
-      LevelIconWidget(
-          level: GlobalData.userInfo.level, size: UIDefine.getScreenHeight(20)),
-      Text('${tr('level')} ${GlobalData.userInfo.level}',
-          style: AppTextStyle.getBaseStyle(
-              fontSize: UIDefine.fontSize30, fontWeight: FontWeight.w500)),
-      _buildSpace(height: 2),
+  Widget _buildOtherButton() {
+    return Container(
+      padding: EdgeInsets.symmetric(
+          horizontal: UIDefine.getPixelWidth(10),
+          vertical: UIDefine.getPixelWidth(10)),
+      margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(10)),
+      decoration: AppStyle().styleColorsRadiusBackground(radius: 8),
+      child: Row(
+        children: [
+          ///MARK: 每日任務
+          Expanded(
+            child: InkWell(
+                onTap: () {
+                  viewModel.pushPage(context,
+                      const LevelAchievementPage(initType: TaskType.daily));
+                },
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      BaseIconWidget(
+                          imageAssetPath: AppImagePath.walletLogIcon,
+                          size: UIDefine.getPixelWidth(30)),
+                      SizedBox(width: UIDefine.getScreenWidth(2)),
+                      Text(
+                        tr('pt_DAILY'),
+                        style: AppTextStyle.getBaseStyle(
+                            fontSize: UIDefine.fontSize12,
+                            color: AppColors.textBlack),
+                      ),
+                    ])),
+          ),
 
-      ///MARK: 積分
-      Row(children: [
-        Text(
-          '${tr('lv_point')} : ${GlobalData.userLevelInfo?.point} / ${GlobalData.userLevelInfo?.pointRequired} (${viewModel.getStrPointPercentage()})',
-          style: AppTextStyle.getBaseStyle(
-              fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w400),
-        ),
-        Flexible(child: Container()),
-        viewModel.isLevelUp
-            ? ActionButtonWidget(
-                btnText: tr('levelUp'),
-                onPressed: () => viewModel.onPressLevelUp(context),
-                isFillWidth: false)
-            : ActionButtonWidget(
-                setMainColor: AppColors.buttonGrey,
-                btnText: tr('levelUp'),
-                onPressed: () => viewModel.onPressLevelUp(context),
-                isFillWidth: false)
-      ]),
-      _buildSpace(height: 2),
-
-      ///MARK: 積分條
-      CustomLinearProgress(
-          percentage: viewModel.getPointPercentage(), needShowPercentage: true),
-      _buildSpace(height: 2),
-
-      ///MARK: 每日任務
-      InkWell(
-          onTap: () {
-            viewModel.pushPage(
-                context, const LevelAchievementPage(initType: TaskType.daily));
-          },
-          child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            BaseIconWidget(
-                imageAssetPath: AppImagePath.walletLogIcon,
-                size: UIDefine.fontSize18),
-            SizedBox(width: UIDefine.getScreenWidth(2)),
-            Text(
-              tr('pt_DAILY'),
-              style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize16),
-            ),
-            Flexible(child: Container()),
-            BaseIconWidget(
-                imageAssetPath: AppImagePath.arrowRight,
-                size: UIDefine.fontSize18)
-          ])),
-      _buildSpace(height: 2),
-
-      ///MARK: 成就
-      InkWell(
-          onTap: () {
-            viewModel.pushPage(context,
-                const LevelAchievementPage(initType: TaskType.achieve));
-          },
-          child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            BaseIconWidget(
-                imageAssetPath: AppImagePath.trophyIcon,
-                size: UIDefine.fontSize18),
-            SizedBox(width: UIDefine.getScreenWidth(2)),
-            Text(
-              tr('achievement'),
-              style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize16),
-            ),
-            Flexible(child: Container()),
-            BaseIconWidget(
-                imageAssetPath: AppImagePath.arrowRight,
-                size: UIDefine.fontSize18)
-          ]))
-    ]);
+          ///MARK: 成就
+          Expanded(
+            child: InkWell(
+                onTap: () {
+                  viewModel.pushPage(context,
+                      const LevelAchievementPage(initType: TaskType.achieve));
+                },
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      BaseIconWidget(
+                          imageAssetPath: AppImagePath.trophyIcon,
+                          size: UIDefine.getPixelWidth(30)),
+                      SizedBox(width: UIDefine.getScreenWidth(2)),
+                      Text(
+                        tr('achievement'),
+                        style: AppTextStyle.getBaseStyle(
+                            fontSize: UIDefine.fontSize12,
+                            color: AppColors.textBlack),
+                      ),
+                    ])),
+          )
+        ],
+      ),
+    );
   }
 
   ///MARK: 建立現在等級諮詢
   Widget _buildCurrentLevelInfo() {
     if (viewModel.levelDataList.length > GlobalData.userInfo.level) {
-      return Column(children: [
-        _buildSingleLevelTitle(GlobalData.userInfo.level),
-        _buildSpace(height: 2),
-        _buildSingleLevelInfo(GlobalData.userInfo.level),
-      ]);
+      return Container(
+        padding: EdgeInsets.symmetric(
+            horizontal: UIDefine.getPixelWidth(10),
+            vertical: UIDefine.getPixelWidth(10)),
+        margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(10)),
+        decoration: AppStyle().styleColorsRadiusBackground(radius: 8),
+        child: Column(children: [
+          _buildSingleLevelTitle(GlobalData.userInfo.level),
+          _buildSpace(height: 2),
+          _buildSingleLevelInfo(GlobalData.userInfo.level),
+        ]),
+      );
     }
     return Container();
   }
@@ -186,14 +234,51 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
       }
       return SizedBox(
         height: UIDefine.getPixelHeight(600),
-        child: PageView(controller: viewModel.pageController, children: pages),
+        child: PageView(
+            controller: viewModel.pageController,
+            children: pages,
+            onPageChanged: (index) {
+              viewModel.swiperController.move(index);
+            }),
       );
     }
     return Container();
   }
 
+  Widget _buildAllLevelBar() {
+    if (viewModel.levelDataList.isNotEmpty) {
+      List<LevelInfoData> lists = [];
+      for (var data in viewModel.levelDataList) {
+        if (data.userLevel != 0) {
+          lists.add(data);
+        }
+      }
+
+      return SizedBox(
+          height: UIDefine.getPixelHeight(140),
+          child: Swiper(
+            controller: viewModel.swiperController,
+            loop: false,
+            viewportFraction:
+                UIDefine.getPixelHeight(140) / UIDefine.getWidth(),
+            itemCount: lists.length,
+            index: viewModel.currentIndex,
+            itemBuilder: (context, index) {
+              return buildAllLevelBarItem(index, lists[index].userLevel);
+            },
+            onIndexChanged: (index) {
+              viewModel.pageController.jumpToPage(index);
+              setState(() {
+                viewModel.currentIndex = index;
+              });
+            },
+          ));
+    }
+    return Container();
+  }
+
   ///MARK: 等級標題
-  Widget _buildSingleLevelTitle(int level) {
+  Widget _buildSingleLevelTitle(int level, {bool showLevel = true}) {
     return Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
       BaseIconWidget(
           imageAssetPath: viewModel.checkUnlock(level)
@@ -202,8 +287,9 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
           size: UIDefine.fontSize26),
       Text(' ${tr('level')} $level ',
           style: AppTextStyle.getBaseStyle(
-              fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500)),
-      LevelIconWidget(level: level, size: UIDefine.fontSize26),
+              fontSize: UIDefine.fontSize14,
+              fontWeight: FontWeight.w600,
+              color: AppColors.textThreeBlack)),
       Flexible(child: Container()),
       Visibility(
           visible: viewModel.nextLevel(level),
@@ -259,9 +345,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: AppTextStyle.getBaseStyle(
-                  fontSize: UIDefine.fontSize14,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.dialogGrey),
+                  fontSize: UIDefine.fontSize12, color: AppColors.textSixBlack),
             ),
           ),
           Row(
@@ -273,18 +357,66 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
               SizedBox(width: UIDefine.getScreenWidth(1)),
               Text(context,
                   style: AppTextStyle.getBaseStyle(
-                      fontSize: UIDefine.fontSize14,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.dialogBlack)),
+                      fontSize: UIDefine.fontSize12,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textBlack)),
             ],
           )
         ]));
   }
 
+  Widget buildAllLevelBarItem(int index, int userLevel) {
+    bool isCurrent = (index == viewModel.currentIndex);
+    return Container(
+        alignment: Alignment.center,
+        height: UIDefine.getPixelWidth(140),
+        width: UIDefine.getPixelWidth(140),
+        child: isCurrent
+            ? Stack(
+                children: [
+                  Image.asset(format(AppImagePath.allLevelCurrentBar,
+                      {"level": userLevel + 1})),
+                  Positioned(
+                      bottom: UIDefine.getPixelWidth(20),
+                      left: 0,
+                      right: 0,
+                      child: Text(
+                        '${tr('level')} $userLevel',
+                        textAlign: TextAlign.center,
+                        style: AppTextStyle.getBaseStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: UIDefine.fontSize12,
+                            color: Colors.white),
+                      ))
+                ],
+              )
+            : Container(
+                height: UIDefine.getPixelWidth(100),
+                width: UIDefine.getPixelWidth(100),
+                decoration: AppStyle().styleColorsRadiusBackground(
+                    color: const Color(0x632E2E2E), radius: 9),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Image.asset(format(
+                          AppImagePath.allLevelBar, {"level": userLevel + 1})),
+                    ),
+                    Text(
+                      '${tr('level')} $userLevel',
+                      textAlign: TextAlign.center,
+                      style: AppTextStyle.getBaseStyle(
+                          fontSize: UIDefine.fontSize12, color: Colors.white),
+                    ),
+                    SizedBox(height: UIDefine.getPixelWidth(20)),
+                  ],
+                ),
+              ));
+  }
+
   ///MARK: 等級清單
   Widget _buildLevelPageItem(int level) {
     return Column(children: [
-      _buildSingleLevelTitle(level),
+      _buildSingleLevelTitle(level, showLevel: false),
       _buildSpace(height: 2),
       Visibility(
           visible: level <= GlobalData.userInfo.level + 1,
@@ -295,7 +427,6 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
             ],
           )),
       _buildSingleLevelInfo(level),
-      _buildLine(),
       _buildItemChange(level)
     ]);
   }

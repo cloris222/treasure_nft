@@ -67,6 +67,10 @@ class AppImagePath {
 
   ///  rank level
   static const String level = '$_iconPath/icon_level_0{level}.png';
+  static const String levelBar = '$_iconPath/icon_levelrectangle_0{level}.png';
+  static const String allLevelCurrentBar =
+      '$_iconPath/icon_levelsquare_0{level}.png';
+  static const String allLevelBar = '$_iconPath/icon_levelbig_0{level}.png';
   static const String beginner = '$_iconPath/icon_star_01.png';
   static const String reserving = '$_iconPath/icon_rotate_02.png';
 
@@ -141,11 +145,11 @@ class AppImagePath {
   static const String walletRechargeIcon = '$_btnPath/btn_deposit_01.png';
   static const String walletWithdrawIcon = '$_btnPath/btn_withdraw_01.png';
   static const String walletSettingIcon = '$_btnPath/btn_setting_01.png';
-  static const String walletLogIcon = '$_iconPath/icon_file_03.png';
+  static const String walletLogIcon = '$_btnPath/btn_receipt_01.png';
 
   ///等級
   static const String blueCheckIcon = '$_iconPath/icon_check_ok_02.png';
-  static const String trophyIcon = '$_iconPath/icon_trophy_01.png';
+  static const String trophyIcon = '$_btnPath/btn_trophy_01.png';
   static const String levelUnLock = '$_iconPath/icon_unlock_02.png';
   static const String levelLock = '$_iconPath/icon_lock_01.png';
   static const String bonusIcon = '$_imgPath/img_Piggy Bank_01.png';

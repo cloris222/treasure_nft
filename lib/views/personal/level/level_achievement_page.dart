@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/enum/task_enum.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
-import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
@@ -17,6 +16,7 @@ import 'package:treasure_nft_project/views/personal/level/achievement/achievemen
 import 'package:treasure_nft_project/views/personal/personal_new_sub_user_info_view.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
+import 'package:treasure_nft_project/widgets/label/background_with_land.dart';
 import 'package:treasure_nft_project/widgets/slider_page_view.dart';
 
 ///MARK: 成就
@@ -90,17 +90,6 @@ class _LevelAchievementPageState extends State<LevelAchievementPage> {
     );
   }
 
-  Widget _buildPreButton() {
-    return GestureDetector(
-      onTap: () => viewModel.popPage(context),
-      child: Image.asset(
-        AppImagePath.arrowLeftBlack,
-        height: UIDefine.getPixelWidth(24),
-        fit: BoxFit.fitHeight,
-      ),
-    );
-  }
-
   Widget _buildPageView(BuildContext context) {
     return SliderPageView(
         backgroundColor: AppColors.defaultBackgroundSpace,
@@ -108,40 +97,17 @@ class _LevelAchievementPageState extends State<LevelAchievementPage> {
             hasBottomRight: false, hasBottomLef: false),
         titles: titles,
         initialPage: TaskType.values.indexOf(widget.initType),
-        topView: Stack(
-          alignment: Alignment.center,
-          children: [
-            SizedBox(
-                height: UIDefine.getPixelWidth(210),
-                width: UIDefine.getWidth(),
-                child: Image.asset(AppImagePath.backgroundLand,
-                    fit: BoxFit.cover)),
-            Positioned(
-                top: UIDefine.getPixelWidth(140),
-                left: 0,
-                right: 0,
-                bottom: 0,
-                child: Container(
-                    decoration: AppStyle().styleColorsRadiusBackground(
-                        hasBottomLef: false,
-                        hasBottomRight: false,
-                        color: AppColors.defaultBackgroundSpace,
-                        radius: 12))),
-            Positioned(top: UIDefine.getPixelWidth(6), left:  UIDefine.getPixelWidth(10), child: _buildPreButton()),
-            Positioned(
-              top: UIDefine.getPixelWidth(30),
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                  margin: EdgeInsets.all(UIDefine.getPixelWidth(10)),
-                  padding: EdgeInsets.all(UIDefine.getPixelWidth(10)),
-                  decoration: AppStyle().styleNewUserSetting(),
-                  child: PersonalNewSubUserInfoView(
-                      userLevelInfo: GlobalData.userLevelInfo)),
-            ),
-          ],
-        ),
+        topView: BackgroundWithLand(
+            mainHeight: 230,
+            bottomHeight: 100,
+            onBackPress: () => viewModel.popPage(context),
+            body: Container(
+              margin: EdgeInsets.all(UIDefine.getPixelWidth(10)),
+              padding: EdgeInsets.all(UIDefine.getPixelWidth(10)),
+              decoration: AppStyle().styleNewUserSetting(),
+              child: PersonalNewSubUserInfoView(
+                  userLevelInfo: GlobalData.userLevelInfo),
+            )),
         children: [
           AchievementDailyView(viewModel: viewModel),
           AchievementAchieveView(viewModel: viewModel),
