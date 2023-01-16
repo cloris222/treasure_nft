@@ -16,19 +16,21 @@ class CustomAppbarView extends StatelessWidget {
       this.onPressed,
       this.type,
       required this.needScrollView,
-      this.needCover = false})
+      this.needCover = false,
+      this.backgroundColor = Colors.white})
       : super(key: key);
   final Widget body;
   final VoidCallback? onPressed;
   final AppNavigationBarType? type;
   final bool needScrollView;
   final bool needCover;
+  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.white,
+        backgroundColor: backgroundColor,
         appBar: CustomAppBar.mainAppBar(
             serverAction: () => _serverAction(context),
             globalAction: () => _globalAction(context),

@@ -7,24 +7,25 @@ import 'package:treasure_nft_project/utils/app_text_style.dart';
 import '../../constant/theme/app_colors.dart';
 
 class LoginButtonWidget extends StatelessWidget {
-  const LoginButtonWidget(
-      {Key? key,
-      required this.btnText,
-      required this.onPressed,
-      this.width,
-      this.enable = true,
-      this.height,
-      this.fontSize,
-      this.fontWeight,
-      this.isGradient = true,
-      this.isFlip = false,
-      this.radius = 12,
-      this.showIcon = false,
-      this.isFillWidth = true,
-      this.margin = const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-      this.padding,
-      this.fontFamily = AppTextFamily.PosteramaText})
-      : super(key: key);
+  const LoginButtonWidget({
+    Key? key,
+    required this.btnText,
+    required this.onPressed,
+    this.width,
+    this.enable = true,
+    this.height,
+    this.fontSize,
+    this.fontWeight,
+    this.isGradient = true,
+    this.isFlip = false,
+    this.radius = 12,
+    this.showIcon = false,
+    this.isFillWidth = true,
+    this.isAutoHeight = false,
+    this.margin = const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+    this.padding,
+    this.fontFamily = AppTextFamily.PosteramaText,
+  }) : super(key: key);
   final String btnText;
   final VoidCallback onPressed;
   final bool enable;
@@ -37,6 +38,7 @@ class LoginButtonWidget extends StatelessWidget {
   final double radius;
   final bool showIcon;
   final bool isFillWidth;
+  final bool isAutoHeight;
   final EdgeInsetsGeometry margin;
   final EdgeInsetsGeometry? padding;
   final AppTextFamily fontFamily;
@@ -66,7 +68,7 @@ class LoginButtonWidget extends StatelessWidget {
                   : AppStyle()
                       .styleColorsRadiusBackground(color: AppColors.buttonGrey),
           width: width ?? (isFillWidth ? UIDefine.getWidth() : null),
-          height: height ?? 50,
+          height: height ?? (isAutoHeight ? null : 50),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: isFillWidth ? MainAxisSize.max : MainAxisSize.min,

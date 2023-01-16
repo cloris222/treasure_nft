@@ -63,10 +63,25 @@ class AppStyle {
     );
   }
 
-  BoxDecoration styleColorsRadiusBackground(
-      {Color color = Colors.white, double radius = 15}) {
+  BoxDecoration styleColorsRadiusBackground({
+    Color color = Colors.white,
+    double radius = 15,
+    bool hasTopLeft = true,
+    bool hasTopRight = true,
+    bool hasBottomLef = true,
+    bool hasBottomRight = true,
+  }) {
     return BoxDecoration(
-      borderRadius: BorderRadius.all(Radius.circular(radius)),
+      borderRadius: BorderRadius.only(
+        topLeft:
+            hasTopLeft ? Radius.circular(radius) : const Radius.circular(0),
+        topRight:
+            hasTopRight ? Radius.circular(radius) : const Radius.circular(0),
+        bottomLeft:
+            hasBottomLef ? Radius.circular(radius) : const Radius.circular(0),
+        bottomRight:
+            hasBottomRight ? Radius.circular(radius) : const Radius.circular(0),
+      ),
       color: color,
     );
   }

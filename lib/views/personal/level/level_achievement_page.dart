@@ -2,6 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/enum/task_enum.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
+import 'package:treasure_nft_project/constant/theme/app_style.dart';
+import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/view_models/personal/level/level_achievement_view_model.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
@@ -10,9 +14,8 @@ import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/views/personal/level/achievement/achievement_achieve_view.dart';
 import 'package:treasure_nft_project/views/personal/level/achievement/achievement_daily_view.dart';
 import 'package:treasure_nft_project/views/personal/level/achievement/achievement_medal_view.dart';
-import 'package:treasure_nft_project/views/personal/personal_sub_user_info_view.dart';
+import 'package:treasure_nft_project/views/personal/personal_new_sub_user_info_view.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
-import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/slider_page_view.dart';
 
@@ -83,18 +86,41 @@ class _LevelAchievementPageState extends State<LevelAchievementPage> {
       needCover: true,
       needScrollView: true,
       body: _buildPageView(context),
+      backgroundColor: AppColors.defaultBackgroundSpace,
     );
   }
 
   Widget _buildPageView(BuildContext context) {
     return SliderPageView(
+        backgroundColor: AppColors.defaultBackgroundSpace,
+        buttonDecoration:AppStyle().styleColorsRadiusBackground(hasBottomRight: false,hasBottomLef: false),
         titles: titles,
         initialPage: TaskType.values.indexOf(widget.initType),
-        topView: Column(
-          mainAxisSize: MainAxisSize.min,
+        topView: Stack(
+          alignment: Alignment.center,
           children: [
-            TitleAppBar(title: tr('achievement')),
-            PersonalSubUserInfoView(userLevelInfo: GlobalData.userLevelInfo),
+            SizedBox(
+                height: UIDefine.getPixelWidth(180),
+                width: UIDefine.getWidth(),
+                child: Image.asset(AppImagePath.backgroundLand,
+                    fit: BoxFit.cover)),
+            Positioned(
+                top: UIDefine.getPixelWidth(110),
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: Container(
+                    decoration: AppStyle().styleColorsRadiusBackground(
+                        hasBottomLef: false,
+                        hasBottomRight: false,
+                        color: AppColors.defaultBackgroundSpace,
+                        radius: 12))),
+            Container(
+                margin: EdgeInsets.all(UIDefine.getPixelWidth(10)),
+                padding: EdgeInsets.all(UIDefine.getPixelWidth(10)),
+                decoration: AppStyle().styleNewUserSetting(),
+                child: PersonalNewSubUserInfoView(
+                    userLevelInfo: GlobalData.userLevelInfo)),
           ],
         ),
         children: [

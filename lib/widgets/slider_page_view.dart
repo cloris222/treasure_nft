@@ -9,14 +9,16 @@ import '../constant/theme/app_style.dart';
 import '../constant/ui_define.dart';
 
 class SliderPageView extends StatefulWidget {
-  const SliderPageView({
-    Key? key,
-    required this.topView,
-    required this.titles,
-    required this.initialPage,
-    required this.children,
-    this.onPageListener,
-  }) : super(key: key);
+  const SliderPageView(
+      {Key? key,
+      required this.topView,
+      required this.titles,
+      required this.initialPage,
+      required this.children,
+      this.onPageListener,
+      this.backgroundColor,
+      this.buttonDecoration})
+      : super(key: key);
 
   /// button title
   final List<String> titles;
@@ -24,6 +26,8 @@ class SliderPageView extends StatefulWidget {
   final List<Widget> children;
   final Widget topView;
   final onGetIntFunction? onPageListener;
+  final Color? backgroundColor;
+  final Decoration? buttonDecoration;
 
   @override
   State<SliderPageView> createState() => _SliderPageViewState();
@@ -62,7 +66,8 @@ class _SliderPageViewState extends State<SliderPageView> {
               SliverToBoxAdapter(child: widget.topView),
               SliverFillRemaining(
                   child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      color: widget.backgroundColor,
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Column(mainAxisSize: MainAxisSize.min, children: [
                         _buildButtonList(),
                         Expanded(child: _buildPageView()),
@@ -72,8 +77,9 @@ class _SliderPageViewState extends State<SliderPageView> {
   }
 
   Widget _buildButtonList() {
-    return SizedBox(
-        height: UIDefine.getPixelHeight(80),
+    return Container(
+        decoration: widget.buttonDecoration,
+        height: UIDefine.getPixelHeight(60),
         child: ScrollablePositionedList.builder(
             initialScrollIndex: widget.initialPage,
             scrollDirection: Axis.horizontal,
@@ -94,24 +100,43 @@ class _SliderPageViewState extends State<SliderPageView> {
           });
         },
         child: Column(children: [
-          SizedBox(height: UIDefine.getPixelHeight(20)),
-          Container(
-              padding: EdgeInsets.symmetric(
-                  vertical: UIDefine.getPixelHeight(10),
-                  horizontal: UIDefine.getPixelWidth(15)),
-              decoration: AppStyle().styleColorBorderBottomLine(
-                  borderLine: isCurrent ? 2 : 1,
-                  color: isCurrent
-                      ? AppColors.mainThemeButton
-                      : AppColors.barFont01),
-              child: Text(
-                type,
-                style: AppTextStyle.getBaseStyle(
-                    color:
-                        isCurrent ? AppColors.textBlack : AppColors.dialogGrey,
-                    fontSize: UIDefine.fontSize16,
-                    fontWeight: FontWeight.w500),
-              )),
+          SizedBox(height: UIDefine.getPixelHeight(10)),
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                  padding: EdgeInsets.symmetric(
+                      vertical: UIDefine.getPixelHeight(5),
+                      horizontal: UIDefine.getPixelWidth(15)),
+                  child: Text(
+                    type,
+                    style: AppTextStyle.getBaseStyle(
+                        color: isCurrent
+                            ? AppColors.textBlack
+                            : AppColors.textThreeBlack,
+                        fontSize: UIDefine.fontSize16,
+                        fontWeight: isCurrent ? FontWeight.w600 : null),
+                  )),
+              Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    height: 1,
+                    color: AppColors.lineBarGrey,
+                  )),
+              Positioned(
+                  bottom: 0,
+                  child: Visibility(
+                    visible: isCurrent,
+                    child: Container(
+                      height: 4,
+                      width: UIDefine.getPixelWidth(20),
+                      decoration: AppStyle().baseGradient(radius: 3),
+                    ),
+                  ))
+            ],
+          ),
           SizedBox(height: UIDefine.getPixelHeight(5)),
         ]));
   }
