@@ -37,30 +37,24 @@ class DailyItemWidget extends StatelessWidget {
           margin: EdgeInsets.symmetric(
               vertical: UIDefine.getPixelHeight(15),
               horizontal: UIDefine.getPixelHeight(15)),
-          child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                          height: UIDefine.getPixelHeight(80),
-                          width: UIDefine.getPixelHeight(80),
-                          child: Image.asset(
-                            getImagePath(status, index),
-                            fit: BoxFit.fill,
-                          )),
-                      const SizedBox(width: 5),
-                      Expanded(
-                          child: Padding(
-                              padding: EdgeInsets.only(
-                                  top: UIDefine.getPixelHeight(4),
-                                  right: UIDefine.getPixelHeight(4)),
-                              child: _buildTaskInfo(context, status, code)))
-                    ]),
+                SizedBox(
+                    height: UIDefine.getPixelWidth(50),
+                    width: UIDefine.getPixelWidth(50),
+                    child: Image.asset(
+                      getImagePath(status, index),
+                      fit: BoxFit.fill,
+                    )),
+                const SizedBox(width: 5),
+                Expanded(
+                    child: Padding(
+                        padding: EdgeInsets.only(
+                            top: UIDefine.getPixelHeight(4),
+                            right: UIDefine.getPixelHeight(4)),
+                        child: _buildTaskInfo(context, status, code)))
               ])),
     );
   }

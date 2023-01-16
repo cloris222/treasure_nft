@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/enum/task_enum.dart';
+import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/task_info_data.dart';
 import 'package:treasure_nft_project/view_models/personal/level/level_achievement_view_model.dart';
@@ -22,7 +23,14 @@ class AchievementAchieveView extends StatelessWidget {
           return _buildItem(context, viewModel.achieveList[index]);
         },
         separatorBuilder: (context, index) {
-          return SizedBox(height: UIDefine.getPixelHeight(15));
+          return Container(
+              padding:
+              EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(5)),
+              color: Colors.white,
+              child: Container(
+                height: UIDefine.getPixelHeight(0.5),
+                color: AppColors.lineBarGrey,
+              ));
         },
         itemCount: viewModel.achieveList.length + 1);
   }

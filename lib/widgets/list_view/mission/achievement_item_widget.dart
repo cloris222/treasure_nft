@@ -5,10 +5,10 @@ import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/enum/task_enum.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
-import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/task_info_data.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
+import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import 'package:treasure_nft_project/widgets/button/text_button_widget.dart';
 import 'package:treasure_nft_project/widgets/label/custom_linear_progress.dart';
 import 'package:treasure_nft_project/widgets/label/warp_two_text_widget.dart';
@@ -29,12 +29,7 @@ class AchievementItemWidget extends StatelessWidget {
 
     ///MARK:建立畫面
     return Container(
-      decoration: AppStyle().styleColorBorderBackground(
-          radius: 8,
-          color: status == TaskStatus.unTaken
-              ? AppColors.mainThemeButton
-              : AppColors.bolderGrey,
-          borderLine: 2),
+      color: Colors.white,
       child: Container(
           margin: EdgeInsets.symmetric(
               vertical: UIDefine.getPixelHeight(15),
@@ -50,8 +45,8 @@ class AchievementItemWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                          height: UIDefine.getPixelHeight(80),
-                          width: UIDefine.getPixelHeight(80),
+                          height: UIDefine.getPixelWidth(50),
+                          width: UIDefine.getPixelWidth(50),
                           child: Image.asset(
                             getImagePath(status, code),
                             fit: BoxFit.fill,
@@ -70,10 +65,9 @@ class AchievementItemWidget extends StatelessWidget {
                       left: UIDefine.getPixelHeight(4),
                       right: UIDefine.getPixelHeight(4)),
                   child: WarpTwoTextWidget(
-                      fontSize: UIDefine.fontSize14,
+                      fontSize: UIDefine.fontSize12,
                       text: data.getAchievementCurrentTaskSubText(code),
-                      color: AppColors.dialogGrey,
-                      fontWeight: FontWeight.w500),
+                      color: AppColors.textNineBlack),
                 ),
                 Padding(
                   padding: EdgeInsets.only(
@@ -82,7 +76,7 @@ class AchievementItemWidget extends StatelessWidget {
                       right: UIDefine.getPixelHeight(4)),
                   child: CustomLinearProgress(
                       percentage: data.nowValue / data.goalValue,
-                      needShowPercentage: true),
+                      needShowPercentage: false),
                 ),
               ])),
     );
@@ -101,13 +95,35 @@ class AchievementItemWidget extends StatelessWidget {
         strStatus = 'focus';
         break;
     }
-
-    if (code == AchievementCode.AchRsvScs ||
-        code == AchievementCode.AchBuyScs) {
-      code = AchievementCode.AchContSignIn;
+    int index;
+    switch (code) {
+      case AchievementCode.AchSignIn:
+        index = 1;
+        break;
+      case AchievementCode.AchContSignIn:
+      case AchievementCode.AchRsvScs:
+      case AchievementCode.AchBuyScs:
+        index = 2;
+        break;
+      case AchievementCode.AchSlfBuyAmt:
+        index = 3;
+        break;
+      case AchievementCode.AchTeamBuyFreq:
+        index = 4;
+        break;
+      case AchievementCode.AchTeamBuyAmt:
+        index = 5;
+        break;
+      case AchievementCode.AchInvClsA:
+        index = 6;
+        break;
+      case AchievementCode.AchInvClsBC:
+        index = 7;
+        break;
     }
+
     return format(AppImagePath.achievementPath, {
-      'index': NumberFormatUtil().integerTwoFormat(code.index + 1),
+      'index': NumberFormatUtil().integerTwoFormat(index),
       'strStatus': strStatus
     });
   }
@@ -122,9 +138,9 @@ class AchievementItemWidget extends StatelessWidget {
             Expanded(
               child: WarpTwoTextWidget(
                   text: data.getAchievementTaskText(),
-                  fontSize: UIDefine.fontSize16,
-                  color: AppColors.dialogBlack,
-                  fontWeight: FontWeight.w500),
+                  fontSize: UIDefine.fontSize14,
+                  color: AppColors.textBlack,
+                  fontWeight: FontWeight.w600),
             ),
             Container(
                 alignment: Alignment.topCenter,
@@ -132,27 +148,45 @@ class AchievementItemWidget extends StatelessWidget {
           ]),
       const SizedBox(height: 5),
       WarpTwoTextWidget(
-          fontSize: UIDefine.fontSize14,
+          fontSize: UIDefine.fontSize12,
           text: data.getAchievementGoalTaskSubText(code),
-          color: AppColors.dialogGrey,
-          fontWeight: FontWeight.w400)
+          color: AppColors.textNineBlack)
     ]);
   }
 
   Widget _buildButton(
       BuildContext context, TaskStatus status, AchievementCode code) {
     bool enable = (status == TaskStatus.unTaken);
-    return TextButtonWidget(
-        fontSize: UIDefine.fontSize12,
-        setMainColor:
-            enable ? AppColors.mainThemeButton : AppColors.datePickerBorder,
-        setSubColor: enable ? AppColors.textWhite : AppColors.dialogGrey,
-        isFillWidth: false,
-        btnText: '+ ${data.point} ${tr('acv_point')}',
-        onPressed: () {
-          if (enable) {
-            getPoint(code, data.recordNo!, data.point);
-          }
-        });
+    String btnText = '+ ${data.point} ${tr('acv_point')}';
+    return enable
+        ? LoginButtonWidget(
+            radius: 15,
+            fontSize: UIDefine.fontSize14,
+            fontWeight: FontWeight.w600,
+            isFillWidth: false,
+            isAutoHeight: true,
+            padding: EdgeInsets.symmetric(
+                horizontal: UIDefine.getPixelWidth(15),
+                vertical: UIDefine.getPixelWidth(5)),
+            btnText: btnText,
+            onPressed: () {
+              if (enable) {
+                getPoint(code, data.recordNo!, data.point);
+              }
+            })
+        : TextButtonWidget(
+            radius: 15,
+            fontSize: UIDefine.fontSize14,
+            fontWeight: FontWeight.w600,
+            isFillWidth: false,
+            setMainColor: AppColors.dailyAcceptedReward,
+            setSubColor: Colors.white,
+            backgroundHorizontal: UIDefine.getPixelWidth(15),
+            btnText: btnText,
+            onPressed: () {
+              if (enable) {
+                getPoint(code, data.recordNo!, data.point);
+              }
+            });
   }
 }
