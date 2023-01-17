@@ -7,8 +7,6 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/api/group_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/lower_invite_data.dart';
 import 'package:treasure_nft_project/models/http/parameter/lower_nft_data.dart';
-import 'package:treasure_nft_project/models/http/parameter/team_contribute_data.dart';
-import 'package:treasure_nft_project/models/http/parameter/team_contribute_list_data.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_group_list.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_members.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
@@ -92,8 +90,8 @@ class TeamMemberViewModel extends BaseViewModel {
 
   BoxDecoration setBoxDecoration() {
     return BoxDecoration(
-        border: Border.all(width: 3, color: AppColors.datePickerBorder),
-        borderRadius: BorderRadius.circular(10));
+        border: Border.all(width: 1, color: AppColors.bolderGrey),
+        borderRadius: BorderRadius.circular(8));
   }
 
   OutlineInputBorder setOutlineInputBorder() {
