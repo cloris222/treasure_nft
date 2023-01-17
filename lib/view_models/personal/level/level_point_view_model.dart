@@ -40,7 +40,7 @@ class LevelPointViewModel extends BaseListViewModel {
         padding: EdgeInsets.symmetric(
             horizontal: UIDefine.getPixelWidth(20),
             vertical: UIDefine.getPixelWidth(10)),
-        margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
+        margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(10)),
         decoration: AppStyle().styleColorsRadiusBackground(
             radius: 8,
             hasTopLeft: false,
@@ -96,7 +96,7 @@ class LevelPointViewModel extends BaseListViewModel {
           padding: EdgeInsets.symmetric(
               horizontal: UIDefine.getPixelWidth(20),
               vertical: UIDefine.getPixelWidth(10)),
-          margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
+          margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(10)),
           decoration: AppStyle().styleColorsRadiusBackground(
               radius: 8, hasBottomLef: false, hasBottomRight: false),
           child: CustomDatePickerWidget(
