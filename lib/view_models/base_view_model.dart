@@ -18,6 +18,7 @@ import 'package:treasure_nft_project/views/full_animation_page.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/views/notify/notify_level_up_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
+import 'package:treasure_nft_project/widgets/bottom_sheet/page_bottom_sheet.dart';
 import 'package:treasure_nft_project/widgets/image_dialog.dart';
 
 import '../constant/call_back_function.dart';
@@ -71,6 +72,10 @@ class BaseViewModel {
   Future<void> pushPage(BuildContext context, Widget page) async {
     await Navigator.push(
         context, MaterialPageRoute(builder: (context) => page));
+  }
+
+  void pushBottomSheetPage(BuildContext context, Widget page) {
+    PageBottomSheet(context, page: page).show();
   }
 
   ///MARK: 取代當前頁面

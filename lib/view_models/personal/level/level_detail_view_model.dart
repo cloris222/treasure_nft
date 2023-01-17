@@ -15,7 +15,7 @@ class LevelDetailViewModel extends BaseViewModel {
   final ViewChange setState;
   List<LevelInfoData> levelDataList = [];
   bool isLevelUp = false;
-  int currentIndex=0;
+  int currentIndex = 0;
   late PageController pageController;
   late SwiperController swiperController;
 
@@ -93,6 +93,6 @@ class LevelDetailViewModel extends BaseViewModel {
 
   ///MARK: 顯示下一等級獎勵
   void showLeveLBonus(BuildContext context) async {
-    pushPage(context, const LevelBonusPage());
+    pushBottomSheetPage(context, const LevelBonusPage());
   }
 }
