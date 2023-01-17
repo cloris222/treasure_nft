@@ -150,8 +150,8 @@ class AppImagePath {
   ///等級
   static const String blueCheckIcon = '$_iconPath/icon_check_ok_02.png';
   static const String trophyIcon = '$_btnPath/btn_trophy_01.png';
-  static const String levelUnLock = '$_iconPath/icon_unlock_02.png';
-  static const String levelLock = '$_iconPath/icon_lock_01.png';
+  static const String levelUnLock = '$_iconPath/icon_unlocked_01.png';
+  static const String levelLock = '$_iconPath/icon_locked_01.png';
   static const String bonusIcon = '$_imgPath/img_Piggy Bank_01.png';
 
   /// Team

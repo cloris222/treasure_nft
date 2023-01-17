@@ -15,8 +15,8 @@ import 'package:treasure_nft_project/view_models/personal/level/level_detail_vie
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
 import 'package:treasure_nft_project/views/personal/level/level_achievement_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
-import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import 'package:treasure_nft_project/widgets/button/text_button_widget.dart';
+import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
 import 'package:treasure_nft_project/widgets/label/background_with_land.dart';
 import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart';
 import 'package:treasure_nft_project/widgets/label/custom_linear_progress.dart';
@@ -53,10 +53,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
     return CustomAppbarView(
       needScrollView: false,
       type: AppNavigationBarType.typePersonal,
-      body: SingleChildScrollView(
-          child: Padding(
-              padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
-              child: _buildBody())),
+      body: SingleChildScrollView(child: _buildBody()),
     );
   }
 
@@ -232,8 +229,9 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
           pages.add(_buildLevelPageItem(data.userLevel));
         }
       }
-      return SizedBox(
-        height: UIDefine.getPixelHeight(600),
+      return Container(
+        height: UIDefine.getPixelWidth(500) + UIDefine.navigationBarPadding,
+        color: AppColors.defaultBackgroundSpace,
         child: PageView(
             controller: viewModel.pageController,
             children: pages,
@@ -245,6 +243,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
     return Container();
   }
 
+  /// 滑動的全部等級bar
   Widget _buildAllLevelBar() {
     if (viewModel.levelDataList.isNotEmpty) {
       List<LevelInfoData> lists = [];
@@ -278,27 +277,41 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
   }
 
   ///MARK: 等級標題
-  Widget _buildSingleLevelTitle(int level, {bool showLevel = true}) {
+  Widget _buildSingleLevelTitle(int level,
+      {bool showLevel = true, bool showLock = false, bool showBonus = false}) {
     return Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-      BaseIconWidget(
-          imageAssetPath: viewModel.checkUnlock(level)
-              ? AppImagePath.levelUnLock
-              : AppImagePath.levelLock,
-          size: UIDefine.fontSize26),
-      Text(' ${tr('level')} $level ',
-          style: AppTextStyle.getBaseStyle(
-              fontSize: UIDefine.fontSize14,
-              fontWeight: FontWeight.w600,
-              color: AppColors.textThreeBlack)),
+      Visibility(
+        visible: showLock,
+        child: BaseIconWidget(
+            imageAssetPath: viewModel.checkUnlock(level)
+                ? AppImagePath.levelUnLock
+                : AppImagePath.levelLock,
+            size: UIDefine.getPixelWidth(20)),
+      ),
+      Visibility(
+        visible: showLevel,
+        child: Text(' ${tr('level')} $level ',
+            style: AppTextStyle.getBaseStyle(
+                fontSize: UIDefine.fontSize14,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textThreeBlack)),
+      ),
       Flexible(child: Container()),
       Visibility(
-          visible: viewModel.nextLevel(level),
-          child: InkWell(
-            child: ActionButtonWidget(
-              isBorderStyle: true,
-              isFillWidth: false,
-              btnText: tr('bonus'),
-              onPressed: () => viewModel.showLeveLBonus(context),
+          visible: viewModel.nextLevel(level) && showBonus,
+          child: GestureDetector(
+            onTap: () => viewModel.showLeveLBonus(context),
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                  horizontal: UIDefine.getPixelWidth(10),
+                  vertical: UIDefine.getPixelWidth(5)),
+              margin: EdgeInsets.only(bottom: UIDefine.getPixelWidth(10)),
+              decoration: AppStyle().buildGradient(
+                  colors: AppColors.gradientBackgroundColorBg, radius: 12),
+              child: GradientThirdText(
+                tr('bonus'),
+                size: UIDefine.fontSize12,
+              ),
             ),
           ))
     ]);
@@ -353,7 +366,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
             children: [
               Visibility(
                   visible: showCoin,
-                  child: TetherCoinWidget(size: UIDefine.fontSize16)),
+                  child: TetherCoinWidget(size: UIDefine.getPixelWidth(12))),
               SizedBox(width: UIDefine.getScreenWidth(1)),
               Text(context,
                   style: AppTextStyle.getBaseStyle(
@@ -367,67 +380,91 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
 
   Widget buildAllLevelBarItem(int index, int userLevel) {
     bool isCurrent = (index == viewModel.currentIndex);
-    return Container(
-        alignment: Alignment.center,
-        height: UIDefine.getPixelWidth(140),
-        width: UIDefine.getPixelWidth(140),
-        child: isCurrent
-            ? Stack(
-                children: [
-                  Image.asset(format(AppImagePath.allLevelCurrentBar,
-                      {"level": userLevel + 1})),
-                  Positioned(
-                      bottom: UIDefine.getPixelWidth(20),
-                      left: 0,
-                      right: 0,
-                      child: Text(
+    return GestureDetector(
+      onTap: () {
+        viewModel.swiperController.move(index);
+      },
+      child: Container(
+          alignment: Alignment.center,
+          height: UIDefine.getPixelWidth(140),
+          width: UIDefine.getPixelWidth(140),
+          child: isCurrent
+              ? Stack(
+                  children: [
+                    Image.asset(format(AppImagePath.allLevelCurrentBar,
+                        {"level": userLevel + 1})),
+                    Positioned(
+                        bottom: UIDefine.getPixelWidth(20),
+                        left: 0,
+                        right: 0,
+                        child: Text(
+                          '${tr('level')} $userLevel',
+                          textAlign: TextAlign.center,
+                          style: AppTextStyle.getBaseStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: UIDefine.fontSize12,
+                              color: Colors.white),
+                        ))
+                  ],
+                )
+              : Container(
+                  height: UIDefine.getPixelWidth(100),
+                  width: UIDefine.getPixelWidth(100),
+                  decoration: AppStyle().styleColorsRadiusBackground(
+                      color: const Color(0x632E2E2E), radius: 9),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: Image.asset(format(AppImagePath.allLevelBar,
+                            {"level": userLevel + 1})),
+                      ),
+                      Text(
                         '${tr('level')} $userLevel',
                         textAlign: TextAlign.center,
                         style: AppTextStyle.getBaseStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: UIDefine.fontSize12,
-                            color: Colors.white),
-                      ))
-                ],
-              )
-            : Container(
-                height: UIDefine.getPixelWidth(100),
-                width: UIDefine.getPixelWidth(100),
-                decoration: AppStyle().styleColorsRadiusBackground(
-                    color: const Color(0x632E2E2E), radius: 9),
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: Image.asset(format(
-                          AppImagePath.allLevelBar, {"level": userLevel + 1})),
-                    ),
-                    Text(
-                      '${tr('level')} $userLevel',
-                      textAlign: TextAlign.center,
-                      style: AppTextStyle.getBaseStyle(
-                          fontSize: UIDefine.fontSize12, color: Colors.white),
-                    ),
-                    SizedBox(height: UIDefine.getPixelWidth(20)),
-                  ],
-                ),
-              ));
+                            fontSize: UIDefine.fontSize12, color: Colors.white),
+                      ),
+                      SizedBox(height: UIDefine.getPixelWidth(20)),
+                    ],
+                  ),
+                )),
+    );
   }
 
   ///MARK: 等級清單
   Widget _buildLevelPageItem(int level) {
     return Column(children: [
-      _buildSingleLevelTitle(level, showLevel: false),
-      _buildSpace(height: 2),
       Visibility(
-          visible: level <= GlobalData.userInfo.level + 1,
+        visible: level <= GlobalData.userInfo.level + 1,
+        child: Container(
+          padding: EdgeInsets.symmetric(
+              horizontal: UIDefine.getPixelWidth(10),
+              vertical: UIDefine.getPixelWidth(10)),
+          margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(10)),
+          decoration: AppStyle().styleColorsRadiusBackground(radius: 8),
           child: Column(
             children: [
+              _buildSingleLevelTitle(level,
+                  showLevel: false, showLock: false, showBonus: true),
               _buildSingleLevelInfoRequest(level),
-              _buildSpace(height: 2),
             ],
-          )),
-      _buildSingleLevelInfo(level),
-      _buildItemChange(level)
+          ),
+        ),
+      ),
+      Container(
+        padding: EdgeInsets.symmetric(
+            horizontal: UIDefine.getPixelWidth(10),
+            vertical: UIDefine.getPixelWidth(10)),
+        margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(10)),
+        decoration: AppStyle().styleColorsRadiusBackground(radius: 8),
+        child: Column(
+          children: [
+            _buildSingleLevelTitle(level, showLevel: true, showLock: true),
+            _buildSingleLevelInfo(level),
+            // _buildItemChange(level),
+          ],
+        ),
+      )
     ]);
   }
 
@@ -435,7 +472,8 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
   Widget _buildSingleLevelInfoRequest(int level) {
     return Container(
         width: UIDefine.getWidth(),
-        decoration: AppStyle().styleUserSetting(),
+        decoration: AppStyle().styleColorsRadiusBackground(
+            color: const Color(0xFFF7F7F7), radius: 4),
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
         child: level == 1
             ? _buildLevelOneRequest()
@@ -478,12 +516,22 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
     return Column(children: [
       Row(children: [
         Expanded(
-            child: Text(title, maxLines: 1, overflow: TextOverflow.ellipsis)),
+            child: Text(
+          title,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: AppTextStyle.getBaseStyle(
+              fontSize: UIDefine.fontSize12, color: AppColors.textNineBlack),
+        )),
         Container(
           alignment: Alignment.centerRight,
-          child: Text(percentage == 1
-              ? tr('Completed')
-              : '${NumberFormatUtil().removeTwoPointFormat(value)} / $request'),
+          child: Text(
+            percentage == 1
+                ? tr('Completed')
+                : '${NumberFormatUtil().removeTwoPointFormat(value)} / $request',
+            style: AppTextStyle.getBaseStyle(
+                fontSize: UIDefine.fontSize12, color: AppColors.textNineBlack),
+          ),
         ),
       ]),
       _buildSpace(height: 2),
