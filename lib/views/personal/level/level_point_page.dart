@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/personal/level/level_point_view_model.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
@@ -20,6 +21,7 @@ class _LevelPointPageState extends State<LevelPointPage> {
   void initState() {
     super.initState();
     viewModel = LevelPointViewModel(
+        context: context,
         onListChange: () {
           if (mounted) {
             setState(() {});
@@ -40,6 +42,8 @@ class _LevelPointPageState extends State<LevelPointPage> {
   }
 
   Widget _buildBody() {
-    return viewModel.buildListView();
+    return Container(
+        color: AppColors.defaultBackgroundSpace,
+        child: viewModel.buildListView());
   }
 }

@@ -76,8 +76,10 @@ class CustomDatePickerState extends State<CustomDatePickerWidget> {
                     Text(
                       endDate == ''
                           ? tr('select_date')
-                          : '$startDate ~ $endDate',
-                      style:  AppTextStyle.getBaseStyle(color: AppColors.textGrey),
+                          : '$startDate - $endDate',
+                      style: AppTextStyle.getBaseStyle(
+                          color: AppColors.textBlack,
+                          fontSize: UIDefine.fontSize14),
                     ),
                     Image.asset(AppImagePath.dateIcon),
                   ]))),

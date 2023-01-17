@@ -29,6 +29,9 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
       this.setUserInfo,
       this.onViewUpdate,
       this.showDailyTask = false,
+      this.enableLevel = true,
+      this.enablePoint = true,
+      this.showId = true,
       this.userLevelInfo});
 
   ///MARK: 是否顯示他人
@@ -36,6 +39,9 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
   final onClickFunction? onViewUpdate;
   final bool showDailyTask;
   final CheckLevelInfo? userLevelInfo;
+  final bool enableLevel;
+  final bool enablePoint;
+  final bool showId;
 
   UserInfoData get userInfo {
     return setUserInfo ?? GlobalData.userInfo;
@@ -51,13 +57,10 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
             GestureDetector(
                 onTap: () => _showModifyAvatar(context),
                 child: Container(
-                    decoration: AppTheme.style.styleColorBorderBackground(
-                        radius: 40,
-                        color: Colors.transparent,
-                        backgroundColor: Colors.transparent),
+                    decoration: AppTheme.style.baseGradient(radius: 40),
                     height: UIDefine.getPixelWidth(65),
                     width: UIDefine.getPixelWidth(65),
-                    padding: const EdgeInsets.all(2),
+                    padding: const EdgeInsets.all(3),
                     child: userInfo.photoUrl.isNotEmpty
                         ? CircleNetworkIcon(
                             networkUrl: userInfo.photoUrl, radius: 35)
@@ -89,10 +92,11 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
                               child: Image.asset(AppImagePath.dateIcon)))
                     ],
                   ),
-                  SizedBox(height: UIDefine.getPixelWidth(5)),
+                  SizedBox(height: UIDefine.getPixelWidth(7)),
 
                   ///MARK:使用者的ID和邀請碼
-                  _buildOtherDetailInfo(context),
+                  Visibility(
+                      visible: showId, child: _buildOtherDetailInfo(context)),
 
                   ///MARK: 使用者的按鈕
                   Row(children: [
@@ -156,7 +160,8 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
                   '${NumberFormatUtil().integerFormat(getPointPercentage() * 100)}%',
                   style: AppTextStyle.getBaseStyle(
                       fontSize: UIDefine.fontSize10,
-                      color: AppColors.textNineBlack,fontWeight: FontWeight.w400),
+                      color: AppColors.textNineBlack,
+                      fontWeight: FontWeight.w400),
                 ),
                 CustomLinearProgress(
                   percentage: getPointPercentage(),
@@ -221,11 +226,15 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
   }
 
   void _showLevelInfoPage(BuildContext context) {
-    BaseViewModel().pushPage(context, const LevelDetailPage());
+    if (enableLevel) {
+      BaseViewModel().pushPage(context, const LevelDetailPage());
+    }
   }
 
   void _showPointPage(BuildContext context) {
-    BaseViewModel().pushPage(context, const LevelPointPage());
+    if (enablePoint) {
+      BaseViewModel().pushPage(context, const LevelPointPage());
+    }
   }
 
   void _onPressDailyTask(BuildContext context) {
