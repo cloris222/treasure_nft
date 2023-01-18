@@ -76,7 +76,7 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Container(
         decoration: AppStyle().styleColorsRadiusBackground(
-            color: const Color(0xFFF7F7F7), radius: 4),
+            color: AppColors.itemBackground, radius: 4),
         padding: EdgeInsets.all(UIDefine.getPixelWidth(5)),
         child: Row(
           children: [
@@ -110,7 +110,7 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Container(
         decoration: AppStyle().styleColorsRadiusBackground(
-            color: const Color(0xFFF7F7F7), radius: 4),
+            color: AppColors.itemBackground, radius: 4),
         padding: EdgeInsets.all(UIDefine.getPixelWidth(5)),
         child: Row(
           children: [

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_member_detail.dart';
 import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
@@ -53,10 +54,7 @@ class _TeamMemberDetailPage extends State<TeamMemberDetailPage> {
     return CustomAppbarView(
         needScrollView: false,
         type: AppNavigationBarType.typePersonal,
-        body: Padding(
-            padding: EdgeInsets.only(
-                left: UIDefine.getScreenWidth(6),
-                right: UIDefine.getScreenWidth(6)),
-            child: viewModel.buildListView()));
+        backgroundColor: AppColors.defaultBackgroundSpace,
+        body: viewModel.buildListView());
   }
 }

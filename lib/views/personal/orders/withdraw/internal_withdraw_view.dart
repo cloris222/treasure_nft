@@ -124,7 +124,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
   Widget _buildWithdrawInfo() {
     return Container(
       decoration: AppStyle().styleColorsRadiusBackground(
-          color: const Color(0xFFF7F7F7), radius: 4),
+          color:AppColors.itemBackground, radius: 4),
       padding: EdgeInsets.all(UIDefine.getPixelWidth(10)),
       child: Column(
         mainAxisSize: MainAxisSize.min,

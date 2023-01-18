@@ -71,7 +71,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
           child: Column(children: [
             _buildOtherButton(),
             _buildCurrentLevelInfo(),
-            _buildAllLevelBar(),
+            // _buildAllLevelBar(),
             _buildAllLevelInfo(),
           ]))
     ]);
@@ -230,7 +230,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
         }
       }
       return Container(
-        height: UIDefine.getPixelWidth(500) + UIDefine.navigationBarPadding,
+        height: UIDefine.getPixelWidth(650) + UIDefine.navigationBarPadding,
         color: AppColors.defaultBackgroundSpace,
         child: PageView(
             controller: viewModel.pageController,
@@ -278,7 +278,10 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
 
   ///MARK: 等級標題
   Widget _buildSingleLevelTitle(int level,
-      {bool showLevel = true, bool showLock = false, bool showBonus = false}) {
+      {bool showLevel = true,
+      bool showLock = false,
+      bool showBonus = false,
+      bool isBlackStyle = true}) {
     return Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
       Visibility(
         visible: showLock,
@@ -286,15 +289,16 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
             imageAssetPath: viewModel.checkUnlock(level)
                 ? AppImagePath.levelUnLock
                 : AppImagePath.levelLock,
-            size: UIDefine.getPixelWidth(20)),
+            size: UIDefine.getPixelWidth(25)),
       ),
       Visibility(
         visible: showLevel,
         child: Text(' ${tr('level')} $level ',
             style: AppTextStyle.getBaseStyle(
-                fontSize: UIDefine.fontSize14,
+                fontSize:
+                    isBlackStyle ? UIDefine.fontSize14 : UIDefine.fontSize16,
                 fontWeight: FontWeight.w600,
-                color: AppColors.textThreeBlack)),
+                color: isBlackStyle ? AppColors.textThreeBlack : Colors.white)),
       ),
       Flexible(child: Container()),
       Visibility(
@@ -434,6 +438,25 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
   ///MARK: 等級清單
   Widget _buildLevelPageItem(int level) {
     return Column(children: [
+      Container(
+          margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(10)),
+          child: Stack(
+            children: [
+              Image.asset(
+                  format(AppImagePath.allLevelSmailBar, {"level": level + 1})),
+              Positioned(
+                top: 0,
+                bottom: 0,
+                left: UIDefine.getPixelWidth(10),
+                right: 0,
+                child: _buildSingleLevelTitle(level,
+                    showLevel: true,
+                    showLock: true,
+                    showBonus: false,
+                    isBlackStyle: false),
+              )
+            ],
+          )),
       Visibility(
         visible: level <= GlobalData.userInfo.level + 1,
         child: Container(
@@ -473,7 +496,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
     return Container(
         width: UIDefine.getWidth(),
         decoration: AppStyle().styleColorsRadiusBackground(
-            color: const Color(0xFFF7F7F7), radius: 4),
+            color: AppColors.itemBackground, radius: 4),
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
         child: level == 1
             ? _buildLevelOneRequest()

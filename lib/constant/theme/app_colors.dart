@@ -25,7 +25,7 @@ class AppColors {
   static const Color prizeOrange = Color(0xFFF29049);
   static const Color prizePurple = Color(0xFF996CDD);
   static const Color personalBar = Color(0xFFF2F2F2);
-  static const Color dailyAcceptedReward=Color(0xFFE2E2E2);
+  static const Color dailyAcceptedReward = Color(0xFFE2E2E2);
 
   static const Color datePickerBorder = Color(0xFFE0EAF6);
 
@@ -36,8 +36,10 @@ class AppColors {
   static const Color emptyCoffee = Color(0xFF5FC8AE);
   static const Color rateGreen = Color(0xFF1DCAB3);
   static const Color rateRed = Color(0xFFFF002F);
+
   static const Color defaultBackgroundSpace = Color(0xFFF9F9F9);
   static const Color lineBarGrey = Color(0xFFE5E5E5);
+  static const Color itemBackground = Color(0xFFF7F7F7);
 
   ///MARK:主題色彩
   static const Color mainThemeButton = Color(0xFF3B82F6);

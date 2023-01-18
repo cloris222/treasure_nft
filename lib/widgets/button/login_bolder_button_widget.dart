@@ -6,19 +6,20 @@ import 'package:treasure_nft_project/utils/app_text_style.dart';
 import '../../constant/theme/app_colors.dart';
 
 class LoginBolderButtonWidget extends StatelessWidget {
-  const LoginBolderButtonWidget(
-      {Key? key,
-      required this.btnText,
-      required this.onPressed,
-      this.width,
-      this.height,
-      this.radius = 15,
-      this.fontSize,
-      this.fontWeight,
-      this.isFillWidth = true,
-      this.margin = const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-      this.padding})
-      : super(key: key);
+  const LoginBolderButtonWidget({
+    Key? key,
+    required this.btnText,
+    required this.onPressed,
+    this.width,
+    this.height,
+    this.radius = 15,
+    this.fontSize,
+    this.fontWeight,
+    this.isFillWidth = true,
+    this.margin = const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+    this.padding,
+    this.alignment = Alignment.center,
+  }) : super(key: key);
   final String btnText;
   final VoidCallback onPressed;
   final double? width;
@@ -29,6 +30,7 @@ class LoginBolderButtonWidget extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry margin;
   final bool isFillWidth;
+  final AlignmentGeometry alignment;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,7 @@ class LoginBolderButtonWidget extends StatelessWidget {
             Rect.fromLTWH(0, 0, bounds.width, bounds.height),
           ),
           child: Container(
-              alignment: Alignment.center,
+              alignment: alignment,
               decoration: AppStyle().styleColorBorderBackground(
                   color: Colors.grey,
                   backgroundColor: Colors.transparent,

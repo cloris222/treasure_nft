@@ -35,21 +35,22 @@ class AllMembersCard extends StatelessWidget {
               child: InkWell(
                 onTap: () => onPressAll(),
                 child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        leftTitle,
-                        style: AppTextStyle.getBaseStyle(
-                          color: AppColors.textGrey,
-                          fontSize: UIDefine.fontSize12,
-                        ),
-                      ),
-                      viewModel.getPadding(1),
                       Text(
                         leftValue,
                         style: AppTextStyle.getBaseStyle(
-                          color: AppColors.mainThemeButton,
-                          fontSize: UIDefine.fontSize14,
+                          color: AppColors.textBlack,
+                          fontWeight: FontWeight.w600,
+                          fontSize: UIDefine.fontSize16,
+                        ),
+                      ),
+                      SizedBox(height: UIDefine.getPixelWidth(7)),
+                      Text(
+                        leftTitle,
+                        style: AppTextStyle.getBaseStyle(
+                          color: AppColors.textSixBlack,
+                          fontSize: UIDefine.fontSize12,
                         ),
                       ),
                     ]),
@@ -59,21 +60,22 @@ class AllMembersCard extends StatelessWidget {
               child: InkWell(
                 onTap: () => onPressActive(),
                 child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        rightTitle,
-                        style: AppTextStyle.getBaseStyle(
-                          color: AppColors.textGrey,
-                          fontSize: UIDefine.fontSize12,
-                        ),
-                      ),
-                      viewModel.getPadding(1),
                       Text(
                         rightValue,
                         style: AppTextStyle.getBaseStyle(
-                          color: AppColors.mainThemeButton,
-                          fontSize: UIDefine.fontSize14,
+                          color: AppColors.textBlack,
+                          fontWeight: FontWeight.w600,
+                          fontSize: UIDefine.fontSize16,
+                        ),
+                      ),
+                      SizedBox(height: UIDefine.getPixelWidth(7)),
+                      Text(
+                        rightTitle,
+                        style: AppTextStyle.getBaseStyle(
+                          color: AppColors.textSixBlack,
+                          fontSize: UIDefine.fontSize12,
                         ),
                       ),
                     ]),

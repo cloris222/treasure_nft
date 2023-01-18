@@ -71,6 +71,7 @@ class AppImagePath {
   static const String allLevelCurrentBar =
       '$_iconPath/icon_levelsquare_0{level}.png';
   static const String allLevelBar = '$_iconPath/icon_levelbig_0{level}.png';
+  static const String allLevelSmailBar ='$_iconPath/icon_levelrectanglesmall_0{level}.png';
   static const String beginner = '$_iconPath/icon_star_01.png';
   static const String reserving = '$_iconPath/icon_rotate_02.png';
 
@@ -150,8 +151,8 @@ class AppImagePath {
   ///等級
   static const String blueCheckIcon = '$_iconPath/icon_check_ok_02.png';
   static const String trophyIcon = '$_btnPath/btn_trophy_01.png';
-  static const String levelUnLock = '$_iconPath/icon_unlocked_01.png';
-  static const String levelLock = '$_iconPath/icon_locked_01.png';
+  static const String levelUnLock = '$_iconPath/icon_unlocked_02.png';
+  static const String levelLock = '$_iconPath/icon_locked_02.png';
   static const String bonusIcon = '$_imgPath/img_Piggy Bank_01.png';
 
   /// Team

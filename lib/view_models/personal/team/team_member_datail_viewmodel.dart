@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/models/http/api/group_api.dart';
 import 'package:treasure_nft_project/view_models/base_list_view_model.dart';
@@ -30,7 +29,11 @@ class TeamMemberDetailViewModel extends BaseListViewModel {
   Widget buildTopView() {
     return Column(
       children: [
-        TitleAppBar(title: tr('teamDetail')),
+        Container(
+            padding:
+                EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
+            color: Colors.white,
+            child: const TitleAppBar(title: '')),
         Padding(padding: EdgeInsets.all(UIDefine.getScreenWidth(3))),
       ],
     );
@@ -38,7 +41,9 @@ class TeamMemberDetailViewModel extends BaseListViewModel {
 
   @override
   Widget itemView(int index, data) {
-    return MemberDetailItemView(itemData: data);
+    return Container(
+        padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
+        child: MemberDetailItemView(itemData: data));
   }
 
   @override
