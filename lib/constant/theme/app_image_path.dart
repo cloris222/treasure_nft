@@ -71,7 +71,8 @@ class AppImagePath {
   static const String allLevelCurrentBar =
       '$_iconPath/icon_levelsquare_0{level}.png';
   static const String allLevelBar = '$_iconPath/icon_levelbig_0{level}.png';
-  static const String allLevelSmailBar ='$_iconPath/icon_levelrectanglesmall_0{level}.png';
+  static const String allLevelSmailBar =
+      '$_iconPath/icon_levelrectanglesmall_0{level}.png';
   static const String beginner = '$_iconPath/icon_star_01.png';
   static const String reserving = '$_iconPath/icon_rotate_02.png';
 
@@ -159,6 +160,8 @@ class AppImagePath {
   static const String dateIcon = '$_btnPath/btn_calendar_01.png';
   static const String checkIcon02 = '$_imgPath/img_check_02.png';
   static const String shareIcon02 = '$_iconPath/icon_share_02.png';
+  static const String orderBought = '$_iconPath/icon_bought_01.png';
+  static const String orderSold = '$_iconPath/icon_sold_01.png';
 
   /// beginner course
   static const String userGradient = '$_iconPath/icon_user_02.png';

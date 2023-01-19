@@ -81,9 +81,9 @@ class TeamMemberViewModel extends BaseViewModel {
     return DateFormat('yyyy-MM-dd').format(dateTime);
   }
 
-  Widget getCoinImage() {
+  Widget getCoinImage({double size = 14}) {
     return SizedBox(
-      height: UIDefine.getScreenWidth(4),
+      height: UIDefine.getPixelWidth(size),
       child: Image.asset(AppImagePath.tetherImg),
     );
   }
@@ -96,7 +96,7 @@ class TeamMemberViewModel extends BaseViewModel {
 
   OutlineInputBorder setOutlineInputBorder() {
     return const OutlineInputBorder(
-        borderSide: BorderSide(color: AppColors.datePickerBorder, width: 3),
-        borderRadius: BorderRadius.all(Radius.circular(10)));
+        borderSide: BorderSide(color: AppColors.bolderGrey, width: 1),
+        borderRadius: BorderRadius.all(Radius.circular(8)));
   }
 }

@@ -51,11 +51,13 @@ class _PersonalMainViewState extends State<PersonalMainView> {
               Padding(
                   padding: EdgeInsets.all(UIDefine.getScreenWidth(5.5)),
                   child: PersonalNewSubUserInfoView(
-                      onViewUpdate: () {
-                        setState(() {});
-                        widget.onViewChange();
-                      },
-                      showDailyTask: true)),
+                    onViewUpdate: () {
+                      setState(() {});
+                      widget.onViewChange();
+                    },
+                    showDailyTask: true,
+                    enableModify: true,
+                  )),
               Container(
                   margin: EdgeInsets.symmetric(
                       horizontal: UIDefine.getScreenWidth(3.5)),

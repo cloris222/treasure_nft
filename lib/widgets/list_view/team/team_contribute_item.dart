@@ -17,26 +17,31 @@ class TeamContributeItemView extends StatelessWidget {
   Widget build(BuildContext context) {
     TeamMemberViewModel viewModel = TeamMemberViewModel();
     return Container(
-        padding: EdgeInsets.all(UIDefine.getScreenWidth(3)),
+        margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(12)),
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text('$itemCount. ${itemData.name}',
-              style: AppTextStyle.getBaseStyle(
-                  fontSize: UIDefine.fontSize12,
-                  color: AppColors.dialogGrey,
-                  fontWeight: FontWeight.w500)),
-          SizedBox(
-              width: UIDefine.getScreenWidth(25),
-              child: Row(children: [
-                viewModel.getCoinImage(),
-                viewModel.getPadding(1),
-                Text(NumberFormatUtil().removeTwoPointFormat(itemData.share),
-                    style: AppTextStyle.getBaseStyle(
-                        fontSize: UIDefine.fontSize12,
-                        color: AppColors.textBlack,
-                        fontWeight: FontWeight.w500),
-                    textAlign: TextAlign.start)
-              ]))
+          Expanded(
+            flex: 2,
+            child: Text('$itemCount. ${itemData.name}',
+                textAlign: TextAlign.start,
+                style: AppTextStyle.getBaseStyle(
+                    fontSize: UIDefine.fontSize14,
+                    color: AppColors.textThreeBlack,
+                    fontWeight: FontWeight.w400)),
+          ),
+          Expanded(
+            flex: 1,
+            child: Row(children: [
+              viewModel.getCoinImage(),
+              viewModel.getPadding(1),
+              Text(NumberFormatUtil().removeTwoPointFormat(itemData.share),
+                  style: AppTextStyle.getBaseStyle(
+                      fontSize: UIDefine.fontSize14,
+                      color: AppColors.textBlack,
+                      fontWeight: FontWeight.w400),
+                  textAlign: TextAlign.start)
+            ]),
+          )
         ]));
   }
 }

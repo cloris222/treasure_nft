@@ -52,7 +52,9 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
             setState(() {});
           }
         },
-        topView: _buildTopView);
+        topView: _buildTopView,
+        padding: EdgeInsets.only(
+            bottom: UIDefine.navigationBarPadding + UIDefine.getPixelWidth(5)));
     viewModel.initListView();
   }
 
@@ -62,7 +64,7 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
           left: UIDefine.getScreenWidth(6), right: UIDefine.getScreenWidth(6)),
       child: viewModel.buildGridView(
           crossAxisCount: 2,
-          childAspectRatio: 0.4,
+          childAspectRatio: 0.5,
           mainAxisSpacing: UIDefine.getScreenHeight(3),
           crossAxisSpacing: UIDefine.getScreenWidth(3)),
     );
@@ -101,16 +103,13 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
                 onTap: () => _onPressSort(),
                 child: Container(
                   alignment: Alignment.center,
-                  width: UIDefine.getScreenWidth(17.77),
-                  height: UIDefine.getScreenWidth(13.88),
-                  decoration: viewMemberModel.setBoxDecoration(),
-                  child: Image.asset('assets/icon/btn/btn_sort_01_nor.png'),
+                  width: UIDefine.getPixelWidth(50),
+                  child: Image.asset('assets/icon/btn/btn_filter_02.png'),
                 ))
           ]),
         ),
 
         viewMemberModel.getPadding(3),
-        SizedBox(height: UIDefine.navigationBarPadding)
       ],
     );
   }
@@ -148,9 +147,9 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
                   prefixIcon:
                       Image.asset('assets/icon/btn/btn_discover_01_nor.png'),
                   hintText: tr("select-placeholder'"),
-                  hintStyle:
-                       AppTextStyle.getBaseStyle(height: 1.6, color: AppColors.searchBar),
-                  labelStyle:  AppTextStyle.getBaseStyle(color: Colors.black),
+                  hintStyle: AppTextStyle.getBaseStyle(
+                      height: 1.6, color: AppColors.textHintGrey),
+                  labelStyle: AppTextStyle.getBaseStyle(color: Colors.black),
                   alignLabelWithHint: true,
                   border: viewMemberModel.setOutlineInputBorder(),
                   focusedBorder: viewMemberModel.setOutlineInputBorder(),
@@ -185,7 +184,9 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
             child: Row(
               children: <Widget>[
                 Text(_getCategoryText(category),
-                    style:  AppTextStyle.getBaseStyle(color: AppColors.searchBar)),
+                    style: AppTextStyle.getBaseStyle(
+                        color: AppColors.textHintGrey,
+                        fontSize: UIDefine.fontSize14)),
               ],
             ));
       }).toList(),
@@ -215,7 +216,9 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
             child: Row(
               children: <Widget>[
                 Text(_getCategoryText(category),
-                    style:  AppTextStyle.getBaseStyle(color: AppColors.searchBar)),
+                    style: AppTextStyle.getBaseStyle(
+                        color: AppColors.textHintGrey,
+                        fontSize: UIDefine.fontSize14)),
               ],
             ));
       }).toList(),

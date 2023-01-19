@@ -32,6 +32,8 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
       this.enableLevel = true,
       this.enablePoint = true,
       this.showId = true,
+      this.showPoint = true,
+      this.enableModify = false,
       this.userLevelInfo});
 
   ///MARK: 是否顯示他人
@@ -41,6 +43,9 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
   final CheckLevelInfo? userLevelInfo;
   final bool enableLevel;
   final bool enablePoint;
+
+  final bool enableModify;
+  final bool showPoint;
   final bool showId;
 
   UserInfoData get userInfo {
@@ -124,30 +129,33 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
                               Image.asset(AppImagePath.arrowRight)
                             ]))),
                     const SizedBox(width: 6),
-                    InkWell(
-                        onTap: () => _showPointPage(context),
-                        child: Container(
-                            padding: const EdgeInsets.all(5),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              border:
-                                  Border.all(color: AppColors.textNineBlack),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const SizedBox(width: 5),
-                                  SizedBox(height: UIDefine.fontSize18),
-                                  Text('${userInfo.point} ${tr('lv_point')}',
-                                      style: AppTextStyle.getBaseStyle(
-                                          fontSize: UIDefine.fontSize12,
-                                          color: AppColors.textBlack,
-                                          fontWeight: FontWeight.w400)),
-                                  SizedBox(width: UIDefine.getScreenWidth(2)),
-                                  Image.asset(AppImagePath.arrowRight)
-                                ])))
+                    Visibility(
+                      visible: showPoint,
+                      child: InkWell(
+                          onTap: () => _showPointPage(context),
+                          child: Container(
+                              padding: const EdgeInsets.all(5),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                border:
+                                    Border.all(color: AppColors.textNineBlack),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const SizedBox(width: 5),
+                                    SizedBox(height: UIDefine.fontSize18),
+                                    Text('${userInfo.point} ${tr('lv_point')}',
+                                        style: AppTextStyle.getBaseStyle(
+                                            fontSize: UIDefine.fontSize12,
+                                            color: AppColors.textBlack,
+                                            fontWeight: FontWeight.w400)),
+                                    SizedBox(width: UIDefine.getScreenWidth(2)),
+                                    Image.asset(AppImagePath.arrowRight)
+                                  ]))),
+                    )
                   ])
                 ],
               ),
@@ -218,11 +226,13 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
   }
 
   void _showModifyAvatar(BuildContext context) {
-    EditAvatarDialog(context, isAvatar: true, onChange: () {
-      if (onViewUpdate != null) {
-        onViewUpdate!();
-      }
-    }).show();
+    if (enableModify) {
+      EditAvatarDialog(context, isAvatar: true, onChange: () {
+        if (onViewUpdate != null) {
+          onViewUpdate!();
+        }
+      }).show();
+    }
   }
 
   void _showLevelInfoPage(BuildContext context) {

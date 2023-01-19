@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/view_models/base_list_view_model.dart';
 
 import '../../../constant/call_back_function.dart';
-import '../../../constant/theme/app_colors.dart';
-import '../../../constant/ui_define.dart';
 import '../../../models/http/api/group_api.dart';
 import '../../../models/http/parameter/team_contribute_data.dart';
 import '../../../widgets/list_view/team/team_contribute_item.dart';
 
 class TeamContributionViewModel extends BaseListViewModel {
-  TeamContributionViewModel({required super.onListChange,super.padding});
+  TeamContributionViewModel({required super.onListChange, super.padding});
 
   TeamContribute teamContribute = TeamContribute();
   String startDate = '';
@@ -34,8 +32,8 @@ class TeamContributionViewModel extends BaseListViewModel {
   @override
   Widget buildSeparatorView(BuildContext context, int index) {
     return Divider(
-      height: UIDefine.getScreenWidth(4.16),
-      color: AppColors.datePickerBorder,
+      height: 0.5,
+      color: const Color(0xFFE1E1E1),
     );
   }
 

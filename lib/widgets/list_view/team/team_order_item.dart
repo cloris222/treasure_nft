@@ -8,6 +8,7 @@ import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
 import 'package:treasure_nft_project/views/personal/team/share_team_order_page.dart';
+import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 
@@ -28,15 +29,20 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Stack(
-        alignment: Alignment.topLeft,
-        children: [
-          GraduallyNetworkImage(
-            imageUrl: widget.itemData.imgUrl,
-            fit: BoxFit.contain,
-          ),
-          Positioned(child: _buildOrderType())
-        ],
+      ClipRRect(
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        child: Stack(
+          alignment: Alignment.topLeft,
+          children: [
+            GraduallyNetworkImage(
+              width: UIDefine.getWidth(),
+              height: UIDefine.getPixelWidth(100),
+              imageUrl: widget.itemData.imgUrl,
+              fit: BoxFit.cover,
+            ),
+            Positioned(top: 0, left: 0, child: _buildOrderType())
+          ],
+        ),
       ),
       viewModel.getPadding(1),
 
@@ -48,12 +54,14 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
             widget.itemData.getItemName(),
             maxLines: 1,
             style: AppTextStyle.getBaseStyle(
-                fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                fontSize: UIDefine.fontSize14,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textThreeBlack),
           ),
 
           /// Share
           Visibility(
-              visible: widget.itemData.type == 'SELL',
+              visible: widget.itemData.type == 'SELL' && false,
               child: GestureDetector(
                   onTap: _onPressShare,
                   child: SizedBox(
@@ -69,7 +77,9 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
       Wrap(children: [
         Text(viewModel.changeTimeZone(widget.itemData.time),
             style: AppTextStyle.getBaseStyle(
-                fontSize: UIDefine.fontSize12, color: AppColors.textGrey))
+                fontSize: UIDefine.fontSize12,
+                color: AppColors.textNineBlack,
+                fontWeight: FontWeight.w400))
       ]),
 
       viewModel.getPadding(1),
@@ -83,21 +93,15 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
               tr('buyer'),
               style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize12,
-                color: AppColors.textGrey,
+                color: AppColors.textSixBlack,
               ),
             ),
             SizedBox(width: UIDefine.getScreenWidth(5)),
             Flexible(
               child: GestureDetector(
                 onTap: () => _onPressBuyer(),
-                child: Text(
-                  widget.itemData.buyerName,
-                  textAlign: TextAlign.end,
-                  style: AppTextStyle.getBaseStyle(
-                      fontSize: UIDefine.fontSize12,
-                      color: AppColors.mainThemeButton,
-                      fontWeight: FontWeight.w500),
-                ),
+                child: GradientThirdText(widget.itemData.buyerName,
+                    size: UIDefine.fontSize12, weight: FontWeight.w600),
               ),
             ),
           ]),
@@ -113,21 +117,15 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
               tr('seller'),
               style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize12,
-                color: AppColors.textGrey,
+                color: AppColors.textSixBlack,
               ),
             ),
             SizedBox(width: UIDefine.getScreenWidth(5)),
             Flexible(
               child: GestureDetector(
                 onTap: () => _onPressSeller(),
-                child: Text(
-                  widget.itemData.sellerName,
-                  textAlign: TextAlign.end,
-                  style: AppTextStyle.getBaseStyle(
-                      fontSize: UIDefine.fontSize12,
-                      color: AppColors.mainThemeButton,
-                      fontWeight: FontWeight.w500),
-                ),
+                child: GradientThirdText(widget.itemData.sellerName,
+                    size: UIDefine.fontSize12, weight: FontWeight.w600),
               ),
             ),
           ]),
@@ -146,19 +144,20 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
             tr('income'),
             style: AppTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize12,
-              color: AppColors.textGrey,
+              color: AppColors.textSixBlack,
             ),
           ),
           viewModel.getPadding(1),
           Row(
             children: [
-              viewModel.getCoinImage(),
+              viewModel.getCoinImage(size: 12),
               viewModel.getPadding(0.5),
               Text(
                 NumberFormatUtil().removeTwoPointFormat(widget.itemData.income),
                 style: AppTextStyle.getBaseStyle(
-                  fontSize: UIDefine.fontSize12,
-                ),
+                    fontSize: UIDefine.fontSize12,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textBlack),
               ),
             ],
           )
@@ -179,41 +178,41 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
             tr('goldStorageTank'),
             style: AppTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize12,
-              color: AppColors.textGrey,
+              color: AppColors.textSixBlack,
             ),
           ),
           viewModel.getPadding(1),
           Row(
             children: [
-              viewModel.getCoinImage(),
+              viewModel.getCoinImage(size: 12),
               viewModel.getPadding(0.5),
               Text(
                 NumberFormatUtil()
                     .removeTwoPointFormat(widget.itemData.moneyBox),
                 style: AppTextStyle.getBaseStyle(
-                  fontSize: UIDefine.fontSize12,
-                ),
+                    fontSize: UIDefine.fontSize12,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textBlack),
               ),
             ],
           )
         ]),
       ),
       const Spacer(),
-      const Divider(
-        color: AppColors.datePickerBorder,
-      ),
+      const Divider(color: Color(0xFFEDEDED)),
 
       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Container(),
         Row(
           children: [
-            viewModel.getCoinImage(),
+            viewModel.getCoinImage(size: 12),
             viewModel.getPadding(0.5),
             Text(
               NumberFormatUtil().removeTwoPointFormat(widget.itemData.price),
               style: AppTextStyle.getBaseStyle(
-                fontSize: UIDefine.fontSize12,
-              ),
+                  fontSize: UIDefine.fontSize12,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textBlack),
             ),
           ],
         )
@@ -222,29 +221,17 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
   }
 
   Widget _buildOrderType() {
-    Color bg;
-    String text;
+    String imagePath;
     if (widget.itemData.type == 'SELL') {
-      bg = AppColors.textRed;
-      text = tr('type_SELL');
+      imagePath = AppImagePath.orderSold;
     } else {
-      bg = AppColors.growPrice;
-      text = tr('ord_bought');
+      imagePath = AppImagePath.orderBought;
     }
 
     return Container(
-        constraints: BoxConstraints(minWidth: UIDefine.getScreenWidth(15)),
-        padding: EdgeInsets.symmetric(
-            vertical: UIDefine.getScreenHeight(1),
-            horizontal: UIDefine.getScreenWidth(1)),
-        color: bg,
-        child: Text(text,
-            maxLines: 1,
-            textAlign: TextAlign.center,
-            style: AppTextStyle.getBaseStyle(
-                color: Colors.white,
-                fontSize: UIDefine.fontSize12,
-                fontWeight: FontWeight.w500)));
+      constraints: BoxConstraints(minWidth: UIDefine.getScreenWidth(15)),
+      child: Image.asset(imagePath),
+    );
   }
 
   void _onPressShare() {

@@ -87,8 +87,8 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
       SizedBox(
         height: UIDefine.getPixelWidth(180),
         child: Image.asset(
-            format(
-                AppImagePath.levelBar, ({'level': GlobalData.userInfo.level})),
+            format(AppImagePath.levelBar,
+                ({'level': GlobalData.userInfo.level + 1})),
             fit: BoxFit.fitHeight),
       ),
       Positioned(

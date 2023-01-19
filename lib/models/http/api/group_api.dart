@@ -1,7 +1,6 @@
 import 'package:treasure_nft_project/models/http/http_manager.dart';
 import 'package:treasure_nft_project/models/http/http_setting.dart';
 import 'package:treasure_nft_project/models/http/parameter/api_response.dart';
-import 'package:treasure_nft_project/models/http/parameter/lower_nft_data.dart';
 import 'package:treasure_nft_project/models/http/parameter/other_collect_data.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_contribute_data.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_contribute_list_data.dart';
@@ -96,6 +95,10 @@ class GroupAPI extends HttpManager {
     });
     for (Map<String, dynamic> json in response.data['pageList']) {
       list.add(TeamContributeList.fromJson(json));
+      list.add(TeamContributeList.fromJson(json));
+      list.add(TeamContributeList.fromJson(json));
+      list.add(TeamContributeList.fromJson(json));
+
     }
     return list;
   }
