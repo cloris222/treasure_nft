@@ -136,12 +136,40 @@ class DateFormatUtil {
     return '$year-${NumberFormatUtil().integerTwoFormat(month)}-${NumberFormatUtil().integerTwoFormat(1)}';
   }
 
+  ///MARK: 取得當月第一天的星期
+  int getCurrentMonthFirstWeek() {
+    DateTime day = DateTime.parse('${getCurrentMonthFirst()} 00:00:00');
+    return day.weekday;
+  }
+
   ///MARK: 取得當月最後一天
   String getCurrentMonthLast() {
     var year = _getNow().year;
     var month = _getNow().month;
     int days = DateTime(year, month + 1, 0).day;
     return '$year-${NumberFormatUtil().integerTwoFormat(month)}-${NumberFormatUtil().integerTwoFormat(days)}';
+  }
+
+  ///MARK: 取得當月最後一天的星期
+  int getCurrentMonthLastWeek() {
+    DateTime day = DateTime.parse('${getCurrentMonthLast()} 00:00:00');
+    return day.weekday;
+  }
+
+  ///MARK: 取得前一個月的倒數第N天
+  String getPreMonthLastDay(int day) {
+    DateTime monthFirstDay =
+        DateTime.parse('${getCurrentMonthFirst()} 00:00:00');
+    DateTime dateTime = monthFirstDay.subtract(Duration(days: day));
+    return buildFormat(strFormat: 'yyyy-MM-dd', time: dateTime);
+  }
+
+  ///MARK: 取得後一個月的第N天
+  String getNextMonthLastDay(int day) {
+    DateTime monthFirstDay =
+        DateTime.parse('${getCurrentMonthLast()} 00:00:00');
+    DateTime dateTime = monthFirstDay.add(Duration(days: day));
+    return buildFormat(strFormat: 'yyyy-MM-dd', time: dateTime);
   }
 
   String getBeforeDays(int day) {

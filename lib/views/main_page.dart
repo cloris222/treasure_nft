@@ -13,6 +13,7 @@ import 'package:treasure_nft_project/views/sigin_in_page.dart';
 import 'package:treasure_nft_project/views/trade/trade_main_view.dart';
 import 'package:treasure_nft_project/views/wallet/wallet_main_view.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
+import 'package:treasure_nft_project/widgets/bottom_sheet/page_bottom_sheet.dart';
 
 import '../constant/global_data.dart';
 import '../constant/ui_define.dart';
@@ -120,13 +121,10 @@ class _MainPageState extends State<MainPage> {
   void showSignView() {
     Future.delayed(const Duration(seconds: 1)).then((value) {
       if (GlobalData.signInInfo != null) {
-        viewModel
-            .pushOpacityPage(
-                context,
-                SignInPage(
-                  data: GlobalData.signInInfo!,
-                ))
-            .then((value) => viewModel.setSignIn(context));
+        PageBottomSheet(context,
+            page: SignInPage(
+              data: GlobalData.signInInfo!,
+            )).show().then((value) => viewModel.setSignIn(context));
       }
     });
   }

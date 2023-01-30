@@ -4,15 +4,14 @@ import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/utils/date_format_util.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
-import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import '../constant/theme/app_colors.dart';
 import '../constant/theme/app_image_path.dart';
 import '../constant/ui_define.dart';
 import '../models/http/parameter/sign_in_data.dart';
 import '../view_models/base_view_model.dart';
-import '../widgets/label/gradient_bolder_widget.dart';
 
 ///MARK: 每日簽到
 class SignInPage extends StatelessWidget {
@@ -22,82 +21,148 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppColors.opacityBackground,
+        backgroundColor: Colors.white,
         body: WillPopScope(
             onWillPop: () async {
               return false;
             },
             child: Container(
-                padding: EdgeInsets.symmetric(
-                    vertical: MediaQuery.of(context).padding.top,
-                    horizontal: MediaQuery.of(context).padding.top),
-                alignment: Alignment.center,
-                child: GradientBolderWidget(
-                    autoHeight: true,
-                    child: Column(mainAxisSize: MainAxisSize.min, children: [
-                      Image.asset(AppImagePath.signInBar, fit: BoxFit.fitWidth),
-                      _buildDailyBody(context)
-                    ])))));
+              alignment: Alignment.center,
+              child: _buildDailyBody(context),
+            )));
   }
 
   Widget _buildDailyBody(BuildContext context) {
-    List<String> days = DateFormatUtil().getCurrentMonthDays();
-    String currentDay = DateFormatUtil().getNowTimeWithDayFormat();
     return Container(
         margin: EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(5)),
         child: Column(children: [
-          _buildTitle(context),
+          TitleAppBar(title: tr('dailyMissionRewards'), needArrowIcon: false),
+          _buildMonth(),
+          const SizedBox(height: 10),
+          _buildWeek(context),
           const SizedBox(height: 5),
-          Container(
-            height: UIDefine.getHeight() * 0.55,
-            alignment: Alignment.topCenter,
-            child: MediaQuery.removePadding(
-                removeTop: true,
-                context: context,
-                child: GridView.builder(
-                  itemBuilder: (BuildContext context, int index) =>
-                      _buildItem(context, index, days[index], currentDay),
-                  itemCount: days.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 5,
-                      childAspectRatio: 1,
-                      mainAxisSpacing: UIDefine.getScreenWidth(1),
-                      crossAxisSpacing: UIDefine.getScreenWidth(1)),
-                )),
-          ),
+          _buildDays(context),
           LoginButtonWidget(
-              radius: 5,
+              radius: 22,
+              fontWeight: FontWeight.w600,
               fontSize: UIDefine.fontSize16,
-              height: UIDefine.fontSize30,
+              height: UIDefine.getPixelWidth(45),
               btnText: tr('checkin'),
               onPressed: () => _onPressSignIn(context)),
-          const SizedBox(height: 5),
+          const SizedBox(height: 10),
         ]));
   }
 
-  Widget _buildTitle(BuildContext context) {
-    return Stack(children: [
-      SizedBox(
-        width: UIDefine.getWidth(),
-        child: Text('　  ${tr('dailyMissionRewards')}',
-            softWrap: true,
-            maxLines: 3,
-            style: AppTextStyle.getBaseStyle(
-                fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize20)),
+  Widget _buildWeek(BuildContext context) {
+    return Container(
+        height: UIDefine.getPixelWidth(20),
+        alignment: Alignment.topCenter,
+        child: Row(
+          children: List<Widget>.generate(7, (index) {
+            String weekText;
+            switch (index + 1) {
+              case 1:
+                {
+                  weekText = tr('monday');
+                }
+                break;
+              case 2:
+                {
+                  weekText = tr('tuesday');
+                }
+                break;
+              case 3:
+                {
+                  weekText = tr('wednesday');
+                }
+                break;
+              case 4:
+                {
+                  weekText = tr('thursday');
+                }
+                break;
+              case 5:
+                {
+                  weekText = tr('friday');
+                }
+                break;
+              case 6:
+                {
+                  weekText = tr('saturday');
+                }
+                break;
+              default:
+                {
+                  weekText = tr('sunday');
+                }
+                break;
+            }
+            return Expanded(
+              child: Container(
+                  alignment: Alignment.topCenter,
+                  child: Text(
+                    weekText,
+                    style: AppTextStyle.getBaseStyle(
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textNineBlack,
+                        fontSize: UIDefine.fontSize12),
+                  )),
+            );
+          }),
+        ));
+  }
+
+  Widget _buildDays(BuildContext context) {
+    List<String> days = [];
+
+    ///補齊前面未滿的部分
+    int firstWeek = DateFormatUtil().getCurrentMonthFirstWeek();
+    for (int i = firstWeek; i > 1; i--) {
+      // days.add(DateFormatUtil().getPreMonthLastDay(i));
+      days.add('');
+    }
+
+    ///加入當前月份
+    days.addAll(DateFormatUtil().getCurrentMonthDays());
+
+    ///補齊後面月份
+    int endWeek = DateFormatUtil().getCurrentMonthLastWeek();
+    for (int i = 1; i <= 7 - endWeek; i++) {
+      // days.add(DateFormatUtil().getNextMonthLastDay(i));
+      days.add('');
+    }
+    String currentDay = DateFormatUtil().getNowTimeWithDayFormat();
+
+    return Expanded(
+      child: Center(
+        child: MediaQuery.removePadding(
+            removeTop: true,
+            context: context,
+            child: ListView.separated(
+              itemBuilder: (BuildContext context, int rowIndex) {
+                return Row(
+                    children: List<Widget>.generate(
+                        7,
+                        (index) => Expanded(
+                              child: _buildItem(context, index,
+                                  days[rowIndex * 7 + index], currentDay),
+                            )));
+              },
+              itemCount: days.length ~/ 7,
+              separatorBuilder: (BuildContext context, int index) {
+                return SizedBox(height: UIDefine.getPixelWidth(5));
+              },
+            )),
       ),
-      Positioned(
-          top: 0,
-          left: 0,
-          child: Image.asset(AppImagePath.signTitle,
-              height: UIDefine.fontSize24, fit: BoxFit.contain))
-    ]);
+    );
   }
 
   Widget _buildItem(
       BuildContext context, int index, String day, String currentDay) {
-    double size = UIDefine.getScreenWidth(16);
+    if (day.isEmpty) {
+      return const SizedBox();
+    }
     String dayPath;
-    bool needMask = false;
     if (currentDay.compareTo(day) > 0) {
       dayPath = (data.finishedDateList.contains(day))
           ? AppImagePath.dailySignInIcon
@@ -105,46 +170,39 @@ class SignInPage extends StatelessWidget {
     } else if (currentDay.compareTo(day) == 0) {
       dayPath = AppImagePath.dailyCurrentDay;
     } else {
-      needMask = true;
-      dayPath = format(AppImagePath.dailyDayIcon,
-          {'day': NumberFormatUtil().integerTwoFormat(index + 1)});
+      dayPath = AppImagePath.dailyUnSignInIcon;
     }
 
-    return needMask
-        ? ShaderMask(
-            blendMode: BlendMode.lighten,
-            shaderCallback: (Rect bounds) {
-              return LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.white.withOpacity(0.3),
-                    Colors.white.withOpacity(0.4)
-                  ]).createShader(
-                  Rect.fromLTWH(0, 0, bounds.width, bounds.height));
-            },
-            child: _buildImage(size, dayPath))
-        : _buildImage(size, dayPath);
-  }
-
-  Widget _buildImage(double size, String dayPath) {
-    return Stack(children: [
-      BaseIconWidget(
-        imageAssetPath: dayPath,
-        size: size,
-      ),
-      Positioned(
-          bottom: 3,
-          right: 3,
-          child: BaseIconWidget(
-            imageAssetPath: AppImagePath.dailyPointIcon,
-            size: UIDefine.getScreenWidth(7.5),
-          ))
-    ]);
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Image.asset(dayPath,
+            height: UIDefine.getPixelWidth(58), fit: BoxFit.contain),
+        Text(
+          day.substring(5).replaceAll('-', '.'),
+          style: AppTextStyle.getBaseStyle(
+              color: AppColors.textSixBlack,
+              fontSize: UIDefine.fontSize10,
+              fontWeight: FontWeight.w600),
+        )
+      ],
+    );
   }
 
   void _onPressSignIn(BuildContext context) async {
     GlobalData.signInInfo = null;
     BaseViewModel().popPage(context);
+  }
+
+  Widget _buildMonth() {
+    String month = format('{year}${tr('year')}{month}${tr('month')}', {
+      "year": DateTime.now().year,
+      "month": NumberFormatUtil().integerTwoFormat(DateTime.now().month)
+    });
+    return Text(month,
+        style: AppTextStyle.getBaseStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: UIDefine.fontSize14,
+            color: AppColors.textSixBlack));
   }
 }

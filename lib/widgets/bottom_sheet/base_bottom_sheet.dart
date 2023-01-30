@@ -19,17 +19,17 @@ abstract class BaseBottomSheet {
   bool needPercentage; //判斷是否需要%比
   Color? backgroundColor;
 
-  void show() {
+  Future<void> show() async {
     init();
     if (needPercentage) {
-      _showPercentage();
+      await _showPercentage();
     } else {
-      _showNoPercentage();
+      await _showNoPercentage();
     }
   }
 
-  void _showPercentage() {
-    showModalBottomSheet(
+  Future<void> _showPercentage() async {
+    await showModalBottomSheet(
         backgroundColor: backgroundColor,
         transitionAnimationController: controller,
         isScrollControlled: true,
@@ -44,8 +44,8 @@ abstract class BaseBottomSheet {
         });
   }
 
-  void _showNoPercentage() {
-    showModalBottomSheet(
+  Future<void> _showNoPercentage() async {
+    await showModalBottomSheet(
         backgroundColor: backgroundColor,
         transitionAnimationController: controller,
         shape: const RoundedRectangleBorder(

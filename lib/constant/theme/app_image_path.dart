@@ -171,11 +171,10 @@ class AppImagePath {
   /// sign in
   static const String signInBar = '$daily/img_daily_reward_02.png';
   static const String signTitle = '$daily/icon_date_02.png';
-  static const String dailyDayIcon = '$month/btn_daily_reward_nor_{day}.png';
-  static const String dailyPointIcon = '$daily/icon_badge_plus5.png';
-  static const String dailyCurrentDay = '$daily/btn_daily_reward_pre_02.png';
-  static const String dailySignInIcon = '$daily/btn_daily_reward_finish_02.png';
-  static const String dailyFailIcon = '$daily/btn_daily_reward_disable_02.png';
+  static const String dailyCurrentDay = '$_iconPath/icon_date_04.png';
+  static const String dailySignInIcon = '$_iconPath/icon_date_01.png';
+  static const String dailyFailIcon = '$_iconPath/icon_date_02.png';
+  static const String dailyUnSignInIcon = '$_iconPath/icon_date_03.png';
 
   /// Sharing Center
   static const String rewardGradient = '$_iconPath/icon_rewards_01.png';
