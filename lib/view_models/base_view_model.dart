@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:format/format.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
-import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/models/http/api/order_api.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
@@ -19,7 +18,8 @@ import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/views/notify/notify_level_up_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/bottom_sheet/page_bottom_sheet.dart';
-import 'package:treasure_nft_project/widgets/image_dialog.dart';
+import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
+import 'package:treasure_nft_project/widgets/dialog/level_up_one_dialog.dart';
 
 import '../constant/call_back_function.dart';
 import '../constant/global_data.dart';
@@ -427,13 +427,14 @@ class BaseViewModel {
           getGlobalContext(),
           const FullAnimationPage(
               animationPath: AppAnimationPath.buyNFTSuccess, limitTimer: 4));
-      await ImageDialog(
+      await CommonCustomDialog(
         getGlobalContext(),
-        mainText: tr('buy_remind_title'),
-        subText: tr('buy_remind_content'),
-        buttonText: tr('gotoPost'),
-        assetImagePath: AppImagePath.notifyGift,
-        callOkFunction: () {
+        title: tr('buy_remind_title'),
+        content: tr('buy_remind_content'),
+        rightBtnText: tr('gotoPost'),
+        type: DialogImageType.success,
+        onLeftPress: () {},
+        onRightPress: () {
           pushAndRemoveUntil(getGlobalContext(),
               const MainPage(type: AppNavigationBarType.typeCollection));
         },
@@ -448,17 +449,7 @@ class BaseViewModel {
 
     ///MARK: 顯示彈窗
     if (oldLevel == 0 && newLevel == 1) {
-      ImageDialog(
-        getGlobalContext(),
-        mainText: tr('lv_remind_title'),
-        subText: tr('lv_remind_content'),
-        buttonText: tr('gotoUse'),
-        assetImagePath: AppImagePath.notifyGift,
-        callOkFunction: () {
-          pushAndRemoveUntil(getGlobalContext(),
-              const MainPage(type: AppNavigationBarType.typeTrade));
-        },
-      ).show();
+      pushOpacityPage(getGlobalContext(), const LevelUpOneDialog());
     }
 
     ///MARK: 儲金罐動畫

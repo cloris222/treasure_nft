@@ -155,6 +155,7 @@ class AppImagePath {
   static const String levelUnLock = '$_iconPath/icon_unlocked_02.png';
   static const String levelLock = '$_iconPath/icon_locked_02.png';
   static const String bonusIcon = '$_imgPath/img_Piggy Bank_01.png';
+  static const String levelUpCoin = '$_iconPath/icon_coin_01.png';
 
   /// Team
   static const String dateIcon = '$_btnPath/btn_calendar_01.png';

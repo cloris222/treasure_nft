@@ -23,6 +23,7 @@ class CommonCustomDialog extends BaseDialog {
     this.rightBtnText = '',
     required this.onLeftPress,
     required this.onRightPress,
+    super.radius = 14,
   });
 
   DialogImageType type;
@@ -48,34 +49,36 @@ class CommonCustomDialog extends BaseDialog {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        _getImage(),
+        SizedBox(
+            width: UIDefine.getPixelWidth(70),
+            height: UIDefine.getPixelWidth(70),
+            child: _getImage()),
         Visibility(
             visible: title != '',
             child: Column(
               children: [
-                SizedBox(height: UIDefine.getScreenWidth(2.7)),
+                SizedBox(height: UIDefine.getPixelWidth(20)),
                 Text(title,
                     textAlign: TextAlign.center,
                     style: AppTextStyle.getBaseStyle(
-                        color: AppColors.textBlack,
-                        fontSize: UIDefine.fontSize24,
-                        fontWeight: FontWeight.w500))
+                        color: AppColors.textThreeBlack,
+                        fontSize: UIDefine.fontSize16,
+                        fontWeight: FontWeight.w600))
               ],
             )),
         Visibility(
             visible: content != '',
             child: Column(
               children: [
-                SizedBox(height: UIDefine.getScreenWidth(2.7)),
+                SizedBox(height: UIDefine.getPixelWidth(12)),
                 Text(content,
                     textAlign: TextAlign.center,
                     style: AppTextStyle.getBaseStyle(
-                        color: AppColors.dialogGrey,
-                        fontSize: UIDefine.fontSize14,
-                        fontWeight: FontWeight.w500))
+                        color: AppColors.textThreeBlack,
+                        fontSize: UIDefine.fontSize14))
               ],
             )),
-        SizedBox(height: UIDefine.getScreenWidth(8.5)),
+        SizedBox(height: UIDefine.getPixelWidth(24)),
         _getButton()
       ],
     );
@@ -84,17 +87,22 @@ class CommonCustomDialog extends BaseDialog {
   Widget _getImage() {
     switch (type) {
       case DialogImageType.success:
-        return Image.asset(AppImagePath.dialogSuccess);
+        return Image.asset(AppImagePath.dialogSuccess, fit: BoxFit.contain);
       case DialogImageType.fail:
-        return Image.asset(AppImagePath.dialogCancel);
+        return Image.asset(AppImagePath.dialogCancel, fit: BoxFit.contain);
       case DialogImageType.warning:
-        return Image.asset(AppImagePath.dialogWarning);
+        return Image.asset(AppImagePath.dialogWarning, fit: BoxFit.contain);
     }
   }
 
   Widget _getButton() {
     if (bOneButton) {
-      return _solidButton();
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _solidButton(),
+        ],
+      );
     } else {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -113,8 +121,8 @@ class CommonCustomDialog extends BaseDialog {
         btnText: rightBtnText,
         onPressed: () => onRightPress(),
         radius: 10,
-        fontWeight: FontWeight.w500,
-        fontSize: UIDefine.fontSize16,
+        fontWeight: FontWeight.w600,
+        fontSize: UIDefine.fontSize14,
         isFillWidth: false);
   }
 
@@ -125,8 +133,8 @@ class CommonCustomDialog extends BaseDialog {
       btnText: leftBtnText,
       onPressed: () => onLeftPress(),
       radius: 10,
-      fontWeight: FontWeight.w500,
-      fontSize: UIDefine.fontSize16,
+      fontWeight: FontWeight.w600,
+      fontSize: UIDefine.fontSize14,
     );
   }
 }
