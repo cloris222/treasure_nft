@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:treasure_nft_project/models/http/parameter/check_level_info.dart';
 
 import 'package:treasure_nft_project/utils/app_text_style.dart';
@@ -34,7 +35,8 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
       this.showId = true,
       this.showPoint = true,
       this.enableModify = false,
-      this.userLevelInfo});
+      this.userLevelInfo,
+      this.shareUrl});
 
   ///MARK: 是否顯示他人
   final UserInfoData? setUserInfo;
@@ -47,6 +49,7 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
   final bool enableModify;
   final bool showPoint;
   final bool showId;
+  final String? shareUrl;
 
   UserInfoData get userInfo {
     return setUserInfo ?? GlobalData.userInfo;
@@ -155,7 +158,15 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
                                     SizedBox(width: UIDefine.getScreenWidth(2)),
                                     Image.asset(AppImagePath.arrowRight)
                                   ]))),
-                    )
+                    ),
+                    Visibility(
+                        visible: shareUrl != null,
+                        child: GestureDetector(
+                            onTap: () => Share.share(shareUrl ?? ''),
+                            child: Image.asset(
+                                'assets/icon/icon/icon_share_03.png',
+                                width: UIDefine.getScreenWidth(6),
+                                height: UIDefine.getScreenWidth(6)))),
                   ])
                 ],
               ),

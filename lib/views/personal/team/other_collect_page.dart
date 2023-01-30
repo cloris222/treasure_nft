@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
+import 'package:treasure_nft_project/models/http/http_setting.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
 import 'package:treasure_nft_project/views/personal/personal_new_sub_user_info_view.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
@@ -74,6 +76,10 @@ class _OtherCollectPageState extends State<OtherCollectPage> {
               padding: EdgeInsets.all(UIDefine.getPixelWidth(10)),
               decoration: AppStyle().styleNewUserSetting(),
               child: PersonalNewSubUserInfoView(
+                  shareUrl: format(HttpSetting.shareOther, {
+                    "orderNo": widget.orderNo,
+                    "type": widget.isSeller ? "MAKER" : "TAKER"
+                  }),
                   setUserInfo: data,
                   showId: false,
                   showPoint: false,
