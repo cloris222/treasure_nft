@@ -1,14 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
-import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
+import 'package:treasure_nft_project/views/personal/personal_new_sub_user_info_view.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/widgets/label/background_with_land.dart';
 
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/ui_define.dart';
 import '../../../models/http/parameter/user_info_data.dart';
 import '../../../view_models/personal/team/other_collect_viewmodel.dart';
-import '../personal_sub_user_info_view.dart';
 
 ///MARK: 其他買/賣家的收藏
 class OtherCollectPage extends StatefulWidget {
@@ -25,8 +26,8 @@ class OtherCollectPage extends StatefulWidget {
 class _OtherCollectPageState extends State<OtherCollectPage> {
   late OtherCollectViewModel viewModel;
   final borderType = const OutlineInputBorder(
-      borderSide: BorderSide(color: AppColors.datePickerBorder, width: 3),
-      borderRadius: BorderRadius.all(Radius.circular(10)));
+      borderSide: BorderSide(color: AppColors.bolderGrey, width: 1),
+      borderRadius: BorderRadius.all(Radius.circular(8)));
   final List<String> _currenciesTwo = [
     "Price",
   ];
@@ -52,7 +53,7 @@ class _OtherCollectPageState extends State<OtherCollectPage> {
       needScrollView: false,
       body: viewModel.buildGridView(
         crossAxisCount: 2,
-        childAspectRatio: 0.8,
+        childAspectRatio: 1,
         mainAxisSpacing: UIDefine.getScreenHeight(2),
         crossAxisSpacing: UIDefine.getScreenWidth(2),
       ),
@@ -63,13 +64,23 @@ class _OtherCollectPageState extends State<OtherCollectPage> {
     Widget space = SizedBox(height: UIDefine.getScreenHeight(2));
     return Column(
       children: [
-        TitleAppBar(title: tr('collection')),
-        PersonalSubUserInfoView(
-            setUserInfo: data,
-            showPoint: false,
-            enableLevel: false,
-            enablePoint: false,
-            enableModify: false),
+        BackgroundWithLand(
+          mainHeight: 200,
+          bottomHeight: 80,
+          onBackPress: () => viewModel.popPage(context),
+          body: Container(
+              alignment: Alignment.center,
+              margin: EdgeInsets.all(UIDefine.getPixelWidth(10)),
+              padding: EdgeInsets.all(UIDefine.getPixelWidth(10)),
+              decoration: AppStyle().styleNewUserSetting(),
+              child: PersonalNewSubUserInfoView(
+                  setUserInfo: data,
+                  showId: false,
+                  showPoint: false,
+                  enableLevel: false,
+                  enablePoint: false,
+                  enableModify: false)),
+        ),
         space,
         _buildSearchNameView(),
         space,
@@ -80,8 +91,9 @@ class _OtherCollectPageState extends State<OtherCollectPage> {
   }
 
   Widget _buildSearchNameView() {
-    return Padding(
-        padding: EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(4)),
+    return Container(
+        height: UIDefine.getPixelHeight(45),
+        margin: EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(4)),
         child: TextField(
             onChanged: (text) {
               // 撈產品資料 by text
@@ -93,9 +105,9 @@ class _OtherCollectPageState extends State<OtherCollectPage> {
               prefixIcon:
                   Image.asset('assets/icon/btn/btn_discover_01_nor.png'),
               hintText: tr("select-placeholder'"),
-              hintStyle:
-                   AppTextStyle.getBaseStyle(height: 1.6, color: AppColors.searchBar),
-              labelStyle:  AppTextStyle.getBaseStyle(color: Colors.black),
+              hintStyle: AppTextStyle.getBaseStyle(
+                  height: 1.7, color: AppColors.textHintGrey),
+              labelStyle: AppTextStyle.getBaseStyle(color: Colors.black),
               alignLabelWithHint: true,
               border: borderType,
               focusedBorder: borderType,
@@ -104,8 +116,9 @@ class _OtherCollectPageState extends State<OtherCollectPage> {
   }
 
   Widget _buildSortView() {
-    return Padding(
-        padding: EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(4)),
+    return Container(
+        height: UIDefine.getPixelWidth(40),
+        margin: EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(4)),
         child: Row(children: [
           Expanded(child: _buildDropDownBar()),
           SizedBox(width: UIDefine.getScreenWidth(2.77)),
@@ -113,13 +126,8 @@ class _OtherCollectPageState extends State<OtherCollectPage> {
               onTap: () => _onPressSort(),
               child: Container(
                 alignment: Alignment.center,
-                width: UIDefine.getScreenWidth(17.77),
-                height: UIDefine.getScreenWidth(13.88),
-                decoration: BoxDecoration(
-                    border:
-                        Border.all(width: 3, color: AppColors.datePickerBorder),
-                    borderRadius: BorderRadius.circular(10)),
-                child: Image.asset('assets/icon/btn/btn_sort_01_nor.png'),
+                width: UIDefine.getPixelWidth(50),
+                child: Image.asset('assets/icon/btn/btn_filter_02.png'),
               ))
         ]));
   }
@@ -147,7 +155,8 @@ class _OtherCollectPageState extends State<OtherCollectPage> {
                 child: Row(
                   children: <Widget>[
                     Text(_getCategoryText(category),
-                        style:  AppTextStyle.getBaseStyle(color: AppColors.searchBar)),
+                        style: AppTextStyle.getBaseStyle(
+                            color: AppColors.searchBar)),
                   ],
                 ));
           }).toList(),
