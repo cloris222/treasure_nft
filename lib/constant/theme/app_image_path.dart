@@ -168,7 +168,7 @@ class AppImagePath {
 
   /// beginner course
   static const String userGradient = '$_iconPath/icon_user_02.png';
-  static const String videoCover = '$_imgPath/img_vedio_0{index}.png';
+  static const String videoCover = '$_imgPath/img_video_0{index}.png';
 
   /// sign in
   static const String dailyCurrentDay = '$_iconPath/icon_date_04.png';

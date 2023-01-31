@@ -20,6 +20,7 @@ class LoginParamView extends StatelessWidget {
     this.keyboardType,
     this.bPasswordFormatter = false,
     this.bLimitDecimalLength = false,
+    this.bShowRed = false,
   }) : super(key: key);
   final String titleText;
   final String hintText;
@@ -29,6 +30,7 @@ class LoginParamView extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final GestureTapCallback? onTap;
   final TextInputType? keyboardType;
+  final bool bShowRed;
 
   ///MARK: 帳號輸入資訊限制
   final bool bPasswordFormatter;
@@ -60,9 +62,23 @@ class LoginParamView extends StatelessWidget {
   Widget _buildTextTitle(String text) {
     return SizedBox(
         // margin: const EdgeInsets.symmetric(vertical: 5), // (Ethan改) LoginTextWidget已有上下5 margin 間距過大
-        child: Text(text,
-            style: AppTextStyle.getBaseStyle(
-                fontSize: UIDefine.fontSize14,
-                color: AppColors.textThreeBlack)));
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+                text,
+                style: AppTextStyle.getBaseStyle(
+                    fontSize: UIDefine.fontSize14,
+                    color: AppColors.textThreeBlack)),
+
+            bShowRed ?
+            Text(
+                '*', style: AppTextStyle.getBaseStyle(
+                color: AppColors.textRed, fontSize: UIDefine.fontSize20)
+            ) :
+              const SizedBox()
+          ],
+        )
+    );
   }
 }

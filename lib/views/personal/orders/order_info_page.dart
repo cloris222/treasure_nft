@@ -94,10 +94,17 @@ class _OrderInfoPage extends State<OrderInfoPage> {
                     viewModel.dataList.isNotEmpty ?
                     _getListView()
                         :
-                    Text(
-                      tr("ES_0007"),
-                      style: AppTextStyle.getBaseStyle(color: AppColors.textGrey,
-                          fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
+                    Column(
+                      children: [
+                        SizedBox(height: UIDefine.getScreenWidth(10)),
+                        Image.asset('assets/icon/icon/icon_nodata_01.png'),
+                        const SizedBox(height: 10),
+                        Text(
+                          tr("ES_0007"),
+                          style: AppTextStyle.getBaseStyle(color: AppColors.textGrey,
+                              fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
+                        ),
+                      ],
                     ),
                     SizedBox(height: UIDefine.navigationBarPadding)
                   ],

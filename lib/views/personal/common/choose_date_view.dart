@@ -18,6 +18,7 @@ class ChooseDateView extends StatelessWidget {
     this.isSecure = false,
     this.onChanged,
     this.onTap,
+    this.bShowRed = false,
   }) : super(key: key);
   final String titleText;
   final String hintText;
@@ -26,6 +27,7 @@ class ChooseDateView extends StatelessWidget {
   final ValidateResultData data;
   final ValueChanged<String>? onChanged;
   final GestureTapCallback? onTap;
+  final bool bShowRed;
 
   @override
   Widget build(BuildContext context) {
@@ -71,9 +73,21 @@ class ChooseDateView extends StatelessWidget {
   Widget _buildTextTitle(String text) {
     return Container(
         margin: const EdgeInsets.symmetric(vertical: 5),
-        child: Text(text,
-            style: AppTextStyle.getBaseStyle(
-                fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14)));
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(text,
+                style: AppTextStyle.getBaseStyle(
+                    fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14)),
+            bShowRed ?
+            Text(
+                '*', style: AppTextStyle.getBaseStyle(
+                color: AppColors.textRed, fontSize: UIDefine.fontSize20)
+            ) :
+            const SizedBox()
+          ],
+        )
+        );
   }
 
   Widget _buildSecureView() {

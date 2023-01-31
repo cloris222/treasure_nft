@@ -1,12 +1,14 @@
 import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
+import 'package:treasure_nft_project/widgets/button/login_bolder_button_widget.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 
 import '../../../constant/theme/app_colors.dart';
@@ -84,9 +86,11 @@ class _UserCreatePageState extends State<UserCreatePage> {
         Text(tr('imageSupport'),
             style: AppTextStyle.getBaseStyle(
                 color: AppColors.dialogGrey, fontSize: UIDefine.fontSize12)),
+        SizedBox(height: UIDefine.getScreenHeight(2)),
         LoginParamView(
           titleText: tr('itemName'),
           hintText: tr("name2-placeholder'"),
+          bShowRed: true,
           controller: viewModel.nameController,
           data: viewModel.nameData,
           onChanged: viewModel.onNameChange,
@@ -96,33 +100,34 @@ class _UserCreatePageState extends State<UserCreatePage> {
           keyboardType: TextInputType.number,
           titleText: tr('mintAmount'),
           hintText: tr("mintAmount-placeholder'"),
+          bShowRed: true,
           controller: viewModel.priceController,
           data: viewModel.priceData,
         ),
         ChooseDateView(
           titleText: tr('sellDate'),
           hintText: tr("sellDate-placeholder'"),
+          bShowRed: true,
           controller: viewModel.dateController,
           data: viewModel.dateData,
           onTap: () => viewModel.onChooseDate(context),
         ),
         Text(
             '${tr('royalty')} : ${NumberFormatUtil().removeTwoPointFormat(viewModel.rate)} %'),
-        SizedBox(height: UIDefine.getScreenHeight(10)),
+        SizedBox(height: UIDefine.getScreenHeight(5)),
         Row(children: [
           Flexible(
-              child: ActionButtonWidget(
-            setHeight: UIDefine.getScreenHeight(8),
-            btnText: tr('cancel'),
-            onPressed: () => viewModel.onCancel(context),
-            isBorderStyle: true,
+              child: LoginBolderButtonWidget(
+                height: UIDefine.getScreenHeight(8),
+                btnText: tr('cancel'),
+                onPressed: () => viewModel.onCancel(context),
           )),
           const SizedBox(width: 20),
           Flexible(
-              child: ActionButtonWidget(
-            setHeight: UIDefine.getScreenHeight(8),
-            btnText: tr('confirm'),
-            onPressed: () => viewModel.onConfirm(context),
+              child: LoginButtonWidget(
+                height: UIDefine.getScreenHeight(8),
+                btnText: tr('confirm'),
+                onPressed: () => viewModel.onConfirm(context),
           ))
         ]),
       ]),
