@@ -8,6 +8,7 @@ import 'package:treasure_nft_project/models/http/parameter/level_info_data.dart'
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/personal/level/level_bonus_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LevelDetailViewModel extends BaseViewModel {
   LevelDetailViewModel({required this.setState});
@@ -94,5 +95,15 @@ class LevelDetailViewModel extends BaseViewModel {
   ///MARK: 顯示下一等級獎勵
   void showLeveLBonus(BuildContext context) async {
     pushBottomSheetPage(context, const LevelBonusPage());
+  }
+
+  /// 外部連結
+  Future<void> launchInBrowser(String url) async {
+    if (!await launchUrl(
+      Uri.parse(url),
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw 'Could not launch $url';
+    }
   }
 }

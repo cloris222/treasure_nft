@@ -1,7 +1,5 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:format/format.dart';
-import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/enum/setting_enum.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
@@ -56,6 +54,7 @@ class _LanguageButtonWidgetState extends State<LanguageButtonWidget> {
               }
             }
           },
+          barrierColor: const Color(0x78000000),
           itemHeight: 48,
           itemPadding: const EdgeInsets.only(left: 16, right: 16),
           dropdownWidth: UIDefine.getPixelWidth(240),

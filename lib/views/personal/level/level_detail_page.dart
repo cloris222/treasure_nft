@@ -174,6 +174,29 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
                     ])),
           ),
 
+          ///MARK: 說明
+          Expanded(
+            child: InkWell(
+                onTap: () {
+                  viewModel.launchInBrowser(
+                      'https://treasurenft.gitbook.io/my-product-docs/faq/instruction-manual/user-levels');
+                },
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      BaseIconWidget(
+                          imageAssetPath: AppImagePath.levelInfoIcon,
+                          size: UIDefine.getPixelWidth(30)),
+                      SizedBox(width: UIDefine.getScreenWidth(2)),
+                      Text(
+                        tr('illustrate'),
+                        style: AppTextStyle.getBaseStyle(
+                            fontSize: UIDefine.fontSize12,
+                            color: AppColors.textBlack),
+                      ),
+                    ])),
+          ),
+
           ///MARK: 成就
           Expanded(
             child: InkWell(

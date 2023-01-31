@@ -15,6 +15,7 @@ import 'package:treasure_nft_project/views/home/home_sub_random_view.dart';
 import 'package:treasure_nft_project/views/home/home_sub_signup_view.dart';
 import 'package:treasure_nft_project/views/home/home_sub_usdt_view.dart';
 import 'package:treasure_nft_project/views/home/home_sub_contact_view.dart';
+import 'package:treasure_nft_project/views/server_web_page.dart';
 import 'package:treasure_nft_project/widgets/gradient_text.dart';
 import 'package:treasure_nft_project/widgets/list_view/home/artist_record_listview.dart';
 import '../../constant/enum/setting_enum.dart';
@@ -132,16 +133,18 @@ class _HomeMainViewState extends State<HomeMainView> {
                 )
               ]),
           Positioned(
-              right: UIDefine.getPixelWidth(15),
-              bottom:
-                  UIDefine.getPixelWidth(15) + UIDefine.navigationBarPadding,
+              right: 0,
+              bottom: UIDefine.navigationBarPadding,
               child: GestureDetector(
-                onTap: () => scrollController.jumpTo(0),
+                onTap: () {
+                  viewModel.pushPage(context, const ServerWebPage());
+                  // scrollController.jumpTo(0);
+                },
                 child: SizedBox(
-                  width: UIDefine.getPixelWidth(50),
-                  height: UIDefine.getPixelWidth(50),
+                  width: UIDefine.getPixelWidth(80),
+                  height: UIDefine.getPixelWidth(80),
                   child: Image.asset(
-                    AppImagePath.arrowUpHome,
+                    AppImagePath.helpIcon,
                     fit: BoxFit.contain,
                   ),
                 ),

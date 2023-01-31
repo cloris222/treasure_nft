@@ -73,6 +73,7 @@ class AppImagePath {
       '$_iconPath/icon_levelrectanglesmall_0{level}.png';
   static const String beginner = '$_iconPath/icon_star_01.png';
   static const String reserving = '$_iconPath/icon_rotate_02.png';
+  static const String levelInfoIcon = '$_btnPath/btn_info_01.png';
 
   /// lock mission
   static const String level0 = '$lockMission/mb_level_bg_00.jpg';
@@ -109,6 +110,7 @@ class AppImagePath {
   static const String invitePhoto = '$_imgPath/img_login_photo_01.png';
   static const String fastIcon = '$_iconPath/icon_fasttransaction_01.png';
   static const String growthIcon = '$_iconPath/icon_growthtransaction_01.png';
+  static const String helpIcon = '$_btnPath/btn_help_01.png';
 
   /// personal page
   static const String defaultBanner = '$_imgPath/img_banner_01_defult.jpg';
@@ -116,8 +118,8 @@ class AppImagePath {
   static const String medalIcon = '$_imgPath/img_medal_{mainNumber}_01.png';
   static const String unableMedalIcon =
       '$_imgPath/img_medal_{mainNumber}_02.png';
-  static const String lockIcon='$_iconPath/icon_locked_01.png';
-  static const String personalSettingIcon='$_iconPath/icon_user_03.png';
+  static const String lockIcon = '$_iconPath/icon_locked_01.png';
+  static const String personalSettingIcon = '$_iconPath/icon_user_03.png';
 
   ///personal 我的訂單
   static const String myOrderIcon = '$_iconPath/icon_file_02.png';
