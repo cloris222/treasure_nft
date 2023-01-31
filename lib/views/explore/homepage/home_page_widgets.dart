@@ -137,7 +137,7 @@ class HomePageWidgets {
 
         Container(
           width: double.infinity,
-          height: bShowMore? _getHeightForInfoView(adData.artistInfo) : UIDefine.getScreenWidth(80),
+          height: bShowMore? _getHeightForInfoView(adData.artistInfo) : UIDefine.getScreenWidth(84),
           decoration: BoxDecoration(
               gradient: LinearGradient(
                   begin: FractionalOffset.topCenter,
@@ -547,15 +547,15 @@ class HomePageWidgets {
 
   double _getHeightForInfoView(String artistInfo) {
     int length = artistInfo.length;
-    if (length <= 80 ) return UIDefine.getScreenWidth(80);
-    if (length <= 160 ) return UIDefine.getScreenWidth(87);
-    if (length <= 240 ) return UIDefine.getScreenWidth(92);
-    if (length <= 320 ) return UIDefine.getScreenWidth(97);
-    if (length <= 400 ) return UIDefine.getScreenWidth(102);
-    if (length <= 480 ) return UIDefine.getScreenWidth(107);
-    if (length <= 560 ) return UIDefine.getScreenWidth(112);
-    if (length <= 640 ) return UIDefine.getScreenWidth(117);
-    return UIDefine.getScreenWidth(122);
+    if (length <= 80 ) return UIDefine.getScreenWidth(88);
+    if (length <= 160 ) return UIDefine.getScreenWidth(93);
+    if (length <= 240 ) return UIDefine.getScreenWidth(98);
+    if (length <= 320 ) return UIDefine.getScreenWidth(103);
+    if (length <= 400 ) return UIDefine.getScreenWidth(108);
+    if (length <= 480 ) return UIDefine.getScreenWidth(113);
+    if (length <= 560 ) return UIDefine.getScreenWidth(118);
+    if (length <= 640 ) return UIDefine.getScreenWidth(123);
+    return UIDefine.getScreenWidth(128);
   }
 
 }

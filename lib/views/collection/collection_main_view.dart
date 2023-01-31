@@ -55,7 +55,8 @@ class _CollectionMainView extends State<CollectionMainView> {
               controller: pageController,
               onPageChanged: _onPageChange,
               children: pages,
-            ))
+            )
+        )
       ]),
     );
   }

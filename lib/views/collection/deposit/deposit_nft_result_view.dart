@@ -49,7 +49,17 @@ class _DepositNftResultView extends State<DepositNftResultView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            TitleAppBar(title: tr('depositNFT')),
+            Container(
+                alignment: Alignment.centerRight,
+                width: double.infinity,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Image.asset('assets/icon/btn/btn_cross_01.png'),
+                )
+            ),
+
             SizedBox(height: UIDefine.getScreenWidth(5)),
 
             /// QRCode
@@ -66,7 +76,7 @@ class _DepositNftResultView extends State<DepositNftResultView> {
 
             /// 文字
             Text(
-              tr("Polygon-text'"), // 完成付款 Polygon
+              tr("Polygon-text'"), // 小標題
               style: AppTextStyle.getBaseStyle(
                   color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
             ),
@@ -97,7 +107,7 @@ class _DepositNftResultView extends State<DepositNftResultView> {
                         Row(
                           children: [
                             SizedBox(
-                              width: UIDefine.getScreenWidth(70),
+                              width: UIDefine.getScreenWidth(68),
                               child: Text(
                                 data,
                                 style: AppTextStyle.getBaseStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w400),
@@ -109,7 +119,7 @@ class _DepositNftResultView extends State<DepositNftResultView> {
                                BaseViewModel().copyText(copyText: data);
                                BaseViewModel().showToast(context, tr('copiedSuccess'));
                              },
-                             child: Image.asset('assets/icon/btn/btn_edit_01_nor.png', width: UIDefine.getScreenWidth(6), height: UIDefine.getScreenWidth(6))
+                             child: Image.asset('assets/icon/btn/btn_copy_01.png')
                             )
                           ],
                         )

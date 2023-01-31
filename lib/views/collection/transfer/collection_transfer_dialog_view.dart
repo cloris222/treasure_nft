@@ -13,6 +13,8 @@ import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart'
 import '../../../constant/theme/app_colors.dart';
 import '../../../view_models/collection/collection_transfer_view_model.dart';
 import '../../../widgets/button/countdown_button_widget.dart';
+import '../../../widgets/button/login_bolder_button_widget.dart';
+import '../../../widgets/button/login_button_widget.dart';
 
 /// 收藏 > 未上架Item > 轉出
 class CollectionTransferDialogView extends BaseDialog {
@@ -72,7 +74,7 @@ class CollectionTransferDialogView extends BaseDialog {
             children: [
               /// 驗證碼輸入框
               SizedBox(
-                width: UIDefine.getScreenWidth(36),
+                width: UIDefine.getScreenWidth(45),
                 height: UIDefine.getScreenWidth(11.11),
                 child: TextField(
                   keyboardType: TextInputType.number,
@@ -98,10 +100,10 @@ class CollectionTransferDialogView extends BaseDialog {
 
               /// Get按鈕
               CountdownButtonWidget(
-                buttonType: 2,
+                buttonType: 4,
                 countdownSecond: 60,
-                margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                btnText: tr('get'),
+                margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                btnText: tr('send'),
                 isFillWidth: false,
                 setHeight: UIDefine.getScreenWidth(11.11),
                 onPress: _pressGet,
@@ -142,39 +144,23 @@ class CollectionTransferDialogView extends BaseDialog {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
+              SizedBox(
                 width: UIDefine.getScreenWidth(32),
-                decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.mainThemeButton, width: 2),
-                    borderRadius: BorderRadius.circular(10)
-                ),
-                child: TextButton(
+                child: LoginBolderButtonWidget(
                     onPressed: () {
                       _pressCancel();
                     },
-                    child: Text(
-                      tr('cancel'), // 轉讓
-                      style: AppTextStyle.getBaseStyle(
-                          color: AppColors.mainThemeButton, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
-                    )
+                    btnText: tr('cancel'),
                 ),
               ),
 
-              Container(
+              SizedBox(
                 width: UIDefine.getScreenWidth(32),
-                decoration: BoxDecoration(
-                    color: AppColors.mainThemeButton,
-                    borderRadius: BorderRadius.circular(10)
-                ),
-                child: TextButton(
+                child: LoginButtonWidget(
                     onPressed: () {
                       _pressVerify();
                     },
-                    child: Text(
-                      tr('verify'), // 販售
-                      style: AppTextStyle.getBaseStyle(
-                          color: AppColors.textWhite, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
-                    )
+                    btnText: tr('verify'),
                 ),
               )
             ],

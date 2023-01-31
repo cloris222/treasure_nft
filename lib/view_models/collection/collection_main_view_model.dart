@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/collection/api/collection_api.dart';
@@ -48,7 +49,11 @@ class CollectionMainViewModel extends BaseViewModel {
                 ),
                 Container(
                   height: _getLineHeight(isCurrent),
-                  color: _getLineColor(isCurrent),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: _getLineColor(isCurrent)
+                    )
+                  ),
                 ),
               ],
             ),
@@ -87,9 +92,9 @@ class CollectionMainViewModel extends BaseViewModel {
     return 1;
   }
 
-  Color _getLineColor(bool isCurrent) {
-    if (isCurrent) return Colors.blue;
-    return Colors.grey;
+  List<Color> _getLineColor(bool isCurrent) {
+    if (isCurrent) return AppColors.gradientBaseColorBg;
+    return [AppColors.lineBarGrey, AppColors.lineBarGrey];
   }
 
   Color _getButtonColor(bool isCurrent) {

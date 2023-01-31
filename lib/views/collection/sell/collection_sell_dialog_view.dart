@@ -11,6 +11,7 @@ import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart'
 import '../../../constant/call_back_function.dart';
 import '../../../constant/ui_define.dart';
 import '../../../view_models/collection/collection_sell_view_model.dart';
+import '../../../widgets/button/login_button_widget.dart';
 import '../data/collection_item_status_response_error_data.dart';
 import '../data/collection_level_fee_response_data.dart';
 
@@ -159,20 +160,12 @@ class CollectionSellDialogView extends BaseDialog {
 
                 Container(
                   alignment: Alignment.center,
-                  width: UIDefine.getScreenWidth(50.8),
-                  decoration: BoxDecoration(
-                      color: AppColors.mainThemeButton,
-                      borderRadius: BorderRadius.circular(10)
-                  ),
-                  child: TextButton(
+                  width: UIDefine.getScreenWidth(60),
+                  child: LoginButtonWidget(
                       onPressed: () {
                         _pressComplete();
                       },
-                      child: Text(
-                        tr("completeList"), // 完成上架
-                        style: AppTextStyle.getBaseStyle(
-                            color: AppColors.textWhite, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
-                      )
+                      btnText: tr("completeList"), // 完成上架
                   ),
                 )
               ],
