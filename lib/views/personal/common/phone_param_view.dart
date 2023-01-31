@@ -85,12 +85,12 @@ class _PhoneParamViewState extends State<PhoneParamView> {
               alignment: Alignment.center,
               height: UIDefine.getPixelHeight(60),
               width: UIDefine.getScreenWidth(40),
-              margin:
-                  EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(5)),
+              padding:
+                  EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(8.7)),
               child: Container(
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      border: Border.all(color: AppColors.bolderGrey, width: 1),
+                      border: Border.all(color: AppColors.bolderGrey, width: 1.5),
                       borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(10),
                           bottomLeft: Radius.circular(10))),

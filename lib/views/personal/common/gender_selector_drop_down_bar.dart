@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 import '../../../constant/call_back_function.dart';
@@ -32,7 +33,7 @@ class GenderSelectorDropDownBar extends StatelessWidget {
         : _currencies.first;
     getDropDownValue(gender);
     return DropdownButtonFormField(
-      icon: Image.asset('assets/icon/btn/btn_arrow_02_down.png'),
+      icon: Image.asset(AppImagePath.arrowDownGrey),
       onChanged: (newValue) {
         getDropDownValue(newValue!);
       },
@@ -41,11 +42,11 @@ class GenderSelectorDropDownBar extends StatelessWidget {
         contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.16),
             UIDefine.getScreenWidth(4.16), UIDefine.getScreenWidth(4.16), 0),
         border: AppTheme.style.styleTextEditBorderBackground(
-            color: AppColors.searchBar, radius: 10),
+            color: AppColors.bolderGrey, radius: 8),
         focusedBorder: AppTheme.style.styleTextEditBorderBackground(
-            color: AppColors.searchBar, radius: 10),
+            color: AppColors.bolderGrey, radius: 8),
         enabledBorder: AppTheme.style.styleTextEditBorderBackground(
-            color: AppColors.searchBar, radius: 10),
+            color: AppColors.bolderGrey, radius: 8),
       ),
       items: _currencies.map((String category) {
         return DropdownMenuItem(
@@ -53,7 +54,8 @@ class GenderSelectorDropDownBar extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Text(_getCategoryText(category),
-                    style:  AppTextStyle.getBaseStyle(color: AppColors.textBlack)),
+                    style:
+                        AppTextStyle.getBaseStyle(color: AppColors.textBlack)),
               ],
             ));
       }).toList(),
@@ -76,6 +78,6 @@ class GenderSelectorDropDownBar extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 5),
         child: Text(text,
             style: AppTextStyle.getBaseStyle(
-                fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14)));
+                color: Colors.black, fontSize: UIDefine.fontSize14)));
   }
 }

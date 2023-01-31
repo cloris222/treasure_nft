@@ -51,12 +51,13 @@ class _DatePickerOne extends State<DatePickerOne> {
               child: Row(
                 children: [
                   _getPadding(1),
-                  Image.asset(AppImagePath.dateIcon),
-                  _getPadding(1),
                   Text(
                     widget.initDate ?? date,
-                    style:  AppTextStyle.getBaseStyle(color: AppColors.textGrey),
+                    style: AppTextStyle.getBaseStyle(color: AppColors.textGrey),
                   ),
+                  const Spacer(),
+                  Image.asset(AppImagePath.dateIcon),
+                  _getPadding(1),
                 ],
               ),
             ),

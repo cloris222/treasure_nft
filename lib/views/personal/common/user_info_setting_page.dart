@@ -8,10 +8,8 @@ import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 
 import '../../../constant/ui_define.dart';
 import '../../../view_models/personal/common/user_info_setting_view_model.dart';
-import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/button/login_button_widget.dart';
 import '../../../widgets/date_picker/date_picker_one.dart';
-import '../../custom_appbar_view.dart';
 import '../../login/login_param_view.dart';
 import 'gender_selector_drop_down_bar.dart';
 
@@ -40,23 +38,29 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomAppbarView(
-        needScrollView: false,
-        type: AppNavigationBarType.typePersonal,
-        body: SingleChildScrollView(
-            child: Padding(
-                padding: EdgeInsets.all(UIDefine.getScreenWidth(5.5)),
-                child: Column(
+    return Scaffold(
+        backgroundColor: Colors.white,
+        body: Padding(
+            padding:
+                EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              TitleAppBar(title: tr('userInfo'), needArrowIcon: false),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TitleAppBar(title: tr('userInfo')),
-                      Container(
-                          margin: const EdgeInsets.symmetric(vertical: 5),
-                          child: Text(tr('nationality'),
-                              style: AppTextStyle.getBaseStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: UIDefine.fontSize14))),
-                      _getNationalityForm(),
+                      // Container(
+                      //     margin: const EdgeInsets.symmetric(vertical: 5),
+                      //     child: Text(tr('nationality'),
+                      //         style: AppTextStyle.getBaseStyle(
+                      //             fontWeight: FontWeight.w500,
+                      //             fontSize: UIDefine.fontSize14))),
+                      // _getNationalityForm(),
+                      _getUnEditFormView(tr('nationality'),
+                          '${tr(GlobalData.userInfo.country)} (${GlobalData.userInfo.zone})'),
                       SizedBox(height: UIDefine.getScreenWidth(4.16)),
                       _getUnEditFormView(
                           tr('account'), GlobalData.userInfo.account),
@@ -93,7 +97,6 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
                           margin: const EdgeInsets.symmetric(vertical: 5),
                           child: Text(tr('birthday'),
                               style: AppTextStyle.getBaseStyle(
-                                  fontWeight: FontWeight.w500,
                                   fontSize: UIDefine.fontSize14))),
                       DatePickerOne(
                         initDate: GlobalData.userInfo.birthday.isNotEmpty
@@ -108,13 +111,31 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
                             : AppColors.textRed,
                       ),
                       SizedBox(height: UIDefine.getScreenWidth(6)),
-                      LoginButtonWidget(
-                          // Save按鈕
-                          isGradient: false,
-                          btnText: tr('save'),
-                          onPressed: () => viewModel.onPressSave(context)),
-                      SizedBox(height: UIDefine.navigationBarPadding)
-                    ]))));
+                      Container(
+                          width: double.infinity,
+                          height: UIDefine.getPixelWidth(1),
+                          color: AppColors.personalBar),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          LoginButtonWidget(
+                              // Save按鈕
+                              padding: EdgeInsets.symmetric(
+                                  vertical: UIDefine.getPixelWidth(10),
+                                  horizontal: UIDefine.getPixelWidth(20)),
+                              margin: EdgeInsets.symmetric(
+                                  vertical: UIDefine.getPixelWidth(15)),
+                              isFillWidth: false,
+                              radius: 17,
+                              btnText: tr('save'),
+                              onPressed: () => viewModel.onPressSave(context)),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ])));
   }
 
   Widget _getNationalityForm() {
@@ -153,7 +174,7 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
                 0,
                 UIDefine.getScreenWidth(4.16)),
             decoration: const BoxDecoration(
-                color: AppColors.datePickerBorder,
+                color: AppColors.defaultBackgroundSpace,
                 borderRadius: BorderRadius.all(Radius.circular(10))),
             child: Text(content,
                 style: AppTextStyle.getBaseStyle(

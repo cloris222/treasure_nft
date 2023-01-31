@@ -7,8 +7,6 @@ class AppImagePath {
   static const String _imgPath = 'assets/icon/img';
   static const String _coinsPath = 'assets/icon/coins';
   static const String _languagePath = 'assets/icon/language';
-  static const String daily = 'assets/icon/daily';
-  static const String month = 'assets/icon/daily/month';
   static const String lockMission = 'assets/icon/img/lock_mission';
 
   ///MARK: 通用icon
@@ -118,6 +116,8 @@ class AppImagePath {
   static const String medalIcon = '$_imgPath/img_medal_{mainNumber}_01.png';
   static const String unableMedalIcon =
       '$_imgPath/img_medal_{mainNumber}_02.png';
+  static const String lockIcon='$_iconPath/icon_locked_01.png';
+  static const String personalSettingIcon='$_iconPath/icon_user_03.png';
 
   ///personal 我的訂單
   static const String myOrderIcon = '$_iconPath/icon_file_02.png';
@@ -169,8 +169,6 @@ class AppImagePath {
   static const String videoCover = '$_imgPath/img_vedio_0{index}.png';
 
   /// sign in
-  static const String signInBar = '$daily/img_daily_reward_02.png';
-  static const String signTitle = '$daily/icon_date_02.png';
   static const String dailyCurrentDay = '$_iconPath/icon_date_04.png';
   static const String dailySignInIcon = '$_iconPath/icon_date_01.png';
   static const String dailyFailIcon = '$_iconPath/icon_date_02.png';

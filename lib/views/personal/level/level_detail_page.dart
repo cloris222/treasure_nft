@@ -484,7 +484,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
           children: [
             _buildSingleLevelTitle(level, showLevel: true, showLock: true),
             _buildSingleLevelInfo(level),
-            // _buildItemChange(level),
+            _buildItemChange(level),
           ],
         ),
       )
