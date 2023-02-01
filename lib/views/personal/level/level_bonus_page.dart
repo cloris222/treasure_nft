@@ -9,6 +9,8 @@ import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/view_models/personal/level/level_bonus_view_model.dart';
+import 'package:treasure_nft_project/views/custom_appbar_view.dart';
+import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 
 class LevelBonusPage extends StatefulWidget {
@@ -30,8 +32,9 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
+    return CustomAppbarView(
+      needScrollView: false,
+      type: AppNavigationBarType.typePersonal,
       body: Column(
         children: [
           Container(
@@ -98,7 +101,6 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
           ],
         ),
       ),
-
       SizedBox(height: UIDefine.getPixelWidth(8)),
       _buildBonusHint(viewModel.levelBonus?.tradeMoneyBoxExpireTime,
           viewModel.levelBonus?.tradeMoneyBoxExpireDate),
@@ -132,7 +134,6 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
           ],
         ),
       ),
-
       SizedBox(height: UIDefine.getPixelWidth(8)),
       _buildBonusHint(viewModel.levelBonus?.moneyBoxExpireTime,
           viewModel.levelBonus?.moneyBoxExpireDate),
