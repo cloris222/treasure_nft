@@ -65,6 +65,7 @@ class AppImagePath {
 
   ///  rank level
   static const String level = '$_iconPath/icon_level_0{level}.png';
+  static const String levelBig = '$_iconPath/icon_levelbig_0{level}.png';
   static const String levelBar = '$_iconPath/icon_levelrectangle_0{level}.png';
   static const String allLevelCurrentBar =
       '$_iconPath/icon_levelsquare_0{level}.png';

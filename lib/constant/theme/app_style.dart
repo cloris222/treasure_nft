@@ -23,19 +23,23 @@ class AppStyle {
 
   /// 漸層色藍紫色
   BoxDecoration baseGradient(
-      {double radius = 0, Color borderColor = Colors.transparent}) {
+      {double radius = 0,
+      Color borderColor = Colors.transparent,
+      double borderWith = 1}) {
     return BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(radius)),
-        border: Border.all(color: borderColor, width: 1),
+        border: Border.all(color: borderColor, width: borderWith),
         gradient: const LinearGradient(colors: AppColors.gradientBaseColorBg));
   }
 
   /// 漸層色紫藍色(反轉)
   BoxDecoration baseFlipGradient(
-      {double radius = 0, Color borderColor = Colors.transparent}) {
+      {double radius = 0,
+      Color borderColor = Colors.transparent,
+      double borderWith = 1}) {
     return BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(radius)),
-        border: Border.all(color: borderColor, width: 1),
+        border: Border.all(color: borderColor, width: borderWith),
         gradient:
             const LinearGradient(colors: AppColors.gradientBaseFlipColorBg));
   }
@@ -44,10 +48,10 @@ class AppStyle {
   BoxDecoration buildGradient(
       {double radius = 0,
       Color borderColor = Colors.transparent,
-      required List<Color> colors}) {
+      required List<Color> colors,double borderWith = 1}) {
     return BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(radius)),
-        border: Border.all(color: Colors.transparent, width: 1),
+        border: Border.all(color: Colors.transparent, width: borderWith),
         gradient: LinearGradient(colors: colors));
   }
 

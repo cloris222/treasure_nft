@@ -12,6 +12,7 @@ import 'package:treasure_nft_project/views/server_web_page.dart';
 import 'package:treasure_nft_project/views/setting_language_page.dart';
 import 'package:treasure_nft_project/views/sigin_in_page.dart';
 import 'package:treasure_nft_project/views/trade/trade_main_view.dart';
+import 'package:treasure_nft_project/views/trade/trade_new_main_view.dart';
 import 'package:treasure_nft_project/views/wallet/wallet_main_view.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 import 'package:treasure_nft_project/widgets/bottom_sheet/page_bottom_sheet.dart';
@@ -167,7 +168,7 @@ class _MainPageState extends State<MainPage> {
               children: [
                 const ExploreMainView(),
                 const CollectionMainView(),
-                const TradeMainView(),
+                const TradeNewMainView(),
                 WalletMainView(onPrePage: _onPrePage),
                 PersonalMainView(onViewChange: () => setState(() {})),
                 const HomeMainView(),

@@ -67,6 +67,13 @@ class AppColors {
     Color(0x4CFFD6C7)
   ];
 
+  ///MARK: 漸層
+  static const List<Color> gradientBackgroundColorNoFloatBg = [
+    Color(0x7D99BCED),
+    Color(0x7D99F8CF),
+    Color(0x7DFFD6C7)
+  ];
+
   /// trade btn
   static const Color reservationLevel1 = Color(0xFF27BEB5);
   static const Color reservationLevel2 = Color(0xFF34ACD7);
