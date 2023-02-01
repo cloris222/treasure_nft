@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
+import 'package:treasure_nft_project/views/personal/orders/order_withdraw_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/widgets/bottom_sheet/page_bottom_sheet.dart';
@@ -135,12 +136,12 @@ class PersonalSubOrderView extends StatelessWidget {
   }
 
   void _showMyRechargePage(BuildContext context) {
-    // BaseViewModel().pushPage(context, const OrderRechargePage());
-    PageBottomSheet(context, page: const OrderRechargePage()).show();
+    BaseViewModel().pushPage(context, const OrderRechargePage());
+    // PageBottomSheet(context, page: const OrderRechargePage()).show();
   }
 
   void _showMyWithDrawPage(BuildContext context) {
-    // BaseViewModel().pushPage(context, const OrderWithdrawPage());
-    PageBottomSheet(context, page: const OrderRechargePage()).show();
+    BaseViewModel().pushPage(context, const OrderWithdrawPage());
+    // PageBottomSheet(context, page: const OrderRechargePage()).show();
   }
 }

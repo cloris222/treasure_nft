@@ -44,8 +44,8 @@ class _UserCreatePageState extends State<UserCreatePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
+    return CustomAppbarView(
+      needScrollView: false,
       body: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: _buildBody()),
@@ -56,10 +56,10 @@ class _UserCreatePageState extends State<UserCreatePage> {
     return SingleChildScrollView(
         child: Container(
       padding: EdgeInsets.only(
-          top: UIDefine.getPixelWidth(20),
+          // top: UIDefine.getPixelWidth(20),
           bottom: UIDefine.navigationBarPadding),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        TitleAppBar(title: tr('create'), needArrowIcon: false),
+        TitleAppBar(title: tr('create'), needCloseIcon: false),
         Visibility(
             visible: viewModel.uploadImage != null,
             child: ActionButtonWidget(

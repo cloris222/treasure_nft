@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/views/custom_appbar_view.dart';
 import 'package:treasure_nft_project/views/personal/common/phone_param_view.dart';
+import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 
 import '../../../constant/ui_define.dart';
@@ -38,14 +40,15 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.white,
+    return CustomAppbarView(
+        needScrollView: false,
+        type: AppNavigationBarType.typePersonal,
         body: Padding(
             padding:
                 EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              TitleAppBar(title: tr('userInfo'), needArrowIcon: false),
+              TitleAppBar(title: tr('userInfo'), needCloseIcon: false),
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(

@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/utils/date_format_util.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
@@ -21,12 +22,15 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.opacityBackground,
         body: WillPopScope(
             onWillPop: () async {
               return false;
             },
             child: Container(
+              padding: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).padding.top,
+                  horizontal: MediaQuery.of(context).padding.top),
               alignment: Alignment.center,
               child: _buildDailyBody(context),
             )));
@@ -34,9 +38,10 @@ class SignInPage extends StatelessWidget {
 
   Widget _buildDailyBody(BuildContext context) {
     return Container(
-        margin: EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(5)),
+        padding: EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(5)),
+        decoration: AppStyle().styleColorsRadiusBackground(),
         child: Column(children: [
-          TitleAppBar(title: tr('dailyMissionRewards'), needArrowIcon: false),
+          TitleAppBar(title: tr('dailyMissionRewards'), needCloseIcon: false),
           _buildMonth(),
           const SizedBox(height: 10),
           _buildWeek(context),

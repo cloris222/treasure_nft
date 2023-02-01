@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/enum/coin_enum.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/views/custom_appbar_view.dart';
+import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 
@@ -41,15 +43,16 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
+    return CustomAppbarView(
+      needScrollView: false,
+      type: AppNavigationBarType.typeWallet,
       body: Column(
         children: [
           Container(
               margin:
                   EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
               child:
-                  TitleAppBar(title: tr("uc_setting"), needArrowIcon: false)),
+                  TitleAppBar(title: tr("uc_setting"), needCloseIcon: false)),
           Expanded(child: SingleChildScrollView(child: _buildBody())),
         ],
       ),

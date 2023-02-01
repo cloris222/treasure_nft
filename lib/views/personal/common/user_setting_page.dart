@@ -147,12 +147,13 @@ class _UserSettingPageState extends State<UserSettingPage> {
   }
 
   void _goChangePwd(BuildContext context) {
-    PageBottomSheet(context, page: const UserChangePasswordPage()).show();
-    // BaseViewModel().pushPage(context, const UserChangePasswordPage());
+    // PageBottomSheet(context, page: const UserChangePasswordPage()).show();
+    BaseViewModel().pushPage(context, const UserChangePasswordPage());
   }
 
   void _goUserSetting(BuildContext context) {
-    PageBottomSheet(context, page: const UserInfoSettingPage()).show();
+    BaseViewModel().pushPage(context, const UserInfoSettingPage());
+    // PageBottomSheet(context, page: const UserInfoSettingPage()).show();
   }
 
   void _onPressLogout(BuildContext context) {

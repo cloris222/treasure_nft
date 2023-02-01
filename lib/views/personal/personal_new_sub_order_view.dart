@@ -129,12 +129,12 @@ class PersonalNewSubOrderView extends StatelessWidget {
   }
 
   void _showMyRechargePage(BuildContext context) {
-    // BaseViewModel().pushPage(context, const OrderRechargePage());
-    PageBottomSheet(context, page: const OrderRechargePage()).show();
+    BaseViewModel().pushPage(context, const OrderRechargePage());
+    // PageBottomSheet(context, page: const OrderRechargePage()).show();
   }
 
   void _showMyWithDrawPage(BuildContext context) {
-    // BaseViewModel().pushPage(context, const OrderWithdrawPage());
-    PageBottomSheet(context, page: const OrderWithdrawPage()).show();
+    BaseViewModel().pushPage(context, const OrderWithdrawPage());
+    // PageBottomSheet(context, page: const OrderWithdrawPage()).show();
   }
 }

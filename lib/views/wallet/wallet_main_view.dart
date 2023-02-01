@@ -354,21 +354,17 @@ class _WalletMainViewState extends State<WalletMainView> {
   }
 
   void _showRechargePage() {
-    PageBottomSheet(context,
-            page:
-                const OrderRechargePage(type: AppNavigationBarType.typeWallet))
-        .show();
+    viewModel.pushPage(context,
+        const OrderRechargePage(type: AppNavigationBarType.typeWallet));
   }
 
   void _showWithdrawPage() {
-    PageBottomSheet(context,
-            page:
-                const OrderWithdrawPage(type: AppNavigationBarType.typeWallet))
-        .show();
+    viewModel.pushPage(context,
+        const OrderWithdrawPage(type: AppNavigationBarType.typeWallet));
   }
 
   void _showWalletSettingIcon() {
-    PageBottomSheet(context, page: const WalletSettingPage()).show();
+    viewModel.pushPage(context, const WalletSettingPage());
   }
 
   void _showWalletRecord() {

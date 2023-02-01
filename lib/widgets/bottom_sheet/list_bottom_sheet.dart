@@ -30,7 +30,7 @@ class ListBottomSheet extends BaseBottomSheet {
                   top: UIDefine.getPixelWidth(15),
                   left: UIDefine.getPixelWidth(20),
                   right: UIDefine.getPixelWidth(20)),
-              child: TitleAppBar(title: '$mainText', needArrowIcon: false)),
+              child: TitleAppBar(title: '$mainText', needCloseIcon: false)),
           Padding(padding: EdgeInsets.all(UIDefine.getScreenHeight(1))),
           Expanded(
             child: SingleChildScrollView(

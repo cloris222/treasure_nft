@@ -5,10 +5,15 @@ import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 class TitleAppBar extends StatelessWidget {
-  const TitleAppBar({Key? key, required this.title, this.needArrowIcon = true})
+  const TitleAppBar(
+      {Key? key,
+      required this.title,
+      this.needArrowIcon = true,
+      this.needCloseIcon = false})
       : super(key: key);
   final String title;
   final bool needArrowIcon;
+  final bool needCloseIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +43,7 @@ class TitleAppBar extends StatelessWidget {
           right: -UIDefine.getPixelWidth(10),
           top: 0,
           child: Visibility(
-            visible: !needArrowIcon,
+            visible: needCloseIcon,
             child: IconButton(
                 onPressed: () => BaseViewModel().popPage(context),
                 icon: Image.asset(AppImagePath.closeIcon,

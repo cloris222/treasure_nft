@@ -94,7 +94,7 @@ class LevelDetailViewModel extends BaseViewModel {
 
   ///MARK: 顯示下一等級獎勵
   void showLeveLBonus(BuildContext context) async {
-    pushBottomSheetPage(context, const LevelBonusPage());
+    pushPage(context, const LevelBonusPage());
   }
 
   /// 外部連結

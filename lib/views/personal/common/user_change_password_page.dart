@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/views/custom_appbar_view.dart';
+import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 
 import '../../../constant/ui_define.dart';
@@ -35,14 +37,15 @@ class _UserChangePasswordPage extends State<UserChangePasswordPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
+    return CustomAppbarView(
+        needScrollView: false,
+        type: AppNavigationBarType.typePersonal,
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TitleAppBar(title: tr('changePassword'), needArrowIcon: false),
+            TitleAppBar(title: tr('changePassword'), needCloseIcon: false),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(

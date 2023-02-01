@@ -81,7 +81,7 @@ class PersonalNewSubCommonView extends StatelessWidget {
   }
 
   void _showUserCreatePage(BuildContext context) {
-    // BaseViewModel().pushPage(context, const UserCreatePage());
-    PageBottomSheet(context, page: const UserCreatePage()).show();
+    BaseViewModel().pushPage(context, const UserCreatePage());
+    // PageBottomSheet(context, page: const UserCreatePage()).show();
   }
 }

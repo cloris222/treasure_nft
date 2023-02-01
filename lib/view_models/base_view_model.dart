@@ -75,9 +75,6 @@ class BaseViewModel {
         context, MaterialPageRoute(builder: (context) => page));
   }
 
-  void pushBottomSheetPage(BuildContext context, Widget page) {
-    PageBottomSheet(context, page: page).show();
-  }
 
   ///MARK: 取代當前頁面
   Future<void> pushReplacement(BuildContext context, Widget page) async {

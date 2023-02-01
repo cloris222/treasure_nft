@@ -5,6 +5,7 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/views/custom_appbar_view.dart';
 import 'package:treasure_nft_project/widgets/dropdownButton/chain_dropdown_button.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 
@@ -42,15 +43,16 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
+    return CustomAppbarView(
+      needScrollView: false,
+      type: widget.type,
       body: Column(
         children: [
           Container(
             padding:
                 EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
             child:
-                TitleAppBar(title: tr('walletRecharge'), needArrowIcon: false),
+                TitleAppBar(title: tr('walletRecharge'), needCloseIcon: false),
           ),
           Expanded(child: SingleChildScrollView(child: _buildBody())),
         ],

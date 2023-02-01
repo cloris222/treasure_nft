@@ -130,10 +130,13 @@ class _MainPageState extends State<MainPage> {
   void showSignView() {
     Future.delayed(const Duration(seconds: 1)).then((value) {
       if (GlobalData.signInInfo != null) {
-        PageBottomSheet(context,
-            page: SignInPage(
+        viewModel
+            .pushOpacityPage(
+            context,
+            SignInPage(
               data: GlobalData.signInInfo!,
-            )).show().then((value) => viewModel.setSignIn(context));
+            ))
+            .then((value) => viewModel.setSignIn(context));
       }
     });
   }

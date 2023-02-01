@@ -37,7 +37,7 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
           Container(
             padding:
                 EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
-            child: TitleAppBar(title: tr('bonus'), needArrowIcon: false),
+            child: TitleAppBar(title: tr('bonus'), needCloseIcon: false),
           ),
           Expanded(
               child: SingleChildScrollView(
