@@ -97,7 +97,7 @@ class _UserNovicePageState extends State<UserNovicePage> {
           return Container(
               alignment: Alignment.center,
               decoration: AppStyle().styleColorBorderBackground(
-                  radius: 10, color: Colors.transparent, borderLine: 2),
+                  radius: 10, color: AppColors.searchBar, borderLine: 1),
               child: Stack(children: [
                 SizedBox(
                   height: UIDefine.getHeight(),
