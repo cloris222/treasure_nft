@@ -5,12 +5,16 @@ class AppColors {
   const AppColors._();
 
   static const Color textWhite = Color(0xFFFFFFFF);
-  static const Color textBlack = Color(0xFF1F1F39);
   static const Color textRed = Color(0xFFEC6898);
+  static const Color textBlack = Color(0xFF000000);
+  static const Color textThreeBlack = Color(0xFF333333);
+  static const Color textSixBlack = Color(0xFF666666);
+  static const Color textNineBlack = Color(0xFF999999);
   static const Color textGrey = Color(0xFF7A7C7D);
+  static const Color textHintGrey = Color(0xFFC1C1C1);
   static const Color dialogGrey = Color(0xFF8797B0);
   static const Color dialogBlack = Color(0xFF3D4045);
-  static const Color bolderGrey = Color(0xFFE0EAF6);
+  static const Color bolderGrey = Color(0xFFE6E5EA);
   static const Color deepBlue = Color(0xFF4F5CBF);
   static const Color buttonGrey = Color(0xFFE0EAF7);
   static const Color searchBar = Color(0xFFB9C5D9);
@@ -20,19 +24,48 @@ class AppColors {
   static const Color transParentHalf = Color(0x80E1DBDB);
   static const Color prizeOrange = Color(0xFFF29049);
   static const Color prizePurple = Color(0xFF996CDD);
+  static const Color personalBar = Color(0xFFF2F2F2);
+  static const Color dailyAcceptedReward = Color(0xFFE2E2E2);
 
   static const Color datePickerBorder = Color(0xFFE0EAF6);
 
   static const Color pageUnChoose = Color(0xFFD9D9D9);
   static const Color jarCoinBg = Color(0xFF003268);
   static const Color homeArtBg = Color(0xFFEFF4FA);
+  static const Color tetherGreen = Color(0xFF00AC4F);
   static const Color emptyCoffee = Color(0xFF5FC8AE);
+  static const Color rateGreen = Color(0xFF1DCAB3);
+  static const Color rateRed = Color(0xFFFF002F);
+
+  static const Color defaultBackgroundSpace = Color(0xFFF9F9F9);
+  static const Color lineBarGrey = Color(0xFFE5E5E5);
+  static const Color itemBackground = Color(0xFFF7F7F7);
 
   ///MARK:主題色彩
   static const Color mainThemeButton = Color(0xFF3B82F6);
   static const Color subThemePurple = Color(0xFF9657D7);
   static const Color mainBottomBg = Color(0xFFE0EAF7);
   static const Color reservationLevel0 = Color(0xFFF8B148);
+
+  ///MARK: 漸層
+  static const List<Color> gradientBaseColorBg = [
+    Color(0xFF5CBFFE),
+    Color(0xFFA0F5D0),
+    Color(0xFFFFD7C8)
+  ];
+
+  static const List<Color> gradientBaseFlipColorBg = [
+    Color(0xFFFFD7C8),
+    Color(0xFFA0F5D0),
+    Color(0xFF5CBFFE)
+  ];
+
+  ///MARK: 漸層
+  static const List<Color> gradientBackgroundColorBg = [
+    Color(0x4C99BCED),
+    Color(0x4C99F8CF),
+    Color(0x4CFFD6C7)
+  ];
 
   /// trade btn
   static const Color reservationLevel1 = Color(0xFF27BEB5);

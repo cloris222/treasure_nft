@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/enum/setting_enum.dart';
 import 'package:treasure_nft_project/constant/subject_key.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
-import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
-import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/home/home_observer.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
+import '../../constant/theme/app_image_path.dart';
+import '../../constant/ui_define.dart';
 
 class HomeSubContactView extends StatefulWidget {
   const HomeSubContactView({Key? key, required this.viewModel})
@@ -47,32 +47,21 @@ class _HomeSubContactViewState extends State<HomeSubContactView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: AppColors.mainBottomBg,
-        child: Column(children: [
-          Padding(
-              padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    getPadding(5),
-                    Text(tr('footer_contactUs'),
-                        style: TextStyle(
-                            fontSize: UIDefine.fontSize16,
-                            color: AppColors.textBlack)),
-                    getPadding(2),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: _buildFooterButtonList()),
-                    getPadding(7),
-                    Center(
-                        child: Text('TreasureMeta Technology',
-                            style: TextStyle(
-                                fontSize: UIDefine.fontSize14,
-                                color: AppColors.textBlack))),
-                    SizedBox(
-                      height: UIDefine.getPixelHeight(70),
-                    )
-                  ]))
+        padding: EdgeInsets.only(
+            top: UIDefine.getPixelWidth(20),
+            left: UIDefine.getPixelWidth(20),
+            right: UIDefine.getPixelWidth(20)),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Image.asset(AppImagePath.mainAppBarLogo,
+              height: UIDefine.getPixelWidth(30), fit: BoxFit.fitHeight),
+          getPadding(2),
+          Text(
+            tr('footer_intro1'),
+            style: viewModel.getContextStyle(
+                fontSize: UIDefine.fontSize12, color: AppColors.textSixBlack),
+          ),
+          getPadding(2),
+          Wrap(children: _buildFooterButtonList())
         ]));
   }
 
@@ -88,7 +77,13 @@ class _HomeSubContactViewState extends State<HomeSubContactView> {
             onTap: () {
               viewModel.launchInBrowser(getFooterLinkPath(footer));
             },
-            child: Image.asset(getFooterImgPath(footer))));
+            child: Container(
+                width: UIDefine.getPixelWidth(30),
+                height: UIDefine.getPixelWidth(30),
+                margin: EdgeInsets.symmetric(
+                    horizontal: UIDefine.getPixelWidth(5),
+                    vertical: UIDefine.getPixelWidth(10)),
+                child: Image.asset(getFooterImgPath(footer)))));
       }
     }
 

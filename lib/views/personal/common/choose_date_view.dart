@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
@@ -6,7 +7,6 @@ import '../../../constant/theme/app_theme.dart';
 import '../../../constant/ui_define.dart';
 import '../../../models/data/validate_result_data.dart';
 import '../../../widgets/label/error_text_widget.dart';
-import '../../../widgets/text_field/login_text_widget.dart';
 
 class ChooseDateView extends StatelessWidget {
   const ChooseDateView({
@@ -18,6 +18,7 @@ class ChooseDateView extends StatelessWidget {
     this.isSecure = false,
     this.onChanged,
     this.onTap,
+    this.bShowRed = false,
   }) : super(key: key);
   final String titleText;
   final String hintText;
@@ -26,6 +27,7 @@ class ChooseDateView extends StatelessWidget {
   final ValidateResultData data;
   final ValueChanged<String>? onChanged;
   final GestureTapCallback? onTap;
+  final bool bShowRed;
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +53,8 @@ class ChooseDateView extends StatelessWidget {
               textInputAction: TextInputAction.next,
               decoration: InputDecoration(
                 hintText: hintText,
-                hintStyle: const TextStyle(height: 1.1),
-                labelStyle: const TextStyle(color: Colors.black),
+                hintStyle:  AppTextStyle.getBaseStyle(height: 1.1),
+                labelStyle: AppTextStyle.getBaseStyle(color: Colors.black),
                 alignLabelWithHint: true,
                 contentPadding: const EdgeInsets.only(top: 0, left: 20),
                 disabledBorder: AppTheme.style
@@ -71,9 +73,21 @@ class ChooseDateView extends StatelessWidget {
   Widget _buildTextTitle(String text) {
     return Container(
         margin: const EdgeInsets.symmetric(vertical: 5),
-        child: Text(text,
-            style: TextStyle(
-                fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14)));
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(text,
+                style: AppTextStyle.getBaseStyle(
+                    fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14)),
+            bShowRed ?
+            Text(
+                '*', style: AppTextStyle.getBaseStyle(
+                color: AppColors.textRed, fontSize: UIDefine.fontSize20)
+            ) :
+            const SizedBox()
+          ],
+        )
+        );
   }
 
   Widget _buildSecureView() {

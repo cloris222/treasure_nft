@@ -1,10 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+
+import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
+
 import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/ui_define.dart';
-import '../button/action_button_widget.dart';
 import 'base_dialog.dart';
 
 class SuccessDialog extends BaseDialog {
@@ -41,7 +44,7 @@ class SuccessDialog extends BaseDialog {
             margin: mainMargin,
             child: Text(mainText ?? '${tr('success')} !',
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: AppTextStyle.getBaseStyle(
                     color: AppColors.textBlack,
                     fontSize: mainTextSize,
                     fontWeight: FontWeight.w500)),
@@ -49,16 +52,15 @@ class SuccessDialog extends BaseDialog {
           subText.isNotEmpty
               ? Text(subText,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: AppTextStyle.getBaseStyle(
                       color: AppColors.textGrey, fontSize: UIDefine.fontSize12))
               : const Text(''),
           Container(
             margin: EdgeInsets.zero,
-            child: ActionButtonWidget(
+            child: LoginButtonWidget(
                 margin: EdgeInsets.symmetric(horizontal: UIDefine.getWidth() / 5),
                 btnText: tr("check"),
-                onPressed: _onPress,
-                isBorderStyle: false),
+                onPressed: _onPress,),
           )
         ]);
   }

@@ -5,6 +5,7 @@ import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/widgets/dialog/base_dialog.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 import '../button/action_button_widget.dart';
 
@@ -39,7 +40,7 @@ class CustomAmountDialog extends BaseDialog {
             children: [
               Text(
                 tr('custom'),
-                style: TextStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
+                style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
               ),
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 20),

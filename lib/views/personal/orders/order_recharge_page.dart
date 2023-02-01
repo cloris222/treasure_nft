@@ -4,18 +4,17 @@ import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/widgets/dropdownButton/chain_dropdown_button.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 
 import '../../../constant/enum/coin_enum.dart';
 import '../../../constant/global_data.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_style.dart';
-import '../../../constant/theme/app_theme.dart';
 import '../../../view_models/personal/orders/order_recharge_viewmodel.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/dialog/common_custom_dialog.dart';
-import '../../../widgets/dialog/simple_custom_dialog.dart';
-import '../../../widgets/label/coin/tether_coin_widget.dart';
-import '../../custom_appbar_view.dart';
 
 ///MARK: 充值
 class OrderRechargePage extends StatefulWidget {
@@ -31,6 +30,8 @@ class OrderRechargePage extends StatefulWidget {
 class _OrderRechargePageState extends State<OrderRechargePage> {
   late OrderRechargeViewModel viewModel;
   GlobalKey repaintKey = GlobalKey();
+  EdgeInsetsGeometry mainPadding =
+      EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20));
 
   @override
   void initState() {
@@ -41,206 +42,203 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomAppbarView(
-      needScrollView: false,
-      title: tr("walletRecharge"),
-      type: widget.type,
-      body: SingleChildScrollView(child: _buildBody()),
-    );
-  }
-
-  Widget _buildBody() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      child: Column(
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Column(
         children: [
-          _buildChoseAddress(),
-          Wrap(
-            runSpacing: 20,
-            children: [
-              const SizedBox(width: 1),
-              _buildAddressInfo(),
-              _buildAddressPath(),
-              _buildAddressChain(),
-              _buildAddressHint(),
-            ],
-          )
+          Container(
+            padding:
+                EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
+            child:
+                TitleAppBar(title: tr('walletRecharge'), needArrowIcon: false),
+          ),
+          Expanded(child: SingleChildScrollView(child: _buildBody())),
         ],
       ),
     );
   }
 
-  Widget _buildChoseAddress() {
-    return DropdownButtonFormField(
-        icon: Image.asset('assets/icon/btn/btn_arrow_02_down.png'),
-        onChanged: (newValue) {
-          setState(() {
-            viewModel.currentChain = newValue!;
-          });
-        },
-        value: viewModel.currentChain,
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.16),
-              UIDefine.getScreenWidth(4.16), UIDefine.getScreenWidth(4.16), 0),
-          hintStyle: const TextStyle(height: 1.6, color: AppColors.textBlack),
-          border: AppTheme.style.styleTextEditBorderBackground(
-              color: AppColors.searchBar, radius: 10),
-          focusedBorder: AppTheme.style.styleTextEditBorderBackground(
-              color: AppColors.searchBar, radius: 10),
-          enabledBorder: AppTheme.style.styleTextEditBorderBackground(
-              color: AppColors.searchBar, radius: 10),
-        ),
-        items: [
-          DropdownMenuItem(
-              value: CoinEnum.TRON,
-              child: Row(children: [
-                TetherCoinWidget(size: UIDefine.fontSize24),
-                Text('  USDT-TRC20',
-                    style: TextStyle(
-                        color: viewModel.currentChain == CoinEnum.TRON
-                            ? AppColors.deepBlue
-                            : AppColors.searchBar))
-              ])),
-          DropdownMenuItem(
-              value: CoinEnum.BSC,
-              child: Row(children: [
-                TetherCoinWidget(size: UIDefine.fontSize24),
-                Text('  USDT-BSC',
-                    style: TextStyle(
-                        color: viewModel.currentChain == CoinEnum.BSC
-                            ? AppColors.deepBlue
-                            : AppColors.searchBar))
-              ]))
-        ]);
-  }
-
-  Widget _buildAddressInfo() {
-    return Wrap(
-      runSpacing: 10,
+  Widget _buildBody() {
+    return Column(
       children: [
-        Text(tr('rechargeNetwork'),
-            style: TextStyle(
-                fontSize: UIDefine.fontSize16,
-                color: AppColors.dialogBlack,
-                fontWeight: FontWeight.w500)),
-        Container(
-          alignment: Alignment.center,
-          margin: EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(10)),
-          child: Column(
-            children: [
-              const SizedBox(height: 5),
-              RepaintBoundary(
-                key: repaintKey,
-                child: QrImage(
-                  errorStateBuilder: (context, error) => Text(error.toString()),
-                  data:
-                      GlobalData.userWalletInfo?[viewModel.currentChain.name] ??
-                          '',
-                  version: QrVersions.auto,
-                  backgroundColor: Colors.white,
-                  foregroundColor: AppColors.mainThemeButton,
-                  size: UIDefine.getWidth() / 2,
-                ),
-              ),
-              const SizedBox(height: 5),
-              InkWell(
-                onTap: () => _onSaveQRCode(),
-                child: Container(
-                  decoration: AppStyle().styleUserSetting(),
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                  child: Text(tr('saveQrcode')),
-                ),
-              ),
-              const SizedBox(height: 5),
-              Text(tr("recharge-hint-1'"),
-                  maxLines: 2,
-                  style: TextStyle(
-                      fontSize: UIDefine.fontSize14,
-                      color: AppColors.dialogBlack,
-                      fontWeight: FontWeight.w500)),
-              Text(tr("recharge-hint-2'"),
-                  maxLines: 2,
-                  style: TextStyle(
-                      fontSize: UIDefine.fontSize14,
-                      color: AppColors.dialogBlack,
-                      fontWeight: FontWeight.w500))
-            ],
-          ),
-        ),
-        const SizedBox(width: 1),
+        SizedBox(height: UIDefine.getScreenWidth(0.97)),
+        _buildChoseAddress(),
+        Wrap(
+          runSpacing: 20,
+          children: [
+            const SizedBox(width: 1),
+            _buildAddressInfo(),
+            _buildLine(),
+
+            ///MARK: 充值的注意事項
+            _buildHint(),
+            _buildAddressPath(),
+            _buildAddressChain(),
+            const SizedBox(width: 1),
+          ],
+        )
       ],
     );
   }
 
-  Widget _buildAddressPath() {
+  Widget _buildLine() {
     return Container(
-      width: UIDefine.getWidth(),
-      decoration: AppStyle().styleUserSetting(),
-      padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        width: UIDefine.getWidth(),
+        height: UIDefine.getPixelWidth(5),
+        color: AppColors.defaultBackgroundSpace);
+  }
+
+  Widget _buildChoseAddress() {
+    return Padding(
+        padding: mainPadding,
+        child: ChainDropDownButton(
+            onChainChange: (chain) {
+              setState(() {
+                viewModel.currentChain = chain;
+              });
+            },
+            currentChain: viewModel.currentChain));
+  }
+
+  Widget _buildAddressInfo() {
+    return Padding(
+      padding: mainPadding,
+      child: Wrap(
+        runSpacing: 10,
         children: [
-          Text(
-            tr('rechargeUaddr'),
-            style: TextStyle(
-                fontSize: UIDefine.fontSize16,
-                color: AppColors.dialogBlack,
-                fontWeight: FontWeight.w500),
+          Text(tr('rechargeNetwork'),
+              style: AppTextStyle.getBaseStyle(
+                  fontSize: UIDefine.fontSize18,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w600)),
+          _buildAddressHint(),
+          Container(
+            alignment: Alignment.center,
+            margin:
+                EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(10)),
+            child: Column(
+              children: [
+                const SizedBox(height: 5),
+                RepaintBoundary(
+                  key: repaintKey,
+                  child: QrImage(
+                    errorStateBuilder: (context, error) =>
+                        Text(error.toString()),
+                    data: GlobalData
+                            .userWalletInfo?[viewModel.currentChain.name] ??
+                        '',
+                    version: QrVersions.auto,
+                    backgroundColor: Colors.white,
+                    foregroundColor: AppColors.mainThemeButton,
+                    size: UIDefine.getWidth() / 2,
+                  ),
+                ),
+                const SizedBox(height: 5),
+                InkWell(
+                  onTap: () => _onSaveQRCode(),
+                  child: Container(
+                    decoration: AppStyle().styleUserSetting(),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 15),
+                    child: Text(tr('saveQrcode')),
+                  ),
+                ),
+                const SizedBox(height: 5),
+              ],
+            ),
           ),
-          const SizedBox(height: 5),
-          Row(
-            children: [
-              Flexible(
-                  child: Text(
-                      GlobalData.userWalletInfo?[viewModel.currentChain.name] ??
-                          '',
-                      maxLines: 2,
-                      style: TextStyle(
-                          fontSize: UIDefine.fontSize14,
-                          color: AppColors.dialogGrey,
-                          fontWeight: FontWeight.w500))),
-              const SizedBox(width: 10),
-              InkWell(
-                  onTap: () {
-                    viewModel.copyText(
-                        copyText: GlobalData
-                            .userWalletInfo?[viewModel.currentChain.name]);
-                    viewModel.showToast(context, tr('copiedSuccess'));
-                  },
-                  child: Image.asset(AppImagePath.copyIcon))
-            ],
-          )
         ],
+      ),
+    );
+  }
+
+  Widget _buildHint() {
+    return Padding(
+      padding: mainPadding,
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        Text("${tr("recharge-hint-1'")} ${tr("recharge-hint-2'")}",
+            maxLines: 2,
+            style: AppTextStyle.getBaseStyle(
+                fontSize: UIDefine.fontSize12, color: AppColors.textNineBlack)),
+        const SizedBox(width: 1),
+      ]),
+    );
+  }
+
+  Widget _buildAddressPath() {
+    return Padding(
+      padding: mainPadding,
+      child: Container(
+        width: UIDefine.getWidth(),
+        decoration: AppStyle().styleUserSetting(),
+        padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              tr('rechargeUaddr'),
+              style: AppTextStyle.getBaseStyle(
+                  fontSize: UIDefine.fontSize12,
+                  color: AppColors.textThreeBlack,
+                  fontWeight: FontWeight.w600),
+            ),
+            const SizedBox(height: 5),
+            Row(
+              children: [
+                Flexible(
+                    child: Text(
+                        GlobalData
+                                .userWalletInfo?[viewModel.currentChain.name] ??
+                            '',
+                        maxLines: 2,
+                        style: AppTextStyle.getBaseStyle(
+                            fontSize: UIDefine.fontSize12,
+                            color: AppColors.textNineBlack,
+                            fontWeight: FontWeight.w400))),
+                const SizedBox(width: 10),
+                InkWell(
+                    onTap: () {
+                      viewModel.copyText(
+                          copyText: GlobalData
+                              .userWalletInfo?[viewModel.currentChain.name]);
+                      viewModel.showToast(context, tr('copiedSuccess'));
+                    },
+                    child: Image.asset(AppImagePath.copyIcon))
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildAddressChain() {
-    return Container(
-      width: UIDefine.getWidth(),
-      decoration: AppStyle().styleUserSetting(),
-      padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            tr('chain'),
-            style: TextStyle(
-                fontSize: UIDefine.fontSize16,
-                color: AppColors.dialogBlack,
-                fontWeight: FontWeight.w500),
-          ),
-          const SizedBox(height: 5),
-          Text(
-              viewModel.currentChain == CoinEnum.TRON
-                  ? 'TRON (TRC-20)'
-                  : 'BSC (BEP-20)',
-              style: TextStyle(
-                  fontSize: UIDefine.fontSize14,
-                  color: AppColors.dialogGrey,
-                  fontWeight: FontWeight.w500))
-        ],
+    return Padding(
+      padding: mainPadding,
+      child: Container(
+        width: UIDefine.getWidth(),
+        decoration: AppStyle().styleUserSetting(),
+        padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+        child: Row(
+          children: [
+            Text(
+              tr('chain'),
+              style: AppTextStyle.getBaseStyle(
+                  fontSize: UIDefine.fontSize12,
+                  color: AppColors.textThreeBlack,
+                  fontWeight: FontWeight.w600),
+            ),
+            SizedBox(width: UIDefine.getPixelWidth(10)),
+            Text(
+                viewModel.currentChain == CoinEnum.TRON
+                    ? 'TRON (TRC-20)'
+                    : 'BSC (BEP-20)',
+                style: AppTextStyle.getBaseStyle(
+                    fontSize: UIDefine.fontSize12,
+                    color: AppColors.textSixBlack,
+                    fontWeight: FontWeight.w400))
+          ],
+        ),
       ),
     );
   }
@@ -250,12 +248,14 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
       Row(
         children: [
           Text(tr("minimum-rechargeAmount'"),
-              style: TextStyle(
-                  fontSize: UIDefine.fontSize16, color: AppColors.dialogBlack)),
-          Flexible(child: Container()),
+              style: AppTextStyle.getBaseStyle(
+                  fontSize: UIDefine.fontSize12,
+                  color: AppColors.textNineBlack)),
+          SizedBox(width: UIDefine.getPixelWidth(5)),
           Text('10 USDT',
-              style: TextStyle(
-                  fontSize: UIDefine.fontSize16, color: AppColors.dialogBlack))
+              style: AppTextStyle.getBaseStyle(
+                  fontSize: UIDefine.fontSize12,
+                  color: AppColors.textNineBlack))
         ],
       ),
       SizedBox(height: UIDefine.getScreenWidth(2.77)),
@@ -263,8 +263,8 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
           '${tr("minimum-rechargeAmount-start'")} ${viewModel.currentChain == CoinEnum.TRON ? 'USDT-TRC20' : 'USDT-BSC'} ${tr("minimum-rechargeAmount-end'")}',
           maxLines: 2,
           textAlign: TextAlign.start,
-          style: TextStyle(
-              fontSize: UIDefine.fontSize12, color: AppColors.dialogGrey)),
+          style: AppTextStyle.getBaseStyle(
+              fontSize: UIDefine.fontSize12, color: AppColors.textRed)),
       SizedBox(height: UIDefine.getScreenWidth(6)),
     ]);
   }

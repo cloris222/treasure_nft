@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/utils/timer_util.dart';
 import 'package:treasure_nft_project/widgets/dialog/base_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
@@ -12,6 +13,8 @@ import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart'
 import '../../../constant/theme/app_colors.dart';
 import '../../../view_models/collection/collection_transfer_view_model.dart';
 import '../../../widgets/button/countdown_button_widget.dart';
+import '../../../widgets/button/login_bolder_button_widget.dart';
+import '../../../widgets/button/login_button_widget.dart';
 
 /// 收藏 > 未上架Item > 轉出
 class CollectionTransferDialogView extends BaseDialog {
@@ -49,7 +52,7 @@ class CollectionTransferDialogView extends BaseDialog {
 
           Text(
             name,
-            style: TextStyle(
+            style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
           ),
 
@@ -59,7 +62,7 @@ class CollectionTransferDialogView extends BaseDialog {
               width: double.infinity,
               child: Text(
                 tr("mail_valid_code"),
-                style: TextStyle(
+                style: AppTextStyle.getBaseStyle(
                     fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
               )
           ),
@@ -71,7 +74,7 @@ class CollectionTransferDialogView extends BaseDialog {
             children: [
               /// 驗證碼輸入框
               SizedBox(
-                width: UIDefine.getScreenWidth(36),
+                width: UIDefine.getScreenWidth(45),
                 height: UIDefine.getScreenWidth(11.11),
                 child: TextField(
                   keyboardType: TextInputType.number,
@@ -89,7 +92,7 @@ class CollectionTransferDialogView extends BaseDialog {
                     filled: true,
                     fillColor: AppColors.textWhite,
                     hintText: tr("code"),
-                    hintStyle: TextStyle(fontSize: UIDefine.fontSize10, color: AppColors.searchBar),
+                    hintStyle: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize10, color: AppColors.searchBar),
                     contentPadding: const EdgeInsets.only(left: 10, bottom: 6, top: 6)
                   ),
                 )
@@ -97,10 +100,10 @@ class CollectionTransferDialogView extends BaseDialog {
 
               /// Get按鈕
               CountdownButtonWidget(
-                buttonType: 2,
+                buttonType: 4,
                 countdownSecond: 60,
-                margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                btnText: tr('get'),
+                margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                btnText: tr('send'),
                 isFillWidth: false,
                 setHeight: UIDefine.getScreenWidth(11.11),
                 onPress: _pressGet,
@@ -118,7 +121,7 @@ class CollectionTransferDialogView extends BaseDialog {
               visible: bEmpty,
               child: Text(
                 tr("rule_void"),
-                style: TextStyle(color: AppColors.reservationLevel5,
+                style: AppTextStyle.getBaseStyle(color: AppColors.reservationLevel5,
                     fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w400),
               ),
             ),
@@ -131,7 +134,7 @@ class CollectionTransferDialogView extends BaseDialog {
             alignment: Alignment.centerLeft,
             child: Text(
               tr("valid_time") + ': ' + leftTime,
-              style: TextStyle(color: AppColors.textRed,
+              style: AppTextStyle.getBaseStyle(color: AppColors.textRed,
                   fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
             ),
           ),
@@ -141,39 +144,23 @@ class CollectionTransferDialogView extends BaseDialog {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
+              SizedBox(
                 width: UIDefine.getScreenWidth(32),
-                decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.mainThemeButton, width: 2),
-                    borderRadius: BorderRadius.circular(10)
-                ),
-                child: TextButton(
+                child: LoginBolderButtonWidget(
                     onPressed: () {
                       _pressCancel();
                     },
-                    child: Text(
-                      tr('cancel'), // 轉讓
-                      style: TextStyle(
-                          color: AppColors.mainThemeButton, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
-                    )
+                    btnText: tr('cancel'),
                 ),
               ),
 
-              Container(
+              SizedBox(
                 width: UIDefine.getScreenWidth(32),
-                decoration: BoxDecoration(
-                    color: AppColors.mainThemeButton,
-                    borderRadius: BorderRadius.circular(10)
-                ),
-                child: TextButton(
+                child: LoginButtonWidget(
                     onPressed: () {
                       _pressVerify();
                     },
-                    child: Text(
-                      tr('verify'), // 販售
-                      style: TextStyle(
-                          color: AppColors.textWhite, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
-                    )
+                    btnText: tr('verify'),
                 ),
               )
             ],
@@ -190,7 +177,7 @@ class CollectionTransferDialogView extends BaseDialog {
       child: Text(
         tr("transferCheck"),
         style:
-        TextStyle(fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500),
+        AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500),
       )
     );
   }

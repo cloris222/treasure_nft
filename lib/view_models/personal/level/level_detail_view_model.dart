@@ -1,3 +1,4 @@
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
@@ -7,7 +8,7 @@ import 'package:treasure_nft_project/models/http/parameter/level_info_data.dart'
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/personal/level/level_bonus_page.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 
 class LevelDetailViewModel extends BaseViewModel {
   LevelDetailViewModel({required this.setState});
@@ -15,7 +16,9 @@ class LevelDetailViewModel extends BaseViewModel {
   final ViewChange setState;
   List<LevelInfoData> levelDataList = [];
   bool isLevelUp = false;
+  int currentIndex = 0;
   late PageController pageController;
+  late SwiperController swiperController;
 
   void initState() async {
     List<bool> checkList = List<bool>.generate(3, (index) => false);
@@ -33,18 +36,18 @@ class LevelDetailViewModel extends BaseViewModel {
     ///MARK: 等待更新完成
     await checkFutureTime(
         logKey: 'levelDetail', onCheckFinish: () => !checkList.contains(false));
-    int index = 0;
 
     ///MARK: 5&6等 跳到第6等等級頁
     if (GlobalData.userLevelInfo!.userLevel >= 5) {
-      index = 5;
+      currentIndex = 5;
     }
 
     ///1~4等 跳到 第+1等 等級頁
     else if (GlobalData.userLevelInfo!.userLevel > 0) {
-      index = GlobalData.userLevelInfo!.userLevel;
+      currentIndex = GlobalData.userLevelInfo!.userLevel;
     }
-    pageController = PageController(initialPage: index);
+    pageController = PageController(initialPage: currentIndex);
+    swiperController = SwiperController();
     setState(() {});
   }
 
@@ -91,6 +94,16 @@ class LevelDetailViewModel extends BaseViewModel {
 
   ///MARK: 顯示下一等級獎勵
   void showLeveLBonus(BuildContext context) async {
-    pushPage(context, const LevelBonusPage());
+    pushBottomSheetPage(context, const LevelBonusPage());
+  }
+
+  /// 外部連結
+  Future<void> launchInBrowser(String url) async {
+    if (!await launchUrl(
+      Uri.parse(url),
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw 'Could not launch $url';
+    }
   }
 }

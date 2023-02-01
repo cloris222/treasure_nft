@@ -6,7 +6,9 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_member_detail.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
-import 'package:treasure_nft_project/widgets/dialog/list_dialog.dart';
+import 'package:treasure_nft_project/widgets/bottom_sheet/list_bottom_sheet.dart';
+import 'package:treasure_nft_project/widgets/button/login_bolder_button_widget.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'lower_invite_listview.dart';
 import 'lower_nft_listview.dart';
 
@@ -18,23 +20,22 @@ class MemberDetailItemView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TeamMemberViewModel viewModel = TeamMemberViewModel();
-    TextStyle titleStyle = TextStyle(
-        color: AppColors.dialogGrey,
+    TextStyle titleStyle = AppTextStyle.getBaseStyle(
+        color: AppColors.textSixBlack,
         fontSize: UIDefine.fontSize12,
-        fontWeight: FontWeight.w500);
+        fontWeight: FontWeight.w400);
 
-    TextStyle contentStyle = TextStyle(
-        color: AppColors.dialogBlack,
-        fontSize: UIDefine.fontSize12,
-        fontWeight: FontWeight.w500);
+    TextStyle contentStyle = AppTextStyle.getBaseStyle(
+        color: AppColors.textBlack,
+        fontSize: UIDefine.fontSize14,
+        fontWeight: FontWeight.w400);
 
     return Container(
         padding: EdgeInsets.all(UIDefine.getScreenWidth(5)),
         height: UIDefine.getScreenHeight(38),
         decoration: BoxDecoration(
-          color: AppColors.textWhite,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: AppColors.datePickerBorder, width: 2),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
         ),
         child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -88,48 +89,13 @@ class MemberDetailItemView extends StatelessWidget {
                     ),
 
                     /// NFTs
-                    Container(
-                      margin: EdgeInsets.only(
-                        right: UIDefine.getScreenWidth(3),
-                      ),
-                      child: TextButton(
-                        //圓角
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.white),
-                          shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                              side: const BorderSide(
-                                  width: 2, color: AppColors.mainThemeButton),
-                              borderRadius: BorderRadius.circular(10))),
-                        ),
-
-                        onPressed: () => _onShowNFTs(context, viewModel),
-
-                        child: Container(
-                            padding: EdgeInsets.only(
-                              left: UIDefine.getScreenWidth(2),
-                              right: UIDefine.getScreenWidth(2),
-                            ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  tr('NFTs'),
-                                  style: const TextStyle(
-                                      color: AppColors.mainThemeButton),
-                                ),
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                  left: UIDefine.getScreenWidth(6),
-                                )),
-                                Text(
-                                  itemData.itemCount.toString(),
-                                  style: const TextStyle(
-                                      color: AppColors.mainThemeButton),
-                                ),
-                              ],
-                            )),
-                      ),
+                    LoginBolderButtonWidget(
+                      margin:
+                          const EdgeInsets.only(right: 5, top: 5, bottom: 5),
+                      radius: 8,
+                      alignment: Alignment.centerLeft,
+                      onPressed: () => _onShowNFTs(context, viewModel),
+                      btnText: '${tr('NFTs')}　${itemData.itemCount.toString()}',
                     ),
                   ],
                 ),
@@ -178,7 +144,7 @@ class MemberDetailItemView extends StatelessWidget {
                           children: [
                             Text(
                               ' ',
-                              style: TextStyle(
+                              style: AppTextStyle.getBaseStyle(
                                 color: AppColors.textGrey,
                                 fontSize: UIDefine.fontSize12,
                               ),
@@ -186,7 +152,7 @@ class MemberDetailItemView extends StatelessWidget {
                             viewModel.getPadding(1),
                             Text(
                               ' ',
-                              style: TextStyle(
+                              style: AppTextStyle.getBaseStyle(
                                 color: AppColors.textBlack,
                                 fontSize: UIDefine.fontSize12,
                               ),
@@ -195,47 +161,13 @@ class MemberDetailItemView extends StatelessWidget {
                         )),
 
                     /// Invite
-                    Container(
-                      margin: EdgeInsets.only(
-                        right: UIDefine.getScreenWidth(3),
-                      ),
-                      child: TextButton(
-                          //圓角
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.white),
-                            shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                    side: const BorderSide(
-                                        width: 2,
-                                        color: AppColors.mainThemeButton),
-                                    borderRadius: BorderRadius.circular(10))),
-                          ),
-                          onPressed: () => _onShowInvite(context, viewModel),
-                          child: Container(
-                              padding: EdgeInsets.only(
-                                left: UIDefine.getScreenWidth(2),
-                                right: UIDefine.getScreenWidth(2),
-                              ),
-                              child: Row(
-                                children: [
-                                  Flexible(
-                                    child: Text(
-                                      tr('invite'),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                          color: AppColors.mainThemeButton),
-                                    ),
-                                  ),
-                                  viewModel.getPadding(3),
-                                  Text(
-                                    itemData.inviteCount.toString(),
-                                    style: const TextStyle(
-                                        color: AppColors.mainThemeButton),
-                                  ),
-                                ],
-                              ))),
+                    LoginBolderButtonWidget(
+                      margin: const EdgeInsets.only(left: 5, top: 5, bottom: 5),
+                      radius: 8,
+                      alignment: Alignment.centerLeft,
+                      onPressed: () => _onShowInvite(context, viewModel),
+                      btnText:
+                          '${tr('invite')}　${itemData.inviteCount.toString()}',
                     ),
                   ],
                 ),
@@ -245,7 +177,7 @@ class MemberDetailItemView extends StatelessWidget {
 
   _onShowInvite(BuildContext context, TeamMemberViewModel viewModel) {
     if (itemData.inviteCount == 0) {
-      ListDialog(
+      ListBottomSheet(
         context,
         mainText: tr('invite'),
         callOkFunction: () {},
@@ -255,7 +187,7 @@ class MemberDetailItemView extends StatelessWidget {
       viewModel
           .getLowerInvite(itemData.inviteCount, itemData.userId)
           .then((value) => {
-                ListDialog(
+                ListBottomSheet(
                   context,
                   mainText: tr('invite'),
                   callOkFunction: () {},
@@ -267,7 +199,7 @@ class MemberDetailItemView extends StatelessWidget {
 
   _onShowNFTs(BuildContext context, TeamMemberViewModel viewModel) {
     if (itemData.itemCount == 0) {
-      ListDialog(
+      ListBottomSheet(
         context,
         mainText: tr('NFTs'),
         callOkFunction: () {},
@@ -277,7 +209,7 @@ class MemberDetailItemView extends StatelessWidget {
       viewModel
           .getLowerNFT(itemData.itemCount, itemData.userId)
           .then((value) => {
-                ListDialog(
+                ListBottomSheet(
                   context,
                   mainText: tr('NFTs'),
                   callOkFunction: () {},
@@ -306,7 +238,7 @@ class MemberDetailItemView extends StatelessWidget {
                 space,
                 Text(
                   'No Notifications',
-                  style: TextStyle(
+                  style: AppTextStyle.getBaseStyle(
                       fontWeight: FontWeight.w500,
                       color: AppColors.emptyCoffee,
                       fontSize: UIDefine.fontSize14),
@@ -315,7 +247,7 @@ class MemberDetailItemView extends StatelessWidget {
               ]),
           Center(
             child: Text(tr('noData'),
-                style: TextStyle(
+                style: AppTextStyle.getBaseStyle(
                     fontWeight: FontWeight.w500,
                     color: AppColors.emptyCoffee.withOpacity(0.3),
                     fontSize: UIDefine.fontSize16)),

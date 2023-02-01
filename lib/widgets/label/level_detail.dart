@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 
+import 'package:treasure_nft_project/utils/app_text_style.dart';
+
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/ui_define.dart';
@@ -30,7 +32,7 @@ class LevelDetailLabel extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text(title,
-              style: TextStyle(
+              style: AppTextStyle.getBaseStyle(
                   color: AppColors.dialogGrey,
                   fontSize: UIDefine.fontSize14,
                   fontWeight: leftFontWeight)),
@@ -47,7 +49,7 @@ class LevelDetailLabel extends StatelessWidget {
                 width: 5,
               ),
               Text(content,
-                  style: TextStyle(
+                  style: AppTextStyle.getBaseStyle(
                       color: AppColors.textBlack,
                       fontSize: UIDefine.fontSize14,
                       fontWeight: rightFontWeight)),

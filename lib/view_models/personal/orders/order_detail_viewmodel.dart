@@ -11,16 +11,15 @@ import 'package:treasure_nft_project/view_models/base_list_view_model.dart';
 import 'package:treasure_nft_project/widgets/card/item_info_card.dart';
 import 'package:treasure_nft_project/widgets/card/saves_info_card.dart';
 
-import '../../../models/http/parameter/user_property.dart';
 import '../../../widgets/card/data/card_showing_data.dart';
 import '../../../widgets/date_picker/custom_date_picker.dart';
-import '../../base_view_model.dart';
 
 class OrderDetailViewModel extends BaseListViewModel {
   OrderDetailViewModel({
     required super.onListChange,
     this.type = EarningIncomeType.ALL,
     super.hasTopView = true,
+    super.padding
   });
 
   double income = GlobalData.totalIncome ?? 0;

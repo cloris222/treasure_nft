@@ -26,8 +26,9 @@ class MedalIconWidget extends StatelessWidget {
 
     String path = enable
         ? format(AppImagePath.medalIcon,
-            {'mainNumber': NumberFormatUtil().integerTwoFormat(index + 1)})
-        : AppImagePath.unableMedalIcon;
+        {'mainNumber': NumberFormatUtil().integerTwoFormat(index + 1)})
+        : format(AppImagePath.unableMedalIcon,
+        {'mainNumber': NumberFormatUtil().integerTwoFormat(index + 1)});
     return BaseIconWidget(imageAssetPath: path, size: size);
   }
 }

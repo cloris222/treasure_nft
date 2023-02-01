@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gradient_borders/input_borders/gradient_outline_input_border.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_theme.dart';
 import '../../utils/num_length_formatter.dart';
@@ -9,7 +11,7 @@ class LoginTextWidget extends StatefulWidget {
   const LoginTextWidget(
       {Key? key,
       required this.hintText,
-      this.hintColor = AppColors.textGrey,
+      this.hintColor = AppColors.textHintGrey,
       this.isSecure = false,
       this.prefixIconAsset = '',
       this.onChanged,
@@ -22,7 +24,8 @@ class LoginTextWidget extends StatefulWidget {
       this.contentPaddingRight = 0,
       this.bLimitDecimalLength = false,
       this.bPasswordFormatter = false,
-      this.inputFormatters = const []})
+      this.inputFormatters = const [],
+      this.bFocusedGradientBolder = false})
       : super(key: key);
   final String hintText;
   final Color hintColor;
@@ -47,6 +50,9 @@ class LoginTextWidget extends StatefulWidget {
   final Color enabledColor; //可用狀態
   final Color focusedColor; //點選中
   final Color initColor; //初始化
+
+  /// 是否開啟漸層框(for 點選中)
+  final bool bFocusedGradientBolder;
 
   @override
   State<LoginTextWidget> createState() => _LoginTextWidgetState();
@@ -85,8 +91,8 @@ class _LoginTextWidgetState extends State<LoginTextWidget> {
         onTap: widget.onTap,
         decoration: InputDecoration(
             hintText: widget.hintText,
-            hintStyle: TextStyle(height: 1.1, color: widget.hintColor),
-            labelStyle: const TextStyle(color: Colors.black),
+            hintStyle: AppTextStyle.getBaseStyle(height: 1.1, color: widget.hintColor),
+            labelStyle:  AppTextStyle.getBaseStyle(color: Colors.black),
             alignLabelWithHint: true,
             contentPadding: EdgeInsets.only(
                 top: 0, left: 20, right: widget.contentPaddingRight),
@@ -94,8 +100,16 @@ class _LoginTextWidgetState extends State<LoginTextWidget> {
                 color: widget.enabledColor, radius: 10),
             enabledBorder: AppTheme.style.styleTextEditBorderBackground(
                 color: widget.enabledColor, radius: 10),
-            focusedBorder: AppTheme.style.styleTextEditBorderBackground(
-                color: widget.focusedColor, radius: 10),
+            focusedBorder: widget.bFocusedGradientBolder
+                ? const GradientOutlineInputBorder(
+                    gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: AppColors.gradientBaseColorBg),
+                    width: 1.5,
+                    borderRadius: BorderRadius.all(Radius.circular(10)))
+                : AppTheme.style.styleTextEditBorderBackground(
+                    color: widget.focusedColor, radius: 10),
             border: AppTheme.style.styleTextEditBorderBackground(
                 color: widget.initColor, radius: 10),
             suffixIcon: widget.isSecure ? _buildSecureView() : null,

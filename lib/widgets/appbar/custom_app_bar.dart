@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
-import 'package:treasure_nft_project/constant/theme/app_style.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/widgets/button/language_button_widget.dart';
 
 import '../../constant/theme/app_image_path.dart';
-import '../../constant/theme/app_theme.dart';
 import '../../constant/ui_define.dart';
-import '../../view_models/base_view_model.dart';
-import '../../views/login/circle_network_icon.dart';
 
 class CustomAppBar {
   const CustomAppBar._();
@@ -70,7 +67,7 @@ class CustomAppBar {
                 child: Container(
                   alignment: Alignment.center,
                   child: Text(title,
-                      style: TextStyle(
+                      style: AppTextStyle.getBaseStyle(
                           fontSize: UIDefine.fontSize24,
                           fontWeight: FontWeight.w500)),
                 ),
@@ -80,7 +77,7 @@ class CustomAppBar {
                 bottom: 0,
                 child: IconButton(
                     onPressed: onTap,
-                    icon: Image.asset(AppImagePath.appBarLeftArrow,
+                    icon: Image.asset(AppImagePath.arrowLeft,
                         fit: BoxFit.contain,
                         width: UIDefine.fontSize34,
                         height: UIDefine.fontSize34)),
@@ -128,7 +125,7 @@ class CustomAppBar {
                   child: Text(
                     title,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: AppTextStyle.getBaseStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w500,
                         fontSize: fontSize ?? UIDefine.fontSize18),
@@ -138,7 +135,7 @@ class CustomAppBar {
                   margin: EdgeInsets.only(left: leftPadding),
                   child: IconButton(
                       onPressed: onTap,
-                      icon: Image.asset(AppImagePath.appBarLeftArrow,
+                      icon: Image.asset(AppImagePath.arrowLeft,
                           width: arrowFontSize ?? UIDefine.fontSize18,
                           fit: BoxFit.contain)),
                 ),
@@ -149,9 +146,59 @@ class CustomAppBar {
   }
 
   static AppBar mainAppBar({
-    required VoidCallback searchAction,
     required VoidCallback serverAction,
-    required VoidCallback avatarAction,
+    required VoidCallback globalAction,
+    required VoidCallback mainAction,
+  }) {
+    var space = const SizedBox(width: 8);
+    double iconSize = 28;
+    return _getCustomAppBar(
+        margin: const EdgeInsets.symmetric(horizontal: 10),
+        actions: [
+          Expanded(
+            child: Container(
+              alignment: Alignment.centerLeft,
+              child: InkWell(
+                  onTap: mainAction,
+                  child: Image.asset(AppImagePath.mainAppBarLogo,
+                      height: 35, fit: BoxFit.fitHeight)),
+            ),
+          ),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // GestureDetector(
+                //     onTap: globalAction,
+                //     child: Container(
+                //       color: Colors.transparent,
+                //       child: Image.asset(AppImagePath.globalImage,
+                //           width: iconSize, height: iconSize, fit: BoxFit.cover),
+                //     )),
+                LanguageButtonWidget(iconSize: iconSize),
+                space,
+                GestureDetector(
+                    onTap: serverAction,
+                    child: Container(
+                      color: Colors.transparent,
+                      child: Image.asset(AppImagePath.serverImage,
+                          width: iconSize, height: iconSize, fit: BoxFit.cover),
+                    )),
+                space,
+                GestureDetector(
+                    onTap: mainAction,
+                    child: Container(
+                      color: Colors.transparent,
+                      child: Image.asset(AppImagePath.homeImage,
+                          width: iconSize, height: iconSize, fit: BoxFit.cover),
+                    )),
+              ])
+        ]);
+  }
+
+  /// 只有Logo + 多國設定 + 客服
+  static AppBar mainNewAppBar({
+    required VoidCallback serverAction,
     required VoidCallback globalAction,
     required VoidCallback mainAction,
   }) {
@@ -174,31 +221,13 @@ class CustomAppBar {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 InkWell(
-                    onTap: searchAction,
-                    child:
-                        Icon(Icons.search, color: Colors.grey, size: iconSize)),
+                    onTap: globalAction,
+                    child: Image.asset(AppImagePath.globalImage,
+                        width: iconSize, height: iconSize, fit: BoxFit.cover)),
                 space,
                 InkWell(
                     onTap: serverAction,
                     child: Image.asset(AppImagePath.serverImage,
-                        width: iconSize, height: iconSize, fit: BoxFit.cover)),
-                space,
-                InkWell(
-                    onTap: avatarAction,
-                    child: Container(
-                        height: iconSize*0.9,
-                        width: iconSize*0.9,
-                        decoration: AppTheme.style.baseGradient(radius: 15),
-                        padding: const EdgeInsets.all(1),
-                        child: BaseViewModel().isLogin() &&
-                                GlobalData.userInfo.photoUrl.isNotEmpty
-                            ? CircleNetworkIcon(
-                                networkUrl: GlobalData.userInfo.photoUrl)
-                            : Image.asset(AppImagePath.avatarImg))),
-                space,
-                InkWell(
-                    onTap: globalAction,
-                    child: Image.asset(AppImagePath.globalImage,
                         width: iconSize, height: iconSize, fit: BoxFit.cover))
               ])
         ]);

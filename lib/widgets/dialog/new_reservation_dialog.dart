@@ -1,12 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/theme/app_style.dart';
 import '../../constant/ui_define.dart';
-import '../button/action_button_widget.dart';
 import '../button/login_button_widget.dart';
 import '../gradient_text.dart';
 import '../label/level_detail.dart';
@@ -85,7 +83,7 @@ class _NewReservationPopUpViewState extends State<NewReservationPopUpView> {
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  child: Image.asset(AppImagePath.closeDialogBtn))),
+                  child: Image.asset(AppImagePath.dialogCloseBtn))),
           Positioned(left: 0, right: 0, child: (_reservationContent(context)))
         ],
       ),

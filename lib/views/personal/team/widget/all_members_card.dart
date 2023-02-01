@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
 
 class AllMembersCard extends StatelessWidget {
@@ -34,21 +35,22 @@ class AllMembersCard extends StatelessWidget {
               child: InkWell(
                 onTap: () => onPressAll(),
                 child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        leftTitle,
-                        style: TextStyle(
-                          color: AppColors.textGrey,
-                          fontSize: UIDefine.fontSize12,
+                        leftValue,
+                        style: AppTextStyle.getBaseStyle(
+                          color: AppColors.textBlack,
+                          fontWeight: FontWeight.w600,
+                          fontSize: UIDefine.fontSize16,
                         ),
                       ),
-                      viewModel.getPadding(1),
+                      SizedBox(height: UIDefine.getPixelWidth(7)),
                       Text(
-                        leftValue,
-                        style: TextStyle(
-                          color: AppColors.mainThemeButton,
-                          fontSize: UIDefine.fontSize14,
+                        leftTitle,
+                        style: AppTextStyle.getBaseStyle(
+                          color: AppColors.textSixBlack,
+                          fontSize: UIDefine.fontSize12,
                         ),
                       ),
                     ]),
@@ -58,21 +60,22 @@ class AllMembersCard extends StatelessWidget {
               child: InkWell(
                 onTap: () => onPressActive(),
                 child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        rightTitle,
-                        style: TextStyle(
-                          color: AppColors.textGrey,
-                          fontSize: UIDefine.fontSize12,
+                        rightValue,
+                        style: AppTextStyle.getBaseStyle(
+                          color: AppColors.textBlack,
+                          fontWeight: FontWeight.w600,
+                          fontSize: UIDefine.fontSize16,
                         ),
                       ),
-                      viewModel.getPadding(1),
+                      SizedBox(height: UIDefine.getPixelWidth(7)),
                       Text(
-                        rightValue,
-                        style: TextStyle(
-                          color: AppColors.mainThemeButton,
-                          fontSize: UIDefine.fontSize14,
+                        rightTitle,
+                        style: AppTextStyle.getBaseStyle(
+                          color: AppColors.textSixBlack,
+                          fontSize: UIDefine.fontSize12,
                         ),
                       ),
                     ]),

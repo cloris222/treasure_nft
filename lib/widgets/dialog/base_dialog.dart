@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/theme/app_theme.dart';
@@ -87,7 +88,7 @@ abstract class BaseDialog {
         children: [
           AppTheme.style.styleFillText(title,
               alignment: Alignment.center,
-              style: const TextStyle(fontWeight: FontWeight.w500)),
+              style:  AppTextStyle.getBaseStyle(fontWeight: FontWeight.w500)),
           createDialogCloseIcon(),
         ],
       );
@@ -102,7 +103,7 @@ abstract class BaseDialog {
   Widget createDialogCloseIcon() {
     return IconButton(
         onPressed: onCancel,
-        icon: Image.asset(AppImagePath.closeDialogBtn, width: 15, height: 15));
+        icon: Image.asset(AppImagePath.dialogCloseBtn, width: 15, height: 15));
   }
 
   Widget createImageWidget(

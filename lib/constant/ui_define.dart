@@ -15,6 +15,7 @@ class UIDefine {
   static double _fontUnit = 0.0; // 字型單位
 
   /// 字型大小
+  static double fontSize40 = 0.0;
   static double fontSize36 = 0.0;
   static double fontSize34 = 0.0; // 34sp
   static double fontSize32 = 0.0; // 34sp
@@ -30,6 +31,8 @@ class UIDefine {
   static double fontSize12 = 0.0; // 12sp
   static double fontSize10 = 0.0; // 10sp
   static double fontSize8 = 0.0; // 8sp
+
+  static double navigationBarPadding = 0.0;
 
   /// 初始化
   static void initial(MediaQueryData mediaQueryData) {
@@ -51,6 +54,7 @@ class UIDefine {
         : _screenHeightUnit;
 
     /// 算法約為：字體sp / 360 * 100%
+    fontSize40 = _getFontSize(11.11);
     fontSize36 = _getFontSize(10);
     fontSize34 = _getFontSize(9.44);
     fontSize32 = _getFontSize(8.88);
@@ -66,6 +70,7 @@ class UIDefine {
     fontSize12 = _getFontSize(3.33);
     fontSize10 = _getFontSize(3.0);
     fontSize8 = _getFontSize(2.23);
+    navigationBarPadding = UIDefine.getPixelWidth(80);
 
     if (kDebugMode) {
       // Release不顯示
@@ -117,6 +122,11 @@ class UIDefine {
     return temp;
   }
 
+  ///字體sp / 360 * 100%
+  static double getFontSp(int fontSp) {
+    return _getFontSize(fontSp / 360 * 100) ;
+  }
+
   /// get screen width
   static double getWidth() {
     return _screenWidth;
@@ -124,6 +134,14 @@ class UIDefine {
 
   /// get screen height
   static double getHeight() {
+    return _screenHeight;
+  }
+
+  /// 取得最短邊
+  static double getMinSize() {
+    if (_screenHeight > _screenWidth) {
+      return _screenWidth;
+    }
     return _screenHeight;
   }
 }

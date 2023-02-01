@@ -1,11 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/login/login_main_viewmodel.dart';
+import 'package:treasure_nft_project/views/login/login_common_view.dart';
 
 import '../../widgets/button/login_button_widget.dart';
-import '../../widgets/domain_bar.dart';
 import '../../widgets/label/common_text_widget.dart';
 import 'login_param_view.dart';
 
@@ -34,103 +33,15 @@ class _LoginMainViewState extends State<LoginMainView> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      const DomainBar(),
-      _buildTop(),
-      Container(
-          margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(10)),
-          padding: EdgeInsets.only(bottom: UIDefine.getPixelHeight(30)),
-          child: _buildBottom())
-    ]));
+        child: LoginCommonView(
+            title: tr('signin'),
+            body: Container(
+              margin:
+                  EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(10)),
+              padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
+              child: _buildBottom(),
+            )));
   }
-
-  Widget _buildTop() {
-    return Container(
-        margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(20)),
-        alignment: Alignment.centerLeft,
-        child: Stack(children: [
-          SizedBox(
-              width: UIDefine.getWidth(), height: UIDefine.getPixelHeight(280)),
-          Positioned(
-              child: Image.asset(AppImagePath.loginBg,
-                  height: UIDefine.getPixelHeight(280), fit: BoxFit.fitHeight)),
-          Positioned(
-              top: UIDefine.getPixelHeight(90),
-              bottom: 0,
-              left: UIDefine.getPixelWidth(20),
-              right: UIDefine.getPixelWidth(20),
-              child: Column(children: [
-                Container(
-                  alignment: Alignment.bottomLeft,
-                  child: Text('${tr('welcomeBack')} ,',
-                      style: TextStyle(
-                          fontSize: UIDefine.fontSize24,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500)),
-                ),
-                SizedBox(height: UIDefine.getPixelHeight(10)),
-                Expanded(
-                    child: Stack(
-                  children: [
-                    SizedBox.expand(
-                      child: Container(
-                          alignment: Alignment.bottomRight,
-                          child: Image.asset(AppImagePath.loginPhoto)),
-                    ),
-                    Positioned(
-                        left: 0,
-                        top: 0,
-                        child: Text(tr('Login'),
-                            style: TextStyle(
-                                fontSize: UIDefine.fontSize34,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500)))
-                  ],
-                )),
-              ])),
-        ]));
-  }
-
-  // Widget _buildTop() {
-  //   return Container(
-  //       margin: const EdgeInsets.symmetric(vertical: 20),
-  //       alignment: Alignment.centerLeft,
-  //       child: Stack(children: [
-  //         SizedBox(
-  //             width: UIDefine.getWidth(), height: UIDefine.getHeight() / 3),
-  //         Positioned(
-  //             child: Image.asset(AppImagePath.loginBg,
-  //                 height: UIDefine.getHeight() / 3, fit: BoxFit.fill)),
-  //         Positioned(
-  //             top: 0,
-  //             bottom: 0,
-  //             left: 20,
-  //             right: UIDefine.getWidth() / 4,
-  //             child: Container(
-  //               alignment: Alignment.centerLeft,
-  //               child: RichText(
-  //                   text: TextSpan(children: <TextSpan>[
-  //                 TextSpan(
-  //                     text: '${tr('welcomeBack')} ,\n',
-  //                     style: TextStyle(
-  //                         fontSize: UIDefine.fontSize24,
-  //                         color: Colors.white,
-  //                         fontWeight: FontWeight.w500)),
-  //                 TextSpan(
-  //                     text: tr('Login'),
-  //                     style: TextStyle(
-  //                         fontSize: UIDefine.fontSize34,
-  //                         color: Colors.white,
-  //                         fontWeight: FontWeight.w500))
-  //               ])),
-  //             )),
-  //         Positioned(
-  //             bottom: 0,
-  //             right: 10,
-  //             child: Image.asset(AppImagePath.loginPhoto,
-  //                 width: UIDefine.getWidth() / 2, fit: BoxFit.fill))
-  //       ]));
-  // }
 
   Widget _buildBottom() {
     return Column(
@@ -159,6 +70,9 @@ class _LoginMainViewState extends State<LoginMainView> {
           LoginButtonWidget(
             btnText: tr('Login'),
             enable: true,
+            fontSize: UIDefine.fontSize16,
+            fontWeight: FontWeight.w600,
+            radius: 22,
             onPressed: () => viewModel.onPressLogin(context),
           ),
           Row(children: [

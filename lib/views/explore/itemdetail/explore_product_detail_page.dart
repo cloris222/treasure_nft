@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 
@@ -83,12 +85,12 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
-      title: tr("Details"),
       type: AppNavigationBarType.typeExplore,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            TitleAppBar(title: tr('Details')),
             /// 原AppBar, 會一起滑動
             // /// AppBar
             // CustomAppBar.getCornerAppBar(
@@ -113,7 +115,7 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
                   children: [
                     Text(
                       tr('auctionIn'),
-                      style: TextStyle(fontSize: UIDefine.fontSize18, fontWeight: FontWeight.w500),
+                      style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize18, fontWeight: FontWeight.w500),
                     ),
                     Container(
                       padding: const EdgeInsets.fromLTRB(6, 6, 6, 6),
@@ -127,7 +129,7 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
                           const SizedBox(width: 4),
                           Text(
                             sTimeLeft,
-                            style: TextStyle(color: Colors.white, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w700),
+                            style: AppTextStyle.getBaseStyle(color: Colors.white, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w700),
                           )
                         ],
                       ),
@@ -146,7 +148,7 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
                 children: [
                   Text(
                     data.name,
-                    style: TextStyle(fontSize: UIDefine.fontSize26, fontWeight: FontWeight.w500),
+                    style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize26, fontWeight: FontWeight.w500),
                   ),
                   const SizedBox(height: 6),
                   _oneRowForm(tr('owner'), _setShowingForm(data.ownerName), false, false),
@@ -175,7 +177,7 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
               padding: EdgeInsets.all(UIDefine.getScreenWidth(5.5)),
               child: Text(
                 tr('historicalVal'),
-                style: TextStyle(fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w700),
+                style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w700),
               ),
             ),
 
@@ -183,7 +185,7 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
             chartView,
 
             /// 底部間距
-            SizedBox(height: UIDefine.getScreenWidth(10))
+            SizedBox(height: UIDefine.getScreenWidth(10)),
 
             ///MARK: 按鈕(含)以下都拿掉 2022/11/04 Ethan
             // /// 預約按鈕+預約券總數量
@@ -201,7 +203,7 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
             //     },
             //       child: Text(
             //         tr('reserve'),
-            //         style: TextStyle(
+            //         style: CustomTextStyle.getBaseStyle(
             //             color: AppColors.textWhite, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
             //       )
             //   ),
@@ -212,7 +214,7 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
             //       UIDefine.getScreenWidth(5), 0),
             //   child: Text(
             //     tr('reserveCount') + ': ' + levelData.dailyRCouponAmount.toString() + ' ' + tr('reserveCountPiece'),
-            //     style: TextStyle(
+            //     style: CustomTextStyle.getBaseStyle(
             //         color: AppColors.textRed, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
             //   )
             // ),
@@ -228,7 +230,7 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
             //       const SizedBox(width: 10),
             //       Text(
             //         tr('level') + ' ' + levelData.userLevel.toString(),
-            //         style: TextStyle(
+            //         style: CustomTextStyle.getBaseStyle(
             //             color: AppColors.textBlack, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
             //       )
             //     ],
@@ -243,7 +245,7 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
             //     children: [
             //       Text(
             //         tr('amountRangeNFT'),
-            //         style: TextStyle(
+            //         style: CustomTextStyle.getBaseStyle(
             //             color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
             //       ),
             //       Row(
@@ -252,7 +254,7 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
             //           const SizedBox(width: 10),
             //           Text(
             //             levelData.buyRangeStart.toString() + ' ~ ' + levelData.buyRangeEnd.toString(),
-            //             style: TextStyle(
+            //             style: CustomTextStyle.getBaseStyle(
             //                 color: AppColors.textBlack, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
             //           )
             //         ],
@@ -260,6 +262,7 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
             //     ],
             //   )
             // )
+            SizedBox(height: UIDefine.navigationBarPadding)
           ],
         ),
       ),
@@ -289,7 +292,7 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
         children: [
           Text(
             '$title:',
-            style: TextStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+            style: AppTextStyle.getBaseStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
           ),
 
           Container(width: 4),
@@ -312,7 +315,7 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
     for (int i = 0; i < contentList.length; i++) {
       textView.add(Text(
         contentList[i],
-        style: TextStyle(color: bContentColor? AppColors.textBlack : AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+        style: AppTextStyle.getBaseStyle(color: bContentColor? AppColors.textBlack : AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
       ));
     }
     return textView;

@@ -1,8 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
+
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 import '../constant/enum/trade_enum.dart';
 import '../constant/global_data.dart';
@@ -33,23 +32,20 @@ class _TradeCountDownViewState extends State<TradeCountDownView> {
     TradeData tradeData = widget.tradeData;
     return Container(
       width: UIDefine.getWidth(),
-      padding: EdgeInsets.only(top: UIDefine.getScreenWidth(5), bottom: UIDefine.getScreenWidth(8)),
+      padding: EdgeInsets.only(
+          top: UIDefine.getScreenWidth(5), bottom: UIDefine.getScreenWidth(8)),
       decoration: const BoxDecoration(
-        image: DecorationImage(
+          image: DecorationImage(
         image: AssetImage(AppImagePath.countDownBackground),
         fit: BoxFit.cover,
-        )
-      ),
+      )),
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.only(right: UIDefine.getScreenWidth(4.5)),
-            alignment: Alignment.centerRight,
-            child: _ruleAction(context)
-          ),
-
+              padding: EdgeInsets.only(right: UIDefine.getScreenWidth(4.5)),
+              alignment: Alignment.centerRight,
+              child: _ruleAction(context)),
           SizedBox(height: UIDefine.getScreenWidth(5)),
-
           Stack(
             alignment: Alignment.center,
             children: [
@@ -85,20 +81,20 @@ class _TradeCountDownViewState extends State<TradeCountDownView> {
                   ),
                   tradeData.status == SellingState.Selling
                       ? Text(
-                    tr('onSale'),
-                    style: TextStyle(
-                        color: AppColors.textRed,
-                        fontSize: UIDefine.fontSize24,
-                        fontWeight: FontWeight.w500),
-                  )
+                          tr('onSale'),
+                          style: AppTextStyle.getBaseStyle(
+                              color: AppColors.textRed,
+                              fontSize: UIDefine.fontSize24,
+                              fontWeight: FontWeight.w500),
+                        )
                       : CountDownTimer(
-                    duration: tradeData.duration,
-                  ),
+                          duration: tradeData.duration,
+                        ),
                   LoginButtonWidget(
                     width: UIDefine.getWidth() / 1.7,
                     height: UIDefine.getHeight() / 20,
                     btnText:
-                    '(${GlobalData.userInfo.zone}) ${DateFormatUtil().getDateWith12HourInSecondFormat(TradeTimerUtil().getSellStartTime())}',
+                        '(${GlobalData.userInfo.zone}) ${DateFormatUtil().getDateWith12HourInSecondFormat(TradeTimerUtil().getSellStartTime())}',
                     fontSize: UIDefine.fontSize14,
                     fontWeight: FontWeight.w500,
                     onPressed: () {},
@@ -127,7 +123,7 @@ class _TradeCountDownViewState extends State<TradeCountDownView> {
         ),
         child: Text(
           tr('trade-rules'),
-          style: TextStyle(
+          style: AppTextStyle.getBaseStyle(
               fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14),
         ),
       ),

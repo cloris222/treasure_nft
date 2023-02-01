@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 import '../../constant/theme/app_colors.dart';
 
 class ActionButtonWidget extends StatefulWidget {
@@ -81,7 +82,7 @@ class _ActionButtonWidgetState extends State<ActionButtonWidget> {
         onPressed: () => intervalClick(widget.needTimes),
         child: Text(
           widget.btnText,
-          style: TextStyle(
+          style: AppTextStyle.getBaseStyle(
               color: textColor,
               fontSize: widget.fontSize ?? UIDefine.fontSize16,
               fontWeight: widget.fontWeight),

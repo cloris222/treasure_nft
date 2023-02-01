@@ -130,7 +130,7 @@ class _FullAnimationPageState extends State<FullAnimationPage>
                     right: 10,
                     child: InkWell(
                         onTap: () => _countdownFinish(),
-                        child: Image.asset(AppImagePath.closeDialogBtn)))
+                        child: Image.asset(AppImagePath.dialogCloseBtn)))
               ],
             ),
           ),

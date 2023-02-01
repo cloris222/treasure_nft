@@ -1,10 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_colors.dart';
 
 import '../../models/data/validate_result_data.dart';
-import '../../widgets/button/action_button_widget.dart';
 import '../../widgets/button/countdown_button_widget.dart';
 import '../../widgets/label/error_text_widget.dart';
 import '../../widgets/text_field/login_text_widget.dart';
@@ -15,7 +16,7 @@ class LoginEmailCodeView extends StatelessWidget {
       required this.hintText,
       required this.controller,
       required this.data,
-      this.hintColor = AppColors.textGrey,
+      this.hintColor = AppColors.textHintGrey,
       this.isSecure = false,
       this.onChanged,
       this.onEditTap,
@@ -60,19 +61,28 @@ class LoginEmailCodeView extends StatelessWidget {
               ),
             ),
             CountdownButtonWidget(
-              buttonType: 2,
+              margin: EdgeInsets.only(left: UIDefine.getPixelWidth(5)),
+              padding: EdgeInsets.symmetric(
+                  vertical: UIDefine.getPixelWidth(10),
+                  horizontal: UIDefine.getPixelWidth(15)),
+              buttonType: 4,
               countdownSecond: countdownSecond,
-              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
               btnText: btnGetText ?? tr('get'),
               isFillWidth: false,
               setHeight: 50,
               onPress: onPressSendCode,
               onPressVerification: onPressVerification,
+              fontSize: UIDefine.fontSize14,
             ),
-            ActionButtonWidget(
+            LoginButtonWidget(
+                margin: EdgeInsets.only(left: UIDefine.getPixelWidth(5)),
+                padding: EdgeInsets.symmetric(
+                    vertical: UIDefine.getPixelWidth(10),
+                    horizontal: UIDefine.getPixelWidth(10)),
                 btnText: tr('verify'),
                 isFillWidth: false,
-                setHeight: 50,
+                height: 50,
+                fontSize: UIDefine.fontSize14,
                 onPressed: onPressCheckVerify)
           ],
         ),

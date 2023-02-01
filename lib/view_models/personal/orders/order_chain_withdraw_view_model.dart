@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/views/main_page.dart';
+import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 
 import '../../../constant/call_back_function.dart';
@@ -14,7 +16,6 @@ import '../../../models/http/api/withdraw_api.dart';
 import '../../../models/http/parameter/withdraw_alert_info.dart';
 import '../../../views/personal/orders/withdraw/data/withdraw_balance_response_data.dart';
 import '../../../views/personal/orders/withdraw/order_withdraw_confirm_dialog_view.dart';
-import '../../../views/wallet/wallet_main_view.dart';
 import '../../../widgets/dialog/simple_custom_dialog.dart';
 
 class OrderChainWithdrawViewModel extends BaseViewModel {
@@ -169,7 +170,7 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
       if (num.parse(amountController.text) < num.parse(data.minAmount)) {
         CommonCustomDialog(context,
             title: tr("point-FAIL'"),
-            content: '${tr("errorMinAmount")}${data.minAmount} USDT',
+            content: format(tr("errorMinAmount"), {"amount": data.minAmount}),
             type: DialogImageType.fail,
             rightBtnText: tr('confirm'),
             onLeftPress: () {}, onRightPress: () {
@@ -215,7 +216,8 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
             account: '')
         .then((value) async {
       SimpleCustomDialog(context, mainText: tr('success')).show();
-      pushPage(context, const WalletMainView());
+      pushAndRemoveUntil(
+          context, MainPage(type: AppNavigationBarType.typeWallet));
     });
   }
 

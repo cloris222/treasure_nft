@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
 abstract class BaseBottomSheet {
-  BaseBottomSheet(this.context,
-      {this.percentage = 0.75,
-      this.controller,
-      this.isShowBottom = true,
-      this.needPercentage = true});
+  BaseBottomSheet(
+    this.context, {
+    this.percentage = 0.75,
+    this.controller,
+    this.isShowBottom = true,
+    this.needPercentage = true,
+    this.backgroundColor,
+  });
 
   double titleTop = 30;
   double titleBottom = 20;
@@ -14,18 +17,20 @@ abstract class BaseBottomSheet {
   AnimationController? controller;
   bool isShowBottom;
   bool needPercentage; //判斷是否需要%比
+  Color? backgroundColor;
 
-  void show() {
+  Future<void> show() async {
     init();
     if (needPercentage) {
-      _showPercentage();
+      await _showPercentage();
     } else {
-      _showNoPercentage();
+      await _showNoPercentage();
     }
   }
 
-  void _showPercentage() {
-    showModalBottomSheet(
+  Future<void> _showPercentage() async {
+    await showModalBottomSheet(
+        backgroundColor: backgroundColor,
         transitionAnimationController: controller,
         isScrollControlled: true,
         shape: const RoundedRectangleBorder(
@@ -39,8 +44,9 @@ abstract class BaseBottomSheet {
         });
   }
 
-  void _showNoPercentage() {
-    showModalBottomSheet(
+  Future<void> _showNoPercentage() async {
+    await showModalBottomSheet(
+        backgroundColor: backgroundColor,
         transitionAnimationController: controller,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(30))),
@@ -56,6 +62,7 @@ abstract class BaseBottomSheet {
   }
 
   void init();
+
   void dispose();
 
   Widget buildSheetWidget(BuildContext context, StateSetter setState);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
@@ -8,16 +9,17 @@ import '../../utils/number_format_util.dart';
 import 'icon/base_icon_widget.dart';
 
 class CustomLinearProgress extends StatelessWidget {
-  const CustomLinearProgress({
-    Key? key,
-    required this.percentage,
-    this.backgroundColor = AppColors.transParentHalf,
-    this.valueColor = AppColors.mainThemeButton,
-    this.height = 10,
-    this.radius = 15,
-    this.needShowPercentage = false,
-    this.needShowFinishIcon = true,
-  }) : super(key: key);
+  const CustomLinearProgress(
+      {Key? key,
+      required this.percentage,
+      this.backgroundColor = AppColors.transParentHalf,
+      this.valueColor = AppColors.mainThemeButton,
+      this.height = 4,
+      this.radius = 15,
+      this.needShowPercentage = false,
+      this.needShowFinishIcon = true,
+      this.needGradientValue = true})
+      : super(key: key);
   final double percentage;
   final Color backgroundColor;
   final Color valueColor;
@@ -25,6 +27,7 @@ class CustomLinearProgress extends StatelessWidget {
   final double radius;
   final bool needShowPercentage;
   final bool needShowFinishIcon;
+  final bool needGradientValue;
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +55,10 @@ class CustomLinearProgress extends StatelessWidget {
                   : Flexible(
                       flex: flex,
                       child: Container(
-                          decoration: AppStyle().styleColorsRadiusBackground(
-                              color: valueColor, radius: radius),
+                          decoration: needGradientValue
+                              ? AppStyle().baseGradient(radius: radius)
+                              : AppStyle().styleColorsRadiusBackground(
+                                  color: valueColor, radius: radius),
                           width: UIDefine.getWidth(),
                           height: height),
                     ),
@@ -75,7 +80,8 @@ class CustomLinearProgress extends StatelessWidget {
                       size: UIDefine.fontSize16)
                   : Text(
                       '$flex%',
-                      style: TextStyle(fontSize: UIDefine.fontSize12),
+                      style: AppTextStyle.getBaseStyle(
+                          fontSize: UIDefine.fontSize12),
                     ),
             ))
       ],

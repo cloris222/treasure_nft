@@ -12,8 +12,12 @@ class LevelIconWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var path = format(AppImagePath.level, ({'level': level}));
+    var path = format(AppImagePath.level, ({'level': level + 1}));
 
-    return BaseIconWidget(imageAssetPath: path, size: size,fit: BoxFit.fill,);
+    return BaseIconWidget(
+      imageAssetPath: path,
+      size: size,
+      fit: BoxFit.fill,
+    );
   }
 }

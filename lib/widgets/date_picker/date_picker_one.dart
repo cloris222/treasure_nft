@@ -7,6 +7,7 @@ import '../../constant/theme/app_image_path.dart';
 import '../../constant/ui_define.dart';
 import '../../models/data/validate_result_data.dart';
 import '../label/error_text_widget.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 /// 單日日期選擇器
 class DatePickerOne extends StatefulWidget {
@@ -50,12 +51,13 @@ class _DatePickerOne extends State<DatePickerOne> {
               child: Row(
                 children: [
                   _getPadding(1),
-                  Image.asset(AppImagePath.dateIcon),
-                  _getPadding(1),
                   Text(
                     widget.initDate ?? date,
-                    style: const TextStyle(color: AppColors.textGrey),
+                    style: AppTextStyle.getBaseStyle(color: AppColors.textGrey),
                   ),
+                  const Spacer(),
+                  Image.asset(AppImagePath.dateIcon),
+                  _getPadding(1),
                 ],
               ),
             ),

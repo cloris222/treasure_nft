@@ -9,6 +9,7 @@ import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/view_models/trade/activity_viewmodel.dart';
 import 'package:treasure_nft_project/views/trade/trade_draw_result_page.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
@@ -194,15 +195,15 @@ class _WorldCupViewState extends State<WorldCupView> {
   }
 
   Widget _infoView(BuildContext context) {
-    TextStyle titleStyle = TextStyle(
+    TextStyle titleStyle = AppTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize18,
         color: Colors.black,
         fontWeight: FontWeight.w500);
-    TextStyle contentStyle = TextStyle(
+    TextStyle contentStyle = AppTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize12,
         color: Colors.grey,
         fontWeight: FontWeight.w500);
-    TextStyle blackContent = TextStyle(
+    TextStyle blackContent = AppTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize12,
         color: Colors.black,
         fontWeight: FontWeight.w500);
@@ -273,7 +274,7 @@ class _WorldCupViewState extends State<WorldCupView> {
   }
 
   Widget _reservationView(BuildContext context) {
-    TextStyle blackContent = TextStyle(
+    TextStyle blackContent = AppTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize14,
         color: Colors.black,
         fontWeight: FontWeight.w500);
@@ -307,7 +308,7 @@ class _WorldCupViewState extends State<WorldCupView> {
                 children: [
                   Text(
                     '${viewModel.canReserve?.deposit ?? ''}',
-                    style: TextStyle(
+                    style: AppTextStyle.getBaseStyle(
                         fontSize: UIDefine.fontSize20,
                         fontWeight: FontWeight.w500),
                   ),
@@ -323,7 +324,7 @@ class _WorldCupViewState extends State<WorldCupView> {
               Wrap(children: [
                 Text(
                   '(${viewModel.canReserve?.depositForConsume ?? 0}U${tr("limitedNFT")}+${viewModel.canReserve?.depositForPool ?? 0}U${tr("bonusPool")})',
-                  style: const TextStyle(
+                  style:  AppTextStyle.getBaseStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                       color: Colors.white),

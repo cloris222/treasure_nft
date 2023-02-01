@@ -18,13 +18,16 @@ class GlobalData {
 
   static GlobalKey<NavigatorState> globalKey = GlobalKey();
   static bool firstLaunch = true;
-  static const double navigationBarPadding = kBottomNavigationBarHeight * 1.1;
   static List<CountryPhoneData> country = [];
 
   static printLog(String? logMessage) {
     if (HttpSetting.debugMode) {
       debugPrint(logMessage);
     }
+  }
+
+  static isDebugMode() {
+    return HttpSetting.debugMode;
   }
 
   ///MARK: 判斷是否為要顯示登入動畫
@@ -40,7 +43,9 @@ class GlobalData {
   static String userMemberId = '';
 
   ///MARK: 控管bar的圖案顯示
+  static bool isPrePage = false;
   static AppNavigationBarType mainBottomType = AppNavigationBarType.typeMain;
+  static List<AppNavigationBarType> preTypeList = [];
 
   ///MARK: 提供給選擇日期使用
   static String strDataPickerStart = '';

@@ -5,7 +5,6 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../../constant/ui_define.dart';
 import '../../view_models/collection/collection_main_view_model.dart';
 import '../../widgets/button/icon_text_button_widget.dart';
-import '../../widgets/domain_bar.dart';
 import 'deposit/deposit_nft_main_view.dart';
 
 class CollectionMainView extends StatefulWidget {
@@ -35,7 +34,6 @@ class _CollectionMainView extends State<CollectionMainView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(children: [
-        const DomainBar(),
         Container(
             padding: EdgeInsets.only(top: UIDefine.getScreenWidth(0.97), bottom: UIDefine.getScreenWidth(0.97)),
             margin: EdgeInsets.only(left: UIDefine.getScreenWidth(5), right: UIDefine.getScreenWidth(5), bottom: UIDefine.getScreenWidth(0.8)),
@@ -57,7 +55,8 @@ class _CollectionMainView extends State<CollectionMainView> {
               controller: pageController,
               onPageChanged: _onPageChange,
               children: pages,
-            ))
+            )
+        )
       ]),
     );
   }

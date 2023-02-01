@@ -4,6 +4,8 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 import '../../../view_models/personal/team/team_order_viewmodel.dart';
 import '../../../widgets/date_picker/custom_date_picker.dart';
@@ -36,7 +38,6 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
-      title: tr("teamOrder"),
       type: AppNavigationBarType.typePersonal,
       body: _buildBody(),
     );
@@ -51,7 +52,9 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
             setState(() {});
           }
         },
-        topView: _buildTopView);
+        topView: _buildTopView,
+        padding: EdgeInsets.only(
+            bottom: UIDefine.navigationBarPadding + UIDefine.getPixelWidth(5)));
     viewModel.initListView();
   }
 
@@ -61,7 +64,7 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
           left: UIDefine.getScreenWidth(6), right: UIDefine.getScreenWidth(6)),
       child: viewModel.buildGridView(
           crossAxisCount: 2,
-          childAspectRatio: 0.4,
+          childAspectRatio: 0.5,
           mainAxisSpacing: UIDefine.getScreenHeight(3),
           crossAxisSpacing: UIDefine.getScreenWidth(3)),
     );
@@ -70,6 +73,7 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
   Widget _buildTopView() {
     return Column(
       children: [
+        TitleAppBar(title: tr('teamOrder')),
         // viewMemberModel.getPadding(1),
 
         /// 日期選擇器 & 按鈕
@@ -99,10 +103,8 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
                 onTap: () => _onPressSort(),
                 child: Container(
                   alignment: Alignment.center,
-                  width: UIDefine.getScreenWidth(17.77),
-                  height: UIDefine.getScreenWidth(13.88),
-                  decoration: viewMemberModel.setBoxDecoration(),
-                  child: Image.asset('assets/icon/btn/btn_sort_01_nor.png'),
+                  width: UIDefine.getPixelWidth(50),
+                  child: Image.asset('assets/icon/btn/btn_filter_02.png'),
                 ))
           ]),
         ),
@@ -138,16 +140,16 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
                     viewModel.initListView();
                   }
                 },
-                style: TextStyle(fontSize: UIDefine.fontSize14),
+                style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
                 decoration: InputDecoration(
                   isDense: true,
                   contentPadding: EdgeInsets.zero,
                   prefixIcon:
                       Image.asset('assets/icon/btn/btn_discover_01_nor.png'),
                   hintText: tr("select-placeholder'"),
-                  hintStyle:
-                      const TextStyle(height: 1.6, color: AppColors.searchBar),
-                  labelStyle: const TextStyle(color: Colors.black),
+                  hintStyle: AppTextStyle.getBaseStyle(
+                      height: 1.6, color: AppColors.textHintGrey),
+                  labelStyle: AppTextStyle.getBaseStyle(color: Colors.black),
                   alignLabelWithHint: true,
                   border: viewMemberModel.setOutlineInputBorder(),
                   focusedBorder: viewMemberModel.setOutlineInputBorder(),
@@ -170,8 +172,8 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
       },
       value: viewModel.sortType,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.16),
-            0, UIDefine.getScreenWidth(4.16), 0),
+        contentPadding: EdgeInsets.fromLTRB(
+            UIDefine.getScreenWidth(4.16), 0, UIDefine.getScreenWidth(4.16), 0),
         border: viewMemberModel.setOutlineInputBorder(),
         focusedBorder: viewMemberModel.setOutlineInputBorder(),
         enabledBorder: viewMemberModel.setOutlineInputBorder(),
@@ -182,7 +184,9 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
             child: Row(
               children: <Widget>[
                 Text(_getCategoryText(category),
-                    style: const TextStyle(color: AppColors.searchBar)),
+                    style: AppTextStyle.getBaseStyle(
+                        color: AppColors.textHintGrey,
+                        fontSize: UIDefine.fontSize14)),
               ],
             ));
       }).toList(),
@@ -200,7 +204,8 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
       },
       value: _currenciesOne.first,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.16),0, UIDefine.getScreenWidth(4.16), 0),
+        contentPadding: EdgeInsets.fromLTRB(
+            UIDefine.getScreenWidth(4.16), 0, UIDefine.getScreenWidth(4.16), 0),
         border: viewMemberModel.setOutlineInputBorder(),
         focusedBorder: viewMemberModel.setOutlineInputBorder(),
         enabledBorder: viewMemberModel.setOutlineInputBorder(),
@@ -211,7 +216,9 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
             child: Row(
               children: <Widget>[
                 Text(_getCategoryText(category),
-                    style: const TextStyle(color: AppColors.searchBar)),
+                    style: AppTextStyle.getBaseStyle(
+                        color: AppColors.textHintGrey,
+                        fontSize: UIDefine.fontSize14)),
               ],
             ));
       }).toList(),

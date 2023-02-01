@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/widgets/button/login_bolder_button_widget.dart';
+import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 
 import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_colors.dart';
@@ -16,7 +18,7 @@ class CountdownButtonWidget extends StatefulWidget {
       this.countdownSecond = 60,
       this.showCountdownText = false,
       this.initEnable = true,
-      this.buttonType = 0,
+      this.buttonType = 4,
       this.setHeight,
       this.fontSize,
       this.margin = const EdgeInsets.only(left: 5, top: 10),
@@ -131,6 +133,32 @@ class _CountdownButtonWidgetState extends State<CountdownButtonWidget> {
               margin: widget.margin,
               padding: widget.padding,
               isFillWidth: widget.isFillWidth);
+        }
+      case 4:
+        {
+          return _enableButton
+              ? LoginBolderButtonWidget(
+                  btnText: _currentText,
+                  onPressed: () {
+                    _onPressed();
+                  },
+                  height: widget.setHeight,
+                  fontSize: widget.fontSize,
+                  margin: widget.margin,
+                  padding: widget.padding,
+                  isFillWidth: widget.isFillWidth)
+              : LoginButtonWidget(
+                  enable: false,
+                  isGradient: false,
+                  btnText: _currentText,
+                  onPressed: () {
+                    _onPressed();
+                  },
+                  height: widget.setHeight,
+                  fontSize: widget.fontSize,
+                  margin: widget.margin,
+                  padding: widget.padding,
+                  isFillWidth: widget.isFillWidth);
         }
       case 1:
       default:

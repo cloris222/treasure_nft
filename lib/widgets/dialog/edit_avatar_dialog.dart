@@ -11,6 +11,7 @@ import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/utils/image_picker_util.dart';
 import 'package:treasure_nft_project/widgets/dialog/base_dialog.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_image_path.dart';
@@ -42,7 +43,7 @@ class EditAvatarDialog extends BaseDialog {
             children: [
               Text(
                 tr('edit'),
-                style: TextStyle(
+                style: AppTextStyle.getBaseStyle(
                     fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w400),
               ),
               IconButton(

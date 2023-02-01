@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
@@ -36,7 +35,6 @@ class _SettingLanguagePageState extends State<SettingLanguagePage> {
     return CustomAppbarView(
       needScrollView: false,
       needCover: false,
-      title: tr('language'),
       type: GlobalData.mainBottomType,
       body: Container(
           margin: const EdgeInsets.symmetric(horizontal: 30),
@@ -46,6 +44,7 @@ class _SettingLanguagePageState extends State<SettingLanguagePage> {
 
   Widget _buildLanguageView(BuildContext context) {
     return ListView.separated(
+      padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
         separatorBuilder: (context, index) {
           return const Divider(color: AppColors.searchBar);
         },

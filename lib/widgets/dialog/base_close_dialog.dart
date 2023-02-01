@@ -20,7 +20,7 @@ abstract class BaseCloseDialog extends BaseDialog {
             onTap: () {
               Navigator.pop(context);
             },
-            child: Image.asset(AppImagePath.closeDialogBtn),
+            child: Image.asset(AppImagePath.dialogCloseBtn),
           ),
           buildBody()
         ],
