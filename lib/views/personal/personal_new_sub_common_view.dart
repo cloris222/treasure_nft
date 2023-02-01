@@ -49,12 +49,14 @@ class PersonalNewSubCommonView extends StatelessWidget {
                         assetImagePath: AppImagePath.userSettingIcon,
                         onPress: () => _showUserSettingPage(context))),
                 Platform.isIOS
-                    ? const SizedBox()
+                    ? const Flexible(child: SizedBox())
                     : Flexible(
                         child: PersonalParamItem(
                             title: tr('create'),
                             assetImagePath: AppImagePath.userCreateIcon,
-                            onPress: () => _showUserCreatePage(context)))
+                            onPress: () => _showUserCreatePage(context))),
+                const Flexible(child: SizedBox()),
+
               ])
             ],
           ),

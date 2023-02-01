@@ -45,6 +45,7 @@ class _UserCreatePageState extends State<UserCreatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: _buildBody()),
