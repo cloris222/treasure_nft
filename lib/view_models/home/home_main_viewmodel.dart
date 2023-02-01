@@ -72,8 +72,8 @@ class HomeMainViewModel extends BaseViewModel {
   ///MARK: 內容
   TextStyle getContextStyle(
       {Color color = AppColors.textBlack,
-      FontWeight fontWeight = FontWeight.w400,
-      double? fontSize}) {
+        FontWeight fontWeight = FontWeight.w400,
+        double? fontSize}) {
     return AppTextStyle.getBaseStyle(
         fontSize: fontSize ?? UIDefine.fontSize14,
         fontWeight: fontWeight,
@@ -92,7 +92,7 @@ class HomeMainViewModel extends BaseViewModel {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey("homeCarousel")) {
       List<String>? decodeHomeCarouselString =
-          prefs.getStringList("homeCarousel");
+      prefs.getStringList("homeCarousel");
       homeCarouselList = decodeHomeCarouselString!
           .map((res) => HomeCarousel.fromJson(json.decode(res)))
           .toList();
@@ -116,17 +116,19 @@ class HomeMainViewModel extends BaseViewModel {
 
   ///API----------
   /// 取得輪播圖
-  Future<List<HomeCarousel>> getHomeCarousel(
-      {ResponseErrorFunction? onConnectFail}) async {
-    return await HomeAPI(onConnectFail: onConnectFail).getCarouselItem();
+  Future<void> getHomeCarousel({ResponseErrorFunction? onConnectFail}) async {
+    homeCarouselList =
+    await HomeAPI(onConnectFail: onConnectFail).getCarouselItem();
+    homeSubject
+        .notifyObservers(NotificationData(key: SubjectKey.keyHomeCarousel));
   }
 
   /// 查詢畫家列表
   Future<void> getArtistRecord({ResponseErrorFunction? onConnectFail}) async {
     homeArtistRecordList =
-        await HomeAPI(onConnectFail: onConnectFail).getArtistRecord();
+    await HomeAPI(onConnectFail: onConnectFail).getArtistRecord();
     randomArt =
-        homeArtistRecordList[Random().nextInt(homeArtistRecordList.length)];
+    homeArtistRecordList[Random().nextInt(homeArtistRecordList.length)];
     homeSubject
         .notifyObservers(NotificationData(key: SubjectKey.keyHomeArtRecords));
   }
@@ -178,7 +180,29 @@ class HomeMainViewModel extends BaseViewModel {
     }
   }
 
-  Future<TradingVolumeData> getUsdtInfo() async {
-    return HomeAPI().getTradingVolume();
+  int animateIndex = -1;
+
+  ///MARK: 動畫翻轉
+  void playAnimate() async {
+    homeSubject.notifyObservers(
+        NotificationData(key: SubjectKey.keyHomeAnimationWait));
+    _loopAnimate();
+  }
+
+  void resetAnimate() async {
+    animateIndex = -1;
+    homeSubject.notifyObservers(
+        NotificationData(key: SubjectKey.keyHomeAnimationReset));
+  }
+
+  _loopAnimate() {
+    Future.delayed(const Duration(milliseconds: 200)).then((value) {
+      animateIndex += 1;
+      homeSubject.notifyObservers(NotificationData(
+          key: '${SubjectKey.keyHomeAnimationStart}_$animateIndex'));
+      if (animateIndex < homeArtistRecordList.length) {
+        _loopAnimate();
+      }
+    });
   }
 }

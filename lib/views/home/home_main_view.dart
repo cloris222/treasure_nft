@@ -245,25 +245,30 @@ class _HomeMainViewState extends State<HomeMainView> {
               ),
             ],
           ),
-          const SponsorRowWidget(
+          SponsorRowWidget(
             leftLogo: AppImagePath.openSea,
             rightLogo: AppImagePath.coinBase,
+            viewModel: viewModel,
           ),
-          const SponsorRowWidget(
+           SponsorRowWidget(
             leftLogo: AppImagePath.mintBase,
             rightLogo: AppImagePath.trustWallet,
+             viewModel: viewModel,
           ),
-          const SponsorRowWidget(
+          SponsorRowWidget(
             leftLogo: AppImagePath.tron,
             rightLogo: AppImagePath.binance,
+            viewModel: viewModel,
           ),
-          const SponsorRowWidget(
+          SponsorRowWidget(
             leftLogo: AppImagePath.minTable,
             rightLogo: AppImagePath.zora,
+            viewModel: viewModel,
           ),
-          const SponsorRowWidget(
+           SponsorRowWidget(
             leftLogo: AppImagePath.polygon,
             rightLogo: AppImagePath.ethereum,
+             viewModel: viewModel,
           ),
           Padding(
             padding: EdgeInsets.all(UIDefine.getScreenWidth(5)),

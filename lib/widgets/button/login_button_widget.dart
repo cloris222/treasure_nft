@@ -74,50 +74,50 @@ class _LoginButtonWidgetState extends State<LoginButtonWidget> {
       onTap: () => intervalClick(widget.needTimes),
       child: Container(
           alignment: Alignment.center,
-          margin: margin,
-          padding: padding ??
+          margin: widget.margin,
+          padding: widget.padding ??
               EdgeInsets.symmetric(
                   horizontal: UIDefine.getPixelWidth(10),
                   vertical: UIDefine.getPixelWidth(5)),
-          decoration: enable
-              ? isGradient
-                  ? isFlip
-                      ? AppStyle().baseFlipGradient(radius: radius)
-                      : AppStyle().baseGradient(radius: radius)
+          decoration: widget.enable
+              ? widget.isGradient
+                  ? widget.isFlip
+                      ? AppStyle().baseFlipGradient(radius: widget.radius)
+                      : AppStyle().baseGradient(radius: widget.radius)
                   : AppStyle().styleColorsRadiusBackground(
                       color: AppColors.mainThemeButton)
-              : isGradient
+              : widget.isGradient
                   ? AppStyle().buildGradient(
-                      radius: radius,
+                      radius: widget.radius,
                       colors: AppColors.gradientBackgroundColorBg)
                   : AppStyle()
                       .styleColorsRadiusBackground(color: AppColors.buttonGrey),
-          width: width ?? (isFillWidth ? UIDefine.getWidth() : null),
-          height: height ?? (isAutoHeight ? null : 50),
+          width: widget.width ?? (widget.isFillWidth ? UIDefine.getWidth() : null),
+          height: widget.height ?? (widget.isAutoHeight ? null : 50),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: isFillWidth ? MainAxisSize.max : MainAxisSize.min,
+            mainAxisSize: widget.isFillWidth ? MainAxisSize.max : MainAxisSize.min,
             children: [
               Visibility(
-                  visible: showIcon,
+                  visible: widget.showIcon,
                   child: Icon(
                     Icons.storefront,
                     color: Colors.white,
                     size: UIDefine.fontSize18,
                   )),
               Visibility(
-                  visible: showIcon,
+                  visible: widget.showIcon,
                   child: SizedBox(
                     width: UIDefine.getPixelWidth(5),
                   )),
-              Text(btnText,
+              Text(widget.btnText,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: AppTextStyle.getBaseStyle(
                       color: Colors.white,
-                      fontSize: fontSize ?? UIDefine.fontSize16,
-                      fontWeight: fontWeight ?? FontWeight.w600,
-                      fontFamily: fontFamily)),
+                      fontSize: widget.fontSize ?? UIDefine.fontSize16,
+                      fontWeight: widget.fontWeight ?? FontWeight.w600,
+                      fontFamily: widget.fontFamily)),
             ],
           )),
     );

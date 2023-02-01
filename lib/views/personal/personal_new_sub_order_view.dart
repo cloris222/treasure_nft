@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/widgets/bottom_sheet/page_bottom_sheet.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
@@ -128,10 +129,12 @@ class PersonalNewSubOrderView extends StatelessWidget {
   }
 
   void _showMyRechargePage(BuildContext context) {
-    BaseViewModel().pushPage(context, const OrderRechargePage());
+    // BaseViewModel().pushPage(context, const OrderRechargePage());
+    PageBottomSheet(context, page: const OrderRechargePage()).show();
   }
 
   void _showMyWithDrawPage(BuildContext context) {
-    BaseViewModel().pushPage(context, const OrderWithdrawPage());
+    // BaseViewModel().pushPage(context, const OrderWithdrawPage());
+    PageBottomSheet(context, page: const OrderWithdrawPage()).show();
   }
 }

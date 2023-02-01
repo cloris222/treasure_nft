@@ -90,6 +90,7 @@ class HomeSubInfoView extends StatelessWidget {
                       viewModel.pushPage(
                           GlobalData.globalKey.currentContext!,
                           PDFViewerPage(
+                            viewModel: viewModel,
                             title: tr('footer_privacy'),
                             assetPath: 'assets/pdf/PrivacyPolicy.pdf',
                           ));
@@ -101,6 +102,7 @@ class HomeSubInfoView extends StatelessWidget {
                       viewModel.pushPage(
                           GlobalData.globalKey.currentContext!,
                           PDFViewerPage(
+                            viewModel: viewModel,
                             title: tr('footer_agreement'),
                             assetPath: 'assets/pdf/TermsOfUse.pdf',
                           ));
