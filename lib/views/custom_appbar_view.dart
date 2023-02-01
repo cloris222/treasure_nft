@@ -17,7 +17,9 @@ class CustomAppbarView extends StatelessWidget {
       this.type,
       required this.needScrollView,
       this.needCover = false,
-      this.backgroundColor = Colors.white})
+      this.backgroundColor = Colors.white,
+      this.needAppBar = true,
+      this.needBottom = true})
       : super(key: key);
   final Widget body;
   final VoidCallback? onPressed;
@@ -25,32 +27,38 @@ class CustomAppbarView extends StatelessWidget {
   final bool needScrollView;
   final bool needCover;
   final Color backgroundColor;
+  final bool needAppBar;
+  final bool needBottom;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: backgroundColor,
-        appBar: CustomAppBar.mainAppBar(
-            serverAction: () => _serverAction(context),
-            globalAction: () => _globalAction(context),
-            mainAction: () => _mainAction(context)),
+        appBar: needAppBar
+            ? CustomAppBar.mainAppBar(
+                serverAction: () => _serverAction(context),
+                globalAction: () => _globalAction(context),
+                mainAction: () => _mainAction(context))
+            : null,
         body: Stack(children: [
           Container(
               color: backgroundColor,
               height: UIDefine.getHeight(),
               width: UIDefine.getWidth(),
               padding: EdgeInsets.only(
-                  bottom: UIDefine.getScreenWidth(1.38) +
-                      MediaQuery.of(context).viewInsets.bottom),
+                  bottom: MediaQuery.of(context).viewInsets.bottom +
+                      UIDefine.getScreenWidth(1.38)),
               child:
                   needScrollView ? SingleChildScrollView(child: body) : body),
           Positioned(
               bottom: 0,
               left: 0,
               right: 0,
-              child: AppBottomNavigationBar(
-                  initType: type ?? GlobalData.mainBottomType))
+              child: needBottom
+                  ? AppBottomNavigationBar(
+                      initType: type ?? GlobalData.mainBottomType)
+                  : const SizedBox())
         ]),
         extendBody: true);
   }

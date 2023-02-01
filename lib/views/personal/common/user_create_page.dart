@@ -44,9 +44,7 @@ class _UserCreatePageState extends State<UserCreatePage> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomAppbarView(
-      needScrollView: false,
-      type: AppNavigationBarType.typePersonal,
+    return Scaffold(
       body: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: _buildBody()),
@@ -60,7 +58,7 @@ class _UserCreatePageState extends State<UserCreatePage> {
           top: UIDefine.getPixelWidth(20),
           bottom: UIDefine.navigationBarPadding),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        TitleAppBar(title: tr('create')),
+        TitleAppBar(title: tr('create'), needArrowIcon: false),
         Visibility(
             visible: viewModel.uploadImage != null,
             child: ActionButtonWidget(
@@ -118,16 +116,16 @@ class _UserCreatePageState extends State<UserCreatePage> {
         Row(children: [
           Flexible(
               child: LoginBolderButtonWidget(
-                height: UIDefine.getScreenHeight(8),
-                btnText: tr('cancel'),
-                onPressed: () => viewModel.onCancel(context),
+            height: UIDefine.getScreenHeight(8),
+            btnText: tr('cancel'),
+            onPressed: () => viewModel.onCancel(context),
           )),
           const SizedBox(width: 20),
           Flexible(
               child: LoginButtonWidget(
-                height: UIDefine.getScreenHeight(8),
-                btnText: tr('confirm'),
-                onPressed: () => viewModel.onConfirm(context),
+            height: UIDefine.getScreenHeight(8),
+            btnText: tr('confirm'),
+            onPressed: () => viewModel.onConfirm(context),
           ))
         ]),
       ]),

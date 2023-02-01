@@ -12,12 +12,14 @@ class BackgroundWithLand extends StatelessWidget {
       required this.body,
       this.mainHeight = 300,
       this.bottomHeight = 70,
-      required this.onBackPress})
+      required this.onBackPress,
+      this.backgroundColor = AppColors.defaultBackgroundSpace})
       : super(key: key);
   final Widget body;
   final double mainHeight;
   final double bottomHeight;
   final onClickFunction onBackPress;
+  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class BackgroundWithLand extends StatelessWidget {
                 decoration: AppStyle().styleColorsRadiusBackground(
                     hasBottomLef: false,
                     hasBottomRight: false,
-                    color: AppColors.defaultBackgroundSpace,
+                    color: backgroundColor,
                     radius: 12))),
         Positioned(
             top: UIDefine.getPixelWidth(12),
