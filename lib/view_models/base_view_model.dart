@@ -18,7 +18,6 @@ import 'package:treasure_nft_project/views/full_animation_page.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/views/notify/notify_level_up_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
-import 'package:treasure_nft_project/widgets/bottom_sheet/page_bottom_sheet.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/level_up_one_dialog.dart';
 
@@ -308,18 +307,19 @@ class BaseViewModel {
   }
 
   String getLoginTimeAnimationPath() {
+    return AppAnimationPath.loginAnimation;
     /*
     * 5:00 -12:00   早
       12:00 - 18:00 午
       18:00 - 5:00  晚
     * */
-    String time = DateFormatUtil().getNowTimeWith24HourFormat();
-    if (time.compareTo("05:00") >= 0 && time.compareTo("12:00") < 0) {
-      return AppAnimationPath.loginMorning;
-    } else if (time.compareTo("12:00") >= 0 && time.compareTo("18:00") < 0) {
-      return AppAnimationPath.loginAfternoon;
-    }
-    return AppAnimationPath.loginNight;
+    // String time = DateFormatUtil().getNowTimeWith24HourFormat();
+    // if (time.compareTo("05:00") >= 0 && time.compareTo("12:00") < 0) {
+    //   return AppAnimationPath.loginMorning;
+    // } else if (time.compareTo("12:00") >= 0 && time.compareTo("18:00") < 0) {
+    //   return AppAnimationPath.loginAfternoon;
+    // }
+    // return AppAnimationPath.loginNight;
   }
 
   ///MARK: 通用的 單一彈錯視窗

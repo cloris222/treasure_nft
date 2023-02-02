@@ -339,11 +339,16 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
       "index": NumberFormatUtil().integerTwoFormat(1)
     });
     return Container(
-      height: UIDefine.getPixelWidth(200 + viewModel.currentRangeIndex * 50),
-      width: UIDefine.getWidth(),
       alignment: Alignment.center,
       margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(5)),
-      child: Image.asset(imagePath),
+      child: SizedBox(
+        height: UIDefine.getPixelWidth(200 + viewModel.currentRangeIndex * 50),
+        width: UIDefine.getWidth(),
+        child: Image.asset(
+          imagePath,
+          fit: BoxFit.contain,
+        ),
+      ),
     );
   }
 

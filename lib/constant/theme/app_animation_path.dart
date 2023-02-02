@@ -10,9 +10,10 @@ class AppAnimationPath {
   static const String beginnerReserving = 'icon_rotate_blue.json';
 
   ///登入後的招呼動畫
-  static const String loginMorning = 'mb_login_morning.json';
-  static const String loginAfternoon = 'mb_login_afternoon.json';
-  static const String loginNight = 'mb_login_night.json';
+  // static const String loginMorning = 'mb_login_morning.json';
+  // static const String loginAfternoon = 'mb_login_afternoon.json';
+  // static const String loginNight = 'mb_login_night.json';
+  static const String loginAnimation = 'miaopai_mb_login.json';
 
   /// 註冊成功動畫
   static const String registerSuccess =

@@ -120,13 +120,13 @@ class _NewReservationPopUpViewState extends State<NewReservationPopUpView> {
             leftFontWeight: FontWeight.w400,
             rightFontWeight: FontWeight.w600,
           ),
-          LevelDetailLabel(
-            title: tr('transactionHour'),
-            showCoins: false,
-            content: widget.transactionTime,
-            leftFontWeight: FontWeight.w400,
-            rightFontWeight: FontWeight.w600,
-          ),
+          // LevelDetailLabel(
+          //   title: tr('transactionHour'),
+          //   showCoins: false,
+          //   content: widget.transactionTime,
+          //   leftFontWeight: FontWeight.w400,
+          //   rightFontWeight: FontWeight.w600,
+          // ),
           LevelDetailLabel(
             title: tr('transactionReward'),
             showCoins: false,
