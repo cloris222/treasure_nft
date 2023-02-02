@@ -17,6 +17,8 @@ class SliderPageView extends StatefulWidget {
       required this.children,
       this.onPageListener,
       this.backgroundColor,
+      this.needMargin = false,
+      this.marginValue = 4.5,
       this.buttonDecoration})
       : super(key: key);
 
@@ -28,6 +30,8 @@ class SliderPageView extends StatefulWidget {
   final onGetIntFunction? onPageListener;
   final Color? backgroundColor;
   final Decoration? buttonDecoration;
+  final bool needMargin;
+  final double marginValue;
 
   @override
   State<SliderPageView> createState() => _SliderPageViewState();
@@ -62,7 +66,8 @@ class _SliderPageViewState extends State<SliderPageView> {
         child: SizedBox(
             height: UIDefine.getHeight(),
             child: SafeArea(
-                child: CustomScrollView(slivers: [
+                child: CustomScrollView(
+                    slivers: [
               SliverToBoxAdapter(child: widget.topView),
               SliverFillRemaining(
                   child: Container(
@@ -78,6 +83,9 @@ class _SliderPageViewState extends State<SliderPageView> {
 
   Widget _buildButtonList() {
     return Container(
+        margin: widget.needMargin ?
+        EdgeInsets.only(top: UIDefine.getScreenWidth(widget.marginValue)) :
+        EdgeInsets.only(top: UIDefine.getScreenWidth(0)),
         decoration: widget.buttonDecoration,
         height: UIDefine.getPixelHeight(60),
         child: ScrollablePositionedList.builder(
