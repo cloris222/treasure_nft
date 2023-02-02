@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/widgets/label/flex_two_text_widget.dart';
 
 import '../../constant/call_back_function.dart';
 import '../../models/http/parameter/check_level_info.dart';
@@ -42,30 +43,42 @@ class PersonalNewSubLevelView extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _getContentWithCoin(tr("wallet-balance'"),
-                      userProperty?.balance.toString(), null),
-                  _getContentWithCoin(tr('nftAssets'),
-                      userProperty?.nftBalance.toString(), null),
+                  Expanded(
+                    child: _getContentWithCoin(tr("wallet-balance'"),
+                        userProperty?.balance.toString(), null),
+                  ),
+                  Expanded(
+                    child: _getContentWithCoin(tr('nftAssets'),
+                        userProperty?.nftBalance.toString(), null),
+                  ),
                 ],
               ),
               SizedBox(height: UIDefine.getScreenWidth(2.7)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _getContentWithCoin(
-                      tr('totalIncome'), userProperty?.income.toString(), null),
-                  _getContentWithCoin(tr('bonus_referral'),
-                      userProperty?.savingBalance.toString(), null),
+                  Expanded(
+                    child: _getContentWithCoin(tr('totalIncome'),
+                        userProperty?.income.toString(), null),
+                  ),
+                  Expanded(
+                    child: _getContentWithCoin(tr('bonus_referral'),
+                        userProperty?.savingBalance.toString(), null),
+                  ),
                 ],
               ),
               SizedBox(height: UIDefine.getScreenWidth(2.7)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _getContentWithCoin(tr('bonus_trade'),
-                      userProperty?.tradingSavingBalance.toString(), null),
-                  _getContentWithCoin(tr('fees'), '1%', null,
-                      showIcon: false, useFormat: false)
+                  Expanded(
+                    child: _getContentWithCoin(tr('bonus_trade'),
+                        userProperty?.tradingSavingBalance.toString(), null),
+                  ),
+                  Expanded(
+                    child: _getContentWithCoin(tr('fees'), '1%', null,
+                        showIcon: false, useFormat: false),
+                  )
                 ],
               ),
             ],
@@ -84,17 +97,16 @@ class PersonalNewSubLevelView extends StatelessWidget {
   Widget _getContentWithCoin(String title, String? value, double? fontSize,
       {bool isTotal = false, bool showIcon = true, bool useFormat = true}) {
     return SizedBox(
-        width: isTotal
-            ? UIDefine.getScreenWidth(70)
-            : UIDefine.getScreenWidth(24.5),
+        width: UIDefine.getWidth(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, // 小標題
-                overflow: TextOverflow.ellipsis,
-                style: AppTextStyle.getBaseStyle(
-                    color: AppColors.textThreeBlack,
-                    fontSize: UIDefine.fontSize12)),
+            FlexTwoTextWidget(
+              alignment: Alignment.centerLeft,
+              text: title, // 小標題
+              color: AppColors.textThreeBlack,
+              fontSize: 12,
+            ),
             const SizedBox(height: 6),
             Row(
               children: [
@@ -107,6 +119,7 @@ class PersonalNewSubLevelView extends StatelessWidget {
                     useFormat
                         ? ' ${NumberFormatUtil().removeTwoPointFormat(value)}'
                         : value ?? '', // 數值
+                    maxLines: 1,
                     style: AppTextStyle.getBaseStyle(
                         fontSize: fontSize ?? UIDefine.fontSize16,
                         fontWeight: FontWeight.w600))
