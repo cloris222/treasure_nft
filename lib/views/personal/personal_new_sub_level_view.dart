@@ -40,7 +40,7 @@ class PersonalNewSubLevelView extends StatelessWidget {
                   isTotal: true),
               _getLine(),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _getContentWithCoin(tr("wallet-balance'"),
                       userProperty?.balance.toString(), null),
@@ -50,7 +50,7 @@ class PersonalNewSubLevelView extends StatelessWidget {
               ),
               SizedBox(height: UIDefine.getScreenWidth(2.7)),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _getContentWithCoin(
                       tr('totalIncome'), userProperty?.income.toString(), null),
@@ -60,7 +60,7 @@ class PersonalNewSubLevelView extends StatelessWidget {
               ),
               SizedBox(height: UIDefine.getScreenWidth(2.7)),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _getContentWithCoin(tr('bonus_trade'),
                       userProperty?.tradingSavingBalance.toString(), null),
@@ -86,7 +86,7 @@ class PersonalNewSubLevelView extends StatelessWidget {
     return SizedBox(
         width: isTotal
             ? UIDefine.getScreenWidth(70)
-            : UIDefine.getScreenWidth(24.5),
+            : UIDefine.getScreenWidth(40),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -97,20 +97,20 @@ class PersonalNewSubLevelView extends StatelessWidget {
                     fontSize: UIDefine.fontSize12)),
             const SizedBox(height: 6),
             Row(
-              children: [
-                Visibility(
-                    visible: showIcon,
-                    child: TetherCoinWidget(
-                      size: UIDefine.fontSize16,
-                    )),
-                Text(
-                    useFormat
-                        ? ' ${NumberFormatUtil().removeTwoPointFormat(value)}'
-                        : value ?? '', // 數值
-                    style: AppTextStyle.getBaseStyle(
-                        fontSize: fontSize ?? UIDefine.fontSize16,
-                        fontWeight: FontWeight.w600))
-              ],
+                children: [
+                  Visibility(
+                      visible: showIcon,
+                      child: TetherCoinWidget(
+                        size: UIDefine.fontSize16,
+                      )),
+                  Text(
+                      useFormat
+                          ? ' ${NumberFormatUtil().removeTwoPointFormat(value)}'
+                          : value ?? '', // 數值
+                      style: AppTextStyle.getBaseStyle(
+                          fontSize: fontSize ?? UIDefine.fontSize16,
+                          fontWeight: FontWeight.w600))
+                ],
             )
           ],
         ));

@@ -104,33 +104,4 @@ class _PersonalMainViewState extends State<PersonalMainView> {
     viewModel.updateData();
   }
 
-  void _onDateIcon() {
-    // test 點擊後待確認
-  }
-
-  void _serverAction() {
-    viewModel.pushPage(context, const ServerWebPage());
-    // viewModel.pushPage(context, const SplashScreenPage());
-  }
-
-  void _searchAction() {
-    viewModel.setCurrentBottomType(AppNavigationBarType.typeExplore);
-    BaseViewModel().pushPage(context, const ExploreMainView());
-  }
-
-  void _avatarAction() {
-    setState(() {
-      if (BaseViewModel().isLogin()) {
-        viewModel.setCurrentBottomType(AppNavigationBarType.typePersonal);
-        // BaseViewModel().pushPage(context, page);
-      } else {
-        viewModel.setCurrentBottomType(AppNavigationBarType.typeLogin);
-        // BaseViewModel().pushPage(context, page);
-      }
-    });
-  }
-
-  void _globalAction() async {
-    await BaseViewModel().pushPage(context, const SettingLanguagePage());
-  }
 }
