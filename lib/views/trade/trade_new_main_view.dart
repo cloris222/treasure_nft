@@ -8,6 +8,8 @@ import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/view_models/trade/trade_new_main_view_model.dart';
 import 'package:treasure_nft_project/views/trade/trade_main_level_view.dart';
 import 'package:treasure_nft_project/views/trade/trade_main_user_info_view.dart';
+import 'package:treasure_nft_project/widgets/dialog/success_dialog.dart';
+import 'package:treasure_nft_project/widgets/dialog/trade_rule_dialot.dart';
 import 'package:treasure_nft_project/widgets/label/icon/level_icon_widget.dart';
 
 class TradeNewMainView extends StatefulWidget {
@@ -20,16 +22,42 @@ class TradeNewMainView extends StatefulWidget {
 class _TradeNewMainViewState extends State<TradeNewMainView> {
   Color backgroundColor = const Color(0xFFF8F8F8);
   late TradeNewMainViewModel viewModel;
+  ScrollController controller = ScrollController();
 
   @override
   void initState() {
-    viewModel = TradeNewMainViewModel(onViewChange: () {
-      if (mounted) {
-        setState(() {});
-      }
-    });
+    viewModel = TradeNewMainViewModel(
+      onViewChange: () {
+        if (mounted) {
+          setState(() {});
+        }
+      },
+      reservationSuccess: () {
+        SuccessDialog(context,
+                callOkFunction: () {},
+                isSuccess: true,
+                mainText: tr("reserve-success'"),
+                subText: tr("reserve-success-text'"))
+            .show();
+      },
+      errorMsgDialog: (String mainText, String subText) {
+        SuccessDialog(context,
+                callOkFunction: () {},
+                isSuccess: false,
+                mainText: mainText,
+                subText: subText)
+            .show();
+      },
+    );
     viewModel.initState();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    viewModel.disposeState();
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -37,6 +65,7 @@ class _TradeNewMainViewState extends State<TradeNewMainView> {
     return Container(
       color: backgroundColor,
       child: SingleChildScrollView(
+        controller: controller,
         child: Column(
           children: [
             _buildTitle(),
@@ -54,7 +83,14 @@ class _TradeNewMainViewState extends State<TradeNewMainView> {
                 ///MARK: 使用者錢包相關資訊
                 TradeMainUserInfoView(viewModel: viewModel),
                 SizedBox(height: UIDefine.getPixelWidth(10)),
-                TradeMainLevelView(viewModel: viewModel),
+                TradeMainLevelView(
+                    viewModel: viewModel,
+                    onScrollTop: () {
+                      controller.animateTo(0,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.fastOutSlowIn);
+                    }),
+                SizedBox(height: UIDefine.navigationBarPadding),
               ]),
             )
           ],
@@ -88,12 +124,20 @@ class _TradeNewMainViewState extends State<TradeNewMainView> {
                       fontWeight: FontWeight.w600),
                 ),
                 const Spacer(),
-                Text(
-                  tr('trade-rules'),
-                  style: AppTextStyle.getBaseStyle(
-                      fontSize: UIDefine.fontSize14,
-                      fontWeight: FontWeight.w400,
-                      color: const Color(0xFF5CBFFE)),
+                GestureDetector(
+                  onTap: () {
+                    TradeRuleDialog(context).show();
+                  },
+                  child: Container(
+                    color: Colors.transparent,
+                    child: Text(
+                      tr('trade-rules'),
+                      style: AppTextStyle.getBaseStyle(
+                          fontSize: UIDefine.fontSize14,
+                          fontWeight: FontWeight.w400,
+                          color: const Color(0xFF5CBFFE)),
+                    ),
+                  ),
                 ),
               ],
             ),

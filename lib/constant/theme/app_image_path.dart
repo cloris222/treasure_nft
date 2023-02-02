@@ -59,7 +59,7 @@ class AppImagePath {
   static const String polyImg = '$_coinsPath/icon_polygon_01.png';
 
   /// trade page
-  static const String countDownBackground = '$_imgPath/img_trade_bg_01.jpg';
+  static const String countDownBackground = '$_imgPath/img_background_01.png';
   static const String clockBlue = '$_imgPath/img_clock_01.png';
   static const String clockRed = '$_imgPath/img_clock_02.png';
 
@@ -213,4 +213,6 @@ class AppImagePath {
   static const String dailyPath = '$_imgPath/img_dm_{index}_01_{strStatus}.png';
   static const String achievementPath =
       '$_imgPath/img_ma_{index}_01_{strStatus}.png';
+
+  static const String tradeDiceImage = '$_imgPath/img_blind_box_lv{level}_{index}.png';
 }

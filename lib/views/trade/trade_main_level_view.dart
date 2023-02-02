@@ -1,19 +1,38 @@
+import 'dart:io';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:format/format.dart';
+import 'package:treasure_nft_project/constant/call_back_function.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:treasure_nft_project/constant/theme/app_animation_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/animation_download_util.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
+import 'package:treasure_nft_project/utils/trade_timer_util.dart';
 import 'package:treasure_nft_project/view_models/trade/trade_new_main_view_model.dart';
+import 'package:treasure_nft_project/views/main_page.dart';
+import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
+import 'package:treasure_nft_project/widgets/button/login_bolder_button_widget.dart';
+import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
+import 'package:treasure_nft_project/widgets/count_down_timer.dart';
+import 'package:treasure_nft_project/widgets/dialog/new_reservation_dialog.dart';
+import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
 import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart';
+import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
 
 ///MARK: 交易 切換交易等級&轉轉轉方塊
 class TradeMainLevelView extends StatefulWidget {
-  const TradeMainLevelView({Key? key, required this.viewModel})
+  const TradeMainLevelView(
+      {Key? key, required this.viewModel, required this.onScrollTop})
       : super(key: key);
   final TradeNewMainViewModel viewModel;
+  final onClickFunction onScrollTop;
 
   @override
   State<TradeMainLevelView> createState() => _TradeMainLevelViewState();
@@ -28,8 +47,11 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        /// 交易的主要區塊
         _buildDivision(),
         SizedBox(height: UIDefine.getPixelWidth(10)),
+
+        /// 交易的其他資訊
         _buildSystemInfo(),
       ],
     );
@@ -37,26 +59,46 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
 
   ///MARK: 中間選擇副本區間
   Widget _buildDivision() {
+    bool isReserved = false;
+    bool isLock = false;
+    try {
+      isReserved = viewModel.ranges[viewModel.currentRangeIndex].used;
+    } catch (e) {}
+    try {
+      isLock = viewModel.ranges[viewModel.currentRangeIndex].lock;
+    } catch (e) {}
     return Container(
       padding: EdgeInsets.all(UIDefine.getPixelWidth(10)),
       decoration: AppStyle().styleColorsRadiusBackground(radius: 12),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          ///MARK: 交易選擇區間&價格
           Row(
             children: [
-              Expanded(child: _buildLevelDropButton()),
+              Expanded(child: _buildDivisionDropButton()),
               SizedBox(width: UIDefine.getPixelWidth(10)),
               Expanded(child: _buildRangeDropButton()),
             ],
           ),
-          _buildDivisionInfo()
+
+          ///MARK: 顯示預約的剩餘時間
+          _buildTimeBar(),
+
+          ///MARK: 顯示交易的骰子圖片&3D動畫
+          _buildTradeImage(isReserved),
+
+          ///MARK: 顯示交易區間的資訊
+          _buildDivisionInfo(),
+
+          ///MARK: 預約交易的按鈕
+          _buildReservationButton(isReserved, isLock),
         ],
       ),
     );
   }
 
-  Widget _buildLevelDropButton() {
+  Widget _buildDivisionDropButton() {
     return Container(
       decoration: AppStyle().styleColorBorderBackground(
           color: AppColors.textSixBlack, radius: 8, borderLine: 0.5),
@@ -65,37 +107,61 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
           vertical: UIDefine.getPixelWidth(3)),
       child: DropdownButtonHideUnderline(
           child: DropdownButton2(
+        customButton:
+            _buildDivisionDropItem(viewModel.currentDivisionIndex, false, true),
         isExpanded: true,
         items: List<DropdownMenuItem<int>>.generate(viewModel.division.length,
             (index) {
           return DropdownMenuItem<int>(
-            value: viewModel.division[index],
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Text(
-                'LV ${viewModel.division[index]}',
-                style: AppTextStyle.getBaseStyle(
-                    fontSize: UIDefine.fontSize12,
-                    color: AppColors.textSixBlack,
-                    fontWeight: FontWeight.w600),
-              ),
-            ),
-          );
+              value: index, child: _buildDivisionDropItem(index, true, false));
         }),
-        value: viewModel.currentDivision,
+        value:
+            viewModel.division.isEmpty ? null : viewModel.currentDivisionIndex,
         onChanged: (value) {
           if (value != null) {
             setState(() {
-              viewModel.currentDivision = value;
+              viewModel.currentDivisionIndex = value;
             });
-            viewModel.getDivisionLevelInfo(value);
+            viewModel.getDivisionLevelInfo(viewModel.division[value]);
           }
         },
-        buttonHeight: 40,
-        dropdownMaxHeight: 200,
-        buttonWidth: 140,
         itemPadding: const EdgeInsets.symmetric(horizontal: 8.0),
       )),
+    );
+  }
+
+  Widget _buildDivisionDropItem(
+      int index, bool needGradientText, bool needArrow) {
+    if (viewModel.division.isEmpty) {
+      return SizedBox(height: UIDefine.getPixelWidth(40));
+    }
+    var text = 'LV ${viewModel.division[index]}';
+    return Container(
+      alignment: Alignment.centerLeft,
+      height: UIDefine.getPixelWidth(40),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Row(
+        children: [
+          viewModel.currentDivisionIndex == index && needGradientText
+              ? GradientThirdText(
+                  text,
+                  size: UIDefine.fontSize12,
+                )
+              : Text(
+                  text,
+                  style: AppTextStyle.getBaseStyle(
+                      fontSize: UIDefine.fontSize12,
+                      color: AppColors.textSixBlack,
+                      fontWeight: FontWeight.w600),
+                ),
+          const Spacer(),
+          Visibility(
+              visible: needArrow,
+              child: BaseIconWidget(
+                  imageAssetPath: AppImagePath.arrowDownGrey,
+                  size: UIDefine.getPixelWidth(15)))
+        ],
+      ),
     );
   }
 
@@ -108,40 +174,27 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
           vertical: UIDefine.getPixelWidth(3)),
       child: DropdownButtonHideUnderline(
           child: DropdownButton2(
+        customButton:
+            _buildRangDropItem(viewModel.currentRangeIndex, false, true),
         isExpanded: true,
         hint: Row(children: [
           TetherCoinWidget(size: UIDefine.getPixelWidth(15)),
           SizedBox(width: UIDefine.getPixelWidth(5)),
-          Text('0-0',
+          Text('0 - 0',
               style: AppTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize12,
                   color: AppColors.textSixBlack,
                   fontWeight: FontWeight.w600))
         ]),
-        items: List<DropdownMenuItem<int>>.generate(viewModel.ranges.length,
-            (index) {
-          return DropdownMenuItem<int>(
-            value: index,
-            child: Row(
-              children: [
-                TetherCoinWidget(size: UIDefine.getPixelWidth(15)),
-                SizedBox(width: UIDefine.getPixelWidth(5)),
-                Text(
-                  '${NumberFormatUtil().numberCompatFormat(viewModel.ranges[index].startPrice.toString(), decimalDigits: 0)}-${NumberFormatUtil().numberCompatFormat(viewModel.ranges[index].endPrice.toString(), decimalDigits: 0)}',
-                  style: AppTextStyle.getBaseStyle(
-                      fontSize: UIDefine.fontSize12,
-                      color: AppColors.textSixBlack,
-                      fontWeight: FontWeight.w600),
-                ),
-              ],
-            ),
-          );
-        }),
-        value: viewModel.ranges.isEmpty ? null : viewModel.currentIndex,
+        items: List<DropdownMenuItem<int>>.generate(
+            viewModel.ranges.length,
+            (index) => DropdownMenuItem<int>(
+                value: index, child: _buildRangDropItem(index, true, false))),
+        value: viewModel.ranges.isEmpty ? null : viewModel.currentRangeIndex,
         onChanged: (value) {
           if (value != null) {
             setState(() {
-              viewModel.currentIndex = value;
+              viewModel.currentRangeIndex = value;
             });
             viewModel.getDivisionIndexInfo(viewModel.ranges[value].index);
           }
@@ -154,11 +207,235 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
     );
   }
 
-  Widget _buildDivisionInfo() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [Text('${viewModel.checkReserveDeposit?.reward}')],
+  Widget _buildRangDropItem(int index, bool needGradientText, bool needArrow) {
+    if (viewModel.ranges.isEmpty) {
+      return SizedBox(height: UIDefine.getPixelWidth(40));
+    }
+
+    var text =
+        '${NumberFormatUtil().numberCompatFormat(viewModel.ranges[index].startPrice.toString(), decimalDigits: 0)}-${NumberFormatUtil().numberCompatFormat(viewModel.ranges[index].endPrice.toString(), decimalDigits: 0)}';
+
+    return Container(
+      alignment: Alignment.centerLeft,
+      height: UIDefine.getPixelWidth(40),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Row(
+        children: [
+          TetherCoinWidget(size: UIDefine.getPixelWidth(15)),
+          SizedBox(width: UIDefine.getPixelWidth(5)),
+          index == viewModel.currentRangeIndex && needGradientText
+              ? GradientThirdText(
+                  text,
+                  size: UIDefine.fontSize12,
+                )
+              : Text(
+                  text,
+                  style: AppTextStyle.getBaseStyle(
+                      fontSize: UIDefine.fontSize12,
+                      color: AppColors.textSixBlack,
+                      fontWeight: FontWeight.w600),
+                ),
+          const Spacer(),
+          Visibility(
+              visible: needArrow,
+              child: BaseIconWidget(
+                  imageAssetPath: AppImagePath.arrowDownGrey,
+                  size: UIDefine.getPixelWidth(15)))
+        ],
+      ),
     );
+  }
+
+  Widget _buildTimeBar() {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(5)),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(tr('timeLeft'),
+              style: AppTextStyle.getBaseStyle(
+                  color: AppColors.textSixBlack,
+                  fontWeight: FontWeight.w400,
+                  fontSize: UIDefine.fontSize12)),
+          Container(
+            margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(5)),
+            child: CountDownTimer(
+              isNewType: true,
+              duration: TradeTimerUtil().getCurrentTradeData().duration,
+            ),
+          ),
+          Text(TradeTimerUtil().getTradeZone(),
+              style: AppTextStyle.getBaseStyle(
+                  color: AppColors.textSixBlack,
+                  fontWeight: FontWeight.w400,
+                  fontSize: UIDefine.fontSize12)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTradeImage(bool isReserved) {
+    bool needAddIndex = GlobalData.userInfo.level > 0;
+    if (isReserved) {
+      String size = '';
+      switch (viewModel.currentRangeIndex) {
+        case 0:
+          {
+            size = "200";
+          }
+          break;
+        case 1:
+          {
+            size = "250";
+          }
+          break;
+        case 2:
+          {
+            size = "300";
+          }
+          break;
+        case 3:
+          {
+            size = "350";
+          }
+          break;
+
+        case 4:
+        default:
+          {
+            size = "400";
+          }
+          break;
+      }
+
+      double imgHeight =
+          UIDefine.getPixelWidth(200 + viewModel.currentRangeIndex * 50);
+      if (GlobalData.userInfo.level == 0) {
+        size = "400";
+        imgHeight = UIDefine.getPixelWidth(400);
+      }
+
+      String animationPath = format(AppAnimationPath.reservationDice3D, {
+        "level": viewModel.currentDivisionIndex + (needAddIndex ? 1 : 0),
+        "size": size
+      });
+      String? path =
+          AnimationDownloadUtil().getAnimationFilePath(animationPath);
+      if (path != null) {
+        return Container(
+            height: UIDefine.getPixelWidth(imgHeight),
+            width: UIDefine.getWidth(),
+            alignment: Alignment.center,
+            child: Image.file(File(path)));
+      }
+    }
+    // int index = 5 - viewModel.currentRangeIndex;
+    // if (viewModel.currentDivisionIndex == 0) {
+    //   index = 1;
+    // }
+    String imagePath = format(AppImagePath.tradeDiceImage, {
+      "level":
+          (viewModel.currentDivisionIndex + (needAddIndex ? 1 : 0)).toString(),
+      "index": NumberFormatUtil().integerTwoFormat(1)
+    });
+    return Container(
+      height: UIDefine.getPixelWidth(200 + viewModel.currentRangeIndex * 50),
+      width: UIDefine.getWidth(),
+      alignment: Alignment.center,
+      margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(5)),
+      child: Image.asset(imagePath),
+    );
+  }
+
+  Widget _buildDivisionInfo() {
+    return Column(mainAxisSize: MainAxisSize.min, children: [
+      _buildDivisionInfoItem(
+          title: tr('reservationTime'),
+          context: TradeTimerUtil().getReservationTime()),
+      _buildDivisionInfoItem(
+          title: tr('NFTResultTime'),
+          context: TradeTimerUtil().getResultTime()),
+      _buildDivisionInfoItem(
+          title: tr('reservationFee'),
+          context: NumberFormatUtil()
+              .integerFormat(viewModel.checkReserveDeposit?.deposit ?? 0)),
+      _buildDivisionInfoItem(
+          title: tr('transactionReward'),
+          context:
+              '${NumberFormatUtil().integerFormat(viewModel.checkReserveDeposit?.reward ?? 0)} %'),
+    ]);
+  }
+
+  Widget _buildDivisionInfoItem(
+      {required String title, required String context, bool needCoin = false}) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(5)),
+      child: Row(
+        children: [
+          Text(title,
+              style: AppTextStyle.getBaseStyle(
+                  color: AppColors.textSixBlack,
+                  fontWeight: FontWeight.w400,
+                  fontSize: UIDefine.fontSize14)),
+          const Spacer(),
+          Visibility(
+              visible: needCoin,
+              child: TetherCoinWidget(size: UIDefine.getPixelWidth(12))),
+          SizedBox(width: UIDefine.getPixelWidth(5)),
+          Text(context,
+              style: AppTextStyle.getBaseStyle(
+                  color: AppColors.textSixBlack,
+                  fontWeight: FontWeight.w600,
+                  fontSize: UIDefine.fontSize14)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildReservationButton(bool isReserved, bool isLock) {
+    if (isLock) {
+      return const SizedBox();
+    }
+
+    return isReserved
+        ? Row(
+            children: [
+              Expanded(
+                  child: LoginBolderButtonWidget(
+                      margin: EdgeInsets.symmetric(
+                          horizontal: UIDefine.getPixelWidth(5),
+                          vertical: UIDefine.getPixelWidth(10)),
+                      radius: 22,
+                      fontWeight: FontWeight.w600,
+                      fontSize: UIDefine.fontSize16,
+                      btnText: tr('continueReservation'),
+                      onPressed: () => widget.onScrollTop())),
+              Expanded(
+                  child: LoginButtonWidget(
+                margin: EdgeInsets.symmetric(
+                    horizontal: UIDefine.getPixelWidth(5),
+                    vertical: UIDefine.getPixelWidth(10)),
+                radius: 22,
+                fontWeight: FontWeight.w600,
+                fontSize: UIDefine.fontSize16,
+                btnText: tr('matching'),
+                onPressed: () => viewModel.pushAndRemoveUntil(
+                    context,
+                    const MainPage(
+                      type: AppNavigationBarType.typeCollection,
+                    )),
+              ))
+            ],
+          )
+        : LoginButtonWidget(
+            margin: EdgeInsets.symmetric(
+                horizontal: UIDefine.getPixelWidth(5),
+                vertical: UIDefine.getPixelWidth(10)),
+            radius: 22,
+            fontWeight: FontWeight.w600,
+            fontSize: UIDefine.fontSize16,
+            btnText: tr('confirm'),
+            onPressed: _onPressReservation);
   }
 
   ///MARK: 交易量
@@ -172,9 +449,9 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
               child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              _buildItem(tr('tradeVol'),
+              _buildSystemInfoItem(tr('tradeVol'),
                   '\$ ${NumberFormatUtil().integerFormat(viewModel.reserveViewData?.vol ?? 0)}'),
-              _buildItem(tr('PRICE'),
+              _buildSystemInfoItem(tr('PRICE'),
                   '${NumberFormatUtil().integerFormat(viewModel.reserveViewData?.price ?? 0)} \$')
             ],
           )),
@@ -183,9 +460,9 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
               child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              _buildItem(tr('annualROI'),
+              _buildSystemInfoItem(tr('annualROI'),
                   '${NumberFormatUtil().removeTwoPointFormat(viewModel.reserveViewData?.annualRoi ?? 0)} %'),
-              _buildItem(tr('APR'),
+              _buildSystemInfoItem(tr('APR'),
                   '${NumberFormatUtil().removeTwoPointFormat(viewModel.reserveViewData?.apr ?? 0)} %')
             ],
           ))
@@ -194,7 +471,7 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
     );
   }
 
-  Widget _buildItem(String title, String context) {
+  Widget _buildSystemInfoItem(String title, String context) {
     return Row(
       children: [
         Expanded(
@@ -216,5 +493,31 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
                         fontSize: UIDefine.fontSize14)))),
       ],
     );
+  }
+
+  void _onPressReservation() {
+    viewModel.pushOpacityPage(
+        context,
+        NewReservationPopUpView(
+          confirmBtnAction: () async {
+            Navigator.pop(context);
+
+            /// add new reservation
+            await viewModel.addNewReservation(viewModel.currentRangeIndex);
+
+            /// if reservation success 預約狀態 = true
+            viewModel.ranges[viewModel.currentRangeIndex].used = true;
+
+            /// 狀態更新
+            setState(() {});
+
+            viewModel.getDivisionLevelInfo(
+                viewModel.division[viewModel.currentDivisionIndex],
+                initIndex: viewModel.currentRangeIndex);
+          },
+          reservationFee: '${viewModel.checkReserveDeposit?.deposit}',
+          transactionTime: '${viewModel.checkReserveDeposit?.tradingTime}',
+          transactionReward: '${viewModel.checkReserveDeposit?.reward}',
+        ));
   }
 }

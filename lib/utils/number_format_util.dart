@@ -19,6 +19,9 @@ class NumberFormatUtil {
 
   ///取整數
   String integerTwoFormat(dynamic value) {
+    if (value is String) {
+      value = double.parse(value);
+    }
     return _setNumberFormat(format: '00', value: value);
   }
 

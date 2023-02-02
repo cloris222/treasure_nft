@@ -15,17 +15,18 @@ class SuccessDialog extends BaseDialog {
       {this.mainText,
       this.subText = '',
       this.okText = 'OK',
-      this.mainTextSize = 27,
+      this.mainTextSize,
       this.mainMargin = const EdgeInsets.only(top: 10, bottom: 10),
       this.buttonMargin = const EdgeInsets.only(top: 10),
       this.isSuccess = true,
       super.isDialogCancel,
-      required this.callOkFunction});
+      required this.callOkFunction,
+      super.radius = 12});
 
   String? mainText;
   String subText;
   String okText;
-  double mainTextSize;
+  double? mainTextSize;
   bool isSuccess;
   EdgeInsetsGeometry mainMargin, buttonMargin;
   onClickFunction callOkFunction;
@@ -46,21 +47,34 @@ class SuccessDialog extends BaseDialog {
                 textAlign: TextAlign.center,
                 style: AppTextStyle.getBaseStyle(
                     color: AppColors.textBlack,
-                    fontSize: mainTextSize,
-                    fontWeight: FontWeight.w500)),
+                    fontSize: mainTextSize ?? UIDefine.fontSize16,
+                    fontWeight: FontWeight.w600)),
           ),
           subText.isNotEmpty
-              ? Text(subText,
-                  textAlign: TextAlign.center,
-                  style: AppTextStyle.getBaseStyle(
-                      color: AppColors.textGrey, fontSize: UIDefine.fontSize12))
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Text(subText,
+                      textAlign: TextAlign.center,
+                      style: AppTextStyle.getBaseStyle(
+                          color: AppColors.textThreeBlack,
+                          fontSize: UIDefine.fontSize14)),
+                )
               : const Text(''),
           Container(
-            margin: EdgeInsets.zero,
-            child: LoginButtonWidget(
-                margin: EdgeInsets.symmetric(horizontal: UIDefine.getWidth() / 5),
-                btnText: tr("check"),
-                onPressed: _onPress,),
+            margin: buttonMargin,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                LoginButtonWidget(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: UIDefine.getPixelWidth(15),
+                      vertical: UIDefine.getPixelWidth(5)),
+                  isFillWidth: false,
+                  btnText: tr("check"),
+                  onPressed: _onPress,
+                ),
+              ],
+            ),
           )
         ]);
   }

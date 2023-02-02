@@ -33,7 +33,7 @@ class LevelDetailLabel extends StatelessWidget {
         children: <Widget>[
           Text(title,
               style: AppTextStyle.getBaseStyle(
-                  color: AppColors.dialogGrey,
+                  color: AppColors.textThreeBlack,
                   fontSize: UIDefine.fontSize14,
                   fontWeight: leftFontWeight)),
           Row(
@@ -50,7 +50,7 @@ class LevelDetailLabel extends StatelessWidget {
               ),
               Text(content,
                   style: AppTextStyle.getBaseStyle(
-                      color: AppColors.textBlack,
+                      color: AppColors.textThreeBlack,
                       fontSize: UIDefine.fontSize14,
                       fontWeight: rightFontWeight)),
             ],
