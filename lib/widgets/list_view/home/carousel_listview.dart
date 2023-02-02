@@ -54,13 +54,14 @@ class _GetCarouselListView extends State<CarouselListView> {
         ? itemHeight
         : UIDefine.getPixelWidth(360);
     return Swiper(
-      // autoplay: true,
+      autoplay: true,
       itemWidth: itemHeight * 0.8,
       itemHeight: itemHeight * 0.8,
       itemBuilder: (BuildContext context, int index) {
         return createItemBuilder(context, index);
       },
-      curve: Curves.easeInToLinear,
+      curve: Curves.easeIn,
+      duration: 100,
       itemCount: viewModel.homeCarouselList.length,
       layout: SwiperLayout.STACK,
       axisDirection: AxisDirection.right,

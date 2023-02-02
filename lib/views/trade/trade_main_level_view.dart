@@ -401,6 +401,9 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
     if (isLock) {
       return const SizedBox();
     }
+    if (viewModel.division.isEmpty || viewModel.ranges.isEmpty) {
+      return const SizedBox();
+    }
 
     return isReserved
         ? Row(
