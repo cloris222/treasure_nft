@@ -33,7 +33,6 @@ class TradeNewMainViewModel extends BaseViewModel {
   void initState() {
     ///MARK: timer監聽
     currentData = TradeTimerUtil().getCurrentTradeData();
-    ranges = TradeTimerUtil().getDivisionRanges();
 
     onViewChange();
     TradeTimerUtil().addListener(_onUpdateTrade);
