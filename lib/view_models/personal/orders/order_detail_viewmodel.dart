@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:treasure_nft_project/constant/enum/setting_enum.dart';
 import 'package:treasure_nft_project/constant/enum/team_enum.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/api/order_api.dart';
 import 'package:treasure_nft_project/utils/app_shared_Preferences.dart';
@@ -111,17 +112,24 @@ class OrderDetailViewModel extends BaseListViewModel {
 
   @override
   Widget buildTopView() {
-    return CustomDatePickerWidget(
-      dateCallback: _callback,
-      typeCallback: _callType,
-      initType: currentType,
-      typeList: const [
-        Search.All,
-        Search.Today,
-        Search.Yesterday,
-        Search.SevenDays,
-        Search.ThirtyDays
-      ],
+    return Container(
+      padding: const EdgeInsets.fromLTRB(5, 0, 5, 10),
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
+        color: AppColors.textWhite,
+      ),
+      child: CustomDatePickerWidget(
+        dateCallback: _callback,
+        typeCallback: _callType,
+        initType: currentType,
+        typeList: const [
+          Search.All,
+          Search.Today,
+          Search.Yesterday,
+          Search.SevenDays,
+          Search.ThirtyDays
+        ],
+      )
     );
   }
 

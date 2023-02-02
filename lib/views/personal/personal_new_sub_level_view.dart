@@ -41,7 +41,7 @@ class PersonalNewSubLevelView extends StatelessWidget {
                   isTotal: true),
               _getLine(),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
                     child: _getContentWithCoin(tr("wallet-balance'"),
@@ -55,7 +55,7 @@ class PersonalNewSubLevelView extends StatelessWidget {
               ),
               SizedBox(height: UIDefine.getScreenWidth(2.7)),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
                     child: _getContentWithCoin(tr('totalIncome'),
@@ -69,7 +69,7 @@ class PersonalNewSubLevelView extends StatelessWidget {
               ),
               SizedBox(height: UIDefine.getScreenWidth(2.7)),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
                     child: _getContentWithCoin(tr('bonus_trade'),

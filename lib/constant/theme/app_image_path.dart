@@ -50,7 +50,8 @@ class AppImagePath {
   static const String serverImage = '$_btnPath/btn_service_01.png';
   static const String globalImage = '$_btnPath/btn_language_01.png';
   static const String homeImage = '$_btnPath/btn_home_01.png';
-  static const String avatarImg = '$_imgPath/img_avatar_01_defult.png';
+  static const String avatarImg = '$_imgPath/img_Default_00.png';
+  static const String avatarImgs = '$_imgPath/img_Default_0{index}.png';
 
   /// coins
   static const String tetherImg = '$_coinsPath/icon_tether_01.png';
