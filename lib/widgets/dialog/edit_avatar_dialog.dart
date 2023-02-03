@@ -124,6 +124,8 @@ class EditAvatarDialog extends BaseDialog {
 
   Widget _onChooseGallery(StateSetter setState) {
     return Container(
+      width: UIDefine.getWidth(),
+      height: UIDefine.getScreenHeight(64),
       padding: const EdgeInsets.all(15),
       decoration: AppStyle().styleColorBorderBackground(color: Colors.white),
       child: Column(
