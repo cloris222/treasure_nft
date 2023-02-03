@@ -61,6 +61,11 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
+      onLanguageChange: () {
+        if (mounted) {
+          setState(() {});
+        }
+      },
       body: NotificationListener<ScrollEndNotification>(
           onNotification: (scrollEnd) {
             final metrics = scrollEnd.metrics;

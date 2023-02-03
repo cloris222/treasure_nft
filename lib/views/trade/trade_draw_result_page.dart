@@ -39,41 +39,47 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
   @override
   Widget build(BuildContext context) {
     return CustomAppbarView(
-        needCover: true,
-        body: Stack(
-          children: [
-            Container(
-                width: UIDefine.getWidth(),
-                constraints:
-                    BoxConstraints(minHeight: UIDefine.getPixelHeight(1115)),
-                padding: EdgeInsets.only(
-                    top: UIDefine.getPixelHeight(70),
-                    left: UIDefine.getScreenWidth(8),
-                    right: UIDefine.getScreenWidth(8)),
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(AppImagePath.tradeDrawBg),
-                        fit: BoxFit.fill)),
-                child: Column(children: [
-                  TitleAppBar(title: tr("winnersList")),
-                  _buildActivityInfoView(),
-                  SizedBox(height: UIDefine.getPixelHeight(70)),
-                  _buildActivityAward(),
-                  _buildBar(),
-                  _buildDrawResultView(),
-                  SizedBox(height: UIDefine.navigationBarPadding)
-                ])),
-            Positioned(
-                right: 0,
-                top: UIDefine.getPixelHeight(50),
-                child: Image.asset(
-                  AppImagePath.tradeDrawCoin,
-                  width: UIDefine.getWidth() * 0.3,
-                  fit: BoxFit.fitWidth,
-                ))
-          ],
-        ),
-        needScrollView: true);
+      needCover: true,
+      body: Stack(
+        children: [
+          Container(
+              width: UIDefine.getWidth(),
+              constraints:
+                  BoxConstraints(minHeight: UIDefine.getPixelHeight(1115)),
+              padding: EdgeInsets.only(
+                  top: UIDefine.getPixelHeight(70),
+                  left: UIDefine.getScreenWidth(8),
+                  right: UIDefine.getScreenWidth(8)),
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(AppImagePath.tradeDrawBg),
+                      fit: BoxFit.fill)),
+              child: Column(children: [
+                TitleAppBar(title: tr("winnersList")),
+                _buildActivityInfoView(),
+                SizedBox(height: UIDefine.getPixelHeight(70)),
+                _buildActivityAward(),
+                _buildBar(),
+                _buildDrawResultView(),
+                SizedBox(height: UIDefine.navigationBarPadding)
+              ])),
+          Positioned(
+              right: 0,
+              top: UIDefine.getPixelHeight(50),
+              child: Image.asset(
+                AppImagePath.tradeDrawCoin,
+                width: UIDefine.getWidth() * 0.3,
+                fit: BoxFit.fitWidth,
+              ))
+        ],
+      ),
+      needScrollView: true,
+      onLanguageChange: () {
+        if (mounted) {
+          setState(() {});
+        }
+      },
+    );
   }
 
   ///MARK: 活動資訊

@@ -22,12 +22,7 @@ class OrderDetailPage extends StatefulWidget {
 
 class _OrderDetailPageState extends State<OrderDetailPage> {
   late OrderDetailViewModel viewModel;
-  List<String> titles = [
-    tr("TopPicks"),
-    tr("Team"),
-    tr("mine"),
-    tr("goldStorageTank")
-  ];
+
 
   @override
   initState() {
@@ -46,6 +41,11 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
     return CustomAppbarView(
       needCover: true,
       needScrollView: true,
+      onLanguageChange: () {
+        if (mounted) {
+          setState(() {});
+        }
+      },
       body: _buildPageView(context),
       type: AppNavigationBarType.typePersonal,
     );
@@ -102,6 +102,12 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
   }
 
   Widget _buildPageView(BuildContext context) {
+    List<String> titles = [
+      tr("TopPicks"),
+      tr("Team"),
+      tr("mine"),
+      tr("goldStorageTank")
+    ];
     return SliderPageView(
         titles: titles,
         initialPage: 0,

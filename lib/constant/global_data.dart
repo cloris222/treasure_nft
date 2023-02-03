@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/models/http/http_setting.dart';
 import 'package:treasure_nft_project/models/http/parameter/check_level_info.dart';
+import 'package:treasure_nft_project/utils/observer_pattern/subject.dart';
 
 import '../models/http/parameter/check_experience_info.dart';
 import '../models/http/parameter/country_phone_data.dart';
@@ -67,4 +68,7 @@ class GlobalData {
 
   /// 交易頁的Enter按鈕是否顯示
   static bool appTradeEnterButtonStatus = false;
+
+  ///MARK: 控管語言切換的
+  static Subject languageSubject = Subject();
 }

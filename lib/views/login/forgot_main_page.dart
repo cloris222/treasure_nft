@@ -36,6 +36,11 @@ class _ForgotMainPageState extends State<ForgotMainPage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
+      onLanguageChange: () {
+        if (mounted) {
+          setState(() {});
+        }
+      },
       type: AppNavigationBarType.typeLogin,
       body: SingleChildScrollView(
           child: LoginCommonView(

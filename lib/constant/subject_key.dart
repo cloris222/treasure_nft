@@ -10,9 +10,12 @@ class SubjectKey {
   static const String keyHomeAnimationStart = 'homeAnimationStart';
   static const String keyHomeAnimationReset = 'homeAnimationReset';
   static const String keyHomeAnimationWait = 'keyHomeAnimationWait';
+
   ///Home new ui
   static const String keyHomeCollectTop = 'homeCollectTop';
   static const String keyHomeRandomCollect = 'homeRandomCollect';
   static const String keyHomeDiscoverTags = 'homeDiscoverTags';
   static const String keyHomeDiscoverData = 'homeDiscoverData';
+
+  static const String keyChangeLanguage = 'changeLanguage';
 }

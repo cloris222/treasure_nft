@@ -140,6 +140,11 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
     return CustomAppbarView(
         needCover: true,
         needScrollView: true,
+        onLanguageChange: () {
+          if (mounted) {
+            setState(() {});
+          }
+        },
         body: Column(children: [
           TitleAppBar(title: widget.level == 0
               ? tr('noviceArea')

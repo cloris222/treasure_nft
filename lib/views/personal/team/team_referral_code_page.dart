@@ -48,6 +48,11 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
     return CustomAppbarView(
         needCover: true,
         needScrollView: true,
+        onLanguageChange: () {
+          if (mounted) {
+            setState(() {});
+          }
+        },
         body: Column(
             children: [
               _buildPersonalCardView(),

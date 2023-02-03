@@ -53,6 +53,11 @@ class _OtherCollectPageState extends State<OtherCollectPage> {
     return CustomAppbarView(
       needCover: true,
       needScrollView: false,
+      onLanguageChange: () {
+        if (mounted) {
+          setState(() {});
+        }
+      },
       body: viewModel.buildGridView(
         crossAxisCount: 2,
         childAspectRatio: 1,

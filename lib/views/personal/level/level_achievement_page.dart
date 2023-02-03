@@ -32,12 +32,6 @@ class LevelAchievementPage extends StatefulWidget {
 class _LevelAchievementPageState extends State<LevelAchievementPage> {
   late LevelAchievementViewModel viewModel;
 
-  List<String> titles = [
-    tr('tab_daily'),
-    tr('tab_mission'),
-    tr('tab_medal'),
-  ];
-
   @override
   void initState() {
     super.initState();
@@ -85,12 +79,22 @@ class _LevelAchievementPageState extends State<LevelAchievementPage> {
     return CustomAppbarView(
       needCover: true,
       needScrollView: true,
+      onLanguageChange: () {
+        if (mounted) {
+          setState(() {});
+        }
+      },
       body: _buildPageView(context),
       backgroundColor: AppColors.defaultBackgroundSpace,
     );
   }
 
   Widget _buildPageView(BuildContext context) {
+    List<String> titles = [
+      tr('tab_daily'),
+      tr('tab_mission'),
+      tr('tab_medal'),
+    ];
     return SliderPageView(
         backgroundColor: AppColors.defaultBackgroundSpace,
         buttonDecoration: AppStyle().styleColorsRadiusBackground(

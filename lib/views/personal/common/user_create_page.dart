@@ -46,6 +46,11 @@ class _UserCreatePageState extends State<UserCreatePage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
+      onLanguageChange: () {
+        if (mounted) {
+          setState(() {});
+        }
+      },
       body: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: _buildBody()),

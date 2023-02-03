@@ -85,6 +85,11 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
+      onLanguageChange: () {
+        if (mounted) {
+          setState(() {});
+        }
+      },
       type: AppNavigationBarType.typeExplore,
       body: SingleChildScrollView(
         child: Column(

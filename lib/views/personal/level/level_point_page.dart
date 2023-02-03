@@ -36,6 +36,11 @@ class _LevelPointPageState extends State<LevelPointPage> {
     return CustomAppbarView(
       needCover: true,
       needScrollView: false,
+      onLanguageChange: () {
+        if (mounted) {
+          setState(() {});
+        }
+      },
       body: _buildBody(),
       type: AppNavigationBarType.typePersonal,
     );

@@ -42,6 +42,11 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
         needScrollView: false,
+        onLanguageChange: () {
+          if (mounted) {
+            setState(() {});
+          }
+        },
         type: AppNavigationBarType.typePersonal,
         body: Padding(
             padding:

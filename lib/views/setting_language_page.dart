@@ -39,12 +39,13 @@ class _SettingLanguagePageState extends State<SettingLanguagePage> {
       body: Container(
           margin: const EdgeInsets.symmetric(horizontal: 30),
           child: _buildLanguageView(context)),
+      onLanguageChange: () {},
     );
   }
 
   Widget _buildLanguageView(BuildContext context) {
     return ListView.separated(
-      padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
+        padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
         separatorBuilder: (context, index) {
           return const Divider(color: AppColors.searchBar);
         },

@@ -53,6 +53,11 @@ class _TeamMemberDetailPage extends State<TeamMemberDetailPage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
         needScrollView: false,
+        onLanguageChange: () {
+          if (mounted) {
+            setState(() {});
+          }
+        },
         type: AppNavigationBarType.typePersonal,
         backgroundColor: AppColors.defaultBackgroundSpace,
         body: viewModel.buildListView());

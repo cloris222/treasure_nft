@@ -52,6 +52,11 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
+      onLanguageChange: () {
+        if (mounted) {
+          setState(() {});
+        }
+      },
       type: AppNavigationBarType.typePersonal,
       body: SingleChildScrollView(child: _buildBody()),
     );
