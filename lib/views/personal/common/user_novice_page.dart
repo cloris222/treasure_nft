@@ -30,6 +30,11 @@ class _UserNovicePageState extends State<UserNovicePage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
+      onLanguageChange: () {
+        if (mounted) {
+          setState(() {});
+        }
+      },
       type: AppNavigationBarType.typePersonal,
       body: Stack(
         children: [

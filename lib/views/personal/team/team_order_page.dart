@@ -38,6 +38,11 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
+      onLanguageChange: () {
+        if (mounted) {
+          setState(() {});
+        }
+      },
       type: AppNavigationBarType.typePersonal,
       body: _buildBody(),
     );

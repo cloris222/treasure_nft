@@ -45,6 +45,11 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
+      onLanguageChange: () {
+        if (mounted) {
+          setState(() {});
+        }
+      },
       type: widget.type,
       body: Column(
         children: [

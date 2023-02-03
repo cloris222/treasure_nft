@@ -34,6 +34,11 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
+      onLanguageChange: () {
+        if (mounted) {
+          setState(() {});
+        }
+      },
       type: AppNavigationBarType.typePersonal,
       body: Column(
         children: [

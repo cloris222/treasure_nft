@@ -39,6 +39,11 @@ class _UserChangePasswordPage extends State<UserChangePasswordPage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
         needScrollView: false,
+      onLanguageChange: () {
+        if (mounted) {
+          setState(() {});
+        }
+      },
         type: AppNavigationBarType.typePersonal,
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),

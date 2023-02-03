@@ -149,6 +149,7 @@ class CustomAppBar {
     required VoidCallback serverAction,
     required VoidCallback globalAction,
     required VoidCallback mainAction,
+    bool isMainPage=false,
   }) {
     var space = const SizedBox(width: 8);
     double iconSize = 28;
@@ -175,7 +176,7 @@ class CustomAppBar {
                 //       child: Image.asset(AppImagePath.globalImage,
                 //           width: iconSize, height: iconSize, fit: BoxFit.cover),
                 //     )),
-                LanguageButtonWidget(iconSize: iconSize),
+                LanguageButtonWidget(iconSize: iconSize,isMainPage:isMainPage),
                 space,
                 GestureDetector(
                     onTap: serverAction,

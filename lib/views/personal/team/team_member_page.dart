@@ -16,13 +16,23 @@ import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import '../../../widgets/date_picker/custom_date_picker.dart';
 
 ///MARK:團隊成員
-class TeamMemberPage extends StatelessWidget {
+class TeamMemberPage extends StatefulWidget {
   const TeamMemberPage({Key? key}) : super(key: key);
 
   @override
+  State<TeamMemberPage> createState() => _TeamMemberPageState();
+}
+
+class _TeamMemberPageState extends State<TeamMemberPage> {
+  @override
   Widget build(BuildContext context) {
-    return const CustomAppbarView(
+    return CustomAppbarView(
       needScrollView: false,
+      onLanguageChange: () {
+        if (mounted) {
+          setState(() {});
+        }
+      },
       type: AppNavigationBarType.typePersonal,
       body: Body(),
       backgroundColor: AppColors.defaultBackgroundSpace,

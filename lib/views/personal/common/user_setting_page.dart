@@ -56,6 +56,11 @@ class _UserSettingPageState extends State<UserSettingPage> {
     return CustomAppbarView(
         needCover: true,
         needScrollView: true,
+        onLanguageChange: () {
+          if (mounted) {
+            setState(() {});
+          }
+        },
         type: AppNavigationBarType.typePersonal,
         backgroundColor: AppColors.defaultBackgroundSpace,
         body: Column(children: [

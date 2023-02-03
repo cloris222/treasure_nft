@@ -16,16 +16,26 @@ import '../../../view_models/personal/team/team_contribution_viewmodel.dart';
 import '../../../widgets/slider_page_view.dart';
 
 ///MARK:團隊貢獻
-class TeamContributionPage extends StatelessWidget {
+class TeamContributionPage extends StatefulWidget {
   const TeamContributionPage({Key? key}) : super(key: key);
 
   @override
+  State<TeamContributionPage> createState() => _TeamContributionPageState();
+}
+
+class _TeamContributionPageState extends State<TeamContributionPage> {
+  @override
   Widget build(BuildContext context) {
-    return const CustomAppbarView(
+    return CustomAppbarView(
       needScrollView: false,
       type: AppNavigationBarType.typePersonal,
       body: Body(),
       backgroundColor: AppColors.defaultBackgroundSpace,
+      onLanguageChange: () {
+        if (mounted) {
+          setState(() {});
+        }
+      },
     );
   }
 }

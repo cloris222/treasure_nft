@@ -38,6 +38,11 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
+      onLanguageChange: () {
+        if (mounted) {
+          setState(() {});
+        }
+      },
       type: AppNavigationBarType.typeLogin,
       body: SingleChildScrollView(
           child: LoginCommonView(

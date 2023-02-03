@@ -2,7 +2,10 @@
 
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/subject_key.dart';
 import 'package:treasure_nft_project/utils/animation_download_util.dart';
+import 'package:treasure_nft_project/utils/observer_pattern/custom/language_observer.dart';
+import 'package:treasure_nft_project/utils/observer_pattern/observer.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/collection/collection_main_view.dart';
 import 'package:treasure_nft_project/views/explore/explore_main_view.dart';
@@ -36,6 +39,7 @@ class _MainPageState extends State<MainPage> {
   late PageController pageController;
   BaseViewModel viewModel = BaseViewModel();
   String _authStatus = 'Unknown';
+  late LanguageObserver languageObserver;
 
   @override
   void didChangeDependencies() {
@@ -63,6 +67,18 @@ class _MainPageState extends State<MainPage> {
       GlobalData.firstLaunch = false;
       AnimationDownloadUtil().init();
     }
+    languageObserver = LanguageObserver(SubjectKey.keyChangeLanguage,
+        onNotify: (notification) {
+      if (mounted) {
+        if (notification.data) {
+          viewModel.pushAndRemoveUntil(
+              context, MainPage(type: GlobalData.mainBottomType));
+        } else {
+          setState(() {});
+        }
+      }
+    });
+    GlobalData.languageSubject.registerObserver(languageObserver);
   }
 
   Future<void> initPlugin() async {
@@ -133,10 +149,10 @@ class _MainPageState extends State<MainPage> {
       if (GlobalData.signInInfo != null) {
         viewModel
             .pushOpacityPage(
-            context,
-            SignInPage(
-              data: GlobalData.signInInfo!,
-            ))
+                context,
+                SignInPage(
+                  data: GlobalData.signInInfo!,
+                ))
             .then((value) => viewModel.setSignIn(context));
       }
     });
@@ -146,6 +162,7 @@ class _MainPageState extends State<MainPage> {
   void dispose() {
     super.dispose();
     pageController.dispose();
+    GlobalData.languageSubject.unregisterObserver(languageObserver);
   }
 
   @override
@@ -154,6 +171,7 @@ class _MainPageState extends State<MainPage> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: CustomAppBar.mainAppBar(
+          isMainPage: true,
           serverAction: _serverAction,
           globalAction: _globalAction,
           mainAction: _mainAction),
@@ -165,14 +183,16 @@ class _MainPageState extends State<MainPage> {
             child: PageView(
               controller: pageController,
               physics: const NeverScrollableScrollPhysics(),
+
+              ///MARK: 不要放const
               children: [
-                const ExploreMainView(),
-                const CollectionMainView(),
-                const TradeNewMainView(),
+                ExploreMainView(),
+                CollectionMainView(),
+                TradeNewMainView(),
                 WalletMainView(onPrePage: _onPrePage),
                 PersonalMainView(onViewChange: () => setState(() {})),
-                const HomeMainView(),
-                const LoginMainView()
+                HomeMainView(),
+                LoginMainView()
               ],
             ),
           ),

@@ -59,6 +59,11 @@ class _OrderInfoPage extends State<OrderInfoPage> {
     },
       child: CustomAppbarView(
           needScrollView: true,
+          onLanguageChange: () {
+            if (mounted) {
+              setState(() {});
+            }
+          },
           type: AppNavigationBarType.typePersonal,
           body: Column(
             children: [

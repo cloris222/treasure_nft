@@ -30,6 +30,11 @@ class _DepositNftMainView extends State<DepositNftMainView> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
+      onLanguageChange: () {
+        if (mounted) {
+          setState(() {});
+        }
+      },
       type: AppNavigationBarType.typeCollection,
       body: Padding(
         padding: EdgeInsets.all(UIDefine.getScreenWidth(5)),

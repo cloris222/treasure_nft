@@ -56,6 +56,11 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
           Expanded(child: SingleChildScrollView(child: _buildBody())),
         ],
       ),
+      onLanguageChange: () {
+        if (mounted) {
+          setState(() {});
+        }
+      },
     );
   }
 
