@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
@@ -95,19 +96,25 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TitleAppBar(title: tr('Details')),
-            /// 原AppBar, 會一起滑動
-            // /// AppBar
-            // CustomAppBar.getCornerAppBar(
-            //       () {
-            //     BaseViewModel().popPage(context);
-            //   },
-            //   tr('Details'),
-            //   fontSize: UIDefine.fontSize24,
-            //   arrowFontSize: UIDefine.fontSize34,
-            //   circular: 40,
-            //   appBarHeight: UIDefine.getScreenWidth(20),
-            // ),
+            /// 商品大圖 + back箭頭
+            Stack(
+              children: [
+                data.imgUrl != ''?
+                GraduallyNetworkImage(
+                  imageUrl: data.imgUrl,
+                  cacheWidth: 1440,
+                  width: UIDefine.getScreenWidth(100),
+                  height: UIDefine.getScreenWidth(100),
+                )
+                    :
+                Container(),
+
+                Positioned(
+                  left: 5, top: 10,
+                  child: Image.asset('assets/icon/btn/btn_arrow_03_left.png', scale: 0.7)
+                )
+              ],
+            ),
 
             /// 提醒標語+倒數計時
             Visibility(
@@ -164,17 +171,6 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
                 ],
               ),
             ),
-
-            /// 商品大圖
-            data.imgUrl != ''?
-            GraduallyNetworkImage(
-              imageUrl: data.imgUrl,
-              cacheWidth: 1440,
-              width: UIDefine.getScreenWidth(100),
-              height: UIDefine.getScreenWidth(100),
-            )
-              :
-            Container(),
 
             /// 折線圖標題
             Container(
