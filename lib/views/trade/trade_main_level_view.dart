@@ -404,25 +404,30 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
     if (viewModel.division.isEmpty || viewModel.ranges.isEmpty) {
       return const SizedBox();
     }
+    EdgeInsetsGeometry buttonMargin = EdgeInsets.symmetric(
+        horizontal: UIDefine.getPixelWidth(0),
+        vertical: UIDefine.getPixelWidth(0));
+    EdgeInsetsGeometry buttonPadding = EdgeInsets.symmetric(
+        horizontal: UIDefine.getPixelWidth(0),
+        vertical: UIDefine.getPixelWidth(0));
 
     return isReserved
         ? Row(
             children: [
               Expanded(
                   child: LoginBolderButtonWidget(
-                      margin: EdgeInsets.symmetric(
-                          horizontal: UIDefine.getPixelWidth(5),
-                          vertical: UIDefine.getPixelWidth(10)),
+                      margin: buttonMargin,
+                      padding: buttonPadding,
                       radius: 22,
                       fontWeight: FontWeight.w600,
                       fontSize: UIDefine.fontSize16,
                       btnText: tr('continueReservation'),
                       onPressed: () => widget.onScrollTop())),
+              SizedBox(width: UIDefine.getPixelWidth(5)),
               Expanded(
                   child: LoginButtonWidget(
-                margin: EdgeInsets.symmetric(
-                    horizontal: UIDefine.getPixelWidth(5),
-                    vertical: UIDefine.getPixelWidth(10)),
+                margin: buttonMargin,
+                padding: buttonPadding,
                 radius: 22,
                 fontWeight: FontWeight.w600,
                 fontSize: UIDefine.fontSize16,
@@ -436,9 +441,8 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
             ],
           )
         : LoginButtonWidget(
-            margin: EdgeInsets.symmetric(
-                horizontal: UIDefine.getPixelWidth(5),
-                vertical: UIDefine.getPixelWidth(10)),
+            margin: buttonMargin,
+            padding: buttonPadding,
             radius: 22,
             fontWeight: FontWeight.w600,
             fontSize: UIDefine.fontSize16,

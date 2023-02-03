@@ -96,7 +96,7 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
     }
     return 185 *
         (viewModel.discoverList.length ~/ 2 +
-            viewModel.discoverList.length % 2);
+            viewModel.discoverList.length % 2)+90;
   }
 
   void _onPageChange(int value) {

@@ -66,7 +66,7 @@ class LoginEmailCodeView extends StatelessWidget {
               margin: EdgeInsets.only(left: UIDefine.getPixelWidth(5)),
               padding: EdgeInsets.symmetric(
                   vertical: UIDefine.getPixelWidth(10),
-                  horizontal: UIDefine.getPixelWidth(15)),
+                  horizontal: UIDefine.getPixelWidth(10)),
               buttonType: 4,
               countdownSecond: countdownSecond,
               btnText: btnGetText ?? tr('get'),
@@ -77,6 +77,7 @@ class LoginEmailCodeView extends StatelessWidget {
               fontSize: UIDefine.fontSize14,
             ),
             LoginButtonWidget(
+              radius: 8,
                 margin: EdgeInsets.only(left: UIDefine.getPixelWidth(5)),
                 padding: EdgeInsets.symmetric(
                     vertical: UIDefine.getPixelWidth(10),

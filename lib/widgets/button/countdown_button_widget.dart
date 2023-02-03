@@ -52,6 +52,14 @@ class _CountdownButtonWidgetState extends State<CountdownButtonWidget> {
   late Timer _countdownTimer;
 
   @override
+  void didUpdateWidget(covariant CountdownButtonWidget oldWidget) {
+    setState(() {
+      updateStatus();
+    });
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   void initState() {
     super.initState();
     if (widget.initEnable) {
@@ -138,6 +146,7 @@ class _CountdownButtonWidgetState extends State<CountdownButtonWidget> {
         {
           return _enableButton
               ? LoginBolderButtonWidget(
+                  radius: 8,
                   btnText: _currentText,
                   onPressed: () {
                     _onPressed();
@@ -148,6 +157,7 @@ class _CountdownButtonWidgetState extends State<CountdownButtonWidget> {
                   padding: widget.padding,
                   isFillWidth: widget.isFillWidth)
               : LoginButtonWidget(
+                  radius: 8,
                   enable: false,
                   isGradient: false,
                   btnText: _currentText,

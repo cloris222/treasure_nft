@@ -27,15 +27,18 @@ class AchievementMedalView extends StatelessWidget {
       lists.add(row);
     }
 
-    return ListView.builder(
-        padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
-        itemBuilder: (context, index) {
-          return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: lists[index]);
-        },
-        itemCount: lists.length);
+    return Container(
+      color: Colors.white,
+      child: ListView.builder(
+          padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
+          itemBuilder: (context, index) {
+            return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: lists[index]);
+          },
+          itemCount: lists.length),
+    );
   }
 
   Widget _buildIcon(BuildContext context, int index) {
@@ -51,6 +54,7 @@ class AchievementMedalView extends StatelessWidget {
             : AppStyle().styleColorsRadiusBackground(radius: 0),
         constraints: BoxConstraints(minHeight: UIDefine.getPixelHeight(160)),
         padding: const EdgeInsets.all(5),
+        margin: const EdgeInsets.all(5),
         child: InkWell(
           onTap: () {
             if (data.isFinished) {

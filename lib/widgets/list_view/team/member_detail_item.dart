@@ -32,7 +32,7 @@ class MemberDetailItemView extends StatelessWidget {
 
     return Container(
         padding: EdgeInsets.all(UIDefine.getScreenWidth(5)),
-        height: UIDefine.getScreenHeight(38),
+        height: UIDefine.getPixelHeight(350),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(16),
@@ -95,6 +95,7 @@ class MemberDetailItemView extends StatelessWidget {
                       radius: 8,
                       alignment: Alignment.centerLeft,
                       onPressed: () => _onShowNFTs(context, viewModel),
+                      fontSize: UIDefine.fontSize14,
                       btnText: '${tr('NFTs')}　${itemData.itemCount.toString()}',
                     ),
                   ],
@@ -142,21 +143,19 @@ class MemberDetailItemView extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              ' ',
-                              style: AppTextStyle.getBaseStyle(
-                                color: AppColors.textGrey,
-                                fontSize: UIDefine.fontSize12,
-                              ),
-                            ),
+                            Text(tr('tradingVol'), style: titleStyle),
                             viewModel.getPadding(1),
-                            Text(
-                              ' ',
-                              style: AppTextStyle.getBaseStyle(
-                                color: AppColors.textBlack,
-                                fontSize: UIDefine.fontSize12,
+                            Row(children: [
+                              SizedBox(
+                                height: UIDefine.getScreenWidth(4),
+                                child: Image.asset(AppImagePath.tetherImg),
                               ),
-                            ),
+                              viewModel.getPadding(0.5),
+                              Text(
+                                  NumberFormatUtil().removeTwoPointFormat(
+                                      itemData.tradingVolume),
+                                  style: contentStyle),
+                            ]),
                           ],
                         )),
 
@@ -166,6 +165,7 @@ class MemberDetailItemView extends StatelessWidget {
                       radius: 8,
                       alignment: Alignment.centerLeft,
                       onPressed: () => _onShowInvite(context, viewModel),
+                      fontSize: UIDefine.fontSize14,
                       btnText:
                           '${tr('invite')}　${itemData.inviteCount.toString()}',
                     ),
