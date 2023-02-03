@@ -183,7 +183,7 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
       child: DropdownButtonHideUnderline(
           child: DropdownButton2(
         customButton:
-            _buildBuyOrSellDropItem(currentTimeOrPriceIndex, false, true),
+            _buildTimeOrPriceDropItem(currentTimeOrPriceIndex, false, true),
         isExpanded: true,
         items: List<DropdownMenuItem<int>>.generate(
             _currenciesTimeOrPrice.length, (index) {

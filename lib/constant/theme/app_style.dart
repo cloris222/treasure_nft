@@ -48,20 +48,35 @@ class AppStyle {
   BoxDecoration buildGradient(
       {double radius = 0,
       Color borderColor = Colors.transparent,
-      required List<Color> colors,double borderWith = 1}) {
+      required List<Color> colors,
+      double borderWith = 1}) {
     return BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(radius)),
         border: Border.all(color: Colors.transparent, width: borderWith),
         gradient: LinearGradient(colors: colors));
   }
 
-  BoxDecoration styleColorBorderBackground(
-      {double radius = 20.0,
-      Color color = Colors.grey,
-      Color backgroundColor = Colors.white,
-      double borderLine = 1}) {
+  BoxDecoration styleColorBorderBackground({
+    double radius = 20.0,
+    Color color = Colors.grey,
+    Color backgroundColor = Colors.white,
+    double borderLine = 1,
+    bool hasTopLeft = true,
+    bool hasTopRight = true,
+    bool hasBottomLef = true,
+    bool hasBottomRight = true,
+  }) {
     return BoxDecoration(
-      borderRadius: BorderRadius.all(Radius.circular(radius)),
+      borderRadius: BorderRadius.only(
+        topLeft:
+        hasTopLeft ? Radius.circular(radius) : const Radius.circular(0),
+        topRight:
+        hasTopRight ? Radius.circular(radius) : const Radius.circular(0),
+        bottomLeft:
+        hasBottomLef ? Radius.circular(radius) : const Radius.circular(0),
+        bottomRight:
+        hasBottomRight ? Radius.circular(radius) : const Radius.circular(0),
+      ),
       color: backgroundColor,
       border: Border.all(color: color, width: borderLine),
     );
