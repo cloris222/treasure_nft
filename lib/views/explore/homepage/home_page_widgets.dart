@@ -30,101 +30,15 @@ class HomePageWidgets {
 
   late onGetStringFunction callBack; // Sms的callBack
 
-  // 第一版UI
-  // Widget homePageTop(dynamic data, String creatorName,
-  //     {required onGetStringFunction callBack, required List<Sm> smList}) {
-  //   this.callBack = callBack;
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       Stack(
-  //         children: [
-  //           Column(
-  //             children: [
-  //               GraduallyNetworkImage(
-  //                 width: double.infinity,
-  //                 height: UIDefine.getScreenWidth(50),
-  //                 cacheWidth: 1440,
-  //                 imageUrl: data.introPhoneUrl,
-  //                 fit: BoxFit.cover,
-  //               ),
-  //
-  //               Container(
-  //                 height: UIDefine.getScreenWidth(17),
-  //               ),
-  //             ],
-  //           ),
-  //
-  //           Positioned(
-  //               left: UIDefine.getScreenWidth(5), bottom: UIDefine.getScreenWidth(4.16),
-  //               child: Row(
-  //                 mainAxisAlignment: MainAxisAlignment.start,
-  //                 crossAxisAlignment: CrossAxisAlignment.end,
-  //                 children: [
-  //                   PersonalProfileIcon(userId: data.artistId, avatar: data.avatarUrl, width: UIDefine.getScreenWidth(23.33), height: UIDefine.getScreenWidth(23.33)),
-  //                 ],
-  //               )
-  //
-  //           ),
-  //
-  //           Positioned(
-  //               right: UIDefine.getScreenWidth(5), bottom: UIDefine.getScreenWidth(4.16),
-  //               child: Row(
-  //                 mainAxisAlignment: MainAxisAlignment.end,
-  //                 crossAxisAlignment: CrossAxisAlignment.end,
-  //                 children: [
-  //                   Row(
-  //                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //                     children: _getSmsIcons(smList),
-  //                   ),
-  //                 ],
-  //               )
-  //           )
-  //         ],
-  //       ),
-  //
-  //       Row(
-  //         children: [
-  //           Container(
-  //             padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5), 0,
-  //                 0, UIDefine.getScreenWidth(5)),
-  //             child: Text(data.artistName,
-  //               style: CustomTextStyle.getBaseStyle(color: Colors.black, fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500),),
-  //           ),
-  //
-  //           SizedBox(width: UIDefine.getScreenWidth(4)),
-  //
-  //           Container(
-  //               padding: EdgeInsets.fromLTRB(0, 0, 0, UIDefine.getScreenWidth(5.13)),
-  //               child: Image.asset('assets/icon/icon/icon_check_ok_02.png',
-  //                   width: UIDefine.getScreenWidth(5.55), height: UIDefine.getScreenWidth(5.55))
-  //           ),
-  //         ],
-  //       ),
-  //
-  //       Container(
-  //         padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5), 0,
-  //             UIDefine.getScreenWidth(5), 0),
-  //         child: Visibility(
-  //           visible: creatorName==''? false : true,
-  //           child: Text(creatorName,
-  //             style: CustomTextStyle.getBaseStyle(color: Colors.black, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
-
   Widget newHomePageTop(ExploreMainResponseData data,
       ExploreArtistDetailResponseData adData, bool bShowMore,
       {
         required VoidCallback popBack,
-        required VoidCallback shareAction,
-        required VoidCallback searchAction,
-        required VoidCallback sortAction,
-        required VoidCallback seeMoreAction
+        required VoidCallback seeMoreAction,
+        required onGetStringFunction callBack,
+        required List<Sm> smList
       }) {
-
+    this.callBack = callBack;
     return Stack(
       children: [
         GraduallyNetworkImage(
@@ -154,8 +68,8 @@ class HomePageWidgets {
           left: UIDefine.getScreenWidth(5), right: UIDefine.getScreenWidth(5),
             top: UIDefine.getScreenWidth(6),
           child: _subBar(
-              popBack: popBack, shareAction: shareAction,
-              searchAction: searchAction, sortAction: sortAction
+              popBack: popBack,
+              smList: smList
           )
         ),
 
@@ -170,35 +84,19 @@ class HomePageWidgets {
 
   Widget _subBar({
     required VoidCallback popBack,
-    required VoidCallback shareAction,
-    required VoidCallback searchAction,
-    required VoidCallback sortAction,
+    required List<Sm> smList
   }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GestureDetector(
           onTap: popBack,
-          child: Image.asset(AppImagePath.arrowLeft),
+          child: Image.asset('assets/icon/btn/btn_arrow_03_left.png'),
         ),
         Row(
-          children: [
-            GestureDetector(
-              onTap: shareAction,
-              child: Image.asset('assets/icon/icon/icon_share_03.png'),
-            ),
-            SizedBox(width: UIDefine.getScreenWidth(2.8)),
-            GestureDetector(
-              onTap: searchAction,
-              child: Image.asset('assets/icon/btn/btn_discover_01_nor.png'),
-            ),
-            SizedBox(width: UIDefine.getScreenWidth(2.8)),
-            GestureDetector(
-              onTap: sortAction,
-              child: Image.asset('assets/icon/btn/btn_sort_01_nor.png'),
-            )
-          ],
-        )
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: _getSmsIcons(smList),
+        ),
       ],
     );
   }
@@ -301,7 +199,7 @@ class HomePageWidgets {
           widgets.add(
             GestureDetector(
               onTap: () => callBack(smList[i].data),
-              child: Image.asset('assets/icon/footer/btn_twitter_01_nor.png',
+              child: Image.asset('assets/icon/btn/btn_twitter_white_01.png',
                   width: UIDefine.getScreenWidth(6), height: UIDefine.getScreenWidth(6))
             )
           );
@@ -310,7 +208,7 @@ class HomePageWidgets {
           widgets.add(
               GestureDetector(
                   onTap: () => callBack(smList[i].data),
-                  child: Image.asset('assets/icon/footer/btn_discord_01_nor.png',
+                  child: Image.asset('assets/icon/btn/btn_discord_white_01.png',
                       width: UIDefine.getScreenWidth(6), height: UIDefine.getScreenWidth(6))
               )
           );
@@ -319,7 +217,7 @@ class HomePageWidgets {
           widgets.add(
               GestureDetector(
                   onTap: () => callBack(smList[i].data),
-                  child: Image.asset('assets/icon/footer/btn_yt_01_nor.png',
+                  child: Image.asset('assets/icon/btn/btn_yt_white_01.png',
                       width: UIDefine.getScreenWidth(6), height: UIDefine.getScreenWidth(6))
               )
           );
@@ -328,7 +226,7 @@ class HomePageWidgets {
           widgets.add(
               GestureDetector(
                   onTap: () => callBack(smList[i].data),
-                  child: Image.asset('assets/icon/footer/btn_ig_01_nor.png',
+                  child: Image.asset('assets/icon/btn/btn_ig_white_01.png',
                       width: UIDefine.getScreenWidth(6), height: UIDefine.getScreenWidth(6))
               )
           );
@@ -337,7 +235,7 @@ class HomePageWidgets {
           widgets.add(
               GestureDetector(
                   onTap: () => callBack(smList[i].data),
-                  child: Image.asset('assets/icon/footer/btn_fb_01_nor.png',
+                  child: Image.asset('assets/icon/btn/btn_fb_white_01.png',
                       width: UIDefine.getScreenWidth(6), height: UIDefine.getScreenWidth(6))
               )
           );
@@ -348,7 +246,7 @@ class HomePageWidgets {
     widgets.add(
         GestureDetector(
             onTap: () => callBack('Share'),
-            child: Image.asset('assets/icon/icon/icon_share_03.png',
+            child: Image.asset('assets/icon/btn/btn_share_01.png',
                 width: UIDefine.getScreenWidth(6), height: UIDefine.getScreenWidth(6))
         )
     );
@@ -476,70 +374,6 @@ class HomePageWidgets {
         )
     );
   }
-
-  // Widget productView(BuildContext context, dynamic data) { // 第一版UI
-  //   return SizedBox(
-  //     width: UIDefine.getScreenWidth(43.4),
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         GestureDetector(
-  //           onTap: () {
-  //             if (GlobalData.userToken != '') {
-  //               BaseViewModel().pushPage(context, ExploreItemDetailPage(itemId: data.itemId));
-  //             } else {
-  //               BaseViewModel().pushReplacement(context, MainPage(type: AppNavigationBarType.typeLogin));
-  //             }
-  //           },
-  //           child: GraduallyNetworkImage(
-  //             imageUrl: data.imgUrl,
-  //             height: UIDefine.getScreenWidth(43.4),
-  //             width: UIDefine.getScreenWidth(43.4),
-  //           ),
-  //         ),
-  //
-  //         const SizedBox(height: 4),
-  //
-  //         Row(
-  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //           crossAxisAlignment: CrossAxisAlignment.start,
-  //           children: [
-  //             SizedBox(
-  //               width: UIDefine.getScreenWidth(25),
-  //               child: Text(
-  //                 data.name,
-  //                 style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
-  //               )
-  //             ),
-  //             Row(
-  //               children: [
-  //                 Image.asset('assets/icon/icon/icon_trend_up_01.png'),
-  //                 Text(
-  //                   BaseViewModel().numberFormat(data.growAmount),
-  //                   style: CustomTextStyle.getBaseStyle(color: AppColors.growPrice, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
-  //                 ),
-  //               ],
-  //             )
-  //           ],
-  //         ),
-  //
-  //         const SizedBox(height: 4),
-  //
-  //         Row(
-  //           children: [
-  //             Image.asset('assets/icon/coins/icon_tether_01.png', width: UIDefine.getScreenWidth(4), height: UIDefine.getScreenWidth(4)),
-  //             const SizedBox(width: 6),
-  //             Text(
-  //               BaseViewModel().numberFormat(data.price),
-  //               style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
-  //             ),
-  //           ],
-  //         )
-  //       ],
-  //
-  //     )
-  //   );
-  // }
 
   String _shortString(String sValue) {
     return sValue.length > 80 ? '${sValue.substring(0, 80)}....' : sValue;

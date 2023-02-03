@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
@@ -84,13 +85,20 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
               children: [
                 HomePageWidgets().newHomePageTop(artistData, data, bShowMore,
                     popBack: _popBack,
-                    shareAction: _shareAction,
-                    searchAction: _searchAction,
-                    sortAction: _sortAction, seeMoreAction: () {
-                  setState(() {
-                    bShowMore = !bShowMore;
-                  });
-                }),
+                    seeMoreAction: () {
+                      setState(() {
+                        bShowMore = !bShowMore;
+                      });
+                    },
+                    smList: data.sms,
+                    callBack: (url) {
+                      if (url == 'Share') {
+                        viewModel.sharePCUrl(artistData.artistId);
+                      } else {
+                        viewModel.launchInBrowser(url);
+                      }
+                    },
+                ),
                 Stack(
                   children: [
                     /// 黑色底
@@ -107,53 +115,20 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(10),
                                 topRight: Radius.circular(10))),
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: productList.length,
-                            itemBuilder: (context, index) {
-                              if (index == productList.length - 1) {
-                                // 開啟'到底更新'的Flag
-                                bDownloading = false;
-                              }
-                              if (index % 2 == 0 &&
-                                  index == productList.length - 1) {
-                                return Padding(
-                                    padding: EdgeInsets.fromLTRB(
-                                        UIDefine.getScreenWidth(4.5),
-                                        0,
-                                        0,
-                                        UIDefine.getScreenWidth(4.5)),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        HomePageWidgets().productView(
-                                            context, productList[index]),
-                                      ],
-                                    ));
-                              }
-                              if (index % 2 != 0) {
-                                return Container();
-                              }
-                              return Padding(
-                                padding: EdgeInsets.fromLTRB(
-                                    UIDefine.getScreenWidth(4.5),
-                                    0,
-                                    UIDefine.getScreenWidth(4.5),
-                                    UIDefine.getScreenWidth(4.5)),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    HomePageWidgets().productView(
-                                        context, productList[index]),
-                                    HomePageWidgets().productView(
-                                        context, productList[index + 1])
-                                  ],
-                                ),
-                              );
-                            }))
+                        child: Column(
+                          children: [
+                            /// 搜尋bar
+                            _buildSearchInputBar(),
+                            SizedBox(height: UIDefine.getScreenWidth(4.5)),
+
+                            /// 查無資料
+                            _buildNoDataView(),
+
+                            /// 商品圖
+                            _buildItemListView()
+                          ],
+                        )
+                        )
                   ],
                 ),
                 SizedBox(height: UIDefine.navigationBarPadding)
@@ -163,182 +138,92 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
     );
   }
 
-  // @override // 第一版UI
-  // Widget build(BuildContext context) {
-  //   return CustomAppbarView(
-  //     needCover: true,
-  //     needScrollView: false,
-  //     title: artistData.artistName,
-  //     type: AppNavigationBarType.typeExplore,
-  //     body: NotificationListener<ScrollEndNotification>(
-  //         onNotification: (scrollEnd) {
-  //           final metrics = scrollEnd.metrics;
-  //           if (metrics.atEdge) {
-  //             bool isTop = metrics.pixels == 0;
-  //             if (isTop) {
-  //               debugPrint('At the top');
-  //             } else {
-  //               if (!bDownloading) { // 防止短時間載入過多造成OOM
-  //                 bDownloading = true;
-  //                 page += 1;
-  //                 _updateView();
-  //               }
-  //             }
-  //           }
-  //           return true;
-  //         },
-  //         child: SingleChildScrollView(
-  //           child: Column(
-  //             children: [
-  //               Stack(
-  //                 // 上方AppBar + 畫家資訊
-  //                 children: [
-  //                   /// 畫家照片+背景照+名稱
-  //                   HomePageWidgets().homePageTop(
-  //                       artistData, data.creatorName,
-  //                       callBack: (url) {
-  //                         if (url == 'Share') {
-  //                           viewModel.sharePCUrl(artistData.artistId);
-  //                         } else {
-  //                           viewModel.launchInBrowser(url);
-  //                         }
-  //                       },
-  //                       smList: data.sms
-  //                   )
-  //                 ],
-  //               ),
-  //
-  //               /// 畫家簡介+更多Btn
-  //               Container(
-  //                 alignment: Alignment.centerLeft,
-  //                 padding: EdgeInsets.fromLTRB(
-  //                     UIDefine.getScreenWidth(5),
-  //                     UIDefine.getScreenWidth(4.3),
-  //                     UIDefine.getScreenWidth(5),
-  //                     0),
-  //                 child: Text(
-  //                   bMore ? data.artistInfo : _shortString(data.artistInfo),
-  //                   style: CustomTextStyle.getBaseStyle(
-  //                       color: AppColors.dialogGrey,
-  //                       fontSize: UIDefine.fontSize12,
-  //                       fontWeight: FontWeight.w500),
-  //                 ),
-  //               ),
-  //
-  //               Padding(
-  //                 padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(3.3), 0,
-  //                     UIDefine.getScreenWidth(5), UIDefine.getScreenWidth(4)),
-  //                 child: TextButton(
-  //                   onPressed: () => setState(() {
-  //                     bMore = !bMore;
-  //                   }),
-  //                   child: Row(
-  //                     crossAxisAlignment: CrossAxisAlignment.center,
-  //                     children: [
-  //                       Text(
-  //                         bMore ? tr('SeeLess') : tr('SeeMore'),
-  //                         style: CustomTextStyle.getBaseStyle(
-  //                             color: AppColors.mainThemeButton,
-  //                             fontSize: UIDefine.fontSize14,
-  //                             fontWeight: FontWeight.w500),
-  //                       ),
-  //                       Image.asset(bMore
-  //                           ? 'assets/icon/btn/btn_arrow_01_up.png'
-  //                           : 'assets/icon/btn/btn_arrow_01_down.png')
-  //                     ],
-  //                   ),
-  //                 ),
-  //               ),
-  //
-  //               /// 數字統計
-  //               HomePageWidgets().artistInfo(data),
-  //
-  //               /// 輸入Bar
-  //               Padding(
-  //                 padding: EdgeInsets.fromLTRB(
-  //                     UIDefine.getScreenWidth(5),
-  //                     UIDefine.getScreenWidth(5),
-  //                     UIDefine.getScreenWidth(5),
-  //                     0),
-  //                 child: _searchBar(),
-  //               ),
-  //
-  //               Padding(
-  //                 padding: EdgeInsets.fromLTRB(
-  //                     UIDefine.getScreenWidth(5),
-  //                     UIDefine.getScreenWidth(5),
-  //                     UIDefine.getScreenWidth(5),
-  //                     UIDefine.getScreenWidth(5)),
-  //                 child: Row(
-  //                   children: [
-  //                     Expanded(child: _dropDownBar()),
-  //                     SizedBox(width: UIDefine.getScreenWidth(2.77)),
-  //                     GestureDetector(
-  //                         onTap: () => _onPressSort(),
-  //                         child: Container(
-  //                           alignment: Alignment.center,
-  //                           width: UIDefine.getScreenWidth(17.77),
-  //                           height: UIDefine.getScreenWidth(13.88),
-  //                           decoration: BoxDecoration(
-  //                               border: Border.all(
-  //                                   width: 2, color: AppColors.mainThemeButton),
-  //                               borderRadius: BorderRadius.circular(6)),
-  //                           child: Image.asset(
-  //                               'assets/icon/btn/btn_sort_01_nor.png'),
-  //                         ))
-  //                   ],
-  //                 ),
-  //               ),
-  //
-  //               /// 作品列表
-  //               ListView.builder(
-  //                   shrinkWrap: true,
-  //                   physics: const NeverScrollableScrollPhysics(),
-  //                   itemCount: productList.length,
-  //                   itemBuilder: (context, index) {
-  //                     if (index == productList.length - 1) { // 開啟'到底更新'的Flag
-  //                       bDownloading = false;
-  //                     }
-  //                     if (index % 2 == 0 && index == productList.length - 1) {
-  //                       return Padding(
-  //                           padding: EdgeInsets.fromLTRB(
-  //                               UIDefine.getScreenWidth(5),
-  //                               0,
-  //                               0,
-  //                               UIDefine.getScreenWidth(5)),
-  //                           child: Row(
-  //                             mainAxisAlignment: MainAxisAlignment.start,
-  //                             children: [
-  //                               HomePageWidgets().productView(
-  //                                   context, productList[index]),
-  //                             ],
-  //                           ));
-  //                     }
-  //                     if (index % 2 != 0) {
-  //                       return Container();
-  //                     }
-  //                     return Padding(
-  //                       padding: EdgeInsets.fromLTRB(
-  //                           UIDefine.getScreenWidth(5),
-  //                           0,
-  //                           UIDefine.getScreenWidth(5),
-  //                           UIDefine.getScreenWidth(5)),
-  //                       child: Row(
-  //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                         children: [
-  //                           HomePageWidgets().productView(
-  //                               context, productList[index]),
-  //                           HomePageWidgets().productView(
-  //                               context, productList[index + 1])
-  //                         ],
-  //                       ),
-  //                     );
-  //                   })
-  //             ],
-  //           ),
-  //         )),
-  //   );
-  // }
+  Widget _buildSearchInputBar() {
+    Widget space = SizedBox(width: UIDefine.getScreenWidth(3.5));
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        space,
+        Expanded(child: _searchBar()),
+        space,
+        Expanded(child: _dropDownBar()),
+        space,
+        GestureDetector(
+            onTap: () => _onPressSort(),
+            child: Image.asset('assets/icon/btn/btn_filter_03.png', scale: 1.25)
+        ),
+        space
+      ],
+    );
+  }
+
+  Widget _buildNoDataView() {
+    return Visibility(
+      visible: productList.isEmpty,
+      child:  Column(
+        children: [
+          SizedBox(height: UIDefine.getScreenWidth(10)),
+          Image.asset('assets/icon/icon/icon_nodata_01.png'),
+          const SizedBox(height: 10),
+          Text(
+            tr("ES_0007"),
+            style: AppTextStyle.getBaseStyle(color: AppColors.textGrey,
+                fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildItemListView() {
+    return ListView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: productList.length,
+        itemBuilder: (context, index) {
+          if (index == productList.length - 1) {
+            // 開啟'到底更新'的Flag
+            bDownloading = false;
+          }
+          if (index % 2 == 0 &&
+              index == productList.length - 1) {
+            return Padding(
+                padding: EdgeInsets.fromLTRB(
+                    UIDefine.getScreenWidth(4.5),
+                    0,
+                    0,
+                    UIDefine.getScreenWidth(4.5)),
+                child: Row(
+                  mainAxisAlignment:
+                  MainAxisAlignment.start,
+                  children: [
+                    HomePageWidgets().productView(
+                        context, productList[index]),
+                  ],
+                ));
+          }
+          if (index % 2 != 0) {
+            return Container();
+          }
+          return Padding(
+            padding: EdgeInsets.fromLTRB(
+                UIDefine.getScreenWidth(4.5),
+                0,
+                UIDefine.getScreenWidth(4.5),
+                UIDefine.getScreenWidth(4.5)),
+            child: Row(
+              mainAxisAlignment:
+              MainAxisAlignment.spaceBetween,
+              children: [
+                HomePageWidgets().productView(
+                    context, productList[index]),
+                HomePageWidgets().productView(
+                    context, productList[index + 1])
+              ],
+            ),
+          );
+        });
+  }
 
   String _shortString(String sValue) {
     return sValue.length > 50 ? '${sValue.substring(0, 50)}....' : sValue;
@@ -389,8 +274,9 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
           searchValue = text;
           _getNewProductListResponse();
         },
-        style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
+        style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12),
         decoration: InputDecoration(
+          isDense: true,
           contentPadding:
               EdgeInsets.fromLTRB(0, UIDefine.getScreenWidth(4.16), 0, 0),
           prefixIcon: Image.asset('assets/icon/btn/btn_discover_01_nor.png'),
@@ -399,11 +285,11 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
           labelStyle:  AppTextStyle.getBaseStyle(color: Colors.black),
           alignLabelWithHint: true,
           border: AppTheme.style.styleTextEditBorderBackground(
-              color: AppColors.searchBar, radius: 10),
+              color: AppColors.searchBar, radius: 20),
           focusedBorder: AppTheme.style.styleTextEditBorderBackground(
-              color: AppColors.searchBar, radius: 10),
+              color: AppColors.searchBar, radius: 20),
           enabledBorder: AppTheme.style.styleTextEditBorderBackground(
-              color: AppColors.searchBar, radius: 10),
+              color: AppColors.searchBar, radius: 20),
         ));
   }
 
@@ -424,11 +310,11 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
         contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.16),
             UIDefine.getScreenWidth(4.16), UIDefine.getScreenWidth(4.16), 0),
         border: AppTheme.style.styleTextEditBorderBackground(
-            color: AppColors.searchBar, radius: 10),
+            color: AppColors.searchBar, radius: 20),
         focusedBorder: AppTheme.style.styleTextEditBorderBackground(
-            color: AppColors.searchBar, radius: 10),
+            color: AppColors.searchBar, radius: 20),
         enabledBorder: AppTheme.style.styleTextEditBorderBackground(
-            color: AppColors.searchBar, radius: 10),
+            color: AppColors.searchBar, radius: 20),
       ),
       items: _currencies.map((String category) {
         return DropdownMenuItem(
@@ -436,7 +322,7 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
             child: Row(
               children: <Widget>[
                 Text(_getCategoryText(category),
-                    style:  AppTextStyle.getBaseStyle(color: AppColors.searchBar)),
+                    style:  AppTextStyle.getBaseStyle(color: AppColors.textBlack.withOpacity(0.7))),
               ],
             ));
       }).toList(),
@@ -454,32 +340,7 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
     return '';
   }
 
-  void _serverAction() {
-    viewModel.pushPage(context, const ServerWebPage());
-    // viewModel.pushPage(context, const SplashScreenPage());
-  }
-
-  void _globalAction() async {
-    await BaseViewModel().pushPage(context, const SettingLanguagePage());
-  }
-
-  void _mainAction() {
-    viewModel.pushPage(context, const HomeMainView());
-  }
-
-  void _shareAction() {
-    // test 等規格出來
-  }
-
   void _popBack() {
     Navigator.pop(context);
-  }
-
-  void _searchAction() {
-    // test 等規格出來
-  }
-
-  void _sortAction() {
-    // test 等規格出來
   }
 }
