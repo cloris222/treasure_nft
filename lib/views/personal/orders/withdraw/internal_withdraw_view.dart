@@ -52,6 +52,10 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
             height: UIDefine.getPixelWidth(2),
             color: AppColors.defaultBackgroundSpace),
         _buildWithdrawSubmit(),
+        SizedBox(
+          width: double.infinity,
+          height: UIDefine.navigationBarPadding,
+        ),
       ],
     ));
   }
@@ -332,6 +336,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
         LoginEmailCodeView(
             countdownSecond: 60,
             btnGetText: tr('get'),
+            btnVerifyText: tr('verify'),
             hintText: tr("placeholder-emailCode'"),
             controller: viewModel.emailCodeController,
             data: viewModel.emailCodeData,

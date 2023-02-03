@@ -23,7 +23,8 @@ class LoginEmailCodeView extends StatelessWidget {
       required this.onPressSendCode,
       required this.onPressCheckVerify,
       this.onPressVerification,
-      this.btnGetText,
+      required this.btnGetText,
+      required this.btnVerifyText,
       this.countdownSecond = 60})
       : super(key: key);
   final String hintText;
@@ -39,7 +40,8 @@ class LoginEmailCodeView extends StatelessWidget {
   final int countdownSecond;
 
   ///MARK: 更換左邊的button 文字
-  final String? btnGetText;
+  final String btnGetText;
+  final String btnVerifyText;
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +81,7 @@ class LoginEmailCodeView extends StatelessWidget {
                 padding: EdgeInsets.symmetric(
                     vertical: UIDefine.getPixelWidth(10),
                     horizontal: UIDefine.getPixelWidth(10)),
-                btnText: tr('verify'),
+                btnText: btnVerifyText ?? tr('verify'),
                 isFillWidth: false,
                 height: 50,
                 fontSize: UIDefine.fontSize14,

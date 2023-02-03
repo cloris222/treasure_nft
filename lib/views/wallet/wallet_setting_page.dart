@@ -93,6 +93,10 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
               ],
             ),
           ),
+          SizedBox(
+            width: double.infinity,
+            height: UIDefine.navigationBarPadding,
+          ),
         ],
       ),
     );
@@ -172,6 +176,7 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
           LoginEmailCodeView(
               countdownSecond: 60,
               onEditTap: viewModel.onClearData,
+              btnVerifyText: tr('verify'),
               btnGetText: tr('get'),
               hintText: tr("placeholder-emailCode'"),
               controller: viewModel.codeController,

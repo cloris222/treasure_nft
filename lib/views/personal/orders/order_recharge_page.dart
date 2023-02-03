@@ -83,7 +83,11 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
             _buildAddressChain(),
             const SizedBox(width: 1),
           ],
-        )
+        ),
+        SizedBox(
+          width: double.infinity,
+          height: UIDefine.navigationBarPadding,
+        ),
       ],
     );
   }

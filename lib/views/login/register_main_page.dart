@@ -121,6 +121,8 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
           ///MARK:驗證碼
           LoginEmailCodeView(
             hintText: tr("placeholder-emailCode'"),
+            btnVerifyText: tr('verify'),
+            btnGetText: tr('get'),
             controller: viewModel.emailCodeController,
             onPressSendCode: () => viewModel.onPressSendCode(context),
             onPressCheckVerify: () => viewModel.onPressCheckVerify(context),

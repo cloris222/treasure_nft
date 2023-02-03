@@ -139,6 +139,10 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
                               onPressed: () => viewModel.onPressSave(context)),
                         ],
                       ),
+                      SizedBox(
+                        width: double.infinity,
+                        height: UIDefine.navigationBarPadding,
+                      ),
                     ],
                   ),
                 ),

@@ -66,8 +66,7 @@ class _SliderPageViewState extends State<SliderPageView> {
         child: SizedBox(
             height: UIDefine.getHeight(),
             child: SafeArea(
-                child: CustomScrollView(
-                    slivers: [
+                child: CustomScrollView(slivers: [
               SliverToBoxAdapter(child: widget.topView),
               SliverFillRemaining(
                   child: Container(
@@ -83,9 +82,9 @@ class _SliderPageViewState extends State<SliderPageView> {
 
   Widget _buildButtonList() {
     return Container(
-        margin: widget.needMargin ?
-        EdgeInsets.only(top: UIDefine.getScreenWidth(widget.marginValue)) :
-        EdgeInsets.only(top: UIDefine.getScreenWidth(0)),
+        margin: widget.needMargin
+            ? EdgeInsets.only(top: UIDefine.getScreenWidth(widget.marginValue))
+            : EdgeInsets.only(top: UIDefine.getScreenWidth(0)),
         decoration: widget.buttonDecoration,
         height: UIDefine.getPixelHeight(60),
         child: ScrollablePositionedList.builder(

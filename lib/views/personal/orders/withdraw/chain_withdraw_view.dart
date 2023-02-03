@@ -56,6 +56,10 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
             height: UIDefine.getPixelWidth(2),
             color: AppColors.defaultBackgroundSpace),
         _buildWithdrawSubmit(),
+        SizedBox(
+          width: double.infinity,
+          height: UIDefine.navigationBarPadding,
+        ),
       ],
     ));
   }
@@ -343,6 +347,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
         LoginEmailCodeView(
             countdownSecond: 60,
             btnGetText: tr('get'),
+            btnVerifyText: tr('verify'),
             hintText: tr("placeholder-emailCode'"),
             controller: viewModel.emailCodeController,
             data: viewModel.emailCodeData,

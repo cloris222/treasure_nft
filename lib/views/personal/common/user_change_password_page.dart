@@ -92,6 +92,7 @@ class _UserChangePasswordPage extends State<UserChangePasswordPage> {
                     LoginEmailCodeView(
                         countdownSecond: 60,
                         btnGetText: tr('get'),
+                        btnVerifyText: tr('verify'),
                         hintText: tr("placeholder-emailCode'"),
                         controller: viewModel.emailCodeController,
                         data: viewModel.emailCodeData,
@@ -120,7 +121,11 @@ class _UserChangePasswordPage extends State<UserChangePasswordPage> {
                             onPressed: () => viewModel.onPressSave(context),
                             enable: viewModel.checkEmail),
                       ],
-                    )
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      height: UIDefine.navigationBarPadding,
+                    ),
                   ],
                 ),
               ),

@@ -26,14 +26,15 @@ class OrderWithdrawPage extends StatefulWidget {
 class _OrderWithdrawPage extends State<OrderWithdrawPage> {
   String currentExploreType = 'Chain';
   PageController pageController = PageController();
-  List<Widget> pages = <Widget>[];
+
+  // List<Widget> pages = <Widget>[];
   List<String> dataList = ['Chain', 'Internal'];
   WithdrawAlertInfo withdrawAlertInfo = WithdrawAlertInfo();
 
   @override
   void initState() {
     super.initState();
-    _setPage();
+    // _setPage();
     WalletAPI().checkWithdrawAlert().then((value) {
       withdrawAlertInfo = value;
       if (withdrawAlertInfo.isReserve) {
@@ -87,20 +88,24 @@ class _OrderWithdrawPage extends State<OrderWithdrawPage> {
               child: PageView(
             controller: pageController,
             onPageChanged: _onPageChange,
-            children: pages,
+            children: List<Widget>.generate(
+                dataList.length,
+                (index) => OrderWithdrawTypePage(
+                    currentType: dataList[index],
+                    getWalletAlert: () => withdrawAlertInfo)),
           ))
         ],
       ),
     );
   }
 
-  void _setPage() {
-    pages = List<Widget>.generate(
-        dataList.length,
-        (index) => OrderWithdrawTypePage(
-            currentType: dataList[index],
-            getWalletAlert: () => withdrawAlertInfo));
-  }
+  // void _setPage() {
+  //   pages = List<Widget>.generate(
+  //       dataList.length,
+  //       (index) => OrderWithdrawTypePage(
+  //           currentType: dataList[index],
+  //           getWalletAlert: () => withdrawAlertInfo));
+  // }
 
   void _changePage(String exploreType) {
     setState(() {
