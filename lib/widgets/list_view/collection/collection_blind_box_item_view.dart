@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import 'package:treasure_nft_project/widgets/label/custom_linear_progress.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
@@ -95,7 +96,7 @@ class _CollectionBlindBoxItemView extends State<CollectionBlindBoxItemView> {
   Widget _getAirDropBonusView() {
     return Container(
         width: UIDefine.getScreenWidth(44),
-        padding: EdgeInsets.all(UIDefine.getScreenWidth(2.5)),
+        padding: EdgeInsets.all(UIDefine.getScreenWidth(1.5)),
         decoration: const BoxDecoration(
           color: AppColors.textWhite,
           borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -229,10 +230,12 @@ class _CollectionBlindBoxItemView extends State<CollectionBlindBoxItemView> {
               ],
             ),
 
+            SizedBox(height: UIDefine.getScreenWidth(2)),
+
             Text( // 商品名
               data.name,
               style: AppTextStyle.getBaseStyle(
-                  color: AppColors.textBlack, fontSize: UIDefine.fontSize18, fontWeight: FontWeight.w500),
+                  color: AppColors.textBlack, fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
             ),
 
             SizedBox(height: UIDefine.getScreenWidth(3.5)),
@@ -246,9 +249,24 @@ class _CollectionBlindBoxItemView extends State<CollectionBlindBoxItemView> {
                 Text( // 商品價格
                   data.price.toString(),
                   style: AppTextStyle.getBaseStyle(
-                      color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                      color: AppColors.textGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w600),
                 ),
               ],
+            ),
+
+            const SizedBox(height: 6),
+
+            /// 開啟 按鈕
+            Visibility(
+                visible: _showOpenButton(),
+                child: LoginButtonWidget(
+                    height: UIDefine.getScreenWidth(10),
+                    btnText: tr('open'),
+                    onPressed: () {
+                      // 開啟btn -> 解鎖
+                      widget.unlock(widget.index);
+                    }
+                )
             ),
           ],
         )
@@ -258,11 +276,15 @@ class _CollectionBlindBoxItemView extends State<CollectionBlindBoxItemView> {
   Widget _getItemImage(String imgUrl) {
     return Opacity(
       opacity: 0.3,
-      child: GraduallyNetworkImage(
-        imageUrl: imgUrl,
-        width: UIDefine.getScreenWidth(40),
-        height: UIDefine.getScreenWidth(36),
-      ),
+      child: ClipRRect(
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        child: GraduallyNetworkImage(
+          imageUrl: imgUrl,
+          fit: BoxFit.cover,
+          width: UIDefine.getScreenWidth(40),
+          height: UIDefine.getScreenWidth(36),
+        )
+      )
     );
   }
 
