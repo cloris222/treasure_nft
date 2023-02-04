@@ -22,8 +22,10 @@ class LoginTextWidget extends StatefulWidget {
       this.initColor = AppColors.bolderGrey,
       this.keyboardType,
       required this.controller,
-      this.contentPaddingRight = 0,
-      this.contentPaddingLeft = 20,
+      this.contentPaddingRight,
+      this.contentPaddingLeft,
+      this.contentPaddingTop,
+      this.contentPaddingBottom,
       this.bLimitDecimalLength = false,
       this.bPasswordFormatter = false,
       this.inputFormatters = const [],
@@ -38,8 +40,10 @@ class LoginTextWidget extends StatefulWidget {
   final ValueChanged<String>? onChanged;
   final GestureTapCallback? onTap;
   final TextInputType? keyboardType;
-  final double contentPaddingRight;
-  final double contentPaddingLeft;
+  final double? contentPaddingRight;
+  final double? contentPaddingLeft;
+  final double? contentPaddingTop;
+  final double? contentPaddingBottom;
 
   ///MARK: 小數點限制兩位
   final bool bLimitDecimalLength;
@@ -93,7 +97,7 @@ class _LoginTextWidgetState extends State<LoginTextWidget> {
         textInputAction: TextInputAction.next,
         onChanged: widget.onChanged,
         onTap: widget.onTap,
-        style:AppTextStyle.getBaseStyle(
+        style: AppTextStyle.getBaseStyle(
             color: Colors.black,
             fontSize: widget.fontSize ?? UIDefine.fontSize12),
         decoration: InputDecoration(
@@ -111,10 +115,11 @@ class _LoginTextWidgetState extends State<LoginTextWidget> {
                 color: Colors.black,
                 fontSize: widget.fontSize ?? UIDefine.fontSize12),
             contentPadding: EdgeInsets.only(
-                top: UIDefine.getPixelWidth(15),
-                bottom: UIDefine.getPixelWidth(15),
-                left: widget.contentPaddingLeft,
-                right: widget.contentPaddingRight),
+                top: widget.contentPaddingTop ?? UIDefine.getPixelWidth(15),
+                bottom:
+                    widget.contentPaddingBottom ?? UIDefine.getPixelWidth(15),
+                left: widget.contentPaddingLeft ?? UIDefine.getPixelWidth(20),
+                right: widget.contentPaddingRight ?? UIDefine.getPixelWidth(0)),
             disabledBorder: AppTheme.style.styleTextEditBorderBackground(
                 color: widget.enabledColor, radius: 10),
             enabledBorder: AppTheme.style.styleTextEditBorderBackground(

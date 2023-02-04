@@ -107,7 +107,7 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
 
         SizedBox(
           ///MARK: v0.0.2 壓高度
-          height: UIDefine.getPixelHeight(40),
+          height: UIDefine.getPixelWidth(40),
           child: Row(children: [
             Expanded(child: _priceAndTimeDropDownBar()),
             SizedBox(width: UIDefine.getScreenWidth(2.77)),
@@ -115,8 +115,10 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
                 onTap: () => _onPressSort(),
                 child: Container(
                   alignment: Alignment.center,
-                  width: UIDefine.getPixelWidth(50),
-                  child: Image.asset('assets/icon/btn/btn_filter_02.png'),
+                  child: BaseIconWidget(
+                    imageAssetPath: 'assets/icon/btn/btn_filter_02.png',
+                    size: UIDefine.getPixelWidth(50),
+                  ),
                 ))
           ]),
         ),
@@ -136,7 +138,7 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
   Widget _searchBar() {
     return SizedBox(
       ///MARK: v0.0.2 壓高度
-      height: UIDefine.getPixelHeight(40),
+      height: UIDefine.getPixelWidth(40),
       child: Row(
         children: [
           SizedBox(
@@ -155,7 +157,9 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
                 style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
                 decoration: InputDecoration(
                   isDense: true,
-                  contentPadding: EdgeInsets.zero,
+                  isCollapsed: true,
+                  contentPadding: EdgeInsets.symmetric(
+                      vertical: UIDefine.getPixelWidth(10)),
                   prefixIcon:
                       Image.asset('assets/icon/btn/btn_discover_01_nor.png'),
                   hintText: tr("select-placeholder'"),

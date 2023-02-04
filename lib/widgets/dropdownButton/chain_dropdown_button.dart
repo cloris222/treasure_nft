@@ -21,9 +21,14 @@ class ChainDropDownButton extends StatelessWidget {
         icon: Image.asset(AppImagePath.arrowDownGrey),
         onChanged: (newValue) => onChainChange(newValue as CoinEnum),
         value: currentChain,
+        style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize16),
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.16),
-              UIDefine.getScreenWidth(4.16), UIDefine.getScreenWidth(4.16), 0),
+          isCollapsed: true,
+          contentPadding: EdgeInsets.fromLTRB(
+              UIDefine.getScreenWidth(4.16),
+              UIDefine.getScreenWidth(4.16),
+              UIDefine.getScreenWidth(4.16),
+              UIDefine.getScreenWidth(4.16)),
           hintStyle: AppTextStyle.getBaseStyle(
               height: 1.6, color: AppColors.textBlack),
           border: AppTheme.style.styleTextEditBorderBackground(
@@ -36,7 +41,8 @@ class ChainDropDownButton extends StatelessWidget {
         items: [
           DropdownMenuItem(
               value: CoinEnum.TRON,
-              child: Row(children: [
+              child:
+                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
                 TetherCoinWidget(size: UIDefine.fontSize24),
                 currentChain == CoinEnum.TRON
                     ? GradientText(

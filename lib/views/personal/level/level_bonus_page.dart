@@ -64,6 +64,7 @@ class _LevelBonusPageState extends State<LevelBonusPage> {
       children: [
         _buildTradeView(),
         _buildShareView(),
+        SizedBox(height: UIDefine.navigationBarPadding)
       ],
     );
   }

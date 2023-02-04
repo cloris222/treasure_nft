@@ -46,7 +46,7 @@ class _DatePickerOne extends State<DatePickerOne> {
           children: [
             Container(
               width: UIDefine.getWidth(),
-              height: UIDefine.getScreenWidth(16.66),
+              height: UIDefine.getPixelWidth(40),
               decoration: _setBoxDecoration(),
               child: Row(
                 children: [

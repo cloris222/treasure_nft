@@ -74,6 +74,7 @@ class _CustomDropButtonState extends State<CustomDropButton> {
             widget.onChanged(currentIndex);
           }
         },
+        itemHeight: UIDefine.getPixelWidth(40),
         itemPadding: const EdgeInsets.symmetric(horizontal: 8.0),
       )),
     );

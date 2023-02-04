@@ -471,7 +471,11 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
           child: Stack(
             children: [
               Image.asset(
-                  format(AppImagePath.allLevelSmailBar, {"level": level + 1})),
+                format(AppImagePath.allLevelSmailBar, {"level": level + 1}),
+                width: UIDefine.getWidth(),
+                height: UIDefine.getPixelWidth(120),
+                fit: BoxFit.fitWidth,
+              ),
               Positioned(
                 top: 0,
                 bottom: 0,

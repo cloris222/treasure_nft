@@ -116,8 +116,14 @@ class _UserCreatePageState extends State<UserCreatePage> {
           data: viewModel.dateData,
           onTap: () => viewModel.onChooseDate(context),
         ),
+        SizedBox(height: UIDefine.getScreenHeight(5)),
         Text(
-            '${tr('royalty')} : ${NumberFormatUtil().removeTwoPointFormat(viewModel.rate)} %'),
+          '${tr('royalty')} : ${NumberFormatUtil().removeTwoPointFormat(viewModel.rate)} %',
+          style: AppTextStyle.getBaseStyle(
+              fontSize: UIDefine.fontSize14,
+              fontWeight: FontWeight.w400,
+              color: AppColors.textThreeBlack),
+        ),
         SizedBox(height: UIDefine.getScreenHeight(5)),
         Row(children: [
           Flexible(

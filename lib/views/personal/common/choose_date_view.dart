@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
 
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
@@ -42,7 +43,7 @@ class ChooseDateView extends StatelessWidget {
     Color color = data.result ? AppColors.bolderGrey : AppColors.textRed;
     return Container(
         alignment: Alignment.center,
-        height: 60,
+        // height: UIDefine.getPixelWidth(60),
         margin: const EdgeInsets.symmetric(vertical: 5),
         child: GestureDetector(
           onTap: onTap,
@@ -52,11 +53,15 @@ class ChooseDateView extends StatelessWidget {
               keyboardType: TextInputType.text,
               textInputAction: TextInputAction.next,
               decoration: InputDecoration(
+                isCollapsed: true,
                 hintText: hintText,
-                hintStyle:  AppTextStyle.getBaseStyle(height: 1.1),
+                hintStyle: AppTextStyle.getBaseStyle(height: 1.1),
                 labelStyle: AppTextStyle.getBaseStyle(color: Colors.black),
                 alignLabelWithHint: true,
-                contentPadding: const EdgeInsets.only(top: 0, left: 20),
+                contentPadding: EdgeInsets.only(
+                    top: UIDefine.getPixelWidth(15),
+                    bottom: UIDefine.getPixelWidth(15),
+                    left: 20),
                 disabledBorder: AppTheme.style
                     .styleTextEditBorderBackground(color: color, radius: 10),
                 enabledBorder: AppTheme.style
@@ -78,16 +83,16 @@ class ChooseDateView extends StatelessWidget {
           children: [
             Text(text,
                 style: AppTextStyle.getBaseStyle(
-                    fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14)),
-            bShowRed ?
-            Text(
-                '*', style: AppTextStyle.getBaseStyle(
-                color: AppColors.textRed, fontSize: UIDefine.fontSize20)
-            ) :
-            const SizedBox()
+                    fontWeight: FontWeight.w500,
+                    fontSize: UIDefine.fontSize14)),
+            bShowRed
+                ? Text('*',
+                    style: AppTextStyle.getBaseStyle(
+                        color: AppColors.textRed,
+                        fontSize: UIDefine.fontSize20))
+                : const SizedBox()
           ],
-        )
-        );
+        ));
   }
 
   Widget _buildSecureView() {
