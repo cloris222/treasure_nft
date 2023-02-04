@@ -53,7 +53,9 @@ class _DatePickerOne extends State<DatePickerOne> {
                   _getPadding(1),
                   Text(
                     widget.initDate ?? date,
-                    style: AppTextStyle.getBaseStyle(color: AppColors.textGrey),
+                    style: AppTextStyle.getBaseStyle(
+                        color: AppColors.textGrey,
+                        fontSize: UIDefine.fontSize14),
                   ),
                   const Spacer(),
                   Image.asset(AppImagePath.dateIcon),

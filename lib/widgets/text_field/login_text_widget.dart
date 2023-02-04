@@ -11,6 +11,7 @@ class LoginTextWidget extends StatefulWidget {
   const LoginTextWidget(
       {Key? key,
       required this.hintText,
+      this.fontSize,
       this.hintColor = AppColors.textHintGrey,
       this.isSecure = false,
       this.prefixIconAsset = '',
@@ -29,6 +30,7 @@ class LoginTextWidget extends StatefulWidget {
       this.bFocusedGradientBolder = false})
       : super(key: key);
   final String hintText;
+  final double? fontSize;
   final Color hintColor;
   final bool isSecure;
   final String prefixIconAsset;
@@ -67,8 +69,8 @@ class _LoginTextWidgetState extends State<LoginTextWidget> {
   Widget build(BuildContext context) {
     return Container(
         alignment: Alignment.center,
-        height: UIDefine.getPixelHeight(60),
-        margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(5)),
+        height: UIDefine.getPixelWidth(60),
+        margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(5)),
         child: _buildEdit());
   }
 
@@ -91,14 +93,26 @@ class _LoginTextWidgetState extends State<LoginTextWidget> {
         textInputAction: TextInputAction.next,
         onChanged: widget.onChanged,
         onTap: widget.onTap,
+        style:AppTextStyle.getBaseStyle(
+            color: Colors.black,
+            fontSize: widget.fontSize ?? UIDefine.fontSize12),
         decoration: InputDecoration(
+            isCollapsed: true,
             hintText: widget.hintText,
-            hintStyle:
-                AppTextStyle.getBaseStyle(height: 1.1, color: widget.hintColor),
-            labelStyle: AppTextStyle.getBaseStyle(color: Colors.black),
+            hintStyle: AppTextStyle.getBaseStyle(
+                height: 1.1,
+                color: widget.hintColor,
+                fontSize: widget.fontSize ?? UIDefine.fontSize12),
+            labelStyle: AppTextStyle.getBaseStyle(
+                color: Colors.black,
+                fontSize: widget.fontSize ?? UIDefine.fontSize12),
             alignLabelWithHint: true,
+            counterStyle: AppTextStyle.getBaseStyle(
+                color: Colors.black,
+                fontSize: widget.fontSize ?? UIDefine.fontSize12),
             contentPadding: EdgeInsets.only(
-                top: 0,
+                top: UIDefine.getPixelWidth(15),
+                bottom: UIDefine.getPixelWidth(15),
                 left: widget.contentPaddingLeft,
                 right: widget.contentPaddingRight),
             disabledBorder: AppTheme.style.styleTextEditBorderBackground(

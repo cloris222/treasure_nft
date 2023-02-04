@@ -73,12 +73,12 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
         children: [
           Container(
               margin:
-                  EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(10)),
+                  EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(10)),
               child: Text(tr('discoverNfts'),
                   style: viewModel.getMainTitleStyle())),
           _buildTags(),
           SizedBox(
-              height: UIDefine.getPixelHeight(getPageHeight().toDouble()),
+              height: UIDefine.getPixelWidth(getPageHeight().toDouble()),
               child: PageView(
                   controller: pageController,
                   onPageChanged: _onPageChange,
@@ -177,7 +177,7 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
       return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SizedBox(height: UIDefine.getPixelHeight(10)),
+          SizedBox(height: UIDefine.getPixelWidth(10)),
           LoadingAnimationWidget.hexagonDots(
               color: AppColors.textBlack, size: 30)
         ],
@@ -229,8 +229,8 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
   Widget getExploreListViewItem(DiscoverCollectData data, int index) {
     return Container(
         decoration: AppStyle().styleColorsRadiusBackground(),
-        margin: EdgeInsets.all(UIDefine.getPixelHeight(5)),
-        padding: EdgeInsets.all(UIDefine.getPixelHeight(10)),
+        margin: EdgeInsets.all(UIDefine.getPixelWidth(5)),
+        padding: EdgeInsets.all(UIDefine.getPixelWidth(10)),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -238,12 +238,12 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
                 borderRadius: const BorderRadius.all(Radius.circular(15)),
                 child: SizedBox(
                     width: UIDefine.getWidth(),
-                    height: UIDefine.getPixelHeight(100),
+                    height: UIDefine.getPixelWidth(100),
                     child: GraduallyNetworkImage(
                         imageUrl: data.imgUrl, fit: BoxFit.cover))),
             Container(
                 margin:
-                    EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(5)),
+                    EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(5)),
                 alignment: Alignment.centerLeft,
                 child: Text(data.name,
                     maxLines: 1,
@@ -253,7 +253,7 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
                         color: AppColors.textBlack))),
             Container(
               margin:
-                  EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(5)),
+                  EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(5)),
               alignment: Alignment.centerLeft,
               child: Row(
                 children: [
@@ -278,7 +278,7 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
               context, const MainPage(type: AppNavigationBarType.typeExplore));
         },
         child: Container(
-          margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(15)),
+          margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(15)),
           padding: EdgeInsets.symmetric(
               vertical: UIDefine.getPixelWidth(5),
               horizontal: UIDefine.getPixelWidth(10)),

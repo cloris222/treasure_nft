@@ -29,7 +29,7 @@ class _DepositNftMainView extends State<DepositNftMainView> {
   @override
   Widget build(BuildContext context) {
     return CustomAppbarView(
-      needScrollView: false,
+      needScrollView: true,
       onLanguageChange: () {
         if (mounted) {
           setState(() {});
@@ -164,6 +164,7 @@ class _DepositNftMainView extends State<DepositNftMainView> {
                 ),
               ],
             ),
+            const SizedBox(height: 20),
 
             Container(
               margin: EdgeInsets.only(bottom: UIDefine.getScreenWidth(5.5)),

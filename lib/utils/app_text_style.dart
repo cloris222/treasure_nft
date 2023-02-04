@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:treasure_nft_project/constant/ui_define.dart';
 
 import '../constant/theme/app_colors.dart';
 
@@ -17,7 +18,7 @@ class AppTextStyle {
       double? height}) {
     return TextStyle(
         color: color,
-        fontSize: fontSize,
+        fontSize: fontSize ?? UIDefine.fontSize12,
         fontFamily: fontFamily.name,
         fontWeight: fontWeight != null
 

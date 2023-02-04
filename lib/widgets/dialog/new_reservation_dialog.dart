@@ -135,15 +135,23 @@ class _NewReservationPopUpViewState extends State<NewReservationPopUpView> {
             rightFontWeight: FontWeight.w600,
           ),
           SizedBox(
-            height: UIDefine.getHeight() / 30,
+            height: UIDefine.getPixelWidth(10),
           ),
-          LoginButtonWidget(
-              width: UIDefine.getWidth() / 3,
-              height: UIDefine.getHeight() / 20,
-              btnText: tr('check'),
-              fontSize: UIDefine.fontSize14,
-              fontWeight: FontWeight.w600,
-              onPressed: widget.confirmBtnAction)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              LoginButtonWidget(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: UIDefine.getPixelWidth(15),
+                      vertical: UIDefine.getPixelWidth(5)),
+                  isFillWidth: false,
+                  btnText: tr('check'),
+                  height: UIDefine.getPixelWidth(40),
+                  fontSize: UIDefine.fontSize14,
+                  fontWeight: FontWeight.w600,
+                  onPressed: widget.confirmBtnAction),
+            ],
+          )
         ],
       ),
     );

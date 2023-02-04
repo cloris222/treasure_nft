@@ -66,7 +66,7 @@ class CustomDatePickerState extends State<CustomDatePickerWidget> {
           },
           child: Container(
               width: UIDefine.getWidth(),
-              height: UIDefine.getScreenHeight(5),
+              height: UIDefine.getPixelWidth(40),
               decoration: TeamMemberViewModel().setBoxDecoration(),
               padding:
                   EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(2)),
@@ -86,7 +86,7 @@ class CustomDatePickerState extends State<CustomDatePickerWidget> {
 
       getPadding(2),
       SizedBox(
-          height: UIDefine.getScreenHeight(5),
+          height: UIDefine.getPixelWidth(30),
           width: UIDefine.getWidth(),
           child: ListView.separated(
               scrollDirection: Axis.horizontal,

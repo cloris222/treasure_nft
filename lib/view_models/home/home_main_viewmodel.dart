@@ -47,7 +47,7 @@ class HomeMainViewModel extends BaseViewModel {
   ///Widget Style----------
   Widget buildSpace({double width = 0, double height = 0}) {
     return SizedBox(
-        height: UIDefine.getPixelHeight(height * 5),
+        height: UIDefine.getPixelWidth(height * 5),
         width: UIDefine.getPixelWidth(width * 5));
   }
 
@@ -84,7 +84,7 @@ class HomeMainViewModel extends BaseViewModel {
   EdgeInsetsGeometry getMainPadding({double width = 20, double height = 0}) {
     return EdgeInsets.symmetric(
         horizontal: UIDefine.getPixelWidth(width),
-        vertical: UIDefine.getPixelHeight(height));
+        vertical: UIDefine.getPixelWidth(height));
   }
 
   void initState() async {

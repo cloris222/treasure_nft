@@ -71,7 +71,7 @@ class LoginEmailCodeView extends StatelessWidget {
               countdownSecond: countdownSecond,
               btnText: btnGetText ?? tr('get'),
               isFillWidth: false,
-              setHeight: 50,
+              setHeight: UIDefine.getPixelWidth(40),
               onPress: onPressSendCode,
               onPressVerification: onPressVerification,
               fontSize: UIDefine.fontSize14,
@@ -84,7 +84,7 @@ class LoginEmailCodeView extends StatelessWidget {
                     horizontal: UIDefine.getPixelWidth(10)),
                 btnText: btnVerifyText ?? tr('verify'),
                 isFillWidth: false,
-                height: 50,
+                height: UIDefine.getPixelWidth(40),
                 fontSize: UIDefine.fontSize14,
                 onPressed: onPressCheckVerify)
           ],

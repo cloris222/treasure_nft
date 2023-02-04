@@ -63,7 +63,7 @@ class _LanguageButtonWidgetState extends State<LanguageButtonWidget> {
             }
           },
           barrierColor: const Color(0x78000000),
-          itemHeight: 48,
+          itemHeight: UIDefine.getPixelWidth(50),
           itemPadding: const EdgeInsets.only(left: 16, right: 16),
           dropdownWidth: UIDefine.getPixelWidth(240),
           dropdownPadding: const EdgeInsets.symmetric(vertical: 6),

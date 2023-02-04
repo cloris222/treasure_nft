@@ -9,6 +9,7 @@ import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/bottom_sheet/page_bottom_sheet.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
 
 import '../../constant/global_data.dart';
 import '../../constant/theme/app_colors.dart';
@@ -248,7 +249,9 @@ class _WalletMainViewState extends State<WalletMainView> {
                     vertical: UIDefine.getPixelWidth(20),
                     horizontal: UIDefine.getPixelWidth(15)),
                 child: Column(children: [
-                  Image.asset(assetPath),
+                  BaseIconWidget(
+                      imageAssetPath: assetPath,
+                      size: UIDefine.getPixelWidth(25)),
                   SizedBox(height: UIDefine.getPixelWidth(10)),
                   Text(title,
                       style: AppTextStyle.getBaseStyle(

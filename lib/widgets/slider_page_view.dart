@@ -86,7 +86,7 @@ class _SliderPageViewState extends State<SliderPageView> {
             ? EdgeInsets.only(top: UIDefine.getScreenWidth(widget.marginValue))
             : EdgeInsets.only(top: UIDefine.getScreenWidth(0)),
         decoration: widget.buttonDecoration,
-        height: UIDefine.getPixelHeight(60),
+        height: UIDefine.getPixelWidth(60),
         child: ScrollablePositionedList.builder(
             initialScrollIndex: widget.initialPage,
             scrollDirection: Axis.horizontal,

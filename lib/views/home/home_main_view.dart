@@ -16,8 +16,10 @@ import 'package:treasure_nft_project/views/home/home_sub_signup_view.dart';
 import 'package:treasure_nft_project/views/home/home_sub_usdt_view.dart';
 import 'package:treasure_nft_project/views/home/home_sub_contact_view.dart';
 import 'package:treasure_nft_project/views/server_web_page.dart';
+import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import 'package:treasure_nft_project/widgets/gradient_text.dart';
 import 'package:treasure_nft_project/widgets/list_view/home/artist_record_listview.dart';
+import 'package:treasure_nft_project/widgets/text_field/login_text_widget.dart';
 import '../../constant/enum/setting_enum.dart';
 import '../../widgets/dialog/simple_custom_dialog.dart';
 import 'widget/sponsor_row_widget.dart';
@@ -250,10 +252,10 @@ class _HomeMainViewState extends State<HomeMainView> {
             rightLogo: AppImagePath.coinBase,
             viewModel: viewModel,
           ),
-           SponsorRowWidget(
+          SponsorRowWidget(
             leftLogo: AppImagePath.mintBase,
             rightLogo: AppImagePath.trustWallet,
-             viewModel: viewModel,
+            viewModel: viewModel,
           ),
           SponsorRowWidget(
             leftLogo: AppImagePath.tron,
@@ -265,10 +267,10 @@ class _HomeMainViewState extends State<HomeMainView> {
             rightLogo: AppImagePath.zora,
             viewModel: viewModel,
           ),
-           SponsorRowWidget(
+          SponsorRowWidget(
             leftLogo: AppImagePath.polygon,
             rightLogo: AppImagePath.ethereum,
-             viewModel: viewModel,
+            viewModel: viewModel,
           ),
           Padding(
             padding: EdgeInsets.all(UIDefine.getScreenWidth(5)),
@@ -307,52 +309,30 @@ class _HomeMainViewState extends State<HomeMainView> {
 
               viewModel.buildSpace(height: 3),
 
-              SizedBox(
-                  height: UIDefine.getPixelWidth(50),
-                  child: Stack(alignment: Alignment.centerRight, children: [
-                    TextField(
-                        controller: emailEditingController,
-                        decoration: InputDecoration(
-                            hintText: tr('placeholder-email-address\''),
-                            hintStyle: AppTextStyle.getBaseStyle(
-                                color: AppColors.textGrey),
-                            enabledBorder: outlineInputBorder,
-                            focusedBorder: outlineInputBorder,
-                            border: outlineInputBorder,
-                            filled: true,
-                            fillColor: AppColors.textWhite,
-                            contentPadding: const EdgeInsets.only(
-                                left: 14.0, bottom: 8.0, top: 8.0))),
+              Stack(alignment: Alignment.centerRight, children: [
+                LoginTextWidget(
+                    hintText: tr('placeholder-email-address\''),
+                    controller: emailEditingController),
 
-                    /// Submit按鈕
-                    Positioned(
-                      top: UIDefine.getPixelHeight(10),
-                      bottom: UIDefine.getPixelHeight(10),
-                      right: UIDefine.getPixelHeight(10),
-                      child: ClipRRect(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10)),
-                          child: SizedBox(
-                              height: UIDefine.getScreenHeight(15),
-                              width: UIDefine.getScreenWidth(25),
-                              child: GestureDetector(
-                                  onTap: () {
-                                    SimpleCustomDialog(context,
-                                            mainText: tr('subscriptSucceed'),
-                                            isSuccess: true)
-                                        .show();
-                                  },
-                                  child: Container(
-                                      decoration: AppStyle().baseGradient(),
-                                      child: Center(
-                                          child: Text(tr('submit'),
-                                              style: AppTextStyle.getBaseStyle(
-                                                  color: AppColors.textWhite,
-                                                  fontSize: UIDefine.fontSize16,
-                                                  fontWeight:
-                                                      FontWeight.w500))))))),
-                    )
-                  ])),
+                /// Submit按鈕
+                Positioned(
+                    right: UIDefine.getPixelWidth(5),
+                    top: UIDefine.getPixelWidth(15),
+                    bottom: UIDefine.getPixelWidth(15),
+                    child: LoginButtonWidget(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: UIDefine.getPixelWidth(5)),
+                        isFillWidth: false,
+                        btnText: tr('submit'),
+                        fontSize: UIDefine.fontSize12,
+                        fontWeight: FontWeight.w400,
+                        onPressed: () {
+                          SimpleCustomDialog(context,
+                                  mainText: tr('subscriptSucceed'),
+                                  isSuccess: true)
+                              .show();
+                        }))
+              ]),
               viewModel.buildSpace(height: 5)
             ]));
   }

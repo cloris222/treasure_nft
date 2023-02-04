@@ -7,6 +7,7 @@ import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/views/personal/level/level_achievement_page.dart';
 import 'package:treasure_nft_project/widgets/label/custom_linear_progress.dart';
+import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
 
 import '../../constant/call_back_function.dart';
 import '../../constant/global_data.dart';
@@ -65,7 +66,7 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
             GestureDetector(
                 onTap: () => _showModifyAvatar(context),
                 child: Container(
-                    decoration: AppTheme.style.baseGradient(radius: 40),
+                    decoration: AppTheme.style.baseGradient(radius: 65),
                     height: UIDefine.getPixelWidth(65),
                     width: UIDefine.getPixelWidth(65),
                     padding: const EdgeInsets.all(3),
@@ -76,6 +77,7 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
                             AppImagePath.avatarImg,
                             width: UIDefine.getScreenWidth(18.66),
                             height: UIDefine.getScreenWidth(18.66),
+                            fit: BoxFit.contain,
                           ))),
             SizedBox(width: UIDefine.getScreenWidth(2.7)),
             Expanded(
@@ -97,7 +99,10 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
                           onTap: () => _onPressDailyTask(context),
                           child: Visibility(
                               visible: showDailyTask,
-                              child: Image.asset(AppImagePath.dateIcon)))
+                              child: BaseIconWidget(
+                                imageAssetPath: AppImagePath.dateIcon,
+                                size: UIDefine.getPixelWidth(15),
+                              )))
                     ],
                   ),
                   SizedBox(height: UIDefine.getPixelWidth(7)),
@@ -163,10 +168,10 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
                         visible: shareUrl != null,
                         child: GestureDetector(
                             onTap: () => Share.share(shareUrl ?? ''),
-                            child: Image.asset(
-                                'assets/icon/icon/icon_share_03.png',
-                                width: UIDefine.getScreenWidth(6),
-                                height: UIDefine.getScreenWidth(6)))),
+                            child: BaseIconWidget(
+                                imageAssetPath:
+                                    'assets/icon/icon/icon_share_03.png',
+                                size: UIDefine.getScreenWidth(6)))),
                   ])
                 ],
               ),
@@ -221,7 +226,10 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
               style: AppTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize12,
                   color: AppColors.textThreeBlack)),
-          Text(userInfo.inviteCode),
+          Text(userInfo.inviteCode,
+              style: AppTextStyle.getBaseStyle(
+                  fontSize: UIDefine.fontSize12,
+                  color: AppColors.textThreeBlack)),
           GestureDetector(
               onTap: () {
                 BaseViewModel().copyText(copyText: userInfo.inviteCode);
@@ -229,8 +237,9 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
               },
               child: Padding(
                   padding: EdgeInsets.all(UIDefine.getPixelWidth(5)),
-                  child: Image.asset(AppImagePath.copyIcon,
-                      height: UIDefine.getPixelWidth(15))))
+                  child: BaseIconWidget(
+                      imageAssetPath: AppImagePath.copyIcon,
+                      size: UIDefine.getPixelWidth(15))))
         ]),
       ],
     );

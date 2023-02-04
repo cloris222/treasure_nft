@@ -93,7 +93,7 @@ class _LoginButtonWidgetState extends State<LoginButtonWidget> {
                   : AppStyle()
                       .styleColorsRadiusBackground(color: AppColors.buttonGrey),
           width: widget.width ?? (widget.isFillWidth ? UIDefine.getWidth() : null),
-          height: widget.height ?? (widget.isAutoHeight ? null : 50),
+          height: widget.height ?? (widget.isAutoHeight ? null : UIDefine.getPixelWidth(50)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: widget.isFillWidth ? MainAxisSize.max : MainAxisSize.min,

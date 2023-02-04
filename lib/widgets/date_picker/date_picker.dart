@@ -10,14 +10,14 @@ import 'package:treasure_nft_project/views/home/widget/search_action_button.dart
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 class DatePickerWidget extends StatefulWidget {
-  DatePickerWidget({super.key,
-  this.displayALL = true,
-  this.displayButton = true,
-  required this.dateCallback,
-  required this.startDate,
-  required this.endDate,
-  required this.bUsePhoneTime
-  });
+  DatePickerWidget(
+      {super.key,
+      this.displayALL = true,
+      this.displayButton = true,
+      required this.dateCallback,
+      required this.startDate,
+      required this.endDate,
+      required this.bUsePhoneTime});
 
   final onDateFunction dateCallback;
   bool displayALL;
@@ -47,7 +47,6 @@ class DatePickerState extends State<DatePickerWidget> {
       String formattedDate = DateFormat('yyyy-MM-dd').format(now);
       startDate = formattedDate;
       endDate = formattedDate;
-
     } else {
       startDate = widget.startDate;
       endDate = widget.endDate;
@@ -58,150 +57,146 @@ class DatePickerState extends State<DatePickerWidget> {
   Widget build(BuildContext context) {
     return Column(children: [
       viewModel.getPadding(3),
+
       /// 日期選擇器
       GestureDetector(
-          onTap: () async{
+          onTap: () async {
             await _showDatePicker(context);
             setState(() {});
           },
           child: Container(
             width: UIDefine.getWidth(),
-            height: UIDefine.getScreenHeight(6.8),
+            height: UIDefine.getPixelWidth(40),
             decoration: viewModel.setBoxDecoration(),
-
-
-            child:Row(children: [
-              viewModel.getPadding(1),
-              Image.asset(AppImagePath.dateIcon),
-              viewModel.getPadding(1),
-
-              Text(startDate,
-                style:  AppTextStyle.getBaseStyle(color: AppColors.textGrey),
-              ),
-
-              viewModel.getPadding(1),
-              Visibility(
-                  visible: endDate != '',
-                  child:  Text('～',
-                    style: AppTextStyle.getBaseStyle(color: AppColors.textGrey),
-                  )),
-              viewModel.getPadding(1),
-
-              Text(endDate,
-                style:  AppTextStyle.getBaseStyle(color: AppColors.textGrey),
-              )
-
-            ],),
+            child: Row(
+              children: [
+                viewModel.getPadding(1),
+                Image.asset(AppImagePath.dateIcon),
+                viewModel.getPadding(1),
+                Text(
+                  startDate,
+                  style: AppTextStyle.getBaseStyle(
+                      color: AppColors.textGrey, fontSize: UIDefine.fontSize14),
+                ),
+                viewModel.getPadding(1),
+                Visibility(
+                    visible: endDate != '',
+                    child: Text(
+                      '～',
+                      style: AppTextStyle.getBaseStyle(
+                          color: AppColors.textGrey,
+                          fontSize: UIDefine.fontSize14),
+                    )),
+                viewModel.getPadding(1),
+                Text(
+                  endDate,
+                  style: AppTextStyle.getBaseStyle(
+                      color: AppColors.textGrey, fontSize: UIDefine.fontSize14),
+                )
+              ],
+            ),
           )),
 
       viewModel.getPadding(2),
 
       /// 快速搜尋按鈕列
       Visibility(
-        visible: widget.displayButton,
-        child: SizedBox(
-            height: UIDefine.getScreenHeight(10),
-            child:SingleChildScrollView(
-                scrollDirection:Axis.horizontal,
-                child:Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
+          visible: widget.displayButton,
+          child: SizedBox(
+              height: UIDefine.getPixelWidth(30),
+              child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Visibility(
+                        visible: widget.displayALL,
+                        child: SearchActionButton(
+                          isSelect: buttonType == Search.All,
+                          btnText: '  ${tr('all')}  ',
+                          onPressed: () async {
+                            buttonType = Search.All;
 
-                    Visibility(
-                      visible: widget.displayALL,
-                      child: SearchActionButton(
-                        isSelect: buttonType == Search.All,
-                        btnText: '  ${tr('all')}  ',
-                        onPressed: () async{
-                          buttonType = Search.All;
+                            widget.dateCallback('', '');
+                          },
+                        ),
+                      ),
+                      viewModel.getPadding(2),
+                      SearchActionButton(
+                        isSelect: buttonType == Search.Today,
+                        btnText: tr('today'),
+                        onPressed: () async {
+                          buttonType = Search.Today;
 
-                          widget.dateCallback('', '');
+                          startDate = viewModel.dateTimeFormat(DateTime.now());
+                          endDate = viewModel.dateTimeFormat(DateTime.now());
+
+                          widget.dateCallback(startDate, endDate);
                         },
                       ),
-                    ),
+                      viewModel.getPadding(2),
+                      SearchActionButton(
+                        isSelect: buttonType == Search.Yesterday,
+                        btnText: tr('yesterday'),
+                        onPressed: () async {
+                          buttonType = Search.Yesterday;
 
-                    viewModel.getPadding(2),
+                          startDate = viewModel.getDays(1);
+                          endDate = viewModel.getDays(1);
 
-                    SearchActionButton(
-                      isSelect: buttonType == Search.Today,
-                      btnText: tr('today'),
-                      onPressed: () async{
-                        buttonType = Search.Today;
+                          widget.dateCallback(startDate, endDate);
+                        },
+                      ),
+                      viewModel.getPadding(2),
+                      SearchActionButton(
+                        isSelect: buttonType == Search.SevenDays,
+                        btnText: tr('day7'),
+                        onPressed: () async {
+                          buttonType = Search.SevenDays;
 
-                        startDate = viewModel.dateTimeFormat(DateTime.now());
-                        endDate = viewModel.dateTimeFormat(DateTime.now());
+                          startDate = viewModel.getDays(7);
+                          endDate = viewModel.dateTimeFormat(DateTime.now());
 
-                        widget.dateCallback(startDate, endDate);
-                      },
-                    ),
+                          widget.dateCallback(startDate, endDate);
+                        },
+                      ),
+                      viewModel.getPadding(2),
+                      SearchActionButton(
+                        isSelect: buttonType == Search.ThirtyDays,
+                        btnText: tr('day30'),
+                        onPressed: () async {
+                          buttonType = Search.ThirtyDays;
 
-                    viewModel.getPadding(2),
+                          startDate = viewModel.getDays(30);
+                          endDate = viewModel.dateTimeFormat(DateTime.now());
 
-                    SearchActionButton(
-                      isSelect: buttonType == Search.Yesterday,
-                      btnText: tr('yesterday'),
-                      onPressed: () async{
-                        buttonType = Search.Yesterday;
+                          widget.dateCallback(startDate, endDate);
 
-                        startDate = viewModel.getDays(1);
-                        endDate = viewModel.getDays(1);
-
-                        widget.dateCallback(startDate, endDate);
-                      },
-                    ),
-
-                    viewModel.getPadding(2),
-
-                    SearchActionButton(
-                      isSelect: buttonType == Search.SevenDays,
-                      btnText: tr('day7'),
-                      onPressed: () async{
-                        buttonType = Search.SevenDays;
-
-                        startDate =  viewModel.getDays(7);
-                        endDate = viewModel.dateTimeFormat(DateTime.now());
-
-                        widget.dateCallback(startDate, endDate);
-                      },
-                    ),
-
-                    viewModel.getPadding(2),
-
-                    SearchActionButton(
-                      isSelect: buttonType == Search.ThirtyDays,
-                      btnText: tr('day30'),
-                      onPressed: () async{
-                        buttonType = Search.ThirtyDays;
-
-                        startDate =  viewModel.getDays(30);
-                        endDate = viewModel.dateTimeFormat(DateTime.now());
-
-                        widget.dateCallback(startDate, endDate);
-
-                        /// 範例 ///
-                        // await viewModel.getTeamOrder(
-                        //     startDate, endDate).then((value)  => {
-                        //   list = value,
-                        // });
-                        // setState(() {});
-                        /// 範例 ///
-                      },
-                    ),
-                  ],)))
-      ),
-
+                          /// 範例 ///
+                          // await viewModel.getTeamOrder(
+                          //     startDate, endDate).then((value)  => {
+                          //   list = value,
+                          // });
+                          // setState(() {});
+                          /// 範例 ///
+                        },
+                      ),
+                    ],
+                  )))),
     ]);
   }
 
-  Future<void> _showDatePicker(BuildContext context) async{
+  Future<void> _showDatePicker(BuildContext context) async {
     await showDateRangePicker(
-        context:context,
-        firstDate: DateTime(2022, 10),
-        lastDate: DateTime.now()).then((value) => {
-      startDate = viewModel.dateTimeFormat(value?.start),
-      endDate = viewModel.dateTimeFormat(value?.end),
-    }).then((value) async => {
-      widget.dateCallback(startDate, endDate),
-    });
+            context: context,
+            firstDate: DateTime(2022, 10),
+            lastDate: DateTime.now())
+        .then((value) => {
+              startDate = viewModel.dateTimeFormat(value?.start),
+              endDate = viewModel.dateTimeFormat(value?.end),
+            })
+        .then((value) async => {
+              widget.dateCallback(startDate, endDate),
+            });
   }
 }

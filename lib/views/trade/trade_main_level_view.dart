@@ -310,11 +310,8 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
           break;
       }
 
-      double imgHeight =
-          UIDefine.getPixelWidth(200 + viewModel.currentRangeIndex * 50);
       if (GlobalData.userInfo.level == 0) {
         size = "400";
-        imgHeight = UIDefine.getPixelWidth(400);
       }
 
       String animationPath = format(AppAnimationPath.reservationDice3D, {
@@ -325,10 +322,14 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
           AnimationDownloadUtil().getAnimationFilePath(animationPath);
       if (path != null) {
         return Container(
-            height: UIDefine.getPixelWidth(imgHeight),
-            width: UIDefine.getWidth(),
             alignment: Alignment.center,
-            child: Image.file(File(path)));
+            child: Image.file(
+              height: UIDefine.getPixelWidth(
+                  200 + viewModel.currentRangeIndex * 50),
+              width: UIDefine.getWidth(),
+              File(path),
+              fit: BoxFit.contain,
+            ));
       }
     }
     // int index = 5 - viewModel.currentRangeIndex;

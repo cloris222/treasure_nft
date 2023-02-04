@@ -61,7 +61,7 @@ class _HomeSubRandomViewState extends State<HomeSubRandomView> {
           Text(tr('collection-fetured').toUpperCase(),
               textAlign: TextAlign.center,
               style: viewModel.getMainTitleStyle()),
-          SizedBox(height: UIDefine.getPixelHeight(30)),
+          SizedBox(height: UIDefine.getPixelWidth(30)),
           ListView.builder(
               padding: EdgeInsets.zero,
               shrinkWrap: true,
@@ -75,7 +75,7 @@ class _HomeSubRandomViewState extends State<HomeSubRandomView> {
   Widget _buildSubView(BuildContext context, RandomCollectInfo info) {
     return Column(mainAxisSize: MainAxisSize.min, children: [
       _buildSubImageView(context, info),
-      SizedBox(height: UIDefine.getPixelHeight(5)),
+      SizedBox(height: UIDefine.getPixelWidth(5)),
       Container(
         alignment: Alignment.centerLeft,
         child: Text(info.collectionName,
@@ -84,7 +84,7 @@ class _HomeSubRandomViewState extends State<HomeSubRandomView> {
                 fontWeight: FontWeight.w400,
                 color: AppColors.textBlack)),
       ),
-      SizedBox(height: UIDefine.getPixelHeight(5)),
+      SizedBox(height: UIDefine.getPixelWidth(5)),
       Row(children: [
         SizedBox(
             width: UIDefine.getPixelWidth(30),
@@ -99,7 +99,7 @@ class _HomeSubRandomViewState extends State<HomeSubRandomView> {
             fontSize: UIDefine.fontSize12,
             fontWeight: FontWeight.w600,
             fontFamily: AppTextFamily.Posterama1927,
-            height: UIDefine.getPixelHeight(40),
+            height: UIDefine.getPixelWidth(40),
             padding:
                 EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(8)),
             radius: 19,
@@ -110,8 +110,8 @@ class _HomeSubRandomViewState extends State<HomeSubRandomView> {
 
   Widget _buildSubImageView(BuildContext context, RandomCollectInfo info) {
     return Container(
-      height: UIDefine.getPixelHeight(240),
-      margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(10)),
+      height: UIDefine.getPixelWidth(240),
+      margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(10)),
       child: Row(children: [
         Expanded(child: _buildImage(info, 0)),
         SizedBox(width: UIDefine.getPixelWidth(5)),

@@ -76,7 +76,7 @@ class _LoginBolderButtonWidgetState extends State<LoginBolderButtonWidget> {
                   backgroundColor: Colors.transparent,
                   radius: widget.radius),
               width: widget.width ?? (widget.isFillWidth ? UIDefine.getWidth() : null),
-              height: widget.height ?? 50,
+              height: widget.height ?? UIDefine.getPixelWidth(50),
               margin: widget.margin,
               padding: widget.padding ??
                   EdgeInsets.symmetric(
