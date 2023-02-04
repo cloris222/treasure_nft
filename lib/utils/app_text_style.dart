@@ -11,10 +11,19 @@ class AppTextStyle {
   const AppTextStyle._();
 
   static bool isSystemBold() {
-    bool isSystemBold =
-        MediaQuery.of(BaseViewModel().getGlobalContext()).boldText;
-    GlobalData.printLog('isSystemBold:$isSystemBold');
-    return isSystemBold;
+    return MediaQuery.of(BaseViewModel().getGlobalContext()).boldText;
+  }
+
+  static FontWeight? getFontWeight(FontWeight? fontWeight) {
+    if (fontWeight == null) {
+      return null;
+    }
+    if (isSystemBold()) {
+      if (fontWeight.index <= FontWeight.w500.index) {
+        return null;
+      }
+    }
+    return fontWeight;
   }
 
   static TextStyle getBaseStyle(
@@ -28,13 +37,7 @@ class AppTextStyle {
         color: color,
         fontSize: fontSize ?? UIDefine.fontSize12,
         fontFamily: fontFamily.name,
-        fontWeight: fontWeight != null
-
-            ///MARK: 在release mode才加判斷
-            ? (fontWeight.index > FontWeight.w500.index && isSystemBold()
-                ? FontWeight.w500
-                : fontWeight)
-            : null,
+        fontWeight: getFontWeight(fontWeight),
         fontStyle: fontStyle,
         height: height);
   }
