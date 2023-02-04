@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/widgets/drop_buttom/custom_drop_button.dart';
 
 import '../../../constant/call_back_function.dart';
 import '../../../constant/theme/app_colors.dart';
@@ -24,7 +25,20 @@ class GenderSelectorDropDownBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [_buildTextTitle(tr('gender')), _dropDownBar()]);
+        children: [_buildTextTitle(tr('gender')), _buildDropButton()]);
+  }
+
+  Widget _buildDropButton() {
+    return CustomDropButton(
+      listLength: _currencies.length,
+      itemString: (int index) {
+        return _getCategoryText(_currencies[index]);
+      },
+      onChanged: (int index) {
+        getDropDownValue(_currencies[index]);
+      },
+      initIndex: GlobalData.userInfo.gender == _currencies[1] ? 1 : 0,
+    );
   }
 
   Widget _dropDownBar() {

@@ -53,6 +53,12 @@ class _PhoneParamViewState extends State<PhoneParamView> {
   void initState() {
     currentCountry = widget.initCountry ??
         (GlobalData.country.isNotEmpty ? GlobalData.country.first.country : '');
+    for (int i = 0; i < GlobalData.country.length; i++) {
+      if (GlobalData.country[i].country == currentCountry) {
+        currentIndex = i;
+      }
+    }
+
     super.initState();
   }
 
@@ -63,32 +69,37 @@ class _PhoneParamViewState extends State<PhoneParamView> {
       Stack(
         alignment: Alignment.centerLeft,
         children: [
-          Padding(
-              padding: EdgeInsets.only(left: UIDefine.getScreenWidth(37)),
-              child: LoginTextWidget(
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r"\d"))
-                ],
-                keyboardType: TextInputType.number,
-                hintText: widget.hintText,
-                controller: widget.controller,
-                initColor: widget.data.result
-                    ? AppColors.bolderGrey
-                    : AppColors.textRed,
-                enabledColor: widget.data.result
-                    ? AppColors.bolderGrey
-                    : AppColors.textRed,
-                bFocusedGradientBolder: true,
-                isSecure: widget.isSecure,
-                onChanged: widget.onChanged,
-                onTap: widget.onTap,
+          LoginTextWidget(
+            inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r"\d"))],
+            contentPaddingLeft: UIDefine.getScreenWidth(38),
+            keyboardType: TextInputType.number,
+            hintText: widget.hintText,
+            controller: widget.controller,
+            initColor:
+                widget.data.result ? AppColors.bolderGrey : AppColors.textRed,
+            enabledColor:
+                widget.data.result ? AppColors.bolderGrey : AppColors.textRed,
+            bFocusedGradientBolder: true,
+            isSecure: widget.isSecure,
+            onChanged: widget.onChanged,
+            onTap: widget.onTap,
+          ),
+          Positioned(
+              left: UIDefine.getScreenWidth(37),
+              child: Container(
+                width: 1,
+                height: UIDefine.getPixelHeight(35),
+                decoration: AppStyle()
+                    .styleColorsRadiusBackground(color: AppColors.bolderGrey),
               )),
           Positioned(
             left: 0,
+            top: UIDefine.getPixelHeight(5),
+            bottom: UIDefine.getPixelHeight(5),
             child: Container(
               alignment: Alignment.center,
-              height: UIDefine.getPixelHeight(60),
-              width: UIDefine.getScreenWidth(40),
+              width: UIDefine.getScreenWidth(37),
+              height: UIDefine.getPixelHeight(50),
               child: _dropDownBar(),
             ),
           )
@@ -108,14 +119,8 @@ class _PhoneParamViewState extends State<PhoneParamView> {
 
   Widget _dropDownBar() {
     return Container(
-      decoration: AppStyle().styleColorBorderBackground(
-          hasBottomRight: false,
-          hasTopRight: false,
-          color: AppColors.bolderGrey,
-          radius: 8,
-          borderLine: 1),
       padding: EdgeInsets.symmetric(
-          horizontal: UIDefine.getPixelWidth(10),
+          horizontal: UIDefine.getPixelWidth(1),
           vertical: UIDefine.getPixelWidth(3)),
       child: DropdownButtonHideUnderline(
           child: DropdownButton2(
@@ -124,8 +129,7 @@ class _PhoneParamViewState extends State<PhoneParamView> {
         items: List<DropdownMenuItem<int>>.generate(GlobalData.country.length,
             (index) {
           return DropdownMenuItem<int>(
-              value: index,
-              child: _buildDropItem(index, true, false));
+              value: index, child: _buildDropItem(index, true, false));
         }),
         value: currentIndex,
         onChanged: (value) {
@@ -142,8 +146,7 @@ class _PhoneParamViewState extends State<PhoneParamView> {
     );
   }
 
-  Widget _buildDropItem(
-      int index, bool needGradientText, bool needArrow) {
+  Widget _buildDropItem(int index, bool needGradientText, bool needArrow) {
     CountryPhoneData data = GlobalData.country[index];
     bool isCurrent = (currentCountry == data.country);
     String countryText = '+${data.areaCode} ${_getSubString(tr(data.country))}';
@@ -153,20 +156,21 @@ class _PhoneParamViewState extends State<PhoneParamView> {
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Row(
         children: [
-          isCurrent && needGradientText
-              ? GradientThirdText(
-                  countryText,
-                  maxLines: needArrow ? 1 : null,
-                  size: UIDefine.fontSize14,
-                )
-              : Text(
-                  countryText,
-                  maxLines: needArrow ? 1 : null,
-                  style: AppTextStyle.getBaseStyle(
-                      fontSize: UIDefine.fontSize14,
-                      color: AppColors.textSixBlack),
-                ),
-          const Spacer(),
+          Expanded(
+            child: isCurrent && needGradientText
+                ? GradientThirdText(
+                    countryText,
+                    maxLines: needArrow ? 1 : null,
+                    size: UIDefine.fontSize14,
+                  )
+                : Text(
+                    countryText,
+                    maxLines: needArrow ? 1 : null,
+                    style: AppTextStyle.getBaseStyle(
+                        fontSize: UIDefine.fontSize14,
+                        color: AppColors.textSixBlack),
+                  ),
+          ),
           Visibility(
               visible: needArrow,
               child: BaseIconWidget(

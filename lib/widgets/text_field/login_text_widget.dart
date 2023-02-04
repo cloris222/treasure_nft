@@ -22,6 +22,7 @@ class LoginTextWidget extends StatefulWidget {
       this.keyboardType,
       required this.controller,
       this.contentPaddingRight = 0,
+      this.contentPaddingLeft = 20,
       this.bLimitDecimalLength = false,
       this.bPasswordFormatter = false,
       this.inputFormatters = const [],
@@ -36,6 +37,7 @@ class LoginTextWidget extends StatefulWidget {
   final GestureTapCallback? onTap;
   final TextInputType? keyboardType;
   final double contentPaddingRight;
+  final double contentPaddingLeft;
 
   ///MARK: 小數點限制兩位
   final bool bLimitDecimalLength;
@@ -91,11 +93,14 @@ class _LoginTextWidgetState extends State<LoginTextWidget> {
         onTap: widget.onTap,
         decoration: InputDecoration(
             hintText: widget.hintText,
-            hintStyle: AppTextStyle.getBaseStyle(height: 1.1, color: widget.hintColor),
-            labelStyle:  AppTextStyle.getBaseStyle(color: Colors.black),
+            hintStyle:
+                AppTextStyle.getBaseStyle(height: 1.1, color: widget.hintColor),
+            labelStyle: AppTextStyle.getBaseStyle(color: Colors.black),
             alignLabelWithHint: true,
             contentPadding: EdgeInsets.only(
-                top: 0, left: 20, right: widget.contentPaddingRight),
+                top: 0,
+                left: widget.contentPaddingLeft,
+                right: widget.contentPaddingRight),
             disabledBorder: AppTheme.style.styleTextEditBorderBackground(
                 color: widget.enabledColor, radius: 10),
             enabledBorder: AppTheme.style.styleTextEditBorderBackground(

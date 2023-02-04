@@ -72,26 +72,29 @@ class _CustomAppbarViewState extends State<CustomAppbarView> {
                 globalAction: () => _globalAction(context),
                 mainAction: () => _mainAction(context))
             : null,
-        body: Stack(children: [
-          Container(
-              color: widget.backgroundColor,
-              height: UIDefine.getHeight(),
-              width: UIDefine.getWidth(),
-              padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom +
-                      UIDefine.getScreenWidth(1.38)),
-              child: widget.needScrollView
-                  ? SingleChildScrollView(child: widget.body)
-                  : widget.body),
-          Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: widget.needBottom
-                  ? AppBottomNavigationBar(
-                      initType: widget.type ?? GlobalData.mainBottomType)
-                  : const SizedBox())
-        ]),
+        body: GestureDetector(
+          onTap: () => BaseViewModel().clearAllFocus(),
+          child: Stack(children: [
+            Container(
+                color: widget.backgroundColor,
+                height: UIDefine.getHeight(),
+                width: UIDefine.getWidth(),
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom +
+                        UIDefine.getScreenWidth(1.38)),
+                child: widget.needScrollView
+                    ? SingleChildScrollView(child: widget.body)
+                    : widget.body),
+            Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: widget.needBottom
+                    ? AppBottomNavigationBar(
+                        initType: widget.type ?? GlobalData.mainBottomType)
+                    : const SizedBox())
+          ]),
+        ),
         extendBody: true);
   }
 
