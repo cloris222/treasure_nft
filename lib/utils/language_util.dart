@@ -48,7 +48,7 @@ class LanguageUtil {
     _appLang = currentLanguage;
     _strLanguage = getAppStrLanguage();
     await AppSharedPreferences.setLanguage(_strLanguage);
-    context.setLocale(getAppLocale());
+    await context.setLocale(getAppLocale());
   }
 
   static Locale getAppLocale() {

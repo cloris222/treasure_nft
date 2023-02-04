@@ -1,13 +1,10 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
-import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
-import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
-import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
+import 'package:treasure_nft_project/widgets/drop_buttom/custom_drop_button.dart';
 
 import '../../../constant/call_back_function.dart';
 import '../../../constant/theme/app_colors.dart';
@@ -118,70 +115,28 @@ class _PhoneParamViewState extends State<PhoneParamView> {
   }
 
   Widget _dropDownBar() {
-    return Container(
+    return CustomDropButton(
       padding: EdgeInsets.symmetric(
           horizontal: UIDefine.getPixelWidth(1),
           vertical: UIDefine.getPixelWidth(3)),
-      child: DropdownButtonHideUnderline(
-          child: DropdownButton2(
-        customButton: _buildDropItem(currentIndex, false, true),
-        isExpanded: true,
-        items: List<DropdownMenuItem<int>>.generate(GlobalData.country.length,
-            (index) {
-          return DropdownMenuItem<int>(
-              value: index, child: _buildDropItem(index, true, false));
-        }),
-        value: currentIndex,
-        onChanged: (value) {
-          if (value != null) {
-            currentIndex = value;
-            widget.getDropDownValue(GlobalData.country[value].country);
-            setState(() {
-              currentCountry = GlobalData.country[value].country;
-            });
-          }
-        },
-        itemPadding: const EdgeInsets.symmetric(horizontal: 8.0),
-      )),
-    );
-  }
-
-  Widget _buildDropItem(int index, bool needGradientText, bool needArrow) {
-    CountryPhoneData data = GlobalData.country[index];
-    bool isCurrent = (currentCountry == data.country);
-    String countryText = '+${data.areaCode} ${_getSubString(tr(data.country))}';
-    return Container(
-      alignment: Alignment.centerLeft,
-      height: UIDefine.getPixelWidth(40),
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: isCurrent && needGradientText
-                ? GradientThirdText(
-                    countryText,
-                    maxLines: needArrow ? 1 : null,
-                    size: UIDefine.fontSize14,
-                  )
-                : Text(
-                    countryText,
-                    maxLines: needArrow ? 1 : null,
-                    style: AppTextStyle.getBaseStyle(
-                        fontSize: UIDefine.fontSize14,
-                        color: AppColors.textSixBlack),
-                  ),
-          ),
-          Visibility(
-              visible: needArrow,
-              child: BaseIconWidget(
-                  imageAssetPath: AppImagePath.arrowDownGrey,
-                  size: UIDefine.getPixelWidth(8)))
-        ],
-      ),
+      needBorderBackground: false,
+      initIndex: currentIndex,
+      listLength: GlobalData.country.length,
+      itemString: _buildItemString,
+      onChanged: (int index) {
+        currentIndex = index;
+        widget.getDropDownValue(GlobalData.country[index].country);
+        currentCountry = GlobalData.country[index].country;
+      },
     );
   }
 
   String _getSubString(String value) {
     return value.length >= 10 ? '${value.substring(0, 10)}...' : value;
+  }
+
+  String _buildItemString(int index) {
+    CountryPhoneData data = GlobalData.country[index];
+    return '+${data.areaCode} ${_getSubString(tr(data.country))}';
   }
 }
