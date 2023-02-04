@@ -145,9 +145,14 @@ flutter:
     - family: PosteramaText
       fonts:
         - asset: assets/fonts/PosteramaText-Regular.otf
+        - asset: assets/fonts/Posterama_Text_SemiBold.ttf
+          weight: 600
+
     - family: Posterama1927
       fonts:
         - asset: assets/fonts/Posterama_1927.otf
+        - asset: assets/fonts/Posterama_1927_UltraBlack.ttf
+          weight: 600
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf
