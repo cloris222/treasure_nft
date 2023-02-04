@@ -178,19 +178,23 @@ class SignInPage extends StatelessWidget {
       dayPath = AppImagePath.dailyUnSignInIcon;
     }
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Image.asset(dayPath,
-            height: UIDefine.getPixelWidth(58), fit: BoxFit.contain),
-        Text(
-          day.substring(5).replaceAll('-', '.'),
-          style: AppTextStyle.getBaseStyle(
-              color: AppColors.textSixBlack,
-              fontSize: UIDefine.fontSize10,
-              fontWeight: FontWeight.w600),
-        )
-      ],
+    return Container(
+      ///日期間隙
+      margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(1)),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset(dayPath,
+              height: UIDefine.getPixelWidth(58), fit: BoxFit.contain),
+          Text(
+            day.substring(5).replaceAll('-', '.'),
+            style: AppTextStyle.getBaseStyle(
+                color: AppColors.textSixBlack,
+                fontSize: UIDefine.fontSize10,
+                fontWeight: FontWeight.w600),
+          )
+        ],
+      ),
     );
   }
 

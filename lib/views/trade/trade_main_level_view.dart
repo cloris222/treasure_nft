@@ -91,6 +91,8 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
           ///MARK: 顯示交易區間的資訊
           _buildDivisionInfo(),
 
+          SizedBox(height: UIDefine.getPixelWidth(10)),
+
           ///MARK: 預約交易的按鈕
           _buildReservationButton(isReserved, isLock),
         ],
@@ -398,7 +400,8 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
   }
 
   Widget _buildReservationButton(bool isReserved, bool isLock) {
-    if (isLock) {
+    ///MARK: 如果鎖定 or 不允許使用交易功能時，要隱藏
+    if (isLock || !(GlobalData.appTradeEnterButtonStatus)) {
       return const SizedBox();
     }
     if (viewModel.division.isEmpty || viewModel.ranges.isEmpty) {

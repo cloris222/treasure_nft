@@ -41,7 +41,7 @@ class _DepositNftResultView extends State<DepositNftResultView> {
   @override
   Widget build(BuildContext context) {
     return CustomAppbarView(
-      needScrollView: false,
+      needScrollView: true,
       onLanguageChange: () {
         if (mounted) {
           setState(() {});
