@@ -51,7 +51,7 @@ class _HomeUsdtInfoState extends State<HomeUsdtInfo> {
         color: AppColors.textNineBlack,
         fontWeight: FontWeight.w400);
     TextStyle valueStyle = AppTextStyle.getBaseStyle(
-        fontSize: UIDefine.fontSize26,
+        fontSize: UIDefine.fontSize22,
         fontWeight: FontWeight.w600,
         color: AppColors.textBlack,
         fontFamily: AppTextFamily.Posterama1927);
