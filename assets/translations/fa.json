@@ -16,6 +16,7 @@
   "lang_tr":"Türkçe",
   "lang_vi":"Tiếng Việt",
   "lang_cn":"简体中文",
+  "lang_jp":"日本語",
 
   "--// login":"---",
   "register":"ثبت نام",
@@ -1047,7 +1048,7 @@
   "index-h1-1":"DISCOVER,AND COLLECT DIGITAL ART NFTS",
   "collection-fetured":"مجموعه NFTs برجسته",
   "index-subtitle-1":"Digital marketplace for crypto collectibles and non-fungible tokens(NFTs). Buy、sell and discover exclusive digital assets.",
-  "exploreNow":"اکنون کاوش کنید",
+  "exploreNow":"Get Started",
   "sunday":"یکشنبه",
   "monday":"دوشنبه",
   "tuesday":"سهشنبه",
@@ -1181,6 +1182,8 @@
   "Ecuador":"اکوادور",
   "Pakistan":"پاکستان",
   "Yemen":"یمن",
+  "Polygon-text-2":"پس از واریز اشتباه، NFT شما بازیابی نخواهد شد.",
+  "IRR":"IRR",
 
 
   "--//app use":"---",
@@ -1204,5 +1207,5 @@
   "deleteAccountHint":"آیا مطمئن هستید که می خواهید اکانت خود را حذف کنید؟ این قابل بازگشت نیست.",
   "goPermissionAnimation":"برای اطمینان از عملکرد کامل انیمیشن APP، باید مجوز ذخیره سازی را فعال کنید. آیا می خواهید برای تنظیم به صفحه تنظیمات بروید؟",
   "appPurchaseDescription":"با خرید این محصول می توانید یک مجموعه هنری NFT به ارزش {price}USDT دریافت کنید.",
-  "appSaveWalletHint":"If the wrong address is filled in and the USDT is transferred to the wrong address, the platform will not be responsible."
+  "appSaveWalletHint":"در صورت پر کردن آدرس اشتباه، پلتفرم مسئولیتی بر عهده نخواهد گرفت و باعث می شود USDT به آدرس اشتباه منتقل شود."
 }

@@ -16,6 +16,7 @@
   "lang_tr":"Türkçe",
   "lang_vi":"Tiếng Việt",
   "lang_cn":"简体中文",
+  "lang_jp":"日本語",
 
   "--// login":"---",
   "register":"Kayıt Ol",
@@ -1047,7 +1048,7 @@
   "index-h1-1":"DISCOVER,AND COLLECT DIGITAL ART NFTS",
   "collection-fetured":"Koleksiyon getirilen NFT'ler",
   "index-subtitle-1":"Digital marketplace for crypto collectibles and non-fungible tokens(NFTs). Buy、sell and discover exclusive digital assets.",
-  "exploreNow":"Explore Now",
+  "exploreNow":"Get Started",
   "sunday":"Pazar",
   "monday":"Pazartesi",
   "tuesday":"Salı",
@@ -1181,6 +1182,8 @@
   "Ecuador":"Ekvador",
   "Pakistan":"Pakistan",
   "Yemen":"Yemen",
+  "Polygon-text-2":"Yanlış bir şekilde yatırıldıktan sonra, NFT'niz geri alınmayacaktır.",
+  "IRR":"IRR",
 
 
   "--//app use":"---",
@@ -1204,5 +1207,5 @@
   "deleteAccountHint":"Hesabınızı silmek istediğinizden emin misiniz? Bu geri alınamaz.",
   "goPermissionAnimation":"APP animasyonunun tam olarak çalıştığından emin olmak için depolama iznini etkinleştirmeniz gerekir. Ayar için ayar sayfasına gitmek istiyor musunuz?",
   "appPurchaseDescription":"Bu ürünü satın alarak {price}USDT değerinde bir NFT sanat koleksiyonuna sahip olabilirsiniz.",
-  "appSaveWalletHint":"If the wrong address is filled in and the USDT is transferred to the wrong address, the platform will not be responsible."
+  "appSaveWalletHint":"Transfer İşlemlerinde Yanlış Ağ'a Çekilen Tutarlardan Kullanıcılar Sorumludur.Lütfen Çekim Adreslerinizi Kontrol Ediniz."
 }

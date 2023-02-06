@@ -16,6 +16,7 @@
   "lang_tr":"Türkçe",
   "lang_vi":"Tiếng Việt",
   "lang_cn":"简体中文",
+  "lang_jp":"日本語",
 
   "--// login":"---",
   "register":"Daftar",
@@ -1047,7 +1048,7 @@
   "index-h1-1":"DISCOVER,AND COLLECT DIGITAL ART NFTS",
   "collection-fetured":"Koleksi menampilkan nfts",
   "index-subtitle-1":"Digital marketplace for crypto collectibles and non-fungible tokens(NFTs). Buy、sell and discover exclusive digital assets.",
-  "exploreNow":"Jelajahi Sekarang",
+  "exploreNow":"Get Started",
   "sunday":"Minggu",
   "monday":"Senin",
   "tuesday":"Selasa",
@@ -1181,6 +1182,8 @@
   "Ecuador":"Ekuador",
   "Pakistan":"Pakistan",
   "Yemen":"Yaman",
+  "Polygon-text-2":"Setelah disetorkan secara salah, NFT Anda tidak akan diambil.",
+  "IRR":"IRR",
 
 
   "--//app use":"---",
@@ -1204,5 +1207,5 @@
   "deleteAccountHint":"Apakah Anda yakin ingin menghapus akun Anda? Ini tidak dapat dibatalkan.",
   "goPermissionAnimation":"Untuk memastikan animasi APP berfungsi penuh, Anda perlu mengaktifkan izin penyimpanan. Apakah Anda ingin pergi ke halaman pengaturan untuk pengaturan?",
   "appPurchaseDescription":"Dengan membeli produk ini, Anda bisa mendapatkan koleksi seni NFT senilai {price}USDT.",
-  "appSaveWalletHint":"If the wrong address is filled in and the USDT is transferred to the wrong address, the platform will not be responsible."
+  "appSaveWalletHint":"Platform tidak akan bertanggung jawab jika USDT ditransfer ke alamat yang salah karena alamat yang dimasukkan salah."
 }

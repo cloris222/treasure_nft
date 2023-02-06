@@ -16,6 +16,7 @@
   "lang_tr":"Türkçe",
   "lang_vi":"Tiếng Việt",
   "lang_cn":"简体中文",
+  "lang_jp":"日本語",
 
   "--// login":"---",
   "register":"Зарегистрироваться",
@@ -323,7 +324,7 @@
   "mis_t_AchTeamBuyAmt":"Текущая сумма покупок команды",
   "mis_c_AchTeamBuyAmt":"Накопленная сумма полной покупки команды {num} u",
   "mis_t_AchInvClsA":"Текущие приглашение действительно для уровня A  ",
-  "mis_c_AchInvClsA":"{num} человек",
+  "mis_c_AchInvClsA":"{количество} человек",
   "mis_t_AchInvClsBC":"Текущие приглашение действительно для уровня B или C",
   "mis_c_AchInvClsBC":"Действительная оценка B или C по рекомендации {num} человек",
 
@@ -1047,7 +1048,7 @@
   "index-h1-1":"DISCOVER,AND COLLECT DIGITAL ART NFTS",
   "collection-fetured":"Коллекция с изображением NFTs",
   "index-subtitle-1":"Digital marketplace for crypto collectibles and non-fungible tokens(NFTs). Buy、sell and discover exclusive digital assets.",
-  "exploreNow":"Explore Now",
+  "exploreNow":"Get Started",
   "sunday":"Воскресенье",
   "monday":"Понедельник",
   "tuesday":"Вторник",
@@ -1181,6 +1182,8 @@
   "Ecuador":"Эквадор",
   "Pakistan":"Пакистан",
   "Yemen":"Йемен",
+  "Polygon-text-2":"После ошибочного внесения ваш NFT не будет восстановлен.",
+  "IRR":"IRR",
 
 
   "--//app use":"---",
@@ -1204,5 +1207,5 @@
   "deleteAccountHint":"Вы уверены, что хотите удалить свой аккаунт? Это не может быть отменено.",
   "goPermissionAnimation":"Чтобы убедиться, что анимация APP полностью функционирует, вам необходимо включить разрешение на хранение. Вы хотите перейти на страницу настроек для настройки?",
   "appPurchaseDescription":"Покупая этот товар, вы можете получить коллекцию произведений искусства NFT стоимостью {price}USDT.",
-  "appSaveWalletHint":"If the wrong address is filled in and the USDT is transferred to the wrong address, the platform will not be responsible."
+  "appSaveWalletHint":"Платформа не несет никакой ответственности, если указан неправильный адрес, что приведет к переводу USDT на неправильный адрес."
 }

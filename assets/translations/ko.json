@@ -16,6 +16,7 @@
   "lang_tr":"Türkçe",
   "lang_vi":"Tiếng Việt",
   "lang_cn":"简体中文",
+  "lang_jp":"日本語",
 
   "--// login":"---",
   "register":"등록",
@@ -1047,7 +1048,7 @@
   "index-h1-1":"DISCOVER,AND COLLECT DIGITAL ART NFTS",
   "collection-fetured":"컬렉션 추천 NFTs",
   "index-subtitle-1":"Digital marketplace for crypto collectibles and non-fungible tokens(NFTs). Buy、sell and discover exclusive digital assets.",
-  "exploreNow":"Explore Now",
+  "exploreNow":"Get Started",
   "sunday":"일요일",
   "monday":"월요일",
   "tuesday":"화요일",
@@ -1181,6 +1182,8 @@
   "Ecuador":"에콰도르",
   "Pakistan":"파키스탄",
   "Yemen":"예멘",
+  "Polygon-text-2":"잘못 입금되면 NFT는 검색되지 않습니다.",
+  "IRR":"IRR",
 
 
   "--//app use":"---",
@@ -1204,5 +1207,5 @@
   "deleteAccountHint":"계정을 삭제하시겠습니까? 이 취소 할 수 없습니다.",
   "goPermissionAnimation":"APP 애니메이션이 제대로 작동하려면 저장 권한을 활성화해야 합니다. 설정을 위해 설정 페이지로 이동하시겠습니까?",
   "appPurchaseDescription":"이 제품을 구매하면 {price}USDT 상당의 NFT 아트 컬렉션을 얻을 수 있습니다.",
-  "appSaveWalletHint":"If the wrong address is filled in and the USDT is transferred to the wrong address, the platform will not be responsible."
+  "appSaveWalletHint":"잘못돈 주소로 인해 USDT가̆̈ 잘못된 주소로 전송될 경우 플랫폼은 어떠한 책임도 지지 않습니다"
 }

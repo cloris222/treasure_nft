@@ -28,7 +28,7 @@ class LanguageUtil {
   }
 
   static LanguageType getSettingLanguageType() {
-   // GlobalData.printLog('_appLang: ${_appLang.name}');
+    // GlobalData.printLog('_appLang: ${_appLang.name}');
     return _appLang;
   }
 
@@ -92,6 +92,10 @@ class LanguageUtil {
         return 'ms';
       case LanguageType.Indonesia:
         return 'id';
+      case LanguageType.Chinese:
+        return 'zh-CN';
+      case LanguageType.Japan:
+        return 'ja-JP';
     }
   }
 
@@ -124,6 +128,10 @@ class LanguageUtil {
         return 'ms';
       case LanguageType.Indonesia:
         return 'id';
+      case LanguageType.Chinese:
+        return 'zh-CN';
+      case LanguageType.Japan:
+        return 'ja-JP';
     }
   }
 
@@ -185,6 +193,10 @@ class LanguageUtil {
         return const Locale('ms');
       case LanguageType.Indonesia:
         return const Locale('id');
+      case LanguageType.Chinese:
+        return const Locale('zh', 'CN');
+      case LanguageType.Japan:
+        return const Locale('ja', 'JP');
     }
   }
 
@@ -215,10 +227,14 @@ class LanguageUtil {
       return LanguageType.Thai;
     } else if (locale.languageCode == 'tr') {
       return LanguageType.Turkish;
-    }else if (locale.languageCode == 'ms') {
+    } else if (locale.languageCode == 'ms') {
       return LanguageType.Malaysia;
-    }else if (locale.languageCode == 'id') {
+    } else if (locale.languageCode == 'id') {
       return LanguageType.Indonesia;
+    } else if (locale.languageCode == 'ja' && locale.countryCode == 'JP') {
+      return LanguageType.Japan;
+    } else if (locale.languageCode == 'zh' && locale.countryCode == 'CN') {
+      return LanguageType.Chinese;
     }
 
     return LanguageType.English;
@@ -252,6 +268,10 @@ class LanguageUtil {
         return tr('lang_ma');
       case LanguageType.Indonesia:
         return tr('lang_id');
+      case LanguageType.Chinese:
+        return tr('lang_cn');
+      case LanguageType.Japan:
+        return tr('lang_jp');
     }
   }
 }
