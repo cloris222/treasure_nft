@@ -88,7 +88,10 @@ flutter_icons:
   android: "launcher_icon"
   ios: true
   remove_alpha_ios: true
-  image_path: "assets/icon/icon_logo_01.png"
+#  IOS
+#  image_path: "assets/icon/img_logo_app_01.png"
+#  Android
+  image_path: "assets/icon/img_logo_app_02.png"
 #cmd 更換logo---> flutter pub run flutter_launcher_icons:main
 # The following section is specific to Flutter packages.
 flutter:
