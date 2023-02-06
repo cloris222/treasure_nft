@@ -52,16 +52,16 @@ class CarouselItemView extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(itemData.name,
-                    style: AppTextStyle.getBaseStyle(
-                        fontSize: UIDefine.fontSize20,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.textWhite)),
+                // Text(itemData.name,
+                //     style: AppTextStyle.getBaseStyle(
+                //         fontSize: UIDefine.fontSize20,
+                //         fontWeight: FontWeight.w400,
+                //         color: AppColors.textWhite)),
                 SizedBox(height: UIDefine.getPixelWidth(5)),
                 Row(children: [
                   CircleNetworkIcon(networkUrl: itemData.avatarUrl, radius: 15),
                   SizedBox(width: UIDefine.getPixelWidth(8)),
-                  Text(itemData.creator,
+                  Text('',
                       style: AppTextStyle.getBaseStyle(
                           fontSize: UIDefine.fontSize14,
                           fontWeight: FontWeight.w400,

@@ -92,9 +92,9 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
 
   num getPageHeight() {
     if (viewModel.discoverList.isEmpty) {
-      return 185 * 4;
+      return 170 * 4;
     }
-    return 185 *
+    return 170 *
         (viewModel.discoverList.length ~/ 2 +
             viewModel.discoverList.length % 2)+90;
   }

@@ -58,7 +58,7 @@ class _HomeSubRandomViewState extends State<HomeSubRandomView> {
             radius: 0, colors: AppColors.gradientBackgroundColorBg),
         padding: viewModel.getMainPadding(height: 30),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
-          Text(tr('collection-fetured').toUpperCase(),
+          Text(tr('collection-fetured'),
               textAlign: TextAlign.center,
               style: viewModel.getMainTitleStyle()),
           SizedBox(height: UIDefine.getPixelWidth(30)),

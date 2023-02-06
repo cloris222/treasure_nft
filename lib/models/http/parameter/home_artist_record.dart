@@ -29,6 +29,7 @@ class ArtistRecord {
     this.ownerCount = 0,
     this.itemCount = 0,
     this.imgUrl = const [],
+    this.imgInfo = const [],
   });
 
   String id;
@@ -49,6 +50,7 @@ class ArtistRecord {
   int ownerCount; //持有帳號數量
   int itemCount; //發行數量
   List<String> imgUrl; //隨機傳4張圖片
+  List<ImgInfo> imgInfo;
 
   factory ArtistRecord.fromJson(Map<String, dynamic> json) => ArtistRecord(
         id: json["id"],
@@ -71,6 +73,10 @@ class ArtistRecord {
         imgUrl: json.containsKey("imgUrl")
             ? List<String>.from(json["imgUrl"].map((x) => x))
             : [],
+        imgInfo: json.containsKey("imgUrl")
+            ? List<ImgInfo>.from(
+                json["imgInfo"].map((x) => ImgInfo.fromJson(x)))
+            : [],
       );
 
   Map<String, dynamic> toJson() => {
@@ -92,5 +98,30 @@ class ArtistRecord {
         "ownerCount": ownerCount,
         "itemCount": itemCount,
         "imgUrl": List<dynamic>.from(imgUrl.map((x) => x)),
+        "imgInfo": List<dynamic>.from(imgInfo.map((x) => x.toJson())),
+      };
+}
+
+class ImgInfo {
+  ImgInfo({
+    required this.imgUrl,
+    required this.name,
+    required this.currentPrice,
+  });
+
+  String imgUrl;
+  String name;
+  num currentPrice;
+
+  factory ImgInfo.fromJson(Map<String, dynamic> json) => ImgInfo(
+        imgUrl: json["imgUrl"],
+        name: json["name"],
+        currentPrice: json["currentPrice"]?.toDouble(),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "imgUrl": imgUrl,
+        "name": name,
+        "currentPrice": currentPrice,
       };
 }

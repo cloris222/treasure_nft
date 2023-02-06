@@ -52,12 +52,13 @@ class HomeMainViewModel extends BaseViewModel {
   }
 
   ///MARK: 主標題
-  TextStyle getMainTitleStyle() {
+  TextStyle getMainTitleStyle(
+      {AppTextFamily family = AppTextFamily.PosteramaText}) {
     return AppTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize24,
         fontWeight: FontWeight.w900,
         color: AppColors.textBlack,
-        fontFamily: AppTextFamily.Posterama1927);
+        fontFamily: family);
   }
 
   ///MARK: 副標題
@@ -66,14 +67,14 @@ class HomeMainViewModel extends BaseViewModel {
         fontSize: UIDefine.fontSize20,
         fontWeight: FontWeight.w600,
         color: AppColors.textBlack,
-        fontFamily: AppTextFamily.Posterama1927);
+        fontFamily: AppTextFamily.PosteramaText);
   }
 
   ///MARK: 內容
   TextStyle getContextStyle(
       {Color color = AppColors.textBlack,
-        FontWeight fontWeight = FontWeight.w400,
-        double? fontSize}) {
+      FontWeight fontWeight = FontWeight.w400,
+      double? fontSize}) {
     return AppTextStyle.getBaseStyle(
         fontSize: fontSize ?? UIDefine.fontSize14,
         fontWeight: fontWeight,
@@ -92,7 +93,7 @@ class HomeMainViewModel extends BaseViewModel {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey("homeCarousel")) {
       List<String>? decodeHomeCarouselString =
-      prefs.getStringList("homeCarousel");
+          prefs.getStringList("homeCarousel");
       homeCarouselList = decodeHomeCarouselString!
           .map((res) => HomeCarousel.fromJson(json.decode(res)))
           .toList();
@@ -118,7 +119,7 @@ class HomeMainViewModel extends BaseViewModel {
   /// 取得輪播圖
   Future<void> getHomeCarousel({ResponseErrorFunction? onConnectFail}) async {
     homeCarouselList =
-    await HomeAPI(onConnectFail: onConnectFail).getCarouselItem();
+        await HomeAPI(onConnectFail: onConnectFail).getCarouselItem();
     homeSubject
         .notifyObservers(NotificationData(key: SubjectKey.keyHomeCarousel));
   }
@@ -126,9 +127,9 @@ class HomeMainViewModel extends BaseViewModel {
   /// 查詢畫家列表
   Future<void> getArtistRecord({ResponseErrorFunction? onConnectFail}) async {
     homeArtistRecordList =
-    await HomeAPI(onConnectFail: onConnectFail).getArtistRecord();
+        await HomeAPI(onConnectFail: onConnectFail).getArtistRecord();
     randomArt =
-    homeArtistRecordList[Random().nextInt(homeArtistRecordList.length)];
+        homeArtistRecordList[Random().nextInt(homeArtistRecordList.length)];
     homeSubject
         .notifyObservers(NotificationData(key: SubjectKey.keyHomeArtRecords));
   }

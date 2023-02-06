@@ -122,7 +122,7 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
 
     double? imageSize = (index == 0 ? itemHeight : null);
 
-    return record.imgUrl.length > index
+    return record.imgInfo.length > index
         ? Column(mainAxisSize: MainAxisSize.min, children: [
             ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(15)),
@@ -130,8 +130,9 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
                     width: imageSize,
                     height: imageSize,
                     child: GraduallyNetworkImage(
-                        imageUrl: record.imgUrl[index], fit: BoxFit.cover))),
-            SizedBox(height: UIDefine.getPixelHeight(5)),
+                        imageUrl: record.imgInfo[index].imgUrl,
+                        fit: BoxFit.cover))),
+            SizedBox(height: UIDefine.getPixelWidth(10)),
             index == 0
                 ? Row(children: [
                     SizedBox(
@@ -144,12 +145,13 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
                     SizedBox(width: UIDefine.getPixelWidth(3)),
                     Expanded(
                       child: WarpTwoTextWidget(
-                          text: record.name,
+                          text: record.imgInfo[index].name,
                           fontWeight: FontWeight.w600,
                           fontSize: UIDefine.fontSize16,
-                          family: AppTextFamily.Posterama1927,
-                          maxLines: 1),
+                          family: AppTextFamily.PosteramaText,
+                          maxLines: 2),
                     ),
+                    SizedBox(width: UIDefine.getPixelWidth(30)),
                     Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -166,11 +168,11 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
                                 TetherCoinWidget(size: UIDefine.fontSize14),
                                 SizedBox(width: UIDefine.getPixelWidth(3)),
                                 Text(
-                                  '${BaseViewModel().numberCompatFormat(record.baseYdayAmt)} USDT',
+                                  '${BaseViewModel().numberCompatFormat(record.imgInfo[index].currentPrice.toString())} USDT',
                                   style: AppTextStyle.getBaseStyle(
                                       fontSize: UIDefine.fontSize12,
                                       fontWeight: FontWeight.w600,
-                                      fontFamily: AppTextFamily.Posterama1927),
+                                      fontFamily: AppTextFamily.PosteramaText),
                                 )
                               ])
                         ])
@@ -179,19 +181,19 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       WarpTwoTextWidget(
-                          text: record.name,
+                          text: record.imgInfo[index].name,
                           fontWeight: FontWeight.w600,
                           fontSize: UIDefine.fontSize14,
-                          family: AppTextFamily.Posterama1927,
-                          maxLines: 1),
+                          family: AppTextFamily.PosteramaText,
+                          maxLines: 2),
+                      SizedBox(height: UIDefine.getPixelWidth(5)),
                       Row(
                         children: [
-                          Flexible(
-                              child: SizedBox(
-                                  width: UIDefine.getPixelWidth(30),
-                                  height: UIDefine.getPixelWidth(30),
-                                  child: CircleNetworkIcon(
-                                      networkUrl: record.avatarUrl))),
+                          SizedBox(
+                              width: UIDefine.getPixelWidth(25),
+                              height: UIDefine.getPixelWidth(25),
+                              child: CircleNetworkIcon(
+                                  networkUrl: record.avatarUrl)),
                           SizedBox(width: UIDefine.getPixelWidth(5)),
                           Container(
                             decoration: AppStyle().styleColorBorderBackground(
@@ -200,16 +202,19 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
                             child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  TetherCoinWidget(size: UIDefine.fontSize10),
+                                  TetherCoinWidget(
+                                      size: UIDefine.getPixelWidth(15)),
                                   SizedBox(width: UIDefine.getPixelWidth(3)),
                                   Text(
-                                    '${BaseViewModel().numberCompatFormat(record.baseYdayAmt)} USDT',
+                                    BaseViewModel().numberCompatFormat(record
+                                        .imgInfo[index].currentPrice
+                                        .toString()),
                                     style: AppTextStyle.getBaseStyle(
                                         color: AppColors.tetherGreen,
-                                        fontSize: UIDefine.fontSize8,
+                                        fontSize: UIDefine.fontSize10,
                                         fontWeight: FontWeight.w600,
                                         fontFamily:
-                                            AppTextFamily.Posterama1927),
+                                            AppTextFamily.PosteramaText),
                                   )
                                 ]),
                           )
@@ -244,7 +249,7 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
                       fontSize: UIDefine.fontSize12,
                       fontWeight: FontWeight.w600,
                       color: AppColors.textNineBlack,
-                      fontFamily: AppTextFamily.Posterama1927)),
+                      fontFamily: AppTextFamily.PosteramaText)),
               GestureDetector(
                   onTap: () => viewModel.pushPage(context,
                       const MainPage(type: AppNavigationBarType.typeExplore)),
@@ -257,7 +262,7 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
                               style: AppTextStyle.getBaseStyle(
                                   fontSize: UIDefine.fontSize14,
                                   fontWeight: FontWeight.w600,
-                                  fontFamily: AppTextFamily.Posterama1927)),
+                                  fontFamily: AppTextFamily.PosteramaText)),
                           Image.asset(AppImagePath.arrowRight)
                         ],
                       )))
