@@ -134,11 +134,12 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
       });
       return;
     } else {
-      ///MARK: 檢查是否驗證過信箱
-      if (!checkExperience && !checkEmail) {
-        emailCodeData =
-            ValidateResultData(result: false, message: tr('rule_mail_valid'));
-      }
+      ///MARK: v0.0.12版 改為與提交時同時送出信箱驗證碼
+      // ///MARK: 檢查是否驗證過信箱
+      // if (!checkExperience && !checkEmail) {
+      //   emailCodeData =
+      //       ValidateResultData(result: false, message: tr('rule_mail_valid'));
+      // }
 
       ///MARK: 如果上面的檢查有部分錯誤時return
       if (!checkData()) {
@@ -183,7 +184,8 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
             chain: '',
             address: '',
             amount: amountController.text,
-            account: accountController.text)
+            account: accountController.text,
+            emailVerifyCode: emailCodeController.text)
         .then((value) async {
       SimpleCustomDialog(context, mainText: tr('success')).show();
       pushAndRemoveUntil(

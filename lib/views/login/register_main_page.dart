@@ -120,6 +120,7 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
 
           ///MARK:驗證碼
           LoginEmailCodeView(
+            needVerifyButton: false,
             hintText: tr("placeholder-emailCode'"),
             btnVerifyText: tr('verify'),
             btnGetText: tr('get'),
@@ -140,7 +141,7 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
           ///MARK: 註冊按鈕
           LoginButtonWidget(
             btnText: tr('register'),
-            enable: viewModel.checkPress(),
+            // enable: viewModel.checkPress(),
             onPressed: () => viewModel.onPressRegister(context),
           ),
           Row(children: [

@@ -109,17 +109,18 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
                 viewModel.popPage(context);
               }),
           LoginButtonWidget(
-              fontSize: UIDefine.fontSize16,
-              isFillWidth: false,
-              radius: 17,
-              padding:
-                  EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
-              isGradient: true,
-              btnText: tr('submit'),
-              onPressed: () {
-                viewModel.onPressSave(context, widget.getWalletAlert());
-              },
-              enable: viewModel.checkEnable()),
+            fontSize: UIDefine.fontSize16,
+            isFillWidth: false,
+            radius: 17,
+            padding:
+                EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
+            isGradient: true,
+            btnText: tr('submit'),
+            onPressed: () {
+              viewModel.onPressSave(context, widget.getWalletAlert());
+            },
+            // enable: viewModel.checkEnable(),
+          ),
         ],
       ),
     );
@@ -128,7 +129,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
   Widget _buildWithdrawInfo() {
     return Container(
       decoration: AppStyle().styleColorsRadiusBackground(
-          color:AppColors.itemBackground, radius: 4),
+          color: AppColors.itemBackground, radius: 4),
       padding: EdgeInsets.all(UIDefine.getPixelWidth(10)),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -334,6 +335,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
         Text(tr('emailValid'),
             style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14)),
         LoginEmailCodeView(
+            needVerifyButton: false,
             countdownSecond: 60,
             btnGetText: tr('get'),
             btnVerifyText: tr('verify'),
