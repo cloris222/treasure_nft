@@ -23,7 +23,7 @@ class TimePickUtil {
         firstDate: DateTime.now(),
         lastDate: DateTime(2099));
     if (date != null) {
-      return DateFormat(format).format(date);
+      return DateFormat(format, 'en').format(date);
     }
     return '';
   }

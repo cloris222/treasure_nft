@@ -30,7 +30,7 @@ class DatePickerOne extends StatefulWidget {
 }
 
 class _DatePickerOne extends State<DatePickerOne> {
-  String date = tr("placeholder-date'");
+  String date = '';
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,7 @@ class _DatePickerOne extends State<DatePickerOne> {
                 children: [
                   _getPadding(1),
                   Text(
-                    widget.initDate ?? date,
+                    widget.initDate ?? (date.isEmpty ? tr("placeholder-date'") : date),
                     style: AppTextStyle.getBaseStyle(
                         color: AppColors.textGrey,
                         fontSize: UIDefine.fontSize14),
