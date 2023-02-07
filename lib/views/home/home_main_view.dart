@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/enum/style_enum.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
-import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/utils/language_util.dart';
@@ -17,7 +16,7 @@ import 'package:treasure_nft_project/views/home/home_sub_usdt_view.dart';
 import 'package:treasure_nft_project/views/home/home_sub_contact_view.dart';
 import 'package:treasure_nft_project/views/server_web_page.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
-import 'package:treasure_nft_project/widgets/gradient_text.dart';
+import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
 import 'package:treasure_nft_project/widgets/list_view/home/artist_record_listview.dart';
 import 'package:treasure_nft_project/widgets/text_field/login_text_widget.dart';
 import '../../constant/enum/setting_enum.dart';
@@ -163,56 +162,42 @@ class _HomeMainViewState extends State<HomeMainView> {
 
     ///MARK: 一堆title 的參數
     double styleHeight = 1.1;
-    double titleFontSize = UIDefine.fontSize30;
+    double titleFontSize = UIDefine.fontSize26;
     AppTextFamily titleFamily = AppTextFamily.Posterama1927;
     FontWeight titleFontWeight = FontWeight.w900;
 
     TextStyle black = AppTextStyle.getBaseStyle(
-        fontSize: titleFontSize,
-        fontFamily: titleFamily,
-        fontWeight: titleFontWeight,
-        color: AppColors.textBlack,
-        height: showZh ? 1.1 : null);
+      fontSize: titleFontSize,
+      fontFamily: titleFamily,
+      fontWeight: titleFontWeight,
+      color: AppColors.textBlack,
+      // height: styleHeight,
+    );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
-        Container(
-            // height: UIDefine.getScreenHeight(8),
-            alignment: Alignment.centerLeft,
-            child: showZh
-                ? Wrap(alignment: WrapAlignment.start, children: [
-                    Text('使用', style: black),
-                    GradientText(
-                      'Treasure NFT',
-                      size: titleFontSize,
-                      fontFamily: titleFamily,
-                      weight: titleFontWeight,
-                      styleHeight: styleHeight,
-                    ),
-                    Text('交', style: black),
-                    Text('易', style: black),
-                    Text('賺', style: black),
-                    Text('取', style: black),
-                    Text('收', style: black),
-                    Text('益', style: black),
-                  ])
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                        Text('Earn profit with',
-                            style: AppTextStyle.getBaseStyle(
-                                fontSize: titleFontSize,
-                                fontFamily: titleFamily,
-                                fontWeight: titleFontWeight,
-                                color: AppColors.textBlack)),
-                        GradientText(
-                          'Treasure NFT',
-                          size: titleFontSize,
-                          fontFamily: titleFamily,
-                          weight: titleFontWeight,
-                        )
-                      ])),
+        Wrap(
+          crossAxisAlignment: WrapCrossAlignment.end,
+          children: [
+            Text('EARN UP TO ', style: black),
+            GradientThirdText(
+              '30%',
+              fontFamily: titleFamily,
+              weight: titleFontWeight,
+              size: UIDefine.fontSize30,
+              // styleHeight: 1.1,
+            ),
+            GradientThirdText(
+              ' MONTHLY',
+              fontFamily: titleFamily,
+              weight: titleFontWeight,
+              size: titleFontSize,
+              styleHeight: styleHeight,
+            )
+          ],
+        ),
         viewModel.buildSpace(height: 2),
         Text(tr('index-product-text-1\''),
             style: viewModel.getContextStyle(color: AppColors.textGrey)),

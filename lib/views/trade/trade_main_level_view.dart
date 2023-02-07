@@ -465,10 +465,10 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
               child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              _buildSystemInfoItem(tr('tradeVol'),
-                  '\$ ${NumberFormatUtil().integerFormat(viewModel.reserveViewData?.vol ?? 0)}'),
+              _buildSystemInfoItem(tr('lastDayAmount'),
+                  '\$ ${NumberFormatUtil().removeTwoPointFormat(viewModel.reserveViewData?.vol ?? 0)}'),
               _buildSystemInfoItem(tr('PRICE'),
-                  '${NumberFormatUtil().integerFormat(viewModel.reserveViewData?.price ?? 0)} \$')
+                  '${NumberFormatUtil().removeTwoPointFormat(viewModel.reserveViewData?.price ?? 0)} \$')
             ],
           )),
           SizedBox(width: UIDefine.getPixelWidth(10)),
@@ -478,8 +478,8 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
             children: [
               _buildSystemInfoItem(tr('annualROI'),
                   '${NumberFormatUtil().removeTwoPointFormat(viewModel.reserveViewData?.annualRoi ?? 0)} %'),
-              _buildSystemInfoItem(tr('APR'),
-                  '${NumberFormatUtil().removeTwoPointFormat(viewModel.reserveViewData?.apr ?? 0)} %')
+              _buildSystemInfoItem(tr('IRR'),
+                  '${NumberFormatUtil().removeTwoPointFormat(7.5)} %')
             ],
           ))
         ],
@@ -500,13 +500,12 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
                       fontSize: UIDefine.fontSize14,
                       color: AppColors.textThreeBlack),
                 ))),
-        Expanded(
-            child: Container(
-                alignment: Alignment.centerRight,
-                child: Text(context,
-                    style: AppTextStyle.getBaseStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: UIDefine.fontSize14)))),
+        Container(
+            alignment: Alignment.centerRight,
+            child: Text(context,
+                style: AppTextStyle.getBaseStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: UIDefine.fontSize14))),
       ],
     );
   }
