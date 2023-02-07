@@ -31,8 +31,15 @@ class CustomLinearProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int flex = int.parse(NumberFormatUtil()
-        .integerFormat(percentage * 100, hasSeparator: false));
+    int flex;
+
+    ///MARK:避免數值為 1/0 or 0/1
+    if (percentage.isNaN || percentage == double.infinity) {
+      flex = 100;
+    } else {
+      flex = int.parse(NumberFormatUtil()
+          .integerFormat(percentage * 100, hasSeparator: false));
+    }
     if (flex <= 0) {
       flex = 0;
     }

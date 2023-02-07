@@ -130,18 +130,18 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
                 ),
               ),
               SizedBox(width: UIDefine.getPixelWidth(30)),
-              TextButtonWidget(
-                  margin: EdgeInsets.only(right: UIDefine.getPixelWidth(20)),
-                  btnText: tr('levelUp'),
-                  onPressed: () => viewModel.onPressLevelUp(context),
-                  backgroundHorizontal: UIDefine.getPixelWidth(15),
-                  setSubColor: Colors.transparent,
-                  isFillWidth: false,
-                  fontWeight: FontWeight.w600,
-                  fontSize: UIDefine.fontSize12,
-                  setMainColor: Colors.white,
-                  radius: 13,
-                  isBorderStyle: true)
+              // TextButtonWidget(
+              //     margin: EdgeInsets.only(right: UIDefine.getPixelWidth(20)),
+              //     btnText: tr('levelUp'),
+              //     onPressed: () => viewModel.onPressLevelUp(context),
+              //     backgroundHorizontal: UIDefine.getPixelWidth(15),
+              //     setSubColor: Colors.transparent,
+              //     isFillWidth: false,
+              //     fontWeight: FontWeight.w600,
+              //     fontSize: UIDefine.fontSize12,
+              //     setMainColor: Colors.white,
+              //     radius: 13,
+              //     isBorderStyle: true)
             ])
           ]))
     ]);
@@ -310,43 +310,49 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
       bool showLock = false,
       bool showBonus = false,
       bool isBlackStyle = true}) {
-    return Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-      Visibility(
-        visible: showLock,
-        child: BaseIconWidget(
-            imageAssetPath: viewModel.checkUnlock(level)
-                ? AppImagePath.levelUnLock
-                : AppImagePath.levelLock,
-            size: UIDefine.getPixelWidth(25)),
-      ),
-      Visibility(
-        visible: showLevel,
-        child: Text(' ${tr('level')} $level ',
-            style: AppTextStyle.getBaseStyle(
-                fontSize:
-                    isBlackStyle ? UIDefine.fontSize14 : UIDefine.fontSize16,
-                fontWeight: FontWeight.w600,
-                color: isBlackStyle ? AppColors.textThreeBlack : Colors.white)),
-      ),
-      Flexible(child: Container()),
-      Visibility(
-          visible: viewModel.nextLevel(level) && showBonus,
-          child: GestureDetector(
-            onTap: () => viewModel.showLeveLBonus(context),
-            child: Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: UIDefine.getPixelWidth(10),
-                  vertical: UIDefine.getPixelWidth(5)),
-              margin: EdgeInsets.only(bottom: UIDefine.getPixelWidth(10)),
-              decoration: AppStyle().buildGradient(
-                  colors: AppColors.gradientBackgroundColorBg, radius: 12),
-              child: GradientThirdText(
-                tr('bonus'),
-                size: UIDefine.fontSize12,
-              ),
-            ),
-          ))
-    ]);
+    return Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Visibility(
+            visible: showLock,
+            child: BaseIconWidget(
+                imageAssetPath: viewModel.checkUnlock(level)
+                    ? AppImagePath.levelUnLock
+                    : AppImagePath.levelLock,
+                size: UIDefine.getPixelWidth(25)),
+          ),
+          Visibility(
+            visible: showLevel,
+            child: Text(' ${tr('level')} $level ',
+                style: AppTextStyle.getBaseStyle(
+                    fontSize: isBlackStyle
+                        ? UIDefine.fontSize14
+                        : UIDefine.fontSize16,
+                    fontWeight: FontWeight.w600,
+                    color: isBlackStyle
+                        ? AppColors.textThreeBlack
+                        : Colors.white)),
+          ),
+          Flexible(child: Container()),
+          Visibility(
+              visible: viewModel.nextLevel(level) && showBonus,
+              child: GestureDetector(
+                onTap: () => viewModel.showLeveLBonus(context),
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: UIDefine.getPixelWidth(10),
+                      vertical: UIDefine.getPixelWidth(5)),
+                  margin: EdgeInsets.only(bottom: UIDefine.getPixelWidth(10)),
+                  decoration: AppStyle().buildGradient(
+                      colors: AppColors.gradientBackgroundColorBg, radius: 12),
+                  child: GradientThirdText(
+                    tr('bonus'),
+                    size: UIDefine.fontSize12,
+                  ),
+                ),
+              ))
+        ]);
   }
 
   ///MARK: 等級詳細
@@ -514,7 +520,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
         decoration: AppStyle().styleColorsRadiusBackground(radius: 8),
         child: Column(
           children: [
-            _buildSingleLevelTitle(level, showLevel: true, showLock: true),
+            _buildSingleLevelTitle(level, showLevel: true, showLock: false),
             _buildSingleLevelInfo(level),
             _buildItemChange(level),
           ],
@@ -567,7 +573,9 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
       required String title,
       required dynamic value,
       required int request}) {
-    double percentage = viewModel.checkUnlock(level) ? 1 : value / request;
+    double percentage =
+        viewModel.checkUnlock(level) || request == 0 ? 1 : value / request;
+
     return Column(children: [
       Row(children: [
         Expanded(

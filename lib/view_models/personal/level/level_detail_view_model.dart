@@ -89,6 +89,10 @@ class LevelDetailViewModel extends BaseViewModel {
 
   ///MARK: 判斷是否為下一等級
   bool nextLevel(int level) {
+    ///MARK: v0.0.12 等級6也需要顯示bonus Button
+    if (GlobalData.userLevelInfo!.userLevel == 6 && level == 6) {
+      return true;
+    }
     return (level - GlobalData.userLevelInfo!.userLevel) == 1;
   }
 

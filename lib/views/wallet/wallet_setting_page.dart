@@ -87,7 +87,7 @@ class _WalletSettingPageState extends State<WalletSettingPage> {
               children: [
                 LoginButtonWidget(
                     isFillWidth: false,
-                    btnText: tr('Next'),
+                    btnText: tr('save'),
                     onPressed: () => viewModel.onCheckPayment(context),
                     enable: viewModel.checkEmail),
               ],
