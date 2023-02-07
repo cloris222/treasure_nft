@@ -211,13 +211,24 @@ class _BuyerSellerInfoCard extends State<BuyerSellerInfoCard> {
 
                 GestureDetector( // 買賣家可以點擊，跳轉到收藏頁
                   onTap: () => _onTapBuyerSeller(i),
-                  child: Text(
-                    i < 3 ?
-                    tr(moreInfoDataList[i].content)
-                        :
-                    BaseViewModel().numberFormat(moreInfoDataList[i].content), // 金額取小數點後兩位
-                    style: AppTextStyle.getBaseStyle(color: i == 1? AppColors.mainThemeButton : AppColors.textBlack,
-                        fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                  child: ShaderMask(
+                    blendMode: BlendMode.srcIn,
+                    shaderCallback: (bounds) =>  LinearGradient(
+                        begin: Alignment.bottomLeft,
+                        end:  Alignment.topRight,
+                        colors:i == 1? AppColors.gradientBaseColorBg
+                            :[AppColors.textBlack,AppColors.textBlack])
+                        .createShader(
+                      Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+                    ),
+                    child: Text(
+                      i < 3 ?
+                      tr(moreInfoDataList[i].content)
+                          :
+                      BaseViewModel().numberFormat(moreInfoDataList[i].content), // 金額取小數點後兩位
+                      style: AppTextStyle.getBaseStyle(color: i == 1? AppColors.mainThemeButton : AppColors.textBlack,
+                          fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                    ),
                   )
                 )
               ]
@@ -232,7 +243,7 @@ class _BuyerSellerInfoCard extends State<BuyerSellerInfoCard> {
     if (index == 1) { // 固定位置中上是買賣家
       bool isSeller = moreInfoDataList.length > 3;
       BaseViewModel().pushPage(context,
-          OtherCollectPage(isSeller: isSeller, orderNo: widget.data.orderNo));
+          OtherCollectPage(isSeller: !isSeller, orderNo: widget.data.orderNo));
     }
   }
 
