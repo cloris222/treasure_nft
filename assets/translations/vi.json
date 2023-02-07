@@ -16,6 +16,7 @@
   "lang_tr":"Türkçe",
   "lang_vi":"Tiếng Việt",
   "lang_cn":"简体中文",
+  "lang_jp":"日本語",
 
   "--// login":"---",
   "register":"Đăng ký",
@@ -1047,7 +1048,7 @@
   "index-h1-1":"DISCOVER,AND COLLECT DIGITAL ART NFTS",
   "collection-fetured":"Bộ sưu tập nổi bật NFTs",
   "index-subtitle-1":"Digital marketplace for crypto collectibles and non-fungible tokens(NFTs). Buy、sell and discover exclusive digital assets.",
-  "exploreNow":"Explore Now",
+  "exploreNow":"Get Started",
   "sunday":"Chủ nhật",
   "monday":"Thứ hai",
   "tuesday":"Thứ ba",
@@ -1181,6 +1182,8 @@
   "Ecuador":"người ecuado",
   "Pakistan":"Pa-ki-xtan",
   "Yemen":"Y-ê-men",
+  "Polygon-text-2":"Sau khi gửi nhầm, NFT của bạn sẽ không được lấy lại.",
+  "IRR":"IRR",
 
 
   "--//app use":"---",
@@ -1204,5 +1207,5 @@
   "deleteAccountHint":"Bạn có chắc rằng bạn muốn xóa tài khoản của bạn? Điều này không thể được hoàn tác.",
   "goPermissionAnimation":"Để đảm bảo hoạt hình APP hoạt động đầy đủ, bạn cần bật quyền lưu trữ. Bạn có muốn đến trang cài đặt để cài đặt không?",
   "appPurchaseDescription":"Mua sản phẩm này, bạn có thể nhận được bộ sưu tập nghệ thuật NFT trị giá {price}USDT.",
-  "appSaveWalletHint":"If the wrong address is filled in and the USDT is transferred to the wrong address, the platform will not be responsible."
+  "appSaveWalletHint":"Nền tảng sẽ không chịu bất kỳ trách nhiệm nào nếu điền sai địa chỉ, khiến USDT bị chuyển đến sai địa chỉ"
 }

@@ -25,7 +25,8 @@ class LoginEmailCodeView extends StatelessWidget {
       this.onPressVerification,
       required this.btnGetText,
       required this.btnVerifyText,
-      this.countdownSecond = 60})
+      this.countdownSecond = 60,
+      this.needVerifyButton = true})
       : super(key: key);
   final String hintText;
   final Color hintColor;
@@ -42,6 +43,7 @@ class LoginEmailCodeView extends StatelessWidget {
   ///MARK: 更換左邊的button 文字
   final String btnGetText;
   final String btnVerifyText;
+  final bool needVerifyButton;
 
   @override
   Widget build(BuildContext context) {
@@ -76,17 +78,20 @@ class LoginEmailCodeView extends StatelessWidget {
               onPressVerification: onPressVerification,
               fontSize: UIDefine.fontSize14,
             ),
-            LoginButtonWidget(
-                radius: 8,
-                margin: EdgeInsets.only(left: UIDefine.getPixelWidth(5)),
-                padding: EdgeInsets.symmetric(
-                    vertical: UIDefine.getPixelWidth(10),
-                    horizontal: UIDefine.getPixelWidth(10)),
-                btnText: btnVerifyText ?? tr('verify'),
-                isFillWidth: false,
-                height: UIDefine.getPixelWidth(40),
-                fontSize: UIDefine.fontSize14,
-                onPressed: onPressCheckVerify)
+            Visibility(
+              visible: needVerifyButton,
+              child: LoginButtonWidget(
+                  radius: 8,
+                  margin: EdgeInsets.only(left: UIDefine.getPixelWidth(5)),
+                  padding: EdgeInsets.symmetric(
+                      vertical: UIDefine.getPixelWidth(10),
+                      horizontal: UIDefine.getPixelWidth(10)),
+                  btnText: btnVerifyText ?? tr('verify'),
+                  isFillWidth: false,
+                  height: UIDefine.getPixelWidth(40),
+                  fontSize: UIDefine.fontSize14,
+                  onPressed: onPressCheckVerify),
+            )
           ],
         ),
         ErrorTextWidget(data: data, alignment: Alignment.centerLeft),

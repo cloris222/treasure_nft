@@ -141,9 +141,9 @@ class RegisterMainViewModel extends BaseViewModel {
   }
 
   ///MARK: 註冊
-  void onPressRegister(BuildContext context) {
+  void onPressRegister(BuildContext context) async {
     resetData();
-
+    clearAllFocus();
     ///MARK: 檢查是否有欄位未填
     if (!checkEmptyController()) {
       setState(() {
@@ -160,11 +160,12 @@ class RegisterMainViewModel extends BaseViewModel {
       });
       return;
     } else {
-      ///MARK: 檢查是否驗證過信箱
-      if (!checkEmail) {
-        emailCodeData =
-            ValidateResultData(result: false, message: tr('rule_mail_valid'));
-      }
+      ///MARK: v0.0.12版 改為與提交同時送出信箱驗證碼
+      // ///MARK: 檢查是否驗證過信箱
+      // if (!checkEmail) {
+      //   emailCodeData =
+      //       ValidateResultData(result: false, message: tr('EO_002_2'));
+      // }
 
       ///MARK: 檢查帳號&暱稱是否符合規範
       accountData = checkAccount(accountController.text);
@@ -186,7 +187,8 @@ class RegisterMainViewModel extends BaseViewModel {
               nickname: nicknameController.text,
               inviteCode: referralController.text,
               phone: phoneController.text,
-              phoneCountry: phoneCountry)
+              phoneCountry: phoneCountry,
+              emailVerifyCode: emailCodeController.text)
           .then((value) async {
         ///MARK: 註冊成功動畫
 

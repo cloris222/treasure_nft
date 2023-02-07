@@ -116,17 +116,18 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
                 viewModel.popPage(context);
               }),
           LoginButtonWidget(
-              fontSize: UIDefine.fontSize16,
-              isFillWidth: false,
-              radius: 17,
-              padding:
-                  EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
-              isGradient: true,
-              btnText: tr('submit'),
-              onPressed: () {
-                viewModel.onPressSave(context, widget.getWalletAlert());
-              },
-              enable: viewModel.checkEnable()),
+            fontSize: UIDefine.fontSize16,
+            isFillWidth: false,
+            radius: 17,
+            padding:
+                EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
+            isGradient: true,
+            btnText: tr('submit'),
+            onPressed: () {
+              viewModel.onPressSave(context, widget.getWalletAlert());
+            },
+            // enable: viewModel.checkEnable(),
+          ),
         ],
       ),
     );
@@ -345,6 +346,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
         Text(tr('emailValid'),
             style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14)),
         LoginEmailCodeView(
+            needVerifyButton: false,
             countdownSecond: 60,
             btnGetText: tr('get'),
             btnVerifyText: tr('verify'),

@@ -16,6 +16,7 @@
   "lang_tr":"Türkçe",
   "lang_vi":"Tiếng Việt",
   "lang_cn":"简体中文",
+  "lang_jp":"日本語",
 
   "--// login":"---",
   "register":"Sign up",
@@ -1047,7 +1048,7 @@
   "index-h1-1":"DISCOVER AND COLLECT DIGITAL ART NFTs",
   "collection-fetured":"Collection fetured NFTs",
   "index-subtitle-1":"Digital marketplace for crypto collectibles and non-fungible tokens(NFTs). Buy、sell and discover exclusive digital assets.",
-  "exploreNow":"Explore Now",
+  "exploreNow":"Get Started",
   "sunday":"Sunday",
   "monday":"Monday",
   "tuesday":"Tuesday",
@@ -1181,6 +1182,8 @@
   "Ecuador":"Ecuador",
   "Pakistan":"Pakistan",
   "Yemen":"Yemen",
+  "Polygon-text-2":"Once wrongly deposited, your NFT will not be retrieved.",
+  "IRR":"IRR",
 
 
   "--//app use":"---",

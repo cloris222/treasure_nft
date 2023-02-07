@@ -16,6 +16,7 @@
   "lang_tr":"Türkçe",
   "lang_vi":"Tiếng Việt",
   "lang_cn":"简体中文",
+  "lang_jp":"日本語",
 
   "--// login":"---",
   "register":"Registe-se",
@@ -1047,7 +1048,7 @@
   "index-h1-1":"DISCOVER,AND COLLECT DIGITAL ART NFTS",
   "collection-fetured":"Coleção destacada NFTs",
   "index-subtitle-1":"Digital marketplace for crypto collectibles and non-fungible tokens(NFTs). Buy、sell and discover exclusive digital assets.",
-  "exploreNow":"Explore Now",
+  "exploreNow":"Get Started",
   "sunday":"Domingo",
   "monday":"Segunda-feira",
   "tuesday":"Terça-feira",
@@ -1181,6 +1182,8 @@
   "Ecuador":"Equador",
   "Pakistan":"Paquistão",
   "Yemen":"Iémen",
+  "Polygon-text-2":"Uma vez depositado indevidamente, sua NFT não será recuperada.",
+  "IRR":"IRR",
 
 
   "--//app use":"---",
@@ -1204,5 +1207,5 @@
   "deleteAccountHint":"Tem certeza de que deseja excluir sua conta? Isto não pode ser desfeito.",
   "goPermissionAnimation":"Para garantir que a animação do APP funcione totalmente, você precisa habilitar a permissão de armazenamento. Você quer ir para a página de configuração para configuração?",
   "appPurchaseDescription":"Ao comprar este produto, você pode obter uma coleção de arte NFT no valor de {price}USDT.",
-  "appSaveWalletHint":"If the wrong address is filled in and the USDT is transferred to the wrong address, the platform will not be responsible."
+  "appSaveWalletHint":"A plataforma não será considerada responsável se o USDT for transferido para o endereço errado devido à introdução de um endereço incorrecto."
 }

@@ -109,7 +109,7 @@ class AppImagePath {
   static const String fb = '$_iconPath/icon_socialmedia_01.png';
   static const String ig = '$_iconPath/icon_socialmedia_10.png';
   static const String dc = '$_iconPath/icon_socialmedia_06.png';
-  static const String invitePhoto = '$_imgPath/img_login_photo_01.png';
+  static const String invitePhoto = '$_imgPath/img_login_photo_02.png';
   static const String fastIcon = '$_iconPath/icon_fasttransaction_01.png';
   static const String growthIcon = '$_iconPath/icon_growthtransaction_01.png';
   static const String helpIcon = '$_btnPath/btn_help_01.png';

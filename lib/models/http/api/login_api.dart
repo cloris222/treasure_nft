@@ -25,7 +25,19 @@ class LoginAPI extends HttpManager {
       required String nickname,
       required String phone,
       required String phoneCountry,
-      required String inviteCode}) async {
+      required String inviteCode,
+      required String emailVerifyCode}) async {
+    Map<String, dynamic>? queryParameters = {
+      'account': account.trim(),
+      'password': password.trim(),
+      'email': email.trim(),
+      'phone': phone.trim(),
+      'phoneCountry': phoneCountry,
+      'name': nickname.trim(),
+      'inviteCode': inviteCode.trim(),
+      'emailVerifyCode': emailVerifyCode.trim()
+    };
+
     return post('/user/register', data: {
       'account': account.trim(),
       'password': password.trim(),
@@ -34,13 +46,12 @@ class LoginAPI extends HttpManager {
       'phoneCountry': phoneCountry,
       'name': nickname.trim(),
       'inviteCode': inviteCode.trim(),
+      'emailVerifyCode': emailVerifyCode.trim()
     });
   }
 
   ///MARK: 忘記密碼
   Future<ApiResponse> forgetPassword({required String email}) async {
-    return post('/user/forget/password', data: {
-      'email': email.trim()
-    });
+    return post('/user/forget/password', data: {'email': email.trim()});
   }
 }

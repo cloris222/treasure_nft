@@ -14,9 +14,8 @@ class WithdrawApi extends HttpManager {
     ApiResponse response;
     try {
       if (chain != null) {
-        response = await get('/user/balance-withdraw', queryParameters: {
-          'chain': chain
-        });
+        response = await get('/user/balance-withdraw',
+            queryParameters: {'chain': chain});
       } else {
         response = await get('/user/balance-withdraw');
       }
@@ -28,15 +27,18 @@ class WithdrawApi extends HttpManager {
   }
 
   Future<ApiResponse> submitBalanceWithdraw(
-      {required String chain, required String amount,
-        required String address, required String account}) async {
+      {required String chain,
+      required String amount,
+      required String address,
+      required String account,
+      required String emailVerifyCode}) async {
     ApiResponse response = await post('/user/balance-withdraw', data: {
       'chain': chain,
       'amount': amount,
       'address': address,
-      'account': account
+      'account': account,
+      'emailVerifyCode': emailVerifyCode.trim()
     });
     return response;
   }
-
 }

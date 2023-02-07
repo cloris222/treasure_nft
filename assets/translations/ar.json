@@ -16,6 +16,7 @@
   "lang_tr":"Türkçe",
   "lang_vi":"Tiếng Việt",
   "lang_cn":"简体中文",
+  "lang_jp":"日本語",
 
   "--// login":"---",
   "register":"اشتراك",
@@ -1047,7 +1048,7 @@
   "index-h1-1":"DISCOVER,AND COLLECT DIGITAL ART NFTS",
   "collection-fetured":"جمع NFTs جنت",
   "index-subtitle-1":"Digital marketplace for crypto collectibles and non-fungible tokens(NFTs). Buy、sell and discover exclusive digital assets.",
-  "exploreNow":"استكشف الآن",
+  "exploreNow":"Get Started",
   "sunday":"الأحد",
   "monday":"الاثنين",
   "tuesday":"يوم الثلاثاء",
@@ -1181,6 +1182,8 @@
   "Ecuador":"الاكوادور",
   "Pakistan":"باكستان",
   "Yemen":"اليمن",
+  "Polygon-text-2":"بمجرد الإيداع بشكل خاطئ ، لن يتم استرداد NFT الخاص بك.",
+  "IRR":"IRR",
 
 
   "--//app use":"---",
@@ -1204,5 +1207,5 @@
   "deleteAccountHint":"هل انت متأكد انك تريد حذف حسابك؟ هذا لا يمكن التراجع عنها.",
   "goPermissionAnimation":"لضمان عمل الرسوم المتحركة لـ APP بشكل كامل ، تحتاج إلى تمكين إذن التخزين. هل تريد الذهاب إلى صفحة الإعداد للإعداد؟",
   "appPurchaseDescription":"عند شراء هذا المنتج ، يمكنك الحصول على مجموعة فنية من NFT بقيمة {price} USDT.",
-  "appSaveWalletHint":"If the wrong address is filled in and the USDT is transferred to the wrong address, the platform will not be responsible."
+  "appSaveWalletHint":"لن تتحمل المنصة أي مسؤولية إذا تم ملء العنوان الخاطئ ، مما يؤدي إلى تحويل USDT إلى العنوان الخطأ"
 }

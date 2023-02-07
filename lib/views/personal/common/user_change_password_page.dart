@@ -38,13 +38,13 @@ class _UserChangePasswordPage extends State<UserChangePasswordPage> {
   @override
   Widget build(BuildContext context) {
     return CustomAppbarView(
-        needScrollView: false,
+      needScrollView: false,
       onLanguageChange: () {
         if (mounted) {
           setState(() {});
         }
       },
-        type: AppNavigationBarType.typePersonal,
+      type: AppNavigationBarType.typePersonal,
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
         child: Column(
@@ -90,6 +90,7 @@ class _UserChangePasswordPage extends State<UserChangePasswordPage> {
                             fontSize: UIDefine.fontSize14,
                             fontWeight: FontWeight.w500)),
                     LoginEmailCodeView(
+                        needVerifyButton: false,
                         countdownSecond: 60,
                         btnGetText: tr('get'),
                         btnVerifyText: tr('verify'),
@@ -109,17 +110,18 @@ class _UserChangePasswordPage extends State<UserChangePasswordPage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         LoginButtonWidget(
-                            // Save按鈕
-                            padding: EdgeInsets.symmetric(
-                                vertical: UIDefine.getPixelWidth(10),
-                                horizontal: UIDefine.getPixelWidth(20)),
-                            margin: EdgeInsets.symmetric(
-                                vertical: UIDefine.getPixelWidth(15)),
-                            isFillWidth: false,
-                            radius: 17,
-                            btnText: tr('save'),
-                            onPressed: () => viewModel.onPressSave(context),
-                            enable: viewModel.checkEmail),
+                          // Save按鈕
+                          padding: EdgeInsets.symmetric(
+                              vertical: UIDefine.getPixelWidth(10),
+                              horizontal: UIDefine.getPixelWidth(20)),
+                          margin: EdgeInsets.symmetric(
+                              vertical: UIDefine.getPixelWidth(15)),
+                          isFillWidth: false,
+                          radius: 17,
+                          btnText: tr('save'),
+                          onPressed: () => viewModel.onPressSave(context),
+                          // enable: viewModel.checkEmail,
+                        ),
                       ],
                     ),
                     SizedBox(
