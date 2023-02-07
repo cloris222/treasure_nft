@@ -204,9 +204,11 @@ class _TeamReferralCodePageState extends State<TeamReferralCodePage> {
             SizedBox(height: UIDefine.getPixelHeight(10)),
             Row(
               children: [
-                Text(tr("shareCenterTitle"),
-                    style: AppTextStyle.getBaseStyle(
-                        fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w600)),
+                Expanded(
+                  child: Text(tr("shareCenterTitle"),
+                      style: AppTextStyle.getBaseStyle(
+                          fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w600)),
+                ),
                 GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(PageRouteBuilder(
