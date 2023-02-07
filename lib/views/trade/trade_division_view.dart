@@ -8,9 +8,11 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/models/http/parameter/check_reserve_deposit.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/widgets/dialog/animation_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/success_dialog.dart';
 import 'package:treasure_nft_project/widgets/trade_countdown_view.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 import '../../models/http/api/trade_api.dart';
 import '../../utils/trade_timer_util.dart';
 import '../../view_models/trade/trade_division_viewmodel.dart';
@@ -91,14 +93,13 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
         CommonCustomDialog(context,
             type: DialogImageType.warning,
             title: tr('exp_finish_title'),
-            content: '${tr('exp_finish_content_1')}\n${tr('exp_finish_content_2')}',
+            content:
+                '${tr('exp_finish_content_1')}\n${tr('exp_finish_content_2')}',
             rightBtnText: tr('gotoExtract'),
-            onLeftPress: (){},
-            onRightPress: () {
-              Navigator.pop(context);
-              viewModel.pushPage(context, const OrderWithdrawPage());
-            })
-            .show();
+            onLeftPress: () {}, onRightPress: () {
+          Navigator.pop(context);
+          viewModel.pushPage(context, const OrderWithdrawPage());
+        }).show();
       },
 
       /// 體驗帳號狀態關閉
@@ -139,21 +140,27 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
     return CustomAppbarView(
         needCover: true,
         needScrollView: true,
-        title: widget.level == 0
-            ? tr('noviceArea')
-            : '${tr("level")} ${widget.level}',
+        onLanguageChange: () {
+          if (mounted) {
+            setState(() {});
+          }
+        },
         body: Column(children: [
+          TitleAppBar(title: widget.level == 0
+              ? tr('noviceArea')
+              : '${tr("level")} ${widget.level}'),
           const SizedBox(
             height: 5,
           ),
           TradeCountDownView(tradeData: viewModel.currentData),
           _levelView(context),
-          checkDataInit(tradeData)
+          checkDataInit(tradeData),
+          SizedBox(height: UIDefine.navigationBarPadding)
         ]));
   }
 
   Widget _levelView(BuildContext context) {
-    TextStyle titleStyle = TextStyle(fontSize: UIDefine.fontSize16);
+    TextStyle titleStyle = AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize16);
     double balance = TradeTimerUtil().getReservationInfo()?.balance ?? 0;
     double reserveBalance =
         TradeTimerUtil().getReservationInfo()?.reserveBalance ?? 0;
@@ -229,6 +236,7 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
                     return NewReservationPopUpView(
                       confirmBtnAction: () async {
                         Navigator.pop(context);
+
                         /// add new reservation
                         await viewModel.addNewReservation(index);
                       },
@@ -243,7 +251,8 @@ class _TradeDivisionViewState extends State<TradeDivisionView> {
             },
             range: viewModel.ranges[index],
             level: widget.level,
-            tradeData: tradeData, imageIndex: index,
+            tradeData: tradeData,
+            imageIndex: index,
           );
         });
   }

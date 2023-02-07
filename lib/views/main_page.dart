@@ -2,7 +2,10 @@
 
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/subject_key.dart';
 import 'package:treasure_nft_project/utils/animation_download_util.dart';
+import 'package:treasure_nft_project/utils/observer_pattern/custom/language_observer.dart';
+import 'package:treasure_nft_project/utils/observer_pattern/observer.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/collection/collection_main_view.dart';
 import 'package:treasure_nft_project/views/explore/explore_main_view.dart';
@@ -12,8 +15,10 @@ import 'package:treasure_nft_project/views/server_web_page.dart';
 import 'package:treasure_nft_project/views/setting_language_page.dart';
 import 'package:treasure_nft_project/views/sigin_in_page.dart';
 import 'package:treasure_nft_project/views/trade/trade_main_view.dart';
+import 'package:treasure_nft_project/views/trade/trade_new_main_view.dart';
 import 'package:treasure_nft_project/views/wallet/wallet_main_view.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
+import 'package:treasure_nft_project/widgets/bottom_sheet/page_bottom_sheet.dart';
 
 import '../constant/global_data.dart';
 import '../constant/ui_define.dart';
@@ -34,6 +39,7 @@ class _MainPageState extends State<MainPage> {
   late PageController pageController;
   BaseViewModel viewModel = BaseViewModel();
   String _authStatus = 'Unknown';
+  late LanguageObserver languageObserver;
 
   @override
   void didChangeDependencies() {
@@ -46,12 +52,12 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     initPlugin();
     int initialPage = getViewIndex(widget.type);
-    GlobalData.mainBottomType = widget.type;
+    viewModel.setCurrentBottomType(widget.type);
     if ((GlobalData.mainBottomType != AppNavigationBarType.typeMain &&
             GlobalData.mainBottomType != AppNavigationBarType.typeExplore) &&
         !BaseViewModel().isLogin()) {
       initialPage = 6;
-      GlobalData.mainBottomType = AppNavigationBarType.typeLogin;
+      viewModel.setCurrentBottomType(AppNavigationBarType.typeLogin);
     }
 
     pageController = PageController(initialPage: initialPage);
@@ -61,6 +67,18 @@ class _MainPageState extends State<MainPage> {
       GlobalData.firstLaunch = false;
       AnimationDownloadUtil().init();
     }
+    languageObserver = LanguageObserver(SubjectKey.keyChangeLanguage,
+        onNotify: (notification) {
+      if (mounted) {
+        if (notification.data) {
+          viewModel.pushAndRemoveUntil(
+              context, MainPage(type: GlobalData.mainBottomType));
+        } else {
+          setState(() {});
+        }
+      }
+    });
+    GlobalData.languageSubject.registerObserver(languageObserver);
   }
 
   Future<void> initPlugin() async {
@@ -144,51 +162,62 @@ class _MainPageState extends State<MainPage> {
   void dispose() {
     super.dispose();
     pageController.dispose();
+    GlobalData.languageSubject.unregisterObserver(languageObserver);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: CustomAppBar.mainAppBar(
-            searchAction: _searchAction,
-            serverAction: _serverAction,
-            avatarAction: _avatarAction,
-            globalAction: _globalAction,
-            mainAction: _mainAction),
-        body: Padding(
-          padding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).viewInsets.bottom > 0
-                  ? 0
-                  : UIDefine.getPixelHeight(70)),
-          child: PageView(
-            controller: pageController,
-            physics: const NeverScrollableScrollPhysics(),
-            children: [
-              const ExploreMainView(),
-              const CollectionMainView(),
-              const TradeMainView(),
-              const WalletMainView(),
-              PersonalMainView(onViewChange: () => setState(() {})),
-              const HomeMainView(),
-              const LoginMainView()
-            ],
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.white,
+      appBar: CustomAppBar.mainAppBar(
+          isMainPage: true,
+          serverAction: _serverAction,
+          globalAction: _globalAction,
+          mainAction: _mainAction),
+      body: Stack(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: PageView(
+              controller: pageController,
+              physics: const NeverScrollableScrollPhysics(),
+
+              ///MARK: 不要放const
+              children: [
+                ExploreMainView(),
+                CollectionMainView(),
+                TradeNewMainView(),
+                WalletMainView(onPrePage: _onPrePage),
+                PersonalMainView(onViewChange: () => setState(() {})),
+                HomeMainView(),
+                LoginMainView()
+              ],
+            ),
           ),
-        ),
-        extendBody: true,
-        bottomNavigationBar: AppBottomNavigationBar(
-          initType: GlobalData.mainBottomType,
-          bottomFunction: _changePage,
-          bStartTimer: true,
-        ));
+          Positioned(
+              bottom: 0,
+              right: 0,
+              left: 0,
+              child: AppBottomNavigationBar(
+                initType: GlobalData.mainBottomType,
+                bottomFunction: _changePage,
+                bStartTimer: true,
+              ))
+        ],
+      ),
+      extendBody: true,
+    );
   }
 
   _changePage(AppNavigationBarType type) {
+    viewModel.setCurrentBottomType(type);
     pageController.jumpToPage(getViewIndex(type));
   }
 
   void _searchAction() {
-    GlobalData.mainBottomType = AppNavigationBarType.typeExplore;
+    viewModel.setCurrentBottomType(AppNavigationBarType.typeExplore);
     pageController.jumpToPage(0);
   }
 
@@ -218,9 +247,9 @@ class _MainPageState extends State<MainPage> {
   void _avatarAction() {
     setState(() {
       if (BaseViewModel().isLogin()) {
-        GlobalData.mainBottomType = AppNavigationBarType.typePersonal;
+        viewModel.setCurrentBottomType(AppNavigationBarType.typePersonal);
       } else {
-        GlobalData.mainBottomType = AppNavigationBarType.typeLogin;
+        viewModel.setCurrentBottomType(AppNavigationBarType.typeLogin);
       }
       pageController.jumpToPage(getViewIndex(GlobalData.mainBottomType));
     });
@@ -233,8 +262,14 @@ class _MainPageState extends State<MainPage> {
 
   void _mainAction() {
     setState(() {
-      GlobalData.mainBottomType = AppNavigationBarType.typeMain;
+      viewModel.setCurrentBottomType(AppNavigationBarType.typeMain);
       pageController.jumpToPage(getViewIndex(GlobalData.mainBottomType));
+    });
+  }
+
+  void _onPrePage() {
+    setState(() {
+      pageController.jumpToPage(getViewIndex(viewModel.getPreBottomType()));
     });
   }
 }

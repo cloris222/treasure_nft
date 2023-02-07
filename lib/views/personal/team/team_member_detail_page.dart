@@ -1,11 +1,9 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_member_detail.dart';
 import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
-import 'package:treasure_nft_project/views/personal/team/widget/number_paginator_widget.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
-import 'package:treasure_nft_project/widgets/list_view/team/member_detail_listview.dart';
 
 import '../../../view_models/personal/team/team_member_datail_viewmodel.dart';
 import '../../custom_appbar_view.dart';
@@ -46,7 +44,8 @@ class _TeamMemberDetailPage extends State<TeamMemberDetailPage> {
         },
         startTime: widget.startTime,
         endTime: widget.endTime,
-        type: widget.type);
+        type: widget.type,
+        padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding));
     viewModel.initListView();
   }
 
@@ -54,12 +53,13 @@ class _TeamMemberDetailPage extends State<TeamMemberDetailPage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
         needScrollView: false,
-        title: tr("teamDetail"),
+        onLanguageChange: () {
+          if (mounted) {
+            setState(() {});
+          }
+        },
         type: AppNavigationBarType.typePersonal,
-        body: Padding(
-            padding: EdgeInsets.only(
-                left: UIDefine.getScreenWidth(6),
-                right: UIDefine.getScreenWidth(6)),
-            child: viewModel.buildListView()));
+        backgroundColor: AppColors.defaultBackgroundSpace,
+        body: viewModel.buildListView());
   }
 }

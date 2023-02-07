@@ -9,8 +9,6 @@ import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../models/http/api/trade_api.dart';
-import '../../models/http/parameter/add_new_reservation.dart';
-import '../../models/http/parameter/check_activity_reserve.dart';
 
 class TradeMainViewModel extends BaseViewModel {
   TradeMainViewModel(
@@ -98,7 +96,6 @@ class TradeMainViewModel extends BaseViewModel {
 
   /// 體驗帳號狀態失效
   void _experienceExpired(String errorMessage) {
-    experienceExpired();
     experienceDisable();
   }
 

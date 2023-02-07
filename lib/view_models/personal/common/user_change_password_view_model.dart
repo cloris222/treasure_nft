@@ -120,6 +120,8 @@ class UserChangePasswordViewModel extends BaseViewModel {
   }
 
   void onPressSave(BuildContext context) {
+    clearAllFocus();
+
     ///MARK: 檢查是否有欄位未填
     if (!checkEmptyController()) {
       setState(() {
@@ -134,11 +136,12 @@ class UserChangePasswordViewModel extends BaseViewModel {
       });
       return;
     } else {
-      ///MARK: 檢查是否驗證過信箱
-      if (!checkEmail) {
-        emailCodeData =
-            ValidateResultData(result: false, message: tr('rule_mail_valid'));
-      }
+      ///MARK: v0.0.12版 改為與提交同時送出信箱驗證碼
+      // ///MARK: 檢查是否驗證過信箱
+      // if (!checkEmail) {
+      //   emailCodeData =
+      //       ValidateResultData(result: false, message: tr('rule_mail_valid'));
+      // }
 
       ///MARK: 檢查密碼是否相符
       _checkPassword();
@@ -150,10 +153,12 @@ class UserChangePasswordViewModel extends BaseViewModel {
       }
 
       ///MARK: 修改密碼API
-      UpdatePwdAPI(onConnectFail: (message) => onBaseConnectFail(context, message))
+      UpdatePwdAPI(
+              onConnectFail: (message) => onBaseConnectFail(context, message))
           .updatePassword(
               oldPassword: oldPasswordController.text,
-              newPassword: newPasswordController.text)
+              newPassword: newPasswordController.text,
+              emailVerifyCode: emailCodeController.text)
           .then((value) async {
         SimpleCustomDialog(context, mainText: tr('success')).show();
         pushPage(

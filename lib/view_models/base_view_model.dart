@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:format/format.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
-import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/models/http/api/order_api.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
@@ -19,7 +18,8 @@ import 'package:treasure_nft_project/views/full_animation_page.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/views/notify/notify_level_up_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
-import 'package:treasure_nft_project/widgets/image_dialog.dart';
+import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
+import 'package:treasure_nft_project/widgets/dialog/level_up_one_dialog.dart';
 
 import '../constant/call_back_function.dart';
 import '../constant/global_data.dart';
@@ -74,6 +74,7 @@ class BaseViewModel {
         context, MaterialPageRoute(builder: (context) => page));
   }
 
+
   ///MARK: 取代當前頁面
   Future<void> pushReplacement(BuildContext context, Widget page) async {
     await Navigator.pushReplacement(
@@ -95,6 +96,51 @@ class BaseViewModel {
       MaterialPageRoute<void>(builder: (BuildContext context) => page),
       (route) => false,
     );
+  }
+
+  ///MARK: 返回前頁
+  Future<void> popPreView(BuildContext context) async {
+    await Navigator.pushAndRemoveUntil<void>(
+      context,
+      MaterialPageRoute<void>(
+          builder: (BuildContext context) =>
+              MainPage(type: getPreBottomType())),
+      (route) => false,
+    );
+  }
+
+  void setCurrentBottomType(AppNavigationBarType type) {
+    ///MARK:判斷是否為最後一筆
+    if (!GlobalData.isPrePage) {
+      GlobalData.isPrePage = false;
+    }
+    if (GlobalData.preTypeList.isNotEmpty) {
+      ///MARK: 最後一頁跟前一頁一樣 就不加入
+      if (GlobalData.mainBottomType != GlobalData.preTypeList.last) {
+        GlobalData.preTypeList.add(GlobalData.mainBottomType);
+
+        ///MARK: 最多只接受10筆
+        if (GlobalData.preTypeList.length > 10) {
+          GlobalData.preTypeList.removeAt(0);
+        }
+      }
+    } else {
+      GlobalData.preTypeList.add(GlobalData.mainBottomType);
+    }
+    GlobalData.mainBottomType = type;
+  }
+
+  AppNavigationBarType getPreBottomType() {
+    AppNavigationBarType preType = AppNavigationBarType.typeMain;
+    if (GlobalData.preTypeList.isNotEmpty) {
+      preType = GlobalData.preTypeList.removeLast();
+      if (preType == AppNavigationBarType.typeLogin &&
+          BaseViewModel().isLogin()) {
+        preType = AppNavigationBarType.typeMain;
+      }
+    }
+    GlobalData.mainBottomType = preType;
+    return preType;
   }
 
   Future<void> pushOtherPersonalInfo(
@@ -261,18 +307,19 @@ class BaseViewModel {
   }
 
   String getLoginTimeAnimationPath() {
+    return AppAnimationPath.loginAnimation;
     /*
     * 5:00 -12:00   早
       12:00 - 18:00 午
       18:00 - 5:00  晚
     * */
-    String time = DateFormatUtil().getNowTimeWith24HourFormat();
-    if (time.compareTo("05:00") >= 0 && time.compareTo("12:00") < 0) {
-      return AppAnimationPath.loginMorning;
-    } else if (time.compareTo("12:00") >= 0 && time.compareTo("18:00") < 0) {
-      return AppAnimationPath.loginAfternoon;
-    }
-    return AppAnimationPath.loginNight;
+    // String time = DateFormatUtil().getNowTimeWith24HourFormat();
+    // if (time.compareTo("05:00") >= 0 && time.compareTo("12:00") < 0) {
+    //   return AppAnimationPath.loginMorning;
+    // } else if (time.compareTo("12:00") >= 0 && time.compareTo("18:00") < 0) {
+    //   return AppAnimationPath.loginAfternoon;
+    // }
+    // return AppAnimationPath.loginNight;
   }
 
   ///MARK: 通用的 單一彈錯視窗
@@ -324,7 +371,7 @@ class BaseViewModel {
       List<String> num = number.toString().split('.');
       var format = NumberFormat('0,000');
       String test = format.format(int.parse(num[0]));
-      String finalNum = test + '.' + num[1];
+      String finalNum = '$test.${num[1]}';
       return finalNum.replaceAll(regex, '');
     }
     return number.toString().replaceAll(regex, '');
@@ -383,13 +430,14 @@ class BaseViewModel {
             FullAnimationPage(
                 isFile: true, animationPath: path, limitTimer: 4));
       }
-      await ImageDialog(
+      await CommonCustomDialog(
         getGlobalContext(),
-        mainText: tr('buy_remind_title'),
-        subText: tr('buy_remind_content'),
-        buttonText: tr('gotoPost'),
-        assetImagePath: AppImagePath.notifyGift,
-        callOkFunction: () {
+        title: tr('buy_remind_title'),
+        content: tr('buy_remind_content'),
+        rightBtnText: tr('gotoPost'),
+        type: DialogImageType.success,
+        onLeftPress: () {},
+        onRightPress: () {
           pushAndRemoveUntil(getGlobalContext(),
               const MainPage(type: AppNavigationBarType.typeCollection));
         },
@@ -404,17 +452,7 @@ class BaseViewModel {
 
     ///MARK: 顯示彈窗
     if (oldLevel == 0 && newLevel == 1) {
-      ImageDialog(
-        getGlobalContext(),
-        mainText: tr('lv_remind_title'),
-        subText: tr('lv_remind_content'),
-        buttonText: tr('gotoUse'),
-        assetImagePath: AppImagePath.notifyGift,
-        callOkFunction: () {
-          pushAndRemoveUntil(getGlobalContext(),
-              const MainPage(type: AppNavigationBarType.typeTrade));
-        },
-      ).show();
+      pushOpacityPage(getGlobalContext(), const LevelUpOneDialog());
     }
 
     ///MARK: 儲金罐動畫

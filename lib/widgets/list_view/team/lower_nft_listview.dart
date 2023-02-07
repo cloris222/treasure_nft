@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/lower_nft_data.dart';
-import 'package:treasure_nft_project/models/http/parameter/team_member_detail.dart';
-import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
 import 'lower_nft_item.dart';
-import 'member_detail_item.dart';
-
 
 class LowerNFTListView extends StatefulWidget {
-  const LowerNFTListView({super.key,
+  const LowerNFTListView({
+    super.key,
     required this.list,
   });
 
@@ -15,13 +13,9 @@ class LowerNFTListView extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() => _LowerNFTListView();
-
 }
 
 class _LowerNFTListView extends State<LowerNFTListView> {
-  TeamMemberViewModel viewModel = TeamMemberViewModel();
-
-
   Widget createItemBuilder(BuildContext context, int index) {
     return LowerNFTItemView(
       itemData: widget.list[index],
@@ -29,9 +23,8 @@ class _LowerNFTListView extends State<LowerNFTListView> {
   }
 
   Widget createSeparatorBuilder(BuildContext context, int index) {
-    return viewModel.getPadding(3);
+    return SizedBox(height: UIDefine.getPixelWidth(10));
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -46,5 +39,4 @@ class _LowerNFTListView extends State<LowerNFTListView> {
           return createSeparatorBuilder(context, index);
         });
   }
-
 }

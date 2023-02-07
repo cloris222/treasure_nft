@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:flutter/rendering.dart';
+
+import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
+
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_style.dart';
 import '../../constant/ui_define.dart';
@@ -61,11 +66,14 @@ class _IconTextButtonWidgetState extends State<IconTextButtonWidget> {
               : AppStyle()
                   .styleColorsRadiusBackground(color: AppColors.buttonGrey),
           width: widget.width ?? UIDefine.getWidth(),
-          height: widget.height ?? 50,
+          height: widget.height ?? UIDefine.getPixelWidth(50),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(widget.iconPath),
+              BaseIconWidget(
+                imageAssetPath: widget.iconPath,
+                size: (widget.height ?? UIDefine.getPixelWidth(50)) * 0.78,
+              ),
               const SizedBox(width: 4),
               Text(widget.btnText,
                   style: TextStyle(

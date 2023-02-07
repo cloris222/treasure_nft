@@ -1,22 +1,24 @@
 import 'package:flutter/cupertino.dart';
+import 'package:treasure_nft_project/constant/enum/style_enum.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 class GradientText extends StatelessWidget {
-  const GradientText(
-    this.text, {
-    super.key,
-    this.size,
-    this.weight = FontWeight.w400,
-    this.starColor = AppColors.mainThemeButton,
-    this.endColor = AppColors.deepBlue,
-    this.begin = Alignment.bottomLeft,
-    this.end = Alignment.topRight,
-    this.maxLines,
-    this.overflow,
-    this.strutStyle,
-    this.styleHeight,
-  });
+  const GradientText(this.text,
+      {super.key,
+      this.size,
+      this.weight = FontWeight.w400,
+      this.starColor = AppColors.mainThemeButton,
+      this.endColor = AppColors.deepBlue,
+      this.begin = Alignment.bottomLeft,
+      this.end = Alignment.topRight,
+      this.maxLines,
+      this.overflow,
+      this.strutStyle,
+      this.styleHeight,
+      this.colors,
+      this.fontFamily = AppTextFamily.PosteramaText});
 
   final String text;
   final double? size;
@@ -29,23 +31,30 @@ class GradientText extends StatelessWidget {
   final TextOverflow? overflow;
   final StrutStyle? strutStyle;
   final double? styleHeight;
+  final List<Color>? colors;
+  final AppTextFamily fontFamily;
 
   @override
   Widget build(BuildContext context) {
     return ShaderMask(
       blendMode: BlendMode.srcIn,
-      shaderCallback: (bounds) =>
-          LinearGradient(begin: begin, end: end, colors: [
-        starColor,
-        endColor,
-      ]).createShader(
+      shaderCallback: (bounds) => LinearGradient(
+              begin: begin,
+              end: end,
+              colors: colors ??
+                  [
+                    starColor,
+                    endColor,
+                  ])
+          .createShader(
         Rect.fromLTWH(0, 0, bounds.width, bounds.height),
       ),
       child: Text(text,
           strutStyle: strutStyle,
           maxLines: maxLines,
           overflow: overflow,
-          style: TextStyle(
+          style: AppTextStyle.getBaseStyle(
+              fontFamily: fontFamily,
               fontSize: size ?? UIDefine.fontSize20,
               fontWeight: weight,
               height: styleHeight)),

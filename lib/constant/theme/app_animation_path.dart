@@ -10,15 +10,18 @@ class AppAnimationPath {
   static const String beginnerReserving = 'icon_rotate_blue.json';
 
   ///登入後的招呼動畫
-  static const String loginMorning = 'mb_login_morning.json';
-  static const String loginAfternoon = 'mb_login_afternoon.json';
-  static const String loginNight = 'mb_login_night.json';
+  // static const String loginMorning = 'mb_login_morning.json';
+  // static const String loginAfternoon = 'mb_login_afternoon.json';
+  // static const String loginNight = 'mb_login_night.json';
+  static const String loginAnimation = 'miaopai_mb_login.json';
 
   /// 註冊成功動畫
-  static const String registerSuccess = '$animationPathJson/mb_signup_success_01.gif';
+  static const String registerSuccess =
+      '$animationPathJson/mb_signup_success_01.gif';
 
   /// reservation animation
   static const String reservationAnimation = 'mb_level_{index}.gif';
+  static const String reservationDice3D = 'lv{level}_{size}px.gif';
 
   /// achievement_unlock
   static const String achievementUnlockAnimation =
@@ -41,7 +44,8 @@ class AppAnimationPath {
   static const String showOpenWinsBox = 'box_open_wings.json';
 
   /// 啟動頁動畫
-  static const String splashScreen ='$animationPathJson/logo_start_animation.mp4';
+  static const String splashScreen =
+      '$animationPathJson/logo_start_animation.mp4';
 
   /// 活動預約成功
   static const String activitySuccess = 'confetti_transparent.gif';

@@ -58,7 +58,7 @@ class LoginMainViewModel extends BaseViewModel {
           pushOpacityPage(
               context,
               FullAnimationPage(
-                  limitTimer: 2,
+                  limitTimer: 3,
                   isFile: true,
                   animationPath: path,
                   runFunction: () async {

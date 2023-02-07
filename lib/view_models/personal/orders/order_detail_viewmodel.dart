@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:treasure_nft_project/constant/enum/setting_enum.dart';
 import 'package:treasure_nft_project/constant/enum/team_enum.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/api/order_api.dart';
 import 'package:treasure_nft_project/utils/app_shared_Preferences.dart';
@@ -11,16 +12,15 @@ import 'package:treasure_nft_project/view_models/base_list_view_model.dart';
 import 'package:treasure_nft_project/widgets/card/item_info_card.dart';
 import 'package:treasure_nft_project/widgets/card/saves_info_card.dart';
 
-import '../../../models/http/parameter/user_property.dart';
 import '../../../widgets/card/data/card_showing_data.dart';
 import '../../../widgets/date_picker/custom_date_picker.dart';
-import '../../base_view_model.dart';
 
 class OrderDetailViewModel extends BaseListViewModel {
   OrderDetailViewModel({
     required super.onListChange,
     this.type = EarningIncomeType.ALL,
     super.hasTopView = true,
+    super.padding
   });
 
   double income = GlobalData.totalIncome ?? 0;
@@ -112,17 +112,24 @@ class OrderDetailViewModel extends BaseListViewModel {
 
   @override
   Widget buildTopView() {
-    return CustomDatePickerWidget(
-      dateCallback: _callback,
-      typeCallback: _callType,
-      initType: currentType,
-      typeList: const [
-        Search.All,
-        Search.Today,
-        Search.Yesterday,
-        Search.SevenDays,
-        Search.ThirtyDays
-      ],
+    return Container(
+      padding: const EdgeInsets.fromLTRB(5, 0, 5, 10),
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
+        color: AppColors.textWhite,
+      ),
+      child: CustomDatePickerWidget(
+        dateCallback: _callback,
+        typeCallback: _callType,
+        initType: currentType,
+        typeList: const [
+          Search.All,
+          Search.Today,
+          Search.Yesterday,
+          Search.SevenDays,
+          Search.ThirtyDays
+        ],
+      )
     );
   }
 

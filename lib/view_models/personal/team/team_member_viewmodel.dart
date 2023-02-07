@@ -7,8 +7,6 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/api/group_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/lower_invite_data.dart';
 import 'package:treasure_nft_project/models/http/parameter/lower_nft_data.dart';
-import 'package:treasure_nft_project/models/http/parameter/team_contribute_data.dart';
-import 'package:treasure_nft_project/models/http/parameter/team_contribute_list_data.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_group_list.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_members.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
@@ -83,22 +81,22 @@ class TeamMemberViewModel extends BaseViewModel {
     return DateFormat('yyyy-MM-dd').format(dateTime);
   }
 
-  Widget getCoinImage() {
+  Widget getCoinImage({double size = 14}) {
     return SizedBox(
-      height: UIDefine.getScreenWidth(4),
+      height: UIDefine.getPixelWidth(size),
       child: Image.asset(AppImagePath.tetherImg),
     );
   }
 
   BoxDecoration setBoxDecoration() {
     return BoxDecoration(
-        border: Border.all(width: 3, color: AppColors.datePickerBorder),
-        borderRadius: BorderRadius.circular(10));
+        border: Border.all(width: 1, color: AppColors.bolderGrey),
+        borderRadius: BorderRadius.circular(8));
   }
 
   OutlineInputBorder setOutlineInputBorder() {
     return const OutlineInputBorder(
-        borderSide: BorderSide(color: AppColors.datePickerBorder, width: 3),
-        borderRadius: BorderRadius.all(Radius.circular(10)));
+        borderSide: BorderSide(color: AppColors.bolderGrey, width: 1),
+        borderRadius: BorderRadius.all(Radius.circular(8)));
   }
 }

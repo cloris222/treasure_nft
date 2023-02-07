@@ -1,14 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/theme/app_style.dart';
 import '../../constant/ui_define.dart';
-import '../button/action_button_widget.dart';
 import '../button/login_button_widget.dart';
-import '../gradient_text.dart';
 import '../label/level_detail.dart';
 
 class NewReservationPopUpView extends StatefulWidget {
@@ -16,9 +14,9 @@ class NewReservationPopUpView extends StatefulWidget {
       {Key? key,
       this.backgroundColor = AppColors.opacityBackground,
       required this.confirmBtnAction,
-        required this.reservationFee,
-        required this.transactionTime,
-        required this.transactionReward})
+      required this.reservationFee,
+      required this.transactionTime,
+      required this.transactionReward})
       : super(key: key);
 
   final Color backgroundColor;
@@ -58,34 +56,41 @@ class _NewReservationPopUpViewState extends State<NewReservationPopUpView> {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
-            child: Image.asset(
-              AppImagePath.countDownBackground,
-              width: UIDefine.getWidth(),
-              fit: BoxFit.cover,
+            child: Container(
+              width: UIDefine.getWidth() * 0.9,
+              height: UIDefine.getWidth() * 0.9,
+              color: Colors.white,
+              child: Image.asset(
+                AppImagePath.countDownBackground,
+                width: UIDefine.getWidth(),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-          Container(
-            width: UIDefine.getWidth() / 1.1,
-            height: UIDefine.getWidth() * 0.8,
-            decoration: AppStyle().styleColorBorderBackground(
-                color: Colors.white,
-                backgroundColor: Colors.transparent,
-                borderLine: 2),
+          Positioned.fill(
+            child: Container(
+              margin: EdgeInsets.all(UIDefine.getPixelWidth(15)),
+              decoration: AppStyle().styleColorBorderBackground(
+                  color: Colors.white,
+                  backgroundColor: Colors.white.withOpacity(0.5),
+                  borderLine: 2),
+            ),
           ),
-          Container(
-            width: UIDefine.getWidth() / 1.2,
-            height: UIDefine.getWidth() * 0.72,
-            decoration: AppStyle().styleColorsRadiusBackground(
-                color: Colors.white.withOpacity(0.5)),
+          Positioned.fill(
+            child: Container(
+              margin: EdgeInsets.all(UIDefine.getPixelWidth(25)),
+              decoration: AppStyle().styleColorsRadiusBackground(
+                  color: Colors.white.withOpacity(0.78)),
+            ),
           ),
           Positioned(
-              top: 5,
-              right: 5,
+              top: UIDefine.getPixelWidth(10),
+              right: UIDefine.getPixelWidth(10),
               child: InkWell(
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  child: Image.asset(AppImagePath.closeDialogBtn))),
+                  child: Image.asset(AppImagePath.dialogCloseBtn))),
           Positioned(left: 0, right: 0, child: (_reservationContent(context)))
         ],
       ),
@@ -98,10 +103,12 @@ class _NewReservationPopUpViewState extends State<NewReservationPopUpView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          GradientText(
+          Text(
             tr("reserve"),
-            size: UIDefine.fontSize24,
-            weight: FontWeight.w500,
+            style: AppTextStyle.getBaseStyle(
+                color: AppColors.textThreeBlack,
+                fontWeight: FontWeight.w600,
+                fontSize: UIDefine.fontSize16),
           ),
           SizedBox(
             height: UIDefine.getHeight() / 25,
@@ -110,30 +117,40 @@ class _NewReservationPopUpViewState extends State<NewReservationPopUpView> {
             title: tr('reservationFee'),
             showCoins: false,
             content: widget.reservationFee,
-            rightFontWeight: FontWeight.w500,
+            leftFontWeight: FontWeight.w400,
+            rightFontWeight: FontWeight.w600,
           ),
-          LevelDetailLabel(
-            title: tr('transactionHour'),
-            showCoins: false,
-            content: widget.transactionTime,
-            rightFontWeight: FontWeight.w500,
-          ),
+          // LevelDetailLabel(
+          //   title: tr('transactionHour'),
+          //   showCoins: false,
+          //   content: widget.transactionTime,
+          //   leftFontWeight: FontWeight.w400,
+          //   rightFontWeight: FontWeight.w600,
+          // ),
           LevelDetailLabel(
             title: tr('transactionReward'),
             showCoins: false,
             content: '${widget.transactionReward}%',
-            rightFontWeight: FontWeight.w500,
+            leftFontWeight: FontWeight.w400,
+            rightFontWeight: FontWeight.w600,
           ),
           SizedBox(
-            height: UIDefine.getHeight() / 30,
+            height: UIDefine.getPixelWidth(10),
           ),
-          LoginButtonWidget(
-            width: UIDefine.getWidth() / 3,
-            height: UIDefine.getHeight() / 20,
-            btnText: tr('check'),
-            fontSize: UIDefine.fontSize14,
-            fontWeight: FontWeight.w500,
-            onPressed: widget.confirmBtnAction
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              LoginButtonWidget(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: UIDefine.getPixelWidth(15),
+                      vertical: UIDefine.getPixelWidth(5)),
+                  isFillWidth: false,
+                  btnText: tr('check'),
+                  height: UIDefine.getPixelWidth(40),
+                  fontSize: UIDefine.fontSize14,
+                  fontWeight: FontWeight.w600,
+                  onPressed: widget.confirmBtnAction),
+            ],
           )
         ],
       ),

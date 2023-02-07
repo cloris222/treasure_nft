@@ -4,8 +4,10 @@ import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/widgets/gradient_text.dart';
 import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
@@ -37,40 +39,47 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
   @override
   Widget build(BuildContext context) {
     return CustomAppbarView(
-        needCover: true,
-        title: tr('winnersList'),
-        body: Stack(
-          children: [
-            Container(
-                width: UIDefine.getWidth(),
-                constraints:
-                    BoxConstraints(minHeight: UIDefine.getPixelHeight(1115)),
-                padding: EdgeInsets.only(
-                  top:UIDefine.getPixelHeight(70),
-                    left: UIDefine.getScreenWidth(8),
-                    right: UIDefine.getScreenWidth(8)),
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(AppImagePath.tradeDrawBg),
-                        fit: BoxFit.fill)),
-                child: Column(children: [
-                  _buildActivityInfoView(),
-                  SizedBox(height: UIDefine.getPixelHeight(70)),
-                  _buildActivityAward(),
-                  _buildBar(),
-                  _buildDrawResultView()
-                ])),
-            Positioned(
-                right: 0,
-                top: UIDefine.getPixelHeight(50),
-                child: Image.asset(
-                  AppImagePath.tradeDrawCoin,
-                  width: UIDefine.getWidth() * 0.3,
-                  fit: BoxFit.fitWidth,
-                ))
-          ],
-        ),
-        needScrollView: true);
+      needCover: true,
+      body: Stack(
+        children: [
+          Container(
+              width: UIDefine.getWidth(),
+              constraints:
+                  BoxConstraints(minHeight: UIDefine.getPixelHeight(1115)),
+              padding: EdgeInsets.only(
+                  top: UIDefine.getPixelHeight(70),
+                  left: UIDefine.getScreenWidth(8),
+                  right: UIDefine.getScreenWidth(8)),
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(AppImagePath.tradeDrawBg),
+                      fit: BoxFit.fill)),
+              child: Column(children: [
+                TitleAppBar(title: tr("winnersList")),
+                _buildActivityInfoView(),
+                SizedBox(height: UIDefine.getPixelHeight(70)),
+                _buildActivityAward(),
+                _buildBar(),
+                _buildDrawResultView(),
+                SizedBox(height: UIDefine.navigationBarPadding)
+              ])),
+          Positioned(
+              right: 0,
+              top: UIDefine.getPixelHeight(50),
+              child: Image.asset(
+                AppImagePath.tradeDrawCoin,
+                width: UIDefine.getWidth() * 0.3,
+                fit: BoxFit.fitWidth,
+              ))
+        ],
+      ),
+      needScrollView: true,
+      onLanguageChange: () {
+        if (mounted) {
+          setState(() {});
+        }
+      },
+    );
   }
 
   ///MARK: 活動資訊
@@ -102,7 +111,7 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
   }
 
   Widget _buildActivityDate() {
-    TextStyle textStyle = TextStyle(
+    TextStyle textStyle = AppTextStyle.getBaseStyle(
         color: AppColors.mainThemeButton,
         fontSize: UIDefine.fontSize14,
         fontWeight: FontWeight.w500);
@@ -156,12 +165,12 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
                 Expanded(
                     child: Column(children: [
                   Text(viewModel.getPrize(index),
-                      style: TextStyle(
+                      style: AppTextStyle.getBaseStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w700,
                           fontSize: UIDefine.fontSize16)),
                   Text('prize',
-                      style: TextStyle(
+                      style: AppTextStyle.getBaseStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w400,
                           fontSize: UIDefine.fontSize14))
@@ -184,7 +193,7 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
                             .integerFormat(viewModel.getPrizeAmount(index)),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
+                        style: AppTextStyle.getBaseStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
                             fontSize: UIDefine.fontSize16))),
@@ -195,7 +204,7 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
               ]),
               Center(
                   child: Text('${viewModel.getPrizePerson(index)} person',
-                      style: TextStyle(
+                      style: AppTextStyle.getBaseStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w400,
                           fontSize: UIDefine.fontSize14)))
@@ -250,7 +259,7 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Image.asset(AppImagePath.tradeDrawResultStar),
                   Text(' ${viewModel.getFullPrize(index + 1)} prize',
-                      style: TextStyle(
+                      style: AppTextStyle.getBaseStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w700,
                           fontSize: UIDefine.fontSize16))
@@ -274,7 +283,7 @@ class _TradeDrawResultPageState extends State<TradeDrawResultPage> {
                         child: Text(
                             viewModel.drawResultInfo!.prizeList[index]
                                 .winners[subIndex],
-                            style: TextStyle(
+                            style: AppTextStyle.getBaseStyle(
                                 color: Colors.white,
                                 fontSize: UIDefine.fontSize12,
                                 fontWeight: FontWeight.w500)),

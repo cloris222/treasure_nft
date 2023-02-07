@@ -4,11 +4,11 @@ import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
 import '../../view_models/collection/collection_main_view_model.dart';
-import '../app_bottom_navigation_bar.dart';
 import '../dialog/simple_custom_dialog.dart';
 import 'data/card_showing_data.dart';
 
@@ -69,17 +69,17 @@ class _OrderInfoCard extends State<OrderInfoCard> {
                   children: [
                     Text(
                       tr('orderNo') + ':',
-                      style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
+                      style: AppTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       widget.orderNumber,
-                      style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
+                      style: AppTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       widget.dateTime,
-                      style: TextStyle(color: AppColors.searchBar, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+                      style: AppTextStyle.getBaseStyle(color: AppColors.searchBar, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),
@@ -95,7 +95,7 @@ class _OrderInfoCard extends State<OrderInfoCard> {
                         padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
                         child: Text(
                           _getLuckyStrawString(),
-                          style: TextStyle(color: _getLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+                          style: AppTextStyle.getBaseStyle(color: _getLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
                         )
                     )
                 )
@@ -189,7 +189,7 @@ class _OrderInfoCard extends State<OrderInfoCard> {
                 children: [
                   Text(
                     tr(widget.dataList[i].title), // 在外部要塞多語系的key
-                    style: TextStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                    style: AppTextStyle.getBaseStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                   ),
                   Row(
                     children: [
@@ -203,7 +203,7 @@ class _OrderInfoCard extends State<OrderInfoCard> {
                         BaseViewModel().numberFormat(widget.dataList[i].content)
                             :
                         widget.dataList[i].content,
-                        style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                        style: AppTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                       )
                     ],
                   )
@@ -237,7 +237,7 @@ class _OrderInfoCard extends State<OrderInfoCard> {
                     width: UIDefine.getScreenWidth(50),
                     child: Text(
                       widget.itemName,
-                      style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize18, fontWeight: FontWeight.w500),
+                      style: AppTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize18, fontWeight: FontWeight.w500),
                     )
                 ),
 
@@ -247,7 +247,7 @@ class _OrderInfoCard extends State<OrderInfoCard> {
                   children: [
                     Text(
                       tr("theAmountGoods"),
-                      style: TextStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                      style: AppTextStyle.getBaseStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                     ),
 
                     SizedBox(width: UIDefine.getScreenWidth(3)),
@@ -258,7 +258,7 @@ class _OrderInfoCard extends State<OrderInfoCard> {
                         const SizedBox(width: 2.5),
                         Text(
                           BaseViewModel().numberFormat(widget.price),
-                          style: TextStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                          style: AppTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                         )
                       ],
                     )
@@ -274,7 +274,7 @@ class _OrderInfoCard extends State<OrderInfoCard> {
             visible: bNotEnoughMoney,
             child: Text(
               tr('insufficientBalance'),
-              style: TextStyle(color: AppColors.dialogGrey,
+              style: AppTextStyle.getBaseStyle(color: AppColors.dialogGrey,
                   fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
             )
         ),

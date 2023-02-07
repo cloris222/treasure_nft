@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/views/personal/team/share_team_order_page.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
@@ -133,7 +134,7 @@ class _BuyerSellerInfoCard extends State<BuyerSellerInfoCard> {
                           bShowMore? tr('SeeLess') : tr('SeeMore')
                               :
                           tr(dataList[i].title), // 在外部要塞多語系的key
-                          style: TextStyle(color: _setTextColor(dataList[i]),
+                          style: AppTextStyle.getBaseStyle(color: _setTextColor(dataList[i]),
                               fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                         ),
 
@@ -161,7 +162,7 @@ class _BuyerSellerInfoCard extends State<BuyerSellerInfoCard> {
                                 :
                             tr(dataList[i].content),
                             softWrap: true,
-                            style: TextStyle(color: _setTextColor(dataList[i]),
+                            style: AppTextStyle.getBaseStyle(color: _setTextColor(dataList[i]),
                                 fontSize: i == dataList.length - 1 ? UIDefine.fontSize12 : UIDefine.fontSize14,
                                 fontWeight: FontWeight.w500),
                           )
@@ -195,7 +196,7 @@ class _BuyerSellerInfoCard extends State<BuyerSellerInfoCard> {
           children: [
             Text(
               tr(moreInfoDataList[i].title),
-              style: TextStyle(color: AppColors.textGrey,
+              style: AppTextStyle.getBaseStyle(color: AppColors.textGrey,
                   fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
             ),
 
@@ -210,13 +211,24 @@ class _BuyerSellerInfoCard extends State<BuyerSellerInfoCard> {
 
                 GestureDetector( // 買賣家可以點擊，跳轉到收藏頁
                   onTap: () => _onTapBuyerSeller(i),
-                  child: Text(
-                    i < 3 ?
-                    tr(moreInfoDataList[i].content)
-                        :
-                    BaseViewModel().numberFormat(moreInfoDataList[i].content), // 金額取小數點後兩位
-                    style: TextStyle(color: i == 1? AppColors.mainThemeButton : AppColors.textBlack,
-                        fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                  child: ShaderMask(
+                    blendMode: BlendMode.srcIn,
+                    shaderCallback: (bounds) =>  LinearGradient(
+                        begin: Alignment.bottomLeft,
+                        end:  Alignment.topRight,
+                        colors:i == 1? AppColors.gradientBaseColorBg
+                            :[AppColors.textBlack,AppColors.textBlack])
+                        .createShader(
+                      Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+                    ),
+                    child: Text(
+                      i < 3 ?
+                      tr(moreInfoDataList[i].content)
+                          :
+                      BaseViewModel().numberFormat(moreInfoDataList[i].content), // 金額取小數點後兩位
+                      style: AppTextStyle.getBaseStyle(color: i == 1? AppColors.mainThemeButton : AppColors.textBlack,
+                          fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                    ),
                   )
                 )
               ]
@@ -231,7 +243,7 @@ class _BuyerSellerInfoCard extends State<BuyerSellerInfoCard> {
     if (index == 1) { // 固定位置中上是買賣家
       bool isSeller = moreInfoDataList.length > 3;
       BaseViewModel().pushPage(context,
-          OtherCollectPage(isSeller: isSeller, orderNo: widget.data.orderNo));
+          OtherCollectPage(isSeller: !isSeller, orderNo: widget.data.orderNo));
     }
   }
 

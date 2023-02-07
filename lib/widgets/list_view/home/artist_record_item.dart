@@ -1,28 +1,29 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/enum/style_enum.dart';
 import 'package:treasure_nft_project/constant/subject_key.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
-import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
-import 'package:treasure_nft_project/models/http/parameter/home_artist_record.dart';
+import 'package:treasure_nft_project/models/http/parameter/collect_top_info.dart';
+import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/home/home_observer.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
-import '../../../utils/number_format_util.dart';
 import '../../../views/explore/data/explore_main_response_data.dart';
 import '../../../views/explore/homepage/explore_artist_home_page_view.dart';
-import '../../label/coin/tether_coin_widget.dart';
 
 class ArtistRecordItemView extends StatefulWidget {
   const ArtistRecordItemView(
       {super.key,
       required this.itemData,
+      required this.index,
       required this.viewModel,
       required this.subjectKey});
 
-  final ArtistRecord itemData;
+  final CollectTopInfo itemData;
+  final int index;
   final HomeMainViewModel viewModel;
   final String subjectKey;
 
@@ -36,7 +37,6 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
     return widget.viewModel;
   }
 
-  bool show = false;
   late AnimationController controller;
   late HomeObserver observer;
 
@@ -93,192 +93,90 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
   }
 
   Widget _buildItem() {
-    return Container(
-      decoration: show
-          ? AppStyle().styleColorsRadiusBackground(color: AppColors.homeArtBg)
-          : null,
-      padding: show
-          ? EdgeInsets.symmetric(vertical: UIDefine.getScreenHeight(2))
-          : null,
-      child: Column(
-        children: [
-          GestureDetector(
-            onTap: _onShowArt,
-            child: Container(
-                padding: const EdgeInsets.all(10),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text('${widget.itemData.sort}',
-                          style: TextStyle(
-                              fontSize: UIDefine.fontSize14,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.font02)),
-                      viewModel.buildSpace(width: 1),
-
-                      /// Avatar
-                      SizedBox(
-                        height: UIDefine.getWidth() * 0.1,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: GraduallyNetworkImage(
-                            imageUrl: widget.itemData.avatarUrl,
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                      ),
-                      viewModel.buildSpace(width: 1),
-
-                      Expanded(
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                            /// NAME
-                            Text(widget.itemData.name,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    fontSize: UIDefine.fontSize14,
-                                    color: AppColors.textBlack,
-                                    fontWeight: FontWeight.w400)),
-
-                            viewModel.buildSpace(height: 1),
-
-                            /// Vol. & Sales
-                            Row(children: [
-                              _buildVolView(
-                                  tr('lastDayAmount'), widget.itemData.ydayAmt),
-                              const SizedBox(width: 20),
-                              _buildVolView(tr('transcationAmount'),
-                                  widget.itemData.amtTotal),
-                            ])
-                          ])),
-                      viewModel.buildSpace(width: 5),
-                      InkWell(
-                        onTap: _flipView,
-                        child: Container(
-                          alignment: Alignment.center,
-                          width: UIDefine.getScreenWidth(4),
-                          child: Image.asset(
-                            show
-                                ? AppImagePath.upArrowGrey
-                                : AppImagePath.downArrowGrey,
-                          ),
-                        ),
-                      ),
-                    ])),
-          ),
-          Visibility(
-              visible: show,
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: UIDefine.getScreenWidth(5)),
-                child: _subView(context),
-              ))
-        ],
-      ),
-    );
-  }
-
-  Widget _buildVolView(String title, String count) {
-    return Expanded(
-        child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-      Expanded(
-        child: Wrap(
-          alignment: WrapAlignment.start,
-          children: [
-            Text(title,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-                style: TextStyle(
-                    fontSize: UIDefine.fontSize12,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.font02)),
-          ],
-        ),
-      ),
-      Row(children: [
-        Text(viewModel.numberCompatFormat(count),
-            style: TextStyle(
-                fontSize: UIDefine.fontSize14,
-                fontWeight: FontWeight.w500,
-                color: AppColors.textBlack)),
-        const SizedBox(width: 5),
-        SizedBox(
-            height: UIDefine.getScreenWidth(4),
-            child: Image.asset(AppImagePath.tetherImg)),
-      ])
-    ]));
-  }
-
-  Widget _subView(BuildContext context) {
     return Column(
       children: [
-        Divider(height: UIDefine.getScreenWidth(4.16)),
-        viewModel.buildSpace(height: 0.5),
-        Row(
-          children: [
-            _buildSubItem(
-                value: double.parse(widget.itemData.baseItemPrice),
-                title: tr('floorPrice'),
-                hasCoin: true),
-            Expanded(
-              child: _buildSubItem(
-                  value: widget.itemData.ownerCount.toDouble(),
-                  title: tr('owners')),
-            ),
-            _buildSubItem(
-                value: widget.itemData.itemCount.toDouble(),
-                title: tr('creator_items')),
-          ],
-        )
-      ],
-    );
-  }
+        GestureDetector(
+          onTap: _onShowArt,
+          child: Container(
+              padding: EdgeInsets.all(UIDefine.getPixelHeight(10)),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text('${widget.index + 1}',
+                        style: AppTextStyle.getBaseStyle(
+                            fontSize: UIDefine.fontSize16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black,
+                            fontFamily: AppTextFamily.Posterama1927)),
+                    viewModel.buildSpace(width: 1),
 
-  Widget _buildSubItem(
-      {bool hasCoin = false, required double value, required String title}) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(children: [
-              Text(NumberFormatUtil().removeTwoPointFormat(value),
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: UIDefine.fontSize14)),
-              SizedBox(width: UIDefine.getScreenWidth(1)),
-              Visibility(
-                  visible: hasCoin,
-                  child: TetherCoinWidget(
-                    size: UIDefine.getScreenWidth(4),
-                  ))
-            ]),
-            Text(
-              title,
-              style: TextStyle(
-                  fontSize: UIDefine.fontSize12, color: AppColors.dialogGrey),
-            ),
-          ],
+                    /// Avatar
+                    SizedBox(
+                      height: UIDefine.getPixelHeight(50),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: GraduallyNetworkImage(
+                          imageUrl: widget.itemData.avatarUrl,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
+                    viewModel.buildSpace(width: 1.5),
+
+                    Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          /// NAME
+                          Text(widget.itemData.artistName,
+                              overflow: TextOverflow.ellipsis,
+                              style: AppTextStyle.getBaseStyle(
+                                  fontSize: UIDefine.fontSize14,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w400)),
+
+                          viewModel.buildSpace(height: 1),
+
+                          _buildVolView('${widget.itemData.volume}'),
+                        ]),
+                    const Spacer(),
+                    Text(
+                        '${widget.itemData.growthRate >= 0 ? '+' : ''} ${NumberFormatUtil().removeTwoPointFormat(widget.itemData.growthRate)}%',
+                        style: AppTextStyle.getBaseStyle(
+                            color: widget.itemData.growthRate >= 0
+                                ? AppColors.rateGreen
+                                : AppColors.rateRed,
+                            fontSize: UIDefine.fontSize16,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: AppTextFamily.Posterama1927)),
+                    viewModel.buildSpace(width: 1.5),
+                  ])),
         ),
       ],
     );
   }
 
-  void _flipView() {
-    setState(() {
-      show = !show;
-    });
+  Widget _buildVolView(String count) {
+    return Row(children: [
+      SizedBox(
+          height: UIDefine.getScreenWidth(4),
+          child: Image.asset(AppImagePath.tetherImg)),
+      const SizedBox(width: 5),
+      Text(viewModel.numberCompatFormat(count),
+          style: AppTextStyle.getBaseStyle(
+              fontSize: UIDefine.fontSize12,
+              fontWeight: FontWeight.w600,
+              color: AppColors.textSixBlack,
+              fontFamily: AppTextFamily.Posterama1927)),
+    ]);
   }
 
   void _onShowArt() {
     ExploreMainResponseData data = ExploreMainResponseData(
-        artistName: widget.itemData.name,
-        artistId: widget.itemData.id,
+        artistName: widget.itemData.artistName,
+        artistId: widget.itemData.artistId,
         avatarUrl: widget.itemData.avatarUrl,
         introPhoneUrl: widget.itemData.introPhoneUrl,
         introPcUrl: widget.itemData.introPcUrl);

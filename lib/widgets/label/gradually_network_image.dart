@@ -69,7 +69,8 @@ class GraduallyNetworkImage extends StatelessWidget {
         Config("flutterCampus", stalePeriod: const Duration(minutes: 5)),
       ),
       imageBuilder: _buildImageBuilder(),
-      // placeholder: (context, url) => _buildLoadingIcon(),
+      placeholder: (context, url) =>
+          Container(width: width, height: width, color: Colors.white),
       errorWidget: (context, url, error) => _buildLoadNormal(fail: true),
     );
   }

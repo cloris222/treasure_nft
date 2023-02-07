@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_colors.dart';
@@ -42,7 +43,7 @@ class SuccessBottomSheet extends BaseBottomSheet {
               children: [
                 Text(mainText,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: AppTextStyle.getBaseStyle(
                         color: AppColors.textBlack,
                         fontSize: UIDefine.fontSize20,
                         fontWeight: FontWeight.w500)),
@@ -51,7 +52,7 @@ class SuccessBottomSheet extends BaseBottomSheet {
                         margin: const EdgeInsets.only(top: 10, bottom: 10),
                         child: Text(subText,
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: AppTextStyle.getBaseStyle(
                                 color: AppColors.textGrey, fontSize: UIDefine.fontSize12)),
                       )
                     : Container(margin: const EdgeInsets.only(top: 10)),

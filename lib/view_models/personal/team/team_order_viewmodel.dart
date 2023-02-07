@@ -7,10 +7,12 @@ class TeamOrderViewModel extends BaseListViewModel {
   TeamOrderViewModel(
       {required super.onListChange,
       super.hasTopView = true,
-      required this.topView});
+      required this.topView,
+      super.padding});
 
   String startDate = '';
   String endDate = '';
+
   // bool isSortDesc = true;
   String sortType = 'time';
   String nameAcct = '';

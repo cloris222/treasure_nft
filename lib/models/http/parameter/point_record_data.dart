@@ -88,8 +88,7 @@ class PointRecordData {
     switch (type) {
       case PointType.DAILY:
         {
-          return format(
-              '${AppImagePath.dailyMission}/dm_{index}_01_{strStatus}.png', {
+          return format(AppImagePath.dailyPath, {
             'index':
                 NumberFormatUtil().integerTwoFormat(getDailyCodeIndex() + 1),
             'strStatus': 'focus'
@@ -97,13 +96,11 @@ class PointRecordData {
         }
       case PointType.ACHIEVEMENT:
         {
-          return format(
-              '${AppImagePath.achievementMission}/ma_{index}_01_{strStatus}.png',
-              {
-                'index': NumberFormatUtil()
-                    .integerTwoFormat(getAchievementCodeIndex() + 1),
-                'strStatus': 'focus'
-              });
+          return format(AppImagePath.achievementPath, {
+            'index': NumberFormatUtil()
+                .integerTwoFormat(getAchievementCodeIndex() + 1),
+            'strStatus': 'focus'
+          });
         }
       case PointType.LEVEL_UP_SUBTRACT:
         {

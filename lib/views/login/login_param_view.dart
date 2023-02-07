@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
@@ -19,6 +20,7 @@ class LoginParamView extends StatelessWidget {
     this.keyboardType,
     this.bPasswordFormatter = false,
     this.bLimitDecimalLength = false,
+    this.bShowRed = false,
   }) : super(key: key);
   final String titleText;
   final String hintText;
@@ -28,6 +30,7 @@ class LoginParamView extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final GestureTapCallback? onTap;
   final TextInputType? keyboardType;
+  final bool bShowRed;
 
   ///MARK: 帳號輸入資訊限制
   final bool bPasswordFormatter;
@@ -45,7 +48,7 @@ class LoginParamView extends StatelessWidget {
         controller: controller,
         initColor: data.result ? AppColors.bolderGrey : AppColors.textRed,
         enabledColor: data.result ? AppColors.bolderGrey : AppColors.textRed,
-        focusedColor: AppColors.mainThemeButton,
+        bFocusedGradientBolder: true,
         isSecure: isSecure,
         onChanged: onChanged,
         onTap: onTap,
@@ -57,10 +60,25 @@ class LoginParamView extends StatelessWidget {
   }
 
   Widget _buildTextTitle(String text) {
-    return Container(
+    return SizedBox(
         // margin: const EdgeInsets.symmetric(vertical: 5), // (Ethan改) LoginTextWidget已有上下5 margin 間距過大
-        child: Text(text,
-            style: TextStyle(
-                fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14)));
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+                text,
+                style: AppTextStyle.getBaseStyle(
+                    fontSize: UIDefine.fontSize14,
+                    color: AppColors.textThreeBlack)),
+
+            bShowRed ?
+            Text(
+                '*', style: AppTextStyle.getBaseStyle(
+                color: AppColors.textRed, fontSize: UIDefine.fontSize20)
+            ) :
+              const SizedBox()
+          ],
+        )
+    );
   }
 }

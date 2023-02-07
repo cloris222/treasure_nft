@@ -14,8 +14,11 @@ import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/api/ios_payment_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/ios_purchase/ios_product_data.dart';
+import 'package:treasure_nft_project/views/custom_appbar_view.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import 'package:treasure_nft_project/widgets/button/text_button_widget.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 import '../../../constant/theme/app_animation_path.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
@@ -190,13 +193,35 @@ class _AppPurchaseState extends State<AppPurchase> {
       );
     }
 
-    return Scaffold(
-      appBar: CustomAppBar.getCornerAppBar(() {
-        Navigator.pop(context);
-      }, tr("usdt-type-BUY_ITEM'"),
-          fontSize: UIDefine.fontSize24, arrowFontSize: UIDefine.fontSize24),
-      body: Stack(
-        children: stack,
+    return CustomAppbarView(
+      needScrollView: false,
+      onLanguageChange: () {
+        if (mounted) {
+          setState(() {});
+        }
+      },
+      body: Container(
+        width: UIDefine.getWidth(),
+        height: UIDefine.getHeight(),
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(AppImagePath.backgroundLand),
+                fit: BoxFit.fill)),
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(10)),
+              child: const TitleAppBar(
+                title: '',
+              ),
+            ),
+            Expanded(
+              child: Stack(
+                children: stack,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -216,7 +241,8 @@ class _AppPurchaseState extends State<AppPurchase> {
     if (_notFoundIds.isNotEmpty) {
       productList.add(ListTile(
           title: Text('[${_notFoundIds.join(", ")}] not found',
-              style: TextStyle(color: ThemeData.light().errorColor)),
+              style: AppTextStyle.getBaseStyle(
+                  color: ThemeData.light().errorColor)),
           subtitle: const Text(
               'This app needs special configuration to run. Please see example/README.md for instructions.')));
     }
@@ -281,14 +307,16 @@ class _AppPurchaseState extends State<AppPurchase> {
                           )),
                       Text(
                         productDetails.title,
-                        style: TextStyle(
+                        style: AppTextStyle.getBaseStyle(
                             fontSize: UIDefine.fontSize24,
                             fontWeight: FontWeight.w500),
                       )
                     ],
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: UIDefine.getPixelWidth(15),bottom: UIDefine.getPixelHeight(3)),
+                    margin: EdgeInsets.only(
+                        left: UIDefine.getPixelWidth(15),
+                        bottom: UIDefine.getPixelHeight(3)),
                     alignment: Alignment.centerLeft,
                     child: Text(
                       tr("appPurchaseDescription"),

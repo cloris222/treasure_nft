@@ -69,38 +69,77 @@ class _GetCollectionMainListview extends State<GetCollectionMainListview> {
         }
         return true;
       },
-      child: ListView.separated(
-          shrinkWrap: true,
-          itemCount: _getItemCount(),
-          itemBuilder: (context, index) {
-            return _createItemBuilder(context, index);
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return _createSeparatorBuilder(context, index);
-          })
+      child: ListView.builder(
+        padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
+        shrinkWrap: true,
+        itemCount: _getItemCount(),
+        itemBuilder: (context, index) {
+          return _createItemBuilder(index);
+        },
+      )
+
     );
   }
 
-  Widget _createItemBuilder(BuildContext context, int index) {
+  Widget _createItemBuilder(int index) {
+    if (index == 0) {
+      return _getDepositAndSwitchBtn(); // 充值按鈕
+    }
+
     if (currentType == 'Reservation') { // 今日預約
-      return _getReservationListViewItem(reserveList[index], index);
+      return _getReservationListViewItem(reserveList[index - 1], index - 1);
 
     } else if (currentType == 'Selling') { // 上架中
-      if (index == 0) {
-        return const SizedBox(); // 上架中不會有充值按鈕(但共用itemList 所以要判)
-      }
-      return _getSellingListViewItem(itemsList[index - 1], index - 1);
+      return _makeTwoColumnsOfItem(true, index - 1);
 
     } else if (currentType == 'Pending') { // 未上架
-      if (index - 1 < 0) {
-        return _getDepositAndSwitchBtn();
-      } else {
-        return _getPendingListViewItem(itemsList[index - 1], index - 1);
-      }
+      return _makeTwoColumnsOfItem(false, index - 1);
 
     } else { // 我的票券
-      return _getTicketListViewItem(ticketList[index], index);
+      return _getTicketListViewItem(ticketList[index - 1], index - 1);
     }
+  }
+
+  Widget _makeTwoColumnsOfItem(bool isSelling, int index) {
+    if (index % 2 == 0 &&
+        index == itemsList.length - 1) {
+      return Padding(
+          padding: EdgeInsets.fromLTRB(
+              UIDefine.getScreenWidth(4),
+              0,
+              0,
+              UIDefine.getScreenWidth(4)),
+          child: Wrap(
+            children: [
+              isSelling ?
+              _getSellingListViewItem(itemsList[index], index) :
+              _getPendingListViewItem(itemsList[index], index),
+            ],
+          ));
+    }
+    if (index % 2 != 0) {
+      return Container();
+    }
+    return Padding(
+      padding: EdgeInsets.fromLTRB(
+          UIDefine.getScreenWidth(4),
+          0,
+          UIDefine.getScreenWidth(4),
+          UIDefine.getScreenWidth(4)),
+      child: Wrap(
+        children: [
+          isSelling ?
+          _getSellingListViewItem(itemsList[index], index) :
+          _getPendingListViewItem(itemsList[index], index),
+
+          SizedBox(width: UIDefine.getScreenWidth(2.7)),
+
+          isSelling ?
+          _getSellingListViewItem(itemsList[index + 1], index + 1) :
+          _getPendingListViewItem(itemsList[index + 1], index + 1)
+        ],
+      ),
+    );
   }
 
   Widget _createSeparatorBuilder(BuildContext context, int index) {
@@ -108,14 +147,15 @@ class _GetCollectionMainListview extends State<GetCollectionMainListview> {
   }
 
   int _getItemCount() {
+    // +1 => 要有按鈕充值按鈕
     if (currentType == 'Reservation') {
-      return reserveList.length;
+      return reserveList.length + 1;
 
     } else if (currentType == 'Ticket'){
-      return ticketList.length;
+      return ticketList.length + 1;
     }
 
-    return itemsList.length + 1; // 未上架要有按鈕
+    return itemsList.length + 1;
   }
 
   Widget _getDepositAndSwitchBtn() {
@@ -141,10 +181,10 @@ class _GetCollectionMainListview extends State<GetCollectionMainListview> {
   }
 
   Widget _getPendingListViewItem(CollectionNftItemResponseData data, int index) {
-    // data.status = 'GIVE'; // test 已開未解鎖 測試用 目前後端都沒資料
-    // data.boxOpen = 'TRUE'; // test 已開未解鎖 測試用 目前後端都沒資料
+    // data.status = 'GIVE'; // test 已開未解鎖 測試用
+    // data.boxOpen = 'TRUE'; // test 已開未解鎖 測試用
 
-    // data.boxOpen = 'FALSE'; // test 盲盒測試用 目前後端都沒資料
+    // data.boxOpen = 'FALSE'; // test 盲盒 測試用
 
     if (data.boxOpen == 'FALSE') { // 盲盒未開
       return CollectionBlindBoxItemView(data: data, index: index,

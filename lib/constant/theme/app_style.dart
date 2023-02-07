@@ -5,7 +5,7 @@ import 'app_colors.dart';
 ///MARK: 放會重複用到的Style
 class AppStyle {
   Widget styleFillText(String text,
-      {TextStyle style = const TextStyle(),
+      {required TextStyle style,
       double minHeight = 20,
       EdgeInsetsGeometry margin = EdgeInsets.zero,
       AlignmentGeometry alignment = Alignment.centerLeft,
@@ -23,51 +23,84 @@ class AppStyle {
 
   /// 漸層色藍紫色
   BoxDecoration baseGradient(
-      {double radius = 0, Color borderColor = Colors.transparent}) {
+      {double radius = 0,
+      Color borderColor = Colors.transparent,
+      double borderWith = 1}) {
     return BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(radius)),
-        border: Border.all(color: borderColor, width: 1),
-        gradient: const LinearGradient(
-            colors: [AppColors.mainThemeButton, AppColors.subThemePurple]));
+        border: Border.all(color: borderColor, width: borderWith),
+        gradient: const LinearGradient(colors: AppColors.gradientBaseColorBg));
   }
 
-  /// 漸層色紫藍色
+  /// 漸層色紫藍色(反轉)
   BoxDecoration baseFlipGradient(
-      {double radius = 0, Color borderColor = Colors.transparent}) {
+      {double radius = 0,
+      Color borderColor = Colors.transparent,
+      double borderWith = 1}) {
     return BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(radius)),
-        border: Border.all(color: borderColor, width: 1),
-        gradient: const LinearGradient(
-            colors: [AppColors.subThemePurple, AppColors.mainThemeButton]));
+        border: Border.all(color: borderColor, width: borderWith),
+        gradient:
+            const LinearGradient(colors: AppColors.gradientBaseFlipColorBg));
   }
 
   /// 自定義漸層
   BoxDecoration buildGradient(
       {double radius = 0,
       Color borderColor = Colors.transparent,
-      required List<Color> colors}) {
+      required List<Color> colors,
+      double borderWith = 1}) {
     return BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(radius)),
-        border: Border.all(color: Colors.transparent, width: 1),
+        border: Border.all(color: Colors.transparent, width: borderWith),
         gradient: LinearGradient(colors: colors));
   }
 
-  BoxDecoration styleColorBorderBackground(
-      {double radius = 20.0,
-      Color color = Colors.grey,
-      Color backgroundColor = Colors.white,
-      double borderLine = 1}) {
+  BoxDecoration styleColorBorderBackground({
+    double radius = 20.0,
+    Color color = Colors.grey,
+    Color backgroundColor = Colors.white,
+    double borderLine = 1,
+    bool hasTopLeft = true,
+    bool hasTopRight = true,
+    bool hasBottomLef = true,
+    bool hasBottomRight = true,
+  }) {
     return BoxDecoration(
-      borderRadius: BorderRadius.all(Radius.circular(radius)),
+      borderRadius: BorderRadius.only(
+        topLeft:
+        hasTopLeft ? Radius.circular(radius) : const Radius.circular(0),
+        topRight:
+        hasTopRight ? Radius.circular(radius) : const Radius.circular(0),
+        bottomLeft:
+        hasBottomLef ? Radius.circular(radius) : const Radius.circular(0),
+        bottomRight:
+        hasBottomRight ? Radius.circular(radius) : const Radius.circular(0),
+      ),
       color: backgroundColor,
       border: Border.all(color: color, width: borderLine),
     );
   }
 
-  BoxDecoration styleColorsRadiusBackground(
-      {Color color = Colors.white, double radius = 15}) {
+  BoxDecoration styleColorsRadiusBackground({
+    Color color = Colors.white,
+    double radius = 15,
+    bool hasTopLeft = true,
+    bool hasTopRight = true,
+    bool hasBottomLef = true,
+    bool hasBottomRight = true,
+  }) {
     return BoxDecoration(
-      borderRadius: BorderRadius.all(Radius.circular(radius)),
+      borderRadius: BorderRadius.only(
+        topLeft:
+            hasTopLeft ? Radius.circular(radius) : const Radius.circular(0),
+        topRight:
+            hasTopRight ? Radius.circular(radius) : const Radius.circular(0),
+        bottomLeft:
+            hasBottomLef ? Radius.circular(radius) : const Radius.circular(0),
+        bottomRight:
+            hasBottomRight ? Radius.circular(radius) : const Radius.circular(0),
+      ),
       color: color,
     );
   }
@@ -110,9 +143,19 @@ class AppStyle {
 
   BoxDecoration styleUserSetting() {
     return styleColorBorderBackground(
-        color: AppColors.searchBar,
+        color: AppColors.bolderGrey,
         radius: 15,
         backgroundColor: Colors.transparent);
+  }
+
+  ///0px 3px 13px #E0EDE6;
+  BoxDecoration styleNewUserSetting() {
+    return styleShadowBorderBackground(
+        shadowColor: const Color(0xFFE0EDE6),
+        radius: 15,
+        offsetX: 0,
+        offsetY: 3,
+        blurRadius: 13);
   }
 
   ///MARK: 登入用

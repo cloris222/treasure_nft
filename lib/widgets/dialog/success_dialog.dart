@@ -1,10 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+
+import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
+
 import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/ui_define.dart';
-import '../button/action_button_widget.dart';
 import 'base_dialog.dart';
 
 class SuccessDialog extends BaseDialog {
@@ -12,17 +15,18 @@ class SuccessDialog extends BaseDialog {
       {this.mainText,
       this.subText = '',
       this.okText = 'OK',
-      this.mainTextSize = 27,
+      this.mainTextSize,
       this.mainMargin = const EdgeInsets.only(top: 10, bottom: 10),
       this.buttonMargin = const EdgeInsets.only(top: 10),
       this.isSuccess = true,
       super.isDialogCancel,
-      required this.callOkFunction});
+      required this.callOkFunction,
+      super.radius = 12});
 
   String? mainText;
   String subText;
   String okText;
-  double mainTextSize;
+  double? mainTextSize;
   bool isSuccess;
   EdgeInsetsGeometry mainMargin, buttonMargin;
   onClickFunction callOkFunction;
@@ -41,24 +45,36 @@ class SuccessDialog extends BaseDialog {
             margin: mainMargin,
             child: Text(mainText ?? '${tr('success')} !',
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: AppTextStyle.getBaseStyle(
                     color: AppColors.textBlack,
-                    fontSize: mainTextSize,
-                    fontWeight: FontWeight.w500)),
+                    fontSize: mainTextSize ?? UIDefine.fontSize16,
+                    fontWeight: FontWeight.w600)),
           ),
           subText.isNotEmpty
-              ? Text(subText,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: AppColors.textGrey, fontSize: UIDefine.fontSize12))
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Text(subText,
+                      textAlign: TextAlign.center,
+                      style: AppTextStyle.getBaseStyle(
+                          color: AppColors.textThreeBlack,
+                          fontSize: UIDefine.fontSize14)),
+                )
               : const Text(''),
           Container(
-            margin: EdgeInsets.zero,
-            child: ActionButtonWidget(
-                margin: EdgeInsets.symmetric(horizontal: UIDefine.getWidth() / 5),
-                btnText: tr("check"),
-                onPressed: _onPress,
-                isBorderStyle: false),
+            margin: buttonMargin,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                LoginButtonWidget(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: UIDefine.getPixelWidth(15),
+                      vertical: UIDefine.getPixelWidth(5)),
+                  isFillWidth: false,
+                  btnText: tr("check"),
+                  onPressed: _onPress,
+                ),
+              ],
+            ),
           )
         ]);
   }

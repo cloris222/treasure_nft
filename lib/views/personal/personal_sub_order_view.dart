@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
+import 'package:treasure_nft_project/views/personal/orders/order_withdraw_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/widgets/bottom_sheet/page_bottom_sheet.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_style.dart';
@@ -13,8 +16,6 @@ import '../../widgets/label/personal_param_item.dart';
 import 'orders/order_detail_page.dart';
 import 'orders/order_info_page.dart';
 import 'orders/order_recharge_page.dart';
-import 'orders/order_withdraw_page.dart';
-
 class PersonalSubOrderView extends StatelessWidget {
   const PersonalSubOrderView({Key? key, this.userOrderInfo}) : super(key: key);
   final UserOrderInfo? userOrderInfo;
@@ -42,7 +43,7 @@ class PersonalSubOrderView extends StatelessWidget {
       ),
       const SizedBox(width: 5),
       Text(tr('myOrder'),
-          style: TextStyle(
+          style: AppTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize20,
               fontWeight: FontWeight.w500,
               color: AppColors.dialogBlack)),
@@ -58,13 +59,13 @@ class PersonalSubOrderView extends StatelessWidget {
                     child: Text(tr('seeOrder'),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
+                        style: AppTextStyle.getBaseStyle(
                             fontSize: UIDefine.fontSize12,
                             color: AppColors.dialogGrey,
                             fontWeight: FontWeight.w500)),
                   ),
                   const SizedBox(width: 5),
-                  Image.asset(AppImagePath.rightArrow)
+                  Image.asset(AppImagePath.arrowRight)
                 ]),
               )))
     ]);
@@ -136,9 +137,11 @@ class PersonalSubOrderView extends StatelessWidget {
 
   void _showMyRechargePage(BuildContext context) {
     BaseViewModel().pushPage(context, const OrderRechargePage());
+    // PageBottomSheet(context, page: const OrderRechargePage()).show();
   }
 
   void _showMyWithDrawPage(BuildContext context) {
     BaseViewModel().pushPage(context, const OrderWithdrawPage());
+    // PageBottomSheet(context, page: const OrderRechargePage()).show();
   }
 }

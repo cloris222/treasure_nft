@@ -34,12 +34,13 @@ class ForgotMainViewModel extends BaseViewModel {
     emailData = ValidateResultData();
   }
 
-  void onPressCancel() {
-    setState(() {
-      resetData();
-      // accountController.text = '';
-      emailController.text = '';
-    });
+  void onPressCancel(BuildContext context) {
+    // setState(() {
+    //   resetData();
+    //   // accountController.text = '';
+    //   emailController.text = '';
+    // });
+    popPage(context);
   }
 
   void onPressConfirm(BuildContext context) {

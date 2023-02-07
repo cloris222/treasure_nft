@@ -29,14 +29,20 @@ enum LanguageType {
   ///MARK: 土耳其語
   Turkish,
 
-  ///MARK:繁體中文
-  Mandarin,
-
   ///MARK:馬來西亞
   Malaysia,
 
   ///MARK:印尼
   Indonesia,
+
+  ///MARK:日語
+  Japan,
+
+  ///MARK:簡體中文
+  Chinese,
+
+  ///MARK:繁體中文
+  Mandarin,
 }
 
 enum VideoStrEnum {
@@ -48,7 +54,7 @@ enum VideoStrEnum {
   howToViewEarnings
 }
 
-enum EarningIncomeType { ALL, TEAM, MINE ,SAVINGS}
+enum EarningIncomeType { ALL, TEAM, MINE, SAVINGS }
 
 enum HomeFooter {
   Email,

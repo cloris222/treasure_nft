@@ -1,5 +1,6 @@
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../constant/call_back_function.dart';
 import '../../constant/global_data.dart';
@@ -14,6 +15,16 @@ class ExploreItemDetailViewModel extends BaseViewModel {
 
   String getLevelImg() {
     return format(AppImagePath.level, ({'level': GlobalData.userInfo.level}));
+  }
+
+  /// 外部連結
+  Future<void> launchInBrowser(String url) async {
+    if (!await launchUrl(
+      Uri.parse(url),
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw 'Could not launch $url';
+    }
   }
 
   Future<ExploreItemResponseData> getExploreItemDetail(

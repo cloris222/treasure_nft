@@ -22,19 +22,23 @@ class AchievementMedalView extends StatelessWidget {
     for (int i = 0; i < nListCount + 1; i++) {
       List<Widget> row = [];
       row.add(Expanded(child: _buildIcon(context, i * 3)));
-      row.add(Expanded(child: _buildIcon(context, i * 3+1)));
-      row.add(Expanded(child: _buildIcon(context, i * 3+2)));
+      row.add(Expanded(child: _buildIcon(context, i * 3 + 1)));
+      row.add(Expanded(child: _buildIcon(context, i * 3 + 2)));
       lists.add(row);
     }
 
-    return ListView.builder(
-        itemBuilder: (context, index) {
-          return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: lists[index]);
-        },
-        itemCount: lists.length);
+    return Container(
+      color: Colors.white,
+      child: ListView.builder(
+          padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
+          itemBuilder: (context, index) {
+            return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: lists[index]);
+          },
+          itemCount: lists.length),
+    );
   }
 
   Widget _buildIcon(BuildContext context, int index) {
@@ -44,13 +48,13 @@ class AchievementMedalView extends StatelessWidget {
     MedalInfoData data = viewModel.medalList[index];
 
     return Container(
-        decoration: AppStyle().styleColorsRadiusBackground(
-          color: (data.code == GlobalData.userInfo.medal)
-              ? AppColors.bolderGrey
-              : Colors.transparent,
-        ),
+        decoration: (data.code == GlobalData.userInfo.medal)
+            ? AppStyle().buildGradient(
+                radius: 7, colors: AppColors.gradientBackgroundColorBg)
+            : AppStyle().styleColorsRadiusBackground(radius: 0),
         constraints: BoxConstraints(minHeight: UIDefine.getPixelHeight(160)),
         padding: const EdgeInsets.all(5),
+        margin: const EdgeInsets.all(5),
         child: InkWell(
           onTap: () {
             if (data.isFinished) {
@@ -74,8 +78,8 @@ class AchievementMedalView extends StatelessWidget {
                   maxLines: 4,
                   text: data.getMedalText(),
                   textAlign: TextAlign.center,
-                  fontWeight: FontWeight.w500,
-                  fontSize: UIDefine.fontSize14,
+                  color: AppColors.textThreeBlack,
+                  fontSize: UIDefine.fontSize12,
                 )
               ],
             ),

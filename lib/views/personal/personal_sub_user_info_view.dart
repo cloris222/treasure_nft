@@ -7,6 +7,8 @@ import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/label/custom_linear_progress.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 import 'package:treasure_nft_project/widgets/label/warp_two_text_widget.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
+
 import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
@@ -90,10 +92,10 @@ class PersonalSubUserInfoView extends StatelessWidget {
                     onTap: () => _showLevelInfoPage(context),
                     child: Row(mainAxisSize: MainAxisSize.min, children: [
                       Text(tr('levelDetail'),
-                          style: TextStyle(
+                          style: AppTextStyle.getBaseStyle(
                               fontSize: UIDefine.fontSize12,
                               color: AppColors.dialogGrey)),
-                      Image.asset(AppImagePath.rightArrow,
+                      Image.asset(AppImagePath.arrowRight,
                           height: UIDefine.fontSize16)
                     ]))
                 : const Text(''),
@@ -147,7 +149,7 @@ class PersonalSubUserInfoView extends StatelessWidget {
                                   size: UIDefine.fontSize18),
                               const SizedBox(width: 5),
                               Text('${tr('level')} ${userInfo.level}',
-                                  style: TextStyle(
+                                  style: AppTextStyle.getBaseStyle(
                                       fontSize: UIDefine.fontSize12,
                                       color: AppColors.dialogBlack)),
                             ])))),
@@ -171,7 +173,7 @@ class PersonalSubUserInfoView extends StatelessWidget {
                                       SizedBox(height: UIDefine.fontSize18),
                                       Text(
                                           '${userInfo.point} ${tr('lv_point')}',
-                                          style: TextStyle(
+                                          style: AppTextStyle.getBaseStyle(
                                               fontSize: UIDefine.fontSize12,
                                               color: AppColors.dialogBlack)),
                                     ]))))
@@ -181,7 +183,7 @@ class PersonalSubUserInfoView extends StatelessWidget {
               ? Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
                   Text(
                     '${NumberFormatUtil().integerFormat(getPointPercentage() * 100)}%',
-                    style: TextStyle(fontSize: UIDefine.fontSize12),
+                    style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12),
                   ),
                   CustomLinearProgress(
                     percentage: getPointPercentage(),

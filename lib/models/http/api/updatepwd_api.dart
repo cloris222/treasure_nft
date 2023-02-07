@@ -7,10 +7,13 @@ class UpdatePwdAPI extends HttpManager {
 
   ///MARK: 修改密碼
   Future<ApiResponse> updatePassword(
-      {required String oldPassword, required String newPassword}) async {
+      {required String oldPassword,
+      required String newPassword,
+      required String emailVerifyCode}) async {
     return await post('/user/update', data: {
-      'password': newPassword,
-      'oldPassword': oldPassword,
+      'password': newPassword.trim(),
+      'oldPassword': oldPassword.trim(),
+      'emailVerifyCode': emailVerifyCode.trim()
     });
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 import '../../constant/theme/app_colors.dart';
 import 'coin/tether_coin_widget.dart';
 
@@ -27,9 +27,9 @@ class WalletInfoItem extends StatelessWidget {
             width: fillWidth ? UIDefine.getWidth() : null,
             alignment: Alignment.center,
             child: Column(children: [
+              _buildValue(),
+              SizedBox(height: UIDefine.getPixelWidth(5)),
               Expanded(child: _buildTitle()),
-              const SizedBox(height: 5),
-              Expanded(child: _buildValue()),
             ])));
   }
 
@@ -39,25 +39,28 @@ class WalletInfoItem extends StatelessWidget {
       children: [
         TetherCoinWidget(size: UIDefine.fontSize14),
         const SizedBox(width: 5),
-        Text(NumberFormatUtil().removeTwoPointFormat(value),
-            maxLines: 1,
-            style: TextStyle(
-                fontSize: UIDefine.fontSize14,
-                color: AppColors.dialogBlack,
-                fontWeight: FontWeight.w500))
+        Flexible(
+          child: Text(NumberFormatUtil().removeTwoPointFormat(value),
+              maxLines: 1,
+              textAlign: TextAlign.start,
+              style: AppTextStyle.getBaseStyle(
+                  fontSize: UIDefine.fontSize14,
+                  color: AppColors.dialogBlack,
+                  fontWeight: FontWeight.w700)),
+        )
       ],
     );
   }
 
   Widget _buildTitle() {
     return Container(
-      alignment: Alignment.bottomCenter,
+      alignment: Alignment.topCenter,
       child: Text(
         title,
         maxLines: 2,
         textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: UIDefine.fontSize14, color: AppColors.dialogBlack),
+        style: AppTextStyle.getBaseStyle(
+            fontSize: UIDefine.fontSize12, color: AppColors.textNineBlack),
       ),
     );
   }

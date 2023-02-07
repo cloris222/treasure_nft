@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/view_models/trade/reservation_viewmodel.dart';
 import 'package:treasure_nft_project/widgets/dialog/base_close_dialog.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
@@ -37,7 +38,7 @@ class ReservationDialog extends BaseCloseDialog {
       children: [
         Text(
           tr('reserve'),
-          style: TextStyle(
+          style: AppTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
         ),
         Column(
@@ -45,7 +46,7 @@ class ReservationDialog extends BaseCloseDialog {
           children: [
             Text(
               tr('numberAppointments'),
-              style: TextStyle(fontSize: UIDefine.fontSize14),
+              style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
             ),
             const SizedBox(
               height: 5,
@@ -54,7 +55,7 @@ class ReservationDialog extends BaseCloseDialog {
               enabled: false,
               decoration: InputDecoration(
                   hintText: '1',
-                  hintStyle: const TextStyle(color: AppColors.textGrey),
+                  hintStyle:  AppTextStyle.getBaseStyle(color: AppColors.textGrey),
                   border: AppStyle().styleTextEditBorderBackground(radius: 10),
                   filled: true,
                   fillColor: AppColors.textWhite,

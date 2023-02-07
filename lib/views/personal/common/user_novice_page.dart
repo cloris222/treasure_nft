@@ -2,8 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/personal/common/user_course_video_page.dart';
+import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
+import 'package:treasure_nft_project/widgets/label/background_with_land.dart';
 import 'package:treasure_nft_project/widgets/label/flex_two_text_widget.dart';
 import '../../../constant/enum/setting_enum.dart';
 import '../../../constant/theme/app_colors.dart';
@@ -27,23 +30,44 @@ class _UserNovicePageState extends State<UserNovicePage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
-      title: tr("uc_novice"),
+      onLanguageChange: () {
+        if (mounted) {
+          setState(() {});
+        }
+      },
       type: AppNavigationBarType.typePersonal,
-      body: SingleChildScrollView(
-        child: Container(
-          margin: EdgeInsets.symmetric(
-              horizontal: UIDefine.getWidth() / 20,
-              vertical: UIDefine.getHeight() / 30),
-          child: Column(
-            children: [
-              _buildTitle(context),
-              Container(
-                  margin:
-                      EdgeInsets.symmetric(vertical: UIDefine.getHeight() / 40),
-                  child: _buildVideoGrid(context))
-            ],
+      body: Stack(
+        children: [
+          SizedBox(height: UIDefine.getHeight(), width: UIDefine.getWidth()),
+          Positioned(
+              top: 0,
+              right: 0,
+              left: 0,
+              child: BackgroundWithLand(
+                backgroundColor: Colors.white,
+                mainHeight: 230,
+                bottomHeight: 180,
+                onBackPress: () => BaseViewModel().popPage(context),
+                body: const SizedBox(),
+              )),
+          Positioned(
+            top: 50 + UIDefine.getPixelWidth(10),
+            bottom: 0,
+            right: UIDefine.getPixelWidth(20),
+            left: UIDefine.getPixelWidth(20),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                      margin: EdgeInsets.symmetric(
+                          vertical: UIDefine.getHeight() / 40),
+                      child: _buildVideoGrid(context)),
+                  SizedBox(height: UIDefine.navigationBarPadding)
+                ],
+              ),
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -57,7 +81,7 @@ class _UserNovicePageState extends State<UserNovicePage> {
         ),
         Text(
           tr("instructionalVideo"),
-          style: TextStyle(
+          style: AppTextStyle.getBaseStyle(
               fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize20),
         )
       ],
@@ -78,7 +102,7 @@ class _UserNovicePageState extends State<UserNovicePage> {
           return Container(
               alignment: Alignment.center,
               decoration: AppStyle().styleColorBorderBackground(
-                  radius: 10, color: AppColors.searchBar, borderLine: 2),
+                  radius: 10, color: AppColors.searchBar, borderLine: 1),
               child: Stack(children: [
                 SizedBox(
                   height: UIDefine.getHeight(),
@@ -111,7 +135,7 @@ class _UserNovicePageState extends State<UserNovicePage> {
                             text: tr(VideoStrEnum.values[index].name),
                             textAlign: TextAlign.center,
                             fontSize: 14,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w400,
                             alignment: Alignment.center),
                       ],
                     )),

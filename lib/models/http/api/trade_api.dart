@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/http_manager.dart';
 import 'package:treasure_nft_project/models/http/parameter/api_response.dart';
+import 'package:treasure_nft_project/models/http/parameter/reserve_view_data.dart';
 import '../parameter/add_new_reservation.dart';
 import '../parameter/check_activiey_deposit.dart';
 import '../parameter/check_activity_reserve.dart';
@@ -29,6 +30,12 @@ class TradeAPI extends HttpManager {
     var response =
         await get('/reserve/info', queryParameters: {'division': division});
     return CheckReservationInfo.fromJson(response.data);
+  }
+
+  Future<ReserveViewData> getReserveView(int index) async {
+    var response =
+        await get('/reserve/view', queryParameters: {"index": index});
+    return ReserveViewData.fromJson(response.data);
   }
 
   /// 查詢預約金
@@ -95,8 +102,8 @@ class TradeAPI extends HttpManager {
 
   /// app交易頁面Enter按鈕是否顯示
   Future<void> getTradeEnterButtonStatus() async {
-    if(Platform.isAndroid){
-      GlobalData.appTradeEnterButtonStatus=true;
+    if (Platform.isAndroid) {
+      GlobalData.appTradeEnterButtonStatus = true;
       return;
     }
     try {

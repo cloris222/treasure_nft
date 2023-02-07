@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/views/main_page.dart';
+import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 
 import '../../../constant/call_back_function.dart';
 import '../../../constant/enum/login_enum.dart';
@@ -11,7 +13,6 @@ import '../../../models/http/api/auth_api.dart';
 import '../../../models/http/api/withdraw_api.dart';
 import '../../../models/http/parameter/withdraw_alert_info.dart';
 import '../../../views/personal/orders/withdraw/data/withdraw_balance_response_data.dart';
-import '../../../views/wallet/wallet_main_view.dart';
 import '../../../widgets/dialog/common_custom_dialog.dart';
 import '../../../widgets/dialog/simple_custom_dialog.dart';
 
@@ -37,7 +38,8 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
   bool checkExperience = GlobalData.experienceInfo.isExperience;
 
   initState() {
-    Future<WithdrawBalanceResponseData> result = WithdrawApi().getWithdrawBalance(null);
+    Future<WithdrawBalanceResponseData> result =
+        WithdrawApi().getWithdrawBalance(null);
     result.then((value) => _setData(value));
   }
 
@@ -98,6 +100,7 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
 
   /// MARK: 檢查驗證碼是否正確
   void onPressCheckVerify(BuildContext context) async {
+    clearAllFocus();
     if (emailCodeController.text.isNotEmpty) {
       await AuthAPI(
               onConnectFail: (message) => onBaseConnectFail(context, message))
@@ -132,11 +135,12 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
       });
       return;
     } else {
-      ///MARK: 檢查是否驗證過信箱
-      if (!checkExperience && !checkEmail) {
-        emailCodeData =
-            ValidateResultData(result: false, message: tr('rule_mail_valid'));
-      }
+      ///MARK: v0.0.12版 改為與提交同時送出信箱驗證碼
+      // ///MARK: 檢查是否驗證過信箱
+      // if (!checkExperience && !checkEmail) {
+      //   emailCodeData =
+      //       ValidateResultData(result: false, message: tr('rule_mail_valid'));
+      // }
 
       ///MARK: 如果上面的檢查有部分錯誤時return
       if (!checkData()) {
@@ -152,8 +156,8 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
             type: DialogImageType.fail,
             rightBtnText: tr('confirm'),
             onLeftPress: () {}, onRightPress: () {
-              Navigator.pop(context);
-            }).show();
+          Navigator.pop(context);
+        }).show();
         return;
       }
 
@@ -177,11 +181,16 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
   void sendConfirm(BuildContext context) {
     ///MARK: 打提交API 餘額提現
     WithdrawApi(onConnectFail: (message) => onBaseConnectFail(context, message))
-        .submitBalanceWithdraw(chain: '', address: '',
-        amount: amountController.text, account: accountController.text)
+        .submitBalanceWithdraw(
+            chain: '',
+            address: '',
+            amount: amountController.text,
+            account: accountController.text,
+            emailVerifyCode: emailCodeController.text)
         .then((value) async {
       SimpleCustomDialog(context, mainText: tr('success')).show();
-      pushPage(context, const WalletMainView());
+      pushAndRemoveUntil(
+          context, const MainPage(type: AppNavigationBarType.typeWallet));
     });
   }
 }

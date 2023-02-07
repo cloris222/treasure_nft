@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 import '../../../../constant/call_back_function.dart';
 import '../../../../constant/theme/app_colors.dart';
@@ -55,7 +56,7 @@ class OrderInfoSelectorDropDownBar extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Text(_getCategoryText(category),
-                    style: const TextStyle(color: AppColors.textGrey)),
+                    style:  AppTextStyle.getBaseStyle(color: AppColors.textGrey)),
               ],
             ));
       }).toList(),

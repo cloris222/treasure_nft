@@ -11,6 +11,7 @@ import 'package:treasure_nft_project/utils/animation_download_util.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 import '../../../constant/enum/trade_enum.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/ui_define.dart';
@@ -132,7 +133,7 @@ class _DivisionCellState extends State<DivisionCell> {
   @override
   Widget build(BuildContext context) {
     TextStyle style =
-        TextStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500);
+        AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500);
     return Container(
       margin: EdgeInsets.symmetric(
           horizontal: UIDefine.getWidth() / 20, vertical: 10),

@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
         return MediaQuery(
             data: MediaQuery.of(context).copyWith(
               textScaleFactor: 1,
-               boldText: false,
+               // boldText: false,
             ),
             child: widget ?? const SizedBox());
       },

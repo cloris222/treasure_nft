@@ -11,7 +11,8 @@ class OtherCollectViewModel extends BaseListViewModel {
   OtherCollectViewModel(
       {required super.onListChange,
       super.hasTopView = true,
-      required this.topView});
+      required this.topView,
+      super.padding});
 
   OtherUserInfo? userInfo;
   List<OtherCollectData> list = [];

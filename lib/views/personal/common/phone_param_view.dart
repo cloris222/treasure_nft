@@ -2,6 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:treasure_nft_project/constant/theme/app_style.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/widgets/drop_buttom/custom_drop_button.dart';
 
 import '../../../constant/call_back_function.dart';
 import '../../../constant/theme/app_colors.dart';
@@ -12,7 +15,7 @@ import '../../../widgets/label/error_text_widget.dart';
 import '../../../widgets/text_field/login_text_widget.dart';
 
 /// 區碼選擇 + 電話號碼輸入框
-class PhoneParamView extends StatelessWidget {
+class PhoneParamView extends StatefulWidget {
   const PhoneParamView(
       {Key? key,
       this.initCountry,
@@ -36,50 +39,70 @@ class PhoneParamView extends StatelessWidget {
   final onGetStringFunction getDropDownValue;
 
   @override
+  State<PhoneParamView> createState() => _PhoneParamViewState();
+}
+
+class _PhoneParamViewState extends State<PhoneParamView> {
+  String currentCountry = '';
+  int currentIndex = 0;
+
+  @override
+  void initState() {
+    currentCountry = widget.initCountry ??
+        (GlobalData.country.isNotEmpty ? GlobalData.country.first.country : '');
+    for (int i = 0; i < GlobalData.country.length; i++) {
+      if (GlobalData.country[i].country == currentCountry) {
+        currentIndex = i;
+      }
+    }
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      _buildTextTitle(titleText),
+      _buildTextTitle(widget.titleText),
       Stack(
         alignment: Alignment.centerLeft,
         children: [
-          Padding(
-              padding: EdgeInsets.only(left: UIDefine.getScreenWidth(37)),
-              child: LoginTextWidget(
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r"\d"))
-                ],
-                keyboardType: TextInputType.number,
-                hintText: hintText,
-                controller: controller,
-                initColor:
-                    data.result ? AppColors.bolderGrey : AppColors.textRed,
-                enabledColor:
-                    data.result ? AppColors.bolderGrey : AppColors.textRed,
-                focusedColor: AppColors.mainThemeButton,
-                isSecure: isSecure,
-                onChanged: onChanged,
-                onTap: onTap,
+          LoginTextWidget(
+            inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r"\d"))],
+            contentPaddingLeft: UIDefine.getScreenWidth(38),
+            keyboardType: TextInputType.number,
+            hintText: widget.hintText,
+            controller: widget.controller,
+            initColor:
+                widget.data.result ? AppColors.bolderGrey : AppColors.textRed,
+            enabledColor:
+                widget.data.result ? AppColors.bolderGrey : AppColors.textRed,
+            bFocusedGradientBolder: true,
+            isSecure: widget.isSecure,
+            onChanged: widget.onChanged,
+            onTap: widget.onTap,
+          ),
+          Positioned(
+              left: UIDefine.getScreenWidth(37),
+              child: Container(
+                width: 1,
+                height: UIDefine.getPixelHeight(35),
+                decoration: AppStyle()
+                    .styleColorsRadiusBackground(color: AppColors.bolderGrey),
               )),
           Positioned(
             left: 0,
+            top: UIDefine.getPixelHeight(5),
+            bottom: UIDefine.getPixelHeight(5),
             child: Container(
               alignment: Alignment.center,
-              height: UIDefine.getPixelHeight(60),
-              width: UIDefine.getScreenWidth(40),
-              margin:
-                  EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(5)),
-              child: Container(
-                  decoration: const BoxDecoration(
-                      color: AppColors.mainThemeButton,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          bottomLeft: Radius.circular(10))),
-                  child: _dropDownBar()),
+              width: UIDefine.getScreenWidth(37),
+              height: UIDefine.getPixelHeight(50),
+              child: _dropDownBar(),
             ),
           )
         ],
       ),
-      ErrorTextWidget(data: data, alignment: Alignment.centerRight)
+      ErrorTextWidget(data: widget.data, alignment: Alignment.centerRight)
     ]);
   }
 
@@ -87,41 +110,24 @@ class PhoneParamView extends StatelessWidget {
     return Container(
         margin: const EdgeInsets.symmetric(vertical: 5),
         child: Text(text,
-            style: TextStyle(
+            style: AppTextStyle.getBaseStyle(
                 fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14)));
   }
 
   Widget _dropDownBar() {
-    return DropdownButtonFormField(
-      dropdownColor: AppColors.mainThemeButton,
-      icon: Image.asset('assets/icon/btn/btn_arrow_03_down.png'),
-      onChanged: (newValue) {
-        // 將選擇的傳至外部 ex: +65 (只有區碼)
-        getDropDownValue(newValue!);
+    return CustomDropButton(
+      padding: EdgeInsets.symmetric(
+          horizontal: UIDefine.getPixelWidth(1),
+          vertical: UIDefine.getPixelWidth(3)),
+      needBorderBackground: false,
+      initIndex: currentIndex,
+      listLength: GlobalData.country.length,
+      itemString: _buildItemString,
+      onChanged: (int index) {
+        currentIndex = index;
+        widget.getDropDownValue(GlobalData.country[index].country);
+        currentCountry = GlobalData.country[index].country;
       },
-      value: initCountry ??
-          (GlobalData.country.isNotEmpty
-              ? GlobalData.country.first.country
-              : ''),
-      decoration: InputDecoration(
-        iconColor: AppColors.mainThemeButton,
-        contentPadding:
-            EdgeInsets.fromLTRB(UIDefine.getScreenWidth(2.5), 0, 0, 0),
-        border: InputBorder.none,
-      ),
-      items: GlobalData.country.map((CountryPhoneData data) {
-        return DropdownMenuItem(
-            value: data.country,
-            child: SizedBox(
-              width: UIDefine.getScreenWidth(30),
-              child: Text(
-                  '+${data.areaCode} ${_getSubString(tr(data.country))}',
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                      color: AppColors.textWhite,
-                      fontSize: UIDefine.fontSize12)),
-            ));
-      }).toList(),
     );
   }
 
@@ -129,40 +135,8 @@ class PhoneParamView extends StatelessWidget {
     return value.length >= 10 ? '${value.substring(0, 10)}...' : value;
   }
 
-  String _getCategoryText(String value) {
-    // 下拉選單 多國
-    switch (value) {
-      case '+1':
-        return tr('America') + ' ' + tr('Canada');
-      case '+966':
-        return tr('SaudiArabia');
-      case '+962':
-        return tr('Jordan');
-      case '+34':
-        return tr('Spain');
-      case '+55':
-        return tr('Brazil');
-      case '+65':
-        return tr('Singapore');
-      case '+965':
-        return tr('Kuwait');
-      case '+98':
-        return tr('Iran');
-      case '+886':
-        return tr('Taiwan');
-      case '+63':
-        return tr('Philippines');
-      case '+90':
-        return tr('Turkey');
-      case '+44':
-        return 'Britain';
-      case '+243':
-        return 'Congo';
-      case '+20':
-        return 'Egypt';
-      case '+56':
-        return 'Chile';
-    }
-    return '';
+  String _buildItemString(int index) {
+    CountryPhoneData data = GlobalData.country[index];
+    return '+${data.areaCode} ${_getSubString(tr(data.country))}';
   }
 }

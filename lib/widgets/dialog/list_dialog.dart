@@ -2,7 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
-import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import 'base_dialog.dart';
 
 
@@ -28,7 +29,7 @@ class ListDialog extends BaseDialog {
         children: [
 
           Text('$mainText',
-              style: TextStyle(
+              style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize24,
                 fontWeight: FontWeight.w500
               )
@@ -46,16 +47,15 @@ class ListDialog extends BaseDialog {
 
           Container(
             margin: EdgeInsets.zero,
-            child: ActionButtonWidget(
-              setHeight: UIDefine.getScreenHeight(7),
+            child: LoginButtonWidget(
+              height: UIDefine.getScreenHeight(7),
                 margin: EdgeInsets.only(
                     left: UIDefine.getScreenWidth(20),
                     right: UIDefine.getScreenWidth(20),
                     top: UIDefine.getScreenWidth(6),
                 ),
                 btnText: tr("confirm"),
-                onPressed: _onPress,
-                isBorderStyle: false),
+                onPressed: _onPress),
           )
         ]);
   }

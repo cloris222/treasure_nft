@@ -1,9 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../constant/call_back_function.dart';
+import '../../constant/theme/app_colors.dart';
+import '../../constant/theme/app_style.dart';
 import '../../constant/ui_define.dart';
 import '../../views/explore/api/explore_api.dart';
 import '../../views/explore/data/explore_category_response_data.dart';
@@ -25,46 +28,113 @@ class ExploreMainViewModel extends BaseViewModel {
     for (int i = 0; i < dataList.length; i++) {
       bool isCurrent = (dataList[i].name == currentExploreType);
       buttons.add(
-          IntrinsicWidth(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: UIDefine.getScreenWidth(12),
-                  child: TextButton(
-                    onPressed: () {
-                      changePage(dataList[i].name);
-                    },
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(2.77), 0, UIDefine.getScreenWidth(2.77), 0),
-                      child: Text(
-                        _getTabTitle(dataList[i].name),
-                        style: TextStyle(color: _getButtonColor(isCurrent), fontSize: UIDefine.fontSize16),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            SizedBox(
+              height: UIDefine.getScreenWidth(12),
+              child: TextButton(
+                onPressed: () {
+                  changePage(dataList[i].name);
+                },
+                child: Container(
+                  alignment: Alignment.bottomCenter,
+                  padding: EdgeInsets.fromLTRB(
+                      UIDefine.getScreenWidth(2.77), 0,
+                      UIDefine.getScreenWidth(2.77), 0),
+                  child: Text(
+                    _getTabTitle(dataList[i].name),
+                    style: AppTextStyle.getBaseStyle(color: _getButtonColor(isCurrent),
+                        fontSize: _getTextSize(isCurrent), fontWeight: FontWeight.w500),
+                    textAlign: TextAlign.center,
                   ),
                 ),
-                Container(
-                  height: _getLineHeight(isCurrent),
-                  color: _getLineColor(isCurrent),
-                ),
-              ],
+              ),
             ),
+            Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  height: 1,
+                  color: AppColors.lineBarGrey,
+                )),
+            Positioned(
+                bottom: 0,
+                child: Visibility(
+                  visible: isCurrent,
+                  child: Container(
+                    height: 4,
+                    width: UIDefine.getPixelWidth(30),
+                    decoration: AppStyle().baseGradient(radius: 3),
+                  ),
+                ))
+          ],
+        ),
+      );
+    }
+      return SizedBox(
+          height: UIDefine.getScreenWidth(13),
+          child: ScrollablePositionedList.builder(
+              scrollDirection: Axis.horizontal,
+              itemScrollController: controller,
+              itemCount: buttons.length,
+              itemBuilder: (context, index) {
+                return buttons[index];
+              }
           )
       );
     }
-    return SizedBox(
-        height: UIDefine.getScreenWidth(13),
-        child:  ScrollablePositionedList.builder(
-            scrollDirection: Axis.horizontal,
-            itemScrollController: controller,
-            itemCount: buttons.length,
-            itemBuilder: (context, index) {
-              return buttons[index];
-            }
-        )
-    );
-  }
+
+  // Widget getExploreTypeButtons( // 第一版的UI樣式
+  //     {required String currentExploreType,
+  //       required List<ExploreCategoryResponseData> dataList,
+  //       required ItemScrollController controller,
+  //       required Function(String exploreType) changePage}) {
+  //   List<Widget> buttons = <Widget>[];
+  //   for (int i = 0; i < dataList.length; i++) {
+  //     bool isCurrent = (dataList[i].name == currentExploreType);
+  //     buttons.add(
+  //         IntrinsicWidth(
+  //           child: Column(
+  //             children: [
+  //               SizedBox(
+  //                 height: UIDefine.getScreenWidth(12),
+  //                 child: TextButton(
+  //                   onPressed: () {
+  //                     changePage(dataList[i].name);
+  //                   },
+  //                   child: Container(
+  //                     padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(2.77), 0, UIDefine.getScreenWidth(2.77), 0),
+  //                     child: Text(
+  //                       _getTabTitle(dataList[i].name),
+  //                       style: CustomTextStyle.getBaseStyle(color: _getButtonColor(isCurrent), fontSize: UIDefine.fontSize16),
+  //                       textAlign: TextAlign.center,
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ),
+  //               Container(
+  //                 height: _getLineHeight(isCurrent),
+  //                 color: _getLineColor(isCurrent),
+  //               ),
+  //             ],
+  //           ),
+  //         )
+  //     );
+  //   }
+  //   return SizedBox(
+  //       height: UIDefine.getScreenWidth(13),
+  //       child:  ScrollablePositionedList.builder(
+  //           scrollDirection: Axis.horizontal,
+  //           itemScrollController: controller,
+  //           itemCount: buttons.length,
+  //           itemBuilder: (context, index) {
+  //             return buttons[index];
+  //           }
+  //       )
+  //   );
+  // }
 
   String _getTabTitle(String value) {
     switch(value) {
@@ -109,6 +179,11 @@ class ExploreMainViewModel extends BaseViewModel {
   Color _getButtonColor(bool isCurrent) {
     if (isCurrent) return Colors.black;
     return Colors.grey;
+  }
+
+  double _getTextSize(bool isCurrent) {
+    if (isCurrent) return UIDefine.fontSize20;
+    return UIDefine.fontSize14;
   }
 
   Future<List<ExploreMainResponseData>> getExploreResponse(

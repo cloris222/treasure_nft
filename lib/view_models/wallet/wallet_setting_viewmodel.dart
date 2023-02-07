@@ -6,6 +6,7 @@ import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/models/http/api/auth_api.dart';
 import 'package:treasure_nft_project/models/http/api/wallet_api.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/widgets/dialog/check_wallet_setting_dialog.dart';
 
 import '../../constant/call_back_function.dart';
 import '../../constant/enum/login_enum.dart';
@@ -107,8 +108,21 @@ class WalletSettingViewModel extends BaseViewModel {
     });
   }
 
-  void onSavePayment(BuildContext context) async {
-    await WalletAPI(
+  void onCheckPayment(BuildContext context) {
+    if (checkEmail) {
+      CheckWalletSettingDialog(context,
+          accountTRON: trcController.text,
+          accountBSC: bscController.text,
+          accountROLLOUT: rolloutController.text, onConfirm: () {
+        onSavePayment(context);
+      }).show();
+    } else {
+      onBaseConnectFail(context, tr('rule_mail_valid'));
+    }
+  }
+
+  void onSavePayment(BuildContext context) {
+    WalletAPI(
             onConnectFail: (errorMessage) =>
                 onBaseConnectFail(context, errorMessage))
         .setPaymentInfo(

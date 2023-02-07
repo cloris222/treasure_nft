@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:path_provider/path_provider.dart';
@@ -8,9 +9,11 @@ import 'package:share_plus/share_plus.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'dart:ui' as ui;
 import 'package:cross_file/cross_file.dart';
 import 'package:flutter/services.dart';
+import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../widgets/button/action_button_widget.dart';
 import '../../../widgets/label/icon/level_icon_widget.dart';
@@ -82,16 +85,16 @@ class _SharePicStyleState extends State<SharePicStyle> {
           ),
           Text(
             tr("choosestyle"),
-            style:
-                TextStyle(fontSize: UIDefine.fontSize20, color: Colors.white),
+            style: AppTextStyle.getBaseStyle(
+                fontSize: UIDefine.fontSize20, color: Colors.white),
           ),
           const SizedBox(
             height: 5,
           ),
           Text(
             tr("style${pageIndex + 1}"),
-            style:
-                TextStyle(fontSize: UIDefine.fontSize16, color: Colors.white),
+            style: AppTextStyle.getBaseStyle(
+                fontSize: UIDefine.fontSize16, color: Colors.white),
           ),
           _buildSpace(),
           Expanded(
@@ -111,7 +114,7 @@ class _SharePicStyleState extends State<SharePicStyle> {
           ),
           // _shareImage(context),
           SizedBox(height: UIDefine.getScreenHeight(3)),
-          ActionButtonWidget(
+          LoginButtonWidget(
             btnText: tr('confirm'),
             onPressed: () {
               //saveQrcodeImage();
@@ -119,8 +122,9 @@ class _SharePicStyleState extends State<SharePicStyle> {
               _shareUiImage();
               Navigator.pop(context);
             },
-            setHeight: 50,
-            margin: const EdgeInsets.symmetric(horizontal: 20),
+            height: UIDefine.getScreenWidth(13.6),
+            margin:
+                EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(5.5)),
           ),
           _buildSpace()
         ],
@@ -143,11 +147,11 @@ class _SharePicStyleState extends State<SharePicStyle> {
           padding: const EdgeInsets.all(20),
           decoration: const BoxDecoration(
               image: DecorationImage(
-            fit: BoxFit.fitHeight,
+            fit: BoxFit.cover,
             alignment: Alignment.center,
             matchTextDirection: true,
             repeat: ImageRepeat.noRepeat,
-            image: AssetImage(AppImagePath.shareBackground),
+            image: AssetImage('assets/icon/img/img_background_05.png'),
           )),
           child: _shareImgHeader(context),
         ),
@@ -163,12 +167,12 @@ class _SharePicStyleState extends State<SharePicStyle> {
         Row(
           children: [
             Image.asset(AppImagePath.mainAppBarLogo,
-                height: UIDefine.getScreenHeight(5), fit: BoxFit.fitHeight),
+                height: UIDefine.getScreenHeight(4), fit: BoxFit.fitHeight),
           ],
         ),
         _buildSpace(),
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             GlobalData.userInfo.photoUrl.isNotEmpty
                 ? CircleNetworkIcon(
@@ -182,20 +186,14 @@ class _SharePicStyleState extends State<SharePicStyle> {
               children: [
                 Text(
                   GlobalData.userInfo.name,
-                  style: TextStyle(fontSize: UIDefine.fontSize12),
+                  style: AppTextStyle.getBaseStyle(
+                      fontSize: UIDefine.fontSize16,
+                      fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(height: 10),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    ActionButtonWidget(
-                        setHeight: UIDefine.fontSize24,
-                        fontSize: UIDefine.fontSize14,
-                        isFillWidth: false,
-                        btnText: 'Level ${GlobalData.userInfo.level}',
-                        radius: 5,
-                        onPressed: () {}),
-                    const SizedBox(width: 10),
                     LevelIconWidget(
                         level: GlobalData.userInfo.level,
                         size: UIDefine.fontSize24),
@@ -213,45 +211,47 @@ class _SharePicStyleState extends State<SharePicStyle> {
           ],
         ),
         _buildSpace(),
-        SizedBox(
-            width: UIDefine.getWidth() * 0.75,
-            child: const Divider(
-              thickness: 0.5,
-              color: Colors.black,
-            )),
-        _buildSpace(),
 
         /// 下半部
-        //const SizedBox(height: 10,),
-        _shareImgBottom(context, pageIndex)
+        Flexible(child: _shareImgBottom(context, pageIndex))
       ],
     );
   }
 
   Widget _shareImgBottom(BuildContext context, int index) {
-    TextStyle styleBlack =
-        TextStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500);
-    TextStyle styleGrey = TextStyle(
+    TextStyle styleBlack = AppTextStyle.getBaseStyle(
+        fontSize: UIDefine.fontSize18, fontWeight: FontWeight.w600);
+    TextStyle styleGrey = AppTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize14,
         fontWeight: FontWeight.w500,
         color: AppColors.dialogGrey);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        index == 0
-            ? Image.asset(
-                AppImagePath.shareText1,
-                height:UIDefine.getScreenHeight(10),
-                fit: BoxFit.fitHeight,
-              )
-            : Image.asset(AppImagePath.shareText2,
-                height: UIDefine.getScreenHeight(10), fit: BoxFit.fitHeight),
-        QrImage(
-          errorStateBuilder: (context, error) => Text(error.toString()),
-          data: widget.link,
-          version: QrVersions.auto,
-          size: UIDefine.getScreenWidth(40),
-          foregroundColor: AppColors.textBlack,
+        _buildSpace(),
+        Container(
+            padding: EdgeInsets.all(UIDefine.getScreenWidth(2.4)),
+            decoration: const BoxDecoration(
+                color: AppColors.textWhite,
+                borderRadius: BorderRadius.all(Radius.circular(10))),
+            child: index == 0
+                ? Image.asset(
+                    AppImagePath.shareText1,
+                    height: UIDefine.getScreenHeight(10),
+                    fit: BoxFit.fitHeight,
+                  )
+                : Image.asset(AppImagePath.shareText2,
+                    height: UIDefine.getScreenHeight(10),
+                    fit: BoxFit.fitHeight)),
+        _buildSpace(),
+        Flexible(
+          child: QrImage(
+            errorStateBuilder: (context, error) => Text(error.toString()),
+            data: widget.link,
+            version: QrVersions.auto,
+            size: UIDefine.getScreenWidth(40),
+            foregroundColor: AppColors.mainThemeButton,
+          ),
         ),
         Text(tr("referralLink"), style: styleGrey),
         Text(

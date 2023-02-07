@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/enum/style_enum.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 import '../../constant/theme/app_colors.dart';
 
@@ -19,7 +21,14 @@ class LoginButtonWidget extends StatefulWidget {
       this.isFlip = false,
       this.radius = 10,
       this.showIcon = false,
-      this.needTimes = 1})
+      this.needTimes = 1,
+        this.isFillWidth = true,
+        this.isAutoHeight = false,
+        this.margin = const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        this.padding,
+        this.fontFamily = AppTextFamily.PosteramaText,
+
+      })
       : super(key: key);
   final String btnText;
   final VoidCallback onPressed;
@@ -33,6 +42,11 @@ class LoginButtonWidget extends StatefulWidget {
   final double radius;
   final bool showIcon;
   final int needTimes;
+  final bool isFillWidth;
+  final bool isAutoHeight;
+  final EdgeInsetsGeometry margin;
+  final EdgeInsetsGeometry? padding;
+  final AppTextFamily fontFamily;
 
   @override
   State<LoginButtonWidget> createState() => _LoginButtonWidgetState();
@@ -56,11 +70,15 @@ class _LoginButtonWidgetState extends State<LoginButtonWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: () => intervalClick(widget.needTimes),
       child: Container(
           alignment: Alignment.center,
-          margin: const EdgeInsets.symmetric(vertical: 10),
+          margin: widget.margin,
+          padding: widget.padding ??
+              EdgeInsets.symmetric(
+                  horizontal: UIDefine.getPixelWidth(10),
+                  vertical: UIDefine.getPixelWidth(5)),
           decoration: widget.enable
               ? widget.isGradient
                   ? widget.isFlip
@@ -68,12 +86,17 @@ class _LoginButtonWidgetState extends State<LoginButtonWidget> {
                       : AppStyle().baseGradient(radius: widget.radius)
                   : AppStyle().styleColorsRadiusBackground(
                       color: AppColors.mainThemeButton)
-              : AppStyle()
-                  .styleColorsRadiusBackground(color: AppColors.buttonGrey),
-          width: widget.width ?? UIDefine.getWidth(),
-          height: widget.height ?? 50,
+              : widget.isGradient
+                  ? AppStyle().buildGradient(
+                      radius: widget.radius,
+                      colors: AppColors.gradientBackgroundColorBg)
+                  : AppStyle()
+                      .styleColorsRadiusBackground(color: AppColors.buttonGrey),
+          width: widget.width ?? (widget.isFillWidth ? UIDefine.getWidth() : null),
+          height: widget.height ?? (widget.isAutoHeight ? null : UIDefine.getPixelWidth(50)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: widget.isFillWidth ? MainAxisSize.max : MainAxisSize.min,
             children: [
               Visibility(
                   visible: widget.showIcon,
@@ -90,10 +113,11 @@ class _LoginButtonWidgetState extends State<LoginButtonWidget> {
               Text(widget.btnText,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
+                  style: AppTextStyle.getBaseStyle(
                       color: Colors.white,
                       fontSize: widget.fontSize ?? UIDefine.fontSize16,
-                      fontWeight: widget.fontWeight)),
+                      fontWeight: widget.fontWeight ?? FontWeight.w600,
+                      fontFamily: widget.fontFamily)),
             ],
           )),
     );

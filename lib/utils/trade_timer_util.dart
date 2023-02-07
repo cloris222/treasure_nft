@@ -53,6 +53,7 @@ class TradeTimerUtil {
     }
 
     GlobalData.printLog('$key init timer');
+
     ///MARK: 判斷有拿到值才做更新
     if (_reservationInfo != null) {
       _closeTimer();
@@ -76,6 +77,44 @@ class TradeTimerUtil {
 
   CheckReservationInfo? getReservationInfo() {
     return _reservationInfo;
+  }
+
+  List<ReserveRange> getDivisionRanges() {
+    if (_reservationInfo != null) {
+      var ranges = _reservationInfo!.reserveRanges;
+
+      /// 如果是體驗帳號 且 level 1 副本顯示內容不同
+      if (GlobalData.experienceInfo.isExperience == true &&
+          GlobalData.userInfo.level == 1) {
+        ranges[0].startPrice = 1;
+        ranges[0].endPrice = 50;
+        ranges[1].startPrice = 50;
+        ranges[1].endPrice = 150;
+      }
+      return ranges;
+    }
+    return [];
+  }
+
+  String getReservationTime() {
+    if (_reservationInfo != null) {
+      return '${_reservationInfo?.reserveStartTime.substring(0, 5)} - ${_reservationInfo?.reserveEndTime.substring(0, 5)}(+1day)';
+    }
+    return '';
+  }
+
+  String getResultTime() {
+    if (_reservationInfo != null) {
+      return '${_reservationInfo?.systemStartTime.substring(0, 5)} - ${_reservationInfo?.systemEndTime.substring(0, 5)}';
+    }
+    return '';
+  }
+
+  String getTradeZone() {
+    if (GlobalData.userInfo.zone.isNotEmpty) {
+      return '(${GlobalData.userInfo.zone.substring(0, 4)}${NumberFormatUtil().integerTwoFormat(GlobalData.userInfo.zone.substring(4))}:00)';
+    }
+    return '';
   }
 
   void addListener(GetTradDate listener) {
@@ -121,7 +160,8 @@ class TradeTimerUtil {
         }
         if (printTimeLog) {
           GlobalData.printLog('$key status:${_currentTradeData.status.name}');
-          GlobalData.printLog('$key time:${_printDuration(_currentTradeData.duration)}');
+          GlobalData.printLog(
+              '$key time:${_printDuration(_currentTradeData.duration)}');
         }
       }
     }
