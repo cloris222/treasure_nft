@@ -31,7 +31,7 @@ class HttpSetting {
   //     'https://dev.treasurenft.xyz/#/userMap/exploreCreator?id={artistId}';
   // static const String shareOther =
   //     'https://dev.treasurenft.xyz/#/otherCol?orderNo={orderNo}&type={type}';
-  static const bool debugMode = true;
+  // static const bool debugMode = true;
 
   // receiveTimeout
   static const int receiveTimeout = 15000;
