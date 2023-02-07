@@ -100,6 +100,7 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
 
   /// MARK: 檢查驗證碼是否正確
   void onPressCheckVerify(BuildContext context) async {
+    clearAllFocus();
     if (emailCodeController.text.isNotEmpty) {
       await AuthAPI(
               onConnectFail: (message) => onBaseConnectFail(context, message))
@@ -134,7 +135,7 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
       });
       return;
     } else {
-      ///MARK: v0.0.12版 改為與提交時同時送出信箱驗證碼
+      ///MARK: v0.0.12版 改為與提交同時送出信箱驗證碼
       // ///MARK: 檢查是否驗證過信箱
       // if (!checkExperience && !checkEmail) {
       //   emailCodeData =

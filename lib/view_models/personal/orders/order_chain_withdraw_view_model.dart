@@ -127,6 +127,7 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
   }
 
   void onPressSave(BuildContext context, WithdrawAlertInfo alertInfo) {
+    clearAllFocus();
     ///MARK: 檢查是否有欄位未填
     if (!checkEmptyController()) {
       setState(() {
@@ -141,7 +142,7 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
       });
       return;
     } else {
-      ///MARK: v0.0.12版 改為與提交時同時送出信箱驗證碼
+      ///MARK: v0.0.12版 改為與提交時同送出信箱驗證碼
       // ///MARK: 檢查是否驗證過信箱
       // if (!checkExperience && !checkEmail) {
       //   emailCodeData =

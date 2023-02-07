@@ -120,6 +120,8 @@ class UserChangePasswordViewModel extends BaseViewModel {
   }
 
   void onPressSave(BuildContext context) {
+    clearAllFocus();
+
     ///MARK: 檢查是否有欄位未填
     if (!checkEmptyController()) {
       setState(() {
@@ -134,7 +136,7 @@ class UserChangePasswordViewModel extends BaseViewModel {
       });
       return;
     } else {
-      ///MARK: v0.0.12版 改為與註冊時同時送出信箱驗證碼
+      ///MARK: v0.0.12版 改為與提交同時送出信箱驗證碼
       // ///MARK: 檢查是否驗證過信箱
       // if (!checkEmail) {
       //   emailCodeData =
