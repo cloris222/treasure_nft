@@ -44,12 +44,14 @@ class _SliderPageViewState extends State<SliderPageView> {
 
   /// 判斷當前頁面
   late String currentType;
+  late int currentIndex;
 
   @override
   void initState() {
     super.initState();
     pageController = PageController(initialPage: widget.initialPage);
     currentType = widget.titles[widget.initialPage];
+    currentIndex = widget.initialPage;
   }
 
   @override
@@ -75,47 +77,67 @@ class _SliderPageViewState extends State<SliderPageView> {
                       child: Column(mainAxisSize: MainAxisSize.min, children: [
                         _buildButtonList(),
                         Expanded(child: _buildPageView()),
-
                       ])))
             ]))));
   }
 
   Widget _buildButtonList() {
-    return Container(
-        margin: widget.needMargin
-            ? EdgeInsets.only(top: UIDefine.getScreenWidth(widget.marginValue))
-            : EdgeInsets.only(top: UIDefine.getScreenWidth(0)),
-        decoration: widget.buttonDecoration,
-        height: UIDefine.getPixelWidth(60),
-        child: ScrollablePositionedList.builder(
-            initialScrollIndex: widget.initialPage,
-            scrollDirection: Axis.horizontal,
-            itemScrollController: listController,
-            itemCount: widget.titles.length,
-            itemBuilder: (context, index) {
-              return _buildButton(widget.titles[index]);
-            }));
+    return Stack(
+      children: [
+        Container(
+          height: UIDefine.getPixelWidth(50) +
+              (widget.needMargin
+                  ? UIDefine.getScreenWidth(widget.marginValue)
+                  : 0),
+          width: UIDefine.getWidth(),
+          decoration: const BoxDecoration(
+              border: Border(bottom: BorderSide(color: AppColors.lineBarGrey))),
+        ),
+        Positioned(
+          top: 0,
+          bottom: 1,
+          left: 0,
+          right: 0,
+          child: Container(
+              margin: widget.needMargin
+                  ? EdgeInsets.only(
+                      top: UIDefine.getScreenWidth(widget.marginValue))
+                  : EdgeInsets.only(top: UIDefine.getScreenWidth(0)),
+              decoration: widget.buttonDecoration,
+              height: UIDefine.getPixelWidth(50),
+              child: ScrollablePositionedList.builder(
+                  initialScrollIndex: widget.initialPage,
+                  scrollDirection: Axis.horizontal,
+                  itemScrollController: listController,
+                  itemCount: widget.titles.length,
+                  itemBuilder: (context, index) {
+                    return _buildButton(index, widget.titles[index]);
+                  })),
+        ),
+      ],
+    );
   }
 
-  Widget _buildButton(String type) {
-    bool isCurrent = (currentType == type);
+  Widget _buildButton(int index, String type) {
+    bool isCurrent = (currentIndex == index);
     return InkWell(
         onTap: () {
           setState(() {
+            currentIndex = index;
             currentType = type;
             pageController.jumpToPage(widget.titles.indexOf(type));
           });
         },
-        child: Column(children: [
+        child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
           SizedBox(height: UIDefine.getPixelWidth(10)),
           Stack(
             alignment: Alignment.center,
             children: [
               Container(
-                height: UIDefine.getPixelWidth(38),
+                  height: UIDefine.getPixelWidth(38),
                   padding: EdgeInsets.symmetric(
                       vertical: UIDefine.getPixelWidth(5),
-                      horizontal: UIDefine.getPixelWidth(15)),
+                      horizontal: UIDefine.getPixelWidth(23)),
                   child: Text(
                     type,
                     style: AppTextStyle.getBaseStyle(
@@ -125,14 +147,14 @@ class _SliderPageViewState extends State<SliderPageView> {
                         fontSize: UIDefine.fontSize16,
                         fontWeight: isCurrent ? FontWeight.w600 : null),
                   )),
-              Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: Container(
-                    height: 1,
-                    color: AppColors.lineBarGrey,
-                  )),
+              // Positioned(
+              //     bottom: 0,
+              //     left: 0,
+              //     right: 0,
+              //     child: Container(
+              //       height: 1,
+              //       color: AppColors.lineBarGrey,
+              //     )),
               Positioned(
                   bottom: 0,
                   child: Visibility(
@@ -145,7 +167,7 @@ class _SliderPageViewState extends State<SliderPageView> {
                   ))
             ],
           ),
-          SizedBox(height: UIDefine.getPixelWidth(5)),
+          // SizedBox(height: UIDefine.getPixelWidth(5)),
         ]));
   }
 
@@ -160,6 +182,7 @@ class _SliderPageViewState extends State<SliderPageView> {
   void _onPageChange(int pageIndex) {
     setState(() {
       currentType = widget.titles[pageIndex];
+      currentIndex = pageIndex;
 
       ///MARK: 判斷是否有需要監聽換頁
       if (widget.onPageListener != null) {

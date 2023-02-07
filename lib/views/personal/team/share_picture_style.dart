@@ -85,16 +85,16 @@ class _SharePicStyleState extends State<SharePicStyle> {
           ),
           Text(
             tr("choosestyle"),
-            style:
-                AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize20, color: Colors.white),
+            style: AppTextStyle.getBaseStyle(
+                fontSize: UIDefine.fontSize20, color: Colors.white),
           ),
           const SizedBox(
             height: 5,
           ),
           Text(
             tr("style${pageIndex + 1}"),
-            style:
-                AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize16, color: Colors.white),
+            style: AppTextStyle.getBaseStyle(
+                fontSize: UIDefine.fontSize16, color: Colors.white),
           ),
           _buildSpace(),
           Expanded(
@@ -123,7 +123,8 @@ class _SharePicStyleState extends State<SharePicStyle> {
               Navigator.pop(context);
             },
             height: UIDefine.getScreenWidth(13.6),
-            margin: EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(5.5)),
+            margin:
+                EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(5.5)),
           ),
           _buildSpace()
         ],
@@ -185,7 +186,9 @@ class _SharePicStyleState extends State<SharePicStyle> {
               children: [
                 Text(
                   GlobalData.userInfo.name,
-                  style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w600),
+                  style: AppTextStyle.getBaseStyle(
+                      fontSize: UIDefine.fontSize16,
+                      fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(height: 10),
                 Row(
@@ -210,14 +213,14 @@ class _SharePicStyleState extends State<SharePicStyle> {
         _buildSpace(),
 
         /// 下半部
-        Expanded(child: _shareImgBottom(context, pageIndex))
+        Flexible(child: _shareImgBottom(context, pageIndex))
       ],
     );
   }
 
   Widget _shareImgBottom(BuildContext context, int index) {
-    TextStyle styleBlack =
-        AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize18, fontWeight: FontWeight.w600);
+    TextStyle styleBlack = AppTextStyle.getBaseStyle(
+        fontSize: UIDefine.fontSize18, fontWeight: FontWeight.w600);
     TextStyle styleGrey = AppTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize14,
         fontWeight: FontWeight.w500,
@@ -226,30 +229,29 @@ class _SharePicStyleState extends State<SharePicStyle> {
       mainAxisSize: MainAxisSize.min,
       children: [
         _buildSpace(),
-        Expanded(
-          child: Container(
+        Container(
             padding: EdgeInsets.all(UIDefine.getScreenWidth(2.4)),
             decoration: const BoxDecoration(
-              color: AppColors.textWhite,
-              borderRadius: BorderRadius.all(Radius.circular(10))
-            ),
+                color: AppColors.textWhite,
+                borderRadius: BorderRadius.all(Radius.circular(10))),
             child: index == 0
                 ? Image.asset(
-              AppImagePath.shareText1,
-              height:UIDefine.getScreenHeight(10),
-              fit: BoxFit.fitHeight,
-            )
+                    AppImagePath.shareText1,
+                    height: UIDefine.getScreenHeight(10),
+                    fit: BoxFit.fitHeight,
+                  )
                 : Image.asset(AppImagePath.shareText2,
-                height: UIDefine.getScreenHeight(10), fit: BoxFit.fitHeight)
-          ),
-        ),
+                    height: UIDefine.getScreenHeight(10),
+                    fit: BoxFit.fitHeight)),
         _buildSpace(),
-        QrImage(
-          errorStateBuilder: (context, error) => Text(error.toString()),
-          data: widget.link,
-          version: QrVersions.auto,
-          size: UIDefine.getScreenWidth(40),
-          foregroundColor: AppColors.mainThemeButton,
+        Flexible(
+          child: QrImage(
+            errorStateBuilder: (context, error) => Text(error.toString()),
+            data: widget.link,
+            version: QrVersions.auto,
+            size: UIDefine.getScreenWidth(40),
+            foregroundColor: AppColors.mainThemeButton,
+          ),
         ),
         Text(tr("referralLink"), style: styleGrey),
         Text(
