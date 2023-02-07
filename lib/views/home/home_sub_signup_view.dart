@@ -45,7 +45,7 @@ class HomeSubSignupView extends StatelessWidget {
           ]),
           SizedBox(height: UIDefine.getPixelHeight(15)),
           Image.asset(AppImagePath.invitePhoto,
-              height: UIDefine.getPixelHeight(300), fit: BoxFit.fitHeight),
+              height: UIDefine.getPixelHeight(300), fit: BoxFit.contain),
           SizedBox(height: UIDefine.getPixelHeight(15)),
         ]));
   }
