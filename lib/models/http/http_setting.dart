@@ -13,6 +13,8 @@ class HttpSetting {
   // static const String systemTimeZone='GMT+4';
   // static const String pcArtistUrl =
   //     'https://treasurenft.xyz/#/userMap/exploreCreator?id={artistId}';
+  // static const String shareOther =
+  //     'https://treasurenft.xyz/#/otherCol?orderNo={orderNo}&type={type}';
   // static const bool debugMode = false;
 
   ///MARK: develop Setting

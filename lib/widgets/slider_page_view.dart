@@ -75,7 +75,7 @@ class _SliderPageViewState extends State<SliderPageView> {
                       child: Column(mainAxisSize: MainAxisSize.min, children: [
                         _buildButtonList(),
                         Expanded(child: _buildPageView()),
-                        SizedBox(height: UIDefine.getScreenHeight(10))
+
                       ])))
             ]))));
   }
@@ -107,7 +107,7 @@ class _SliderPageViewState extends State<SliderPageView> {
           });
         },
         child: Column(children: [
-          SizedBox(height: UIDefine.getPixelHeight(10)),
+          SizedBox(height: UIDefine.getPixelWidth(10)),
           Stack(
             alignment: Alignment.center,
             children: [
@@ -145,7 +145,7 @@ class _SliderPageViewState extends State<SliderPageView> {
                   ))
             ],
           ),
-          SizedBox(height: UIDefine.getPixelHeight(5)),
+          SizedBox(height: UIDefine.getPixelWidth(5)),
         ]));
   }
 

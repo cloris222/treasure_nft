@@ -18,8 +18,7 @@ class TeamContributionMemberView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: UIDefine.getPixelWidth(20)),
+      padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
       decoration: AppStyle().styleColorsRadiusBackground(radius: 8),
       child: Column(children: [
         _buildTitle(),

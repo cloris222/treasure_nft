@@ -210,7 +210,7 @@ class _SharePicStyleState extends State<SharePicStyle> {
         _buildSpace(),
 
         /// 下半部
-        _shareImgBottom(context, pageIndex)
+        Expanded(child: _shareImgBottom(context, pageIndex))
       ],
     );
   }
@@ -226,20 +226,22 @@ class _SharePicStyleState extends State<SharePicStyle> {
       mainAxisSize: MainAxisSize.min,
       children: [
         _buildSpace(),
-        Container(
-          padding: EdgeInsets.all(UIDefine.getScreenWidth(2.4)),
-          decoration: const BoxDecoration(
-            color: AppColors.textWhite,
-            borderRadius: BorderRadius.all(Radius.circular(10))
+        Expanded(
+          child: Container(
+            padding: EdgeInsets.all(UIDefine.getScreenWidth(2.4)),
+            decoration: const BoxDecoration(
+              color: AppColors.textWhite,
+              borderRadius: BorderRadius.all(Radius.circular(10))
+            ),
+            child: index == 0
+                ? Image.asset(
+              AppImagePath.shareText1,
+              height:UIDefine.getScreenHeight(10),
+              fit: BoxFit.fitHeight,
+            )
+                : Image.asset(AppImagePath.shareText2,
+                height: UIDefine.getScreenHeight(10), fit: BoxFit.fitHeight)
           ),
-          child: index == 0
-              ? Image.asset(
-            AppImagePath.shareText1,
-            height:UIDefine.getScreenHeight(10),
-            fit: BoxFit.fitHeight,
-          )
-              : Image.asset(AppImagePath.shareText2,
-              height: UIDefine.getScreenHeight(10), fit: BoxFit.fitHeight)
         ),
         _buildSpace(),
         QrImage(

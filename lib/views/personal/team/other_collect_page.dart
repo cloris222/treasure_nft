@@ -7,6 +7,7 @@ import 'package:treasure_nft_project/views/custom_appbar_view.dart';
 import 'package:treasure_nft_project/views/personal/personal_new_sub_user_info_view.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/widgets/label/background_with_land.dart';
+import 'package:treasure_nft_project/widgets/text_field/login_text_widget.dart';
 
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/ui_define.dart';
@@ -113,6 +114,7 @@ class _OtherCollectPageState extends State<OtherCollectPage> {
             },
             style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
             decoration: InputDecoration(
+              contentPadding: EdgeInsets.zero,
               prefixIcon:
                   Image.asset('assets/icon/btn/btn_discover_01_nor.png'),
               hintText: tr("select-placeholder'"),
