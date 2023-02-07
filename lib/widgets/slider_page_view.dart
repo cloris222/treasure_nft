@@ -112,8 +112,9 @@ class _SliderPageViewState extends State<SliderPageView> {
             alignment: Alignment.center,
             children: [
               Container(
+                height: UIDefine.getPixelWidth(38),
                   padding: EdgeInsets.symmetric(
-                      vertical: UIDefine.getPixelHeight(5),
+                      vertical: UIDefine.getPixelWidth(5),
                       horizontal: UIDefine.getPixelWidth(15)),
                   child: Text(
                     type,

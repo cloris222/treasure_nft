@@ -116,11 +116,11 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
                     InkWell(
                         onTap: () => _showLevelInfoPage(context),
                         child: Container(
-                            padding: const EdgeInsets.all(5),
+                            padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(5),vertical: UIDefine.getPixelHeight(2)),
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               color: Colors.transparent,
-                              border: Border.all(color: AppColors.textGrey),
+                              border: Border.all(color: AppColors.textNineBlack),
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Row(children: [
@@ -142,7 +142,7 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
                       child: InkWell(
                           onTap: () => _showPointPage(context),
                           child: Container(
-                              padding: const EdgeInsets.all(5),
+                              padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(5),vertical: UIDefine.getPixelHeight(2.3)),
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                 color: Colors.transparent,
