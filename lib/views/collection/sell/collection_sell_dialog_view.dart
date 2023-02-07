@@ -126,22 +126,6 @@ class CollectionSellDialogView extends BaseDialog {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          tr("serviceFee"),
-                          style: AppTextStyle.getBaseStyle(color: AppColors.searchBar,
-                              fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
-                        ),
-                        Text(
-                          '1 %',
-                          style: AppTextStyle.getBaseStyle(color: AppColors.searchBar,
-                              fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
-                        )
-                      ],
-                    ),
-                    SizedBox(height: 6),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
                           tr("creatorFee"),
                           style: AppTextStyle.getBaseStyle(color: AppColors.searchBar,
                               fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),

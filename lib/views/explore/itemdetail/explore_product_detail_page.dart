@@ -163,6 +163,7 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
                     style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize26, fontWeight: FontWeight.w500),
                   ),
                   const SizedBox(height: 6),
+                  _buildContractAddressView(tr('contractAddress'), _buildShortContractAddress('0xd7bF69a92DD126752FD8Aab5bC07439c56B2Abf5')),
                   _oneRowForm(tr('owner'), _setShowingForm(data.ownerName), false, false),
                   _oneRowForm(tr('price'), _setShowingForm(data.price), true, true),
                   _oneRowForm(tr('resaleIncome'), _setShowingForm(data.growAmount), true, true),
@@ -276,6 +277,39 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
       list.add('GMT ${sellTimeList[i].zone}  ${sellTimeList[i].localTime}');
     }
     return list;
+  }
+
+  String _buildShortContractAddress(String value) {
+    return value.substring(0, 6) + '....' + value.substring(value.length - 4, value.length);
+  }
+
+  Widget _buildContractAddressView(String title, String content) {
+    return Padding(
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 6),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              '$title:',
+              style: AppTextStyle.getBaseStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+            ),
+
+            Container(width: 4),
+
+            GestureDetector(
+              onTap: () {
+                viewModel.launchInBrowser('https://polygonscan.com/address/0x01Dd0424E8cA954e93B1159E748099f2877720A0#readContract');
+              },
+              child: Text(
+                content,
+                style: AppTextStyle.getBaseStyle(color: AppColors.mainThemeButton, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+              )
+            )
+
+          ],
+        )
+    );
   }
 
   List<String> _setShowingForm(String value) {

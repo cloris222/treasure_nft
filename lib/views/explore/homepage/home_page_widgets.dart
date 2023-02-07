@@ -132,11 +132,16 @@ class HomePageWidgets {
 
                     SizedBox(width: UIDefine.getScreenWidth(1.5)),
 
-                    Container(
-                        padding: EdgeInsets.fromLTRB(0, 0, 0, UIDefine.getScreenWidth(0)),
-                        child: Image.asset('assets/icon/icon/icon_check_ok_02.png',
-                            width: UIDefine.getScreenWidth(5.55), height: UIDefine.getScreenWidth(5.55))
-                    ),
+                    Image.asset('assets/icon/icon/icon_check_ok_02.png',
+                        width: UIDefine.getScreenWidth(5.55), height: UIDefine.getScreenWidth(5.55)),
+
+                    SizedBox(width: UIDefine.getScreenWidth(1.5)),
+
+                    GestureDetector(
+                      onTap: () => callBack('polygon'),
+                      child: Image.asset('assets/icon/btn/btn_polygon_01.png',
+                          width: UIDefine.getScreenWidth(5.55), height: UIDefine.getScreenWidth(5.55))
+                    )
                   ],
                 ),
                 const SizedBox(height: 5),

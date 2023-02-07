@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
@@ -77,13 +78,27 @@ class _DepositNftResultView extends State<DepositNftResultView> {
               foregroundColor: AppColors.mainThemeButton,
             ),
 
-            SizedBox(height: UIDefine.getScreenWidth(10)),
+            SizedBox(height: UIDefine.getScreenWidth(7)),
 
             /// 文字
-            Text(
-              tr("Polygon-text'"), // 小標題
-              style: AppTextStyle.getBaseStyle(
-                  color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+            Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  Text(
+                    tr("Polygon-text'"), // 小標題1
+                    style: AppTextStyle.getBaseStyle(
+                        color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                  ),
+                  SizedBox(height: UIDefine.getScreenWidth(2)),
+                  Text(
+                    tr("Polygon-text-2"), // 小標題2
+                    style: AppTextStyle.getBaseStyle(
+                        color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
             ),
 
             SizedBox(height: UIDefine.getScreenWidth(10)),

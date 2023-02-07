@@ -99,6 +99,8 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
                     callBack: (url) {
                       if (url == 'Share') {
                         viewModel.sharePCUrl(artistData.artistId);
+                      } else if (url == 'polygon') {
+                        viewModel.launchInBrowser('https://polygonscan.com/address/0x01Dd0424E8cA954e93B1159E748099f2877720A0#readContract');
                       } else {
                         viewModel.launchInBrowser(url);
                       }

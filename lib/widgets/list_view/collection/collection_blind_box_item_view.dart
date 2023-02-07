@@ -45,13 +45,9 @@ class _CollectionBlindBoxItemView extends State<CollectionBlindBoxItemView> {
   void initState() {
     super.initState();
     bOpen = data.boxOpen == 'TRUE';
-    // currentLv = int.parse(data.rewardNft.currentLevel);
     currentLv = data.rewardNft.currentLevel;
-    // unlockLv = int.parse(data.rewardNft.unlockLevel);
     unlockLv = data.rewardNft.unlockLevel;
-    // currentBuyCount = int.parse(data.rewardNft.currentBuyCount);
     currentBuyCount = data.rewardNft.currentBuyCount;
-    // unlockBuyCount = int.parse(data.rewardNft.unlockBuyCount);
     unlockBuyCount = data.rewardNft.unlockBuyCount;
   }
 
@@ -144,7 +140,7 @@ class _CollectionBlindBoxItemView extends State<CollectionBlindBoxItemView> {
 
                     /// 進度條
                     Container(
-                      width: UIDefine.getScreenWidth(32),
+                      width: UIDefine.getScreenWidth(37),
                       padding: EdgeInsets.all(UIDefine.getScreenWidth(2)),
                       decoration: BoxDecoration(
                         color: AppColors.dialogBlack.withOpacity(0.6),
@@ -161,12 +157,12 @@ class _CollectionBlindBoxItemView extends State<CollectionBlindBoxItemView> {
                                   Text( // 達到Lv幾
                                     format(tr('reach'), {'level': data.rewardNft.unlockLevel.toString()}) ,
                                     style: AppTextStyle.getBaseStyle(color: AppColors.textWhite,
-                                        fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+                                        fontSize: UIDefine.fontSize10, fontWeight: FontWeight.w500),
                                   ),
                                   Text( // 目前進度 ex:1/3
                                     data.rewardNft.currentLevel.toString() + '/' + data.rewardNft.unlockLevel.toString(),
                                     style: AppTextStyle.getBaseStyle(color: AppColors.textWhite,
-                                        fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+                                        fontSize: UIDefine.fontSize10, fontWeight: FontWeight.w500),
                                   ),
                                 ],
                               ),
@@ -197,14 +193,14 @@ class _CollectionBlindBoxItemView extends State<CollectionBlindBoxItemView> {
                                       Text( // 購買次數幾
                                         format(tr('buyCount'), {'count': data.rewardNft.unlockBuyCount}) ,
                                         style: AppTextStyle.getBaseStyle(color: AppColors.textWhite,
-                                            fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+                                            fontSize: UIDefine.fontSize10, fontWeight: FontWeight.w500),
                                       )
                                     ],
                                   ),
                                   Text( // 目前進度 ex:1/3
                                     data.rewardNft.currentBuyCount.toString() + '/' + data.rewardNft.unlockBuyCount.toString(),
                                     style: AppTextStyle.getBaseStyle(color: AppColors.textWhite,
-                                        fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+                                        fontSize: UIDefine.fontSize10, fontWeight: FontWeight.w500),
                                   ),
                                 ],
                               ),
