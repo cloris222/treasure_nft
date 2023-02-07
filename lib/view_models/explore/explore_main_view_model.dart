@@ -5,6 +5,8 @@ import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../constant/call_back_function.dart';
+import '../../constant/theme/app_colors.dart';
+import '../../constant/theme/app_style.dart';
 import '../../constant/ui_define.dart';
 import '../../views/explore/api/explore_api.dart';
 import '../../views/explore/data/explore_category_response_data.dart';
@@ -26,25 +28,48 @@ class ExploreMainViewModel extends BaseViewModel {
     for (int i = 0; i < dataList.length; i++) {
       bool isCurrent = (dataList[i].name == currentExploreType);
       buttons.add(
-        SizedBox(
-          height: UIDefine.getScreenWidth(12),
-          child: TextButton(
-            onPressed: () {
-              changePage(dataList[i].name);
-            },
-            child: Container(
-              alignment: Alignment.bottomCenter,
-              padding: EdgeInsets.fromLTRB(
-                  UIDefine.getScreenWidth(2.77), 0,
-                  UIDefine.getScreenWidth(2.77), 0),
-              child: Text(
-                _getTabTitle(dataList[i].name),
-                style: AppTextStyle.getBaseStyle(color: _getButtonColor(isCurrent),
-                    fontSize: _getTextSize(isCurrent), fontWeight: FontWeight.w500),
-                textAlign: TextAlign.center,
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            SizedBox(
+              height: UIDefine.getScreenWidth(12),
+              child: TextButton(
+                onPressed: () {
+                  changePage(dataList[i].name);
+                },
+                child: Container(
+                  alignment: Alignment.bottomCenter,
+                  padding: EdgeInsets.fromLTRB(
+                      UIDefine.getScreenWidth(2.77), 0,
+                      UIDefine.getScreenWidth(2.77), 0),
+                  child: Text(
+                    _getTabTitle(dataList[i].name),
+                    style: AppTextStyle.getBaseStyle(color: _getButtonColor(isCurrent),
+                        fontSize: _getTextSize(isCurrent), fontWeight: FontWeight.w500),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               ),
             ),
-          ),
+            Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  height: 1,
+                  color: AppColors.lineBarGrey,
+                )),
+            Positioned(
+                bottom: 0,
+                child: Visibility(
+                  visible: isCurrent,
+                  child: Container(
+                    height: 4,
+                    width: UIDefine.getPixelWidth(30),
+                    decoration: AppStyle().baseGradient(radius: 3),
+                  ),
+                ))
+          ],
         ),
       );
     }
