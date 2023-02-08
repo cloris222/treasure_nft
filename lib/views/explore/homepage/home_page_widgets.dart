@@ -125,7 +125,7 @@ class HomePageWidgets {
                 Row(
                   children: [
                     Container(
-                      constraints: BoxConstraints(maxWidth: UIDefine.getWidth()*0.55),
+                      constraints: BoxConstraints(maxWidth: UIDefine.getWidth()*0.49),
                       child: Text(data.artistName,
                           style: AppTextStyle.getBaseStyle(color: Colors.white, fontSize: UIDefine.fontSize18, fontWeight: FontWeight.w500)),
                     ),
