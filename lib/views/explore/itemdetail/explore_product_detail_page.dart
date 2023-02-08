@@ -111,7 +111,7 @@ class _ExploreItemDetailPage extends State<ExploreItemDetailPage> {
 
                 Positioned(
                   left: 5, top: 10,
-                  child: Image.asset('assets/icon/btn/btn_arrow_03_left.png', scale: 0.7)
+                  child: GestureDetector(onTap:()=>viewModel.popPage(context),child: Image.asset('assets/icon/btn/btn_arrow_03_left.png', scale: 0.7))
                 )
               ],
             ),

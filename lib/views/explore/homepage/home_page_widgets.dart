@@ -127,7 +127,7 @@ class HomePageWidgets {
                       padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(0), 0,
                           0, UIDefine.getScreenWidth(0)),
                       child: Text(data.artistName,
-                        style: AppTextStyle.getBaseStyle(color: Colors.white, fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500)),
+                        style: AppTextStyle.getBaseStyle(color: Colors.white, fontSize: UIDefine.fontSize18, fontWeight: FontWeight.w500)),
                     ),
 
                     SizedBox(width: UIDefine.getScreenWidth(1.5)),
