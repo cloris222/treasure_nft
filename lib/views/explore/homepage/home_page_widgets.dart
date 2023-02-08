@@ -124,18 +124,17 @@ class HomePageWidgets {
                 Row(
                   children: [
                     Container(
-                      padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(0), 0,
-                          0, UIDefine.getScreenWidth(0)),
-                      child: Text(data.artistId,
-                        style: AppTextStyle.getBaseStyle(color: Colors.white, fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500)),
+                      constraints: BoxConstraints(maxWidth: UIDefine.getScreenWidth(51.35)),
+                      child: Text(data.artistName,
+                          style: AppTextStyle.getBaseStyle(color: Colors.white, fontSize: UIDefine.fontSize22, fontWeight: FontWeight.w500)),
                     ),
 
-                    SizedBox(width: UIDefine.getScreenWidth(1.5)),
+                    SizedBox(width: UIDefine.getScreenWidth(1)),
 
                     Image.asset('assets/icon/icon/icon_check_ok_02.png',
                         width: UIDefine.getScreenWidth(5.55), height: UIDefine.getScreenWidth(5.55)),
 
-                    SizedBox(width: UIDefine.getScreenWidth(1.5)),
+                    SizedBox(width: UIDefine.getScreenWidth(1)),
 
                     GestureDetector(
                       onTap: () => callBack('polygon'),
@@ -184,7 +183,7 @@ class HomePageWidgets {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _amountView(BaseViewModel().numberCompatFormat(adData.items.toString()), tr("items"), false),
+            _amountView(BaseViewModel().numberCompatFormat(adData.list.total.toString()), tr("items"), false),
             _amountView(BaseViewModel().numberCompatFormat(adData.owners.toString()), tr('owners'), false),
             _amountView(BaseViewModel().numberCompatFormat(adData.volume.toString()), tr('tradeVol'), true),
             _amountView(BaseViewModel().numberCompatFormat(adData.floorPrice.toString()), tr('floorPrice'), true)

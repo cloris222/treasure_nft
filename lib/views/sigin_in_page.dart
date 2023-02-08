@@ -180,7 +180,7 @@ class SignInPage extends StatelessWidget {
 
     return Container(
       ///日期間隙
-      margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(1)),
+      margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(0.25)),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

@@ -370,7 +370,7 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
       _buildDivisionInfoItem(
           title: tr('transactionReward'),
           context:
-              '${NumberFormatUtil().integerFormat(viewModel.checkReserveDeposit?.reward ?? 0)} %'),
+              '${NumberFormatUtil().removeTwoPointFormat(viewModel.checkReserveDeposit?.reward ?? 0)} %'),
     ]);
   }
 

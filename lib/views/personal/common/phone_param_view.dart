@@ -55,7 +55,7 @@ class _PhoneParamViewState extends State<PhoneParamView> {
         currentIndex = i;
       }
     }
-
+    widget.getDropDownValue(currentCountry);
     super.initState();
   }
 

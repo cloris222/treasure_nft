@@ -57,26 +57,23 @@ class _HomeUsdtInfoState extends State<HomeUsdtInfo> {
         fontFamily: AppTextFamily.Posterama1927);
 
     StrutStyle strutStyle =
-    const StrutStyle(forceStrutHeight: true, leading: 0.5);
+        const StrutStyle(forceStrutHeight: true, leading: 0.5);
 
     return SizedBox(
         width: UIDefine.getWidth(),
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           ///MARK: 交易額
-          Flexible(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('${viewModel.volumeData?.transactionAmount ?? '0'}K+',
-                        style: valueStyle),
-                    viewModel.buildSpace(height: 1),
-                    Wrap(children: [
-                      Text(tr('vol'),
-                          style: titleBolderStyle, strutStyle: strutStyle),
-                    ]),
-                    viewModel.buildSpace(height: 1),
-                  ])),
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text('${viewModel.volumeData?.transactionAmount ?? '0'}K+',
+                style: valueStyle),
+            viewModel.buildSpace(height: 1),
+            Wrap(children: [
+              Text(tr('vol'), style: titleBolderStyle, strutStyle: strutStyle),
+            ]),
+            viewModel.buildSpace(height: 1),
+          ]),
 
+          SizedBox(width: UIDefine.getPixelWidth(3)),
           // _buildLine(),
 
           ///MARK: 費用
@@ -84,15 +81,15 @@ class _HomeUsdtInfoState extends State<HomeUsdtInfo> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('${viewModel.volumeData?.cost ?? '0'}K+',
-                        style: valueStyle),
-                    viewModel.buildSpace(height: 1),
-                    Wrap(children: [
-                      Text(tr("index-fee'"),
-                          style: titleBolderStyle, strutStyle: strutStyle),
-                    ]),
-                    viewModel.buildSpace(height: 1),
-                  ])),
+                Text('${viewModel.volumeData?.cost ?? '0'}K+',
+                    style: valueStyle),
+                viewModel.buildSpace(height: 1),
+                Wrap(children: [
+                  Text(tr("index-fee'"),
+                      style: titleBolderStyle, strutStyle: strutStyle),
+                ]),
+                viewModel.buildSpace(height: 1),
+              ])),
 
           // _buildLine(),
 
@@ -101,12 +98,12 @@ class _HomeUsdtInfoState extends State<HomeUsdtInfo> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('${viewModel.volumeData?.nfts ?? '0'}K+',
-                        style: valueStyle),
-                    viewModel.buildSpace(height: 1),
-                    Text('${tr('NFTs')} ', style: titleBolderStyle),
-                    viewModel.buildSpace(height: 1),
-                  ]))
+                Text('${viewModel.volumeData?.nfts ?? '0'}K+',
+                    style: valueStyle),
+                viewModel.buildSpace(height: 1),
+                Text('${tr('NFTs')} ', style: titleBolderStyle),
+                viewModel.buildSpace(height: 1),
+              ]))
         ]));
   }
 }
