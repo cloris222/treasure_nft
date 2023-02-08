@@ -14,6 +14,7 @@ import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/api/common_api.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
+import 'package:treasure_nft_project/models/http/http_setting.dart';
 import 'package:treasure_nft_project/utils/image_picker_util.dart';
 import 'package:treasure_nft_project/widgets/button/login_bolder_button_widget.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
@@ -43,81 +44,80 @@ class EditAvatarDialog extends BaseDialog {
       children: [
         ///MARK: 選擇從圖庫or上傳的視窗
         Visibility(
-          visible: !showGallery,
-          child: Container(
-            padding: const EdgeInsets.all(15),
-            decoration: AppStyle().styleColorBorderBackground(color: Colors.white),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      tr('edit'),
-                      style: AppTextStyle.getBaseStyle(
-                          fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w400),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Image.asset(AppImagePath.dialogCloseBtn),
-                    ),
-                  ],
-                ),
-                SizedBox(height: UIDefine.getScreenHeight(2)),
-                Flexible(
-                    child: Container(
-                      height: 1,
-                      color: AppColors.bolderGrey,
-                    )
-                ),
-                SizedBox(height: UIDefine.getScreenHeight(2)),
-                isAvatar ? _buildUserPhoto(setState) : _buildUserBanner(setState),
-                SizedBox(height: UIDefine.getScreenHeight(1)),
-                LoginBolderButtonWidget(
-                  btnText: tr('gallery'),
-                  onPressed: () {
-                    setState(() {
-                      showGallery = true;
-                    });
-                  },
-                  height: UIDefine.getScreenWidth(11),
-                  margin: EdgeInsets.only(
-                      top: UIDefine.getScreenWidth(2.77),
-                      bottom: 5,
-                      left: UIDefine.getScreenWidth(5.5),
-                      right: UIDefine.getScreenWidth(5.5)),
-                ),
-                LoginBolderButtonWidget(
-                  btnText: tr('upload'),
-                  onPressed: () => _onChooseImage(setState),
-                  height: UIDefine.getScreenWidth(11),
-                  margin: EdgeInsets.only(
-                      top: 5,
-                      bottom: 5,
-                      left: UIDefine.getScreenWidth(5.5),
-                      right: UIDefine.getScreenWidth(5.5)),
-                ),
-                SizedBox(height: UIDefine.getScreenHeight(4)),
-                LoginButtonWidget(
-                  isFillWidth: true,
-                  btnText: tr('check'),
-                  onPressed: () => _onUploadImage(context),
-                  // margin: EdgeInsets.symmetric(horizontal: UIDefine.getWidth() / 20),
-                ),
-              ],
-            ),
-          )
-        ),
+            visible: !showGallery,
+            child: Container(
+              padding: const EdgeInsets.all(15),
+              decoration:
+                  AppStyle().styleColorBorderBackground(color: Colors.white),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        tr('edit'),
+                        style: AppTextStyle.getBaseStyle(
+                            fontSize: UIDefine.fontSize20,
+                            fontWeight: FontWeight.w400),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Image.asset(AppImagePath.dialogCloseBtn),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: UIDefine.getScreenHeight(2)),
+                  Flexible(
+                      child: Container(
+                    height: 1,
+                    color: AppColors.bolderGrey,
+                  )),
+                  SizedBox(height: UIDefine.getScreenHeight(2)),
+                  isAvatar
+                      ? _buildUserPhoto(setState)
+                      : _buildUserBanner(setState),
+                  SizedBox(height: UIDefine.getScreenHeight(1)),
+                  LoginBolderButtonWidget(
+                    btnText: tr('gallery'),
+                    onPressed: () {
+                      setState(() {
+                        showGallery = true;
+                      });
+                    },
+                    height: UIDefine.getScreenWidth(11),
+                    margin: EdgeInsets.only(
+                        top: UIDefine.getScreenWidth(2.77),
+                        bottom: 5,
+                        left: UIDefine.getScreenWidth(5.5),
+                        right: UIDefine.getScreenWidth(5.5)),
+                  ),
+                  LoginBolderButtonWidget(
+                    btnText: tr('upload'),
+                    onPressed: () => _onChooseImage(setState),
+                    height: UIDefine.getScreenWidth(11),
+                    margin: EdgeInsets.only(
+                        top: 5,
+                        bottom: 5,
+                        left: UIDefine.getScreenWidth(5.5),
+                        right: UIDefine.getScreenWidth(5.5)),
+                  ),
+                  SizedBox(height: UIDefine.getScreenHeight(4)),
+                  LoginButtonWidget(
+                    isFillWidth: true,
+                    btnText: tr('check'),
+                    onPressed: () => _onUploadImage(context),
+                    // margin: EdgeInsets.symmetric(horizontal: UIDefine.getWidth() / 20),
+                  ),
+                ],
+              ),
+            )),
 
         ///MARK: 選擇預設圖的視窗
-        Visibility(
-          visible: showGallery,
-          child: _onChooseGallery(setState)
-        )
+        Visibility(visible: showGallery, child: _onChooseGallery(setState))
       ],
     );
   }
@@ -151,35 +151,26 @@ class EditAvatarDialog extends BaseDialog {
           SizedBox(height: UIDefine.getScreenHeight(2)),
           Flexible(
               child: Container(
-                height: 1,
-                color: AppColors.bolderGrey,
-              )
-          ),
+            height: 1,
+            color: AppColors.bolderGrey,
+          )),
           SizedBox(height: UIDefine.getScreenHeight(4)),
-
-
           GridView(
             shrinkWrap: true,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              childAspectRatio: 1.0,
-              mainAxisSpacing: 10,
-              crossAxisSpacing: 10
-            ),
+                crossAxisCount: 3,
+                childAspectRatio: 1.0,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10),
             children: _getDefaultAvatar(setState),
           ),
-
           SizedBox(height: UIDefine.getScreenHeight(4)),
-
           Flexible(
               child: Container(
-                height: 1,
-                color: AppColors.bolderGrey,
-              )
-          ),
-
+            height: 1,
+            color: AppColors.bolderGrey,
+          )),
           SizedBox(height: UIDefine.getScreenHeight(4)),
-
           LoginButtonWidget(
             isFillWidth: true,
             btnText: tr('check'),
@@ -198,24 +189,23 @@ class EditAvatarDialog extends BaseDialog {
   List<Widget> _getDefaultAvatar(StateSetter setState) {
     List<Widget> defaultAvatar = [];
     for (int i = 0; i < 9; i++) {
-      defaultAvatar.add(
-        GestureDetector(
+      defaultAvatar.add(GestureDetector(
           onTap: () {
             setState(() {
               iPressIndex = i;
-              selectedDefaultAvatar = format(AppImagePath.avatarImgs, ({'index': i.toString()}));
+              selectedDefaultAvatar =
+                  format(AppImagePath.avatarImgs, ({'index': i.toString()}));
             });
           },
           child: Container(
-            padding: const EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              color: iPressIndex == i ? AppColors.dialogGrey.withOpacity(0.5) : AppColors.transParent,
-              borderRadius: const BorderRadius.all(Radius.circular(20))
-            ),
-            child: Image.asset(format(AppImagePath.avatarImgs, ({'index': i.toString()})))
-          )
-        )
-      );
+              padding: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                  color: iPressIndex == i
+                      ? AppColors.dialogGrey.withOpacity(0.5)
+                      : AppColors.transParent,
+                  borderRadius: const BorderRadius.all(Radius.circular(20))),
+              child: Image.asset(format(
+                  AppImagePath.avatarImgs, ({'index': i.toString()}))))));
     }
     return defaultAvatar;
   }
@@ -269,7 +259,8 @@ class EditAvatarDialog extends BaseDialog {
   _onUploadImage(BuildContext context) async {
     if (uploadFile != null) {
       ///MARK:上傳圖片
-      var imageResponse = await CommonAPI().uploadImage(uploadFile!.path, uploadOriginalName: false);
+      var imageResponse = await CommonAPI()
+          .uploadImage(uploadFile!.path, uploadOriginalName: false);
       if (isAvatar) {
         await UserInfoAPI().setUserAvtar(imageResponse.data);
         GlobalData.userInfo.photoUrl = imageResponse.data;
@@ -280,14 +271,25 @@ class EditAvatarDialog extends BaseDialog {
       // Share.shareXFiles([uploadFile!]);
       // GlobalData.printLog('!!!!!!!!!${uploadFile!.path}');
       onChange();
-
     } else if (selectedDefaultAvatar.isNotEmpty) {
-      getImageFileFromAssets(selectedDefaultAvatar).then((file) async {
-        var imageResponse = await CommonAPI().uploadImage(file.path, uploadOriginalName: false);
-        await UserInfoAPI().setUserAvtar(imageResponse.data);
-        GlobalData.userInfo.photoUrl = imageResponse.data;
-        onChange();
-      });
+      ///release
+      ///https://image.treasurenft.xyz/Treasure2.5/img/img_avatar_01_defult.png
+      ///https://image.treasurenft.xyz/img/img_Default%20_01.png
+      ///debug
+      ///https://devimage.treasurenft.xyz/Treasure2.5/img/img_avatar_01_defult.png
+      ///https://devimage.treasurenft.xyz/img/img_Default%20_07.png
+
+      String imageUrl;
+      if (iPressIndex == 0) {
+        imageUrl = format('{domain}/Treasure2.5/img/img_avatar_01_defult.png',
+            {"domain": HttpSetting.imgUrl});
+      } else {
+        imageUrl = format('{domain}/img/img_Default _0{index}.png',
+            {"domain": HttpSetting.imgUrl, "index": iPressIndex});
+      }
+      await UserInfoAPI().setUserAvtar(imageUrl);
+      GlobalData.userInfo.photoUrl = imageUrl;
+      onChange();
     }
     closeDialog();
   }
@@ -296,7 +298,8 @@ class EditAvatarDialog extends BaseDialog {
     path = path.replaceAll('assets/', '');
     final byteData = await rootBundle.load('assets/$path');
     final file = File('${(await getTemporaryDirectory()).path}/$path');
-    await file.writeAsBytes(byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+    await file.writeAsBytes(byteData.buffer
+        .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
 
     return file;
   }

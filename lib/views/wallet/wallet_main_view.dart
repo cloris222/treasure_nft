@@ -124,7 +124,7 @@ class _WalletMainViewState extends State<WalletMainView> {
                     SizedBox(height: UIDefine.getPixelWidth(20)),
                     Text(
                         NumberFormatUtil().removeTwoPointFormat(
-                            GlobalData.userProperty?.totalBalance ?? 0),
+                            GlobalData.userProperty?.balance ?? 0),
                         style: AppTextStyle.getBaseStyle(
                             fontSize: UIDefine.fontSize40,
                             fontWeight: FontWeight.w600)),

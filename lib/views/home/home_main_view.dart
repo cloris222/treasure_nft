@@ -181,16 +181,16 @@ class _HomeMainViewState extends State<HomeMainView> {
         Wrap(
           crossAxisAlignment: WrapCrossAlignment.end,
           children: [
-            Text('EARN UP TO ', style: black),
+            Text('EARN UP TO', style: black),
             GradientThirdText(
-              '30%',
+              ' 30 %',
               fontFamily: titleFamily,
               weight: titleFontWeight,
               size: UIDefine.fontSize30,
               // styleHeight: 1.1,
             ),
             GradientThirdText(
-              ' MONTHLY',
+              'MONTHLY',
               fontFamily: titleFamily,
               weight: titleFontWeight,
               size: titleFontSize,

@@ -238,11 +238,11 @@ class _SharePicStyleState extends State<SharePicStyle> {
                 ? Image.asset(
                     AppImagePath.shareText1,
                     height: UIDefine.getScreenHeight(10),
-                    fit: BoxFit.fitHeight,
+                    fit: BoxFit.contain,
                   )
                 : Image.asset(AppImagePath.shareText2,
                     height: UIDefine.getScreenHeight(10),
-                    fit: BoxFit.fitHeight)),
+                    fit: BoxFit.contain)),
         _buildSpace(),
         Flexible(
           child: QrImage(
