@@ -39,6 +39,7 @@ class HomePageWidgets {
         required List<Sm> smList
       }) {
     this.callBack = callBack;
+    adData.artistInfo = adData.artistInfo.replaceAll('\n', ''); // 不給換行,不然會破版
     return Stack(
       children: [
         GraduallyNetworkImage(
@@ -51,7 +52,7 @@ class HomePageWidgets {
 
         Container(
           width: double.infinity,
-          height: bShowMore? _getHeightForInfoView(adData.artistInfo) : UIDefine.getScreenWidth(84),
+          height: bShowMore? _getHeightForInfoView(adData.artistInfo) : UIDefine.getScreenWidth(89),
           decoration: BoxDecoration(
               gradient: LinearGradient(
                   begin: FractionalOffset.topCenter,
@@ -124,7 +125,7 @@ class HomePageWidgets {
                 Row(
                   children: [
                     Container(
-                      constraints: BoxConstraints(maxWidth: UIDefine.getWidth()*0.55),
+                      constraints: BoxConstraints(maxWidth: UIDefine.getWidth()*0.49),
                       child: Text(data.artistName,
                           style: AppTextStyle.getBaseStyle(color: Colors.white, fontSize: UIDefine.fontSize18, fontWeight: FontWeight.w500)),
                     ),
@@ -385,15 +386,15 @@ class HomePageWidgets {
 
   double _getHeightForInfoView(String artistInfo) {
     int length = artistInfo.length;
-    if (length <= 80 ) return UIDefine.getScreenWidth(88);
-    if (length <= 160 ) return UIDefine.getScreenWidth(93);
-    if (length <= 240 ) return UIDefine.getScreenWidth(98);
-    if (length <= 320 ) return UIDefine.getScreenWidth(103);
-    if (length <= 400 ) return UIDefine.getScreenWidth(108);
-    if (length <= 480 ) return UIDefine.getScreenWidth(113);
-    if (length <= 560 ) return UIDefine.getScreenWidth(118);
-    if (length <= 640 ) return UIDefine.getScreenWidth(123);
-    return UIDefine.getScreenWidth(128);
+    if (length <= 80 ) return UIDefine.getScreenWidth(90);
+    if (length <= 160 ) return UIDefine.getScreenWidth(95);
+    if (length <= 240 ) return UIDefine.getScreenWidth(100);
+    if (length <= 320 ) return UIDefine.getScreenWidth(105);
+    if (length <= 400 ) return UIDefine.getScreenWidth(110);
+    if (length <= 480 ) return UIDefine.getScreenWidth(115);
+    if (length <= 560 ) return UIDefine.getScreenWidth(120);
+    if (length <= 640 ) return UIDefine.getScreenWidth(125);
+    return UIDefine.getScreenWidth(130);
   }
 
 }
