@@ -126,7 +126,7 @@ class HomePageWidgets {
                     Container(
                       padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(0), 0,
                           0, UIDefine.getScreenWidth(0)),
-                      child: Text(data.artistId,
+                      child: Text(data.artistName,
                         style: AppTextStyle.getBaseStyle(color: Colors.white, fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500)),
                     ),
 
