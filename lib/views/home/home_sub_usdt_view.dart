@@ -17,7 +17,7 @@ class HomeSubUsdtView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: viewModel.getMainPadding(height: 10),
+     // padding: viewModel.getMainPadding(height: 10),
       decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage(AppImagePath.firstBackground),
@@ -27,21 +27,26 @@ class HomeSubUsdtView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           /// Trade
-          Row(
-            children: [
-              LoginButtonWidget(
-                  margin: EdgeInsets.zero,
-                  padding: EdgeInsets.symmetric(
-                      horizontal: UIDefine.getPixelWidth(15)),
-                  isFillWidth: false,
-                  radius: 43,
-                  btnText: tr('exploreNow'),
-                  fontSize: UIDefine.fontSize20,
-                  onPressed: () {
-                    viewModel.pushAndRemoveUntil(context,
-                        const MainPage(type: AppNavigationBarType.typeExplore));
-                  }),
-            ],
+          Padding(
+            padding: viewModel.getMainPadding(height: 10),
+            child: Row(
+              children: [
+                LoginButtonWidget(
+                    margin: EdgeInsets.zero,
+                    padding: EdgeInsets.symmetric(
+                        horizontal: UIDefine.getPixelWidth(15)),
+                    isFillWidth: false,
+                    radius: 43,
+                    btnText: tr('exploreNow'),
+                    fontSize: UIDefine.fontSize20,
+                    onPressed: () {
+                      viewModel.pushAndRemoveUntil(
+                          context,
+                          const MainPage(
+                              type: AppNavigationBarType.typeExplore));
+                    }),
+              ],
+            ),
           ),
 
           viewModel.buildSpace(height: 5),
@@ -52,7 +57,9 @@ class HomeSubUsdtView extends StatelessWidget {
           viewModel.buildSpace(height: 5),
 
           /// 輪播圖
-          CarouselListView(viewModel: viewModel)
+          Padding(
+              padding: viewModel.getMainPadding(height: 10),
+              child: CarouselListView(viewModel: viewModel))
         ],
       ),
     );
