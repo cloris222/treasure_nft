@@ -24,7 +24,7 @@ class CustomDropButton extends StatefulWidget {
   final int initIndex;
   final Widget Function(int index, bool needGradientText, bool needArrow)?
       buildCustomDropItem;
-  final String Function(int index) itemString;
+  final String Function(int index, bool needArrow) itemString;
   final void Function(int index) onChanged;
   final double? height;
   final bool needBorderBackground;
@@ -74,8 +74,8 @@ class _CustomDropButtonState extends State<CustomDropButton> {
             widget.onChanged(currentIndex);
           }
         },
+        dropdownWidth: UIDefine.getWidth() / 2,
         itemHeight: UIDefine.getPixelWidth(40),
-        itemPadding: const EdgeInsets.symmetric(horizontal: 8.0),
       )),
     );
   }
@@ -97,13 +97,15 @@ class _CustomDropButtonState extends State<CustomDropButton> {
               alignment: Alignment.centerLeft,
               child: isCurrent && needGradientText
                   ? GradientThirdText(
-                      widget.itemString(index),
+                      widget.itemString(index, needArrow),
                       maxLines: needArrow ? 1 : null,
+                      overflow: TextOverflow.ellipsis,
                       size: UIDefine.fontSize14,
                     )
                   : Text(
-                      widget.itemString(index),
+                      widget.itemString(index, needArrow),
                       maxLines: needArrow ? 1 : null,
+                      overflow: TextOverflow.ellipsis,
                       style: AppTextStyle.getBaseStyle(
                           fontSize: UIDefine.fontSize14,
                           color: AppColors.textSixBlack),

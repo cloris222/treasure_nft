@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/widgets/button/language_button_widget.dart';
 import 'package:treasure_nft_project/widgets/drop_buttom/custom_drop_button.dart';
 
 import '../../../constant/call_back_function.dart';
@@ -135,8 +136,8 @@ class _PhoneParamViewState extends State<PhoneParamView> {
     return value.length >= 10 ? '${value.substring(0, 10)}...' : value;
   }
 
-  String _buildItemString(int index) {
+  String _buildItemString(int index, bool needArrow) {
     CountryPhoneData data = GlobalData.country[index];
-    return '+${data.areaCode} ${_getSubString(tr(data.country))}';
+    return '+${data.areaCode} ${!needArrow ? tr(data.country) : _getSubString(tr(data.country))}';
   }
 }
