@@ -39,7 +39,7 @@ class _LanguageButtonWidgetState extends State<LanguageButtonWidget> {
           customButton: Image.asset(AppImagePath.globalImage,
               width: widget.iconSize,
               height: widget.iconSize,
-              fit: BoxFit.cover),
+              fit: BoxFit.contain),
           items: [
             ...LanguageType.values
                 .map((LanguageType type) => DropdownMenuItem<LanguageType>(
