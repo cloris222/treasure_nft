@@ -31,7 +31,7 @@ class GenderSelectorDropDownBar extends StatelessWidget {
   Widget _buildDropButton() {
     return CustomDropButton(
       listLength: _currencies.length,
-      itemString: (int index) {
+      itemString: (int index, bool needArrow) {
         return _getCategoryText(_currencies[index]);
       },
       onChanged: (int index) {
