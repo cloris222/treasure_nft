@@ -58,52 +58,66 @@ class _HomeUsdtInfoState extends State<HomeUsdtInfo> {
 
     StrutStyle strutStyle =
         const StrutStyle(forceStrutHeight: true, leading: 0.5);
+    double maxWidth = (UIDefine.getWidth()) * 0.33;
+    double spaceWidth = (UIDefine.getWidth()) * 0.03;
 
     return SizedBox(
         width: UIDefine.getWidth(),
-        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          ///MARK: 交易額
-          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text('${viewModel.volumeData?.transactionAmount ?? '0'}K+',
-                style: valueStyle),
-            viewModel.buildSpace(height: 1),
-            Wrap(children: [
-              Text(tr('vol'), style: titleBolderStyle, strutStyle: strutStyle),
-            ]),
-            viewModel.buildSpace(height: 1),
-          ]),
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ///MARK: 交易額
+              Container(
+                constraints: BoxConstraints(maxWidth: maxWidth),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                          '${viewModel.volumeData?.transactionAmount ?? '0'}K+',
+                          style: valueStyle),
+                      viewModel.buildSpace(height: 1),
+                      Wrap(children: [
+                        Text(tr('vol'),
+                            style: titleBolderStyle, strutStyle: strutStyle),
+                      ]),
+                      viewModel.buildSpace(height: 1),
+                    ]),
+              ),
 
-          SizedBox(width: UIDefine.getPixelWidth(3)),
-          // _buildLine(),
+              SizedBox(width: spaceWidth),
+              // _buildLine(),
 
-          ///MARK: 費用
-          Flexible(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                Text('${viewModel.volumeData?.cost ?? '0'}K+',
-                    style: valueStyle),
-                viewModel.buildSpace(height: 1),
-                Wrap(children: [
-                  Text(tr("index-fee'"),
-                      style: titleBolderStyle, strutStyle: strutStyle),
-                ]),
-                viewModel.buildSpace(height: 1),
-              ])),
+              ///MARK: 費用
+              Container(
+                  constraints: BoxConstraints(maxWidth: maxWidth),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('${viewModel.volumeData?.cost ?? '0'}K+',
+                            style: valueStyle),
+                        viewModel.buildSpace(height: 1),
+                        Wrap(children: [
+                          Text(tr("index-fee'"),
+                              style: titleBolderStyle, strutStyle: strutStyle),
+                        ]),
+                        viewModel.buildSpace(height: 1),
+                      ])),
 
-          // _buildLine(),
+              SizedBox(width: spaceWidth),
 
-          ///MARK: NFT
-          Flexible(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                Text('${viewModel.volumeData?.nfts ?? '0'}K+',
-                    style: valueStyle),
-                viewModel.buildSpace(height: 1),
-                Text('${tr('NFTs')} ', style: titleBolderStyle),
-                viewModel.buildSpace(height: 1),
-              ]))
-        ]));
+              ///MARK: NFT
+              Container(
+                  constraints: BoxConstraints(maxWidth: maxWidth),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('${viewModel.volumeData?.nfts ?? '0'}K+',
+                            style: valueStyle),
+                        viewModel.buildSpace(height: 1),
+                        Text('${tr('NFTs')} ', style: titleBolderStyle),
+                        viewModel.buildSpace(height: 1),
+                      ]))
+            ]));
   }
 }
