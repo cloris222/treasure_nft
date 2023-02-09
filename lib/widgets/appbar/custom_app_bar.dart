@@ -154,7 +154,7 @@ class CustomAppBar {
     bool isMainPage = false,
   }) {
     var space = const SizedBox(width: 8);
-    double iconSize = UIDefine.getPixelWidth(28);
+    double iconSize = 28;
     return _getCustomAppBar(
         margin: const EdgeInsets.symmetric(horizontal: 10),
         actions: [
@@ -164,7 +164,8 @@ class CustomAppBar {
               child: InkWell(
                   onTap: mainAction,
                   child: Image.asset(AppImagePath.mainAppBarLogo,
-                      height: UIDefine.getPixelWidth(35), fit: BoxFit.fitHeight)),
+                      height:35,
+                      fit: BoxFit.fitHeight)),
             ),
           ),
           Row(
@@ -184,7 +185,7 @@ class CustomAppBar {
                     child: Container(
                       color: Colors.transparent,
                       child: Image.asset(AppImagePath.serverImage,
-                          width: iconSize, height: iconSize, fit: BoxFit.cover),
+                          width: iconSize, height: iconSize, fit: BoxFit.contain),
                     )),
                 space,
                 GestureDetector(
@@ -192,7 +193,7 @@ class CustomAppBar {
                     child: Container(
                       color: Colors.transparent,
                       child: Image.asset(AppImagePath.homeImage,
-                          width: iconSize, height: iconSize, fit: BoxFit.cover),
+                          width: iconSize, height: iconSize, fit: BoxFit.contain),
                     )),
               ])
         ]);
