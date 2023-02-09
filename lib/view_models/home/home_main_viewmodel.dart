@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/enum/style_enum.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/subject_key.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
@@ -31,7 +32,6 @@ class HomeMainViewModel extends BaseViewModel {
 
   List<HomeCarousel> homeCarouselList = [];
   List<ArtistRecord> homeArtistRecordList = [];
-  Map<String, String> status = {};
   TradingVolumeData? volumeData;
 
   ///new ui
@@ -153,7 +153,7 @@ class HomeMainViewModel extends BaseViewModel {
 
   Future<void> getContactInfo() async {
     ///MARK: 取得聯絡資訊
-    status = await HomeAPI().getFooterSetting();
+    await getAppContactInfo();
     homeSubject
         .notifyObservers(NotificationData(key: SubjectKey.keyHomeContact));
   }

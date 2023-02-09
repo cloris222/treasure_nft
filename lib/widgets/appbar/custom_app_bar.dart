@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/enum/setting_enum.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/widgets/button/language_button_widget.dart';
+import 'package:treasure_nft_project/widgets/button/social_media_button_widget.dart';
 
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/ui_define.dart';
@@ -149,10 +151,10 @@ class CustomAppBar {
     required VoidCallback serverAction,
     required VoidCallback globalAction,
     required VoidCallback mainAction,
-    bool isMainPage=false,
+    bool isMainPage = false,
   }) {
     var space = const SizedBox(width: 8);
-    double iconSize = 28;
+    double iconSize = UIDefine.getPixelWidth(28);
     return _getCustomAppBar(
         margin: const EdgeInsets.symmetric(horizontal: 10),
         actions: [
@@ -162,21 +164,20 @@ class CustomAppBar {
               child: InkWell(
                   onTap: mainAction,
                   child: Image.asset(AppImagePath.mainAppBarLogo,
-                      height: 35, fit: BoxFit.fitHeight)),
+                      height: UIDefine.getPixelWidth(35), fit: BoxFit.fitHeight)),
             ),
           ),
           Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // GestureDetector(
-                //     onTap: globalAction,
-                //     child: Container(
-                //       color: Colors.transparent,
-                //       child: Image.asset(AppImagePath.globalImage,
-                //           width: iconSize, height: iconSize, fit: BoxFit.cover),
-                //     )),
-                LanguageButtonWidget(iconSize: iconSize,isMainPage:isMainPage),
+                SocialMediaButtonWidget(
+                    padding: EdgeInsets.zero,
+                    footer: HomeFooter.Telegram,
+                    size: iconSize),
+                space,
+                LanguageButtonWidget(
+                    iconSize: iconSize, isMainPage: isMainPage),
                 space,
                 GestureDetector(
                     onTap: serverAction,
