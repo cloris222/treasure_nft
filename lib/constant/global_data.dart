@@ -20,6 +20,7 @@ class GlobalData {
   static GlobalKey<NavigatorState> globalKey = GlobalKey();
   static bool firstLaunch = true;
   static List<CountryPhoneData> country = [];
+  static Map<String, String> appContactInfo = {};
 
   static printLog(String? logMessage) {
     if (HttpSetting.debugMode) {

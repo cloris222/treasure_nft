@@ -1,10 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/enum/setting_enum.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/subject_key.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/home/home_observer.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
+import 'package:treasure_nft_project/widgets/button/social_media_button_widget.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/ui_define.dart';
 
@@ -72,58 +74,11 @@ class _HomeSubContactViewState extends State<HomeSubContactView> {
   List<Widget> _buildFooterButtonList() {
     List<Widget> list = [];
     for (var footer in HomeFooter.values) {
-      if (viewModel.status[footer.name]?.isNotEmpty ?? true) {
-        list.add(GestureDetector(
-            onTap: () {
-              viewModel.launchInBrowser(getFooterLinkPath(footer));
-            },
-            child: Container(
-                width: UIDefine.getPixelWidth(30),
-                height: UIDefine.getPixelWidth(30),
-                margin: EdgeInsets.symmetric(
-                    horizontal: UIDefine.getPixelWidth(5),
-                    vertical: UIDefine.getPixelWidth(10)),
-                child: Image.asset(getFooterImgPath(footer)))));
+      if (GlobalData.appContactInfo[footer.name]?.isNotEmpty ?? false) {
+        list.add(SocialMediaButtonWidget(footer: footer));
       }
     }
 
     return list;
-  }
-
-  String getFooterImgPath(HomeFooter footer) {
-    switch (footer) {
-      case HomeFooter.Email:
-        return AppImagePath.mail;
-      case HomeFooter.Tiktok:
-        return AppImagePath.tiktok;
-      case HomeFooter.Twitter:
-        return AppImagePath.twitter;
-      case HomeFooter.Youtube:
-        return AppImagePath.yt;
-      case HomeFooter.Telegram:
-        return AppImagePath.tg;
-      case HomeFooter.Facebook:
-        return AppImagePath.fb;
-      case HomeFooter.Instagram:
-        return AppImagePath.ig;
-      case HomeFooter.Discord:
-        return AppImagePath.dc;
-    }
-  }
-
-  String getFooterLinkPath(HomeFooter footer) {
-    String link = viewModel.status[footer.name] ?? '';
-    switch (footer) {
-      case HomeFooter.Email:
-        return 'mailto:$link';
-      case HomeFooter.Tiktok:
-      case HomeFooter.Twitter:
-      case HomeFooter.Youtube:
-      case HomeFooter.Telegram:
-      case HomeFooter.Facebook:
-      case HomeFooter.Instagram:
-      case HomeFooter.Discord:
-        return link;
-    }
   }
 }

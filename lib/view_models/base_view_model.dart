@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:format/format.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
+import 'package:treasure_nft_project/models/http/api/home_api.dart';
 import 'package:treasure_nft_project/models/http/api/order_api.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/user_info_data.dart';
@@ -552,6 +553,10 @@ class BaseViewModel {
       GlobalData.country.clear();
       GlobalData.country.addAll(value);
     });
+  }
+  ///查詢APP聯絡資訊
+  Future<void> getAppContactInfo() async{
+    GlobalData.appContactInfo = await HomeAPI().getFooterSetting();
   }
 
   /// 簡易timer
