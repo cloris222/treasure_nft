@@ -10,6 +10,7 @@ import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/subject_key.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/models/http/api/common_api.dart';
 import 'package:treasure_nft_project/models/http/api/home_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/collect_top_info.dart';
 import 'package:treasure_nft_project/models/http/parameter/discover_collect_data.dart';
@@ -169,16 +170,6 @@ class HomeMainViewModel extends BaseViewModel {
     discoverList = await HomeAPI().getDiscoverMoreNFT(category: tag.name);
     homeSubject
         .notifyObservers(NotificationData(key: SubjectKey.keyHomeDiscoverData));
-  }
-
-  /// 外部連結
-  Future<void> launchInBrowser(String url) async {
-    if (!await launchUrl(
-      Uri.parse(url),
-      mode: LaunchMode.externalApplication,
-    )) {
-      throw 'Could not launch $url';
-    }
   }
 
   int animateIndex = -1;

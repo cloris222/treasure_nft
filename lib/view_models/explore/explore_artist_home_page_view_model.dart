@@ -19,15 +19,6 @@ class ExploreArtistHomePageViewModel extends BaseViewModel {
         .getExploreArtistDetail(page: page, size: size, artistId: artistId, name: name, sortBy: sortBy);
   }
 
-  /// 外部連結
-  Future<void> launchInBrowser(String url) async {
-    if (!await launchUrl(
-      Uri.parse(url),
-      mode: LaunchMode.externalApplication,
-    )) {
-      throw 'Could not launch $url';
-    }
-  }
 
   /// 分享畫家PC網址
   void sharePCUrl(String artistId) {

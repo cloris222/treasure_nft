@@ -100,14 +100,4 @@ class LevelDetailViewModel extends BaseViewModel {
   void showLeveLBonus(BuildContext context) async {
     pushPage(context, const LevelBonusPage());
   }
-
-  /// 外部連結
-  Future<void> launchInBrowser(String url) async {
-    if (!await launchUrl(
-      Uri.parse(url),
-      mode: LaunchMode.externalApplication,
-    )) {
-      throw 'Could not launch $url';
-    }
-  }
 }

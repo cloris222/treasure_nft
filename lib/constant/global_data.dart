@@ -37,6 +37,7 @@ class GlobalData {
 
   ///MARK: 如果有值就顯示簽到畫面
   static SignInData? signInInfo;
+  static bool needUpdateApp = false;
 
   ///MARK: 使用者相關資料
   static UserInfoData userInfo = UserInfoData();

@@ -19,6 +19,7 @@ import 'package:treasure_nft_project/views/trade/trade_new_main_view.dart';
 import 'package:treasure_nft_project/views/wallet/wallet_main_view.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 import 'package:treasure_nft_project/widgets/bottom_sheet/page_bottom_sheet.dart';
+import 'package:treasure_nft_project/widgets/dialog/app_version_update_dialog.dart';
 
 import '../constant/global_data.dart';
 import '../constant/ui_define.dart';
@@ -153,9 +154,19 @@ class _MainPageState extends State<MainPage> {
                 SignInPage(
                   data: GlobalData.signInInfo!,
                 ))
-            .then((value) => viewModel.setSignIn(context));
+            .then((value) => viewModel
+                .setSignIn(context)
+                .then((value) => showAppUpdateDialog()));
+      } else {
+        showAppUpdateDialog();
       }
     });
+  }
+
+  void showAppUpdateDialog() {
+    if (GlobalData.needUpdateApp) {
+      AppVersionUpdateDialog(context).show();
+    }
   }
 
   @override
