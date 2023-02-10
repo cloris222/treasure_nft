@@ -1206,7 +1206,7 @@
   "deleteAccount":"Hesabı sil",
   "deleteAccountHint":"Hesabınızı silmek istediğinizden emin misiniz? Bu geri alınamaz.",
   "goPermissionAnimation":"APP animasyonunun tam olarak çalıştığından emin olmak için depolama iznini etkinleştirmeniz gerekir. Ayar için ayar sayfasına gitmek istiyor musunuz?",
-  "appPurchaseDescription":"Bu ürünü satın alarak {price}USDT değerinde bir NFT sanat koleksiyonuna sahip olabilirsiniz.",
+  "appPurchaseDescription":"Bu ürünü satın alarak değerinde bir sanat koleksiyonuna sahip olabilirsiniz.",
   "appSaveWalletHint":"Transfer İşlemlerinde Yanlış Ağ'a Çekilen Tutarlardan Kullanıcılar Sorumludur.Lütfen Çekim Adreslerinizi Kontrol Ediniz.",
   "appUpdateTitle":"Güncelleme Bildirimi",
   "appUpdateContext":"En son sürüm şu anda mevcut, lütfen güncellemeye gidin"

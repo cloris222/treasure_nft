@@ -1206,7 +1206,7 @@
   "deleteAccount":"Hapus akun",
   "deleteAccountHint":"Apakah Anda yakin ingin menghapus akun Anda? Ini tidak dapat dibatalkan.",
   "goPermissionAnimation":"Untuk memastikan animasi APP berfungsi penuh, Anda perlu mengaktifkan izin penyimpanan. Apakah Anda ingin pergi ke halaman pengaturan untuk pengaturan?",
-  "appPurchaseDescription":"Dengan membeli produk ini, Anda bisa mendapatkan koleksi seni NFT senilai {price}USDT.",
+  "appPurchaseDescription":"Dengan membeli produk ini, Anda bisa mendapatkan koleksi seni .",
   "appSaveWalletHint":"Platform tidak akan bertanggung jawab jika USDT ditransfer ke alamat yang salah karena alamat yang dimasukkan salah.",
   "appUpdateTitle":"Perbarui Pemberitahuan",
   "appUpdateContext":"Versi terbaru saat ini tersedia, silakan perbarui"

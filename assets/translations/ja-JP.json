@@ -1206,7 +1206,7 @@
     "deleteAccount":"アカウントを削除する",
     "deleteAccountHint":"このアカウントを削除してもよろしいですか。この操作は元に戻せません",
     "goPermissionAnimation":"アプリ アニメーションの正常な動作を確保するには、ストレージのアクセス許可を有効にする必要があります。設定ページに移動して設定しますか?",
-    "appPurchaseDescription":"このアイテムを購入すると、{price} USDT 相当の NFT アート コレクションを手に入れることができます",
+    "appPurchaseDescription":"このアイテムを購入すると、相当の NFT アート コレクションを手に入れることができます",
     "appSaveWalletHint":"間違ったアドレスを入力して USDT が間違ったアドレスに転送された場合、プラットフォームは一切の責任を負いません。",
     "appUpdateTitle":"通知を更新します",
     "appUpdateContext":"最新バージョンは現在利用可能です。更新にアクセスしてください"
