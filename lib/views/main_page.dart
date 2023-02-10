@@ -19,6 +19,7 @@ import 'package:treasure_nft_project/views/trade/trade_new_main_view.dart';
 import 'package:treasure_nft_project/views/wallet/wallet_main_view.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 import 'package:treasure_nft_project/widgets/bottom_sheet/page_bottom_sheet.dart';
+import 'package:treasure_nft_project/widgets/dialog/app_version_update_dialog.dart';
 
 import '../constant/global_data.dart';
 import '../constant/ui_define.dart';
@@ -121,26 +122,30 @@ class _MainPageState extends State<MainPage> {
       );
 
   void showAnimateView() {
-    ///MARK: 代表手機自動登入
-    String? path = AnimationDownloadUtil()
-        .getAnimationFilePath(viewModel.getLoginTimeAnimationPath());
-    if (GlobalData.showLoginAnimate && path != null) {
-      GlobalData.showLoginAnimate = false;
-      viewModel
-          .pushOpacityPage(
-              context,
-              FullAnimationPage(
-                  isFile: true,
-                  limitTimer: 3,
-                  animationPath: path,
-                  nextOpacityPage: true,
-                  isPushNextPage: true))
-          .then((value) {
-        showSignView();
-      });
+    if (GlobalData.needUpdateApp) {
+      AppVersionUpdateDialog(context).show();
     } else {
-      GlobalData.showLoginAnimate = false;
-      showSignView();
+      ///MARK: 代表手機自動登入
+      String? path = AnimationDownloadUtil()
+          .getAnimationFilePath(viewModel.getLoginTimeAnimationPath());
+      if (GlobalData.showLoginAnimate && path != null) {
+        GlobalData.showLoginAnimate = false;
+        viewModel
+            .pushOpacityPage(
+                context,
+                FullAnimationPage(
+                    isFile: true,
+                    limitTimer: 3,
+                    animationPath: path,
+                    nextOpacityPage: true,
+                    isPushNextPage: true))
+            .then((value) {
+          showSignView();
+        });
+      } else {
+        GlobalData.showLoginAnimate = false;
+        showSignView();
+      }
     }
   }
 
