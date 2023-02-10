@@ -122,26 +122,30 @@ class _MainPageState extends State<MainPage> {
       );
 
   void showAnimateView() {
-    ///MARK: 代表手機自動登入
-    String? path = AnimationDownloadUtil()
-        .getAnimationFilePath(viewModel.getLoginTimeAnimationPath());
-    if (GlobalData.showLoginAnimate && path != null) {
-      GlobalData.showLoginAnimate = false;
-      viewModel
-          .pushOpacityPage(
-              context,
-              FullAnimationPage(
-                  isFile: true,
-                  limitTimer: 3,
-                  animationPath: path,
-                  nextOpacityPage: true,
-                  isPushNextPage: true))
-          .then((value) {
-        showSignView();
-      });
+    if (GlobalData.needUpdateApp) {
+      AppVersionUpdateDialog(context).show();
     } else {
-      GlobalData.showLoginAnimate = false;
-      showSignView();
+      ///MARK: 代表手機自動登入
+      String? path = AnimationDownloadUtil()
+          .getAnimationFilePath(viewModel.getLoginTimeAnimationPath());
+      if (GlobalData.showLoginAnimate && path != null) {
+        GlobalData.showLoginAnimate = false;
+        viewModel
+            .pushOpacityPage(
+                context,
+                FullAnimationPage(
+                    isFile: true,
+                    limitTimer: 3,
+                    animationPath: path,
+                    nextOpacityPage: true,
+                    isPushNextPage: true))
+            .then((value) {
+          showSignView();
+        });
+      } else {
+        GlobalData.showLoginAnimate = false;
+        showSignView();
+      }
     }
   }
 
@@ -154,19 +158,9 @@ class _MainPageState extends State<MainPage> {
                 SignInPage(
                   data: GlobalData.signInInfo!,
                 ))
-            .then((value) => viewModel
-                .setSignIn(context)
-                .then((value) => showAppUpdateDialog()));
-      } else {
-        showAppUpdateDialog();
+            .then((value) => viewModel.setSignIn(context));
       }
     });
-  }
-
-  void showAppUpdateDialog() {
-    if (GlobalData.needUpdateApp) {
-      AppVersionUpdateDialog(context).show();
-    }
   }
 
   @override
