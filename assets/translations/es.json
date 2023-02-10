@@ -1207,5 +1207,7 @@
   "deleteAccountHint":"¿Está seguro de que desea eliminar su cuenta? Esto no se puede deshacer.",
   "goPermissionAnimation":"Para garantizar que la animación de la aplicación funcione completamente, debe habilitar el permiso de almacenamiento. ¿Desea ir a la página de configuración para la configuración?",
   "appPurchaseDescription":"Al comprar este producto, puede obtener una colección de arte NFT por un valor de {price}USDT.",
-  "appSaveWalletHint":"La plataforma no se responsabiliza si el USDT se transfiere a una dirección incorrecta debido a que se ha introducido una dirección incorrecta."
+  "appSaveWalletHint":"La plataforma no se responsabiliza si el USDT se transfiere a una dirección incorrecta debido a que se ha introducido una dirección incorrecta.",
+  "appUpdateTitle":"Aviso de actualización",
+  "appUpdateContext":"La última versión está disponible actualmente, vaya a la actualización"
 }
