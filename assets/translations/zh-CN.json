@@ -1206,7 +1206,7 @@
   "deleteAccount":"删除帐号",
   "deleteAccountHint":"您是否确认要删除此帐号呢，此操作无法恢复",
   "goPermissionAnimation":"为确保APP动画正常运行，您需要启用储存权限，是否前往设定页面做设定？",
-  "appPurchaseDescription":"购买此商品,您可获得价值{price}USDT的NFT艺术收藏品",
+  "appPurchaseDescription":"购买此商品,您可获得NFT艺术收藏品",
   "appSaveWalletHint":"如果填写错误的地址，导致USDT被转移到错误的地址，平台将不承担任何责任",
   "appUpdateTitle":"更新通知",
   "appUpdateContext":"目前已有最新版本，请前往更新"
