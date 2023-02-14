@@ -44,7 +44,7 @@ class OrderInfoPageViewModel extends BaseViewModel {
 
     /// 取得日期 by 帳號所屬國家時區(洲名/都市) ex：年月日純數字但需分開取 2022 12 2
     tz.initializeTimeZones();
-    String timeZoneCode2 = _getTimeZoneCode(GlobalData.userInfo.country);
+    String timeZoneCode2 = _getTimeZoneCode(GlobalData.userInfo.zone);
     var istanbulTimeZone = tz.getLocation(timeZoneCode2);
     int year = tz.TZDateTime.now(istanbulTimeZone).year;
     int month = tz.TZDateTime.now(istanbulTimeZone).month;
@@ -60,52 +60,56 @@ class OrderInfoPageViewModel extends BaseViewModel {
     return value.toString();
   }
 
-  String _getTimeZoneCode(String countryName) {
-    switch(countryName) {
-      case 'Canada':
-        return 'America/Toronto';
-      case 'SaudiArabia':
-        return 'Africa/Nairobi';
-      case 'Jordan':
-        return 'Africa/Nairobi';
-      case 'Spain':
-        return 'Europe/Madrid';
-      case 'Brazil':
-        return 'America/Sao_Paulo';
-      case 'Singapore':
-        return 'Asia/Singapore';
-      case 'America':
-        return 'America/Toronto';
-      case 'Kuwait':
-        return 'Asia/Riyadh';
-      case 'Iran':
+  String _getTimeZoneCode(String sGMT) {
+    switch(sGMT) {
+      case 'GMT-3':
+        return 'America/Araguaina';
+      case 'GMT-4':
+        return 'America/Aruba';
+      case 'GMT-5':
+        return 'America/Atikokan';
+      case 'GMT-6':
+        return 'America/Belize';
+      case 'GMT+0':
+        return 'Africa/Monrovia';
+      case 'GMT+1':
+        return 'Africa/Ndjamena';
+      case 'GMT+2':
+        return 'Africa/Tripoli';
+      case 'GMT+3':
+        return 'Africa/Mogadishu';
+      case 'GMT+3:30':
         return 'Asia/Tehran';
-      case 'Taiwan':
-        return 'Asia/Taipei';
-      case 'Philippines':
-        return 'Asia/Taipei';
-      case 'Turkey':
-        return 'Europe/Istanbul';
-      case 'UnitedKingdom':
-        return 'Europe/London';
-      case 'Korea':
-        return 'Asia/Tokyo';
-      case 'Thailand':
-        return 'Asia/Bangkok';
-      case 'Laos':
-        return 'Asia/Bangkok';
-      case 'Indonesia':
-        return 'Asia/Bangkok';
-      case 'Malaysia':
-        return 'Asia/Singapore';
-      case 'TimorTimur':
-        return 'Asia/Makassar';
-      case 'Japan':
-        return 'Asia/Tokyo';
-      case 'PapuaNewGuinea':
-        return 'Pacific/Port_Moresby';
+      case 'GMT+4':
+        return 'Asia/Tbilisi';
+      case 'GMT+4:30':
+        return 'Asia/Kabul';
+      case 'GMT+5':
+        return 'Asia/Karachi';
+      case 'GMT+5:30':
+        return 'Asia/Kolkata';
+      case 'GMT+5:45':
+        return 'Asia/Kathmandu';
+      case 'GMT+6':
+        return 'Asia/Kashgar';
+      case 'GMT+6:30':
+        return 'Asia/Rangoon';
+      case 'GMT+7':
+        return 'Asia/Krasnoyarsk';
+      case 'GMT+8':
+        return 'Asia/Kuching';
+      case 'GMT+9':
+        return 'Asia/Khandyga';
+      case 'GMT+10':
+        return 'Asia/Vladivostok';
+      case 'GMT+11':
+        return 'Asia/Srednekolymsk';
+      case 'GMT+12':
+        return 'Antarctica/McMurdo';
+      case 'GMT+13':
+        return 'Pacific/Apia';
     }
-    return '';
+    return 'America/Toronto';
   }
 
   /// 這個會自動換成該國慣用用法 ex: 台灣會有年月日單位, 阿拉伯會是阿拉伯語非數字
@@ -157,12 +161,17 @@ class OrderInfoPageViewModel extends BaseViewModel {
   //   return '';
   // }
 
-  void requestAPI(int page, int size, {ResponseErrorFunction? onConnectFail}) async {
+  void requestAPI(int page, int size,
+      {ResponseErrorFunction? onConnectFail}) async {
     if (currentType.isNotEmpty) {
       await OrderAPI(onConnectFail: onConnectFail)
-          .getOrderMessageListResponse(page: page, size: size,
-          type: currentType, startTime: startDate, endTime: endDate)
-          .then((value) => {_setState(value)} );
+          .getOrderMessageListResponse(
+              page: page,
+              size: size,
+              type: currentType,
+              startTime: startDate,
+              endTime: endDate)
+          .then((value) => {_setState(value)});
 
       // await CollectionApi(onConnectFail: onConnectFail) // 這裡的副本預約 不顯示餘額補足按鈕
       //     .getWalletBalanceResponse()
@@ -171,12 +180,17 @@ class OrderInfoPageViewModel extends BaseViewModel {
     }
   }
 
-  void requestAPIForUpdate(int page, int size, {ResponseErrorFunction? onConnectFail}) async {
+  void requestAPIForUpdate(int page, int size,
+      {ResponseErrorFunction? onConnectFail}) async {
     if (currentType.isNotEmpty) {
       await OrderAPI(onConnectFail: onConnectFail)
-          .getOrderMessageListResponse(page: page, size: size,
-          type: currentType, startTime: startDate, endTime: endDate)
-          .then((value) => {_update(value)} );
+          .getOrderMessageListResponse(
+              page: page,
+              size: size,
+              type: currentType,
+              startTime: startDate,
+              endTime: endDate)
+          .then((value) => {_update(value)});
     }
   }
 
@@ -195,7 +209,7 @@ class OrderInfoPageViewModel extends BaseViewModel {
   ///TODO: 給定不同的卡牌樣式＆資料
   createItemView(int index) {
     OrderMessageListResponseData data = dataList[index];
-    switch(currentType) {
+    switch (currentType) {
       // case 'ITEM': // 隱藏不做
       //   return ItemInfoCard(itemName: data.itemName, dateTime: BaseViewModel().changeTimeZone(data.createdAt),
       //       imageUrl: data.imgUrl, price: data.price.toString(), dataList: _itemListContent(data), status: data.status);
@@ -206,24 +220,43 @@ class OrderInfoPageViewModel extends BaseViewModel {
       //   return ItemInfoCard(itemName: data.itemName, dateTime: dateTime,
       //       imageUrl: imageUrl, price: price, dataList: dataList);
       case 'ROYALTY':
-        return ItemInfoCard(itemName: data.itemName, dateTime: BaseViewModel().changeTimeZone(data.time), bShowPriceAtEnd: true,
-            imageUrl: data.imgUrl, price: data.price.toString(), dataList: _royaltyListContent(data));
+        return ItemInfoCard(
+            itemName: data.itemName,
+            dateTime: BaseViewModel().changeTimeZone(data.time),
+            bShowPriceAtEnd: true,
+            imageUrl: data.imgUrl,
+            price: data.price.toString(),
+            dataList: _royaltyListContent(data));
 
       case 'PRICE':
         return OrderInfoCard(
-            orderNumber: data.orderNo, dateTime: BaseViewModel().changeTimeZone(data.createdAt, isShowGmt: true),
-            dataList: _priceListContent(data), status: data.status, // 訂單信息的副本預約，不要顯示餘額補足按鈕
-            imageUrl: data.imgUrl, itemName: data.itemName, price: data.price.toString());
+            orderNumber: data.orderNo,
+            dateTime:
+                BaseViewModel().changeTimeZone(data.createdAt, isShowGmt: true),
+            dataList: _priceListContent(data),
+            status: data.status,
+            // 訂單信息的副本預約，不要顯示餘額補足按鈕
+            imageUrl: data.imgUrl,
+            itemName: data.itemName,
+            price: data.price.toString());
 
       case 'ACTIVITY':
-        return AWDInfoCard(type: data.type, datetime: BaseViewModel().changeTimeZone(data.time),
+        return AWDInfoCard(
+            type: data.type,
+            datetime: BaseViewModel().changeTimeZone(data.time),
             dataList: _activityListContent(data));
       case 'DEPOSIT':
-        return AWDInfoCard(type: data.type, datetime: BaseViewModel().changeTimeZone(data.time),
-            dataList: _depositListContent(data), status: data.status);
+        return AWDInfoCard(
+            type: data.type,
+            datetime: BaseViewModel().changeTimeZone(data.time),
+            dataList: _depositListContent(data),
+            status: data.status);
       case 'WITHDRAW':
-        return AWDInfoCard(type: data.type, datetime: BaseViewModel().changeTimeZone(data.time),
-            dataList: _withdrawListContent(data), status: data.status);
+        return AWDInfoCard(
+            type: data.type,
+            datetime: BaseViewModel().changeTimeZone(data.time),
+            dataList: _withdrawListContent(data),
+            status: data.status);
 
       case 'BUY':
         return BuyerSellerInfoCard(
@@ -237,12 +270,20 @@ class OrderInfoPageViewModel extends BaseViewModel {
             dataList: _sellListContent(data),
             moreInfoDataList: _sellListContentMore(data));
       case 'DEPOSIT_NFT':
-        return ItemInfoCard(itemName: data.itemName, dateTime: BaseViewModel().changeTimeZone(data.createdAt),
-            imageUrl: data.imgUrl, price: '', dataList: _depositAndTransferNFTContent(data));
+        return ItemInfoCard(
+            itemName: data.itemName,
+            dateTime: BaseViewModel().changeTimeZone(data.createdAt),
+            imageUrl: data.imgUrl,
+            price: '',
+            dataList: _depositAndTransferNFTContent(data));
 
       case 'TRANSFER_NFT':
-        return ItemInfoCard(itemName: data.itemName, dateTime: BaseViewModel().changeTimeZone(data.createdAt),
-            imageUrl: data.imgUrl, price: '', dataList: _depositAndTransferNFTContent(data));
+        return ItemInfoCard(
+            itemName: data.itemName,
+            dateTime: BaseViewModel().changeTimeZone(data.createdAt),
+            imageUrl: data.imgUrl,
+            price: '',
+            dataList: _depositAndTransferNFTContent(data));
     }
   }
 
@@ -322,8 +363,9 @@ class OrderInfoPageViewModel extends BaseViewModel {
     List<CardShowingData> dataList = [];
     CardShowingData data = CardShowingData();
     data.title = tr('reservationAmount');
-    data.content = BaseViewModel().numberFormat(resData.startPrice.toString()) + ' ~ '
-        + BaseViewModel().numberFormat(resData.endPrice.toString());
+    data.content = BaseViewModel().numberFormat(resData.startPrice.toString()) +
+        ' ~ ' +
+        BaseViewModel().numberFormat(resData.endPrice.toString());
     data.bIcon = true;
     dataList.add(data);
 
@@ -342,7 +384,9 @@ class OrderInfoPageViewModel extends BaseViewModel {
     List<CardShowingData> dataList = [];
     CardShowingData data = CardShowingData();
     data.title = tr('amount');
-    data.content = resData.amount>0? '+' + resData.amount.toString() : resData.amount.toString();
+    data.content = resData.amount > 0
+        ? '+' + resData.amount.toString()
+        : resData.amount.toString();
     data.bPrice = true;
     dataList.add(data);
 

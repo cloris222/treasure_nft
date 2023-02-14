@@ -512,7 +512,7 @@ class BaseViewModel {
     bool isSystemTime = true,
     bool isApiValue = false,
     bool isShowGmt = false,
-    String strGmtFormat = '(GMT{}{:02d}:00) ',
+    String strGmtFormat = '(GMT{}{:02d}:{:02d}) ',
     String strFormat = '',
   }) {
     if (strTime.isEmpty) {
@@ -523,29 +523,45 @@ class BaseViewModel {
 
     ///MARK: 計算
     int systemZone = getZone(setSystemZone ?? HttpSetting.systemTimeZone);
+    int systemZoneMin = getZoneMin(setSystemZone ?? HttpSetting.systemTimeZone);
     int localZone = getZone(GlobalData.userInfo.zone);
+    int localZoneMin = getZoneMin(GlobalData.userInfo.zone);
+
+    ///MARK: 測試code
+    // int systemZone = getZone("GMT+00:00");
+    // int systemZoneMin = getZoneMin("GMT+00:00");
+    // int localZone = getZone("GMT-05:30");
+    // int localZoneMin = getZoneMin("GMT-05:30");
+
     if (isSystemTime) {
       ///MARK: 把時間轉成 GMT+0
-      time = time.subtract(Duration(hours: systemZone));
+      time = time.subtract(Duration(hours: systemZone, minutes: systemZoneMin));
 
       ///MARK: 把時間轉成 使用者時區
-      time = time.add(Duration(hours: localZone));
+      time = time.add(Duration(hours: localZone, minutes: localZoneMin));
     } else {
       ///MARK: 把時間轉成 GMT+0
-      time = time.subtract(Duration(hours: localZone));
+      time = time.subtract(Duration(hours: localZone, minutes: localZoneMin));
 
       ///MARK: 把時間轉成 系統時區
-      time = time.add(Duration(hours: systemZone));
+      time = time.add(Duration(hours: systemZone, minutes: systemZoneMin));
     }
 
     return isApiValue
         ? DateFormatUtil().getFullWithDateFormat(time)
-        : '${isShowGmt ? format(strGmtFormat, localZone > 0 ? '+' : '', localZone) : ''}${strFormat.isEmpty ? DateFormatUtil().getFullWithDateFormat2(time) : DateFormatUtil().buildFormat(strFormat: strFormat, time: time)}';
+        : '${isShowGmt ? format(strGmtFormat, localZone > 0 ? '+' : '', localZone, localZoneMin) : ''}${strFormat.isEmpty ? DateFormatUtil().getFullWithDateFormat2(time) : DateFormatUtil().buildFormat(strFormat: strFormat, time: time)}';
   }
 
   int getZone(String gmt) {
     return (gmt.contains('GMT+') ? 1 : -1) *
         int.parse(gmt.substring(4, (gmt.length > 6) ? 6 : null));
+  }
+
+  int getZoneMin(String gmt) {
+    if (gmt.contains(':')) {
+      return int.parse(gmt.substring(gmt.indexOf(':') + 1));
+    }
+    return 0;
   }
 
   ///查詢國家列表
