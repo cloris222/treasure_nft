@@ -17,16 +17,6 @@ class ExploreItemDetailViewModel extends BaseViewModel {
     return format(AppImagePath.level, ({'level': GlobalData.userInfo.level}));
   }
 
-  /// 外部連結
-  Future<void> launchInBrowser(String url) async {
-    if (!await launchUrl(
-      Uri.parse(url),
-      mode: LaunchMode.externalApplication,
-    )) {
-      throw 'Could not launch $url';
-    }
-  }
-
   Future<ExploreItemResponseData> getExploreItemDetail(
       String itemId,
       {ResponseErrorFunction? onConnectFail}) async {

@@ -6,6 +6,7 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
 import 'package:treasure_nft_project/views/home/home_pdf_viewer.dart';
+import 'package:treasure_nft_project/views/personal/common/user_novice_page.dart';
 
 class HomeSubInfoView extends StatelessWidget {
   const HomeSubInfoView({Key? key, required this.viewModel}) : super(key: key);
@@ -54,9 +55,24 @@ class HomeSubInfoView extends StatelessWidget {
                       viewModel.launchInBrowser(
                           'https://treasurenft-metaverse.gitbook.io/how-to-use/earn/how-to-trade');
                     },
-                    child: Text(tr('footer_howtoBuy'), style: contentStyle))
+                    child: Text(tr('footer_howtoBuy'), style: contentStyle)),
+                viewModel.buildSpace(height: padding),
+                GestureDetector(
+                    onTap: () {
+                      viewModel.pushPage(context, const UserNovicePage());
+                    },
+                    child: Text(tr('uc_novice'), style: contentStyle)),
+                viewModel.buildSpace(height: padding),
+                GestureDetector(
+                    onTap: () {
+                      viewModel.launchInBrowser(
+                          'https://docs.google.com/forms/d/e/1FAIpQLSfDxHyf2IxMRxZRl2mX24YGGh2m6KDOTqzPH6wbNrP5Jvnvow/viewform');
+                    },
+                    child:
+                        Text(tr('artistApplicationForm'), style: contentStyle)),
               ]),
           viewModel.buildSpace(height: padding),
+
           /// News
           Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,6 +91,7 @@ class HomeSubInfoView extends StatelessWidget {
                     child: Text(tr('footer_blog'), style: contentStyle))
               ]),
           viewModel.buildSpace(height: padding),
+
           /// Company
           Column(
               crossAxisAlignment: CrossAxisAlignment.start,

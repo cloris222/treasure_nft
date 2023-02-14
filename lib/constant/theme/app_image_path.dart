@@ -215,5 +215,7 @@ class AppImagePath {
   static const String achievementPath =
       '$_imgPath/img_ma_{index}_01_{strStatus}.png';
 
-  static const String tradeDiceImage = '$_imgPath/img_blind_box_lv{level}_{index}.png';
+  static const String tradeDiceImage =
+      '$_imgPath/img_blind_box_lv{level}_{index}.png';
+  static const String appUpdateImage = '$_iconPath/icon_update_01.png';
 }

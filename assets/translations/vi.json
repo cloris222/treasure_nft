@@ -1206,6 +1206,8 @@
   "deleteAccount":"Xóa tài khoản",
   "deleteAccountHint":"Bạn có chắc rằng bạn muốn xóa tài khoản của bạn? Điều này không thể được hoàn tác.",
   "goPermissionAnimation":"Để đảm bảo hoạt hình APP hoạt động đầy đủ, bạn cần bật quyền lưu trữ. Bạn có muốn đến trang cài đặt để cài đặt không?",
-  "appPurchaseDescription":"Mua sản phẩm này, bạn có thể nhận được bộ sưu tập nghệ thuật NFT trị giá {price}USDT.",
-  "appSaveWalletHint":"Nền tảng sẽ không chịu bất kỳ trách nhiệm nào nếu điền sai địa chỉ, khiến USDT bị chuyển đến sai địa chỉ"
+  "appPurchaseDescription":"Mua sản phẩm này, bạn có thể nhận được bộ sưu tập nghệ thuật .",
+  "appSaveWalletHint":"Nền tảng sẽ không chịu bất kỳ trách nhiệm nào nếu điền sai địa chỉ, khiến USDT bị chuyển đến sai địa chỉ",
+  "appUpdateTitle":"Cập nhật thông báo",
+  "appUpdateContext":"Phiên bản mới nhất hiện có sẵn, vui lòng truy cập cập nhật"
 }

@@ -1206,6 +1206,8 @@
   "deleteAccount":"계정 삭제",
   "deleteAccountHint":"계정을 삭제하시겠습니까? 이 취소 할 수 없습니다.",
   "goPermissionAnimation":"APP 애니메이션이 제대로 작동하려면 저장 권한을 활성화해야 합니다. 설정을 위해 설정 페이지로 이동하시겠습니까?",
-  "appPurchaseDescription":"이 제품을 구매하면 {price}USDT 상당의 NFT 아트 컬렉션을 얻을 수 있습니다.",
-  "appSaveWalletHint":"잘못돈 주소로 인해 USDT가̆̈ 잘못된 주소로 전송될 경우 플랫폼은 어떠한 책임도 지지 않습니다"
+  "appPurchaseDescription":"이 제품을 구매하면  상당의 아트 컬렉션을 얻을 수 있습니다.",
+  "appSaveWalletHint":"잘못돈 주소로 인해 USDT가̆̈ 잘못된 주소로 전송될 경우 플랫폼은 어떠한 책임도 지지 않습니다",
+  "appUpdateTitle":"업데이트 통지",
+  "appUpdateContext":"최신 버전은 현재 사용할 수 있습니다. 업데이트로 이동하십시오."
 }

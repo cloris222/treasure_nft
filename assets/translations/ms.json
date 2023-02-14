@@ -1206,6 +1206,8 @@
   "deleteAccount":"Padam akaun",
   "deleteAccountHint":"Adakah anda pasti mahu memadamkan akaun anda? Perkara ini tidak boleh diubah.",
   "goPermissionAnimation":"Untuk memastikan animasi APP berfungsi sepenuhnya, anda perlu mendayakan kebenaran storan. Adakah anda mahu pergi ke halaman tetapan untuk tetapan?",
-  "appPurchaseDescription":"Dengan membeli produk ini, anda boleh mendapatkan koleksi seni NFT bernilai {price}USDT.",
-  "appSaveWalletHint":"Platform tidak akan bertanggungjawab jika alamat yang salah diisi, menyebabkan USDT dipindahkan ke alamat yang salah"
+  "appPurchaseDescription":"Dengan membeli produk ini, anda boleh mendapatkan koleksi seni bernilai .",
+  "appSaveWalletHint":"Platform tidak akan bertanggungjawab jika alamat yang salah diisi, menyebabkan USDT dipindahkan ke alamat yang salah",
+  "appUpdateTitle":"Notis kemas kini",
+  "appUpdateContext":"Versi terkini kini tersedia, sila pergi ke kemas kini"
 }

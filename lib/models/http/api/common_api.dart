@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/parameter/animation_path_data.dart';
 
@@ -77,5 +78,20 @@ class CommonAPI extends HttpManager {
       GlobalData.printLog(e.toString());
     }
     return list;
+  }
+
+  ///MARK: APP驗證版本
+  Future<String> checkAppVersion() async {
+    try {
+      var package = await PackageInfo.fromPlatform();
+      var response = await get('/query/verify/appVersion', queryParameters: {
+        "osType": (Platform.isAndroid ? "ANDROID" : "IOS"),
+        "appVersion": package.version
+      });
+      if (response.data["needToUpdate"]) {
+        return response.data["versionRequirements"];
+      }
+    } catch (e) {}
+    return '';
   }
 }

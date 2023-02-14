@@ -112,54 +112,6 @@ class OrderInfoPageViewModel extends BaseViewModel {
     return 'America/Toronto';
   }
 
-  // String _getTimeZoneCode(String countryName) {
-  //   switch(countryName) {
-  //     case 'Canada':
-  //       return 'America/Toronto';
-  //     case 'SaudiArabia':
-  //       return 'Africa/Nairobi';
-  //     case 'Jordan':
-  //       return 'Africa/Nairobi';
-  //     case 'Spain':
-  //       return 'Europe/Madrid';
-  //     case 'Brazil':
-  //       return 'America/Sao_Paulo';
-  //     case 'Singapore':
-  //       return 'Asia/Singapore';
-  //     case 'America':
-  //       return 'America/Toronto';
-  //     case 'Kuwait':
-  //       return 'Asia/Riyadh';
-  //     case 'Iran':
-  //       return 'Asia/Tehran';
-  //     case 'Taiwan':
-  //       return 'Asia/Taipei';
-  //     case 'Philippines':
-  //       return 'Asia/Taipei';
-  //     case 'Turkey':
-  //       return 'Europe/Istanbul';
-  //     case 'UnitedKingdom':
-  //       return 'Europe/London';
-  //     case 'Korea':
-  //       return 'Asia/Tokyo';
-  //     case 'Thailand':
-  //       return 'Asia/Bangkok';
-  //     case 'Laos':
-  //       return 'Asia/Bangkok';
-  //     case 'Indonesia':
-  //       return 'Asia/Bangkok';
-  //     case 'Malaysia':
-  //       return 'Asia/Singapore';
-  //     case 'TimorTimur':
-  //       return 'Asia/Makassar';
-  //     case 'Japan':
-  //       return 'Asia/Tokyo';
-  //     case 'PapuaNewGuinea':
-  //       return 'Pacific/Port_Moresby';
-  //   }
-  //   return '';
-  // }
-
   /// 這個會自動換成該國慣用用法 ex: 台灣會有年月日單位, 阿拉伯會是阿拉伯語非數字
   // String _getTimeZoneCode(String countryName) {
   //   switch(countryName) {
@@ -209,12 +161,17 @@ class OrderInfoPageViewModel extends BaseViewModel {
   //   return '';
   // }
 
-  void requestAPI(int page, int size, {ResponseErrorFunction? onConnectFail}) async {
+  void requestAPI(int page, int size,
+      {ResponseErrorFunction? onConnectFail}) async {
     if (currentType.isNotEmpty) {
       await OrderAPI(onConnectFail: onConnectFail)
-          .getOrderMessageListResponse(page: page, size: size,
-          type: currentType, startTime: startDate, endTime: endDate)
-          .then((value) => {_setState(value)} );
+          .getOrderMessageListResponse(
+              page: page,
+              size: size,
+              type: currentType,
+              startTime: startDate,
+              endTime: endDate)
+          .then((value) => {_setState(value)});
 
       // await CollectionApi(onConnectFail: onConnectFail) // 這裡的副本預約 不顯示餘額補足按鈕
       //     .getWalletBalanceResponse()
@@ -223,12 +180,17 @@ class OrderInfoPageViewModel extends BaseViewModel {
     }
   }
 
-  void requestAPIForUpdate(int page, int size, {ResponseErrorFunction? onConnectFail}) async {
+  void requestAPIForUpdate(int page, int size,
+      {ResponseErrorFunction? onConnectFail}) async {
     if (currentType.isNotEmpty) {
       await OrderAPI(onConnectFail: onConnectFail)
-          .getOrderMessageListResponse(page: page, size: size,
-          type: currentType, startTime: startDate, endTime: endDate)
-          .then((value) => {_update(value)} );
+          .getOrderMessageListResponse(
+              page: page,
+              size: size,
+              type: currentType,
+              startTime: startDate,
+              endTime: endDate)
+          .then((value) => {_update(value)});
     }
   }
 
@@ -247,7 +209,7 @@ class OrderInfoPageViewModel extends BaseViewModel {
   ///TODO: 給定不同的卡牌樣式＆資料
   createItemView(int index) {
     OrderMessageListResponseData data = dataList[index];
-    switch(currentType) {
+    switch (currentType) {
       // case 'ITEM': // 隱藏不做
       //   return ItemInfoCard(itemName: data.itemName, dateTime: BaseViewModel().changeTimeZone(data.createdAt),
       //       imageUrl: data.imgUrl, price: data.price.toString(), dataList: _itemListContent(data), status: data.status);
@@ -258,24 +220,43 @@ class OrderInfoPageViewModel extends BaseViewModel {
       //   return ItemInfoCard(itemName: data.itemName, dateTime: dateTime,
       //       imageUrl: imageUrl, price: price, dataList: dataList);
       case 'ROYALTY':
-        return ItemInfoCard(itemName: data.itemName, dateTime: BaseViewModel().changeTimeZone(data.time), bShowPriceAtEnd: true,
-            imageUrl: data.imgUrl, price: data.price.toString(), dataList: _royaltyListContent(data));
+        return ItemInfoCard(
+            itemName: data.itemName,
+            dateTime: BaseViewModel().changeTimeZone(data.time),
+            bShowPriceAtEnd: true,
+            imageUrl: data.imgUrl,
+            price: data.price.toString(),
+            dataList: _royaltyListContent(data));
 
       case 'PRICE':
         return OrderInfoCard(
-            orderNumber: data.orderNo, dateTime: BaseViewModel().changeTimeZone(data.createdAt, isShowGmt: true),
-            dataList: _priceListContent(data), status: data.status, // 訂單信息的副本預約，不要顯示餘額補足按鈕
-            imageUrl: data.imgUrl, itemName: data.itemName, price: data.price.toString());
+            orderNumber: data.orderNo,
+            dateTime:
+                BaseViewModel().changeTimeZone(data.createdAt, isShowGmt: true),
+            dataList: _priceListContent(data),
+            status: data.status,
+            // 訂單信息的副本預約，不要顯示餘額補足按鈕
+            imageUrl: data.imgUrl,
+            itemName: data.itemName,
+            price: data.price.toString());
 
       case 'ACTIVITY':
-        return AWDInfoCard(type: data.type, datetime: BaseViewModel().changeTimeZone(data.time),
+        return AWDInfoCard(
+            type: data.type,
+            datetime: BaseViewModel().changeTimeZone(data.time),
             dataList: _activityListContent(data));
       case 'DEPOSIT':
-        return AWDInfoCard(type: data.type, datetime: BaseViewModel().changeTimeZone(data.time),
-            dataList: _depositListContent(data), status: data.status);
+        return AWDInfoCard(
+            type: data.type,
+            datetime: BaseViewModel().changeTimeZone(data.time),
+            dataList: _depositListContent(data),
+            status: data.status);
       case 'WITHDRAW':
-        return AWDInfoCard(type: data.type, datetime: BaseViewModel().changeTimeZone(data.time),
-            dataList: _withdrawListContent(data), status: data.status);
+        return AWDInfoCard(
+            type: data.type,
+            datetime: BaseViewModel().changeTimeZone(data.time),
+            dataList: _withdrawListContent(data),
+            status: data.status);
 
       case 'BUY':
         return BuyerSellerInfoCard(
@@ -289,12 +270,20 @@ class OrderInfoPageViewModel extends BaseViewModel {
             dataList: _sellListContent(data),
             moreInfoDataList: _sellListContentMore(data));
       case 'DEPOSIT_NFT':
-        return ItemInfoCard(itemName: data.itemName, dateTime: BaseViewModel().changeTimeZone(data.createdAt),
-            imageUrl: data.imgUrl, price: '', dataList: _depositAndTransferNFTContent(data));
+        return ItemInfoCard(
+            itemName: data.itemName,
+            dateTime: BaseViewModel().changeTimeZone(data.createdAt),
+            imageUrl: data.imgUrl,
+            price: '',
+            dataList: _depositAndTransferNFTContent(data));
 
       case 'TRANSFER_NFT':
-        return ItemInfoCard(itemName: data.itemName, dateTime: BaseViewModel().changeTimeZone(data.createdAt),
-            imageUrl: data.imgUrl, price: '', dataList: _depositAndTransferNFTContent(data));
+        return ItemInfoCard(
+            itemName: data.itemName,
+            dateTime: BaseViewModel().changeTimeZone(data.createdAt),
+            imageUrl: data.imgUrl,
+            price: '',
+            dataList: _depositAndTransferNFTContent(data));
     }
   }
 
@@ -374,8 +363,9 @@ class OrderInfoPageViewModel extends BaseViewModel {
     List<CardShowingData> dataList = [];
     CardShowingData data = CardShowingData();
     data.title = tr('reservationAmount');
-    data.content = BaseViewModel().numberFormat(resData.startPrice.toString()) + ' ~ '
-        + BaseViewModel().numberFormat(resData.endPrice.toString());
+    data.content = BaseViewModel().numberFormat(resData.startPrice.toString()) +
+        ' ~ ' +
+        BaseViewModel().numberFormat(resData.endPrice.toString());
     data.bIcon = true;
     dataList.add(data);
 
@@ -394,7 +384,9 @@ class OrderInfoPageViewModel extends BaseViewModel {
     List<CardShowingData> dataList = [];
     CardShowingData data = CardShowingData();
     data.title = tr('amount');
-    data.content = resData.amount>0? '+' + resData.amount.toString() : resData.amount.toString();
+    data.content = resData.amount > 0
+        ? '+' + resData.amount.toString()
+        : resData.amount.toString();
     data.bPrice = true;
     dataList.add(data);
 

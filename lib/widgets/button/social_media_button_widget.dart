@@ -3,6 +3,7 @@ import 'package:treasure_nft_project/constant/enum/setting_enum.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
@@ -20,7 +21,7 @@ class SocialMediaButtonWidget extends StatelessWidget {
       visible: GlobalData.appContactInfo[footer.name]?.isNotEmpty ?? false,
       child: GestureDetector(
           onTap: () {
-            launchInBrowser(getFooterLinkPath(footer));
+            BaseViewModel().launchInBrowser(getFooterLinkPath(footer));
           },
           child: Container(
               width: size ?? UIDefine.getPixelWidth(30),
@@ -70,16 +71,6 @@ class SocialMediaButtonWidget extends StatelessWidget {
       case HomeFooter.Instagram:
       case HomeFooter.Discord:
         return link;
-    }
-  }
-
-  /// 外部連結
-  Future<void> launchInBrowser(String url) async {
-    if (!await launchUrl(
-      Uri.parse(url),
-      mode: LaunchMode.externalApplication,
-    )) {
-      throw 'Could not launch $url';
     }
   }
 }

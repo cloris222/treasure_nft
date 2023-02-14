@@ -19,8 +19,10 @@ import 'package:treasure_nft_project/views/full_animation_page.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/views/notify/notify_level_up_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
+import 'package:treasure_nft_project/widgets/dialog/app_version_update_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/level_up_one_dialog.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../constant/call_back_function.dart';
 import '../constant/global_data.dart';
@@ -74,7 +76,6 @@ class BaseViewModel {
     await Navigator.push(
         context, MaterialPageRoute(builder: (context) => page));
   }
-
 
   ///MARK: 取代當前頁面
   Future<void> pushReplacement(BuildContext context, Widget page) async {
@@ -225,7 +226,7 @@ class BaseViewModel {
     await UserInfoAPI(
             onConnectFail: (message) => onBaseConnectFail(context, message))
         .setSignIn();
-    SimpleCustomDialog(context,
+    await SimpleCustomDialog(context,
             mainText: tr('signSuccessfully'), isSuccess: true)
         .show();
   }
@@ -554,8 +555,9 @@ class BaseViewModel {
       GlobalData.country.addAll(value);
     });
   }
+
   ///查詢APP聯絡資訊
-  Future<void> getAppContactInfo() async{
+  Future<void> getAppContactInfo() async {
     GlobalData.appContactInfo = await HomeAPI().getFooterSetting();
   }
 
@@ -575,5 +577,20 @@ class BaseViewModel {
       }
     }
     if (printLog) GlobalData.printLog('$logKey: ---timeOut!!!!');
+  }
+
+  Future<void> checkAppVersion() async {
+    String version = await CommonAPI().checkAppVersion();
+    GlobalData.needUpdateApp = version.isNotEmpty;
+  }
+
+  /// 外部連結
+  Future<void> launchInBrowser(String url) async {
+    if (!await launchUrl(
+      Uri.parse(url),
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw 'Could not launch $url';
+    }
   }
 }
