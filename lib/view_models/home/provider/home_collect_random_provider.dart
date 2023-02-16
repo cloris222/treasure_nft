@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:treasure_nft_project/models/provider/base_pref_provider.dart';
 
+import '../../../models/http/api/home_api.dart';
+import '../../../models/http/parameter/random_collect_info.dart';
 import '../../../utils/app_shared_Preferences.dart';
-import '../../http/api/home_api.dart';
-import '../../http/parameter/random_collect_info.dart';
+import '../../base_pref_provider.dart';
 
 final homeCollectRandomProvider =
     StateNotifierProvider<HomeCollectRandomNotifier, List<RandomCollectInfo>>(

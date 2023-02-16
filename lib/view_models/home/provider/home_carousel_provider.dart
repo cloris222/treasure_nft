@@ -1,19 +1,18 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:treasure_nft_project/models/provider/base_pref_provider.dart';
+import 'package:treasure_nft_project/utils/app_shared_Preferences.dart';
 
-import '../../../utils/app_shared_Preferences.dart';
-import '../../http/api/home_api.dart';
-import '../../http/parameter/collect_top_info.dart';
+import '../../../models/http/api/home_api.dart';
+import '../../../models/http/parameter/home_carousel.dart';
+import '../../base_pref_provider.dart';
 
-///畫家排行榜
-final homeCollectRankProvider =
-    StateNotifierProvider<HomeCollectRankNotifier, List<CollectTopInfo>>((ref) {
-  return HomeCollectRankNotifier();
+final homeCarouselListProvider =
+    StateNotifierProvider<HomeCarouselListNotifier, List<HomeCarousel>>((ref) {
+  return HomeCarouselListNotifier();
 });
 
-class HomeCollectRankNotifier extends StateNotifier<List<CollectTopInfo>>
+class HomeCarouselListNotifier extends StateNotifier<List<HomeCarousel>>
     with BasePrefProvider {
-  HomeCollectRankNotifier() : super([]);
+  HomeCarouselListNotifier() : super([]);
 
   @override
   Future<void> initValue() async {
@@ -22,7 +21,7 @@ class HomeCollectRankNotifier extends StateNotifier<List<CollectTopInfo>>
 
   @override
   Future<void> readAPIValue() async {
-    state = await HomeAPI().getCollectRank();
+    state = await HomeAPI().getCarouselItem();
   }
 
   @override
@@ -35,14 +34,14 @@ class HomeCollectRankNotifier extends StateNotifier<List<CollectTopInfo>>
   Future<void> readSharedPreferencesValue() async {
     var json = await AppSharedPreferences.getJson(getSharedPreferencesKey());
     if (json != null) {
-      state = List<CollectTopInfo>.from(
-          json.map((x) => CollectTopInfo.fromJson(x)));
+      state =
+          List<HomeCarousel>.from(json.map((x) => HomeCarousel.fromJson(x)));
     }
   }
 
   @override
   String setKey() {
-    return "homeCollectRank";
+    return "homeCarousel2";
   }
 
   @override

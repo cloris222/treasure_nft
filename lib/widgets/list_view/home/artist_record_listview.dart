@@ -7,7 +7,6 @@ import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_artist_record.dart';
-import 'package:treasure_nft_project/models/provider/home/home_collect_rank_provider.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/home/home_observer.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
@@ -20,7 +19,8 @@ import 'package:treasure_nft_project/widgets/label/warp_two_text_widget.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../models/http/parameter/collect_top_info.dart';
-import '../../../models/provider/home/home_artist_random_provider.dart';
+import '../../../view_models/home/provider/home_artist_random_provider.dart';
+import '../../../view_models/home/provider/home_collect_rank_provider.dart';
 import 'artist_record_item.dart';
 
 class ArtistRecordListView extends ConsumerStatefulWidget {

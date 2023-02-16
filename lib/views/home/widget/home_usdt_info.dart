@@ -5,7 +5,7 @@ import 'package:treasure_nft_project/constant/enum/style_enum.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/ui_define.dart';
-import '../../../models/provider/home/home_usdt_provider.dart';
+import '../../../view_models/home/provider/home_usdt_provider.dart';
 import '../home_main_style.dart';
 
 class HomeUsdtInfo extends ConsumerWidget with HomeMainStyle {

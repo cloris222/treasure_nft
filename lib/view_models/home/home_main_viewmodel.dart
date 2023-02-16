@@ -8,16 +8,17 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/api/home_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/discover_collect_data.dart';
-import 'package:treasure_nft_project/models/provider/home/home_collect_rank_provider.dart';
-import 'package:treasure_nft_project/models/provider/home/home_carousel_provider.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/notification_data.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/subject.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/explore/data/explore_category_response_data.dart';
-import '../../models/provider/home/home_artist_random_provider.dart';
-import '../../models/provider/home/home_collect_random_provider.dart';
-import '../../models/provider/home/home_usdt_provider.dart';
+
+import 'provider/home_artist_random_provider.dart';
+import 'provider/home_carousel_provider.dart';
+import 'provider/home_collect_random_provider.dart';
+import 'provider/home_collect_rank_provider.dart';
+import 'provider/home_usdt_provider.dart';
 
 class HomeMainViewModel extends BaseViewModel {
   Subject homeSubject = Subject();

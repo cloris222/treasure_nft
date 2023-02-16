@@ -2,10 +2,10 @@ import 'dart:math';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../models/http/api/home_api.dart';
+import '../../../models/http/parameter/home_artist_record.dart';
 import '../../../utils/app_shared_Preferences.dart';
-import '../../http/api/home_api.dart';
-import '../../http/parameter/home_artist_record.dart';
-import '../base_pref_provider.dart';
+import '../../base_pref_provider.dart';
 
 ///MARK: 隨機畫家畫廊
 final homeArtistRandomProvider =

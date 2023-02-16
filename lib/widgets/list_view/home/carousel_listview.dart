@@ -2,7 +2,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
-import '../../../models/provider/home/home_carousel_provider.dart';
+import '../../../view_models/home/provider/home_carousel_provider.dart';
 import 'carousel_item.dart';
 
 class CarouselListView extends ConsumerWidget {

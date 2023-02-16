@@ -7,12 +7,11 @@ import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/random_collect_info.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/view_models/home/provider/home_collect_random_provider.dart';
 import 'package:treasure_nft_project/views/home/home_main_style.dart';
 import 'package:treasure_nft_project/views/login/circle_network_icon.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
-
-import '../../models/provider/home/home_collect_random_provider.dart';
 
 /// 隨機收藏集
 class HomeSubRandomView extends ConsumerWidget with HomeMainStyle {
