@@ -109,7 +109,7 @@ class _HomeMainViewState extends ConsumerState<HomeMainView> {
                 viewModel.buildSpace(height: 3),
 
                 /// Discover NFT
-                HomeSubDiscoverNftView(viewModel: viewModel),
+               const HomeSubDiscoverNftView(),
 
                 /// 聯絡方式
                 HomeSubContactView(viewModel: viewModel),

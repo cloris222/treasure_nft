@@ -12,6 +12,7 @@ import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/notification_data.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/subject.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/view_models/home/provider/home_discover_provider.dart';
 import 'package:treasure_nft_project/views/explore/data/explore_category_response_data.dart';
 
 import 'provider/home_artist_random_provider.dart';
@@ -24,11 +25,6 @@ class HomeMainViewModel extends BaseViewModel {
   Subject homeSubject = Subject();
 
   bool needRecordAnimation = Platform.isIOS;
-
-  ///discover nft
-  ExploreCategoryResponseData currentTag = ExploreCategoryResponseData();
-  List<ExploreCategoryResponseData> tags = [];
-  List<DiscoverCollectData> discoverList = [];
 
   ///Widget Style----------
   Widget buildSpace({double width = 0, double height = 0}) {
@@ -82,7 +78,7 @@ class HomeMainViewModel extends BaseViewModel {
     getCollectRank(ref);
     getRandomCollect(ref);
     getContactInfo();
-    getDiscoverTag();
+    getDiscoverTag(ref);
   }
 
   void dispose() {
@@ -119,17 +115,15 @@ class HomeMainViewModel extends BaseViewModel {
         .notifyObservers(NotificationData(key: SubjectKey.keyHomeContact));
   }
 
-  Future<void> getDiscoverTag() async {
-    tags = await HomeAPI().getDiscoverTag();
-    homeSubject
-        .notifyObservers(NotificationData(key: SubjectKey.keyHomeDiscoverTags));
-    getDiscoverList(tags.first);
-  }
+  Future<void> getDiscoverTag(WidgetRef ref) async {
+    ref.read(homeDisCoverTagsProvider.notifier).init(onFinish: () {
+      if (ref.watch(homeDisCoverTagsProvider).isNotEmpty) {
+        ref.read(homeDiscoverCurrentTagProvider.notifier).state =
+            ref.watch(homeDisCoverTagsProvider).first;
 
-  Future<void> getDiscoverList(ExploreCategoryResponseData tag) async {
-    discoverList = await HomeAPI().getDiscoverMoreNFT(category: tag.name);
-    homeSubject
-        .notifyObservers(NotificationData(key: SubjectKey.keyHomeDiscoverData));
+        ref.read(homeDiscoverListProvider.notifier).init();
+      }
+    });
   }
 
   int animateIndex = -1;
