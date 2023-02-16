@@ -301,6 +301,9 @@ class BaseViewModel {
     GlobalData.userWalletInfo = null;
     AppSharedPreferences.setProfitRecord([]);
     AppSharedPreferences.setWalletRecord([]);
+
+    ///清除使用者相關的暫存資料
+    AppSharedPreferences.clearUserTmpValue();
   }
 
   ///MARK: 當token 為空時，代表未登入

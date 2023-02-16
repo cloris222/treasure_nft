@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/enum/style_enum.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
@@ -23,14 +24,16 @@ import '../../constant/enum/setting_enum.dart';
 import '../../widgets/dialog/simple_custom_dialog.dart';
 import 'widget/sponsor_row_widget.dart';
 
-class HomeMainView extends StatefulWidget {
-  const HomeMainView({Key? key}) : super(key: key);
+class HomeMainView extends ConsumerStatefulWidget {
+  const HomeMainView({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<HomeMainView> createState() => _HomeMainViewState();
+  ConsumerState createState() => _HomeMainViewState();
 }
 
-class _HomeMainViewState extends State<HomeMainView> {
+class _HomeMainViewState extends ConsumerState<HomeMainView> {
   HomeMainViewModel viewModel = HomeMainViewModel();
 
   TextEditingController emailEditingController = TextEditingController();
@@ -54,7 +57,7 @@ class _HomeMainViewState extends State<HomeMainView> {
         }
       }
     });
-    viewModel.initState();
+    viewModel.initState(ref);
     super.initState();
   }
 

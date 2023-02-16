@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/theme/app_theme.dart';
 import 'package:treasure_nft_project/views/splash_screen_page.dart';
 
@@ -27,7 +28,7 @@ void main() async {
 
 Future<void> initApp() async {
   await LanguageUtil.init();
-  runApp(localizations(const MyApp()));
+  runApp(ProviderScope(child: localizations(const MyApp())));
 }
 
 Widget localizations(Widget app) {
@@ -62,7 +63,7 @@ class MyApp extends StatelessWidget {
         return MediaQuery(
             data: MediaQuery.of(context).copyWith(
               textScaleFactor: 1,
-               // boldText: false,
+              // boldText: false,
             ),
             child: widget ?? const SizedBox());
       },

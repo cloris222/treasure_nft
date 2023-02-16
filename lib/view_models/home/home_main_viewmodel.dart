@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_riverpod/src/consumer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/enum/style_enum.dart';
@@ -25,6 +26,7 @@ import 'package:treasure_nft_project/views/explore/data/explore_category_respons
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../models/http/parameter/trading_volume_data.dart';
+import '../../models/provider/home_provider.dart';
 
 class HomeMainViewModel extends BaseViewModel {
   Subject homeSubject = Subject();
@@ -89,7 +91,7 @@ class HomeMainViewModel extends BaseViewModel {
         vertical: UIDefine.getPixelWidth(height));
   }
 
-  void initState() async {
+  void initState(WidgetRef ref) async {
     /// to read pre load image
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey("homeCarousel")) {
@@ -105,7 +107,7 @@ class HomeMainViewModel extends BaseViewModel {
     ///更新畫面API
     getHomeCarousel();
     getArtistRecord();
-    getUsdtInfo();
+    getUsdtInfo(ref);
     getCollectTop();
     getRandomCollect();
     getContactInfo();
@@ -135,9 +137,8 @@ class HomeMainViewModel extends BaseViewModel {
         .notifyObservers(NotificationData(key: SubjectKey.keyHomeArtRecords));
   }
 
-  Future<void> getUsdtInfo() async {
-    volumeData = await HomeAPI().getTradingVolume();
-    homeSubject.notifyObservers(NotificationData(key: SubjectKey.keyHomeUSDT));
+  Future<void> getUsdtInfo(WidgetRef ref) async {
+    ref.read(homeUSDTProvider.notifier).init();
   }
 
   Future<void> getCollectTop() async {

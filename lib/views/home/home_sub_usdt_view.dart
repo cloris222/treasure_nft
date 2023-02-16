@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/views/home/home_main_style.dart';
 import 'package:treasure_nft_project/views/home/widget/home_usdt_info.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 
@@ -52,7 +53,7 @@ class HomeSubUsdtView extends StatelessWidget {
           viewModel.buildSpace(height: 5),
 
           /// USDT_Info
-          HomeUsdtInfo(viewModel: viewModel),
+          HomeUsdtInfo(),
 
           viewModel.buildSpace(height: 5),
 
