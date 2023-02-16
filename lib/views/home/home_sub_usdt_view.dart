@@ -1,24 +1,23 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/views/home/home_main_style.dart';
 import 'package:treasure_nft_project/views/home/widget/home_usdt_info.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/ui_define.dart';
-import '../../view_models/home/home_main_viewmodel.dart';
+import '../../view_models/control_router_viem_model.dart';
 import '../../widgets/app_bottom_navigation_bar.dart';
 import '../../widgets/list_view/home/carousel_listview.dart';
 import '../main_page.dart';
+import 'home_main_style.dart';
 
-class HomeSubUsdtView extends StatelessWidget {
-  const HomeSubUsdtView({Key? key, required this.viewModel}) : super(key: key);
-  final HomeMainViewModel viewModel;
+class HomeSubUsdtView extends StatelessWidget with HomeMainStyle {
+  const HomeSubUsdtView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-     // padding: viewModel.getMainPadding(height: 10),
+      // padding: viewModel.getMainPadding(height: 10),
       decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage(AppImagePath.firstBackground),
@@ -29,7 +28,7 @@ class HomeSubUsdtView extends StatelessWidget {
         children: [
           /// Trade
           Padding(
-            padding: viewModel.getMainPadding(height: 10),
+            padding: getMainPadding(height: 10),
             child: Row(
               children: [
                 LoginButtonWidget(
@@ -41,7 +40,7 @@ class HomeSubUsdtView extends StatelessWidget {
                     btnText: tr('exploreNow'),
                     fontSize: UIDefine.fontSize20,
                     onPressed: () {
-                      viewModel.pushAndRemoveUntil(
+                      ControlRouterViewModel().pushAndRemoveUntil(
                           context,
                           const MainPage(
                               type: AppNavigationBarType.typeExplore));
@@ -50,17 +49,17 @@ class HomeSubUsdtView extends StatelessWidget {
             ),
           ),
 
-          viewModel.buildSpace(height: 5),
+          buildSpace(height: 5),
 
           /// USDT_Info
-          HomeUsdtInfo(),
+          const HomeUsdtInfo(),
 
-          viewModel.buildSpace(height: 5),
+          buildSpace(height: 5),
 
           /// 輪播圖
           Padding(
-              padding: viewModel.getMainPadding(height: 10),
-              child: CarouselListView(viewModel: viewModel))
+              padding: getMainPadding(height: 10),
+              child: const CarouselListView())
         ],
       ),
     );

@@ -3,8 +3,9 @@ import 'package:treasure_nft_project/models/http/api/home_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/trading_volume_data.dart';
 import 'package:treasure_nft_project/utils/app_shared_Preferences.dart';
 
-import 'base_pref_provider.dart';
+import '../base_pref_provider.dart';
 
+///MARK: 首頁 USDT 資訊
 final homeUSDTProvider =
     StateNotifierProvider<HomeUSDTNotifier, TradingVolumeData>((ref) {
   return HomeUSDTNotifier();

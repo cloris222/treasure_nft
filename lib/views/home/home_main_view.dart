@@ -88,11 +88,11 @@ class _HomeMainViewState extends ConsumerState<HomeMainView> {
                     child: _buildTitleText()),
 
                 ///MARK: USDT資訊
-                HomeSubUsdtView(viewModel: viewModel),
+                const HomeSubUsdtView(),
 
                 viewModel.buildSpace(height: 3),
 
-                HomeSubIllustrateView(viewModel: viewModel),
+                const HomeSubIllustrateView(),
 
                 viewModel.buildSpace(height: 3),
 
