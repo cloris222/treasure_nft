@@ -1,36 +1,28 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/src/consumer.dart';
-import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/enum/style_enum.dart';
 import 'package:treasure_nft_project/constant/subject_key.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/api/home_api.dart';
-import 'package:treasure_nft_project/models/http/parameter/collect_top_info.dart';
 import 'package:treasure_nft_project/models/http/parameter/discover_collect_data.dart';
-import 'package:treasure_nft_project/models/http/parameter/home_artist_record.dart';
-import 'package:treasure_nft_project/models/http/parameter/random_collect_info.dart';
+import 'package:treasure_nft_project/models/provider/home/home_collect_rank_provider.dart';
 import 'package:treasure_nft_project/models/provider/home/home_carousel_provider.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/notification_data.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/subject.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/explore/data/explore_category_response_data.dart';
+import '../../models/provider/home/home_artist_random_provider.dart';
+import '../../models/provider/home/home_collect_random_provider.dart';
 import '../../models/provider/home/home_usdt_provider.dart';
 
 class HomeMainViewModel extends BaseViewModel {
   Subject homeSubject = Subject();
 
   bool needRecordAnimation = Platform.isIOS;
-  List<ArtistRecord> homeArtistRecordList = [];
-
-  ///new ui
-  List<CollectTopInfo> homeCollectTopList = [];
-  List<RandomCollectInfo> homeRandomCollectList = [];
-  ArtistRecord? randomArt;
 
   ///discover nft
   ExploreCategoryResponseData currentTag = ExploreCategoryResponseData();
@@ -84,10 +76,10 @@ class HomeMainViewModel extends BaseViewModel {
   void initState(WidgetRef ref) async {
     ///更新畫面API
     getHomeCarousel(ref);
-    getArtistRecord();
+    getArtistRecord(ref);
     getUsdtInfo(ref);
-    getCollectTop();
-    getRandomCollect();
+    getCollectRank(ref);
+    getRandomCollect(ref);
     getContactInfo();
     getDiscoverTag();
   }
@@ -103,29 +95,20 @@ class HomeMainViewModel extends BaseViewModel {
   }
 
   /// 查詢畫家列表
-  Future<void> getArtistRecord({ResponseErrorFunction? onConnectFail}) async {
-    homeArtistRecordList =
-        await HomeAPI(onConnectFail: onConnectFail).getArtistRecord();
-    randomArt =
-        homeArtistRecordList[Random().nextInt(homeArtistRecordList.length)];
-    homeSubject
-        .notifyObservers(NotificationData(key: SubjectKey.keyHomeArtRecords));
+  Future<void> getArtistRecord(WidgetRef ref) async {
+    ref.read(homeArtistRandomProvider.notifier).init();
   }
 
   Future<void> getUsdtInfo(WidgetRef ref) async {
     ref.read(homeUSDTProvider.notifier).init();
   }
 
-  Future<void> getCollectTop() async {
-    homeCollectTopList = await HomeAPI().getCollectTop();
-    homeSubject
-        .notifyObservers(NotificationData(key: SubjectKey.keyHomeCollectTop));
+  Future<void> getCollectRank(WidgetRef ref) async {
+    ref.read(homeCollectRankProvider.notifier).init();
   }
 
-  Future<void> getRandomCollect() async {
-    homeRandomCollectList = await HomeAPI().getRandomCollectList();
-    homeSubject.notifyObservers(
-        NotificationData(key: SubjectKey.keyHomeRandomCollect));
+  Future<void> getRandomCollect(WidgetRef ref) async {
+    ref.read(homeCollectRandomProvider.notifier).init();
   }
 
   Future<void> getContactInfo() async {
@@ -151,25 +134,25 @@ class HomeMainViewModel extends BaseViewModel {
   int animateIndex = -1;
 
   ///MARK: 動畫翻轉
-  void playAnimate() async {
+  void playAnimate(WidgetRef ref) async {
     homeSubject.notifyObservers(
         NotificationData(key: SubjectKey.keyHomeAnimationWait));
-    _loopAnimate();
+    _loopAnimate(ref);
   }
 
-  void resetAnimate() async {
+  void resetAnimate(WidgetRef ref) async {
     animateIndex = -1;
     homeSubject.notifyObservers(
         NotificationData(key: SubjectKey.keyHomeAnimationReset));
   }
 
-  _loopAnimate() {
+  _loopAnimate(WidgetRef ref) {
     Future.delayed(const Duration(milliseconds: 200)).then((value) {
       animateIndex += 1;
       homeSubject.notifyObservers(NotificationData(
           key: '${SubjectKey.keyHomeAnimationStart}_$animateIndex'));
-      if (animateIndex < homeArtistRecordList.length) {
-        _loopAnimate();
+      if (animateIndex < ref.watch(homeCollectRankProvider).length) {
+        _loopAnimate(ref);
       }
     });
   }

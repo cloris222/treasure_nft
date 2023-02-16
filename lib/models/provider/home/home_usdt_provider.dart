@@ -34,7 +34,6 @@ class HomeUSDTNotifier extends StateNotifier<TradingVolumeData>
   @override
   Future<void> readAPIValue() async {
     state = await HomeAPI().getTradingVolume();
-    AppSharedPreferences.setJson(getSharedPreferencesKey(), state.toJson());
   }
 
   @override
@@ -43,5 +42,10 @@ class HomeUSDTNotifier extends StateNotifier<TradingVolumeData>
     if (json != null) {
       state = TradingVolumeData.fromJson(json);
     }
+  }
+
+  @override
+  Future<void> setSharedPreferencesValue() async {
+    AppSharedPreferences.setJson(getSharedPreferencesKey(), state.toJson());
   }
 }

@@ -49,9 +49,9 @@ class _HomeMainViewState extends ConsumerState<HomeMainView> {
           if (mounted) {
             showArtAnimate = show;
             if (showArtAnimate) {
-              viewModel.playAnimate();
+              viewModel.playAnimate(ref);
             } else {
-              viewModel.resetAnimate();
+              viewModel.resetAnimate(ref);
             }
           }
         }
@@ -101,11 +101,11 @@ class _HomeMainViewState extends ConsumerState<HomeMainView> {
                 viewModel.buildSpace(height: 3),
 
                 /// 隨機收藏集
-                HomeSubRandomView(viewModel: viewModel),
+                const HomeSubRandomView(),
                 viewModel.buildSpace(height: 3),
 
                 /// 邀請註冊
-                HomeSubSignupView(viewModel: viewModel),
+                const HomeSubSignupView(),
                 viewModel.buildSpace(height: 3),
 
                 /// Discover NFT

@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/utils/app_shared_Preferences.dart';
 
 /// for 需要暫存的Provider使用
@@ -16,6 +17,9 @@ abstract class BasePrefProvider {
   /// 讀取 SharedPreferencesKey 內容並轉成對應值
   Future<void> readSharedPreferencesValue();
 
+  /// 將 內容 存入 SharedPreferencesKey
+  Future<void> setSharedPreferencesValue();
+
   /// 讀取 API值
   Future<void> readAPIValue();
 
@@ -23,17 +27,24 @@ abstract class BasePrefProvider {
     return '${setKey()}${setUserTemporaryValue() ? "_tmp" : ""}';
   }
 
-  Future<void> init() async {
+  Future<void> init({onClickFunction? onFinish}) async {
     if (await AppSharedPreferences.checkKey(getSharedPreferencesKey())) {
       await readSharedPreferencesValue();
     } else {
       await Future.delayed(const Duration(milliseconds: 300));
       await initValue();
     }
-    update();
+    if (onFinish != null) {
+      onFinish();
+    }
+    update(onFinish: onFinish);
   }
 
-  Future<void> update() async {
+  Future<void> update({onClickFunction? onFinish}) async {
     await readAPIValue();
+    if (onFinish != null) {
+      onFinish();
+    }
+    setSharedPreferencesValue();
   }
 }
