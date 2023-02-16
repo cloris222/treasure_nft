@@ -464,11 +464,6 @@ class BaseViewModel with ControlRouterViewModel{
     });
   }
 
-  ///查詢APP聯絡資訊
-  Future<void> getAppContactInfo() async {
-    GlobalData.appContactInfo = await HomeAPI().getFooterSetting();
-  }
-
   /// 簡易timer
   Future<void> checkFutureTime(
       {required onReturnBoolFunction onCheckFinish,

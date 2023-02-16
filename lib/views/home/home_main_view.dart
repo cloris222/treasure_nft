@@ -112,7 +112,7 @@ class _HomeMainViewState extends ConsumerState<HomeMainView> {
                const HomeSubDiscoverNftView(),
 
                 /// 聯絡方式
-                HomeSubContactView(viewModel: viewModel),
+                const HomeSubContactView(),
 
                 /// 資訊頁
                 HomeSubInfoView(viewModel: viewModel),

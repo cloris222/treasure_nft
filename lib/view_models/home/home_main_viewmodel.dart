@@ -19,6 +19,7 @@ import 'provider/home_artist_random_provider.dart';
 import 'provider/home_carousel_provider.dart';
 import 'provider/home_collect_random_provider.dart';
 import 'provider/home_collect_rank_provider.dart';
+import 'provider/home_contact_info_provider.dart';
 import 'provider/home_usdt_provider.dart';
 
 class HomeMainViewModel extends BaseViewModel {
@@ -77,7 +78,7 @@ class HomeMainViewModel extends BaseViewModel {
     getUsdtInfo(ref);
     getCollectRank(ref);
     getRandomCollect(ref);
-    getContactInfo();
+    getContactInfo(ref);
     getDiscoverTag(ref);
   }
 
@@ -108,11 +109,8 @@ class HomeMainViewModel extends BaseViewModel {
     ref.read(homeCollectRandomProvider.notifier).init();
   }
 
-  Future<void> getContactInfo() async {
-    ///MARK: 取得聯絡資訊
-    await getAppContactInfo();
-    homeSubject
-        .notifyObservers(NotificationData(key: SubjectKey.keyHomeContact));
+  Future<void> getContactInfo(WidgetRef ref) async {
+    ref.read(homeContactInfoProvider.notifier).init();
   }
 
   Future<void> getDiscoverTag(WidgetRef ref) async {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/enum/setting_enum.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
@@ -7,7 +8,9 @@ import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
-class SocialMediaButtonWidget extends StatelessWidget {
+import '../../view_models/home/provider/home_contact_info_provider.dart';
+
+class SocialMediaButtonWidget extends ConsumerWidget {
   const SocialMediaButtonWidget(
       {Key? key, required this.footer, this.size, this.padding})
       : super(key: key);
@@ -16,12 +19,14 @@ class SocialMediaButtonWidget extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    Map<String, String> footers = ref.watch(homeContactInfoProvider);
     return Visibility(
-      visible: GlobalData.appContactInfo[footer.name]?.isNotEmpty ?? false,
+      visible: footers[footer.name]?.isNotEmpty ?? false,
       child: GestureDetector(
           onTap: () {
-            BaseViewModel().launchInBrowser(getFooterLinkPath(footer));
+            String link = footers[footer.name] ?? '';
+            BaseViewModel().launchInBrowser(getFooterLinkPath(footer, link));
           },
           child: Container(
               width: size ?? UIDefine.getPixelWidth(30),
@@ -58,8 +63,7 @@ class SocialMediaButtonWidget extends StatelessWidget {
     }
   }
 
-  String getFooterLinkPath(HomeFooter footer) {
-    String link = GlobalData.appContactInfo[footer.name] ?? '';
+  String getFooterLinkPath(HomeFooter footer, String link) {
     switch (footer) {
       case HomeFooter.Email:
         return 'mailto:$link';

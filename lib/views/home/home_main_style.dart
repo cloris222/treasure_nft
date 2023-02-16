@@ -19,6 +19,9 @@ class HomeMainStyle{
         horizontal: UIDefine.getPixelWidth(width),
         vertical: UIDefine.getPixelWidth(height));
   }
+  Widget getPadding(double val) {
+    return Padding(padding: EdgeInsets.all(UIDefine.getScreenWidth(val)));
+  }
 
   ///MARK: 主標題
   TextStyle getMainTitleStyle(
