@@ -8,6 +8,7 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/utils/language_util.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
+import 'package:treasure_nft_project/views/home/home_main_style.dart';
 import 'package:treasure_nft_project/views/home/home_sub_discover_nft_view.dart';
 import 'package:treasure_nft_project/views/home/home_sub_illustrate_view.dart';
 import 'package:treasure_nft_project/views/home/home_sub_info_view.dart';
@@ -33,7 +34,7 @@ class HomeMainView extends ConsumerStatefulWidget {
   ConsumerState createState() => _HomeMainViewState();
 }
 
-class _HomeMainViewState extends ConsumerState<HomeMainView> {
+class _HomeMainViewState extends ConsumerState<HomeMainView> with HomeMainStyle {
   HomeMainViewModel viewModel = HomeMainViewModel();
 
   TextEditingController emailEditingController = TextEditingController();
@@ -90,23 +91,23 @@ class _HomeMainViewState extends ConsumerState<HomeMainView> {
                 ///MARK: USDT資訊
                 const HomeSubUsdtView(),
 
-                viewModel.buildSpace(height: 3),
+                buildSpace(height: 3),
 
                 const HomeSubIllustrateView(),
 
-                viewModel.buildSpace(height: 3),
+                buildSpace(height: 3),
 
                 /// 熱門系列 畫家排行
                 ArtistRecordListView(viewModel: viewModel),
-                viewModel.buildSpace(height: 3),
+                buildSpace(height: 3),
 
                 /// 隨機收藏集
                 const HomeSubRandomView(),
-                viewModel.buildSpace(height: 3),
+                buildSpace(height: 3),
 
                 /// 邀請註冊
                 const HomeSubSignupView(),
-                viewModel.buildSpace(height: 3),
+                buildSpace(height: 3),
 
                 /// Discover NFT
                const HomeSubDiscoverNftView(),
@@ -115,7 +116,7 @@ class _HomeMainViewState extends ConsumerState<HomeMainView> {
                 const HomeSubContactView(),
 
                 /// 資訊頁
-                HomeSubInfoView(viewModel: viewModel),
+                HomeSubInfoView(),
 
                 /// Email訂閱
                 mailSubmit(),
@@ -126,7 +127,7 @@ class _HomeMainViewState extends ConsumerState<HomeMainView> {
                 /// 贊助
                 // sponsor(),
 
-                viewModel.buildSpace(height: 3),
+                buildSpace(height: 3),
                 Center(
                     child: Text('TreasureMeta Technology',
                         style: AppTextStyle.getBaseStyle(
@@ -201,11 +202,11 @@ class _HomeMainViewState extends ConsumerState<HomeMainView> {
             )
           ],
         ),
-        viewModel.buildSpace(height: 2),
+        buildSpace(height: 2),
         Text(tr('index-product-text-1\''),
-            style: viewModel.getContextStyle(color: AppColors.textGrey)),
+            style: getContextStyle(color: AppColors.textGrey)),
         Text(tr('index-product-text-2\''),
-            style: viewModel.getContextStyle(color: AppColors.textGrey))
+            style: getContextStyle(color: AppColors.textGrey))
       ],
     );
   }
@@ -222,13 +223,13 @@ class _HomeMainViewState extends ConsumerState<HomeMainView> {
               Color.fromARGB(255, 215, 224, 255)
             ])),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
-          viewModel.buildSpace(height: 5),
+          buildSpace(height: 5),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              viewModel.buildSpace(width: 3),
+              buildSpace(width: 3),
               Image.asset(AppImagePath.fileIcon),
-              viewModel.buildSpace(width: 3),
+              buildSpace(width: 3),
               Text(
                 'Investors and patrons',
                 style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize24),
@@ -264,7 +265,7 @@ class _HomeMainViewState extends ConsumerState<HomeMainView> {
             padding: EdgeInsets.all(UIDefine.getScreenWidth(5)),
             child: Image.asset(AppImagePath.tozfuft),
           ),
-          viewModel.buildSpace(width: 3),
+          buildSpace(width: 3),
         ]));
   }
 
@@ -284,7 +285,7 @@ class _HomeMainViewState extends ConsumerState<HomeMainView> {
               Text(
                 tr('emailIllustrate'),
                 textAlign: TextAlign.start,
-                style: viewModel.getContextStyle(
+                style: getContextStyle(
                     color: AppColors.textSixBlack,
                     fontSize: UIDefine.fontSize12),
               ),
@@ -295,7 +296,7 @@ class _HomeMainViewState extends ConsumerState<HomeMainView> {
               //   style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12),
               // ),
 
-              viewModel.buildSpace(height: 3),
+              buildSpace(height: 3),
 
               Stack(alignment: Alignment.centerRight, children: [
                 LoginTextWidget(
@@ -321,7 +322,7 @@ class _HomeMainViewState extends ConsumerState<HomeMainView> {
                               .show();
                         }))
               ]),
-              viewModel.buildSpace(height: 5)
+              buildSpace(height: 5)
             ]));
   }
 }

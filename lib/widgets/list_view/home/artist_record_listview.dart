@@ -37,29 +37,6 @@ class _ArtistRecordListViewState extends ConsumerState<ArtistRecordListView> {
     return widget.viewModel;
   }
 
-  late HomeObserver observer;
-
-  @override
-  void initState() {
-    String key = SubjectKey.keyHomeArtRecords;
-    observer = HomeObserver(key, onNotify: (notification) {
-      if (notification.key == SubjectKey.keyHomeArtRecords ||
-          notification.key == SubjectKey.keyHomeCollectTop) {
-        if (mounted) {
-          setState(() {});
-        }
-      }
-    });
-    viewModel.homeSubject.registerObserver(observer);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    viewModel.homeSubject.unregisterObserver(observer);
-    super.dispose();
-  }
-
   Widget createItemBuilder(
       BuildContext context, int index, CollectTopInfo data) {
     return ArtistRecordItemView(

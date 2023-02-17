@@ -27,50 +27,6 @@ class HomeMainViewModel extends BaseViewModel {
 
   bool needRecordAnimation = Platform.isIOS;
 
-  ///Widget Style----------
-  Widget buildSpace({double width = 0, double height = 0}) {
-    return SizedBox(
-        height: UIDefine.getPixelWidth(height * 5),
-        width: UIDefine.getPixelWidth(width * 5));
-  }
-
-  ///MARK: 主標題
-  TextStyle getMainTitleStyle(
-      {AppTextFamily family = AppTextFamily.PosteramaText}) {
-    return AppTextStyle.getBaseStyle(
-        fontSize: UIDefine.fontSize24,
-        fontWeight: FontWeight.w900,
-        color: AppColors.textBlack,
-        fontFamily: family);
-  }
-
-  ///MARK: 副標題
-  TextStyle getSubTitleStyle() {
-    return AppTextStyle.getBaseStyle(
-        fontSize: UIDefine.fontSize20,
-        fontWeight: FontWeight.w600,
-        color: AppColors.textBlack,
-        fontFamily: AppTextFamily.PosteramaText);
-  }
-
-  ///MARK: 內容
-  TextStyle getContextStyle(
-      {Color color = AppColors.textBlack,
-      FontWeight fontWeight = FontWeight.w400,
-      double? fontSize}) {
-    return AppTextStyle.getBaseStyle(
-        fontSize: fontSize ?? UIDefine.fontSize14,
-        fontWeight: fontWeight,
-        color: color);
-  }
-
-  ///MARK: 共用的左右間距
-  EdgeInsetsGeometry getMainPadding({double width = 20, double height = 0}) {
-    return EdgeInsets.symmetric(
-        horizontal: UIDefine.getPixelWidth(width),
-        vertical: UIDefine.getPixelWidth(height));
-  }
-
   void initState(WidgetRef ref) async {
     ///更新畫面API
     getHomeCarousel(ref);

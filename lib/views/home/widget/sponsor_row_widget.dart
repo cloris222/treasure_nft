@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
+import 'package:treasure_nft_project/views/home/home_main_style.dart';
 
-class SponsorRowWidget extends StatelessWidget {
+class SponsorRowWidget extends StatelessWidget with HomeMainStyle {
   const SponsorRowWidget(
       {super.key,
       required this.leftLogo,
@@ -21,7 +22,7 @@ class SponsorRowWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(leftLogo),
-            viewModel.buildSpace(width: 5),
+            buildSpace(width: 5),
             Image.asset(rightLogo),
           ],
         ));
