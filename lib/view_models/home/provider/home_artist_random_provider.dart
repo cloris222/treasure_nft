@@ -16,7 +16,9 @@ final homeArtistRandomProvider =
 class HomeArtistRandomNotifier extends StateNotifier<ArtistRecord?>
     with BasePrefProvider {
   HomeArtistRandomNotifier() : super(null);
-
+  @override
+  Future<void> initProvider() async{
+  }
   @override
   Future<void> initValue() async {
     state = null;

@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/utils/app_shared_Preferences.dart';
 
@@ -14,6 +13,9 @@ abstract class BasePrefProvider {
   /// 設定初始值
   Future<void> initValue();
 
+  /// 初始化Provider
+  Future<void> initProvider();
+
   /// 讀取 SharedPreferencesKey 內容並轉成對應值
   Future<void> readSharedPreferencesValue();
 
@@ -28,10 +30,11 @@ abstract class BasePrefProvider {
   }
 
   Future<void> init({onClickFunction? onFinish}) async {
+    await Future.delayed(const Duration(milliseconds: 300));
+    await initProvider();
     if (await AppSharedPreferences.checkKey(getSharedPreferencesKey())) {
       await readSharedPreferencesValue();
     } else {
-      await Future.delayed(const Duration(milliseconds: 300));
       await initValue();
     }
     if (onFinish != null) {

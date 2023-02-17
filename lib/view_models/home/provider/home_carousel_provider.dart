@@ -13,7 +13,9 @@ final homeCarouselListProvider =
 class HomeCarouselListNotifier extends StateNotifier<List<HomeCarousel>>
     with BasePrefProvider {
   HomeCarouselListNotifier() : super([]);
-
+  @override
+  Future<void> initProvider() async{
+  }
   @override
   Future<void> initValue() async {
     state = [];

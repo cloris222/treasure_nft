@@ -26,7 +26,9 @@ class HomeUSDTNotifier extends StateNotifier<TradingVolumeData>
   bool setUserTemporaryValue() {
     return false;
   }
-
+  @override
+  Future<void> initProvider() async{
+  }
   @override
   Future<void> initValue() async {
     state = TradingVolumeData(transactionAmount: "0", cost: "0", nfts: "0");

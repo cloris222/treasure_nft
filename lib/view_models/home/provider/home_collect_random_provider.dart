@@ -14,7 +14,9 @@ final homeCollectRandomProvider =
 class HomeCollectRandomNotifier extends StateNotifier<List<RandomCollectInfo>>
     with BasePrefProvider {
   HomeCollectRandomNotifier() : super([]);
-
+  @override
+  Future<void> initProvider() async{
+  }
   @override
   Future<void> initValue() async {
     state = [];

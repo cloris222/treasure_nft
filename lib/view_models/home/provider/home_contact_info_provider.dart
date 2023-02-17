@@ -13,7 +13,9 @@ final homeContactInfoProvider =
 class HomeContactInfoNotifier extends StateNotifier<Map<String, String>>
     with BasePrefProvider {
   HomeContactInfoNotifier() : super({});
-
+  @override
+  Future<void> initProvider() async{
+  }
   @override
   Future<void> initValue() async {}
 

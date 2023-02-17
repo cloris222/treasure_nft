@@ -14,7 +14,9 @@ final homeCollectRankProvider =
 class HomeCollectRankNotifier extends StateNotifier<List<CollectTopInfo>>
     with BasePrefProvider {
   HomeCollectRankNotifier() : super([]);
-
+  @override
+  Future<void> initProvider() async{
+  }
   @override
   Future<void> initValue() async {
     state = [];

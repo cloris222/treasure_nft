@@ -17,7 +17,9 @@ class HomeDisCoverTagNotifier
     extends StateNotifier<List<ExploreCategoryResponseData>>
     with BasePrefProvider {
   HomeDisCoverTagNotifier() : super([]);
-
+  @override
+  Future<void> initProvider() async{
+  }
   @override
   Future<void> initValue() async {}
 
@@ -69,7 +71,9 @@ class HomeDiscoverListNotifier extends StateNotifier<List<DiscoverCollectData>>
     with BasePrefProvider {
   HomeDiscoverListNotifier({this.tag}) : super([]);
   ExploreCategoryResponseData? tag;
-
+  @override
+  Future<void> initProvider() async{
+  }
   @override
   Future<void> initValue() async {
     state = [];
