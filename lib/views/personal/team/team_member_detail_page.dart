@@ -4,7 +4,6 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 
-import '../../../view_models/personal/team/team_member_datail_viewmodel.dart';
 import '../../../view_models/personal/team/team_member_detail_provider.dart';
 import '../../../widgets/appbar/title_app_bar.dart';
 import '../../../widgets/list_view/base_list_interface.dart';
@@ -29,7 +28,6 @@ class TeamMemberDetailPage extends ConsumerStatefulWidget {
 
 class _TeamMemberDetailPageState extends ConsumerState<TeamMemberDetailPage>
     with BaseListInterface {
-  late TeamMemberDetailViewModel viewModel;
 
   String get startTime {
     return widget.startTime;
