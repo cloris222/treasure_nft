@@ -20,7 +20,7 @@ class HomeSubContactView extends ConsumerWidget with HomeMainStyle {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Map<String, String> footers = ref.watch(homeContactInfoProvider);
+    Map<String, dynamic> footers = ref.watch(homeContactInfoProvider);
     return Container(
         padding: EdgeInsets.only(
             top: UIDefine.getPixelWidth(20),
@@ -40,7 +40,7 @@ class HomeSubContactView extends ConsumerWidget with HomeMainStyle {
         ]));
   }
 
-  List<Widget> _buildFooterButtonList(Map<String, String> footers) {
+  List<Widget> _buildFooterButtonList(Map<String, dynamic> footers) {
     List<Widget> list = [];
     for (var footer in HomeFooter.values) {
       if (footers[footer.name]?.isNotEmpty ?? false) {

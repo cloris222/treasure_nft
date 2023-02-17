@@ -17,9 +17,10 @@ class HomeDisCoverTagNotifier
     extends StateNotifier<List<ExploreCategoryResponseData>>
     with BasePrefProvider {
   HomeDisCoverTagNotifier() : super([]);
+
   @override
-  Future<void> initProvider() async{
-  }
+  Future<void> initProvider() async {}
+
   @override
   Future<void> initValue() async {}
 
@@ -55,7 +56,8 @@ class HomeDisCoverTagNotifier
 }
 
 ///MARK: 選擇的tag
-final homeDiscoverCurrentTagProvider = StateProvider<ExploreCategoryResponseData?>((ref) {
+final homeDiscoverCurrentTagProvider =
+    StateProvider<ExploreCategoryResponseData?>((ref) {
   return null;
 });
 
@@ -71,9 +73,10 @@ class HomeDiscoverListNotifier extends StateNotifier<List<DiscoverCollectData>>
     with BasePrefProvider {
   HomeDiscoverListNotifier({this.tag}) : super([]);
   ExploreCategoryResponseData? tag;
+
   @override
-  Future<void> initProvider() async{
-  }
+  Future<void> initProvider() async {}
+
   @override
   Future<void> initValue() async {
     state = [];
@@ -82,7 +85,7 @@ class HomeDiscoverListNotifier extends StateNotifier<List<DiscoverCollectData>>
   @override
   Future<void> readAPIValue() async {
     if (tag != null) {
-      state = await HomeAPI().getDiscoverMoreNFT(category: tag!.name);
+      state = [...await HomeAPI().getDiscoverMoreNFT(category: tag!.name)];
     }
   }
 
@@ -91,8 +94,10 @@ class HomeDiscoverListNotifier extends StateNotifier<List<DiscoverCollectData>>
     if (tag != null) {
       var json = await AppSharedPreferences.getJson(getSharedPreferencesKey());
       if (json != null) {
-        state = List<DiscoverCollectData>.from(
-            json.map((x) => DiscoverCollectData.fromJson(x)));
+        state = [
+          ...List<DiscoverCollectData>.from(
+              json.map((x) => DiscoverCollectData.fromJson(x)))
+        ];
       }
     }
   }

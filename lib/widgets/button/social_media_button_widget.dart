@@ -20,7 +20,7 @@ class SocialMediaButtonWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Map<String, String> footers = ref.watch(homeContactInfoProvider);
+    Map<String, dynamic> footers = ref.watch(homeContactInfoProvider);
     return Visibility(
       visible: footers[footer.name]?.isNotEmpty ?? false,
       child: GestureDetector(

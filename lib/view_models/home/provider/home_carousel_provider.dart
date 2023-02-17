@@ -13,9 +13,10 @@ final homeCarouselListProvider =
 class HomeCarouselListNotifier extends StateNotifier<List<HomeCarousel>>
     with BasePrefProvider {
   HomeCarouselListNotifier() : super([]);
+
   @override
-  Future<void> initProvider() async{
-  }
+  Future<void> initProvider() async {}
+
   @override
   Future<void> initValue() async {
     state = [];
@@ -23,7 +24,7 @@ class HomeCarouselListNotifier extends StateNotifier<List<HomeCarousel>>
 
   @override
   Future<void> readAPIValue() async {
-    state = await HomeAPI().getCarouselItem();
+    state = [...await HomeAPI().getCarouselItem()];
   }
 
   @override
@@ -36,8 +37,9 @@ class HomeCarouselListNotifier extends StateNotifier<List<HomeCarousel>>
   Future<void> readSharedPreferencesValue() async {
     var json = await AppSharedPreferences.getJson(getSharedPreferencesKey());
     if (json != null) {
-      state =
-          List<HomeCarousel>.from(json.map((x) => HomeCarousel.fromJson(x)));
+      state = [
+        ...List<HomeCarousel>.from(json.map((x) => HomeCarousel.fromJson(x)))
+      ];
     }
   }
 

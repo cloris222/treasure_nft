@@ -94,12 +94,13 @@ class _HomeSubDiscoverNftViewState extends ConsumerState<HomeSubDiscoverNftView>
   }
 
   void _onPageChange(int value) {
-    if (getExploreTypeIndex(currentTag) != value) {
-      changePage(tags[value]);
-    }
+    changePage(tags[value], null);
   }
 
-  void changePage(ExploreCategoryResponseData exploreType) {
+  void changePage(ExploreCategoryResponseData exploreType, int? index) {
+    if (index != null) {
+      pageController.jumpToPage(index);
+    }
     ref.read(homeDiscoverCurrentTagProvider.notifier).state = exploreType;
     ref.read(homeDiscoverListProvider.notifier).update();
   }
@@ -135,7 +136,7 @@ class _HomeSubDiscoverNftViewState extends ConsumerState<HomeSubDiscoverNftView>
 
     return GestureDetector(
         onTap: () {
-          changePage(type);
+          changePage(type, tags.indexOf(type));
         },
         child: Container(
             alignment: Alignment.center,

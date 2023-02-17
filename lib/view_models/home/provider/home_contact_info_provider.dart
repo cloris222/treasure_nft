@@ -6,11 +6,11 @@ import '../../../utils/app_shared_Preferences.dart';
 
 ///MARK: 首頁 APP聯絡資訊
 final homeContactInfoProvider =
-    StateNotifierProvider<HomeContactInfoNotifier, Map<String, String>>((ref) {
+    StateNotifierProvider<HomeContactInfoNotifier, Map<String, dynamic>>((ref) {
   return HomeContactInfoNotifier();
 });
 
-class HomeContactInfoNotifier extends StateNotifier<Map<String, String>>
+class HomeContactInfoNotifier extends StateNotifier<Map<String, dynamic>>
     with BasePrefProvider {
   HomeContactInfoNotifier() : super({});
   @override
@@ -28,7 +28,7 @@ class HomeContactInfoNotifier extends StateNotifier<Map<String, String>>
   Future<void> readSharedPreferencesValue() async {
     var json = await AppSharedPreferences.getJson(getSharedPreferencesKey());
     if (json != null) {
-      state = json as Map<String, String>;
+      state = json;
     }
   }
 

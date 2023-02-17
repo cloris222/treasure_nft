@@ -14,9 +14,10 @@ final homeCollectRandomProvider =
 class HomeCollectRandomNotifier extends StateNotifier<List<RandomCollectInfo>>
     with BasePrefProvider {
   HomeCollectRandomNotifier() : super([]);
+
   @override
-  Future<void> initProvider() async{
-  }
+  Future<void> initProvider() async {}
+
   @override
   Future<void> initValue() async {
     state = [];
@@ -24,15 +25,17 @@ class HomeCollectRandomNotifier extends StateNotifier<List<RandomCollectInfo>>
 
   @override
   Future<void> readAPIValue() async {
-    state = await HomeAPI().getRandomCollectList();
+    state = [...await HomeAPI().getRandomCollectList()];
   }
 
   @override
   Future<void> readSharedPreferencesValue() async {
     var json = await AppSharedPreferences.getJson(getSharedPreferencesKey());
     if (json != null) {
-      state = List<RandomCollectInfo>.from(
-          json.map((x) => RandomCollectInfo.fromJson(x)));
+      state = [
+        ...List<RandomCollectInfo>.from(
+            json.map((x) => RandomCollectInfo.fromJson(x)))
+      ];
     }
   }
 

@@ -14,9 +14,10 @@ final homeCollectRankProvider =
 class HomeCollectRankNotifier extends StateNotifier<List<CollectTopInfo>>
     with BasePrefProvider {
   HomeCollectRankNotifier() : super([]);
+
   @override
-  Future<void> initProvider() async{
-  }
+  Future<void> initProvider() async {}
+
   @override
   Future<void> initValue() async {
     state = [];
@@ -24,7 +25,7 @@ class HomeCollectRankNotifier extends StateNotifier<List<CollectTopInfo>>
 
   @override
   Future<void> readAPIValue() async {
-    state = await HomeAPI().getCollectRank();
+    state = [...await HomeAPI().getCollectRank()];
   }
 
   @override
@@ -37,8 +38,10 @@ class HomeCollectRankNotifier extends StateNotifier<List<CollectTopInfo>>
   Future<void> readSharedPreferencesValue() async {
     var json = await AppSharedPreferences.getJson(getSharedPreferencesKey());
     if (json != null) {
-      state = List<CollectTopInfo>.from(
-          json.map((x) => CollectTopInfo.fromJson(x)));
+      state = [
+        ...state = List<CollectTopInfo>.from(
+            json.map((x) => CollectTopInfo.fromJson(x)))
+      ];
     }
   }
 
