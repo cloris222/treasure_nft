@@ -55,11 +55,12 @@ class LevelPointRecordListNotifier extends StateNotifier<List<PointRecordData>>
   }
 
   @override
-  void setList(List<dynamic> data) {
-    if (data.isNotEmpty) {
-      state = data as List<PointRecordData>;
-    } else {
-      state = <PointRecordData>[];
-    }
+  void addList(List data) {
+    state = [...state, ...data as List<PointRecordData>];
+  }
+
+  @override
+  void clearList() {
+    state = <PointRecordData>[];
   }
 }

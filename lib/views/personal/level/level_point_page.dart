@@ -147,11 +147,13 @@ class _LevelPointPageState extends ConsumerState<LevelPointPage>
   }
 
   void _onDataCallBack(String startDate, String endDate) {
-    if (this.startDate != startDate || this.endDate != endDate) {
-      this.startDate = startDate;
-      this.endDate = endDate;
-      reloadListView();
-    }
+    Future.delayed(const Duration(milliseconds: 300)).then((value) {
+      if (this.startDate != startDate || this.endDate != endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        reloadListView();
+      }
+    });
   }
 
   void _onTypeCallBack(Search type) {
@@ -178,7 +180,19 @@ class _LevelPointPageState extends ConsumerState<LevelPointPage>
   }
 
   @override
-  void updateCurrentList(List data) {
-    ref.read(levelPointRecordListProvider.notifier).setList(data);
+  void addCurrentList(List data) {
+    ref.read(levelPointRecordListProvider.notifier).addList(data);
+  }
+
+  @override
+  void clearCurrentList() {
+    ref.read(levelPointRecordListProvider.notifier).clearList();
+  }
+
+  @override
+  void loadingFinish() {
+    if (mounted) {
+      setState(() {});
+    }
   }
 }

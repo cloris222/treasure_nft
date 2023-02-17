@@ -21,7 +21,8 @@ abstract class BaseListProvider {
         List<dynamic>.from(list.map((x) => x.toJson())));
   }
 
-  void setList(List data);
+  void addList(List data);
+  void clearList();
 
   String getSharedPreferencesKey() {
     return '${setKey()}${setUserTemporaryValue() ? "_tmp" : ""}';

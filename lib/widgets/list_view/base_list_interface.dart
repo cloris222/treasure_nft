@@ -26,7 +26,10 @@ abstract class BaseListInterface {
   List getCurrentList();
 
   ///MARK: 更新清單
-  void updateCurrentList(List data);
+  void addCurrentList(List data);
+
+  void clearCurrentList();
+  void loadingFinish();
 
   ///MARK: 讀取資料
   Future<List<dynamic>> loadData(int page, int size);
@@ -63,7 +66,7 @@ abstract class BaseListInterface {
     if (readAll()) {
       readAllListView();
     } else {
-      readInitListView();
+      _readInitListView();
     }
   }
 
@@ -71,20 +74,22 @@ abstract class BaseListInterface {
     if (readAll()) {
       await readAllListView();
     } else {
-      await readInitListView();
+      _clearListView();
+      await _readInitListView();
     }
   }
 
-  Future<void> readInitListView() async {
-    _clearListView();
+  Future<void> _readInitListView() async {
     await _uploadList();
     _showWaitLoad = false;
+    loadingFinish();
   }
 
   Future<void> _uploadListView() async {
     _readMorePage();
     await _uploadList();
     _showWaitLoad = false;
+    loadingFinish();
   }
 
   ///MARK: 一次全讀 (for 留言回復清單)
@@ -96,28 +101,25 @@ abstract class BaseListInterface {
       await _uploadList();
     }
     _showWaitLoad = false;
+    loadingFinish();
   }
 
   Future<void> _uploadList() async {
     _showWaitLoad = true;
-
-    List currentItems = getCurrentList();
     if (_currentPage == 1) {
-      currentItems = await loadData(_currentPage, maxLoad());
+      clearCurrentList();
+      addCurrentList(await loadData(_currentPage, maxLoad()));
     } else {
-      currentItems.addAll(nextItems);
+      addCurrentList(nextItems);
     }
     nextItems = await loadData(_currentPage + 1, maxLoad());
-    updateCurrentList(currentItems);
   }
 
   void _clearListView() {
     _currentPage = 1;
     nextItems.clear();
     removeItems.clear();
-    List currentItems = getCurrentList();
-    currentItems.clear();
-    updateCurrentList(currentItems);
+    clearCurrentList();
   }
 
   void removeItem(int index) {
@@ -145,7 +147,6 @@ abstract class BaseListInterface {
 
     return _buildListListener(
         topView: topView,
-        hasNext: nextItems.isNotEmpty,
         listBody: ListView.separated(
             padding: padding,
             itemCount: length,
@@ -171,8 +172,7 @@ abstract class BaseListInterface {
                 buildSeparatorBuilder(index)));
   }
 
-  Widget _buildListListener(
-      {required Widget listBody, required bool hasNext, Widget? topView}) {
+  Widget _buildListListener({required Widget listBody, Widget? topView}) {
     return NotificationListener<ScrollEndNotification>(
         onNotification: (scrollEnd) {
           final metrics = scrollEnd.metrics;
@@ -182,7 +182,7 @@ abstract class BaseListInterface {
               GlobalData.printLog('At the top');
             } else {
               GlobalData.printLog('At the bottom');
-              if (hasNext && isAutoReloadMore()) {
+              if (nextItems.isNotEmpty && isAutoReloadMore()) {
                 _onMorePress();
               }
             }

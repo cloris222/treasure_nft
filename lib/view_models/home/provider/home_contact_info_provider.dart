@@ -26,7 +26,7 @@ class HomeContactInfoNotifier extends StateNotifier<Map<String, String>>
   Future<void> readSharedPreferencesValue() async {
     var json = await AppSharedPreferences.getJson(getSharedPreferencesKey());
     if (json != null) {
-      state = json;
+      state = json as Map<String, String>;
     }
   }
 
