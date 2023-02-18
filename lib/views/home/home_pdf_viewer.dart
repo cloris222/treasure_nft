@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pdfx/pdfx.dart';
-import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
+import 'package:treasure_nft_project/view_models/control_router_viem_model.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 
 class PDFViewerPage extends StatefulWidget {
@@ -8,12 +8,10 @@ class PDFViewerPage extends StatefulWidget {
     super.key,
     required this.title,
     required this.assetPath,
-    required this.viewModel,
   });
 
   final String title;
   final String assetPath;
-  final HomeMainViewModel viewModel;
 
   @override
   State<StatefulWidget> createState() {
@@ -22,9 +20,7 @@ class PDFViewerPage extends StatefulWidget {
 }
 
 class PDFViewerPageState extends State<PDFViewerPage> {
-  HomeMainViewModel get viewModel {
-    return widget.viewModel;
-  }
+
 
   static const int _initialPage = 1;
   int _actualPageNumber = _initialPage, _allPagesCount = 0;
@@ -50,7 +46,7 @@ class PDFViewerPageState extends State<PDFViewerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar.getCornerAppBar(() {
-        viewModel.popPage(context);
+        ControlRouterViewModel().popPage(context);
       }, widget.title),
       body: PdfViewPinch(
         controller: _pdfController,

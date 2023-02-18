@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/enum/style_enum.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
@@ -7,6 +8,7 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/utils/language_util.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
+import 'package:treasure_nft_project/views/home/home_main_style.dart';
 import 'package:treasure_nft_project/views/home/home_sub_discover_nft_view.dart';
 import 'package:treasure_nft_project/views/home/home_sub_illustrate_view.dart';
 import 'package:treasure_nft_project/views/home/home_sub_info_view.dart';
@@ -23,14 +25,16 @@ import '../../constant/enum/setting_enum.dart';
 import '../../widgets/dialog/simple_custom_dialog.dart';
 import 'widget/sponsor_row_widget.dart';
 
-class HomeMainView extends StatefulWidget {
-  const HomeMainView({Key? key}) : super(key: key);
+class HomeMainView extends ConsumerStatefulWidget {
+  const HomeMainView({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<HomeMainView> createState() => _HomeMainViewState();
+  ConsumerState createState() => _HomeMainViewState();
 }
 
-class _HomeMainViewState extends State<HomeMainView> {
+class _HomeMainViewState extends ConsumerState<HomeMainView> with HomeMainStyle {
   HomeMainViewModel viewModel = HomeMainViewModel();
 
   TextEditingController emailEditingController = TextEditingController();
@@ -46,15 +50,15 @@ class _HomeMainViewState extends State<HomeMainView> {
           if (mounted) {
             showArtAnimate = show;
             if (showArtAnimate) {
-              viewModel.playAnimate();
+              viewModel.playAnimate(ref);
             } else {
-              viewModel.resetAnimate();
+              viewModel.resetAnimate(ref);
             }
           }
         }
       }
     });
-    viewModel.initState();
+    viewModel.initState(ref);
     super.initState();
   }
 
@@ -85,34 +89,34 @@ class _HomeMainViewState extends State<HomeMainView> {
                     child: _buildTitleText()),
 
                 ///MARK: USDT資訊
-                HomeSubUsdtView(viewModel: viewModel),
+                const HomeSubUsdtView(),
 
-                viewModel.buildSpace(height: 3),
+                buildSpace(height: 3),
 
-                HomeSubIllustrateView(viewModel: viewModel),
+                const HomeSubIllustrateView(),
 
-                viewModel.buildSpace(height: 3),
+                buildSpace(height: 3),
 
                 /// 熱門系列 畫家排行
                 ArtistRecordListView(viewModel: viewModel),
-                viewModel.buildSpace(height: 3),
+                buildSpace(height: 3),
 
                 /// 隨機收藏集
-                HomeSubRandomView(viewModel: viewModel),
-                viewModel.buildSpace(height: 3),
+                const HomeSubRandomView(),
+                buildSpace(height: 3),
 
                 /// 邀請註冊
-                HomeSubSignupView(viewModel: viewModel),
-                viewModel.buildSpace(height: 3),
+                const HomeSubSignupView(),
+                buildSpace(height: 3),
 
                 /// Discover NFT
-                HomeSubDiscoverNftView(viewModel: viewModel),
+               const HomeSubDiscoverNftView(),
 
                 /// 聯絡方式
-                HomeSubContactView(viewModel: viewModel),
+                const HomeSubContactView(),
 
                 /// 資訊頁
-                HomeSubInfoView(viewModel: viewModel),
+                HomeSubInfoView(),
 
                 /// Email訂閱
                 mailSubmit(),
@@ -123,7 +127,7 @@ class _HomeMainViewState extends State<HomeMainView> {
                 /// 贊助
                 // sponsor(),
 
-                viewModel.buildSpace(height: 3),
+                buildSpace(height: 3),
                 Center(
                     child: Text('TreasureMeta Technology',
                         style: AppTextStyle.getBaseStyle(
@@ -198,11 +202,11 @@ class _HomeMainViewState extends State<HomeMainView> {
             )
           ],
         ),
-        viewModel.buildSpace(height: 2),
+        buildSpace(height: 2),
         Text(tr('index-product-text-1\''),
-            style: viewModel.getContextStyle(color: AppColors.textGrey)),
+            style: getContextStyle(color: AppColors.textGrey)),
         Text(tr('index-product-text-2\''),
-            style: viewModel.getContextStyle(color: AppColors.textGrey))
+            style: getContextStyle(color: AppColors.textGrey))
       ],
     );
   }
@@ -219,13 +223,13 @@ class _HomeMainViewState extends State<HomeMainView> {
               Color.fromARGB(255, 215, 224, 255)
             ])),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
-          viewModel.buildSpace(height: 5),
+          buildSpace(height: 5),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              viewModel.buildSpace(width: 3),
+              buildSpace(width: 3),
               Image.asset(AppImagePath.fileIcon),
-              viewModel.buildSpace(width: 3),
+              buildSpace(width: 3),
               Text(
                 'Investors and patrons',
                 style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize24),
@@ -261,7 +265,7 @@ class _HomeMainViewState extends State<HomeMainView> {
             padding: EdgeInsets.all(UIDefine.getScreenWidth(5)),
             child: Image.asset(AppImagePath.tozfuft),
           ),
-          viewModel.buildSpace(width: 3),
+          buildSpace(width: 3),
         ]));
   }
 
@@ -281,7 +285,7 @@ class _HomeMainViewState extends State<HomeMainView> {
               Text(
                 tr('emailIllustrate'),
                 textAlign: TextAlign.start,
-                style: viewModel.getContextStyle(
+                style: getContextStyle(
                     color: AppColors.textSixBlack,
                     fontSize: UIDefine.fontSize12),
               ),
@@ -292,7 +296,7 @@ class _HomeMainViewState extends State<HomeMainView> {
               //   style: CustomTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12),
               // ),
 
-              viewModel.buildSpace(height: 3),
+              buildSpace(height: 3),
 
               Stack(alignment: Alignment.centerRight, children: [
                 LoginTextWidget(
@@ -318,7 +322,7 @@ class _HomeMainViewState extends State<HomeMainView> {
                               .show();
                         }))
               ]),
-              viewModel.buildSpace(height: 5)
+              buildSpace(height: 5)
             ]));
   }
 }

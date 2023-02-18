@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:treasure_nft_project/constant/subject_key.dart';
@@ -11,71 +12,66 @@ import 'package:treasure_nft_project/models/http/parameter/discover_collect_data
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/home/home_observer.dart';
+import 'package:treasure_nft_project/view_models/control_router_viem_model.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
 import 'package:treasure_nft_project/views/explore/data/explore_category_response_data.dart';
+import 'package:treasure_nft_project/views/home/home_main_style.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
 
-class HomeSubDiscoverNftView extends StatefulWidget {
-  const HomeSubDiscoverNftView({Key? key, required this.viewModel})
-      : super(key: key);
-  final HomeMainViewModel viewModel;
+import '../../view_models/home/provider/home_discover_provider.dart';
+
+class HomeSubDiscoverNftView extends ConsumerStatefulWidget {
+  const HomeSubDiscoverNftView({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<HomeSubDiscoverNftView> createState() => _HomeSubDiscoverNftViewState();
+  ConsumerState createState() => _HomeSubDiscoverNftViewState();
 }
 
-class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
-  HomeMainViewModel get viewModel {
-    return widget.viewModel;
-  }
-
+class _HomeSubDiscoverNftViewState extends ConsumerState<HomeSubDiscoverNftView>
+    with HomeMainStyle {
   late PageController pageController;
   ItemScrollController listController = ItemScrollController();
-  late HomeObserver observer;
   List<Widget> pages = [];
+
+  List<ExploreCategoryResponseData> tags = [];
+  ExploreCategoryResponseData? currentTag;
+  List<DiscoverCollectData> discoverList = [];
 
   @override
   void initState() {
-    pageController =
-        PageController(initialPage: getExploreTypeIndex(viewModel.currentTag));
-    String key = SubjectKey.keyHomeDiscoverData;
-    observer = HomeObserver(key, onNotify: (notification) {
-      if (notification.key == SubjectKey.keyHomeDiscoverData ||
-          notification.key == SubjectKey.keyHomeDiscoverTags) {
-        if (mounted) {
-          setState(() {});
-        }
-      }
-    });
-    viewModel.homeSubject.registerObserver(observer);
+    pageController = PageController();
+
     super.initState();
   }
 
   @override
   void dispose() {
-    viewModel.homeSubject.unregisterObserver(observer);
     pageController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    tags = ref.watch(homeDisCoverTagsProvider);
+    currentTag = ref.watch(homeDiscoverCurrentTagProvider);
+    discoverList = ref.watch(homeDiscoverListProvider);
     return Container(
       decoration: AppStyle().buildGradient(
           radius: 0, colors: AppColors.gradientBackgroundColorBg),
-      padding: viewModel.getMainPadding(width: 20, height: 10),
+      padding: getMainPadding(width: 20, height: 10),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
               margin:
                   EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(10)),
-              child: Text(tr('discoverNfts'),
-                  style: viewModel.getMainTitleStyle())),
+              child: Text(tr('discoverNfts'), style: getMainTitleStyle())),
           _buildTags(),
           SizedBox(
               height: UIDefine.getPixelWidth(getPageHeight().toDouble()),
@@ -83,7 +79,7 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
                   controller: pageController,
                   onPageChanged: _onPageChange,
                   children: List<Widget>.generate(
-                      viewModel.tags.length, (index) => _buildListView()))),
+                      tags.length, (index) => _buildListView()))),
           _buildMoreButton()
         ],
       ),
@@ -91,32 +87,27 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
   }
 
   num getPageHeight() {
-    if (viewModel.discoverList.isEmpty) {
+    if (discoverList.isEmpty) {
       return 170 * 4;
     }
-    return 170 *
-        (viewModel.discoverList.length ~/ 2 +
-            viewModel.discoverList.length % 2)+90;
+    return 170 * (discoverList.length ~/ 2 + discoverList.length % 2) + 90;
   }
 
   void _onPageChange(int value) {
-    if (getExploreTypeIndex(viewModel.currentTag) != value) {
-      changePage(viewModel.tags[value]);
-    }
+    changePage(tags[value]);
   }
 
   void changePage(ExploreCategoryResponseData exploreType) {
-    setState(() {
-      viewModel.currentTag = exploreType;
-      pageController.jumpToPage(getExploreTypeIndex(exploreType));
-      viewModel.discoverList = [];
-    });
-    viewModel.getDiscoverList(viewModel.currentTag);
+    ref.read(homeDiscoverCurrentTagProvider.notifier).state = exploreType;
+    ref.read(homeDiscoverListProvider.notifier).init();
   }
 
-  int getExploreTypeIndex(ExploreCategoryResponseData type) {
-    for (int i = 0; i < viewModel.tags.length; i++) {
-      if (type.frontName == viewModel.tags[i].frontName) {
+  int getExploreTypeIndex(ExploreCategoryResponseData? type) {
+    if (type == null) {
+      return 0;
+    }
+    for (int i = 0; i < tags.length; i++) {
+      if (type.frontName == tags[i].frontName) {
         return i;
       }
     }
@@ -131,18 +122,18 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
         child: ScrollablePositionedList.builder(
             scrollDirection: Axis.horizontal,
             itemScrollController: listController,
-            itemCount: viewModel.tags.length,
+            itemCount: tags.length,
             itemBuilder: (context, index) {
-              return _buildTabButton(viewModel.tags[index]);
+              return _buildTabButton(tags[index]);
             }));
   }
 
   Widget _buildTabButton(ExploreCategoryResponseData type) {
-    bool isCurrent = (type.frontName == viewModel.currentTag.frontName);
+    bool isCurrent = (type.frontName == currentTag!.frontName);
 
     return GestureDetector(
         onTap: () {
-          changePage(type);
+          pageController.jumpToPage(tags.indexOf(type));
         },
         child: Container(
             alignment: Alignment.center,
@@ -173,7 +164,7 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
   }
 
   Widget _buildListView() {
-    if (viewModel.discoverList.isEmpty) {
+    if (discoverList.isEmpty) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -185,9 +176,7 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
     }
 
     List<List<Widget>> lists = [];
-    int nListCount = (viewModel.discoverList.isNotEmpty)
-        ? viewModel.discoverList.length ~/ 2
-        : 0;
+    int nListCount = (discoverList.isNotEmpty) ? discoverList.length ~/ 2 : 0;
     for (int i = 0; i < nListCount; i++) {
       List<Widget> row = [];
       row.add(Expanded(child: createItemBuilder(context, i * 2)));
@@ -212,10 +201,10 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
   }
 
   Widget createItemBuilder(BuildContext context, int index) {
-    if (index >= viewModel.discoverList.length) {
+    if (index >= discoverList.length) {
       return const SizedBox(height: 100);
     }
-    return getExploreListViewItem(viewModel.discoverList[index], index);
+    return getExploreListViewItem(discoverList[index], index);
   }
 
   Widget createSeparatorBuilder(BuildContext context, int index) {
@@ -223,7 +212,7 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
   }
 
   int getItemCount() {
-    return viewModel.discoverList.length;
+    return discoverList.length;
   }
 
   Widget getExploreListViewItem(DiscoverCollectData data, int index) {
@@ -252,8 +241,7 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
                         fontWeight: FontWeight.w400,
                         color: AppColors.textBlack))),
             Container(
-              margin:
-                  EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(5)),
+              margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(5)),
               alignment: Alignment.centerLeft,
               child: Row(
                 children: [
@@ -274,7 +262,7 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
   Widget _buildMoreButton() {
     return InkWell(
         onTap: () {
-          viewModel.pushAndRemoveUntil(
+          ControlRouterViewModel().pushAndRemoveUntil(
               context, const MainPage(type: AppNavigationBarType.typeExplore));
         },
         child: Container(
@@ -293,7 +281,7 @@ class _HomeSubDiscoverNftViewState extends State<HomeSubDiscoverNftView> {
             children: [
               Text(
                 '${tr('more')} NFTs',
-                style: viewModel.getContextStyle(fontWeight: FontWeight.w600),
+                style: getContextStyle(fontWeight: FontWeight.w600),
               ),
               BaseIconWidget(
                   imageAssetPath: AppImagePath.arrowRightBlack,

@@ -76,7 +76,7 @@ class HomeAPI extends HttpManager {
   }
 
   ///MARK: 取得收藏集排行榜
-  Future<List<CollectTopInfo>> getCollectTop() async {
+  Future<List<CollectTopInfo>> getCollectRank() async {
     var response = await get('/index/artists/top');
     List<CollectTopInfo> list = [];
     try {

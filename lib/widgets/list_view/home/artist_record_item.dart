@@ -8,6 +8,7 @@ import 'package:treasure_nft_project/models/http/parameter/collect_top_info.dart
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/home/home_observer.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
+import 'package:treasure_nft_project/views/home/home_main_style.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 
@@ -32,7 +33,7 @@ class ArtistRecordItemView extends StatefulWidget {
 }
 
 class _ArtistRecordItem extends State<ArtistRecordItemView>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin,HomeMainStyle {
   HomeMainViewModel get viewModel {
     return widget.viewModel;
   }
@@ -109,7 +110,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
                             fontWeight: FontWeight.w600,
                             color: Colors.black,
                             fontFamily: AppTextFamily.Posterama1927)),
-                    viewModel.buildSpace(width: 1),
+                    buildSpace(width: 1),
 
                     /// Avatar
                     SizedBox(
@@ -122,7 +123,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
                         ),
                       ),
                     ),
-                    viewModel.buildSpace(width: 1.5),
+                    buildSpace(width: 1.5),
 
                     Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -137,7 +138,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
                                   color: Colors.black,
                                   fontWeight: FontWeight.w400)),
 
-                          viewModel.buildSpace(height: 1),
+                          buildSpace(height: 1),
 
                           _buildVolView('${widget.itemData.volume}'),
                         ]),
@@ -151,7 +152,7 @@ class _ArtistRecordItem extends State<ArtistRecordItemView>
                             fontSize: UIDefine.fontSize16,
                             fontWeight: FontWeight.w600,
                             fontFamily: AppTextFamily.Posterama1927)),
-                    viewModel.buildSpace(width: 1.5),
+                    buildSpace(width: 1.5),
                   ])),
         ),
       ],

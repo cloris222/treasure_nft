@@ -74,7 +74,6 @@ class SplashScreenViewModel extends BaseViewModel {
     await Future.delayed(const Duration(seconds: 3));
     GlobalData.printLog('$key runInitApp:start');
     await getCountry();
-    await getAppContactInfo();
     await checkAppVersion();
 
     ///MARK: 自動登入

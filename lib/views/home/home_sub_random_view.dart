@@ -1,74 +1,43 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/enum/style_enum.dart';
-import 'package:treasure_nft_project/constant/subject_key.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/random_collect_info.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
-import 'package:treasure_nft_project/utils/observer_pattern/home/home_observer.dart';
-import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
+import 'package:treasure_nft_project/view_models/home/provider/home_collect_random_provider.dart';
+import 'package:treasure_nft_project/views/home/home_main_style.dart';
 import 'package:treasure_nft_project/views/login/circle_network_icon.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 
 /// 隨機收藏集
-class HomeSubRandomView extends StatefulWidget {
-  const HomeSubRandomView({Key? key, required this.viewModel})
-      : super(key: key);
-  final HomeMainViewModel viewModel;
+class HomeSubRandomView extends ConsumerWidget with HomeMainStyle {
+  const HomeSubRandomView({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<HomeSubRandomView> createState() => _HomeSubRandomViewState();
-}
-
-class _HomeSubRandomViewState extends State<HomeSubRandomView> {
-  HomeMainViewModel get viewModel {
-    return widget.viewModel;
-  }
-
-  late HomeObserver observer;
-
-  @override
-  void initState() {
-    String key = SubjectKey.keyHomeRandomCollect;
-    observer = HomeObserver(key, onNotify: (notification) {
-      if (notification.key == key) {
-        if (mounted) {
-          setState(() {});
-        }
-      }
-    });
-    viewModel.homeSubject.registerObserver(observer);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    viewModel.homeSubject.unregisterObserver(observer);
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    List<RandomCollectInfo> list = ref.watch(homeCollectRandomProvider);
     return Container(
         width: UIDefine.getWidth(),
         decoration: AppStyle().buildGradient(
             radius: 0, colors: AppColors.gradientBackgroundColorBg),
-        padding: viewModel.getMainPadding(height: 30),
+        padding: getMainPadding(height: 30),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           Text(tr('collection-fetured'),
-              textAlign: TextAlign.center,
-              style: viewModel.getMainTitleStyle()),
+              textAlign: TextAlign.center, style: getMainTitleStyle()),
           SizedBox(height: UIDefine.getPixelWidth(30)),
           ListView.builder(
               padding: EdgeInsets.zero,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) => _buildSubView(
-                  context, viewModel.homeRandomCollectList[index]),
-              itemCount: viewModel.homeRandomCollectList.length)
+              itemBuilder: (context, index) =>
+                  _buildSubView(context, list[index]),
+              itemCount: list.length)
         ]));
   }
 
@@ -90,7 +59,7 @@ class _HomeSubRandomViewState extends State<HomeSubRandomView> {
             width: UIDefine.getPixelWidth(30),
             height: UIDefine.getPixelWidth(30),
             child: CircleNetworkIcon(networkUrl: info.creatorAvatarUrl)),
-        Text(' by ${info.creator}', style: viewModel.getContextStyle()),
+        Text(' by ${info.creator}', style: getContextStyle()),
         const Spacer(),
         LoginButtonWidget(
             btnText: '${tr('total')} ${info.itemCount} ${tr('item')}',

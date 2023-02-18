@@ -45,11 +45,11 @@ class AppSharedPreferences {
     }
   }
 
-  static Future<void> _setJson(String key, dynamic value) async {
+  static Future<void> setJson(String key, dynamic value) async {
     await _setString(key, json.encode(value).toString());
   }
 
-  static Future<dynamic> _getJson(String key) async {
+  static Future<dynamic> getJson(String key) async {
     SharedPreferences pref = await _getPreferences();
     if (await checkKey(key, pref: pref)) {
       return json.decode(pref.getString(key)!);
@@ -101,6 +101,17 @@ class AppSharedPreferences {
     GlobalData.printLog('pref_getLogIn:${await getLogIn()}');
   }
 
+  ///清除使用者先關的暫存資料
+  static Future<void> clearUserTmpValue() async {
+    SharedPreferences pref = await _getPreferences();
+    pref.getKeys().forEach((key) {
+      ///MARK: 如果包含_tmp 代表需要被刪除
+      if (key.contains("_tmp")) {
+        pref.remove(key);
+      }
+    });
+  }
+
   ///MARK: ----使用者設定 end ----
 
   ///MARK: ----暫存相關 start ----
@@ -108,12 +119,12 @@ class AppSharedPreferences {
   ///MARK: 錢包紀錄 WalletRecord
   static Future<void> setWalletRecord(
       List<BalanceRecordResponseData> list) async {
-    await _setJson(
+    await setJson(
         "WalletRecord", List<dynamic>.from(list.map((x) => x.toJson())));
   }
 
   static Future<List<BalanceRecordResponseData>> getWalletRecord() async {
-    var json = await _getJson("WalletRecord");
+    var json = await getJson("WalletRecord");
     if (json == null) {
       return [];
     }
@@ -123,12 +134,12 @@ class AppSharedPreferences {
 
   ///MARK: 收益明細 ProfitRecord
   static Future<void> setProfitRecord(List<CheckEarningIncomeData> list) async {
-    await _setJson(
+    await setJson(
         "ProfitRecord", List<dynamic>.from(list.map((x) => x.toJson())));
   }
 
   static Future<List<CheckEarningIncomeData>> getProfitRecord() async {
-    var json = await _getJson("ProfitRecord");
+    var json = await getJson("ProfitRecord");
     if (json == null) {
       return [];
     }
