@@ -33,8 +33,10 @@ class HomeDisCoverTagNotifier
   Future<void> readSharedPreferencesValue() async {
     var json = await AppSharedPreferences.getJson(getSharedPreferencesKey());
     if (json != null) {
-      state = List<ExploreCategoryResponseData>.from(
-          json.map((x) => ExploreCategoryResponseData.fromJson(x)));
+      state = [
+        ...List<ExploreCategoryResponseData>.from(
+            json.map((x) => ExploreCategoryResponseData.fromJson(x)))
+      ];
     }
   }
 
