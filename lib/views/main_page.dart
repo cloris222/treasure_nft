@@ -20,6 +20,7 @@ import 'package:treasure_nft_project/views/wallet/wallet_main_view.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 import 'package:treasure_nft_project/widgets/bottom_sheet/page_bottom_sheet.dart';
 import 'package:treasure_nft_project/widgets/dialog/app_version_update_dialog.dart';
+import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 
 import '../constant/global_data.dart';
 import '../constant/ui_define.dart';
@@ -88,11 +89,6 @@ class _MainPageState extends State<MainPage> {
     setState(() => _authStatus = '$status');
     // If the system can show an authorization request dialog
     if (status == TrackingStatus.notDetermined) {
-      // Show a custom explainer dialog before the system dialog
-      await showCustomTrackingDialog(context);
-      // Wait for dialog popping animation
-      await Future.delayed(const Duration(milliseconds: 200));
-      // Request system's tracking authorization dialog
       final TrackingStatus status =
           await AppTrackingTransparency.requestTrackingAuthorization();
       setState(() => _authStatus = '$status');
@@ -101,25 +97,6 @@ class _MainPageState extends State<MainPage> {
     final uuid = await AppTrackingTransparency.getAdvertisingIdentifier();
     GlobalData.printLog("UUID: $uuid");
   }
-
-  Future<void> showCustomTrackingDialog(BuildContext context) async =>
-      await showDialog<void>(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('Dear User'),
-          content: const Text(
-            'We care about your privacy and data security. We keep this app free by showing ads. '
-            'Can we continue to use your data to tailor ads for you?\n\nYou can change your choice anytime in the app settings. '
-            'Our partners will collect data and use a unique identifier on your device to show you ads.',
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('Continue'),
-            ),
-          ],
-        ),
-      );
 
   void showAnimateView() {
     if (GlobalData.needUpdateApp) {
