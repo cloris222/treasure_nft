@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
@@ -22,7 +23,7 @@ class ListDialog extends BaseDialog {
   Widget listView;
 
   @override
-  Widget initContent(BuildContext context, StateSetter setState) {
+  Widget initContent(BuildContext context, StateSetter setState,WidgetRef ref) {
     return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,

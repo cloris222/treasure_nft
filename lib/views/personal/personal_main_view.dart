@@ -1,41 +1,36 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
-import 'package:treasure_nft_project/views/explore/explore_main_view.dart';
 import 'package:treasure_nft_project/views/personal/personal_new_sub_common_view.dart';
 import 'package:treasure_nft_project/views/personal/personal_new_sub_level_view.dart';
 import 'package:treasure_nft_project/views/personal/personal_new_sub_order_view.dart';
 import 'package:treasure_nft_project/views/personal/personal_new_sub_team_view.dart';
 import 'package:treasure_nft_project/views/personal/personal_new_sub_user_info_view.dart';
 
-import '../../constant/call_back_function.dart';
-import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
-import '../../view_models/base_view_model.dart';
-import '../../view_models/personal/personal_main_viewmodel.dart';
-import '../../widgets/app_bottom_navigation_bar.dart';
-import '../server_web_page.dart';
-import '../setting_language_page.dart';
+import '../../view_models/gobal_provider/user_experience_info_provider.dart';
+import '../../view_models/gobal_provider/user_info_provider.dart';
+import '../../view_models/gobal_provider/user_level_info_provider.dart';
+import '../../view_models/gobal_provider/user_order_info_provider.dart';
+import '../../view_models/gobal_provider/user_property_info_provider.dart';
+import '../../view_models/gobal_provider/user_trade_status_provider.dart';
 
-class PersonalMainView extends StatefulWidget {
-  const PersonalMainView({Key? key, required this.onViewChange})
-      : super(key: key);
-  final onClickFunction onViewChange;
+class PersonalMainView extends ConsumerStatefulWidget {
+  const PersonalMainView({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<PersonalMainView> createState() => _PersonalMainViewState();
+  ConsumerState createState() => _PersonalMainViewState();
 }
 
-class _PersonalMainViewState extends State<PersonalMainView> {
-  late PersonalMainViewModel viewModel;
-
+class _PersonalMainViewState extends ConsumerState<PersonalMainView> {
   @override
   void initState() {
+    updateData();
     super.initState();
-    viewModel = PersonalMainViewModel(setState: setState);
-    viewModel.initState();
   }
 
   @override
@@ -51,10 +46,7 @@ class _PersonalMainViewState extends State<PersonalMainView> {
               Padding(
                   padding: EdgeInsets.all(UIDefine.getScreenWidth(5.5)),
                   child: PersonalNewSubUserInfoView(
-                    onViewUpdate: () {
-                      setState(() {});
-                      widget.onViewChange();
-                    },
+                    onViewUpdate: () {},
                     showDailyTask: true,
                     enableModify: true,
                   )),
@@ -62,46 +54,27 @@ class _PersonalMainViewState extends State<PersonalMainView> {
                   margin: EdgeInsets.symmetric(
                       horizontal: UIDefine.getScreenWidth(3.5)),
                   child: Column(children: [
-                    // PersonalSubLevelView( // 第一版UI
-                    //   userProperty: GlobalData.userProperty,
-                    //   levelInfo: GlobalData.userLevelInfo,
-                    //   onViewUpdate: _onViewUpdate,
-                    // ),
                     PersonalNewSubLevelView(
-                      userProperty: GlobalData.userProperty,
-                      levelInfo: GlobalData.userLevelInfo,
-                      onViewUpdate: _onViewUpdate,
+                      userProperty: ref.watch(userPropertyInfoProvider),
+                      levelInfo: ref.watch(userLevelInfoProvider),
+                      onViewUpdate: () {},
                     ),
-                    // _buildLine(),
-                    // PersonalSubOrderView(
-                    //     userOrderInfo: GlobalData.userOrderInfo),
-                    // _buildLine(),
                     PersonalNewSubOrderView(
-                        userOrderInfo: GlobalData.userOrderInfo),
-                    // PersonalSubTeamView(levelInfo: GlobalData.userLevelInfo),
-                    // _buildLine(),
-                    PersonalNewSubTeamView(levelInfo: GlobalData.userLevelInfo),
-                    // PersonalSubCommonView(onViewUpdate: () {
-                    //   setState(() {});
-                    //   widget.onViewChange();
-                    // }),
-                    PersonalNewSubCommonView(onViewUpdate: () {
-                      setState(() {});
-                      widget.onViewChange();
-                    }),
+                        userOrderInfo: ref.watch(userOrderInfoProvider)),
+                    PersonalNewSubTeamView(
+                        levelInfo: ref.watch(userLevelInfoProvider)),
+                    PersonalNewSubCommonView(onViewUpdate: () {}),
                     const SizedBox(height: 10)
                   ]))
             ])));
   }
 
-  Widget _buildLine() {
-    return const Divider(color: AppColors.searchBar, thickness: 1);
+  void updateData() {
+    ref.read(userLevelInfoProvider.notifier).init();
+    ref.read(userPropertyInfoProvider.notifier).init();
+    ref.read(userOrderInfoProvider.notifier).init();
+    ref.read(userInfoProvider.notifier).init();
+    ref.read(userExperienceInfoProvider.notifier).init();
+    ref.read(userTradeStatusProvider.notifier).init();
   }
-
-  void _onViewUpdate() {
-    ///MARK: 先更新已更新的資料狀態
-    setState(() {});
-    viewModel.updateData();
-  }
-
 }

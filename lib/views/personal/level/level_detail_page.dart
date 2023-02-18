@@ -1,43 +1,48 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/enum/task_enum.dart';
-import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/level_info_data.dart';
+import 'package:treasure_nft_project/models/http/parameter/user_info_data.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
+import 'package:treasure_nft_project/view_models/gobal_provider/user_level_info_provider.dart';
 import 'package:treasure_nft_project/view_models/personal/level/level_detail_view_model.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
 import 'package:treasure_nft_project/views/personal/level/level_achievement_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
-import 'package:treasure_nft_project/widgets/button/text_button_widget.dart';
 import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
 import 'package:treasure_nft_project/widgets/label/background_with_land.dart';
 import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart';
 import 'package:treasure_nft_project/widgets/label/custom_linear_progress.dart';
 import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
 
+import '../../../view_models/gobal_provider/user_info_provider.dart';
+
 ///MARK: 等級詳細
-class LevelDetailPage extends StatefulWidget {
-  const LevelDetailPage({Key? key}) : super(key: key);
+class LevelDetailPage extends ConsumerStatefulWidget {
+  const LevelDetailPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<LevelDetailPage> createState() => _LevelDetailPageState();
+  ConsumerState createState() => _LevelDetailPageState();
 }
 
-class _LevelDetailPageState extends State<LevelDetailPage> {
+class _LevelDetailPageState extends ConsumerState<LevelDetailPage> {
   late LevelDetailViewModel viewModel;
 
   @override
   void initState() {
     super.initState();
     viewModel = LevelDetailViewModel(setState: setState);
-    viewModel.initState();
+    viewModel.initState(ref.read(userLevelInfoProvider));
   }
 
   @override
@@ -50,6 +55,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    UserInfoData userInfo = ref.watch(userInfoProvider);
     return CustomAppbarView(
       needScrollView: false,
       onLanguageChange: () {
@@ -58,26 +64,26 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
         }
       },
       type: AppNavigationBarType.typePersonal,
-      body: SingleChildScrollView(child: _buildBody()),
+      body: SingleChildScrollView(child: _buildBody(userInfo)),
     );
   }
 
-  Widget _buildBody() {
+  Widget _buildBody(UserInfoData userInfo) {
     return Column(children: [
       BackgroundWithLand(
         mainHeight: 230,
         bottomHeight: 100,
         onBackPress: () => viewModel.popPage(context),
-        body: Center(child: _buildCurrentLevelStatus()),
+        body: Center(child: _buildCurrentLevelStatus(userInfo)),
       ),
       Container(
           padding: mainPadding,
           color: AppColors.defaultBackgroundSpace,
           child: Column(children: [
             _buildOtherButton(),
-            _buildCurrentLevelInfo(),
+            _buildCurrentLevelInfo(userInfo),
             // _buildAllLevelBar(),
-            _buildAllLevelInfo(),
+            _buildAllLevelInfo(userInfo),
           ]))
     ]);
   }
@@ -87,19 +93,18 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
   }
 
   ///MARK: 建立現在等級狀態
-  Widget _buildCurrentLevelStatus() {
+  Widget _buildCurrentLevelStatus(UserInfoData userInfo) {
     return Stack(children: [
       SizedBox(
         height: UIDefine.getPixelWidth(180),
         child: Image.asset(
-            format(AppImagePath.levelBar,
-                ({'level': GlobalData.userInfo.level + 1})),
+            format(AppImagePath.levelBar, ({'level': userInfo.level + 1})),
             fit: BoxFit.fitHeight),
       ),
       Positioned(
           left: UIDefine.getPixelWidth(24),
           top: UIDefine.getPixelWidth(24),
-          child: Text('${tr('level')} ${GlobalData.userInfo.level}',
+          child: Text('${tr('level')} ${userInfo.level}',
               style: AppTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize18,
                   fontWeight: FontWeight.w600,
@@ -112,7 +117,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
             ///MARK: 積分
             Row(children: [
               Text(
-                '${tr('lv_point')} : ${GlobalData.userLevelInfo?.point} / ${GlobalData.userLevelInfo?.pointRequired} (${viewModel.getStrPointPercentage()})',
+                '${tr('lv_point')} : ${ref.watch(userLevelInfoProvider)?.point} / ${ref.watch(userLevelInfoProvider)?.pointRequired} (${viewModel.getStrPointPercentage(ref.watch(userLevelInfoProvider))})',
                 style: AppTextStyle.getBaseStyle(
                     fontSize: UIDefine.fontSize12, color: Colors.white),
               ),
@@ -126,7 +131,8 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
                   padding: EdgeInsets.only(top: UIDefine.getPixelWidth(8)),
                   child: CustomLinearProgress(
                       height: UIDefine.getPixelWidth(8),
-                      percentage: viewModel.getPointPercentage()),
+                      percentage: viewModel.getPointPercentage(
+                          ref.watch(userLevelInfoProvider))),
                 ),
               ),
               SizedBox(width: UIDefine.getPixelWidth(30)),
@@ -230,8 +236,8 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
   }
 
   ///MARK: 建立現在等級諮詢
-  Widget _buildCurrentLevelInfo() {
-    if (viewModel.levelDataList.length > GlobalData.userInfo.level) {
+  Widget _buildCurrentLevelInfo(UserInfoData userInfo) {
+    if (viewModel.levelDataList.length > userInfo.level) {
       return Container(
         padding: EdgeInsets.symmetric(
             horizontal: UIDefine.getPixelWidth(10),
@@ -239,9 +245,9 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
         margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(10)),
         decoration: AppStyle().styleColorsRadiusBackground(radius: 8),
         child: Column(children: [
-          _buildSingleLevelTitle(GlobalData.userInfo.level),
+          _buildSingleLevelTitle(userInfo.level, userInfo),
           _buildSpace(height: 2),
-          _buildSingleLevelInfo(GlobalData.userInfo.level),
+          _buildSingleLevelInfo(userInfo.level),
         ]),
       );
     }
@@ -249,12 +255,12 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
   }
 
   ///MARK: 建立全部等級資訊
-  Widget _buildAllLevelInfo() {
+  Widget _buildAllLevelInfo(UserInfoData userInfo) {
     if (viewModel.levelDataList.isNotEmpty) {
       List<Widget> pages = [];
       for (var data in viewModel.levelDataList) {
         if (data.userLevel != 0) {
-          pages.add(_buildLevelPageItem(data.userLevel));
+          pages.add(_buildLevelPageItem(data.userLevel, userInfo));
         }
       }
       return Container(
@@ -305,7 +311,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
   }
 
   ///MARK: 等級標題
-  Widget _buildSingleLevelTitle(int level,
+  Widget _buildSingleLevelTitle(int level, UserInfoData userInfo,
       {bool showLevel = true,
       bool showLock = false,
       bool showBonus = false,
@@ -317,7 +323,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
           Visibility(
             visible: showLock,
             child: BaseIconWidget(
-                imageAssetPath: viewModel.checkUnlock(level)
+                imageAssetPath: viewModel.checkUnlock(level, userInfo)
                     ? AppImagePath.levelUnLock
                     : AppImagePath.levelLock,
                 size: UIDefine.getPixelWidth(25)),
@@ -336,7 +342,9 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
           ),
           Flexible(child: Container()),
           Visibility(
-              visible: viewModel.nextLevel(level) && showBonus,
+              visible: viewModel.nextLevel(
+                      level, ref.watch(userLevelInfoProvider)!) &&
+                  showBonus,
               child: GestureDetector(
                 onTap: () => viewModel.showLeveLBonus(context),
                 child: Container(
@@ -470,7 +478,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
   }
 
   ///MARK: 等級清單
-  Widget _buildLevelPageItem(int level) {
+  Widget _buildLevelPageItem(int level, UserInfoData userInfo) {
     return Column(children: [
       Container(
           margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(10)),
@@ -487,7 +495,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
                 bottom: 0,
                 left: UIDefine.getPixelWidth(10),
                 right: 0,
-                child: _buildSingleLevelTitle(level,
+                child: _buildSingleLevelTitle(level, userInfo,
                     showLevel: true,
                     showLock: true,
                     showBonus: false,
@@ -496,7 +504,7 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
             ],
           )),
       Visibility(
-        visible: level <= GlobalData.userInfo.level + 1,
+        visible: level <= userInfo.level + 1,
         child: Container(
           padding: EdgeInsets.symmetric(
               horizontal: UIDefine.getPixelWidth(10),
@@ -505,9 +513,9 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
           decoration: AppStyle().styleColorsRadiusBackground(radius: 8),
           child: Column(
             children: [
-              _buildSingleLevelTitle(level,
+              _buildSingleLevelTitle(level, userInfo,
                   showLevel: false, showLock: false, showBonus: true),
-              _buildSingleLevelInfoRequest(level),
+              _buildSingleLevelInfoRequest(level, userInfo),
             ],
           ),
         ),
@@ -520,7 +528,8 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
         decoration: AppStyle().styleColorsRadiusBackground(radius: 8),
         child: Column(
           children: [
-            _buildSingleLevelTitle(level, showLevel: true, showLock: false),
+            _buildSingleLevelTitle(level, userInfo,
+                showLevel: true, showLock: false),
             _buildSingleLevelInfo(level),
             _buildItemChange(level),
           ],
@@ -530,41 +539,44 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
   }
 
   ///MARK:升級至下一等級的需求
-  Widget _buildSingleLevelInfoRequest(int level) {
+  Widget _buildSingleLevelInfoRequest(int level, UserInfoData userInfo) {
     return Container(
         width: UIDefine.getWidth(),
         decoration: AppStyle().styleColorsRadiusBackground(
             color: AppColors.itemBackground, radius: 4),
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
         child: level == 1
-            ? _buildLevelOneRequest()
-            : _buildLevelOtherRequest(level));
+            ? _buildLevelOneRequest(userInfo)
+            : _buildLevelOtherRequest(level, userInfo));
   }
 
   ///MARK:升級至等級1的需求
-  Widget _buildLevelOneRequest() {
+  Widget _buildLevelOneRequest(UserInfoData userInfo) {
     return Column(children: [
       _buildSingleRequest(
+          userInfo: userInfo,
           level: 1,
           title: tr('depositNFT'),
-          value: GlobalData.userLevelInfo!.depositAmount,
-          request: GlobalData.userLevelInfo!.depositAmountRequired)
+          value: ref.watch(userLevelInfoProvider)!.depositAmount,
+          request: ref.watch(userLevelInfoProvider)!.depositAmountRequired)
     ]);
   }
 
   ///MARK:升級至其他等級的需求
-  Widget _buildLevelOtherRequest(int level) {
+  Widget _buildLevelOtherRequest(int level, UserInfoData userInfo) {
     return Column(children: [
       _buildSingleRequest(
+          userInfo: userInfo,
           level: level,
           title: tr('open_A_lv'),
-          value: GlobalData.userLevelInfo!.activeDirect,
-          request: GlobalData.userLevelInfo!.activeDirectRequired),
+          value: ref.watch(userLevelInfoProvider)!.activeDirect,
+          request: ref.watch(userLevelInfoProvider)!.activeDirectRequired),
       _buildSingleRequest(
+          userInfo: userInfo,
           level: level,
           title: tr('open_BC_lv'),
-          value: GlobalData.userLevelInfo!.activeIndirect,
-          request: GlobalData.userLevelInfo!.activeIndirectRequired)
+          value: ref.watch(userLevelInfoProvider)!.activeIndirect,
+          request: ref.watch(userLevelInfoProvider)!.activeIndirectRequired)
     ]);
   }
 
@@ -572,9 +584,11 @@ class _LevelDetailPageState extends State<LevelDetailPage> {
       {required int level,
       required String title,
       required dynamic value,
-      required int request}) {
-    double percentage =
-        viewModel.checkUnlock(level) || request == 0 ? 1 : value / request;
+      required int request,
+      required UserInfoData userInfo}) {
+    double percentage = viewModel.checkUnlock(level, userInfo) || request == 0
+        ? 1
+        : value / request;
 
     return Column(children: [
       Row(children: [

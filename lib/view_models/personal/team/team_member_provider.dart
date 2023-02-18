@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/view_models/base_pref_provider.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
+import '../../../constant/call_back_function.dart';
 import '../../../models/http/api/group_api.dart';
 import '../../../models/http/parameter/team_members.dart';
 import '../../../utils/app_shared_Preferences.dart';
@@ -37,9 +38,9 @@ class TeamMemberNotifier extends StateNotifier<TeamMembers>
   Future<void> initValue() async {}
 
   @override
-  Future<void> readAPIValue() async {
+  Future<void> readAPIValue({ResponseErrorFunction? onConnectFail}) async {
     BaseViewModel viewModel = BaseViewModel();
-    state = await GroupAPI().getMembers(
+    state = await GroupAPI(onConnectFail: onConnectFail).getMembers(
         startTime: viewModel.getStartTime(startTime),
         endTime: viewModel.getEndTime(endTime));
   }

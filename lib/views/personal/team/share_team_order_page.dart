@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:treasure_nft_project/models/http/parameter/user_info_data.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
@@ -11,26 +13,26 @@ import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
 import '../../../constant/ui_define.dart';
 import '../../../models/http/parameter/team_order.dart';
+import '../../../view_models/gobal_provider/user_info_provider.dart';
 import '../../../view_models/personal/team/share_team_order_viewmodel.dart';
 import '../../../widgets/button/action_button_widget.dart';
 import '../../../widgets/label/icon/level_icon_widget.dart';
 import '../../../widgets/label/icon/medal_icon_widget.dart';
 import '../../login/circle_network_icon.dart';
 
-class ShareTeamOrderPage extends StatefulWidget {
-  const ShareTeamOrderPage({Key? key,
-    required this.itemData,
-    this.fromSell = false
-  }) : super(key: key);
+class ShareTeamOrderPage extends ConsumerStatefulWidget {
+  const ShareTeamOrderPage(
+      {Key? key, required this.itemData, this.fromSell = false})
+      : super(key: key);
 
   final TeamOrderData itemData;
   final bool fromSell;
 
   @override
-  State<ShareTeamOrderPage> createState() => _ShareTeamOrderPageState();
+  ConsumerState createState() => _ShareTeamOrderPageState();
 }
 
-class _ShareTeamOrderPageState extends State<ShareTeamOrderPage> {
+class _ShareTeamOrderPageState extends ConsumerState<ShareTeamOrderPage> {
   late ShareTeamOrderViewModel viewModel;
 
   TeamOrderData get itemData {
@@ -62,6 +64,7 @@ class _ShareTeamOrderPageState extends State<ShareTeamOrderPage> {
 
   @override
   Widget build(BuildContext context) {
+    UserInfoData userInfo = ref.watch(userInfoProvider);
     return Scaffold(
         backgroundColor: AppColors.opacityBackground,
         body: Container(
@@ -80,7 +83,7 @@ class _ShareTeamOrderPageState extends State<ShareTeamOrderPage> {
                     repeat: ImageRepeat.noRepeat,
                     image: AssetImage(AppImagePath.shareBackground),
                   )),
-                  child: _buildShareImg(),
+                  child: _buildShareImg(userInfo),
                 ))));
   }
 
@@ -88,16 +91,16 @@ class _ShareTeamOrderPageState extends State<ShareTeamOrderPage> {
     return SizedBox(height: UIDefine.getScreenHeight(1.5));
   }
 
-  Widget _buildShareImg() {
+  Widget _buildShareImg(UserInfoData userInfo) {
     return Column(mainAxisSize: MainAxisSize.min, children: [
-      _buildUserInfo(),
+      _buildUserInfo(userInfo),
       _buildOrderTitle(),
       _buildOrderInfo(),
-      _buildShareCode(),
+      _buildShareCode(userInfo),
     ]);
   }
 
-  Widget _buildUserInfo() {
+  Widget _buildUserInfo(UserInfoData userInfo) {
     double iconHeight = UIDefine.getScreenHeight(10);
     return Column(mainAxisSize: MainAxisSize.min, children: [
       Row(children: [
@@ -106,16 +109,15 @@ class _ShareTeamOrderPageState extends State<ShareTeamOrderPage> {
       ]),
       _buildSpace(),
       Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        GlobalData.userInfo.photoUrl.isNotEmpty
+        userInfo.photoUrl.isNotEmpty
             ? CircleNetworkIcon(
-                networkUrl: GlobalData.userInfo.photoUrl,
-                radius: iconHeight / 2)
+                networkUrl: userInfo.photoUrl, radius: iconHeight / 2)
             : Image.asset(AppImagePath.avatarImg,
                 width: iconHeight, height: iconHeight),
         SizedBox(width: UIDefine.getScreenWidth(5)),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(
-            GlobalData.userInfo.name,
+            userInfo.name,
             style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12),
           ),
           const SizedBox(height: 10),
@@ -124,16 +126,15 @@ class _ShareTeamOrderPageState extends State<ShareTeamOrderPage> {
                 setHeight: UIDefine.fontSize24,
                 fontSize: UIDefine.fontSize14,
                 isFillWidth: false,
-                btnText: 'Level ${GlobalData.userInfo.level}',
+                btnText: 'Level ${userInfo.level}',
                 radius: 5,
                 onPressed: () {}),
             const SizedBox(width: 10),
-            LevelIconWidget(
-                level: GlobalData.userInfo.level, size: UIDefine.fontSize24),
+            LevelIconWidget(level: userInfo.level, size: UIDefine.fontSize24),
             const SizedBox(width: 5),
-            GlobalData.userInfo.medal.isNotEmpty
+            userInfo.medal.isNotEmpty
                 ? MedalIconWidget(
-                    medal: GlobalData.userInfo.medal,
+                    medal: userInfo.medal,
                     size: UIDefine.fontSize24,
                   )
                 : Container()
@@ -151,7 +152,7 @@ class _ShareTeamOrderPageState extends State<ShareTeamOrderPage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(fromSell? tr('myTradingResults') : tr('myReward')),
+            Text(fromSell ? tr('myTradingResults') : tr('myReward')),
             Text(
                 '${tr('tradingCycle')} : ${viewModel.teamShareInfo?.day ?? '0'}${tr('day')}')
           ],
@@ -188,16 +189,16 @@ class _ShareTeamOrderPageState extends State<ShareTeamOrderPage> {
             Expanded(
                 child: Column(children: [
               SizedBox(height: itemSize * 0.05),
-              Text(fromSell? tr("profit-loss-ratio'") : tr('promotionReward'), style: titleStyle),
+              Text(fromSell ? tr("profit-loss-ratio'") : tr('promotionReward'),
+                  style: titleStyle),
               _buildSpace(),
               Expanded(
                   child: Container(
                 alignment: Alignment.center,
                 child: Text(
-                    fromSell?
-                    '${NumberFormatUtil().removeTwoPointFormat(viewModel.teamShareInfo?.profitPCT ?? 0)}%'
-                        :
-                    '${NumberFormatUtil().removeTwoPointFormat(viewModel.teamShareInfo?.promotePct ?? 0)}%',
+                    fromSell
+                        ? '${NumberFormatUtil().removeTwoPointFormat(viewModel.teamShareInfo?.profitPCT ?? 0)}%'
+                        : '${NumberFormatUtil().removeTwoPointFormat(viewModel.teamShareInfo?.promotePct ?? 0)}%',
                     style: AppTextStyle.getBaseStyle(
                         color: AppColors.mainThemeButton,
                         fontSize: UIDefine.fontSize28,
@@ -208,7 +209,11 @@ class _ShareTeamOrderPageState extends State<ShareTeamOrderPage> {
             Expanded(
                 child: Column(children: [
               SizedBox(height: itemSize * 0.05),
-              Text(fromSell? tr("accumulated-profit-loss'") : tr('promotionIncome'), style: titleStyle),
+              Text(
+                  fromSell
+                      ? tr("accumulated-profit-loss'")
+                      : tr('promotionIncome'),
+                  style: titleStyle),
               _buildSpace(),
               Expanded(
                   child: Row(
@@ -231,10 +236,10 @@ class _ShareTeamOrderPageState extends State<ShareTeamOrderPage> {
     ]);
   }
 
-  Widget _buildShareCode() {
+  Widget _buildShareCode(UserInfoData userInfo) {
     double itemSize = UIDefine.getWidth() * 0.25;
     String link =
-        '${GlobalData.urlPrefix}#/uc/register/?inviteCode=${GlobalData.userInfo.inviteCode}';
+        '${GlobalData.urlPrefix}#/uc/register/?inviteCode=${userInfo.inviteCode}';
     return Column(mainAxisSize: MainAxisSize.min, children: [
       SizedBox(
           width: UIDefine.getWidth() * 0.75,
@@ -263,7 +268,7 @@ class _ShareTeamOrderPageState extends State<ShareTeamOrderPage> {
                           color: AppColors.dialogGrey,
                           fontWeight: FontWeight.w500,
                           fontSize: UIDefine.fontSize12)),
-                  Text(GlobalData.userInfo.inviteCode,
+                  Text(userInfo.inviteCode,
                       style: AppTextStyle.getBaseStyle(
                           color: AppColors.dialogBlack,
                           fontWeight: FontWeight.w500,

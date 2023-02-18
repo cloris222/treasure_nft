@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/view_models/base_pref_provider.dart';
 
+import '../../../constant/call_back_function.dart';
 import '../../../models/http/api/home_api.dart';
 import '../../../models/http/parameter/discover_collect_data.dart';
 import '../../../utils/app_shared_Preferences.dart';
@@ -25,8 +26,8 @@ class HomeDisCoverTagNotifier
   Future<void> initValue() async {}
 
   @override
-  Future<void> readAPIValue() async {
-    state = await HomeAPI().getDiscoverTag();
+  Future<void> readAPIValue({ResponseErrorFunction? onConnectFail}) async {
+    state = await HomeAPI(onConnectFail: onConnectFail).getDiscoverTag();
   }
 
   @override
@@ -85,9 +86,9 @@ class HomeDiscoverListNotifier extends StateNotifier<List<DiscoverCollectData>>
   }
 
   @override
-  Future<void> readAPIValue() async {
+  Future<void> readAPIValue({ResponseErrorFunction? onConnectFail}) async {
     if (tag != null) {
-      state = [...await HomeAPI().getDiscoverMoreNFT(category: tag!.name)];
+      state = [...await HomeAPI(onConnectFail: onConnectFail).getDiscoverMoreNFT(category: tag!.name)];
     }
   }
 

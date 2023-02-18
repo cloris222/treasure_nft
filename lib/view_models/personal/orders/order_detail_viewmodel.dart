@@ -16,12 +16,11 @@ import '../../../widgets/card/data/card_showing_data.dart';
 import '../../../widgets/date_picker/custom_date_picker.dart';
 
 class OrderDetailViewModel extends BaseListViewModel {
-  OrderDetailViewModel({
-    required super.onListChange,
-    this.type = EarningIncomeType.ALL,
-    super.hasTopView = true,
-    super.padding
-  });
+  OrderDetailViewModel(
+      {required super.onListChange,
+      this.type = EarningIncomeType.ALL,
+      super.hasTopView = true,
+      super.padding});
 
   double income = GlobalData.totalIncome ?? 0;
   EarningIncomeType type;
@@ -113,24 +112,25 @@ class OrderDetailViewModel extends BaseListViewModel {
   @override
   Widget buildTopView() {
     return Container(
-      padding: const EdgeInsets.fromLTRB(5, 0, 5, 10),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
-        color: AppColors.textWhite,
-      ),
-      child: CustomDatePickerWidget(
-        dateCallback: _callback,
-        typeCallback: _callType,
-        initType: currentType,
-        typeList: const [
-          Search.All,
-          Search.Today,
-          Search.Yesterday,
-          Search.SevenDays,
-          Search.ThirtyDays
-        ],
-      )
-    );
+        padding: const EdgeInsets.fromLTRB(5, 0, 5, 10),
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10)),
+          color: AppColors.textWhite,
+        ),
+        child: CustomDatePickerWidget(
+          dateCallback: _callback,
+          typeCallback: _callType,
+          initType: currentType,
+          typeList: const [
+            Search.All,
+            Search.Today,
+            Search.Yesterday,
+            Search.SevenDays,
+            Search.ThirtyDays
+          ],
+        ));
   }
 
   void _callback(String startDate, String endDate) {

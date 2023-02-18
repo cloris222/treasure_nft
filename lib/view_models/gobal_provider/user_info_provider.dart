@@ -1,6 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/view_models/base_pref_provider.dart';
 
+import '../../constant/call_back_function.dart';
 import '../../models/http/api/user_info_api.dart';
 import '../../models/http/parameter/user_info_data.dart';
 import '../../utils/app_shared_Preferences.dart';
@@ -19,11 +21,14 @@ class UserInfoNotifier extends StateNotifier<UserInfoData>
   Future<void> initProvider() async {}
 
   @override
-  Future<void> initValue() async {}
+  Future<void> initValue() async {
+    state = UserInfoData();
+  }
 
   @override
-  Future<void> readAPIValue() async {
-    state = await UserInfoAPI().getPersonInfo();
+  Future<void> readAPIValue({ResponseErrorFunction? onConnectFail}) async {
+    state = await UserInfoAPI(onConnectFail: onConnectFail).getPersonInfo();
+    GlobalData.userZone = state.zone;
   }
 
   @override
@@ -31,6 +36,7 @@ class UserInfoNotifier extends StateNotifier<UserInfoData>
     var json = await AppSharedPreferences.getJson(getSharedPreferencesKey());
     if (json != null) {
       state = UserInfoData.fromJson(json);
+      GlobalData.userZone = state.zone;
     } else {
       ///MARK: 沒預設值就該讀API
       await readAPIValue();

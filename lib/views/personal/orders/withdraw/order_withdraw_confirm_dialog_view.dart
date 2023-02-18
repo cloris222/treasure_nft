@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/widgets/dialog/base_dialog.dart';
@@ -29,7 +30,7 @@ class OrderWithdrawConfirmDialogView extends BaseDialog {
   }
 
   @override
-  Widget initContent(BuildContext context, StateSetter setState) {
+  Widget initContent(BuildContext context, StateSetter setState,WidgetRef ref) {
     return SizedBox(
       width: UIDefine.getScreenWidth(97),
       child: Column(

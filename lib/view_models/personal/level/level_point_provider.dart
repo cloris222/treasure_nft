@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import '../../../constant/call_back_function.dart';
 import '../../../models/http/api/mission_api.dart';
 import '../../../models/http/parameter/point_record_data.dart';
 import '../../../utils/app_shared_Preferences.dart';
@@ -44,9 +44,14 @@ class LevelPointRecordListNotifier extends StateNotifier<List<PointRecordData>>
       required int size,
       required String startDate,
       required String endDate,
-      required bool needSave}) async {
-    List<PointRecordData> list = await MissionAPI().getPointRecord(
-        page: page, size: size, startDate: startDate, endDate: endDate);
+      required bool needSave,
+      ResponseErrorFunction? onConnectFail}) async {
+    List<PointRecordData> list = await MissionAPI(onConnectFail: onConnectFail)
+        .getPointRecord(
+            page: page,
+            size: size,
+            startDate: startDate,
+            endDate: endDate);
 
     if (needSave) {
       setSharedPreferencesValue(list);

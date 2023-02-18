@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/view_models/base_pref_provider.dart';
 
+import '../../../constant/call_back_function.dart';
 import '../../../models/http/api/home_api.dart';
 import '../../../utils/app_shared_Preferences.dart';
 
@@ -20,8 +21,8 @@ class HomeContactInfoNotifier extends StateNotifier<Map<String, dynamic>>
   Future<void> initValue() async {}
 
   @override
-  Future<void> readAPIValue() async {
-    state = await HomeAPI().getFooterSetting();
+  Future<void> readAPIValue({ResponseErrorFunction? onConnectFail}) async {
+    state = await HomeAPI(onConnectFail: onConnectFail).getFooterSetting();
   }
 
   @override

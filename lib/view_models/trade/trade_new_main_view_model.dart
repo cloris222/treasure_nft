@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
-import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/models/http/api/trade_api.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
@@ -9,6 +8,10 @@ import 'package:treasure_nft_project/models/http/parameter/check_reserve_deposit
 import 'package:treasure_nft_project/models/http/parameter/reserve_view_data.dart';
 import 'package:treasure_nft_project/utils/trade_timer_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+
+import '../../models/http/parameter/check_experience_info.dart';
+import '../../models/http/parameter/check_level_info.dart';
+import '../../models/http/parameter/user_info_data.dart';
 
 class TradeNewMainViewModel extends BaseViewModel {
   TradeNewMainViewModel(
@@ -30,7 +33,9 @@ class TradeNewMainViewModel extends BaseViewModel {
   int currentDivisionIndex = 0;
   int currentRangeIndex = 0;
 
-  void initState() {
+  void initState(
+      {required ExperienceInfo experienceInfo,
+      required UserInfoData userInfo}) {
     ///MARK: timer監聽
     currentData = TradeTimerUtil().getCurrentTradeData();
 
@@ -41,7 +46,8 @@ class TradeNewMainViewModel extends BaseViewModel {
     TradeAPI().getDivisionAPI().then((value) {
       division = value;
       currentDivisionIndex = 0;
-      getDivisionLevelInfo(division[currentDivisionIndex]);
+      getDivisionLevelInfo(division[currentDivisionIndex],
+          experienceInfo: experienceInfo, userInfo: userInfo);
       onViewChange();
     });
 
@@ -49,11 +55,14 @@ class TradeNewMainViewModel extends BaseViewModel {
   }
 
   ///MARK: 切換level
-  void getDivisionLevelInfo(int division, {int initIndex = 0}) {
+  void getDivisionLevelInfo(int division,
+      {int initIndex = 0,
+      required ExperienceInfo experienceInfo,
+      required UserInfoData userInfo}) {
     ///取得預約資訊
     TradeAPI().getCheckReservationInfoAPI(division).then((value) {
       TradeTimerUtil().start(setInfo: value);
-      ranges = TradeTimerUtil().getDivisionRanges();
+      ranges = TradeTimerUtil().getDivisionRanges(experienceInfo, userInfo);
 
       onViewChange();
 
@@ -112,12 +121,12 @@ class TradeNewMainViewModel extends BaseViewModel {
   }
 
   /// display star ~ end price range
-  String getRange() {
+  String getRange(CheckLevelInfo ?userLevelInfo) {
     dynamic min;
     dynamic max;
 
-    min = GlobalData.userLevelInfo?.buyRangeStart;
-    max = GlobalData.userLevelInfo?.buyRangeEnd;
+    min = userLevelInfo?.buyRangeStart;
+    max = userLevelInfo?.buyRangeEnd;
     return '$min~$max';
   }
 
@@ -132,7 +141,6 @@ class TradeNewMainViewModel extends BaseViewModel {
 
   void _onAddReservationFail(String errorMessage) {
     switch (errorMessage) {
-
       /// 預約金不足
       case 'APP_0064':
         errorMsgDialog(tr("reserve-failed'"), '');

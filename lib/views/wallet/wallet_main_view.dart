@@ -1,12 +1,14 @@
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/models/http/parameter/user_property.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
+import 'package:treasure_nft_project/view_models/gobal_provider/user_property_info_provider.dart';
 import 'package:treasure_nft_project/views/wallet/data/app_purchase.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
-import 'package:treasure_nft_project/widgets/bottom_sheet/page_bottom_sheet.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
@@ -24,15 +26,15 @@ import '../personal/orders/order_withdraw_page.dart';
 import 'balance_record_item_view.dart';
 import 'wallet_setting_page.dart';
 
-class WalletMainView extends StatefulWidget {
+class WalletMainView extends ConsumerStatefulWidget {
   const WalletMainView({Key? key, required this.onPrePage}) : super(key: key);
   final onClickFunction onPrePage;
 
   @override
-  State<WalletMainView> createState() => _WalletMainViewState();
+  ConsumerState createState() => _WalletMainViewState();
 }
 
-class _WalletMainViewState extends State<WalletMainView> {
+class _WalletMainViewState extends ConsumerState<WalletMainView> {
   late WalletMainViewModel viewModel;
 
   @override
@@ -40,15 +42,17 @@ class _WalletMainViewState extends State<WalletMainView> {
     super.initState();
     viewModel = WalletMainViewModel(setState: setState);
     viewModel.initState();
+    ref.read(userPropertyInfoProvider.notifier).update();
   }
 
   @override
   Widget build(BuildContext context) {
+    UserProperty? userProperty = ref.watch(userPropertyInfoProvider);
     return Container(
       color: AppColors.defaultBackgroundSpace,
       child: SingleChildScrollView(
         child: Column(children: [
-          _buildWalletInfo(),
+          _buildWalletInfo(userProperty),
           Padding(
             padding: EdgeInsets.only(
                 bottom: UIDefine.navigationBarPadding,
@@ -79,7 +83,7 @@ class _WalletMainViewState extends State<WalletMainView> {
     );
   }
 
-  Widget _buildWalletInfo() {
+  Widget _buildWalletInfo(UserProperty? userProperty) {
     return Stack(
       children: [
         SizedBox(
@@ -124,7 +128,7 @@ class _WalletMainViewState extends State<WalletMainView> {
                     SizedBox(height: UIDefine.getPixelWidth(20)),
                     Text(
                         NumberFormatUtil().removeTwoPointFormat(
-                            GlobalData.userProperty?.balance ?? 0),
+                            userProperty?.balance ?? 0),
                         style: AppTextStyle.getBaseStyle(
                             fontSize: UIDefine.fontSize40,
                             fontWeight: FontWeight.w600)),
@@ -134,15 +138,15 @@ class _WalletMainViewState extends State<WalletMainView> {
                         Flexible(
                             child: WalletInfoItem(
                                 title: tr('totalAccountEarnings'),
-                                value: GlobalData.userProperty?.income)),
+                                value: userProperty?.income)),
                         Flexible(
                             child: WalletInfoItem(
                                 title: tr('extracted'),
-                                value: GlobalData.userProperty?.withdraw)),
+                                value: userProperty?.withdraw)),
                         Flexible(
                             child: WalletInfoItem(
                                 title: tr('notExtracted'),
-                                value: GlobalData.userProperty?.balance)),
+                                value: userProperty?.balance)),
                       ],
                     ),
                   ],
@@ -267,7 +271,7 @@ class _WalletMainViewState extends State<WalletMainView> {
         onPressed: _showAppPurchase);
   }
 
-  Widget _buildWalletAccount() {
+  Widget _buildWalletAccount(UserProperty? userProperty) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(tr('uc_myAccount'),
           style: AppTextStyle.getBaseStyle(
@@ -282,7 +286,7 @@ class _WalletMainViewState extends State<WalletMainView> {
         Flexible(child: Container()),
         Text(
             NumberFormatUtil()
-                .removeTwoPointFormat(GlobalData.userProperty?.balance),
+                .removeTwoPointFormat(userProperty?.balance),
             style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500))
       ])

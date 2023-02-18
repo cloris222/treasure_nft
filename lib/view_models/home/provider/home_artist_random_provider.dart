@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../constant/call_back_function.dart';
 import '../../../models/http/api/home_api.dart';
 import '../../../models/http/parameter/home_artist_record.dart';
 import '../../../utils/app_shared_Preferences.dart';
@@ -25,8 +26,8 @@ class HomeArtistRandomNotifier extends StateNotifier<ArtistRecord?>
   }
 
   @override
-  Future<void> readAPIValue() async {
-    List<ArtistRecord> records = await HomeAPI().getArtistRecord();
+  Future<void> readAPIValue({ResponseErrorFunction? onConnectFail}) async {
+    List<ArtistRecord> records = await HomeAPI(onConnectFail: onConnectFail).getArtistRecord();
     if (records.isNotEmpty) {
       state = records[Random().nextInt(records.length)];
     }

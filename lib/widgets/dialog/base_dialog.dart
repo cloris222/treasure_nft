@@ -1,5 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
@@ -22,7 +25,7 @@ abstract class BaseDialog {
 
   Widget initTitle();
 
-  Widget initContent(BuildContext context, StateSetter setState);
+  Widget initContent(BuildContext context, StateSetter setState, WidgetRef ref);
 
   List<Widget> initAction() {
     return <Widget>[];
@@ -41,7 +44,15 @@ abstract class BaseDialog {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(radius))),
           title: initTitle(),
-          content: SingleChildScrollView(child: StatefulBuilder(builder: initContent)),
+          content: SingleChildScrollView(child: Consumer(
+            builder: (context, ref, child) {
+              return StatefulBuilder(
+                builder: (context, setState) {
+                  return initContent(context, setState, ref);
+                },
+              );
+            },
+          )),
           actions: initAction(),
         );
       },
@@ -88,7 +99,7 @@ abstract class BaseDialog {
         children: [
           AppTheme.style.styleFillText(title,
               alignment: Alignment.center,
-              style:  AppTextStyle.getBaseStyle(fontWeight: FontWeight.w500)),
+              style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w500)),
           createDialogCloseIcon(),
         ],
       );
@@ -120,7 +131,7 @@ abstract class BaseDialog {
     FocusScope.of(context).unfocus();
   }
 
-  EdgeInsets defaultInsetPadding () {
+  EdgeInsets defaultInsetPadding() {
     return const EdgeInsets.symmetric(horizontal: 40.0, vertical: 24.0);
   }
 }

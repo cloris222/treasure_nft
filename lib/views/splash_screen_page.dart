@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:video_player/video_player.dart';
 
 import '../constant/ui_define.dart';
 import '../view_models/splash_screen_view_model.dart';
 
-class SplashScreenPage extends StatefulWidget {
-  const SplashScreenPage({Key? key}) : super(key: key);
+class SplashScreenPage extends ConsumerStatefulWidget {
+  const SplashScreenPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<SplashScreenPage> createState() => _SplashScreenPageState();
+  ConsumerState createState() => _SplashScreenPageState();
 }
 
-class _SplashScreenPageState extends State<SplashScreenPage> {
+class _SplashScreenPageState extends ConsumerState<SplashScreenPage> {
   late SplashScreenViewModel viewModel;
 
   @override
@@ -29,7 +32,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
             setState(() {});
           }
         });
-    viewModel.initState();
+    viewModel.initState(ref);
     super.initState();
   }
 

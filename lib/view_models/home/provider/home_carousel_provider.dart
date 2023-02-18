@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/utils/app_shared_Preferences.dart';
 
+import '../../../constant/call_back_function.dart';
 import '../../../models/http/api/home_api.dart';
 import '../../../models/http/parameter/home_carousel.dart';
 import '../../base_pref_provider.dart';
@@ -23,8 +24,8 @@ class HomeCarouselListNotifier extends StateNotifier<List<HomeCarousel>>
   }
 
   @override
-  Future<void> readAPIValue() async {
-    state = [...await HomeAPI().getCarouselItem()];
+  Future<void> readAPIValue({ResponseErrorFunction? onConnectFail}) async {
+    state = [...await HomeAPI(onConnectFail: onConnectFail).getCarouselItem()];
   }
 
   @override

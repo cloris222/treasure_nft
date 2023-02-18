@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/models/data/validate_result_data.dart';
 import 'package:treasure_nft_project/models/http/api/login_api.dart';
 import 'package:treasure_nft_project/utils/animation_download_util.dart';
@@ -36,7 +37,7 @@ class LoginMainViewModel extends BaseViewModel {
     return accountData.result && passwordData.result;
   }
 
-  void onPressLogin(BuildContext context) {
+  void onPressLogin(BuildContext context, WidgetRef ref) {
     if (!checkEmptyController()) {
       setState(() {
         accountData =
@@ -62,13 +63,14 @@ class LoginMainViewModel extends BaseViewModel {
                   isFile: true,
                   animationPath: path,
                   runFunction: () async {
-                    await saveUserLoginInfo(response: value);
+                    await saveUserLoginInfo(
+                        response: value, ref: ref, isLogin: true);
                     startUserListener();
                   },
                   nextPage:
                       const MainPage(type: AppNavigationBarType.typeMain)));
         } else {
-          await saveUserLoginInfo(response: value);
+          await saveUserLoginInfo(response: value, ref: ref, isLogin: true);
           startUserListener();
           pushAndRemoveUntil(
               context, const MainPage(type: AppNavigationBarType.typeMain));

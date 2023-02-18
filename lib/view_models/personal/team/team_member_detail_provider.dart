@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/view_models/base_list_provider.dart';
 
+import '../../../constant/call_back_function.dart';
 import '../../../models/http/api/group_api.dart';
 import '../../../models/http/parameter/team_member_detail.dart';
 import '../../../utils/app_shared_Preferences.dart';
@@ -45,13 +46,15 @@ class TeamMemberDetailNotifier extends StateNotifier<List<MemberDetailPageList>>
       required int size,
       required String startTime,
       required String endTime,
-      required bool needSave}) async {
-    List<MemberDetailPageList> list = await GroupAPI().getMemberDetail(
-        page: page,
-        size: size,
-        type: type,
-        startTime: startTime,
-        endTime: endTime);
+      required bool needSave,
+      ResponseErrorFunction? onConnectFail}) async {
+    List<MemberDetailPageList> list =
+        await GroupAPI(onConnectFail: onConnectFail).getMemberDetail(
+            page: page,
+            size: size,
+            type: type,
+            startTime: startTime,
+            endTime: endTime);
 
     if (needSave) {
       setSharedPreferencesValue(list);

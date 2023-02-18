@@ -4,7 +4,6 @@ import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/http_manager.dart';
 import 'package:treasure_nft_project/models/http/parameter/api_response.dart';
 import 'package:treasure_nft_project/models/http/parameter/reserve_view_data.dart';
-import '../parameter/add_new_reservation.dart';
 import '../parameter/check_activiey_deposit.dart';
 import '../parameter/check_activity_reserve.dart';
 import '../parameter/check_experience_info.dart';
@@ -69,8 +68,8 @@ class TradeAPI extends HttpManager {
   /// 取得體驗帳號資訊
   Future<ExperienceInfo> getExperienceInfoAPI() async {
     var response = await get('/experience/experience-info');
-    GlobalData.experienceInfo = ExperienceInfo.fromJson(response.data);
-    return GlobalData.experienceInfo;
+   return ExperienceInfo.fromJson(response.data);
+
   }
 
   ///MARK: 查詢開獎結果
@@ -101,17 +100,19 @@ class TradeAPI extends HttpManager {
   }
 
   /// app交易頁面Enter按鈕是否顯示
-  Future<void> getTradeEnterButtonStatus() async {
+  Future<bool> getTradeEnterButtonStatus() async {
     if (Platform.isAndroid) {
       GlobalData.appTradeEnterButtonStatus = true;
-      return;
+      return true;
     }
     try {
       var response = await get('/button/trade/enter');
       GlobalData.appTradeEnterButtonStatus =
           response.data['appTradeEnterButtonStatus'] == 'ENABLE';
+      return response.data['appTradeEnterButtonStatus'] == 'ENABLE';
     } catch (e) {
       GlobalData.appTradeEnterButtonStatus = false;
+      return false;
     }
   }
 }

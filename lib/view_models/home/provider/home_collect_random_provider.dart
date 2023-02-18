@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../constant/call_back_function.dart';
 import '../../../models/http/api/home_api.dart';
 import '../../../models/http/parameter/random_collect_info.dart';
 import '../../../utils/app_shared_Preferences.dart';
@@ -24,8 +25,8 @@ class HomeCollectRandomNotifier extends StateNotifier<List<RandomCollectInfo>>
   }
 
   @override
-  Future<void> readAPIValue() async {
-    state = [...await HomeAPI().getRandomCollectList()];
+  Future<void> readAPIValue({ResponseErrorFunction? onConnectFail}) async {
+    state = [...await HomeAPI(onConnectFail: onConnectFail).getRandomCollectList()];
   }
 
   @override

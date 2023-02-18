@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/medal_info_data.dart';
+import 'package:treasure_nft_project/view_models/gobal_provider/user_info_provider.dart';
 import 'package:treasure_nft_project/view_models/personal/level/level_achievement_view_model.dart';
 import 'package:treasure_nft_project/widgets/label/icon/medal_icon_widget.dart';
 import 'package:treasure_nft_project/widgets/label/warp_two_text_widget.dart';
 
 ///MARK: 徽章任務
-class AchievementMedalView extends StatelessWidget {
+class AchievementMedalView extends ConsumerWidget {
   const AchievementMedalView({Key? key, required this.viewModel})
       : super(key: key);
   final LevelAchievementViewModel viewModel;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     List<List<Widget>> lists = [];
     int nListCount =
         (viewModel.medalList.isNotEmpty) ? viewModel.medalList.length ~/ 3 : 0;
     for (int i = 0; i < nListCount + 1; i++) {
       List<Widget> row = [];
-      row.add(Expanded(child: _buildIcon(context, i * 3)));
-      row.add(Expanded(child: _buildIcon(context, i * 3 + 1)));
-      row.add(Expanded(child: _buildIcon(context, i * 3 + 2)));
+      row.add(Expanded(child: _buildIcon(context, ref, i * 3)));
+      row.add(Expanded(child: _buildIcon(context, ref, i * 3 + 1)));
+      row.add(Expanded(child: _buildIcon(context, ref, i * 3 + 2)));
       lists.add(row);
     }
 
@@ -41,14 +42,14 @@ class AchievementMedalView extends StatelessWidget {
     );
   }
 
-  Widget _buildIcon(BuildContext context, int index) {
+  Widget _buildIcon(BuildContext context, WidgetRef ref, int index) {
     if (index >= viewModel.medalList.length) {
       return const SizedBox(height: kBottomNavigationBarHeight * 2);
     }
     MedalInfoData data = viewModel.medalList[index];
 
     return Container(
-        decoration: (data.code == GlobalData.userInfo.medal)
+        decoration: (data.code == ref.watch(userInfoProvider).medal)
             ? AppStyle().buildGradient(
                 radius: 7, colors: AppColors.gradientBackgroundColorBg)
             : AppStyle().styleColorsRadiusBackground(radius: 0),
@@ -58,7 +59,7 @@ class AchievementMedalView extends StatelessWidget {
         child: InkWell(
           onTap: () {
             if (data.isFinished) {
-              viewModel.setMedalCode(context, data.code);
+              viewModel.setMedalCode(context, ref, data.code);
             }
           },
           child: Container(

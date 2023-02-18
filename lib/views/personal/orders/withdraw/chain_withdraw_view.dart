@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
@@ -12,8 +13,11 @@ import 'package:treasure_nft_project/widgets/dialog/simple_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
 
 import '../../../../constant/ui_define.dart';
+import '../../../../models/http/parameter/user_info_data.dart';
 import '../../../../models/http/parameter/withdraw_alert_info.dart';
 import '../../../../utils/qrcode_scanner_util.dart';
+import '../../../../view_models/gobal_provider/user_experience_info_provider.dart';
+import '../../../../view_models/gobal_provider/user_info_provider.dart';
 import '../../../../view_models/personal/orders/order_chain_withdraw_view_model.dart';
 import '../../../../widgets/button/login_button_widget.dart';
 import '../../../../widgets/label/error_text_widget.dart';
@@ -21,16 +25,16 @@ import '../../../../widgets/text_field/login_text_widget.dart';
 import '../../../login/login_email_code_view.dart';
 import '../../../login/login_param_view.dart';
 
-class ChainWithdrawView extends StatefulWidget {
+class ChainWithdrawView extends ConsumerStatefulWidget {
   const ChainWithdrawView({super.key, required this.getWalletAlert});
 
   final WithdrawAlertInfo Function() getWalletAlert;
 
   @override
-  State<StatefulWidget> createState() => _ChainWithdrawView();
+  ConsumerState createState() => _ChainWithdrawViewState();
 }
 
-class _ChainWithdrawView extends State<ChainWithdrawView> {
+class _ChainWithdrawViewState extends ConsumerState<ChainWithdrawView> {
   late OrderChainWithdrawViewModel viewModel;
 
   @override
@@ -42,6 +46,10 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
 
   @override
   Widget build(BuildContext context) {
+    UserInfoData userInfo = ref.watch(userInfoProvider);
+    viewModel.checkExperience =
+        ref.watch(userExperienceInfoProvider).isExperience;
+
     return SingleChildScrollView(
         child: Column(
       children: [
@@ -50,7 +58,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
             width: double.infinity,
             height: UIDefine.getPixelWidth(15),
             color: AppColors.defaultBackgroundSpace),
-        _buildWithdrawEmailView(),
+        _buildWithdrawEmailView(userInfo),
         Container(
             width: double.infinity,
             height: UIDefine.getPixelWidth(2),
@@ -83,7 +91,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
     );
   }
 
-  _buildWithdrawEmailView() {
+  _buildWithdrawEmailView(UserInfoData userInfo) {
     return Visibility(
       visible: !viewModel.checkExperience,
       child: Padding(
@@ -92,7 +100,9 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
           mainAxisSize: MainAxisSize.min,
           children: [
             // viewModel.checkExperience?  _buildPasswordInputBar() : _buildEmailVerify(), // test 體驗號功能未開
-            viewModel.checkExperience ? const SizedBox() : _buildEmailVerify(),
+            viewModel.checkExperience
+                ? const SizedBox()
+                : _buildEmailVerify(userInfo),
           ],
         ),
       ),
@@ -339,7 +349,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
         onTap: viewModel.onTap);
   }
 
-  Widget _buildEmailVerify() {
+  Widget _buildEmailVerify(userInfo) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -353,8 +363,9 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
             hintText: tr("placeholder-emailCode'"),
             controller: viewModel.emailCodeController,
             data: viewModel.emailCodeData,
-            onPressSendCode: () => viewModel.onPressSendCode(context),
-            onPressCheckVerify: () => viewModel.onPressCheckVerify(context)),
+            onPressSendCode: () => viewModel.onPressSendCode(context, userInfo),
+            onPressCheckVerify: () =>
+                viewModel.onPressCheckVerify(context, userInfo)),
       ],
     );
   }

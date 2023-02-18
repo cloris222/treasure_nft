@@ -44,7 +44,7 @@ class OrderInfoPageViewModel extends BaseViewModel {
 
     /// 取得日期 by 帳號所屬國家時區(洲名/都市) ex：年月日純數字但需分開取 2022 12 2
     tz.initializeTimeZones();
-    String timeZoneCode2 = _getTimeZoneCode(GlobalData.userInfo.zone);
+    String timeZoneCode2 = _getTimeZoneCode(GlobalData.userZone);
     var istanbulTimeZone = tz.getLocation(timeZoneCode2);
     int year = tz.TZDateTime.now(istanbulTimeZone).year;
     int month = tz.TZDateTime.now(istanbulTimeZone).month;

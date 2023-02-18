@@ -6,7 +6,6 @@ import 'package:treasure_nft_project/views/custom_appbar_view.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 
 import '../../../constant/enum/team_enum.dart';
-import '../../../constant/global_data.dart';
 import '../../../constant/theme/app_style.dart';
 import '../../../view_models/control_router_viem_model.dart';
 import '../../../view_models/personal/level/level_point_provider.dart';
@@ -117,10 +116,8 @@ class _LevelPointPageState extends ConsumerState<LevelPointPage>
               margin: EdgeInsets.all(UIDefine.getPixelWidth(10)),
               padding: EdgeInsets.all(UIDefine.getPixelWidth(10)),
               decoration: AppStyle().styleNewUserSetting(),
-              child: PersonalNewSubUserInfoView(
-                  enablePoint: false,
-                  showId: false,
-                  userLevelInfo: GlobalData.userLevelInfo),
+              child: const PersonalNewSubUserInfoView(
+                  enablePoint: false, showId: false),
             )),
         Container(
           padding: EdgeInsets.symmetric(

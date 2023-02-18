@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
+import 'package:treasure_nft_project/models/http/parameter/user_info_data.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/view_models/gobal_provider/user_info_provider.dart';
 import 'package:treasure_nft_project/widgets/drop_buttom/custom_drop_button.dart';
 
 import '../../../constant/call_back_function.dart';
@@ -11,7 +13,7 @@ import '../../../constant/theme/app_theme.dart';
 import '../../../constant/ui_define.dart';
 
 /// 性別下拉選單 男/女
-class GenderSelectorDropDownBar extends StatelessWidget {
+class GenderSelectorDropDownBar extends ConsumerWidget {
   GenderSelectorDropDownBar({super.key, required this.getDropDownValue});
 
   final onGetStringFunction getDropDownValue;
@@ -22,13 +24,14 @@ class GenderSelectorDropDownBar extends StatelessWidget {
   ];
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    UserInfoData userInfo = ref.watch(userInfoProvider);
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [_buildTextTitle(tr('gender')), _buildDropButton()]);
+        children: [_buildTextTitle(tr('gender')), _buildDropButton(userInfo)]);
   }
 
-  Widget _buildDropButton() {
+  Widget _buildDropButton(UserInfoData userInfo) {
     return CustomDropButton(
       listLength: _currencies.length,
       itemString: (int index, bool needArrow) {
@@ -37,13 +40,13 @@ class GenderSelectorDropDownBar extends StatelessWidget {
       onChanged: (int index) {
         getDropDownValue(_currencies[index]);
       },
-      initIndex: GlobalData.userInfo.gender == _currencies[1] ? 1 : 0,
+      initIndex: userInfo.gender == _currencies[1] ? 1 : 0,
     );
   }
 
-  Widget _dropDownBar() {
-    var gender = GlobalData.userInfo.gender.isNotEmpty
-        ? GlobalData.userInfo.gender
+  Widget _dropDownBar(UserInfoData userInfo) {
+    var gender = userInfo.gender.isNotEmpty
+        ? userInfo.gender
         : _currencies.first;
     getDropDownValue(gender);
     return DropdownButtonFormField(

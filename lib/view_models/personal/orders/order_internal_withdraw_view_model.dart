@@ -1,13 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:format/format.dart';
+import 'package:treasure_nft_project/models/http/parameter/user_info_data.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 
 import '../../../constant/call_back_function.dart';
 import '../../../constant/enum/login_enum.dart';
-import '../../../constant/global_data.dart';
 import '../../../models/data/validate_result_data.dart';
 import '../../../models/http/api/auth_api.dart';
 import '../../../models/http/api/withdraw_api.dart';
@@ -35,7 +35,7 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
 
   ///是否判斷過驗證碼
   bool checkEmail = false;
-  bool checkExperience = GlobalData.experienceInfo.isExperience;
+  bool checkExperience = false;
 
   initState() {
     Future<WithdrawBalanceResponseData> result =
@@ -92,20 +92,20 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
   }
 
   ///MARK: 寄出驗證碼
-  void onPressSendCode(BuildContext context) async {
+  void onPressSendCode(BuildContext context, UserInfoData userInfo) async {
     await AuthAPI(
             onConnectFail: (message) => onBaseConnectFail(context, message))
-        .sendAuthActionMail(action: LoginAction.withdraw);
+        .sendAuthActionMail(action: LoginAction.withdraw, userInfo: userInfo);
   }
 
   /// MARK: 檢查驗證碼是否正確
-  void onPressCheckVerify(BuildContext context) async {
+  void onPressCheckVerify(BuildContext context, UserInfoData userInfo) async {
     clearAllFocus();
     if (emailCodeController.text.isNotEmpty) {
       await AuthAPI(
               onConnectFail: (message) => onBaseConnectFail(context, message))
           .checkAuthCodeMail(
-              mail: GlobalData.userInfo.email,
+              mail: userInfo.email,
               action: LoginAction.withdraw,
               authCode: emailCodeController.text);
       setState(() {

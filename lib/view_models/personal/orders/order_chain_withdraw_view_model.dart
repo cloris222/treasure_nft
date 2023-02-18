@@ -9,10 +9,10 @@ import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 import '../../../constant/call_back_function.dart';
 import '../../../constant/enum/coin_enum.dart';
 import '../../../constant/enum/login_enum.dart';
-import '../../../constant/global_data.dart';
 import '../../../models/data/validate_result_data.dart';
 import '../../../models/http/api/auth_api.dart';
 import '../../../models/http/api/withdraw_api.dart';
+import '../../../models/http/parameter/user_info_data.dart';
 import '../../../models/http/parameter/withdraw_alert_info.dart';
 import '../../../views/personal/orders/withdraw/data/withdraw_balance_response_data.dart';
 import '../../../views/personal/orders/withdraw/order_withdraw_confirm_dialog_view.dart';
@@ -38,7 +38,7 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
 
   ///是否判斷過驗證碼
   bool checkEmail = false;
-  bool checkExperience = GlobalData.experienceInfo.isExperience;
+  bool checkExperience = false;
 
   ///MARK: 實際手續費
   num currentAmount = 0;
@@ -99,19 +99,19 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
   }
 
   ///MARK: 寄出驗證碼
-  void onPressSendCode(BuildContext context) async {
+  void onPressSendCode(BuildContext context, UserInfoData userInfo) async {
     await AuthAPI(
             onConnectFail: (message) => onBaseConnectFail(context, message))
-        .sendAuthActionMail(action: LoginAction.withdraw);
+        .sendAuthActionMail(action: LoginAction.withdraw,userInfo: userInfo);
   }
 
   /// MARK: 檢查驗證碼是否正確
-  void onPressCheckVerify(BuildContext context) async {
+  void onPressCheckVerify(BuildContext context, UserInfoData userInfo) async {
     if (emailCodeController.text.isNotEmpty) {
       await AuthAPI(
               onConnectFail: (message) => onBaseConnectFail(context, message))
           .checkAuthCodeMail(
-              mail: GlobalData.userInfo.email,
+              mail: userInfo.email,
               action: LoginAction.withdraw,
               authCode: emailCodeController.text);
       setState(() {

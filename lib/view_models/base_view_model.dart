@@ -6,13 +6,12 @@ import 'dart:math';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:format/format.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
-import 'package:treasure_nft_project/models/http/api/home_api.dart';
 import 'package:treasure_nft_project/models/http/api/order_api.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
-import 'package:treasure_nft_project/models/http/parameter/user_info_data.dart';
 import 'package:treasure_nft_project/utils/animation_download_util.dart';
 import 'package:treasure_nft_project/views/collection/api/collection_api.dart';
 import 'package:treasure_nft_project/views/full_animation_page.dart';
@@ -28,7 +27,6 @@ import '../constant/global_data.dart';
 import '../constant/theme/app_animation_path.dart';
 import '../constant/theme/app_colors.dart';
 import '../models/http/api/common_api.dart';
-import '../models/http/api/trade_api.dart';
 import '../models/http/api/wallet_api.dart';
 import '../models/http/http_setting.dart';
 import '../models/http/parameter/api_response.dart';
@@ -39,8 +37,11 @@ import '../utils/stomp_socket_util.dart';
 import '../utils/trade_timer_util.dart';
 import '../widgets/dialog/simple_custom_dialog.dart';
 import 'control_router_viem_model.dart';
+import 'gobal_provider/user_experience_info_provider.dart';
+import 'gobal_provider/user_info_provider.dart';
+import 'gobal_provider/user_trade_status_provider.dart';
 
-class BaseViewModel with ControlRouterViewModel{
+class BaseViewModel with ControlRouterViewModel {
   BuildContext getGlobalContext() {
     return GlobalData.globalKey.currentContext!;
   }
@@ -67,52 +68,69 @@ class BaseViewModel with ControlRouterViewModel{
   }
 
   ///MARK: 更新使用者資料
-  Future<void> saveUserLoginInfo({required ApiResponse response}) async {
+  Future<void> saveUserLoginInfo(
+      {required bool isLogin,
+      required ApiResponse response,
+      required WidgetRef ref}) async {
     await AppSharedPreferences.setLogIn(true);
     await AppSharedPreferences.setMemberID(response.data['id']);
     await AppSharedPreferences.setToken(response.data['token']);
     GlobalData.userToken = response.data['token'];
     GlobalData.userMemberId = response.data['id'];
 
-    await uploadPersonalInfo();
-    await uploadSignInInfo();
+    await uploadPersonalInfo(isLogin: isLogin, ref: ref);
+    await uploadSignInInfo(ref: ref);
     uploadTemporaryData();
 
     AppSharedPreferences.printAll();
   }
 
   ///MARK: 使用者資料
-  Future<bool> uploadPersonalInfo() async {
+  Future<bool> uploadPersonalInfo(
+      {required bool isLogin, required WidgetRef ref}) async {
     ///MARK: 判斷有無讀取失敗
     bool connectFail = false;
     onFail(message) => connectFail = true;
 
     List<bool> checkList = List<bool>.generate(3, (index) => false);
 
-    UserInfoAPI(onConnectFail: onFail)
-        .getPersonInfo()
-        .then((value) => checkList[0] = true);
-    TradeAPI(onConnectFail: onFail)
-        .getExperienceInfoAPI()
-        .then((value) => checkList[1] = true);
-    TradeAPI().getTradeEnterButtonStatus().then((value) => checkList[2] = true);
+    if (isLogin) {
+      ///MARK: 直接強迫API更新
+      ref
+          .watch(userInfoProvider.notifier)
+          .update(onConnectFail: onFail, onFinish: () => checkList[0] = true);
+      ref
+          .watch(userExperienceInfoProvider.notifier)
+          .update(onConnectFail: onFail, onFinish: () => checkList[1] = true);
+      ref
+          .watch(userTradeStatusProvider.notifier)
+          .update(onConnectFail: onFail, onFinish: () => checkList[2] = true);
 
-    await checkFutureTime(
-        logKey: 'uploadPersonalInfo',
-        onCheckFinish: () => !checkList.contains(false) || connectFail);
+      await checkFutureTime(
+          logKey: 'uploadPersonalInfo',
+          onCheckFinish: () => !checkList.contains(false) || connectFail);
 
-    ///MARK: 判斷有無讀取失敗
-    return !connectFail;
+      ///MARK: 判斷有無讀取失敗
+      return !connectFail;
+    } else {
+      ///MARK: 後更新 頁面自動更新資料
+      ref.watch(userInfoProvider.notifier).init(onConnectFail: onFail);
+      ref
+          .watch(userExperienceInfoProvider.notifier)
+          .init(onConnectFail: onFail);
+      ref.watch(userTradeStatusProvider.notifier).init(onConnectFail: onFail);
+      return true;
+    }
   }
 
   ///MARK: 更新簽到資料
-  Future<bool> uploadSignInInfo() async {
+  Future<bool> uploadSignInInfo({required WidgetRef ref}) async {
     ///MARK: 判斷有無讀取失敗
     bool connectFail = false;
     onFail(message) => connectFail = true;
 
-    if (GlobalData.userInfo.level == 0 ||
-        GlobalData.experienceInfo.isExperience) {
+    if (ref.watch(userInfoProvider).level == 0 ||
+        ref.watch(userExperienceInfoProvider).isExperience) {
       GlobalData.signInInfo = null;
       return !connectFail;
     }
@@ -152,7 +170,6 @@ class BaseViewModel with ControlRouterViewModel{
     await clearTemporaryData();
     GlobalData.userToken = '';
     GlobalData.userMemberId = '';
-    GlobalData.userInfo = UserInfoData();
     GlobalData.showLoginAnimate = false;
     GlobalData.signInInfo = null;
     stopUserListener();
@@ -165,30 +182,21 @@ class BaseViewModel with ControlRouterViewModel{
     onFail(message) => connectFail = true;
 
     ///MARK: 需檢查的項目數量
-    List<bool> checkList = List<bool>.generate(7, (index) => false);
+    List<bool> checkList = List<bool>.generate(4, (index) => false);
 
     ///MARK: 同步更新
-    UserInfoAPI(onConnectFail: onFail)
-        .getCheckLevelInfoAPI()
-        .then((value) => checkList[0] = true);
-    UserInfoAPI(onConnectFail: onFail)
-        .getUserPropertyInfo()
-        .then((value) => checkList[1] = true);
-    UserInfoAPI(onConnectFail: onFail)
-        .getUserOrderInfo()
-        .then((value) => checkList[2] = true);
     OrderAPI(onConnectFail: onFail)
         .saveTempTotalIncome()
-        .then((value) => checkList[3] = true);
+        .then((value) => checkList[0] = true);
     WalletAPI(onConnectFail: onFail)
         .getBalanceRecharge()
-        .then((value) => checkList[4] = true);
+        .then((value) => checkList[1] = true);
     WalletAPI(onConnectFail: onFail)
         .getBalanceRecord()
-        .then((value) => checkList[5] = true);
+        .then((value) => checkList[2] = true);
     OrderAPI(onConnectFail: onFail)
         .saveTempRecord()
-        .then((value) => checkList[6] = true);
+        .then((value) => checkList[3] = true);
 
     ///MARK: 等待更新完成
     await checkFutureTime(
@@ -199,9 +207,6 @@ class BaseViewModel with ControlRouterViewModel{
 
   ///MARK: 登出後-清除暫存資料
   Future<void> clearTemporaryData() async {
-    GlobalData.userLevelInfo = null;
-    GlobalData.userProperty = null;
-    GlobalData.userOrderInfo = null;
     GlobalData.totalIncome = 0.0;
     GlobalData.userWalletInfo = null;
     AppSharedPreferences.setProfitRecord([]);
@@ -432,8 +437,8 @@ class BaseViewModel with ControlRouterViewModel{
     ///MARK: 計算
     int systemZone = getZone(setSystemZone ?? HttpSetting.systemTimeZone);
     int systemZoneMin = getZoneMin(setSystemZone ?? HttpSetting.systemTimeZone);
-    int localZone = getZone(GlobalData.userInfo.zone);
-    int localZoneMin = getZoneMin(GlobalData.userInfo.zone);
+    int localZone = getZone(GlobalData.userZone);
+    int localZoneMin = getZoneMin(GlobalData.userZone);
 
     ///MARK: 測試code
     // int systemZone = getZone("GMT+00:00");
@@ -483,7 +488,8 @@ class BaseViewModel with ControlRouterViewModel{
   /// 簡易timer
   Future<void> checkFutureTime(
       {required onReturnBoolFunction onCheckFinish,
-      Duration timeOut = const Duration(seconds: 30),
+      Duration timeOut =
+          const Duration(milliseconds: HttpSetting.connectionTimeout),
       String logKey = 'checkFutureTime',
       bool printLog = true}) async {
     if (printLog) GlobalData.printLog('$logKey: ---timeStart!!!!');

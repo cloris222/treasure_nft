@@ -3,6 +3,7 @@ import 'package:treasure_nft_project/models/http/api/home_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/trading_volume_data.dart';
 import 'package:treasure_nft_project/utils/app_shared_Preferences.dart';
 
+import '../../../constant/call_back_function.dart';
 import '../../base_pref_provider.dart';
 
 
@@ -35,8 +36,8 @@ class HomeUSDTNotifier extends StateNotifier<TradingVolumeData>
   }
 
   @override
-  Future<void> readAPIValue() async {
-    state = await HomeAPI().getTradingVolume();
+  Future<void> readAPIValue({ResponseErrorFunction? onConnectFail}) async {
+    state = await HomeAPI(onConnectFail: onConnectFail).getTradingVolume();
   }
 
   @override

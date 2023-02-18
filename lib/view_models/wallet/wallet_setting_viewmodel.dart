@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/enum/coin_enum.dart';
-import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/models/http/api/auth_api.dart';
 import 'package:treasure_nft_project/models/http/api/wallet_api.dart';
+import 'package:treasure_nft_project/models/http/parameter/user_info_data.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/dialog/check_wallet_setting_dialog.dart';
 
@@ -79,14 +79,14 @@ class WalletSettingViewModel extends BaseViewModel {
     return payInfo?[coin.name] ?? '';
   }
 
-  void sendEmailCode(BuildContext context) {
+  void sendEmailCode(BuildContext context, UserInfoData userInfo) {
     AuthAPI(
             onConnectFail: (errorMessage) =>
                 onBaseConnectFail(context, errorMessage))
-        .sendAuthActionMail(action: LoginAction.payment);
+        .sendAuthActionMail(action: LoginAction.payment, userInfo: userInfo);
   }
 
-  void checkEmailCode(BuildContext context) {
+  void checkEmailCode(BuildContext context, UserInfoData userInfo) {
     if (codeController.text.isEmpty) {
       setState(() {
         codeData = ValidateResultData(result: false);
@@ -97,7 +97,7 @@ class WalletSettingViewModel extends BaseViewModel {
             onConnectFail: (errorMessage) =>
                 onBaseConnectFail(context, errorMessage))
         .checkAuthCodeMail(
-            mail: GlobalData.userInfo.email,
+            mail: userInfo.email,
             action: LoginAction.payment,
             authCode: codeController.text)
         .then((value) {

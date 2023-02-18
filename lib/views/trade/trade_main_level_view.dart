@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
@@ -15,6 +16,7 @@ import 'package:treasure_nft_project/utils/animation_download_util.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/utils/trade_timer_util.dart';
+import 'package:treasure_nft_project/view_models/gobal_provider/user_experience_info_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/trade_new_main_view_model.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
@@ -26,8 +28,12 @@ import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
 import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart';
 import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
 
+import '../../models/http/parameter/check_experience_info.dart';
+import '../../models/http/parameter/user_info_data.dart';
+import '../../view_models/gobal_provider/user_info_provider.dart';
+
 ///MARK: 交易 切換交易等級&轉轉轉方塊
-class TradeMainLevelView extends StatefulWidget {
+class TradeMainLevelView extends ConsumerStatefulWidget {
   const TradeMainLevelView(
       {Key? key, required this.viewModel, required this.onScrollTop})
       : super(key: key);
@@ -35,20 +41,22 @@ class TradeMainLevelView extends StatefulWidget {
   final onClickFunction onScrollTop;
 
   @override
-  State<TradeMainLevelView> createState() => _TradeMainLevelViewState();
+  ConsumerState createState() => _TradeMainLevelViewState();
 }
 
-class _TradeMainLevelViewState extends State<TradeMainLevelView> {
+class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
   TradeNewMainViewModel get viewModel {
     return widget.viewModel;
   }
 
   @override
   Widget build(BuildContext context) {
+    UserInfoData userInfoData = ref.watch(userInfoProvider);
+    ExperienceInfo experienceInfo = ref.watch(userExperienceInfoProvider);
     return Column(
       children: [
         /// 交易的主要區塊
-        _buildDivision(),
+        _buildDivision(userInfoData, experienceInfo),
         SizedBox(height: UIDefine.getPixelWidth(10)),
 
         /// 交易的其他資訊
@@ -58,7 +66,8 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
   }
 
   ///MARK: 中間選擇副本區間
-  Widget _buildDivision() {
+  Widget _buildDivision(
+      UserInfoData userInfoData, ExperienceInfo experienceInfo) {
     bool isReserved = false;
     bool isLock = false;
     try {
@@ -83,10 +92,10 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
           ),
 
           ///MARK: 顯示預約的剩餘時間
-          _buildTimeBar(),
+          _buildTimeBar(userInfoData),
 
           ///MARK: 顯示交易的骰子圖片&3D動畫
-          _buildTradeImage(isReserved),
+          _buildTradeImage(isReserved, userInfoData),
 
           ///MARK: 顯示交易區間的資訊
           _buildDivisionInfo(),
@@ -94,7 +103,8 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
           SizedBox(height: UIDefine.getPixelWidth(10)),
 
           ///MARK: 預約交易的按鈕
-          _buildReservationButton(isReserved, isLock),
+          _buildReservationButton(
+              isReserved, isLock, userInfoData, experienceInfo),
         ],
       ),
     );
@@ -124,7 +134,9 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
             setState(() {
               viewModel.currentDivisionIndex = value;
             });
-            viewModel.getDivisionLevelInfo(viewModel.division[value]);
+            viewModel.getDivisionLevelInfo(viewModel.division[value],
+                experienceInfo: ref.watch(userExperienceInfoProvider),
+                userInfo: ref.watch(userInfoProvider));
           }
         },
         itemPadding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -248,7 +260,7 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
     );
   }
 
-  Widget _buildTimeBar() {
+  Widget _buildTimeBar(UserInfoData userInfoData) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(5)),
       child: Column(
@@ -266,7 +278,7 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
               duration: TradeTimerUtil().getCurrentTradeData().duration,
             ),
           ),
-          Text(TradeTimerUtil().getTradeZone(),
+          Text(TradeTimerUtil().getTradeZone(userInfoData),
               style: AppTextStyle.getBaseStyle(
                   color: AppColors.textSixBlack,
                   fontWeight: FontWeight.w400,
@@ -276,8 +288,8 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
     );
   }
 
-  Widget _buildTradeImage(bool isReserved) {
-    bool needAddIndex = GlobalData.userInfo.level > 0;
+  Widget _buildTradeImage(bool isReserved, UserInfoData userInfoData) {
+    bool needAddIndex = userInfoData.level > 0;
     if (isReserved) {
       String size = '';
       switch (viewModel.currentRangeIndex) {
@@ -310,7 +322,7 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
           break;
       }
 
-      if (GlobalData.userInfo.level == 0) {
+      if (userInfoData.level == 0) {
         size = "400";
       }
 
@@ -400,7 +412,8 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
     );
   }
 
-  Widget _buildReservationButton(bool isReserved, bool isLock) {
+  Widget _buildReservationButton(bool isReserved, bool isLock,
+      UserInfoData userInfo, ExperienceInfo experienceInfo) {
     ///MARK: 如果鎖定 or 不允許使用交易功能時，要隱藏
     if (isLock || !(GlobalData.appTradeEnterButtonStatus)) {
       return const SizedBox();
@@ -451,7 +464,7 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
             fontWeight: FontWeight.w600,
             fontSize: UIDefine.fontSize16,
             btnText: tr('confirm'),
-            onPressed: _onPressReservation);
+            onPressed: () => _onPressReservation(userInfo, experienceInfo));
   }
 
   ///MARK: 交易量
@@ -510,7 +523,8 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
     );
   }
 
-  void _onPressReservation() {
+  void _onPressReservation(
+      UserInfoData userInfo, ExperienceInfo experienceInfo) {
     viewModel.pushOpacityPage(
         context,
         NewReservationPopUpView(
@@ -528,7 +542,9 @@ class _TradeMainLevelViewState extends State<TradeMainLevelView> {
 
             viewModel.getDivisionLevelInfo(
                 viewModel.division[viewModel.currentDivisionIndex],
-                initIndex: viewModel.currentRangeIndex);
+                initIndex: viewModel.currentRangeIndex,
+                experienceInfo: experienceInfo,
+                userInfo: userInfo);
           },
           reservationFee: '${viewModel.checkReserveDeposit?.deposit}',
           transactionTime: '${viewModel.checkReserveDeposit?.tradingTime}',

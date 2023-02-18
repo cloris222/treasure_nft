@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/view_models/base_pref_provider.dart';
 
+import '../../constant/call_back_function.dart';
 import '../../models/http/api/trade_api.dart';
 import '../../models/http/parameter/check_experience_info.dart';
-import '../../models/http/parameter/user_info_data.dart';
 import '../../utils/app_shared_Preferences.dart';
 
 final userExperienceInfoProvider =
@@ -22,8 +22,8 @@ class USerExperienceInfoNotifier extends StateNotifier<ExperienceInfo>
   Future<void> initValue() async {}
 
   @override
-  Future<void> readAPIValue() async {
-    state = await TradeAPI().getExperienceInfoAPI();
+  Future<void> readAPIValue({ResponseErrorFunction? onConnectFail}) async {
+    state = await TradeAPI(onConnectFail: onConnectFail).getExperienceInfoAPI();
   }
 
   @override

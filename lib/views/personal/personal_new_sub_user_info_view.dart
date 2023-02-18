@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:treasure_nft_project/models/http/parameter/check_level_info.dart';
 
@@ -10,13 +11,13 @@ import 'package:treasure_nft_project/widgets/label/custom_linear_progress.dart';
 import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
 
 import '../../constant/call_back_function.dart';
-import '../../constant/global_data.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/theme/app_theme.dart';
 import '../../constant/ui_define.dart';
 import '../../models/http/parameter/user_info_data.dart';
 import '../../view_models/base_view_model.dart';
+import '../../view_models/gobal_provider/user_info_provider.dart';
 import '../../widgets/dialog/edit_avatar_dialog.dart';
 import '../../widgets/label/icon/level_icon_widget.dart';
 import '../../widgets/label/icon/medal_icon_widget.dart';
@@ -25,7 +26,7 @@ import '../login/circle_network_icon.dart';
 import 'level/level_detail_page.dart';
 import 'level/level_point_page.dart';
 
-class PersonalNewSubUserInfoView extends StatelessWidget {
+class PersonalNewSubUserInfoView extends ConsumerWidget {
   const PersonalNewSubUserInfoView(
       {super.key,
       this.setUserInfo,
@@ -52,19 +53,16 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
   final bool showId;
   final String? shareUrl;
 
-  UserInfoData get userInfo {
-    return setUserInfo ?? GlobalData.userInfo;
-  }
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    UserInfoData userInfo = (setUserInfo ?? ref.watch(userInfoProvider));
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Row(
           children: [
             GestureDetector(
-                onTap: () => _showModifyAvatar(context),
+                onTap: () => _showModifyAvatar(context, ref),
                 child: Container(
                     decoration: AppTheme.style.baseGradient(radius: 65),
                     height: UIDefine.getPixelWidth(65),
@@ -93,7 +91,7 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
                           fontSize: UIDefine.fontSize18,
                           fontWeight: FontWeight.w600),
                       SizedBox(width: UIDefine.getPixelWidth(5)),
-                      _buildMedalIcon(context),
+                      _buildMedalIcon(context, userInfo),
                       const Spacer(),
                       GestureDetector(
                           onTap: () => _onPressDailyTask(context),
@@ -109,18 +107,22 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
 
                   ///MARK:使用者的ID和邀請碼
                   Visibility(
-                      visible: showId, child: _buildOtherDetailInfo(context)),
+                      visible: showId,
+                      child: _buildOtherDetailInfo(context, userInfo)),
 
                   ///MARK: 使用者的按鈕
                   Row(children: [
                     InkWell(
                         onTap: () => _showLevelInfoPage(context),
                         child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(5),vertical: UIDefine.getPixelHeight(2)),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: UIDefine.getPixelWidth(5),
+                                vertical: UIDefine.getPixelHeight(2)),
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               color: Colors.transparent,
-                              border: Border.all(color: AppColors.textNineBlack),
+                              border:
+                                  Border.all(color: AppColors.textNineBlack),
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Row(children: [
@@ -142,7 +144,9 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
                       child: InkWell(
                           onTap: () => _showPointPage(context),
                           child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(5),vertical: UIDefine.getPixelHeight(2.3)),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: UIDefine.getPixelWidth(5),
+                                  vertical: UIDefine.getPixelHeight(2.3)),
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                 color: Colors.transparent,
@@ -200,7 +204,7 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
     return userLevelInfo?.getPointPercentage() ?? 0;
   }
 
-  Widget _buildMedalIcon(BuildContext context) {
+  Widget _buildMedalIcon(BuildContext context, UserInfoData userInfo) {
     if (userInfo.medal.isNotEmpty) {
       return InkWell(
           onTap: () => _showPointPage(context),
@@ -212,7 +216,7 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
     return Container();
   }
 
-  Widget _buildOtherDetailInfo(BuildContext context) {
+  Widget _buildOtherDetailInfo(BuildContext context, UserInfoData userInfo) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -245,11 +249,12 @@ class PersonalNewSubUserInfoView extends StatelessWidget {
     );
   }
 
-  void _showModifyAvatar(BuildContext context) {
+  void _showModifyAvatar(BuildContext context, WidgetRef ref) {
     if (enableModify) {
       EditAvatarDialog(context, isAvatar: true, onChange: () {
         if (onViewUpdate != null) {
-          onViewUpdate!();
+          // onViewUpdate!();
+          ref.read(userInfoProvider.notifier).update();
         }
       }).show();
     }

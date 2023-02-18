@@ -1,10 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/view_models/gobal_provider/user_experience_info_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/trade_new_main_view_model.dart';
 import 'package:treasure_nft_project/views/trade/trade_main_level_view.dart';
 import 'package:treasure_nft_project/views/trade/trade_main_user_info_view.dart';
@@ -12,14 +13,19 @@ import 'package:treasure_nft_project/widgets/dialog/success_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/trade_rule_dialot.dart';
 import 'package:treasure_nft_project/widgets/label/icon/level_icon_widget.dart';
 
-class TradeNewMainView extends StatefulWidget {
-  const TradeNewMainView({Key? key}) : super(key: key);
+import '../../models/http/parameter/user_info_data.dart';
+import '../../view_models/gobal_provider/user_info_provider.dart';
+
+class TradeNewMainView extends ConsumerStatefulWidget {
+  const TradeNewMainView({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<TradeNewMainView> createState() => _TradeNewMainViewState();
+  ConsumerState createState() => _TradeNewMainViewState();
 }
 
-class _TradeNewMainViewState extends State<TradeNewMainView> {
+class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
   Color backgroundColor = const Color(0xFFF8F8F8);
   late TradeNewMainViewModel viewModel;
   ScrollController controller = ScrollController();
@@ -49,7 +55,9 @@ class _TradeNewMainViewState extends State<TradeNewMainView> {
             .show();
       },
     );
-    viewModel.initState();
+    viewModel.initState(
+        experienceInfo: ref.read(userExperienceInfoProvider),
+        userInfo: ref.read(userInfoProvider));
     super.initState();
   }
 
@@ -62,13 +70,14 @@ class _TradeNewMainViewState extends State<TradeNewMainView> {
 
   @override
   Widget build(BuildContext context) {
+    UserInfoData userInfo = ref.watch(userInfoProvider);
     return Container(
       color: backgroundColor,
       child: SingleChildScrollView(
         controller: controller,
         child: Column(
           children: [
-            _buildTitle(),
+            _buildTitle(userInfo),
 
             ///微小的彩虹色露出O_O
             Container(
@@ -99,7 +108,7 @@ class _TradeNewMainViewState extends State<TradeNewMainView> {
     );
   }
 
-  Widget _buildTitle() {
+  Widget _buildTitle(UserInfoData userInfo) {
     return Container(
       decoration: AppStyle().buildGradient(
           borderWith: 0, colors: AppColors.gradientBackgroundColorNoFloatBg),
@@ -114,11 +123,11 @@ class _TradeNewMainViewState extends State<TradeNewMainView> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 LevelIconWidget(
-                    level: GlobalData.userInfo.level,
+                    level: userInfo.level,
                     needBig: true,
                     size: UIDefine.getPixelWidth(40)),
                 Text(
-                  '${tr('level')} ${GlobalData.userInfo.level}',
+                  '${tr('level')} ${userInfo.level}',
                   style: AppTextStyle.getBaseStyle(
                       fontSize: UIDefine.fontSize14,
                       fontWeight: FontWeight.w600),

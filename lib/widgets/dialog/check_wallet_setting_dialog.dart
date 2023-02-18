@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
@@ -24,7 +25,7 @@ class CheckWalletSettingDialog extends BaseDialog {
   final onClickFunction onConfirm;
 
   @override
-  Widget initContent(BuildContext context, StateSetter setState) {
+  Widget initContent(BuildContext context, StateSetter setState,WidgetRef ref) {
     List<Widget> checkAddress = [];
     if (accountTRON.isNotEmpty) {
       checkAddress.add(_buildItem('TRC-20', accountTRON));

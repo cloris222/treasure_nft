@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 
@@ -32,7 +33,7 @@ class ImageDialog extends BaseDialog {
   String assetImagePath;
 
   @override
-  Widget initContent(BuildContext context, StateSetter setState) {
+  Widget initContent(BuildContext context, StateSetter setState,WidgetRef ref) {
     return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,

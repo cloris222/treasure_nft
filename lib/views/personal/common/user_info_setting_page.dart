@@ -1,14 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/view_models/gobal_provider/user_info_provider.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
 import 'package:treasure_nft_project/views/personal/common/phone_param_view.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 
 import '../../../constant/ui_define.dart';
+import '../../../models/http/parameter/user_info_data.dart';
 import '../../../view_models/personal/common/user_info_setting_view_model.dart';
 import '../../../widgets/button/login_button_widget.dart';
 import '../../../widgets/date_picker/date_picker_one.dart';
@@ -16,20 +18,24 @@ import '../../login/login_param_view.dart';
 import 'gender_selector_drop_down_bar.dart';
 
 /// 使用者設定
-class UserInfoSettingPage extends StatefulWidget {
-  const UserInfoSettingPage({super.key});
+class UserInfoSettingPage extends ConsumerStatefulWidget {
+  const UserInfoSettingPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _UserInfoSettingPage();
+  ConsumerState createState() => _UserInfoSettingPageState();
 }
 
-class _UserInfoSettingPage extends State<UserInfoSettingPage> {
+class _UserInfoSettingPageState extends ConsumerState<UserInfoSettingPage> {
   late UserInfoSettingViewModel viewModel;
 
   @override
   void initState() {
     super.initState();
-    viewModel = UserInfoSettingViewModel(setState: setState);
+    viewModel = UserInfoSettingViewModel(
+        setState: setState, userInfo: ref.read(userInfoProvider));
+    viewModel.init();
   }
 
   @override
@@ -40,6 +46,7 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
 
   @override
   Widget build(BuildContext context) {
+    UserInfoData userInfo =ref.watch(userInfoProvider);
     return CustomAppbarView(
         needScrollView: false,
         onLanguageChange: () {
@@ -68,10 +75,10 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
                       //             fontSize: UIDefine.fontSize14))),
                       // _getNationalityForm(),
                       _getUnEditFormView(tr('nationality'),
-                          '${tr(GlobalData.userInfo.country)} (${GlobalData.userInfo.zone})'),
+                          '${tr(userInfo.country)} (${userInfo.zone})'),
                       SizedBox(height: UIDefine.getScreenWidth(4.16)),
                       _getUnEditFormView(
-                          tr('account'), GlobalData.userInfo.account),
+                          tr('account'), userInfo.account),
                       SizedBox(height: UIDefine.getScreenWidth(4.16)),
                       LoginParamView(
                           titleText: tr('nickname'),
@@ -82,8 +89,8 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
                       SizedBox(height: UIDefine.getScreenWidth(4.16)),
                       PhoneParamView(
                           initCountry:
-                              GlobalData.userInfo.phoneCountry.isNotEmpty
-                                  ? GlobalData.userInfo.phoneCountry
+                              userInfo.phoneCountry.isNotEmpty
+                                  ? userInfo.phoneCountry
                                   : null,
                           titleText: tr('phone'),
                           hintText: tr("placeholder-phone'"),
@@ -94,7 +101,7 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
                           }),
                       SizedBox(height: UIDefine.getScreenWidth(4.16)),
                       _getUnEditFormView(
-                          tr('email'), GlobalData.userInfo.email),
+                          tr('email'), userInfo.email),
                       SizedBox(height: UIDefine.getScreenWidth(4.16)),
                       GenderSelectorDropDownBar(
                           getDropDownValue: (String value) {
@@ -107,8 +114,8 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
                               style: AppTextStyle.getBaseStyle(
                                   fontSize: UIDefine.fontSize14))),
                       DatePickerOne(
-                        initDate: GlobalData.userInfo.birthday.isNotEmpty
-                            ? GlobalData.userInfo.birthday
+                        initDate: userInfo.birthday.isNotEmpty
+                            ? userInfo.birthday
                             : null,
                         getValue: (String value) {
                           viewModel.setBirthday(value);
@@ -148,24 +155,6 @@ class _UserInfoSettingPage extends State<UserInfoSettingPage> {
                 ),
               ),
             ])));
-  }
-
-  Widget _getNationalityForm() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        // Image.asset( // 拿掉國旗 20221212
-        //     format(AppImagePath.languageIcon,
-        //         {'country': GlobalData.userInfo.country}),
-        //     width: UIDefine.getScreenWidth(11.11),
-        //     height: UIDefine.getScreenWidth(11.11)),
-        // SizedBox(width: UIDefine.getScreenWidth(2.7)),
-        Text('${tr(GlobalData.userInfo.country)} (${GlobalData.userInfo.zone})',
-            style: AppTextStyle.getBaseStyle(
-                fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14)),
-      ],
-    );
   }
 
   Widget _getUnEditFormView(String title, String content) {

@@ -1,26 +1,30 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:treasure_nft_project/models/http/parameter/user_info_data.dart';
 
 import '../../../constant/call_back_function.dart';
-import '../../../constant/global_data.dart';
 import '../../../models/data/validate_result_data.dart';
 import '../../../models/http/api/user_info_api.dart';
 import '../../../utils/regular_expression_util.dart';
 import '../../../views/main_page.dart';
-import '../../../views/personal/personal_main_view.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/dialog/simple_custom_dialog.dart';
 import '../../base_view_model.dart';
 
 class UserInfoSettingViewModel extends BaseViewModel {
-  UserInfoSettingViewModel({required this.setState});
+  UserInfoSettingViewModel({required this.setState, required this.userInfo});
 
   final ViewChange setState;
+  final UserInfoData userInfo;
+  late TextEditingController nickNameController;
 
-  TextEditingController nickNameController =
-      TextEditingController(text: GlobalData.userInfo.name);
-  TextEditingController phoneController =
-      TextEditingController(text: GlobalData.userInfo.phone);
+  late TextEditingController phoneController;
+
+  void init() {
+    nickNameController = TextEditingController(text: userInfo.name);
+    phoneController = TextEditingController(text: userInfo.phone);
+  }
+
   String birthday = '';
   String phoneCountry = '';
   String gender = '';

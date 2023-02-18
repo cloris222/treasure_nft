@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_riverpod/src/consumer.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:video_player/video_player.dart';
@@ -23,7 +24,7 @@ class SplashScreenViewModel extends BaseViewModel {
   Duration _oldPosition = Duration.zero;
   final String key = 'Splash:';
 
-  void initState() async {
+  void initState(WidgetRef ref) async {
     GlobalData.printLog('$key runInitApp:init');
     controller = VideoPlayerController.asset(AppAnimationPath.splashScreen);
     await controller.initialize();
@@ -31,7 +32,7 @@ class SplashScreenViewModel extends BaseViewModel {
     onViewChange();
     _countdownTimer = Timer.periodic(
         const Duration(milliseconds: 500), (_) => _setCountDown());
-    runInitApp().then((value) {
+    runInitApp(ref).then((value) {
       isInitAppFinish = true;
       GlobalData.printLog('$key isInitAppFinish:true');
     });
@@ -69,7 +70,7 @@ class SplashScreenViewModel extends BaseViewModel {
     }
   }
 
-  Future<void> runInitApp() async {
+  Future<void> runInitApp(WidgetRef ref) async {
     ///MARK: 等兩秒 讓動畫播
     await Future.delayed(const Duration(seconds: 3));
     GlobalData.printLog('$key runInitApp:start');
@@ -85,14 +86,14 @@ class SplashScreenViewModel extends BaseViewModel {
             GlobalData.userMemberId.isNotEmpty) {
           bool connectFail = false;
 
-          await uploadPersonalInfo().then((value) {
+          await uploadPersonalInfo(ref: ref,isLogin: true).then((value) {
             if (value == false) {
               connectFail = true;
             }
           });
 
           List<bool> checkList = List<bool>.generate(2, (index) => false);
-          uploadSignInInfo().then((value) {
+          uploadSignInInfo(ref: ref).then((value) {
             checkList[0] = true;
             if (value == false) {
               connectFail = true;

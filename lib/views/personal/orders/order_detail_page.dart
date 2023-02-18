@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/enum/setting_enum.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/personal/orders/order_detail_viewmodel.dart';
@@ -15,16 +16,17 @@ import '../../custom_appbar_view.dart';
 import '../personal_new_sub_user_info_view.dart';
 import 'order_detail_Info.dart';
 
-class OrderDetailPage extends StatefulWidget {
-  const OrderDetailPage({Key? key}) : super(key: key);
+class OrderDetailPage extends ConsumerStatefulWidget {
+  const OrderDetailPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<OrderDetailPage> createState() => _OrderDetailPageState();
+  ConsumerState createState() => _OrderDetailPageState();
 }
 
-class _OrderDetailPageState extends State<OrderDetailPage> {
+class _OrderDetailPageState extends ConsumerState<OrderDetailPage> {
   late OrderDetailViewModel viewModel;
-
 
   @override
   initState() {

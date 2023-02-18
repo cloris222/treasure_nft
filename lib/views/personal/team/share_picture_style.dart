@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_plus/share_plus.dart';
@@ -13,23 +14,24 @@ import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'dart:ui' as ui;
 import 'package:cross_file/cross_file.dart';
 import 'package:flutter/services.dart';
+import 'package:treasure_nft_project/view_models/gobal_provider/user_info_provider.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import '../../../constant/theme/app_colors.dart';
-import '../../../widgets/button/action_button_widget.dart';
+import '../../../models/http/parameter/user_info_data.dart';
 import '../../../widgets/label/icon/level_icon_widget.dart';
 import '../../../widgets/label/icon/medal_icon_widget.dart';
 import '../../login/circle_network_icon.dart';
 
-class SharePicStyle extends StatefulWidget {
+class SharePicStyle extends ConsumerStatefulWidget {
   const SharePicStyle({Key? key, required this.link}) : super(key: key);
 
   final String link;
 
   @override
-  State<SharePicStyle> createState() => _SharePicStyleState();
+  ConsumerState createState() => _SharePicStyleState();
 }
 
-class _SharePicStyleState extends State<SharePicStyle> {
+class _SharePicStyleState extends ConsumerState<SharePicStyle> {
   ///pageView
   PageController pageController = PageController(initialPage: 0);
   int pageIndex = 0;
@@ -74,6 +76,7 @@ class _SharePicStyleState extends State<SharePicStyle> {
 
   @override
   Widget build(BuildContext context) {
+    UserInfoData userInfo = ref.watch(userInfoProvider);
     return Scaffold(
       backgroundColor: AppColors.opacityBackground,
       body: Column(
@@ -103,8 +106,8 @@ class _SharePicStyleState extends State<SharePicStyle> {
                 controller: pageController,
                 scrollDirection: Axis.horizontal,
                 children: [
-                  _shareImage(context, pageIndex, repaintFirstKey),
-                  _shareImage(context, pageIndex, repaintSecondKey),
+                  _shareImage(context, pageIndex, repaintFirstKey, userInfo),
+                  _shareImage(context, pageIndex, repaintSecondKey, userInfo),
                 ],
                 onPageChanged: (index) {
                   setState(() {
@@ -136,7 +139,8 @@ class _SharePicStyleState extends State<SharePicStyle> {
     return SizedBox(height: UIDefine.getScreenHeight(1.5));
   }
 
-  Widget _shareImage(BuildContext context, int index, GlobalKey key) {
+  Widget _shareImage(
+      BuildContext context, int index, GlobalKey key, UserInfoData userInfo) {
     return Container(
       alignment: Alignment.center,
       margin: EdgeInsets.symmetric(
@@ -153,13 +157,13 @@ class _SharePicStyleState extends State<SharePicStyle> {
             repeat: ImageRepeat.noRepeat,
             image: AssetImage('assets/icon/img/img_background_05.png'),
           )),
-          child: _shareImgHeader(context),
+          child: _shareImgHeader(context, userInfo),
         ),
       ),
     );
   }
 
-  Widget _shareImgHeader(BuildContext context) {
+  Widget _shareImgHeader(BuildContext context, UserInfoData userInfo) {
     double iconHeight = UIDefine.getScreenHeight(10);
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -174,10 +178,9 @@ class _SharePicStyleState extends State<SharePicStyle> {
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            GlobalData.userInfo.photoUrl.isNotEmpty
+            userInfo.photoUrl.isNotEmpty
                 ? CircleNetworkIcon(
-                    networkUrl: GlobalData.userInfo.photoUrl,
-                    radius: iconHeight / 2)
+                    networkUrl: userInfo.photoUrl, radius: iconHeight / 2)
                 : Image.asset(AppImagePath.avatarImg,
                     width: iconHeight, height: iconHeight),
             SizedBox(width: UIDefine.getScreenWidth(5)),
@@ -185,7 +188,7 @@ class _SharePicStyleState extends State<SharePicStyle> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  GlobalData.userInfo.name,
+                  userInfo.name,
                   style: AppTextStyle.getBaseStyle(
                       fontSize: UIDefine.fontSize16,
                       fontWeight: FontWeight.w600),
@@ -195,12 +198,11 @@ class _SharePicStyleState extends State<SharePicStyle> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     LevelIconWidget(
-                        level: GlobalData.userInfo.level,
-                        size: UIDefine.fontSize24),
+                        level: userInfo.level, size: UIDefine.fontSize24),
                     const SizedBox(width: 5),
-                    GlobalData.userInfo.medal.isNotEmpty
+                    userInfo.medal.isNotEmpty
                         ? MedalIconWidget(
-                            medal: GlobalData.userInfo.medal,
+                            medal: userInfo.medal,
                             size: UIDefine.fontSize24,
                           )
                         : Container()
@@ -213,12 +215,13 @@ class _SharePicStyleState extends State<SharePicStyle> {
         _buildSpace(),
 
         /// 下半部
-        Flexible(child: _shareImgBottom(context, pageIndex))
+        Flexible(child: _shareImgBottom(context, pageIndex, userInfo))
       ],
     );
   }
 
-  Widget _shareImgBottom(BuildContext context, int index) {
+  Widget _shareImgBottom(
+      BuildContext context, int index, UserInfoData userInfo) {
     TextStyle styleBlack = AppTextStyle.getBaseStyle(
         fontSize: UIDefine.fontSize18, fontWeight: FontWeight.w600);
     TextStyle styleGrey = AppTextStyle.getBaseStyle(
@@ -241,8 +244,7 @@ class _SharePicStyleState extends State<SharePicStyle> {
                     fit: BoxFit.contain,
                   )
                 : Image.asset(AppImagePath.shareText2,
-                    height: UIDefine.getScreenHeight(10),
-                    fit: BoxFit.contain)),
+                    height: UIDefine.getScreenHeight(10), fit: BoxFit.contain)),
         _buildSpace(),
         Flexible(
           child: QrImage(
@@ -255,7 +257,7 @@ class _SharePicStyleState extends State<SharePicStyle> {
         ),
         Text(tr("referralLink"), style: styleGrey),
         Text(
-          GlobalData.userInfo.inviteCode,
+          userInfo.inviteCode,
           textAlign: TextAlign.start,
           style: styleBlack,
         ),
