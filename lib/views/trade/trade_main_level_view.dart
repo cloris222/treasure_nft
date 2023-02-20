@@ -17,6 +17,10 @@ import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/utils/trade_timer_util.dart';
 import 'package:treasure_nft_project/view_models/gobal_provider/user_experience_info_provider.dart';
+import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_coin_provider.dart';
+import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_division_provider.dart';
+import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_volume_provider.dart';
+import 'package:treasure_nft_project/view_models/trade/provider/trade_time_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/trade_new_main_view_model.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
@@ -29,8 +33,12 @@ import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart'
 import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
 
 import '../../models/http/parameter/check_experience_info.dart';
+import '../../models/http/parameter/check_reservation_info.dart';
+import '../../models/http/parameter/check_reserve_deposit.dart';
+import '../../models/http/parameter/reserve_view_data.dart';
 import '../../models/http/parameter/user_info_data.dart';
 import '../../view_models/gobal_provider/user_info_provider.dart';
+import '../../view_models/trade/provider/trade_reserve_info_provider.dart';
 
 ///MARK: 交易 切換交易等級&轉轉轉方塊
 class TradeMainLevelView extends ConsumerStatefulWidget {
@@ -49,14 +57,71 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     return widget.viewModel;
   }
 
+  UserInfoData get userInfo {
+    return ref.read(userInfoProvider);
+  }
+
+  ExperienceInfo get experienceInfo {
+    return ref.read(userExperienceInfoProvider);
+  }
+
+  ReserveViewData? get reserveVolume {
+    return ref.read(tradeReserveVolumeProvider);
+  }
+
+  CheckReservationInfo? get reserveInfo {
+    return ref.read(tradeReserveInfoProvider);
+  }
+
+  CheckReserveDeposit? get reserveCoin {
+    return ref.read(tradeReserveCoinProvider);
+  }
+
+  List<ReserveRange> get reserveDivisionRanges {
+    if (reserveInfo != null) {
+      var ranges = reserveInfo!.reserveRanges;
+
+      /// 如果是體驗帳號 且 level 1 副本顯示內容不同
+      if (experienceInfo.isExperience == true && userInfo.level == 1) {
+        ranges[0].startPrice = 1;
+        ranges[0].endPrice = 50;
+        ranges[1].startPrice = 50;
+        ranges[1].endPrice = 150;
+      }
+      return ranges;
+    }
+    return [];
+  }
+
+  List<int> get reserveDivision {
+    return ref.read(tradeReserveDivisionProvider);
+  }
+
+  int get currentDivisionIndex {
+    return ref.read(tradeCurrentDivisionIndexProvider);
+  }
+
+  int get currentRangeIndex {
+    return ref.read(tradeCurrentDivisionIndexProvider);
+  }
+
   @override
   Widget build(BuildContext context) {
-    UserInfoData userInfoData = ref.watch(userInfoProvider);
-    ExperienceInfo experienceInfo = ref.watch(userExperienceInfoProvider);
+    ///MARK: 強制監聽
+    ref.watch(userInfoProvider);
+    ref.watch(userExperienceInfoProvider);
+    ref.watch(tradeReserveVolumeProvider);
+    ref.watch(tradeReserveInfoProvider);
+    ref.watch(tradeReserveCoinProvider);
+    ref.watch(tradeReserveDivisionProvider);
+    ref.watch(tradeCurrentDivisionIndexProvider);
+    ref.watch(tradeCurrentDivisionIndexProvider);
+
+    ///MARK: 建立畫面
     return Column(
       children: [
         /// 交易的主要區塊
-        _buildDivision(userInfoData, experienceInfo),
+        _buildDivision(),
         SizedBox(height: UIDefine.getPixelWidth(10)),
 
         /// 交易的其他資訊
@@ -66,16 +131,16 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
   }
 
   ///MARK: 中間選擇副本區間
-  Widget _buildDivision(
-      UserInfoData userInfoData, ExperienceInfo experienceInfo) {
+  Widget _buildDivision() {
     bool isReserved = false;
     bool isLock = false;
     try {
-      isReserved = viewModel.ranges[viewModel.currentRangeIndex].used;
+      isReserved = reserveDivisionRanges[currentRangeIndex].used;
     } catch (e) {}
     try {
-      isLock = viewModel.ranges[viewModel.currentRangeIndex].lock;
+      isLock = reserveDivisionRanges[currentRangeIndex].lock;
     } catch (e) {}
+
     return Container(
       padding: EdgeInsets.all(UIDefine.getPixelWidth(10)),
       decoration: AppStyle().styleColorsRadiusBackground(radius: 12),
@@ -92,10 +157,10 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
           ),
 
           ///MARK: 顯示預約的剩餘時間
-          _buildTimeBar(userInfoData),
+          _buildTimeBar(userInfo),
 
           ///MARK: 顯示交易的骰子圖片&3D動畫
-          _buildTradeImage(isReserved, userInfoData),
+          _buildTradeImage(isReserved, userInfo),
 
           ///MARK: 顯示交易區間的資訊
           _buildDivisionInfo(),
@@ -103,8 +168,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
           SizedBox(height: UIDefine.getPixelWidth(10)),
 
           ///MARK: 預約交易的按鈕
-          _buildReservationButton(
-              isReserved, isLock, userInfoData, experienceInfo),
+          _buildReservationButton(isReserved, isLock, userInfo, experienceInfo),
         ],
       ),
     );
@@ -119,24 +183,17 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
           vertical: UIDefine.getPixelWidth(3)),
       child: DropdownButtonHideUnderline(
           child: DropdownButton2(
-        customButton:
-            _buildDivisionDropItem(viewModel.currentDivisionIndex, false, true),
+        customButton: _buildDivisionDropItem(currentDivisionIndex, false, true),
         isExpanded: true,
-        items: List<DropdownMenuItem<int>>.generate(viewModel.division.length,
+        items: List<DropdownMenuItem<int>>.generate(reserveDivision.length,
             (index) {
           return DropdownMenuItem<int>(
               value: index, child: _buildDivisionDropItem(index, true, false));
         }),
-        value:
-            viewModel.division.isEmpty ? null : viewModel.currentDivisionIndex,
+        value: reserveDivision.isEmpty ? null : currentDivisionIndex,
         onChanged: (value) {
           if (value != null) {
-            setState(() {
-              viewModel.currentDivisionIndex = value;
-            });
-            viewModel.getDivisionLevelInfo(viewModel.division[value],
-                experienceInfo: ref.watch(userExperienceInfoProvider),
-                userInfo: ref.watch(userInfoProvider));
+            _onDivisionChange(index: value);
           }
         },
         itemPadding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -146,17 +203,17 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
 
   Widget _buildDivisionDropItem(
       int index, bool needGradientText, bool needArrow) {
-    if (viewModel.division.isEmpty) {
+    if (reserveDivision.isEmpty) {
       return SizedBox(height: UIDefine.getPixelWidth(40));
     }
-    var text = 'LV ${viewModel.division[index]}';
+    var text = 'LV ${reserveDivision[index]}';
     return Container(
       alignment: Alignment.centerLeft,
       height: UIDefine.getPixelWidth(40),
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Row(
         children: [
-          viewModel.currentDivisionIndex == index && needGradientText
+          currentDivisionIndex == index && needGradientText
               ? GradientThirdText(
                   text,
                   size: UIDefine.fontSize12,
@@ -188,8 +245,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
           vertical: UIDefine.getPixelWidth(3)),
       child: DropdownButtonHideUnderline(
           child: DropdownButton2(
-        customButton:
-            _buildRangDropItem(viewModel.currentRangeIndex, false, true),
+        customButton: _buildRangDropItem(currentRangeIndex, false, true),
         isExpanded: true,
         hint: Row(children: [
           TetherCoinWidget(size: UIDefine.getPixelWidth(15)),
@@ -201,16 +257,13 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
                   fontWeight: FontWeight.w600))
         ]),
         items: List<DropdownMenuItem<int>>.generate(
-            viewModel.ranges.length,
+            reserveDivisionRanges.length,
             (index) => DropdownMenuItem<int>(
                 value: index, child: _buildRangDropItem(index, true, false))),
-        value: viewModel.ranges.isEmpty ? null : viewModel.currentRangeIndex,
+        value: reserveDivisionRanges.isEmpty ? null : currentRangeIndex,
         onChanged: (value) {
           if (value != null) {
-            setState(() {
-              viewModel.currentRangeIndex = value;
-            });
-            viewModel.getDivisionIndexInfo(viewModel.ranges[value].index);
+            _onRangeChange(index: value);
           }
         },
         buttonHeight: 40,
@@ -222,12 +275,12 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
   }
 
   Widget _buildRangDropItem(int index, bool needGradientText, bool needArrow) {
-    if (viewModel.ranges.isEmpty) {
+    if (reserveDivisionRanges.isEmpty) {
       return SizedBox(height: UIDefine.getPixelWidth(40));
     }
 
     var text =
-        '${NumberFormatUtil().numberCompatFormat(viewModel.ranges[index].startPrice.toString(), decimalDigits: 0)}-${NumberFormatUtil().numberCompatFormat(viewModel.ranges[index].endPrice.toString(), decimalDigits: 0)}';
+        '${NumberFormatUtil().numberCompatFormat(reserveDivisionRanges[index].startPrice.toString(), decimalDigits: 0)}-${NumberFormatUtil().numberCompatFormat(reserveDivisionRanges[index].endPrice.toString(), decimalDigits: 0)}';
 
     return Container(
       alignment: Alignment.centerLeft,
@@ -237,7 +290,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
         children: [
           TetherCoinWidget(size: UIDefine.getPixelWidth(15)),
           SizedBox(width: UIDefine.getPixelWidth(5)),
-          index == viewModel.currentRangeIndex && needGradientText
+          index == currentRangeIndex && needGradientText
               ? GradientThirdText(
                   text,
                   size: UIDefine.fontSize12,
@@ -275,7 +328,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
             margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(5)),
             child: CountDownTimer(
               isNewType: true,
-              duration: TradeTimerUtil().getCurrentTradeData().duration,
+              duration: ref.watch(tradeTimeProvider)?.duration,
             ),
           ),
           Text(TradeTimerUtil().getTradeZone(userInfoData),
@@ -292,7 +345,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     bool needAddIndex = userInfoData.level > 0;
     if (isReserved) {
       String size = '';
-      switch (viewModel.currentRangeIndex) {
+      switch (currentRangeIndex) {
         case 0:
           {
             size = "200";
@@ -327,7 +380,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
       }
 
       String animationPath = format(AppAnimationPath.reservationDice3D, {
-        "level": viewModel.currentDivisionIndex + (needAddIndex ? 1 : 0),
+        "level": currentDivisionIndex + (needAddIndex ? 1 : 0),
         "size": size
       });
       String? path =
@@ -336,8 +389,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
         return Container(
             alignment: Alignment.center,
             child: Image.file(
-              height: UIDefine.getPixelWidth(
-                  200 + viewModel.currentRangeIndex * 50),
+              height: UIDefine.getPixelWidth(200 + currentRangeIndex * 50),
               width: UIDefine.getWidth(),
               File(path),
               fit: BoxFit.contain,
@@ -349,15 +401,14 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     //   index = 1;
     // }
     String imagePath = format(AppImagePath.tradeDiceImage, {
-      "level":
-          (viewModel.currentDivisionIndex + (needAddIndex ? 1 : 0)).toString(),
+      "level": (currentDivisionIndex + (needAddIndex ? 1 : 0)).toString(),
       "index": NumberFormatUtil().integerTwoFormat(1)
     });
     return Container(
       alignment: Alignment.center,
       margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(5)),
       child: SizedBox(
-        height: UIDefine.getPixelWidth(200 + viewModel.currentRangeIndex * 50),
+        height: UIDefine.getPixelWidth(200 + currentRangeIndex * 50),
         width: UIDefine.getWidth(),
         child: Image.asset(
           imagePath,
@@ -377,12 +428,11 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
           context: TradeTimerUtil().getResultTime()),
       _buildDivisionInfoItem(
           title: tr('reservationFee'),
-          context: NumberFormatUtil()
-              .integerFormat(viewModel.checkReserveDeposit?.deposit ?? 0)),
+          context: NumberFormatUtil().integerFormat(reserveCoin?.deposit ?? 0)),
       _buildDivisionInfoItem(
           title: tr('transactionReward'),
           context:
-              '${NumberFormatUtil().removeTwoPointFormat(viewModel.checkReserveDeposit?.reward ?? 0)} %'),
+              '${NumberFormatUtil().removeTwoPointFormat(reserveCoin?.reward ?? 0)} %'),
     ]);
   }
 
@@ -418,7 +468,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     if (isLock || !(GlobalData.appTradeEnterButtonStatus)) {
       return const SizedBox();
     }
-    if (viewModel.division.isEmpty || viewModel.ranges.isEmpty) {
+    if (reserveDivision.isEmpty || reserveDivisionRanges.isEmpty) {
       return const SizedBox();
     }
     EdgeInsetsGeometry buttonMargin = EdgeInsets.symmetric(
@@ -479,9 +529,9 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
             mainAxisSize: MainAxisSize.min,
             children: [
               _buildSystemInfoItem(tr('lastDayAmount'),
-                  '\$ ${NumberFormatUtil().removeTwoPointFormat(viewModel.reserveViewData?.vol ?? 0)}'),
+                  '\$ ${NumberFormatUtil().removeTwoPointFormat(reserveVolume?.vol ?? 0)}'),
               _buildSystemInfoItem(tr('PRICE'),
-                  '${NumberFormatUtil().removeTwoPointFormat(viewModel.reserveViewData?.price ?? 0)} \$')
+                  '${NumberFormatUtil().removeTwoPointFormat(reserveVolume?.price ?? 0)} \$')
             ],
           )),
           SizedBox(width: UIDefine.getPixelWidth(10)),
@@ -490,7 +540,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
             mainAxisSize: MainAxisSize.min,
             children: [
               _buildSystemInfoItem(tr('annualROI'),
-                  '${NumberFormatUtil().removeTwoPointFormat(viewModel.reserveViewData?.annualRoi ?? 0)} %'),
+                  '${NumberFormatUtil().removeTwoPointFormat(reserveVolume?.annualRoi ?? 0)} %'),
               _buildSystemInfoItem(tr('IRR'),
                   '${NumberFormatUtil().removeTwoPointFormat(7.5)} %')
             ],
@@ -532,23 +582,43 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
             Navigator.pop(context);
 
             /// add new reservation
-            await viewModel.addNewReservation(viewModel.currentRangeIndex);
+            await viewModel.addNewReservation(
+                reserveIndex: reserveDivisionRanges[currentRangeIndex].index,
+                reserveStartPrice:
+                    reserveDivisionRanges[currentRangeIndex].startPrice,
+                reserveEndPrice:
+                    reserveDivisionRanges[currentRangeIndex].endPrice);
 
             /// if reservation success 預約狀態 = true
-            viewModel.ranges[viewModel.currentRangeIndex].used = true;
+            reserveDivisionRanges[currentRangeIndex].used = true;
 
             /// 狀態更新
             setState(() {});
 
-            viewModel.getDivisionLevelInfo(
-                viewModel.division[viewModel.currentDivisionIndex],
-                initIndex: viewModel.currentRangeIndex,
-                experienceInfo: experienceInfo,
-                userInfo: userInfo);
+            _onDivisionChange(
+                initIndex: currentRangeIndex, index: currentRangeIndex);
           },
-          reservationFee: '${viewModel.checkReserveDeposit?.deposit}',
-          transactionTime: '${viewModel.checkReserveDeposit?.tradingTime}',
-          transactionReward: '${viewModel.checkReserveDeposit?.reward}',
+          reservationFee: '${reserveCoin?.deposit}',
+          transactionTime: '${reserveCoin?.tradingTime}',
+          transactionReward: '${reserveCoin?.reward}',
         ));
+  }
+
+  void _onDivisionChange({required int index, int initIndex = 0}) {
+    ref.read(tradeCurrentDivisionIndexProvider.notifier).state = index;
+    ref.read(tradeCurrentRangeIndexProvider.notifier).state = initIndex;
+    ref.read(tradeReserveInfoProvider.notifier).init(onFinish: () {
+      _onRangeChange(index: initIndex);
+    });
+  }
+
+  void _onRangeChange({required int index}) {
+    ref.read(tradeReserveVolumeProvider.notifier).init(onFinish: () {
+      ref.read(tradeReserveCoinProvider.notifier).setSelectValue(
+          reserveDivisionRanges[index].index,
+          reserveDivisionRanges[index].startPrice,
+          reserveDivisionRanges[index].endPrice);
+      ref.read(tradeReserveCoinProvider.notifier).init();
+    });
   }
 }

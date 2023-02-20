@@ -5,7 +5,11 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
-import 'package:treasure_nft_project/view_models/gobal_provider/user_experience_info_provider.dart';
+import 'package:treasure_nft_project/view_models/gobal_provider/user_level_info_provider.dart';
+import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_division_provider.dart';
+import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_info_provider.dart';
+import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_stage_provider.dart';
+import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_volume_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/trade_new_main_view_model.dart';
 import 'package:treasure_nft_project/views/trade/trade_main_level_view.dart';
 import 'package:treasure_nft_project/views/trade/trade_main_user_info_view.dart';
@@ -13,8 +17,11 @@ import 'package:treasure_nft_project/widgets/dialog/success_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/trade_rule_dialot.dart';
 import 'package:treasure_nft_project/widgets/label/icon/level_icon_widget.dart';
 
+import '../../models/data/trade_model_data.dart';
 import '../../models/http/parameter/user_info_data.dart';
+import '../../utils/trade_timer_util.dart';
 import '../../view_models/gobal_provider/user_info_provider.dart';
+import '../../view_models/trade/provider/trade_time_provider.dart';
 
 class TradeNewMainView extends ConsumerStatefulWidget {
   const TradeNewMainView({
@@ -33,11 +40,6 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
   @override
   void initState() {
     viewModel = TradeNewMainViewModel(
-      onViewChange: () {
-        if (mounted) {
-          setState(() {});
-        }
-      },
       reservationSuccess: () {
         SuccessDialog(context,
                 callOkFunction: () {},
@@ -55,15 +57,30 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
             .show();
       },
     );
-    viewModel.initState(
-        experienceInfo: ref.read(userExperienceInfoProvider),
-        userInfo: ref.read(userInfoProvider));
+
+    ///MARK: 初始化
+    TradeTimerUtil().addListener(_onUpdateTrade);
+
+    ///MARK:請求資料初始化
+    Future.delayed(const Duration(milliseconds: 300)).then((value) {
+      ref.read(tradeCurrentDivisionIndexProvider.notifier).state = 0;
+      ref.read(tradeCurrentRangeIndexProvider.notifier).state = 0;
+      ref.read(tradeCurrentStageProvider.notifier).state = null;
+
+      ///使用者資料&交易量
+      ref.read(userLevelInfoProvider.notifier).init();
+      ref.read(tradeReserveVolumeProvider.notifier).init();
+
+      ///取得預約場次
+      ref.read(tradeReserveDivisionProvider.notifier).init();
+      ref.read(tradeReserveInfoProvider.notifier).init();
+    });
     super.initState();
   }
 
   @override
   void dispose() {
-    viewModel.disposeState();
+    TradeTimerUtil().removeListener(_onUpdateTrade);
     controller.dispose();
     super.dispose();
   }
@@ -162,5 +179,9 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
         ],
       ),
     );
+  }
+
+  void _onUpdateTrade(TradeData data) {
+    ref.read(tradeTimeProvider.notifier).updateTradeTime(data);
   }
 }

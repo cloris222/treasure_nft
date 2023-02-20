@@ -10,6 +10,7 @@ import '../parameter/check_experience_info.dart';
 import '../parameter/check_reservation_info.dart';
 import '../parameter/check_reserve_deposit.dart';
 import '../parameter/draw_result_info.dart';
+import '../parameter/trade_reserve_stage__info.dart';
 
 class TradeAPI extends HttpManager {
   TradeAPI({super.onConnectFail, super.showTrString});
@@ -25,12 +26,17 @@ class TradeAPI extends HttpManager {
   }
 
   /// step2: 查詢預約資訊
-  Future<CheckReservationInfo> getCheckReservationInfoAPI(int division) async {
-    var response =
-        await get('/reserve/info', queryParameters: {'division': division});
+  Future<CheckReservationInfo> getCheckReservationInfoAPI(int division,
+      {String? reserveDate, int? reserveStage}) async {
+    var response = await get('/reserve/info', queryParameters: {
+      'division': division,
+      'reserveDate': reserveDate ,
+      'reserveStage': reserveStage
+    });
     return CheckReservationInfo.fromJson(response.data);
   }
 
+  ///MARK: 交易線圖)查看交易量等資訊
   Future<ReserveViewData> getReserveView(int index) async {
     var response =
         await get('/reserve/view', queryParameters: {"index": index});
@@ -68,8 +74,7 @@ class TradeAPI extends HttpManager {
   /// 取得體驗帳號資訊
   Future<ExperienceInfo> getExperienceInfoAPI() async {
     var response = await get('/experience/experience-info');
-   return ExperienceInfo.fromJson(response.data);
-
+    return ExperienceInfo.fromJson(response.data);
   }
 
   ///MARK: 查詢開獎結果
@@ -113,6 +118,19 @@ class TradeAPI extends HttpManager {
     } catch (e) {
       GlobalData.appTradeEnterButtonStatus = false;
       return false;
+    }
+  }
+
+  ///MARK: 查詢可預約場次
+  Future<List<TradeReserveStageInfo>> getTradeCanReserveStage() async {
+    try {
+      var response =
+          await get('/reserve/can-reserve-stage', queryParameters: {'day': 1});
+      return List<TradeReserveStageInfo>.from(
+          response.data.map((x) => TradeReserveStageInfo.fromJson(x)));
+    } catch (e) {
+      GlobalData.printLog("getTradeReserveStage_error:${e.toString()}");
+      return [];
     }
   }
 }
