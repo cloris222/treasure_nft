@@ -189,6 +189,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     ///MARK: isAvailable 都顯示 false
     bool canReserve = checkReserve(info.startTime, info.endTime);
     return Container(
+      width: UIDefine.getWidth(),
       decoration: AppStyle().styleColorBorderBackground(
           borderLine: 0.4,
           radius: 4,
