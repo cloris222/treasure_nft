@@ -38,7 +38,9 @@ abstract class BasePrefProvider {
 
   ///MARK: 先讀暫存或預設值 後讀api更新值
   Future<void> init(
-      {onClickFunction? onFinish, ResponseErrorFunction? onConnectFail}) async {
+      {onClickFunction? onFinish,
+      onClickFunction? onUpdateFinish,
+      ResponseErrorFunction? onConnectFail}) async {
     await Future.delayed(const Duration(milliseconds: 300));
     printLog("initProvider");
     await initProvider();
@@ -54,17 +56,22 @@ abstract class BasePrefProvider {
       onFinish();
     }
     printLog("update");
-    update(onFinish: onFinish);
+    update(onFinish: onFinish, onUpdateFinish: onUpdateFinish);
   }
 
   Future<void> update(
-      {onClickFunction? onFinish, ResponseErrorFunction? onConnectFail}) async {
+      {onClickFunction? onFinish,
+      onClickFunction? onUpdateFinish,
+      ResponseErrorFunction? onConnectFail}) async {
     await Future.delayed(const Duration(milliseconds: 300));
     printLog("readAPIValue");
 
     await readAPIValue(onConnectFail: onConnectFail);
     if (onFinish != null) {
       onFinish();
+    }
+    if (onUpdateFinish != null) {
+      onUpdateFinish();
     }
     printLog("setSharedPreferencesValue");
     setSharedPreferencesValue();

@@ -717,13 +717,17 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
 
             /// if reservation success 預約狀態 = true
             reserveDivisionRanges[currentDivisionRangeIndex].used = true;
-
-            /// 狀態更新
-            setState(() {});
+            ref
+                .read(tradeReserveInfoProvider)
+                ?.reserveRanges[currentDivisionRangeIndex]
+                .used = true;
+            await ref
+                .read(tradeReserveInfoProvider.notifier)
+                .setSharedPreferencesValue();
 
             _onDivisionChange(
                 rangeIndex: currentDivisionRangeIndex,
-                divisionIndex: currentDivisionRangeIndex);
+                divisionIndex: currentDivisionIndex);
           },
           reservationFee: '${reserveCoin?.deposit}',
           transactionTime: '${reserveCoin?.tradingTime}',
