@@ -30,7 +30,7 @@ class TradeAPI extends HttpManager {
       {String? reserveDate, int? reserveStage}) async {
     var response = await get('/reserve/info', queryParameters: {
       'division': division,
-      'reserveDate': reserveDate ,
+      'reserveDate': reserveDate,
       'reserveStage': reserveStage
     });
     return CheckReservationInfo.fromJson(response.data);

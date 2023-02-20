@@ -6,7 +6,6 @@ import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/view_models/gobal_provider/user_level_info_provider.dart';
-import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_division_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_info_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_stage_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_volume_provider.dart';
@@ -65,6 +64,9 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
     Future.delayed(const Duration(milliseconds: 300)).then((value) {
       ref.read(tradeCurrentDivisionIndexProvider.notifier).state = 0;
       ref.read(tradeCurrentRangeIndexProvider.notifier).state = 0;
+      ref
+          .read(tradeReserveInfoProvider.notifier)
+          .setCurrentChoose(0, null, null);
       ref.read(tradeCurrentStageProvider.notifier).state = null;
 
       ///使用者資料&交易量
@@ -72,12 +74,7 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
       ref.read(tradeReserveVolumeProvider.notifier).init();
 
       ///取得預約場次
-      ref.read(tradeReserveDivisionProvider.notifier).init(onFinish: () {
-        ///初始化
-        ref.read(tradeCurrentDivisionIndexProvider.notifier).state = 0;
-        ref.read(tradeCurrentRangeIndexProvider.notifier).state = 0;
-        ref.read(tradeCurrentStageProvider.notifier).state = null;
-      });
+      ref.read(tradeReserveStageProvider.notifier).init();
       ref.read(tradeReserveInfoProvider.notifier).init();
     });
     super.initState();

@@ -3,15 +3,16 @@ import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/models/http/api/trade_api.dart';
 import 'package:treasure_nft_project/utils/trade_timer_util.dart';
 import 'package:treasure_nft_project/view_models/base_pref_provider.dart';
-import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_stage_provider.dart';
 
 import '../../../models/http/parameter/check_reservation_info.dart';
 import '../../../utils/app_shared_Preferences.dart';
 
+/// division index for dropdownButton use
 final tradeCurrentDivisionIndexProvider = StateProvider<int>((ref) {
   return 0;
 });
 
+/// range index for dropdownButton use
 final tradeCurrentRangeIndexProvider = StateProvider<int>((ref) {
   return 0;
 });
@@ -20,18 +21,22 @@ final tradeCurrentRangeIndexProvider = StateProvider<int>((ref) {
 final tradeReserveInfoProvider =
     StateNotifierProvider<TradeReserveInfoNotifier, CheckReservationInfo?>(
         (ref) {
-  return TradeReserveInfoNotifier(
-      currentDivision: ref.read(tradeCurrentDivisionIndexProvider),
-      currentState: ref.read(tradeCurrentStageProvider));
+  return TradeReserveInfoNotifier();
 });
 
 class TradeReserveInfoNotifier extends StateNotifier<CheckReservationInfo?>
     with BasePrefProvider {
-  TradeReserveInfoNotifier(
-      {required this.currentDivision, required this.currentState})
-      : super(null);
-  final int currentDivision;
-  final int? currentState;
+  TradeReserveInfoNotifier() : super(null);
+  int currentDivision = 0;
+  int? currentState;
+  String? reserveDate;
+
+  void setCurrentChoose(
+      int currentDivision, int? currentState, String? reserveDate) {
+    this.currentDivision = currentDivision;
+    this.currentState = currentState;
+    this.reserveDate = reserveDate;
+  }
 
   @override
   Future<void> initProvider() async {
@@ -47,7 +52,7 @@ class TradeReserveInfoNotifier extends StateNotifier<CheckReservationInfo?>
   Future<void> readAPIValue({ResponseErrorFunction? onConnectFail}) async {
     state = await TradeAPI(onConnectFail: onConnectFail)
         .getCheckReservationInfoAPI(currentDivision,
-            reserveStage: currentState);
+            reserveStage: currentState, reserveDate: reserveDate);
 
     ///MARK: 更新交易資料時間
     TradeTimerUtil().start(setInfo: state);
@@ -63,7 +68,7 @@ class TradeReserveInfoNotifier extends StateNotifier<CheckReservationInfo?>
 
   @override
   String setKey() {
-    return "tradeReserveInfo_${currentState ?? '0'}_$currentDivision";
+    return "tradeReserveInfo_$currentDivision";
   }
 
   @override
