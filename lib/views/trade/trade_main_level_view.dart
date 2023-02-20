@@ -19,6 +19,7 @@ import 'package:treasure_nft_project/utils/trade_timer_util.dart';
 import 'package:treasure_nft_project/view_models/gobal_provider/user_experience_info_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_coin_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_division_provider.dart';
+import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_stage_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_volume_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/provider/trade_time_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/trade_new_main_view_model.dart';
@@ -36,6 +37,7 @@ import '../../models/http/parameter/check_experience_info.dart';
 import '../../models/http/parameter/check_reservation_info.dart';
 import '../../models/http/parameter/check_reserve_deposit.dart';
 import '../../models/http/parameter/reserve_view_data.dart';
+import '../../models/http/parameter/trade_reserve_stage__info.dart';
 import '../../models/http/parameter/user_info_data.dart';
 import '../../view_models/gobal_provider/user_info_provider.dart';
 import '../../view_models/trade/provider/trade_reserve_info_provider.dart';
@@ -69,12 +71,24 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     return ref.read(tradeReserveVolumeProvider);
   }
 
-  CheckReservationInfo? get reserveInfo {
-    return ref.read(tradeReserveInfoProvider);
-  }
-
   CheckReserveDeposit? get reserveCoin {
     return ref.read(tradeReserveCoinProvider);
+  }
+
+  int get currentDivisionIndex {
+    return ref.read(tradeCurrentDivisionIndexProvider);
+  }
+
+  List<int> get reserveDivision {
+    return ref.read(tradeReserveDivisionProvider);
+  }
+
+  int get currentRangeIndex {
+    return ref.read(tradeCurrentDivisionIndexProvider);
+  }
+
+  CheckReservationInfo? get reserveInfo {
+    return ref.read(tradeReserveInfoProvider);
   }
 
   List<ReserveRange> get reserveDivisionRanges {
@@ -93,16 +107,12 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     return [];
   }
 
-  List<int> get reserveDivision {
-    return ref.read(tradeReserveDivisionProvider);
+  int? get currentStageIndex {
+    return ref.read(tradeCurrentStageProvider);
   }
 
-  int get currentDivisionIndex {
-    return ref.read(tradeCurrentDivisionIndexProvider);
-  }
-
-  int get currentRangeIndex {
-    return ref.read(tradeCurrentDivisionIndexProvider);
+  List<TradeReserveStageInfo> get reserveStages {
+    return ref.read(tradeReserveStageProvider);
   }
 
   @override
@@ -116,6 +126,8 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     ref.watch(tradeReserveDivisionProvider);
     ref.watch(tradeCurrentDivisionIndexProvider);
     ref.watch(tradeCurrentDivisionIndexProvider);
+    ref.watch(tradeCurrentStageProvider);
+    ref.watch(tradeReserveStageProvider);
 
     ///MARK: 建立畫面
     return Column(
@@ -128,6 +140,11 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
         _buildSystemInfo(),
       ],
     );
+  }
+
+  ///MARK: 區間選擇
+  Widget _buildStageView() {
+    return SizedBox();
   }
 
   ///MARK: 中間選擇副本區間
@@ -150,6 +167,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
           ///MARK: 交易選擇區間&價格
           Row(
             children: [
+              Image.asset(AppImagePath.tradeStageIcon),
               Expanded(child: _buildDivisionDropButton()),
               SizedBox(width: UIDefine.getPixelWidth(10)),
               Expanded(child: _buildRangeDropButton()),

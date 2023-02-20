@@ -988,7 +988,7 @@
   "bonus_trade":"Bank perdagangan",
   "bonus_referral":"Bank rujukan",
   "bonus_keep_hint":"Ganjaran akan dikekalkan {hari} hari. Jika gagal menaik taraf sebelum {date}, semua ganjaran akan diambil semula",
-  "APP_0071":"18：00-19：40 ialah masa untuk platform membuat tempahan untuk transaksi. Dalam tempoh ini, akaun dengan pesanan tempahan tidak dibenarkan untuk mengeluarkan wang tunai buat sementara waktu. Sila serahkan permintaan pengeluaran anda selepas jam 19:40!",
+  "APP_0071":"Masa pengeluaran adalah: {starttime}-{endtime}, sila memohon pengeluaran dalam tempoh ini, terima kasih.",
   "nftAssets":"Aset NFT",
   "totalAssets":"Jumlah aset",
   "reservenotDrawn":"Tempahan tempahan yang belum diambil",
@@ -1184,6 +1184,21 @@
   "Yemen":"Yaman",
   "Polygon-text-2":"Setelah salah didepositkan, NFT anda tidak akan diambil semula.",
   "IRR":"IRR",
+  "Azerbaijan":"Azerbaijan",
+  "websiteEntry":"Pintu masuk laman web",
+  "alternateEntrance":"Pintu masuk ganti",
+  "entrance-text-1":"Kemas kini URL dalam masa nyata",
+  "entrance-text-2":"Tidak boleh buka? (Kosongkan cache dahulu) atau tukar kepada rangkaian telekomunikasi untuk memuat semula dan cuba lagi!",
+  "entrance-text-3":"TreasureMeta corporation 2022",
+  "Uzbekistan":"Uzbekistan",
+  "balanceReservation":"Baki untuk Tempahan",
+  "drawDate":"Tarikh cabutan",
+  "appointmentDate":"Tarikh tempahan",
+  "EXPERIENCE_ADD":"Mengalami wang",
+  "EXPERIENCE_RECYCLE":"Mengalami pemulihan wang",
+  "footer_download":"Muat turun",
+  "selectionPeriod":"Pilih masa",
+  "APP_0087":"Sesi pelantikan telah berakhir",
 
 
   "--//app use":"---",
@@ -1209,5 +1224,5 @@
   "appPurchaseDescription":"Dengan membeli produk ini, anda boleh mendapatkan koleksi seni bernilai .",
   "appSaveWalletHint":"Platform tidak akan bertanggungjawab jika alamat yang salah diisi, menyebabkan USDT dipindahkan ke alamat yang salah",
   "appUpdateTitle":"Notis kemas kini",
-  "appUpdateContext":"Versi terkini kini tersedia, sila pergi ke kemas kini"
+  "appUpdateContext":"Versi terbaru kini tersedia, sila pergi ke kemas kini"
 }

@@ -72,7 +72,12 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
       ref.read(tradeReserveVolumeProvider.notifier).init();
 
       ///取得預約場次
-      ref.read(tradeReserveDivisionProvider.notifier).init();
+      ref.read(tradeReserveDivisionProvider.notifier).init(onFinish: () {
+        ///初始化
+        ref.read(tradeCurrentDivisionIndexProvider.notifier).state = 0;
+        ref.read(tradeCurrentRangeIndexProvider.notifier).state = 0;
+        ref.read(tradeCurrentStageProvider.notifier).state = null;
+      });
       ref.read(tradeReserveInfoProvider.notifier).init();
     });
     super.initState();
