@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/notification_data.dart';
 
@@ -25,6 +26,7 @@ typedef ViewChange = void Function(VoidCallback fn);
 
 ///MARK: response
 typedef ResponseErrorFunction = void Function(String errorMessage);
+typedef ResponseErrorResponseFunction = void Function(String errorMessage,Response? response);
 
 /// for search bar decide show keyboard
 typedef ShowKeyBoard = bool Function();

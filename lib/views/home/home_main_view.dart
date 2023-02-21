@@ -22,6 +22,13 @@ import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
 import 'package:treasure_nft_project/widgets/list_view/home/artist_record_listview.dart';
 import 'package:treasure_nft_project/widgets/text_field/login_text_widget.dart';
 import '../../constant/enum/setting_enum.dart';
+import '../../view_models/home/provider/home_artist_random_provider.dart';
+import '../../view_models/home/provider/home_carousel_provider.dart';
+import '../../view_models/home/provider/home_collect_random_provider.dart';
+import '../../view_models/home/provider/home_collect_rank_provider.dart';
+import '../../view_models/home/provider/home_contact_info_provider.dart';
+import '../../view_models/home/provider/home_discover_provider.dart';
+import '../../view_models/home/provider/home_usdt_provider.dart';
 import '../../widgets/dialog/simple_custom_dialog.dart';
 import 'widget/sponsor_row_widget.dart';
 
@@ -34,7 +41,8 @@ class HomeMainView extends ConsumerStatefulWidget {
   ConsumerState createState() => _HomeMainViewState();
 }
 
-class _HomeMainViewState extends ConsumerState<HomeMainView> with HomeMainStyle {
+class _HomeMainViewState extends ConsumerState<HomeMainView>
+    with HomeMainStyle {
   HomeMainViewModel viewModel = HomeMainViewModel();
 
   TextEditingController emailEditingController = TextEditingController();
@@ -58,7 +66,20 @@ class _HomeMainViewState extends ConsumerState<HomeMainView> with HomeMainStyle 
         }
       }
     });
-    viewModel.initState(ref);
+    ref.read(homeCarouselListProvider.notifier).init();
+    ref.read(homeArtistRandomProvider.notifier).init();
+    ref.read(homeUSDTProvider.notifier).init();
+    ref.read(homeCollectRankProvider.notifier).init();
+    ref.read(homeCollectRandomProvider.notifier).init();
+    ref.read(homeContactInfoProvider.notifier).init();
+
+    ref.read(homeDisCoverTagsProvider.notifier).init(onFinish: () {
+      if (ref.read(homeDisCoverTagsProvider).isNotEmpty) {
+        ref.read(homeDiscoverCurrentTagProvider.notifier).state =
+            ref.read(homeDisCoverTagsProvider).first;
+        ref.read(homeDiscoverListProvider.notifier).init();
+      }
+    });
     super.initState();
   }
 
@@ -110,7 +131,7 @@ class _HomeMainViewState extends ConsumerState<HomeMainView> with HomeMainStyle 
                 buildSpace(height: 3),
 
                 /// Discover NFT
-               const HomeSubDiscoverNftView(),
+                const HomeSubDiscoverNftView(),
 
                 /// 聯絡方式
                 const HomeSubContactView(),

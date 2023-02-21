@@ -27,57 +27,8 @@ class HomeMainViewModel extends BaseViewModel {
 
   bool needRecordAnimation = Platform.isIOS;
 
-  void initState(WidgetRef ref) async {
-    ///更新畫面API
-    getHomeCarousel(ref);
-    getArtistRecord(ref);
-    getUsdtInfo(ref);
-    getCollectRank(ref);
-    getRandomCollect(ref);
-    getContactInfo(ref);
-    getDiscoverTag(ref);
-  }
-
   void dispose() {
     homeSubject.clearObserver();
-  }
-
-  ///API----------
-  /// 取得輪播圖
-  Future<void> getHomeCarousel(WidgetRef ref) async {
-    ref.read(homeCarouselListProvider.notifier).init();
-  }
-
-  /// 查詢畫家列表
-  Future<void> getArtistRecord(WidgetRef ref) async {
-    ref.read(homeArtistRandomProvider.notifier).init();
-  }
-
-  Future<void> getUsdtInfo(WidgetRef ref) async {
-    ref.read(homeUSDTProvider.notifier).init();
-  }
-
-  Future<void> getCollectRank(WidgetRef ref) async {
-    ref.read(homeCollectRankProvider.notifier).init();
-  }
-
-  Future<void> getRandomCollect(WidgetRef ref) async {
-    ref.read(homeCollectRandomProvider.notifier).init();
-  }
-
-  Future<void> getContactInfo(WidgetRef ref) async {
-    ref.read(homeContactInfoProvider.notifier).init();
-  }
-
-  Future<void> getDiscoverTag(WidgetRef ref) async {
-    ref.read(homeDisCoverTagsProvider.notifier).init(onFinish: () {
-      if (ref.read(homeDisCoverTagsProvider).isNotEmpty) {
-        ref.read(homeDiscoverCurrentTagProvider.notifier).state =
-            ref.read(homeDisCoverTagsProvider).first;
-
-        ref.read(homeDiscoverListProvider.notifier).init();
-      }
-    });
   }
 
   int animateIndex = -1;
@@ -100,7 +51,7 @@ class HomeMainViewModel extends BaseViewModel {
       animateIndex += 1;
       homeSubject.notifyObservers(NotificationData(
           key: '${SubjectKey.keyHomeAnimationStart}_$animateIndex'));
-      if (animateIndex < ref.watch(homeCollectRankProvider).length) {
+      if (animateIndex < ref.read(homeCollectRankProvider).length) {
         _loopAnimate(ref);
       }
     });

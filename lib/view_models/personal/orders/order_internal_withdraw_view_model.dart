@@ -180,7 +180,19 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
 
   void sendConfirm(BuildContext context) {
     ///MARK: 打提交API 餘額提現
-    WithdrawApi(onConnectFail: (message) => onBaseConnectFail(context, message))
+    WithdrawApi(
+            showTrString: false,
+            onConnectFailResponse: (message, response) {
+              if (message == "APP_0071") {
+                onBaseConnectFail(
+                    context,
+                    format(tr('APP_0071'), {
+                      "startTime": response?.data["startTime"],
+                      "endTime": response?.data["endTime"]
+                    }));
+              }
+              onBaseConnectFail(context, tr(message));
+            })
         .submitBalanceWithdraw(
             chain: '',
             address: '',

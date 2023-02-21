@@ -38,7 +38,9 @@ class GraduallyNetworkImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _buildLoadNormal();
+    // return _buildLoadNormal();
+    ///MARK: 暫時不讀壓圖
+    return _buildLoadLowPath(loadNormal: false);
   }
 
   Widget _buildLoadingIcon() {
@@ -49,7 +51,7 @@ class GraduallyNetworkImage extends StatelessWidget {
     return Center(child: errorWidget ?? const Icon(Icons.cancel_rounded));
   }
 
-  Widget _buildLoadLowPath() {
+  Widget _buildLoadLowPath({bool loadNormal = true}) {
     String lowUrl;
     if (imageUrl.contains('.')) {
       int index = imageUrl.lastIndexOf('.');
@@ -71,7 +73,8 @@ class GraduallyNetworkImage extends StatelessWidget {
       imageBuilder: _buildImageBuilder(),
       placeholder: (context, url) =>
           Container(width: width, height: width, color: Colors.white),
-      errorWidget: (context, url, error) => _buildLoadNormal(fail: true),
+      errorWidget: (context, url, error) =>
+          loadNormal ? _buildLoadNormal(fail: true) : _buildErrorIcon(),
     );
   }
 

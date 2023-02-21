@@ -102,7 +102,7 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
   void onPressSendCode(BuildContext context, UserInfoData userInfo) async {
     await AuthAPI(
             onConnectFail: (message) => onBaseConnectFail(context, message))
-        .sendAuthActionMail(action: LoginAction.withdraw,userInfo: userInfo);
+        .sendAuthActionMail(action: LoginAction.withdraw, userInfo: userInfo);
   }
 
   /// MARK: 檢查驗證碼是否正確
@@ -128,6 +128,7 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
 
   void onPressSave(BuildContext context, WithdrawAlertInfo alertInfo) {
     clearAllFocus();
+
     ///MARK: 檢查是否有欄位未填
     if (!checkEmptyController()) {
       setState(() {
@@ -210,7 +211,19 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
 
   void _submitRequestApi(BuildContext context) {
     ///MARK: 打提交API
-    WithdrawApi(onConnectFail: (message) => onBaseConnectFail(context, message))
+    WithdrawApi(
+            showTrString: false,
+            onConnectFailResponse: (message, response) {
+              if (message == "APP_0071") {
+                onBaseConnectFail(
+                    context,
+                    format(tr('APP_0071'), {
+                      "startTime": response?.data["startTime"],
+                      "endTime": response?.data["endTime"]
+                    }));
+              }
+              onBaseConnectFail(context, tr(message));
+            })
         .submitBalanceWithdraw(
             chain: currentChain.name,
             address: addressController.text,

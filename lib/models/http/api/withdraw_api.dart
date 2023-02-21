@@ -6,7 +6,11 @@ import '../http_setting.dart';
 import '../parameter/api_response.dart';
 
 class WithdrawApi extends HttpManager {
-  WithdrawApi({super.onConnectFail, super.baseUrl = HttpSetting.appUrl});
+  WithdrawApi(
+      {super.onConnectFail,
+      super.onConnectFailResponse,
+      super.baseUrl = HttpSetting.appUrl,
+      super.showTrString});
 
   /// 取得餘額提現資訊
   Future<WithdrawBalanceResponseData> getWithdrawBalance(String? chain) async {
