@@ -212,7 +212,6 @@ class BaseViewModel with ControlRouterViewModel {
   ///MARK: 登出後-清除暫存資料
   Future<void> clearTemporaryData() async {
     GlobalData.totalIncome = 0.0;
-    GlobalData.userWalletInfo = null;
     AppSharedPreferences.setProfitRecord([]);
     AppSharedPreferences.setWalletRecord([]);
 

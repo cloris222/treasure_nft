@@ -51,7 +51,6 @@ class GlobalData {
 
   ///MARK: 暫存區
   static double? totalIncome; // 查詢收益明細 “裡面的總收入”
-  static Map<String, dynamic>? userWalletInfo;
 
   ///MARK: Notifier監聽
   static BottomNavigationNotifier bottomNavigationNotifier =

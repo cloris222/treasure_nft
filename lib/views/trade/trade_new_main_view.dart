@@ -73,6 +73,9 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
 
       ///使用者資料&交易量
       ref.read(userLevelInfoProvider.notifier).init();
+      ref
+          .read(tradeReserveVolumeProvider.notifier)
+          .setDivisionIndex(ref.read(userInfoProvider).level > 0 ? 1 : 0);
       ref.read(tradeReserveVolumeProvider.notifier).init();
 
       ///取得預約場次

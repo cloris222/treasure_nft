@@ -23,7 +23,6 @@ class WalletAPI extends HttpManager {
     if (!result.containsKey(CoinEnum.BSC.name)) {
       result[CoinEnum.BSC.name] = '';
     }
-    GlobalData.userWalletInfo = result;
     return result;
   }
 

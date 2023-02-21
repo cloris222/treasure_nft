@@ -36,7 +36,7 @@ class TradeAPI extends HttpManager {
     return CheckReservationInfo.fromJson(response.data);
   }
 
-  ///MARK: 交易線圖)查看交易量等資訊
+  ///MARK: 交易線圖 查看交易量等資訊
   Future<ReserveViewData> getReserveView(int index) async {
     var response =
         await get('/reserve/view', queryParameters: {"index": index});

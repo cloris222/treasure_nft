@@ -22,9 +22,11 @@ import '../../../login/login_email_code_view.dart';
 import '../../../login/login_param_view.dart';
 
 class InternalWithdrawView extends ConsumerStatefulWidget {
-  const InternalWithdrawView({super.key, required this.getWalletAlert});
+  const InternalWithdrawView(
+      {super.key, required this.getWalletAlert, required this.experienceMoney});
 
   final WithdrawAlertInfo Function() getWalletAlert;
+  final num experienceMoney;
 
   @override
   ConsumerState createState() => _InternalWithdrawViewState();
@@ -143,8 +145,13 @@ class _InternalWithdrawViewState extends ConsumerState<InternalWithdrawView> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _buildTextContent(tr('canWithdrawFee'),
+          _buildTextContent(
+              tr('canWithdrawFee'),
               viewModel.numberFormat(viewModel.data.balance)),
+              // viewModel.numberFormat(viewModel.data.balance.isNotEmpty
+              //     ? (num.parse(viewModel.data.balance) - widget.experienceMoney)
+              //         .toString()
+              //     : '')),
           SizedBox(height: UIDefine.getScreenWidth(2.77)),
           _buildTextContent(tr('minAmount'),
               '${viewModel.numberFormat(viewModel.data.minAmount)} USDT'),

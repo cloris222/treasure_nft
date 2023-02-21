@@ -14,7 +14,7 @@ class WalletInfoItem extends StatelessWidget {
       this.fillWidth = true})
       : super(key: key);
   final String title;
-  final double? value;
+  final num? value;
   final GestureTapCallback? onPress;
   final bool fillWidth;
 

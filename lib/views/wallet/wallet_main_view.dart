@@ -6,7 +6,10 @@ import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/user_property.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/view_models/gobal_provider/user_property_info_provider.dart';
+import 'package:treasure_nft_project/view_models/wallet/wallet_balance_recharge_provider.dart';
+import 'package:treasure_nft_project/view_models/wallet/wallet_main_record_provider.dart';
 import 'package:treasure_nft_project/views/wallet/data/app_purchase.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
@@ -24,6 +27,7 @@ import '../personal/orders/order_info_page.dart';
 import '../personal/orders/order_recharge_page.dart';
 import '../personal/orders/order_withdraw_page.dart';
 import 'balance_record_item_view.dart';
+import 'data/BalanceRecordResponseData.dart';
 import 'wallet_setting_page.dart';
 
 class WalletMainView extends ConsumerStatefulWidget {
@@ -35,19 +39,32 @@ class WalletMainView extends ConsumerStatefulWidget {
 }
 
 class _WalletMainViewState extends ConsumerState<WalletMainView> {
-  late WalletMainViewModel viewModel;
+  BaseViewModel viewModel = BaseViewModel();
+
+  Map<String, dynamic>? get userWalletInfo {
+    return ref.read(walletBalanceRechargeProvider);
+  }
+
+  List<BalanceRecordResponseData> get records {
+    return ref.read(walletMainRecordProvider);
+  }
 
   @override
   void initState() {
     super.initState();
-    viewModel = WalletMainViewModel(setState: setState);
-    viewModel.initState();
+
     ref.read(userPropertyInfoProvider.notifier).update();
+    ref.read(walletMainRecordProvider.notifier).init();
+    ref.read(walletBalanceRechargeProvider.notifier).init();
   }
 
   @override
   Widget build(BuildContext context) {
+    ///MARK:監聽用
     UserProperty? userProperty = ref.watch(userPropertyInfoProvider);
+    ref.watch(walletMainRecordProvider);
+    ref.watch(walletBalanceRechargeProvider);
+
     return Container(
       color: AppColors.defaultBackgroundSpace,
       child: SingleChildScrollView(
@@ -127,8 +144,8 @@ class _WalletMainViewState extends ConsumerState<WalletMainView> {
                             fontSize: UIDefine.fontSize14)),
                     SizedBox(height: UIDefine.getPixelWidth(20)),
                     Text(
-                        NumberFormatUtil().removeTwoPointFormat(
-                            userProperty?.balance ?? 0),
+                        NumberFormatUtil()
+                            .removeTwoPointFormat(userProperty?.balance ?? 0),
                         style: AppTextStyle.getBaseStyle(
                             fontSize: UIDefine.fontSize40,
                             fontWeight: FontWeight.w600)),
@@ -146,7 +163,10 @@ class _WalletMainViewState extends ConsumerState<WalletMainView> {
                         Flexible(
                             child: WalletInfoItem(
                                 title: tr('notExtracted'),
-                                value: userProperty?.balance)),
+                                value: userProperty != null
+                                    ? (userProperty.balance -
+                                        userProperty.experienceMoney)
+                                    : null)),
                       ],
                     ),
                   ],
@@ -190,9 +210,7 @@ class _WalletMainViewState extends ConsumerState<WalletMainView> {
             children: [
               Flexible(
                   child: Text(
-                      GlobalData.userWalletInfo != null
-                          ? GlobalData.userWalletInfo!['TRON']
-                          : '',
+                      userWalletInfo != null ? userWalletInfo!['TRON'] : '',
                       maxLines: 2,
                       style: AppTextStyle.getBaseStyle(
                           fontSize: UIDefine.fontSize12,
@@ -201,8 +219,7 @@ class _WalletMainViewState extends ConsumerState<WalletMainView> {
               const SizedBox(width: 10),
               GestureDetector(
                   onTap: () {
-                    viewModel.copyText(
-                        copyText: GlobalData.userWalletInfo?['TRON']);
+                    viewModel.copyText(copyText: userWalletInfo?['TRON']);
                     viewModel.showToast(context, tr('copiedSuccess'));
                   },
                   child: Image.asset(AppImagePath.copyIcon))
@@ -284,9 +301,7 @@ class _WalletMainViewState extends ConsumerState<WalletMainView> {
             style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500)),
         Flexible(child: Container()),
-        Text(
-            NumberFormatUtil()
-                .removeTwoPointFormat(userProperty?.balance),
+        Text(NumberFormatUtil().removeTwoPointFormat(userProperty?.balance),
             style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500))
       ])
@@ -325,7 +340,7 @@ class _WalletMainViewState extends ConsumerState<WalletMainView> {
             )
           ]),
           Visibility(
-            visible: viewModel.balanceRecordResponseDataList.isNotEmpty,
+            visible: records.isNotEmpty,
             child: Container(
                 margin:
                     EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(10)),
@@ -342,22 +357,20 @@ class _WalletMainViewState extends ConsumerState<WalletMainView> {
   Widget _buildRecordListView() {
     // 顯示最近的15筆紀錄, 訂單信息功能才顯示完整所有紀錄
     return Visibility(
-      visible: viewModel.balanceRecordResponseDataList.isNotEmpty,
+      visible: records.isNotEmpty,
       child: ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: viewModel.balanceRecordResponseDataList.length,
+          itemCount: records.length,
           itemBuilder: (context, index) {
-            return BalanceRecordItemView(
-                data: viewModel.balanceRecordResponseDataList[index]);
+            return BalanceRecordItemView(data: records[index]);
           }),
     );
   }
 
   Widget _bottomMargin() {
     return Visibility(
-        visible: viewModel.balanceRecordResponseDataList.isEmpty,
-        child: const SizedBox(width: 1));
+        visible: records.isEmpty, child: const SizedBox(width: 1));
   }
 
   void _showRechargePage() {

@@ -107,7 +107,7 @@ class TradeTimerUtil {
 
   String getResultTime() {
     if (_reservationInfo != null) {
-      return '${_reservationInfo?.systemStartTime.substring(0, 5)} - ${_reservationInfo?.systemEndTime.substring(0, 5)}';
+      return '${_reservationInfo?.startTime.substring(0, 5)} - ${_reservationInfo?.endTime.substring(0, 5)}';
     }
     return '';
   }

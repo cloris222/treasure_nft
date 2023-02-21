@@ -10,14 +10,17 @@ import 'trade_reserve_info_provider.dart';
 ///MARK: 交易量相關
 final tradeReserveVolumeProvider =
     StateNotifierProvider<TradeReserveVolumeNotifier, ReserveViewData?>((ref) {
-  return TradeReserveVolumeNotifier(
-      divisionIndex: ref.read(tradeCurrentDivisionIndexProvider));
+  return TradeReserveVolumeNotifier();
 });
 
 class TradeReserveVolumeNotifier extends StateNotifier<ReserveViewData?>
     with BasePrefProvider {
-  TradeReserveVolumeNotifier({required this.divisionIndex}) : super(null);
-  final int divisionIndex;
+  TradeReserveVolumeNotifier() : super(null);
+  int divisionIndex = 0;
+
+  void setDivisionIndex(int index) {
+    divisionIndex = index;
+  }
 
   @override
   Future<void> initProvider() async {}
@@ -42,7 +45,7 @@ class TradeReserveVolumeNotifier extends StateNotifier<ReserveViewData?>
 
   @override
   String setKey() {
-    return "tradeReserveVolume_$divisionIndex}";
+    return "tradeReserveVolume_$divisionIndex";
   }
 
   @override

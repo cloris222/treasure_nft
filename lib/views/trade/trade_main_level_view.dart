@@ -743,6 +743,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
   }
 
   void _onChangeTimeStage(int index) {
+    GlobalData.printLog('mainTrade_onChangeTimeStage:stageIndex=$index');
     ref.read(tradeCurrentStageProvider.notifier).state = index;
 
     ref.read(tradeReserveDivisionProvider.notifier).init(onFinish: () {
@@ -753,6 +754,9 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
   }
 
   void _onDivisionChange({required int divisionIndex, int rangeIndex = 0}) {
+    GlobalData.printLog(
+        'mainTrade_onDivisionChange:divisionIndex=$divisionIndex,rangeIndex=$rangeIndex');
+
     ///MARK: 初始化drop button
     ref.read(tradeCurrentRangeIndexProvider.notifier).state = rangeIndex;
     ref.read(tradeCurrentDivisionIndexProvider.notifier).state = divisionIndex;
@@ -778,7 +782,11 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
   }
 
   void _onRangeChange({required int rangeIndex}) {
+    GlobalData.printLog('mainTrade_onRangeChange:rangeIndex=$rangeIndex');
     ref.read(tradeCurrentRangeIndexProvider.notifier).state = rangeIndex;
+    ref
+        .read(tradeReserveVolumeProvider.notifier)
+        .setDivisionIndex(reserveDivisionRanges[rangeIndex].index);
     ref.read(tradeReserveVolumeProvider.notifier).init();
     ref.read(tradeReserveCoinProvider.notifier).setSelectValue(
         reserveDivisionRanges[rangeIndex].index,

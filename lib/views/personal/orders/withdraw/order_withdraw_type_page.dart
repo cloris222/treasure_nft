@@ -3,32 +3,25 @@ import '../../../../models/http/parameter/withdraw_alert_info.dart';
 import 'chain_withdraw_view.dart';
 import 'internal_withdraw_view.dart';
 
-class OrderWithdrawTypePage extends StatefulWidget {
+class OrderWithdrawTypePage extends StatelessWidget {
   const OrderWithdrawTypePage(
-      {super.key, required this.currentType, required this.getWalletAlert});
+      {super.key,
+      required this.currentType,
+      required this.getWalletAlert,
+      required this.experienceMoney});
 
   final String currentType;
   final WithdrawAlertInfo Function() getWalletAlert;
-
-  @override
-  State<StatefulWidget> createState() => _OrderWithdrawTypePage();
-}
-
-class _OrderWithdrawTypePage extends State<OrderWithdrawTypePage> {
-  String get currentType {
-    return widget.currentType;
-  }
+  final num experienceMoney;
 
   @override
   Widget build(BuildContext context) {
-    return _initView();
-  }
-
-  Widget _initView() {
     if (currentType == 'Chain') {
-      return ChainWithdrawView(getWalletAlert: widget.getWalletAlert);
+      return ChainWithdrawView(
+          getWalletAlert: getWalletAlert, experienceMoney: experienceMoney);
     } else {
-      return InternalWithdrawView(getWalletAlert: widget.getWalletAlert);
+      return InternalWithdrawView(
+          getWalletAlert: getWalletAlert, experienceMoney: experienceMoney);
     }
   }
 }
