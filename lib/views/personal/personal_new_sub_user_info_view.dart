@@ -70,7 +70,9 @@ class PersonalNewSubUserInfoView extends ConsumerWidget {
                     padding: const EdgeInsets.all(3),
                     child: userInfo.photoUrl.isNotEmpty
                         ? CircleNetworkIcon(
-                            networkUrl: userInfo.photoUrl, radius: 35)
+                            showNormal: true,
+                            networkUrl: userInfo.photoUrl,
+                            radius: 35)
                         : Image.asset(
                             AppImagePath.avatarImg,
                             width: UIDefine.getScreenWidth(18.66),

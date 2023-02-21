@@ -17,7 +17,8 @@ class GraduallyNetworkImage extends StatelessWidget {
       this.child,
       this.childAlignment,
       this.childPadding,
-      this.imageWidgetBuilder})
+      this.imageWidgetBuilder,
+      this.showNormal})
       : super(key: key);
   final String imageUrl;
   final double? width;
@@ -26,6 +27,7 @@ class GraduallyNetworkImage extends StatelessWidget {
   final Widget? errorWidget;
   final Widget? loadWidget;
   final int? cacheWidth;
+  final bool? showNormal;
 
   /// Optional builder to further customize the display of the image.
   /// 供Container背景用
@@ -40,7 +42,7 @@ class GraduallyNetworkImage extends StatelessWidget {
   Widget build(BuildContext context) {
     // return _buildLoadNormal();
     ///MARK: 暫時不讀壓圖
-    return _buildLoadLowPath(loadNormal: false);
+    return _buildLoadLowPath(loadNormal: showNormal ?? false);
   }
 
   Widget _buildLoadingIcon() {

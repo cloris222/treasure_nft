@@ -40,7 +40,8 @@ class EditAvatarDialog extends BaseDialog {
   String selectedDefaultAvatar = '';
 
   @override
-  Widget initContent(BuildContext context, StateSetter setState,WidgetRef ref) {
+  Widget initContent(
+      BuildContext context, StateSetter setState, WidgetRef ref) {
     return Stack(
       children: [
         ///MARK: 選擇從圖庫or上傳的視窗
@@ -79,8 +80,8 @@ class EditAvatarDialog extends BaseDialog {
                   )),
                   SizedBox(height: UIDefine.getScreenHeight(2)),
                   isAvatar
-                      ? _buildUserPhoto(setState,ref)
-                      : _buildUserBanner(setState,ref),
+                      ? _buildUserPhoto(setState, ref)
+                      : _buildUserBanner(setState, ref),
                   SizedBox(height: UIDefine.getScreenHeight(1)),
                   LoginBolderButtonWidget(
                     btnText: tr('gallery'),
@@ -110,7 +111,7 @@ class EditAvatarDialog extends BaseDialog {
                   LoginButtonWidget(
                     isFillWidth: true,
                     btnText: tr('check'),
-                    onPressed: () => _onUploadImage(context,ref),
+                    onPressed: () => _onUploadImage(context, ref),
                     // margin: EdgeInsets.symmetric(horizontal: UIDefine.getWidth() / 20),
                   ),
                 ],
@@ -248,7 +249,9 @@ class EditAvatarDialog extends BaseDialog {
     ///MARK: 原本圖片
     else {
       return CircleNetworkIcon(
-          networkUrl:ref.watch(userInfoProvider).photoUrl, radius: size / 2);
+          showNormal: true,
+          networkUrl: ref.watch(userInfoProvider).photoUrl,
+          radius: size / 2);
     }
   }
 
