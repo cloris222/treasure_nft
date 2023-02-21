@@ -54,6 +54,6 @@ class TradeReserveVolumeNotifier extends StateNotifier<ReserveViewData?>
 
   @override
   bool setUserTemporaryValue() {
-    return false;
+    return true;
   }
 }

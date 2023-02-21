@@ -47,6 +47,6 @@ class TradeReserveDivisionNotifier extends StateNotifier<List<int>>
 
   @override
   bool setUserTemporaryValue() {
-    return false;
+    return true;
   }
 }

@@ -101,13 +101,37 @@ class AppSharedPreferences {
     GlobalData.printLog('pref_getLogIn:${await getLogIn()}');
   }
 
-  ///清除使用者先關的暫存資料
+  ///清除使用者相關的暫存資料
   static Future<void> clearUserTmpValue() async {
     SharedPreferences pref = await _getPreferences();
     pref.getKeys().forEach((key) {
       ///MARK: 如果包含_tmp 代表需要被刪除
       if (key.contains("_tmp")) {
         pref.remove(key);
+      }
+    });
+  }
+
+  ///清除過期的場次紀錄
+  static Future<void> clearExpiredReserveInfo(List<String> todayState) async {
+    SharedPreferences pref = await _getPreferences();
+    pref.getKeys().forEach((key) {
+      ///MARK: 如果是此標籤開頭 才需判斷
+      if (key.contains("tradeReserveInfo_user")) {
+        bool needRemove = true;
+
+        ///MARK: 如果是今日查詢場次的紀錄 則可以留存
+        for (var element in todayState) {
+          if (key.contains(element)) {
+            needRemove = false;
+            break;
+          }
+        }
+
+        ///MARK: 非日查詢場次的紀錄 則直接刪除
+        if (needRemove) {
+          pref.remove(key);
+        }
       }
     });
   }

@@ -752,6 +752,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
 
   void _onDivisionChange({required int divisionIndex, int rangeIndex = 0}) {
     ///MARK: 初始化drop button
+    ref.read(tradeCurrentRangeIndexProvider.notifier).state = rangeIndex;
     ref.read(tradeCurrentDivisionIndexProvider.notifier).state = divisionIndex;
 
     ///MARK: 設定對應值給查詢區間內的資料

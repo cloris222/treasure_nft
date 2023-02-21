@@ -1,10 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/view_models/base_pref_provider.dart';
 
 import '../../../models/http/api/trade_api.dart';
 import '../../../models/http/parameter/trade_reserve_stage__info.dart';
 import '../../../utils/app_shared_Preferences.dart';
+import '../../../utils/date_format_util.dart';
 
 ///MARK: 目前交易場次
 final tradeCurrentStageProvider = StateProvider<int?>((ref) {
@@ -31,9 +33,12 @@ class TradeReserveStageNotifier
 
   @override
   Future<void> readAPIValue({ResponseErrorFunction? onConnectFail}) async {
-    state = [
-      ...await TradeAPI(onConnectFail: onConnectFail).getTradeCanReserveStage()
-    ];
+    List<TradeReserveStageInfo> list =
+        await TradeAPI(onConnectFail: onConnectFail).getTradeCanReserveStage();
+    if (list.isNotEmpty) {
+      state = [...list];
+      _clearExpiredReserveInfo(state);
+    }
   }
 
   @override
@@ -60,6 +65,21 @@ class TradeReserveStageNotifier
 
   @override
   bool setUserTemporaryValue() {
-    return false;
+    return true;
+  }
+
+  ///MARK: 此處必須和 trade_reserve_info_provider.dart的setKey一致
+  Future<void> _clearExpiredReserveInfo(
+      List<TradeReserveStageInfo> state) async {
+    List<String> todayState = List<String>.generate(state.length, (index) {
+      return format('tradeReserveInfo_user_{reserveDate}_{currentState}', {
+        "reserveDate":
+            DateFormatUtil().getTimeWithDayFormat(time: state[index].startTime),
+        "currentState": state[index].stage,
+      });
+    });
+    if (todayState.isNotEmpty) {
+      await AppSharedPreferences.clearExpiredReserveInfo(todayState);
+    }
   }
 }

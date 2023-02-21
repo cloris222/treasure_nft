@@ -129,16 +129,20 @@ class BaseViewModel with ControlRouterViewModel {
     bool connectFail = false;
     onFail(message) => connectFail = true;
 
-    if (ref.watch(userInfoProvider).level == 0 ||
-        ref.watch(userExperienceInfoProvider).isExperience) {
+    if (ref.read(userInfoProvider).level == 0 ||
+        ref.read(userExperienceInfoProvider).isExperience) {
       GlobalData.signInInfo = null;
       return !connectFail;
     }
-    SignInData signInInfo =
-        await UserInfoAPI(onConnectFail: onFail).getSignInInfo();
-    if (!signInInfo.isFinished) {
-      GlobalData.signInInfo = signInInfo;
-    } else {
+    try {
+      SignInData signInInfo =
+          await UserInfoAPI(onConnectFail: onFail).getSignInInfo();
+      if (!signInInfo.isFinished) {
+        GlobalData.signInInfo = signInInfo;
+      } else {
+        GlobalData.signInInfo = null;
+      }
+    } catch (e) {
       GlobalData.signInInfo = null;
     }
     return !connectFail;

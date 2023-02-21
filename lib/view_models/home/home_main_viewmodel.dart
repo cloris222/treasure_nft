@@ -71,9 +71,9 @@ class HomeMainViewModel extends BaseViewModel {
 
   Future<void> getDiscoverTag(WidgetRef ref) async {
     ref.read(homeDisCoverTagsProvider.notifier).init(onFinish: () {
-      if (ref.watch(homeDisCoverTagsProvider).isNotEmpty) {
+      if (ref.read(homeDisCoverTagsProvider).isNotEmpty) {
         ref.read(homeDiscoverCurrentTagProvider.notifier).state =
-            ref.watch(homeDisCoverTagsProvider).first;
+            ref.read(homeDisCoverTagsProvider).first;
 
         ref.read(homeDiscoverListProvider.notifier).init();
       }
