@@ -59,6 +59,7 @@ class OrderDetailViewModel extends BaseListViewModel {
                     ? UIDefine.getPixelHeight(130)
                     : 10),
             child: ItemInfoCard(
+              drewAt: null,
               itemName: data.itemName,
               dateTime: changeTimeZone(data.time),
               imageUrl: data.imgUrl,

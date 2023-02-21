@@ -6,6 +6,7 @@ import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/view_models/gobal_provider/user_level_info_provider.dart';
+import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_division_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_info_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_stage_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_volume_provider.dart';
@@ -17,9 +18,11 @@ import 'package:treasure_nft_project/widgets/dialog/trade_rule_dialot.dart';
 import 'package:treasure_nft_project/widgets/label/icon/level_icon_widget.dart';
 
 import '../../models/data/trade_model_data.dart';
+import '../../models/http/parameter/check_reservation_info.dart';
 import '../../models/http/parameter/user_info_data.dart';
 import '../../utils/trade_timer_util.dart';
 import '../../view_models/gobal_provider/user_info_provider.dart';
+import '../../view_models/trade/provider/trade_reserve_coin_provider.dart';
 import '../../view_models/trade/provider/trade_time_provider.dart';
 
 class TradeNewMainView extends ConsumerStatefulWidget {
@@ -64,9 +67,8 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
     Future.delayed(const Duration(milliseconds: 300)).then((value) {
       ref.read(tradeCurrentDivisionIndexProvider.notifier).state = 0;
       ref.read(tradeCurrentRangeIndexProvider.notifier).state = 0;
-      ref
-          .read(tradeReserveInfoProvider.notifier)
-          .setCurrentChoose(0, null, null);
+      ref.read(tradeReserveInfoProvider.notifier).setCurrentChoose(
+          ref.read(userInfoProvider).level > 0 ? 1 : 0, null, null);
       ref.read(tradeCurrentStageProvider.notifier).state = null;
 
       ///使用者資料&交易量
@@ -75,7 +77,18 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
 
       ///取得預約場次
       ref.read(tradeReserveStageProvider.notifier).init();
-      ref.read(tradeReserveInfoProvider.notifier).init();
+      ref.read(tradeReserveInfoProvider.notifier).init(onFinish: () {
+        if (ref.read(tradeReserveInfoProvider) != null) {
+          if (ref.read(tradeReserveInfoProvider)!.reserveRanges.isNotEmpty) {
+            ReserveRange range =
+                ref.read(tradeReserveInfoProvider)!.reserveRanges[0];
+            ref
+                .read(tradeReserveCoinProvider.notifier)
+                .setSelectValue(range.index, range.startPrice, range.endPrice);
+            ref.read(tradeReserveCoinProvider.notifier).init();
+          }
+        }
+      });
     });
     super.initState();
   }

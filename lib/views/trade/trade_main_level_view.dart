@@ -178,16 +178,30 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     );
   }
 
-  bool checkReserve(DateTime startTime, DateTime endTime) {
-    DateTime now = DateTime.now();
-    return now.isBefore(startTime);
+  bool checkReserve(DateTime startTime) {
+    ///MARK: 判斷場次時間是否已過
+    if (DateTime.now().isBefore(startTime)) {
+      if (reserveInfo != null) {
+        String localTime = reserveInfo!.localTime;
+        String reserveStartTime = reserveInfo!.reserveStartTime;
+        String reserveEndTime = reserveInfo!.reserveEndTime;
+        // GlobalData.printLog('localTime:$localTime');
+        // GlobalData.printLog('reserveStartTime:$reserveStartTime');
+        // GlobalData.printLog('reserveEndTime:$reserveEndTime');
+
+        ///MARK: 跨日計算
+        return !(localTime.compareTo(reserveEndTime) > 0 &&
+            localTime.compareTo(reserveStartTime) <= 0);
+      }
+    }
+    return false;
   }
 
   Widget _buildStageItem(int index) {
     TradeReserveStageInfo info = reserveStages[index];
 
     ///MARK: isAvailable 都顯示 false
-    bool canReserve = checkReserve(info.startTime, info.endTime);
+    bool canReserve = info.isAvailable ? checkReserve(info.startTime) : false;
     return Container(
       width: UIDefine.getWidth(),
       decoration: AppStyle().styleColorBorderBackground(
@@ -211,7 +225,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
           Expanded(
             child: Text(
               '${tr('balanceReservation')} : '
-              '\n${NumberFormatUtil().removeTwoPointFormat(reserveInfo?.reserveBalance ?? 0)}',
+              '\n${NumberFormatUtil().removeTwoPointFormat(info.reserveBalance)}',
               textAlign: TextAlign.start,
               style: AppTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize12,
@@ -700,40 +714,28 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
   }
 
   void _onPressReservation(
-      UserInfoData userInfo, ExperienceInfo experienceInfo) {
-    viewModel.pushOpacityPage(
-        context,
-        NewReservationPopUpView(
-          confirmBtnAction: () async {
-            Navigator.pop(context);
+      UserInfoData userInfo, ExperienceInfo experienceInfo) async {
+    /// add new reservation
+    await viewModel.addNewReservation(
+        reserveIndex: reserveDivisionRanges[currentDivisionRangeIndex].index,
+        reserveStartPrice:
+            reserveDivisionRanges[currentDivisionRangeIndex].startPrice,
+        reserveEndPrice:
+            reserveDivisionRanges[currentDivisionRangeIndex].endPrice);
 
-            /// add new reservation
-            await viewModel.addNewReservation(
-                reserveIndex:
-                    reserveDivisionRanges[currentDivisionRangeIndex].index,
-                reserveStartPrice:
-                    reserveDivisionRanges[currentDivisionRangeIndex].startPrice,
-                reserveEndPrice:
-                    reserveDivisionRanges[currentDivisionRangeIndex].endPrice);
+    /// if reservation success 預約狀態 = true
+    reserveDivisionRanges[currentDivisionRangeIndex].used = true;
+    ref
+        .read(tradeReserveInfoProvider)
+        ?.reserveRanges[currentDivisionRangeIndex]
+        .used = true;
+    await ref
+        .read(tradeReserveInfoProvider.notifier)
+        .setSharedPreferencesValue();
 
-            /// if reservation success 預約狀態 = true
-            reserveDivisionRanges[currentDivisionRangeIndex].used = true;
-            ref
-                .read(tradeReserveInfoProvider)
-                ?.reserveRanges[currentDivisionRangeIndex]
-                .used = true;
-            await ref
-                .read(tradeReserveInfoProvider.notifier)
-                .setSharedPreferencesValue();
-
-            _onDivisionChange(
-                rangeIndex: currentDivisionRangeIndex,
-                divisionIndex: currentDivisionIndex);
-          },
-          reservationFee: '${reserveCoin?.deposit}',
-          transactionTime: '${reserveCoin?.tradingTime}',
-          transactionReward: '${reserveCoin?.reward}',
-        ));
+    _onDivisionChange(
+        rangeIndex: currentDivisionRangeIndex,
+        divisionIndex: currentDivisionIndex);
   }
 
   void _onChooseTime() {

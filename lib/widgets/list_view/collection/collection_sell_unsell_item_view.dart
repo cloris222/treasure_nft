@@ -87,7 +87,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
               // SizedBox(height: UIDefine.getScreenWidth(4)),
               //
               // /// 交易週期(only for 交易中)
-              // _getTradeTimeView(), // test 換版後交易週期改放哪裡？
+              _getTradeTimeView(), // test 換版後交易週期改放哪裡？
 
               /// 商品圖
               ClipRRect(
@@ -115,7 +115,8 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text( // 商品名
+                              Text(
+                                // 商品名
                                 _getItemName(data.name),
                                 overflow: TextOverflow.ellipsis,
                                 style: AppTextStyle.getBaseStyle(
@@ -130,7 +131,8 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                                       width: UIDefine.getScreenWidth(4.2),
                                       height: UIDefine.getScreenWidth(4.2)),
                                   const SizedBox(width: 4),
-                                  Text( // test 商品數量 始終都1? API沒給數量
+                                  Text(
+                                    // test 商品數量 始終都1? API沒給數量
                                     '1',
                                     style: AppTextStyle.getBaseStyle(
                                         color: AppColors.textGrey,
@@ -141,9 +143,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                               )
                             ],
                           ),
-
                           SizedBox(height: UIDefine.getScreenWidth(2.5)),
-
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -154,7 +154,8 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                                       width: UIDefine.getScreenWidth(3.7),
                                       height: UIDefine.getScreenWidth(3.7)),
                                   const SizedBox(width: 4),
-                                  Text( // 商品價格
+                                  Text(
+                                    // 商品價格
                                     BaseViewModel().numberFormat(data.price),
                                     style: AppTextStyle.getBaseStyle(
                                         color: AppColors.textGrey,
@@ -168,8 +169,10 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                                   Image.asset(
                                       'assets/icon/icon/icon_trend_up_01.png'),
                                   const SizedBox(width: 4),
-                                  Text( // 商品漲幅價格
-                                    BaseViewModel().numberFormat(data.growAmount),
+                                  Text(
+                                    // 商品漲幅價格
+                                    BaseViewModel()
+                                        .numberFormat(data.growAmount),
                                     style: AppTextStyle.getBaseStyle(
                                         color: AppColors.growPrice,
                                         fontSize: UIDefine.fontSize12,
@@ -180,8 +183,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                             ],
                           )
                         ],
-                      )
-                  )
+                      ))
                 ],
               ),
               SizedBox(height: UIDefine.getScreenWidth(2.2)),
@@ -206,18 +208,18 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(tr('nextTradeDate') + ':  ' + data.nextTradeDate,
+          Text('${tr('nextTradeDate')}:${data.nextTradeDate}',
               style: AppTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500)),
           SizedBox(height: UIDefine.getScreenWidth(2.4)),
-          Text(tr('tradingCycle') + ':  ' + 'T+ ' + data.tradePeriod.toString(),
+          Text('${tr('tradingCycle')}:${data.tradePeriod}${tr('day')}',
               style: AppTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500)),
           SizedBox(height: UIDefine.getScreenWidth(4))
         ],
       );
     }
-    return SizedBox();
+    return const SizedBox();
   }
 
   Widget _getTimerView() {
@@ -311,7 +313,8 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                       height: UIDefine.getScreenWidth(11),
                       padding: const EdgeInsets.all(2),
                       decoration: BoxDecoration(
-                        gradient: const LinearGradient(colors: AppColors.gradientBaseColorBg),
+                        gradient: const LinearGradient(
+                            colors: AppColors.gradientBaseColorBg),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Container(
@@ -329,8 +332,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                               size: UIDefine.fontSize16,
                               starColor: AppColors.gradientBaseColorBg[0],
                               endColor: AppColors.gradientBaseColorBg[2],
-                            )
-                        ),
+                            )),
                       ),
                     ),
                   ),
@@ -341,7 +343,8 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
               child: Container(
                 height: UIDefine.getScreenWidth(11),
                 decoration: BoxDecoration(
-                    gradient: const LinearGradient(colors: AppColors.gradientBaseColorBg),
+                    gradient: const LinearGradient(
+                        colors: AppColors.gradientBaseColorBg),
                     borderRadius: BorderRadius.circular(10)),
                 child: TextButton(
                     onPressed: () {

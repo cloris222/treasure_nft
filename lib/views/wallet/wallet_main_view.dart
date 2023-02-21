@@ -170,19 +170,19 @@ class _WalletMainViewState extends ConsumerState<WalletMainView> {
           Row(
             children: [
               Text(
-                'Polygon',
+                '${tr('rechargeUaddr')} (TRC-20)',
                 style: AppTextStyle.getBaseStyle(
                     fontSize: UIDefine.fontSize12,
                     fontWeight: FontWeight.w600,
                     color: AppColors.textThreeBlack),
               ),
-              SizedBox(width: UIDefine.getPixelWidth(10)),
-              Text(
-                tr('depositAddress'),
-                style: AppTextStyle.getBaseStyle(
-                    fontSize: UIDefine.fontSize12,
-                    color: AppColors.textSixBlack),
-              ),
+              // SizedBox(width: UIDefine.getPixelWidth(10)),
+              // Text(
+              //   tr('depositAddress'),
+              //   style: AppTextStyle.getBaseStyle(
+              //       fontSize: UIDefine.fontSize12,
+              //       color: AppColors.textSixBlack),
+              // ),
             ],
           ),
           const SizedBox(height: 5),

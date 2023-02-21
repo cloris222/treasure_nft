@@ -6,15 +6,22 @@ import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart'
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 import '../../constant/ui_define.dart';
+import '../../utils/date_format_util.dart';
+import '../gradient_third_text.dart';
 import 'data/card_showing_data.dart';
 
 /// 有圖片的商品信息_單一預約 (外部先將部分Data存成 List<CardShowingData>)
 class ItemInfoCard extends StatelessWidget {
-  const ItemInfoCard({super.key,
-  this.bShowPriceAtEnd = false, this.status = '',
-  required this.itemName, required this.dateTime,
-  required this.imageUrl, required this.price, required this.dataList
-  });
+  const ItemInfoCard(
+      {super.key,
+      this.bShowPriceAtEnd = false,
+      this.status = '',
+      required this.itemName,
+      required this.dateTime,
+      required this.imageUrl,
+      required this.price,
+      required this.dataList,
+      required this.drewAt});
 
   final bool bShowPriceAtEnd;
   final String status;
@@ -23,6 +30,7 @@ class ItemInfoCard extends StatelessWidget {
   final String imageUrl;
   final String price;
   final List<CardShowingData> dataList;
+  final DateTime? drewAt;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +45,17 @@ class ItemInfoCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          ///開獎日期
+          ...(drewAt != null)
+              ? [
+                  GradientThirdText(
+                    '${tr('drawDate')}:${DateFormatUtil().getFullWithDateFormat(drewAt!)}',
+                    size: UIDefine.fontSize12,
+                    weight: FontWeight.w500,
+                  )
+                ]
+              : [],
+
           /// 上半部
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -48,32 +67,41 @@ class ItemInfoCard extends StatelessWidget {
                   /// 標題
                   Text(
                     itemName,
-                    style: AppTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
+                    style: AppTextStyle.getBaseStyle(
+                        color: AppColors.textBlack,
+                        fontSize: UIDefine.fontSize20,
+                        fontWeight: FontWeight.w500),
                   ),
                   SizedBox(height: 5),
+
                   /// 副標題
                   Text(
                     dateTime,
-                    style: AppTextStyle.getBaseStyle(color: AppColors.searchBar, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+                    style: AppTextStyle.getBaseStyle(
+                        color: AppColors.searchBar,
+                        fontSize: UIDefine.fontSize12,
+                        fontWeight: FontWeight.w500),
                   ),
                   SizedBox(height: 10)
                 ],
               ),
+
               /// 中籤
               Visibility(
-                visible: status != '' ,
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: _getLuckyStrawBorderColor(), width: 2),
-                    color: _getLuckyStrawColor()
-                  ),
-                  padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
-                  child: Text(
-                    _getLuckyStrawString(),
-                    style: AppTextStyle.getBaseStyle(color: _getLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
-                  )
-                )
-              )
+                  visible: status != '',
+                  child: Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: _getLuckyStrawBorderColor(), width: 2),
+                          color: _getLuckyStrawColor()),
+                      padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
+                      child: Text(
+                        _getLuckyStrawString(),
+                        style: AppTextStyle.getBaseStyle(
+                            color: _getLuckyStrawStringColor(),
+                            fontSize: UIDefine.fontSize12,
+                            fontWeight: FontWeight.w500),
+                      )))
             ],
           ),
 
@@ -87,32 +115,35 @@ class ItemInfoCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   /// 商品圖
-                  imageUrl!=''?
-                  GraduallyNetworkImage(
-                    imageUrl: imageUrl,
-                    width: UIDefine.getScreenWidth(22),
-                    height: UIDefine.getScreenWidth(22),
-                    fit: BoxFit.cover,
-                  )
-                      :
-                  const SizedBox(),
+                  imageUrl != ''
+                      ? GraduallyNetworkImage(
+                          imageUrl: imageUrl,
+                          width: UIDefine.getScreenWidth(22),
+                          height: UIDefine.getScreenWidth(22),
+                          fit: BoxFit.cover,
+                        )
+                      : const SizedBox(),
 
                   SizedBox(height: UIDefine.getScreenWidth(2.5)),
 
                   /// 商品價格
                   Visibility(
-                    visible: bShowPriceAtEnd,
-                    child: Row(
-                      children: [
-                        Image.asset('assets/icon/coins/icon_tether_01.png', width: UIDefine.getScreenWidth(3.7), height: UIDefine.getScreenWidth(3.7)),
-                        const SizedBox(width: 6),
-                        Text(
-                          BaseViewModel().numberFormat(price),
-                          style: AppTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
-                        )
-                      ],
-                    )
-                  )
+                      visible: bShowPriceAtEnd,
+                      child: Row(
+                        children: [
+                          Image.asset('assets/icon/coins/icon_tether_01.png',
+                              width: UIDefine.getScreenWidth(3.7),
+                              height: UIDefine.getScreenWidth(3.7)),
+                          const SizedBox(width: 6),
+                          Text(
+                            BaseViewModel().numberFormat(price),
+                            style: AppTextStyle.getBaseStyle(
+                                color: AppColors.textBlack,
+                                fontSize: UIDefine.fontSize14,
+                                fontWeight: FontWeight.w500),
+                          )
+                        ],
+                      ))
                 ],
               ),
 
@@ -131,7 +162,7 @@ class ItemInfoCard extends StatelessWidget {
   }
 
   Color _getLuckyStrawBorderColor() {
-    switch(status) {
+    switch (status) {
       case 'SUCCESS':
         return AppColors.growPrice;
       case 'PENDING':
@@ -143,7 +174,7 @@ class ItemInfoCard extends StatelessWidget {
   }
 
   Color _getLuckyStrawColor() {
-    switch(status) {
+    switch (status) {
       case 'SUCCESS':
         return AppColors.growPrice;
       case 'PENDING':
@@ -155,7 +186,7 @@ class ItemInfoCard extends StatelessWidget {
   }
 
   String _getLuckyStrawString() {
-    switch(status) {
+    switch (status) {
       case 'SUCCESS':
         return tr("notification-SUCCESS'");
       case 'PENDING':
@@ -167,7 +198,7 @@ class ItemInfoCard extends StatelessWidget {
   }
 
   Color _getLuckyStrawStringColor() {
-    switch(status) {
+    switch (status) {
       case 'SUCCESS':
         return AppColors.textWhite;
       case 'PENDING':
@@ -181,33 +212,37 @@ class ItemInfoCard extends StatelessWidget {
   List<Widget> _getTitleContent() {
     List<Widget> titleContent = [];
     for (int i = 0; i < dataList.length; i++) {
-      titleContent.add(
-        Padding(
+      titleContent.add(Padding(
           padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 tr(dataList[i].title), // 在外部要塞多語系的key
-                style: AppTextStyle.getBaseStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                style: AppTextStyle.getBaseStyle(
+                    color: AppColors.dialogGrey,
+                    fontSize: UIDefine.fontSize14,
+                    fontWeight: FontWeight.w500),
               ),
               Row(
                 children: [
                   Visibility(
                       visible: _checkTitleShowCoins(dataList[i]),
-                      child: Image.asset('assets/icon/coins/icon_tether_01.png', width: UIDefine.getScreenWidth(3.7), height: UIDefine.getScreenWidth(3.7))
-                  ),
+                      child: Image.asset('assets/icon/coins/icon_tether_01.png',
+                          width: UIDefine.getScreenWidth(3.7),
+                          height: UIDefine.getScreenWidth(3.7))),
                   const SizedBox(width: 8),
                   Text(
                     tr(dataList[i].content),
-                    style: AppTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                    style: AppTextStyle.getBaseStyle(
+                        color: AppColors.textBlack,
+                        fontSize: UIDefine.fontSize14,
+                        fontWeight: FontWeight.w500),
                   )
                 ],
               )
             ],
-          )
-        )
-      );
+          )));
     }
     return titleContent;
   }
@@ -218,5 +253,4 @@ class ItemInfoCard extends StatelessWidget {
     }
     return false;
   }
-
 }

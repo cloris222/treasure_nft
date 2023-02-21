@@ -29,7 +29,9 @@ class TradeReserveStageNotifier
   }
 
   @override
-  Future<void> initValue() async {}
+  Future<void> initValue() async {
+    state = [];
+  }
 
   @override
   Future<void> readAPIValue({ResponseErrorFunction? onConnectFail}) async {
