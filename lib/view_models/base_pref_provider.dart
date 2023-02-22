@@ -56,7 +56,10 @@ abstract class BasePrefProvider {
       onFinish();
     }
     printLog("update");
-    update(onFinish: onFinish, onUpdateFinish: onUpdateFinish);
+    update(
+        onFinish: onFinish,
+        onUpdateFinish: onUpdateFinish,
+        onConnectFail: onConnectFail);
   }
 
   Future<void> update(

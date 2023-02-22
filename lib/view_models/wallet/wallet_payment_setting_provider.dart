@@ -1,40 +1,42 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
+import 'package:treasure_nft_project/constant/enum/coin_enum.dart';
 import 'package:treasure_nft_project/models/http/api/wallet_api.dart';
 import 'package:treasure_nft_project/view_models/base_pref_provider.dart';
 
+import '../../models/http/parameter/payment_info.dart';
 import '../../utils/app_shared_Preferences.dart';
 
 final walletPaymentSettingProvider =
-    StateNotifierProvider<WalletPaymentSettingNotifier, Map<String, dynamic>>(
+    StateNotifierProvider<WalletPaymentSettingNotifier, List<PaymentInfo>>(
         (ref) {
   return WalletPaymentSettingNotifier();
 });
 
-class WalletPaymentSettingNotifier extends StateNotifier<Map<String, dynamic>>
+class WalletPaymentSettingNotifier extends StateNotifier<List<PaymentInfo>>
     with BasePrefProvider {
-  WalletPaymentSettingNotifier() : super({});
+  WalletPaymentSettingNotifier() : super([]);
 
   @override
   Future<void> initProvider() async {
-    state = {};
   }
 
   @override
   Future<void> initValue() async {
-    state = {};
   }
 
   @override
   Future<void> readAPIValue({ResponseErrorFunction? onConnectFail}) async {
-    state = await WalletAPI(onConnectFail: onConnectFail).getPaymentInfo();
+    state = [...await WalletAPI(onConnectFail: onConnectFail).getPaymentInfo()];
   }
 
   @override
   Future<void> readSharedPreferencesValue() async {
     var json = await AppSharedPreferences.getJson(getSharedPreferencesKey());
     if (json != null) {
-      state = json;
+      state = [
+        ...List<PaymentInfo>.from(json.map((x) => PaymentInfo.fromJson(x)))
+      ];
     }
   }
 
@@ -45,7 +47,8 @@ class WalletPaymentSettingNotifier extends StateNotifier<Map<String, dynamic>>
 
   @override
   Future<void> setSharedPreferencesValue() async {
-    AppSharedPreferences.setJson(getSharedPreferencesKey(), state);
+    AppSharedPreferences.setJson(getSharedPreferencesKey(),
+        List<dynamic>.from(state.map((x) => x.toJson())));
   }
 
   @override
@@ -58,10 +61,17 @@ class WalletPaymentSettingNotifier extends StateNotifier<Map<String, dynamic>>
       {required String accountTRON,
       required String accountBSC,
       required String accountROLLOUT}) {
-    state["TRON"] = accountTRON;
-    state["BSC"] = accountBSC;
-    state["ROLLOUT"] = accountROLLOUT;
-
+    for (int i = 0; i < state.length; i++) {
+      if (state[i].payType == CoinEnum.TRON.name) {
+        state[i].account = accountTRON;
+      }
+      if (state[i].payType == CoinEnum.BSC.name) {
+        state[i].account = accountBSC;
+      }
+      if (state[i].payType == CoinEnum.ROLLOUT.name) {
+        state[i].account = accountROLLOUT;
+      }
+    }
     setSharedPreferencesValue();
   }
 }

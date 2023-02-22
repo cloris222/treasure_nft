@@ -5,6 +5,7 @@ import 'package:treasure_nft_project/utils/app_shared_Preferences.dart';
 import '../../../constant/enum/coin_enum.dart';
 import '../../../views/wallet/data/BalanceRecordResponseData.dart';
 import '../parameter/api_response.dart';
+import '../parameter/payment_info.dart';
 import '../parameter/withdraw_alert_info.dart';
 
 class WalletAPI extends HttpManager {
@@ -15,7 +16,7 @@ class WalletAPI extends HttpManager {
     Map<String, String> result = {};
     var response = await get('/user/balance-recharge');
     for (Map<String, dynamic> json in response.data) {
-      result[json['chain']] = json['address'];
+      result[json['chain']] = json['address'].toString();
     }
     if (!result.containsKey(CoinEnum.TRON.name)) {
       result[CoinEnum.TRON.name] = '';
@@ -43,11 +44,11 @@ class WalletAPI extends HttpManager {
   }
 
   ///MARK: 取得支付資訊
-  Future<Map<String, dynamic>> getPaymentInfo() async {
-    Map<String, String> result = {};
+  Future<List<PaymentInfo>> getPaymentInfo() async {
+    List<PaymentInfo> result = <PaymentInfo>[];
     var response = await get('/payment/info');
     for (Map<String, dynamic> json in response.data) {
-      result[json['payType']] = json['account'];
+      result.add(PaymentInfo.fromJson(json));
     }
     return result;
   }

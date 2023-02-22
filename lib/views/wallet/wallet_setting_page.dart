@@ -14,6 +14,7 @@ import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_theme.dart';
 import '../../models/http/parameter/user_info_data.dart';
 import '../../view_models/wallet/wallet_setting_viewmodel.dart';
+import '../../view_models/wallet/wallet_setting_viewmodel_old.dart';
 import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/label/icon/base_icon_widget.dart';
 import '../login/login_email_code_view.dart';
@@ -29,26 +30,20 @@ class WalletSettingPage extends ConsumerStatefulWidget {
 }
 
 class _WalletSettingPageState extends ConsumerState<WalletSettingPage> {
-  late WalletSettingViewModel viewModel;
+  late WalletSettingViewModelOld viewModel;
 
   EdgeInsetsGeometry mainPadding = EdgeInsets.symmetric(
       horizontal: UIDefine.getPixelWidth(20),
       vertical: UIDefine.getPixelWidth(10));
 
-  Map<String, dynamic>? get payInfo {
-    return ref.read(walletPaymentSettingProvider);
-  }
-
   @override
   void initState() {
-    viewModel = WalletSettingViewModel(onViewChange: () {
-      if (mounted) {
-        setState(() {});
-      }
-    });
-    ref.read(walletPaymentSettingProvider.notifier).init(onFinish: () {
-      viewModel.setTextController(payInfo);
-    });
+    viewModel = WalletSettingViewModelOld(setState: setState);
+    viewModel.initState();
+    // ref.read(walletPaymentSettingProvider.notifier).init(onUpdateFinish: () {
+    //   viewModel.setTextController(ref.read( walletPaymentSettingProvider));
+    //   setState(() {});
+    // });
 
     super.initState();
   }
@@ -107,13 +102,7 @@ class _WalletSettingPageState extends ConsumerState<WalletSettingPage> {
                 LoginButtonWidget(
                   isFillWidth: false,
                   btnText: tr('save'),
-                  onPressed: () => viewModel.onSavePayment(context,
-                      saveSetting: (accountTRON, accountBSC, accountROLLOUT) {
-                    ref.read(walletPaymentSettingProvider.notifier).updateValue(
-                        accountTRON: accountTRON,
-                        accountBSC: accountBSC,
-                        accountROLLOUT: accountROLLOUT);
-                  }),
+                  onPressed: () => viewModel.onSavePayment(context),
                 ),
               ],
             ),
@@ -127,7 +116,7 @@ class _WalletSettingPageState extends ConsumerState<WalletSettingPage> {
     );
   }
 
-  Widget _buildSettingParam(CoinEnum coin, TextEditingController controller) {
+  Widget _buildSettingParam(CoinEnum coin, TextEditingController? controller) {
     return Container(
         margin: EdgeInsets.symmetric(
             horizontal: UIDefine.getScreenWidth(2.7),
