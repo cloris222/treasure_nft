@@ -144,8 +144,11 @@ class _WalletMainViewState extends ConsumerState<WalletMainView> {
                             fontSize: UIDefine.fontSize14)),
                     SizedBox(height: UIDefine.getPixelWidth(20)),
                     Text(
-                        NumberFormatUtil()
-                            .removeTwoPointFormat(userProperty?.balance ?? 0),
+                        NumberFormatUtil().removeTwoPointFormat(
+                            userProperty != null
+                                ? (userProperty.balance -
+                                    userProperty.experienceMoney)
+                                : 0),
                         style: AppTextStyle.getBaseStyle(
                             fontSize: UIDefine.fontSize40,
                             fontWeight: FontWeight.w600)),

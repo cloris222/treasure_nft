@@ -398,7 +398,6 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
         value: reserveDivisionRanges.isEmpty ? null : currentDivisionRangeIndex,
         onChanged: (value) {
           if (value != null) {
-            print('_onRangeChange:$value');
             _onRangeChange(rangeIndex: value);
           }
         },
