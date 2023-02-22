@@ -16,10 +16,14 @@ class USerExperienceInfoNotifier extends StateNotifier<ExperienceInfo>
   USerExperienceInfoNotifier() : super(ExperienceInfo());
 
   @override
-  Future<void> initProvider() async {}
+  Future<void> initProvider() async {
+    state = ExperienceInfo();
+  }
 
   @override
-  Future<void> initValue() async {}
+  Future<void> initValue() async {
+    state = ExperienceInfo();
+  }
 
   @override
   Future<void> readAPIValue({ResponseErrorFunction? onConnectFail}) async {

@@ -18,7 +18,9 @@ class UserInfoNotifier extends StateNotifier<UserInfoData>
   UserInfoNotifier() : super(UserInfoData());
 
   @override
-  Future<void> initProvider() async {}
+  Future<void> initProvider() async {
+    state = UserInfoData();
+  }
 
   @override
   Future<void> initValue() async {

@@ -17,7 +17,8 @@ class HomeCollectRankNotifier extends StateNotifier<List<CollectTopInfo>>
   HomeCollectRankNotifier() : super([]);
 
   @override
-  Future<void> initProvider() async {}
+  Future<void> initProvider() async {
+  }
 
   @override
   Future<void> initValue() async {

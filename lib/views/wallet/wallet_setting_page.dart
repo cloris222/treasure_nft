@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/enum/coin_enum.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/gobal_provider/user_info_provider.dart';
+import 'package:treasure_nft_project/view_models/wallet/wallet_payment_setting_provider.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
@@ -28,17 +29,28 @@ class WalletSettingPage extends ConsumerStatefulWidget {
 }
 
 class _WalletSettingPageState extends ConsumerState<WalletSettingPage> {
-
   late WalletSettingViewModel viewModel;
+
   EdgeInsetsGeometry mainPadding = EdgeInsets.symmetric(
       horizontal: UIDefine.getPixelWidth(20),
       vertical: UIDefine.getPixelWidth(10));
 
+  Map<String, dynamic>? get payInfo {
+    return ref.read(walletPaymentSettingProvider);
+  }
+
   @override
   void initState() {
+    viewModel = WalletSettingViewModel(onViewChange: () {
+      if (mounted) {
+        setState(() {});
+      }
+    });
+    ref.read(walletPaymentSettingProvider.notifier).init(onFinish: () {
+      viewModel.setTextController(payInfo);
+    });
+
     super.initState();
-    viewModel = WalletSettingViewModel(setState: setState);
-    viewModel.initState();
   }
 
   @override
@@ -49,7 +61,7 @@ class _WalletSettingPageState extends ConsumerState<WalletSettingPage> {
 
   @override
   Widget build(BuildContext context) {
-    UserInfoData userInfo=ref.watch(userInfoProvider);
+    UserInfoData userInfo = ref.watch(userInfoProvider);
     return CustomAppbarView(
       needScrollView: false,
       type: AppNavigationBarType.typeWallet,
@@ -93,10 +105,16 @@ class _WalletSettingPageState extends ConsumerState<WalletSettingPage> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 LoginButtonWidget(
-                    isFillWidth: false,
-                    btnText: tr('save'),
-                    onPressed: () => viewModel.onCheckPayment(context),
-                    enable: viewModel.checkEmail),
+                  isFillWidth: false,
+                  btnText: tr('save'),
+                  onPressed: () => viewModel.onSavePayment(context,
+                      saveSetting: (accountTRON, accountBSC, accountROLLOUT) {
+                    ref.read(walletPaymentSettingProvider.notifier).updateValue(
+                        accountTRON: accountTRON,
+                        accountBSC: accountBSC,
+                        accountROLLOUT: accountROLLOUT);
+                  }),
+                ),
               ],
             ),
           ),
@@ -188,8 +206,10 @@ class _WalletSettingPageState extends ConsumerState<WalletSettingPage> {
               hintText: tr("placeholder-emailCode'"),
               controller: viewModel.codeController,
               data: viewModel.codeData,
-              onPressSendCode: () => viewModel.sendEmailCode(context,userInfo),
-              onPressCheckVerify: () => viewModel.checkEmailCode(context,userInfo)),
+              needVerifyButton: false,
+              onPressSendCode: () => viewModel.sendEmailCode(context, userInfo),
+              onPressCheckVerify: () =>
+                  viewModel.checkEmailCode(context, userInfo)),
         ],
       ),
     );

@@ -23,7 +23,9 @@ class HomeDisCoverTagNotifier
   Future<void> initProvider() async {}
 
   @override
-  Future<void> initValue() async {}
+  Future<void> initValue() async {
+    state=[];
+  }
 
   @override
   Future<void> readAPIValue({ResponseErrorFunction? onConnectFail}) async {

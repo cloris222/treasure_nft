@@ -23,7 +23,9 @@ class TradeReserveVolumeNotifier extends StateNotifier<ReserveViewData?>
   }
 
   @override
-  Future<void> initProvider() async {}
+  Future<void> initProvider() async {
+    state = null;
+  }
 
   @override
   Future<void> initValue() async {

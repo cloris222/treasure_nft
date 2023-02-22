@@ -16,10 +16,14 @@ class UserTradeStatusNotifier extends StateNotifier<bool>
   UserTradeStatusNotifier() : super(false);
 
   @override
-  Future<void> initProvider() async {}
+  Future<void> initProvider() async {
+    state=false;
+  }
 
   @override
-  Future<void> initValue() async {}
+  Future<void> initValue() async {
+    state=false;
+  }
 
   @override
   Future<void> readAPIValue({ResponseErrorFunction? onConnectFail}) async {

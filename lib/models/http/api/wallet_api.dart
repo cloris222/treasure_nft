@@ -55,13 +55,15 @@ class WalletAPI extends HttpManager {
   Future<ApiResponse> setPaymentInfo(
       {required String accountTRON,
       required String accountBSC,
-      required String accountROLLOUT}) async {
+      required String accountROLLOUT,
+      required String emailVerifyCode}) async {
     return put('/payment/update', data: {
       "paymentList": [
         {"payType": "TRON", "account": accountTRON},
         {"payType": "BSC", "account": accountBSC},
         {"payType": "ROLLOUT", "account": accountROLLOUT}
-      ]
+      ],
+      "emailVerifyCode": emailVerifyCode
     });
   }
 

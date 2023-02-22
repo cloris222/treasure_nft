@@ -14,9 +14,9 @@ import '../../models/data/validate_result_data.dart';
 import '../../widgets/dialog/simple_custom_dialog.dart';
 
 class WalletSettingViewModel extends BaseViewModel {
-  WalletSettingViewModel({required this.setState});
+  WalletSettingViewModel({required this.onViewChange});
 
-  final ViewChange setState;
+  final onClickFunction onViewChange;
 
   TextEditingController trcController = TextEditingController();
   TextEditingController bscController = TextEditingController();
@@ -24,15 +24,12 @@ class WalletSettingViewModel extends BaseViewModel {
   TextEditingController codeController = TextEditingController();
   ValidateResultData codeData = ValidateResultData();
 
-  Map<String, dynamic>? payInfo;
   bool checkEmail = false;
 
-  Future<void> initState() async {
-    payInfo = await WalletAPI().getPaymentInfo();
-    trcController.text = getCoinText(CoinEnum.TRON);
-    bscController.text = getCoinText(CoinEnum.BSC);
-    rolloutController.text = getCoinText(CoinEnum.ROLLOUT);
-    setState(() {});
+  Future<void> setTextController(Map<String, dynamic>? payInfo) async {
+    trcController.text = getCoinText(payInfo, CoinEnum.TRON);
+    bscController.text = getCoinText(payInfo, CoinEnum.BSC);
+    rolloutController.text = getCoinText(payInfo, CoinEnum.ROLLOUT);
   }
 
   void dispose() {
@@ -75,7 +72,7 @@ class WalletSettingViewModel extends BaseViewModel {
     }
   }
 
-  String getCoinText(CoinEnum coin) {
+  String getCoinText(Map<String, dynamic>? payInfo, CoinEnum coin) {
     return payInfo?[coin.name] ?? '';
   }
 
@@ -88,9 +85,8 @@ class WalletSettingViewModel extends BaseViewModel {
 
   void checkEmailCode(BuildContext context, UserInfoData userInfo) {
     if (codeController.text.isEmpty) {
-      setState(() {
-        codeData = ValidateResultData(result: false);
-      });
+      codeData = ValidateResultData(result: false);
+      onViewChange();
       return;
     }
     AuthAPI(
@@ -102,12 +98,13 @@ class WalletSettingViewModel extends BaseViewModel {
             authCode: codeController.text)
         .then((value) {
       SimpleCustomDialog(context, isSuccess: true).show();
-      setState(() {
-        checkEmail = true;
-      });
+
+      checkEmail = true;
+      onViewChange();
     });
   }
 
+  ///工單716 移除先檢查驗證碼
   void onCheckPayment(BuildContext context) {
     if (checkEmail) {
       CheckWalletSettingDialog(context,
@@ -121,23 +118,29 @@ class WalletSettingViewModel extends BaseViewModel {
     }
   }
 
-  void onSavePayment(BuildContext context) {
+  void onSavePayment(BuildContext context,
+      {Function(String accountTRON, String accountBSC, String accountROLLOUT)?
+          saveSetting}) {
     WalletAPI(
             onConnectFail: (errorMessage) =>
                 onBaseConnectFail(context, errorMessage))
         .setPaymentInfo(
             accountTRON: trcController.text,
             accountBSC: bscController.text,
-            accountROLLOUT: rolloutController.text)
+            accountROLLOUT: rolloutController.text,
+            emailVerifyCode: codeController.text)
         .then((value) {
       popPage(context);
+      if (saveSetting != null) {
+        saveSetting(
+            trcController.text, bscController.text, rolloutController.text);
+      }
       SimpleCustomDialog(context, isSuccess: true).show();
     });
   }
 
   void onClearData() {
-    setState(() {
-      codeData = ValidateResultData();
-    });
+    codeData = ValidateResultData();
+    onViewChange();
   }
 }

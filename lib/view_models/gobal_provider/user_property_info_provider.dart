@@ -16,7 +16,9 @@ class UserPropertyInfoNotifier extends StateNotifier<UserProperty?>
   UserPropertyInfoNotifier() : super(null);
 
   @override
-  Future<void> initProvider() async {}
+  Future<void> initProvider() async {
+    state = null;
+  }
 
   @override
   Future<void> initValue() async {

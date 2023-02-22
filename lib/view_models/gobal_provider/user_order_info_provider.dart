@@ -14,7 +14,9 @@ class USerOrderInfoNotifier extends StateNotifier<UserOrderInfo?> with BasePrefP
   USerOrderInfoNotifier() : super(null);
 
   @override
-  Future<void> initProvider() async {}
+  Future<void> initProvider() async {
+    state = null;
+  }
 
   @override
   Future<void> initValue() async {

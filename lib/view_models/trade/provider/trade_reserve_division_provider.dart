@@ -16,10 +16,14 @@ class TradeReserveDivisionNotifier extends StateNotifier<List<int>>
   TradeReserveDivisionNotifier() : super([]);
 
   @override
-  Future<void> initProvider() async {}
+  Future<void> initProvider() async {
+    state = [];
+  }
 
   @override
-  Future<void> initValue() async {}
+  Future<void> initValue() async {
+    state = [];
+  }
 
   @override
   Future<void> readAPIValue({ResponseErrorFunction? onConnectFail}) async {

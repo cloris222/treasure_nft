@@ -16,7 +16,8 @@ class HomeCarouselListNotifier extends StateNotifier<List<HomeCarousel>>
   HomeCarouselListNotifier() : super([]);
 
   @override
-  Future<void> initProvider() async {}
+  Future<void> initProvider() async {
+  }
 
   @override
   Future<void> initValue() async {
