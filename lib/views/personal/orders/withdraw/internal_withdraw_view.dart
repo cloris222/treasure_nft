@@ -14,13 +14,16 @@ import '../../../../utils/qrcode_scanner_util.dart';
 import '../../../../view_models/gobal_provider/user_experience_info_provider.dart';
 import '../../../../view_models/gobal_provider/user_info_provider.dart';
 import '../../../../view_models/personal/orders/order_internal_withdraw_view_model.dart';
+import '../../../../view_models/personal/orders/order_withdraw_balance_provider.dart';
 import '../../../../widgets/button/login_button_widget.dart';
 import '../../../../widgets/dialog/common_custom_dialog.dart';
 import '../../../../widgets/label/error_text_widget.dart';
 import '../../../../widgets/text_field/login_text_widget.dart';
 import '../../../login/login_email_code_view.dart';
 import '../../../login/login_param_view.dart';
+import 'data/withdraw_balance_response_data.dart';
 
+///MARK:提領 內部轉帳
 class InternalWithdrawView extends ConsumerStatefulWidget {
   const InternalWithdrawView(
       {super.key, required this.getWalletAlert, required this.experienceMoney});
@@ -35,11 +38,19 @@ class InternalWithdrawView extends ConsumerStatefulWidget {
 class _InternalWithdrawViewState extends ConsumerState<InternalWithdrawView> {
   late OrderInternalWithdrawViewModel viewModel;
 
+  WithdrawBalanceResponseData get withdrawInfo {
+    return ref.read(orderWithdrawBalanceProvider(null));
+  }
+
   @override
   initState() {
     super.initState();
-    viewModel = OrderInternalWithdrawViewModel(setState: setState);
-    viewModel.initState();
+    viewModel = OrderInternalWithdrawViewModel(onViewChange: () {
+      if (mounted) {
+        setState(() {});
+      }
+    });
+    ref.read(orderWithdrawBalanceProvider(null).notifier).init();
   }
 
   @override
@@ -47,6 +58,8 @@ class _InternalWithdrawViewState extends ConsumerState<InternalWithdrawView> {
     viewModel.checkExperience =
         ref.watch(userExperienceInfoProvider).isExperience;
     UserInfoData userInfo = ref.watch(userInfoProvider);
+    ref.watch(orderWithdrawBalanceProvider(null));
+
     return SingleChildScrollView(
         child: Column(
       children: [
@@ -128,7 +141,7 @@ class _InternalWithdrawViewState extends ConsumerState<InternalWithdrawView> {
             isGradient: true,
             btnText: tr('submit'),
             onPressed: () {
-              viewModel.onPressSave(context, widget.getWalletAlert());
+              viewModel.onPressSave(context, widget.getWalletAlert(),withdrawInfo);
             },
             // enable: viewModel.checkEnable(),
           ),
@@ -145,16 +158,15 @@ class _InternalWithdrawViewState extends ConsumerState<InternalWithdrawView> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _buildTextContent(
-              tr('canWithdrawFee'),
-              viewModel.numberFormat(viewModel.data.balance)),
-              // viewModel.numberFormat(viewModel.data.balance.isNotEmpty
-              //     ? (num.parse(viewModel.data.balance) - widget.experienceMoney)
-              //         .toString()
-              //     : '')),
+          _buildTextContent(tr('canWithdrawFee'),
+              viewModel.numberFormat(withdrawInfo.balance)),
+          // viewModel.numberFormat(viewModel.data.balance.isNotEmpty
+          //     ? (num.parse(viewModel.data.balance) - widget.experienceMoney)
+          //         .toString()
+          //     : '')),
           SizedBox(height: UIDefine.getScreenWidth(2.77)),
           _buildTextContent(tr('minAmount'),
-              '${viewModel.numberFormat(viewModel.data.minAmount)} USDT'),
+              '${viewModel.numberFormat(withdrawInfo.minAmount)} USDT'),
           SizedBox(height: UIDefine.getScreenWidth(2.27)),
         ],
       ),
@@ -257,7 +269,7 @@ class _InternalWithdrawViewState extends ConsumerState<InternalWithdrawView> {
                       SizedBox(width: UIDefine.getScreenWidth(2.77)),
                       GestureDetector(
                         onTap: () => viewModel.amountController.text =
-                            viewModel.numberFormat(viewModel.data.balance),
+                            viewModel.numberFormat(withdrawInfo.balance),
                         child: GradientThirdText(
                             '${tr('all')} ${tr('walletWithdraw')}',
                             size: UIDefine.fontSize14),

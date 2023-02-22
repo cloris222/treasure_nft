@@ -128,7 +128,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     ref.watch(tradeReserveCoinProvider);
     ref.watch(tradeReserveDivisionProvider);
     ref.watch(tradeCurrentDivisionIndexProvider);
-    ref.watch(tradeCurrentDivisionIndexProvider);
+    ref.watch(tradeCurrentRangeIndexProvider);
     ref.watch(tradeCurrentStageProvider);
     ref.watch(tradeReserveStageProvider);
 
@@ -398,6 +398,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
         value: reserveDivisionRanges.isEmpty ? null : currentDivisionRangeIndex,
         onChanged: (value) {
           if (value != null) {
+            print('_onRangeChange:$value');
             _onRangeChange(rangeIndex: value);
           }
         },

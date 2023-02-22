@@ -9,7 +9,7 @@ import '../../../utils/app_shared_Preferences.dart';
 import '../../../utils/date_format_util.dart';
 
 ///MARK: 目前交易場次
-final tradeCurrentStageProvider = StateProvider<int?>((ref) {
+final tradeCurrentStageProvider = StateProvider.autoDispose<int?>((ref) {
   return null;
 });
 

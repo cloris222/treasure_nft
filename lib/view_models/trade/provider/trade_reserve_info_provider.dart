@@ -9,12 +9,12 @@ import '../../../models/http/parameter/check_reservation_info.dart';
 import '../../../utils/app_shared_Preferences.dart';
 
 /// division index for dropdownButton use
-final tradeCurrentDivisionIndexProvider = StateProvider<int>((ref) {
+final tradeCurrentDivisionIndexProvider = StateProvider.autoDispose<int>((ref) {
   return 0;
 });
 
 /// range index for dropdownButton use
-final tradeCurrentRangeIndexProvider = StateProvider<int>((ref) {
+final tradeCurrentRangeIndexProvider = StateProvider.autoDispose<int>((ref) {
   return 0;
 });
 

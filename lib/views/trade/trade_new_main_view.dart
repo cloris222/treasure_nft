@@ -63,36 +63,28 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
     ///MARK: 初始化
     TradeTimerUtil().addListener(_onUpdateTrade);
 
-    ///MARK:請求資料初始化
-    Future.delayed(const Duration(milliseconds: 300)).then((value) {
-      ref.read(tradeCurrentDivisionIndexProvider.notifier).state = 0;
-      ref.read(tradeCurrentRangeIndexProvider.notifier).state = 0;
-      ref.read(tradeReserveInfoProvider.notifier).setCurrentChoose(
-          ref.read(userInfoProvider).level > 0 ? 1 : 0, null, null);
-      ref.read(tradeCurrentStageProvider.notifier).state = null;
+    ///使用者資料&交易量
+    ref.read(userLevelInfoProvider.notifier).init();
+    ref.read(tradeReserveVolumeProvider.notifier).setDivisionIndex(0);
+    ref.read(tradeReserveVolumeProvider.notifier).init();
 
-      ///使用者資料&交易量
-      ref.read(userLevelInfoProvider.notifier).init();
-      ref
-          .read(tradeReserveVolumeProvider.notifier)
-          .setDivisionIndex(ref.read(userInfoProvider).level > 0 ? 1 : 0);
-      ref.read(tradeReserveVolumeProvider.notifier).init();
-
-      ///取得預約場次
-      ref.read(tradeReserveStageProvider.notifier).init();
-      ref.read(tradeReserveInfoProvider.notifier).init(onFinish: () {
-        if (ref.read(tradeReserveInfoProvider) != null) {
-          if (ref.read(tradeReserveInfoProvider)!.reserveRanges.isNotEmpty) {
-            ReserveRange range =
-                ref.read(tradeReserveInfoProvider)!.reserveRanges[0];
-            ref
-                .read(tradeReserveCoinProvider.notifier)
-                .setSelectValue(range.index, range.startPrice, range.endPrice);
-            ref.read(tradeReserveCoinProvider.notifier).init();
-          }
+    ///取得預約場次
+    ref.read(tradeReserveStageProvider.notifier).init();
+    ref.read(tradeReserveInfoProvider.notifier).setCurrentChoose(
+        ref.read(userInfoProvider).level > 0 ? 1 : 0, null, null);
+    ref.read(tradeReserveInfoProvider.notifier).init(onFinish: () {
+      if (ref.read(tradeReserveInfoProvider) != null) {
+        if (ref.read(tradeReserveInfoProvider)!.reserveRanges.isNotEmpty) {
+          ReserveRange range =
+              ref.read(tradeReserveInfoProvider)!.reserveRanges[0];
+          ref
+              .read(tradeReserveCoinProvider.notifier)
+              .setSelectValue(range.index, range.startPrice, range.endPrice);
+          ref.read(tradeReserveCoinProvider.notifier).init();
         }
-      });
+      }
     });
+
     super.initState();
   }
 

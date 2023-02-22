@@ -19,11 +19,9 @@ import '../../../views/personal/orders/withdraw/order_withdraw_confirm_dialog_vi
 import '../../../widgets/dialog/simple_custom_dialog.dart';
 
 class OrderChainWithdrawViewModel extends BaseViewModel {
-  OrderChainWithdrawViewModel({required this.setState});
+  OrderChainWithdrawViewModel({required this.onViewChange});
 
-  final ViewChange setState;
-
-  CoinEnum currentChain = CoinEnum.TRON;
+  final onClickFunction onViewChange;
   TextEditingController addressController = TextEditingController();
   TextEditingController amountController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -34,8 +32,6 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
   ValidateResultData passwordData = ValidateResultData();
   ValidateResultData emailCodeData = ValidateResultData();
 
-  WithdrawBalanceResponseData data = WithdrawBalanceResponseData();
-
   ///是否判斷過驗證碼
   bool checkEmail = false;
   bool checkExperience = false;
@@ -43,23 +39,9 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
   ///MARK: 實際手續費
   num currentAmount = 0;
 
-  requestAPI() {
-    Future<WithdrawBalanceResponseData> result =
-        WithdrawApi().getWithdrawBalance(currentChain.name);
-    result.then((value) => _setData(value));
-  }
-
-  _setData(WithdrawBalanceResponseData resData) {
-    setState(() {
-      data = resData;
-      currentAmount = num.parse(data.fee);
-    });
-  }
-
   void onTap() {
-    setState(() {
-      _resetData();
-    });
+    _resetData();
+    onViewChange();
   }
 
   bool checkEnable() {
@@ -114,33 +96,35 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
               mail: userInfo.email,
               action: LoginAction.withdraw,
               authCode: emailCodeController.text);
-      setState(() {
-        checkEmail = true;
-      });
+
+      checkEmail = true;
+      onViewChange();
       SimpleCustomDialog(context).show();
     } else {
-      setState(() {
-        emailCodeData =
-            ValidateResultData(result: emailCodeController.text.isNotEmpty);
-      });
+      emailCodeData =
+          ValidateResultData(result: emailCodeController.text.isNotEmpty);
+      onViewChange();
     }
   }
 
-  void onPressSave(BuildContext context, WithdrawAlertInfo alertInfo) {
+  void onPressSave(
+    BuildContext context,
+    WithdrawAlertInfo alertInfo,
+    WithdrawBalanceResponseData withdrawInfo,
+    CoinEnum currentChain,
+  ) {
     clearAllFocus();
 
     ///MARK: 檢查是否有欄位未填
     if (!checkEmptyController()) {
-      setState(() {
-        addressData =
-            ValidateResultData(result: addressController.text.isNotEmpty);
-        amountData =
-            ValidateResultData(result: amountController.text.isNotEmpty);
-        // passwordData =
-        //     ValidateResultData(result: passwordController.text.isNotEmpty);
-        emailCodeData =
-            ValidateResultData(result: emailCodeController.text.isNotEmpty);
-      });
+      addressData =
+          ValidateResultData(result: addressController.text.isNotEmpty);
+      amountData = ValidateResultData(result: amountController.text.isNotEmpty);
+      // passwordData =
+      //     ValidateResultData(result: passwordController.text.isNotEmpty);
+      emailCodeData =
+          ValidateResultData(result: emailCodeController.text.isNotEmpty);
+      onViewChange();
       return;
     } else {
       ///MARK: v0.0.12版 改為與提交時同送出信箱驗證碼
@@ -152,7 +136,7 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
 
       ///MARK: 如果上面的檢查有部分錯誤時return
       if (!checkData()) {
-        setState(() {});
+        onViewChange();
         return;
       }
 
@@ -170,10 +154,12 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
       }
 
       ///MARK: 提領金額是否大於最低金額
-      if (num.parse(amountController.text) < num.parse(data.minAmount)) {
+      if (num.parse(amountController.text) <
+          num.parse(withdrawInfo.minAmount)) {
         CommonCustomDialog(context,
             title: tr("point-FAIL'"),
-            content: format(tr("errorMinAmount"), {"amount": data.minAmount}),
+            content: format(
+                tr("errorMinAmount"), {"amount": withdrawInfo.minAmount}),
             type: DialogImageType.fail,
             rightBtnText: tr('confirm'),
             onLeftPress: () {}, onRightPress: () {
@@ -191,25 +177,27 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
             rightBtnText: tr('confirm'),
             onLeftPress: () {}, onRightPress: () {
           Navigator.pop(context);
-          _showWithdrawConfirm(context);
+          _showWithdrawConfirm(context, currentChain);
         }).show();
       } else {
-        _showWithdrawConfirm(context);
+        _showWithdrawConfirm(context, currentChain);
       }
     }
   }
 
-  void _showWithdrawConfirm(BuildContext context) {
+  void _showWithdrawConfirm(BuildContext context, CoinEnum currentChain) {
     ///MARK: 最後確認地址的Dialog
     OrderWithdrawConfirmDialogView(context,
         chain: _getChainName(currentChain),
         address: addressController.text,
         onLeftPress: () => Navigator.pop(context),
-        onRightPress: () =>
-            {_submitRequestApi(context), Navigator.pop(context)}).show();
+        onRightPress: () => {
+              _submitRequestApi(context, currentChain),
+              Navigator.pop(context)
+            }).show();
   }
 
-  void _submitRequestApi(BuildContext context) {
+  void _submitRequestApi(BuildContext context, CoinEnum currentChain) {
     ///MARK: 打提交API
     WithdrawApi(
             showTrString: false,
@@ -233,7 +221,7 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
         .then((value) async {
       SimpleCustomDialog(context, mainText: tr('success')).show();
       pushAndRemoveUntil(
-          context, MainPage(type: AppNavigationBarType.typeWallet));
+          context, const MainPage(type: AppNavigationBarType.typeWallet));
     });
   }
 
@@ -249,15 +237,15 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
     return '';
   }
 
-  void onAmountChange(String value) {
+  void onAmountChange(String value, WithdrawBalanceResponseData withdrawInfo) {
     ///提現金額 * 手續費(%) + 手續費(固定點數) 取到小數第二位無條件捨去
-    setState(() {
-      if (value.isEmpty) {
-        currentAmount = num.parse(data.fee);
-      } else {
-        currentAmount = (num.parse(value) * num.parse(data.feeRate) / 100) +
-            num.parse(data.fee);
-      }
-    });
+    if (value.isEmpty) {
+      currentAmount = num.parse(withdrawInfo.fee);
+    } else {
+      currentAmount =
+          (num.parse(value) * num.parse(withdrawInfo.feeRate) / 100) +
+              num.parse(withdrawInfo.fee);
+    }
+    onViewChange();
   }
 }
