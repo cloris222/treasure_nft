@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
@@ -27,7 +28,7 @@ class CustomAmountDialog extends BaseDialog {
   ValueChanged<String>? onChanged;
 
   @override
-  Widget initContent(BuildContext context, StateSetter setState) {
+  Widget initContent(BuildContext context, StateSetter setState,WidgetRef ref) {
     return Stack(
       children: [
         Container(

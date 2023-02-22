@@ -6,20 +6,18 @@ import 'dart:math';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:format/format.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
-import 'package:treasure_nft_project/models/http/api/home_api.dart';
 import 'package:treasure_nft_project/models/http/api/order_api.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
-import 'package:treasure_nft_project/models/http/parameter/user_info_data.dart';
 import 'package:treasure_nft_project/utils/animation_download_util.dart';
 import 'package:treasure_nft_project/views/collection/api/collection_api.dart';
 import 'package:treasure_nft_project/views/full_animation_page.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/views/notify/notify_level_up_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
-import 'package:treasure_nft_project/widgets/dialog/app_version_update_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/level_up_one_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -29,7 +27,6 @@ import '../constant/global_data.dart';
 import '../constant/theme/app_animation_path.dart';
 import '../constant/theme/app_colors.dart';
 import '../models/http/api/common_api.dart';
-import '../models/http/api/trade_api.dart';
 import '../models/http/api/wallet_api.dart';
 import '../models/http/http_setting.dart';
 import '../models/http/parameter/api_response.dart';
@@ -39,8 +36,12 @@ import '../utils/date_format_util.dart';
 import '../utils/stomp_socket_util.dart';
 import '../utils/trade_timer_util.dart';
 import '../widgets/dialog/simple_custom_dialog.dart';
+import 'control_router_viem_model.dart';
+import 'gobal_provider/user_experience_info_provider.dart';
+import 'gobal_provider/user_info_provider.dart';
+import 'gobal_provider/user_trade_status_provider.dart';
 
-class BaseViewModel {
+class BaseViewModel with ControlRouterViewModel {
   BuildContext getGlobalContext() {
     return GlobalData.globalKey.currentContext!;
   }
@@ -66,156 +67,82 @@ class BaseViewModel {
     FocusManager.instance.primaryFocus?.unfocus();
   }
 
-  ///MARK: 推頁面 偷懶用
-  void popPage(BuildContext context) {
-    Navigator.pop(context);
-  }
-
-  ///MARK: 推新的一頁
-  Future<void> pushPage(BuildContext context, Widget page) async {
-    await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => page));
-  }
-
-  ///MARK: 取代當前頁面
-  Future<void> pushReplacement(BuildContext context, Widget page) async {
-    await Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => page));
-  }
-
-  ///MARK: 將前面的頁面全部清除只剩此頁面
-  Future<void> pushAndRemoveUntil(BuildContext context, Widget page) async {
-    await Navigator.pushAndRemoveUntil<void>(
-      context,
-      MaterialPageRoute<void>(builder: (BuildContext context) => page),
-      (route) => false,
-    );
-  }
-
-  ///MARK: 全域切頁面
-  Future<void> globalPushAndRemoveUntil(Widget page) async {
-    GlobalData.globalKey.currentState?.pushAndRemoveUntil<void>(
-      MaterialPageRoute<void>(builder: (BuildContext context) => page),
-      (route) => false,
-    );
-  }
-
-  ///MARK: 返回前頁
-  Future<void> popPreView(BuildContext context) async {
-    await Navigator.pushAndRemoveUntil<void>(
-      context,
-      MaterialPageRoute<void>(
-          builder: (BuildContext context) =>
-              MainPage(type: getPreBottomType())),
-      (route) => false,
-    );
-  }
-
-  void setCurrentBottomType(AppNavigationBarType type) {
-    ///MARK:判斷是否為最後一筆
-    if (!GlobalData.isPrePage) {
-      GlobalData.isPrePage = false;
-    }
-    if (GlobalData.preTypeList.isNotEmpty) {
-      ///MARK: 最後一頁跟前一頁一樣 就不加入
-      if (GlobalData.mainBottomType != GlobalData.preTypeList.last) {
-        GlobalData.preTypeList.add(GlobalData.mainBottomType);
-
-        ///MARK: 最多只接受10筆
-        if (GlobalData.preTypeList.length > 10) {
-          GlobalData.preTypeList.removeAt(0);
-        }
-      }
-    } else {
-      GlobalData.preTypeList.add(GlobalData.mainBottomType);
-    }
-    GlobalData.mainBottomType = type;
-  }
-
-  AppNavigationBarType getPreBottomType() {
-    AppNavigationBarType preType = AppNavigationBarType.typeMain;
-    if (GlobalData.preTypeList.isNotEmpty) {
-      preType = GlobalData.preTypeList.removeLast();
-      if (preType == AppNavigationBarType.typeLogin &&
-          BaseViewModel().isLogin()) {
-        preType = AppNavigationBarType.typeMain;
-      }
-    }
-    GlobalData.mainBottomType = preType;
-    return preType;
-  }
-
-  Future<void> pushOtherPersonalInfo(
-      BuildContext context, String userId) async {
-    // test
-    // await pushPage(context, OtherPersonInfoPage(userId: userId));
-  }
-
-  ///MARK: 推透明的頁面
-  Future<void> pushOpacityPage(BuildContext context, Widget page) async {
-    await Navigator.of(context).push(PageRouteBuilder(
-        pageBuilder: (BuildContext buildContext, Animation<double> animation,
-            Animation<double> secondaryAnimation) {
-          return page;
-        },
-        opaque: false));
-  }
-
   ///MARK: 更新使用者資料
-  Future<void> saveUserLoginInfo({required ApiResponse response}) async {
+  Future<void> saveUserLoginInfo(
+      {required bool isLogin,
+      required ApiResponse response,
+      required WidgetRef ref}) async {
     await AppSharedPreferences.setLogIn(true);
     await AppSharedPreferences.setMemberID(response.data['id']);
     await AppSharedPreferences.setToken(response.data['token']);
     GlobalData.userToken = response.data['token'];
     GlobalData.userMemberId = response.data['id'];
 
-    await uploadPersonalInfo();
-    await uploadSignInInfo();
+    await uploadPersonalInfo(isLogin: isLogin, ref: ref);
+    await uploadSignInInfo(ref: ref);
     uploadTemporaryData();
 
     AppSharedPreferences.printAll();
   }
 
   ///MARK: 使用者資料
-  Future<bool> uploadPersonalInfo() async {
+  Future<bool> uploadPersonalInfo(
+      {required bool isLogin, required WidgetRef ref}) async {
     ///MARK: 判斷有無讀取失敗
     bool connectFail = false;
     onFail(message) => connectFail = true;
 
     List<bool> checkList = List<bool>.generate(3, (index) => false);
 
-    UserInfoAPI(onConnectFail: onFail)
-        .getPersonInfo()
-        .then((value) => checkList[0] = true);
-    TradeAPI(onConnectFail: onFail)
-        .getExperienceInfoAPI()
-        .then((value) => checkList[1] = true);
-    TradeAPI().getTradeEnterButtonStatus().then((value) => checkList[2] = true);
+    if (isLogin) {
+      ///MARK: 直接強迫API更新
+      ref
+          .watch(userInfoProvider.notifier)
+          .update(onConnectFail: onFail, onFinish: () => checkList[0] = true);
+      ref
+          .watch(userExperienceInfoProvider.notifier)
+          .update(onConnectFail: onFail, onFinish: () => checkList[1] = true);
+      ref
+          .watch(userTradeStatusProvider.notifier)
+          .update(onConnectFail: onFail, onFinish: () => checkList[2] = true);
 
-    await checkFutureTime(
-        logKey: 'uploadPersonalInfo',
-        onCheckFinish: () => !checkList.contains(false) || connectFail);
+      await checkFutureTime(
+          logKey: 'uploadPersonalInfo',
+          onCheckFinish: () => !checkList.contains(false) || connectFail);
 
-    ///MARK: 判斷有無讀取失敗
-    return !connectFail;
+      ///MARK: 判斷有無讀取失敗
+      return !connectFail;
+    } else {
+      ///MARK: 後更新 頁面自動更新資料
+      ref.watch(userInfoProvider.notifier).init(onConnectFail: onFail);
+      ref
+          .watch(userExperienceInfoProvider.notifier)
+          .init(onConnectFail: onFail);
+      ref.watch(userTradeStatusProvider.notifier).init(onConnectFail: onFail);
+      return true;
+    }
   }
 
   ///MARK: 更新簽到資料
-  Future<bool> uploadSignInInfo() async {
+  Future<bool> uploadSignInInfo({required WidgetRef ref}) async {
     ///MARK: 判斷有無讀取失敗
     bool connectFail = false;
     onFail(message) => connectFail = true;
 
-    if (GlobalData.userInfo.level == 0 ||
-        GlobalData.experienceInfo.isExperience) {
+    if (ref.read(userInfoProvider).level == 0 ||
+        ref.read(userExperienceInfoProvider).isExperience) {
       GlobalData.signInInfo = null;
       return !connectFail;
     }
-    SignInData signInInfo =
-        await UserInfoAPI(onConnectFail: onFail).getSignInInfo();
-    if (!signInInfo.isFinished) {
-      GlobalData.signInInfo = signInInfo;
-    } else {
+    try {
+      SignInData signInInfo =
+          await UserInfoAPI(onConnectFail: onFail).getSignInInfo();
+      if (!signInInfo.isFinished) {
+        GlobalData.signInInfo = signInInfo;
+      } else {
+        GlobalData.signInInfo = null;
+      }
+    } catch (e) {
       GlobalData.signInInfo = null;
     }
     return !connectFail;
@@ -247,7 +174,6 @@ class BaseViewModel {
     await clearTemporaryData();
     GlobalData.userToken = '';
     GlobalData.userMemberId = '';
-    GlobalData.userInfo = UserInfoData();
     GlobalData.showLoginAnimate = false;
     GlobalData.signInInfo = null;
     stopUserListener();
@@ -260,30 +186,21 @@ class BaseViewModel {
     onFail(message) => connectFail = true;
 
     ///MARK: 需檢查的項目數量
-    List<bool> checkList = List<bool>.generate(7, (index) => false);
+    List<bool> checkList = List<bool>.generate(4, (index) => false);
 
     ///MARK: 同步更新
-    UserInfoAPI(onConnectFail: onFail)
-        .getCheckLevelInfoAPI()
-        .then((value) => checkList[0] = true);
-    UserInfoAPI(onConnectFail: onFail)
-        .getUserPropertyInfo()
-        .then((value) => checkList[1] = true);
-    UserInfoAPI(onConnectFail: onFail)
-        .getUserOrderInfo()
-        .then((value) => checkList[2] = true);
     OrderAPI(onConnectFail: onFail)
         .saveTempTotalIncome()
-        .then((value) => checkList[3] = true);
+        .then((value) => checkList[0] = true);
     WalletAPI(onConnectFail: onFail)
         .getBalanceRecharge()
-        .then((value) => checkList[4] = true);
+        .then((value) => checkList[1] = true);
     WalletAPI(onConnectFail: onFail)
         .getBalanceRecord()
-        .then((value) => checkList[5] = true);
+        .then((value) => checkList[2] = true);
     OrderAPI(onConnectFail: onFail)
         .saveTempRecord()
-        .then((value) => checkList[6] = true);
+        .then((value) => checkList[3] = true);
 
     ///MARK: 等待更新完成
     await checkFutureTime(
@@ -294,13 +211,12 @@ class BaseViewModel {
 
   ///MARK: 登出後-清除暫存資料
   Future<void> clearTemporaryData() async {
-    GlobalData.userLevelInfo = null;
-    GlobalData.userProperty = null;
-    GlobalData.userOrderInfo = null;
     GlobalData.totalIncome = 0.0;
-    GlobalData.userWalletInfo = null;
     AppSharedPreferences.setProfitRecord([]);
     AppSharedPreferences.setWalletRecord([]);
+
+    ///清除使用者相關的暫存資料
+    AppSharedPreferences.clearUserTmpValue();
   }
 
   ///MARK: 當token 為空時，代表未登入
@@ -524,8 +440,8 @@ class BaseViewModel {
     ///MARK: 計算
     int systemZone = getZone(setSystemZone ?? HttpSetting.systemTimeZone);
     int systemZoneMin = getZoneMin(setSystemZone ?? HttpSetting.systemTimeZone);
-    int localZone = getZone(GlobalData.userInfo.zone);
-    int localZoneMin = getZoneMin(GlobalData.userInfo.zone);
+    int localZone = getZone(GlobalData.userZone);
+    int localZoneMin = getZoneMin(GlobalData.userZone);
 
     ///MARK: 測試code
     // int systemZone = getZone("GMT+00:00");
@@ -572,15 +488,11 @@ class BaseViewModel {
     });
   }
 
-  ///查詢APP聯絡資訊
-  Future<void> getAppContactInfo() async {
-    GlobalData.appContactInfo = await HomeAPI().getFooterSetting();
-  }
-
   /// 簡易timer
   Future<void> checkFutureTime(
       {required onReturnBoolFunction onCheckFinish,
-      Duration timeOut = const Duration(seconds: 30),
+      Duration timeOut =
+          const Duration(milliseconds: HttpSetting.connectionTimeout),
       String logKey = 'checkFutureTime',
       bool printLog = true}) async {
     if (printLog) GlobalData.printLog('$logKey: ---timeStart!!!!');

@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:treasure_nft_project/utils/date_format_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
+import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 
@@ -14,11 +16,17 @@ import 'data/card_showing_data.dart';
 
 /// 無圖片的訂單信息_副本預約 (外部先將部分Data存成 List<CardShowingData>)
 class OrderInfoCard extends StatefulWidget {
-  const OrderInfoCard({super.key,
-  this.status = '', this.isPaying = false,
-  required this.imageUrl, required this.itemName, this.price = '',
-  required this.orderNumber,required this.dateTime, required this.dataList
-  });
+  const OrderInfoCard(
+      {super.key,
+      this.status = '',
+      this.isPaying = false,
+      required this.imageUrl,
+      required this.itemName,
+      this.price = '',
+      required this.orderNumber,
+      required this.dateTime,
+      required this.dataList,
+      required this.drewAt});
 
   final String status;
   final String itemName;
@@ -28,13 +36,15 @@ class OrderInfoCard extends StatefulWidget {
   final String dateTime;
   final bool isPaying; // 如果True，代表交易中但餘額不足
   final List<CardShowingData> dataList;
+  final DateTime? drewAt;
+
+  ///開獎時間
 
   @override
   State<StatefulWidget> createState() => _OrderInfoCard();
 }
 
 class _OrderInfoCard extends State<OrderInfoCard> {
-
   CollectionMainViewModel viewModel = CollectionMainViewModel();
   bool bNotEnoughMoney = false;
 
@@ -58,6 +68,16 @@ class _OrderInfoCard extends State<OrderInfoCard> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            ///開獎日期
+            ...(widget.drewAt != null)
+                ? [
+                    GradientThirdText(
+                      '${tr('drawDate')}:${DateFormatUtil().getFullWithDateFormat(widget.drewAt!)}',
+                      size: UIDefine.fontSize12,weight: FontWeight.w500,
+                    )
+                  ]
+                : [],
+
             /// 上半部
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,36 +89,47 @@ class _OrderInfoCard extends State<OrderInfoCard> {
                   children: [
                     Text(
                       tr('orderNo') + ':',
-                      style: AppTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
+                      style: AppTextStyle.getBaseStyle(
+                          color: AppColors.textBlack,
+                          fontSize: UIDefine.fontSize20,
+                          fontWeight: FontWeight.w500),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       widget.orderNumber,
-                      style: AppTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
+                      style: AppTextStyle.getBaseStyle(
+                          color: AppColors.textBlack,
+                          fontSize: UIDefine.fontSize20,
+                          fontWeight: FontWeight.w500),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       widget.dateTime,
-                      style: AppTextStyle.getBaseStyle(color: AppColors.searchBar, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+                      style: AppTextStyle.getBaseStyle(
+                          color: AppColors.searchBar,
+                          fontSize: UIDefine.fontSize12,
+                          fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),
 
                 /// 中籤icon
                 Visibility(
-                    visible: widget.status != '' ,
+                    visible: widget.status != '',
                     child: Container(
                         decoration: BoxDecoration(
                           color: _getLuckyStrawColor(),
-                          border: Border.all(color: _getLuckyStrawBorderColor(), width: 2),
+                          border: Border.all(
+                              color: _getLuckyStrawBorderColor(), width: 2),
                         ),
                         padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
                         child: Text(
                           _getLuckyStrawString(),
-                          style: AppTextStyle.getBaseStyle(color: _getLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
-                        )
-                    )
-                )
+                          style: AppTextStyle.getBaseStyle(
+                              color: _getLuckyStrawStringColor(),
+                              fontSize: UIDefine.fontSize12,
+                              fontWeight: FontWeight.w500),
+                        )))
               ],
             ),
 
@@ -116,14 +147,12 @@ class _OrderInfoCard extends State<OrderInfoCard> {
               visible: widget.status == 'SUCCESS',
               child: _getImageView(),
             )
-
           ],
-        )
-    );
+        ));
   }
 
   Color _getLuckyStrawBorderColor() {
-    switch(widget.status) {
+    switch (widget.status) {
       case 'SUCCESS':
         return AppColors.growPrice;
       case 'PENDING':
@@ -137,7 +166,7 @@ class _OrderInfoCard extends State<OrderInfoCard> {
   }
 
   Color _getLuckyStrawColor() {
-    switch(widget.status) {
+    switch (widget.status) {
       case 'SUCCESS':
         return AppColors.growPrice;
       case 'PENDING':
@@ -151,7 +180,7 @@ class _OrderInfoCard extends State<OrderInfoCard> {
   }
 
   String _getLuckyStrawString() {
-    switch(widget.status) {
+    switch (widget.status) {
       case 'SUCCESS':
         return tr("notification-SUCCESS'");
       case 'PENDING':
@@ -165,7 +194,7 @@ class _OrderInfoCard extends State<OrderInfoCard> {
   }
 
   Color _getLuckyStrawStringColor() {
-    switch(widget.status) {
+    switch (widget.status) {
       case 'SUCCESS':
         return AppColors.textWhite;
       case 'PENDING':
@@ -181,36 +210,40 @@ class _OrderInfoCard extends State<OrderInfoCard> {
   List<Widget> _getTitleContent() {
     List<Widget> titleContent = [];
     for (int i = 0; i < widget.dataList.length; i++) {
-      titleContent.add(
-          Padding(
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 3),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      titleContent.add(Padding(
+          padding: EdgeInsets.fromLTRB(0, 0, 0, 3),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                tr(widget.dataList[i].title), // 在外部要塞多語系的key
+                style: AppTextStyle.getBaseStyle(
+                    color: AppColors.dialogGrey,
+                    fontSize: UIDefine.fontSize14,
+                    fontWeight: FontWeight.w500),
+              ),
+              Row(
                 children: [
+                  Visibility(
+                      visible: _checkTitleShowCoins(widget.dataList[i]),
+                      child: Image.asset('assets/icon/coins/icon_tether_01.png',
+                          width: UIDefine.getScreenWidth(3.7),
+                          height: UIDefine.getScreenWidth(3.7))),
+                  const SizedBox(width: 4),
                   Text(
-                    tr(widget.dataList[i].title), // 在外部要塞多語系的key
-                    style: AppTextStyle.getBaseStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
-                  ),
-                  Row(
-                    children: [
-                      Visibility(
-                          visible: _checkTitleShowCoins(widget.dataList[i]),
-                          child: Image.asset('assets/icon/coins/icon_tether_01.png', width: UIDefine.getScreenWidth(3.7), height: UIDefine.getScreenWidth(3.7))
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        widget.dataList[i].bPrice ?
-                        BaseViewModel().numberFormat(widget.dataList[i].content)
-                            :
-                        widget.dataList[i].content,
-                        style: AppTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
-                      )
-                    ],
+                    widget.dataList[i].bPrice
+                        ? BaseViewModel()
+                            .numberFormat(widget.dataList[i].content)
+                        : widget.dataList[i].content,
+                    style: AppTextStyle.getBaseStyle(
+                        color: AppColors.textBlack,
+                        fontSize: UIDefine.fontSize14,
+                        fontWeight: FontWeight.w500),
                   )
                 ],
               )
-          )
-      );
+            ],
+          )));
     }
     return titleContent;
   }
@@ -223,13 +256,11 @@ class _OrderInfoCard extends State<OrderInfoCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             GraduallyNetworkImage(
-              imageUrl: widget.imageUrl,
-              width: UIDefine.getScreenWidth(21.3),
-              height: UIDefine.getScreenWidth(21.3),
-              fit: BoxFit.cover
-            ),
+                imageUrl: widget.imageUrl,
+                width: UIDefine.getScreenWidth(21.3),
+                height: UIDefine.getScreenWidth(21.3),
+                fit: BoxFit.cover),
             SizedBox(width: UIDefine.getScreenWidth(2.77)),
-
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -237,28 +268,34 @@ class _OrderInfoCard extends State<OrderInfoCard> {
                     width: UIDefine.getScreenWidth(50),
                     child: Text(
                       widget.itemName,
-                      style: AppTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize18, fontWeight: FontWeight.w500),
-                    )
-                ),
-
+                      style: AppTextStyle.getBaseStyle(
+                          color: AppColors.textBlack,
+                          fontSize: UIDefine.fontSize18,
+                          fontWeight: FontWeight.w500),
+                    )),
                 SizedBox(height: UIDefine.getScreenWidth(2.5)),
-
                 Row(
                   children: [
                     Text(
                       tr("theAmountGoods"),
-                      style: AppTextStyle.getBaseStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                      style: AppTextStyle.getBaseStyle(
+                          color: AppColors.dialogGrey,
+                          fontSize: UIDefine.fontSize14,
+                          fontWeight: FontWeight.w500),
                     ),
-
                     SizedBox(width: UIDefine.getScreenWidth(3)),
-
                     Row(
                       children: [
-                        Image.asset('assets/icon/coins/icon_tether_01.png', width: UIDefine.getScreenWidth(3.7), height: UIDefine.getScreenWidth(3.7)),
+                        Image.asset('assets/icon/coins/icon_tether_01.png',
+                            width: UIDefine.getScreenWidth(3.7),
+                            height: UIDefine.getScreenWidth(3.7)),
                         const SizedBox(width: 2.5),
                         Text(
                           BaseViewModel().numberFormat(widget.price),
-                          style: AppTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                          style: AppTextStyle.getBaseStyle(
+                              color: AppColors.textBlack,
+                              fontSize: UIDefine.fontSize14,
+                              fontWeight: FontWeight.w500),
                         )
                       ],
                     )
@@ -268,17 +305,16 @@ class _OrderInfoCard extends State<OrderInfoCard> {
             )
           ],
         ),
-
         const SizedBox(height: 8),
         Visibility(
             visible: bNotEnoughMoney,
             child: Text(
               tr('insufficientBalance'),
-              style: AppTextStyle.getBaseStyle(color: AppColors.dialogGrey,
-                  fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
-            )
-        ),
-
+              style: AppTextStyle.getBaseStyle(
+                  color: AppColors.dialogGrey,
+                  fontSize: UIDefine.fontSize14,
+                  fontWeight: FontWeight.w500),
+            )),
         const SizedBox(height: 8),
         Visibility(
             visible: bNotEnoughMoney,
@@ -287,9 +323,7 @@ class _OrderInfoCard extends State<OrderInfoCard> {
                 setHeight: UIDefine.getScreenWidth(12),
                 onPressed: () {
                   _onMakeUpBalance();
-                })
-        )
-
+                }))
       ],
     );
   }
@@ -303,19 +337,22 @@ class _OrderInfoCard extends State<OrderInfoCard> {
 
   /// 按下補足餘額
   void _onMakeUpBalance() {
-    viewModel.requestMakeUpBalance(
-        recordNo: widget.orderNumber, onConnectFail: (errMessage) {
-          viewModel.onBaseConnectFail(context, errMessage);
-        })
+    viewModel
+        .requestMakeUpBalance(
+            recordNo: widget.orderNumber,
+            onConnectFail: (errMessage) {
+              viewModel.onBaseConnectFail(context, errMessage);
+            })
         .then((value) {
-          if (value == 'SUCCESS') {
-            SimpleCustomDialog(context, isSuccess: true).show();
-            setState(() { bNotEnoughMoney = false; });
+      if (value == 'SUCCESS') {
+        SimpleCustomDialog(context, isSuccess: true).show();
+        setState(() {
+          bNotEnoughMoney = false;
+        });
 
-            // 更新bottomNavigationBar的狀態
-            GlobalData.bottomNavigationNotifier.minus();
-          }
+        // 更新bottomNavigationBar的狀態
+        GlobalData.bottomNavigationNotifier.minus();
+      }
     });
   }
-
 }

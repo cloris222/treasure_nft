@@ -1,10 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/view_models/wallet/wallet_balance_recharge_provider.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
 import 'package:treasure_nft_project/widgets/dropdownButton/chain_dropdown_button.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
@@ -18,31 +21,44 @@ import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/dialog/common_custom_dialog.dart';
 
 ///MARK: 充值
-class OrderRechargePage extends StatefulWidget {
+class OrderRechargePage extends ConsumerStatefulWidget {
   const OrderRechargePage(
       {Key? key, this.type = AppNavigationBarType.typePersonal})
       : super(key: key);
   final AppNavigationBarType type;
 
   @override
-  State<OrderRechargePage> createState() => _OrderRechargePageState();
+  ConsumerState createState() => _OrderRechargePageState();
 }
 
-class _OrderRechargePageState extends State<OrderRechargePage> {
-  late OrderRechargeViewModel viewModel;
+class _OrderRechargePageState extends ConsumerState<OrderRechargePage> {
+  OrderRechargeViewModel viewModel = OrderRechargeViewModel();
   GlobalKey repaintKey = GlobalKey();
   EdgeInsetsGeometry mainPadding =
       EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20));
 
+  CoinEnum get currentChain {
+    return ref.read(walletCurrentChainProvider);
+  }
+
+  Map<String, dynamic>? get userWalletInfo {
+    return ref.read(walletBalanceRechargeProvider);
+  }
+
   @override
   void initState() {
+    ref.read(walletBalanceRechargeProvider.notifier).update();
+    Future.delayed(const Duration(milliseconds: 300)).then((value) =>
+        ref.read(walletCurrentChainProvider.notifier).state = CoinEnum.TRON);
     super.initState();
-    viewModel = OrderRechargeViewModel(setState: setState);
-    viewModel.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    ///監聽
+    ref.watch(walletCurrentChainProvider);
+    ref.watch(walletBalanceRechargeProvider);
+
     return CustomAppbarView(
       needScrollView: false,
       onLanguageChange: () {
@@ -104,11 +120,9 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
         padding: mainPadding,
         child: ChainDropDownButton(
             onChainChange: (chain) {
-              setState(() {
-                viewModel.currentChain = chain;
-              });
+              ref.read(walletCurrentChainProvider.notifier).state = chain;
             },
-            currentChain: viewModel.currentChain));
+            currentChain: currentChain));
   }
 
   Widget _buildAddressInfo() {
@@ -135,9 +149,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
                   child: QrImage(
                     errorStateBuilder: (context, error) =>
                         Text(error.toString()),
-                    data: GlobalData
-                            .userWalletInfo?[viewModel.currentChain.name] ??
-                        '',
+                    data: userWalletInfo?[currentChain.name] ?? '',
                     version: QrVersions.auto,
                     backgroundColor: Colors.white,
                     foregroundColor: AppColors.mainThemeButton,
@@ -197,10 +209,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
             Row(
               children: [
                 Flexible(
-                    child: Text(
-                        GlobalData
-                                .userWalletInfo?[viewModel.currentChain.name] ??
-                            '',
+                    child: Text(userWalletInfo?[currentChain.name] ?? '',
                         maxLines: 2,
                         style: AppTextStyle.getBaseStyle(
                             fontSize: UIDefine.fontSize12,
@@ -210,8 +219,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
                 InkWell(
                     onTap: () {
                       viewModel.copyText(
-                          copyText: GlobalData
-                              .userWalletInfo?[viewModel.currentChain.name]);
+                          copyText: userWalletInfo?[currentChain.name]);
                       viewModel.showToast(context, tr('copiedSuccess'));
                     },
                     child: Image.asset(AppImagePath.copyIcon))
@@ -241,7 +249,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
             ),
             SizedBox(width: UIDefine.getPixelWidth(10)),
             Text(
-                viewModel.currentChain == CoinEnum.TRON
+                currentChain == CoinEnum.TRON
                     ? 'TRON (TRC-20)'
                     : 'BSC (BEP-20)',
                 style: AppTextStyle.getBaseStyle(
@@ -271,7 +279,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
       ),
       SizedBox(height: UIDefine.getScreenWidth(2.77)),
       Text(
-          '${tr("minimum-rechargeAmount-start'")} ${viewModel.currentChain == CoinEnum.TRON ? 'USDT-TRC20' : 'USDT-BSC'} ${tr("minimum-rechargeAmount-end'")}',
+          '${tr("minimum-rechargeAmount-start'")} ${currentChain == CoinEnum.TRON ? 'USDT-TRC20' : 'USDT-BSC'} ${tr("minimum-rechargeAmount-end'")}',
           maxLines: 2,
           textAlign: TextAlign.start,
           style: AppTextStyle.getBaseStyle(
@@ -314,7 +322,7 @@ class _OrderRechargePageState extends State<OrderRechargePage> {
     if (status.isGranted) {
       // 檢查權限
       if (mounted) {
-        viewModel.onSaveQrcode(context, repaintKey);
+        viewModel.onSaveQrcode(context, repaintKey,userWalletInfo?[currentChain.name]);
       }
     }
   }

@@ -9,85 +9,102 @@ import 'data/card_showing_data.dart';
 
 /// A:活動獎勵 W:提領 D:充值 (外部先將部分Data存成 List<CardShowingData>)
 class AWDInfoCard extends StatelessWidget {
-  AWDInfoCard({super.key,
-  this.status = '', 
-  required this.type,
-  required this.datetime,
-  required this.dataList
-  });
+  AWDInfoCard(
+      {super.key,
+      this.status = '',
+      required this.type,
+      required this.datetime,
+      required this.dataList});
 
   String status;
-  String type; // ACTIVITY_AWARD:活動獎勵, LEVEL_UP_ADD:升等獎勵(儲金罐), AD_PRIZE:活動副本(獎金)
+
+  /// ACTIVITY_AWARD:活動獎勵, LEVEL_UP_ADD:升等獎勵(儲金罐), AD_PRIZE:活動副本(獎金),
+  /// EXPERIENCE_ADD(體驗金增加),EXPERIENCE_RECYCLE(體驗金回收)
+  String type;
+
   String datetime;
   List<CardShowingData> dataList;
 
   @override
   Widget build(BuildContext context) {
+    Widget? image = _getImage();
     return Container(
-      padding: EdgeInsets.all(UIDefine.getScreenWidth(4.4)),
-      decoration: BoxDecoration(
-        border: Border.all(color: AppColors.bolderGrey, width: 1),
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          /// 上半部
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  /// icon + 標題
-                  Row(
-                    children: [
-                      _getImage(),
-                      const SizedBox(width: 4),
-                      Text(
-                        _getTitle(),
-                        style: AppTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
-                      ),
-                    ],
-                  ),
-                  /// 日期
-                  const SizedBox(height: 4),
-                  Text(
-                    datetime,
-                    style: AppTextStyle.getBaseStyle(color: AppColors.searchBar, fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
-              /// Status icon
-              Visibility(
-                visible: status != '' ,
-                child: Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(color: _getLuckyStrawBorderColor(), width: 2),
-                      color: _getLuckyStrawColor()),
-                  padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
-                  child: Text(
-                    _getLuckyStrawString(),
-                    style: AppTextStyle.getBaseStyle(color: _getLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
-                  )
-                )
-              )
-            ],
-          ),
-          /// 活動名稱(only for Activity)
-          _getActivityName(),
-          
-          SizedBox(height: UIDefine.getScreenWidth(2.7)),
+        padding: EdgeInsets.all(UIDefine.getScreenWidth(4.4)),
+        decoration: BoxDecoration(
+          border: Border.all(color: AppColors.bolderGrey, width: 1),
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            /// 上半部
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    /// icon + 標題
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        ...image != null
+                            ? [image, const SizedBox(width: 4)]
+                            : [],
+                        Text(
+                          _getTitle(),
+                          style: AppTextStyle.getBaseStyle(
+                              color: AppColors.textBlack,
+                              fontSize: UIDefine.fontSize20,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
 
-          /// 下半部
-          Column(
-            children: _getTitleContent(),
-          )
-        ],
-      )
-    );
+                    /// 日期
+                    const SizedBox(height: 4),
+                    Text(
+                      datetime,
+                      style: AppTextStyle.getBaseStyle(
+                          color: AppColors.searchBar,
+                          fontSize: UIDefine.fontSize12,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ],
+                ),
+
+                /// Status icon
+                Visibility(
+                    visible: status != '',
+                    child: Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: _getLuckyStrawBorderColor(), width: 2),
+                            color: _getLuckyStrawColor()),
+                        padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
+                        child: Text(
+                          _getLuckyStrawString(),
+                          style: AppTextStyle.getBaseStyle(
+                              color: _getLuckyStrawStringColor(),
+                              fontSize: UIDefine.fontSize12,
+                              fontWeight: FontWeight.w500),
+                        )))
+              ],
+            ),
+
+            /// 活動名稱(only for Activity)
+            _getActivityName(),
+
+            SizedBox(height: UIDefine.getScreenWidth(2.7)),
+
+            /// 下半部
+            Column(
+              children: _getTitleContent(),
+            )
+          ],
+        ));
   }
 
   Widget _getActivityName() {
@@ -98,7 +115,8 @@ class AWDInfoCard extends StatelessWidget {
           const SizedBox(height: 2),
           Text(
             tr('world-cups-event'), // 活動名 (後端沒給欄位 目前寫死)
-            style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+            style: AppTextStyle.getBaseStyle(
+                fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
           )
         ],
       );
@@ -107,7 +125,7 @@ class AWDInfoCard extends StatelessWidget {
   }
 
   Color _getLuckyStrawBorderColor() {
-    switch(status) {
+    switch (status) {
       case 'SUCCESS':
         return AppColors.growPrice;
       case 'PENDING':
@@ -119,7 +137,7 @@ class AWDInfoCard extends StatelessWidget {
   }
 
   Color _getLuckyStrawColor() {
-    switch(status) {
+    switch (status) {
       case 'SUCCESS':
         return AppColors.growPrice;
       case 'PENDING':
@@ -131,7 +149,7 @@ class AWDInfoCard extends StatelessWidget {
   }
 
   String _getLuckyStrawString() {
-    switch(status) {
+    switch (status) {
       case 'SUCCESS':
         return tr("success");
       case 'PENDING':
@@ -143,7 +161,7 @@ class AWDInfoCard extends StatelessWidget {
   }
 
   Color _getLuckyStrawStringColor() {
-    switch(status) {
+    switch (status) {
       case 'SUCCESS':
         return AppColors.textWhite;
       case 'PENDING':
@@ -157,72 +175,71 @@ class AWDInfoCard extends StatelessWidget {
   String _getTitle() {
     if (type.contains('ACTIVITY')) {
       return tr('activitiesUSDT');
-
     } else if (type == 'LEVEL_UP_ADD') {
       return tr('bonus_referral');
-
     } else if (type == 'LEVEL_UP_ADD_TRADE') {
       return tr('bonus_trade');
-
     } else if (type.contains('PRIZE')) {
       return tr('activitiesUSDT');
-
     } else if (type.contains('DEPOSIT')) {
       return tr('recharge');
-
     } else if (type.contains('WITHDRAW')) {
       return tr('withdraw');
     }
-    return '';
+    return tr(type);
   }
-  
-  _getImage() {
-    if (type.contains('ACTIVITY') || type.contains('LEVEL') || type.contains('PRIZE')) {
-      return Image.asset('assets/icon/icon/icon_file_03.png');
 
+  Widget? _getImage() {
+    if (type.contains('ACTIVITY') ||
+        type.contains('LEVEL') ||
+        type.contains('PRIZE')) {
+      return Image.asset('assets/icon/icon/icon_file_03.png');
     } else if (type.contains('DEPOSIT')) {
       return Image.asset('assets/icon/icon/icon_card_02.png');
-
     } else if (type.contains('WITHDRAW')) {
       return Image.asset('assets/icon/icon/icon_extraction_01.png');
     }
+    return null;
   }
 
   List<Widget> _getTitleContent() {
     List<Widget> titleContent = [];
     for (int i = 0; i < dataList.length; i++) {
-      titleContent.add(
-        Padding(
+      titleContent.add(Padding(
           padding: const EdgeInsets.fromLTRB(0, 0, 0, 3),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 tr(dataList[i].title), // 在外部要塞多語系的key
-                style: AppTextStyle.getBaseStyle(color: AppColors.dialogGrey, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                style: AppTextStyle.getBaseStyle(
+                    color: AppColors.dialogGrey,
+                    fontSize: UIDefine.fontSize14,
+                    fontWeight: FontWeight.w500),
               ),
               Row(
                 children: [
                   Visibility(
-                      visible: dataList[i].title.contains('預開欄位'), // test 不確定AWD是否會有icon的需要 目前沒
-                      child: Image.asset('assets/icon/coins/icon_tether_01.png', width: UIDefine.getScreenWidth(3.7), height: UIDefine.getScreenWidth(3.7))
-                  ),
+                      visible: dataList[i].title.contains('預開欄位'),
+                      // test 不確定AWD是否會有icon的需要 目前沒
+                      child: Image.asset('assets/icon/coins/icon_tether_01.png',
+                          width: UIDefine.getScreenWidth(3.7),
+                          height: UIDefine.getScreenWidth(3.7))),
                   const SizedBox(width: 4),
                   Text(
-                    dataList[i].bPrice ?
-                    BaseViewModel().numberFormat(dataList[i].content)
-                        :
-                    tr(dataList[i].content),
-                    style: AppTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
+                    dataList[i].bPrice
+                        ? BaseViewModel().numberFormat(dataList[i].content)
+                        : tr(dataList[i].content),
+                    style: AppTextStyle.getBaseStyle(
+                        color: AppColors.textBlack,
+                        fontSize: UIDefine.fontSize14,
+                        fontWeight: FontWeight.w500),
                   )
                 ],
               )
             ],
-          )
-        )
-      );
+          )));
     }
     return titleContent;
   }
-
 }

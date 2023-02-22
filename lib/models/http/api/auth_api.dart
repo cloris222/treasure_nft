@@ -1,8 +1,8 @@
-import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/http_manager.dart';
 import 'package:treasure_nft_project/models/http/parameter/api_response.dart';
 
 import '../../../constant/enum/login_enum.dart';
+import '../parameter/user_info_data.dart';
 
 class AuthAPI extends HttpManager {
   AuthAPI({super.onConnectFail});
@@ -20,11 +20,11 @@ class AuthAPI extends HttpManager {
   }
 
   ///MARK: 登入後  發送註冊驗證碼 僅支援-支付設定:payment,轉出:withdraw
-  Future<ApiResponse> sendAuthActionMail({required LoginAction action}) async {
+  Future<ApiResponse> sendAuthActionMail({required LoginAction action, required UserInfoData userInfo}) async {
     return get('/user/code', queryParameters: {
       'action': action.name,
-      'account': GlobalData.userInfo.email,
-      'countryName': GlobalData.userInfo.country,
+      'account': userInfo.email,
+      'countryName': userInfo.country,
       'type': 'MAIL',
       'lang': getLanguage()
     });

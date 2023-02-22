@@ -1,11 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/enum/task_enum.dart';
-import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/view_models/gobal_provider/user_level_info_provider.dart';
 import 'package:treasure_nft_project/view_models/personal/level/level_achievement_view_model.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
 import 'package:treasure_nft_project/views/login/register_main_page.dart';
@@ -20,16 +21,16 @@ import 'package:treasure_nft_project/widgets/label/background_with_land.dart';
 import 'package:treasure_nft_project/widgets/slider_page_view.dart';
 
 ///MARK: 成就
-class LevelAchievementPage extends StatefulWidget {
+class LevelAchievementPage extends ConsumerStatefulWidget {
   const LevelAchievementPage({Key? key, this.initType = TaskType.daily})
       : super(key: key);
   final TaskType initType;
 
   @override
-  State<LevelAchievementPage> createState() => _LevelAchievementPageState();
+  ConsumerState createState() => _LevelAchievementPageState();
 }
 
-class _LevelAchievementPageState extends State<LevelAchievementPage> {
+class _LevelAchievementPageState extends ConsumerState<LevelAchievementPage> {
   late LevelAchievementViewModel viewModel;
 
   @override
@@ -71,7 +72,8 @@ class _LevelAchievementPageState extends State<LevelAchievementPage> {
                 context, const MainPage(type: AppNavigationBarType.typeTrade));
           }).show();
         });
-    viewModel.initState();
+    viewModel.initState(ref);
+    ref.read(userLevelInfoProvider.notifier).update();
   }
 
   @override
@@ -110,7 +112,7 @@ class _LevelAchievementPageState extends State<LevelAchievementPage> {
               padding: EdgeInsets.all(UIDefine.getPixelWidth(10)),
               decoration: AppStyle().styleNewUserSetting(),
               child: PersonalNewSubUserInfoView(
-                  userLevelInfo: GlobalData.userLevelInfo),
+                  userLevelInfo: ref.watch(userLevelInfoProvider)),
             )),
         children: [
           AchievementDailyView(viewModel: viewModel),

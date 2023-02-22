@@ -10,40 +10,46 @@ UserProperty userPropertyFromJson(String str) =>
 String userPropertyToJson(UserProperty data) => json.encode(data.toJson());
 
 class UserProperty {
-  UserProperty(
-      {required this.income,
-      required this.withdraw,
-      required this.balance,
-      required this.savingBalance,
-      required this.nftBalance,
-      required this.totalBalance,
-      required this.tradingSavingBalance});
+  UserProperty({
+    required this.income,
+    required this.withdraw,
+    required this.balance,
+    required this.savingBalance,
+    required this.nftBalance,
+    required this.totalBalance,
+    required this.tradingSavingBalance,
+    required this.experienceMoney,
+  });
 
-  double income;
-  double withdraw;
-  double balance;
+  num income;
+  num withdraw;
+  num balance;
 
   /// 儲金罐餘額
-  double savingBalance;
+  num savingBalance;
 
   ///MARK: 2022/11/01新增
   /// nft資產
-  double nftBalance;
+  num nftBalance;
 
   /// 總資產
-  double totalBalance;
+  num totalBalance;
 
   /// 交易儲金罐餘額
-  double tradingSavingBalance;
+  num tradingSavingBalance;
+
+  /// 工單691 增加體驗金
+  num experienceMoney;
 
   factory UserProperty.fromJson(Map<String, dynamic> json) => UserProperty(
-        income: json["income"].toDouble(),
-        withdraw: json["withdraw"].toDouble(),
-        balance: json["balance"].toDouble(),
-        savingBalance: json["savingBalance"].toDouble(),
-        nftBalance: json["nftBalance"].toDouble(),
-        totalBalance: json["totalBalance"].toDouble(),
-        tradingSavingBalance: json["tradingSavingBalance"].toDouble(),
+        income: json["income"] ?? 0,
+        withdraw: json["withdraw"] ?? 0,
+        balance: json["balance"] ?? 0,
+        savingBalance: json["savingBalance"] ?? 0,
+        nftBalance: json["nftBalance"] ?? 0,
+        totalBalance: json["totalBalance"] ?? 0,
+        tradingSavingBalance: json["tradingSavingBalance"] ?? 0,
+        experienceMoney: json["experienceMoney"] ?? 0,
       );
 
   Map<String, dynamic> toJson() => {
@@ -54,5 +60,6 @@ class UserProperty {
         "nftBalance": nftBalance,
         "totalBalance": totalBalance,
         "tradingSavingBalance": tradingSavingBalance,
+        "experienceMoney": experienceMoney,
       };
 }

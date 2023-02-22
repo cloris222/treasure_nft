@@ -1,12 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:treasure_nft_project/models/http/parameter/user_info_data.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/view_models/gobal_provider/user_info_provider.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
-import 'package:treasure_nft_project/constant/global_data.dart';
 import '../../../view_models/personal/orders/order_info_page_view_model.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/date_picker/date_picker.dart';
@@ -14,7 +16,7 @@ import '../../custom_appbar_view.dart';
 import 'orderinfo/order_info_selector_drop_down_bar.dart';
 
 ///MARK: 訂單信息
-class OrderInfoPage extends StatefulWidget {
+class OrderInfoPage extends ConsumerStatefulWidget {
   const OrderInfoPage({
     Key? key,
     this.bFromWallet = false
@@ -23,10 +25,10 @@ class OrderInfoPage extends StatefulWidget {
   final bool bFromWallet;
 
   @override
-  State<StatefulWidget> createState() => _OrderInfoPage();
+  ConsumerState createState() => _OrderInfoPageState();
 }
 
-class _OrderInfoPage extends State<OrderInfoPage> {
+class _OrderInfoPageState extends ConsumerState<OrderInfoPage> {
 
   int page = 1;
   late OrderInfoPageViewModel viewModel;
@@ -42,6 +44,7 @@ class _OrderInfoPage extends State<OrderInfoPage> {
 
   @override
   Widget build(BuildContext context) {
+    UserInfoData userInfo =ref.watch(userInfoProvider);
     return NotificationListener<ScrollEndNotification>(
         onNotification: (scrollEnd) {
       final metrics = scrollEnd.metrics;
@@ -98,7 +101,7 @@ class _OrderInfoPage extends State<OrderInfoPage> {
                         }),
 
                     viewModel.dataList.isNotEmpty ?
-                    _getListView()
+                    _getListView(userInfo)
                         :
                     Column(
                       children: [
@@ -122,7 +125,7 @@ class _OrderInfoPage extends State<OrderInfoPage> {
     );
   }
 
-  Widget _getListView() {
+  Widget _getListView(UserInfoData userInfo) {
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),

@@ -1,31 +1,29 @@
+import 'package:flutter_riverpod/src/consumer.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/view_models/gobal_provider/user_level_info_provider.dart';
+import 'package:treasure_nft_project/view_models/gobal_provider/user_order_info_provider.dart';
 
 import '../../constant/call_back_function.dart';
-import '../../models/http/api/user_info_api.dart';
-import '../../models/http/parameter/check_level_info.dart';
-import '../../models/http/parameter/user_order_info.dart';
-import '../../models/http/parameter/user_property.dart';
+import '../gobal_provider/user_experience_info_provider.dart';
+import '../gobal_provider/user_info_provider.dart';
+import '../gobal_provider/user_property_info_provider.dart';
+import '../gobal_provider/user_trade_status_provider.dart';
 
 class PersonalMainViewModel extends BaseViewModel {
-  PersonalMainViewModel({required this.setState});
+  PersonalMainViewModel({required this.onViewChange});
 
-  final ViewChange setState;
+  final onClickFunction onViewChange;
 
-  void initState() {
-    updateData();
+  void initState(WidgetRef ref) {
+    updateData(ref);
   }
 
-  void updateData() {
-    List<bool> checkList = List<bool>.generate(4, (index) => false);
-
-    UserInfoAPI().getCheckLevelInfoAPI().then((value) => checkList[0] = true);
-    UserInfoAPI().getUserPropertyInfo().then((value) => checkList[1] = true);
-    UserInfoAPI().getUserOrderInfo().then((value) => checkList[2] = true);
-    uploadPersonalInfo().then((value) => checkList[3] = true);
-
-    checkFutureTime(
-            logKey: 'PersonalMain_updateData',
-            onCheckFinish: () => !checkList.contains(false))
-        .then((value) => setState(() {}));
+  void updateData(WidgetRef ref) {
+    ref.read(userLevelInfoProvider.notifier).update();
+    ref.read(userPropertyInfoProvider.notifier).update();
+    ref.read(userOrderInfoProvider.notifier).update();
+    ref.read(userInfoProvider.notifier).update();
+    ref.read(userExperienceInfoProvider.notifier).update();
+    ref.read(userTradeStatusProvider.notifier).update();
   }
 }

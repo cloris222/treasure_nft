@@ -1,13 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:format/format.dart';
+import 'package:treasure_nft_project/models/http/parameter/user_info_data.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 
 import '../../../constant/call_back_function.dart';
 import '../../../constant/enum/login_enum.dart';
-import '../../../constant/global_data.dart';
 import '../../../models/data/validate_result_data.dart';
 import '../../../models/http/api/auth_api.dart';
 import '../../../models/http/api/withdraw_api.dart';
@@ -17,9 +17,9 @@ import '../../../widgets/dialog/common_custom_dialog.dart';
 import '../../../widgets/dialog/simple_custom_dialog.dart';
 
 class OrderInternalWithdrawViewModel extends BaseViewModel {
-  OrderInternalWithdrawViewModel({required this.setState});
+  OrderInternalWithdrawViewModel({required this.onViewChange});
 
-  final ViewChange setState;
+  final onClickFunction onViewChange;
 
   TextEditingController accountController = TextEditingController();
   TextEditingController amountController = TextEditingController();
@@ -31,28 +31,14 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
   ValidateResultData passwordData = ValidateResultData();
   ValidateResultData emailCodeData = ValidateResultData();
 
-  WithdrawBalanceResponseData data = WithdrawBalanceResponseData();
 
   ///是否判斷過驗證碼
   bool checkEmail = false;
-  bool checkExperience = GlobalData.experienceInfo.isExperience;
-
-  initState() {
-    Future<WithdrawBalanceResponseData> result =
-        WithdrawApi().getWithdrawBalance(null);
-    result.then((value) => _setData(value));
-  }
-
-  _setData(WithdrawBalanceResponseData resData) {
-    setState(() {
-      data = resData;
-    });
-  }
+  bool checkExperience = false;
 
   void onTap() {
-    setState(() {
-      _resetData();
-    });
+    _resetData();
+    onViewChange();
   }
 
   bool checkEnable() {
@@ -92,47 +78,44 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
   }
 
   ///MARK: 寄出驗證碼
-  void onPressSendCode(BuildContext context) async {
+  void onPressSendCode(BuildContext context, UserInfoData userInfo) async {
     await AuthAPI(
             onConnectFail: (message) => onBaseConnectFail(context, message))
-        .sendAuthActionMail(action: LoginAction.withdraw);
+        .sendAuthActionMail(action: LoginAction.withdraw, userInfo: userInfo);
   }
 
   /// MARK: 檢查驗證碼是否正確
-  void onPressCheckVerify(BuildContext context) async {
+  void onPressCheckVerify(BuildContext context, UserInfoData userInfo) async {
     clearAllFocus();
     if (emailCodeController.text.isNotEmpty) {
       await AuthAPI(
               onConnectFail: (message) => onBaseConnectFail(context, message))
           .checkAuthCodeMail(
-              mail: GlobalData.userInfo.email,
+              mail: userInfo.email,
               action: LoginAction.withdraw,
               authCode: emailCodeController.text);
-      setState(() {
-        checkEmail = true;
-      });
+
+      checkEmail = true;
+      onViewChange();
       SimpleCustomDialog(context).show();
     } else {
-      setState(() {
-        emailCodeData =
-            ValidateResultData(result: emailCodeController.text.isNotEmpty);
-      });
+      emailCodeData =
+          ValidateResultData(result: emailCodeController.text.isNotEmpty);
+      onViewChange();
     }
   }
 
-  void onPressSave(BuildContext context, WithdrawAlertInfo alertInfo) {
+  void onPressSave(BuildContext context, WithdrawAlertInfo alertInfo, WithdrawBalanceResponseData withdrawInfo) {
     ///MARK: 檢查是否有欄位未填
     if (!checkEmptyController()) {
-      setState(() {
-        accountData =
-            ValidateResultData(result: accountController.text.isNotEmpty);
-        amountData =
-            ValidateResultData(result: amountController.text.isNotEmpty);
-        // passwordData =
-        //     ValidateResultData(result: passwordController.text.isNotEmpty);
-        emailCodeData =
-            ValidateResultData(result: emailCodeController.text.isNotEmpty);
-      });
+      accountData =
+          ValidateResultData(result: accountController.text.isNotEmpty);
+      amountData = ValidateResultData(result: amountController.text.isNotEmpty);
+      // passwordData =
+      //     ValidateResultData(result: passwordController.text.isNotEmpty);
+      emailCodeData =
+          ValidateResultData(result: emailCodeController.text.isNotEmpty);
+      onViewChange();
       return;
     } else {
       ///MARK: v0.0.12版 改為與提交同時送出信箱驗證碼
@@ -144,15 +127,15 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
 
       ///MARK: 如果上面的檢查有部分錯誤時return
       if (!checkData()) {
-        setState(() {});
+        onViewChange();
         return;
       }
 
       ///MARK: 提領金額是否大於最低金額
-      if (num.parse(amountController.text) < num.parse(data.minAmount)) {
+      if (num.parse(amountController.text) < num.parse(withdrawInfo.minAmount)) {
         CommonCustomDialog(context,
             title: tr("point-FAIL'"),
-            content: '${tr("errorMinAmount")}${data.minAmount} USDT',
+            content: '${tr("errorMinAmount")}${withdrawInfo.minAmount} USDT',
             type: DialogImageType.fail,
             rightBtnText: tr('confirm'),
             onLeftPress: () {}, onRightPress: () {
@@ -180,7 +163,19 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
 
   void sendConfirm(BuildContext context) {
     ///MARK: 打提交API 餘額提現
-    WithdrawApi(onConnectFail: (message) => onBaseConnectFail(context, message))
+    WithdrawApi(
+            showTrString: false,
+            onConnectFailResponse: (message, response) {
+              if (message == "APP_0071") {
+                onBaseConnectFail(
+                    context,
+                    format(tr('APP_0071'), {
+                      "startTime": response?.data["startTime"],
+                      "endTime": response?.data["endTime"]
+                    }));
+              }
+              onBaseConnectFail(context, tr(message));
+            })
         .submitBalanceWithdraw(
             chain: '',
             address: '',

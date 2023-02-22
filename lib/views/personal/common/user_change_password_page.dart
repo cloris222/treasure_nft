@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
@@ -7,20 +8,24 @@ import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 
 import '../../../constant/ui_define.dart';
+import '../../../view_models/gobal_provider/user_info_provider.dart';
 import '../../../view_models/personal/common/user_change_password_view_model.dart';
 import '../../../widgets/button/login_button_widget.dart';
 import '../../login/login_email_code_view.dart';
 import '../../login/login_param_view.dart';
 
 /// 修改密碼
-class UserChangePasswordPage extends StatefulWidget {
-  const UserChangePasswordPage({super.key});
+class UserChangePasswordPage extends ConsumerStatefulWidget {
+  const UserChangePasswordPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _UserChangePasswordPage();
+  ConsumerState createState() => _UserChangePasswordPageState();
 }
 
-class _UserChangePasswordPage extends State<UserChangePasswordPage> {
+class _UserChangePasswordPageState
+    extends ConsumerState<UserChangePasswordPage> {
   late UserChangePasswordViewModel viewModel;
 
   @override
@@ -97,10 +102,10 @@ class _UserChangePasswordPage extends State<UserChangePasswordPage> {
                         hintText: tr("placeholder-emailCode'"),
                         controller: viewModel.emailCodeController,
                         data: viewModel.emailCodeData,
-                        onPressSendCode: () =>
-                            viewModel.onPressSendCode(context),
-                        onPressCheckVerify: () =>
-                            viewModel.onPressCheckVerify(context)),
+                        onPressSendCode: () => viewModel.onPressSendCode(
+                            context, ref.watch(userInfoProvider)),
+                        onPressCheckVerify: () => viewModel.onPressCheckVerify(
+                            context, ref.watch(userInfoProvider))),
                     SizedBox(height: UIDefine.getScreenWidth(8.32)),
                     Container(
                         width: double.infinity,

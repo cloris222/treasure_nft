@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/models/http/api/wallet_api.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
 import 'package:treasure_nft_project/views/personal/orders/withdraw/order_withdraw_type_page.dart';
@@ -8,28 +9,33 @@ import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 
 import '../../../constant/ui_define.dart';
 import '../../../models/http/parameter/withdraw_alert_info.dart';
+import '../../../view_models/gobal_provider/user_property_info_provider.dart';
 import '../../../widgets/dialog/common_custom_dialog.dart';
 import 'withdraw/order_withdraw_tab_bar.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 
 ///MARK: 提領
-class OrderWithdrawPage extends StatefulWidget {
+class OrderWithdrawPage extends ConsumerStatefulWidget {
   const OrderWithdrawPage(
       {Key? key, this.type = AppNavigationBarType.typeWallet})
       : super(key: key);
   final AppNavigationBarType type;
 
   @override
-  State<StatefulWidget> createState() => _OrderWithdrawPage();
+  ConsumerState createState() => _OrderWithdrawPageState();
 }
 
-class _OrderWithdrawPage extends State<OrderWithdrawPage> {
+class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
   String currentExploreType = 'Chain';
   PageController pageController = PageController();
 
   // List<Widget> pages = <Widget>[];
   List<String> dataList = ['Chain', 'Internal'];
   WithdrawAlertInfo withdrawAlertInfo = WithdrawAlertInfo();
+
+  num get experienceMoney {
+    return ref.read(userPropertyInfoProvider)?.experienceMoney ?? 0;
+  }
 
   @override
   void initState() {
@@ -52,6 +58,10 @@ class _OrderWithdrawPage extends State<OrderWithdrawPage> {
 
   @override
   Widget build(BuildContext context) {
+    ///監聽用
+    ref.watch(userPropertyInfoProvider);
+
+
     return CustomAppbarView(
       needScrollView: false,
       onLanguageChange: () {
@@ -91,6 +101,7 @@ class _OrderWithdrawPage extends State<OrderWithdrawPage> {
             children: List<Widget>.generate(
                 dataList.length,
                 (index) => OrderWithdrawTypePage(
+                    experienceMoney:experienceMoney,
                     currentType: dataList[index],
                     getWalletAlert: () => withdrawAlertInfo)),
           ))

@@ -69,6 +69,15 @@ class BalanceRecordItemView extends StatelessWidget {
     }
   }
 
+  ///BSC; TRON;
+  ///TRANSFER(轉帳);
+  /// MANUAL(手動);
+  /// CUSTOMER(外部轉入);
+  /// INTERNAL(內部轉帳);
+  /// OTHER(轉出)
+  /// ACTIVITY_AWARD(活動獎勵)
+  /// EXPERIENCE_ADD(體驗金增加)
+  /// EXPERIENCE_RECYCLE(體驗金回收)
   String _getTitle() {
     if (data.type == 'ACTIVITY_AWARD') {
       return tr('ACTIVITY_AWARD');
@@ -94,6 +103,8 @@ class BalanceRecordItemView extends StatelessWidget {
       case 'INTERNAL':
       case 'OTHER':
         return bDeposit ? tr("rechargeUSDT-MANUAL'") : tr("withdrawUsdt");
+      default:
+        return tr(data.type);
     }
 
     return '';

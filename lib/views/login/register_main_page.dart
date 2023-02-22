@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/views/login/login_common_view.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
@@ -12,14 +13,16 @@ import '../personal/common/phone_param_view.dart';
 import 'login_email_code_view.dart';
 import 'login_param_view.dart';
 
-class RegisterMainPage extends StatefulWidget {
-  const RegisterMainPage({Key? key}) : super(key: key);
+class RegisterMainPage extends ConsumerStatefulWidget {
+  const RegisterMainPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<RegisterMainPage> createState() => _RegisterMainPageState();
+  ConsumerState createState() => _RegisterMainPageState();
 }
 
-class _RegisterMainPageState extends State<RegisterMainPage> {
+class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
   late RegisterMainViewModel viewModel;
 
   @override
@@ -142,7 +145,7 @@ class _RegisterMainPageState extends State<RegisterMainPage> {
           LoginButtonWidget(
             btnText: tr('register'),
             // enable: viewModel.checkPress(),
-            onPressed: () => viewModel.onPressRegister(context),
+            onPressed: () => viewModel.onPressRegister(context,ref),
           ),
           Row(children: [
             Flexible(

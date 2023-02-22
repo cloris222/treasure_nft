@@ -14,18 +14,9 @@ import '../../../models/http/api/wallet_api.dart';
 import '../../../widgets/dialog/simple_custom_dialog.dart';
 
 class OrderRechargeViewModel extends BaseViewModel {
-  OrderRechargeViewModel({required this.setState});
-
-  final ViewChange setState;
-  CoinEnum currentChain = CoinEnum.TRON;
-
-  Future<void> initState() async {
-    await WalletAPI().getBalanceRecharge();
-    setState(() {});
-  }
-
-  onSaveQrcode(BuildContext context, GlobalKey repaintKey) {
-    capturePng(repaintKey).then((success) {
+  onSaveQrcode(
+      BuildContext context, GlobalKey repaintKey, String? chainAddress) {
+    capturePng(repaintKey, chainAddress).then((success) {
       SimpleCustomDialog(context,
               mainText: success ? null : tr("recharge-FAIL'"),
               isSuccess: success)
@@ -35,11 +26,11 @@ class OrderRechargeViewModel extends BaseViewModel {
 
   ///MARK: 儲存QR Code
   ///https://medium.com/codex/exporting-qr-codes-in-flutter-dd30220fcba4
-  Future<bool> capturePng(GlobalKey repaintKey) async {
+  Future<bool> capturePng(GlobalKey repaintKey, String? chainAddress) async {
     try {
       GlobalData.printLog('开始保存');
       var qrValidationResult = QrValidator.validate(
-        data: GlobalData.userWalletInfo?[currentChain.name] ?? '',
+        data: chainAddress ?? '',
         version: QrVersions.auto,
         errorCorrectionLevel: QrErrorCorrectLevel.L,
       );

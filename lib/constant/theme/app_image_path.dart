@@ -218,4 +218,5 @@ class AppImagePath {
   static const String tradeDiceImage =
       '$_imgPath/img_blind_box_lv{level}_{index}.png';
   static const String appUpdateImage = '$_iconPath/icon_update_01.png';
+  static const String tradeStageIcon = '$_iconPath/icon_select_time_01.png';
 }

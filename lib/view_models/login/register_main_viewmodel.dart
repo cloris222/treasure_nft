@@ -2,6 +2,7 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/src/consumer.dart';
 import 'package:treasure_nft_project/constant/enum/login_enum.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/api/auth_api.dart';
@@ -141,9 +142,10 @@ class RegisterMainViewModel extends BaseViewModel {
   }
 
   ///MARK: 註冊
-  void onPressRegister(BuildContext context) async {
+  void onPressRegister(BuildContext context, WidgetRef ref) async {
     resetData();
     clearAllFocus();
+
     ///MARK: 檢查是否有欄位未填
     if (!checkEmptyController()) {
       setState(() {
@@ -199,7 +201,9 @@ class RegisterMainViewModel extends BaseViewModel {
               animationPath: AppAnimationPath.registerSuccess,
               isGIF: true,
               nextPage: const MainPage(),
-              runFunction: _updateRegisterInfo,
+              runFunction: () async {
+                await _updateRegisterInfo(ref: ref, isLogin: true);
+              },
             ));
       });
     }
@@ -252,10 +256,11 @@ class RegisterMainViewModel extends BaseViewModel {
   }
 
   ///更新使用者資料
-  Future<void> _updateRegisterInfo() async {
+  Future<void> _updateRegisterInfo(
+      {required WidgetRef ref, required bool isLogin}) async {
     var response = await LoginAPI().login(
         account: accountController.text, password: passwordController.text);
-    await saveUserLoginInfo(response: response);
+    await saveUserLoginInfo(response: response, ref: ref, isLogin: isLogin);
     startUserListener();
   }
 

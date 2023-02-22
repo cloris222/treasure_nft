@@ -94,7 +94,7 @@ class _TradeCountDownViewState extends State<TradeCountDownView> {
                     width: UIDefine.getWidth() / 1.7,
                     height: UIDefine.getHeight() / 20,
                     btnText:
-                        '(${GlobalData.userInfo.zone}) ${DateFormatUtil().getDateWith12HourInSecondFormat(TradeTimerUtil().getSellStartTime())}',
+                        '(${GlobalData.userZone}) ${DateFormatUtil().getDateWith12HourInSecondFormat(TradeTimerUtil().getSellStartTime())}',
                     fontSize: UIDefine.fontSize14,
                     fontWeight: FontWeight.w500,
                     onPressed: () {},

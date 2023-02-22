@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/enum/style_enum.dart';
 import 'package:treasure_nft_project/constant/subject_key.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
@@ -17,48 +18,29 @@ import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart'
 import 'package:treasure_nft_project/widgets/label/warp_two_text_widget.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import '../../../constant/theme/app_colors.dart';
+import '../../../models/http/parameter/collect_top_info.dart';
+import '../../../view_models/home/provider/home_artist_random_provider.dart';
+import '../../../view_models/home/provider/home_collect_rank_provider.dart';
 import 'artist_record_item.dart';
 
-class ArtistRecordListView extends StatefulWidget {
+class ArtistRecordListView extends ConsumerStatefulWidget {
   const ArtistRecordListView({super.key, required this.viewModel});
 
   final HomeMainViewModel viewModel;
 
   @override
-  State<StatefulWidget> createState() => _ArtistRecordListView();
+  ConsumerState createState() => _ArtistRecordListViewState();
 }
 
-class _ArtistRecordListView extends State<ArtistRecordListView> {
+class _ArtistRecordListViewState extends ConsumerState<ArtistRecordListView> {
   HomeMainViewModel get viewModel {
     return widget.viewModel;
   }
 
-  late HomeObserver observer;
-
-  @override
-  void initState() {
-    String key = SubjectKey.keyHomeArtRecords;
-    observer = HomeObserver(key, onNotify: (notification) {
-      if (notification.key == SubjectKey.keyHomeArtRecords ||
-          notification.key == SubjectKey.keyHomeCollectTop) {
-        if (mounted) {
-          setState(() {});
-        }
-      }
-    });
-    viewModel.homeSubject.registerObserver(observer);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    viewModel.homeSubject.unregisterObserver(observer);
-    super.dispose();
-  }
-
-  Widget createItemBuilder(BuildContext context, int index) {
+  Widget createItemBuilder(
+      BuildContext context, int index, CollectTopInfo data) {
     return ArtistRecordItemView(
-        itemData: viewModel.homeCollectTopList[index],
+        itemData: data,
         index: index,
         viewModel: viewModel,
         subjectKey: '${SubjectKey.keyHomeAnimationStart}_$index');
@@ -73,6 +55,8 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
 
   @override
   Widget build(BuildContext context) {
+    List<CollectTopInfo> list = ref.watch(homeCollectRankProvider);
+
     return Column(mainAxisSize: MainAxisSize.min, children: [
       SizedBox(height: UIDefine.getPixelHeight(20)),
       _buildTopGallery(),
@@ -82,9 +66,9 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemBuilder: (context, index) {
-            return createItemBuilder(context, index);
+            return createItemBuilder(context, index, list[index]);
           },
-          itemCount: viewModel.homeCollectTopList.length,
+          itemCount: list.length,
           separatorBuilder: (BuildContext context, int index) {
             return createSeparatorBuilder(context, index);
           }),
@@ -94,19 +78,20 @@ class _ArtistRecordListView extends State<ArtistRecordListView> {
   }
 
   Widget _buildTopGallery() {
-    if (viewModel.randomArt != null) {
+    ArtistRecord? randomArt = ref.watch(homeArtistRandomProvider);
+    if (randomArt != null) {
       return Container(
           margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
           child: Column(mainAxisSize: MainAxisSize.min, children: [
-            _buildGalleryItem(viewModel.randomArt!, 0),
+            _buildGalleryItem(randomArt, 0),
             SizedBox(height: UIDefine.getPixelHeight(10)),
             Row(
               children: [
-                Expanded(child: _buildGalleryItem(viewModel.randomArt!, 1)),
+                Expanded(child: _buildGalleryItem(randomArt, 1)),
                 SizedBox(width: UIDefine.getPixelWidth(10)),
-                Expanded(child: _buildGalleryItem(viewModel.randomArt!, 2)),
+                Expanded(child: _buildGalleryItem(randomArt, 2)),
                 SizedBox(width: UIDefine.getPixelWidth(10)),
-                Expanded(child: _buildGalleryItem(viewModel.randomArt!, 3)),
+                Expanded(child: _buildGalleryItem(randomArt, 3)),
               ],
             )
           ]));

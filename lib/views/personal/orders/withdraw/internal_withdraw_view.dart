@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
+import 'package:treasure_nft_project/models/http/parameter/user_info_data.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/widgets/button/login_bolder_button_widget.dart';
 import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
@@ -9,35 +11,55 @@ import '../../../../constant/theme/app_colors.dart';
 import '../../../../constant/ui_define.dart';
 import '../../../../models/http/parameter/withdraw_alert_info.dart';
 import '../../../../utils/qrcode_scanner_util.dart';
+import '../../../../view_models/gobal_provider/user_experience_info_provider.dart';
+import '../../../../view_models/gobal_provider/user_info_provider.dart';
 import '../../../../view_models/personal/orders/order_internal_withdraw_view_model.dart';
+import '../../../../view_models/personal/orders/order_withdraw_balance_provider.dart';
 import '../../../../widgets/button/login_button_widget.dart';
 import '../../../../widgets/dialog/common_custom_dialog.dart';
 import '../../../../widgets/label/error_text_widget.dart';
 import '../../../../widgets/text_field/login_text_widget.dart';
 import '../../../login/login_email_code_view.dart';
 import '../../../login/login_param_view.dart';
+import 'data/withdraw_balance_response_data.dart';
 
-class InternalWithdrawView extends StatefulWidget {
-  const InternalWithdrawView({super.key, required this.getWalletAlert});
+///MARK:提領 內部轉帳
+class InternalWithdrawView extends ConsumerStatefulWidget {
+  const InternalWithdrawView(
+      {super.key, required this.getWalletAlert, required this.experienceMoney});
 
   final WithdrawAlertInfo Function() getWalletAlert;
+  final num experienceMoney;
 
   @override
-  State<StatefulWidget> createState() => _InternalWithdrawView();
+  ConsumerState createState() => _InternalWithdrawViewState();
 }
 
-class _InternalWithdrawView extends State<InternalWithdrawView> {
+class _InternalWithdrawViewState extends ConsumerState<InternalWithdrawView> {
   late OrderInternalWithdrawViewModel viewModel;
+
+  WithdrawBalanceResponseData get withdrawInfo {
+    return ref.read(orderWithdrawBalanceProvider(null));
+  }
 
   @override
   initState() {
     super.initState();
-    viewModel = OrderInternalWithdrawViewModel(setState: setState);
-    viewModel.initState();
+    viewModel = OrderInternalWithdrawViewModel(onViewChange: () {
+      if (mounted) {
+        setState(() {});
+      }
+    });
+    ref.read(orderWithdrawBalanceProvider(null).notifier).init();
   }
 
   @override
   Widget build(BuildContext context) {
+    viewModel.checkExperience =
+        ref.watch(userExperienceInfoProvider).isExperience;
+    UserInfoData userInfo = ref.watch(userInfoProvider);
+    ref.watch(orderWithdrawBalanceProvider(null));
+
     return SingleChildScrollView(
         child: Column(
       children: [
@@ -46,7 +68,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
             width: double.infinity,
             height: UIDefine.getPixelWidth(15),
             color: AppColors.defaultBackgroundSpace),
-        _buildWithdrawEmailView(),
+        _buildWithdrawEmailView(userInfo),
         Container(
             width: double.infinity,
             height: UIDefine.getPixelWidth(2),
@@ -76,7 +98,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
     );
   }
 
-  _buildWithdrawEmailView() {
+  _buildWithdrawEmailView(UserInfoData userInfo) {
     return Visibility(
       visible: !viewModel.checkExperience,
       child: Padding(
@@ -85,7 +107,9 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
           mainAxisSize: MainAxisSize.min,
           children: [
             // viewModel.checkExperience?  _buildPasswordInputBar() : _buildEmailVerify(), // test 體驗號功能未開
-            viewModel.checkExperience ? const SizedBox() : _buildEmailVerify(),
+            viewModel.checkExperience
+                ? const SizedBox()
+                : _buildEmailVerify(userInfo),
           ],
         ),
       ),
@@ -117,7 +141,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
             isGradient: true,
             btnText: tr('submit'),
             onPressed: () {
-              viewModel.onPressSave(context, widget.getWalletAlert());
+              viewModel.onPressSave(context, widget.getWalletAlert(),withdrawInfo);
             },
             // enable: viewModel.checkEnable(),
           ),
@@ -135,10 +159,14 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
         mainAxisSize: MainAxisSize.min,
         children: [
           _buildTextContent(tr('canWithdrawFee'),
-              viewModel.numberFormat(viewModel.data.balance)),
+              viewModel.numberFormat(withdrawInfo.balance)),
+          // viewModel.numberFormat(viewModel.data.balance.isNotEmpty
+          //     ? (num.parse(viewModel.data.balance) - widget.experienceMoney)
+          //         .toString()
+          //     : '')),
           SizedBox(height: UIDefine.getScreenWidth(2.77)),
           _buildTextContent(tr('minAmount'),
-              '${viewModel.numberFormat(viewModel.data.minAmount)} USDT'),
+              '${viewModel.numberFormat(withdrawInfo.minAmount)} USDT'),
           SizedBox(height: UIDefine.getScreenWidth(2.27)),
         ],
       ),
@@ -241,7 +269,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
                       SizedBox(width: UIDefine.getScreenWidth(2.77)),
                       GestureDetector(
                         onTap: () => viewModel.amountController.text =
-                            viewModel.numberFormat(viewModel.data.balance),
+                            viewModel.numberFormat(withdrawInfo.balance),
                         child: GradientThirdText(
                             '${tr('all')} ${tr('walletWithdraw')}',
                             size: UIDefine.fontSize14),
@@ -328,7 +356,7 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
         onTap: viewModel.onTap);
   }
 
-  Widget _buildEmailVerify() {
+  Widget _buildEmailVerify(UserInfoData userInfo) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -342,8 +370,9 @@ class _InternalWithdrawView extends State<InternalWithdrawView> {
             hintText: tr("placeholder-emailCode'"),
             controller: viewModel.emailCodeController,
             data: viewModel.emailCodeData,
-            onPressSendCode: () => viewModel.onPressSendCode(context),
-            onPressCheckVerify: () => viewModel.onPressCheckVerify(context)),
+            onPressSendCode: () => viewModel.onPressSendCode(context, userInfo),
+            onPressCheckVerify: () =>
+                viewModel.onPressCheckVerify(context, userInfo)),
       ],
     );
   }

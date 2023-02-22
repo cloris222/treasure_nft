@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/subject_key.dart';
 import 'package:treasure_nft_project/utils/animation_download_util.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/custom/language_observer.dart';
-import 'package:treasure_nft_project/utils/observer_pattern/observer.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/collection/collection_main_view.dart';
 import 'package:treasure_nft_project/views/explore/explore_main_view.dart';
@@ -14,13 +13,10 @@ import 'package:treasure_nft_project/views/personal/personal_main_view.dart';
 import 'package:treasure_nft_project/views/server_web_page.dart';
 import 'package:treasure_nft_project/views/setting_language_page.dart';
 import 'package:treasure_nft_project/views/sigin_in_page.dart';
-import 'package:treasure_nft_project/views/trade/trade_main_view.dart';
 import 'package:treasure_nft_project/views/trade/trade_new_main_view.dart';
 import 'package:treasure_nft_project/views/wallet/wallet_main_view.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
-import 'package:treasure_nft_project/widgets/bottom_sheet/page_bottom_sheet.dart';
 import 'package:treasure_nft_project/widgets/dialog/app_version_update_dialog.dart';
-import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 
 import '../constant/global_data.dart';
 import '../constant/ui_define.dart';
@@ -172,7 +168,7 @@ class _MainPageState extends State<MainPage> {
                 CollectionMainView(),
                 TradeNewMainView(),
                 WalletMainView(onPrePage: _onPrePage),
-                PersonalMainView(onViewChange: () => setState(() {})),
+                PersonalMainView(),
                 HomeMainView(),
                 LoginMainView()
               ],

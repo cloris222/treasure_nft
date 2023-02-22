@@ -1,12 +1,17 @@
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/models/http/parameter/user_property.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/view_models/gobal_provider/user_property_info_provider.dart';
+import 'package:treasure_nft_project/view_models/wallet/wallet_balance_recharge_provider.dart';
+import 'package:treasure_nft_project/view_models/wallet/wallet_main_record_provider.dart';
 import 'package:treasure_nft_project/views/wallet/data/app_purchase.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
-import 'package:treasure_nft_project/widgets/bottom_sheet/page_bottom_sheet.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
@@ -16,39 +21,56 @@ import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/theme/app_style.dart';
 import '../../view_models/wallet/wallet_main_view_model.dart';
+import '../../view_models/wallet/wallet_payment_setting_provider.dart';
 import '../../widgets/label/coin/tether_coin_widget.dart';
 import '../../widgets/label/wallet_info_item.dart';
 import '../personal/orders/order_info_page.dart';
 import '../personal/orders/order_recharge_page.dart';
 import '../personal/orders/order_withdraw_page.dart';
 import 'balance_record_item_view.dart';
+import 'data/BalanceRecordResponseData.dart';
 import 'wallet_setting_page.dart';
 
-class WalletMainView extends StatefulWidget {
+class WalletMainView extends ConsumerStatefulWidget {
   const WalletMainView({Key? key, required this.onPrePage}) : super(key: key);
   final onClickFunction onPrePage;
 
   @override
-  State<WalletMainView> createState() => _WalletMainViewState();
+  ConsumerState createState() => _WalletMainViewState();
 }
 
-class _WalletMainViewState extends State<WalletMainView> {
-  late WalletMainViewModel viewModel;
+class _WalletMainViewState extends ConsumerState<WalletMainView> {
+  BaseViewModel viewModel = BaseViewModel();
+
+  Map<String, dynamic>? get userWalletInfo {
+    return ref.read(walletBalanceRechargeProvider);
+  }
+
+  List<BalanceRecordResponseData> get records {
+    return ref.read(walletMainRecordProvider);
+  }
 
   @override
   void initState() {
     super.initState();
-    viewModel = WalletMainViewModel(setState: setState);
-    viewModel.initState();
+
+    ref.read(userPropertyInfoProvider.notifier).update();
+    ref.read(walletMainRecordProvider.notifier).init();
+    ref.read(walletBalanceRechargeProvider.notifier).init();
   }
 
   @override
   Widget build(BuildContext context) {
+    ///MARK:監聽用
+    UserProperty? userProperty = ref.watch(userPropertyInfoProvider);
+    ref.watch(walletMainRecordProvider);
+    ref.watch(walletBalanceRechargeProvider);
+
     return Container(
       color: AppColors.defaultBackgroundSpace,
       child: SingleChildScrollView(
         child: Column(children: [
-          _buildWalletInfo(),
+          _buildWalletInfo(userProperty),
           Padding(
             padding: EdgeInsets.only(
                 bottom: UIDefine.navigationBarPadding,
@@ -79,7 +101,7 @@ class _WalletMainViewState extends State<WalletMainView> {
     );
   }
 
-  Widget _buildWalletInfo() {
+  Widget _buildWalletInfo(UserProperty? userProperty) {
     return Stack(
       children: [
         SizedBox(
@@ -124,7 +146,10 @@ class _WalletMainViewState extends State<WalletMainView> {
                     SizedBox(height: UIDefine.getPixelWidth(20)),
                     Text(
                         NumberFormatUtil().removeTwoPointFormat(
-                            GlobalData.userProperty?.balance ?? 0),
+                            userProperty != null
+                                ? (userProperty.balance -
+                                    userProperty.experienceMoney)
+                                : 0),
                         style: AppTextStyle.getBaseStyle(
                             fontSize: UIDefine.fontSize40,
                             fontWeight: FontWeight.w600)),
@@ -134,15 +159,18 @@ class _WalletMainViewState extends State<WalletMainView> {
                         Flexible(
                             child: WalletInfoItem(
                                 title: tr('totalAccountEarnings'),
-                                value: GlobalData.userProperty?.income)),
+                                value: userProperty?.income)),
                         Flexible(
                             child: WalletInfoItem(
                                 title: tr('extracted'),
-                                value: GlobalData.userProperty?.withdraw)),
+                                value: userProperty?.withdraw)),
                         Flexible(
                             child: WalletInfoItem(
                                 title: tr('notExtracted'),
-                                value: GlobalData.userProperty?.balance)),
+                                value: userProperty != null
+                                    ? (userProperty.balance -
+                                        userProperty.experienceMoney)
+                                    : null)),
                       ],
                     ),
                   ],
@@ -166,19 +194,19 @@ class _WalletMainViewState extends State<WalletMainView> {
           Row(
             children: [
               Text(
-                'Polygon',
+                '${tr('rechargeUaddr')} (TRC-20)',
                 style: AppTextStyle.getBaseStyle(
                     fontSize: UIDefine.fontSize12,
                     fontWeight: FontWeight.w600,
                     color: AppColors.textThreeBlack),
               ),
-              SizedBox(width: UIDefine.getPixelWidth(10)),
-              Text(
-                tr('depositAddress'),
-                style: AppTextStyle.getBaseStyle(
-                    fontSize: UIDefine.fontSize12,
-                    color: AppColors.textSixBlack),
-              ),
+              // SizedBox(width: UIDefine.getPixelWidth(10)),
+              // Text(
+              //   tr('depositAddress'),
+              //   style: AppTextStyle.getBaseStyle(
+              //       fontSize: UIDefine.fontSize12,
+              //       color: AppColors.textSixBlack),
+              // ),
             ],
           ),
           const SizedBox(height: 5),
@@ -186,9 +214,7 @@ class _WalletMainViewState extends State<WalletMainView> {
             children: [
               Flexible(
                   child: Text(
-                      GlobalData.userWalletInfo != null
-                          ? GlobalData.userWalletInfo!['TRON']
-                          : '',
+                      userWalletInfo != null ? userWalletInfo!['TRON'] : '',
                       maxLines: 2,
                       style: AppTextStyle.getBaseStyle(
                           fontSize: UIDefine.fontSize12,
@@ -197,8 +223,7 @@ class _WalletMainViewState extends State<WalletMainView> {
               const SizedBox(width: 10),
               GestureDetector(
                   onTap: () {
-                    viewModel.copyText(
-                        copyText: GlobalData.userWalletInfo?['TRON']);
+                    viewModel.copyText(copyText: userWalletInfo?['TRON']);
                     viewModel.showToast(context, tr('copiedSuccess'));
                   },
                   child: Image.asset(AppImagePath.copyIcon))
@@ -267,7 +292,7 @@ class _WalletMainViewState extends State<WalletMainView> {
         onPressed: _showAppPurchase);
   }
 
-  Widget _buildWalletAccount() {
+  Widget _buildWalletAccount(UserProperty? userProperty) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(tr('uc_myAccount'),
           style: AppTextStyle.getBaseStyle(
@@ -280,9 +305,7 @@ class _WalletMainViewState extends State<WalletMainView> {
             style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500)),
         Flexible(child: Container()),
-        Text(
-            NumberFormatUtil()
-                .removeTwoPointFormat(GlobalData.userProperty?.balance),
+        Text(NumberFormatUtil().removeTwoPointFormat(userProperty?.balance),
             style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500))
       ])
@@ -321,7 +344,7 @@ class _WalletMainViewState extends State<WalletMainView> {
             )
           ]),
           Visibility(
-            visible: viewModel.balanceRecordResponseDataList.isNotEmpty,
+            visible: records.isNotEmpty,
             child: Container(
                 margin:
                     EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(10)),
@@ -338,22 +361,20 @@ class _WalletMainViewState extends State<WalletMainView> {
   Widget _buildRecordListView() {
     // 顯示最近的15筆紀錄, 訂單信息功能才顯示完整所有紀錄
     return Visibility(
-      visible: viewModel.balanceRecordResponseDataList.isNotEmpty,
+      visible: records.isNotEmpty,
       child: ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: viewModel.balanceRecordResponseDataList.length,
+          itemCount: records.length,
           itemBuilder: (context, index) {
-            return BalanceRecordItemView(
-                data: viewModel.balanceRecordResponseDataList[index]);
+            return BalanceRecordItemView(data: records[index]);
           }),
     );
   }
 
   Widget _bottomMargin() {
     return Visibility(
-        visible: viewModel.balanceRecordResponseDataList.isEmpty,
-        child: const SizedBox(width: 1));
+        visible: records.isEmpty, child: const SizedBox(width: 1));
   }
 
   void _showRechargePage() {

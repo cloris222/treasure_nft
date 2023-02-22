@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/login/login_main_viewmodel.dart';
 import 'package:treasure_nft_project/views/login/login_common_view.dart';
@@ -8,14 +9,16 @@ import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/label/common_text_widget.dart';
 import 'login_param_view.dart';
 
-class LoginMainView extends StatefulWidget {
-  const LoginMainView({Key? key}) : super(key: key);
+class LoginMainView extends ConsumerStatefulWidget {
+  const LoginMainView({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<LoginMainView> createState() => _LoginMainViewState();
+  ConsumerState createState() => _LoginMainViewState();
 }
 
-class _LoginMainViewState extends State<LoginMainView> {
+class _LoginMainViewState extends ConsumerState<LoginMainView> {
   late LoginMainViewModel viewModel;
 
   @override
@@ -73,7 +76,7 @@ class _LoginMainViewState extends State<LoginMainView> {
             fontSize: UIDefine.fontSize16,
             fontWeight: FontWeight.w600,
             radius: 22,
-            onPressed: () => viewModel.onPressLogin(context),
+            onPressed: () => viewModel.onPressLogin(context, ref),
           ),
           Row(children: [
             Flexible(

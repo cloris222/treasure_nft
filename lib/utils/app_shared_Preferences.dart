@@ -16,12 +16,12 @@ class AppSharedPreferences {
     return pref.containsKey(key);
   }
 
-  static Future<void> _setString(String key, String value) async {
+  static Future<void> setString(String key, String value) async {
     SharedPreferences pref = await _getPreferences();
     await pref.setString(key, value);
   }
 
-  static Future<String> _getString(String key,
+  static Future<String> getString(String key,
       {String defaultValue = ''}) async {
     SharedPreferences pref = await _getPreferences();
     if (await checkKey(key, pref: pref)) {
@@ -31,12 +31,12 @@ class AppSharedPreferences {
     }
   }
 
-  static Future<void> _setBool(String key, bool value) async {
+  static Future<void> setBool(String key, bool value) async {
     SharedPreferences pref = await _getPreferences();
     await pref.setBool(key, value);
   }
 
-  static Future<bool> _getBool(String key, {bool defaultValue = false}) async {
+  static Future<bool> getBool(String key, {bool defaultValue = false}) async {
     SharedPreferences pref = await _getPreferences();
     if (await checkKey(key, pref: pref)) {
       return pref.getBool(key)!;
@@ -45,11 +45,11 @@ class AppSharedPreferences {
     }
   }
 
-  static Future<void> _setJson(String key, dynamic value) async {
-    await _setString(key, json.encode(value).toString());
+  static Future<void> setJson(String key, dynamic value) async {
+    await setString(key, json.encode(value).toString());
   }
 
-  static Future<dynamic> _getJson(String key) async {
+  static Future<dynamic> getJson(String key) async {
     SharedPreferences pref = await _getPreferences();
     if (await checkKey(key, pref: pref)) {
       return json.decode(pref.getString(key)!);
@@ -61,36 +61,36 @@ class AppSharedPreferences {
   ///MARK: ----使用者設定 start ----
 
   static Future<void> setLanguage(String lang) async {
-    await _setString("Lang", lang);
+    await setString("Lang", lang);
   }
 
   static Future<String> getLanguage() async {
-    return await _getString("Lang");
+    return await getString("Lang");
   }
 
   static Future<void> setMemberID(String id) async {
-    await _setString("MemberID", id);
+    await setString("MemberID", id);
   }
 
   static Future<String> getMemberID() async {
-    return await _getString("MemberID");
+    return await getString("MemberID");
   }
 
   static Future<void> setToken(String token) async {
-    await _setString('Token', token);
+    await setString('Token', token);
   }
 
   static Future<String> getToken() async {
-    return await _getString("Token");
+    return await getString("Token");
   }
 
   /// MARK: 判斷是否登入過
   static Future<void> setLogIn(bool isLogIn) async {
-    await _setBool("LogIn", isLogIn);
+    await setBool("LogIn", isLogIn);
   }
 
   static Future<bool> getLogIn() async {
-    return await _getBool("LogIn");
+    return await getBool("LogIn");
   }
 
   static Future<void> printAll() async {
@@ -101,6 +101,41 @@ class AppSharedPreferences {
     GlobalData.printLog('pref_getLogIn:${await getLogIn()}');
   }
 
+  ///清除使用者相關的暫存資料
+  static Future<void> clearUserTmpValue() async {
+    SharedPreferences pref = await _getPreferences();
+    pref.getKeys().forEach((key) {
+      ///MARK: 如果包含_tmp 代表需要被刪除
+      if (key.contains("_tmp")) {
+        pref.remove(key);
+      }
+    });
+  }
+
+  ///清除過期的場次紀錄
+  static Future<void> clearExpiredReserveInfo(List<String> todayState) async {
+    SharedPreferences pref = await _getPreferences();
+    pref.getKeys().forEach((key) {
+      ///MARK: 如果是此標籤開頭 才需判斷
+      if (key.contains("tradeReserveInfo_user")) {
+        bool needRemove = true;
+
+        ///MARK: 如果是今日查詢場次的紀錄 則可以留存
+        for (var element in todayState) {
+          if (key.contains(element)) {
+            needRemove = false;
+            break;
+          }
+        }
+
+        ///MARK: 非日查詢場次的紀錄 則直接刪除
+        if (needRemove) {
+          pref.remove(key);
+        }
+      }
+    });
+  }
+
   ///MARK: ----使用者設定 end ----
 
   ///MARK: ----暫存相關 start ----
@@ -108,12 +143,12 @@ class AppSharedPreferences {
   ///MARK: 錢包紀錄 WalletRecord
   static Future<void> setWalletRecord(
       List<BalanceRecordResponseData> list) async {
-    await _setJson(
+    await setJson(
         "WalletRecord", List<dynamic>.from(list.map((x) => x.toJson())));
   }
 
   static Future<List<BalanceRecordResponseData>> getWalletRecord() async {
-    var json = await _getJson("WalletRecord");
+    var json = await getJson("WalletRecord");
     if (json == null) {
       return [];
     }
@@ -123,12 +158,12 @@ class AppSharedPreferences {
 
   ///MARK: 收益明細 ProfitRecord
   static Future<void> setProfitRecord(List<CheckEarningIncomeData> list) async {
-    await _setJson(
+    await setJson(
         "ProfitRecord", List<dynamic>.from(list.map((x) => x.toJson())));
   }
 
   static Future<List<CheckEarningIncomeData>> getProfitRecord() async {
-    var json = await _getJson("ProfitRecord");
+    var json = await getJson("ProfitRecord");
     if (json == null) {
       return [];
     }

@@ -17,7 +17,8 @@ class GraduallyNetworkImage extends StatelessWidget {
       this.child,
       this.childAlignment,
       this.childPadding,
-      this.imageWidgetBuilder})
+      this.imageWidgetBuilder,
+      this.showNormal})
       : super(key: key);
   final String imageUrl;
   final double? width;
@@ -26,6 +27,7 @@ class GraduallyNetworkImage extends StatelessWidget {
   final Widget? errorWidget;
   final Widget? loadWidget;
   final int? cacheWidth;
+  final bool? showNormal;
 
   /// Optional builder to further customize the display of the image.
   /// 供Container背景用
@@ -38,7 +40,9 @@ class GraduallyNetworkImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _buildLoadNormal();
+    // return _buildLoadNormal();
+    ///MARK: 暫時不讀壓圖
+    return _buildLoadLowPath(loadNormal: showNormal ?? false);
   }
 
   Widget _buildLoadingIcon() {
@@ -49,7 +53,7 @@ class GraduallyNetworkImage extends StatelessWidget {
     return Center(child: errorWidget ?? const Icon(Icons.cancel_rounded));
   }
 
-  Widget _buildLoadLowPath() {
+  Widget _buildLoadLowPath({bool loadNormal = true}) {
     String lowUrl;
     if (imageUrl.contains('.')) {
       int index = imageUrl.lastIndexOf('.');
@@ -71,7 +75,8 @@ class GraduallyNetworkImage extends StatelessWidget {
       imageBuilder: _buildImageBuilder(),
       placeholder: (context, url) =>
           Container(width: width, height: width, color: Colors.white),
-      errorWidget: (context, url, error) => _buildLoadNormal(fail: true),
+      errorWidget: (context, url, error) =>
+          loadNormal ? _buildLoadNormal(fail: true) : _buildErrorIcon(),
     );
   }
 

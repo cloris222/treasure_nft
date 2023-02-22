@@ -18,6 +18,7 @@ class HttpManager {
 // dio instance
   final Dio _dio = Dio();
   final ResponseErrorFunction? onConnectFail;
+  final ResponseErrorResponseFunction? onConnectFailResponse;
   String baseUrl;
   final bool addToken;
 
@@ -26,6 +27,7 @@ class HttpManager {
 
   HttpManager(
       {this.onConnectFail,
+      this.onConnectFailResponse,
       this.baseUrl = HttpSetting.appUrl,
       this.addToken = true,
       this.showTrString = true}) {
@@ -83,9 +85,13 @@ class HttpManager {
     });
   }
 
-  void callFailConnect(String message, {bool isOther = false}) {
+  void callFailConnect(String message,
+      {required  Response? response , bool isOther = false}) {
     if (onConnectFail != null) {
       onConnectFail!(message);
+    }
+    if (onConnectFailResponse != null) {
+      onConnectFailResponse!(message, response);
     }
 
     ///MARK: 未開啟網路連線時
@@ -124,10 +130,10 @@ class HttpManager {
     } on DioError catch (e) {
       final errorMessage = HttpExceptions.fromDioError(e).toString();
       GlobalData.printLog('connect errorMessage:$errorMessage');
-      callFailConnect(errorMessage, isOther: e.type == DioErrorType.other);
+      callFailConnect(errorMessage,response:e.response, isOther: e.type == DioErrorType.other);
       throw HttpSetting.debugMode ? errorMessage : '';
     } catch (e) {
-      callFailConnect(e.toString());
+      callFailConnect(e.toString(), response: null);
       rethrow;
     }
   }
@@ -163,10 +169,10 @@ class HttpManager {
       return _checkResponse(response);
     } on DioError catch (e) {
       final errorMessage = HttpExceptions.fromDioError(e).toString();
-      callFailConnect(errorMessage, isOther: e.type == DioErrorType.other);
+      callFailConnect(errorMessage,response:e.response, isOther: e.type == DioErrorType.other);
       throw HttpSetting.debugMode ? errorMessage : '';
     } catch (e) {
-      callFailConnect(e.toString());
+      callFailConnect(e.toString(), response: null);
       rethrow;
     }
   }
@@ -199,10 +205,10 @@ class HttpManager {
       return _checkResponse(response);
     } on DioError catch (e) {
       final errorMessage = HttpExceptions.fromDioError(e).toString();
-      callFailConnect(errorMessage, isOther: e.type == DioErrorType.other);
+      callFailConnect(errorMessage,response:e.response, isOther: e.type == DioErrorType.other);
       throw HttpSetting.debugMode ? errorMessage : '';
     } catch (e) {
-      callFailConnect(e.toString());
+      callFailConnect(e.toString(), response: null);
       rethrow;
     }
   }
@@ -229,10 +235,10 @@ class HttpManager {
       return ApiResponse.fromJson(response.data);
     } on DioError catch (e) {
       final errorMessage = HttpExceptions.fromDioError(e).toString();
-      callFailConnect(errorMessage, isOther: e.type == DioErrorType.other);
+      callFailConnect(errorMessage,response:e.response, isOther: e.type == DioErrorType.other);
       throw HttpSetting.debugMode ? errorMessage : '';
     } catch (e) {
-      callFailConnect(e.toString());
+      callFailConnect(e.toString(), response: null);
       rethrow;
     }
   }
@@ -251,10 +257,10 @@ class HttpManager {
       );
     } on DioError catch (e) {
       final errorMessage = HttpExceptions.fromDioError(e).toString();
-      callFailConnect(errorMessage, isOther: e.type == DioErrorType.other);
+      callFailConnect(errorMessage,response:e.response, isOther: e.type == DioErrorType.other);
       throw HttpSetting.debugMode ? errorMessage : '';
     } catch (e) {
-      callFailConnect(e.toString());
+      callFailConnect(e.toString(), response: null);
       rethrow;
     }
   }

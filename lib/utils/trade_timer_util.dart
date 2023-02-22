@@ -7,7 +7,9 @@ import '../constant/call_back_function.dart';
 import '../constant/enum/trade_enum.dart';
 import '../models/data/trade_model_data.dart';
 import '../models/http/api/trade_api.dart';
+import '../models/http/parameter/check_experience_info.dart';
 import '../models/http/parameter/check_reservation_info.dart';
+import '../models/http/parameter/user_info_data.dart';
 import 'date_format_util.dart';
 
 class TradeTimerUtil {
@@ -79,13 +81,13 @@ class TradeTimerUtil {
     return _reservationInfo;
   }
 
-  List<ReserveRange> getDivisionRanges() {
+  List<ReserveRange> getDivisionRanges(
+      ExperienceInfo experienceInfo, UserInfoData userInfo) {
     if (_reservationInfo != null) {
       var ranges = _reservationInfo!.reserveRanges;
 
       /// 如果是體驗帳號 且 level 1 副本顯示內容不同
-      if (GlobalData.experienceInfo.isExperience == true &&
-          GlobalData.userInfo.level == 1) {
+      if (experienceInfo.isExperience == true && userInfo.level == 1) {
         ranges[0].startPrice = 1;
         ranges[0].endPrice = 50;
         ranges[1].startPrice = 50;
@@ -105,14 +107,14 @@ class TradeTimerUtil {
 
   String getResultTime() {
     if (_reservationInfo != null) {
-      return '${_reservationInfo?.systemStartTime.substring(0, 5)} - ${_reservationInfo?.systemEndTime.substring(0, 5)}';
+      return '${_reservationInfo?.startTime.substring(0, 5)} - ${_reservationInfo?.endTime.substring(0, 5)}';
     }
     return '';
   }
 
-  String getTradeZone() {
-    if (GlobalData.userInfo.zone.isNotEmpty) {
-      return '(${GlobalData.userInfo.zone.substring(0, 4)}${NumberFormatUtil().integerTwoFormat(GlobalData.userInfo.zone.substring(4))}:00)';
+  String getTradeZone(UserInfoData userInfo) {
+    if (userInfo.zone.isNotEmpty) {
+      return '(${userInfo.zone.substring(0, 4)}${NumberFormatUtil().integerTwoFormat(userInfo.zone.substring(4))}:00)';
     }
     return '';
   }

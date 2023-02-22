@@ -1,10 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:treasure_nft_project/constant/enum/coin_enum.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
+import 'package:treasure_nft_project/view_models/personal/orders/order_withdraw_balance_provider.dart';
+import 'package:treasure_nft_project/views/personal/orders/withdraw/data/withdraw_balance_response_data.dart';
 import 'package:treasure_nft_project/widgets/dropdownButton/chain_dropdown_button.dart';
 import 'package:treasure_nft_project/widgets/button/login_bolder_button_widget.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
@@ -12,36 +16,70 @@ import 'package:treasure_nft_project/widgets/dialog/simple_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
 
 import '../../../../constant/ui_define.dart';
+import '../../../../models/http/parameter/user_info_data.dart';
 import '../../../../models/http/parameter/withdraw_alert_info.dart';
 import '../../../../utils/qrcode_scanner_util.dart';
+import '../../../../view_models/gobal_provider/user_experience_info_provider.dart';
+import '../../../../view_models/gobal_provider/user_info_provider.dart';
 import '../../../../view_models/personal/orders/order_chain_withdraw_view_model.dart';
 import '../../../../widgets/button/login_button_widget.dart';
 import '../../../../widgets/label/error_text_widget.dart';
 import '../../../../widgets/text_field/login_text_widget.dart';
 import '../../../login/login_email_code_view.dart';
 import '../../../login/login_param_view.dart';
-
-class ChainWithdrawView extends StatefulWidget {
-  const ChainWithdrawView({super.key, required this.getWalletAlert});
+///MARK: 提領-線上轉帳
+class ChainWithdrawView extends ConsumerStatefulWidget {
+  const ChainWithdrawView(
+      {super.key, required this.getWalletAlert, required this.experienceMoney});
 
   final WithdrawAlertInfo Function() getWalletAlert;
+  final num experienceMoney;
 
   @override
-  State<StatefulWidget> createState() => _ChainWithdrawView();
+  ConsumerState createState() => _ChainWithdrawViewState();
 }
 
-class _ChainWithdrawView extends State<ChainWithdrawView> {
+class _ChainWithdrawViewState extends ConsumerState<ChainWithdrawView> {
   late OrderChainWithdrawViewModel viewModel;
+
+  CoinEnum get currentChain {
+    return ref.read(orderCurrentChainProvider);
+  }
+
+  WithdrawBalanceResponseData get withdrawInfo {
+    return ref.read(orderWithdrawBalanceProvider(currentChain.name));
+  }
 
   @override
   initState() {
     super.initState();
-    viewModel = OrderChainWithdrawViewModel(setState: setState);
-    viewModel.requestAPI();
+    viewModel = OrderChainWithdrawViewModel(onViewChange: () {
+      if (mounted) {
+        setState(() {});
+      }
+    });
+    ref.read(orderWithdrawBalanceProvider(currentChain.name).notifier).init(
+        onFinish: () {
+      if (withdrawInfo.fee.isNotEmpty) {
+        viewModel.currentAmount = num.parse(withdrawInfo.fee);
+        viewModel.onViewChange();
+      }
+    });
+  }
+  @override
+  void dispose() {
+    viewModel.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    UserInfoData userInfo = ref.watch(userInfoProvider);
+    viewModel.checkExperience =
+        ref.watch(userExperienceInfoProvider).isExperience;
+    ref.watch(orderCurrentChainProvider);
+    ref.watch(orderWithdrawBalanceProvider(currentChain.name));
+
     return SingleChildScrollView(
         child: Column(
       children: [
@@ -50,7 +88,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
             width: double.infinity,
             height: UIDefine.getPixelWidth(15),
             color: AppColors.defaultBackgroundSpace),
-        _buildWithdrawEmailView(),
+        _buildWithdrawEmailView(userInfo),
         Container(
             width: double.infinity,
             height: UIDefine.getPixelWidth(2),
@@ -83,7 +121,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
     );
   }
 
-  _buildWithdrawEmailView() {
+  _buildWithdrawEmailView(UserInfoData userInfo) {
     return Visibility(
       visible: !viewModel.checkExperience,
       child: Padding(
@@ -92,7 +130,9 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
           mainAxisSize: MainAxisSize.min,
           children: [
             // viewModel.checkExperience?  _buildPasswordInputBar() : _buildEmailVerify(), // test 體驗號功能未開
-            viewModel.checkExperience ? const SizedBox() : _buildEmailVerify(),
+            viewModel.checkExperience
+                ? const SizedBox()
+                : _buildEmailVerify(userInfo),
           ],
         ),
       ),
@@ -124,7 +164,8 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
             isGradient: true,
             btnText: tr('submit'),
             onPressed: () {
-              viewModel.onPressSave(context, widget.getWalletAlert());
+              viewModel.onPressSave(
+                  context, widget.getWalletAlert(), withdrawInfo, currentChain);
             },
             // enable: viewModel.checkEnable(),
           ),
@@ -136,12 +177,16 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
   Widget _buildChainDropDownBar() {
     return ChainDropDownButton(
         onChainChange: (chain) {
-          setState(() {
-            viewModel.currentChain = chain;
-            viewModel.requestAPI();
+          viewModel.addressController.text = '';
+          ref.read(orderCurrentChainProvider.notifier).state = chain;
+          ref
+              .read(orderWithdrawBalanceProvider(currentChain.name).notifier)
+              .init(onFinish: () {
+            viewModel.onAmountChange(
+                viewModel.amountController.text, withdrawInfo);
           });
         },
-        currentChain: viewModel.currentChain);
+        currentChain: currentChain);
   }
 
   Widget _buildAddressInputBar() {
@@ -236,9 +281,9 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
   }
 
   void _onQuickFill() {
-    String address = viewModel.data.address;
+    String address = withdrawInfo.address;
     if (address.isNotEmpty) {
-      viewModel.addressController.text = viewModel.data.address;
+      viewModel.addressController.text = withdrawInfo.address;
     } else {
       SimpleCustomDialog(context, isSuccess: false, mainText: '尚未設定帳號').show();
     }
@@ -270,7 +315,8 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
                 bFocusedGradientBolder: true,
                 bLimitDecimalLength: true,
                 onTap: viewModel.onTap,
-                onChanged: viewModel.onAmountChange,
+                onChanged: (value) =>
+                    viewModel.onAmountChange(value, withdrawInfo),
               ),
               Positioned(
                   right: UIDefine.getScreenWidth(5.5),
@@ -293,7 +339,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
                       SizedBox(width: UIDefine.getScreenWidth(2.77)),
                       GestureDetector(
                         onTap: () => viewModel.amountController.text =
-                            viewModel.numberFormat(viewModel.data.balance),
+                            viewModel.numberFormat(withdrawInfo.balance),
                         child: GradientThirdText(
                             '${tr('all')} ${tr('walletWithdraw')}',
                             size: UIDefine.fontSize14),
@@ -339,7 +385,7 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
         onTap: viewModel.onTap);
   }
 
-  Widget _buildEmailVerify() {
+  Widget _buildEmailVerify(userInfo) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -353,8 +399,9 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
             hintText: tr("placeholder-emailCode'"),
             controller: viewModel.emailCodeController,
             data: viewModel.emailCodeData,
-            onPressSendCode: () => viewModel.onPressSendCode(context),
-            onPressCheckVerify: () => viewModel.onPressCheckVerify(context)),
+            onPressSendCode: () => viewModel.onPressSendCode(context, userInfo),
+            onPressCheckVerify: () =>
+                viewModel.onPressCheckVerify(context, userInfo)),
       ],
     );
   }
@@ -368,10 +415,15 @@ class _ChainWithdrawView extends State<ChainWithdrawView> {
         mainAxisSize: MainAxisSize.min,
         children: [
           _buildTextContent(tr('canWithdrawFee'),
-              viewModel.numberFormat(viewModel.data.balance)),
+              viewModel.numberFormat(withdrawInfo.balance)),
+          // viewModel.numberFormat(viewModel.data.balance.isNotEmpty
+          //     ? (num.parse(viewModel.data.balance) - widget.experienceMoney)
+          //         .toString()
+          //     : '')),
+
           SizedBox(height: UIDefine.getScreenWidth(2.77)),
           _buildTextContent(tr('minAmount'),
-              '${viewModel.numberFormat(viewModel.data.minAmount)} USDT'),
+              '${viewModel.numberFormat(withdrawInfo.minAmount)} USDT'),
           SizedBox(height: UIDefine.getScreenWidth(2.77)),
           _buildTextContent(tr('withdrawFee'),
               '${NumberFormatUtil().removeTwoPointFormat(viewModel.currentAmount)} USDT'),

@@ -21,6 +21,7 @@ class OrderInfoPageViewModel extends BaseViewModel {
   String startDate = '';
   String endDate = '';
   List<OrderMessageListResponseData> dataList = [];
+
   // num walletBalance = 0;
 
   void init(bool bFromWallet) {
@@ -44,12 +45,13 @@ class OrderInfoPageViewModel extends BaseViewModel {
 
     /// 取得日期 by 帳號所屬國家時區(洲名/都市) ex：年月日純數字但需分開取 2022 12 2
     tz.initializeTimeZones();
-    String timeZoneCode2 = _getTimeZoneCode(GlobalData.userInfo.zone);
+    String timeZoneCode2 = _getTimeZoneCode(GlobalData.userZone);
     var istanbulTimeZone = tz.getLocation(timeZoneCode2);
     int year = tz.TZDateTime.now(istanbulTimeZone).year;
     int month = tz.TZDateTime.now(istanbulTimeZone).month;
     int day = tz.TZDateTime.now(istanbulTimeZone).day;
-    startDate = year.toString() + '-' + _formatMMDD(month) + '-' + _formatMMDD(day);
+    startDate =
+        year.toString() + '-' + _formatMMDD(month) + '-' + _formatMMDD(day);
     endDate = startDate;
   }
 
@@ -61,7 +63,7 @@ class OrderInfoPageViewModel extends BaseViewModel {
   }
 
   String _getTimeZoneCode(String sGMT) {
-    switch(sGMT) {
+    switch (sGMT) {
       case 'GMT-3':
         return 'America/Araguaina';
       case 'GMT-4':
@@ -176,7 +178,6 @@ class OrderInfoPageViewModel extends BaseViewModel {
       // await CollectionApi(onConnectFail: onConnectFail) // 這裡的副本預約 不顯示餘額補足按鈕
       //     .getWalletBalanceResponse()
       //     .then((value) => walletBalance = value);
-
     }
   }
 
@@ -221,6 +222,7 @@ class OrderInfoPageViewModel extends BaseViewModel {
       //       imageUrl: imageUrl, price: price, dataList: dataList);
       case 'ROYALTY':
         return ItemInfoCard(
+            drewAt: null,
             itemName: data.itemName,
             dateTime: BaseViewModel().changeTimeZone(data.time),
             bShowPriceAtEnd: true,
@@ -230,6 +232,7 @@ class OrderInfoPageViewModel extends BaseViewModel {
 
       case 'PRICE':
         return OrderInfoCard(
+            drewAt: null,
             orderNumber: data.orderNo,
             dateTime:
                 BaseViewModel().changeTimeZone(data.createdAt, isShowGmt: true),
@@ -271,6 +274,7 @@ class OrderInfoPageViewModel extends BaseViewModel {
             moreInfoDataList: _sellListContentMore(data));
       case 'DEPOSIT_NFT':
         return ItemInfoCard(
+            drewAt: null,
             itemName: data.itemName,
             dateTime: BaseViewModel().changeTimeZone(data.createdAt),
             imageUrl: data.imgUrl,
@@ -279,6 +283,7 @@ class OrderInfoPageViewModel extends BaseViewModel {
 
       case 'TRANSFER_NFT':
         return ItemInfoCard(
+            drewAt: null,
             itemName: data.itemName,
             dateTime: BaseViewModel().changeTimeZone(data.createdAt),
             imageUrl: data.imgUrl,

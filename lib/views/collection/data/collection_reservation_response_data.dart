@@ -4,9 +4,13 @@
 
 import 'dart:convert';
 
-CollectionReservationResponseData collectionReservationResponseDataFromJson(String str) => CollectionReservationResponseData.fromJson(json.decode(str));
+CollectionReservationResponseData collectionReservationResponseDataFromJson(
+        String str) =>
+    CollectionReservationResponseData.fromJson(json.decode(str));
 
-String collectionReservationResponseDataToJson(CollectionReservationResponseData data) => json.encode(data.toJson());
+String collectionReservationResponseDataToJson(
+        CollectionReservationResponseData data) =>
+    json.encode(data.toJson());
 
 class CollectionReservationResponseData {
   CollectionReservationResponseData({
@@ -24,6 +28,7 @@ class CollectionReservationResponseData {
     this.endPrice = 0,
     this.price = 0,
     this.isPaying = false,
+    this.drewAt,
   });
 
   String orderNo;
@@ -40,38 +45,43 @@ class CollectionReservationResponseData {
   num endPrice;
   num price;
   bool isPaying;
+  DateTime? drewAt;
 
-  factory CollectionReservationResponseData.fromJson(Map<String, dynamic> json) => CollectionReservationResponseData(
-    orderNo: json["orderNo"]??'',
-    type: json["type"]??'',
-    createdAt: json["createdAt"]??'',
-    itemId: json["itemId"]??'',
-    itemName: json["itemName"]??'',
-    imgUrl: json["imgUrl"]??'',
-    status: json["status"]??'',
-    winCount: json["winCount"]??0,
-    reserveCount: json["reserveCount"]??0,
-    deposit: json["deposit"]??0,
-    startPrice: json["startPrice"]??0,
-    endPrice: json["endPrice"]??0,
-    price: json["price"]??0,
-    isPaying: json["isPaying"]??false,
-  );
+  factory CollectionReservationResponseData.fromJson(
+          Map<String, dynamic> json) =>
+      CollectionReservationResponseData(
+        orderNo: json["orderNo"] ?? '',
+        type: json["type"] ?? '',
+        createdAt: json["createdAt"] ?? '',
+        itemId: json["itemId"] ?? '',
+        itemName: json["itemName"] ?? '',
+        imgUrl: json["imgUrl"] ?? '',
+        status: json["status"] ?? '',
+        winCount: json["winCount"] ?? 0,
+        reserveCount: json["reserveCount"] ?? 0,
+        deposit: json["deposit"] ?? 0,
+        startPrice: json["startPrice"] ?? 0,
+        endPrice: json["endPrice"] ?? 0,
+        price: json["price"] ?? 0,
+        isPaying: json["isPaying"] ?? false,
+        drewAt: json["drewAt"] != null ? DateTime.parse(json["drewAt"]) : null,
+      );
 
   Map<String, dynamic> toJson() => {
-    "orderNo": orderNo,
-    "type": type,
-    "createdAt": createdAt,
-    "itemId": itemId,
-    "itemName": itemName,
-    "imgUrl": imgUrl,
-    "status": status,
-    "winCount": winCount,
-    "reserveCount": reserveCount,
-    "deposit": deposit,
-    "startPrice": startPrice,
-    "endPrice": endPrice,
-    "price": price,
-    "isPaying": isPaying
-  };
+        "orderNo": orderNo,
+        "type": type,
+        "createdAt": createdAt,
+        "itemId": itemId,
+        "itemName": itemName,
+        "imgUrl": imgUrl,
+        "status": status,
+        "winCount": winCount,
+        "reserveCount": reserveCount,
+        "deposit": deposit,
+        "startPrice": startPrice,
+        "endPrice": endPrice,
+        "price": price,
+        "isPaying": isPaying,
+        "drewAt": drewAt?.toIso8601String(),
+      };
 }

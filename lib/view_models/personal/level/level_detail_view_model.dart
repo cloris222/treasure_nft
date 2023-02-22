@@ -1,14 +1,14 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
-import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/api/level_api.dart';
-import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/level_info_data.dart';
+import 'package:treasure_nft_project/models/http/parameter/user_info_data.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/personal/level/level_bonus_page.dart';
-import 'package:url_launcher/url_launcher.dart';
+
+import '../../../models/http/parameter/check_level_info.dart';
 
 class LevelDetailViewModel extends BaseViewModel {
   LevelDetailViewModel({required this.setState});
@@ -20,17 +20,15 @@ class LevelDetailViewModel extends BaseViewModel {
   late PageController pageController;
   late SwiperController swiperController;
 
-  void initState() async {
-    List<bool> checkList = List<bool>.generate(3, (index) => false);
-
-    UserInfoAPI().getCheckLevelInfoAPI().then((value) => checkList[0] = true);
+  void initState(CheckLevelInfo? userLevelInfo) async {
+    List<bool> checkList = List<bool>.generate(2, (index) => false);
     LevelAPI().checkLevelUpdate().then((value) {
       isLevelUp = value;
-      checkList[1] = true;
+      checkList[0] = true;
     });
     LevelAPI().getAllLevelInfo().then((value) {
       levelDataList = value;
-      checkList[2] = true;
+      checkList[1] = true;
     });
 
     ///MARK: 等待更新完成
@@ -38,13 +36,13 @@ class LevelDetailViewModel extends BaseViewModel {
         logKey: 'levelDetail', onCheckFinish: () => !checkList.contains(false));
 
     ///MARK: 5&6等 跳到第6等等級頁
-    if (GlobalData.userLevelInfo!.userLevel >= 5) {
+    if (userLevelInfo!.userLevel >= 5) {
       currentIndex = 5;
     }
 
     ///1~4等 跳到 第+1等 等級頁
-    else if (GlobalData.userLevelInfo!.userLevel > 0) {
-      currentIndex = GlobalData.userLevelInfo!.userLevel;
+    else if (userLevelInfo.userLevel > 0) {
+      currentIndex = userLevelInfo.userLevel;
     }
     pageController = PageController(initialPage: currentIndex);
     swiperController = SwiperController();
@@ -55,12 +53,12 @@ class LevelDetailViewModel extends BaseViewModel {
     pageController.dispose();
   }
 
-  String getStrPointPercentage() {
-    return '${NumberFormatUtil().integerFormat(getPointPercentage() * 100)}%';
+  String getStrPointPercentage(CheckLevelInfo? userLevelInfo) {
+    return '${NumberFormatUtil().integerFormat(getPointPercentage(userLevelInfo) * 100)}%';
   }
 
-  double getPointPercentage() {
-    return GlobalData.userLevelInfo?.getPointPercentage() ?? 0;
+  double getPointPercentage(CheckLevelInfo? userLevelInfo) {
+    return userLevelInfo?.getPointPercentage() ?? 0;
   }
 
   void onPressLevelUp(BuildContext context) {
@@ -79,8 +77,8 @@ class LevelDetailViewModel extends BaseViewModel {
     return levelDataList.first;
   }
 
-  bool checkUnlock(int level) {
-    return GlobalData.userInfo.level >= level;
+  bool checkUnlock(int level, UserInfoData userInfo) {
+    return userInfo.level >= level;
   }
 
   void changePage(int level) {
@@ -88,12 +86,12 @@ class LevelDetailViewModel extends BaseViewModel {
   }
 
   ///MARK: 判斷是否為下一等級
-  bool nextLevel(int level) {
+  bool nextLevel(int level,CheckLevelInfo? userLevelInfo) {
     ///MARK: v0.0.12 等級6也需要顯示bonus Button
-    if (GlobalData.userLevelInfo!.userLevel == 6 && level == 6) {
+    if (userLevelInfo!.userLevel == 6 && level == 6) {
       return true;
     }
-    return (level - GlobalData.userLevelInfo!.userLevel) == 1;
+    return (level - userLevelInfo.userLevel) == 1;
   }
 
   ///MARK: 顯示下一等級獎勵

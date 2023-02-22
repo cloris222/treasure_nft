@@ -5,10 +5,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:format/format.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
@@ -16,6 +16,7 @@ import 'package:treasure_nft_project/models/http/api/common_api.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/models/http/http_setting.dart';
 import 'package:treasure_nft_project/utils/image_picker_util.dart';
+import 'package:treasure_nft_project/view_models/gobal_provider/user_info_provider.dart';
 import 'package:treasure_nft_project/widgets/button/login_bolder_button_widget.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import 'package:treasure_nft_project/widgets/dialog/base_dialog.dart';
@@ -39,7 +40,8 @@ class EditAvatarDialog extends BaseDialog {
   String selectedDefaultAvatar = '';
 
   @override
-  Widget initContent(BuildContext context, StateSetter setState) {
+  Widget initContent(
+      BuildContext context, StateSetter setState, WidgetRef ref) {
     return Stack(
       children: [
         ///MARK: 選擇從圖庫or上傳的視窗
@@ -78,8 +80,8 @@ class EditAvatarDialog extends BaseDialog {
                   )),
                   SizedBox(height: UIDefine.getScreenHeight(2)),
                   isAvatar
-                      ? _buildUserPhoto(setState)
-                      : _buildUserBanner(setState),
+                      ? _buildUserPhoto(setState, ref)
+                      : _buildUserBanner(setState, ref),
                   SizedBox(height: UIDefine.getScreenHeight(1)),
                   LoginBolderButtonWidget(
                     btnText: tr('gallery'),
@@ -109,7 +111,7 @@ class EditAvatarDialog extends BaseDialog {
                   LoginButtonWidget(
                     isFillWidth: true,
                     btnText: tr('check'),
-                    onPressed: () => _onUploadImage(context),
+                    onPressed: () => _onUploadImage(context, ref),
                     // margin: EdgeInsets.symmetric(horizontal: UIDefine.getWidth() / 20),
                   ),
                 ],
@@ -221,7 +223,7 @@ class EditAvatarDialog extends BaseDialog {
   XFile? uploadFile;
 
   ///MARK: Banner
-  Widget _buildUserPhoto(StateSetter setState) {
+  Widget _buildUserPhoto(StateSetter setState, WidgetRef ref) {
     double size = UIDefine.getWidth() / 4;
 
     ///MARK: 顯示上傳圖片
@@ -239,7 +241,7 @@ class EditAvatarDialog extends BaseDialog {
     }
 
     ///MARK: 顯示預設圖片
-    else if (GlobalData.userInfo.photoUrl.isEmpty) {
+    else if (ref.watch(userInfoProvider).photoUrl.isEmpty) {
       return createImageWidget(
           asset: AppImagePath.avatarImg, width: size, height: size);
     }
@@ -247,7 +249,9 @@ class EditAvatarDialog extends BaseDialog {
     ///MARK: 原本圖片
     else {
       return CircleNetworkIcon(
-          networkUrl: GlobalData.userInfo.photoUrl, radius: size / 2);
+          showNormal: true,
+          networkUrl: ref.watch(userInfoProvider).photoUrl,
+          radius: size / 2);
     }
   }
 
@@ -256,17 +260,17 @@ class EditAvatarDialog extends BaseDialog {
     setState(() {});
   }
 
-  _onUploadImage(BuildContext context) async {
+  _onUploadImage(BuildContext context, WidgetRef ref) async {
     if (uploadFile != null) {
       ///MARK:上傳圖片
       var imageResponse = await CommonAPI()
           .uploadImage(uploadFile!.path, uploadOriginalName: false);
       if (isAvatar) {
         await UserInfoAPI().setUserAvtar(imageResponse.data);
-        GlobalData.userInfo.photoUrl = imageResponse.data;
+        ref.watch(userInfoProvider).photoUrl = imageResponse.data;
       } else {
         await UserInfoAPI().setUserBanner(imageResponse.data);
-        GlobalData.userInfo.bannerUrl = imageResponse.data;
+        ref.watch(userInfoProvider).bannerUrl = imageResponse.data;
       }
       // Share.shareXFiles([uploadFile!]);
       // GlobalData.printLog('!!!!!!!!!${uploadFile!.path}');
@@ -288,7 +292,7 @@ class EditAvatarDialog extends BaseDialog {
             {"domain": HttpSetting.imgUrl, "index": iPressIndex});
       }
       await UserInfoAPI().setUserAvtar(imageUrl);
-      GlobalData.userInfo.photoUrl = imageUrl;
+      ref.watch(userInfoProvider).photoUrl = imageUrl;
       onChange();
     }
     closeDialog();
@@ -304,19 +308,19 @@ class EditAvatarDialog extends BaseDialog {
     return file;
   }
 
-  Widget _buildUserBanner(StateSetter setState) {
+  Widget _buildUserBanner(StateSetter setState, WidgetRef ref) {
     DecorationImage? image;
     if (uploadFile != null) {
       image = DecorationImage(
           image: FileImage(File(uploadFile!.path)), fit: BoxFit.fill);
-    } else if (GlobalData.userInfo.bannerUrl.isEmpty) {
+    } else if (ref.watch(userInfoProvider).bannerUrl.isEmpty) {
       image = const DecorationImage(
           image: AssetImage(AppImagePath.defaultBanner), fit: BoxFit.fill);
     }
 
     return image == null
         ? GraduallyNetworkImage(
-            imageUrl: GlobalData.userInfo.bannerUrl,
+            imageUrl: ref.watch(userInfoProvider).bannerUrl,
             height: UIDefine.getHeight() / 4,
             width: UIDefine.getWidth(),
             fit: BoxFit.fill,

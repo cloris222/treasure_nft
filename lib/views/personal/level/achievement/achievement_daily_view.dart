@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/task_info_data.dart';
 import 'package:treasure_nft_project/view_models/personal/level/level_achievement_view_model.dart';
@@ -7,20 +8,20 @@ import 'package:treasure_nft_project/widgets/list_view/mission/daily_item_widget
 import '../../../../constant/theme/app_colors.dart';
 
 ///MARK: 每日任務
-class AchievementDailyView extends StatelessWidget {
+class AchievementDailyView extends ConsumerWidget {
   const AchievementDailyView({Key? key, required this.viewModel})
       : super(key: key);
   final LevelAchievementViewModel viewModel;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return ListView.separated(
         padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
         itemBuilder: (context, index) {
           if (index >= viewModel.dailyList.length) {
             return const SizedBox(height: kBottomNavigationBarHeight * 2);
           }
-          return _buildItem(context, viewModel.dailyList[index]);
+          return _buildItem(context, ref, viewModel.dailyList[index]);
         },
         separatorBuilder: (context, index) {
           return Container(
@@ -35,10 +36,10 @@ class AchievementDailyView extends StatelessWidget {
         itemCount: viewModel.dailyList.length + 1);
   }
 
-  Widget _buildItem(BuildContext context, TaskInfoData data) {
+  Widget _buildItem(BuildContext context, WidgetRef ref, TaskInfoData data) {
     return DailyItemWidget(
         data: data,
         getPoint: (String recordNo, int point) =>
-            viewModel.getDailyPoint(context, recordNo, point));
+            viewModel.getDailyPoint(context, ref, recordNo, point));
   }
 }
