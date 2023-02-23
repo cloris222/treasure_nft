@@ -19,10 +19,12 @@ class WalletPaymentSettingNotifier extends StateNotifier<List<PaymentInfo>>
 
   @override
   Future<void> initProvider() async {
+    state = [];
   }
 
   @override
   Future<void> initValue() async {
+    state = [];
   }
 
   @override
@@ -64,12 +66,15 @@ class WalletPaymentSettingNotifier extends StateNotifier<List<PaymentInfo>>
     for (int i = 0; i < state.length; i++) {
       if (state[i].payType == CoinEnum.TRON.name) {
         state[i].account = accountTRON;
+        continue;
       }
       if (state[i].payType == CoinEnum.BSC.name) {
         state[i].account = accountBSC;
+        continue;
       }
       if (state[i].payType == CoinEnum.ROLLOUT.name) {
         state[i].account = accountROLLOUT;
+        continue;
       }
     }
     setSharedPreferencesValue();

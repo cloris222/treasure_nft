@@ -19,9 +19,9 @@ class WalletSettingViewModel extends BaseViewModel {
 
   final onClickFunction onViewChange;
 
-  TextEditingController? trcController;
-  TextEditingController? bscController;
-  TextEditingController? rolloutController;
+  TextEditingController trcController = TextEditingController();
+  TextEditingController bscController = TextEditingController();
+  TextEditingController rolloutController = TextEditingController();
   TextEditingController codeController = TextEditingController();
   ValidateResultData codeData = ValidateResultData();
 
@@ -30,19 +30,16 @@ class WalletSettingViewModel extends BaseViewModel {
   void setTextController(List<PaymentInfo> list) {
     if (list.isNotEmpty) {
       ///MARK:清除更新controller
-      trcController ??=
-          TextEditingController(text: getCoinText(list, CoinEnum.TRON));
-      bscController ??=
-          TextEditingController(text: getCoinText(list, CoinEnum.BSC));
-      rolloutController ??=
-          TextEditingController(text: getCoinText(list, CoinEnum.ROLLOUT));
+      trcController.text = getCoinText(list, CoinEnum.TRON);
+      bscController.text = getCoinText(list, CoinEnum.BSC);
+      rolloutController.text = getCoinText(list, CoinEnum.ROLLOUT);
     }
   }
 
   void dispose() {
-    trcController?.dispose();
-    bscController?.dispose();
-    rolloutController?.dispose();
+    trcController.dispose();
+    bscController.dispose();
+    rolloutController.dispose();
     codeController.dispose();
   }
 
@@ -81,13 +78,7 @@ class WalletSettingViewModel extends BaseViewModel {
 
   String getCoinText(List<PaymentInfo> list, CoinEnum coin) {
     for (int i = 0; i < list.length; i++) {
-      if (list[i].payType == CoinEnum.TRON.name) {
-        return list[i].account;
-      }
-      if (list[i].payType == CoinEnum.BSC.name) {
-        return list[i].account;
-      }
-      if (list[i].payType == CoinEnum.ROLLOUT.name) {
+      if (list[i].payType == coin.name) {
         return list[i].account;
       }
     }
@@ -122,36 +113,38 @@ class WalletSettingViewModel extends BaseViewModel {
     });
   }
 
-  ///工單716 移除先檢查驗證碼
-  void onCheckPayment(BuildContext context) {
-    if (checkEmail) {
-      CheckWalletSettingDialog(context,
-          accountTRON: trcController!.text,
-          accountBSC: bscController!.text,
-          accountROLLOUT: rolloutController!.text, onConfirm: () {
-        onSavePayment(context);
-      }).show();
-    } else {
-      onBaseConnectFail(context, tr('rule_mail_valid'));
-    }
-  }
+  // ///工單716 移除先檢查驗證碼
+  // void onCheckPayment(BuildContext context) {
+  //   if (checkEmail) {
+  //     CheckWalletSettingDialog(context,
+  //         accountTRON: trcController.text,
+  //         accountBSC: bscController.text,
+  //         accountROLLOUT: rolloutController.text, onConfirm: () {
+  //       onSavePayment(context);
+  //     }).show();
+  //   } else {
+  //     onBaseConnectFail(context, tr('rule_mail_valid'));
+  //   }
+  // }
 
   void onSavePayment(BuildContext context,
       {Function(String accountTRON, String accountBSC, String accountROLLOUT)?
           saveSetting}) {
+    String accountTRON = trcController.text;
+    String accountBSC = bscController.text;
+    String accountROLLOUT = rolloutController.text;
     WalletAPI(
             onConnectFail: (errorMessage) =>
                 onBaseConnectFail(context, errorMessage))
         .setPaymentInfo(
-            accountTRON: trcController!.text,
-            accountBSC: bscController!.text,
-            accountROLLOUT: rolloutController!.text,
+            accountTRON: accountTRON,
+            accountBSC: accountBSC,
+            accountROLLOUT: accountROLLOUT,
             emailVerifyCode: codeController.text)
         .then((value) {
       popPage(context);
       if (saveSetting != null) {
-        saveSetting(
-            trcController!.text, bscController!.text, rolloutController!.text);
+        saveSetting(accountTRON, accountBSC, accountROLLOUT);
       }
       SimpleCustomDialog(context, isSuccess: true).show();
     });
