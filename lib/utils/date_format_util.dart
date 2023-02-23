@@ -177,6 +177,11 @@ class DateFormatUtil {
     return getTimeWithDayFormat(time: dateTime);
   }
 
+  String getAfterDays(int day) {
+    DateTime dateTime = _getNow().add(Duration(days: day));
+    return getTimeWithDayFormat(time: dateTime);
+  }
+
   String getDiffTime(DateTime time) {
     Duration duration = time.difference(_getNow());
     String strDigits(int n) => n.toString().padLeft(2, '0');
