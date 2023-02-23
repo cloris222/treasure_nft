@@ -37,45 +37,56 @@ class LoginMainViewModel extends BaseViewModel {
     return accountData.result && passwordData.result;
   }
 
-  void onPressLogin(BuildContext context, WidgetRef ref) {
-    if (!checkEmptyController()) {
-      setState(() {
-        accountData =
-            ValidateResultData(result: accountController.text.isNotEmpty);
-        passwordData =
-            ValidateResultData(result: passwordController.text.isNotEmpty);
-      });
-      return;
-    } else {
-      ///MARK: 註冊API
-      LoginAPI(onConnectFail: (message) => onBaseConnectFail(context, message))
-          .login(
-              account: accountController.text,
-              password: passwordController.text)
-          .then((value) async {
-        String? path = AnimationDownloadUtil()
-            .getAnimationFilePath(getLoginTimeAnimationPath());
-        if (path != null) {
-          pushOpacityPage(
-              context,
-              FullAnimationPage(
-                  limitTimer: 3,
-                  isFile: true,
-                  animationPath: path,
-                  runFunction: () async {
-                    await saveUserLoginInfo(
-                        response: value, ref: ref, isLogin: true);
-                    startUserListener();
-                  },
-                  nextPage:
-                      const MainPage(type: AppNavigationBarType.typeMain)));
-        } else {
-          await saveUserLoginInfo(response: value, ref: ref, isLogin: true);
-          startUserListener();
-          pushAndRemoveUntil(
-              context, const MainPage(type: AppNavigationBarType.typeMain));
-        }
-      });
+  bool loginWait = false;
+
+  void onPressLogin(BuildContext context, WidgetRef ref) async {
+    if (!loginWait) {
+      loginWait = true;
+      if (!checkEmptyController()) {
+        setState(() {
+          accountData =
+              ValidateResultData(result: accountController.text.isNotEmpty);
+          passwordData =
+              ValidateResultData(result: passwordController.text.isNotEmpty);
+        });
+        loginWait = false;
+        return;
+      }
+      try {
+        ///MARK: 註冊API
+        await LoginAPI(
+                onConnectFail: (message) => onBaseConnectFail(context, message))
+            .login(
+                account: accountController.text,
+                password: passwordController.text)
+            .then((value) async {
+          String? path = AnimationDownloadUtil()
+              .getAnimationFilePath(getLoginTimeAnimationPath());
+          if (path != null) {
+            pushOpacityPage(
+                context,
+                FullAnimationPage(
+                    limitTimer: 3,
+                    isFile: true,
+                    animationPath: path,
+                    runFunction: () async {
+                      await saveUserLoginInfo(
+                          response: value, ref: ref, isLogin: true);
+                      startUserListener();
+                    },
+                    nextPage:
+                        const MainPage(type: AppNavigationBarType.typeMain)));
+          } else {
+            await saveUserLoginInfo(response: value, ref: ref, isLogin: true);
+            startUserListener();
+            pushAndRemoveUntil(
+                context, const MainPage(type: AppNavigationBarType.typeMain));
+          }
+        });
+      } catch (e) {
+        loginWait = false;
+      }
+      loginWait = false;
     }
   }
 

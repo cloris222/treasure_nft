@@ -161,16 +161,23 @@ class _UserSettingPageState extends State<UserSettingPage> {
     // PageBottomSheet(context, page: const UserInfoSettingPage()).show();
   }
 
-  void _onPressLogout(BuildContext context) {
-    LoginAPI(
-            onConnectFail: (message) =>
-                BaseViewModel().onBaseConnectFail(context, message))
-        .logout()
-        .then((value) async {
-      await BaseViewModel().clearUserLoginInfo();
-      BaseViewModel().pushAndRemoveUntil(
-          context, const MainPage(type: AppNavigationBarType.typeLogin));
-    });
+  bool waitLoginOut = false;
+
+  void _onPressLogout(BuildContext context) async {
+    if (!waitLoginOut) {
+      try {
+        await LoginAPI(
+                onConnectFail: (message) =>
+                    BaseViewModel().onBaseConnectFail(context, message))
+            .logout()
+            .then((value) async {
+          await BaseViewModel().clearUserLoginInfo();
+          BaseViewModel().pushAndRemoveUntil(
+              context, const MainPage(type: AppNavigationBarType.typeLogin));
+        });
+      } catch (e) {}
+      waitLoginOut = true;
+    }
   }
 
   void _onPressDeleteAccount(BuildContext context) {
