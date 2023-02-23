@@ -38,15 +38,13 @@ class _WalletSettingPageState extends ConsumerState<WalletSettingPage> {
   @override
   void initState() {
     viewModel = WalletSettingViewModel(onViewChange: () {
-      if(mounted){
-        setState(() {
-
-        });
+      if (mounted) {
+        setState(() {});
       }
     });
     // viewModel.initState();
     ref.read(walletPaymentSettingProvider.notifier).init(onFinish: () {
-      viewModel.setTextController(ref.read( walletPaymentSettingProvider));
+      viewModel.setTextController(ref.read(walletPaymentSettingProvider));
     });
 
     super.initState();
@@ -106,7 +104,14 @@ class _WalletSettingPageState extends ConsumerState<WalletSettingPage> {
                 LoginButtonWidget(
                   isFillWidth: false,
                   btnText: tr('save'),
-                  onPressed: () => viewModel.onSavePayment(context),
+                  onPressed: () => viewModel.onSavePayment(context, saveSetting:
+                      (String accountTRON, String accountBSC,
+                          String accountROLLOUT) {
+                    ref.read(walletPaymentSettingProvider.notifier).updateValue(
+                        accountTRON: accountTRON,
+                        accountBSC: accountBSC,
+                        accountROLLOUT: accountROLLOUT);
+                  }),
                 ),
               ],
             ),

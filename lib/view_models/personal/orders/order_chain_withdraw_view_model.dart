@@ -239,12 +239,16 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
 
   void onAmountChange(String value, WithdrawBalanceResponseData withdrawInfo) {
     ///提現金額 * 手續費(%) + 手續費(固定點數) 取到小數第二位無條件捨去
-    if (value.isEmpty) {
-      currentAmount = num.parse(withdrawInfo.fee);
+    if (withdrawInfo.fee.isNotEmpty) {
+      if (value.isEmpty) {
+        currentAmount = num.parse(withdrawInfo.fee);
+      } else {
+        currentAmount =
+            (num.parse(value) * num.parse(withdrawInfo.feeRate) / 100) +
+                num.parse(withdrawInfo.fee);
+      }
     } else {
-      currentAmount =
-          (num.parse(value) * num.parse(withdrawInfo.feeRate) / 100) +
-              num.parse(withdrawInfo.fee);
+      currentAmount = 0;
     }
     onViewChange();
   }

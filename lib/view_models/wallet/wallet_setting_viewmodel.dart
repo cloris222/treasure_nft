@@ -113,36 +113,38 @@ class WalletSettingViewModel extends BaseViewModel {
     });
   }
 
-  ///工單716 移除先檢查驗證碼
-  void onCheckPayment(BuildContext context) {
-    if (checkEmail) {
-      CheckWalletSettingDialog(context,
-          accountTRON: trcController.text,
-          accountBSC: bscController.text,
-          accountROLLOUT: rolloutController.text, onConfirm: () {
-        onSavePayment(context);
-      }).show();
-    } else {
-      onBaseConnectFail(context, tr('rule_mail_valid'));
-    }
-  }
+  // ///工單716 移除先檢查驗證碼
+  // void onCheckPayment(BuildContext context) {
+  //   if (checkEmail) {
+  //     CheckWalletSettingDialog(context,
+  //         accountTRON: trcController.text,
+  //         accountBSC: bscController.text,
+  //         accountROLLOUT: rolloutController.text, onConfirm: () {
+  //       onSavePayment(context);
+  //     }).show();
+  //   } else {
+  //     onBaseConnectFail(context, tr('rule_mail_valid'));
+  //   }
+  // }
 
   void onSavePayment(BuildContext context,
       {Function(String accountTRON, String accountBSC, String accountROLLOUT)?
           saveSetting}) {
+    String accountTRON = trcController.text;
+    String accountBSC = bscController.text;
+    String accountROLLOUT = rolloutController.text;
     WalletAPI(
             onConnectFail: (errorMessage) =>
                 onBaseConnectFail(context, errorMessage))
         .setPaymentInfo(
-            accountTRON: trcController.text,
-            accountBSC: bscController.text,
-            accountROLLOUT: rolloutController.text,
+            accountTRON: accountTRON,
+            accountBSC: accountBSC,
+            accountROLLOUT: accountROLLOUT,
             emailVerifyCode: codeController.text)
         .then((value) {
       popPage(context);
       if (saveSetting != null) {
-        saveSetting(
-            trcController.text, bscController.text, rolloutController.text);
+        saveSetting(accountTRON, accountBSC, accountROLLOUT);
       }
       SimpleCustomDialog(context, isSuccess: true).show();
     });
