@@ -9,12 +9,11 @@ import 'package:treasure_nft_project/views/custom_appbar_view.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/widgets/text_field/login_text_widget.dart';
 
 import '../../constant/theme/app_colors.dart';
-import '../../constant/theme/app_theme.dart';
 import '../../models/http/parameter/user_info_data.dart';
 import '../../view_models/wallet/wallet_setting_viewmodel.dart';
-import '../../view_models/wallet/wallet_setting_viewmodel_old.dart';
 import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/label/icon/base_icon_widget.dart';
 import '../login/login_email_code_view.dart';
@@ -30,7 +29,7 @@ class WalletSettingPage extends ConsumerStatefulWidget {
 }
 
 class _WalletSettingPageState extends ConsumerState<WalletSettingPage> {
-  late WalletSettingViewModelOld viewModel;
+  late WalletSettingViewModel viewModel;
 
   EdgeInsetsGeometry mainPadding = EdgeInsets.symmetric(
       horizontal: UIDefine.getPixelWidth(20),
@@ -38,12 +37,17 @@ class _WalletSettingPageState extends ConsumerState<WalletSettingPage> {
 
   @override
   void initState() {
-    viewModel = WalletSettingViewModelOld(setState: setState);
-    viewModel.initState();
-    // ref.read(walletPaymentSettingProvider.notifier).init(onUpdateFinish: () {
-    //   viewModel.setTextController(ref.read( walletPaymentSettingProvider));
-    //   setState(() {});
-    // });
+    viewModel = WalletSettingViewModel(onViewChange: () {
+      if(mounted){
+        setState(() {
+
+        });
+      }
+    });
+    // viewModel.initState();
+    ref.read(walletPaymentSettingProvider.notifier).init(onFinish: () {
+      viewModel.setTextController(ref.read( walletPaymentSettingProvider));
+    });
 
     super.initState();
   }
@@ -116,7 +120,7 @@ class _WalletSettingPageState extends ConsumerState<WalletSettingPage> {
     );
   }
 
-  Widget _buildSettingParam(CoinEnum coin, TextEditingController? controller) {
+  Widget _buildSettingParam(CoinEnum coin, TextEditingController controller) {
     return Container(
         margin: EdgeInsets.symmetric(
             horizontal: UIDefine.getScreenWidth(2.7),
@@ -137,26 +141,10 @@ class _WalletSettingPageState extends ConsumerState<WalletSettingPage> {
           const SizedBox(height: 5),
           Text(tr('address'),
               style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14)),
-          TextField(
-              controller: controller,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.fromLTRB(
-                    UIDefine.getScreenWidth(2.77),
-                    UIDefine.getScreenWidth(4.16),
-                    0,
-                    0),
-                hintText: viewModel.getCoinHintText(coin),
-                hintStyle: AppTextStyle.getBaseStyle(
-                    height: 1.6, color: AppColors.bolderGrey),
-                labelStyle: AppTextStyle.getBaseStyle(color: Colors.black),
-                alignLabelWithHint: true,
-                border: AppTheme.style.styleTextEditBorderBackground(
-                    color: AppColors.bolderGrey, radius: 10),
-                focusedBorder: AppTheme.style.styleTextEditBorderBackground(
-                    color: AppColors.bolderGrey, radius: 10),
-                enabledBorder: AppTheme.style.styleTextEditBorderBackground(
-                    color: AppColors.bolderGrey, radius: 10),
-              ))
+          LoginTextWidget(
+            controller: controller,
+            hintText: '',
+          )
         ]));
   }
 
