@@ -54,7 +54,7 @@ class _WalletConnectPageState extends ConsumerState<WalletConnectPage> {
       type: GlobalData.mainBottomType,
       body: SingleChildScrollView(
           child: LoginCommonView(
-        pageHeight: UIDefine.getPixelWidth(1050),
+        pageHeight: UIDefine.getPixelWidth(550),
         title: tr('linkedWallet'),
         body: Container(
             margin: EdgeInsets.symmetric(
@@ -68,6 +68,7 @@ class _WalletConnectPageState extends ConsumerState<WalletConnectPage> {
 
   Widget _buildBody() {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         _buildTitle(),
         SizedBox(height: UIDefine.getPixelWidth(5)),
