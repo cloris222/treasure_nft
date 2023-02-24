@@ -8,6 +8,7 @@ import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/api/auth_api.dart';
 import 'package:treasure_nft_project/utils/regular_expression_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:wallet_connect_plugin/model/wallet_info.dart';
 
 import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_animation_path.dart';
@@ -21,6 +22,7 @@ class RegisterMainViewModel extends BaseViewModel {
   RegisterMainViewModel({required this.setState});
 
   final ViewChange setState;
+  WalletInfo? walletInfo;
 
   TextEditingController accountController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -190,7 +192,8 @@ class RegisterMainViewModel extends BaseViewModel {
               inviteCode: referralController.text,
               phone: phoneController.text,
               phoneCountry: phoneCountry,
-              emailVerifyCode: emailCodeController.text)
+              emailVerifyCode: emailCodeController.text,
+              walletInfo: walletInfo)
           .then((value) async {
         ///MARK: 註冊成功動畫
 

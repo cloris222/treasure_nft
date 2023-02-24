@@ -219,4 +219,8 @@ class AppImagePath {
       '$_imgPath/img_blind_box_lv{level}_{index}.png';
   static const String appUpdateImage = '$_iconPath/icon_update_01.png';
   static const String tradeStageIcon = '$_iconPath/icon_select_time_01.png';
+
+  ///wallet connect
+  static const String metamaskIcon = '$_iconPath/icon_metamask_01.png';
+  static const String walletConnectIcon = '$_iconPath/icon_login_wallet_01.png';
 }

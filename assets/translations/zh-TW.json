@@ -1200,6 +1200,16 @@
   "selectionPeriod":"選擇時間",
   "APP_0087":"預約場次已結束",
   "APP_0073":"重複操作",
+  "register-via-wallet":"通過錢包註冊",
+  "linkedWallet":"連結錢包",
+  "walletAddress":"錢包地址",
+  "address-bounded-hint":"此地址已被綁定",
+  "address-unbound-hint":"此地址尚未綁定",
+  "bindWallet":"綁定錢包",
+  "todayReserve":"第一階段",
+  "tomorrowReserve":"第二階段",
+  "reservation":"預約",
+  "appointmentInstructions":"在一天之內你可以在不同場次，多次預約NFT，獲取更多收益。",
 
 
   "--//app use":"---",
