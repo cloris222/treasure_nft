@@ -40,28 +40,8 @@ class WalletConnectButtonWidget extends ConsumerWidget {
           final connectStatus = ref.watch(connectWalletProvider);
           return SizedBox(
               child: connectStatus.whenOrNull(
-            init: () => IconBolderButtonWidget(
-                icon: walletIcon,
-                btnText: btnText,
-                radius: 8,
-                onPressed: () async {
-                  getWalletInfo(await BaseViewModel().pushWalletConnectPage(
-                    context,
-                    subTitle: bindWalletTitle,
-                    needVerifyAPI: false,
-                  ));
-                }),
-            loading: () => IconBolderButtonWidget(
-                icon: walletIcon,
-                btnText: btnText,
-                radius: 8,
-                onPressed: () async {
-                  getWalletInfo(await BaseViewModel().pushWalletConnectPage(
-                    context,
-                    subTitle: bindWalletTitle,
-                    needVerifyAPI: false,
-                  ));
-                }),
+            init: () => _buildButton(context),
+            loading: () => _buildButton(context),
             data: (wallet) => needChangeText
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,15 +58,7 @@ class WalletConnectButtonWidget extends ConsumerWidget {
                       ),
                     ],
                   )
-                : LoginBolderButtonWidget(
-                    btnText: btnText,
-                    onPressed: () async {
-                      getWalletInfo(await BaseViewModel().pushWalletConnectPage(
-                        context,
-                        subTitle: bindWalletTitle,
-                        needVerifyAPI: false,
-                      ));
-                    }),
+                : _buildButton(context)
           ));
         }),
         Divider(
@@ -95,5 +67,20 @@ class WalletConnectButtonWidget extends ConsumerWidget {
             thickness: 1)
       ],
     );
+  }
+
+  Widget _buildButton(BuildContext context){
+    return IconBolderButtonWidget(
+        icon: BaseIconWidget(
+            imageAssetPath: AppImagePath.walletConnectIcon,
+            size: UIDefine.getPixelWidth(25)),
+        btnText: btnText,
+        onPressed: () async {
+          getWalletInfo(await BaseViewModel().pushWalletConnectPage(
+            context,
+            subTitle: bindWalletTitle,
+            needVerifyAPI: false,
+          ));
+        });
   }
 }
