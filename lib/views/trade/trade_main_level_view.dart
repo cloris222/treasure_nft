@@ -319,22 +319,21 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
               ],
             ),
           ),
-          Opacity(
-            opacity: canReserve ? 1 : 0,
-            child: LoginButtonWidget(
-                isFillWidth: false,
-                height: UIDefine.getPixelWidth(40),
-                padding:
-                    EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(5)),
-                fontSize: UIDefine.fontSize12,
-                fontWeight: FontWeight.w600,
-                btnText: tr('reserve'),
-                onPressed: () {
-                  if (canReserve) {
-                    _onChangeTimeStage(index);
-                  }
-                }),
-          )
+          LoginButtonWidget(
+              enable: canReserve,
+              isFillWidth: false,
+              isUnEnableGradient: false,
+              height: UIDefine.getPixelWidth(40),
+              padding:
+                  EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(5)),
+              fontSize: UIDefine.fontSize12,
+              fontWeight: FontWeight.w600,
+              btnText: tr('reserve'),
+              onPressed: () {
+                if (canReserve) {
+                  _onChangeTimeStage(index);
+                }
+              })
         ],
       ),
     );
