@@ -93,7 +93,9 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
               )),
           Container(
             decoration: AppStyle().styleColorsRadiusBackground(radius: 8),
-            margin: EdgeInsets.all(UIDefine.getPixelWidth(5)),
+            margin: EdgeInsets.symmetric(
+                vertical: UIDefine.getPixelWidth(5),
+                horizontal: UIDefine.getPixelWidth(10)),
             padding: EdgeInsets.all(UIDefine.getPixelWidth(15)),
             child: Row(
               children: [
