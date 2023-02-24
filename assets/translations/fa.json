@@ -1200,6 +1200,21 @@
   "selectionPeriod":"زمان را انتخاب کنید",
   "APP_0087":"جلسه قرار ملاقات به پایان رسیده است",
   "APP_0073":"عملیات تکراری",
+  "login-via-wallet":"کیف پول متصل",
+  "register-via-wallet":"کیف پول متصل",
+  "linkedWallet":"کیف پول",
+  "walletAddress":"آدرس کیف پول",
+  "address-bounded-hint":"این آدرس قبلاً محدود شده است",
+  "address-unbound-hint":"این آدرس محدود نشده است",
+  "bindWallet":"کیف پول",
+  "todayReserve":"مرحله اول",
+  "tomorrowReserve":"مرحله دوم",
+  "reservation":"رزرو",
+  "appointmentInstructions":"طی یک روز ، می توانید چندین بار NFT را در جلسات مختلف رزرو کنید تا مزایای بیشتری کسب کنید.",
+  "select-wallet":"لطفا یک کیف پول را انتخاب کنید",
+  "bind-successfully":"اتصال با موفقیت",
+
+
 
   "--//app use":"---",
   "goPermissionSetting":"عملکرد اسکن به اجازه دوربین گوشی شما نیاز دارد. برای باز کردن آن به تنظیمات گوشی خود بروید؟",
@@ -1223,8 +1238,10 @@
   "goPermissionAnimation":"برای اطمینان از عملکرد کامل انیمیشن APP، باید مجوز ذخیره سازی را فعال کنید. آیا می خواهید برای تنظیم به صفحه تنظیمات بروید؟",
   "appPurchaseDescription":"با خرید این محصول می توانید یک مجموعه هنری  به ارزش  دریافت کنید.",
   "appSaveWalletHint":"در صورت پر کردن آدرس اشتباه، پلتفرم مسئولیتی بر عهده نخواهد گرفت و باعث می شود USDT به آدرس اشتباه منتقل شود.",
-  "appUpdateTitle":"اخطار به روزرسانی",
+  "appUpdateTitle":"اعلامیه به روزرسانی",
   "appUpdateContext":"آخرین نسخه در حال حاضر موجود است ، لطفاً به روزرسانی کنید",
   "appTodayReserve":"مرحله اول",
-  "appTomorrowReserve":"مرحله دوم"
+  "appTomorrowReserve":"مرحله دوم",
+  "appBindSuccess":"اتصال با موفقیت",
+  "appBindFail":"BIND شکست خورد"
 }

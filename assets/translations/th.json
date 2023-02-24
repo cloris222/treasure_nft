@@ -1200,6 +1200,21 @@
   "selectionPeriod":"เลือกเวลา",
   "APP_0087":"เซสชั่นการนัดหมายสิ้นสุดลงแล้ว",
   "APP_0073":"การดำเนินการซ้ำ",
+  "login-via-wallet":"Wallet Connect",
+  "register-via-wallet":"Wallet Connect",
+  "linkedWallet":"ลิงค์กระเป๋าเงิน",
+  "walletAddress":"ที่อยู่กระเป๋าเงิน",
+  "address-bounded-hint":"ที่อยู่นี้ถูกผูกไว้แล้ว",
+  "address-unbound-hint":"ที่อยู่นี้ไม่ได้ถูกผูกไว้",
+  "bindWallet":"ผูกกระเป๋าเงิน",
+  "todayReserve":"ขั้นตอนแรก",
+  "tomorrowReserve":"ขั้นตอนที่สอง",
+  "reservation":"การจอง",
+  "appointmentInstructions":"ภายในหนึ่งวันคุณสามารถจอง NFT ได้หลายครั้งในช่วงต่าง ๆ เพื่อรับประโยชน์มากขึ้น",
+  "select-wallet":"กรุณาเลือกกระเป๋าเงิน",
+  "bind-successfully":"ผูกมัดสำเร็จ",
+
+
 
   "--//app use":"---",
   "goPermissionSetting":"ฟังก์ชันสแกนต้องได้รับอนุญาตจากกล้องในโทรศัพท์ของคุณ ไปที่การตั้งค่าโทรศัพท์ของคุณเพื่อเปิด?",
@@ -1226,5 +1241,7 @@
   "appUpdateTitle":"อัปเดตประกาศ",
   "appUpdateContext":"เวอร์ชันล่าสุดพร้อมใช้งานในปัจจุบันโปรดไปที่อัปเดต",
   "appTodayReserve":"ขั้นตอนแรก",
-  "appTomorrowReserve":"ขั้นตอนที่สอง"
+  "appTomorrowReserve":"ขั้นตอนที่สอง",
+  "appBindSuccess":"ผูกมัดสำเร็จ",
+  "appBindFail":"ผูกล้มเหลว"
 }

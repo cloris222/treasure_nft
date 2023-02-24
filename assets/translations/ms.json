@@ -1200,6 +1200,21 @@
   "selectionPeriod":"Pilih masa",
   "APP_0087":"Sesi pelantikan telah berakhir",
   "APP_0073":"Operasi pendua",
+  "login-via-wallet":"Sambung dompet",
+  "register-via-wallet":"Sambung dompet",
+  "linkedWallet":"dompet pautan",
+  "walletAddress":"Alamat dompet",
+  "address-bounded-hint":"Alamat ini sudah terikat",
+  "address-unbound-hint":"Alamat ini belum terikat",
+  "bindWallet":"Mengikat dompet",
+  "todayReserve":"Peringkat pertama",
+  "tomorrowReserve":"Peringkat kedua",
+  "reservation":"Tempahan",
+  "appointmentInstructions":"Dalam sehari, anda boleh menempah NFT beberapa kali dalam sesi yang berbeza untuk mendapatkan lebih banyak faedah.",
+  "select-wallet":"Sila pilih dompet",
+  "bind-successfully":"mengikat berjaya",
+
+
 
   "--//app use":"---",
   "goPermissionSetting":"Fungsi imbasan memerlukan kebenaran kamera pada telefon anda. Pergi ke tetapan telefon anda untuk membukanya?",
@@ -1226,5 +1241,7 @@
   "appUpdateTitle":"Notis kemas kini",
   "appUpdateContext":"Versi terbaru kini tersedia, sila pergi ke kemas kini",
   "appTodayReserve":"Peringkat pertama",
-  "appTomorrowReserve":"Peringkat kedua"
+  "appTomorrowReserve":"Peringkat kedua",
+  "appBindSuccess":"mengikat berjaya",
+  "appBindFail":"Bind gagal"
 }
