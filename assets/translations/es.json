@@ -1224,5 +1224,7 @@
   "appPurchaseDescription":"Al comprar este producto, puede obtener una colección .",
   "appSaveWalletHint":"La plataforma no se responsabiliza si el USDT se transfiere a una dirección incorrecta debido a que se ha introducido una dirección incorrecta.",
   "appUpdateTitle":"Aviso de actualización",
-  "appUpdateContext":"La última versión está disponible actualmente, vaya a la actualización"
+  "appUpdateContext":"La última versión está disponible actualmente, vaya a la actualización",
+  "appTodayReserve":"El primer escenario",
+  "appTomorrowReserve":"La segunda etapa"
 }

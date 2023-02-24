@@ -1224,5 +1224,8 @@
   "appPurchaseDescription":"Bu ürünü satın alarak değerinde bir sanat koleksiyonuna sahip olabilirsiniz.",
   "appSaveWalletHint":"Transfer İşlemlerinde Yanlış Ağ'a Çekilen Tutarlardan Kullanıcılar Sorumludur.Lütfen Çekim Adreslerinizi Kontrol Ediniz.",
   "appUpdateTitle":"Güncelleme Bildirimi",
-  "appUpdateContext":"En son sürüm şu anda mevcut, lütfen güncellemeye gidin"
+  "appUpdateContext":"En son sürüm şu anda mevcut, lütfen güncellemeye gidin",
+  "appTodayReserve":"İlk aşama",
+  "appTomorrowReserve":"İkinci aşama"
+
 }

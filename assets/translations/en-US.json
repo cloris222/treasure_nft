@@ -1225,5 +1225,7 @@
   "appPurchaseDescription":"Buying this product, you can get a NFT art collection .",
   "appSaveWalletHint":"If the wrong address is filled in and the USDT is transferred to the wrong address, the platform will not be responsible.",
   "appUpdateTitle":"Update notice",
-  "appUpdateContext":"The latest version is currently available, please go to update"
+  "appUpdateContext":"The latest version is currently available, please go to update",
+  "appTodayReserve":"The first stage",
+  "appTomorrowReserve":"The second stage"
 }

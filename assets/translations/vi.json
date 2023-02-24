@@ -1224,5 +1224,7 @@
   "appPurchaseDescription":"Mua sản phẩm này, bạn có thể nhận được bộ sưu tập nghệ thuật .",
   "appSaveWalletHint":"Nền tảng sẽ không chịu bất kỳ trách nhiệm nào nếu điền sai địa chỉ, khiến USDT bị chuyển đến sai địa chỉ",
   "appUpdateTitle":"Cập nhật thông báo",
-  "appUpdateContext":"Phiên bản mới nhất hiện có sẵn, vui lòng truy cập cập nhật"
+  "appUpdateContext":"Phiên bản mới nhất hiện có sẵn, vui lòng truy cập cập nhật",
+  "appTodayReserve":"Giai đoạn đầu tiên",
+  "appTomorrowReserve":"Giai đoạn thứ hai"
 }
