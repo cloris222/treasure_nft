@@ -8,83 +8,78 @@ import 'package:treasure_nft_project/views/collection/api/collection_api.dart';
 import 'package:treasure_nft_project/views/collection/collection_type_page.dart';
 
 import '../../constant/call_back_function.dart';
+import '../../constant/enum/collection_enum.dart';
 import '../../constant/ui_define.dart';
 import '../../views/collection/data/collection_nft_item_response_data.dart';
 import '../../views/collection/data/collection_reservation_response_data.dart';
 import '../../views/collection/data/collection_ticket_response_data.dart';
 
 class CollectionMainViewModel extends BaseViewModel {
-
-  Widget getCollectionTypePage(String type) {
+  Widget getCollectionTypePage(CollectionTag type) {
     return CollectionTypePage(currentType: type);
   }
 
   Widget getCollectionTypeButtons(
-      {required String currentExploreType,
-        required List<String> dataList,
-        required ItemScrollController controller,
-        required Function(String exploreType) changePage}) {
+      {required CollectionTag currentExploreType,
+      required ItemScrollController controller,
+      required Function(CollectionTag tag) changePage}) {
     List<Widget> buttons = <Widget>[];
-    for (int i = 0; i < dataList.length; i++) {
-      bool isCurrent = (dataList[i] == currentExploreType);
-      buttons.add(
-          IntrinsicWidth(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: UIDefine.getScreenWidth(12),
-                  child: TextButton(
-                    onPressed: () {
-                      changePage(dataList[i]);
-                    },
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.5), 0, UIDefine.getScreenWidth(3), 0),
-                      child: Text(
-                        _getTabTitle(dataList[i]),
-                        style: AppTextStyle.getBaseStyle(color: _getButtonColor(isCurrent), fontSize: UIDefine.fontSize16),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
+    for (int i = 0; i < CollectionTag.values.length; i++) {
+      CollectionTag tag = CollectionTag.values[i];
+      bool isCurrent = (tag == currentExploreType);
+      buttons.add(IntrinsicWidth(
+        child: Column(
+          children: [
+            SizedBox(
+              height: UIDefine.getScreenWidth(12),
+              child: TextButton(
+                onPressed: () {
+                  changePage(tag);
+                },
+                child: Container(
+                  padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.5), 0,
+                      UIDefine.getScreenWidth(3), 0),
+                  child: Text(
+                    _getTabTitle(tag),
+                    style: AppTextStyle.getBaseStyle(
+                        color: _getButtonColor(isCurrent),
+                        fontSize: UIDefine.fontSize16),
+                    textAlign: TextAlign.center,
                   ),
                 ),
-                Container(
-                  height: _getLineHeight(isCurrent),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: _getLineColor(isCurrent)
-                    )
-                  ),
-                ),
-              ],
+              ),
             ),
-          )
-      );
+            Container(
+              height: _getLineHeight(isCurrent),
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(colors: _getLineColor(isCurrent))),
+            ),
+          ],
+        ),
+      ));
     }
     return SizedBox(
         height: UIDefine.getScreenWidth(13),
-        child:  ScrollablePositionedList.builder(
+        child: ScrollablePositionedList.builder(
             scrollDirection: Axis.horizontal,
             itemScrollController: controller,
             itemCount: buttons.length,
             itemBuilder: (context, index) {
               return buttons[index];
-            }
-        )
-    );
+            }));
   }
 
-  String _getTabTitle(String value) {
-    switch(value) {
-      case 'Reservation':
+  String _getTabTitle(CollectionTag tag) {
+    switch (tag) {
+      case CollectionTag.Reservation:
         return tr('tab_reserve');
-      case 'Selling':
+      case CollectionTag.Selling:
         return tr('tab_selling');
-      case 'Pending':
+      case CollectionTag.Pending:
         return tr('tab_unsell');
-      case 'Ticket':
+      case CollectionTag.Ticket:
         return tr('myTicket');
     }
-    return '';
   }
 
   double _getLineHeight(bool isCurrent) {
@@ -103,25 +98,30 @@ class CollectionMainViewModel extends BaseViewModel {
   }
 
   Future<List<CollectionReservationResponseData>> getReservationResponse(
-      String type, int page, int size, {ResponseErrorFunction? onConnectFail}) async {
+      String type, int page, int size,
+      {ResponseErrorFunction? onConnectFail}) async {
     return await CollectionApi(onConnectFail: onConnectFail)
         .getReservationResponse(page: page, size: size, type: type);
   }
 
   Future<List<CollectionNftItemResponseData>> getNFTItemResponse(
-      String status, int page, int size, {ResponseErrorFunction? onConnectFail}) async {
+      String status, int page, int size,
+      {ResponseErrorFunction? onConnectFail}) async {
     return await CollectionApi(onConnectFail: onConnectFail)
         .getNFTItemResponse(page: page, size: size, status: status);
   }
 
   Future<List<CollectionTicketResponseData>> getTicketResponse(
-      String type, int page, int size, {ResponseErrorFunction? onConnectFail}) async {
+      String type, int page, int size,
+      {ResponseErrorFunction? onConnectFail}) async {
     return await CollectionApi(onConnectFail: onConnectFail)
         .getTicketResponse(page: page, size: size, type: type);
   }
 
-  Future<String> getOpenBoxResponse({required String action, required String itemId,
-    ResponseErrorFunction? onConnectFail}) async {
+  Future<String> getOpenBoxResponse(
+      {required String action,
+      required String itemId,
+      ResponseErrorFunction? onConnectFail}) async {
     return await CollectionApi(onConnectFail: onConnectFail)
         .getOpenBoxResponse(action: action, itemId: itemId);
   }
@@ -131,5 +131,4 @@ class CollectionMainViewModel extends BaseViewModel {
     return await CollectionApi(onConnectFail: onConnectFail)
         .requestMakeUpBalance(recordNo: recordNo);
   }
-
 }

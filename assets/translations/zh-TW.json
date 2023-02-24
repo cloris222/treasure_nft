@@ -1225,5 +1225,7 @@
   "appPurchaseDescription":"購買此商品,您可獲得NFT藝術收藏品",
   "appSaveWalletHint":"如果填寫錯誤的地址，導致USDT被轉移到錯誤的地址，平台將不承擔任何責任",
   "appUpdateTitle":"更新通知",
-  "appUpdateContext":"目前已有最新版本，請前往更新"
+  "appUpdateContext":"目前已有最新版本，請前往更新",
+  "appTodayReserve":"第一階段",
+  "appTomorrowReserve":"第二階段"
 }

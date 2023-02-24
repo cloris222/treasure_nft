@@ -1224,5 +1224,7 @@
   "appPurchaseDescription":"Ao comprar este produto, você pode obter uma coleção de arte no valor de .",
   "appSaveWalletHint":"A plataforma não será considerada responsável se o USDT for transferido para o endereço errado devido à introdução de um endereço incorrecto.",
   "appUpdateTitle":"Aviso de atualização",
-  "appUpdateContext":"A versão mais recente está disponível atualmente, vá para atualizar"
+  "appUpdateContext":"A versão mais recente está disponível atualmente, vá para atualizar",
+  "appTodayReserve":"O primeiro estágio",
+  "appTomorrowReserve":"O segundo estágio"
 }

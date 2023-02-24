@@ -1224,5 +1224,7 @@
   "appPurchaseDescription":"Dengan membeli produk ini, Anda bisa mendapatkan koleksi seni .",
   "appSaveWalletHint":"Platform tidak akan bertanggung jawab jika USDT ditransfer ke alamat yang salah karena alamat yang dimasukkan salah.",
   "appUpdateTitle":"Perbarui Pemberitahuan",
-  "appUpdateContext":"Versi terbaru saat ini tersedia, silakan perbarui"
+  "appUpdateContext":"Versi terbaru saat ini tersedia, silakan perbarui",
+  "appTodayReserve":"Tahap pertama",
+  "appTomorrowReserve":"Tahap kedua"
 }

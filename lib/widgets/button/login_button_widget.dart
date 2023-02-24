@@ -22,13 +22,12 @@ class LoginButtonWidget extends StatefulWidget {
       this.radius = 10,
       this.showIcon = false,
       this.needTimes = 1,
-        this.isFillWidth = true,
-        this.isAutoHeight = false,
-        this.margin = const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-        this.padding,
-        this.fontFamily = AppTextFamily.PosteramaText,
-
-      })
+      this.isFillWidth = true,
+      this.isAutoHeight = false,
+      this.margin = const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+      this.padding,
+      this.fontFamily = AppTextFamily.PosteramaText,
+      this.customGradientColor})
       : super(key: key);
   final String btnText;
   final VoidCallback onPressed;
@@ -47,6 +46,7 @@ class LoginButtonWidget extends StatefulWidget {
   final EdgeInsetsGeometry margin;
   final EdgeInsetsGeometry? padding;
   final AppTextFamily fontFamily;
+  final List<Color>? customGradientColor;
 
   @override
   State<LoginButtonWidget> createState() => _LoginButtonWidgetState();
@@ -81,9 +81,13 @@ class _LoginButtonWidgetState extends State<LoginButtonWidget> {
                   vertical: UIDefine.getPixelWidth(5)),
           decoration: widget.enable
               ? widget.isGradient
-                  ? widget.isFlip
-                      ? AppStyle().baseFlipGradient(radius: widget.radius)
-                      : AppStyle().baseGradient(radius: widget.radius)
+                  ? widget.customGradientColor != null
+                      ? AppStyle().buildGradient(
+                          colors: widget.customGradientColor!,
+                          radius: widget.radius)
+                      : widget.isFlip
+                          ? AppStyle().baseFlipGradient(radius: widget.radius)
+                          : AppStyle().baseGradient(radius: widget.radius)
                   : AppStyle().styleColorsRadiusBackground(
                       color: AppColors.mainThemeButton)
               : widget.isGradient
@@ -92,11 +96,14 @@ class _LoginButtonWidgetState extends State<LoginButtonWidget> {
                       colors: AppColors.gradientBackgroundColorBg)
                   : AppStyle()
                       .styleColorsRadiusBackground(color: AppColors.buttonGrey),
-          width: widget.width ?? (widget.isFillWidth ? UIDefine.getWidth() : null),
-          height: widget.height ?? (widget.isAutoHeight ? null : UIDefine.getPixelWidth(50)),
+          width:
+              widget.width ?? (widget.isFillWidth ? UIDefine.getWidth() : null),
+          height: widget.height ??
+              (widget.isAutoHeight ? null : UIDefine.getPixelWidth(50)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: widget.isFillWidth ? MainAxisSize.max : MainAxisSize.min,
+            mainAxisSize:
+                widget.isFillWidth ? MainAxisSize.max : MainAxisSize.min,
             children: [
               Visibility(
                   visible: widget.showIcon,

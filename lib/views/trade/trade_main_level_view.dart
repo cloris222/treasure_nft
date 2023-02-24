@@ -29,7 +29,6 @@ import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/button/login_bolder_button_widget.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import 'package:treasure_nft_project/widgets/count_down_timer.dart';
-import 'package:treasure_nft_project/widgets/dialog/new_reservation_dialog.dart';
 import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
 import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart';
 import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
@@ -153,22 +152,24 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
       decoration: AppStyle().styleColorsRadiusBackground(radius: 12),
       child: Column(
         children: [
-          Container(
-              decoration: AppStyle().styleColorBorderBackground(
-                  borderLine: 0.5,
-                  radius: 6,
-                  backgroundColor: const Color(0xFFF5F8FB),
-                  color: AppColors.textSixBlack),
-              padding: EdgeInsets.all(UIDefine.getPixelWidth(15)),
-              child: Column(mainAxisSize: MainAxisSize.min, children: [
+          Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
                 Text(tr('selectionPeriod'),
                     style: AppTextStyle.getBaseStyle(
-                        fontSize: UIDefine.fontSize18,
-                        fontWeight: FontWeight.w600)),
-                SizedBox(height: UIDefine.getPixelWidth(20)),
-                ...List<Widget>.generate(
-                    reserveStages.length, (index) => _buildStageItem(index)),
-              ])),
+                        fontSize: UIDefine.fontSize26,
+                        fontWeight: FontWeight.w700)),
+                SizedBox(height: UIDefine.getPixelWidth(10)),
+                _buildDateState(
+                    title: tr('appTodayReserve'),
+                    titleColor: const Color(0xFF6D6D6D),
+                    date: DateFormatUtil().getTimeWithDayFormat()),
+                _buildDateState(
+                    title: tr('appTomorrowReserve'),
+                    titleColor: const Color(0xFF6D6D6D),
+                    date: DateFormatUtil().getAfterDays(1)),
+              ]),
           SizedBox(height: UIDefine.getPixelWidth(10)),
 
           ///MARK: 顯示交易區間的資訊
@@ -197,51 +198,136 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     return false;
   }
 
+  Widget _buildDateState(
+      {required String title,
+      required Color titleColor,
+      required String date}) {
+    List<Widget> list = [];
+    for (int index = 0; index < reserveStages.length; index++) {
+      TradeReserveStageInfo info = reserveStages[index];
+      if (DateFormatUtil()
+              .getTimeWithDayFormat(time: info.startTime)
+              .compareTo(date) ==
+          0) {
+        list.add(_buildStageItem(index));
+        list.add(Padding(
+          padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(15)),
+          child:
+              const Divider(height: 5, thickness: 1, color: Color(0xFFE7EBF7)),
+        ));
+      }
+    }
+
+    if (list.isNotEmpty) {
+      list.removeLast();
+    }
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(7.5)),
+          child: Text(title,
+              style: AppTextStyle.getBaseStyle(
+                  color: titleColor,
+                  fontSize: UIDefine.fontSize12,
+                  fontWeight: FontWeight.w700)),
+        ),
+        Container(
+          width: UIDefine.getWidth(),
+          decoration: AppStyle().styleColorBorderBackground(
+              borderLine: 0.4,
+              radius: 8,
+              backgroundColor: const Color(0xFFF6F8FF),
+              color: const Color(0xFFF6F8FF)),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: list,
+          ),
+        )
+      ],
+    );
+  }
+
   Widget _buildStageItem(int index) {
     TradeReserveStageInfo info = reserveStages[index];
 
     ///MARK: isAvailable 都顯示 false
     bool canReserve = info.isAvailable ? checkReserve(info.startTime) : false;
     return Container(
-      width: UIDefine.getWidth(),
-      decoration: AppStyle().styleColorBorderBackground(
-          borderLine: 0.4,
-          radius: 4,
-          backgroundColor: Colors.white,
-          color: const Color(0xFFC6CACC)),
-      padding: EdgeInsets.all(UIDefine.getPixelWidth(8)),
-      margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(5)),
+      padding: EdgeInsets.all(UIDefine.getPixelWidth(10)),
+      margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(0.5)),
       child: Row(
         children: [
           Expanded(
-            child: Text(
-              '${DateFormatUtil().buildFormat(strFormat: 'MM-dd HH:mm', time: info.startTime)} ~'
-              '\n${DateFormatUtil().buildFormat(strFormat: 'MM-dd HH:mm', time: info.endTime)}',
-              textAlign: TextAlign.start,
-              style: AppTextStyle.getBaseStyle(
-                  fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w400),
-            ),
-          ),
-          Expanded(
-            child: Text(
-              '${tr('balanceReservation')} : '
-              '\n${NumberFormatUtil().removeTwoPointFormat(info.reserveBalance)}',
-              textAlign: TextAlign.start,
-              style: AppTextStyle.getBaseStyle(
-                  fontSize: UIDefine.fontSize12,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.textSixBlack),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        '(${DateFormatUtil().buildFormat(strFormat: 'yyyy/MM/dd', time: info.startTime)})',
+                        textAlign: TextAlign.start,
+                        style: AppTextStyle.getBaseStyle(
+                            fontSize: UIDefine.fontSize10,
+                            color: const Color(0xFF6D6D6D),
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        '${tr('balanceReservation')}:',
+                        textAlign: TextAlign.start,
+                        style: AppTextStyle.getBaseStyle(
+                            fontSize: UIDefine.fontSize8,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.textSixBlack),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        '${DateFormatUtil().buildFormat(strFormat: 'HH:mm', time: info.startTime)} ~'
+                        '${DateFormatUtil().buildFormat(strFormat: 'HH:mm', time: info.endTime)}',
+                        textAlign: TextAlign.start,
+                        style: AppTextStyle.getBaseStyle(
+                            color: const Color(0xFF1E1E1E),
+                            fontSize: UIDefine.fontSize12,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        '${NumberFormatUtil().removeTwoPointFormat(info.reserveBalance)} U',
+                        textAlign: TextAlign.start,
+                        style: AppTextStyle.getBaseStyle(
+                            fontSize: UIDefine.fontSize12,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.textSixBlack),
+                      ),
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
           Opacity(
             opacity: canReserve ? 1 : 0,
             child: LoginButtonWidget(
+                isFillWidth: false,
                 height: UIDefine.getPixelWidth(40),
                 padding:
                     EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(5)),
                 fontSize: UIDefine.fontSize12,
                 fontWeight: FontWeight.w600,
-                isFillWidth: false,
                 btnText: tr('reserve'),
                 onPressed: () {
                   if (canReserve) {
