@@ -106,12 +106,15 @@ class ControlRouterViewModel {
   Future<WalletInfo?> pushWalletConnectPage(
     BuildContext context, {
     required String subTitle,
+    required bool needVerifyAPI,
+    bool showBindSuccess = false,
   }) async {
     return await Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => WalletConnectPage(
-                  subTitle: subTitle,
-                )));
+                subTitle: subTitle,
+                needVerifyAPI: needVerifyAPI,
+                showBindSuccess: showBindSuccess)));
   }
 }

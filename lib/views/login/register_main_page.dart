@@ -34,6 +34,8 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
   @override
   void initState() {
     super.initState();
+    Future.delayed(const Duration(milliseconds: 300)).then((value) =>
+        ref.read(connectWalletProvider.notifier).initConnectWallet());
     viewModel = RegisterMainViewModel(setState: setState);
   }
 
@@ -73,6 +75,7 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           WalletConnectButtonWidget(
+            needChangeText: true,
               btnText: tr('register-via-wallet'),
               bindWalletTitle: tr('register-via-wallet'),
               getWalletInfo: (walletInfo) {

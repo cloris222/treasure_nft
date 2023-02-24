@@ -1200,6 +1200,7 @@
   "selectionPeriod":"选择时间",
   "APP_0087":"预约场次已结束",
   "APP_0073":"重复操作",
+  "login-via-wallet":"通过钱包登入",
   "register-via-wallet":"通过钱包注册",
   "linkedWallet":"连结钱包",
   "walletAddress":"钱包地址",
@@ -1210,6 +1211,10 @@
   "tomorrowReserve":"第二阶段",
   "reservation":"预约",
   "appointmentInstructions":"在一天之内你可以在不同场次，多次预约NFT，获取更多收益。",
+  "select-wallet":"请选择钱包",
+  "bind-successfully":"绑定成功",
+
+
 
   "--//app use":"---",
   "goPermissionSetting":"扫码功能需先开启相机权限才能使用，是否前往设定页面做设定？",
@@ -1234,5 +1239,9 @@
   "appPurchaseDescription":"购买此商品,您可获得NFT艺术收藏品",
   "appSaveWalletHint":"如果填写错误的地址，导致USDT被转移到错误的地址，平台将不承担任何责任",
   "appUpdateTitle":"更新通知",
-  "appUpdateContext":"目前已有最新版本，请前往更新"
+  "appUpdateContext":"目前已有最新版本，请前往更新",
+  "appTodayReserve":"第一阶段",
+  "appTomorrowReserve":"第二阶段",
+  "appBindSuccess":"绑定成功",
+  "appBindFail":"绑定失败"
 }

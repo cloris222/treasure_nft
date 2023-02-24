@@ -3,12 +3,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/view_models/gobal_provider/user_info_provider.dart';
 import 'package:treasure_nft_project/views/personal/common/user_change_password_page.dart';
 import 'package:treasure_nft_project/views/personal/common/user_info_setting_page.dart';
 import 'package:treasure_nft_project/views/personal/personal_new_sub_user_info_view.dart';
@@ -17,28 +19,39 @@ import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/simple_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/label/background_with_land.dart';
+import 'package:wallet_connect_plugin/model/wallet_info.dart';
 
+import '../../../constant/global_data.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/ui_define.dart';
 import '../../../models/http/api/login_api.dart';
+import '../../../models/http/parameter/user_info_data.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../custom_appbar_view.dart';
 import '../../main_page.dart';
 
 ///MARK: 個人設置
-class UserSettingPage extends StatefulWidget {
-  const UserSettingPage({Key? key}) : super(key: key);
+class UserSettingPage extends ConsumerStatefulWidget {
+  const UserSettingPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<UserSettingPage> createState() => _UserSettingPageState();
+  ConsumerState createState() => _UserSettingPageState();
 }
 
-class _UserSettingPageState extends State<UserSettingPage> {
+class _UserSettingPageState extends ConsumerState<UserSettingPage> {
   String version = '';
+  bool isWalletBind = false;
+
+  UserInfoData get userInfo {
+    return ref.read(userInfoProvider);
+  }
 
   @override
   void initState() {
     super.initState();
+    isWalletBind = userInfo.address.isNotEmpty;
     _initPackageInfo();
   }
 
@@ -80,7 +93,7 @@ class _UserSettingPageState extends State<UserSettingPage> {
               )),
           Container(
             decoration: AppStyle().styleColorsRadiusBackground(radius: 8),
-            margin: EdgeInsets.all(UIDefine.getPixelWidth(10)),
+            margin: EdgeInsets.all(UIDefine.getPixelWidth(5)),
             padding: EdgeInsets.all(UIDefine.getPixelWidth(15)),
             child: Row(
               children: [
@@ -89,6 +102,23 @@ class _UserSettingPageState extends State<UserSettingPage> {
                 ),
                 Expanded(
                   child: _getGrayBolderButton(context, false),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            decoration: AppStyle().styleColorsRadiusBackground(radius: 8),
+            margin: EdgeInsets.symmetric(
+                vertical: UIDefine.getPixelWidth(5),
+                horizontal: UIDefine.getPixelWidth(10)),
+            padding: EdgeInsets.all(UIDefine.getPixelWidth(15)),
+            child: Row(
+              children: [
+                Expanded(
+                  child: _getWalletBolderButton(),
+                ),
+                const Expanded(
+                  child: SizedBox(),
                 ),
               ],
             ),
@@ -151,6 +181,34 @@ class _UserSettingPageState extends State<UserSettingPage> {
     );
   }
 
+  Widget _getWalletBolderButton() {
+    return GestureDetector(
+      onTap: () => _onBindWallet(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset(AppImagePath.walletConnectIcon,
+              width: UIDefine.getPixelWidth(30),
+              height: UIDefine.getPixelWidth(30),
+              fit: BoxFit.contain),
+          Text(
+            tr('bindWallet'),
+            style: AppTextStyle.getBaseStyle(
+                color: AppColors.textBlack, fontSize: UIDefine.fontSize12),
+          ),
+          Text(
+            isWalletBind ? tr('bound') : tr('unBound'),
+            style: AppTextStyle.getBaseStyle(
+                color: isWalletBind
+                    ? const Color(0xFF6CCA98)
+                    : const Color(0xFFFF0000),
+                fontSize: UIDefine.fontSize10),
+          )
+        ],
+      ),
+    );
+  }
+
   void _goChangePwd(BuildContext context) {
     // PageBottomSheet(context, page: const UserChangePasswordPage()).show();
     BaseViewModel().pushPage(context, const UserChangePasswordPage());
@@ -199,5 +257,49 @@ class _UserSettingPageState extends State<UserSettingPage> {
             context, const MainPage(type: AppNavigationBarType.typeMain));
       });
     }).show();
+  }
+
+  void _onBindWallet() async {
+    if (!isWalletBind) {
+      WalletInfo? walletInfo = await BaseViewModel().pushWalletConnectPage(
+        context,
+        subTitle: tr('linkedWallet'),
+        needVerifyAPI: false,
+        showBindSuccess: false,
+      );
+      if (walletInfo != null) {
+        GlobalData.printLog('walletInfo.address:${walletInfo.address}');
+        GlobalData.printLog(
+            'walletInfo.personalSign:${walletInfo.personalSign}');
+        try {
+          UserInfoAPI(
+                  onConnectFail: (message) =>
+                      BaseViewModel().onBaseConnectFail(context, message))
+              .updatePersonInfo(
+                  name: userInfo.name,
+                  phoneCountry: userInfo.phoneCountry,
+                  phone: userInfo.phone,
+                  password: '',
+                  oldPassword: '',
+                  gender: userInfo.gender,
+                  birthday: userInfo.birthday,
+                  address: walletInfo.address,
+                  signature: walletInfo.personalSign)
+              .then((value) async {
+            SimpleCustomDialog(context, mainText: tr('appBindSuccess')).show();
+            setState(() {
+              isWalletBind = true;
+              ref.read(userInfoProvider).address = walletInfo.address;
+              ref.read(userInfoProvider.notifier).setSharedPreferencesValue();
+              ref.read(userInfoProvider.notifier).update();
+            });
+          });
+        } catch (e) {
+          SimpleCustomDialog(context,
+                  mainText: tr('appBindFail'), isSuccess: false)
+              .show();
+        }
+      }
+    }
   }
 }

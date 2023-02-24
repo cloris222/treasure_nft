@@ -4,8 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/login/login_main_viewmodel.dart';
 import 'package:treasure_nft_project/views/login/login_common_view.dart';
+import 'package:wallet_connect_plugin/provider/begin_provider.dart';
 
+import '../../constant/global_data.dart';
 import '../../widgets/button/login_button_widget.dart';
+import '../../widgets/button/wallet_connect_button_widget.dart';
 import '../../widgets/label/common_text_widget.dart';
 import 'login_param_view.dart';
 
@@ -23,8 +26,10 @@ class _LoginMainViewState extends ConsumerState<LoginMainView> {
 
   @override
   void initState() {
-    super.initState();
     viewModel = LoginMainViewModel(setState: setState);
+    Future.delayed(const Duration(milliseconds: 300)).then((value) =>
+        ref.read(connectWalletProvider.notifier).initConnectWallet());
+    super.initState();
   }
 
   @override
@@ -51,6 +56,19 @@ class _LoginMainViewState extends ConsumerState<LoginMainView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
+          WalletConnectButtonWidget(
+              needChangeText: false,
+              btnText: tr('login-via-wallet'),
+              bindWalletTitle: tr('login-via-wallet'),
+              getWalletInfo: (walletInfo) {
+                GlobalData.printLog(
+                    'walletInfo.address:${walletInfo?.address}');
+                GlobalData.printLog(
+                    'walletInfo.personalSign:${walletInfo?.personalSign}');
+                if (walletInfo != null) {
+                  viewModel.onWalletLogin(context, walletInfo, ref);
+                }
+              }),
           LoginParamView(
               titleText: tr('account'),
               hintText: tr("placeholder-account'"),

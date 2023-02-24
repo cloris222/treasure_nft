@@ -1200,6 +1200,7 @@
   "selectionPeriod":"시간을 선택하십시오",
   "APP_0087":"약속 세션이 끝났습니다",
   "APP_0073":"중복 작업",
+  "login-via-wallet":"지갑 연결",
   "register-via-wallet":"지갑 연결",
   "linkedWallet":"링크 지갑",
   "walletAddress":"지갑 주소",
@@ -1210,6 +1211,10 @@
   "tomorrowReserve":"두 번째 단계",
   "reservation":"예약",
   "appointmentInstructions":"하루 안에 다른 세션에서 NFT를 여러 번 예약하여 더 많은 혜택을 얻을 수 있습니다.",
+  "select-wallet":"지갑을 선택하십시오",
+  "bind-successfully":"성공적으로 묶습니다",
+
+
 
   "--//app use":"---",
   "goPermissionSetting":"스캔 기능을 사용하려면 휴대폰의 카메라 권한이 필요합니다. 전화 설정으로 이동하여 여시겠습니까?",
@@ -1234,5 +1239,9 @@
   "appPurchaseDescription":"이 제품을 구매하면  상당의 아트 컬렉션을 얻을 수 있습니다.",
   "appSaveWalletHint":"잘못돈 주소로 인해 USDT가̆̈ 잘못된 주소로 전송될 경우 플랫폼은 어떠한 책임도 지지 않습니다",
   "appUpdateTitle":"업데이트 통지",
-  "appUpdateContext":"최신 버전은 현재 사용할 수 있습니다. 업데이트로 이동하십시오."
+  "appUpdateContext":"최신 버전은 현재 사용할 수 있습니다. 업데이트로 이동하십시오.",
+  "appTodayReserve":"첫 번째 단계",
+  "appTomorrowReserve":"두 번째 단계",
+  "appBindSuccess":"성공적으로 묶습니다",
+  "appBindFail":"바인딩 실패"
 }

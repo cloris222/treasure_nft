@@ -27,12 +27,13 @@ class WalletSettingViewModel extends BaseViewModel {
 
   bool checkEmail = false;
 
-  void setTextController(List<PaymentInfo> list) {
+  void setTextController(List<PaymentInfo> list, String defaultAddress) {
     if (list.isNotEmpty) {
       ///MARK:清除更新controller
-      trcController.text = getCoinText(list, CoinEnum.TRON);
-      bscController.text = getCoinText(list, CoinEnum.BSC);
-      rolloutController.text = getCoinText(list, CoinEnum.ROLLOUT);
+      trcController.text = getCoinText(list, CoinEnum.TRON, defaultAddress);
+      bscController.text = getCoinText(list, CoinEnum.BSC, defaultAddress);
+      rolloutController.text =
+          getCoinText(list, CoinEnum.ROLLOUT, defaultAddress);
     }
   }
 
@@ -76,13 +77,19 @@ class WalletSettingViewModel extends BaseViewModel {
     }
   }
 
-  String getCoinText(List<PaymentInfo> list, CoinEnum coin) {
+  String getCoinText(
+      List<PaymentInfo> list, CoinEnum coin, String defaultAddress) {
+    String text = '';
     for (int i = 0; i < list.length; i++) {
       if (list[i].payType == coin.name) {
-        return list[i].account;
+        text = list[i].account;
+        break;
       }
     }
-    return '';
+    if (text.isEmpty && (coin == CoinEnum.ROLLOUT || coin == CoinEnum.BSC)) {
+      return defaultAddress;
+    }
+    return text;
   }
 
   void sendEmailCode(BuildContext context, UserInfoData userInfo) {

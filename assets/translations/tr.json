@@ -1200,6 +1200,7 @@
   "selectionPeriod":"Zamanı Seçin",
   "APP_0087":"Randevu oturumu sona erdi",
   "APP_0073":"Yinelenen işlem",
+  "login-via-wallet":"Cüzdan Bağlantısı",
   "register-via-wallet":"Cüzdan Bağlantısı",
   "linkedWallet":"bağlantı cüzdanı",
   "walletAddress":"cüzdan adresi",
@@ -1210,6 +1211,10 @@
   "tomorrowReserve":"İkinci aşama",
   "reservation":"Rezervasyon",
   "appointmentInstructions":"Bir gün içinde, daha fazla fayda elde etmek için NFT'yi farklı oturumlarda birden çok kez rezerve edebilirsiniz.",
+  "select-wallet":"Lütfen bir cüzdan seçin",
+  "bind-successfully":"Başarılı bir şekilde bağlayın",
+
+
 
   "--//app use":"---",
   "goPermissionSetting":"Tarama işlevi, telefonunuzda kamera izni gerektirir. Açmak için telefon ayarlarına git?",
@@ -1234,5 +1239,9 @@
   "appPurchaseDescription":"Bu ürünü satın alarak değerinde bir sanat koleksiyonuna sahip olabilirsiniz.",
   "appSaveWalletHint":"Transfer İşlemlerinde Yanlış Ağ'a Çekilen Tutarlardan Kullanıcılar Sorumludur.Lütfen Çekim Adreslerinizi Kontrol Ediniz.",
   "appUpdateTitle":"Güncelleme Bildirimi",
-  "appUpdateContext":"En son sürüm şu anda mevcut, lütfen güncellemeye gidin"
+  "appUpdateContext":"En son sürüm şu anda mevcut, lütfen güncellemeye gidin",
+  "appTodayReserve":"İlk aşama",
+  "appTomorrowReserve":"İkinci aşama",
+  "appBindSuccess":"Başarılı bir şekilde bağlayın",
+  "appBindFail":"Bind başarısız oldu"
 }

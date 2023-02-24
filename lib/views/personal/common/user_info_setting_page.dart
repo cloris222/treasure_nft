@@ -46,7 +46,7 @@ class _UserInfoSettingPageState extends ConsumerState<UserInfoSettingPage> {
 
   @override
   Widget build(BuildContext context) {
-    UserInfoData userInfo =ref.watch(userInfoProvider);
+    UserInfoData userInfo = ref.watch(userInfoProvider);
     return CustomAppbarView(
         needScrollView: false,
         onLanguageChange: () {
@@ -77,8 +77,9 @@ class _UserInfoSettingPageState extends ConsumerState<UserInfoSettingPage> {
                       _getUnEditFormView(tr('nationality'),
                           '${tr(userInfo.country)} (${userInfo.zone})'),
                       SizedBox(height: UIDefine.getScreenWidth(4.16)),
-                      _getUnEditFormView(
-                          tr('account'), userInfo.account),
+                      _getUnEditFormView(tr('walletAddress'), userInfo.address),
+                      SizedBox(height: UIDefine.getScreenWidth(4.16)),
+                      _getUnEditFormView(tr('account'), userInfo.account),
                       SizedBox(height: UIDefine.getScreenWidth(4.16)),
                       LoginParamView(
                           titleText: tr('nickname'),
@@ -88,10 +89,9 @@ class _UserInfoSettingPageState extends ConsumerState<UserInfoSettingPage> {
                           onChanged: viewModel.onNicknameChanged),
                       SizedBox(height: UIDefine.getScreenWidth(4.16)),
                       PhoneParamView(
-                          initCountry:
-                              userInfo.phoneCountry.isNotEmpty
-                                  ? userInfo.phoneCountry
-                                  : null,
+                          initCountry: userInfo.phoneCountry.isNotEmpty
+                              ? userInfo.phoneCountry
+                              : null,
                           titleText: tr('phone'),
                           hintText: tr("placeholder-phone'"),
                           controller: viewModel.phoneController,
@@ -100,8 +100,7 @@ class _UserInfoSettingPageState extends ConsumerState<UserInfoSettingPage> {
                             viewModel.setPhoneCountry(value);
                           }),
                       SizedBox(height: UIDefine.getScreenWidth(4.16)),
-                      _getUnEditFormView(
-                          tr('email'), userInfo.email),
+                      _getUnEditFormView(tr('email'), userInfo.email),
                       SizedBox(height: UIDefine.getScreenWidth(4.16)),
                       GenderSelectorDropDownBar(
                           getDropDownValue: (String value) {

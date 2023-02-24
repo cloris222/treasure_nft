@@ -15,11 +15,13 @@ class WalletConnectButtonWidget extends ConsumerWidget {
     required this.btnText,
     required this.bindWalletTitle,
     required this.getWalletInfo,
+    required this.needChangeText,
     Key? key,
   }) : super(key: key);
   final Function(WalletInfo? walletInfo) getWalletInfo;
   final String btnText;
   final String bindWalletTitle;
+  final bool needChangeText;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -37,30 +39,43 @@ class WalletConnectButtonWidget extends ConsumerWidget {
                   getWalletInfo(await BaseViewModel().pushWalletConnectPage(
                     context,
                     subTitle: bindWalletTitle,
+                    needVerifyAPI: false,
                   ));
                 }),
-            loading: () => const SizedBox(
-              width: 24.0,
-              height: 24.0,
-              child: CircularProgressIndicator(
-                color: Colors.black,
-              ),
-            ),
-            data: (wallet) => Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('${tr('walletAddress')} :',
-                    style: AppTextStyle.getBaseStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: UIDefine.fontSize14)),
-                Text(
-                  wallet.address,
-                  style: AppTextStyle.getBaseStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: UIDefine.fontSize14),
-                ),
-              ],
-            ),
+            loading: () => LoginBolderButtonWidget(
+                btnText: btnText,
+                onPressed: () async {
+                  getWalletInfo(await BaseViewModel().pushWalletConnectPage(
+                    context,
+                    subTitle: bindWalletTitle,
+                    needVerifyAPI: false,
+                  ));
+                }),
+            data: (wallet) => needChangeText
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('${tr('walletAddress')} :',
+                          style: AppTextStyle.getBaseStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: UIDefine.fontSize14)),
+                      Text(
+                        wallet.address,
+                        style: AppTextStyle.getBaseStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: UIDefine.fontSize14),
+                      ),
+                    ],
+                  )
+                : LoginBolderButtonWidget(
+                    btnText: btnText,
+                    onPressed: () async {
+                      getWalletInfo(await BaseViewModel().pushWalletConnectPage(
+                        context,
+                        subTitle: bindWalletTitle,
+                        needVerifyAPI: false,
+                      ));
+                    }),
           ));
         }),
         Divider(

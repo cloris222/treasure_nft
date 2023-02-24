@@ -1200,6 +1200,7 @@
   "selectionPeriod":"Pilih Waktu",
   "APP_0087":"Sesi janji temu telah berakhir",
   "APP_0073":"Operasi duplikat",
+  "login-via-wallet":"Dompet terhubung",
   "register-via-wallet":"Dompet terhubung",
   "linkedWallet":"Dompet Tautan",
   "walletAddress":"alamat dompet",
@@ -1210,6 +1211,10 @@
   "tomorrowReserve":"Tahap kedua",
   "reservation":"Reservasi",
   "appointmentInstructions":"Dalam satu hari, Anda dapat memesan NFT beberapa kali dalam sesi yang berbeda untuk mendapatkan lebih banyak manfaat.",
+  "select-wallet":"Pilih dompet",
+  "bind-successfully":"mengikat dengan sukses",
+
+
 
   "--//app use":"---",
   "goPermissionSetting":"Fungsi pemindaian memerlukan izin kamera di ponsel Anda. Masuk ke pengaturan ponsel Anda untuk membukanya?",
@@ -1234,5 +1239,9 @@
   "appPurchaseDescription":"Dengan membeli produk ini, Anda bisa mendapatkan koleksi seni .",
   "appSaveWalletHint":"Platform tidak akan bertanggung jawab jika USDT ditransfer ke alamat yang salah karena alamat yang dimasukkan salah.",
   "appUpdateTitle":"Perbarui Pemberitahuan",
-  "appUpdateContext":"Versi terbaru saat ini tersedia, silakan perbarui"
+  "appUpdateContext":"Versi terbaru saat ini tersedia, silakan perbarui",
+  "appTodayReserve":"Tahap pertama",
+  "appTomorrowReserve":"Tahap kedua",
+  "appBindSuccess":"mengikat dengan sukses",
+  "appBindFail":"Bind gagal"
 }

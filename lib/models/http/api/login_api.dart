@@ -8,9 +8,14 @@ class LoginAPI extends HttpManager {
 
   ///MARK: 會員登入
   Future<ApiResponse> login(
-      {required String account, required String password}) async {
-    return post('/user/login',
-        data: {'account': account.trim(), 'password': password.trim()});
+      {required String account,
+      required String password,
+      required bool isWallet}) async {
+    return post('/user/login', data: {
+      'account': account.trim(),
+      'password': password.trim(),
+      'isWallet': isWallet
+    });
   }
 
   ///MARK: 會員登出

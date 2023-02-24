@@ -44,7 +44,8 @@ class _WalletSettingPageState extends ConsumerState<WalletSettingPage> {
     });
     // viewModel.initState();
     ref.read(walletPaymentSettingProvider.notifier).init(onFinish: () {
-      viewModel.setTextController(ref.read(walletPaymentSettingProvider));
+      viewModel.setTextController(ref.read(walletPaymentSettingProvider),
+          ref.read(userInfoProvider).address);
     });
 
     super.initState();

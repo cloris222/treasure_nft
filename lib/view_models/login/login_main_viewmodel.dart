@@ -7,6 +7,7 @@ import 'package:treasure_nft_project/models/http/api/login_api.dart';
 import 'package:treasure_nft_project/utils/animation_download_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
+import 'package:wallet_connect_plugin/model/wallet_info.dart';
 
 import '../../constant/call_back_function.dart';
 import '../../views/full_animation_page.dart';
@@ -58,7 +59,52 @@ class LoginMainViewModel extends BaseViewModel {
                 onConnectFail: (message) => onBaseConnectFail(context, message))
             .login(
                 account: accountController.text,
-                password: passwordController.text)
+                password: passwordController.text,
+                isWallet: false)
+            .then((value) async {
+          String? path = AnimationDownloadUtil()
+              .getAnimationFilePath(getLoginTimeAnimationPath());
+          if (path != null) {
+            pushOpacityPage(
+                context,
+                FullAnimationPage(
+                    limitTimer: 3,
+                    isFile: true,
+                    animationPath: path,
+                    runFunction: () async {
+                      await saveUserLoginInfo(
+                          response: value, ref: ref, isLogin: true);
+                      startUserListener();
+                    },
+                    nextPage:
+                        const MainPage(type: AppNavigationBarType.typeMain)));
+          } else {
+            await saveUserLoginInfo(response: value, ref: ref, isLogin: true);
+            startUserListener();
+            pushAndRemoveUntil(
+                context, const MainPage(type: AppNavigationBarType.typeMain));
+          }
+        });
+      } catch (e) {
+        loginWait = false;
+      }
+      loginWait = false;
+    }
+  }
+
+  void onWalletLogin(
+      BuildContext context, WalletInfo walletInfo, WidgetRef ref) async {
+    if (!loginWait) {
+      loginWait = true;
+
+      try {
+        ///MARK: 註冊API
+        await LoginAPI(
+                onConnectFail: (message) => onBaseConnectFail(context, message))
+            .login(
+                account: walletInfo.address,
+                password: walletInfo.personalSign,
+                isWallet: true)
             .then((value) async {
           String? path = AnimationDownloadUtil()
               .getAnimationFilePath(getLoginTimeAnimationPath());

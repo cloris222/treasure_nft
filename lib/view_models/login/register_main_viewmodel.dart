@@ -262,7 +262,9 @@ class RegisterMainViewModel extends BaseViewModel {
   Future<void> _updateRegisterInfo(
       {required WidgetRef ref, required bool isLogin}) async {
     var response = await LoginAPI().login(
-        account: accountController.text, password: passwordController.text);
+        account: accountController.text,
+        password: passwordController.text,
+        isWallet: false);
     await saveUserLoginInfo(response: response, ref: ref, isLogin: isLogin);
     startUserListener();
   }

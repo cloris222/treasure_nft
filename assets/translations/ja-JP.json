@@ -1200,6 +1200,7 @@
     "selectionPeriod":"時間を選択します",
     "APP_0087":"予約セッションは終了しました",
     "APP_0073":"重複操作",
+    "login-via-wallet":"ウォレット接続",
     "register-via-wallet":"ウォレット接続",
     "linkedWallet":"リンクウォレット",
     "walletAddress":"ウォレットアドレス",
@@ -1210,6 +1211,10 @@
     "tomorrowReserve":"第2段階",
     "reservation":"予約",
     "appointmentInstructions":"1日以内に、さまざまなセッションでNFTを複数回予約して、より多くのメリットを得ることができます。",
+    "select-wallet":"ウォレットを選択してください",
+    "bind-successfully":"正常にバインドします",
+
+
 
     "--//app use":"---",
     "goPermissionSetting":"スキャン機能を使用するには、カメラの権限を有効にする必要があります。設定ページに移動して設定しますか?",
@@ -1234,5 +1239,9 @@
     "appPurchaseDescription":"このアイテムを購入すると、相当の NFT アート コレクションを手に入れることができます",
     "appSaveWalletHint":"間違ったアドレスを入力して USDT が間違ったアドレスに転送された場合、プラットフォームは一切の責任を負いません。",
     "appUpdateTitle":"通知を更新します",
-    "appUpdateContext":"最新バージョンは現在利用可能です。更新にアクセスしてください"
+    "appUpdateContext":"最新バージョンは現在利用可能です。更新にアクセスしてください",
+    "appTodayReserve":"最初の段階",
+    "appTomorrowReserve":"第2段階",
+    "appBindSuccess":"正常にバインドします",
+    "appBindFail":"バインドが失敗しました"
 }
