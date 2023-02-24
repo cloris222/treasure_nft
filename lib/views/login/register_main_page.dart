@@ -2,9 +2,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/models/http/api/wallet_connect_api.dart';
 import 'package:treasure_nft_project/views/login/login_common_view.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
+import 'package:treasure_nft_project/widgets/button/login_bolder_button_widget.dart';
+import 'package:wallet_connect_plugin/model/wallet_info.dart';
+import 'package:wallet_connect_plugin/provider/begin_provider.dart';
 
+import '../../constant/theme/app_colors.dart';
+import '../../utils/app_text_style.dart';
 import '../../view_models/login/register_main_viewmodel.dart';
 import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/label/common_text_widget.dart';
@@ -66,6 +72,64 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
+          ///MARK:通過錢包註冊
+          Consumer(builder: (context, ref, _) {
+            final connectStatus = ref.watch(connectWalletProvider);
+            return SizedBox(
+                child: connectStatus.whenOrNull(
+              init: () => LoginBolderButtonWidget(
+                  btnText: tr('register-via-wallet'),
+                  onPressed: () {
+                    ref.read(connectWalletProvider.notifier).connectWallet(
+                        getNonce: (String address) async {
+                      return await WalletConnectAPI().getUserNonce(address);
+                    }, getWalletInfo: (WalletInfo walletInfo) async {
+                      print('walletInfo.address:${walletInfo.address}');
+                      print(
+                          'walletInfo.personalSign:${walletInfo.personalSign}');
+
+                      ///MARK: 授權完成後，會回傳此結果
+                      WalletConnectAPI(
+                              onConnectFail: (errorMessage) => viewModel
+                                  .onBaseConnectFail(context, errorMessage))
+                          .postCheckWalletVerifySign(walletInfo)
+                          .then((value) {
+                        viewModel.showToast(context, '授權成功');
+                      });
+                    }, bindWalletFail: () {
+                      ///MARK: 授權失敗
+                      viewModel.showToast(context, '授權失敗');
+                    });
+                  }),
+              loading: () => const SizedBox(
+                width: 24.0,
+                height: 24.0,
+                child: CircularProgressIndicator(
+                  color: Colors.black,
+                ),
+              ),
+              data: (wallet) => Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('${tr('walletAddress')} :',
+                      style: AppTextStyle.getBaseStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: UIDefine.fontSize14)),
+                  Text(
+                    wallet.address,
+                    style: AppTextStyle.getBaseStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: UIDefine.fontSize14),
+                  ),
+                ],
+              ),
+            ));
+          }),
+          Divider(
+              height: UIDefine.getPixelWidth(20),
+              color: AppColors.bolderGrey,
+              thickness: 1),
+
           ///MARK:暱稱
           LoginParamView(
               titleText: tr('nickname'),
@@ -145,7 +209,7 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
           LoginButtonWidget(
             btnText: tr('register'),
             // enable: viewModel.checkPress(),
-            onPressed: () => viewModel.onPressRegister(context,ref),
+            onPressed: () => viewModel.onPressRegister(context, ref),
           ),
           Row(children: [
             Flexible(
