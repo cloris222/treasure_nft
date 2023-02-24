@@ -19,7 +19,7 @@ class IconBolderButtonWidget extends StatefulWidget {
     this.fontSize,
     this.fontWeight,
     this.isFillWidth = true,
-    this.margin = const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+    this.margin,
     this.padding,
     this.alignment = Alignment.center,
   }) : super(key: key);
@@ -32,7 +32,7 @@ class IconBolderButtonWidget extends StatefulWidget {
   final double? fontSize;
   final FontWeight? fontWeight;
   final EdgeInsetsGeometry? padding;
-  final EdgeInsetsGeometry margin;
+  final EdgeInsetsGeometry? margin;
   final bool isFillWidth;
   final AlignmentGeometry alignment;
   final Widget icon;
@@ -61,21 +61,16 @@ class _IconBolderButtonWidgetState extends State<IconBolderButtonWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () => intervalClick(widget.needTimes),
-        child: ShaderMask(
-          blendMode: BlendMode.srcIn,
-          shaderCallback: (bounds) => const LinearGradient(
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.topRight,
-                  colors: AppColors.gradientBaseColorBg)
-              .createShader(
-            Rect.fromLTWH(0, 0, bounds.width, bounds.height),
-          ),
+        child: Container(
+          decoration: AppStyle().baseGradient(
+              radius: widget.radius,
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter),
+          padding: const EdgeInsets.all(1),
           child: Container(
               alignment: widget.alignment,
-              decoration: AppStyle().styleColorBorderBackground(
-                  color: Colors.grey,
-                  backgroundColor: Colors.transparent,
-                  radius: widget.radius),
+              decoration:
+                  AppStyle().styleColorsRadiusBackground(radius: widget.radius),
               width: widget.width ??
                   (widget.isFillWidth ? UIDefine.getWidth() : null),
               height: widget.height ?? UIDefine.getPixelWidth(50),
@@ -84,13 +79,21 @@ class _IconBolderButtonWidgetState extends State<IconBolderButtonWidget> {
                   EdgeInsets.symmetric(
                       horizontal: UIDefine.getPixelWidth(10),
                       vertical: UIDefine.getPixelWidth(5)),
-              child: Text(widget.btnText,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppTextStyle.getBaseStyle(
-                      color: AppColors.textNineBlack,
-                      fontSize: widget.fontSize ?? UIDefine.fontSize16,
-                      fontWeight: widget.fontWeight))),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  widget.icon,
+                  SizedBox(width: UIDefine.getPixelWidth(5)),
+                  Text(widget.btnText,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTextStyle.getBaseStyle(
+                          color: AppColors.textNineBlack,
+                          fontSize: widget.fontSize ?? UIDefine.fontSize16,
+                          fontWeight: widget.fontWeight)),
+                ],
+              )),
         ));
   }
 }
