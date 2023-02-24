@@ -988,7 +988,7 @@
   "bonus_trade":"بنك التداول",
   "bonus_referral":"البنك المرجعي",
   "bonus_keep_hint":"سيتم الاحتفاظ بالمكافآت لمدة {يوم} يوم. إذا فشلت الترقية قبل {date} ، فسيتم استرداد جميع المكافآت",
-  "APP_0071":"وقت الانسحاب هو: {startTime}-{endTime} ، يرجى التقدم للانسحاب خلال هذه الفترة ، شكرًا لك.",
+  "APP_0071":"وقت الانسحاب هو: {StartTime}-{Endtime} ، يرجى التقدم للانسحاب خلال هذه الفترة ، شكرًا لك.",
   "nftAssets":"الأصول NFT",
   "totalAssets":"إجمالي الأصول",
   "reservenotDrawn":"أوامر الحجز غير المسحوبة",
@@ -1200,6 +1200,21 @@
   "selectionPeriod":"اختر الوقت",
   "APP_0087":"انتهت جلسة التعيين",
   "APP_0073":"عملية مكررة",
+  "login-via-wallet":"محفظة الاتصال",
+  "register-via-wallet":"محفظة الاتصال",
+  "linkedWallet":"ربط محفظة",
+  "walletAddress":"عنوان محفظة",
+  "address-bounded-hint":"هذا العنوان قد تم ربطه بالفعل",
+  "address-unbound-hint":"لم يكن هذا العنوان ملزمًا",
+  "bindWallet":"ربط محفظة",
+  "todayReserve":"المرحلة الأولى",
+  "tomorrowReserve":"المرحلة الثانية",
+  "reservation":"حجز",
+  "appointmentInstructions":"في غضون يوم واحد ، يمكنك حجز NFT عدة مرات في جلسات مختلفة للحصول على مزيد من الفوائد.",
+  "select-wallet":"الرجاء تحديد محفظة",
+  "bind-successfully":"ربط بنجاح",
+
+
 
   "--//app use":"---",
   "goPermissionSetting":"تتطلب وظيفة المسح إذن الكاميرا على هاتفك. اذهب إلى إعدادات هاتفك لفتحه؟",
@@ -1226,5 +1241,7 @@
   "appUpdateTitle":"تحديث إشعار",
   "appUpdateContext":"أحدث إصدار متاح حاليًا ، يرجى الانتقال إلى التحديث",
   "appTodayReserve":"المرحلة الأولى",
-  "appTomorrowReserve":"المرحلة الثانية"
+  "appTomorrowReserve":"المرحلة الثانية",
+  "appBindSuccess":"ربط بنجاح",
+  "appBindFail":"فشل الربط"
 }

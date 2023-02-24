@@ -63,6 +63,8 @@ class UserInfoAPI extends HttpManager {
     required String oldPassword,
     required String gender,
     required String birthday,
+    String address = '',
+    String signature = '',
   }) async {
     return await post('/user/update', data: {
       'name': name,
@@ -71,7 +73,9 @@ class UserInfoAPI extends HttpManager {
       'password': password,
       'oldPassword': oldPassword,
       'gender': gender,
-      'birthday': birthday
+      'birthday': birthday,
+      'address': address,
+      'signature': signature,
     });
   }
 

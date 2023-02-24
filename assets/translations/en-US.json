@@ -1200,6 +1200,20 @@
   "selectionPeriod":"Choose time",
   "APP_0087":"The appointment session has ended",
   "APP_0073":"Duplicate operation",
+  "login-via-wallet":"Wallet Connect",
+  "register-via-wallet":"Wallet Connect",
+  "linkedWallet":"link wallet",
+  "walletAddress":"wallet address",
+  "address-bounded-hint":"This address has already been bound",
+  "address-unbound-hint":"This address has not been bound",
+  "bindWallet":"Bind wallet",
+  "todayReserve":"The first stage",
+  "tomorrowReserve":"The second stage",
+  "reservation":"Reservation",
+  "appointmentInstructions":"Within a day, you can book NFT multiple times in different sessions to get more benefits.",
+  "select-wallet":"Please select a wallet",
+  "bind-successfully":"bind successfully",
+
 
 
   "--//app use":"---",
@@ -1227,5 +1241,7 @@
   "appUpdateTitle":"Update notice",
   "appUpdateContext":"The latest version is currently available, please go to update",
   "appTodayReserve":"The first stage",
-  "appTomorrowReserve":"The second stage"
+  "appTomorrowReserve":"The second stage",
+  "appBindSuccess":"bind successfully",
+  "appBindFail":"bind failed"
 }

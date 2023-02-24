@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
+import 'package:wallet_connect_plugin/model/wallet_info.dart';
 
 import '../views/main_page.dart';
+import '../views/wallet_connect_page.dart';
 import 'base_view_model.dart';
 
-class ControlRouterViewModel{
+class ControlRouterViewModel {
   ///MARK: 推頁面 偷懶用
   void popPage(BuildContext context) {
     Navigator.pop(context);
@@ -28,7 +30,7 @@ class ControlRouterViewModel{
     await Navigator.pushAndRemoveUntil<void>(
       context,
       MaterialPageRoute<void>(builder: (BuildContext context) => page),
-          (route) => false,
+      (route) => false,
     );
   }
 
@@ -36,7 +38,7 @@ class ControlRouterViewModel{
   Future<void> globalPushAndRemoveUntil(Widget page) async {
     GlobalData.globalKey.currentState?.pushAndRemoveUntil<void>(
       MaterialPageRoute<void>(builder: (BuildContext context) => page),
-          (route) => false,
+      (route) => false,
     );
   }
 
@@ -47,7 +49,7 @@ class ControlRouterViewModel{
       MaterialPageRoute<void>(
           builder: (BuildContext context) =>
               MainPage(type: getPreBottomType())),
-          (route) => false,
+      (route) => false,
     );
   }
 
@@ -99,5 +101,20 @@ class ControlRouterViewModel{
           return page;
         },
         opaque: false));
+  }
+
+  Future<WalletInfo?> pushWalletConnectPage(
+    BuildContext context, {
+    required String subTitle,
+    required bool needVerifyAPI,
+    bool showBindSuccess = false,
+  }) async {
+    return await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => WalletConnectPage(
+                subTitle: subTitle,
+                needVerifyAPI: needVerifyAPI,
+                showBindSuccess: showBindSuccess)));
   }
 }
