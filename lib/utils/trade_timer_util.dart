@@ -100,7 +100,7 @@ class TradeTimerUtil {
 
   String getReservationTime() {
     if (_reservationInfo != null) {
-      return '${_reservationInfo?.reserveStartTime.substring(0, 5)} - ${_reservationInfo?.reserveEndTime.substring(0, 5)}(+1day)';
+      return '${_reservationInfo?.reserveStartTime.substring(0, 5)} - ${_reservationInfo?.reserveEndTime.substring(0, 5)}';
     }
     return '';
   }
