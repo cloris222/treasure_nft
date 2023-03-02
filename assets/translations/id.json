@@ -1194,15 +1194,15 @@
   "balanceReservation":"Saldo untuk Reservasi",
   "drawDate":"Tarik tanggal",
   "appointmentDate":"Tanggal reservasi",
-  "EXPERIENCE_ADD":"Mengalami uang",
-  "EXPERIENCE_RECYCLE":"Mengalami pemulihan uang",
+  "EXPERIENCE_ADD":"Dana percobaan",
+  "EXPERIENCE_RECYCLE":"Pemulihan Dana Percobaan",
   "footer_download":"Unduh",
   "selectionPeriod":"Pilih Waktu",
   "APP_0087":"Sesi janji temu telah berakhir",
   "APP_0073":"Operasi duplikat",
   "login-via-wallet":"Dompet terhubung",
-  "register-via-wallet":"Dompet terhubung",
-  "linkedWallet":"Dompet Tautan",
+  "register-via-wallet":"Pendaftaran Dompet",
+  "linkedWallet":"dompet tautan",
   "walletAddress":"alamat dompet",
   "address-bounded-hint":"Alamat ini sudah terikat",
   "address-unbound-hint":"Alamat ini belum terikat",
@@ -1212,7 +1212,7 @@
   "reservation":"Reservasi",
   "appointmentInstructions":"Dalam satu hari, Anda dapat memesan NFT beberapa kali dalam sesi yang berbeda untuk mendapatkan lebih banyak manfaat.",
   "select-wallet":"Pilih dompet",
-  "bind-successfully":"mengikat dengan sukses",
+  "bind-successfully":"Bind berhasil",
 
 
 
@@ -1242,6 +1242,15 @@
   "appUpdateContext":"Versi terbaru saat ini tersedia, silakan perbarui",
   "appTodayReserve":"Tahap pertama",
   "appTomorrowReserve":"Tahap kedua",
-  "appBindSuccess":"mengikat dengan sukses",
-  "appBindFail":"Bind gagal"
+  "appBindSuccess":"Bind berhasil",
+  "appBindFail":"Bind gagal",
+  "appPurchaseLimit":"Batas pembelian mingguan ({value}/{limit})",
+  "appLoginCheck":"Apakah Anda sudah memiliki akun Treasurenft?",
+  "appHasAccount":"Ya",
+  "appNotHasAccount":"TIDAK",
+  "appBindFailHint":"Tolong coba lagi",
+  "appBindAccountHint":"Akun ini sudah memiliki alamat yang mengikat",
+  "appTradeNotYet":"Akan mulai",
+  "appTradeReserving":"Waktu tersisa",
+  "appTradeEnd":"Menutup"
 }

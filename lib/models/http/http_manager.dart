@@ -25,12 +25,16 @@ class HttpManager {
   ///MARK: 是否自動轉多國
   final bool showTrString;
 
+  ///MARK: 是否自動印log
+  final bool printLog;
+
   HttpManager(
       {this.onConnectFail,
       this.onConnectFailResponse,
       this.baseUrl = HttpSetting.appUrl,
       this.addToken = true,
-      this.showTrString = true}) {
+      this.showTrString = true,
+      this.printLog = true}) {
     _dio
       ..options.baseUrl = baseUrl
       ..options.connectTimeout = HttpSetting.connectionTimeout
@@ -39,11 +43,15 @@ class HttpManager {
   }
 
   ApiResponse _checkResponse(Response response) {
-    GlobalData.printLog(response.realUri.toString());
+    if (printLog) {
+      GlobalData.printLog(response.realUri.toString());
+    }
     var result = ApiResponse.fromJson(response.data);
 
     ///偷懶看LOG用
-    result.printLog();
+    if (printLog) {
+      result.printLog();
+    }
 
     ///MARK: 檢查結果
     if (result.code == "G_0000" ||
@@ -72,8 +80,10 @@ class HttpManager {
       if (GlobalData.userToken.isNotEmpty) {
         _dio.options.headers["Authorization"] =
             "Bearer ${GlobalData.userToken}";
-        GlobalData.printLog(
-            "Authorization:${_dio.options.headers['Authorization']}");
+        if (printLog) {
+          GlobalData.printLog(
+              "Authorization:${_dio.options.headers['Authorization']}");
+        }
       }
     }
   }
@@ -81,12 +91,14 @@ class HttpManager {
   Future<void> addDioHeader(Map<String, String> header) async {
     header.forEach((key, value) {
       _dio.options.headers[key] = value;
-      GlobalData.printLog("addDioHeader $key:${_dio.options.headers[key]}");
+      if (printLog) {
+        GlobalData.printLog("addDioHeader $key:${_dio.options.headers[key]}");
+      }
     });
   }
 
   void callFailConnect(String message,
-      {required  Response? response , bool isOther = false}) {
+      {required Response? response, bool isOther = false}) {
     if (onConnectFail != null) {
       onConnectFail!(message);
     }
@@ -129,8 +141,11 @@ class HttpManager {
       return _checkResponse(response);
     } on DioError catch (e) {
       final errorMessage = HttpExceptions.fromDioError(e).toString();
-      GlobalData.printLog('connect errorMessage:$errorMessage');
-      callFailConnect(errorMessage,response:e.response, isOther: e.type == DioErrorType.other);
+      if (printLog) {
+        GlobalData.printLog('connect errorMessage:$errorMessage');
+      }
+      callFailConnect(errorMessage,
+          response: e.response, isOther: e.type == DioErrorType.other);
       throw HttpSetting.debugMode ? errorMessage : '';
     } catch (e) {
       callFailConnect(e.toString(), response: null);
@@ -169,7 +184,11 @@ class HttpManager {
       return _checkResponse(response);
     } on DioError catch (e) {
       final errorMessage = HttpExceptions.fromDioError(e).toString();
-      callFailConnect(errorMessage,response:e.response, isOther: e.type == DioErrorType.other);
+      if (printLog) {
+        GlobalData.printLog('connect errorMessage:$errorMessage');
+      }
+      callFailConnect(errorMessage,
+          response: e.response, isOther: e.type == DioErrorType.other);
       throw HttpSetting.debugMode ? errorMessage : '';
     } catch (e) {
       callFailConnect(e.toString(), response: null);
@@ -205,7 +224,11 @@ class HttpManager {
       return _checkResponse(response);
     } on DioError catch (e) {
       final errorMessage = HttpExceptions.fromDioError(e).toString();
-      callFailConnect(errorMessage,response:e.response, isOther: e.type == DioErrorType.other);
+      if (printLog) {
+        GlobalData.printLog('connect errorMessage:$errorMessage');
+      }
+      callFailConnect(errorMessage,
+          response: e.response, isOther: e.type == DioErrorType.other);
       throw HttpSetting.debugMode ? errorMessage : '';
     } catch (e) {
       callFailConnect(e.toString(), response: null);
@@ -235,7 +258,11 @@ class HttpManager {
       return ApiResponse.fromJson(response.data);
     } on DioError catch (e) {
       final errorMessage = HttpExceptions.fromDioError(e).toString();
-      callFailConnect(errorMessage,response:e.response, isOther: e.type == DioErrorType.other);
+      if (printLog) {
+        GlobalData.printLog('connect errorMessage:$errorMessage');
+      }
+      callFailConnect(errorMessage,
+          response: e.response, isOther: e.type == DioErrorType.other);
       throw HttpSetting.debugMode ? errorMessage : '';
     } catch (e) {
       callFailConnect(e.toString(), response: null);
@@ -257,7 +284,11 @@ class HttpManager {
       );
     } on DioError catch (e) {
       final errorMessage = HttpExceptions.fromDioError(e).toString();
-      callFailConnect(errorMessage,response:e.response, isOther: e.type == DioErrorType.other);
+      if (printLog) {
+        GlobalData.printLog('connect errorMessage:$errorMessage');
+      }
+      callFailConnect(errorMessage,
+          response: e.response, isOther: e.type == DioErrorType.other);
       throw HttpSetting.debugMode ? errorMessage : '';
     } catch (e) {
       callFailConnect(e.toString(), response: null);

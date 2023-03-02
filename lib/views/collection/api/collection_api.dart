@@ -9,7 +9,7 @@ import '../data/collection_ticket_response_data.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 
 class CollectionApi extends HttpManager {
-  CollectionApi({super.onConnectFail, super.baseUrl = HttpSetting.appUrl});
+  CollectionApi({super.onConnectFail, super.baseUrl = HttpSetting.appUrl,super.printLog});
 
   /// 取得訂單信息列表
   Future<List<CollectionReservationResponseData>> getReservationResponse(

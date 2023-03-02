@@ -38,11 +38,11 @@ class TradeMainUserInfoView extends ConsumerWidget {
           title: tr("wallet-balance'"),
           content: NumberFormatUtil().removeTwoPointFormat(balance),
         ),
-        // SizedBox(width: UIDefine.getPixelWidth(8)),
-        // _buildInfoItem(
-        //   title: tr("availableBalance"),
-        //   content: NumberFormatUtil().removeTwoPointFormat(reserveBalance),
-        // ),
+        SizedBox(width: UIDefine.getPixelWidth(8)),
+        _buildInfoItem(
+          title: tr("availableBalance"),
+          content: NumberFormatUtil().removeTwoPointFormat(reserveBalance),
+        ),
       ],
     );
   }

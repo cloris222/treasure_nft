@@ -1243,5 +1243,14 @@
   "appTodayReserve":"第一阶段",
   "appTomorrowReserve":"第二阶段",
   "appBindSuccess":"绑定成功",
-  "appBindFail":"绑定失败"
+  "appBindFail":"绑定失败",
+  "appPurchaseLimit":"每周限购({value}/{limit})",
+  "appLoginCheck":"请问您已经有Treasure NFT的帐号吗?",
+  "appHasAccount":"已经有帐号",
+  "appNotHasAccount":"没有帐号",
+  "appBindFailHint":"请重新操作",
+  "appBindAccountHint":"此帐号已有绑定地址",
+  "appTradeNotYet":"即将开始",
+  "appTradeReserving":"即将结束",
+  "appTradeEnd":"预约截止"
 }

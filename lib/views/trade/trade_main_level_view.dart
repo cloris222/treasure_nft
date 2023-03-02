@@ -33,6 +33,7 @@ import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
 import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart';
 import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
 
+import '../../constant/enum/trade_enum.dart';
 import '../../models/http/parameter/check_experience_info.dart';
 import '../../models/http/parameter/check_reservation_info.dart';
 import '../../models/http/parameter/check_reserve_deposit.dart';
@@ -93,6 +94,21 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     return ref.read(tradeReserveInfoProvider);
   }
 
+  SellingState get sellStatus {
+    return ref.read(tradeTimeProvider)?.status ?? SellingState.NotYet;
+  }
+
+  String get timeTitle {
+    switch (sellStatus) {
+      case SellingState.NotYet:
+        return tr('appTradeNotYet');
+      case SellingState.Reserving:
+        return tr('appTradeReserving');
+      case SellingState.End:
+        return tr('appTradeEnd');
+    }
+  }
+
   List<ReserveRange> get reserveDivisionRanges {
     if (reserveInfo != null) {
       var ranges = reserveInfo!.reserveRanges;
@@ -109,12 +125,14 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     return [];
   }
 
-  int? get currentStageIndex {
-    return ref.read(tradeCurrentStageProvider);
-  }
-
-  List<TradeReserveStageInfo> get reserveStages {
-    return ref.read(tradeReserveStageProvider);
+  @override
+  void initState() {
+    ref.read(tradeReserveDivisionProvider.notifier).init(onFinish: () {
+      if (ref.read(tradeReserveDivisionProvider).isNotEmpty) {
+        _onDivisionChange(divisionIndex: 0);
+      }
+    });
+    super.initState();
   }
 
   @override
@@ -128,214 +146,19 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     ref.watch(tradeReserveDivisionProvider);
     ref.watch(tradeCurrentDivisionIndexProvider);
     ref.watch(tradeCurrentRangeIndexProvider);
-    ref.watch(tradeCurrentStageProvider);
-    ref.watch(tradeReserveStageProvider);
+    ref.watch(tradeTimeProvider);
 
     ///MARK: 建立畫面
     return Column(
       children: [
         /// 交易的主要區塊
-        currentStageIndex == null ? _buildTimeStageView() : _buildDivision(),
+        _buildDivision(),
 
         SizedBox(height: UIDefine.getPixelWidth(10)),
 
         /// 交易的其他資訊
         _buildSystemInfo(),
       ],
-    );
-  }
-
-  ///MARK: 區間選擇
-  Widget _buildTimeStageView() {
-    return Container(
-      padding: EdgeInsets.all(UIDefine.getPixelWidth(10)),
-      decoration: AppStyle().styleColorsRadiusBackground(radius: 12),
-      child: Column(
-        children: [
-          Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(tr('selectionPeriod'),
-                    style: AppTextStyle.getBaseStyle(
-                        fontSize: UIDefine.fontSize26,
-                        fontWeight: FontWeight.w700)),
-                SizedBox(height: UIDefine.getPixelWidth(10)),
-                _buildDateState(
-                    title: tr('appTodayReserve'),
-                    titleColor: const Color(0xFF6D6D6D),
-                    date: DateFormatUtil().getTimeWithDayFormat()),
-                _buildDateState(
-                    title: tr('appTomorrowReserve'),
-                    titleColor: const Color(0xFF6D6D6D),
-                    date: DateFormatUtil().getAfterDays(1)),
-              ]),
-          SizedBox(height: UIDefine.getPixelWidth(10)),
-
-          ///MARK: 顯示交易區間的資訊
-          _buildDivisionInfo(),
-        ],
-      ),
-    );
-  }
-
-  bool checkReserve(DateTime startTime) {
-    ///MARK: 判斷場次時間是否已過
-    if (DateTime.now().isBefore(startTime)) {
-      if (reserveInfo != null) {
-        String localTime = reserveInfo!.localTime;
-        String reserveStartTime = reserveInfo!.reserveStartTime;
-        String reserveEndTime = reserveInfo!.reserveEndTime;
-        // GlobalData.printLog('localTime:$localTime');
-        // GlobalData.printLog('reserveStartTime:$reserveStartTime');
-        // GlobalData.printLog('reserveEndTime:$reserveEndTime');
-
-        ///MARK: 跨日計算
-        return !(localTime.compareTo(reserveEndTime) > 0 &&
-            localTime.compareTo(reserveStartTime) <= 0);
-      }
-    }
-    return false;
-  }
-
-  Widget _buildDateState(
-      {required String title,
-      required Color titleColor,
-      required String date}) {
-    List<Widget> list = [];
-    for (int index = 0; index < reserveStages.length; index++) {
-      TradeReserveStageInfo info = reserveStages[index];
-      if (DateFormatUtil()
-              .getTimeWithDayFormat(time: info.startTime)
-              .compareTo(date) ==
-          0) {
-        list.add(_buildStageItem(index));
-        list.add(Padding(
-          padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(15)),
-          child:
-              const Divider(height: 5, thickness: 1, color: Color(0xFFE7EBF7)),
-        ));
-      }
-    }
-
-    if (list.isNotEmpty) {
-      list.removeLast();
-    }
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(7.5)),
-          child: Text(title,
-              style: AppTextStyle.getBaseStyle(
-                  color: titleColor,
-                  fontSize: UIDefine.fontSize12,
-                  fontWeight: FontWeight.w700)),
-        ),
-        Container(
-          width: UIDefine.getWidth(),
-          decoration: AppStyle().styleColorBorderBackground(
-              borderLine: 0.4,
-              radius: 8,
-              backgroundColor: const Color(0xFFF6F8FF),
-              color: const Color(0xFFF6F8FF)),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: list,
-          ),
-        )
-      ],
-    );
-  }
-
-  Widget _buildStageItem(int index) {
-    TradeReserveStageInfo info = reserveStages[index];
-
-    ///MARK: isAvailable 都顯示 false
-    bool canReserve = info.isAvailable ? checkReserve(info.startTime) : false;
-    return Container(
-      padding: EdgeInsets.all(UIDefine.getPixelWidth(10)),
-      margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(0.5)),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        '(${DateFormatUtil().buildFormat(strFormat: 'yyyy/MM/dd', time: info.startTime)})',
-                        textAlign: TextAlign.start,
-                        style: AppTextStyle.getBaseStyle(
-                            fontSize: UIDefine.fontSize10,
-                            color: const Color(0xFF6D6D6D),
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        '${tr('balanceReservation')}:',
-                        textAlign: TextAlign.start,
-                        style: AppTextStyle.getBaseStyle(
-                            fontSize: UIDefine.fontSize8,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.textSixBlack),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        '${DateFormatUtil().buildFormat(strFormat: 'HH:mm', time: info.startTime)} ~'
-                        '${DateFormatUtil().buildFormat(strFormat: 'HH:mm', time: info.endTime)}',
-                        textAlign: TextAlign.start,
-                        style: AppTextStyle.getBaseStyle(
-                            color: const Color(0xFF1E1E1E),
-                            fontSize: UIDefine.fontSize12,
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        '${NumberFormatUtil().removeTwoPointFormat(info.reserveBalance)} U',
-                        textAlign: TextAlign.start,
-                        style: AppTextStyle.getBaseStyle(
-                            fontSize: UIDefine.fontSize12,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.textSixBlack),
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-          LoginButtonWidget(
-              enable: canReserve,
-              isFillWidth: false,
-              isUnEnableGradient: false,
-              height: UIDefine.getPixelWidth(40),
-              padding:
-                  EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(5)),
-              fontSize: UIDefine.fontSize12,
-              fontWeight: FontWeight.w600,
-              btnText: tr('reserve'),
-              onPressed: () {
-                if (canReserve) {
-                  _onChangeTimeStage(index);
-                }
-              })
-        ],
-      ),
     );
   }
 
@@ -359,17 +182,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
           ///MARK: 交易選擇區間&價格
           Row(
             children: [
-              Expanded(
-                child: Row(
-                  children: [
-                    GestureDetector(
-                        onTap: () => _onChooseTime(),
-                        child: Image.asset(AppImagePath.tradeStageIcon)),
-                    SizedBox(width: UIDefine.getPixelWidth(10)),
-                    Expanded(child: _buildDivisionDropButton()),
-                  ],
-                ),
-              ),
+              Expanded(child: _buildDivisionDropButton()),
               SizedBox(width: UIDefine.getPixelWidth(10)),
               Expanded(child: _buildRangeDropButton()),
             ],
@@ -543,7 +356,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(tr('timeLeft'),
+          Text(timeTitle,
               style: AppTextStyle.getBaseStyle(
                   color: AppColors.textSixBlack,
                   fontWeight: FontWeight.w400,
@@ -733,13 +546,19 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
             ],
           )
         : LoginButtonWidget(
+            enable: sellStatus == SellingState.Reserving,
+            isUnEnableGradient: false,
             margin: buttonMargin,
             padding: buttonPadding,
             radius: 22,
             fontWeight: FontWeight.w600,
             fontSize: UIDefine.fontSize16,
             btnText: tr('confirm'),
-            onPressed: () => _onPressReservation(userInfo, experienceInfo));
+            onPressed: () {
+              if (sellStatus == SellingState.Reserving) {
+                _onPressReservation(userInfo, experienceInfo);
+              }
+            });
   }
 
   ///MARK: 交易量
@@ -823,21 +642,6 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
         divisionIndex: currentDivisionIndex);
   }
 
-  void _onChooseTime() {
-    ref.read(tradeCurrentStageProvider.notifier).state = null;
-  }
-
-  void _onChangeTimeStage(int index) {
-    GlobalData.printLog('mainTrade_onChangeTimeStage:stageIndex=$index');
-    ref.read(tradeCurrentStageProvider.notifier).state = index;
-
-    ref.read(tradeReserveDivisionProvider.notifier).init(onFinish: () {
-      if (ref.read(tradeReserveDivisionProvider).isNotEmpty) {
-        _onDivisionChange(divisionIndex: 0);
-      }
-    });
-  }
-
   void _onDivisionChange({required int divisionIndex, int rangeIndex = 0}) {
     GlobalData.printLog(
         'mainTrade_onDivisionChange:divisionIndex=$divisionIndex,rangeIndex=$rangeIndex');
@@ -847,15 +651,9 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     ref.read(tradeCurrentDivisionIndexProvider.notifier).state = divisionIndex;
 
     ///MARK: 設定對應值給查詢區間內的資料
-    ref.read(tradeReserveInfoProvider.notifier).setCurrentChoose(
-        reserveDivision[divisionIndex],
-        currentStageIndex != null
-            ? reserveStages[currentStageIndex!].stage
-            : null,
-        DateFormatUtil().getTimeWithDayFormat(
-            time: currentStageIndex != null
-                ? reserveStages[currentStageIndex!].startTime
-                : null));
+    ref
+        .read(tradeReserveInfoProvider.notifier)
+        .setCurrentChoose(reserveDivision[divisionIndex], null, null);
 
     ///MARK:查詢此區間
     ref.read(tradeReserveInfoProvider.notifier).init(onFinish: () {

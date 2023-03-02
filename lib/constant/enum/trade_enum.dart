@@ -16,15 +16,16 @@ enum SellingState {
   /// 尚未開賣
   NotYet,
 
-  /// 開賣中
-  Selling,
-
   /// 預約中
   Reserving,
+
+
+  ///預約結束
+  End,
 }
 
-enum ActivityState{
-  Activity,//預約時間（顯示button)
-  HideButton,// 隱藏預約button
+enum ActivityState {
+  Activity, //預約時間（顯示button)
+  HideButton, // 隱藏預約button
   End // 顯示中獎名單
 }

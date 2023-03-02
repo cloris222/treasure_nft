@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:treasure_nft_project/constant/enum/trade_enum.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
@@ -68,8 +69,6 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
     ref.read(tradeReserveVolumeProvider.notifier).setDivisionIndex(0);
     ref.read(tradeReserveVolumeProvider.notifier).init();
 
-    ///取得預約場次
-    ref.read(tradeReserveStageProvider.notifier).init();
     ref.read(tradeReserveInfoProvider.notifier).setCurrentChoose(
         ref.read(userInfoProvider).level > 0 ? 1 : 0, null, null);
     ref.read(tradeReserveInfoProvider.notifier).init(onFinish: () {
@@ -191,7 +190,18 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
     );
   }
 
-  void _onUpdateTrade(TradeData data) {
+  bool waitReadAPI = false;
+
+  void _onUpdateTrade(TradeData data) async {
     ref.read(tradeTimeProvider.notifier).updateTradeTime(data);
+    if (!waitReadAPI) {
+      waitReadAPI = true;
+
+      ///MARK:預約結束 代表需更新狀態
+      if (data.status == SellingState.End) {
+        await ref.read(tradeReserveInfoProvider.notifier).init();
+      }
+      waitReadAPI = false;
+    }
   }
 }

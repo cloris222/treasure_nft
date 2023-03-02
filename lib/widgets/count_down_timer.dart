@@ -45,8 +45,8 @@ class _CountDownTimerState extends State<CountDownTimer> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        _buildNewTypeItem(days),
-        _buildNewTypeSpace(),
+        // _buildNewTypeItem(days),
+        // _buildNewTypeSpace(),
         _buildNewTypeItem(hours),
         _buildNewTypeSpace(),
         _buildNewTypeItem(minutes),

@@ -162,9 +162,12 @@ class BaseViewModel with ControlRouterViewModel {
 
   ///MARK: 取得收藏未讀通知數(需要補餘額的count)
   Future<num> requestUnreadCollection() async {
-    return await CollectionApi(onConnectFail: (errorMessage) {
-      ///MARK: 偷偷把讀取失敗藏起來 避免一直彈窗
-    })
+    ///MARK: 偷偷把log關閉
+    return await CollectionApi(
+            printLog: false,
+            onConnectFail: (errorMessage) {
+              ///MARK: 偷偷把讀取失敗藏起來 避免一直彈窗
+            })
         .requestUnreadCollection();
   }
 

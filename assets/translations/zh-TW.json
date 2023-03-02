@@ -1249,5 +1249,8 @@
   "appHasAccount":"已經有帳號",
   "appNotHasAccount":"沒有帳號",
   "appBindFailHint":"請重新操作",
-  "appBindAccountHint":"此帳號已有綁定地址"
+  "appBindAccountHint":"此帳號已有綁定地址",
+  "appTradeNotYet":"即將開始",
+  "appTradeReserving":"即將結束",
+  "appTradeEnd":"預約截止"
 }
