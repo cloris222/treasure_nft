@@ -60,6 +60,7 @@ class _AppPurchaseState extends State<AppPurchase> {
   bool _purchasePending = false;
   bool _loading = true;
   String? _queryProductError;
+  List<IosProductData> _appProductList = [];
 
   @override
   void initState() {
@@ -105,8 +106,9 @@ class _AppPurchaseState extends State<AppPurchase> {
     }
 
     /// call api check product list
-    var response = await IOSPaymentAPI().getPurchaseList();
-    Set<String> productIds = Set<String>.from(response.map((e) => e.productId));
+    _appProductList = await IOSPaymentAPI().getPurchaseList();
+    Set<String> productIds =
+        Set<String>.from(_appProductList.map((e) => e.productId));
     ProductDetailsResponse productDetailResponse =
         await _inAppPurchase.queryProductDetails(productIds);
 
@@ -210,7 +212,8 @@ class _AppPurchaseState extends State<AppPurchase> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(10)),
+              padding:
+                  EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(10)),
               child: const TitleAppBar(
                 title: '',
               ),
@@ -289,6 +292,16 @@ class _AppPurchaseState extends State<AppPurchase> {
 
             break;
         }
+        num weeklyPurchaseLimit = 0;
+        num quantityPurchasedThisWeek = 0;
+        for (var element in _appProductList) {
+          if (productDetails.id == element.productId) {
+            weeklyPurchaseLimit = element.weeklyPurchaseLimit;
+            quantityPurchasedThisWeek = element.quantityPurchasedThisWeek;
+            break;
+          }
+        }
+        bool canBuy = (weeklyPurchaseLimit - quantityPurchasedThisWeek) > 0;
 
         return Container(
           margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(20)),
@@ -323,7 +336,22 @@ class _AppPurchaseState extends State<AppPurchase> {
                       style: TextStyle(
                           color: Colors.grey, fontSize: UIDefine.fontSize14),
                     ),
-                  )
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(
+                        left: UIDefine.getPixelWidth(15),
+                        bottom: UIDefine.getPixelHeight(3)),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      format(tr("appPurchaseLimit"), {
+                        "value":
+                            weeklyPurchaseLimit - quantityPurchasedThisWeek,
+                        "limit": weeklyPurchaseLimit
+                      }),
+                      style: TextStyle(
+                          color: Colors.grey, fontSize: UIDefine.fontSize14),
+                    ),
+                  ),
                 ],
               ),
               Stack(
@@ -337,35 +365,47 @@ class _AppPurchaseState extends State<AppPurchase> {
                       left: UIDefine.getWidth() * 0.65,
                       right: UIDefine.getPixelWidth(5),
                       bottom: UIDefine.getPixelHeight(5),
-                      child: TextButtonWidget(
-                        setHeight: UIDefine.getPixelHeight(48),
-                        radius: 10,
-                        textAlign: TextAlign.center,
-                        isFillWidth: true,
-                        fontWeight: FontWeight.w500,
-                        fontSize: UIDefine.fontSize16,
-                        btnText: buttonName,
-                        setMainColor: Color(buttonColor),
-                        onPressed: () {
-                          late PurchaseParam purchaseParam = PurchaseParam(
-                            productDetails: productDetails,
-                            applicationUserName: null,
-                          );
-                          if ((productDetails.id == NFT_1) ||
-                              (productDetails.id == NFT_2) ||
-                              (productDetails.id == NFT_3) ||
-                              (productDetails.id == NFT_4)) {
-                            _inAppPurchase
-                                .buyConsumable(
-                                    purchaseParam: purchaseParam,
-                                    autoConsume:
-                                        _kAutoConsume || Platform.isIOS)
-                                .then((value) {});
-                          } else {
-                            _inAppPurchase.buyNonConsumable(
-                                purchaseParam: purchaseParam);
-                          }
-                        },
+                      child: Visibility(
+                        visible: canBuy,
+                        child: TextButtonWidget(
+                          setHeight: UIDefine.getPixelHeight(48),
+                          radius: 10,
+                          textAlign: TextAlign.center,
+                          isFillWidth: true,
+                          fontWeight: FontWeight.w500,
+                          fontSize: UIDefine.fontSize16,
+                          btnText: buttonName,
+                          setMainColor: Color(buttonColor),
+                          onPressed: () {
+                            for (var element in _appProductList) {
+                              if (productDetails.id == element.productId) {
+                                weeklyPurchaseLimit =
+                                    element.weeklyPurchaseLimit;
+                                quantityPurchasedThisWeek =
+                                    element.quantityPurchasedThisWeek;
+                                break;
+                              }
+                            }
+                            late PurchaseParam purchaseParam = PurchaseParam(
+                              productDetails: productDetails,
+                              applicationUserName: null,
+                            );
+                            if ((productDetails.id == NFT_1) ||
+                                (productDetails.id == NFT_2) ||
+                                (productDetails.id == NFT_3) ||
+                                (productDetails.id == NFT_4)) {
+                              _inAppPurchase
+                                  .buyConsumable(
+                                      purchaseParam: purchaseParam,
+                                      autoConsume:
+                                          _kAutoConsume || Platform.isIOS)
+                                  .then((value) {});
+                            } else {
+                              _inAppPurchase.buyNonConsumable(
+                                  purchaseParam: purchaseParam);
+                            }
+                          },
+                        ),
                       )),
                 ],
               ),
@@ -472,6 +512,12 @@ class _AppPurchaseState extends State<AppPurchase> {
             var response = await IOSPaymentAPI().postCheckIOSReceipt(
                 purchaseDetails.verificationData.localVerificationData);
             deliverProduct(purchaseDetails);
+            for (int index = 0; index < _appProductList.length; index++) {
+              if (_appProductList[index].productId ==
+                  purchaseDetails.productID) {
+                _appProductList[index].quantityPurchasedThisWeek += 1;
+              }
+            }
 
             /// 確認購買成功後顯示動畫＋商品圖
             await BaseViewModel().pushOpacityPage(
