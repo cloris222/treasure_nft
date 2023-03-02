@@ -304,7 +304,8 @@ class BaseViewModel with ControlRouterViewModel {
   void startUserListener() {
     GlobalData.printLog('---startUserListener');
     StompSocketUtil().connect(onConnect: _onStompConnect);
-    TradeTimerUtil().addListener(_onTradeTimerListener);
+    ///MARK: v2.1.2 ※因交易多時段，故移除開賣動畫
+    // TradeTimerUtil().addListener(_onTradeTimerListener);
     TradeTimerUtil().start();
   }
 
@@ -312,7 +313,7 @@ class BaseViewModel with ControlRouterViewModel {
   void stopUserListener() {
     GlobalData.printLog('---stopUserListener');
     StompSocketUtil().disconnect();
-    TradeTimerUtil().removeListener(_onTradeTimerListener);
+    // TradeTimerUtil().removeListener(_onTradeTimerListener);
     TradeTimerUtil().stop();
   }
 

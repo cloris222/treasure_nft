@@ -49,23 +49,27 @@ class WalletBindViewModel extends BaseViewModel {
               phoneCountry: '',
               emailVerifyCode: '',
               walletInfo: walletInfo);
-
-          pushOpacityPage(
-              context,
-              FullAnimationPage(
-                limitTimer: 10,
-                animationPath: AppAnimationPath.registerSuccess,
-                isGIF: true,
-                nextPage: const MainPage(),
-                runFunction: () async {
-                  await _updateRegisterInfoWithWallet(
-                      ref: ref, isLogin: true, walletInfo: walletInfo);
-                },
-              ));
-
+          String? path = AnimationDownloadUtil()
+              .getAnimationFilePath(getLoginTimeAnimationPath());
+          if (path != null) {
+            pushOpacityPage(
+                context,
+                FullAnimationPage(
+                  limitTimer: 3,
+                  animationPath: path,
+                  isFile: true,
+                  nextPage: const MainPage(),
+                  runFunction: () async {
+                    await _updateRegisterInfoWithWallet(
+                        ref: ref, isLogin: true, walletInfo: walletInfo);
+                  },
+                ));
+          } else {
+            await _updateRegisterInfoWithWallet(
+                ref: ref, isLogin: true, walletInfo: walletInfo);
+          }
           return true;
-        } catch (e) {
-        }
+        } catch (e) {}
       }
     }
     showBindWalletFailDialog(context);

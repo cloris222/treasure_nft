@@ -16,6 +16,7 @@ class AppAnimationPath {
   static const String loginAnimation = 'miaopai_mb_login.json';
 
   /// 註冊成功動畫
+  /// v2.1.2_729 移除註冊動畫
   static const String registerSuccess =
       '$animationPathJson/mb_signup_success_01.gif';
 
