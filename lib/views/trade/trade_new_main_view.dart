@@ -68,7 +68,7 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
     ref.read(userLevelInfoProvider.notifier).init();
     ref.read(tradeReserveVolumeProvider.notifier).setDivisionIndex(0);
     ref.read(tradeReserveVolumeProvider.notifier).init();
-
+    ref.read(tradeReserveDivisionProvider.notifier).init();
     ref.read(tradeReserveInfoProvider.notifier).setCurrentChoose(
         ref.read(userInfoProvider).level > 0 ? 1 : 0, null, null);
     ref.read(tradeReserveInfoProvider.notifier).init(onFinish: () {

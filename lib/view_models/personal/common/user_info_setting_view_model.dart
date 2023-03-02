@@ -165,7 +165,7 @@ class UserInfoSettingViewModel extends BaseViewModel {
           .sendAuthActionMail(
               userInfo: userInfo,
               email: emailController.text,
-              action: LoginAction.bind);
+              action: LoginAction.register);
       SimpleCustomDialog(context, mainText: tr('pleaseGotoMailboxReceive'))
           .show();
     }
