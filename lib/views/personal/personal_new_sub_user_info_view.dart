@@ -89,7 +89,7 @@ class PersonalNewSubUserInfoView extends ConsumerWidget {
                   Row(
                     children: [
                       WarpTwoTextWidget(
-                          text: userInfo.name,
+                          text: userInfo.getUserName(),
                           fontSize: UIDefine.fontSize18,
                           fontWeight: FontWeight.w600),
                       SizedBox(width: UIDefine.getPixelWidth(5)),

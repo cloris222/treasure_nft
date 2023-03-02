@@ -43,6 +43,12 @@ class _WalletConnectPageState extends ConsumerState<WalletConnectPage> {
   BaseViewModel viewModel = BaseViewModel();
 
   @override
+  void initState() {
+    GlobalData.passBindWalletAction = false;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: false,
@@ -52,17 +58,22 @@ class _WalletConnectPageState extends ConsumerState<WalletConnectPage> {
         }
       },
       type: GlobalData.mainBottomType,
-      body: SingleChildScrollView(
-          child: LoginCommonView(
-        pageHeight: UIDefine.getPixelWidth(550),
-        title: tr('linkedWallet'),
-        body: Container(
-            margin: EdgeInsets.symmetric(
-                vertical: UIDefine.getPixelHeight(10),
-                horizontal: UIDefine.getPixelWidth(20)),
-            padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
-            child: _buildBody()),
-      )),
+      body: WillPopScope(
+        onWillPop: () async {
+          return false;
+        },
+        child: SingleChildScrollView(
+            child: LoginCommonView(
+          pageHeight: UIDefine.getPixelWidth(550),
+          title: tr('linkedWallet'),
+          body: Container(
+              margin: EdgeInsets.symmetric(
+                  vertical: UIDefine.getPixelHeight(10),
+                  horizontal: UIDefine.getPixelWidth(20)),
+              padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
+              child: _buildBody()),
+        )),
+      ),
     );
   }
 
@@ -176,6 +187,7 @@ class _WalletConnectPageState extends ConsumerState<WalletConnectPage> {
         btnText: tr('cancel'),
         radius: 22,
         onPressed: () {
+          GlobalData.passBindWalletAction = true;
           viewModel.popPage(context);
         });
   }

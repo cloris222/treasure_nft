@@ -223,4 +223,6 @@ class AppImagePath {
   ///wallet connect
   static const String metamaskIcon = '$_iconPath/icon_metamask_01.png';
   static const String walletConnectIcon = '$_iconPath/icon_login_wallet_01.png';
+  static const String walletConnectCheckIcon =
+      '$_imgPath/img_logo_check_account_01.png';
 }

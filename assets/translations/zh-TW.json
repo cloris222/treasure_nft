@@ -1243,5 +1243,11 @@
   "appTodayReserve":"第一階段",
   "appTomorrowReserve":"第二階段",
   "appBindSuccess":"綁定成功",
-  "appBindFail":"綁定失敗"
+  "appBindFail":"綁定失敗",
+  "appPurchaseLimit":"每日限購({value}/{limit})",
+  "appLoginCheck":"請問您已經有Treasure NFT的帳號嗎?",
+  "appHasAccount":"已經有帳號",
+  "appNotHasAccount":"沒有帳號",
+  "appBindFailHint":"請重新操作",
+  "appBindAccountHint":"此帳號已有綁定地址"
 }

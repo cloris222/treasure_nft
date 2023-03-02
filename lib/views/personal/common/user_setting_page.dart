@@ -14,18 +14,17 @@ import 'package:treasure_nft_project/view_models/gobal_provider/user_info_provid
 import 'package:treasure_nft_project/views/personal/common/user_change_password_page.dart';
 import 'package:treasure_nft_project/views/personal/common/user_info_setting_page.dart';
 import 'package:treasure_nft_project/views/personal/personal_new_sub_user_info_view.dart';
-import 'package:treasure_nft_project/widgets/bottom_sheet/page_bottom_sheet.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/simple_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/label/background_with_land.dart';
 import 'package:wallet_connect_plugin/model/wallet_info.dart';
 
-import '../../../constant/global_data.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/ui_define.dart';
 import '../../../models/http/api/login_api.dart';
 import '../../../models/http/parameter/user_info_data.dart';
+import '../../../view_models/login/wallet_bind_view_model.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../custom_appbar_view.dart';
 import '../../main_page.dart';
@@ -265,43 +264,19 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
     if (!isWalletBind) {
       WalletInfo? walletInfo = await BaseViewModel().pushWalletConnectPage(
         context,
-        subTitle: tr('linkedWallet'),
+        subTitle: tr('select-wallet'),
         needVerifyAPI: false,
         showBindSuccess: false,
       );
-      if (walletInfo != null) {
-        GlobalData.printLog('walletInfo.address:${walletInfo.address}');
-        GlobalData.printLog(
-            'walletInfo.personalSign:${walletInfo.personalSign}');
-        try {
-          UserInfoAPI(
-                  onConnectFail: (message) =>
-                      BaseViewModel().onBaseConnectFail(context, message))
-              .updatePersonInfo(
-                  name: userInfo.name,
-                  phoneCountry: userInfo.phoneCountry,
-                  phone: userInfo.phone,
-                  password: '',
-                  oldPassword: '',
-                  gender: userInfo.gender,
-                  birthday: userInfo.birthday,
-                  address: walletInfo.address,
-                  signature: walletInfo.personalSign)
-              .then((value) async {
-            SimpleCustomDialog(context, mainText: tr('appBindSuccess')).show();
-            setState(() {
-              isWalletBind = true;
-              ref.read(userInfoProvider).address = walletInfo.address;
-              ref.read(userInfoProvider.notifier).setSharedPreferencesValue();
-              ref.read(userInfoProvider.notifier).update();
-            });
+      WalletBindViewModel()
+          .bindWallet(context, ref, walletInfo, userInfo)
+          .then((value) {
+        if (value) {
+          setState(() {
+            isWalletBind = true;
           });
-        } catch (e) {
-          SimpleCustomDialog(context,
-                  mainText: tr('appBindFail'), isSuccess: false)
-              .show();
         }
-      }
+      });
     }
   }
 }

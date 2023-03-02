@@ -20,10 +20,13 @@ class AuthAPI extends HttpManager {
   }
 
   ///MARK: 登入後  發送註冊驗證碼 僅支援-支付設定:payment,轉出:withdraw
-  Future<ApiResponse> sendAuthActionMail({required LoginAction action, required UserInfoData userInfo}) async {
+  Future<ApiResponse> sendAuthActionMail(
+      {required LoginAction action,
+      required UserInfoData userInfo,
+      String? email}) async {
     return get('/user/code', queryParameters: {
       'action': action.name,
-      'account': userInfo.email,
+      'account': email ?? userInfo.email,
       'countryName': userInfo.country,
       'type': 'MAIL',
       'lang': getLanguage()

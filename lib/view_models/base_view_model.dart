@@ -21,6 +21,7 @@ import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/level_up_one_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:wallet_connect_plugin/model/wallet_info.dart';
 
 import '../constant/call_back_function.dart';
 import '../constant/global_data.dart';
@@ -28,6 +29,7 @@ import '../constant/theme/app_animation_path.dart';
 import '../constant/theme/app_colors.dart';
 import '../models/http/api/common_api.dart';
 import '../models/http/api/wallet_api.dart';
+import '../models/http/api/wallet_connect_api.dart';
 import '../models/http/http_setting.dart';
 import '../models/http/parameter/api_response.dart';
 import '../models/http/parameter/sign_in_data.dart';
@@ -519,6 +521,18 @@ class BaseViewModel with ControlRouterViewModel {
       mode: LaunchMode.externalApplication,
     )) {
       throw 'Could not launch $url';
+    }
+  }
+
+  Future<bool> checkWalletAddress(WalletInfo walletInfo,
+      void Function(String errorMessage) bindFailDialog) async {
+    try {
+      return await WalletConnectAPI(
+              onConnectFail: (errorMessage) => bindFailDialog(errorMessage))
+          .getCheckWalletAddress(walletInfo.address);
+    } catch (e) {
+      GlobalData.printLog('驗證錢包失敗');
+      return false;
     }
   }
 }

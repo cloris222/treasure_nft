@@ -130,4 +130,11 @@ class UserInfoData {
   String getStrZone() {
     return '';
   }
+
+  String getUserName() {
+    if (name.isEmpty) {
+      return account;
+    }
+    return name;
+  }
 }

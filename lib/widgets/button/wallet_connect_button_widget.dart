@@ -11,7 +11,6 @@ import '../../constant/theme/app_image_path.dart';
 import '../../constant/ui_define.dart';
 import '../../utils/app_text_style.dart';
 import 'icon_bolder_button_widget.dart';
-import 'login_bolder_button_widget.dart';
 
 class WalletConnectButtonWidget extends ConsumerWidget {
   const WalletConnectButtonWidget({
@@ -28,10 +27,6 @@ class WalletConnectButtonWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Widget walletIcon = BaseIconWidget(
-        imageAssetPath: AppImagePath.walletConnectIcon,
-        size: UIDefine.getPixelWidth(25));
-
     ///MARK:通過錢包註冊
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -40,26 +35,25 @@ class WalletConnectButtonWidget extends ConsumerWidget {
           final connectStatus = ref.watch(connectWalletProvider);
           return SizedBox(
               child: connectStatus.whenOrNull(
-            init: () => _buildButton(context),
-            loading: () => _buildButton(context),
-            data: (wallet) => needChangeText
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('${tr('walletAddress')} :',
-                          style: AppTextStyle.getBaseStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: UIDefine.fontSize14)),
-                      Text(
-                        wallet.address,
-                        style: AppTextStyle.getBaseStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: UIDefine.fontSize14),
-                      ),
-                    ],
-                  )
-                : _buildButton(context)
-          ));
+                  init: () => _buildButton(context),
+                  loading: () => _buildButton(context),
+                  data: (wallet) => needChangeText
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('${tr('walletAddress')} :',
+                                style: AppTextStyle.getBaseStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: UIDefine.fontSize14)),
+                            Text(
+                              wallet.address,
+                              style: AppTextStyle.getBaseStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: UIDefine.fontSize14),
+                            ),
+                          ],
+                        )
+                      : _buildButton(context)));
         }),
         Divider(
             height: UIDefine.getPixelWidth(30),
@@ -69,7 +63,7 @@ class WalletConnectButtonWidget extends ConsumerWidget {
     );
   }
 
-  Widget _buildButton(BuildContext context){
+  Widget _buildButton(BuildContext context) {
     return IconBolderButtonWidget(
         icon: BaseIconWidget(
             imageAssetPath: AppImagePath.walletConnectIcon,
