@@ -126,16 +126,6 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
   }
 
   @override
-  void initState() {
-    ref.read(tradeReserveDivisionProvider.notifier).init(onFinish: () {
-      if (ref.read(tradeReserveDivisionProvider).isNotEmpty) {
-        _onDivisionChange(divisionIndex: 0);
-      }
-    });
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     ///MARK: 強制監聽
     ref.watch(userInfoProvider);
