@@ -25,7 +25,7 @@ class LevelPointRecordListNotifier extends StateNotifier<List<PointRecordData>>
     if (json != null) {
       List<PointRecordData> list = List<PointRecordData>.from(
           json.map((x) => PointRecordData.fromJson(x)));
-      state = list;
+      state = [...list];
     }
   }
 
