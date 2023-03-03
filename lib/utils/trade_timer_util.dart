@@ -182,19 +182,19 @@ class TradeTimerUtil {
       reservationInfo.sellDate = DateFormatUtil().getNowTimeWithDayFormat();
     }
 
-    /// 現在時間（會員當地時間）
+    /// 現在時間（系統時間）
     _dateCurrentTime = DateTime.parse(
-        '${DateFormatUtil().getNowTimeWithDayFormat()} ${reservationInfo.localTime}');
+        '${DateFormatUtil().getNowTimeWithDayFormat()} ${reservationInfo.systemTime}');
 
     /// 預約日期＋預約時間 就是sellDate
-    /// 開始預約時間(當地)
+    /// 開始預約時間(系統)
     _dateSellStartTime = DateTime.parse(
-        '${reservationInfo.sellDate} ${reservationInfo.reserveStartTime}');
+        '${reservationInfo.sellDate} ${reservationInfo.systemReserveStartTime}');
 
-    ///關閉預約時間(當地)
+    ///關閉預約時間(系統)
     _dateSellEndTime = DateTime.parse(
-        '${reservationInfo.sellDate} ${reservationInfo.reserveEndTime}');
-    // 先不放
+        '${reservationInfo.sellDate} ${reservationInfo.systemReserveEndTime}');
+    // MARK:暫時不用
     // ///如果預約開始時間>預約結束時間 代表跨日
     // if (reservationInfo.reserveStartTime
     //         .compareTo(reservationInfo.reserveStartTime) >
