@@ -63,6 +63,10 @@ class UserInfoAPI extends HttpManager {
     required String oldPassword,
     required String gender,
     required String birthday,
+    String email = '',
+    String emailVerifyCode = '',
+    String address = '',
+    String signature = '',
   }) async {
     return await post('/user/update', data: {
       'name': name,
@@ -71,8 +75,16 @@ class UserInfoAPI extends HttpManager {
       'password': password,
       'oldPassword': oldPassword,
       'gender': gender,
-      'birthday': birthday
+      'birthday': birthday,
+      'address': address,
+      'signature': signature,
+      'email': email,
+      'emailVerifyCode': emailVerifyCode
     });
+  }
+
+  Future<ApiResponse> bindEmail(String email, String code) async {
+    return await post('/user/email/bind', data: {"email": email, "code": code});
   }
 
   Future<ApiResponse> deleteAccount() async {

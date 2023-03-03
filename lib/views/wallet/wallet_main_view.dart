@@ -16,12 +16,9 @@ import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
 
-import '../../constant/global_data.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/theme/app_style.dart';
-import '../../view_models/wallet/wallet_main_view_model.dart';
-import '../../view_models/wallet/wallet_payment_setting_provider.dart';
 import '../../widgets/label/coin/tether_coin_widget.dart';
 import '../../widgets/label/wallet_info_item.dart';
 import '../personal/orders/order_info_page.dart';

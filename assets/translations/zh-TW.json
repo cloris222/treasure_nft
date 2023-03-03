@@ -1200,6 +1200,20 @@
   "selectionPeriod":"選擇時間",
   "APP_0087":"預約場次已結束",
   "APP_0073":"重複操作",
+  "login-via-wallet":"通過錢包登入",
+  "register-via-wallet":"通過錢包註冊",
+  "linkedWallet":"連結錢包",
+  "walletAddress":"錢包地址",
+  "address-bounded-hint":"此地址已被綁定",
+  "address-unbound-hint":"此地址尚未綁定",
+  "bindWallet":"綁定錢包",
+  "todayReserve":"第一階段",
+  "tomorrowReserve":"第二階段",
+  "reservation":"預約",
+  "appointmentInstructions":"在一天之內你可以在不同場次，多次預約NFT，獲取更多收益。",
+  "select-wallet":"請選擇錢包",
+  "bind-successfully":"綁定成功",
+
 
 
   "--//app use":"---",
@@ -1227,5 +1241,16 @@
   "appUpdateTitle":"更新通知",
   "appUpdateContext":"目前已有最新版本，請前往更新",
   "appTodayReserve":"第一階段",
-  "appTomorrowReserve":"第二階段"
+  "appTomorrowReserve":"第二階段",
+  "appBindSuccess":"綁定成功",
+  "appBindFail":"綁定失敗",
+  "appPurchaseLimit":"每週限購({value}/{limit})",
+  "appLoginCheck":"請問您已經有Treasure NFT的帳號嗎?",
+  "appHasAccount":"已經有帳號",
+  "appNotHasAccount":"沒有帳號",
+  "appBindFailHint":"請重新操作",
+  "appBindAccountHint":"此帳號已有綁定地址",
+  "appTradeNotYet":"即將開始",
+  "appTradeReserving":"即將結束",
+  "appTradeEnd":"預約截止"
 }

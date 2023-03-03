@@ -100,7 +100,7 @@ class TradeTimerUtil {
 
   String getReservationTime() {
     if (_reservationInfo != null) {
-      return '${_reservationInfo?.reserveStartTime.substring(0, 5)} - ${_reservationInfo?.reserveEndTime.substring(0, 5)}(+1day)';
+      return '${_reservationInfo?.reserveStartTime.substring(0, 5)} - ${_reservationInfo?.reserveEndTime.substring(0, 5)}';
     }
     return '';
   }
@@ -178,22 +178,29 @@ class TradeTimerUtil {
 
   void _setTime(CheckReservationInfo reservationInfo) {
     /// if sellDate == null , sell day is today
-    if (reservationInfo.sellDate.isEmpty) {
-      reservationInfo.sellDate = DateFormatUtil().getNowTimeWithDayFormat();
+    if (reservationInfo.reserveDate.isEmpty) {
+      reservationInfo.reserveDate = DateFormatUtil().getNowTimeWithDayFormat();
     }
 
-    /// 現在時間（會員當地時間）
+    /// 現在時間（系統時間）
     _dateCurrentTime = DateTime.parse(
-        '${DateFormatUtil().getNowTimeWithDayFormat()} ${reservationInfo.localTime}');
+        '${DateFormatUtil().getNowTimeWithDayFormat()} ${reservationInfo.systemTime}');
 
-    /// 開賣日期＋開賣時間 就是sellDate
-    /// 開賣時間(當地)
+    /// 預約日期＋預約時間 就是sellDate
+    /// 開始預約時間(系統)
     _dateSellStartTime = DateTime.parse(
-        '${reservationInfo.sellDate} ${reservationInfo.startTime}');
+        '${reservationInfo.reserveDate} ${reservationInfo.systemReserveStartTime}');
 
-    ///關閉時間(當地)
+    ///關閉預約時間(系統)
     _dateSellEndTime = DateTime.parse(
-        '${reservationInfo.sellDate} ${reservationInfo.endTime}');
+        '${reservationInfo.reserveDate} ${reservationInfo.systemReserveEndTime}');
+    // MARK:暫時不用
+    // ///如果預約開始時間>預約結束時間 代表跨日
+    // if (reservationInfo.reserveStartTime
+    //         .compareTo(reservationInfo.reserveStartTime) >
+    //     0) {
+    //   _dateSellEndTime.add(const Duration(days: 1));
+    // }
   }
 
   TradeData _countSellDate() {
@@ -217,14 +224,14 @@ class TradeTimerUtil {
     } else if (_dateCurrentTime.compareTo(_dateSellEndTime) <= 0 &&
         _dateCurrentTime.compareTo(_dateSellStartTime) >= 0) {
       duration = _dateSellEndTime.difference(_dateCurrentTime);
-      return TradeData(duration: duration, status: SellingState.Selling);
+      return TradeData(duration: duration, status: SellingState.Reserving);
 
       /// 開賣結束
     } else {
-      duration = _dateSellEndTime
-          .add(const Duration(days: 1))
-          .difference(_dateCurrentTime);
-      return TradeData(duration: duration, status: SellingState.NotYet);
+      // duration = _dateSellEndTime
+      //     .add(const Duration(days: 1))
+      //     .difference(_dateCurrentTime);
+      return TradeData(duration: const Duration(), status: SellingState.End);
     }
   }
 }

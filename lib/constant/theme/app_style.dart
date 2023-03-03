@@ -25,11 +25,14 @@ class AppStyle {
   BoxDecoration baseGradient(
       {double radius = 0,
       Color borderColor = Colors.transparent,
-      double borderWith = 1}) {
+      double borderWith = 1,
+      AlignmentGeometry begin = Alignment.centerLeft,
+      AlignmentGeometry end = Alignment.centerRight}) {
     return BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(radius)),
         border: Border.all(color: borderColor, width: borderWith),
-        gradient: const LinearGradient(colors: AppColors.gradientBaseColorBg));
+        gradient: LinearGradient(
+            begin: begin, end: end, colors: AppColors.gradientBaseColorBg));
   }
 
   /// 漸層色紫藍色(反轉)
@@ -69,13 +72,13 @@ class AppStyle {
     return BoxDecoration(
       borderRadius: BorderRadius.only(
         topLeft:
-        hasTopLeft ? Radius.circular(radius) : const Radius.circular(0),
+            hasTopLeft ? Radius.circular(radius) : const Radius.circular(0),
         topRight:
-        hasTopRight ? Radius.circular(radius) : const Radius.circular(0),
+            hasTopRight ? Radius.circular(radius) : const Radius.circular(0),
         bottomLeft:
-        hasBottomLef ? Radius.circular(radius) : const Radius.circular(0),
+            hasBottomLef ? Radius.circular(radius) : const Radius.circular(0),
         bottomRight:
-        hasBottomRight ? Radius.circular(radius) : const Radius.circular(0),
+            hasBottomRight ? Radius.circular(radius) : const Radius.circular(0),
       ),
       color: backgroundColor,
       border: Border.all(color: color, width: borderLine),

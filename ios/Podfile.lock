@@ -70,6 +70,8 @@ PODS:
     - Flutter
   - wakelock (0.0.1):
     - Flutter
+  - wallet_connect_plugin (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - app_tracking_transparency (from `.symlinks/plugins/app_tracking_transparency/ios`)
@@ -91,6 +93,7 @@ DEPENDENCIES:
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
   - video_player_avfoundation (from `.symlinks/plugins/video_player_avfoundation/ios`)
   - wakelock (from `.symlinks/plugins/wakelock/ios`)
+  - wallet_connect_plugin (from `.symlinks/plugins/wallet_connect_plugin/ios`)
 
 SPEC REPOS:
   trunk:
@@ -141,6 +144,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/video_player_avfoundation/ios"
   wakelock:
     :path: ".symlinks/plugins/wakelock/ios"
+  wallet_connect_plugin:
+    :path: ".symlinks/plugins/wallet_connect_plugin/ios"
 
 SPEC CHECKSUMS:
   app_tracking_transparency: 5b1745ef9ade815f7455cb6a0848349589afb7c5
@@ -169,6 +174,7 @@ SPEC CHECKSUMS:
   url_launcher_ios: 839c58cdb4279282219f5e248c3321761ff3c4de
   video_player_avfoundation: e489aac24ef5cf7af82702979ed16f2a5ef84cff
   wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
+  wallet_connect_plugin: 1c16ceb6c94ecc51e83f99f45e788005e850e7f5
 
 PODFILE CHECKSUM: efdf467a3b5466f199e9b69f69c3e7e17682555a
 

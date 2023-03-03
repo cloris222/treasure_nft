@@ -18,6 +18,7 @@ class LoginButtonWidget extends StatefulWidget {
       this.fontSize,
       this.fontWeight,
       this.isGradient = true,
+      this.isUnEnableGradient = true,
       this.isFlip = false,
       this.radius = 10,
       this.showIcon = false,
@@ -47,6 +48,7 @@ class LoginButtonWidget extends StatefulWidget {
   final EdgeInsetsGeometry? padding;
   final AppTextFamily fontFamily;
   final List<Color>? customGradientColor;
+  final bool isUnEnableGradient;
 
   @override
   State<LoginButtonWidget> createState() => _LoginButtonWidgetState();
@@ -90,12 +92,14 @@ class _LoginButtonWidgetState extends State<LoginButtonWidget> {
                           : AppStyle().baseGradient(radius: widget.radius)
                   : AppStyle().styleColorsRadiusBackground(
                       color: AppColors.mainThemeButton)
-              : widget.isGradient
+              : widget.isGradient && widget.isUnEnableGradient
                   ? AppStyle().buildGradient(
                       radius: widget.radius,
                       colors: AppColors.gradientBackgroundColorBg)
-                  : AppStyle()
-                      .styleColorsRadiusBackground(color: AppColors.buttonGrey),
+                  : AppStyle().styleColorsRadiusBackground(
+                      color: AppColors.buttonGrey,
+                      radius: widget.radius,
+                    ),
           width:
               widget.width ?? (widget.isFillWidth ? UIDefine.getWidth() : null),
           height: widget.height ??

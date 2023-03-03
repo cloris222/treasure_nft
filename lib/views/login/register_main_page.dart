@@ -4,8 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/views/login/login_common_view.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
+import 'package:treasure_nft_project/widgets/button/wallet_connect_button_widget.dart';
+import 'package:wallet_connect_plugin/provider/begin_provider.dart';
 
+import '../../constant/global_data.dart';
 import '../../view_models/login/register_main_viewmodel.dart';
+import '../../view_models/login/wallet_bind_view_model.dart';
 import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/label/common_text_widget.dart';
 import '../custom_appbar_view.dart';
@@ -28,6 +32,8 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
   @override
   void initState() {
     super.initState();
+    Future.delayed(const Duration(milliseconds: 300)).then((value) =>
+        ref.read(connectWalletProvider.notifier).initConnectWallet());
     viewModel = RegisterMainViewModel(setState: setState);
   }
 
@@ -66,6 +72,16 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
+          WalletConnectButtonWidget(
+              needChangeText: false,
+              btnText: tr('register-via-wallet'),
+              bindWalletTitle: tr('register-via-wallet'),
+              getWalletInfo: (walletInfo) {
+                WalletBindViewModel().registerWithWallet(context, ref,
+                    walletInfo: walletInfo,
+                    inviteCode: viewModel.referralController.text);
+              }),
+
           ///MARK:暱稱
           LoginParamView(
               titleText: tr('nickname'),
@@ -145,7 +161,7 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
           LoginButtonWidget(
             btnText: tr('register'),
             // enable: viewModel.checkPress(),
-            onPressed: () => viewModel.onPressRegister(context,ref),
+            onPressed: () => viewModel.onPressRegister(context, ref),
           ),
           Row(children: [
             Flexible(

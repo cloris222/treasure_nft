@@ -79,7 +79,7 @@ class _TradeCountDownViewState extends State<TradeCountDownView> {
                   SizedBox(
                     height: UIDefine.getHeight() / 50,
                   ),
-                  tradeData.status == SellingState.Selling
+                  tradeData.status == SellingState.Reserving
                       ? Text(
                           tr('onSale'),
                           style: AppTextStyle.getBaseStyle(

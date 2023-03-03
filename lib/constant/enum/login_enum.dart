@@ -9,5 +9,8 @@ enum LoginAction {
   withdraw,
 
   ///修改密碼
-  updatePsw
+  updatePsw,
+
+  ///綁定email
+  bind
 }

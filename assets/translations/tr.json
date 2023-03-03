@@ -1194,12 +1194,27 @@
   "balanceReservation":"Rezervasyon Bakiyesi",
   "drawDate":"Çizim tarihi",
   "appointmentDate":"rezervasyon tarihi",
-  "EXPERIENCE_ADD":"Para Deneyimi",
-  "EXPERIENCE_RECYCLE":"Para kurtarma deneyimini yaşayın",
+  "EXPERIENCE_ADD":"Deneme fonu",
+  "EXPERIENCE_RECYCLE":"Deneme Fonu Kurtarma",
   "footer_download":"İndirmek",
   "selectionPeriod":"Zamanı Seçin",
   "APP_0087":"Randevu oturumu sona erdi",
   "APP_0073":"Yinelenen işlem",
+  "login-via-wallet":"Cüzdan Bağlantısı",
+  "register-via-wallet":"Cüzdan kaydı",
+  "linkedWallet":"bağlantı cüzdanı",
+  "walletAddress":"cüzdan adresi",
+  "address-bounded-hint":"Bu adres zaten bağlandı",
+  "address-unbound-hint":"Bu adres bağlanmadı",
+  "bindWallet":"Cüzdan Bağlayın",
+  "todayReserve":"İlk aşama",
+  "tomorrowReserve":"İkinci aşama",
+  "reservation":"Rezervasyon",
+  "appointmentInstructions":"Bir gün içinde, daha fazla fayda elde etmek için NFT'yi farklı oturumlarda birden çok kez rezerve edebilirsiniz.",
+  "select-wallet":"Lütfen bir cüzdan seçin",
+  "bind-successfully":"Başarılı bir şekilde bağlayın",
+
+
 
   "--//app use":"---",
   "goPermissionSetting":"Tarama işlevi, telefonunuzda kamera izni gerektirir. Açmak için telefon ayarlarına git?",
@@ -1226,6 +1241,16 @@
   "appUpdateTitle":"Güncelleme Bildirimi",
   "appUpdateContext":"En son sürüm şu anda mevcut, lütfen güncellemeye gidin",
   "appTodayReserve":"İlk aşama",
-  "appTomorrowReserve":"İkinci aşama"
-
+  "appTomorrowReserve":"İkinci aşama",
+  "appBindSuccess":"Başarılı bir şekilde bağlayın",
+  "appBindFail":"Bind başarısız oldu",
+  "appPurchaseLimit":"Haftalık satın alma limiti ({value}/{limit})",
+  "appLoginCheck":"Zaten bir Treasurenft hesabınız var mı?",
+  "appHasAccount":"Evet",
+  "appNotHasAccount":"HAYIR",
+  "appBindFailHint":"Lütfen tekrar deneyin",
+  "appBindAccountHint":"Bu hesabın zaten bir bağlayıcı adresi var",
+  "appTradeNotYet":"Başlamak üzere",
+  "appTradeReserving":"Kalan zaman",
+  "appTradeEnd":"Kapalı"
 }

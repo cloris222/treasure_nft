@@ -5,6 +5,7 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/view_models/gobal_provider/user_info_provider.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
+import 'package:treasure_nft_project/views/login/login_email_code_view.dart';
 import 'package:treasure_nft_project/views/personal/common/phone_param_view.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
@@ -34,7 +35,12 @@ class _UserInfoSettingPageState extends ConsumerState<UserInfoSettingPage> {
   void initState() {
     super.initState();
     viewModel = UserInfoSettingViewModel(
-        setState: setState, userInfo: ref.read(userInfoProvider));
+        onViewChange: () {
+          if (mounted) {
+            setState(() {});
+          }
+        },
+        userInfo: ref.read(userInfoProvider));
     viewModel.init();
   }
 
@@ -46,7 +52,7 @@ class _UserInfoSettingPageState extends ConsumerState<UserInfoSettingPage> {
 
   @override
   Widget build(BuildContext context) {
-    UserInfoData userInfo =ref.watch(userInfoProvider);
+    UserInfoData userInfo = ref.watch(userInfoProvider);
     return CustomAppbarView(
         needScrollView: false,
         onLanguageChange: () {
@@ -77,8 +83,9 @@ class _UserInfoSettingPageState extends ConsumerState<UserInfoSettingPage> {
                       _getUnEditFormView(tr('nationality'),
                           '${tr(userInfo.country)} (${userInfo.zone})'),
                       SizedBox(height: UIDefine.getScreenWidth(4.16)),
-                      _getUnEditFormView(
-                          tr('account'), userInfo.account),
+                      _getUnEditFormView(tr('walletAddress'), userInfo.address),
+                      SizedBox(height: UIDefine.getScreenWidth(4.16)),
+                      _getUnEditFormView(tr('account'), userInfo.account),
                       SizedBox(height: UIDefine.getScreenWidth(4.16)),
                       LoginParamView(
                           titleText: tr('nickname'),
@@ -88,10 +95,9 @@ class _UserInfoSettingPageState extends ConsumerState<UserInfoSettingPage> {
                           onChanged: viewModel.onNicknameChanged),
                       SizedBox(height: UIDefine.getScreenWidth(4.16)),
                       PhoneParamView(
-                          initCountry:
-                              userInfo.phoneCountry.isNotEmpty
-                                  ? userInfo.phoneCountry
-                                  : null,
+                          initCountry: userInfo.phoneCountry.isNotEmpty
+                              ? userInfo.phoneCountry
+                              : null,
                           titleText: tr('phone'),
                           hintText: tr("placeholder-phone'"),
                           controller: viewModel.phoneController,
@@ -100,8 +106,32 @@ class _UserInfoSettingPageState extends ConsumerState<UserInfoSettingPage> {
                             viewModel.setPhoneCountry(value);
                           }),
                       SizedBox(height: UIDefine.getScreenWidth(4.16)),
-                      _getUnEditFormView(
-                          tr('email'), userInfo.email),
+
+                      ...userInfo.email.isNotEmpty
+                          ? [
+                              _getUnEditFormView(tr('email'), userInfo.email),
+                            ]
+                          : [
+                              ///MARK:Email
+                              LoginParamView(
+                                titleText: tr('email'),
+                                hintText: tr("placeholder-email'"),
+                                controller: viewModel.emailController,
+                                data: viewModel.emailData,
+                                onChanged: viewModel.onEmailChange,
+                              ),
+                              LoginEmailCodeView(
+                                  needVerifyButton: false,
+                                  countdownSecond: 60,
+                                  btnGetText: tr('get'),
+                                  btnVerifyText: tr('verify'),
+                                  hintText: tr("placeholder-emailCode'"),
+                                  controller: viewModel.emailCodeController,
+                                  data: viewModel.emailCodeData,
+                                  onPressSendCode: () =>
+                                      viewModel.onPressSendCode(context,userInfo),
+                                  onPressCheckVerify: () {}),
+                            ],
                       SizedBox(height: UIDefine.getScreenWidth(4.16)),
                       GenderSelectorDropDownBar(
                           getDropDownValue: (String value) {

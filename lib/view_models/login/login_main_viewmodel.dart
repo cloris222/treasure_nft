@@ -6,7 +6,10 @@ import 'package:treasure_nft_project/models/data/validate_result_data.dart';
 import 'package:treasure_nft_project/models/http/api/login_api.dart';
 import 'package:treasure_nft_project/utils/animation_download_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/view_models/gobal_provider/user_info_provider.dart';
+import 'package:treasure_nft_project/view_models/login/wallet_bind_view_model.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
+import 'package:wallet_connect_plugin/model/wallet_info.dart';
 
 import '../../constant/call_back_function.dart';
 import '../../views/full_animation_page.dart';
@@ -39,7 +42,8 @@ class LoginMainViewModel extends BaseViewModel {
 
   bool loginWait = false;
 
-  void onPressLogin(BuildContext context, WidgetRef ref) async {
+  void onPressLogin(
+      BuildContext context, WidgetRef ref, WalletInfo? walletInfo) async {
     if (!loginWait) {
       loginWait = true;
       if (!checkEmptyController()) {
@@ -58,7 +62,8 @@ class LoginMainViewModel extends BaseViewModel {
                 onConnectFail: (message) => onBaseConnectFail(context, message))
             .login(
                 account: accountController.text,
-                password: passwordController.text)
+                password: passwordController.text,
+                isWallet: false)
             .then((value) async {
           String? path = AnimationDownloadUtil()
               .getAnimationFilePath(getLoginTimeAnimationPath());
@@ -72,6 +77,12 @@ class LoginMainViewModel extends BaseViewModel {
                     runFunction: () async {
                       await saveUserLoginInfo(
                           response: value, ref: ref, isLogin: true);
+
+                      ///MARK:代表需要進行錢包綁定
+                      if (walletInfo != null) {
+                        await WalletBindViewModel().bindWallet(context, ref,
+                            walletInfo, ref.read(userInfoProvider));
+                      }
                       startUserListener();
                     },
                     nextPage:
@@ -86,6 +97,15 @@ class LoginMainViewModel extends BaseViewModel {
       } catch (e) {
         loginWait = false;
       }
+      loginWait = false;
+    }
+  }
+
+  void onWalletLogin(
+      BuildContext context, WidgetRef ref, WalletInfo? walletInfo) async {
+    if (!loginWait) {
+      loginWait = true;
+      await WalletBindViewModel().loginWithWallet(context, ref, walletInfo);
       loginWait = false;
     }
   }

@@ -17,6 +17,7 @@ import 'package:treasure_nft_project/views/trade/trade_new_main_view.dart';
 import 'package:treasure_nft_project/views/wallet/wallet_main_view.dart';
 import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 import 'package:treasure_nft_project/widgets/dialog/app_version_update_dialog.dart';
+import 'package:wallet_connect_plugin/model/wallet_info.dart';
 
 import '../constant/global_data.dart';
 import '../constant/ui_define.dart';
@@ -25,9 +26,11 @@ import 'full_animation_page.dart';
 import 'home/home_main_view.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key, this.type = AppNavigationBarType.typeMain})
+  const MainPage(
+      {Key? key, this.type = AppNavigationBarType.typeMain, this.walletInfo})
       : super(key: key);
   final AppNavigationBarType type;
+  final WalletInfo? walletInfo;
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -170,7 +173,7 @@ class _MainPageState extends State<MainPage> {
                 WalletMainView(onPrePage: _onPrePage),
                 PersonalMainView(),
                 HomeMainView(),
-                LoginMainView()
+                LoginMainView(preWalletInfo: widget.walletInfo)
               ],
             ),
           ),

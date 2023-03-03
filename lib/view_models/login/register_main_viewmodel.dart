@@ -8,11 +8,13 @@ import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/api/auth_api.dart';
 import 'package:treasure_nft_project/utils/regular_expression_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:wallet_connect_plugin/model/wallet_info.dart';
 
 import '../../constant/call_back_function.dart';
 import '../../constant/theme/app_animation_path.dart';
 import '../../models/data/validate_result_data.dart';
 import '../../models/http/api/login_api.dart';
+import '../../utils/animation_download_util.dart';
 import '../../views/full_animation_page.dart';
 import '../../views/main_page.dart';
 import '../../widgets/dialog/simple_custom_dialog.dart';
@@ -21,6 +23,7 @@ class RegisterMainViewModel extends BaseViewModel {
   RegisterMainViewModel({required this.setState});
 
   final ViewChange setState;
+  WalletInfo? walletInfo;
 
   TextEditingController accountController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -190,21 +193,28 @@ class RegisterMainViewModel extends BaseViewModel {
               inviteCode: referralController.text,
               phone: phoneController.text,
               phoneCountry: phoneCountry,
-              emailVerifyCode: emailCodeController.text)
+              emailVerifyCode: emailCodeController.text,
+              walletInfo: walletInfo)
           .then((value) async {
         ///MARK: 註冊成功動畫
 
-        BaseViewModel().pushOpacityPage(
-            context,
-            FullAnimationPage(
-              limitTimer: 10,
-              animationPath: AppAnimationPath.registerSuccess,
-              isGIF: true,
-              nextPage: const MainPage(),
-              runFunction: () async {
-                await _updateRegisterInfo(ref: ref, isLogin: true);
-              },
-            ));
+        String? path = AnimationDownloadUtil()
+            .getAnimationFilePath(getLoginTimeAnimationPath());
+        if (path != null) {
+          BaseViewModel().pushOpacityPage(
+              context,
+              FullAnimationPage(
+                limitTimer: 3,
+                animationPath: path,
+                isFile: true,
+                nextPage: const MainPage(),
+                runFunction: () async {
+                  await _updateRegisterInfo(ref: ref, isLogin: true);
+                },
+              ));
+        } else {
+          await _updateRegisterInfo(ref: ref, isLogin: true);
+        }
       });
     }
   }
@@ -259,7 +269,9 @@ class RegisterMainViewModel extends BaseViewModel {
   Future<void> _updateRegisterInfo(
       {required WidgetRef ref, required bool isLogin}) async {
     var response = await LoginAPI().login(
-        account: accountController.text, password: passwordController.text);
+        account: accountController.text,
+        password: passwordController.text,
+        isWallet: false);
     await saveUserLoginInfo(response: response, ref: ref, isLogin: isLogin);
     startUserListener();
   }
