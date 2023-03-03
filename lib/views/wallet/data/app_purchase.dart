@@ -36,6 +36,7 @@ class AppPurchase extends StatefulWidget {
 }
 
 class _AppPurchaseState extends State<AppPurchase> {
+  final bool needBuyLimit = false;
   static const bool _kAutoConsume = true;
 
   static const String NFT_1 = 'com.treasurenft.level1';
@@ -301,7 +302,12 @@ class _AppPurchaseState extends State<AppPurchase> {
             break;
           }
         }
-        bool canBuy = (weeklyPurchaseLimit - quantityPurchasedThisWeek) > 0;
+        bool canBuy;
+        if (needBuyLimit) {
+          canBuy = (weeklyPurchaseLimit - quantityPurchasedThisWeek) > 0;
+        } else {
+          canBuy = true;
+        }
 
         return Container(
           margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(20)),
@@ -337,19 +343,22 @@ class _AppPurchaseState extends State<AppPurchase> {
                           color: Colors.grey, fontSize: UIDefine.fontSize14),
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(
-                        left: UIDefine.getPixelWidth(15),
-                        bottom: UIDefine.getPixelHeight(3)),
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      format(tr("appPurchaseLimit"), {
-                        "value":
-                            weeklyPurchaseLimit - quantityPurchasedThisWeek,
-                        "limit": weeklyPurchaseLimit
-                      }),
-                      style: TextStyle(
-                          color: Colors.grey, fontSize: UIDefine.fontSize14),
+                  Visibility(
+                    visible: needBuyLimit,
+                    child: Container(
+                      margin: EdgeInsets.only(
+                          left: UIDefine.getPixelWidth(15),
+                          bottom: UIDefine.getPixelHeight(3)),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        format(tr("appPurchaseLimit"), {
+                          "value":
+                              weeklyPurchaseLimit - quantityPurchasedThisWeek,
+                          "limit": weeklyPurchaseLimit
+                        }),
+                        style: TextStyle(
+                            color: Colors.grey, fontSize: UIDefine.fontSize14),
+                      ),
                     ),
                   ),
                 ],
@@ -377,15 +386,6 @@ class _AppPurchaseState extends State<AppPurchase> {
                           btnText: buttonName,
                           setMainColor: Color(buttonColor),
                           onPressed: () {
-                            for (var element in _appProductList) {
-                              if (productDetails.id == element.productId) {
-                                weeklyPurchaseLimit =
-                                    element.weeklyPurchaseLimit;
-                                quantityPurchasedThisWeek =
-                                    element.quantityPurchasedThisWeek;
-                                break;
-                              }
-                            }
                             late PurchaseParam purchaseParam = PurchaseParam(
                               productDetails: productDetails,
                               applicationUserName: null,
@@ -512,10 +512,12 @@ class _AppPurchaseState extends State<AppPurchase> {
             var response = await IOSPaymentAPI().postCheckIOSReceipt(
                 purchaseDetails.verificationData.localVerificationData);
             deliverProduct(purchaseDetails);
-            for (int index = 0; index < _appProductList.length; index++) {
-              if (_appProductList[index].productId ==
-                  purchaseDetails.productID) {
-                _appProductList[index].quantityPurchasedThisWeek += 1;
+            if (needBuyLimit) {
+              for (int index = 0; index < _appProductList.length; index++) {
+                if (_appProductList[index].productId ==
+                    purchaseDetails.productID) {
+                  _appProductList[index].quantityPurchasedThisWeek += 1;
+                }
               }
             }
 
