@@ -177,6 +177,11 @@ class TradeTimerUtil {
   }
 
   void _setTime(CheckReservationInfo reservationInfo) {
+    /// if sellDate == null , sell day is today
+    if (reservationInfo.sellDate.isEmpty) {
+      reservationInfo.sellDate = DateFormatUtil().getNowTimeWithDayFormat();
+    }
+
     /// 現在時間（會員當地時間）
     _dateCurrentTime = DateTime.parse(
         '${DateFormatUtil().getNowTimeWithDayFormat()} ${reservationInfo.localTime}');
@@ -184,13 +189,18 @@ class TradeTimerUtil {
     /// 預約日期＋預約時間 就是sellDate
     /// 開始預約時間(當地)
     _dateSellStartTime = DateTime.parse(
-        '${DateFormatUtil().getNowTimeWithDayFormat()} ${reservationInfo.reserveStartTime}');
+        '${reservationInfo.sellDate} ${reservationInfo.reserveStartTime}');
 
     ///關閉預約時間(當地)
-    ///如果預約開始時間>預約結束時間 代表跨日
     _dateSellEndTime = DateTime.parse(
-        '${DateFormatUtil().getAfterDays(reservationInfo.reserveStartTime.compareTo(reservationInfo.reserveEndTime) > 0 ? 1 : 0)}'
-        ' ${reservationInfo.reserveEndTime}');
+        '${reservationInfo.sellDate} ${reservationInfo.reserveStartTime}');
+    // 先不放
+    // ///如果預約開始時間>預約結束時間 代表跨日
+    // if (reservationInfo.reserveStartTime
+    //         .compareTo(reservationInfo.reserveStartTime) >
+    //     0) {
+    //   _dateSellEndTime.add(const Duration(days: 1));
+    // }
   }
 
   TradeData _countSellDate() {
