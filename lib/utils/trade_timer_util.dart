@@ -193,7 +193,7 @@ class TradeTimerUtil {
 
     ///關閉預約時間(當地)
     _dateSellEndTime = DateTime.parse(
-        '${reservationInfo.sellDate} ${reservationInfo.reserveStartTime}');
+        '${reservationInfo.sellDate} ${reservationInfo.reserveEndTime}');
     // 先不放
     // ///如果預約開始時間>預約結束時間 代表跨日
     // if (reservationInfo.reserveStartTime
