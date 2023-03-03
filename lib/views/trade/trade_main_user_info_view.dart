@@ -6,9 +6,11 @@ import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
-import 'package:treasure_nft_project/utils/trade_timer_util.dart';
 import 'package:treasure_nft_project/view_models/gobal_provider/user_level_info_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/trade_new_main_view_model.dart';
+
+import '../../models/http/parameter/check_reservation_info.dart';
+import '../../view_models/trade/provider/trade_reserve_info_provider.dart';
 
 class TradeMainUserInfoView extends ConsumerWidget {
   const TradeMainUserInfoView({Key? key, required this.viewModel})
@@ -21,9 +23,9 @@ class TradeMainUserInfoView extends ConsumerWidget {
   }
 
   Widget _buildTradeInfo(WidgetRef ref) {
-    double balance = TradeTimerUtil().getReservationInfo()?.balance ?? 0;
-    double reserveBalance =
-        TradeTimerUtil().getReservationInfo()?.reserveBalance ?? 0;
+    CheckReservationInfo? reserveInfo = ref.watch(tradeReserveInfoProvider);
+    double balance = reserveInfo?.balance ?? 0;
+    double reserveBalance = reserveInfo?.reserveBalance ?? 0;
     if (reserveBalance < 0) {
       reserveBalance = 0;
     }
