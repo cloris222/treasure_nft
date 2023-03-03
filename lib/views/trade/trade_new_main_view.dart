@@ -152,12 +152,12 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
                     level: userInfo.level,
                     needBig: true,
                     size: UIDefine.getPixelWidth(40)),
-                Text(
-                  '${tr('level')} ${userInfo.level}',
-                  style: AppTextStyle.getBaseStyle(
-                      fontSize: UIDefine.fontSize14,
-                      fontWeight: FontWeight.w600),
-                ),
+                // Text(
+                //   '${tr('level')} ${userInfo.level}',
+                //   style: AppTextStyle.getBaseStyle(
+                //       fontSize: UIDefine.fontSize14,
+                //       fontWeight: FontWeight.w600),
+                // ),
                 const Spacer(),
                 GestureDetector(
                   onTap: () {
