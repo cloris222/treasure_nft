@@ -1,7 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/view_models/base_list_provider.dart';
 
+import '../../constant/call_back_function.dart';
 import '../../utils/app_shared_Preferences.dart';
+import '../../views/collection/api/collection_api.dart';
 import '../../views/collection/data/collection_nft_item_response_data.dart';
 
 ///MARK: 收藏_開賣中
@@ -49,5 +51,21 @@ class CollectionTYpeSellingNotifier
   @override
   bool setUserTemporaryValue() {
     return true;
+  }
+
+  Future<List> loadData(
+      {required int page,
+        required int size,
+        required bool needSave,
+        ResponseErrorFunction? onConnectFail}) async {
+    List<CollectionNftItemResponseData> itemList = [];
+
+    itemList.addAll(await CollectionApi(onConnectFail: onConnectFail)
+        .getNFTItemResponse(page: page, size: size, status: 'SELLING'));
+
+    if (needSave) {
+      setSharedPreferencesValue(itemList);
+    }
+    return itemList;
   }
 }

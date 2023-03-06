@@ -2,10 +2,10 @@ enum CollectionTag {
   /// 今日預約
   Reservation,
 
-  /// 上架中
+  /// 未上架
   Pending,
 
-  /// 未上架
+  /// 上架中
   Selling,
 
   /// 我的票券
