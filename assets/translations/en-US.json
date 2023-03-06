@@ -856,13 +856,16 @@
   "APP_0052":"Reached at Daily Purchase Limit",
   "APP_0058":"No. of trades reached",
   "APP_0061":"Every instance could only be reserved once per day.",
-  "defi-info-1":"Reservation Time: 21:00-18:00 (+1)",
-  "defi-info-2":"Transaction Time: 19:00-19:30",
-  "defi-info-3":"Available Balance: Listed to sell NFT Amount + Wallet Balance",
-  "defi-info-4":"Reservation Deposit will be deducted in advance corresponding to different price ranges of your NFT reservation. (Deposit from low to high: 5, 20, 50, 100, 200, 500 USDT)",
-  "defi-info-5":"If the reservation is not successful, the deposit will be returned to the account. If the reservation is successful, the deposit can be deducted from the transaction amount. If the account balance is insufficient and the transaction fails, the deposit will be deducted. Please ensure that the account balance is sufficient.",
-  "defi-info-6":"Only one reservation can be made in each price range per person per day.",
-  "defi-info-7":"The higher the level, the more times and price ranges you can make reservation for, and the more profit you can get.",
+  "defi-info-1":"Two appointments per day are available for each time zone.",
+  "defi-info-2":"Appointment time status: not started - the countdown to the time that can be reserved is about to end - indicating the countdown of the remaining time until the end of the appointment time.",
+  "defi-info-3":"Appointment time for session 1: Appointment time: 10:00 - 12:00 AM, appointment result: 13:00 PM, trading time: 13:30 - 13:35 PM",
+  "defi-info-4":"Reservation time for session 2: Reservation time: 19:00-21:00 PM, reservation result: 22:00 PM, trading time: 22:30-22:35 PM",
+  "defi-info-5":"You can only participate in the appointment during the appointment time period, and you cannot make an appointment after the appointment time period.",
+  "defi-info-6":"Available balance: the number of NFTs listed for sale + wallet balance.",
+  "defi-info-7":"The reservation deposit will be deducted in advance according to the different price ranges of your NFT reservation. (Deposit from low to high: 5, 20, 50, 100, 200, 500 USDT).",
+  "defi-info-8":"If the reservation is unsuccessful, the deposit will be returned to the account. If the booking is successful, the deposit can be deducted from the transaction amount. If the account balance is insufficient and the transaction fails, the deposit will be deducted. Please ensure that the account balance is sufficient.",
+  "defi-info-9":"Each price range is limited to one booking per person per day.",
+  "defi-info-10":"The higher the level, the more appointments and price ranges you can make, and the more profits you can get.",
 
   "--// 新增":"---",
   "SeeLess":"See Less",
@@ -1213,6 +1216,9 @@
   "appointmentInstructions":"Within a day, you can book NFT multiple times in different sessions to get more benefits.",
   "select-wallet":"Please select a wallet",
   "bind-successfully":"bind successfully",
+  "account-check-modal-hint":"Do you already have a TreasureNFT account?",
+  "noAccount":"No",
+  "comingToEnd":"About to start",
 
 
 

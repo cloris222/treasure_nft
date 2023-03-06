@@ -36,7 +36,7 @@ class AppPurchase extends StatefulWidget {
 }
 
 class _AppPurchaseState extends State<AppPurchase> {
-  final bool needBuyLimit = false;
+  final bool needBuyLimit = true;
   static const bool _kAutoConsume = true;
 
   static const String NFT_1 = 'com.treasurenft.level1';

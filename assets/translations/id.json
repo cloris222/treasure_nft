@@ -856,13 +856,16 @@
   "APP_0052":"Jumlah pembelian per hari mencapai",
   "APP_0058":"Jumlah maksimum transaksi untuk akun Anda telah tercapai",
   "APP_0061":"Hanya satu pemesanan per hari per salinan",
-  "defi-info-1":"Waktu pemesanan: 21:00-18:00 (+1 hari)",
-  "defi-info-2":"Jam perdagangan: 19:00-19:30.",
-  "defi-info-3":"Saldo yang tersedia: Jumlah NFT yang terjual + saldo dompet.",
-  "defi-info-4":"Deposit akan dipotong di muka untuk rentang harga yang berbeda, mulai dari 5, 20, 50, 100, 200, 500 (USDT).",
-  "defi-info-5":"Jika saldo akun Anda tidak mencukupi, deposit akan dikurangi jika transaksi gagal.",
-  "defi-info-6":"Anda hanya dapat melakukan 1 pemesanan per orang per hari per kisaran harga.",
-  "defi-info-7":"Semakin tinggi levelnya, semakin banyak pemesanan yang bisa Anda lakukan, semakin banyak rentang harga yang bisa Anda pesan, dan semakin banyak uang yang bisa Anda hasilkan.",
+  "defi-info-1":"Dua janji per hari tersedia untuk setiap zona waktu.",
+  "defi-info-2":"Periode waktu reservasi per hari:\n Sesi pertama: waktu janji temu: 10:00-12:00, waktu rak: 10:00-12:00, waktu penarikan: 13:45-12:00, hasil janji temu: 13: 00, waktu perdagangan: 13:00-13:35\n Sesi kedua: Waktu janji temu: 19:00-21:00, waktu simpan: 19:00-21:00, waktu penarikan: 22:45-21:00, hasil janji temu: 22:00, waktu transaksi: 22: 00-22:35",
+  "defi-info-3":"Waktu Janji untuk Sesi 1: Waktu Pengangkatan: 10:00 - 12:00 pagi, hasil janji: 13:00, Waktu Perdagangan: 13:30 - 13:35",
+  "defi-info-4":"Waktu Reservasi untuk Sesi 2: Waktu Reservasi: 19: 00-21: 00 PM, Hasil Reservasi: 22:00, Waktu Perdagangan: 22: 30-22: 35 PM",
+  "defi-info-5":"Anda hanya dapat berpartisipasi dalam janji temu selama periode waktu janji temu, dan Anda tidak dapat membuat janji setelah periode waktu janji temu.",
+  "defi-info-6":"Saldo yang tersedia: Jumlah NFT yang terdaftar untuk dijual + saldo dompet.",
+  "defi-info-7":"Setoran reservasi akan dikurangkan di muka sesuai dengan rentang harga yang berbeda dari reservasi NFT Anda. (Setoran dari rendah ke tinggi: 5, 20, 50, 100, 200, 500 USDT).",
+  "defi-info-8":"Jika reservasi tidak berhasil, setoran akan dikembalikan ke akun. Jika pemesanan berhasil, setoran dapat dikurangkan dari jumlah transaksi. Jika saldo akun tidak mencukupi dan transaksi gagal, setoran akan dikurangkan. Harap pastikan bahwa saldo akun sudah cukup.",
+  "defi-info-9":"Setiap kisaran harga terbatas pada satu pemesanan per orang per hari.",
+  "defi-info-10":"Semakin tinggi level, semakin banyak janji dan rentang harga yang bisa Anda hasilkan, dan semakin banyak keuntungan yang bisa Anda dapatkan.",
 
   "--// 新增":"---",
   "SeeLess":"Kumpulkan",
@@ -1213,6 +1216,9 @@
   "appointmentInstructions":"Dalam satu hari, Anda dapat memesan NFT beberapa kali dalam sesi yang berbeda untuk mendapatkan lebih banyak manfaat.",
   "select-wallet":"Pilih dompet",
   "bind-successfully":"Bind berhasil",
+  "account-check-modal-hint":"Apakah Anda sudah memiliki akun Treasurenft?",
+  "noAccount":"TIDAK",
+  "comingToEnd":"Akan memulai",
 
 
 
@@ -1250,7 +1256,7 @@
   "appNotHasAccount":"TIDAK",
   "appBindFailHint":"Tolong coba lagi",
   "appBindAccountHint":"Akun ini sudah memiliki alamat yang mengikat",
-  "appTradeNotYet":"Akan mulai",
+  "appTradeNotYet":"Akan memulai",
   "appTradeReserving":"Waktu tersisa",
   "appTradeEnd":"Menutup"
 }
