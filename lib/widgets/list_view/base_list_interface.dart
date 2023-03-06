@@ -29,6 +29,7 @@ abstract class BaseListInterface {
   void addCurrentList(List data);
 
   void clearCurrentList();
+
   void loadingFinish();
 
   ///MARK: 讀取資料
@@ -172,6 +173,73 @@ abstract class BaseListInterface {
                 buildSeparatorBuilder(index)));
   }
 
+  Widget buildGridView(
+      {required int crossAxisCount,
+      Widget spaceWidget = const SizedBox(),
+      bool shrinkWrap = true,
+      ScrollPhysics? physics,
+      EdgeInsetsGeometry? padding}) {
+    List<dynamic> list = getCurrentList();
+    int rowLength = list.isNotEmpty ? list.length ~/ crossAxisCount : 0;
+
+    ///MARK: 有多一行就++
+    if (rowLength > 0) {
+      rowLength += (list.length % crossAxisCount > 0) ? 1 : 0;
+    }
+    Widget? topView = buildTopView();
+    bool hasTopView = topView != null;
+    int finalLength;
+    if (_showWaitLoad || (!isAutoReloadMore() && nextItems.isNotEmpty)) {
+      finalLength = rowLength + 1;
+    } else {
+      finalLength = rowLength;
+    }
+
+    return _buildListListener(
+        topView: topView,
+        listBody: ListView.separated(
+            padding: padding,
+            itemCount: finalLength,
+            shrinkWrap: hasTopView ? true : shrinkWrap,
+            physics:
+                hasTopView ? const NeverScrollableScrollPhysics() : physics,
+            scrollDirection: Axis.vertical,
+            itemBuilder: (context, rowIndex) {
+              if (rowIndex != rowLength) {
+                List<Widget> row = [];
+                for (int i = 0; i < crossAxisCount; i++) {
+                  int itemIndex = rowIndex * crossAxisCount + i;
+                  if (itemIndex >= list.length) {
+                    row.add(const Expanded(child: SizedBox()));
+                  } else {
+                    row.add(Visibility(
+                        visible: !removeItems.contains(itemIndex),
+                        child: buildItemBuilder(itemIndex, list[itemIndex])));
+                  }
+                  row.add(spaceWidget);
+                }
+                row.removeLast();
+
+                return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: row);
+              } else {
+                if (!_showWaitLoad &&
+                    (!isAutoReloadMore() && nextItems.isNotEmpty)) {
+                  return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [_buildReadMore()]);
+                }
+                return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [_buildLoading()]);
+              }
+            },
+            separatorBuilder: (BuildContext context, int index) =>
+                buildSeparatorBuilder(index)));
+  }
+
   Widget _buildListListener({required Widget listBody, Widget? topView}) {
     return NotificationListener<ScrollEndNotification>(
         onNotification: (scrollEnd) {
@@ -197,7 +265,7 @@ abstract class BaseListInterface {
             : listBody);
   }
 
-  _buildLoading() {
+  Widget _buildLoading() {
     return Container(
         alignment: Alignment.center,
         margin: const EdgeInsets.symmetric(vertical: 10),
@@ -205,7 +273,7 @@ abstract class BaseListInterface {
             color: AppColors.textBlack, size: 30));
   }
 
-  _buildReadMore() {
+  Widget _buildReadMore() {
     return Visibility(
         visible: !_showWaitLoad,
         child: TextButton(

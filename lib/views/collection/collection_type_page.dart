@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 
 import '../../constant/enum/collection_enum.dart';
 import '../../view_models/collection/collection_main_view_model.dart';
-import '../../widgets/list_view/collection/get_collection_main_list_view.dart';
-import '../../widgets/loading_future_builder.dart';
+import '../../widgets/list_view/collection/collection_pending_list_view.dart';
+import '../../widgets/list_view/collection/collection_reservation_list_view.dart';
+import '../../widgets/list_view/collection/collection_selling_list_view.dart';
+import '../../widgets/list_view/collection/collection_ticket_list_view.dart';
 import 'data/collection_nft_item_response_data.dart';
 import 'data/collection_reservation_response_data.dart';
 import 'data/collection_ticket_response_data.dart';
@@ -31,42 +33,15 @@ class _CollectionTypePage extends State<CollectionTypePage> {
 
   @override
   Widget build(BuildContext context) {
-    return LoadingFutureBuilder.createLoadingWidget(
-        futureFunction: _initView());
-  }
-
-  Future<GetCollectionMainListview> _initView() async {
     switch (currentType) {
       case CollectionTag.Reservation:
-        reserveList = await viewModel.getReservationResponse('ITEM', 1, 10);
-        var tempList = await viewModel.getReservationResponse('PRICE', 1, 10);
-        reserveList.addAll(tempList);
-        return GetCollectionMainListview(
-            reserveList: reserveList,
-            itemsList: [],
-            ticketList: [],
-            currentType: currentType);
+        return const CollectionReservationListView();
       case CollectionTag.Pending:
-        itemsList = await viewModel.getNFTItemResponse('PENDING', 1, 10);
-        return GetCollectionMainListview(
-            reserveList: [],
-            itemsList: itemsList,
-            ticketList: [],
-            currentType: currentType);
+        return const CollectionPendingListView();
       case CollectionTag.Selling:
-        itemsList = await viewModel.getNFTItemResponse('SELLING', 1, 10);
-        return GetCollectionMainListview(
-            reserveList: [],
-            itemsList: itemsList,
-            ticketList: [],
-            currentType: currentType);
+        return const CollectionSellingListView();
       case CollectionTag.Ticket:
-        ticketList = await viewModel.getTicketResponse('TICKET', 1, 10);
-        return GetCollectionMainListview(
-            reserveList: [],
-            itemsList: [],
-            ticketList: ticketList,
-            currentType: currentType);
+        return const CollectionTicketListView();
     }
   }
 }

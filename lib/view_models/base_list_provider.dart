@@ -16,12 +16,19 @@ abstract class BaseListProvider {
   Future<void> readSharedPreferencesValue();
 
   /// 將 內容 存入 SharedPreferencesKey
+  /// list view的狀態下 最多只會存10筆
   Future<void> setSharedPreferencesValue(List list) async {
-    AppSharedPreferences.setJson(getSharedPreferencesKey(),
-        List<dynamic>.from(list.map((x) => x.toJson())));
+    List<dynamic> preList = [];
+    for (int i = 0; i < list.length && i < 10; i++) {
+      preList.add(list[i].toJson());
+    }
+    await AppSharedPreferences.setJson(getSharedPreferencesKey(), preList);
+    // await AppSharedPreferences.setJson(getSharedPreferencesKey(),
+    //     List<dynamic>.from(list.map((x) => x.toJson())));
   }
 
   void addList(List data);
+
   void clearList();
 
   String getSharedPreferencesKey() {
