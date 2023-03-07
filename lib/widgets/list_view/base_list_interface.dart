@@ -149,7 +149,11 @@ abstract class BaseListInterface {
     return _buildListListener(
         topView: topView,
         listBody: ListView.separated(
-            padding: padding,
+            padding: padding ??
+                EdgeInsets.only(
+                    bottom: UIDefine.navigationBarPadding,
+                    right: UIDefine.getScreenWidth(5),
+                    left: UIDefine.getScreenWidth(5)),
             itemCount: length,
             shrinkWrap: hasTopView ? true : shrinkWrap,
             physics:
@@ -198,7 +202,11 @@ abstract class BaseListInterface {
     return _buildListListener(
         topView: topView,
         listBody: ListView.separated(
-            padding: padding,
+            padding: padding ??
+                EdgeInsets.only(
+                    bottom: UIDefine.navigationBarPadding,
+                    right: UIDefine.getScreenWidth(5),
+                    left: UIDefine.getScreenWidth(5)),
             itemCount: finalLength,
             shrinkWrap: hasTopView ? true : shrinkWrap,
             physics:
@@ -212,9 +220,15 @@ abstract class BaseListInterface {
                   if (itemIndex >= list.length) {
                     row.add(const Expanded(child: SizedBox()));
                   } else {
-                    row.add(Visibility(
-                        visible: !removeItems.contains(itemIndex),
-                        child: buildItemBuilder(itemIndex, list[itemIndex])));
+                    row.add(Expanded(
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: Visibility(
+                            visible: !removeItems.contains(itemIndex),
+                            child:
+                                buildItemBuilder(itemIndex, list[itemIndex])),
+                      ),
+                    ));
                   }
                   row.add(spaceWidget);
                 }

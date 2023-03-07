@@ -1,27 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:treasure_nft_project/widgets/domain_bar.dart';
 
 import '../../constant/ui_define.dart';
 import '../../view_models/explore/explore_main_view_model.dart';
+import '../../view_models/home/provider/home_discover_provider.dart';
+import '../../widgets/list_view/explore/get_explore_main_list_view.dart';
 import 'data/explore_category_response_data.dart';
 
-class ExploreMainView extends StatefulWidget {
-  const ExploreMainView({Key? key}) : super(key: key);
+class ExploreMainView extends ConsumerStatefulWidget {
+  const ExploreMainView({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _ExploreMainView();
-
+  ConsumerState createState() => _ExploreMainViewState();
 }
 
-class _ExploreMainView extends State<ExploreMainView> {
-
+class _ExploreMainViewState extends ConsumerState<ExploreMainView> {
   ExploreMainViewModel viewModel = ExploreMainViewModel();
-  String currentExploreType = ''; // All類別打電文是帶空值
+
   ItemScrollController listController = ItemScrollController();
   PageController pageController = PageController();
-  List<Widget> pages = <Widget>[];
-  List<ExploreCategoryResponseData> dataListToShow = [];
+
+  List<ExploreCategoryResponseData> get dataListToShow {
+    return ref.read(homeDisCoverTagsProvider);
+  }
+
+  List<Widget> pages = [];
+
+// All類別打電文是帶空值
+  String currentExploreType = '';
+
+  @override
+  void initState() {
+    super.initState();
+    ref.read(homeDisCoverTagsProvider.notifier).init(onFinish: () {
+      if (dataListToShow.isNotEmpty) {
+        setState(() {
+          pages = List<Widget>.generate(dataListToShow.length,
+              (index) => GetExploreMainListView(type: dataListToShow[index]));
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,59 +51,35 @@ class _ExploreMainView extends State<ExploreMainView> {
       body: Column(children: [
         // const DomainBar(),
         Container(
-            padding: EdgeInsets.only(top: UIDefine.getScreenWidth(0.97), bottom: UIDefine.getScreenWidth(0.97)),
-            margin: EdgeInsets.only(left: UIDefine.getScreenWidth(5), right: UIDefine.getScreenWidth(5), bottom: UIDefine.getScreenWidth(4.16)),
+            padding: EdgeInsets.only(
+                top: UIDefine.getScreenWidth(0.97),
+                bottom: UIDefine.getScreenWidth(0.97)),
+            margin: EdgeInsets.only(
+                left: UIDefine.getScreenWidth(5),
+                right: UIDefine.getScreenWidth(5),
+                bottom: UIDefine.getScreenWidth(4.16)),
             child: viewModel.getExploreTypeButtons(
                 controller: listController,
                 dataList: dataListToShow,
                 currentExploreType: currentExploreType,
-                changePage: (String exploreType) {
+                changePage: (ExploreCategoryResponseData exploreType) {
                   changePage(exploreType);
                 })),
-        Flexible(
-            child: PageView(
-              controller: pageController,
-              onPageChanged: _onPageChange,
-              children: pages,
-            ))
+        Expanded(
+          child: pages.isNotEmpty
+              ? PageView(
+                  controller: pageController,
+                  onPageChanged: _onPageChange,
+                  children: pages)
+              : SizedBox(),
+        )
       ]),
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-    Future<List<ExploreCategoryResponseData>> list = viewModel.getExploreCategory();
-    list.then((value) => {setState(() {}), _setData(value), _setPage() });
-  }
-
-  void _setData(List<ExploreCategoryResponseData> value) {
-    List<ExploreCategoryResponseData> respList = value;
-    for (int i = 0; i < respList.length; i++) {
-      if (respList[i].name == 'polygonNFT') {
-        dataListToShow.insert(0, respList[i]);
-      }
-      if (respList[i].name == 'artwork') {
-        dataListToShow.add(respList[i]);
-      }
-      if (respList[i].name == 'collection') {
-        dataListToShow.add(respList[i]);
-      }
-    }
-    ExploreCategoryResponseData data = ExploreCategoryResponseData();
-    data.frontName = 'All';
-    data.name = '';
-    dataListToShow.insert(0, data);
-  }
-
-  void _setPage() {
-    pages = List<Widget>.generate(dataListToShow.length,
-            (index) => viewModel.getExploreTypePage(dataListToShow[index].name));
-  }
-
-  void changePage(String exploreType) {
+  void changePage(ExploreCategoryResponseData exploreType) {
     setState(() {
-      currentExploreType = exploreType;
+      currentExploreType = exploreType.name;
       pageController.jumpToPage(getExploreTypeIndex(currentExploreType));
     });
   }
@@ -90,7 +88,8 @@ class _ExploreMainView extends State<ExploreMainView> {
     setState(() {
       currentExploreType = dataListToShow[value].name;
       if (value != 0) {
-        listController.scrollTo(index: value - 1, duration: const Duration(milliseconds: 300));
+        listController.scrollTo(
+            index: value - 1, duration: const Duration(milliseconds: 300));
       }
     });
   }
@@ -103,5 +102,4 @@ class _ExploreMainView extends State<ExploreMainView> {
     }
     return -1;
   }
-
 }

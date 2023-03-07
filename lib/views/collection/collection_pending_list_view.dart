@@ -35,8 +35,7 @@ class _CollectionPendingListViewState
   Widget build(BuildContext context) {
     return buildGridView(
         crossAxisCount: 2,
-        spaceWidget: SizedBox(width: UIDefine.getScreenWidth(2.7)),
-        padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding));
+        spaceWidget: SizedBox(width: UIDefine.getScreenWidth(2.7)));
   }
 
   @override
