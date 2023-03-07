@@ -4,11 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/view_models/collection/collection_type_selling_provider.dart';
 import 'package:treasure_nft_project/widgets/list_view/base_list_interface.dart';
 
-import '../../../constant/ui_define.dart';
-import '../../../view_models/base_view_model.dart';
-import '../../../views/collection/deposit/deposit_nft_main_view.dart';
-import '../../button/icon_text_button_widget.dart';
-import 'collection_sell_unsell_item_view.dart';
+import '../../constant/ui_define.dart';
+import '../../view_models/base_view_model.dart';
+import 'deposit/deposit_nft_main_view.dart';
+import '../../widgets/button/icon_text_button_widget.dart';
+import '../../widgets/list_view/collection/collection_sell_unsell_item_view.dart';
 
 class CollectionSellingListView extends ConsumerStatefulWidget {
   const CollectionSellingListView({

@@ -5,10 +5,10 @@ import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/view_models/collection/collection_type_reservation_provider.dart';
 import 'package:treasure_nft_project/widgets/list_view/base_list_interface.dart';
 
-import '../../../constant/ui_define.dart';
-import '../../../views/collection/deposit/deposit_nft_main_view.dart';
-import '../../button/icon_text_button_widget.dart';
-import 'collection_reservation_item_view.dart';
+import '../../constant/ui_define.dart';
+import 'deposit/deposit_nft_main_view.dart';
+import '../../widgets/button/icon_text_button_widget.dart';
+import '../../widgets/list_view/collection/collection_reservation_item_view.dart';
 
 class CollectionReservationListView extends ConsumerStatefulWidget {
   const CollectionReservationListView({
