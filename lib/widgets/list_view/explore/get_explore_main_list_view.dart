@@ -17,11 +17,6 @@ class GetExploreMainListView extends ConsumerStatefulWidget {
 
 class _GetExploreMainListViewState extends ConsumerState<GetExploreMainListView>
     with BaseListInterface {
-  @override
-  void didUpdateWidget(covariant GetExploreMainListView oldWidget) {
-    setState(() {});
-    super.didUpdateWidget(oldWidget);
-  }
 
   @override
   void initState() {

@@ -36,7 +36,7 @@ class _ExploreMainViewState extends ConsumerState<ExploreMainView> {
   void initState() {
     super.initState();
     ref.read(homeDisCoverTagsProvider.notifier).init(onFinish: () {
-      if (dataListToShow.isNotEmpty) {
+      if (dataListToShow.isNotEmpty&&pages.isEmpty) {
         setState(() {
           pages = List<Widget>.generate(dataListToShow.length,
               (index) => GetExploreMainListView(type: dataListToShow[index]));

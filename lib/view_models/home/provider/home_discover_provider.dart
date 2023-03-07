@@ -8,7 +8,7 @@ import '../../../utils/app_shared_Preferences.dart';
 import '../../../views/explore/data/explore_category_response_data.dart';
 
 ///MARK: Tags
-
+///MARK: 如果tags 有變時，要調整key值
 final homeDisCoverTagsProvider = StateNotifierProvider<HomeDisCoverTagNotifier,
     List<ExploreCategoryResponseData>>((ref) {
   return HomeDisCoverTagNotifier();
