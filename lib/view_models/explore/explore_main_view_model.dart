@@ -11,19 +11,13 @@ import '../../constant/ui_define.dart';
 import '../../views/explore/api/explore_api.dart';
 import '../../views/explore/data/explore_category_response_data.dart';
 import '../../views/explore/data/explore_main_response_data.dart';
-import '../../views/explore/explore_type_page.dart';
 
 class ExploreMainViewModel extends BaseViewModel {
-
-  Widget getExploreTypePage(String type) {
-    return ExploreTypePage(currentType: type);
-  }
-
   Widget getExploreTypeButtons(
       {required String currentExploreType,
-        required List<ExploreCategoryResponseData> dataList,
-        required ItemScrollController controller,
-        required Function(String exploreType) changePage}) {
+      required List<ExploreCategoryResponseData> dataList,
+      required ItemScrollController controller,
+      required Function(ExploreCategoryResponseData exploreType) changePage}) {
     List<Widget> buttons = <Widget>[];
     for (int i = 0; i < dataList.length; i++) {
       bool isCurrent = (dataList[i].name == currentExploreType);
@@ -35,17 +29,18 @@ class ExploreMainViewModel extends BaseViewModel {
               height: UIDefine.getScreenWidth(12),
               child: TextButton(
                 onPressed: () {
-                  changePage(dataList[i].name);
+                  changePage(dataList[i]);
                 },
                 child: Container(
                   alignment: Alignment.bottomCenter,
-                  padding: EdgeInsets.fromLTRB(
-                      UIDefine.getScreenWidth(2.77), 0,
+                  padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(2.77), 0,
                       UIDefine.getScreenWidth(2.77), 0),
                   child: Text(
                     _getTabTitle(dataList[i].name),
-                    style: AppTextStyle.getBaseStyle(color: _getButtonColor(isCurrent),
-                        fontSize: _getTextSize(isCurrent), fontWeight: FontWeight.w500),
+                    style: AppTextStyle.getBaseStyle(
+                        color: _getButtonColor(isCurrent),
+                        fontSize: _getTextSize(isCurrent),
+                        fontWeight: FontWeight.w500),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -73,18 +68,16 @@ class ExploreMainViewModel extends BaseViewModel {
         ),
       );
     }
-      return SizedBox(
-          height: UIDefine.getScreenWidth(13),
-          child: ScrollablePositionedList.builder(
-              scrollDirection: Axis.horizontal,
-              itemScrollController: controller,
-              itemCount: buttons.length,
-              itemBuilder: (context, index) {
-                return buttons[index];
-              }
-          )
-      );
-    }
+    return SizedBox(
+        height: UIDefine.getScreenWidth(13),
+        child: ScrollablePositionedList.builder(
+            scrollDirection: Axis.horizontal,
+            itemScrollController: controller,
+            itemCount: buttons.length,
+            itemBuilder: (context, index) {
+              return buttons[index];
+            }));
+  }
 
   // Widget getExploreTypeButtons( // 第一版的UI樣式
   //     {required String currentExploreType,
@@ -137,7 +130,7 @@ class ExploreMainViewModel extends BaseViewModel {
   // }
 
   String _getTabTitle(String value) {
-    switch(value) {
+    switch (value) {
       case '':
         return tr('TopPicks');
       case 'polygonNFT':
@@ -186,16 +179,18 @@ class ExploreMainViewModel extends BaseViewModel {
     return UIDefine.fontSize14;
   }
 
+  ///取得探索的清單
   Future<List<ExploreMainResponseData>> getExploreResponse(
-      String type, int page, int size, {ResponseErrorFunction? onConnectFail}) async {
+      String type, int page, int size,
+      {ResponseErrorFunction? onConnectFail}) async {
     String category = type;
     return await ExploreApi(onConnectFail: onConnectFail)
         .getExploreArtists(page: page, size: size, category: category);
   }
 
+  /// 取得探索tag
   Future<List<ExploreCategoryResponseData>> getExploreCategory(
       {ResponseErrorFunction? onConnectFail}) async {
-    return await ExploreApi(onConnectFail: onConnectFail)
-        .getExploreCategory();
+    return await ExploreApi(onConnectFail: onConnectFail).getExploreCategory();
   }
 }
