@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-import '../../constant/call_back_function.dart';
 import '../../constant/global_data.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
