@@ -17,10 +17,10 @@ class GetExploreMainListView extends ConsumerStatefulWidget {
 
 class _GetExploreMainListViewState extends ConsumerState<GetExploreMainListView>
     with BaseListInterface {
-
   @override
   void initState() {
     ref.read(exploreListProvider(widget.type).notifier).init(onFinish: () {
+      loadingFinish();
       initListView();
     });
     super.initState();

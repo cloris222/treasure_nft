@@ -108,12 +108,32 @@ abstract class BaseListInterface {
   Future<void> _uploadList() async {
     _showWaitLoad = true;
     if (_currentPage == 1) {
+      var list = await loadData(_currentPage, maxLoad());
       clearCurrentList();
-      addCurrentList(await loadData(_currentPage, maxLoad()));
+      addCurrentList(list);
+
+      ///MARK:代表需要讀下一筆
+      if (list.length >= maxLoad()) {
+        nextItems = await loadData(_currentPage + 1, maxLoad());
+      }
+
+      ///MARK:代表已讀完不需要下一筆
+      else {
+        nextItems = [];
+      }
     } else {
       addCurrentList(nextItems);
+
+      ///MARK:代表需要讀下一筆
+      if (nextItems.length >= maxLoad()) {
+        nextItems = await loadData(_currentPage + 1, maxLoad());
+      }
+
+      ///MARK:代表已讀完不需要下一筆
+      else {
+        nextItems = [];
+      }
     }
-    nextItems = await loadData(_currentPage + 1, maxLoad());
   }
 
   void _clearListView() {
