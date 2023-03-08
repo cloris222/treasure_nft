@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:treasure_nft_project/view_models/explore/explore_list_provider.dart';
 import 'package:treasure_nft_project/widgets/list_view/base_list_interface.dart';
 import '../../../constant/ui_define.dart';
+import '../../../views/explore/api/explore_api.dart';
 import '../../../views/explore/data/explore_category_response_data.dart';
+import '../../../views/explore/data/explore_main_response_data.dart';
 import 'explore_main_item_view.dart';
 
 class GetExploreMainListView extends ConsumerStatefulWidget {
@@ -19,21 +20,13 @@ class _GetExploreMainListViewState extends ConsumerState<GetExploreMainListView>
     with BaseListInterface {
   @override
   void initState() {
-    ref.read(exploreListProvider(widget.type).notifier).init(onFinish: () {
-      loadingFinish();
-      initListView();
-    });
+    init();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return buildGridView(crossAxisCount: 2);
-  }
-
-  @override
-  void addCurrentList(List data) {
-    ref.read(exploreListProvider(widget.type).notifier).addList(data);
   }
 
   @override
@@ -52,23 +45,13 @@ class _GetExploreMainListViewState extends ConsumerState<GetExploreMainListView>
   }
 
   @override
-  void clearCurrentList() {
-    ref.read(exploreListProvider(widget.type).notifier).clearList();
+  Future<List> loadData(int page, int size) async {
+    return await ExploreApi()
+        .getExploreArtists(page: page, size: size, category: widget.type.name);
   }
 
   @override
-  List getCurrentList() {
-    return ref.read(exploreListProvider(widget.type));
-  }
-
-  @override
-  Future<List> loadData(int page, int size) {
-    return ref
-        .read(exploreListProvider(widget.type).notifier)
-        .loadData(page: page, size: size, needSave: needSave(page, size));
-  }
-
-  bool needSave(int page, int size) {
+  bool needSave(int page) {
     return page == 1;
   }
 
@@ -77,5 +60,20 @@ class _GetExploreMainListViewState extends ConsumerState<GetExploreMainListView>
     if (mounted) {
       setState(() {});
     }
+  }
+
+  @override
+  String setKey() {
+    return "exploreList_${widget.type.name}";
+  }
+
+  @override
+  bool setUserTemporaryValue() {
+    return false;
+  }
+
+  @override
+  changeDataFromJson(json) {
+    return ExploreMainResponseData.fromJson(json);
   }
 }

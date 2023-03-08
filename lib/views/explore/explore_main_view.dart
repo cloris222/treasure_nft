@@ -36,7 +36,7 @@ class _ExploreMainViewState extends ConsumerState<ExploreMainView> {
   void initState() {
     super.initState();
     ref.read(homeDisCoverTagsProvider.notifier).init(onFinish: () {
-      if (dataListToShow.isNotEmpty&&pages.isEmpty) {
+      if (dataListToShow.length > 1 && pages.isEmpty) {
         setState(() {
           pages = List<Widget>.generate(dataListToShow.length,
               (index) => GetExploreMainListView(type: dataListToShow[index]));
@@ -71,7 +71,7 @@ class _ExploreMainViewState extends ConsumerState<ExploreMainView> {
                   controller: pageController,
                   onPageChanged: _onPageChange,
                   children: pages)
-              : SizedBox(),
+              : const SizedBox(),
         )
       ]),
     );

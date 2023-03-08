@@ -4,7 +4,8 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 
-import '../../../view_models/personal/team/team_member_detail_provider.dart';
+import '../../../models/http/api/group_api.dart';
+import '../../../models/http/parameter/team_member_detail.dart';
 import '../../../widgets/appbar/title_app_bar.dart';
 import '../../../widgets/list_view/base_list_interface.dart';
 import '../../../widgets/list_view/team/member_detail_item.dart';
@@ -28,7 +29,6 @@ class TeamMemberDetailPage extends ConsumerStatefulWidget {
 
 class _TeamMemberDetailPageState extends ConsumerState<TeamMemberDetailPage>
     with BaseListInterface {
-
   String get startTime {
     return widget.startTime;
   }
@@ -43,10 +43,8 @@ class _TeamMemberDetailPageState extends ConsumerState<TeamMemberDetailPage>
 
   @override
   void initState() {
+    init();
     super.initState();
-    ref.read(teamMemberDetailProvider(type).notifier).init(onFinish: () {
-      initListView();
-    });
   }
 
   @override
@@ -91,32 +89,18 @@ class _TeamMemberDetailPageState extends ConsumerState<TeamMemberDetailPage>
   }
 
   @override
-  List getCurrentList() {
-    return ref.watch(teamMemberDetailProvider(type));
-  }
-
-  @override
   Future<List> loadData(int page, int size) async {
-    return ref.read(teamMemberDetailProvider(type).notifier).loadData(
+    return await GroupAPI().getMemberDetail(
         page: page,
         size: size,
+        type: type,
         startTime: startTime,
-        endTime: endTime,
-        needSave: needSave(page, size));
+        endTime: endTime);
   }
 
-  bool needSave(int page, int size) {
+  @override
+  bool needSave(int page) {
     return page == 1 && startTime.isEmpty && endTime.isEmpty;
-  }
-
-  @override
-  void addCurrentList(List data) {
-    ref.read(teamMemberDetailProvider(type).notifier).addList(data);
-  }
-
-  @override
-  void clearCurrentList() {
-    ref.read(teamMemberDetailProvider(type).notifier).clearList();
   }
 
   @override
@@ -124,5 +108,20 @@ class _TeamMemberDetailPageState extends ConsumerState<TeamMemberDetailPage>
     if (mounted) {
       setState(() {});
     }
+  }
+
+  @override
+  String setKey() {
+    return "teamMemberDetail_$type";
+  }
+
+  @override
+  bool setUserTemporaryValue() {
+    return true;
+  }
+
+  @override
+  changeDataFromJson(json) {
+    return MemberDetailPageList.fromJson(json);
   }
 }

@@ -1,11 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:treasure_nft_project/view_models/collection/collection_type_selling_provider.dart';
 import 'package:treasure_nft_project/widgets/list_view/base_list_interface.dart';
 
 import '../../constant/ui_define.dart';
 import '../../view_models/base_view_model.dart';
+import 'api/collection_api.dart';
+import 'data/collection_nft_item_response_data.dart';
 import 'deposit/deposit_nft_main_view.dart';
 import '../../widgets/button/icon_text_button_widget.dart';
 import '../../widgets/list_view/collection/collection_sell_unsell_item_view.dart';
@@ -23,22 +24,16 @@ class _CollectionSellingListViewState
     extends ConsumerState<CollectionSellingListView> with BaseListInterface {
   @override
   void initState() {
-    ref.read(collectionTypeSellingProvider.notifier).init(onFinish: () {
-      initListView();
-    });
+    init();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return buildGridView(
-        crossAxisCount: 2,
-        spaceWidget: SizedBox(width: UIDefine.getScreenWidth(2.7)),);
-  }
-
-  @override
-  void addCurrentList(List data) {
-    ref.read(collectionTypeSellingProvider.notifier).addList(data);
+      crossAxisCount: 2,
+      spaceWidget: SizedBox(width: UIDefine.getScreenWidth(2.7)),
+    );
   }
 
   @override
@@ -49,12 +44,11 @@ class _CollectionSellingListViewState
         type: 'Selling',
         callBack: (index) => _removeItem(index));
   }
+
   void _removeItem(int index) {
     // 上架,轉出
-    ref.read(collectionTypeSellingProvider).removeAt(index);
-    ref
-        .read(collectionTypeSellingProvider.notifier)
-        .setSharedPreferencesValue(ref.read(collectionTypeSellingProvider));
+    currentItems.removeAt(index);
+    setSharedPreferencesValue(maxSize: maxLoad());
     loadingFinish();
   }
 
@@ -70,23 +64,13 @@ class _CollectionSellingListViewState
   }
 
   @override
-  void clearCurrentList() {
-    ref.read(collectionTypeSellingProvider.notifier).clearList();
+  Future<List> loadData(int page, int size) async {
+    return await CollectionApi()
+        .getNFTItemResponse(page: page, size: size, status: 'SELLING');
   }
 
   @override
-  List getCurrentList() {
-    return ref.read(collectionTypeSellingProvider);
-  }
-
-  @override
-  Future<List> loadData(int page, int size) {
-    return ref
-        .read(collectionTypeSellingProvider.notifier)
-        .loadData(page: page, size: size, needSave: needSave(page, size));
-  }
-
-  bool needSave(int page, int size) {
+  bool needSave(int page) {
     return page == 1;
   }
 
@@ -95,5 +79,20 @@ class _CollectionSellingListViewState
     if (mounted) {
       setState(() {});
     }
+  }
+
+  @override
+  String setKey() {
+    return "collectionTypeSelling";
+  }
+
+  @override
+  bool setUserTemporaryValue() {
+    return true;
+  }
+
+  @override
+  changeDataFromJson(json) {
+    return CollectionNftItemResponseData.fromJson(json);
   }
 }

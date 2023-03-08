@@ -2,9 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
+import '../../constant/call_back_function.dart';
 import '../../constant/global_data.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
+import '../../utils/app_shared_Preferences.dart';
 import '../../utils/app_text_style.dart';
 
 abstract class BaseListInterface {
@@ -14,6 +16,9 @@ abstract class BaseListInterface {
   ///MARK:目前頁數
   int _currentPage = 1;
 
+  ///MARK: 目前的清單
+  List<dynamic> currentItems = [];
+
   ///MARK: 暫存的下一筆資料
   List<dynamic> nextItems = [];
 
@@ -22,18 +27,16 @@ abstract class BaseListInterface {
 
   ///---- 實體化的function
 
-  ///MARK: 取得清單
-  List getCurrentList();
-
-  ///MARK: 更新清單
-  void addCurrentList(List data);
-
-  void clearCurrentList();
-
   void loadingFinish();
+
+  ///MARK: 轉型別，需轉成此清單的類型
+  dynamic changeDataFromJson(json);
 
   ///MARK: 讀取資料
   Future<List<dynamic>> loadData(int page, int size);
+
+  ///MARK: 判斷是否要存進sharePref
+  bool needSave(int page);
 
   ///MARK:判斷是否有上方view
   Widget? buildTopView();
@@ -54,6 +57,61 @@ abstract class BaseListInterface {
   ///MARK: 是否自動讀取(僅支援listview)
   bool isAutoReloadMore() {
     return true;
+  }
+
+  ///-----暫存相關-----
+  /// 定義此SharedPreferencesKey
+  String setKey();
+
+  /// 定義此provider 是否為user相關資料
+  /// 如果為true，則會在使用者登出後自動清除
+  bool setUserTemporaryValue();
+
+  ///-----初始化-----
+
+  /// 設定初始值
+  Future<void> initValue() async {
+    currentItems = [];
+  }
+
+  /// 讀取 SharedPreferencesKey 內容並轉成對應值
+  Future<void> readSharedPreferencesValue() async {
+    var json = await AppSharedPreferences.getJson(getSharedPreferencesKey());
+    if (json != null) {
+      List<dynamic> list =
+          List<dynamic>.from(json.map((x) => changeDataFromJson(x)));
+      currentItems = [...list];
+    }
+  }
+
+  /// 將 內容 存入 SharedPreferencesKey
+  /// list view的狀態下 最多只會存10筆
+  Future<void> setSharedPreferencesValue({int? maxSize}) async {
+    if (maxSize != null) {
+      List<dynamic> preList = [];
+      for (int i = 0; i < currentItems.length && i < maxSize; i++) {
+        preList.add(currentItems[i].toJson());
+      }
+      await AppSharedPreferences.setJson(getSharedPreferencesKey(), preList);
+    } else {
+      await AppSharedPreferences.setJson(getSharedPreferencesKey(),
+          List<dynamic>.from(currentItems.map((x) => x.toJson())));
+    }
+  }
+
+  String getSharedPreferencesKey() {
+    return '${setKey()}${setUserTemporaryValue() ? "_tmp" : ""}';
+  }
+
+  Future<void> init() async {
+    await Future.delayed(const Duration(milliseconds: 300));
+    if (await AppSharedPreferences.checkKey(getSharedPreferencesKey())) {
+      await readSharedPreferencesValue();
+    } else {
+      await initValue();
+    }
+    loadingFinish();
+    initListView();
   }
 
   ///-----邏輯判斷------
@@ -109,8 +167,8 @@ abstract class BaseListInterface {
     _showWaitLoad = true;
     if (_currentPage == 1) {
       var list = await loadData(_currentPage, maxLoad());
-      clearCurrentList();
-      addCurrentList(list);
+      currentItems.clear();
+      currentItems.addAll(list);
 
       ///MARK:代表需要讀下一筆
       if (list.length >= maxLoad()) {
@@ -122,7 +180,7 @@ abstract class BaseListInterface {
         nextItems = [];
       }
     } else {
-      addCurrentList(nextItems);
+      currentItems.addAll(nextItems);
 
       ///MARK:代表需要讀下一筆
       if (nextItems.length >= maxLoad()) {
@@ -134,13 +192,16 @@ abstract class BaseListInterface {
         nextItems = [];
       }
     }
+    if (needSave(_currentPage)) {
+      setSharedPreferencesValue();
+    }
   }
 
   void _clearListView() {
     _currentPage = 1;
     nextItems.clear();
     removeItems.clear();
-    clearCurrentList();
+    currentItems.clear();
   }
 
   void removeItem(int index) {
@@ -157,8 +218,7 @@ abstract class BaseListInterface {
       {bool shrinkWrap = true,
       ScrollPhysics? physics,
       EdgeInsetsGeometry? padding}) {
-    List<dynamic> list = getCurrentList();
-    int length = list.length;
+    int length = currentItems.length;
     Widget? topView = buildTopView();
     bool hasTopView = topView != null;
 
@@ -181,10 +241,11 @@ abstract class BaseListInterface {
             scrollDirection: Axis.vertical,
             itemBuilder: (context, index) {
               int itemIndex = index;
-              if (itemIndex != list.length) {
+              if (itemIndex != currentItems.length) {
                 return Visibility(
                     visible: !removeItems.contains(itemIndex),
-                    child: buildItemBuilder(itemIndex, list[itemIndex]));
+                    child:
+                        buildItemBuilder(itemIndex, currentItems[itemIndex]));
               } else {
                 if (!_showWaitLoad &&
                     (!isAutoReloadMore() && nextItems.isNotEmpty)) {
@@ -203,12 +264,12 @@ abstract class BaseListInterface {
       bool shrinkWrap = true,
       ScrollPhysics? physics,
       EdgeInsetsGeometry? padding}) {
-    List<dynamic> list = getCurrentList();
-    int rowLength = list.isNotEmpty ? list.length ~/ crossAxisCount : 0;
+    int rowLength =
+        currentItems.isNotEmpty ? currentItems.length ~/ crossAxisCount : 0;
 
     ///MARK: 有多一行就++
     if (rowLength > 0) {
-      rowLength += (list.length % crossAxisCount > 0) ? 1 : 0;
+      rowLength += (currentItems.length % crossAxisCount > 0) ? 1 : 0;
     }
     Widget? topView = buildTopView();
     bool hasTopView = topView != null;
@@ -237,7 +298,7 @@ abstract class BaseListInterface {
                 List<Widget> row = [];
                 for (int i = 0; i < crossAxisCount; i++) {
                   int itemIndex = rowIndex * crossAxisCount + i;
-                  if (itemIndex >= list.length) {
+                  if (itemIndex >= currentItems.length) {
                     row.add(const Expanded(child: SizedBox()));
                   } else {
                     row.add(Expanded(
@@ -245,8 +306,8 @@ abstract class BaseListInterface {
                         alignment: Alignment.center,
                         child: Visibility(
                             visible: !removeItems.contains(itemIndex),
-                            child:
-                                buildItemBuilder(itemIndex, list[itemIndex])),
+                            child: buildItemBuilder(
+                                itemIndex, currentItems[itemIndex])),
                       ),
                     ));
                   }

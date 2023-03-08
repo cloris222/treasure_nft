@@ -1,12 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:treasure_nft_project/view_models/collection/collection_type_pending_provider.dart';
 import 'package:treasure_nft_project/widgets/list_view/base_list_interface.dart';
 
 import '../../constant/ui_define.dart';
 import '../../view_models/base_view_model.dart';
 import '../../view_models/collection/collection_main_view_model.dart';
+import 'api/collection_api.dart';
+import 'data/collection_nft_item_response_data.dart';
 import 'deposit/deposit_nft_main_view.dart';
 import '../../widgets/button/icon_text_button_widget.dart';
 import '../../widgets/list_view/collection/collection_blind_box_item_view.dart';
@@ -25,9 +26,7 @@ class _CollectionPendingListViewState
     extends ConsumerState<CollectionPendingListView> with BaseListInterface {
   @override
   void initState() {
-    ref.read(collectionTypePendingProvider.notifier).init(onFinish: () {
-      initListView();
-    });
+    init();
     super.initState();
   }
 
@@ -36,11 +35,6 @@ class _CollectionPendingListViewState
     return buildGridView(
         crossAxisCount: 2,
         spaceWidget: SizedBox(width: UIDefine.getScreenWidth(2.7)));
-  }
-
-  @override
-  void addCurrentList(List data) {
-    ref.read(collectionTypePendingProvider.notifier).addList(data);
   }
 
   @override
@@ -90,19 +84,16 @@ class _CollectionPendingListViewState
 
   void _updateItem(int index) {
     // 解鎖
-    ref.read(collectionTypePendingProvider)[index].status = 'PENDING';
-    ref
-        .read(collectionTypePendingProvider.notifier)
-        .setSharedPreferencesValue(ref.read(collectionTypePendingProvider));
+    currentItems[index].status = 'PENDING';
+    setSharedPreferencesValue(maxSize: maxLoad());
+
     loadingFinish();
   }
 
   void _removeItem(int index) {
     // 上架,轉出
-    ref.read(collectionTypePendingProvider).removeAt(index);
-    ref
-        .read(collectionTypePendingProvider.notifier)
-        .setSharedPreferencesValue(ref.read(collectionTypePendingProvider));
+    currentItems.removeAt(index);
+    setSharedPreferencesValue(maxSize: maxLoad());
     loadingFinish();
   }
 
@@ -118,24 +109,9 @@ class _CollectionPendingListViewState
   }
 
   @override
-  void clearCurrentList() {
-    ref.read(collectionTypePendingProvider.notifier).clearList();
-  }
-
-  @override
-  List getCurrentList() {
-    return ref.read(collectionTypePendingProvider);
-  }
-
-  @override
   Future<List> loadData(int page, int size) async {
-    return ref
-        .read(collectionTypePendingProvider.notifier)
-        .loadData(page: page, size: size, needSave: needSave(page, size));
-  }
-
-  bool needSave(int page, int size) {
-    return page == 1;
+    return await CollectionApi()
+        .getNFTItemResponse(page: page, size: size, status: 'PENDING');
   }
 
   @override
@@ -143,5 +119,25 @@ class _CollectionPendingListViewState
     if (mounted) {
       setState(() {});
     }
+  }
+
+  @override
+  bool needSave(int page) {
+    return page == 1;
+  }
+
+  @override
+  String setKey() {
+    return "collectionTypePending";
+  }
+
+  @override
+  bool setUserTemporaryValue() {
+    return true;
+  }
+
+  @override
+  changeDataFromJson(json) {
+    return CollectionNftItemResponseData.fromJson(json);
   }
 }

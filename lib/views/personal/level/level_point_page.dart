@@ -7,8 +7,9 @@ import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 
 import '../../../constant/enum/team_enum.dart';
 import '../../../constant/theme/app_style.dart';
+import '../../../models/http/api/mission_api.dart';
+import '../../../models/http/parameter/point_record_data.dart';
 import '../../../view_models/control_router_viem_model.dart';
-import '../../../view_models/personal/level/level_point_provider.dart';
 import '../../../widgets/date_picker/custom_date_picker.dart';
 import '../../../widgets/label/background_with_land.dart';
 import '../../../widgets/list_view/base_list_interface.dart';
@@ -33,9 +34,7 @@ class _LevelPointPageState extends ConsumerState<LevelPointPage>
 
   @override
   void initState() {
-    ref.read(levelPointRecordListProvider.notifier).init(onFinish: () {
-      initListView();
-    });
+    init();
 
     super.initState();
   }
@@ -66,8 +65,6 @@ class _LevelPointPageState extends ConsumerState<LevelPointPage>
   @override
   Widget buildItemBuilder(int index, data) {
     bool isEnd = false;
-    List currentItems =
-        ref.watch(levelPointRecordListProvider.select((value) => value));
     if (currentItems.isNotEmpty) {
       isEnd = (currentItems.length - 1 == index);
     }
@@ -158,32 +155,14 @@ class _LevelPointPageState extends ConsumerState<LevelPointPage>
   }
 
   @override
-  List getCurrentList() {
-    return ref.watch(levelPointRecordListProvider);
+  Future<List> loadData(int page, int size) async {
+    return await MissionAPI().getPointRecord(
+        page: page, size: size, startDate: startDate, endDate: endDate);
   }
 
   @override
-  Future<List> loadData(int page, int size) async {
-    return await ref.watch(levelPointRecordListProvider.notifier).loadData(
-        page: page,
-        size: size,
-        startDate: startDate,
-        endDate: endDate,
-        needSave: needSave(page));
-  }
-
   bool needSave(int page) {
     return page == 1 && currentType == Search.Today;
-  }
-
-  @override
-  void addCurrentList(List data) {
-    ref.read(levelPointRecordListProvider.notifier).addList(data);
-  }
-
-  @override
-  void clearCurrentList() {
-    ref.read(levelPointRecordListProvider.notifier).clearList();
   }
 
   @override
@@ -191,5 +170,20 @@ class _LevelPointPageState extends ConsumerState<LevelPointPage>
     if (mounted) {
       setState(() {});
     }
+  }
+
+  @override
+  String setKey() {
+    return "levelPointRecord";
+  }
+
+  @override
+  bool setUserTemporaryValue() {
+    return true;
+  }
+
+  @override
+  changeDataFromJson(json) {
+    return PointRecordData.fromJson(json);
   }
 }
