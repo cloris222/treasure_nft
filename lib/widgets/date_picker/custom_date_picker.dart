@@ -24,12 +24,14 @@ class CustomDatePickerWidget extends StatefulWidget {
     ],
     required this.dateCallback,
     this.typeCallback,
+    this.needCancel = false,
   });
 
   final onDateFunction dateCallback;
   final onDateTypeFunction? typeCallback;
   final Search? initType;
   final List<Search> typeList;
+  final bool needCancel;
 
   @override
   State<StatefulWidget> createState() {
@@ -81,7 +83,7 @@ class CustomDatePickerState extends State<CustomDatePickerWidget> {
                           color: AppColors.textBlack,
                           fontSize: UIDefine.fontSize14),
                     ),
-                    Image.asset(AppImagePath.dateIcon),
+                    _buildIcon()
                   ]))),
 
       getPadding(2),
@@ -198,5 +200,16 @@ class CustomDatePickerState extends State<CustomDatePickerWidget> {
       }
       widget.dateCallback(startDate, endDate);
     });
+  }
+
+  Widget _buildIcon() {
+    if (widget.needCancel) {
+      if (startDate.isNotEmpty && endDate.isNotEmpty) {
+        return GestureDetector(
+            onTap: () => _onPressChoose(Search.All),
+            child: const Icon(Icons.cancel, color: AppColors.textThreeBlack));
+      }
+    }
+    return Image.asset(AppImagePath.dateIcon);
   }
 }

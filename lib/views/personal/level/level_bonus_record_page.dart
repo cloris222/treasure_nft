@@ -60,12 +60,16 @@ class _LevelBonusRecordPageState extends State<LevelBonusRecordPage> {
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
-          child: CustomDatePickerWidget(typeList: const [
-            Search.Today,
-            Search.Yesterday,
-            Search.ThisWeek,
-            Search.ThisMonth
-          ], dateCallback: _onDataCallback),
+          child: CustomDatePickerWidget(
+            typeList: const [
+              Search.Today,
+              Search.Yesterday,
+              Search.ThisWeek,
+              Search.ThisMonth
+            ],
+            dateCallback: _onDataCallback,
+            needCancel: true,
+          ),
         ),
         SizedBox(height: UIDefine.getPixelWidth(15)),
         Expanded(
@@ -79,7 +83,7 @@ class _LevelBonusRecordPageState extends State<LevelBonusRecordPage> {
                 EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(20)),
             child: PageView(
               controller: pageController,
-              physics: const NeverScrollableScrollPhysics(),
+              onPageChanged: _onPageChange,
               children: [
                 LevelReferralBonusRecordListView(
                     startTime: startTime, endTime: endTime),
@@ -121,6 +125,12 @@ class _LevelBonusRecordPageState extends State<LevelBonusRecordPage> {
         ),
       ],
     );
+  }
+
+  void _onPageChange(int value) {
+    setState(() {
+      currentIndex = value;
+    });
   }
 
   Widget _buildButton(int index, String type) {

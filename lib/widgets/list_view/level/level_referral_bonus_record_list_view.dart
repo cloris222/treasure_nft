@@ -1,11 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/models/http/api/level_api.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
-import 'package:treasure_nft_project/widgets/gradient_text.dart';
 import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
 import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart';
 import 'package:treasure_nft_project/widgets/list_view/base_list_interface.dart';
@@ -45,7 +43,11 @@ class _LevelReferralBonusRecordListViewState
 
   @override
   void initState() {
-    init();
+    if (widget.endTime.isEmpty && widget.startTime.isEmpty) {
+      init();
+    } else {
+      initListView();
+    }
     super.initState();
   }
 
@@ -59,9 +61,8 @@ class _LevelReferralBonusRecordListViewState
   }
 
   void _onTapRecordMarker(BonusReferralRecordData record) {
-
-    BaseViewModel().pushPage(context,
-        OtherCollectPage(isSeller: true, orderNo: record.orderNo));
+    BaseViewModel().pushPage(
+        context, OtherCollectPage(isSeller: true, orderNo: record.orderNo));
   }
 
   @override
@@ -113,24 +114,32 @@ class _LevelReferralBonusRecordListViewState
             SizedBox(width: UIDefine.getPixelWidth(10)),
             Expanded(
                 child: Column(mainAxisSize: MainAxisSize.min, children: [
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                Text(tr('orderNo'),
-                    style: AppTextStyle.getBaseStyle(
-                        fontSize: UIDefine.fontSize14,
-                        color: AppColors.textSixBlack)),
-                Text(record.orderNo,
-                    style: AppTextStyle.getBaseStyle(
-                        fontSize: UIDefine.fontSize14,
-                        fontWeight: FontWeight.w400))
-              ]),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Flexible(
+                      child: Text(tr('orderNo'),
+                          style: AppTextStyle.getBaseStyle(
+                              fontSize: UIDefine.fontSize14,
+                              color: AppColors.textSixBlack)),
+                    ),
+                    Text(record.orderNo,
+                        style: AppTextStyle.getBaseStyle(
+                            fontSize: UIDefine.fontSize14,
+                            fontWeight: FontWeight.w400))
+                  ]),
               SizedBox(height: UIDefine.getPixelWidth(5)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(tr('nickname'),
-                      style: AppTextStyle.getBaseStyle(
-                          fontSize: UIDefine.fontSize14,
-                          color: AppColors.textSixBlack)),
+                  Flexible(
+                    child: Text(tr('nickname'),
+                        style: AppTextStyle.getBaseStyle(
+                            fontSize: UIDefine.fontSize14,
+                            color: AppColors.textSixBlack)),
+                  ),
                   GestureDetector(
                       onTap: () => _onTapRecordMarker(record),
                       child: GradientThirdText(record.makerName,
@@ -140,13 +149,15 @@ class _LevelReferralBonusRecordListViewState
               SizedBox(height: UIDefine.getPixelWidth(5)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(tr('bonus'),
-                      style: AppTextStyle.getBaseStyle(
-                          fontSize: UIDefine.fontSize14,
-                          color: AppColors.textSixBlack)),
-                  Text(
-                      '${record.spreadSavingsRate} %',
+                  Flexible(
+                    child: Text(tr('bonus'),
+                        style: AppTextStyle.getBaseStyle(
+                            fontSize: UIDefine.fontSize14,
+                            color: AppColors.textSixBlack)),
+                  ),
+                  Text('${record.spreadSavingsRate} %',
                       style: AppTextStyle.getBaseStyle(
                           fontSize: UIDefine.fontSize14,
                           fontWeight: FontWeight.w400))
@@ -155,11 +166,14 @@ class _LevelReferralBonusRecordListViewState
               SizedBox(height: UIDefine.getPixelWidth(5)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(tr('income'),
-                      style: AppTextStyle.getBaseStyle(
-                          fontSize: UIDefine.fontSize14,
-                          color: AppColors.textSixBlack)),
+                  Flexible(
+                    child: Text(tr('income'),
+                        style: AppTextStyle.getBaseStyle(
+                            fontSize: UIDefine.fontSize14,
+                            color: AppColors.textSixBlack)),
+                  ),
                   Text(
                       NumberFormatUtil()
                           .removeCustomPointFormat(record.income, 2),
@@ -174,12 +188,14 @@ class _LevelReferralBonusRecordListViewState
                 children: [
                   TetherCoinWidget(size: UIDefine.getPixelWidth(15)),
                   SizedBox(width: UIDefine.getPixelWidth(5)),
-                  Text(
-                      NumberFormatUtil()
-                          .removeCustomPointFormat(record.price, 2),
-                      style: AppTextStyle.getBaseStyle(
-                          fontSize: UIDefine.fontSize16,
-                          fontWeight: FontWeight.w600))
+                  Flexible(
+                    child: Text(
+                        NumberFormatUtil()
+                            .removeCustomPointFormat(record.price, 2),
+                        style: AppTextStyle.getBaseStyle(
+                            fontSize: UIDefine.fontSize16,
+                            fontWeight: FontWeight.w600)),
+                  )
                 ],
               )
             ]))
