@@ -22,7 +22,7 @@ class _LevelTradeBonusRecordListViewState
   @override
   void didUpdateWidget(covariant LevelTradeBonusRecordListView oldWidget) {
     ///MARK: 代表數值有更動
-    if (oldWidget.endTime.compareTo(widget.endTime) != 0 &&
+    if (oldWidget.endTime.compareTo(widget.endTime) != 0 ||
         oldWidget.startTime.compareTo(widget.startTime) != 0) {
       initListView();
     }

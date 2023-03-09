@@ -27,13 +27,25 @@ class BonusReferralRecordData {
   });
 
   String itemName;
+
+  ///訂單等級
   String orderLevel;
   DateTime createdAt;
   String imgUrl;
+
+  ///訂單編號
   String orderNo;
+
+  ///暱稱(賣家暱稱)
   String makerName;
+
+  ///獎勵 (推廣交易儲金罐獲得的%)
   num spreadSavingsRate;
+
+  ///收入
   num income;
+
+  ///價格
   num price;
 
   factory BonusReferralRecordData.fromJson(Map<String, dynamic> json) =>

@@ -11,6 +11,20 @@ class NumberFormatUtil {
         format: '#,##0.##', value: double.parse(removePointFormat(value, 2)));
   }
 
+  ///MARK: 小數點兩位 無條件捨去
+  String removeCustomPointFormat(dynamic value, int point) {
+    String format = '#,##0.';
+    if (point < 0) {
+      point = 1;
+    }
+    for (int i = 0; i < point; i++) {
+      format += '#';
+    }
+    return _setNumberFormat(
+        format: format,
+        value: double.parse(removePointFormat(value, point)));
+  }
+
   ///取整數
   String integerFormat(dynamic value, {bool hasSeparator = true}) {
     return _setNumberFormat(
