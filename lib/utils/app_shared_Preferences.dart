@@ -31,6 +31,21 @@ class AppSharedPreferences {
     }
   }
 
+  static Future<void> setDouble(String key, double value) async {
+    SharedPreferences pref = await _getPreferences();
+    await pref.setDouble(key, value);
+  }
+
+  static Future<double> getDouble(String key,
+      {double defaultValue = 0}) async {
+    SharedPreferences pref = await _getPreferences();
+    if (await checkKey(key, pref: pref)) {
+      return pref.getDouble(key)!;
+    } else {
+      return defaultValue;
+    }
+  }
+
   static Future<void> setBool(String key, bool value) async {
     SharedPreferences pref = await _getPreferences();
     await pref.setBool(key, value);
