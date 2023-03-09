@@ -63,6 +63,7 @@ class _UserCreatePageState extends ConsumerState<UserCreatePage> {
   @override
   Widget build(BuildContext context) {
     ref.watch(userCreateRateProvider);
+    ref.watch(userCreateWhiteProvider);
     return CustomAppbarView(
       needScrollView: false,
       onLanguageChange: () {

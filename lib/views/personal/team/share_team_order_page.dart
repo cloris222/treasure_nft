@@ -111,7 +111,9 @@ class _ShareTeamOrderPageState extends ConsumerState<ShareTeamOrderPage> {
       Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         userInfo.photoUrl.isNotEmpty
             ? CircleNetworkIcon(
-                networkUrl: userInfo.photoUrl, radius: iconHeight / 2)
+                showNormal: true,
+                networkUrl: userInfo.photoUrl,
+                radius: iconHeight / 2)
             : Image.asset(AppImagePath.avatarImg,
                 width: iconHeight, height: iconHeight),
         SizedBox(width: UIDefine.getScreenWidth(5)),
