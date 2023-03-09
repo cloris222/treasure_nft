@@ -3,7 +3,7 @@ import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
-import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
+import 'package:treasure_nft_project/views/personal/team/team_main_style.dart';
 
 class AllMembersCard extends StatelessWidget {
   const AllMembersCard(
@@ -24,7 +24,6 @@ class AllMembersCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TeamMemberViewModel viewModel = TeamMemberViewModel();
     return Container(
         alignment: Alignment.centerLeft,
         width: UIDefine.getWidth(),
@@ -81,7 +80,7 @@ class AllMembersCard extends StatelessWidget {
                     ]),
               ),
             ),
-            viewModel.getPadding(1)
+            TeamMainStyle().getPadding(1)
           ],
         ));
   }

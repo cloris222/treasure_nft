@@ -4,16 +4,17 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
-import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
 import 'package:treasure_nft_project/views/personal/team/team_contribution_member_view.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/widgets/date_picker/custom_date_picker.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart';
 
 import '../../../view_models/personal/team/team_contribution_viewmodel.dart';
 import '../../../widgets/slider_page_view.dart';
+import 'team_main_style.dart';
 
 ///MARK:團隊貢獻
 class TeamContributionPage extends StatefulWidget {
@@ -50,7 +51,7 @@ class Body extends StatefulWidget {
 }
 
 class BodyState extends State<Body> {
-  TeamMemberViewModel memberViewModel = TeamMemberViewModel();
+  TeamMainStyle style = TeamMainStyle();
   late TeamContributionViewModel viewModel;
 
   List<String> titles = [
@@ -127,7 +128,7 @@ class BodyState extends State<Body> {
               _buildInfo(tr('A-antiCommission\''),
                   viewModel.teamContribute.directShare),
             ]),
-            memberViewModel.getPadding(3),
+            style.getPadding(3),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               /// B級獎勵
               _buildInfo(tr('B-antiCommission\''),
@@ -147,8 +148,8 @@ class BodyState extends State<Body> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            memberViewModel.getCoinImage(),
-            memberViewModel.getPadding(0.5),
+            TetherCoinWidget(size: UIDefine.getPixelWidth(14)),
+            style.getPadding(0.5),
             Text(NumberFormatUtil().removeTwoPointFormat(value),
                 style: AppTextStyle.getBaseStyle(
                     color: AppColors.textBlack,
@@ -156,7 +157,7 @@ class BodyState extends State<Body> {
                     fontWeight: FontWeight.w600))
           ],
         ),
-        memberViewModel.getPadding(1),
+        style.getPadding(1),
         Text(title,
             style: AppTextStyle.getBaseStyle(
                 color: AppColors.textSixBlack,

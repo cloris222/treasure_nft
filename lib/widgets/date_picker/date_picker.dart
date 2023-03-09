@@ -5,7 +5,7 @@ import 'package:treasure_nft_project/constant/enum/team_enum.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
-import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
+import 'package:treasure_nft_project/utils/date_format_util.dart';
 import 'package:treasure_nft_project/views/home/widget/search_action_button.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 
@@ -33,7 +33,6 @@ class DatePickerWidget extends StatefulWidget {
 }
 
 class DatePickerState extends State<DatePickerWidget> {
-  TeamMemberViewModel viewModel = TeamMemberViewModel();
   Search buttonType = Search.All;
 
   late String startDate;
@@ -53,10 +52,14 @@ class DatePickerState extends State<DatePickerWidget> {
     }
   }
 
+  Widget getPadding(double val) {
+    return Padding(padding: EdgeInsets.all(UIDefine.getScreenWidth(val)));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      viewModel.getPadding(3),
+      getPadding(3),
 
       /// 日期選擇器
       GestureDetector(
@@ -67,18 +70,20 @@ class DatePickerState extends State<DatePickerWidget> {
           child: Container(
             width: UIDefine.getWidth(),
             height: UIDefine.getPixelWidth(40),
-            decoration: viewModel.setBoxDecoration(),
+            decoration: BoxDecoration(
+                border: Border.all(width: 1, color: AppColors.bolderGrey),
+                borderRadius: BorderRadius.circular(8)),
             child: Row(
               children: [
-                viewModel.getPadding(1),
+                getPadding(1),
                 Image.asset(AppImagePath.dateIcon),
-                viewModel.getPadding(1),
+                getPadding(1),
                 Text(
                   startDate,
                   style: AppTextStyle.getBaseStyle(
                       color: AppColors.textGrey, fontSize: UIDefine.fontSize14),
                 ),
-                viewModel.getPadding(1),
+                getPadding(1),
                 Visibility(
                     visible: endDate != '',
                     child: Text(
@@ -87,7 +92,7 @@ class DatePickerState extends State<DatePickerWidget> {
                           color: AppColors.textGrey,
                           fontSize: UIDefine.fontSize14),
                     )),
-                viewModel.getPadding(1),
+                getPadding(1),
                 Text(
                   endDate,
                   style: AppTextStyle.getBaseStyle(
@@ -97,7 +102,7 @@ class DatePickerState extends State<DatePickerWidget> {
             ),
           )),
 
-      viewModel.getPadding(2),
+      getPadding(2),
 
       /// 快速搜尋按鈕列
       Visibility(
@@ -121,54 +126,54 @@ class DatePickerState extends State<DatePickerWidget> {
                           },
                         ),
                       ),
-                      viewModel.getPadding(2),
+                      getPadding(2),
                       SearchActionButton(
                         isSelect: buttonType == Search.Today,
                         btnText: tr('today'),
                         onPressed: () async {
                           buttonType = Search.Today;
 
-                          startDate = viewModel.dateTimeFormat(DateTime.now());
-                          endDate = viewModel.dateTimeFormat(DateTime.now());
+                          startDate = DateFormatUtil().getTimeWithDayFormat();
+                          endDate = DateFormatUtil().getTimeWithDayFormat();
 
                           widget.dateCallback(startDate, endDate);
                         },
                       ),
-                      viewModel.getPadding(2),
+                      getPadding(2),
                       SearchActionButton(
                         isSelect: buttonType == Search.Yesterday,
                         btnText: tr('yesterday'),
                         onPressed: () async {
                           buttonType = Search.Yesterday;
 
-                          startDate = viewModel.getDays(1);
-                          endDate = viewModel.getDays(1);
+                          startDate = DateFormatUtil().getBeforeDays(1);
+                          endDate = DateFormatUtil().getBeforeDays(1);
 
                           widget.dateCallback(startDate, endDate);
                         },
                       ),
-                      viewModel.getPadding(2),
+                      getPadding(2),
                       SearchActionButton(
                         isSelect: buttonType == Search.SevenDays,
                         btnText: tr('day7'),
                         onPressed: () async {
                           buttonType = Search.SevenDays;
 
-                          startDate = viewModel.getDays(7);
-                          endDate = viewModel.dateTimeFormat(DateTime.now());
+                          startDate = DateFormatUtil().getBeforeDays(7);
+                          endDate = DateFormatUtil().getTimeWithDayFormat();
 
                           widget.dateCallback(startDate, endDate);
                         },
                       ),
-                      viewModel.getPadding(2),
+                      getPadding(2),
                       SearchActionButton(
                         isSelect: buttonType == Search.ThirtyDays,
                         btnText: tr('day30'),
                         onPressed: () async {
                           buttonType = Search.ThirtyDays;
 
-                          startDate = viewModel.getDays(30);
-                          endDate = viewModel.dateTimeFormat(DateTime.now());
+                          startDate = DateFormatUtil().getBeforeDays(30);
+                          endDate = DateFormatUtil().getTimeWithDayFormat();
 
                           widget.dateCallback(startDate, endDate);
 
@@ -192,8 +197,9 @@ class DatePickerState extends State<DatePickerWidget> {
             firstDate: DateTime(2022, 10),
             lastDate: DateTime.now())
         .then((value) => {
-              startDate = viewModel.dateTimeFormat(value?.start),
-              endDate = viewModel.dateTimeFormat(value?.end),
+              startDate =
+                  DateFormatUtil().getTimeWithDayFormat(time: value?.start),
+              endDate = DateFormatUtil().getTimeWithDayFormat(time: value?.end),
             })
         .then((value) async => {
               widget.dateCallback(startDate, endDate),

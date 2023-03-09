@@ -6,9 +6,10 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_order.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
-import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
 import 'package:treasure_nft_project/views/personal/team/share_team_order_page.dart';
+import 'package:treasure_nft_project/views/personal/team/team_main_style.dart';
 import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
+import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 
@@ -24,7 +25,7 @@ class TeamOrderItemView extends StatefulWidget {
 }
 
 class _TeamOrderItem extends State<TeamOrderItemView> {
-  TeamMemberViewModel viewModel = TeamMemberViewModel();
+  TeamMainStyle style = TeamMainStyle();
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,7 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
           ],
         ),
       ),
-      viewModel.getPadding(1),
+      style.getPadding(1),
 
       /// Name
       Row(
@@ -71,18 +72,18 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
         ],
       ),
 
-      viewModel.getPadding(1),
+      style.getPadding(1),
 
       /// Time
       Wrap(children: [
-        Text(viewModel.changeTimeZone(widget.itemData.time),
+        Text(BaseViewModel().changeTimeZone(widget.itemData.time),
             style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize12,
                 color: AppColors.textNineBlack,
                 fontWeight: FontWeight.w400))
       ]),
 
-      viewModel.getPadding(1),
+      style.getPadding(1),
 
       /// buyer
       Row(
@@ -106,7 +107,7 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
             ),
           ]),
 
-      viewModel.getPadding(1),
+      style.getPadding(1),
 
       /// seller
       Row(
@@ -130,7 +131,7 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
             ),
           ]),
 
-      viewModel.getPadding(1),
+      style.getPadding(1),
 
       /// income
       Visibility(
@@ -147,11 +148,11 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
               color: AppColors.textSixBlack,
             ),
           ),
-          viewModel.getPadding(1),
+          style.getPadding(1),
           Row(
             children: [
-              viewModel.getCoinImage(size: 12),
-              viewModel.getPadding(0.5),
+              TetherCoinWidget(size: UIDefine.getPixelWidth(12)),
+              style.getPadding(0.5),
               Text(
                 NumberFormatUtil().removeTwoPointFormat(widget.itemData.income),
                 style: AppTextStyle.getBaseStyle(
@@ -164,7 +165,7 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
         ]),
       ),
 
-      viewModel.getPadding(1),
+      style.getPadding(1),
 
       /// 儲金罐
       Visibility(
@@ -181,11 +182,11 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
               color: AppColors.textSixBlack,
             ),
           ),
-          viewModel.getPadding(1),
+          style.getPadding(1),
           Row(
             children: [
-              viewModel.getCoinImage(size: 12),
-              viewModel.getPadding(0.5),
+              TetherCoinWidget(size: UIDefine.getPixelWidth(12)),
+              style.getPadding(0.5),
               Text(
                 NumberFormatUtil()
                     .removeTwoPointFormat(widget.itemData.moneyBox),
@@ -205,8 +206,8 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
         Container(),
         Row(
           children: [
-            viewModel.getCoinImage(size: 12),
-            viewModel.getPadding(0.5),
+            TetherCoinWidget(size: UIDefine.getPixelWidth(12)),
+            style.getPadding(0.5),
             Text(
               NumberFormatUtil().removeTwoPointFormat(widget.itemData.price),
               style: AppTextStyle.getBaseStyle(
