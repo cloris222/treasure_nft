@@ -7,6 +7,7 @@ import 'package:treasure_nft_project/constant/enum/task_enum.dart';
 import 'package:treasure_nft_project/models/http/api/mission_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/medal_info_data.dart';
 import 'package:treasure_nft_project/models/http/parameter/task_info_data.dart';
+import 'package:treasure_nft_project/utils/date_format_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/personal/level/achievement/achievement_achieve_finish_page.dart';
 
@@ -88,7 +89,7 @@ class LevelAchievementViewModel extends BaseViewModel {
     onViewChange();
     setSharePrefAchieveList();
     updateAchieveList();
-   updateMedalList();
+    updateMedalList();
   }
 
   void setMedalCode(BuildContext context, WidgetRef ref, String code) {
@@ -101,9 +102,19 @@ class LevelAchievementViewModel extends BaseViewModel {
   }
 
   Future<List<TaskInfoData>> getSharePrefDailyList() async {
-    var json = await AppSharedPreferences.getJson("levelDaily_tmp");
-    if (json != null) {
-      return List<TaskInfoData>.from(json.map((x) => TaskInfoData.fromJson(x)));
+    String saveDate =
+        await AppSharedPreferences.getString('levelDailySaveDate_tmp');
+    if (saveDate.isNotEmpty) {
+      String today = DateFormatUtil().getTimeWithDayFormat();
+
+      ///MARK: 如果是日期相同才讀暫存
+      if (today.compareTo(saveDate) == 0) {
+        var json = await AppSharedPreferences.getJson("levelDaily_tmp");
+        if (json != null) {
+          return List<TaskInfoData>.from(
+              json.map((x) => TaskInfoData.fromJson(x)));
+        }
+      }
     }
     return [];
   }
@@ -128,6 +139,10 @@ class LevelAchievementViewModel extends BaseViewModel {
   Future<void> setSharePrefDailyList() async {
     await AppSharedPreferences.setJson(
         "levelDaily_tmp", List<dynamic>.from(dailyList.map((x) => x.toJson())));
+
+    ///存暫存時 同時存入日期
+    await AppSharedPreferences.setString(
+        'levelDailySaveDate_tmp', DateFormatUtil().getTimeWithDayFormat());
   }
 
   Future<void> setSharePrefAchieveList() async {
