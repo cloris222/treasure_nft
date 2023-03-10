@@ -22,7 +22,7 @@ class _TeamContributeListView extends State<TeamContributeListView> {
   Widget createItemBuilder(BuildContext context, int index) {
     return TeamContributeItemView(
       itemData: widget.list[index],
-      itemCount: index,
+      serialNumber: index,
     );
   }
 

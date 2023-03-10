@@ -95,10 +95,6 @@ class GroupAPI extends HttpManager {
     });
     for (Map<String, dynamic> json in response.data['pageList']) {
       list.add(TeamContributeList.fromJson(json));
-      list.add(TeamContributeList.fromJson(json));
-      list.add(TeamContributeList.fromJson(json));
-      list.add(TeamContributeList.fromJson(json));
-
     }
     return list;
   }

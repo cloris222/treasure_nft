@@ -9,10 +9,10 @@ import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart'
 
 class TeamContributeItemView extends StatelessWidget {
   const TeamContributeItemView(
-      {super.key, required this.itemData, required this.itemCount});
+      {super.key, required this.itemData, required this.serialNumber});
 
   final TeamContributeList itemData;
-  final int itemCount;
+  final int serialNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class TeamContributeItemView extends StatelessWidget {
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Expanded(
             flex: 2,
-            child: Text('$itemCount. ${itemData.name}',
+            child: Text('$serialNumber. ${itemData.name}',
                 textAlign: TextAlign.start,
                 style: AppTextStyle.getBaseStyle(
                     fontSize: UIDefine.fontSize14,

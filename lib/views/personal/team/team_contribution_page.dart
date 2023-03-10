@@ -1,9 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
+import 'package:treasure_nft_project/view_models/personal/team/team_contribution_info_provider.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
 import 'package:treasure_nft_project/views/personal/team/team_contribution_member_view.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
@@ -12,25 +14,49 @@ import 'package:treasure_nft_project/widgets/date_picker/custom_date_picker.dart
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart';
 
-import '../../../view_models/personal/team/team_contribution_viewmodel.dart';
+import '../../../models/http/parameter/team_contribute_data.dart';
 import '../../../widgets/slider_page_view.dart';
 import 'team_main_style.dart';
 
 ///MARK:團隊貢獻
-class TeamContributionPage extends StatefulWidget {
-  const TeamContributionPage({Key? key}) : super(key: key);
+class TeamContributionPage extends ConsumerStatefulWidget {
+  const TeamContributionPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<TeamContributionPage> createState() => _TeamContributionPageState();
+  ConsumerState createState() => _TeamContributionPageState();
 }
 
-class _TeamContributionPageState extends State<TeamContributionPage> {
+class _TeamContributionPageState extends ConsumerState<TeamContributionPage> {
+  TeamMainStyle style = TeamMainStyle();
+  String startTime = '';
+  String endTime = '';
+
+  ///MARK: direct:A級會員, indirect:B級會員, third:C級會員, totalUser:全部會員
+  String type = 'direct';
+
+  TeamContribute get teamContribute {
+    return ref.read(teamContributionInfoProviderProvider);
+  }
+
+  @override
+  void initState() {
+    ref
+        .read(teamContributionInfoProviderProvider.notifier)
+        .setDate(startDate: '', endDate: '');
+    ref.read(teamContributionInfoProviderProvider.notifier).init();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    ref.watch(teamContributionInfoProviderProvider);
+
     return CustomAppbarView(
       needScrollView: false,
       type: AppNavigationBarType.typePersonal,
-      body: Body(),
+      body: _buildBody(),
       backgroundColor: AppColors.defaultBackgroundSpace,
       onLanguageChange: () {
         if (mounted) {
@@ -39,42 +65,13 @@ class _TeamContributionPageState extends State<TeamContributionPage> {
       },
     );
   }
-}
 
-class Body extends StatefulWidget {
-  const Body({super.key});
-
-  @override
-  State<StatefulWidget> createState() {
-    return BodyState();
-  }
-}
-
-class BodyState extends State<Body> {
-  TeamMainStyle style = TeamMainStyle();
-  late TeamContributionViewModel viewModel;
-
-  List<String> titles = [
-    'A${tr('levelMember')}',
-    'B${tr('levelMember')}',
-    'C${tr('levelMember')}',
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    viewModel = TeamContributionViewModel(
-        onListChange: () {
-          if (mounted) {
-            setState(() {});
-          }
-        },
-        padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding));
-    viewModel.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildBody() {
+    List<String> titles = [
+      'A${tr('levelMember')}',
+      'B${tr('levelMember')}',
+      'C${tr('levelMember')}',
+    ];
     return SliderPageView(
         backgroundColor: AppColors.defaultBackgroundSpace,
         buttonDecoration: AppStyle().styleColorsRadiusBackground(
@@ -82,11 +79,13 @@ class BodyState extends State<Body> {
         titles: titles,
         initialPage: 0,
         topView: _buildTopView(),
-        onPageListener: _onChangeView,
         children: [
-          TeamContributionMemberView(viewModel: viewModel, type: 'A'),
-          TeamContributionMemberView(viewModel: viewModel, type: 'B'),
-          TeamContributionMemberView(viewModel: viewModel, type: 'C'),
+          TeamContributionMemberView(
+              startTime: startTime, endTime: endTime, type: 'A'),
+          TeamContributionMemberView(
+              startTime: startTime, endTime: endTime, type: 'B'),
+          TeamContributionMemberView(
+              startTime: startTime, endTime: endTime, type: 'C'),
         ]);
   }
 
@@ -103,7 +102,7 @@ class BodyState extends State<Body> {
             const TitleAppBar(title: ''),
 
             /// 日期選擇器 & 按鈕
-            CustomDatePickerWidget(dateCallback: viewModel.onDataCallBack),
+            CustomDatePickerWidget(dateCallback: _onDateCallback),
           ],
         ),
       ),
@@ -121,22 +120,19 @@ class BodyState extends State<Body> {
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               /// 總獎勵
-              _buildInfo(
-                  tr('totalCommission'), viewModel.teamContribute.teamShare),
+              _buildInfo(tr('totalCommission'), teamContribute.teamShare),
 
               /// A級獎勵
-              _buildInfo(tr('A-antiCommission\''),
-                  viewModel.teamContribute.directShare),
+              _buildInfo(tr('A-antiCommission\''), teamContribute.directShare),
             ]),
             style.getPadding(3),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               /// B級獎勵
-              _buildInfo(tr('B-antiCommission\''),
-                  viewModel.teamContribute.indirectShare),
+              _buildInfo(
+                  tr('B-antiCommission\''), teamContribute.indirectShare),
 
               /// C級獎勵
-              _buildInfo(tr('C-antiCommission\''),
-                  viewModel.teamContribute.thirdShare),
+              _buildInfo(tr('C-antiCommission\''), teamContribute.thirdShare),
             ])
           ]))
     ]);
@@ -167,28 +163,17 @@ class BodyState extends State<Body> {
     );
   }
 
-  void _onChangeView(int value) {
-    String type = '';
-    switch (value) {
-      case 0:
-        {
-          type = 'direct';
-        }
-        break;
-      case 1:
-        {
-          type = 'indirect';
-        }
-        break;
-      case 2:
-        {
-          type = 'third';
-        }
-        break;
-    }
-    if (type != viewModel.type) {
-      viewModel.type = type;
-      viewModel.initListView();
+  void _onDateCallback(String startDate, String endDate) {
+    if (startDate.compareTo(startTime) != 0 &&
+        endDate.compareTo(endTime) != 0) {
+      ref
+          .read(teamContributionInfoProviderProvider.notifier)
+          .setDate(startDate: startDate, endDate: endDate);
+      ref.read(teamContributionInfoProviderProvider.notifier).update();
+      setState(() {
+        startTime = startDate;
+        endTime = endDate;
+      });
     }
   }
 }
