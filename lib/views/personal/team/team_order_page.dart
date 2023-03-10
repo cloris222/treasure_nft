@@ -5,15 +5,19 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/personal/team/team_main_style.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
 import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
+import 'package:treasure_nft_project/widgets/list_view/base_list_interface.dart';
 
-import '../../../view_models/personal/team/team_order_viewmodel.dart';
+import '../../../models/http/api/group_api.dart';
+import '../../../models/http/parameter/team_order.dart';
 import '../../../widgets/date_picker/custom_date_picker.dart';
+import '../../../widgets/list_view/team/team_order_item.dart';
 import '../../custom_appbar_view.dart';
 
 ///MARK:團隊訂單
@@ -24,11 +28,18 @@ class TeamOrderPage extends StatefulWidget {
   State<TeamOrderPage> createState() => _TeamOrderPageState();
 }
 
-class _TeamOrderPageState extends State<TeamOrderPage> {
+class _TeamOrderPageState extends State<TeamOrderPage> with BaseListInterface {
   TeamMainStyle style = TeamMainStyle();
-  late TeamOrderViewModel viewModel;
   int currentBuyOrSellIndex = 0;
   int currentTimeOrPriceIndex = 0;
+
+  String startTime = '';
+  String endTime = '';
+
+  // bool isSortDesc = true;
+  String sortType = 'time';
+  String nameAcct = '';
+  String nameAcctType = 'ALL';
 
   final List<String> _currenciesBuyOrSell = [
     "ALL",
@@ -57,82 +68,75 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
 
   @override
   void initState() {
+    init();
     super.initState();
-    viewModel = TeamOrderViewModel(
-        onListChange: () {
-          if (mounted) {
-            setState(() {});
-          }
-        },
-        topView: _buildTopView,
-        padding: EdgeInsets.only(
-            bottom: UIDefine.navigationBarPadding + UIDefine.getPixelWidth(5)));
-    viewModel.initListView();
   }
 
   Widget _buildBody() {
-    return Padding(
-      padding: EdgeInsets.only(
-          left: UIDefine.getScreenWidth(6), right: UIDefine.getScreenWidth(6)),
-      child: viewModel.buildGridView(
-          crossAxisCount: 2,
-          childAspectRatio: 0.5,
-          mainAxisSpacing: UIDefine.getScreenHeight(3),
-          crossAxisSpacing: UIDefine.getScreenWidth(3)),
-    );
+    bool hasItem = currentItems.isNotEmpty;
+    return buildGridView(
+        backgroundDecoration: hasItem
+            ? AppStyle().styleColorsRadiusBackground(
+                color: AppColors.defaultBackgroundSpace,
+                hasBottomRight: false,
+                hasBottomLef: false)
+            : null,
+        crossAxisCount: 2,
+        padding: EdgeInsets.only(
+            top: UIDefine.getPixelWidth(15),
+            bottom: UIDefine.navigationBarPadding,
+            left: UIDefine.getPixelWidth(15),
+            right: UIDefine.getPixelWidth(15)),
+        spaceWidget: SizedBox(width: UIDefine.getPixelWidth(8)));
   }
 
   Widget _buildTopView() {
-    return Column(
-      children: [
-        TitleAppBar(title: tr('teamOrder')),
-        // viewMemberModel.getPadding(1),
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.only(
+          left: UIDefine.getPixelWidth(15), right: UIDefine.getPixelWidth(15)),
+      child: Column(
+        children: [
+          TitleAppBar(title: tr('teamOrder')),
+          // viewMemberModel.getPadding(1),
 
-        /// 日期選擇器 & 按鈕
-        CustomDatePickerWidget(
-          dateCallback: (String startDate, String endDate) {
-            if (startDate != startDate || endDate != endDate) {
-              viewModel.startDate = startDate;
-              viewModel.endDate = endDate;
-              viewModel.initListView();
-            }
-          },
-        ),
+          /// 日期選擇器 & 按鈕
+          CustomDatePickerWidget(dateCallback: _onDateCallback),
 
-        SizedBox(height: UIDefine.getPixelHeight(10)),
+          SizedBox(height: UIDefine.getPixelHeight(10)),
 
-        /// 輸入Bar
-        _searchBar(),
-        SizedBox(height: UIDefine.getPixelHeight(10)),
+          /// 輸入Bar
+          _searchBar(),
+          SizedBox(height: UIDefine.getPixelHeight(10)),
 
-        SizedBox(
-          ///MARK: v0.0.2 壓高度
-          height: UIDefine.getPixelWidth(40),
-          child: Row(children: [
-            Expanded(child: _priceAndTimeDropDownBar()),
-            SizedBox(width: UIDefine.getScreenWidth(2.77)),
-            GestureDetector(
-                onTap: () => _onPressSort(),
-                child: Container(
-                  alignment: Alignment.center,
-                  child: BaseIconWidget(
-                    imageAssetPath: 'assets/icon/btn/btn_filter_02.png',
-                    size: UIDefine.getPixelWidth(50),
-                  ),
-                ))
-          ]),
-        ),
+          SizedBox(
+            ///MARK: v0.0.2 壓高度
+            height: UIDefine.getPixelWidth(40),
+            child: Row(children: [
+              Expanded(child: _priceAndTimeDropDownBar()),
+              SizedBox(width: UIDefine.getScreenWidth(2.77)),
+              GestureDetector(
+                  onTap: () => _onPressSort(),
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: BaseIconWidget(
+                      imageAssetPath: 'assets/icon/btn/btn_filter_02.png',
+                      size: UIDefine.getPixelWidth(50),
+                    ),
+                  ))
+            ]),
+          ),
 
-        style.getPadding(3),
-      ],
+          style.getPadding(3),
+        ],
+      ),
     );
   }
 
   _onPressSort() {
-    viewModel.sortType = (viewModel.sortType == _currenciesTimeOrPrice.first)
-        ? _currenciesTimeOrPrice.last
-        : _currenciesTimeOrPrice.first;
-    viewModel.initListView();
+    currentTimeOrPriceIndex = (currentTimeOrPriceIndex == 0 ? 1 : 0);
+    sortType = _currenciesTimeOrPrice[currentTimeOrPriceIndex];
+    initListView();
   }
 
   Widget _searchBar() {
@@ -149,9 +153,9 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
           Expanded(
             child: TextField(
                 onChanged: (text) {
-                  if (text != viewModel.nameAcct) {
-                    viewModel.nameAcct = text;
-                    viewModel.initListView();
+                  if (text != nameAcct) {
+                    nameAcct = text;
+                    onUpgradeListView();
                   }
                 },
                 style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14),
@@ -200,9 +204,8 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
           if (value != null) {
             if (currentTimeOrPriceIndex != value) {
               currentTimeOrPriceIndex = value;
-              viewModel.sortType =
-                  _currenciesTimeOrPrice[currentTimeOrPriceIndex];
-              viewModel.initListView();
+              sortType = _currenciesTimeOrPrice[currentTimeOrPriceIndex];
+              onUpgradeListView();
             }
           }
         },
@@ -233,7 +236,7 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
                       fontSize: UIDefine.fontSize14,
                       color: AppColors.textSixBlack),
                 ),
-          Spacer(),
+          const Spacer(),
           Visibility(
               visible: needArrow,
               child: BaseIconWidget(
@@ -266,9 +269,8 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
           if (value != null) {
             if (currentBuyOrSellIndex != value) {
               currentBuyOrSellIndex = value;
-              viewModel.nameAcctType =
-                  _currenciesBuyOrSell[currentBuyOrSellIndex];
-              viewModel.initListView();
+              nameAcctType = _currenciesBuyOrSell[currentBuyOrSellIndex];
+              onUpgradeListView();
             }
           }
         },
@@ -299,7 +301,7 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
                       fontSize: UIDefine.fontSize14,
                       color: AppColors.textSixBlack),
                 ),
-          Spacer(),
+          const Spacer(),
           Visibility(
               visible: needArrow,
               child: BaseIconWidget(
@@ -325,5 +327,81 @@ class _TeamOrderPageState extends State<TeamOrderPage> {
         return tr('buyer');
     }
     return '';
+  }
+
+  @override
+  Widget buildItemBuilder(int index, data) {
+    return TeamOrderItemView(itemData: data);
+  }
+
+  @override
+  Widget buildSeparatorBuilder(int index) {
+    return SizedBox(height: UIDefine.getPixelWidth(8));
+  }
+
+  @override
+  Widget? buildTopView() {
+    return _buildTopView();
+  }
+
+  @override
+  changeDataFromJson(json) {
+    return TeamOrderData.fromJson(json);
+  }
+
+  @override
+  Future<List> loadData(int page, int size) {
+    return GroupAPI().getTeamOrder(
+        page: page,
+        size: size,
+        startTime: BaseViewModel().getStartTime(startTime),
+        endTime: BaseViewModel().getEndTime(endTime),
+        sortBy: sortType,
+        nameAcct: nameAcct,
+        nameAcctType: nameAcctType);
+  }
+
+  @override
+  void loadingFinish() {
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  void onUpgradeListView() {
+    if (endTime.isEmpty && startTime.isEmpty && nameAcct.isEmpty) {
+      reloadInit();
+    } else {
+      reloadListView();
+    }
+  }
+
+  @override
+  bool needSave(int page) {
+    return startTime.isEmpty &&
+        endTime.isEmpty &&
+        nameAcct.isEmpty &&
+        page == 1;
+  }
+
+  @override
+  String setKey() {
+    return 'teamOrder_${nameAcctType}_$sortType';
+  }
+
+  @override
+  bool setUserTemporaryValue() {
+    return true;
+  }
+
+  void _onDateCallback(String startDate, String endDate) {
+    if (startDate.compareTo(startTime) != 0 &&
+        endDate.compareTo(endTime) != 0) {
+      setState(() {
+        startTime = startDate;
+        endTime = endDate;
+        onUpgradeListView();
+      });
+    }
   }
 }

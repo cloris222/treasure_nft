@@ -127,6 +127,10 @@ abstract class BaseListInterface {
       _readInitListView();
     }
   }
+  Future<void> reloadInit() async {
+    _clearListView();
+    init();
+  }
 
   Future<void> reloadListView() async {
     if (readAll()) {
@@ -262,7 +266,8 @@ abstract class BaseListInterface {
       Widget spaceWidget = const SizedBox(),
       bool shrinkWrap = true,
       ScrollPhysics? physics,
-      EdgeInsetsGeometry? padding}) {
+      EdgeInsetsGeometry? padding,
+      Decoration? backgroundDecoration}) {
     int rowLength =
         currentItems.isNotEmpty ? currentItems.length ~/ crossAxisCount : 0;
 
@@ -281,57 +286,60 @@ abstract class BaseListInterface {
 
     return _buildListListener(
         topView: topView,
-        listBody: ListView.separated(
-            padding: padding ??
-                EdgeInsets.only(
-                    bottom: UIDefine.navigationBarPadding,
-                    right: UIDefine.getScreenWidth(5),
-                    left: UIDefine.getScreenWidth(5)),
-            itemCount: finalLength,
-            shrinkWrap: hasTopView ? true : shrinkWrap,
-            physics:
-                hasTopView ? const NeverScrollableScrollPhysics() : physics,
-            scrollDirection: Axis.vertical,
-            itemBuilder: (context, rowIndex) {
-              if (rowIndex != rowLength) {
-                List<Widget> row = [];
-                for (int i = 0; i < crossAxisCount; i++) {
-                  int itemIndex = rowIndex * crossAxisCount + i;
-                  if (itemIndex >= currentItems.length) {
-                    row.add(const Expanded(child: SizedBox()));
-                  } else {
-                    row.add(Expanded(
-                      child: Container(
-                        alignment: Alignment.center,
-                        child: Visibility(
-                            visible: !removeItems.contains(itemIndex),
-                            child: buildItemBuilder(
-                                itemIndex, currentItems[itemIndex])),
-                      ),
-                    ));
+        listBody: Container(
+          decoration: backgroundDecoration,
+          child: ListView.separated(
+              padding: padding ??
+                  EdgeInsets.only(
+                      bottom: UIDefine.navigationBarPadding,
+                      right: UIDefine.getScreenWidth(5),
+                      left: UIDefine.getScreenWidth(5)),
+              itemCount: finalLength,
+              shrinkWrap: hasTopView ? true : shrinkWrap,
+              physics:
+                  hasTopView ? const NeverScrollableScrollPhysics() : physics,
+              scrollDirection: Axis.vertical,
+              itemBuilder: (context, rowIndex) {
+                if (rowIndex != rowLength) {
+                  List<Widget> row = [];
+                  for (int i = 0; i < crossAxisCount; i++) {
+                    int itemIndex = rowIndex * crossAxisCount + i;
+                    if (itemIndex >= currentItems.length) {
+                      row.add(const Expanded(child: SizedBox()));
+                    } else {
+                      row.add(Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Visibility(
+                              visible: !removeItems.contains(itemIndex),
+                              child: buildItemBuilder(
+                                  itemIndex, currentItems[itemIndex])),
+                        ),
+                      ));
+                    }
+                    row.add(spaceWidget);
                   }
-                  row.add(spaceWidget);
-                }
-                row.removeLast();
+                  row.removeLast();
 
-                return Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: row);
-              } else {
-                if (!_showWaitLoad &&
-                    (!isAutoReloadMore() && nextItems.isNotEmpty)) {
                   return Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [_buildReadMore()]);
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: row);
+                } else {
+                  if (!_showWaitLoad &&
+                      (!isAutoReloadMore() && nextItems.isNotEmpty)) {
+                    return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [_buildReadMore()]);
+                  }
+                  return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [_buildLoading()]);
                 }
-                return Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [_buildLoading()]);
-              }
-            },
-            separatorBuilder: (BuildContext context, int index) =>
-                buildSeparatorBuilder(index)));
+              },
+              separatorBuilder: (BuildContext context, int index) =>
+                  buildSeparatorBuilder(index)),
+        ));
   }
 
   Widget _buildListListener({required Widget listBody, Widget? topView}) {

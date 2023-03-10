@@ -70,7 +70,10 @@ class _TeamContributionMemberViewState extends State<TeamContributionMemberView>
       child: Column(children: [
         _buildTitle(),
         SizedBox(height: UIDefine.getPixelWidth(15)),
-        Expanded(child: buildListView()),
+        Expanded(
+            child: buildListView(
+                padding:
+                    EdgeInsets.only(bottom: UIDefine.navigationBarPadding))),
       ]),
     );
   }
