@@ -176,6 +176,7 @@ class _TeamReferralCodePageState extends ConsumerState<TeamReferralCodePage> {
                     padding: const EdgeInsets.all(1.5),
                     child: ref.watch(userInfoProvider).photoUrl.isNotEmpty
                         ? CircleNetworkIcon(
+                            showNormal: true,
                             networkUrl: ref.watch(userInfoProvider).photoUrl,
                             radius: 35)
                         : Image.asset(

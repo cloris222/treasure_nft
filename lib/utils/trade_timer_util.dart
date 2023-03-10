@@ -194,13 +194,13 @@ class TradeTimerUtil {
     ///關閉預約時間(系統)
     _dateSellEndTime = DateTime.parse(
         '${reservationInfo.reserveDate} ${reservationInfo.systemReserveEndTime}');
-    // MARK:暫時不用
-    // ///如果預約開始時間>預約結束時間 代表跨日
-    // if (reservationInfo.reserveStartTime
-    //         .compareTo(reservationInfo.reserveStartTime) >
-    //     0) {
-    //   _dateSellEndTime.add(const Duration(days: 1));
-    // }
+
+    ///如果預約開始時間>預約結束時間 代表預約結束時跨日
+    if (reservationInfo.systemReserveStartTime
+            .compareTo(reservationInfo.systemReserveEndTime) >
+        0) {
+      _dateSellEndTime.add(const Duration(days: 1));
+    }
   }
 
   TradeData _countSellDate() {
