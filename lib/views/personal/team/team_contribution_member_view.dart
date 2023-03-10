@@ -54,7 +54,11 @@ class _TeamContributionMemberViewState extends State<TeamContributionMemberView>
 
   @override
   void initState() {
-    init();
+    if (widget.endTime.isEmpty && widget.startTime.isEmpty) {
+      init();
+    } else {
+      initListView();
+    }
     super.initState();
   }
 
