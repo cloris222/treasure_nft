@@ -32,7 +32,7 @@ class _LevelTradeBonusRecordListViewState
     ///MARK: 代表數值有更動
     if (oldWidget.endTime.compareTo(widget.endTime) != 0 ||
         oldWidget.startTime.compareTo(widget.startTime) != 0) {
-      initListView();
+      reloadListView();
     }
     super.didUpdateWidget(oldWidget);
   }
