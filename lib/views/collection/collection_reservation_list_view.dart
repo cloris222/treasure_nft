@@ -56,10 +56,26 @@ class _CollectionReservationListViewState
   @override
   Future<List> loadData(int page, int size) async {
     List<CollectionReservationResponseData> itemList = [];
-    itemList.addAll(await CollectionApi()
-        .getReservationResponse(page: page, size: size, type: 'ITEM'));
-    itemList.addAll(await CollectionApi()
-        .getReservationResponse(page: page, size: size, type: 'PRICE'));
+    BaseViewModel viewModel = BaseViewModel();
+    ///MARK: 取得使用者時區日期
+    String today = viewModel.getCurrentDayWithUtcZone();
+    ///MARK: 轉成系統時間
+    String startTime = viewModel.getStartTime(today);
+    String endTime = viewModel.getEndTime(today);
+    itemList.addAll(await CollectionApi().getReservationResponse(
+      page: page,
+      size: size,
+      type: 'ITEM',
+      startTime: startTime,
+      endTime: endTime,
+    ));
+    itemList.addAll(await CollectionApi().getReservationResponse(
+      page: page,
+      size: size,
+      type: 'PRICE',
+      startTime: startTime,
+      endTime: endTime,
+    ));
     return itemList;
   }
 
@@ -87,6 +103,6 @@ class _CollectionReservationListViewState
 
   @override
   changeDataFromJson(json) {
-   return CollectionReservationResponseData.fromJson(json);
+    return CollectionReservationResponseData.fromJson(json);
   }
 }

@@ -92,12 +92,12 @@ class CollectionMainViewModel extends BaseViewModel {
     return Colors.grey;
   }
 
-  Future<List<CollectionReservationResponseData>> getReservationResponse(
-      String type, int page, int size,
-      {ResponseErrorFunction? onConnectFail}) async {
-    return await CollectionApi(onConnectFail: onConnectFail)
-        .getReservationResponse(page: page, size: size, type: type);
-  }
+  // Future<List<CollectionReservationResponseData>> getReservationResponse(
+  //     String type, int page, int size,
+  //     {ResponseErrorFunction? onConnectFail}) async {
+  //   return await CollectionApi(onConnectFail: onConnectFail)
+  //       .getReservationResponse(page: page, size: size, type: type);
+  // }
 
   Future<List<CollectionNftItemResponseData>> getNFTItemResponse(
       String status, int page, int size,

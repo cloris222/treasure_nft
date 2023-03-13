@@ -9,19 +9,27 @@ import '../data/collection_ticket_response_data.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 
 class CollectionApi extends HttpManager {
-  CollectionApi({super.onConnectFail, super.baseUrl = HttpSetting.appUrl,super.printLog});
+  CollectionApi(
+      {super.onConnectFail,
+      super.baseUrl = HttpSetting.appUrl,
+      super.printLog});
 
   /// 取得訂單信息列表
   Future<List<CollectionReservationResponseData>> getReservationResponse(
-      {int page = 1, int size = 10, String type = ''}) async {
+      {int page = 1,
+      int size = 10,
+      String type = '',
+      required String startTime,
+      required String endTime}) async {
     List<CollectionReservationResponseData> result =
-    <CollectionReservationResponseData>[];
+        <CollectionReservationResponseData>[];
     try {
-      ApiResponse response =
-      await get('/order/message-list', queryParameters: {
+      ApiResponse response = await get('/order/message-list', queryParameters: {
         'page': page,
         'size': size,
         'type': type,
+        'startTime': startTime,
+        'endTime': endTime
       });
       for (Map<String, dynamic> json in response.data['pageList']) {
         result.add(CollectionReservationResponseData.fromJson(json));
@@ -36,16 +44,15 @@ class CollectionApi extends HttpManager {
   Future<List<CollectionNftItemResponseData>> getNFTItemResponse(
       {int page = 1, int size = 10, String status = ''}) async {
     List<CollectionNftItemResponseData> result =
-    <CollectionNftItemResponseData>[];
-      ApiResponse response =
-      await get('/NFTItem/mine', queryParameters: {
-        'page': page,
-        'size': size,
-        'status': status,
-      });
-      for (Map<String, dynamic> json in response.data['pageList']) {
-        result.add(CollectionNftItemResponseData.fromJson(json));
-      }
+        <CollectionNftItemResponseData>[];
+    ApiResponse response = await get('/NFTItem/mine', queryParameters: {
+      'page': page,
+      'size': size,
+      'status': status,
+    });
+    for (Map<String, dynamic> json in response.data['pageList']) {
+      result.add(CollectionNftItemResponseData.fromJson(json));
+    }
     return result;
   }
 
@@ -53,10 +60,9 @@ class CollectionApi extends HttpManager {
   Future<List<CollectionTicketResponseData>> getTicketResponse(
       {int page = 1, int size = 10, String type = ''}) async {
     List<CollectionTicketResponseData> result =
-    <CollectionTicketResponseData>[];
+        <CollectionTicketResponseData>[];
     try {
-      ApiResponse response =
-      await get('/order/message-list', queryParameters: {
+      ApiResponse response = await get('/order/message-list', queryParameters: {
         'page': page,
         'size': size,
         'type': type,
@@ -73,12 +79,14 @@ class CollectionApi extends HttpManager {
   }
 
   /// 發送驗證碼
-  Future<String> getUserCodeResponse({
-    required String action, required String account, required String countryName, required String type}) async {
+  Future<String> getUserCodeResponse(
+      {required String action,
+      required String account,
+      required String countryName,
+      required String type}) async {
     String result = '';
     try {
-      ApiResponse response =
-      await get('/user/code', queryParameters: {
+      ApiResponse response = await get('/user/code', queryParameters: {
         'action': action,
         'account': account,
         'countryName': countryName,
@@ -92,13 +100,16 @@ class CollectionApi extends HttpManager {
   }
 
   /// 檢查驗證碼
-  Future<String> getCheckUserCodeResponse({
-    required String action, required String type, required String countryName,
-    required String email, required String phone, required String code}) async {
+  Future<String> getCheckUserCodeResponse(
+      {required String action,
+      required String type,
+      required String countryName,
+      required String email,
+      required String phone,
+      required String code}) async {
     String result = '';
     try {
-      ApiResponse response =
-      await post('/user/code', data: {
+      ApiResponse response = await post('/user/code', data: {
         'action': action,
         'email': email,
         'countryName': countryName,
@@ -114,12 +125,11 @@ class CollectionApi extends HttpManager {
   }
 
   /// 轉出NFT
-  Future<String> getTransferOutResponse({
-    required String itemId, required String code}) async {
+  Future<String> getTransferOutResponse(
+      {required String itemId, required String code}) async {
     String result = '';
     try {
-      ApiResponse response =
-      await post('/NFTItem/transferOut', data: {
+      ApiResponse response = await post('/NFTItem/transferOut', data: {
         'itemId': itemId,
         'code': code,
       });
@@ -131,12 +141,11 @@ class CollectionApi extends HttpManager {
   }
 
   /// 手續費資訊
-  Future<CollectionLevelFeeResponseData> getLevelFeeResponse({
-    required String itemId}) async {
+  Future<CollectionLevelFeeResponseData> getLevelFeeResponse(
+      {required String itemId}) async {
     CollectionLevelFeeResponseData result = CollectionLevelFeeResponseData();
     try {
-      ApiResponse response =
-      await get('/level/fee', queryParameters: {
+      ApiResponse response = await get('/level/fee', queryParameters: {
         'itemId': itemId,
       });
       result = CollectionLevelFeeResponseData.fromJson(response.data);
@@ -147,18 +156,16 @@ class CollectionApi extends HttpManager {
   }
 
   /// 上下架商品
-  Future<dynamic> getItemStatusResponse({
-    required String itemId, required String status}) async {
+  Future<dynamic> getItemStatusResponse(
+      {required String itemId, required String status}) async {
     dynamic result;
     try {
-      ApiResponse response =
-      await post('/NFTItem/status', data: {
+      ApiResponse response = await post('/NFTItem/status', data: {
         'itemId': itemId,
         'status': status,
       });
       if (response.code == 'APP_0062') {
         result = CollectionItemStatusResponseErrorData.fromJson(response.data);
-
       } else {
         result = response.message;
       }
@@ -169,12 +176,11 @@ class CollectionApi extends HttpManager {
   }
 
   /// 開箱盲盒 / 解鎖NFT
-  Future<String> getOpenBoxResponse({
-    required String action, required String itemId}) async {
+  Future<String> getOpenBoxResponse(
+      {required String action, required String itemId}) async {
     String result = '';
     try {
-      ApiResponse response =
-      await post('/NFTItem/reward/open', data: {
+      ApiResponse response = await post('/NFTItem/reward/open', data: {
         'action': action,
         'itemId': itemId,
       });
@@ -187,10 +193,9 @@ class CollectionApi extends HttpManager {
 
   /// 取得收藏未讀通知數(需要補餘額的count)
   Future<num> requestUnreadCollection() async {
-     num result = 0;
+    num result = 0;
     try {
-      ApiResponse response =
-      await get('/notify/unread/collection');
+      ApiResponse response = await get('/notify/unread/collection');
       result = response.data;
     } catch (e) {
       GlobalData.printLog(e.toString());
@@ -199,12 +204,10 @@ class CollectionApi extends HttpManager {
   }
 
   /// 補足餘額
-  Future<String> requestMakeUpBalance({
-    required String recordNo}) async {
+  Future<String> requestMakeUpBalance({required String recordNo}) async {
     String result = '';
     try {
-      ApiResponse response =
-      await post('/reserve/make-up-balance', data: {
+      ApiResponse response = await post('/reserve/make-up-balance', data: {
         'recordNo': recordNo,
       });
       result = response.message;
@@ -213,18 +216,17 @@ class CollectionApi extends HttpManager {
     }
     return result;
   }
-
 }
 
 class CollectionApiCommon extends HttpManager {
-  CollectionApiCommon({super.onConnectFail, super.baseUrl = HttpSetting.commonUrl});
+  CollectionApiCommon(
+      {super.onConnectFail, super.baseUrl = HttpSetting.commonUrl});
 
   /// 查詢NFT合約擁有者地址
   Future<String> getContractOwnerResponse() async {
     String result = '';
     try {
-      ApiResponse response =
-      await get('/query/contractOwner');
+      ApiResponse response = await get('/query/contractOwner');
       result = response.data;
     } catch (e) {
       GlobalData.printLog(e.toString());
