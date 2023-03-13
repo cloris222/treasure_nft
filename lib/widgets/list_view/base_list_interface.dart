@@ -58,6 +58,7 @@ abstract class BaseListInterface {
     return true;
   }
 
+  ///MARK: 判斷是否要讀取SharedPreferences的內容
   bool needReadSharedPreferencesValue() {
     return true;
   }

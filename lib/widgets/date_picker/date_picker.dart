@@ -194,7 +194,7 @@ class DatePickerState extends State<DatePickerWidget> {
   Future<void> _showDatePicker(BuildContext context) async {
     await showDateRangePicker(
             context: context,
-            firstDate: DateTime(2022, 10),
+            firstDate: DateTime(1900, 01),
             lastDate: DateTime.now())
         .then((value) => {
               startDate =

@@ -387,6 +387,13 @@ class BaseViewModel with ControlRouterViewModel {
         : '';
   }
 
+  String getCurrentDayWithUtcZone() {
+    return changeTimeZone(
+        DateFormatUtil().getFullWithDateFormat(DateTime.now().toUtc()),
+        setSystemZone: "GMT+0",
+        strFormat: "yyyy-MM-dd");
+  }
+
   /// 2022-08-30 14:43:22
   /// changeLocalTime:true -> system time to local time
   /// changeLocalTime:false -> local time to system time

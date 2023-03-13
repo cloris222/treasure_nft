@@ -139,7 +139,7 @@ class CustomDatePickerState extends State<CustomDatePickerWidget> {
   Future<void> _showDatePicker(BuildContext context) async {
     await showDateRangePicker(
             context: context,
-            firstDate: DateTime(2022, 1),
+            firstDate: DateTime(1900, 01),
             lastDate: DateTime.now())
         .then((value) => {
               startDate =
