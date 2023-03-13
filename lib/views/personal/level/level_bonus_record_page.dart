@@ -186,7 +186,7 @@ class _LevelBonusRecordPageState extends State<LevelBonusRecordPage> {
   }
 
   void _onDataCallback(String startDate, String endDate) {
-    if (startDate.compareTo(startTime) != 0 &&
+    if (startDate.compareTo(startTime) != 0 ||
         endDate.compareTo(endTime) != 0) {
       setState(() {
         startTime = startDate;

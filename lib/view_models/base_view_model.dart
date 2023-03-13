@@ -10,7 +10,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:format/format.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
-import 'package:treasure_nft_project/models/http/api/order_api.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/utils/animation_download_util.dart';
 import 'package:treasure_nft_project/views/collection/api/collection_api.dart';
@@ -28,7 +27,6 @@ import '../constant/global_data.dart';
 import '../constant/theme/app_animation_path.dart';
 import '../constant/theme/app_colors.dart';
 import '../models/http/api/common_api.dart';
-import '../models/http/api/wallet_api.dart';
 import '../models/http/api/wallet_connect_api.dart';
 import '../models/http/http_setting.dart';
 import '../models/http/parameter/api_response.dart';
@@ -82,7 +80,6 @@ class BaseViewModel with ControlRouterViewModel {
 
     await uploadPersonalInfo(isLogin: isLogin, ref: ref);
     await uploadSignInInfo(ref: ref);
-    uploadTemporaryData();
 
     AppSharedPreferences.printAll();
   }
@@ -184,42 +181,8 @@ class BaseViewModel with ControlRouterViewModel {
     stopUserListener();
   }
 
-  ///MARK: 登入後-更新暫存資料
-  Future<bool> uploadTemporaryData() async {
-    ///MARK: 判斷有無讀取失敗
-    bool connectFail = false;
-    onFail(message) => connectFail = true;
-
-    ///MARK: 需檢查的項目數量
-    List<bool> checkList = List<bool>.generate(4, (index) => false);
-
-    ///MARK: 同步更新
-    OrderAPI(onConnectFail: onFail)
-        .saveTempTotalIncome()
-        .then((value) => checkList[0] = true);
-    WalletAPI(onConnectFail: onFail)
-        .getBalanceRecharge()
-        .then((value) => checkList[1] = true);
-    WalletAPI(onConnectFail: onFail)
-        .getBalanceRecord()
-        .then((value) => checkList[2] = true);
-    OrderAPI(onConnectFail: onFail)
-        .saveTempRecord()
-        .then((value) => checkList[3] = true);
-
-    ///MARK: 等待更新完成
-    await checkFutureTime(
-        logKey: 'uploadTemporaryData',
-        onCheckFinish: () => !checkList.contains(false) || connectFail);
-    return !connectFail;
-  }
-
   ///MARK: 登出後-清除暫存資料
   Future<void> clearTemporaryData() async {
-    GlobalData.totalIncome = 0.0;
-    AppSharedPreferences.setProfitRecord([]);
-    AppSharedPreferences.setWalletRecord([]);
-
     ///清除使用者相關的暫存資料
     AppSharedPreferences.clearUserTmpValue();
   }
@@ -304,6 +267,7 @@ class BaseViewModel with ControlRouterViewModel {
   void startUserListener() {
     GlobalData.printLog('---startUserListener');
     StompSocketUtil().connect(onConnect: _onStompConnect);
+
     ///MARK: v2.1.2 ※因交易多時段，故移除開賣動畫
     // TradeTimerUtil().addListener(_onTradeTimerListener);
     TradeTimerUtil().start();

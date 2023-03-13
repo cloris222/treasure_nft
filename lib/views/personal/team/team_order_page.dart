@@ -395,7 +395,7 @@ class _TeamOrderPageState extends State<TeamOrderPage> with BaseListInterface {
   }
 
   void _onDateCallback(String startDate, String endDate) {
-    if (startDate.compareTo(startTime) != 0 &&
+    if (startDate.compareTo(startTime) != 0 ||
         endDate.compareTo(endTime) != 0) {
       setState(() {
         startTime = startDate;

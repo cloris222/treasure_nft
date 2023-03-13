@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
-import '../models/http/parameter/check_earning_income.dart';
-import '../views/wallet/data/BalanceRecordResponseData.dart';
 
 class AppSharedPreferences {
   AppSharedPreferences._();
@@ -154,37 +152,6 @@ class AppSharedPreferences {
   ///MARK: ----使用者設定 end ----
 
   ///MARK: ----暫存相關 start ----
-
-  ///MARK: 錢包紀錄 WalletRecord
-  static Future<void> setWalletRecord(
-      List<BalanceRecordResponseData> list) async {
-    await setJson(
-        "WalletRecord", List<dynamic>.from(list.map((x) => x.toJson())));
-  }
-
-  static Future<List<BalanceRecordResponseData>> getWalletRecord() async {
-    var json = await getJson("WalletRecord");
-    if (json == null) {
-      return [];
-    }
-    return List<BalanceRecordResponseData>.from(
-        json.map((x) => BalanceRecordResponseData.fromJson(x)));
-  }
-
-  ///MARK: 收益明細 ProfitRecord
-  static Future<void> setProfitRecord(List<CheckEarningIncomeData> list) async {
-    await setJson(
-        "ProfitRecord", List<dynamic>.from(list.map((x) => x.toJson())));
-  }
-
-  static Future<List<CheckEarningIncomeData>> getProfitRecord() async {
-    var json = await getJson("ProfitRecord");
-    if (json == null) {
-      return [];
-    }
-    return List<CheckEarningIncomeData>.from(
-        json.map((x) => CheckEarningIncomeData.fromJson(x)));
-  }
 
   ///MARK: ----暫存相關 end ----
 }

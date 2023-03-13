@@ -92,15 +92,9 @@ class SplashScreenViewModel extends BaseViewModel {
             }
           });
 
-          List<bool> checkList = List<bool>.generate(2, (index) => false);
+          List<bool> checkList = List<bool>.generate(1, (index) => false);
           uploadSignInInfo(ref: ref).then((value) {
             checkList[0] = true;
-            if (value == false) {
-              connectFail = true;
-            }
-          });
-          uploadTemporaryData().then((value) {
-            checkList[1] = true;
             if (value == false) {
               connectFail = true;
             }

@@ -1,12 +1,12 @@
-import 'dart:ui';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/enum/setting_enum.dart';
+import 'package:treasure_nft_project/constant/enum/team_enum.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
-import 'package:treasure_nft_project/view_models/personal/orders/order_detail_viewmodel.dart';
+import 'package:treasure_nft_project/utils/number_format_util.dart';
+import 'package:treasure_nft_project/view_models/personal/orders/order_detail_income_provider.dart';
 import 'package:treasure_nft_project/widgets/slider_page_view.dart';
 
 import '../../../constant/theme/app_colors.dart';
@@ -26,22 +26,24 @@ class OrderDetailPage extends ConsumerStatefulWidget {
 }
 
 class _OrderDetailPageState extends ConsumerState<OrderDetailPage> {
-  late OrderDetailViewModel viewModel;
+  String startTime = '';
+  String endTime = '';
+  Search currentType = Search.All;
+  EarningIncomeType currentIncomeType = EarningIncomeType.ALL;
+
+  double get income {
+    return ref.read(orderDetailIncomeProvider);
+  }
 
   @override
   initState() {
+    ref.read(orderDetailIncomeProvider.notifier).init();
     super.initState();
-    viewModel = OrderDetailViewModel(
-      padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
-      onListChange: () {
-        setState(() {});
-      },
-    );
-    viewModel.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    ref.watch(orderDetailIncomeProvider);
     return CustomAppbarView(
       needScrollView: true,
       onLanguageChange: () {
@@ -92,7 +94,7 @@ class _OrderDetailPageState extends ConsumerState<OrderDetailPage> {
                   padding: EdgeInsets.all(UIDefine.getScreenWidth(2.8)),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                       color: AppColors.textWhite.withOpacity(0.8)),
                   child: Column(
                     children: [
@@ -102,7 +104,7 @@ class _OrderDetailPageState extends ConsumerState<OrderDetailPage> {
                       ),
                       SizedBox(height: UIDefine.getScreenWidth(2.7)),
                       Text(
-                        viewModel.income.toStringAsFixed(2),
+                        NumberFormatUtil().removeTwoPointFormat(income),
                         style: TextStyle(
                             fontSize: UIDefine.fontSize22,
                             fontWeight: FontWeight.w600),
@@ -140,19 +142,66 @@ class _OrderDetailPageState extends ConsumerState<OrderDetailPage> {
             onPageListener: _getPageIndex,
             children: [
               OrderDetailInfo(
-                  viewModel: viewModel, type: EarningIncomeType.ALL),
+                type: EarningIncomeType.ALL,
+                startTime: startTime,
+                endTime: endTime,
+                currentType: currentType,
+                dateCallback: _onDateChange,
+                typeCallback: _onTypeChange,
+              ),
               OrderDetailInfo(
-                  viewModel: viewModel, type: EarningIncomeType.TEAM),
+                type: EarningIncomeType.TEAM,
+                startTime: startTime,
+                endTime: endTime,
+                currentType: currentType,
+                dateCallback: _onDateChange,
+                typeCallback: _onTypeChange,
+              ),
               OrderDetailInfo(
-                  viewModel: viewModel, type: EarningIncomeType.MINE),
+                type: EarningIncomeType.MINE,
+                startTime: startTime,
+                endTime: endTime,
+                currentType: currentType,
+                dateCallback: _onDateChange,
+                typeCallback: _onTypeChange,
+              ),
               OrderDetailInfo(
-                  viewModel: viewModel, type: EarningIncomeType.SAVINGS)
+                type: EarningIncomeType.SAVINGS,
+                startTime: startTime,
+                endTime: endTime,
+                currentType: currentType,
+                dateCallback: _onDateChange,
+                typeCallback: _onTypeChange,
+              ),
             ]));
   }
 
   /// 依點選button切換內容及total income
   void _getPageIndex(int value) {
-    viewModel.type = EarningIncomeType.values[value];
-    viewModel.initState();
+    setState(() {
+      currentIncomeType = EarningIncomeType.values[value];
+      ref.read(orderDetailIncomeProvider.notifier).setParam(
+          type: currentIncomeType, startDate: startTime, endDate: endTime);
+    });
+  }
+
+  void _onDateChange(String startDate, String endDate) {
+    if (startDate.compareTo(startTime) != 0 ||
+        endDate.compareTo(endTime) != 0) {
+      setState(() {
+        startTime = startDate;
+        endTime = endDate;
+        ref.read(orderDetailIncomeProvider.notifier).setParam(
+            type: currentIncomeType, startDate: startDate, endDate: endDate);
+      });
+    }
+  }
+
+  void _onTypeChange(Search type) {
+    if (currentType != type) {
+      setState(() {
+        currentType = type;
+      });
+    }
   }
 }

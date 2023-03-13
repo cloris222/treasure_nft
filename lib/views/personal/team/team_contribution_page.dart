@@ -164,7 +164,7 @@ class _TeamContributionPageState extends ConsumerState<TeamContributionPage> {
   }
 
   void _onDateCallback(String startDate, String endDate) {
-    if (startDate.compareTo(startTime) != 0 &&
+    if (startDate.compareTo(startTime) != 0 ||
         endDate.compareTo(endTime) != 0) {
       ref
           .read(teamContributionInfoProviderProvider.notifier)

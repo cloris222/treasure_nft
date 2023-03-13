@@ -58,6 +58,10 @@ abstract class BaseListInterface {
     return true;
   }
 
+  bool needReadSharedPreferencesValue() {
+    return true;
+  }
+
   ///-----暫存相關-----
   /// 定義此SharedPreferencesKey
   String setKey();
@@ -75,11 +79,15 @@ abstract class BaseListInterface {
 
   /// 讀取 SharedPreferencesKey 內容並轉成對應值
   Future<void> readSharedPreferencesValue() async {
-    var json = await AppSharedPreferences.getJson(getSharedPreferencesKey());
-    if (json != null) {
-      List<dynamic> list =
-          List<dynamic>.from(json.map((x) => changeDataFromJson(x)));
-      currentItems = [...list];
+    if (needReadSharedPreferencesValue()) {
+      var json = await AppSharedPreferences.getJson(getSharedPreferencesKey());
+      if (json != null) {
+        List<dynamic> list =
+            List<dynamic>.from(json.map((x) => changeDataFromJson(x)));
+        currentItems = [...list];
+      }
+    } else {
+      currentItems = [];
     }
   }
 
@@ -127,6 +135,7 @@ abstract class BaseListInterface {
       _readInitListView();
     }
   }
+
   Future<void> reloadInit() async {
     _clearListView();
     init();
