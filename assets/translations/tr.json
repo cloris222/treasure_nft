@@ -1219,7 +1219,8 @@
   "account-check-modal-hint":"Zaten bir Treasurenft hesabınız var mı?",
   "noAccount":"HAYIR",
   "comingToEnd":"Başlamak üzere",
-
+  "reward-title":"Tebrikler",
+  "reward-detail":"{usdt} ödülünü aldınız, kullanım süresi {day} günleri, ayrıntıları kişisel merkezden kontrol edebilirsiniz",
 
 
   "--//app use":"---",

@@ -9,6 +9,7 @@ import 'package:treasure_nft_project/view_models/personal/team/team_member_viewm
 import 'package:treasure_nft_project/widgets/bottom_sheet/list_bottom_sheet.dart';
 import 'package:treasure_nft_project/widgets/button/login_bolder_button_widget.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
+import '../../../views/personal/team/team_main_style.dart';
 import 'lower_invite_listview.dart';
 import 'lower_nft_listview.dart';
 
@@ -19,7 +20,7 @@ class MemberDetailItemView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TeamMemberViewModel viewModel = TeamMemberViewModel();
+    TeamMainStyle style = TeamMainStyle();
     TextStyle titleStyle = AppTextStyle.getBaseStyle(
         color: AppColors.textSixBlack,
         fontSize: UIDefine.fontSize12,
@@ -51,7 +52,7 @@ class MemberDetailItemView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(tr('email'), style: titleStyle),
-                          viewModel.getPadding(1),
+                          style.getPadding(1),
                           SizedBox(
                             width: UIDefine.getScreenWidth(35),
                             child: Text(itemData.email, style: contentStyle),
@@ -63,7 +64,7 @@ class MemberDetailItemView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(tr('phone'), style: titleStyle),
-                        viewModel.getPadding(1),
+                        style.getPadding(1),
                         Text(itemData.phone.toString(), style: contentStyle),
                       ],
                     ),
@@ -73,13 +74,13 @@ class MemberDetailItemView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(tr('tradingVol'), style: titleStyle),
-                        viewModel.getPadding(1),
+                        style.getPadding(1),
                         Row(children: [
                           SizedBox(
                             height: UIDefine.getScreenWidth(4),
                             child: Image.asset(AppImagePath.tetherImg),
                           ),
-                          viewModel.getPadding(0.5),
+                          style.getPadding(0.5),
                           Text(
                               NumberFormatUtil()
                                   .removeTwoPointFormat(itemData.tradingVolume),
@@ -94,7 +95,7 @@ class MemberDetailItemView extends StatelessWidget {
                           const EdgeInsets.only(right: 5, top: 5, bottom: 5),
                       radius: 8,
                       alignment: Alignment.centerLeft,
-                      onPressed: () => _onShowNFTs(context, viewModel),
+                      onPressed: () => _onShowNFTs(context),
                       fontSize: UIDefine.fontSize14,
                       btnText: '${tr('NFTs')}　${itemData.itemCount.toString()}',
                     ),
@@ -111,7 +112,7 @@ class MemberDetailItemView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(tr('nickname'), style: titleStyle),
-                        viewModel.getPadding(1),
+                        style.getPadding(1),
                         Text(itemData.userName, style: contentStyle),
                       ],
                     ),
@@ -121,14 +122,14 @@ class MemberDetailItemView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(tr('value'), style: titleStyle),
-                        viewModel.getPadding(1),
+                        style.getPadding(1),
                         Row(
                           children: [
                             SizedBox(
                               height: UIDefine.getScreenWidth(4),
                               child: Image.asset(AppImagePath.tetherImg),
                             ),
-                            viewModel.getPadding(0.5),
+                            style.getPadding(0.5),
                             Text(
                                 NumberFormatUtil()
                                     .removeTwoPointFormat(itemData.totalPrice),
@@ -144,13 +145,13 @@ class MemberDetailItemView extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(tr('tradingVol'), style: titleStyle),
-                            viewModel.getPadding(1),
+                            style.getPadding(1),
                             Row(children: [
                               SizedBox(
                                 height: UIDefine.getScreenWidth(4),
                                 child: Image.asset(AppImagePath.tetherImg),
                               ),
-                              viewModel.getPadding(0.5),
+                              style.getPadding(0.5),
                               Text(
                                   NumberFormatUtil().removeTwoPointFormat(
                                       itemData.tradingVolume),
@@ -164,7 +165,7 @@ class MemberDetailItemView extends StatelessWidget {
                       margin: const EdgeInsets.only(left: 5, top: 5, bottom: 5),
                       radius: 8,
                       alignment: Alignment.centerLeft,
-                      onPressed: () => _onShowInvite(context, viewModel),
+                      onPressed: () => _onShowInvite(context),
                       fontSize: UIDefine.fontSize14,
                       btnText:
                           '${tr('invite')}　${itemData.inviteCount.toString()}',
@@ -175,7 +176,7 @@ class MemberDetailItemView extends StatelessWidget {
             ]));
   }
 
-  _onShowInvite(BuildContext context, TeamMemberViewModel viewModel) {
+  _onShowInvite(BuildContext context) {
     if (itemData.inviteCount == 0) {
       ListBottomSheet(
         context,
@@ -184,7 +185,7 @@ class MemberDetailItemView extends StatelessWidget {
         listView: _buildEmptyView(),
       ).show();
     } else {
-      viewModel
+      TeamMemberViewModel()
           .getLowerInvite(itemData.inviteCount, itemData.userId)
           .then((value) => {
                 ListBottomSheet(
@@ -197,7 +198,7 @@ class MemberDetailItemView extends StatelessWidget {
     }
   }
 
-  _onShowNFTs(BuildContext context, TeamMemberViewModel viewModel) {
+  _onShowNFTs(BuildContext context) {
     if (itemData.itemCount == 0) {
       ListBottomSheet(
         context,
@@ -206,7 +207,7 @@ class MemberDetailItemView extends StatelessWidget {
         listView: _buildEmptyView(),
       ).show();
     } else {
-      viewModel
+      TeamMemberViewModel()
           .getLowerNFT(itemData.itemCount, itemData.userId)
           .then((value) => {
                 ListBottomSheet(

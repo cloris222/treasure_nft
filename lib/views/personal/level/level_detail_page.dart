@@ -13,6 +13,7 @@ import 'package:treasure_nft_project/models/http/parameter/user_info_data.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/gobal_provider/user_level_info_provider.dart';
+import 'package:treasure_nft_project/view_models/personal/level/level_detail_list_provider.dart';
 import 'package:treasure_nft_project/view_models/personal/level/level_detail_view_model.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
 import 'package:treasure_nft_project/views/personal/level/level_achievement_page.dart';
@@ -23,6 +24,7 @@ import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart'
 import 'package:treasure_nft_project/widgets/label/custom_linear_progress.dart';
 import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
 
+import '../../../models/http/parameter/check_level_info.dart';
 import '../../../view_models/gobal_provider/user_info_provider.dart';
 
 ///MARK: 等級詳細
@@ -36,17 +38,52 @@ class LevelDetailPage extends ConsumerStatefulWidget {
 }
 
 class _LevelDetailPageState extends ConsumerState<LevelDetailPage> {
-  late LevelDetailViewModel viewModel;
+  LevelDetailViewModel viewModel = LevelDetailViewModel();
+
+  List<LevelInfoData> get levelDataList {
+    return ref.read(levelDetailListProvider);
+  }
+
+  CheckLevelInfo? get userLevelInfo {
+    return ref.read(userLevelInfoProvider);
+  }
+
+  int currentIndex = 0;
+  PageController? pageController;
+  SwiperController? swiperController;
+
+  bool init = false;
 
   @override
   void initState() {
     super.initState();
-    viewModel = LevelDetailViewModel(setState: setState);
-    viewModel.initState(ref.read(userLevelInfoProvider));
+    ref.read(levelDetailListProvider.notifier).init(onFinish: () {
+      if (levelDataList.isNotEmpty) {
+        if (!init) {
+          init = true;
+          setState(() {
+            if (userLevelInfo != null) {
+              if (userLevelInfo!.userLevel >= 5) {
+                currentIndex = 5;
+              }
+
+              ///1~4等 跳到 第+1等 等級頁
+              else if (userLevelInfo!.userLevel > 0) {
+                currentIndex = userLevelInfo!.userLevel;
+              }
+            }
+            pageController = PageController(initialPage: currentIndex);
+            swiperController = SwiperController();
+          });
+        }
+      }
+    });
   }
 
   @override
   void dispose() {
+    pageController?.dispose();
+    swiperController?.dispose();
     super.dispose();
   }
 
@@ -237,7 +274,7 @@ class _LevelDetailPageState extends ConsumerState<LevelDetailPage> {
 
   ///MARK: 建立現在等級諮詢
   Widget _buildCurrentLevelInfo(UserInfoData userInfo) {
-    if (viewModel.levelDataList.length > userInfo.level) {
+    if (levelDataList.length > userInfo.level) {
       return Container(
         padding: EdgeInsets.symmetric(
             horizontal: UIDefine.getPixelWidth(10),
@@ -256,9 +293,9 @@ class _LevelDetailPageState extends ConsumerState<LevelDetailPage> {
 
   ///MARK: 建立全部等級資訊
   Widget _buildAllLevelInfo(UserInfoData userInfo) {
-    if (viewModel.levelDataList.isNotEmpty) {
+    if (levelDataList.isNotEmpty) {
       List<Widget> pages = [];
-      for (var data in viewModel.levelDataList) {
+      for (var data in levelDataList) {
         if (data.userLevel != 0) {
           pages.add(_buildLevelPageItem(data.userLevel, userInfo));
         }
@@ -267,10 +304,10 @@ class _LevelDetailPageState extends ConsumerState<LevelDetailPage> {
         height: UIDefine.getPixelWidth(650) + UIDefine.navigationBarPadding,
         color: AppColors.defaultBackgroundSpace,
         child: PageView(
-            controller: viewModel.pageController,
+            controller: pageController,
             children: pages,
             onPageChanged: (index) {
-              viewModel.swiperController.move(index);
+              swiperController?.move(index);
             }),
       );
     }
@@ -279,9 +316,9 @@ class _LevelDetailPageState extends ConsumerState<LevelDetailPage> {
 
   /// 滑動的全部等級bar
   Widget _buildAllLevelBar() {
-    if (viewModel.levelDataList.isNotEmpty) {
+    if (levelDataList.isNotEmpty) {
       List<LevelInfoData> lists = [];
-      for (var data in viewModel.levelDataList) {
+      for (var data in levelDataList) {
         if (data.userLevel != 0) {
           lists.add(data);
         }
@@ -290,19 +327,19 @@ class _LevelDetailPageState extends ConsumerState<LevelDetailPage> {
       return SizedBox(
           height: UIDefine.getPixelHeight(140),
           child: Swiper(
-            controller: viewModel.swiperController,
+            controller: swiperController,
             loop: false,
             viewportFraction:
                 UIDefine.getPixelHeight(140) / UIDefine.getWidth(),
             itemCount: lists.length,
-            index: viewModel.currentIndex,
+            index: currentIndex,
             itemBuilder: (context, index) {
               return buildAllLevelBarItem(index, lists[index].userLevel);
             },
             onIndexChanged: (index) {
-              viewModel.pageController.jumpToPage(index);
+              pageController?.jumpToPage(index);
               setState(() {
-                viewModel.currentIndex = index;
+                currentIndex = index;
               });
             },
           ));
@@ -365,7 +402,7 @@ class _LevelDetailPageState extends ConsumerState<LevelDetailPage> {
 
   ///MARK: 等級詳細
   Widget _buildSingleLevelInfo(int level) {
-    LevelInfoData data = viewModel.getSingleLevelInfo(level);
+    LevelInfoData data = viewModel.getSingleLevelInfo(levelDataList, level);
 
     return Column(children: [
       _buildSingleLevelInfoItem(
@@ -425,10 +462,10 @@ class _LevelDetailPageState extends ConsumerState<LevelDetailPage> {
   }
 
   Widget buildAllLevelBarItem(int index, int userLevel) {
-    bool isCurrent = (index == viewModel.currentIndex);
+    bool isCurrent = (index == currentIndex);
     return GestureDetector(
       onTap: () {
-        viewModel.swiperController.move(index);
+        swiperController?.move(index);
       },
       child: Container(
           alignment: Alignment.center,
@@ -619,7 +656,7 @@ class _LevelDetailPageState extends ConsumerState<LevelDetailPage> {
 
   Widget _buildItemChange(int level) {
     List<Widget> button = [];
-    for (var data in viewModel.levelDataList) {
+    for (var data in levelDataList) {
       if (data.userLevel != 0) {
         button.add(_buildCirce(data.userLevel, level));
       }
@@ -632,7 +669,9 @@ class _LevelDetailPageState extends ConsumerState<LevelDetailPage> {
     return Container(
         padding: const EdgeInsets.symmetric(horizontal: 5),
         child: GestureDetector(
-          onTap: () => viewModel.changePage(level),
+          onTap: () {
+            pageController?.jumpToPage(level - 1);
+          },
           child: CircleAvatar(
               radius: 5,
               backgroundColor:

@@ -1219,7 +1219,8 @@
   "account-check-modal-hint":"이미 Treasurenft 계정이 있습니까?",
   "noAccount":"아니요",
   "comingToEnd":"시작하려고합니다",
-
+  "reward-title":"축하해요",
+  "reward-detail":"{usdt}의 보상을 받았으며, 사용 기간은 {day} 일입니다. 개인 센터를 통해 세부 사항을 확인할 수 있습니다.",
 
 
   "--//app use":"---",

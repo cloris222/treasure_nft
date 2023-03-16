@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_contribute_list_data.dart';
-import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
 import 'package:treasure_nft_project/widgets/list_view/team/team_contribute_item.dart';
 
 
@@ -19,13 +18,11 @@ class TeamContributeListView extends StatefulWidget {
 }
 
 class _TeamContributeListView extends State<TeamContributeListView> {
-  TeamMemberViewModel viewModel = TeamMemberViewModel();
-
 
   Widget createItemBuilder(BuildContext context, int index) {
     return TeamContributeItemView(
       itemData: widget.list[index],
-      itemCount: index,
+      serialNumber: index,
     );
   }
 

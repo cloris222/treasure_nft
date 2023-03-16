@@ -1219,7 +1219,8 @@
   "account-check-modal-hint":"Adakah anda sudah mempunyai akaun Treasurenft?",
   "noAccount":"Tidak",
   "comingToEnd":"Hendak bermula",
-
+  "reward-title":"Tahniah",
+  "reward-detail":"Anda telah menerima ganjaran {usdt}, tempoh penggunaan adalah {day} hari, anda boleh menyemak butiran melalui pusat peribadi",
 
 
   "--//app use":"---",

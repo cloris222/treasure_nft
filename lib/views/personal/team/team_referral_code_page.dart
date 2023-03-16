@@ -4,13 +4,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/personal/team/share_picture_style.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
 import '../../../constant/theme/app_theme.dart';
+import '../../../models/http/parameter/check_share_center.dart';
 import '../../../view_models/gobal_provider/user_info_provider.dart';
-import '../../../view_models/personal/team/share_center_viewmodel.dart';
+import '../../../view_models/personal/team/share_center_provider.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/label/common_text_widget.dart';
 import '../../custom_appbar_view.dart';
@@ -27,25 +29,27 @@ class TeamReferralCodePage extends ConsumerStatefulWidget {
 }
 
 class _TeamReferralCodePageState extends ConsumerState<TeamReferralCodePage> {
-  String data = '';
-  late ShareCenterViewModel viewModel;
+  BaseViewModel viewModel = BaseViewModel();
 
-  String link = '';
+  String get link {
+    return '${GlobalData.urlPrefix}#/uc/register/?inviteCode=${ref.read(userInfoProvider).inviteCode}';
+  }
+
+  CheckShareCenter? get shareCenterInfo {
+    return ref.read(shareCenterProvider);
+  }
 
   @override
   void initState() {
-    viewModel = ShareCenterViewModel(setState: () {
-      setState(() {});
-    });
-    viewModel.initState();
-
+    ref.read(shareCenterProvider.notifier).init();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    link =
-        '${GlobalData.urlPrefix}#/uc/register/?inviteCode=${ref.watch(userInfoProvider).inviteCode}';
+    ref.watch(userInfoProvider);
+    ref.watch(shareCenterProvider);
+
     return CustomAppbarView(
         needCover: true,
         needScrollView: true,
@@ -127,7 +131,7 @@ class _TeamReferralCodePageState extends ConsumerState<TeamReferralCodePage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                '${viewModel.shareCenterInfo?.teamIncome.toString()} ${tr("usdt")}',
+                                '${shareCenterInfo?.teamIncome.toString()} ${tr("usdt")}',
                                 style: TextStyle(
                                   fontSize: UIDefine.fontSize18,
                                   fontWeight: FontWeight.w600,
@@ -154,13 +158,13 @@ class _TeamReferralCodePageState extends ConsumerState<TeamReferralCodePage> {
                                   fontSize: UIDefine.fontSize14,
                                   color: AppColors.textGrey)),
                           Text(
-                              '${viewModel.shareCenterInfo?.no1DirectIncome.toString()} ${tr('usdt')}',
+                              '${shareCenterInfo?.no1DirectIncome.toString()} ${tr('usdt')}',
                               style: AppTextStyle.getBaseStyle(
                                   fontSize: UIDefine.fontSize16,
                                   color: AppColors.textBlack))
                         ],
                       ),
-                      Text('ID ${viewModel.shareCenterInfo?.no1DirectId ?? ""}',
+                      Text('ID ${shareCenterInfo?.no1DirectId ?? ""}',
                           style: AppTextStyle.getBaseStyle(
                               fontSize: UIDefine.fontSize14,
                               color: AppColors.textGrey)),
@@ -264,7 +268,8 @@ class _TeamReferralCodePageState extends ConsumerState<TeamReferralCodePage> {
                 textAlign: TextAlign.center, style: styleBlack),
             InkWell(
                 onTap: () {
-                  viewModel.copyText(copyText: ref.watch(userInfoProvider).inviteCode);
+                  viewModel.copyText(
+                      copyText: ref.watch(userInfoProvider).inviteCode);
                   viewModel.showToast(context, tr('copiedSuccess'));
                 },
                 child: Image.asset(AppImagePath.copyIcon))

@@ -225,4 +225,6 @@ class AppImagePath {
   static const String walletConnectIcon = '$_iconPath/icon_login_wallet_01.png';
   static const String walletConnectCheckIcon =
       '$_imgPath/img_logo_check_account_01.png';
+
+  static const String rewardIcon = '$_imgPath/img_congratulation_01.png';
 }

@@ -1219,7 +1219,8 @@
   "account-check-modal-hint":"Bạn đã có tài khoản Thủ quỹ chưa?",
   "noAccount":"KHÔNG",
   "comingToEnd":"Về để bắt đầu",
-
+  "reward-title":"Chúc mừng",
+  "reward-detail":"Bạn đã nhận được phần thưởng của {usdt}, thời gian sử dụng là {day} ngày, bạn có thể kiểm tra chi tiết thông qua trung tâm cá nhân",
 
 
   "--//app use":"---",

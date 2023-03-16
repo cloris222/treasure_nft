@@ -5,7 +5,6 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/collection/api/collection_api.dart';
-import 'package:treasure_nft_project/views/collection/collection_type_page.dart';
 
 import '../../constant/call_back_function.dart';
 import '../../constant/enum/collection_enum.dart';
@@ -15,10 +14,6 @@ import '../../views/collection/data/collection_reservation_response_data.dart';
 import '../../views/collection/data/collection_ticket_response_data.dart';
 
 class CollectionMainViewModel extends BaseViewModel {
-  Widget getCollectionTypePage(CollectionTag type) {
-    return CollectionTypePage(currentType: type);
-  }
-
   Widget getCollectionTypeButtons(
       {required CollectionTag currentExploreType,
       required ItemScrollController controller,
@@ -97,12 +92,12 @@ class CollectionMainViewModel extends BaseViewModel {
     return Colors.grey;
   }
 
-  Future<List<CollectionReservationResponseData>> getReservationResponse(
-      String type, int page, int size,
-      {ResponseErrorFunction? onConnectFail}) async {
-    return await CollectionApi(onConnectFail: onConnectFail)
-        .getReservationResponse(page: page, size: size, type: type);
-  }
+  // Future<List<CollectionReservationResponseData>> getReservationResponse(
+  //     String type, int page, int size,
+  //     {ResponseErrorFunction? onConnectFail}) async {
+  //   return await CollectionApi(onConnectFail: onConnectFail)
+  //       .getReservationResponse(page: page, size: size, type: type);
+  // }
 
   Future<List<CollectionNftItemResponseData>> getNFTItemResponse(
       String status, int page, int size,

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/views/home/home_main_view.dart';
@@ -9,6 +10,7 @@ import '../../../constant/theme/app_theme.dart';
 import '../../../constant/ui_define.dart';
 import '../../../view_models/base_view_model.dart';
 import '../../../view_models/explore/explore_artist_home_page_view_model.dart';
+import '../../../view_models/explore/explore_artist_provider.dart';
 import '../../custom_appbar_view.dart';
 import '../../server_web_page.dart';
 import '../../setting_language_page.dart';
@@ -16,16 +18,17 @@ import '../data/explore_artist_detail_response_data.dart';
 import '../data/explore_main_response_data.dart';
 import 'home_page_widgets.dart';
 
-class ExploreArtistHomePageView extends StatefulWidget {
+class ExploreArtistHomePageView extends ConsumerStatefulWidget {
   const ExploreArtistHomePageView({super.key, required this.artistData});
 
   final ExploreMainResponseData artistData;
 
   @override
-  State<StatefulWidget> createState() => _ExploreArtistHomePageView();
+  ConsumerState createState() => _ExploreArtistHomePageViewState();
 }
 
-class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
+class _ExploreArtistHomePageViewState
+    extends ConsumerState<ExploreArtistHomePageView> {
   ExploreArtistHomePageViewModel viewModel = ExploreArtistHomePageViewModel();
 
   // bool bMore = false; // 第一版UI
@@ -44,12 +47,18 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
     return widget.artistData;
   }
 
+  ExploreArtistDetailResponseData get artistDetail {
+    return ref.read(exploreArtistProvider(artistData.artistId)) ??
+        ExploreArtistDetailResponseData(sms: [], list: ListClass(pageList: []));
+  }
+
   @override
   void initState() {
     super.initState();
     Future<ExploreArtistDetailResponseData> resList = viewModel
         .getArtistDetailResponse(artistData.artistId, '', page, 10, sortBy);
     resList.then((value) => _setData(value));
+    ref.read(exploreArtistProvider(artistData.artistId).notifier).init();
   }
 
   _setData(value) {
@@ -60,6 +69,7 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
 
   @override
   Widget build(BuildContext context) {
+    ref.watch(exploreArtistProvider(artistData.artistId));
     return CustomAppbarView(
       needScrollView: false,
       onLanguageChange: () {
@@ -88,23 +98,27 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                HomePageWidgets().newHomePageTop(artistData, data, bShowMore,
-                    popBack: _popBack,
-                    seeMoreAction: () {
-                      setState(() {
-                        bShowMore = !bShowMore;
-                      });
-                    },
-                    smList: data.sms,
-                    callBack: (url) {
-                      if (url == 'Share') {
-                        viewModel.sharePCUrl(artistData.artistId);
-                      } else if (url == 'polygon') {
-                        viewModel.launchInBrowser('https://polygonscan.com/address/0x01Dd0424E8cA954e93B1159E748099f2877720A0#readContract');
-                      } else {
-                        viewModel.launchInBrowser(url);
-                      }
-                    },
+                HomePageWidgets().newHomePageTop(
+                  artistData,
+                  artistDetail,
+                  bShowMore,
+                  popBack: _popBack,
+                  seeMoreAction: () {
+                    setState(() {
+                      bShowMore = !bShowMore;
+                    });
+                  },
+                  smList: artistDetail.sms,
+                  callBack: (url) {
+                    if (url == 'Share') {
+                      viewModel.sharePCUrl(artistData.artistId);
+                    } else if (url == 'polygon') {
+                      viewModel.launchInBrowser(
+                          'https://polygonscan.com/address/0x01Dd0424E8cA954e93B1159E748099f2877720A0#readContract');
+                    } else {
+                      viewModel.launchInBrowser(url);
+                    }
+                  },
                 ),
                 Stack(
                   children: [
@@ -134,8 +148,7 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
                             /// 商品圖
                             _buildItemListView()
                           ],
-                        )
-                        )
+                        ))
                   ],
                 ),
                 SizedBox(height: UIDefine.navigationBarPadding)
@@ -157,8 +170,8 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
         space,
         GestureDetector(
             onTap: () => _onPressSort(),
-            child: Image.asset('assets/icon/btn/btn_filter_03.png', scale: 1.25)
-        ),
+            child:
+                Image.asset('assets/icon/btn/btn_filter_03.png', scale: 1.25)),
         space
       ],
     );
@@ -167,15 +180,17 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
   Widget _buildNoDataView() {
     return Visibility(
       visible: productList.isEmpty,
-      child:  Column(
+      child: Column(
         children: [
           SizedBox(height: UIDefine.getScreenWidth(10)),
           Image.asset('assets/icon/icon/icon_nodata_01.png'),
           const SizedBox(height: 10),
           Text(
             tr("ES_0007"),
-            style: AppTextStyle.getBaseStyle(color: AppColors.textGrey,
-                fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500),
+            style: AppTextStyle.getBaseStyle(
+                color: AppColors.textGrey,
+                fontSize: UIDefine.fontSize16,
+                fontWeight: FontWeight.w500),
           ),
         ],
       ),
@@ -192,20 +207,14 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
             // 開啟'到底更新'的Flag
             bDownloading = false;
           }
-          if (index % 2 == 0 &&
-              index == productList.length - 1) {
+          if (index % 2 == 0 && index == productList.length - 1) {
             return Padding(
-                padding: EdgeInsets.fromLTRB(
-                    UIDefine.getScreenWidth(4.5),
-                    0,
-                    0,
+                padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.5), 0, 0,
                     UIDefine.getScreenWidth(4.5)),
                 child: Row(
-                  mainAxisAlignment:
-                  MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    HomePageWidgets().productView(
-                        context, productList[index]),
+                    HomePageWidgets().productView(context, productList[index]),
                   ],
                 ));
           }
@@ -213,19 +222,13 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
             return Container();
           }
           return Padding(
-            padding: EdgeInsets.fromLTRB(
-                UIDefine.getScreenWidth(4.5),
-                0,
-                UIDefine.getScreenWidth(4.5),
-                UIDefine.getScreenWidth(4.5)),
+            padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.5), 0,
+                UIDefine.getScreenWidth(4.5), UIDefine.getScreenWidth(4.5)),
             child: Row(
-              mainAxisAlignment:
-              MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                HomePageWidgets().productView(
-                    context, productList[index]),
-                HomePageWidgets().productView(
-                    context, productList[index + 1])
+                HomePageWidgets().productView(context, productList[index]),
+                HomePageWidgets().productView(context, productList[index + 1])
               ],
             ),
           );
@@ -288,8 +291,9 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
               EdgeInsets.fromLTRB(0, UIDefine.getScreenWidth(4.16), 0, 0),
           prefixIcon: Image.asset('assets/icon/btn/btn_discover_01_nor.png'),
           hintText: tr("select-placeholder'"),
-          hintStyle:  AppTextStyle.getBaseStyle(height: 1.6, color: AppColors.searchBar),
-          labelStyle:  AppTextStyle.getBaseStyle(color: Colors.black),
+          hintStyle: AppTextStyle.getBaseStyle(
+              height: 1.6, color: AppColors.searchBar),
+          labelStyle: AppTextStyle.getBaseStyle(color: Colors.black),
           alignLabelWithHint: true,
           border: AppTheme.style.styleTextEditBorderBackground(
               color: AppColors.searchBar, radius: 20),
@@ -329,7 +333,8 @@ class _ExploreArtistHomePageView extends State<ExploreArtistHomePageView> {
             child: Row(
               children: <Widget>[
                 Text(_getCategoryText(category),
-                    style:  AppTextStyle.getBaseStyle(color: AppColors.textBlack.withOpacity(0.7))),
+                    style: AppTextStyle.getBaseStyle(
+                        color: AppColors.textBlack.withOpacity(0.7))),
               ],
             ));
       }).toList(),

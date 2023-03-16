@@ -23,9 +23,9 @@ import '../../../widgets/dialog/common_custom_dialog.dart';
 import '../../../widgets/dialog/simple_custom_dialog.dart';
 
 class UserCreateViewModel extends BaseViewModel {
-  UserCreateViewModel({required this.setState});
+  UserCreateViewModel({required this.onViewChange});
 
-  final ViewChange setState;
+  final onClickFunction onViewChange;
   TextEditingController nameController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController dateController = TextEditingController();
@@ -34,21 +34,12 @@ class UserCreateViewModel extends BaseViewModel {
   ValidateResultData dateData = ValidateResultData();
 
   XFile? uploadImage;
-  double rate = 0.0;
-  bool canMine = false;
 
   void resetData() {
-    setState(() {
-      nameData = ValidateResultData();
-      priceData = ValidateResultData();
-      dateData = ValidateResultData();
-    });
-  }
-
-  void initState() async {
-    rate = await MineAPI().getRoyaltyRate();
-    canMine = await MineAPI().getWhiteList();
-    setState(() {});
+    nameData = ValidateResultData();
+    priceData = ValidateResultData();
+    dateData = ValidateResultData();
+    onViewChange();
   }
 
   void dispose() {
@@ -63,15 +54,15 @@ class UserCreateViewModel extends BaseViewModel {
 
   void onChooseDate(BuildContext context) async {
     String date = await TimePickUtil().pickAfterDate(context);
-    setState(() {
-      dateController.text = date;
-      dateData = ValidateResultData();
-    });
+
+    dateController.text = date;
+    dateData = ValidateResultData();
+    onViewChange();
   }
 
   void onCancelImg() {
     uploadImage = null;
-    setState(() {});
+    onViewChange();
   }
 
   void onChooseImage() async {
@@ -82,14 +73,14 @@ class UserCreateViewModel extends BaseViewModel {
       String path = uploadImage!.path;
       var suffix = path.substring(path.lastIndexOf(".") + 1, path.length);
     }
-    setState(() {});
+    onViewChange();
   }
 
   void onCancel(BuildContext context) {
     popPage(context);
   }
 
-  void onConfirm(BuildContext context) async {
+  void onConfirm(BuildContext context, bool canMine) async {
     if (uploadImage == null) {
       SimpleCustomDialog(context,
               mainText: tr("uploadImg-required'"), isSuccess: false)
@@ -100,20 +91,18 @@ class UserCreateViewModel extends BaseViewModel {
     else if (nameController.text.isEmpty ||
         priceController.text.isEmpty ||
         dateController.text.isEmpty) {
-      setState(() {
-        nameData = ValidateResultData(
-            result: nameController.text.isNotEmpty, message: tr('require'));
-        priceData = ValidateResultData(
-            result: priceController.text.isNotEmpty, message: tr('require'));
-        dateData = ValidateResultData(
-            result: dateController.text.isNotEmpty, message: tr('require'));
-      });
+      nameData = ValidateResultData(
+          result: nameController.text.isNotEmpty, message: tr('require'));
+      priceData = ValidateResultData(
+          result: priceController.text.isNotEmpty, message: tr('require'));
+      dateData = ValidateResultData(
+          result: dateController.text.isNotEmpty, message: tr('require'));
+      onViewChange();
     } else if (!RegularExpressionUtil()
         .checkFormatCreateName(nameController.text)) {
-      setState(() {
-        nameData =
-            ValidateResultData(result: false, message: tr('createLimitHint'));
-      });
+      nameData =
+          ValidateResultData(result: false, message: tr('createLimitHint'));
+      onViewChange();
     }
 
     ///MARK: 不再白名單
@@ -144,7 +133,7 @@ class UserCreateViewModel extends BaseViewModel {
               onConnectFail: (message) => onBaseConnectFail(context, message))
           .uploadImage(uploadImage!.path,
               uploadOriginalName: true, setFileName: createOriginalName);
-         _compressUpload(context, createComPressName);
+      _compressUpload(context, createComPressName);
 
       await MineAPI(
               onConnectFail: (message) => onBaseConnectFail(context, message))
@@ -177,14 +166,13 @@ class UserCreateViewModel extends BaseViewModel {
   }
 
   void onNameChange(String value) {
-    setState(() {
-      if (value.isNotEmpty) {
-        nameData = ValidateResultData(
-            result: RegularExpressionUtil().checkFormatCreateName(value),
-            message: tr('createLimitHint'));
-      } else {
-        nameData = ValidateResultData();
-      }
-    });
+    if (value.isNotEmpty) {
+      nameData = ValidateResultData(
+          result: RegularExpressionUtil().checkFormatCreateName(value),
+          message: tr('createLimitHint'));
+    } else {
+      nameData = ValidateResultData();
+    }
+    onViewChange();
   }
 }

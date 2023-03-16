@@ -50,7 +50,7 @@ class GlobalData {
   static String strDataPickerEnd = '';
 
   ///MARK: 暫存區
-  static double? totalIncome; // 查詢收益明細 “裡面的總收入”
+
 
   ///MARK: Notifier監聽
   static BottomNavigationNotifier bottomNavigationNotifier =

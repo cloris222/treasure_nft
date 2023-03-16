@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/models/http/parameter/team_member_detail.dart';
-import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
+import 'package:treasure_nft_project/views/personal/team/team_main_style.dart';
 import 'member_detail_item.dart';
 
 
@@ -17,9 +17,6 @@ class MemberDetailListView extends StatefulWidget {
 }
 
 class _MemberDetailListView extends State<MemberDetailListView> {
-  TeamMemberViewModel viewModel = TeamMemberViewModel();
-
-
   Widget createItemBuilder(BuildContext context, int index) {
     return MemberDetailItemView(
       itemData: widget.list[index],
@@ -27,7 +24,7 @@ class _MemberDetailListView extends State<MemberDetailListView> {
   }
 
   Widget createSeparatorBuilder(BuildContext context, int index) {
-    return viewModel.getPadding(3);
+    return TeamMainStyle().getPadding(3);
     //   Divider(
     //   height: UIDefine.getScreenWidth(4.16),
     //   color: AppColors.datePickerBorder,

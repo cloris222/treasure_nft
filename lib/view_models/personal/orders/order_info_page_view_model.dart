@@ -1,11 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
-
-import '../../../constant/call_back_function.dart';
-import '../../../models/http/api/order_api.dart';
+import '../../../constant/enum/order_enum.dart';
 import '../../../views/personal/orders/orderinfo/data/order_message_list_response_data.dart';
 import '../../../widgets/card/awd_info_card.dart';
 import '../../../widgets/card/buyer_seller_info_card.dart';
@@ -14,19 +9,16 @@ import '../../../widgets/card/item_info_card.dart';
 import '../../../widgets/card/order_info_card.dart';
 
 class OrderInfoPageViewModel extends BaseViewModel {
-  OrderInfoPageViewModel({required this.setState});
+  OrderInfoPageViewModel();
 
-  final ViewChange setState;
-  String currentType = 'BUY';
+  OrderInfoType currentType = OrderInfoType.BUY;
   String startDate = '';
   String endDate = '';
-  List<OrderMessageListResponseData> dataList = [];
-
-  // num walletBalance = 0;
+  String _today = '';
 
   void init(bool bFromWallet) {
     if (bFromWallet) {
-      currentType = 'DEPOSIT';
+      currentType = OrderInfoType.DEPOSIT;
     }
 
     /// 取得日期 by 帳號所屬國家名: 會自動換成該國慣用用法 ex: 台灣會有年月日單位且分開取：2022年 12月 2日
@@ -44,20 +36,25 @@ class OrderInfoPageViewModel extends BaseViewModel {
     // endDate = startDate;
 
     /// 取得日期 by 帳號所屬國家時區(洲名/都市) ex：年月日純數字但需分開取 2022 12 2
-    tz.initializeTimeZones();
-    String timeZoneCode2 = _getTimeZoneCode(GlobalData.userZone);
-    var istanbulTimeZone = tz.getLocation(timeZoneCode2);
-    int year = tz.TZDateTime.now(istanbulTimeZone).year;
-    int month = tz.TZDateTime.now(istanbulTimeZone).month;
-    int day = tz.TZDateTime.now(istanbulTimeZone).day;
-    startDate =
-        year.toString() + '-' + _formatMMDD(month) + '-' + _formatMMDD(day);
+    // tz.initializeTimeZones();
+    // String timeZoneCode2 = _getTimeZoneCode(GlobalData.userZone);
+    // var istanbulTimeZone = tz.getLocation(timeZoneCode2);
+    // int year = tz.TZDateTime.now(istanbulTimeZone).year;
+    // int month = tz.TZDateTime.now(istanbulTimeZone).month;
+    // int day = tz.TZDateTime.now(istanbulTimeZone).day;
+    startDate = getCurrentDayWithUtcZone();
     endDate = startDate;
+    _today = startDate;
+  }
+
+  ///MARK:判斷是否為今日
+  bool checkToday() {
+    return (startDate.compareTo(_today) == 0 && endDate.compareTo(_today) == 0);
   }
 
   String _formatMMDD(int value) {
     if (value < 10) {
-      return '0' + value.toString();
+      return '0$value';
     }
     return value.toString();
   }
@@ -163,53 +160,8 @@ class OrderInfoPageViewModel extends BaseViewModel {
   //   return '';
   // }
 
-  void requestAPI(int page, int size,
-      {ResponseErrorFunction? onConnectFail}) async {
-    if (currentType.isNotEmpty) {
-      await OrderAPI(onConnectFail: onConnectFail)
-          .getOrderMessageListResponse(
-              page: page,
-              size: size,
-              type: currentType,
-              startTime: startDate,
-              endTime: endDate)
-          .then((value) => {_setState(value)});
-
-      // await CollectionApi(onConnectFail: onConnectFail) // 這裡的副本預約 不顯示餘額補足按鈕
-      //     .getWalletBalanceResponse()
-      //     .then((value) => walletBalance = value);
-    }
-  }
-
-  void requestAPIForUpdate(int page, int size,
-      {ResponseErrorFunction? onConnectFail}) async {
-    if (currentType.isNotEmpty) {
-      await OrderAPI(onConnectFail: onConnectFail)
-          .getOrderMessageListResponse(
-              page: page,
-              size: size,
-              type: currentType,
-              startTime: startDate,
-              endTime: endDate)
-          .then((value) => {_update(value)});
-    }
-  }
-
-  void _setState(value) {
-    setState(() {
-      dataList = value;
-    });
-  }
-
-  void _update(value) {
-    setState(() {
-      dataList.addAll(value);
-    });
-  }
-
-  ///TODO: 給定不同的卡牌樣式＆資料
-  createItemView(int index) {
-    OrderMessageListResponseData data = dataList[index];
+  ///MARK: 給定不同的卡牌樣式＆資料
+  createItemView(int index, OrderMessageListResponseData data) {
     switch (currentType) {
       // case 'ITEM': // 隱藏不做
       //   return ItemInfoCard(itemName: data.itemName, dateTime: BaseViewModel().changeTimeZone(data.createdAt),
@@ -220,7 +172,7 @@ class OrderInfoPageViewModel extends BaseViewModel {
       // case 'TRANSFER_NFT': // 隱藏不做
       //   return ItemInfoCard(itemName: data.itemName, dateTime: dateTime,
       //       imageUrl: imageUrl, price: price, dataList: dataList);
-      case 'ROYALTY':
+      case OrderInfoType.ROYALTY:
         return ItemInfoCard(
             drewAt: null,
             itemName: data.itemName,
@@ -230,7 +182,7 @@ class OrderInfoPageViewModel extends BaseViewModel {
             price: data.price.toString(),
             dataList: _royaltyListContent(data));
 
-      case 'PRICE':
+      case OrderInfoType.PRICE:
         return OrderInfoCard(
             drewAt: null,
             orderNumber: data.orderNo,
@@ -243,36 +195,36 @@ class OrderInfoPageViewModel extends BaseViewModel {
             itemName: data.itemName,
             price: data.price.toString());
 
-      case 'ACTIVITY':
+      case OrderInfoType.ACTIVITY:
         return AWDInfoCard(
             type: data.type,
             datetime: BaseViewModel().changeTimeZone(data.time),
             dataList: _activityListContent(data));
-      case 'DEPOSIT':
+      case OrderInfoType.DEPOSIT:
         return AWDInfoCard(
             type: data.type,
             datetime: BaseViewModel().changeTimeZone(data.time),
             dataList: _depositListContent(data),
             status: data.status);
-      case 'WITHDRAW':
+      case OrderInfoType.WITHDRAW:
         return AWDInfoCard(
             type: data.type,
             datetime: BaseViewModel().changeTimeZone(data.time),
             dataList: _withdrawListContent(data),
             status: data.status);
 
-      case 'BUY':
+      case OrderInfoType.BUY:
         return BuyerSellerInfoCard(
             data: data,
             dataList: _buyListContent(data),
             moreInfoDataList: _buyListContentMore(data));
-      case 'SELL':
+      case OrderInfoType.SELL:
         return BuyerSellerInfoCard(
             data: data,
             bShowShare: true,
             dataList: _sellListContent(data),
             moreInfoDataList: _sellListContentMore(data));
-      case 'DEPOSIT_NFT':
+      case OrderInfoType.DEPOSIT_NFT:
         return ItemInfoCard(
             drewAt: null,
             itemName: data.itemName,
@@ -281,7 +233,7 @@ class OrderInfoPageViewModel extends BaseViewModel {
             price: '',
             dataList: _depositAndTransferNFTContent(data));
 
-      case 'TRANSFER_NFT':
+      case OrderInfoType.TRANSFER_NFT:
         return ItemInfoCard(
             drewAt: null,
             itemName: data.itemName,
@@ -292,7 +244,7 @@ class OrderInfoPageViewModel extends BaseViewModel {
     }
   }
 
-  ///TODO: 以下為各卡牌所需的 欄位 & 資料
+  ///MARK: 以下為各卡牌所需的 欄位 & 資料
   // 單一預約 // 隱藏不做
   // _itemListContent(OrderMessageListResponseData resData) {
   //   List<CardShowingData> dataList = [];
@@ -368,9 +320,9 @@ class OrderInfoPageViewModel extends BaseViewModel {
     List<CardShowingData> dataList = [];
     CardShowingData data = CardShowingData();
     data.title = tr('reservationAmount');
-    data.content = BaseViewModel().numberFormat(resData.startPrice.toString()) +
-        ' ~ ' +
-        BaseViewModel().numberFormat(resData.endPrice.toString());
+    data.content =
+        '${BaseViewModel().numberFormat(resData.startPrice.toString())} '
+        '~ ${BaseViewModel().numberFormat(resData.endPrice.toString())}';
     data.bIcon = true;
     dataList.add(data);
 
@@ -389,9 +341,8 @@ class OrderInfoPageViewModel extends BaseViewModel {
     List<CardShowingData> dataList = [];
     CardShowingData data = CardShowingData();
     data.title = tr('amount');
-    data.content = resData.amount > 0
-        ? '+' + resData.amount.toString()
-        : resData.amount.toString();
+    data.content =
+        resData.amount > 0 ? '+${resData.amount}' : resData.amount.toString();
     data.bPrice = true;
     dataList.add(data);
 

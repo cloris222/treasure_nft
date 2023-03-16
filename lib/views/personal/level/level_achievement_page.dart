@@ -36,42 +36,43 @@ class _LevelAchievementPageState extends ConsumerState<LevelAchievementPage> {
   @override
   void initState() {
     super.initState();
-    viewModel = LevelAchievementViewModel(
-        setState: setState,
-        showExperienceHint: () {
-          CommonCustomDialog(context,
-              isDialogCancel: false,
-              bOneButton: false,
-              title: tr('exp_remind_title'),
-              content: tr('exp_remind_content'),
-              leftBtnText: tr('confirm'),
-              rightBtnText: tr('gotoRegister'),
-              type: DialogImageType.fail, onLeftPress: () {
-            BaseViewModel().popPage(context);
-            BaseViewModel().popPage(context);
-          }, onRightPress: () {
-            BaseViewModel().popPage(context);
-            BaseViewModel().popPage(context);
-            BaseViewModel().pushPage(context, const RegisterMainPage());
-          }).show();
-        },
-        showLevel0Hint: () {
-          CommonCustomDialog(context,
-              isDialogCancel: false,
-              bOneButton: true,
-              title: tr('yourLevelNotEnough'),
-              content: tr('pleaseNoviceVillageLevelUp'),
-              leftBtnText: tr('confirm'),
-              rightBtnText: tr('confirm'),
-              type: DialogImageType.fail, onLeftPress: () {
-            BaseViewModel().popPage(context);
-            BaseViewModel().popPage(context);
-          }, onRightPress: () {
-            BaseViewModel().popPage(context);
-            BaseViewModel().pushAndRemoveUntil(
-                context, const MainPage(type: AppNavigationBarType.typeTrade));
-          }).show();
-        });
+    viewModel = LevelAchievementViewModel(onViewChange: () {
+      if (mounted) {
+        setState(() {});
+      }
+    }, showExperienceHint: () {
+      CommonCustomDialog(context,
+          isDialogCancel: false,
+          bOneButton: false,
+          title: tr('exp_remind_title'),
+          content: tr('exp_remind_content'),
+          leftBtnText: tr('confirm'),
+          rightBtnText: tr('gotoRegister'),
+          type: DialogImageType.fail, onLeftPress: () {
+        BaseViewModel().popPage(context);
+        BaseViewModel().popPage(context);
+      }, onRightPress: () {
+        BaseViewModel().popPage(context);
+        BaseViewModel().popPage(context);
+        BaseViewModel().pushPage(context, const RegisterMainPage());
+      }).show();
+    }, showLevel0Hint: () {
+      CommonCustomDialog(context,
+          isDialogCancel: false,
+          bOneButton: true,
+          title: tr('yourLevelNotEnough'),
+          content: tr('pleaseNoviceVillageLevelUp'),
+          leftBtnText: tr('confirm'),
+          rightBtnText: tr('confirm'),
+          type: DialogImageType.fail, onLeftPress: () {
+        BaseViewModel().popPage(context);
+        BaseViewModel().popPage(context);
+      }, onRightPress: () {
+        BaseViewModel().popPage(context);
+        BaseViewModel().pushAndRemoveUntil(
+            context, const MainPage(type: AppNavigationBarType.typeTrade));
+      }).show();
+    });
     viewModel.initState(ref);
     ref.read(userLevelInfoProvider.notifier).update();
   }

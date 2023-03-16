@@ -4,9 +4,10 @@ import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/parameter/lower_nft_data.dart';
-import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
+
+import '../../../views/personal/team/team_main_style.dart';
 
 class LowerNFTItemView extends StatefulWidget {
   const LowerNFTItemView({super.key, required this.itemData});
@@ -18,7 +19,7 @@ class LowerNFTItemView extends StatefulWidget {
 }
 
 class _LowerNFTItem extends State<LowerNFTItemView> {
-  TeamMemberViewModel viewModel = TeamMemberViewModel();
+  TeamMainStyle style = TeamMainStyle();
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +64,7 @@ class _LowerNFTItem extends State<LowerNFTItemView> {
                         height: UIDefine.getPixelWidth(12),
                         child: Image.asset(AppImagePath.tetherImg),
                       ),
-                      viewModel.getPadding(1),
+                      style.getPadding(1),
                       Text(
                         widget.itemData.currentPrice.toString(),
                         style: AppTextStyle.getBaseStyle(

@@ -1219,6 +1219,8 @@
   "account-check-modal-hint":"آیا قبلاً حساب Treasurenft دارید؟",
   "noAccount":"هیچ",
   "comingToEnd":"در مورد شروع",
+  "reward-title":"تبریک می گویم",
+  "reward-detail":"شما پاداش {usdt} دریافت کرده اید ، دوره استفاده روزها {day} روز است ، می توانید جزئیات را از طریق مرکز شخصی بررسی کنید",
 
 
 

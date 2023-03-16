@@ -26,10 +26,23 @@ class AppStyle {
       {double radius = 0,
       Color borderColor = Colors.transparent,
       double borderWith = 1,
+        bool hasTopLeft = true,
+        bool hasTopRight = true,
+        bool hasBottomLef = true,
+        bool hasBottomRight = true,
       AlignmentGeometry begin = Alignment.centerLeft,
       AlignmentGeometry end = Alignment.centerRight}) {
     return BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(radius)),
+        borderRadius: BorderRadius.only(
+          topLeft:
+          hasTopLeft ? Radius.circular(radius) : const Radius.circular(0),
+          topRight:
+          hasTopRight ? Radius.circular(radius) : const Radius.circular(0),
+          bottomLeft:
+          hasBottomLef ? Radius.circular(radius) : const Radius.circular(0),
+          bottomRight:
+          hasBottomRight ? Radius.circular(radius) : const Radius.circular(0),
+        ),
         border: Border.all(color: borderColor, width: borderWith),
         gradient: LinearGradient(
             begin: begin, end: end, colors: AppColors.gradientBaseColorBg));

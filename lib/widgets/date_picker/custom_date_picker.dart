@@ -7,7 +7,6 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/date_format_util.dart';
-import 'package:treasure_nft_project/view_models/personal/team/team_member_viewmodel.dart';
 import 'package:treasure_nft_project/views/home/widget/search_action_button.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 
@@ -24,12 +23,14 @@ class CustomDatePickerWidget extends StatefulWidget {
     ],
     required this.dateCallback,
     this.typeCallback,
+    this.needCancel = false,
   });
 
   final onDateFunction dateCallback;
   final onDateTypeFunction? typeCallback;
   final Search? initType;
   final List<Search> typeList;
+  final bool needCancel;
 
   @override
   State<StatefulWidget> createState() {
@@ -67,7 +68,9 @@ class CustomDatePickerState extends State<CustomDatePickerWidget> {
           child: Container(
               width: UIDefine.getWidth(),
               height: UIDefine.getPixelWidth(40),
-              decoration: TeamMemberViewModel().setBoxDecoration(),
+              decoration: BoxDecoration(
+                  border: Border.all(width: 1, color: AppColors.bolderGrey),
+                  borderRadius: BorderRadius.circular(8)),
               padding:
                   EdgeInsets.symmetric(horizontal: UIDefine.getScreenWidth(2)),
               child: Row(
@@ -81,7 +84,7 @@ class CustomDatePickerState extends State<CustomDatePickerWidget> {
                           color: AppColors.textBlack,
                           fontSize: UIDefine.fontSize14),
                     ),
-                    Image.asset(AppImagePath.dateIcon),
+                    _buildIcon()
                   ]))),
 
       getPadding(2),
@@ -136,7 +139,7 @@ class CustomDatePickerState extends State<CustomDatePickerWidget> {
   Future<void> _showDatePicker(BuildContext context) async {
     await showDateRangePicker(
             context: context,
-            firstDate: DateTime(2022, 1),
+            firstDate: DateTime(1900, 01),
             lastDate: DateTime.now())
         .then((value) => {
               startDate =
@@ -198,5 +201,16 @@ class CustomDatePickerState extends State<CustomDatePickerWidget> {
       }
       widget.dateCallback(startDate, endDate);
     });
+  }
+
+  Widget _buildIcon() {
+    if (widget.needCancel) {
+      if (startDate.isNotEmpty && endDate.isNotEmpty) {
+        return GestureDetector(
+            onTap: () => _onPressChoose(Search.All),
+            child: const Icon(Icons.cancel, color: AppColors.textThreeBlack));
+      }
+    }
+    return Image.asset(AppImagePath.dateIcon);
   }
 }

@@ -3,9 +3,12 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
+import 'package:treasure_nft_project/view_models/personal/common/user_create_rate_provider.dart';
+import 'package:treasure_nft_project/view_models/personal/common/user_create_white_provider.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
 import 'package:treasure_nft_project/widgets/button/login_bolder_button_widget.dart';
@@ -19,21 +22,36 @@ import '../../login/login_param_view.dart';
 import 'choose_date_view.dart';
 
 ///MARK: 鑄造
-class UserCreatePage extends StatefulWidget {
-  const UserCreatePage({Key? key}) : super(key: key);
+class UserCreatePage extends ConsumerStatefulWidget {
+  const UserCreatePage({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<UserCreatePage> createState() => _UserCreatePageState();
+  ConsumerState createState() => _UserCreatePageState();
 }
 
-class _UserCreatePageState extends State<UserCreatePage> {
+class _UserCreatePageState extends ConsumerState<UserCreatePage> {
   late UserCreateViewModel viewModel;
+
+  double get rate {
+    return ref.read(userCreateRateProvider);
+  }
+
+  bool get canMine {
+    return ref.read(userCreateWhiteProvider);
+  }
 
   @override
   void initState() {
     super.initState();
-    viewModel = UserCreateViewModel(setState: setState);
-    viewModel.initState();
+    viewModel = UserCreateViewModel(onViewChange: () {
+      if (mounted) {
+        setState(() {});
+      }
+    });
+    ref.read(userCreateRateProvider.notifier).init();
+    ref.read(userCreateWhiteProvider.notifier).init();
   }
 
   @override
@@ -44,6 +62,8 @@ class _UserCreatePageState extends State<UserCreatePage> {
 
   @override
   Widget build(BuildContext context) {
+    ref.watch(userCreateRateProvider);
+    ref.watch(userCreateWhiteProvider);
     return CustomAppbarView(
       needScrollView: false,
       onLanguageChange: () {
@@ -118,7 +138,7 @@ class _UserCreatePageState extends State<UserCreatePage> {
         ),
         SizedBox(height: UIDefine.getScreenHeight(5)),
         Text(
-          '${tr('royalty')} : ${NumberFormatUtil().removeTwoPointFormat(viewModel.rate)} %',
+          '${tr('royalty')} : ${NumberFormatUtil().removeTwoPointFormat(rate)} %',
           style: AppTextStyle.getBaseStyle(
               fontSize: UIDefine.fontSize14,
               fontWeight: FontWeight.w400,
@@ -137,7 +157,7 @@ class _UserCreatePageState extends State<UserCreatePage> {
               child: LoginButtonWidget(
             height: UIDefine.getScreenHeight(8),
             btnText: tr('confirm'),
-            onPressed: () => viewModel.onConfirm(context),
+            onPressed: () => viewModel.onConfirm(context, canMine),
           ))
         ]),
       ]),

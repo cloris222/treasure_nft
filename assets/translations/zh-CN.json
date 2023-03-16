@@ -1219,6 +1219,8 @@
   "account-check-modal-hint":"请问您已经有Treasure NFT 的帐号吗?",
   "noAccount":"没有帐号",
   "comingToEnd":"即将结束",
+  "reward-title":"恭喜",
+  "reward-detail":"您已获得{usdt}的奖励，使用期限为{day}天，可通过个人中心查看详情",
 
 
 
