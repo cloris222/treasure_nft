@@ -1219,6 +1219,8 @@
     "account-check-modal-hint":"あなたはすでにTREASURENFTアカウントを持っていますか？",
     "noAccount":"いいえ",
     "comingToEnd":"始めようとしています",
+    "reward-title":"おめでとう",
+    "reward-detail":"{usdt}の報酬を受け取りました。使用期間は{day}日です。個人センターを通じて詳細を確認できます。",
 
 
 

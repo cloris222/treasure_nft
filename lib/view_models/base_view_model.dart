@@ -35,6 +35,7 @@ import '../utils/app_shared_Preferences.dart';
 import '../utils/date_format_util.dart';
 import '../utils/stomp_socket_util.dart';
 import '../utils/trade_timer_util.dart';
+import '../widgets/dialog/reward_notify_dialog.dart';
 import '../widgets/dialog/simple_custom_dialog.dart';
 import 'control_router_viem_model.dart';
 import 'gobal_provider/user_experience_info_provider.dart';
@@ -305,6 +306,20 @@ class BaseViewModel with ControlRouterViewModel {
             }
           },
         );
+
+    ///MARK: 獎勵通知
+    StompSocketUtil().stompClient!.subscribe(
+          destination: '/user/reward/${GlobalData.userMemberId}',
+          callback: (frame) {
+            GlobalData.printLog('${StompSocketUtil().key} ${frame.body}');
+            var result = json.decode(frame.body!);
+            if (result['toUserId'] == GlobalData.userMemberId) {
+              showRewardDialog(
+                  amount: result['amount'] ?? '0',
+                  expireDays: result['expireDays'] ?? '0');
+            }
+          },
+        );
   }
 
   void showBuySuccessAnimate() async {
@@ -371,6 +386,15 @@ class BaseViewModel with ControlRouterViewModel {
                 isFile: true, animationPath: path, limitTimer: 4));
       }
     }
+  }
+
+  void showRewardDialog({String amount = '0', String expireDays = '0'}) {
+    pushOpacityPage(
+        getGlobalContext(),
+        RewardNotifyDialog(
+          amount: amount,
+          expireDays: expireDays,
+        ));
   }
 
   String getStartTime(String startDate) {

@@ -1219,6 +1219,8 @@
   "account-check-modal-hint":"Do you already have a TreasureNFT account?",
   "noAccount":"No",
   "comingToEnd":"About to start",
+  "reward-title":"Congratulations",
+  "reward-detail":"You have received the reward of {usdt}, the use period is {day} days, you can check the details through the personal center",
 
 
 

@@ -1219,7 +1219,8 @@
   "account-check-modal-hint":"Você já tem uma conta tesourenft?",
   "noAccount":"Não",
   "comingToEnd":"Prestes a começar",
-
+  "reward-title":"Parabéns",
+  "reward-detail":"Você recebeu a recompensa de {usdt}, o período de uso é {day} dias, você pode verificar os detalhes através do centro pessoal",
 
 
   "--//app use":"---",
