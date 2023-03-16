@@ -22,29 +22,26 @@ class RewardNotifyDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.opacityBackground,
-      body: WillPopScope(
-        onWillPop: () async {
-          return false;
-        },
-        child: GestureDetector(
-          onTap: () => BaseViewModel().popPage(context),
-          child: Container(
-            alignment: Alignment.center,
-            color: Colors.transparent,
-            child: GestureDetector(
-              onTap: () {},
+    return GestureDetector(
+      onTap: () => BaseViewModel().popPage(context),
+      child: Scaffold(
+        backgroundColor: AppColors.opacityBackground,
+        body: WillPopScope(
+          onWillPop: () async {
+            return false;
+          },
+          child: GestureDetector(
+            onTap: () {},
+            child: Center(
               child: Container(
                 margin: EdgeInsets.symmetric(
                     horizontal: UIDefine.getPixelWidth(40)),
-                height: UIDefine.getPixelWidth(350),
                 decoration: AppStyle().styleColorsRadiusBackground(radius: 24),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     _buildTitle(context),
-                    Expanded(child: _buildContext(context)),
+                    _buildContext(context),
                   ],
                 ),
               ),
@@ -89,6 +86,7 @@ class RewardNotifyDialog extends StatelessWidget {
 
   Widget _buildContext(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         SizedBox(height: UIDefine.getPixelWidth(15)),
         Image.asset(AppImagePath.rewardIcon),
@@ -106,7 +104,7 @@ class RewardNotifyDialog extends StatelessWidget {
                 fontWeight: FontWeight.w400),
           ),
         ),
-        const Spacer(),
+        SizedBox(height: UIDefine.getPixelWidth(30)),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
