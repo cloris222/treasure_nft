@@ -282,7 +282,7 @@ abstract class BaseListInterface {
         currentItems.isNotEmpty ? currentItems.length ~/ crossAxisCount : 0;
 
     ///MARK: 有多一行就++
-    if (rowLength > 0) {
+    if (currentItems.isNotEmpty) {
       rowLength += (currentItems.length % crossAxisCount > 0) ? 1 : 0;
     }
     Widget? topView = buildTopView();

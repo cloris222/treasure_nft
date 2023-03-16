@@ -69,7 +69,7 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
 
                 /// Share
                 Visibility(
-                    visible: widget.itemData.type == 'SELL' && false,
+                    visible: widget.itemData.type == 'SELL' ,
                     child: GestureDetector(
                         onTap: _onPressShare,
                         child: SizedBox(
