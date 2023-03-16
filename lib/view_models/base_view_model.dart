@@ -315,7 +315,7 @@ class BaseViewModel with ControlRouterViewModel {
             var result = json.decode(frame.body!);
             if (result['toUserId'] == GlobalData.userMemberId) {
               showRewardDialog(
-                  amount: result['amount'] ?? '0',
+                  amount: result['amount'] ?? 0,
                   expireDays: result['expireDays'] ?? '0');
             }
           },
@@ -388,7 +388,7 @@ class BaseViewModel with ControlRouterViewModel {
     }
   }
 
-  void showRewardDialog({String amount = '0', String expireDays = '0'}) {
+  void showRewardDialog({num amount = 0, String expireDays = '0'}) {
     pushOpacityPage(
         getGlobalContext(),
         RewardNotifyDialog(

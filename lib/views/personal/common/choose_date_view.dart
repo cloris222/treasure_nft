@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
-import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
 
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
@@ -52,6 +51,7 @@ class ChooseDateView extends StatelessWidget {
               controller: controller,
               keyboardType: TextInputType.text,
               textInputAction: TextInputAction.next,
+              style: AppTextStyle.getBaseStyle(color: Colors.black),
               decoration: InputDecoration(
                 isCollapsed: true,
                 hintText: hintText,
