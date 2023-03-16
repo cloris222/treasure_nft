@@ -5,6 +5,7 @@ import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
@@ -16,7 +17,7 @@ class RewardNotifyDialog extends StatelessWidget {
   const RewardNotifyDialog(
       {Key? key, required this.amount, required this.expireDays})
       : super(key: key);
-  final String amount;
+  final num amount;
   final String expireDays;
 
   @override
@@ -95,7 +96,10 @@ class RewardNotifyDialog extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(50)),
           child: Text(
-            format(tr('reward-detail'), {"usdt": amount, "day": expireDays}),
+            format(tr('reward-detail'), {
+              "usdt": NumberFormatUtil().removeTwoPointFormat(amount),
+              "day": expireDays
+            }),
             style: AppTextStyle.getBaseStyle(
                 color: AppColors.dialogGrey,
                 fontSize: UIDefine.fontSize14,
