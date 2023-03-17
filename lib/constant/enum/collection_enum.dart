@@ -11,3 +11,9 @@ enum CollectionTag {
   /// 我的票券
   Ticket,
 }
+
+enum DepositChain{
+  Polygon,
+  BSC,
+  OKX
+}
