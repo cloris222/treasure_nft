@@ -27,6 +27,7 @@ import '../../../../widgets/label/error_text_widget.dart';
 import '../../../../widgets/text_field/login_text_widget.dart';
 import '../../../login/login_email_code_view.dart';
 import '../../../login/login_param_view.dart';
+
 ///MARK: 提領-線上轉帳
 class ChainWithdrawView extends ConsumerStatefulWidget {
   const ChainWithdrawView(
@@ -66,6 +67,7 @@ class _ChainWithdrawViewState extends ConsumerState<ChainWithdrawView> {
       }
     });
   }
+
   @override
   void dispose() {
     viewModel.dispose();
@@ -339,7 +341,9 @@ class _ChainWithdrawViewState extends ConsumerState<ChainWithdrawView> {
                       SizedBox(width: UIDefine.getScreenWidth(2.77)),
                       GestureDetector(
                         onTap: () => viewModel.amountController.text =
-                            viewModel.numberFormat(withdrawInfo.balance),
+                            NumberFormatUtil().removeTwoPointFormat(
+                                withdrawInfo.getBalance(),
+                                needSeparator: false),
                         child: GradientThirdText(
                             '${tr('all')} ${tr('walletWithdraw')}',
                             size: UIDefine.fontSize14),
@@ -414,13 +418,10 @@ class _ChainWithdrawViewState extends ConsumerState<ChainWithdrawView> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _buildTextContent(tr('canWithdrawFee'),
-              viewModel.numberFormat(withdrawInfo.balance)),
-          // viewModel.numberFormat(viewModel.data.balance.isNotEmpty
-          //     ? (num.parse(viewModel.data.balance) - widget.experienceMoney)
-          //         .toString()
-          //     : '')),
-
+          _buildTextContent(
+              tr('canWithdrawFee'),
+              NumberFormatUtil()
+                  .removeTwoPointFormat(withdrawInfo.getBalance())),
           SizedBox(height: UIDefine.getScreenWidth(2.77)),
           _buildTextContent(tr('minAmount'),
               '${viewModel.numberFormat(withdrawInfo.minAmount)} USDT'),
