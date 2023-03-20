@@ -1218,10 +1218,10 @@
   "bind-successfully":"Bind berhasil",
   "account-check-modal-hint":"Apakah Anda sudah memiliki akun Treasurenft?",
   "noAccount":"TIDAK",
-  "comingToEnd":"Akan memulai",
+  "comingToEnd":"Akan mulai",
   "reward-title":"Selamat",
   "reward-detail":"Anda telah menerima hadiah {usdt}, periode penggunaannya adalah {day} hari, Anda dapat memeriksa detailnya melalui pusat pribadi",
-
+  "okcText":"Untuk memastikan pengalaman pengguna yang lebih baik, fungsi deposit NFT pada rantai OKC saat ini sedang dalam tahap pengujian batch. Hanya pengguna terpilih yang dapat berpartisipasi dalam tahap ini.",
 
 
   "--//app use":"---",
@@ -1258,7 +1258,7 @@
   "appNotHasAccount":"TIDAK",
   "appBindFailHint":"Tolong coba lagi",
   "appBindAccountHint":"Akun ini sudah memiliki alamat yang mengikat",
-  "appTradeNotYet":"Akan memulai",
+  "appTradeNotYet":"Akan mulai",
   "appTradeReserving":"Waktu tersisa",
   "appTradeEnd":"Menutup"
 }

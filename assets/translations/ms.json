@@ -1,5 +1,4 @@
-{
-  "json":"ms",
+{"json":"ms",
   "lang":"Melayu(馬來西亞語)",
   "--// langange":"---",
   "lang_en":"English",
@@ -1221,6 +1220,7 @@
   "comingToEnd":"Hendak bermula",
   "reward-title":"Tahniah",
   "reward-detail":"Anda telah menerima ganjaran {usdt}, tempoh penggunaan adalah {day} hari, anda boleh menyemak butiran melalui pusat peribadi",
+  "okcText":"Untuk memastikan pengalaman pengguna yang lebih baik, fungsi deposit NFT pada rantaian OKC kini berada di peringkat ujian batch. Hanya pengguna terpilih yang boleh mengambil bahagian dalam peringkat ini.",
 
 
   "--//app use":"---",
@@ -1246,7 +1246,7 @@
   "appPurchaseDescription":"Dengan membeli produk ini, anda boleh mendapatkan koleksi seni bernilai .",
   "appSaveWalletHint":"Platform tidak akan bertanggungjawab jika alamat yang salah diisi, menyebabkan USDT dipindahkan ke alamat yang salah",
   "appUpdateTitle":"Notis kemas kini",
-  "appUpdateContext":"Versi terbaru kini tersedia, sila pergi ke kemas kini",
+  "appUpdateContext":"Versi terkini kini tersedia, sila pergi ke kemas kini",
   "appTodayReserve":"Peringkat pertama",
   "appTomorrowReserve":"Peringkat kedua",
   "appBindSuccess":"mengikat berjaya",

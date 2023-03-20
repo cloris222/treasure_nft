@@ -151,7 +151,7 @@ class _DepositNftMainView extends State<DepositNftMainView> {
         return "assets/icon/coins/icon_polygon_01.png";
       case DepositChain.BSC:
         return "assets/icon/coins/icon_binance_01.png";
-      case DepositChain.OKX:
+      case DepositChain.OKC:
         return "assets/icon/icon/icon_okx_01.png";
     }
   }
@@ -176,7 +176,7 @@ class _DepositNftMainView extends State<DepositNftMainView> {
     switch (chooseChain) {
       case DepositChain.BSC:
         return tr('bscText');
-      case DepositChain.OKX:
+      case DepositChain.OKC:
         return tr('okcText');
       case DepositChain.Polygon:
       default:

@@ -1221,6 +1221,7 @@
   "comingToEnd":"A punto de comenzar",
   "reward-title":"Felicidades",
   "reward-detail":"Ha recibido la recompensa de {usdt}, el período de uso es {day} días, puede verificar los detalles a través del centro personal",
+  "okcText":"Para garantizar una mejor experiencia del usuario, la función de depósito NFT en la cadena OKC se encuentra actualmente en la etapa de prueba por lotes. Solo los usuarios seleccionados pueden participar en esta etapa.",
 
 
   "--//app use":"---",

@@ -15,5 +15,5 @@ enum CollectionTag {
 enum DepositChain{
   Polygon,
   BSC,
-  OKX
+  OKC
 }
