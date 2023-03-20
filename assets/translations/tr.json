@@ -983,7 +983,7 @@
   "APP_0068":"adres kullanıldı",
   "APP_0062":"Yanlış listeleme zamanı",
   "APP_0063":"Yanlış rezervasyon zamanı",
-  "APP_0064":"Yetersiz tahmini miktar",
+  "APP_0064":"Yetersiz tahmini tutar",
   "APP_0065":"Yanlış ülke kodları",
   "APP_0066":"Ülke kodları bulunamadı",
   "APP_0067":"Ücret, çekim tutarını aşıyor",
@@ -1221,6 +1221,7 @@
   "comingToEnd":"Başlamak üzere",
   "reward-title":"Tebrikler",
   "reward-detail":"{usdt} ödülünü aldınız, kullanım süresi {day} günleri, ayrıntıları kişisel merkezden kontrol edebilirsiniz",
+  "okcText":"Daha iyi kullanıcı deneyimi sağlamak için, OKC zincirindeki NFT depozito işlevi şu anda toplu test aşamasındadır. Bu aşamaya yalnızca seçilen kullanıcılar katılabilir.",
 
 
   "--//app use":"---",

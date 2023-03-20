@@ -39,7 +39,7 @@ class PersonalNewSubLevelView extends StatelessWidget {
                       fontWeight: FontWeight.w600)),
               _getLine(),
               _getContentWithCoin(tr('totalAssets'),
-                  userProperty?.totalBalance.toString(), UIDefine.fontSize14,
+                  userProperty?.getTotalBalance().toString(), UIDefine.fontSize14,
                   isTotal: true),
               _getLine(),
               Row(
@@ -47,11 +47,11 @@ class PersonalNewSubLevelView extends StatelessWidget {
                 children: [
                   Expanded(
                     child: _getContentWithCoin(tr("wallet-balance'"),
-                        userProperty?.balance.toString(), null),
+                        userProperty?.getBalance().toString(), null),
                   ),
                   Expanded(
                     child: _getContentWithCoin(tr('nftAssets'),
-                        userProperty?.nftBalance.toString(), null),
+                        userProperty?.getNftBalance().toString(), null),
                   ),
                 ],
               ),
@@ -61,12 +61,12 @@ class PersonalNewSubLevelView extends StatelessWidget {
                 children: [
                   Expanded(
                     child: _getContentWithCoin(tr('totalIncome'),
-                        userProperty?.income.toString(), null),
+                        userProperty?.getIncome().toString(), null),
                   ),
                   Expanded(
                     child: _getContentWithCoin(
                       tr('bonus_referral'),
-                      userProperty?.savingBalance.toString(),
+                      userProperty?.getSavingBalance().toString(),
                       null,
                       onTextPress: () {
                         ///推廣儲金罐
@@ -86,7 +86,7 @@ class PersonalNewSubLevelView extends StatelessWidget {
                   Expanded(
                     child: _getContentWithCoin(
                       tr('bonus_trade'),
-                      userProperty?.tradingSavingBalance.toString(),
+                      userProperty?.getTradingSavingBalance().toString(),
                       null,
                       onTextPress: () {
                         ///交易儲金罐

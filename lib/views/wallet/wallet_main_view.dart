@@ -144,8 +144,7 @@ class _WalletMainViewState extends ConsumerState<WalletMainView> {
                     Text(
                         NumberFormatUtil().removeTwoPointFormat(
                             userProperty != null
-                                ? (userProperty.balance -
-                                    userProperty.experienceMoney)
+                                ? userProperty.getWalletAccount()
                                 : 0),
                         style: AppTextStyle.getBaseStyle(
                             fontSize: UIDefine.fontSize40,
@@ -156,18 +155,15 @@ class _WalletMainViewState extends ConsumerState<WalletMainView> {
                         Flexible(
                             child: WalletInfoItem(
                                 title: tr('totalAccountEarnings'),
-                                value: userProperty?.income)),
+                                value: userProperty?.getIncome())),
                         Flexible(
                             child: WalletInfoItem(
                                 title: tr('extracted'),
-                                value: userProperty?.withdraw)),
+                                value: userProperty?.getWithdraw())),
                         Flexible(
                             child: WalletInfoItem(
                                 title: tr('notExtracted'),
-                                value: userProperty != null
-                                    ? (userProperty.balance -
-                                        userProperty.experienceMoney)
-                                    : null)),
+                                value: userProperty?.getWalletAccount())),
                       ],
                     ),
                   ],
@@ -302,7 +298,7 @@ class _WalletMainViewState extends ConsumerState<WalletMainView> {
             style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500)),
         Flexible(child: Container()),
-        Text(NumberFormatUtil().removeTwoPointFormat(userProperty?.balance),
+        Text(NumberFormatUtil().removeTwoPointFormat(userProperty?.getBalance()),
             style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500))
       ])

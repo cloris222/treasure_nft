@@ -59,7 +59,7 @@ class TradeNewMainViewModel extends BaseViewModel {
     switch (errorMessage) {
       /// 預約金不足
       case 'APP_0064':
-        errorMsgDialog(tr("reserve-failed'"), '');
+        errorMsgDialog(tr("reserve-failed'"), tr('APP_0064'));
         break;
 
       /// 餘額不足

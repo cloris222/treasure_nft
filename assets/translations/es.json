@@ -983,7 +983,7 @@
   "APP_0068":"La dirección ha sido utilizada",
   "APP_0062":"Hora de publicación incorrecta",
   "APP_0063":"Hora de reserva incorrecta",
-  "APP_0064":"Importe estimado insuficiente",
+  "APP_0064":"Cantidad insuficiente estimada",
   "APP_0065":"Códigos de países incorrectos",
   "APP_0066":"Códigos de países no encontrados",
   "APP_0067":"La tarifa excede el monto del retiro",
@@ -1221,6 +1221,7 @@
   "comingToEnd":"A punto de comenzar",
   "reward-title":"Felicidades",
   "reward-detail":"Ha recibido la recompensa de {usdt}, el período de uso es {day} días, puede verificar los detalles a través del centro personal",
+  "okcText":"Para garantizar una mejor experiencia del usuario, la función de depósito NFT en la cadena OKC se encuentra actualmente en la etapa de prueba por lotes. Solo los usuarios seleccionados pueden participar en esta etapa.",
 
 
   "--//app use":"---",

@@ -6,9 +6,10 @@ class NumberFormatUtil {
   }
 
   ///MARK: 小數點兩位 無條件捨去
-  String removeTwoPointFormat(dynamic value) {
+  String removeTwoPointFormat(dynamic value, {bool needSeparator = true}) {
     return _setNumberFormat(
-        format: '#,##0.##', value: double.parse(removePointFormat(value, 2)));
+        format: needSeparator ? '#,##0.##' : '##0.##',
+        value: double.parse(removePointFormat(value, 2)));
   }
 
   ///MARK: 小數點兩位 無條件捨去
@@ -21,8 +22,7 @@ class NumberFormatUtil {
       format += '#';
     }
     return _setNumberFormat(
-        format: format,
-        value: double.parse(removePointFormat(value, point)));
+        format: format, value: double.parse(removePointFormat(value, point)));
   }
 
   ///取整數

@@ -62,4 +62,33 @@ class UserProperty {
         "tradingSavingBalance": tradingSavingBalance,
         "experienceMoney": experienceMoney,
       };
+
+  num _checkMoney(num check) {
+    if (check < 0) {
+      return 0;
+    }
+    return check;
+  }
+
+  ///MARK: 扣除體驗金
+  num getWalletAccount() {
+    num money = balance - experienceMoney;
+    return _checkMoney(money);
+  }
+
+  num getIncome() => _checkMoney(income);
+
+  num getWithdraw() => _checkMoney(withdraw);
+
+  num getExperienceMoney() => _checkMoney(experienceMoney);
+
+  num getSavingBalance() => _checkMoney(savingBalance);
+
+  num getBalance() => _checkMoney(balance);
+
+  num getNftBalance() => _checkMoney(nftBalance);
+
+  num getTotalBalance() => _checkMoney(totalBalance);
+
+  num getTradingSavingBalance()=>_checkMoney(tradingSavingBalance);
 }

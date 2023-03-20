@@ -1221,6 +1221,7 @@
   "comingToEnd":"即將結束",
   "reward-title":"恭喜",
   "reward-detail":"您已獲得{usdt}的獎勵，使用期限為{day}天，可通過個人中心查看詳情",
+  "okcText":"為確保良好的用戶體驗，充值OKC鏈的NFT功能，目前正處於批次測試階段。此階段只有選定的用戶可參與",
 
 
   "--//app use":"---",

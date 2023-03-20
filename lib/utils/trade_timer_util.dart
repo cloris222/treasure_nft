@@ -199,7 +199,7 @@ class TradeTimerUtil {
     if (reservationInfo.systemReserveStartTime
             .compareTo(reservationInfo.systemReserveEndTime) >
         0) {
-      _dateSellEndTime.add(const Duration(days: 1));
+      _dateSellEndTime = _dateSellEndTime.add(const Duration(days: 1));
     }
   }
 

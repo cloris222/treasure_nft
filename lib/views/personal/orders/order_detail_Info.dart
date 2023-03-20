@@ -77,7 +77,8 @@ class _OrderDetailInfoState extends State<OrderDetailInfo>
   }
 
   @override
-  Widget buildItemBuilder(int index, data) {
+  Widget buildItemBuilder(int index, itemData) {
+    CheckEarningIncomeData data = itemData as CheckEarningIncomeData;
     return type == EarningIncomeType.SAVINGS
         ? Container(
             padding: EdgeInsets.only(

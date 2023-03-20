@@ -10,6 +10,7 @@ import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
 import '../../../../constant/theme/app_colors.dart';
 import '../../../../constant/ui_define.dart';
 import '../../../../models/http/parameter/withdraw_alert_info.dart';
+import '../../../../utils/number_format_util.dart';
 import '../../../../utils/qrcode_scanner_util.dart';
 import '../../../../view_models/gobal_provider/user_experience_info_provider.dart';
 import '../../../../view_models/gobal_provider/user_info_provider.dart';
@@ -159,7 +160,7 @@ class _InternalWithdrawViewState extends ConsumerState<InternalWithdrawView> {
         mainAxisSize: MainAxisSize.min,
         children: [
           _buildTextContent(tr('canWithdrawFee'),
-              viewModel.numberFormat(withdrawInfo.balance)),
+              NumberFormatUtil().removeTwoPointFormat(withdrawInfo.getBalance())),
           // viewModel.numberFormat(viewModel.data.balance.isNotEmpty
           //     ? (num.parse(viewModel.data.balance) - widget.experienceMoney)
           //         .toString()
@@ -269,7 +270,7 @@ class _InternalWithdrawViewState extends ConsumerState<InternalWithdrawView> {
                       SizedBox(width: UIDefine.getScreenWidth(2.77)),
                       GestureDetector(
                         onTap: () => viewModel.amountController.text =
-                            viewModel.numberFormat(withdrawInfo.balance),
+                            NumberFormatUtil().removeTwoPointFormat(withdrawInfo.getBalance(),needSeparator:false),
                         child: GradientThirdText(
                             '${tr('all')} ${tr('walletWithdraw')}',
                             size: UIDefine.fontSize14),

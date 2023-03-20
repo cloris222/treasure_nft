@@ -34,7 +34,7 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
   WithdrawAlertInfo withdrawAlertInfo = WithdrawAlertInfo();
 
   num get experienceMoney {
-    return ref.read(userPropertyInfoProvider)?.experienceMoney ?? 0;
+    return ref.read(userPropertyInfoProvider)?.getExperienceMoney() ?? 0;
   }
 
   @override
@@ -60,7 +60,6 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
   Widget build(BuildContext context) {
     ///監聽用
     ref.watch(userPropertyInfoProvider);
-
 
     return CustomAppbarView(
       needScrollView: false,
@@ -101,7 +100,7 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
             children: List<Widget>.generate(
                 dataList.length,
                 (index) => OrderWithdrawTypePage(
-                    experienceMoney:experienceMoney,
+                    experienceMoney: experienceMoney,
                     currentType: dataList[index],
                     getWalletAlert: () => withdrawAlertInfo)),
           ))
