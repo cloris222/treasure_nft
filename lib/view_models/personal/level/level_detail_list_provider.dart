@@ -7,7 +7,7 @@ import '../../../models/http/parameter/level_info_data.dart';
 import '../../../utils/app_shared_Preferences.dart';
 
 final levelDetailListProvider =
-    StateNotifierProvider<LevelDetailListNotifier, List<LevelInfoData>>((ref) {
+    StateNotifierProvider.autoDispose<LevelDetailListNotifier, List<LevelInfoData>>((ref) {
   return LevelDetailListNotifier();
 });
 

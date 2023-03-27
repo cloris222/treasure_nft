@@ -19,8 +19,8 @@ class AppTheme {
         primarySwatch: Colors.blue,
         primaryColor: Colors.black,
         primaryIconTheme: const IconThemeData(color: Colors.black),
-        primaryTextTheme: TextTheme(subtitle1: AppTextStyle.getBaseStyle()),
-        textTheme: TextTheme(subtitle1: AppTextStyle.getBaseStyle()));
+        primaryTextTheme: TextTheme(subtitle1: AppTextStyle.getBaseStyle(fontSize: 12)),
+        textTheme: TextTheme(subtitle1: AppTextStyle.getBaseStyle(fontSize: 12)));
   }
 
   static ThemeData defineDemo() {

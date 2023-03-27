@@ -181,7 +181,7 @@ class AppImagePath {
   /// Sharing Center
   static const String rewardGradient = '$_iconPath/icon_rewards_01.png';
   static const String clockGradient = '$_iconPath/icon_clock_02.png';
-  static const String shareBackground = '$_imgPath/img_share_01.jpg';
+  static const String shareBackground = '$_imgPath/img_background_04.png';
   static const String shareText1 = '$_imgPath/img_share_font_03.png';
   static const String shareText2 = '$_imgPath/img_share_font_04.png';
   static const String shareTitleImg = '$_imgPath/img_share_logo.png';

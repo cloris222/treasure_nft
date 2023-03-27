@@ -58,13 +58,16 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  widget.itemData.getItemName(),
-                  maxLines: 1,
-                  style: AppTextStyle.getBaseStyle(
-                      fontSize: UIDefine.fontSize14,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.textThreeBlack),
+                Flexible(
+                  child: Text(
+                    widget.itemData.getItemName(),
+                    textAlign:TextAlign.start,
+                    maxLines: 1,
+                    style: AppTextStyle.getBaseStyle(
+                        fontSize: UIDefine.fontSize14,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textThreeBlack),
+                  ),
                 ),
 
                 /// Share
