@@ -69,7 +69,7 @@ class UserInfoAPI extends HttpManager {
     String signature = '',
   }) async {
     return await post('/user/update', data: {
-      'name': name,
+      'account': name,
       'phoneCountry': phoneCountry,
       'phone': phone,
       'password': password,
