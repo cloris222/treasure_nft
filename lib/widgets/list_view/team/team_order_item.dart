@@ -111,7 +111,7 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
                   Flexible(
                     child: GestureDetector(
                       onTap: () => _onPressBuyer(),
-                      child: GradientThirdText(widget.itemData.buyerName,
+                      child: GradientThirdText(widget.itemData.buyerAccount,
                           size: UIDefine.fontSize12, weight: FontWeight.w600),
                     ),
                   ),

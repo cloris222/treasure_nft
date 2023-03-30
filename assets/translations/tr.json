@@ -22,7 +22,7 @@
   "register":"Kayıt Ol",
   "fail":"İptal edildi",
   "login":"Giriş",
-  "account":"Kullanıcı Adı",
+  "account":"Kullanıcı adı",
   "password":"Şifre",
   "newPassword":"Yeni Şifre",
   "email":"E-Posta",
@@ -718,7 +718,7 @@
   "bought":"Satın almak",
 
   "--// placeholder":"---",
-  "placeholder-account'":"Lütfen Kullanıcı Adınızı Giriniz",
+  "placeholder-account'":"Lütfen kullanıcı adını girin",
   "placeholder-old-password'":"Lütfen Eski Şifrenizi Giriniz",
   "placeholder-new-password'":"Lütfen Yeni Şifrenizi Girin",
   "placeholder-password-again'":"Lütfen Şifreyi Tekrar Girin",
@@ -1260,5 +1260,12 @@
   "appBindAccountHint":"Bu hesabın zaten bir bağlayıcı adresi var",
   "appTradeNotYet":"Başlamak üzere",
   "appTradeReserving":"Kalan zaman",
-  "appTradeEnd":"Kapalı"
+  "appTradeEnd":"Kapalı",
+  "appFormatError":"Format hatası",
+  "appImageSuffixRule":"Desteklenen formatlar JPG, PNG, HEIC ve HEIF ile sınırlıdır",
+  "appKycStatusPending":"İşleme",
+  "appKycStatusFail":"Arızalı",
+  "appKycStatusFinish":"Tamamlanmış",
+  "appKycStatusUnverified":"Doğrulanmadı",
+  "appKycPhone":"phione"
 }

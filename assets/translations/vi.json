@@ -22,7 +22,7 @@
   "register":"Đăng ký",
   "fail":"İptal edildi",
   "login":"đăng nhập",
-  "account":"số tài khoản",
+  "account":"Tên tài khoản",
   "password":"mật khẩu mở khóa",
   "newPassword":"mật khẩu mới",
   "email":"hộp thư",
@@ -718,7 +718,7 @@
   "bought":"Mua",
 
   "--// placeholder":"---",
-  "placeholder-account'":"vui lòng nhập tài khoản của bạn",
+  "placeholder-account'":"Vui lòng nhập tên người dùng",
   "placeholder-old-password'":"Vui lòng nhập mật khẩu cũ",
   "placeholder-new-password'":"Vui lòng nhập mật khẩu mới",
   "placeholder-password-again'":"Vui lòng nhập lại mật khẩu",
@@ -1260,5 +1260,12 @@
   "appBindAccountHint":"Tài khoản này đã có một địa chỉ ràng buộc",
   "appTradeNotYet":"Về để bắt đầu",
   "appTradeReserving":"Thời gian còn lại",
-  "appTradeEnd":"Đóng"
+  "appTradeEnd":"Đóng",
+  "appFormatError":"Lỗi định dạng",
+  "appImageSuffixRule":"Các định dạng được hỗ trợ được giới hạn ở JPG, PNG, HEIC và HEIF",
+  "appKycStatusPending":"Xử lý",
+  "appKycStatusFail":"Thất bại",
+  "appKycStatusFinish":"Hoàn thành",
+  "appKycStatusUnverified":"Chưa xác minh",
+  "appKycPhone":"Phione"
 }

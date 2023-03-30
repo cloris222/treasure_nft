@@ -1,4 +1,5 @@
-{"json":"ms",
+{
+  "json":"ms",
   "lang":"Melayu(馬來西亞語)",
   "--// langange":"---",
   "lang_en":"English",
@@ -21,7 +22,7 @@
   "register":"Mendaftar",
   "fail":"Daftar masuk gagal",
   "login":"log masuk",
-  "account":"Nombor akaun",
+  "account":"Nama pengguna",
   "password":"kata laluan",
   "newPassword":"kata laluan baharu",
   "email":"peti mel",
@@ -717,7 +718,7 @@
   "bought":"dibeli",
 
   "--// placeholder":"---",
-  "placeholder-account'":"sila masukkan akaun anda",
+  "placeholder-account'":"Sila masukkan nama pengguna",
   "placeholder-old-password'":"Sila masukkan kata laluan lama",
   "placeholder-new-password'":"Sila masukkan kata laluan baharu",
   "placeholder-password-again'":"Sila masukkan kata laluan sekali lagi",
@@ -855,7 +856,7 @@
   "APP_0052":"Jumlah pembelian harian telah dicapai",
   "APP_0058":"Bilangan maksimum transaksi dalam akaun pengalaman telah dicapai",
   "APP_0061":"Setiap salinan hanya boleh ditempah sekali sehari",
-  "defi-info-1":"Dua pelantikan sehari disediakan untuk setiap zon waktu.",
+  "defi-info-1":"Dua pelantikan setiap hari disediakan untuk setiap zon waktu.",
   "defi-info-2":"Tempoh masa tempahan setiap hari:\n Sesi pertama: masa janji temu: 10:00-12:00, masa simpan: 10:00-12:00, masa pengeluaran: 13:45-12:00, keputusan janji temu : 13: 00, masa dagangan: 13:00-13:35\n Sesi kedua: Masa janji temu: 19:00-21:00, masa simpan: 19:00-21:00, masa pengeluaran: 22:45-21:00, keputusan janji temu: 22:00, masa transaksi: 22: 00-22:35",
   "defi-info-3":"Masa pelantikan untuk Sesi 1: Masa Pelantikan: 10:00 - 12:00 pagi, Hasil Pelantikan: 13:00 PM, Masa Dagangan: 13:30 - 13:35 PM",
   "defi-info-4":"Masa tempahan untuk Sesi 2: Tempahan Masa: 19: 00-21: 00 PM, Hasil Tempahan: 22:00 PM, Waktu Perdagangan: 22: 30-22: 35 PM",
@@ -1246,7 +1247,7 @@
   "appPurchaseDescription":"Dengan membeli produk ini, anda boleh mendapatkan koleksi seni bernilai .",
   "appSaveWalletHint":"Platform tidak akan bertanggungjawab jika alamat yang salah diisi, menyebabkan USDT dipindahkan ke alamat yang salah",
   "appUpdateTitle":"Notis kemas kini",
-  "appUpdateContext":"Versi terkini kini tersedia, sila pergi ke kemas kini",
+  "appUpdateContext":"Versi terbaru kini tersedia, sila pergi ke kemas kini",
   "appTodayReserve":"Peringkat pertama",
   "appTomorrowReserve":"Peringkat kedua",
   "appBindSuccess":"mengikat berjaya",
@@ -1259,5 +1260,12 @@
   "appBindAccountHint":"Akaun ini sudah mempunyai alamat yang mengikat",
   "appTradeNotYet":"Hendak bermula",
   "appTradeReserving":"Masa tinggal",
-  "appTradeEnd":"Tutup"
+  "appTradeEnd":"Tutup",
+  "appFormatError":"Ralat format",
+  "appImageSuffixRule":"Format yang disokong terhad kepada JPG, PNG, HEIC, dan HEIF",
+  "appKycStatusPending":"Memproses",
+  "appKycStatusFail":"gagal",
+  "appKycStatusFinish":"Selesai",
+  "appKycStatusUnverified":"Tidak disahkan",
+  "appKycPhone":"Phione"
 }

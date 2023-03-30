@@ -82,13 +82,13 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
                     inviteCode: viewModel.referralController.text);
               }),
 
-          ///MARK:暱稱
-          LoginParamView(
-              titleText: tr('nickname'),
-              hintText: tr("placeholder-nickname'"),
-              controller: viewModel.nicknameController,
-              data: viewModel.nicknameData,
-              onChanged: viewModel.onNicknameChange),
+          // ///MARK:暱稱
+          // LoginParamView(
+          //     titleText: tr('nickname'),
+          //     hintText: tr("placeholder-nickname'"),
+          //     controller: viewModel.nicknameController,
+          //     data: viewModel.nicknameData,
+          //     onChanged: viewModel.onNicknameChange),
 
           ///MARK: 帳號
           LoginParamView(

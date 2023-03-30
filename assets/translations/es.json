@@ -22,7 +22,7 @@
   "register":"Registro",
   "fail":"Fallo en el inicio de sesión",
   "login":"Inicio de sesión",
-  "account":"Número de cuenta",
+  "account":"Nombre de usuario",
   "password":"Contraseña",
   "newPassword":"Nueva contraseña",
   "email":"Buzón",
@@ -718,7 +718,7 @@
   "bought":"Comprar",
 
   "--// placeholder":"---",
-  "placeholder-account'":"Por favor, introduzca su cuenta",
+  "placeholder-account'":"Ingrese el nombre de usuario",
   "placeholder-old-password'":"Por favor, introduzca su antigua contraseña",
   "placeholder-new-password'":"Por favor, introduzca una nueva contraseña",
   "placeholder-password-again'":"Vuelva a introducir su contraseña",
@@ -1206,7 +1206,7 @@
   "login-via-wallet":"Billetera conectar",
   "register-via-wallet":"Registro de billetera",
   "linkedWallet":"billetera de enlace",
-  "walletAddress":"dirección de la billetera",
+  "walletAddress":"dirección de billetera",
   "address-bounded-hint":"Esta dirección ya ha sido vinculada",
   "address-unbound-hint":"Esta dirección no ha sido vinculada",
   "bindWallet":"Billetera de atar",
@@ -1260,5 +1260,12 @@
   "appBindAccountHint":"Esta cuenta ya tiene una dirección vinculante",
   "appTradeNotYet":"A punto de comenzar",
   "appTradeReserving":"Tiempo restante",
-  "appTradeEnd":"Cerca"
+  "appTradeEnd":"Cerca",
+  "appFormatError":"Error de formato",
+  "appImageSuffixRule":"Los formatos compatibles se limitan a JPG, PNG, HEIC y Heif",
+  "appKycStatusPending":"Procesando",
+  "appKycStatusFail":"Fallido",
+  "appKycStatusFinish":"Terminado",
+  "appKycStatusUnverified":"No verificado",
+  "appKycPhone":"phione"
 }

@@ -132,9 +132,6 @@ class UserInfoData {
   }
 
   String getUserName() {
-    if (name.isEmpty) {
-      return account;
-    }
-    return name;
+    return account;
   }
 }

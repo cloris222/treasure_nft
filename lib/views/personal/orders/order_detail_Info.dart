@@ -118,7 +118,7 @@ class _OrderDetailInfoState extends State<OrderDetailInfo>
     dataList.add(data);
 
     data = CardShowingData();
-    data.title = tr("nickname");
+    data.title = tr("account");
     data.content = nickName;
     dataList.add(data);
 

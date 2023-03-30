@@ -22,7 +22,7 @@
   "register":"ثبت نام",
   "fail":"ورود ناموفق بود",
   "login":"وارد شدن",
-  "account":"شماره حساب",
+  "account":"نام کاربری",
   "password":"کلمه عبور",
   "newPassword":"رمز عبور جدید",
   "email":"صندوق پستی",
@@ -718,7 +718,7 @@
   "bought":"خرید کنید",
 
   "--// placeholder":"---",
-  "placeholder-account'":"لطفا حساب خود را وارد کنید",
+  "placeholder-account'":"لطفا نام کاربری را وارد کنید",
   "placeholder-old-password'":"لطفا رمز عبور قدیمی را وارد کنید",
   "placeholder-new-password'":"لطفا یک رمز عبور جدید وارد کنید",
   "placeholder-password-again'":"لطفا رمز عبور را دوباره وارد کنید",
@@ -1260,5 +1260,12 @@
   "appBindAccountHint":"این حساب در حال حاضر یک آدرس الزام آور دارد",
   "appTradeNotYet":"در مورد شروع",
   "appTradeReserving":"زمان باقی مانده",
-  "appTradeEnd":"بستن"
+  "appTradeEnd":"بستن",
+  "appFormatError":"خطای قالب",
+  "appImageSuffixRule":"قالب های پشتیبانی شده محدود به JPG ، PNG ، HEIC و HEIF هستند",
+  "appKycStatusPending":"در حال پردازش",
+  "appKycStatusFail":"ناموفق",
+  "appKycStatusFinish":"تکمیل شد",
+  "appKycStatusUnverified":"تایید نشده است",
+  "appKycPhone":"فئون"
 }

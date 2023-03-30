@@ -22,7 +22,7 @@
   "register":"注册",
   "fail":"登入失败",
   "login":"登入",
-  "account":"帐号",
+  "account":"用户名",
   "password":"密码",
   "newPassword":"新密码",
   "email":"邮箱",
@@ -718,7 +718,7 @@
   "bought":"已购买",
 
   "--// placeholder":"---",
-  "placeholder-account'":"请输入帐号",
+  "placeholder-account'":"请输入用户名",
   "placeholder-old-password'":"请输入旧密码",
   "placeholder-new-password'":"请输入新密码",
   "placeholder-password-again'":"请再次输入密码",
@@ -1260,5 +1260,12 @@
   "appBindAccountHint":"此帐号已有绑定地址",
   "appTradeNotYet":"即将开始",
   "appTradeReserving":"即将结束",
-  "appTradeEnd":"预约截止"
+  "appTradeEnd":"预约截止",
+  "appFormatError":"格式错误",
+  "appImageSuffixRule":"仅支援Jpg、Png、HEIC、HEIF",
+  "appKycStatusPending":"处理中",
+  "appKycStatusFail":"失败",
+  "appKycStatusFinish":"已完成",
+  "appKycStatusUnverified":"未验证",
+  "appKycPhone":"手机号码"
 }

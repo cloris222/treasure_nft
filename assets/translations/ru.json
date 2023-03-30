@@ -22,7 +22,7 @@
   "register":"Зарегистрироваться",
   "fail":"Не удалось войти в систему",
   "login":"Вход в систему",
-  "account":"Аккаунт",
+  "account":"Имя пользователя",
   "password":"Пароль",
   "newPassword":"Новый пароль",
   "email":"Почтовый ящик",
@@ -718,7 +718,7 @@
   "bought":"Купить",
 
   "--// placeholder":"---",
-  "placeholder-account'":"Пожалуйста, введите свой aккаунт",
+  "placeholder-account'":"Пожалуйста, введите имя пользователя",
   "placeholder-old-password'":"Пожалуйста, введите ваш старый пароль",
   "placeholder-new-password'":"Пожалуйста, введите новый пароль",
   "placeholder-password-again'":"Пожалуйста, введите пароль еще раз",
@@ -1203,9 +1203,9 @@
   "selectionPeriod":"Выберите время",
   "APP_0087":"Сессия назначения закончилась",
   "APP_0073":"Дублирование операции",
-  "login-via-wallet":"Кошелек соединения",
+  "login-via-wallet":"Кошелек соединяется",
   "register-via-wallet":"Регистрация кошелька",
-  "linkedWallet":"Ссылка кошелька",
+  "linkedWallet":"ссылка кошелек",
   "walletAddress":"Адрес кошелька",
   "address-bounded-hint":"Этот адрес уже был связан",
   "address-unbound-hint":"Этот адрес не был связан",
@@ -1260,5 +1260,12 @@
   "appBindAccountHint":"У этой учетной записи уже есть обязательный адрес",
   "appTradeNotYet":"Собирается начать",
   "appTradeReserving":"Оставшееся время",
-  "appTradeEnd":"Закрывать"
+  "appTradeEnd":"Закрывать",
+  "appFormatError":"Ошибка формата",
+  "appImageSuffixRule":"Поддерживаемые форматы ограничены JPG, PNG, HEIC и HEIF",
+  "appKycStatusPending":"Обработка",
+  "appKycStatusFail":"Неуспешный",
+  "appKycStatusFinish":"Завершенный",
+  "appKycStatusUnverified":"не подтверждено",
+  "appKycPhone":"Фионе"
 }

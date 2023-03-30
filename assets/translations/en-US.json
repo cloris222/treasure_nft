@@ -22,7 +22,7 @@
   "register":"Sign up",
   "fail":"Failed",
   "login":"Log in",
-  "account":"Account",
+  "account":"User name",
   "password":"Password",
   "newPassword":"New password",
   "email":"Email",
@@ -718,7 +718,7 @@
   "bought":"Bought",
 
   "--// placeholder":"---",
-  "placeholder-account'":"Please enter account",
+  "placeholder-account'":"Please enter user name",
   "placeholder-old-password'":"Please enter old password",
   "placeholder-new-password'":"Please enter new password",
   "placeholder-password-again'":"Please re-enter your password",
@@ -1260,5 +1260,12 @@
   "appBindAccountHint":"This account already has a binding address",
   "appTradeNotYet":"About to start",
   "appTradeReserving":"Time left",
-  "appTradeEnd":"Close"
+  "appTradeEnd":"Close",
+  "appFormatError":"Format error",
+  "appImageSuffixRule":"Supported formats are limited to Jpg, Png, HEIC, and HEIF",
+  "appKycStatusPending":"Processing",
+  "appKycStatusFail":"Failed",
+  "appKycStatusFinish":"Completed",
+  "appKycStatusUnverified":"Not verified",
+  "appKycPhone":"phione"
 }

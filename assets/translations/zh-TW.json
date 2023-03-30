@@ -22,7 +22,7 @@
   "register":"註冊",
   "fail":"登入失敗",
   "login":"登入",
-  "account":"帳號",
+  "account":"用戶名",
   "password":"密碼",
   "newPassword":"新密碼",
   "email":"信箱",
@@ -718,7 +718,7 @@
   "bought":"已購買",
 
   "--// placeholder":"---",
-  "placeholder-account'":"請輸入帳號",
+  "placeholder-account'":"請輸入用戶名",
   "placeholder-old-password'":"請輸入舊密碼",
   "placeholder-new-password'":"請輸入新密碼",
   "placeholder-password-again'":"請再次輸入密碼",
@@ -1260,5 +1260,12 @@
   "appBindAccountHint":"此帳號已有綁定地址",
   "appTradeNotYet":"即將開始",
   "appTradeReserving":"即將結束",
-  "appTradeEnd":"預約截止"
+  "appTradeEnd":"預約截止",
+  "appFormatError":"格式錯誤",
+  "appImageSuffixRule":"僅支援Jpg、Png、HEIC、HEIF",
+  "appKycStatusPending":"處理中",
+  "appKycStatusFail":"失敗",
+  "appKycStatusFinish":"已完成",
+  "appKycStatusUnverified":"未驗證",
+  "appKycPhone":"手機號碼"
 }

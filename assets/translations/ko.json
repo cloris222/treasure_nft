@@ -22,7 +22,7 @@
   "register":"등록",
   "fail":"로그인 실패",
   "login":"로그인",
-  "account":"아이디",
+  "account":"사용자 이름",
   "password":"비밀번호",
   "newPassword":"새로운 암호",
   "email":"우체통",
@@ -718,7 +718,7 @@
   "bought":"구입하다",
 
   "--// placeholder":"---",
-  "placeholder-account'":"계좌번호를 입력해 주세요",
+  "placeholder-account'":"사용자 이름을 입력하십시오",
   "placeholder-old-password'":"비밀번호를 입력해 주세요",
   "placeholder-new-password'":"새로운 비밀번호를 입력해 주세요",
   "placeholder-password-again'":"새로운 비밀번호를 다시 입력해 주세요",
@@ -1260,5 +1260,12 @@
   "appBindAccountHint":"이 계정에는 이미 구속력있는 주소가 있습니다",
   "appTradeNotYet":"시작하려고합니다",
   "appTradeReserving":"남은 시간",
-  "appTradeEnd":"닫다"
+  "appTradeEnd":"닫다",
+  "appFormatError":"형식 오류",
+  "appImageSuffixRule":"지원되는 형식은 JPG, PNG, HEIC 및 HEIF로 제한됩니다.",
+  "appKycStatusPending":"처리",
+  "appKycStatusFail":"실패한",
+  "appKycStatusFinish":"완전한",
+  "appKycStatusUnverified":"확인되지 않음",
+  "appKycPhone":"피오네"
 }

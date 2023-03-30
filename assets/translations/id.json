@@ -22,7 +22,7 @@
   "register":"Daftar",
   "fail":"Login gagal",
   "login":"Masuk",
-  "account":"Nomor rekening",
+  "account":"Nama belakang",
   "password":"Kata sandi",
   "newPassword":"Kata sandi baru",
   "email":"Kotak Surat",
@@ -718,7 +718,7 @@
   "bought":"Dibeli",
 
   "--// placeholder":"---",
-  "placeholder-account'":"Silakan masukkan nomor rekening Anda",
+  "placeholder-account'":"Harap masukkan nama pengguna",
   "placeholder-old-password'":"Silakan masukkan kata sandi lama Anda",
   "placeholder-new-password'":"Silakan masukkan kata sandi baru",
   "placeholder-password-again'":"Silakan masukkan kata sandi Anda lagi",
@@ -1205,7 +1205,7 @@
   "APP_0073":"Operasi duplikat",
   "login-via-wallet":"Dompet terhubung",
   "register-via-wallet":"Pendaftaran Dompet",
-  "linkedWallet":"dompet tautan",
+  "linkedWallet":"Dompet Tautan",
   "walletAddress":"alamat dompet",
   "address-bounded-hint":"Alamat ini sudah terikat",
   "address-unbound-hint":"Alamat ini belum terikat",
@@ -1260,5 +1260,12 @@
   "appBindAccountHint":"Akun ini sudah memiliki alamat yang mengikat",
   "appTradeNotYet":"Akan mulai",
   "appTradeReserving":"Waktu tersisa",
-  "appTradeEnd":"Menutup"
+  "appTradeEnd":"Menutup",
+  "appFormatError":"Kesalahan format",
+  "appImageSuffixRule":"Format yang didukung terbatas pada JPG, PNG, HEIC, dan Heif",
+  "appKycStatusPending":"Pengolahan",
+  "appKycStatusFail":"Gagal",
+  "appKycStatusFinish":"Lengkap",
+  "appKycStatusUnverified":"Tidak diverifikasi",
+  "appKycPhone":"phione"
 }
