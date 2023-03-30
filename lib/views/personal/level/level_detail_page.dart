@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/enum/task_enum.dart';
+import 'package:treasure_nft_project/constant/extension/double_extension.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
@@ -92,6 +93,7 @@ class _LevelDetailPageState extends ConsumerState<LevelDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    ref.watch(levelDetailListProvider);
     UserInfoData userInfo = ref.watch(userInfoProvider);
     return CustomAppbarView(
       needScrollView: false,
@@ -418,15 +420,15 @@ class _LevelDetailPageState extends ConsumerState<LevelDetailPage> {
       _buildSingleLevelInfoItem(
           title: tr('directShare-extra'),
           context:
-              '${NumberFormatUtil().removeTwoPointFormat(data.directShare)}% & ${NumberFormatUtil().removeTwoPointFormat(data.directSave)}%'),
+              '${data.directShare.changeRebate()}% & ${data.directSave.changeRebate()}%'),
       _buildSingleLevelInfoItem(
           title: tr('indirectShare-extra'),
           context:
-              '${NumberFormatUtil().removeTwoPointFormat(data.indirectShare)}% & ${NumberFormatUtil().removeTwoPointFormat(data.indirectSave)}%'),
+              '${data.indirectShare.changeRebate()}% & ${data.indirectSave.changeRebate()}%'),
       _buildSingleLevelInfoItem(
           title: tr('thirdShare-extra'),
           context:
-              '${NumberFormatUtil().removeTwoPointFormat(data.thirdShare)}% & ${NumberFormatUtil().removeTwoPointFormat(data.thirdSave)}%')
+              '${data.thirdShare.changeRebate()}% & ${data.indirectSave.changeRebate()}%')
     ]);
   }
 
