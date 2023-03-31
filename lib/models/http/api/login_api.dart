@@ -37,7 +37,7 @@ class LoginAPI extends HttpManager {
       'account': account.trim(),
       'password': password.trim(),
       'email': email.trim(),
-      'country': country.trim(),
+      'phoneCountry': country.trim(),
       'name': nickname.trim(),
       'inviteCode': inviteCode.trim(),
       'emailVerifyCode': emailVerifyCode.trim(),

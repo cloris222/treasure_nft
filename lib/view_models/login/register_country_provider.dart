@@ -4,14 +4,18 @@ import 'package:treasure_nft_project/models/http/api/common_api.dart';
 import 'package:treasure_nft_project/view_models/base_pref_provider.dart';
 
 import '../../../utils/app_shared_Preferences.dart';
+import '../../models/http/parameter/country_phone_data.dart';
 
-final registerCountryProvider =
-    StateNotifierProvider.autoDispose<RegisterCountryNotifier, List<String>>(
-        (ref) {
+final registerCurrentIndexProvider = StateProvider.autoDispose<int?>((ref) {
+  return null;
+});
+
+final registerCountryProvider = StateNotifierProvider.autoDispose<
+    RegisterCountryNotifier, List<CountryPhoneData>>((ref) {
   return RegisterCountryNotifier();
 });
 
-class RegisterCountryNotifier extends StateNotifier<List<String>>
+class RegisterCountryNotifier extends StateNotifier<List<CountryPhoneData>>
     with BasePrefProvider {
   RegisterCountryNotifier() : super([]);
 
@@ -27,30 +31,30 @@ class RegisterCountryNotifier extends StateNotifier<List<String>>
 
   @override
   Future<void> readAPIValue({ResponseErrorFunction? onConnectFail}) async {
-    state = [
-      ...await CommonAPI(onConnectFail: onConnectFail).getRegisterCountryInfo()
-    ];
+    state = [...await CommonAPI(onConnectFail: onConnectFail).getCountryList()];
   }
 
   @override
   Future<void> readSharedPreferencesValue() async {
-    var json =
-        await AppSharedPreferences.getStringList(getSharedPreferencesKey());
-    if (json.isNotEmpty) {
-      state = [...json];
+    var json = await AppSharedPreferences.getJson(getSharedPreferencesKey());
+    if (json != null) {
+      state = [
+        ...List<CountryPhoneData>.from(
+            json.map((x) => CountryPhoneData.fromJson(x)))
+      ];
     }
   }
 
   @override
   String setKey() {
-    return "registerCountry";
+    return "registerCountryPhone";
   }
 
   @override
   Future<void> setSharedPreferencesValue() async {
     if (state.isNotEmpty) {
-      await AppSharedPreferences.setStringList(
-          getSharedPreferencesKey(), state);
+      await AppSharedPreferences.setJson(getSharedPreferencesKey(),
+          List<dynamic>.from(state.map((x) => x.toJson())));
     }
   }
 

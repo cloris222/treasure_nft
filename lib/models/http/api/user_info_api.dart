@@ -90,4 +90,13 @@ class UserInfoAPI extends HttpManager {
   Future<ApiResponse> deleteAccount() async {
     return await post('/user/close');
   }
+
+  ///MARK: 查詢國家
+  Future<String> getIpCountry() async {
+    try {
+      var response = await get("/user/getCountry");
+      return response.data;
+    } catch (e) {}
+    return "";
+  }
 }

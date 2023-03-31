@@ -51,6 +51,16 @@ class _CustomDropButtonState extends State<CustomDropButton> {
   int? currentIndex;
 
   @override
+  void didUpdateWidget(covariant CustomDropButton oldWidget) {
+    if (widget.initIndex != null) {
+      setState(() {
+        currentIndex = widget.initIndex;
+      });
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   void initState() {
     currentIndex = widget.initIndex;
     super.initState();

@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/view_models/login/register_country_provider.dart';
 import 'package:treasure_nft_project/views/login/login_common_view.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
@@ -9,6 +10,7 @@ import 'package:treasure_nft_project/widgets/button/wallet_connect_button_widget
 import 'package:treasure_nft_project/widgets/drop_buttom/custom_drop_button.dart';
 import 'package:wallet_connect_plugin/provider/begin_provider.dart';
 
+import '../../models/http/parameter/country_phone_data.dart';
 import '../../utils/app_text_style.dart';
 import '../../view_models/login/register_main_viewmodel.dart';
 import '../../view_models/login/wallet_bind_view_model.dart';
@@ -31,14 +33,23 @@ class RegisterMainPage extends ConsumerStatefulWidget {
 class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
   late RegisterMainViewModel viewModel;
 
-  List<String> get countryList => ref.read(registerCountryProvider);
+  List<CountryPhoneData> get countryList => ref.read(registerCountryProvider);
+
+  int? get currentCountryIndex => ref.read(registerCurrentIndexProvider);
+  String ipCountry = "";
 
   @override
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 300)).then((value) =>
         ref.read(connectWalletProvider.notifier).initConnectWallet());
-    ref.read(registerCountryProvider.notifier).init();
+    ref
+        .read(registerCountryProvider.notifier)
+        .init(onFinish: () => _updateCountryIndex());
+    UserInfoAPI().getIpCountry().then((value) {
+      ipCountry = value;
+      _updateCountryIndex();
+    });
     viewModel = RegisterMainViewModel(setState: setState);
   }
 
@@ -51,6 +62,7 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
   @override
   Widget build(BuildContext context) {
     ref.watch(registerCountryProvider);
+    ref.watch(registerCurrentIndexProvider);
     return CustomAppbarView(
       needScrollView: false,
       onLanguageChange: () {
@@ -185,21 +197,41 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
     return [
       Container(
           margin: const EdgeInsets.symmetric(vertical: 5),
-          child: Text(tr("appRegisterCountry"),
+          child: Text(tr("register-country"),
               style: AppTextStyle.getBaseStyle(
                   fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14))),
       Container(
         margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(5)),
         child: CustomDropButton(
+            initIndex: currentCountryIndex,
             needShowEmpty: false,
+            hintSelect: tr("placeholder-register-country"),
             listLength: countryList.length,
-            itemString: (int index, bool needArrow) => tr(countryList[index]),
+            itemString: (int index, bool needArrow) =>
+                "${tr(countryList[index].country)} (+${countryList[index].areaCode})",
             onChanged: (index) {
-              viewModel.currentCountry = countryList[index];
+              viewModel.currentCountry = countryList[index].country;
+              ref
+                  .read(registerCurrentIndexProvider.notifier)
+                  .update((state) => index);
             }),
       ),
       ErrorTextWidget(
           data: viewModel.countryData, alignment: Alignment.centerRight),
     ];
+  }
+
+  void _updateCountryIndex() {
+    if (ipCountry.isNotEmpty) {
+      for (int index = 0; index < countryList.length; index++) {
+        if (ipCountry.compareTo(countryList[index].country) == 0) {
+          ref
+              .read(registerCurrentIndexProvider.notifier)
+              .update((state) => index);
+          viewModel.currentCountry = countryList[index].country;
+          break;
+        }
+      }
+    }
   }
 }
