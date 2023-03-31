@@ -8,7 +8,6 @@ import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:wallet_connect_plugin/model/wallet_info.dart';
 
 import '../../constant/global_data.dart';
-import '../../constant/theme/app_animation_path.dart';
 import '../../models/http/api/login_api.dart';
 import '../../models/http/api/user_info_api.dart';
 import '../../models/http/parameter/user_info_data.dart';
@@ -45,8 +44,7 @@ class WalletBindViewModel extends BaseViewModel {
               email: '',
               nickname: '',
               inviteCode: inviteCode,
-              phone: '',
-              phoneCountry: '',
+              country: '',
               emailVerifyCode: '',
               walletInfo: walletInfo);
           String? path = AnimationDownloadUtil()

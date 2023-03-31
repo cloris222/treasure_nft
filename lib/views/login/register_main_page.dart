@@ -2,18 +2,20 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/view_models/login/register_country_provider.dart';
 import 'package:treasure_nft_project/views/login/login_common_view.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/button/wallet_connect_button_widget.dart';
+import 'package:treasure_nft_project/widgets/drop_buttom/custom_drop_button.dart';
 import 'package:wallet_connect_plugin/provider/begin_provider.dart';
 
-import '../../constant/global_data.dart';
+import '../../utils/app_text_style.dart';
 import '../../view_models/login/register_main_viewmodel.dart';
 import '../../view_models/login/wallet_bind_view_model.dart';
 import '../../widgets/button/login_button_widget.dart';
 import '../../widgets/label/common_text_widget.dart';
+import '../../widgets/label/error_text_widget.dart';
 import '../custom_appbar_view.dart';
-import '../personal/common/phone_param_view.dart';
 import 'login_email_code_view.dart';
 import 'login_param_view.dart';
 
@@ -29,11 +31,14 @@ class RegisterMainPage extends ConsumerStatefulWidget {
 class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
   late RegisterMainViewModel viewModel;
 
+  List<String> get countryList => ref.read(registerCountryProvider);
+
   @override
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 300)).then((value) =>
         ref.read(connectWalletProvider.notifier).initConnectWallet());
+    ref.read(registerCountryProvider.notifier).init();
     viewModel = RegisterMainViewModel(setState: setState);
   }
 
@@ -45,6 +50,7 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
 
   @override
   Widget build(BuildContext context) {
+    ref.watch(registerCountryProvider);
     return CustomAppbarView(
       needScrollView: false,
       onLanguageChange: () {
@@ -119,14 +125,8 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
               data: viewModel.rePasswordData,
               onChanged: viewModel.onPasswordChanged),
 
-          PhoneParamView(
-              titleText: tr('phone'),
-              hintText: tr("placeholder-phone'"),
-              controller: viewModel.phoneController,
-              data: viewModel.phoneData,
-              getDropDownValue: (String value) {
-                viewModel.setPhoneCountry(value);
-              }),
+          ///MARK: 選擇國籍
+          ..._buildRegisterCountry(),
 
           ///MARK:Email
           LoginParamView(
@@ -179,5 +179,27 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
                     onPress: () => viewModel.onPressLogin(context)))
           ])
         ]);
+  }
+
+  List<Widget> _buildRegisterCountry() {
+    return [
+      Container(
+          margin: const EdgeInsets.symmetric(vertical: 5),
+          child: Text(tr("appRegisterCountry"),
+              style: AppTextStyle.getBaseStyle(
+                  fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14))),
+      Container(
+        margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(5)),
+        child: CustomDropButton(
+            needShowEmpty: false,
+            listLength: countryList.length,
+            itemString: (int index, bool needArrow) => tr(countryList[index]),
+            onChanged: (index) {
+              viewModel.currentCountry = countryList[index];
+            }),
+      ),
+      ErrorTextWidget(
+          data: viewModel.countryData, alignment: Alignment.centerRight),
+    ];
   }
 }
