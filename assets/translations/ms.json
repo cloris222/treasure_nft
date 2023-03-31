@@ -1222,6 +1222,8 @@
   "reward-title":"Tahniah",
   "reward-detail":"Anda telah menerima ganjaran {usdt}, tempoh penggunaan adalah {day} hari, anda boleh menyemak butiran melalui pusat peribadi",
   "okcText":"Untuk memastikan pengalaman pengguna yang lebih baik, fungsi deposit NFT pada rantaian OKC kini berada di peringkat ujian batch. Hanya pengguna terpilih yang boleh mengambil bahagian dalam peringkat ini.",
+  "register-country":"Kewarganegaraan",
+  "placeholder-register-country":"Sila pilih kewarganegaraan anda.",
 
 
   "--//app use":"---",

@@ -1222,6 +1222,8 @@
   "reward-title":"恭喜",
   "reward-detail":"您已获得{usdt}的奖励，使用期限为{day}天，可通过个人中心查看详情",
   "okcText":"为确保良好的用户体验，充值OKC链的NFT功能，目前正处于批次测试阶段。此阶段只有选定的用户可参与",
+  "register-country":"国籍",
+  "placeholder-register-country":"请选择国籍",
 
 
   "--//app use":"---",

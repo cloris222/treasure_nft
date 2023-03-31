@@ -1222,6 +1222,9 @@
   "reward-title":"Tebrikler",
   "reward-detail":"{usdt} ödülünü aldınız, kullanım süresi {day} günleri, ayrıntıları kişisel merkezden kontrol edebilirsiniz",
   "okcText":"Daha iyi kullanıcı deneyimi sağlamak için, OKC zincirindeki NFT depozito işlevi şu anda toplu test aşamasındadır. Bu aşamaya yalnızca seçilen kullanıcılar katılabilir.",
+  "register-country":"Milliyet",
+  "placeholder-register-country":"Lütfen milliyetinizi seçin.",
+
 
 
   "--//app use":"---",

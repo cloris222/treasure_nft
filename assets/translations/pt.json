@@ -1222,6 +1222,9 @@
   "reward-title":"Parabéns",
   "reward-detail":"Você recebeu a recompensa de {usdt}, o período de uso é {day} dias, você pode verificar os detalhes através do centro pessoal",
   "okcText":"Para garantir uma melhor experiência do usuário, a função de depósito da NFT na cadeia OKC está atualmente no estágio de teste em lote. Somente usuários selecionados podem participar deste estágio.",
+  "register-country":"Nacionalidade",
+  "placeholder-register-country":"Selecione sua nacionalidade.",
+
 
 
   "--//app use":"---",

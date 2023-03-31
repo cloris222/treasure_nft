@@ -1222,6 +1222,8 @@
   "reward-title":"Congratulations",
   "reward-detail":"You have received the reward of {usdt}, the use period is {day} days, you can check the details through the personal center",
   "okcText":"To ensure better user experience, the NFT deposit function on OKC chain is currently in the batch testing stage. Only selected users can participate in this stage.",
+  "register-country":"Nationality",
+  "placeholder-register-country":"Please select your nationality.",
 
 
   "--//app use":"---",

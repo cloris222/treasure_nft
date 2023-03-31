@@ -1222,6 +1222,9 @@
   "reward-title":"축하해요",
   "reward-detail":"{usdt}의 보상을 받았으며, 사용 기간은 {day} 일입니다. 개인 센터를 통해 세부 사항을 확인할 수 있습니다.",
   "okcText":"더 나은 사용자 경험을 보장하기 위해 OKC 체인의 NFT 예금 기능은 현재 배치 테스트 단계에 있습니다. 선택된 사용자만이 단계에 참여할 수 있습니다.",
+  "register-country":"국적",
+  "placeholder-register-country":"국적을 선택하십시오.",
+
 
 
   "--//app use":"---",
