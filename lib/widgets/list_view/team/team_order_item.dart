@@ -17,9 +17,10 @@ import 'package:treasure_nft_project/utils/app_text_style.dart';
 import '../../../views/personal/team/other_collect_page.dart';
 
 class TeamOrderItemView extends StatefulWidget {
-  const TeamOrderItemView({super.key, required this.itemData});
+  const TeamOrderItemView({super.key, required this.itemData,required this.showShare});
 
   final TeamOrderData itemData;
+  final bool showShare;
 
   @override
   State<StatefulWidget> createState() => _TeamOrderItem();
@@ -72,7 +73,7 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
 
                 /// Share
                 Visibility(
-                    visible: widget.itemData.type == 'SELL' ,
+                    visible: widget.showShare,
                     child: GestureDetector(
                         onTap: _onPressShare,
                         child: SizedBox(
@@ -111,7 +112,7 @@ class _TeamOrderItem extends State<TeamOrderItemView> {
                   Flexible(
                     child: GestureDetector(
                       onTap: () => _onPressBuyer(),
-                      child: GradientThirdText(widget.itemData.buyerAccount,
+                      child: GradientThirdText(widget.itemData.buyerName,
                           size: UIDefine.fontSize12, weight: FontWeight.w600),
                     ),
                   ),

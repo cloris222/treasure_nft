@@ -26,9 +26,6 @@ class TradeMainUserInfoView extends ConsumerWidget {
     CheckReservationInfo? reserveInfo = ref.watch(tradeReserveInfoProvider);
     num balance = reserveInfo?.getBalance() ?? 0;
     num reserveBalance = reserveInfo?.getReserveBalance() ?? 0;
-    if (reserveBalance < 0) {
-      reserveBalance = 0;
-    }
     return Row(
       children: [
         _buildInfoItem(
