@@ -66,3 +66,10 @@ enum HomeFooter {
   Instagram,
   Discord
 }
+
+enum MenuIcon{
+  home,
+  language,
+  service,
+  telegram,
+}

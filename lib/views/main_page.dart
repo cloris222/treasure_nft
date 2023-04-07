@@ -22,6 +22,7 @@ import 'package:wallet_connect_plugin/model/wallet_info.dart';
 import '../constant/global_data.dart';
 import '../constant/ui_define.dart';
 import '../widgets/app_bottom_navigation_bar.dart';
+import 'airdrop/airdrop_main_page.dart';
 import 'full_animation_page.dart';
 import 'home/home_main_view.dart';
 
@@ -155,7 +156,8 @@ class _MainPageState extends State<MainPage> {
           isMainPage: true,
           serverAction: _serverAction,
           globalAction: _globalAction,
-          mainAction: _mainAction),
+          mainAction: _mainAction,
+          airdropAction: _airdropAction),
       body: Stack(
         children: [
           Padding(
@@ -237,7 +239,8 @@ class _MainPageState extends State<MainPage> {
   }
 
   void _globalAction() async {
-    await BaseViewModel().pushPage(context, const SettingLanguagePage());
+    await BaseViewModel()
+        .pushPage(context, const SettingLanguagePage(isMainPage: true));
     setState(() {});
   }
 
@@ -252,5 +255,9 @@ class _MainPageState extends State<MainPage> {
     setState(() {
       pageController.jumpToPage(getViewIndex(viewModel.getPreBottomType()));
     });
+  }
+
+  void _airdropAction() {
+    BaseViewModel().pushPage(context, const AirdropMainPage());
   }
 }

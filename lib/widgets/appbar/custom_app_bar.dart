@@ -1,12 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/constant/enum/setting_enum.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
-import 'package:treasure_nft_project/widgets/button/language_button_widget.dart';
-import 'package:treasure_nft_project/widgets/button/social_media_button_widget.dart';
+import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
 
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/ui_define.dart';
+import '../button/menu_button_widget.dart';
 
 class CustomAppBar {
   const CustomAppBar._();
@@ -151,6 +151,7 @@ class CustomAppBar {
     required VoidCallback serverAction,
     required VoidCallback globalAction,
     required VoidCallback mainAction,
+    required VoidCallback airdropAction,
     bool isMainPage = false,
   }) {
     var space = const SizedBox(width: 8);
@@ -164,38 +165,58 @@ class CustomAppBar {
               child: InkWell(
                   onTap: mainAction,
                   child: Image.asset(AppImagePath.mainAppBarLogo,
-                      height:35,
-                      fit: BoxFit.fitHeight)),
+                      height: 35, fit: BoxFit.fitHeight)),
             ),
           ),
           Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SocialMediaButtonWidget(
-                    padding: EdgeInsets.zero,
-                    footer: HomeFooter.Telegram,
-                    size: iconSize),
-                space,
-                LanguageButtonWidget(
-                    iconSize: iconSize, isMainPage: isMainPage),
-                space,
-                GestureDetector(
-                    onTap: serverAction,
-                    child: Container(
-                      color: Colors.transparent,
-                      child: Image.asset(AppImagePath.serverImage,
-                          width: iconSize, height: iconSize, fit: BoxFit.contain),
-                    )),
-                space,
-                GestureDetector(
-                    onTap: mainAction,
-                    child: Container(
-                      color: Colors.transparent,
-                      child: Image.asset(AppImagePath.homeImage,
-                          width: iconSize, height: iconSize, fit: BoxFit.contain),
-                    )),
-              ])
+              children:  [
+                      GestureDetector(
+                        onTap: airdropAction,
+                        child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: UIDefine.getPixelWidth(8)),
+                            color: Colors.transparent,
+                            child: GradientThirdText(tr("airdrop"))),
+                      ),
+                      MenuButtonWidget(
+                          serverAction: serverAction,
+                          globalAction: globalAction,
+                          mainAction: mainAction,
+                          iconSize: iconSize,
+                          isMainPage: isMainPage)
+                    ]
+                   // [
+                   //    SocialMediaButtonWidget(
+                   //        padding: EdgeInsets.zero,
+                   //        footer: HomeFooter.Telegram,
+                   //        size: iconSize),
+                   //    space,
+                   //    LanguageButtonWidget(
+                   //        iconSize: iconSize, isMainPage: isMainPage),
+                   //    space,
+                   //    GestureDetector(
+                   //        onTap: serverAction,
+                   //        child: Container(
+                   //          color: Colors.transparent,
+                   //          child: Image.asset(AppImagePath.serverImage,
+                   //              width: iconSize,
+                   //              height: iconSize,
+                   //              fit: BoxFit.contain),
+                   //        )),
+                   //    space,
+                   //    GestureDetector(
+                   //        onTap: mainAction,
+                   //        child: Container(
+                   //          color: Colors.transparent,
+                   //          child: Image.asset(AppImagePath.homeImage,
+                   //              width: iconSize,
+                   //              height: iconSize,
+                   //              fit: BoxFit.contain),
+                   //        )),
+                   //  ]
+          )
         ]);
   }
 

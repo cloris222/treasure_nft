@@ -8,15 +8,17 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/utils/language_util.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/notification_data.dart';
-import 'package:treasure_nft_project/view_models/base_view_model.dart';
-import 'package:treasure_nft_project/views/main_page.dart';
 
 class LanguageButtonWidget extends StatefulWidget {
-  const LanguageButtonWidget(
-      {Key? key, required this.iconSize, required this.isMainPage})
-      : super(key: key);
+  const LanguageButtonWidget({
+    Key? key,
+    required this.iconSize,
+    required this.isMainPage,
+    this.customButton,
+  }) : super(key: key);
   final double iconSize;
   final bool isMainPage;
+  final Widget? customButton;
 
   @override
   State<LanguageButtonWidget> createState() => _LanguageButtonWidgetState();
@@ -36,10 +38,11 @@ class _LanguageButtonWidgetState extends State<LanguageButtonWidget> {
     return Center(
       child: DropdownButtonHideUnderline(
         child: DropdownButton2(
-          customButton: Image.asset(AppImagePath.globalImage,
-              width: widget.iconSize,
-              height: widget.iconSize,
-              fit: BoxFit.contain),
+          customButton: widget.customButton ??
+              Image.asset(AppImagePath.globalImage,
+                  width: widget.iconSize,
+                  height: widget.iconSize,
+                  fit: BoxFit.contain),
           items: [
             ...LanguageType.values
                 .map((LanguageType type) => DropdownMenuItem<LanguageType>(
@@ -145,6 +148,10 @@ class _LanguageButtonWidgetState extends State<LanguageButtonWidget> {
         {
           imageCountry = 'Indonesia';
         }
+        break;
+      case LanguageType.Japan:
+        break;
+      case LanguageType.Chinese:
         break;
     }
     return Container(

@@ -17,6 +17,7 @@ class AppImagePath {
   static const String copyIcon = '$_btnPath/btn_copy_01.png';
   static const String preloadIcon = '$_imgPath/img_loding_01.png';
   static const String closeIcon = '$_btnPath/btn_cross_01.png';
+  static const String menuIcon = '$_btnPath/btn_menu_01.png';
 
   ///MARK: Arrow Icon
   static const String arrowUpGrey = '$_btnPath/btn_arrow_02_up.png';
