@@ -208,7 +208,7 @@ class CustomDatePickerState extends State<CustomDatePickerWidget> {
       if (startDate.isNotEmpty && endDate.isNotEmpty) {
         return GestureDetector(
             onTap: () => _onPressChoose(Search.All),
-            child: const Icon(Icons.cancel, color: AppColors.textThreeBlack));
+            child: const Icon(Icons.cancel, color: AppColors.textSixBlack));
       }
     }
     return Image.asset(AppImagePath.dateIcon);

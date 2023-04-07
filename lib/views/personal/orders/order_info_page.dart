@@ -10,10 +10,11 @@ import 'package:treasure_nft_project/view_models/gobal_provider/user_info_provid
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import 'package:treasure_nft_project/widgets/list_view/base_list_interface.dart';
 import '../../../constant/enum/order_enum.dart';
+import '../../../constant/enum/team_enum.dart';
 import '../../../models/http/api/order_api.dart';
 import '../../../view_models/personal/orders/order_info_page_view_model.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
-import '../../../widgets/date_picker/date_picker.dart';
+import '../../../widgets/date_picker/custom_date_picker.dart';
 import '../../custom_appbar_view.dart';
 import 'orderinfo/data/order_message_list_response_data.dart';
 import 'orderinfo/order_info_selector_drop_down_bar.dart';
@@ -71,11 +72,10 @@ class _OrderInfoPageState extends ConsumerState<OrderInfoPage>
                         viewModel.currentType = value;
                         reloadInit();
                       }),
-                  DatePickerWidget(
-                      displayButton: false,
-                      bUsePhoneTime: false,
-                      startDate: viewModel.startDate,
-                      endDate: viewModel.endDate,
+                  CustomDatePickerWidget(
+                      initType: Search.Today,
+                      needCancel: true,
+                      typeList: const [],
                       dateCallback: (String startDate, String endDate) {
                         if (startDate == viewModel.startDate &&
                             endDate == viewModel.endDate) {
