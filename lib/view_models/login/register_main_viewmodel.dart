@@ -224,23 +224,22 @@ class RegisterMainViewModel extends BaseViewModel {
     });
   }
 
-  Future<bool> checkEmailFormat() async {
-    if (emailController.text.isNotEmpty) {
-      var result =
-          RegularExpressionUtil().checkFormatEmail(emailController.text);
-      setState(() {
-        emailData =
-            ValidateResultData(result: result, message: tr('rule_email'));
-      });
-      return result;
-    } else {
-      setState(() {
-        emailData = ValidateResultData(result: false);
-      });
-    }
-
-    return false;
-  }
+  // Future<bool> checkEmailFormat() async {
+  //   if (emailController.text.isNotEmpty) {
+  //     var result =
+  //         RegularExpressionUtil().checkFormatEmail(emailController.text);
+  //     setState(() {
+  //       emailData =
+  //           ValidateResultData(result: result, message: tr('rule_email'));
+  //     });
+  //     return result;
+  //   } else {
+  //     setState(() {
+  //       emailData = ValidateResultData(result: false);
+  //     });
+  //   }
+  //   return false;
+  // }
 
   void onPasswordChanged(String value) {
     setState(() {

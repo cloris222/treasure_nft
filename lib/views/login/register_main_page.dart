@@ -159,7 +159,7 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
             onPressSendCode: () => viewModel.onPressSendCode(context),
             onPressCheckVerify: () => viewModel.onPressCheckVerify(context),
             data: viewModel.emailCodeData,
-            onPressVerification: viewModel.checkEmailFormat,
+            // onPressVerification: viewModel.checkEmailFormat,
           ),
 
           ///MARK:邀請瑪
