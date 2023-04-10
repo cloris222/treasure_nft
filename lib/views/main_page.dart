@@ -169,11 +169,16 @@ class _MainPageState extends State<MainPage> {
 
               ///MARK: 不要放const
               children: [
+                // ignore: prefer_const_constructors
                 ExploreMainView(),
+                // ignore: prefer_const_constructors
                 CollectionMainView(),
+                // ignore: prefer_const_constructors
                 TradeNewMainView(),
                 WalletMainView(onPrePage: _onPrePage),
+                // ignore: prefer_const_constructors
                 PersonalMainView(),
+                // ignore: prefer_const_constructors
                 HomeMainView(),
                 LoginMainView(preWalletInfo: widget.walletInfo)
               ],

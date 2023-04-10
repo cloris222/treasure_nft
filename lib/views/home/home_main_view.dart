@@ -110,7 +110,8 @@ class _HomeMainViewState extends ConsumerState<HomeMainView>
                     child: _buildTitleText()),
 
                 ///MARK: USDT資訊
-                const HomeSubUsdtView(),
+                // ignore: prefer_const_constructors
+                HomeSubUsdtView(),
 
                 buildSpace(height: 3),
 
