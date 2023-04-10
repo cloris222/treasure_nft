@@ -228,4 +228,7 @@ class AppImagePath {
       '$_imgPath/img_logo_check_account_01.png';
 
   static const String rewardIcon = '$_imgPath/img_congratulation_01.png';
+
+  /// 預約箱子
+  static const String airdropBox = '$_imgPath/img_lv{level}_{status}.png';
 }
