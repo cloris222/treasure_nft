@@ -95,4 +95,7 @@ class AppColors {
   ///MARK: figma Color
   static const Color barFont01 = Color(0xFFB9C5D9);
   static const Color font02 = Color(0xFF8797B0);
+
+  ///寶箱
+  static const Color airdropBackground = Color(0xFF14171B);
 }

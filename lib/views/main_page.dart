@@ -263,6 +263,12 @@ class _MainPageState extends State<MainPage> {
   }
 
   void _airdropAction() {
-    BaseViewModel().pushPage(context, const AirdropMainPage());
+    BaseViewModel viewModel = BaseViewModel();
+    if (viewModel.isLogin()) {
+      viewModel.pushPage(context, const AirdropMainPage());
+    } else {
+      viewModel.pushAndRemoveUntil(
+          context, const MainPage(type: AppNavigationBarType.typeLogin));
+    }
   }
 }

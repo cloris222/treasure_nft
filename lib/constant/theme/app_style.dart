@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 
 import 'app_colors.dart';
 
@@ -26,22 +27,23 @@ class AppStyle {
       {double radius = 0,
       Color borderColor = Colors.transparent,
       double borderWith = 1,
-        bool hasTopLeft = true,
-        bool hasTopRight = true,
-        bool hasBottomLef = true,
-        bool hasBottomRight = true,
+      bool hasTopLeft = true,
+      bool hasTopRight = true,
+      bool hasBottomLef = true,
+      bool hasBottomRight = true,
       AlignmentGeometry begin = Alignment.centerLeft,
       AlignmentGeometry end = Alignment.centerRight}) {
     return BoxDecoration(
         borderRadius: BorderRadius.only(
           topLeft:
-          hasTopLeft ? Radius.circular(radius) : const Radius.circular(0),
+              hasTopLeft ? Radius.circular(radius) : const Radius.circular(0),
           topRight:
-          hasTopRight ? Radius.circular(radius) : const Radius.circular(0),
+              hasTopRight ? Radius.circular(radius) : const Radius.circular(0),
           bottomLeft:
-          hasBottomLef ? Radius.circular(radius) : const Radius.circular(0),
-          bottomRight:
-          hasBottomRight ? Radius.circular(radius) : const Radius.circular(0),
+              hasBottomLef ? Radius.circular(radius) : const Radius.circular(0),
+          bottomRight: hasBottomRight
+              ? Radius.circular(radius)
+              : const Radius.circular(0),
         ),
         border: Border.all(color: borderColor, width: borderWith),
         gradient: LinearGradient(
@@ -180,5 +182,25 @@ class AppStyle {
     return OutlineInputBorder(
         borderSide: BorderSide(color: color, width: width),
         borderRadius: BorderRadius.all(Radius.circular(radius)));
+  }
+
+  BoxDecoration buildAirdropBackground() {
+    return BoxDecoration(
+        border: GradientBoxBorder(
+          gradient: LinearGradient(
+              begin: Alignment.bottomLeft,
+              end: Alignment.topRight,
+              tileMode: TileMode.decal,
+              colors: [
+                const Color(0xFF13D5FF).withOpacity(0.48),
+                const Color(0xFFA3A3A3).withOpacity(0.1),
+              ]),
+          width: 1,
+        ),
+        gradient: LinearGradient(colors: [
+          const Color(0xFF102232).withOpacity(0.41),
+          Colors.black.withOpacity(0.1)
+        ]),
+        borderRadius: BorderRadius.circular(12));
   }
 }
