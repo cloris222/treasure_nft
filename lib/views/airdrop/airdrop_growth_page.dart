@@ -32,6 +32,9 @@ class _AirdropDailyPageState extends ConsumerState<AirdropGrowthPage>
 
   @override
   Widget build(BuildContext context) {
+    ref.watch(airdropLevelBoxInfoProvider(currentLevel));
+    ref.watch(airdropLevelRecordProvider(currentLevel));
+
     return Container(
       decoration: AppStyle().buildAirdropBackground(),
       padding: EdgeInsets.all(UIDefine.getPixelWidth(5)),

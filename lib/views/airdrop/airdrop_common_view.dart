@@ -50,16 +50,16 @@ class AirdropCommonView {
       case AirdropType.growthReward:
         switch (rewardType) {
           case AirdropRewardType.EMPTY:
-            // TODO: Handle this case.
+            context = tr("空寶箱");
             break;
           case AirdropRewardType.MONEY:
-            // TODO: Handle this case.
+            context = "${data.startRange}-${data.endRange} USDT";
             break;
           case AirdropRewardType.ITEM:
-            // TODO: Handle this case.
+            context = "$title${data.startRange}-${data.endRange} NFT";
             break;
           case AirdropRewardType.MEDAL:
-            // TODO: Handle this case.
+            context = tr("随机款纪念徽章");
             break;
         }
         break;
