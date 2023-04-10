@@ -31,6 +31,8 @@ class CheckReservationInfo {
     required this.reserveDate,
     required this.systemReserveStartTime,
     required this.systemReserveEndTime,
+    required this.reserveStartDate,
+    required this.reserveEndDate,
   });
 
   String startTime;
@@ -54,6 +56,12 @@ class CheckReservationInfo {
   String reserveDate;
   String systemReserveStartTime;
   String systemReserveEndTime;
+
+  /// 預約開始日期
+  String reserveStartDate;
+
+  /// 預約結束日期
+  String reserveEndDate;
 
   // List<ReserveItem> reserveItems;
 
@@ -90,6 +98,8 @@ class CheckReservationInfo {
         systemReserveStartTime: json["systemReserveStartTime"] ?? '00:00:00',
         systemReserveEndTime: json["systemReserveEndTime"] ?? '00:00:00',
         reserveDate: json["reserveDate"] ?? "",
+        reserveStartDate: json["reserveStartDate"] ?? "",
+        reserveEndDate: json["reserveEndDate"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
@@ -113,6 +123,8 @@ class CheckReservationInfo {
         "systemReserveStartTime": systemReserveStartTime,
         "systemReserveEndTime": systemReserveEndTime,
         "reserveDate": reserveDate,
+        "reserveStartDate": reserveStartDate,
+        "reserveEndDate": reserveEndDate,
       };
 }
 
