@@ -52,7 +52,7 @@ class AirdropCommonView {
   }
 
   Widget buildRewardInfo(AirdropType boxType, AirdropRewardInfo data) {
-    AirdropRewardType rewardType = _getRewardType(data.rewardType);
+    AirdropRewardType rewardType = getRewardType(data.rewardType);
     String title = "${_getRewardTypeTitle(rewardType)} : ";
     String context = "";
     switch (boxType) {
@@ -70,6 +70,8 @@ class AirdropCommonView {
           case AirdropRewardType.MEDAL:
             title = title + tr("随机款纪念徽章");
             break;
+          case AirdropRewardType.ALL:
+            break;
         }
         context = "${data.rate}%";
         break;
@@ -86,6 +88,8 @@ class AirdropCommonView {
             break;
           case AirdropRewardType.MEDAL:
             context = tr("随机款纪念徽章");
+            break;
+          case AirdropRewardType.ALL:
             break;
         }
         break;
@@ -127,7 +131,7 @@ class AirdropCommonView {
         margin: EdgeInsets.only(top: UIDefine.getPixelWidth(15)));
   }
 
-  AirdropRewardType _getRewardType(String type) {
+  AirdropRewardType getRewardType(String type) {
     for (var element in AirdropRewardType.values) {
       if (type.compareTo(element.name) == 0) {
         return element;
@@ -146,6 +150,8 @@ class AirdropCommonView {
         return tr("NFT");
       case AirdropRewardType.MEDAL:
         return tr("纪念徽章");
+      case AirdropRewardType.ALL:
+        return "";
     }
   }
 

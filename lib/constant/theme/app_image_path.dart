@@ -232,4 +232,5 @@ class AppImagePath {
   /// 預約箱子
   static const String airdropBox = '$_imgPath/img_lv{level}_{status}.png';
   static const String airdropAnimateBg = "$_imgPath/img_airdrop_bg_03.png";
+  static const String airdropUSDT = "$_imgPath/img_usdt_square_01.png";
 }

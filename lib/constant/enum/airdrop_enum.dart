@@ -20,7 +20,8 @@ enum AirdropRewardType {
   ITEM,
 
   /// 獎章
-  MEDAL
+  MEDAL,
+  ALL
 }
 
 enum BoxStatus {
