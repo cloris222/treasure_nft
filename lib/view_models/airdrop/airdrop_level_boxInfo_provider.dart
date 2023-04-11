@@ -52,7 +52,7 @@ class AirDropLevelBoxInfoNotifier extends StateNotifier<List<AirdropRewardInfo>>
 
   @override
   String setKey() {
-    return "airdropDailyBoxInfo";
+    return "airdropLevelBoxInfo_$level";
   }
 
   @override

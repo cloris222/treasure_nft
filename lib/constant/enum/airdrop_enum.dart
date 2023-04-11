@@ -34,3 +34,17 @@ enum BoxStatus {
   /// 已開啟
   opened,
 }
+
+enum BoxAnimateStatus {
+  ///箱子開啟中
+  opening,
+
+  ///箱子還有下一個
+  next,
+
+  ///沒有箱子了
+  noNext,
+
+  ///顯示最後獎勵
+  finish,
+}

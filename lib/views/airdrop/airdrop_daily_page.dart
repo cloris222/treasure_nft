@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
-import 'package:treasure_nft_project/models/http/api/airdrop_box_api.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../constant/enum/airdrop_enum.dart';
@@ -74,13 +73,13 @@ class _AirdropDailyPageState extends ConsumerState<AirdropDailyPage>
         createdAt: '',
         updatedAt: '',
         boxType: "RESERVE_BOX",
-        rewardType: "ITEM",
-        medal: "",
-        medalName: "",
+        rewardType: AirdropRewardType.ALL.name,
+        medal: "https://devimage-dan.treasurenft.xyz/CoolAPE/CoolAPE_9978.png",
+        medalName: "030",
         itemName: "CoolAPE_9978",
         itemPrice: 83.1,
         imgUrl: "https://devimage-dan.treasurenft.xyz/CoolAPE/CoolAPE_9978.png",
-        reward: 0,
+        reward: 200,
         status: "OPENED");
 
     BaseViewModel()

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:format/format.dart';
 import 'package:gif/gif.dart';
@@ -7,6 +8,10 @@ import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/views/airdrop/airdrop_share_page.dart';
+import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
+import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 
 import '../../constant/enum/airdrop_enum.dart';
@@ -26,7 +31,7 @@ class AirdropOpenPage extends StatefulWidget {
 class _AirdropOpenPageState extends State<AirdropOpenPage>
     with TickerProviderStateMixin, AirdropCommonView {
   late GifController _controller;
-  bool showOpen = true;
+  BoxAnimateStatus status = BoxAnimateStatus.opening;
   bool showReward = false;
 
   /// 獎勵清單
@@ -62,8 +67,8 @@ class _AirdropOpenPageState extends State<AirdropOpenPage>
         break;
       case AirdropRewardType.ALL:
         types.add(AirdropRewardType.MONEY);
-        types.add(AirdropRewardType.ITEM);
         types.add(AirdropRewardType.MEDAL);
+        types.add(AirdropRewardType.ITEM);
         break;
     }
     currentType = types.removeLast();
@@ -82,8 +87,52 @@ class _AirdropOpenPageState extends State<AirdropOpenPage>
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            ///開箱的獎勵結果
             Opacity(opacity: showReward ? 1 : 0, child: buildCurrentReward()),
-            showOpen ? buildOpenAnimate() : buildWaitAnimate(),
+
+            ///判斷動畫
+            status != BoxAnimateStatus.next
+                ? buildOpenAnimate()
+                : buildWaitAnimate(),
+
+            ///顯示最後獎勵用
+            Visibility(
+                visible: status == BoxAnimateStatus.finish &&
+                    rewardType != AirdropRewardType.EMPTY,
+                child: _buildFinishReward()),
+
+            ///按鈕顯示
+            Opacity(
+                opacity: status == BoxAnimateStatus.opening ? 0 : 1,
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  LoginButtonWidget(
+                      isFillWidth: false,
+                      btnText: status == BoxAnimateStatus.finish
+                          ? tr("finish")
+                          : tr("next"),
+                      onPressed: () {
+                        switch (status) {
+                          case BoxAnimateStatus.opening:
+                            break;
+                          case BoxAnimateStatus.next:
+                            _onOpenNext();
+                            break;
+                          case BoxAnimateStatus.finish:
+                            _onFinish();
+                            break;
+                          case BoxAnimateStatus.noNext:
+                            _onAllNext();
+                            break;
+                        }
+                      })
+                ])),
+
+            ///顯示最後獎勵用
+            Visibility(
+                visible: status == BoxAnimateStatus.finish &&
+                    rewardType != AirdropRewardType.EMPTY,
+                child: _buildShareIcon()),
           ],
         ),
       ),
@@ -92,6 +141,8 @@ class _AirdropOpenPageState extends State<AirdropOpenPage>
 
   Widget buildOpenAnimate() {
     return Gif(
+      height: UIDefine.getPixelWidth(300),
+      fit: BoxFit.fitHeight,
       image: AssetImage(
           format(AppAnimationPath.airdropOpen, {"level": widget.level})),
       autostart: Autostart.once,
@@ -106,6 +157,8 @@ class _AirdropOpenPageState extends State<AirdropOpenPage>
 
   Widget buildWaitAnimate() {
     return Gif(
+      height: UIDefine.getPixelWidth(300),
+      fit: BoxFit.fitHeight,
       image: AssetImage(
           format(AppAnimationPath.airdropWait, {"level": widget.level})),
       autostart: Autostart.loop,
@@ -114,31 +167,18 @@ class _AirdropOpenPageState extends State<AirdropOpenPage>
     );
   }
 
-  /// 顯示抽中的東西
-  void _showItem() {
-    if (mounted) {
-      setState(() {
-        showReward = true;
-        // currentType = types.removeLast();
-      });
-    }
-  }
-
   Widget buildCurrentReward() {
     bool showUSDT = false;
     bool showTitle = false;
-    bool assetUSDT = false;
     num usdt = 0;
     String title = "";
     String context = "";
-    String imageUrl = "";
 
     switch (currentType) {
       case AirdropRewardType.EMPTY:
-        return Text("empty", style: AppTextStyle.getBaseStyle());
+        return _buildEmptyReward();
       case AirdropRewardType.MONEY:
         showUSDT = true;
-        assetUSDT = true;
         usdt = reward.reward;
         break;
       case AirdropRewardType.ITEM:
@@ -147,39 +187,18 @@ class _AirdropOpenPageState extends State<AirdropOpenPage>
         usdt = reward.itemPrice;
         title = "NFT";
         context = reward.itemName;
-        imageUrl = reward.imgUrl;
         break;
       case AirdropRewardType.MEDAL:
         showTitle = true;
         title = "勳章";
         context = reward.medalName;
-        imageUrl = reward.medal;
         break;
       case AirdropRewardType.ALL:
       default:
         return const SizedBox();
     }
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-      Container(
-        height: UIDefine.getPixelWidth(80),
-        width: UIDefine.getPixelWidth(80),
-        decoration: AppStyle().baseFlipGradient(radius: 10),
-        padding: EdgeInsets.all(UIDefine.getPixelWidth(1)),
-        child: Center(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: assetUSDT
-                ? Image.asset(
-                    AppImagePath.airdropUSDT,
-                    fit: BoxFit.cover,
-                  )
-                : GraduallyNetworkImage(
-                    imageUrl: imageUrl,
-                    fit: BoxFit.cover,
-                  ),
-          ),
-        ),
-      ),
+      _buildImageIcon(currentType),
       SizedBox(width: UIDefine.getPixelWidth(5)),
       Column(
         mainAxisSize: MainAxisSize.min,
@@ -200,5 +219,165 @@ class _AirdropOpenPageState extends State<AirdropOpenPage>
         ],
       )
     ]);
+  }
+
+  Widget _buildImageIcon(AirdropRewardType? type) {
+    if (type == null) {
+      return const SizedBox();
+    }
+    bool assetUSDT = type == AirdropRewardType.MONEY;
+    String imageUrl;
+    switch (type) {
+      case AirdropRewardType.ITEM:
+        imageUrl = reward.imgUrl;
+        break;
+      case AirdropRewardType.MEDAL:
+        imageUrl = reward.medal;
+        break;
+      default:
+        imageUrl = "";
+        break;
+    }
+    return Container(
+      height: UIDefine.getPixelWidth(80),
+      width: UIDefine.getPixelWidth(80),
+      decoration: AppStyle().baseFlipGradient(radius: 10),
+      padding: EdgeInsets.all(UIDefine.getPixelWidth(1)),
+      child: Center(
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: assetUSDT
+              ? Image.asset(
+                  AppImagePath.airdropUSDT,
+                  fit: BoxFit.cover,
+                )
+              : GraduallyNetworkImage(
+                  imageUrl: imageUrl,
+                  fit: BoxFit.cover,
+                ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFinishReward() {
+    List<AirdropRewardType> list = [];
+    switch (rewardType) {
+      case AirdropRewardType.EMPTY:
+      case AirdropRewardType.MONEY:
+      case AirdropRewardType.ITEM:
+      case AirdropRewardType.MEDAL:
+        list.add(rewardType);
+        break;
+      case AirdropRewardType.ALL:
+        list.add(AirdropRewardType.ITEM);
+        list.add(AirdropRewardType.MEDAL);
+        list.add(AirdropRewardType.MONEY);
+        break;
+    }
+    return Column(
+      children: [
+        GradientThirdText("您获得了:"),
+        Container(
+          margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(10)),
+          alignment: Alignment.center,
+          child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: List<Widget>.generate(list.length, (index) {
+                AirdropRewardType imgType = list[index];
+                String text = "x1";
+                if (imgType == AirdropRewardType.MONEY) {
+                  text = "+${reward.reward.removeTwoPointFormat()}";
+                }
+                return Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: UIDefine.getPixelWidth(5)),
+                  child: Stack(children: [
+                    _buildImageIcon(imgType),
+                    Positioned(
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        child: Text(text,
+                            textAlign: TextAlign.center,
+                            style: AppTextStyle.getBaseStyle(
+                                color: Colors.white))),
+                  ]),
+                );
+              })),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildShareIcon() {
+    return Container(
+        padding: EdgeInsets.symmetric(
+            vertical: UIDefine.getPixelWidth(5),
+            horizontal: UIDefine.getPixelWidth(10)),
+        color: Colors.transparent,
+        child: GestureDetector(
+            onTap: _onShare,
+            child: Text("share", style: AppTextStyle.getBaseStyle())));
+  }
+
+  Widget _buildEmptyReward() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text("No prize...", style: AppTextStyle.getBaseStyle()),
+        GradientThirdText("Better luck next time!")
+      ],
+    );
+  }
+
+  /// 顯示抽中的東西
+  void _showItem() {
+    if (mounted) {
+      setState(() {
+        showReward = true;
+        if (types.isNotEmpty) {
+          status = BoxAnimateStatus.next;
+        } else {
+          if (rewardType == AirdropRewardType.EMPTY) {
+            status = BoxAnimateStatus.finish;
+          } else {
+            status = BoxAnimateStatus.noNext;
+          }
+        }
+      });
+    }
+  }
+
+  void _onOpenNext() {
+    if (mounted) {
+      setState(() {
+        showReward = false;
+        status = BoxAnimateStatus.opening;
+        _controller.value = 0;
+        _controller.reset();
+      });
+
+      setState(() {
+        currentType = types.removeLast();
+      });
+    }
+  }
+
+  void _onFinish() {
+    Navigator.pop(context);
+  }
+
+  void _onAllNext() {
+    if (mounted) {
+      setState(() {
+        showReward = false;
+        status = BoxAnimateStatus.finish;
+      });
+    }
+  }
+
+  void _onShare() {
+    BaseViewModel().pushOpacityPage(context, AirdropSharePage(level: widget.level,reward: reward));
   }
 }
