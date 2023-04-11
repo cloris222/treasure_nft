@@ -88,6 +88,7 @@ class _AirdropMainPageState extends State<AirdropMainPage> {
           ),
           Expanded(
               child: PageView(
+                physics: const NeverScrollableScrollPhysics(),
             controller: controller,
             onPageChanged: _onPageChange,
             children: List<Widget>.generate(AirdropType.values.length,
@@ -103,7 +104,7 @@ class _AirdropMainPageState extends State<AirdropMainPage> {
     return GestureDetector(
       onTap: () => onTypePress(type),
       child: Container(
-        height: UIDefine.getPixelWidth(60),
+        height: UIDefine.getPixelWidth(55),
         color: Colors.transparent,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

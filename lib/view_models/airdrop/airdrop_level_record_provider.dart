@@ -19,12 +19,12 @@ class AirdropLevelRecordNotifier extends StateNotifier<List<AirdropBoxInfo>>
 
   @override
   Future<void> initProvider() async {
-    state = [];
+
   }
 
   @override
   Future<void> initValue() async {
-    state = [];
+
   }
 
   @override

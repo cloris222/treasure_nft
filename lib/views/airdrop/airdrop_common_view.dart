@@ -7,6 +7,7 @@ import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
 
 import '../../constant/call_back_function.dart';
 import '../../constant/enum/airdrop_enum.dart';
+import '../../models/http/parameter/airdrop_box_info.dart';
 import '../../models/http/parameter/airdrop_reward_info.dart';
 
 class AirdropCommonView {
@@ -50,13 +51,13 @@ class AirdropCommonView {
       case AirdropType.growthReward:
         switch (rewardType) {
           case AirdropRewardType.EMPTY:
-            context = tr("空寶箱");
+           return const SizedBox();
             break;
           case AirdropRewardType.MONEY:
             context = "${data.startRange}-${data.endRange} USDT";
             break;
           case AirdropRewardType.ITEM:
-            context = "$title${data.startRange}-${data.endRange} NFT";
+            context = "${data.startRange}-${data.endRange} NFT";
             break;
           case AirdropRewardType.MEDAL:
             context = tr("随机款纪念徽章");
@@ -121,5 +122,17 @@ class AirdropCommonView {
       case AirdropRewardType.MEDAL:
         return tr("纪念徽章");
     }
+  }
+
+  BoxStatus checkStatus(List<AirdropBoxInfo> record){
+    BoxStatus canOpenBox = BoxStatus.locked;
+    if (record.isNotEmpty) {
+      if (record.first.isOpen()) {
+        canOpenBox = BoxStatus.opened;
+      } else {
+        canOpenBox = BoxStatus.unlocked;
+      }
+    }
+    return canOpenBox;
   }
 }

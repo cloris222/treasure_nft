@@ -35,14 +35,7 @@ class _AirdropDailyPageState extends ConsumerState<AirdropDailyPage>
   Widget build(BuildContext context) {
     List<AirdropRewardInfo> list = ref.watch(airdropDailyBoxInfoProvider);
     List<AirdropBoxInfo> record = ref.watch(airdropDailyRecordProvider);
-    BoxStatus canOpenBox = BoxStatus.locked;
-    if (record.isNotEmpty) {
-      if (record.first.isOpen()) {
-        canOpenBox = BoxStatus.opened;
-      } else {
-        canOpenBox = BoxStatus.unlocked;
-      }
-    }
+    BoxStatus canOpenBox = checkStatus(record);
 
     return Container(
       decoration: AppStyle().buildAirdropBackground(),
@@ -59,7 +52,7 @@ class _AirdropDailyPageState extends ConsumerState<AirdropDailyPage>
                 list.length,
                 (index) =>
                     buildRewardInfo(AirdropType.dailyReward, list[index])),
-            buildButton(false, _onPressOpen),
+            buildButton(canOpenBox == BoxStatus.unlocked, _onPressOpen),
           ],
         ),
       ),
