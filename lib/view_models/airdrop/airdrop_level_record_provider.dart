@@ -6,9 +6,8 @@ import '../../models/http/api/airdrop_box_api.dart';
 import '../../models/http/parameter/airdrop_box_info.dart';
 import '../../utils/app_shared_Preferences.dart';
 
-final airdropLevelRecordProvider = StateNotifierProvider.autoDispose
-    .family<AirdropLevelRecordNotifier, List<AirdropBoxInfo>, int>(
-        (ref, level) {
+final airdropLevelRecordProvider = StateNotifierProvider.family<
+    AirdropLevelRecordNotifier, List<AirdropBoxInfo>, int>((ref, level) {
   return AirdropLevelRecordNotifier(level);
 });
 
@@ -19,12 +18,12 @@ class AirdropLevelRecordNotifier extends StateNotifier<List<AirdropBoxInfo>>
 
   @override
   Future<void> initProvider() async {
-
+    state = [];
   }
 
   @override
   Future<void> initValue() async {
-
+    state = [];
   }
 
   @override

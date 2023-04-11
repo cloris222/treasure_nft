@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../constant/enum/airdrop_enum.dart';
 import '../../constant/theme/app_image_path.dart';
@@ -12,6 +13,7 @@ import '../../models/http/parameter/airdrop_reward_info.dart';
 import '../../view_models/airdrop/airdrop_daily_boxInfo_provider.dart';
 import '../../view_models/airdrop/airdrop_daily_record_provider.dart';
 import 'airdrop_common_view.dart';
+import 'airdrop_open_page.dart';
 
 class AirdropDailyPage extends ConsumerStatefulWidget {
   const AirdropDailyPage({
@@ -26,8 +28,6 @@ class _AirdropDailyPageState extends ConsumerState<AirdropDailyPage>
     with AirdropCommonView {
   @override
   void initState() {
-    ref.read(airdropDailyBoxInfoProvider.notifier).init();
-    ref.read(airdropDailyRecordProvider.notifier).init();
     super.initState();
   }
 
@@ -53,13 +53,16 @@ class _AirdropDailyPageState extends ConsumerState<AirdropDailyPage>
                 (index) =>
                     buildRewardInfo(AirdropType.dailyReward, list[index])),
             buildButton(canOpenBox == BoxStatus.unlocked, _onPressOpen),
+            SizedBox(height: UIDefine.getPixelWidth(20)),
           ],
         ),
       ),
     );
   }
 
-  void _onPressOpen() {}
+  void _onPressOpen() {
+    BaseViewModel().pushPage(context, const AirdropOpenPage(level: 1));
+  }
 
   Widget buildBoxView(BoxStatus status) {
     return Image.asset(

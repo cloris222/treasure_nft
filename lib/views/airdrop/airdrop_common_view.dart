@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
@@ -9,8 +10,32 @@ import '../../constant/call_back_function.dart';
 import '../../constant/enum/airdrop_enum.dart';
 import '../../models/http/parameter/airdrop_box_info.dart';
 import '../../models/http/parameter/airdrop_reward_info.dart';
+import '../../view_models/airdrop/airdrop_level_boxInfo_provider.dart';
 
 class AirdropCommonView {
+  String preTag = "preTag";
+  String currentTag = "currentTag";
+  String nextTag = "nextTag";
+
+  void onChangeIndex(WidgetRef ref, int currentLevel) {
+    if (currentLevel == 1 || currentLevel == 0) {
+      ref.read(airdropLevelBoxIndexProvider(preTag).notifier).state = null;
+      ref.read(airdropLevelBoxIndexProvider(currentTag).notifier).state = 1;
+      ref.read(airdropLevelBoxIndexProvider(nextTag).notifier).state = 2;
+    } else if (currentLevel == 6) {
+      ref.read(airdropLevelBoxIndexProvider(preTag).notifier).state = 5;
+      ref.read(airdropLevelBoxIndexProvider(currentTag).notifier).state = 6;
+      ref.read(airdropLevelBoxIndexProvider(nextTag).notifier).state = null;
+    } else {
+      ref.read(airdropLevelBoxIndexProvider(preTag).notifier).state =
+          currentLevel - 1;
+      ref.read(airdropLevelBoxIndexProvider(currentTag).notifier).state =
+          currentLevel;
+      ref.read(airdropLevelBoxIndexProvider(nextTag).notifier).state =
+          currentLevel + 1;
+    }
+  }
+
   Widget buildTitleView(String title) {
     return GradientThirdText(title,
         weight: FontWeight.w700, size: UIDefine.fontSize20);
@@ -51,7 +76,7 @@ class AirdropCommonView {
       case AirdropType.growthReward:
         switch (rewardType) {
           case AirdropRewardType.EMPTY:
-           return const SizedBox();
+            return const SizedBox();
             break;
           case AirdropRewardType.MONEY:
             context = "${data.startRange}-${data.endRange} USDT";
@@ -124,7 +149,7 @@ class AirdropCommonView {
     }
   }
 
-  BoxStatus checkStatus(List<AirdropBoxInfo> record){
+  BoxStatus checkStatus(List<AirdropBoxInfo> record) {
     BoxStatus canOpenBox = BoxStatus.locked;
     if (record.isNotEmpty) {
       if (record.first.isOpen()) {

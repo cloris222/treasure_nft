@@ -6,9 +6,13 @@ import '../../models/http/api/airdrop_box_api.dart';
 import '../../models/http/parameter/airdrop_reward_info.dart';
 import '../../utils/app_shared_Preferences.dart';
 
-final airdropLevelBoxInfoProvider = StateNotifierProvider.autoDispose
-    .family<AirDropLevelBoxInfoNotifier, List<AirdropRewardInfo>, int>(
-        (ref, level) {
+final airdropLevelBoxIndexProvider =
+    StateProvider.family<int?, String>((ref, tag) {
+  return null;
+});
+
+final airdropLevelBoxInfoProvider = StateNotifierProvider.family<
+    AirDropLevelBoxInfoNotifier, List<AirdropRewardInfo>, int>((ref, level) {
   return AirDropLevelBoxInfoNotifier(level);
 });
 

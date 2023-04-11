@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
@@ -10,16 +11,25 @@ import 'package:treasure_nft_project/views/custom_appbar_view.dart';
 
 import '../../constant/enum/airdrop_enum.dart';
 import '../../constant/theme/app_colors.dart';
+import '../../view_models/airdrop/airdrop_daily_boxInfo_provider.dart';
+import '../../view_models/airdrop/airdrop_daily_record_provider.dart';
+import '../../view_models/airdrop/airdrop_level_boxInfo_provider.dart';
+import '../../view_models/airdrop/airdrop_level_record_provider.dart';
+import '../../view_models/gobal_provider/user_info_provider.dart';
+import 'airdrop_common_view.dart';
 
 ///寶箱主頁
-class AirdropMainPage extends StatefulWidget {
-  const AirdropMainPage({Key? key}) : super(key: key);
+class AirdropMainPage extends ConsumerStatefulWidget {
+  const AirdropMainPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<AirdropMainPage> createState() => _AirdropMainPageState();
+  ConsumerState createState() => _AirdropMainPageState();
 }
 
-class _AirdropMainPageState extends State<AirdropMainPage> {
+class _AirdropMainPageState extends ConsumerState<AirdropMainPage>
+    with AirdropCommonView {
   AirdropType currentType = AirdropType.values.first;
   PageController controller = PageController();
 
@@ -27,6 +37,32 @@ class _AirdropMainPageState extends State<AirdropMainPage> {
   void dispose() {
     controller.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    initLevelProvider();
+    initDailyProvider();
+    super.initState();
+  }
+
+  void initLevelProvider() {
+    for (int i = 1; i <= 6; i++) {
+      ref.read(airdropLevelBoxInfoProvider(i).notifier).init();
+      ref.read(airdropLevelRecordProvider(i).notifier).init();
+    }
+    int initLevel = ref.read(userInfoProvider).level;
+    if (initLevel == 0) {
+      initLevel = 1;
+    }
+
+    Future.delayed(const Duration(milliseconds: 300))
+        .then((value) => onChangeIndex(ref, initLevel));
+  }
+
+  void initDailyProvider() {
+    ref.read(airdropDailyBoxInfoProvider.notifier).init();
+    ref.read(airdropDailyRecordProvider.notifier).init();
   }
 
   @override
@@ -88,7 +124,7 @@ class _AirdropMainPageState extends State<AirdropMainPage> {
           ),
           Expanded(
               child: PageView(
-                physics: const NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             controller: controller,
             onPageChanged: _onPageChange,
             children: List<Widget>.generate(AirdropType.values.length,

@@ -6,10 +6,9 @@ import '../../models/http/api/airdrop_box_api.dart';
 import '../../models/http/parameter/airdrop_reward_info.dart';
 import '../../utils/app_shared_Preferences.dart';
 
-
-
-final airdropDailyBoxInfoProvider = StateNotifierProvider.autoDispose<
-    AirDropDailyBoxInfoNotifier, List<AirdropRewardInfo>>((ref) {
+final airdropDailyBoxInfoProvider =
+    StateNotifierProvider<AirDropDailyBoxInfoNotifier, List<AirdropRewardInfo>>(
+        (ref) {
   return AirDropDailyBoxInfoNotifier();
 });
 

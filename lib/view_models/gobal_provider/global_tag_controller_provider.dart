@@ -17,7 +17,6 @@ final globalBoolProvider =
   return false;
 });
 
-final globalIndexProvider =
-    StateProvider.family.autoDispose<int?, String>((ref, tag) {
+final globalIndexProvider = StateProvider.family.autoDispose<int?, String>((ref, tag) {
   return null;
 });

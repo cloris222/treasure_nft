@@ -29,46 +29,15 @@ class _AirdropDailyPageState extends ConsumerState<AirdropGrowthPage>
     with AirdropCommonView {
   int initLevel = 1;
 
-  String preTag = "preTag";
-  String currentTag = "currentTag";
-  String nextTag = "nextTag";
+  int? get preBox => ref.read(airdropLevelBoxIndexProvider(preTag));
 
-  int? get preBox => ref.read(globalIndexProvider(preTag));
+  int? get currentBox => ref.read(airdropLevelBoxIndexProvider(currentTag));
 
-  int? get currentBox => ref.read(globalIndexProvider(currentTag));
-
-  int? get nextBox => ref.read(globalIndexProvider(nextTag));
+  int? get nextBox => ref.read(airdropLevelBoxIndexProvider(nextTag));
 
   @override
   void initState() {
-    initLevel = ref.read(userInfoProvider).level;
-    if (initLevel == 0) {
-      initLevel = 1;
-    }
-    Future.delayed(const Duration(milliseconds: 300))
-        .then((value) => _onChangeIndex(initLevel));
-    for (int i = 1; i <= 6; i++) {
-      ref.read(airdropLevelBoxInfoProvider(i).notifier).init();
-      ref.read(airdropLevelRecordProvider(i).notifier).init();
-    }
-
     super.initState();
-  }
-
-  void _onChangeIndex(int currentLevel) {
-    if (currentLevel == 1) {
-      ref.read(globalIndexProvider(preTag).notifier).state = null;
-      ref.read(globalIndexProvider(currentTag).notifier).state = 1;
-      ref.read(globalIndexProvider(nextTag).notifier).state = 2;
-    } else if (currentLevel == 6) {
-      ref.read(globalIndexProvider(preTag).notifier).state = 5;
-      ref.read(globalIndexProvider(currentTag).notifier).state = 6;
-      ref.read(globalIndexProvider(nextTag).notifier).state = null;
-    } else {
-      ref.read(globalIndexProvider(preTag).notifier).state = currentLevel - 1;
-      ref.read(globalIndexProvider(currentTag).notifier).state = currentLevel;
-      ref.read(globalIndexProvider(nextTag).notifier).state = currentLevel + 1;
-    }
   }
 
   @override
@@ -77,10 +46,9 @@ class _AirdropDailyPageState extends ConsumerState<AirdropGrowthPage>
       ref.watch(airdropLevelBoxInfoProvider(i));
       ref.watch(airdropLevelRecordProvider(i));
     }
-    ref.watch(globalIndexProvider(preTag));
-    ref.watch(globalIndexProvider(currentTag));
-    ref.watch(globalIndexProvider(nextTag));
-
+    ref.watch(airdropLevelBoxIndexProvider(preTag));
+    ref.watch(airdropLevelBoxIndexProvider(currentTag));
+    ref.watch(airdropLevelBoxIndexProvider(nextTag));
 
     List<AirdropRewardInfo> list = [];
     List<AirdropBoxInfo> record = [];
@@ -102,7 +70,8 @@ class _AirdropDailyPageState extends ConsumerState<AirdropGrowthPage>
                 list.length,
                 (index) =>
                     buildRewardInfo(AirdropType.growthReward, list[index])),
-            buildButton(canOpenBox == BoxStatus.unlocked, _onPressOpen),
+             buildButton(canOpenBox == BoxStatus.unlocked, _onPressOpen),
+            SizedBox(height: UIDefine.getPixelWidth(20)),
           ],
         ),
       ),
@@ -110,13 +79,17 @@ class _AirdropDailyPageState extends ConsumerState<AirdropGrowthPage>
   }
 
   Widget buildBoxView() {
-    return Row(
-      children: [
-        Expanded(child: buildBoxItem(preBox)),
-        SizedBox(
-            width: UIDefine.getWidth() * 0.65, child: buildBoxItem(currentBox)),
-        Expanded(child: buildBoxItem(nextBox)),
-      ],
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(15)),
+      child: Row(
+        children: [
+          Expanded(child: buildBoxItem(preBox)),
+          SizedBox(
+              width: UIDefine.getPixelWidth(200),
+              child: buildBoxItem(currentBox)),
+          Expanded(child: buildBoxItem(nextBox)),
+        ],
+      ),
     );
   }
 
@@ -130,7 +103,7 @@ class _AirdropDailyPageState extends ConsumerState<AirdropGrowthPage>
     BoxStatus canOpenBox = checkStatus(record);
     return GestureDetector(
       onTap: () {
-        _onChangeIndex(level);
+        onChangeIndex(ref, level);
       },
       child: Container(
         color: Colors.transparent,
