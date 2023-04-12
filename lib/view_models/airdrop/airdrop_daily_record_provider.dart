@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/view_models/base_pref_provider.dart';
@@ -5,6 +6,9 @@ import 'package:treasure_nft_project/view_models/base_pref_provider.dart';
 import '../../models/http/api/airdrop_box_api.dart';
 import '../../models/http/parameter/airdrop_box_info.dart';
 import '../../utils/app_shared_Preferences.dart';
+import '../../views/airdrop/airdrop_open_page.dart';
+import '../base_view_model.dart';
+import 'airdrop_count_provider.dart';
 
 final airdropDailyRecordProvider =
     StateNotifierProvider<AirdropDailyRecordNotifier, List<AirdropBoxInfo>>(
@@ -58,5 +62,34 @@ class AirdropDailyRecordNotifier extends StateNotifier<List<AirdropBoxInfo>>
   @override
   bool setUserTemporaryValue() {
     return true;
+  }
+
+  void openBox(BuildContext context, String orderNo, WidgetRef ref) {
+    // AirdropBoxReward reward = AirdropBoxReward(
+    //     type: 'TREASURE_BOX',
+    //     orderNo: '',
+    //     createdAt: '',
+    //     updatedAt: '',
+    //     boxType: "RESERVE_BOX",
+    //     rewardType: AirdropRewardType.ALL.name,
+    //     medal: "https://devimage-dan.treasurenft.xyz/CoolAPE/CoolAPE_9978.png",
+    //     medalName: "030",
+    //     itemName: "CoolAPE_9978",
+    //     itemPrice: 83.1,
+    //     imgUrl: "https://devimage-dan.treasurenft.xyz/CoolAPE/CoolAPE_9978.png",
+    //     reward: 200,
+    //     status: "OPENED");
+    //
+    // BaseViewModel()
+    //     .pushPage(context, AirdropOpenPage(level: 0, reward: reward));
+
+    AirdropBoxAPI().openAirdropBox(orderNo).then((list) {
+      if (list.isNotEmpty) {
+        BaseViewModel()
+            .pushPage(context, AirdropOpenPage(level: 0, reward: list.first));
+        update();
+        ref.read(airdropCountProvider(true).notifier).update();
+      }
+    });
   }
 }
