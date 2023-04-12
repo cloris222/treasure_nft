@@ -237,6 +237,6 @@ class AppImagePath {
   static const String airdropInfo = "$_btnPath/btn_info_02.png";
   static const String airdropSoul = "$_imgPath/img_coming_soon_01.png";
 
-  static const String airdropMainBg="$_imgPath/img_airdrop_bg_02.png";
-  static const String airdropPageBg="$_imgPath/img_airdrop_bg_01.png";
+  static const String airdropMainBg = "$_imgPath/img_airdrop_bg_02.png";
+  static const String airdropPageBg = "$_imgPath/img_airdrop_bg_01.png";
 }

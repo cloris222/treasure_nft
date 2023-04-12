@@ -48,3 +48,13 @@ enum BoxAnimateStatus {
   ///顯示最後獎勵
   finish,
 }
+
+enum BoxType {
+  RESERVE_BOX,
+  LEVEL_BOX_1,
+  LEVEL_BOX_2,
+  LEVEL_BOX_3,
+  LEVEL_BOX_4,
+  LEVEL_BOX_5,
+  LEVEL_BOX_6
+}

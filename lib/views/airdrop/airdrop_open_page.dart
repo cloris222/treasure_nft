@@ -330,11 +330,11 @@ class _AirdropOpenPageState extends State<AirdropOpenPage>
       setState(() {
         showReward = false;
         status = BoxAnimateStatus.opening;
-        _controller.value = 0;
-        _controller.reset();
       });
 
       setState(() {
+        _controller.value = 0;
+        _controller.reset();
         currentType = types.removeLast();
       });
     }

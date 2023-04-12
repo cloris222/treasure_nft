@@ -306,7 +306,7 @@ class _AirdropSharePageState extends ConsumerState<AirdropSharePage>
         Padding(
           padding: EdgeInsets.only(left: UIDefine.getPixelWidth(5)),
           child: Text(
-            tr("rewards"),
+            tr("appRewards"),
             style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w700),
           ),

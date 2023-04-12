@@ -1226,14 +1226,6 @@
   "placeholder-register-country":"请选择国籍",
   "accountNumber":"帐户",
   "Telegram":"Telegram",
-  "airdrop":"宝箱",
-  "dailyRewards":"预约奖励",
-  "growthProcess":"升级奖励",
-  "SoulPath":"奖金池",
-  "treasurePrizePool":"宝箱奖池",
-  "reserveCratesInfo":"每成功参与了一个场次预约，就可以开启一个预约宝箱，预约宝箱只能获取奖池里面其中一项奖励。目前有两个预约场次，宝箱每天最多可以开两次。",
-  "commemorativeBadge":"纪念徽章",
-  "randomBadge":"随机徽章",
   "Vietnam":"越南",
   "SouthAfrica":"南非",
   "Georgia":"乔治亚",
@@ -1265,10 +1257,26 @@
   "Ethiopia":"埃塞俄比亚",
   "Libya":"利比亚",
   "Mauritania":"毛里塔尼亚",
+  "airdrop":"宝箱",
+  "dailyRewards":"预约奖励",
+  "growthProcess":"升级奖励",
+  "soulPath":"奖金池",
+  "treasurePrizePool":"宝箱奖池",
+  "reserveCratesInfo":"每成功参与了一个场次预约，就可以开启一个预约宝箱，预约宝箱只能获取奖池里面其中一项奖励。目前有两个预约场次，宝箱每天最多可以开两次。",
+  "emptyTreasureChest":"空宝箱",
+  "commemorativeBadge":"纪念徽章",
+  "randomBadge":"随机徽章",
   "youGet":"你获得了",
   "finish":"结束",
   "myBox":"我的宝箱",
   "upgradeChestText":"升级宝箱，用户每达到一个等级，就可以打开对应等级的宝箱每个等级只可以打开一次。",
+  "nft":"NFT",
+  "noPrize":"没中奖...",
+  "noPrizeText":"祝你下次好运!",
+  "upgradeChestInfoText":"每次升级时，可获得额外的奖励，更有机会获得高额奖励，请努力提升等级，获取更多奖励",
+  "dailyRewardsInfoText":"每个时段成功预约一次，即可获得一个宝箱。一个时段最多获得一个宝箱，开启宝箱有机率获得高额奖励。",
+
+
 
 
 
@@ -1318,5 +1326,11 @@
   "appKycStatusUnverified":"未验证",
   "appKycPhone":"手机号码",
   "passportPhotoFront":"手持证件及纸条的自拍照",
-  "appEmptyBox":"空宝箱"
+  "appEmptyBox":"空宝箱",
+  "appMedal":"勋章",
+  "appRewards":"奖励",
+  "appTypeAirdrop":"宝箱奖励",
+  "appTypeLevelBox":"升级宝箱",
+  "appTypeReserveBox":"预约宝箱",
+  "appSellMore":"查看"
 }

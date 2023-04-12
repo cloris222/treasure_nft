@@ -4,9 +4,13 @@
 
 import 'dart:convert';
 
-OrderMessageListResponseData orderMessageListResponseDataFromJson(String str) => OrderMessageListResponseData.fromJson(json.decode(str));
+import '../../../../../models/http/parameter/treasure_box_record.dart';
 
-String orderMessageListResponseDataToJson(OrderMessageListResponseData data) => json.encode(data.toJson());
+OrderMessageListResponseData orderMessageListResponseDataFromJson(String str) =>
+    OrderMessageListResponseData.fromJson(json.decode(str));
+
+String orderMessageListResponseDataToJson(OrderMessageListResponseData data) =>
+    json.encode(data.toJson());
 
 class OrderMessageListResponseData {
   OrderMessageListResponseData({
@@ -39,6 +43,12 @@ class OrderMessageListResponseData {
     this.from = '',
     this.to = '',
     this.fee = 0,
+    this.boxType = "",
+    this.rewardType = "",
+    this.medal = "",
+    this.updatedAt = "",
+    this.itemPrice = 0,
+    this.reward = 0,
   });
 
   String orderNo;
@@ -71,67 +81,104 @@ class OrderMessageListResponseData {
   String to;
   num fee;
 
-  factory OrderMessageListResponseData.fromJson(Map<String, dynamic> json) => OrderMessageListResponseData(
-    orderNo: json["orderNo"]??'',
-    type: json["type"]??'',
-    createdAt: json["createdAt"]??'',
-    itemId: json["itemId"]??'',
-    itemName: json["itemName"]??'',
-    imgUrl: json["imgUrl"]??'',
-    buyPrice: json["buyPrice"]??0,
-    seller: json["seller"]??'',
-    payType: json["payType"]??'',
-    sellPrice: json["sellPrice"]??0,
-    buyer: json["buyer"]??'',
-    serviceFee: json["serviceFee"]??0,
-    royalFee: json["royalFee"]??0,
-    income: json["income"]??0,
-    price: json["price"]??0,
-    status: json["status"]??'',
-    startPrice: json["startPrice"]??0,
-    endPrice: json["endPrice"]??0,
-    deposit: json["deposit"]??0,
-    reserveCount: json["reserveCount"]??0,
-    winCount: json["winCount"]??0,
-    id: json["id"]??'',
-    time: json["time"]??'',
-    amount: json["amount"]??0,
-    originImgUrl: json["originImgUrl"]??'',
-    userName: json["userName"]??'',
-    from: json["from"]??'',
-    to: json["to"]??'',
-    fee: json["fee"]??0,
-  );
+  String boxType;
+  String rewardType;
+  String medal;
+  String updatedAt;
+  num itemPrice;
+  num reward;
+
+  factory OrderMessageListResponseData.fromJson(Map<String, dynamic> json) =>
+      OrderMessageListResponseData(
+        orderNo: json["orderNo"] ?? '',
+        type: json["type"] ?? '',
+        createdAt: json["createdAt"] ?? '',
+        itemId: json["itemId"] ?? '',
+        itemName: json["itemName"] ?? '',
+        imgUrl: json["imgUrl"] ?? '',
+        buyPrice: json["buyPrice"] ?? 0,
+        seller: json["seller"] ?? '',
+        payType: json["payType"] ?? '',
+        sellPrice: json["sellPrice"] ?? 0,
+        buyer: json["buyer"] ?? '',
+        serviceFee: json["serviceFee"] ?? 0,
+        royalFee: json["royalFee"] ?? 0,
+        income: json["income"] ?? 0,
+        price: json["price"] ?? 0,
+        status: json["status"] ?? '',
+        startPrice: json["startPrice"] ?? 0,
+        endPrice: json["endPrice"] ?? 0,
+        deposit: json["deposit"] ?? 0,
+        reserveCount: json["reserveCount"] ?? 0,
+        winCount: json["winCount"] ?? 0,
+        id: json["id"] ?? '',
+        time: json["time"] ?? '',
+        amount: json["amount"] ?? 0,
+        originImgUrl: json["originImgUrl"] ?? '',
+        userName: json["userName"] ?? '',
+        from: json["from"] ?? '',
+        to: json["to"] ?? '',
+        fee: json["fee"] ?? 0,
+        boxType: json["boxType"] ?? "",
+        rewardType: json["rewardType"] ?? "",
+        medal: json["medal"] ?? "",
+        updatedAt: json["updatedAt"] ?? "",
+        itemPrice: json["itemPrice"] ?? 0,
+        reward: json["reward"] ?? 0,
+      );
 
   Map<String, dynamic> toJson() => {
-    "orderNo": orderNo,
-    "type": type,
-    "createdAt": createdAt,
-    "itemId": itemId,
-    "itemName": itemName,
-    "imgUrl": imgUrl,
-    "buyPrice": buyPrice,
-    "seller": seller,
-    "payType": payType,
-    "sellPrice": sellPrice,
-    "buyer": buyer,
-    "serviceFee": serviceFee,
-    "royalFee": royalFee,
-    "income": income,
-    "price": price,
-    "status": status,
-    "startPrice": startPrice,
-    "endPrice": endPrice,
-    "deposit": deposit,
-    "reserveCount": reserveCount,
-    "winCount": winCount,
-    "id": id,
-    "time": time,
-    "amount": amount,
-    "originImgUrl": originImgUrl,
-    "userName": userName,
-    "from": from,
-    "to": to,
-    "fee": fee,
-  };
+        "orderNo": orderNo,
+        "type": type,
+        "createdAt": createdAt,
+        "itemId": itemId,
+        "itemName": itemName,
+        "imgUrl": imgUrl,
+        "buyPrice": buyPrice,
+        "seller": seller,
+        "payType": payType,
+        "sellPrice": sellPrice,
+        "buyer": buyer,
+        "serviceFee": serviceFee,
+        "royalFee": royalFee,
+        "income": income,
+        "price": price,
+        "status": status,
+        "startPrice": startPrice,
+        "endPrice": endPrice,
+        "deposit": deposit,
+        "reserveCount": reserveCount,
+        "winCount": winCount,
+        "id": id,
+        "time": time,
+        "amount": amount,
+        "originImgUrl": originImgUrl,
+        "userName": userName,
+        "from": from,
+        "to": to,
+        "fee": fee,
+        "boxType": boxType,
+        "rewardType": rewardType,
+        "medal": medal,
+        "updatedAt": updatedAt,
+        "itemPrice": itemPrice,
+        "reward": reward,
+      };
+
+  TreasureBoxRecord changeBoxRecord() {
+    return TreasureBoxRecord(
+      type: type,
+      orderNo: orderNo,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+      boxType: boxType,
+      rewardType: rewardType,
+      medal: medal,
+      itemName: itemName,
+      itemPrice: itemPrice,
+      imgUrl: imgUrl,
+      reward: reward,
+      status: status,
+    );
+  }
 }

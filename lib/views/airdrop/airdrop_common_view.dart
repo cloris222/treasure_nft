@@ -20,9 +20,9 @@ import '../../view_models/airdrop/airdrop_level_boxInfo_provider.dart';
 import '../../widgets/label/gradually_network_image.dart';
 
 class AirdropCommonView {
-  String preTag = "preTag";
-  String currentTag = "currentTag";
-  String nextTag = "nextTag";
+  final String preTag = "preTag";
+  final String currentTag = "currentTag";
+  final String nextTag = "nextTag";
 
   /// level寶箱 切換用
   void onChangeIndex(WidgetRef ref, int currentLevel) {

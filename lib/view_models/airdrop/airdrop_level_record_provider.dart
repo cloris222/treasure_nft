@@ -82,7 +82,8 @@ class AirdropLevelRecordNotifier extends StateNotifier<List<AirdropBoxInfo>>
     //     status: "OPENED");
     //
     // BaseViewModel()
-    //     .pushPage(context, AirdropOpenPage(level: 0, reward: reward));
+    //     .pushPage(context, AirdropOpenPage(level: 5, reward: reward));
+    // return ;
 
     AirdropBoxAPI().openAirdropBox(orderNo).then((list) {
       if (list.isNotEmpty) {

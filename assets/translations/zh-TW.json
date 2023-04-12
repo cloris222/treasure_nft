@@ -1226,14 +1226,6 @@
   "placeholder-register-country":"請選擇國籍",
   "accountNumber":"帳戶",
   "Telegram":"Telegram",
-  "airdrop":"寶箱",
-  "dailyRewards":"預約獎勵",
-  "growthProcess":"升級獎勵",
-  "SoulPath":"獎金池",
-  "treasurePrizePool":"寶箱獎池",
-  "reserveCratesInfo":"每成功參與了一個場次預約，就可以開啟一個預約寶箱，預約寶箱只能獲取獎池裡面其中一項獎勵。目前有兩個預約場次，寶箱每天最多可以開兩次。",
-  "commemorativeBadge":"紀念徽章",
-  "randomBadge":"隨機徽章",
   "Vietnam":"越南",
   "SouthAfrica":"南非",
   "Georgia":"喬治亞",
@@ -1265,10 +1257,28 @@
   "Ethiopia":"埃塞俄比亞",
   "Libya":"利比亞",
   "Mauritania":"毛里塔尼亞",
+  "airdrop":"寶箱",
+  "dailyRewards":"預約獎勵",
+  "growthProcess":"升級獎勵",
+  "soulPath":"獎金池",
+  "treasurePrizePool":"寶箱獎池",
+  "reserveCratesInfo":"每成功參與了一個場次預約，就可以開啟一個預約寶箱，預約寶箱只能獲取獎池裡面其中一項獎勵。目前有兩個預約場次，寶箱每天最多可以開兩次。",
+  "emptyTreasureChest":"空寶箱",
+  "commemorativeBadge":"紀念徽章",
+  "randomBadge":"隨機徽章",
   "youGet":"你獲得了",
   "finish":"結束",
   "myBox":"我的寶箱",
   "upgradeChestText":"升級寶箱，用戶每達到一個等級，就可以打開對應等級的寶箱每個等級只可以打開一次。",
+  "nft":"NFT",
+  "noPrize":"沒中獎...",
+  "noPrizeText":"祝你下次好運!",
+  "upgradeChestInfoText":"每次升級時，可獲得額外的獎勵，更有機會獲得高額獎勵，請努力提升等級，獲取更多獎勵",
+  "dailyRewardsInfoText":"每個時段成功預約一次，即可獲得一個寶箱。一個時段最多獲得一個寶箱，開啟寶箱有機率獲得高額獎勵。",
+
+
+
+
 
 
   "--//app use":"---",
@@ -1316,5 +1326,11 @@
   "appKycStatusUnverified":"未驗證",
   "appKycPhone":"手機號碼",
   "passportPhotoFront":"手持證件及紙條的自拍照",
-  "appEmptyBox":"空寶箱"
+  "appEmptyBox":"空寶箱",
+  "appMedal":"勳章",
+  "appRewards":"獎勵",
+  "appTypeAirdrop":"寶箱獎勵",
+  "appTypeLevelBox":"升級寶箱",
+  "appTypeReserveBox":"預約寶箱",
+  "appSellMore":"查看"
 }

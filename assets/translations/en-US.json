@@ -1226,14 +1226,6 @@
   "placeholder-register-country":"Please select your nationality.",
   "accountNumber":"Account",
   "Telegram":"Telegram",
-  "airdrop":"Treasure",
-  "dailyRewards":"Reservation reward",
-  "growthProcess":"Level-up reward",
-  "SoulPath":"Bonus pool",
-  "treasurePrizePool":"Prize Pool",
-  "reserveCratesInfo":"For every successfully reserved session, you can open a reservation treasure chest, which can only obtain one reward from the prize pool. Currently, there are two reservation sessions, and the treasure chest can be opened a maximum of two times per day.",
-  "commemorativeBadge":"Commemorative Badge",
-  "randomBadge":"Random Badge",
   "Vietnam":"Vietnam",
   "SouthAfrica":"SouthAfrica",
   "Georgia":"Georgia",
@@ -1265,8 +1257,28 @@
   "Ethiopia":"Ethiopia",
   "Libya":"Libya",
   "Mauritania":"Mauritania",
+  "airdrop":"Treasure",
+  "dailyRewards":"Reservation reward",
+  "growthProcess":"Level-up reward",
+  "soulPath":"Bonus pool",
+  "treasurePrizePool":"Prize Pool",
+  "reserveCratesInfo":"For every successful reservation of a session, you can open a reservation treasure chest, which can only obtain one reward from the prize pool. Currently, there are two reservation sessions, and the treasure chest can be opened a maximum of two times per day",
+  "emptyTreasureChest":"Empty treasure box",
+  "commemorativeBadge":"Commemorative Badge",
+  "randomBadge":"Random Badge",
+  "youGet":"You have received",
   "finish":"Finish",
   "myBox":"My Box",
+  "upgradeChestText":"Upgrade treasure box, users can open the corresponding level of treasure box when they reach each level, and each level can only be opened once.",
+  "nft":"NFT",
+  "noPrize":"No prize...",
+  "noPrizeText":"Better luck next time!",
+  "upgradeChestInfoText":"Every time you level up, you can get extra rewards and have a better chance of receiving high-value rewards. Please work hard to improve your level and get more rewards.",
+  "dailyRewardsInfoText":"If you successfully reserve once during each time period, you can get a treasure box. You can only get one treasure box at most during each time period. There is a chance to get high-value rewards when opening the treasure box.",
+
+
+
+
 
 
   "--//app use":"---",
@@ -1314,5 +1326,11 @@
   "appKycStatusUnverified":"Not verified",
   "appKycPhone":"phione",
   "passportPhotoFront":"Selfie with your document and the paper",
-  "appEmptyBox":"empty treasure chest"
+  "appEmptyBox":"Empty treasure box",
+  "appMedal":"Badge",
+  "appRewards":"rewards",
+  "appTypeAirdrop":"Treasure box rewards",
+  "appTypeLevelBox":"Upgrade treasure box",
+  "appTypeReserveBox":"Reserved treasure box",
+  "appSellMore":"View"
 }

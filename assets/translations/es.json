@@ -1206,7 +1206,7 @@
   "login-via-wallet":"Billetera conectar",
   "register-via-wallet":"Regístrese con la billetera",
   "linkedWallet":"Para registrarse: conecte su billetera",
-  "walletAddress":"dirección de la billetera",
+  "walletAddress":"dirección de billetera",
   "address-bounded-hint":"Esta dirección ya ha sido vinculada",
   "address-unbound-hint":"Esta dirección no ha sido vinculada",
   "bindWallet":"Billetera de atar",
@@ -1226,14 +1226,6 @@
   "placeholder-register-country":"Seleccione su nacionalidad.",
   "accountNumber":"Cuenta",
   "Telegram":"Telegram",
-  "airdrop":"Tesoro",
-  "dailyRewards":"Recompensa de reserva",
-  "growthProcess":"Recompensa de nivel",
-  "SoulPath":"Piscina de bonificación",
-  "treasurePrizePool":"Bolsa de premios",
-  "reserveCratesInfo":"Para cada sesión reservada con éxito, puede abrir un cofre del tesoro de reservas, que solo puede obtener una recompensa del grupo de premios. Actualmente, hay dos sesiones de reserva, y el cofre del tesoro se puede abrir un máximo de dos veces al día.",
-  "commemorativeBadge":"Insignia conmemorativa",
-  "randomBadge":"Insignia aleatoria",
   "Vietnam":"Vietnam",
   "SouthAfrica":"Sudáfrica",
   "Georgia":"Georgia",
@@ -1265,8 +1257,26 @@
   "Ethiopia":"Etiopía",
   "Libya":"Libia",
   "Mauritania":"Mauritania",
+  "airdrop":"Tesoro",
+  "dailyRewards":"Recompensa de reserva",
+  "growthProcess":"Recompensa de nivel",
+  "soulPath":"Piscina de bonificación",
+  "treasurePrizePool":"Bolsa de premios",
+  "reserveCratesInfo":"Para cada reserva exitosa de una sesión, puede abrir un cofre del tesoro de reservas, que solo puede obtener una recompensa del premio. Actualmente, hay dos sesiones de reserva, y el cofre del tesoro se puede abrir un máximo de dos veces al día",
+  "emptyTreasureChest":"Caja del tesoro vacía",
+  "commemorativeBadge":"Insignia conmemorativa",
+  "randomBadge":"Insignia aleatoria",
+  "youGet":"Has recibido",
   "finish":"Finalizar",
   "myBox":"Mi caja",
+  "upgradeChestText":"Actualizar el cuadro del tesoro, los usuarios pueden abrir el nivel correspondiente de la caja del tesoro cuando alcanzan cada nivel, y cada nivel solo se puede abrir una vez.",
+  "nft":"NFT",
+  "noPrize":"Sin premio ...",
+  "noPrizeText":"¡Mejor suerte la próxima vez!",
+  "upgradeChestInfoText":"Cada vez que sube, puede obtener recompensas adicionales y tener una mejor oportunidad de recibir recompensas de alto valor. Trabaje duro para mejorar su nivel y obtener más recompensas.",
+  "dailyRewardsInfoText":"Si se reserva con éxito una vez durante cada período de tiempo, puede obtener una caja del tesoro. Solo puede obtener una caja del tesoro como máximo durante cada período de tiempo. Existe la oportunidad de obtener recompensas de alto valor al abrir la caja del tesoro.",
+
+
 
 
 
@@ -1316,5 +1326,11 @@
   "appKycStatusUnverified":"No verificado",
   "appKycPhone":"phione",
   "passportPhotoFront":"Selfie con tu documento y el documento",
-  "appEmptyBox":"cofre del tesoro vacío"
+  "appEmptyBox":"Caja del tesoro vacía",
+  "appMedal":"Insignia",
+  "appRewards":"recompensas",
+  "appTypeAirdrop":"Recompensas de la caja del tesoro",
+  "appTypeLevelBox":"Box de tesoro de actualización",
+  "appTypeReserveBox":"Caja del tesoro reservada",
+  "appSellMore":"Vista"
 }

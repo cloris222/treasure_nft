@@ -184,7 +184,7 @@ class _AirdropMainPageState extends ConsumerState<AirdropMainPage>
       case AirdropType.growthReward:
         return tr("growthProcess");
       case AirdropType.soulPath:
-        return tr("SoulPath");
+        return tr("soulPath");
     }
   }
 
