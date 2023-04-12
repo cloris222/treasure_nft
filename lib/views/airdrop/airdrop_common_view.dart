@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:treasure_nft_project/constant/extension/num_extension.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
@@ -8,15 +9,20 @@ import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
 
 import '../../constant/call_back_function.dart';
 import '../../constant/enum/airdrop_enum.dart';
+import '../../constant/theme/app_image_path.dart';
+import '../../constant/theme/app_style.dart';
 import '../../models/http/parameter/airdrop_box_info.dart';
+import '../../models/http/parameter/airdrop_box_reward.dart';
 import '../../models/http/parameter/airdrop_reward_info.dart';
 import '../../view_models/airdrop/airdrop_level_boxInfo_provider.dart';
+import '../../widgets/label/gradually_network_image.dart';
 
 class AirdropCommonView {
   String preTag = "preTag";
   String currentTag = "currentTag";
   String nextTag = "nextTag";
 
+  /// level寶箱 切換用
   void onChangeIndex(WidgetRef ref, int currentLevel) {
     if (currentLevel == 1 || currentLevel == 0) {
       ref.read(airdropLevelBoxIndexProvider(preTag).notifier).state = null;
@@ -35,6 +41,78 @@ class AirdropCommonView {
           currentLevel + 1;
     }
   }
+
+  ///將獎勵類型轉為enum
+  AirdropRewardType getRewardType(String type) {
+    for (var element in AirdropRewardType.values) {
+      if (type.compareTo(element.name) == 0) {
+        return element;
+      }
+    }
+    return AirdropRewardType.EMPTY;
+  }
+
+  ///獎勵類型的title
+  String _getRewardTypeTitle(AirdropRewardType rewardType) {
+    switch (rewardType) {
+      case AirdropRewardType.EMPTY:
+        return tr("空寶箱");
+      case AirdropRewardType.MONEY:
+        return tr("USDT");
+      case AirdropRewardType.ITEM:
+        return tr("NFT");
+      case AirdropRewardType.MEDAL:
+        return tr("纪念徽章");
+      case AirdropRewardType.ALL:
+        return "";
+    }
+  }
+
+  /// 判斷獎勵寶箱的狀態
+  BoxStatus checkStatus(List<AirdropBoxInfo> record) {
+    BoxStatus canOpenBox = BoxStatus.locked;
+    if (record.isNotEmpty) {
+      if (record.first.isOpen()) {
+        canOpenBox = BoxStatus.opened;
+      } else {
+        canOpenBox = BoxStatus.unlocked;
+      }
+    }
+    return canOpenBox;
+  }
+
+  /// 判斷要顯示多少獎勵物品
+  List<AirdropRewardType> getRewardList(
+      AirdropRewardType rewardType, bool isFlip) {
+    List<AirdropRewardType> list = [];
+    switch (rewardType) {
+      case AirdropRewardType.EMPTY:
+      case AirdropRewardType.MONEY:
+      case AirdropRewardType.ITEM:
+      case AirdropRewardType.MEDAL:
+        list.add(rewardType);
+        break;
+      case AirdropRewardType.ALL:
+
+        /// 最後顯示獎勵順序
+        if (isFlip) {
+          list.add(AirdropRewardType.ITEM);
+          list.add(AirdropRewardType.MEDAL);
+          list.add(AirdropRewardType.MONEY);
+        }
+
+        /// 寶箱開啟順序
+        else {
+          list.add(AirdropRewardType.MONEY);
+          list.add(AirdropRewardType.MEDAL);
+          list.add(AirdropRewardType.ITEM);
+        }
+        break;
+    }
+    return list;
+  }
+
+  //-----共用UI
 
   Widget buildTitleView(String title) {
     return GradientThirdText(title,
@@ -79,7 +157,6 @@ class AirdropCommonView {
         switch (rewardType) {
           case AirdropRewardType.EMPTY:
             return const SizedBox();
-            break;
           case AirdropRewardType.MONEY:
             context = "${data.startRange}-${data.endRange} USDT";
             break;
@@ -131,39 +208,65 @@ class AirdropCommonView {
         margin: EdgeInsets.only(top: UIDefine.getPixelWidth(15)));
   }
 
-  AirdropRewardType getRewardType(String type) {
-    for (var element in AirdropRewardType.values) {
-      if (type.compareTo(element.name) == 0) {
-        return element;
-      }
+  Widget buildStackRewardIcon(
+      AirdropBoxReward reward, AirdropRewardType imgType,
+      {double? size}) {
+    String text = "x1";
+    if (imgType == AirdropRewardType.MONEY) {
+      text = "+${reward.reward.removeTwoPointFormat()}";
     }
-    return AirdropRewardType.EMPTY;
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(5)),
+      child: Stack(children: [
+        buildRewardIcon(reward, imgType, size: size),
+        Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Text(text,
+                textAlign: TextAlign.center,
+                style: AppTextStyle.getBaseStyle(color: Colors.white))),
+      ]),
+    );
   }
 
-  String _getRewardTypeTitle(AirdropRewardType rewardType) {
-    switch (rewardType) {
-      case AirdropRewardType.EMPTY:
-        return tr("空寶箱");
-      case AirdropRewardType.MONEY:
-        return tr("USDT");
+  Widget buildRewardIcon(AirdropBoxReward reward, AirdropRewardType? type,
+      {double? size}) {
+    if (type == null) {
+      return const SizedBox();
+    }
+    bool assetUSDT = type == AirdropRewardType.MONEY;
+    String imageUrl;
+    switch (type) {
       case AirdropRewardType.ITEM:
-        return tr("NFT");
+        imageUrl = reward.imgUrl;
+        break;
       case AirdropRewardType.MEDAL:
-        return tr("纪念徽章");
-      case AirdropRewardType.ALL:
-        return "";
+        imageUrl = reward.medal;
+        break;
+      default:
+        imageUrl = "";
+        break;
     }
-  }
-
-  BoxStatus checkStatus(List<AirdropBoxInfo> record) {
-    BoxStatus canOpenBox = BoxStatus.locked;
-    if (record.isNotEmpty) {
-      if (record.first.isOpen()) {
-        canOpenBox = BoxStatus.opened;
-      } else {
-        canOpenBox = BoxStatus.unlocked;
-      }
-    }
-    return canOpenBox;
+    return Container(
+      height: size ?? UIDefine.getPixelWidth(80),
+      width: size ?? UIDefine.getPixelWidth(80),
+      decoration: AppStyle().baseFlipGradient(radius: 10),
+      padding: EdgeInsets.all(UIDefine.getPixelWidth(1)),
+      child: Center(
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: assetUSDT
+              ? Image.asset(
+                  AppImagePath.airdropUSDT,
+                  fit: BoxFit.cover,
+                )
+              : GraduallyNetworkImage(
+                  imageUrl: imageUrl,
+                  fit: BoxFit.cover,
+                ),
+        ),
+      ),
+    );
   }
 }

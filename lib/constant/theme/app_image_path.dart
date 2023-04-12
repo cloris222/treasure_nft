@@ -233,4 +233,5 @@ class AppImagePath {
   static const String airdropBox = '$_imgPath/img_lv{level}_{status}.png';
   static const String airdropAnimateBg = "$_imgPath/img_airdrop_bg_03.png";
   static const String airdropUSDT = "$_imgPath/img_usdt_square_01.png";
+  static const String airdropShare = "$_iconPath/icon_share_01.png";
 }

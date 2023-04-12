@@ -1,10 +1,18 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:format/format.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 
+import '../../constant/enum/airdrop_enum.dart';
 import '../../constant/global_data.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
@@ -14,9 +22,13 @@ import '../../models/http/parameter/airdrop_box_reward.dart';
 import '../../models/http/parameter/user_info_data.dart';
 import '../../utils/app_text_style.dart';
 import '../../view_models/gobal_provider/user_info_provider.dart';
+import '../../widgets/button/gradient_button_widget.dart';
 import '../../widgets/label/icon/level_icon_widget.dart';
 import '../../widgets/label/icon/medal_icon_widget.dart';
 import '../login/circle_network_icon.dart';
+import 'dart:ui' as ui;
+
+import 'airdrop_common_view.dart';
 
 class AirdropSharePage extends ConsumerStatefulWidget {
   const AirdropSharePage({
@@ -31,7 +43,8 @@ class AirdropSharePage extends ConsumerStatefulWidget {
   ConsumerState createState() => _AirdropSharePageState();
 }
 
-class _AirdropSharePageState extends ConsumerState<AirdropSharePage> {
+class _AirdropSharePageState extends ConsumerState<AirdropSharePage>
+    with AirdropCommonView {
   GlobalKey repaintKey = GlobalKey();
 
   /// 獎勵清單
@@ -63,8 +76,24 @@ class _AirdropSharePageState extends ConsumerState<AirdropSharePage> {
                       )),
                       child: _buildShareImg(userInfo),
                     )),
-                SizedBox(height: UIDefine.getPixelWidth(5)),
-                LoginButtonWidget(btnText: "cancel", onPressed: ()=>BaseViewModel().popPage(context))
+                SizedBox(height: UIDefine.getPixelWidth(10)),
+                Row(
+                  children: [
+                    Expanded(
+                        child: LoginButtonWidget(
+                            margin: EdgeInsets.zero,
+                            radius: 22,
+                            btnText: tr("share"),
+                            onPressed: _onShare)),
+                    SizedBox(width: UIDefine.getPixelWidth(5)),
+                    Expanded(
+                        child: GradientButtonWidget(
+                            margin: EdgeInsets.zero,
+                            radius: 22,
+                            btnText: tr("cancel"),
+                            onPressed: () => BaseViewModel().popPage(context))),
+                  ],
+                )
               ],
             )));
   }
@@ -72,7 +101,6 @@ class _AirdropSharePageState extends ConsumerState<AirdropSharePage> {
   Widget _buildSpace() {
     return SizedBox(height: UIDefine.getScreenHeight(1.5));
   }
-
 
   Widget _buildShareImg(UserInfoData userInfo) {
     return Column(mainAxisSize: MainAxisSize.min, children: [
@@ -96,8 +124,11 @@ class _AirdropSharePageState extends ConsumerState<AirdropSharePage> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     _buildUserInfo(userInfo),
-                    // _buildOrderTitle(),
-                    // _buildOrderInfo(),
+                    Row(children: [
+                      _buildBoxImage(),
+                      SizedBox(width: UIDefine.getPixelWidth(5)),
+                      Expanded(child: _buildRewardImage()),
+                    ]),
                     SizedBox(height: UIDefine.getPixelWidth(10))
                   ],
                 ),
@@ -113,6 +144,7 @@ class _AirdropSharePageState extends ConsumerState<AirdropSharePage> {
       _buildShareCode(userInfo),
     ]);
   }
+
   Widget _buildUserIcon(UserInfoData userInfo) {
     double iconHeight = UIDefine.getPixelWidth(60);
     return Container(
@@ -120,13 +152,14 @@ class _AirdropSharePageState extends ConsumerState<AirdropSharePage> {
       padding: EdgeInsets.all(UIDefine.getPixelWidth(5)),
       child: userInfo.photoUrl.isNotEmpty
           ? CircleNetworkIcon(
-          showNormal: true,
-          networkUrl: userInfo.photoUrl,
-          radius: iconHeight / 2)
+              showNormal: true,
+              networkUrl: userInfo.photoUrl,
+              radius: iconHeight / 2)
           : Image.asset(AppImagePath.avatarImg,
-          width: iconHeight, height: iconHeight),
+              width: iconHeight, height: iconHeight),
     );
   }
+
   Widget _buildUserInfo(UserInfoData userInfo) {
     return Padding(
       padding: EdgeInsets.only(
@@ -145,9 +178,9 @@ class _AirdropSharePageState extends ConsumerState<AirdropSharePage> {
         SizedBox(width: UIDefine.getPixelWidth(5)),
         userInfo.medal.isNotEmpty
             ? MedalIconWidget(
-          medal: userInfo.medal,
-          size: UIDefine.getPixelWidth(20),
-        )
+                medal: userInfo.medal,
+                size: UIDefine.getPixelWidth(20),
+              )
             : const SizedBox()
       ]),
     );
@@ -168,7 +201,7 @@ class _AirdropSharePageState extends ConsumerState<AirdropSharePage> {
       SizedBox(
           width: UIDefine.getWidth(),
           height: itemSize,
-          child: Row(children: [
+          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Container(
               decoration: AppStyle().styleColorBorderBackground(
                   color: Colors.white,
@@ -183,7 +216,7 @@ class _AirdropSharePageState extends ConsumerState<AirdropSharePage> {
             ),
             SizedBox(width: UIDefine.getScreenWidth(3)),
             Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(tr('inviteCode'),
@@ -200,5 +233,91 @@ class _AirdropSharePageState extends ConsumerState<AirdropSharePage> {
           ])),
       _buildSpace()
     ]);
+  }
+
+  _onShare() {
+    _shareUiImage(repaintKey).then((value) => BaseViewModel().popPage(context));
+  }
+
+  /// 把图片ByteData写入File，并触发分享
+  Future<void> _shareUiImage(GlobalKey key) async {
+    ByteData? sourceByteData = await _capturePngToByteData(key);
+    Uint8List sourceBytes = sourceByteData!.buffer.asUint8List();
+    Directory tempDir = await getTemporaryDirectory();
+
+    String storagePath = tempDir.path;
+    File file = File('$storagePath/TreasureNFT.png');
+
+    if (!file.existsSync()) {
+      file.createSync();
+    }
+    file.writeAsBytesSync(sourceBytes);
+    var shareFile = XFile((file.path));
+    Share.shareXFiles([shareFile]);
+  }
+
+  /// 截屏图片生成图片流ByteData
+  Future<ByteData?> _capturePngToByteData(GlobalKey key) async {
+    try {
+      RenderRepaintBoundary boundary =
+          key.currentContext!.findRenderObject() as RenderRepaintBoundary;
+      double dpr = ui.window.devicePixelRatio; // 获取当前设备的像素比
+      ui.Image image = await boundary.toImage(pixelRatio: dpr);
+      return await image.toByteData(format: ui.ImageByteFormat.png);
+    } catch (e) {
+      GlobalData.printLog(e.toString());
+    }
+    return null;
+  }
+
+  Widget _buildBoxImage() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          tr("myBox"),
+          style: AppTextStyle.getBaseStyle(
+              fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w700),
+        ),
+        SizedBox(height: UIDefine.getPixelWidth(5)),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Container(
+            width: UIDefine.getPixelWidth(130),
+            height: UIDefine.getPixelWidth(130),
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(AppImagePath.airdropAnimateBg),
+                    fit: BoxFit.fill)),
+            child: Image.asset(format(AppImagePath.airdropBox,
+                {"level": widget.level, "status": BoxStatus.unlocked.name})),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRewardImage() {
+    List<AirdropRewardType> list =
+        getRewardList(getRewardType(reward.rewardType), true);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: UIDefine.getPixelWidth(5)),
+          child: Text(
+            tr("rewards"),
+            style: AppTextStyle.getBaseStyle(
+                fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w700),
+          ),
+        ),
+        SizedBox(height: UIDefine.getPixelWidth(10)),
+        Wrap(
+            children: List<Widget>.generate(
+                list.length,
+                (index) => buildStackRewardIcon(reward, list[index],
+                    size: UIDefine.getPixelWidth(45)))),
+      ],
+    );
   }
 }

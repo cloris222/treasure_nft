@@ -50,6 +50,37 @@ class AppStyle {
             begin: begin, end: end, colors: AppColors.gradientBaseColorBg));
   }
 
+  BoxDecoration baseBolderGradient(
+      {double radius = 0,
+      Color backgroundColor = Colors.transparent,
+      double borderWidth = 1,
+      bool hasTopLeft = true,
+      bool hasTopRight = true,
+      bool hasBottomLef = true,
+      bool hasBottomRight = true,
+      AlignmentGeometry begin = Alignment.centerLeft,
+      AlignmentGeometry end = Alignment.centerRight}) {
+    return BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.only(
+          topLeft:
+              hasTopLeft ? Radius.circular(radius) : const Radius.circular(0),
+          topRight:
+              hasTopRight ? Radius.circular(radius) : const Radius.circular(0),
+          bottomLeft:
+              hasBottomLef ? Radius.circular(radius) : const Radius.circular(0),
+          bottomRight: hasBottomRight
+              ? Radius.circular(radius)
+              : const Radius.circular(0),
+        ),
+        border: GradientBoxBorder(
+          gradient: LinearGradient(
+              begin: begin, end: end, colors: AppColors.gradientBaseColorBg),
+          width: borderWidth,
+        ),
+    );
+  }
+
   /// 漸層色紫藍色(反轉)
   BoxDecoration baseFlipGradient(
       {double radius = 0,

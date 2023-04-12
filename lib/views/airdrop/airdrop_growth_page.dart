@@ -5,16 +5,17 @@ import 'package:format/format.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/view_models/airdrop/airdrop_level_boxInfo_provider.dart';
 import 'package:treasure_nft_project/view_models/airdrop/airdrop_level_record_provider.dart';
-import 'package:treasure_nft_project/view_models/gobal_provider/user_info_provider.dart';
 
 import '../../constant/enum/airdrop_enum.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/theme/app_style.dart';
 import '../../constant/ui_define.dart';
+import '../../models/http/api/airdrop_box_api.dart';
 import '../../models/http/parameter/airdrop_box_info.dart';
 import '../../models/http/parameter/airdrop_reward_info.dart';
-import '../../view_models/gobal_provider/global_tag_controller_provider.dart';
+import '../../view_models/base_view_model.dart';
 import 'airdrop_common_view.dart';
+import 'airdrop_open_page.dart';
 
 class AirdropGrowthPage extends ConsumerStatefulWidget {
   const AirdropGrowthPage({
@@ -56,6 +57,10 @@ class _AirdropDailyPageState extends ConsumerState<AirdropGrowthPage>
       list = ref.read(airdropLevelBoxInfoProvider(currentBox!));
       record = ref.read(airdropLevelRecordProvider(currentBox!));
     }
+    String orderNo = "";
+    if (record.isNotEmpty) {
+      orderNo = record.first.orderNo;
+    }
     BoxStatus canOpenBox = checkStatus(record);
     return Container(
       decoration: AppStyle().buildAirdropBackground(),
@@ -64,13 +69,14 @@ class _AirdropDailyPageState extends ConsumerState<AirdropGrowthPage>
         child: Column(
           children: [
             buildTitleView(tr("growthProcess")),
-            buildContextView(tr("升級敘述......")),
+            buildContextView(tr("upgradeChestText")),
             buildBoxView(),
             ...List<Widget>.generate(
                 list.length,
                 (index) =>
                     buildRewardInfo(AirdropType.growthReward, list[index])),
-             buildButton(canOpenBox == BoxStatus.unlocked, _onPressOpen),
+            buildButton(
+                canOpenBox == BoxStatus.unlocked, () => _onPressOpen(orderNo)),
             SizedBox(height: UIDefine.getPixelWidth(20)),
           ],
         ),
@@ -124,5 +130,15 @@ class _AirdropDailyPageState extends ConsumerState<AirdropGrowthPage>
     );
   }
 
-  void _onPressOpen() {}
+  void _onPressOpen(String orderNo) {
+    if (currentBox != null) {
+      AirdropBoxAPI().openAirdropBox(orderNo).then((list) {
+        if (list.isNotEmpty) {
+          BaseViewModel().pushPage(
+              context, AirdropOpenPage(level: currentBox!, reward: list.first));
+          ref.read(airdropLevelRecordProvider(currentBox!).notifier).update();
+        }
+      });
+    }
+  }
 }
