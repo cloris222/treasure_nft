@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
@@ -107,29 +108,31 @@ class _AirdropMainPageState extends ConsumerState<AirdropMainPage>
   }
 
   Widget _buildPage() {
-    return Container(
-      decoration: AppStyle().styleColorsRadiusBackground(
-          radius: 20,
-          color: AppColors.airdropBackground.withOpacity(0.87),
-          hasBottomLef: false,
-          hasBottomRight: false),
-      padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(10)),
-      child: Column(
-        children: [
-          Row(
-            children: List<Widget>.generate(
-                AirdropType.values.length,
-                (index) => Expanded(
-                    child: _buildTagButton(AirdropType.values[index]))),
-          ),
-          Expanded(
-              child: PageView(
-            controller: controller,
-            onPageChanged: _onPageChange,
-            children: List<Widget>.generate(AirdropType.values.length,
-                (index) => _buildPageView(AirdropType.values[index])),
-          )),
-        ],
+    return ClipRRect(
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+      child: Container(
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(AppImagePath.airdropMainBg),
+                fit: BoxFit.cover)),
+        padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(10)),
+        child: Column(
+          children: [
+            Row(
+              children: List<Widget>.generate(
+                  AirdropType.values.length,
+                  (index) => Expanded(
+                      child: _buildTagButton(AirdropType.values[index]))),
+            ),
+            Expanded(
+                child: PageView(
+              controller: controller,
+              onPageChanged: _onPageChange,
+              children: List<Widget>.generate(AirdropType.values.length,
+                  (index) => _buildPageView(AirdropType.values[index])),
+            )),
+          ],
+        ),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
+import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 
 import 'app_colors.dart';
 
@@ -218,22 +219,8 @@ class AppStyle {
   }
 
   BoxDecoration buildAirdropBackground() {
-    return BoxDecoration(
-        border: GradientBoxBorder(
-          gradient: LinearGradient(
-              begin: Alignment.bottomLeft,
-              end: Alignment.topRight,
-              tileMode: TileMode.decal,
-              colors: [
-                const Color(0xFF13D5FF).withOpacity(0.48),
-                const Color(0xFFA3A3A3).withOpacity(0.1),
-              ]),
-          width: 1,
-        ),
-        gradient: LinearGradient(colors: [
-          const Color(0xFF102232).withOpacity(0.41),
-          Colors.black.withOpacity(0.1)
-        ]),
-        borderRadius: BorderRadius.circular(12));
+    return const BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage(AppImagePath.airdropPageBg), fit: BoxFit.fill));
   }
 }

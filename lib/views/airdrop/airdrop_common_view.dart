@@ -58,11 +58,11 @@ class AirdropCommonView {
   String _getRewardTypeTitle(AirdropRewardType rewardType) {
     switch (rewardType) {
       case AirdropRewardType.EMPTY:
-        return tr("空寶箱");
+        return tr("appEmptyBox");
       case AirdropRewardType.MONEY:
-        return tr("USDT");
+        return tr("usdt");
       case AirdropRewardType.ITEM:
-        return tr("NFT");
+        return tr("nft");
       case AirdropRewardType.MEDAL:
         return tr("commemorativeBadge");
       case AirdropRewardType.ALL:

@@ -61,7 +61,9 @@ class _AirdropDailyPageState extends ConsumerState<AirdropGrowthPage>
     BoxStatus canOpenBox = checkStatus(record);
     return Container(
       decoration: AppStyle().buildAirdropBackground(),
-      padding: EdgeInsets.all(UIDefine.getPixelWidth(5)),
+      padding: EdgeInsets.symmetric(
+          horizontal: UIDefine.getPixelWidth(15),
+          vertical: UIDefine.getPixelWidth(20)),
       child: SingleChildScrollView(
         child: Column(
           children: [
