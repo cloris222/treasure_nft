@@ -60,25 +60,27 @@ class _GradientButtonWidgetState extends State<GradientButtonWidget> {
     return GestureDetector(
         onTap: () => intervalClick(widget.needTimes),
         child: Container(
-            alignment: widget.alignment,
-            decoration: AppStyle().baseBolderGradient(
-                backgroundColor: Colors.white,
-                borderWidth: 2,
-                radius: widget.radius),
-            width: widget.width ??
-                (widget.isFillWidth ? UIDefine.getWidth() : null),
-            height: widget.height ?? UIDefine.getPixelWidth(50),
-            margin: widget.margin,
-            padding: widget.padding ??
-                EdgeInsets.symmetric(
-                    horizontal: UIDefine.getPixelWidth(10),
-                    vertical: UIDefine.getPixelWidth(5)),
-            child: Text(widget.btnText,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: AppTextStyle.getBaseStyle(
-                    color: AppColors.textNineBlack,
-                    fontSize: widget.fontSize ?? UIDefine.fontSize16,
-                    fontWeight: widget.fontWeight))));
+          decoration: AppStyle().baseGradient(radius: widget.radius),
+          padding: EdgeInsets.all(UIDefine.getPixelWidth(2)),
+          child: Container(
+              alignment: widget.alignment,
+              decoration:
+                  AppStyle().styleColorsRadiusBackground(radius: widget.radius),
+              width: widget.width ??
+                  (widget.isFillWidth ? UIDefine.getWidth() : null),
+              height: widget.height ?? UIDefine.getPixelWidth(50),
+              margin: widget.margin,
+              padding: widget.padding ??
+                  EdgeInsets.symmetric(
+                      horizontal: UIDefine.getPixelWidth(10),
+                      vertical: UIDefine.getPixelWidth(5)),
+              child: Text(widget.btnText,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTextStyle.getBaseStyle(
+                      color: AppColors.textNineBlack,
+                      fontSize: widget.fontSize ?? UIDefine.fontSize16,
+                      fontWeight: widget.fontWeight))),
+        ));
   }
 }

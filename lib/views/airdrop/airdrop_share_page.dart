@@ -313,10 +313,12 @@ class _AirdropSharePageState extends ConsumerState<AirdropSharePage>
         ),
         SizedBox(height: UIDefine.getPixelWidth(10)),
         Wrap(
+            runSpacing: UIDefine.getPixelWidth(5),
             children: List<Widget>.generate(
                 list.length,
                 (index) => buildStackRewardIcon(reward, list[index],
-                    size: UIDefine.getPixelWidth(45)))),
+                    size: UIDefine.getPixelWidth(45),
+                    fontSize: UIDefine.fontSize8))),
       ],
     );
   }

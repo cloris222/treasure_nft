@@ -68,7 +68,7 @@ class _AirdropDailyPageState extends ConsumerState<AirdropGrowthPage>
       child: SingleChildScrollView(
         child: Column(
           children: [
-            buildTitleView(tr("growthProcess")),
+            buildTitleView(tr("growthProcess"), tr("upgradeChestText")),
             buildContextView(tr("upgradeChestText")),
             buildBoxView(),
             ...List<Widget>.generate(

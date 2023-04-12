@@ -41,15 +41,15 @@ class _AirdropMainPageState extends ConsumerState<AirdropMainPage>
 
   @override
   void initState() {
-    initLevelProvider();
     initDailyProvider();
+    initLevelProvider();
     super.initState();
   }
 
   void initLevelProvider() {
     for (int i = 1; i <= 6; i++) {
-      ref.read(airdropLevelBoxInfoProvider(i).notifier).init();
       ref.read(airdropLevelRecordProvider(i).notifier).init();
+      ref.read(airdropLevelBoxInfoProvider(i).notifier).init();
     }
     int initLevel = ref.read(userInfoProvider).level;
     if (initLevel == 0) {
@@ -61,8 +61,8 @@ class _AirdropMainPageState extends ConsumerState<AirdropMainPage>
   }
 
   void initDailyProvider() {
-    ref.read(airdropDailyBoxInfoProvider.notifier).init();
     ref.read(airdropDailyRecordProvider.notifier).init();
+    ref.read(airdropDailyBoxInfoProvider.notifier).init();
   }
 
   @override
@@ -95,8 +95,6 @@ class _AirdropMainPageState extends ConsumerState<AirdropMainPage>
                     style: AppTextStyle.getBaseStyle(
                         fontSize: UIDefine.fontSize28,
                         fontWeight: FontWeight.w700)),
-                const Spacer(),
-                Text("rule", style: AppTextStyle.getBaseStyle()),
               ],
             ),
           ),
@@ -124,7 +122,6 @@ class _AirdropMainPageState extends ConsumerState<AirdropMainPage>
           ),
           Expanded(
               child: PageView(
-            physics: const NeverScrollableScrollPhysics(),
             controller: controller,
             onPageChanged: _onPageChange,
             children: List<Widget>.generate(AirdropType.values.length,

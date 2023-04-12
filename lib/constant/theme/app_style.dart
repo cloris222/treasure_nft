@@ -61,23 +61,22 @@ class AppStyle {
       AlignmentGeometry begin = Alignment.centerLeft,
       AlignmentGeometry end = Alignment.centerRight}) {
     return BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.only(
-          topLeft:
-              hasTopLeft ? Radius.circular(radius) : const Radius.circular(0),
-          topRight:
-              hasTopRight ? Radius.circular(radius) : const Radius.circular(0),
-          bottomLeft:
-              hasBottomLef ? Radius.circular(radius) : const Radius.circular(0),
-          bottomRight: hasBottomRight
-              ? Radius.circular(radius)
-              : const Radius.circular(0),
-        ),
-        border: GradientBoxBorder(
-          gradient: LinearGradient(
-              begin: begin, end: end, colors: AppColors.gradientBaseColorBg),
-          width: borderWidth,
-        ),
+      color: backgroundColor,
+      borderRadius: BorderRadius.only(
+        topLeft:
+            hasTopLeft ? Radius.circular(radius) : const Radius.circular(0),
+        topRight:
+            hasTopRight ? Radius.circular(radius) : const Radius.circular(0),
+        bottomLeft:
+            hasBottomLef ? Radius.circular(radius) : const Radius.circular(0),
+        bottomRight:
+            hasBottomRight ? Radius.circular(radius) : const Radius.circular(0),
+      ),
+      border: GradientBoxBorder(
+        gradient: LinearGradient(
+            begin: begin, end: end, colors: AppColors.gradientBaseColorBg),
+        width: borderWidth,
+      ),
     );
   }
 
@@ -94,15 +93,18 @@ class AppStyle {
   }
 
   /// 自定義漸層
-  BoxDecoration buildGradient(
-      {double radius = 0,
-      Color borderColor = Colors.transparent,
-      required List<Color> colors,
-      double borderWith = 1}) {
+  BoxDecoration buildGradient({
+    double radius = 0,
+    Color borderColor = Colors.transparent,
+    required List<Color> colors,
+    double borderWith = 1,
+    AlignmentGeometry begin = Alignment.centerLeft,
+    AlignmentGeometry end = Alignment.centerRight,
+  }) {
     return BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(radius)),
         border: Border.all(color: Colors.transparent, width: borderWith),
-        gradient: LinearGradient(colors: colors));
+        gradient: LinearGradient(begin: begin, end: end, colors: colors));
   }
 
   BoxDecoration styleColorBorderBackground({

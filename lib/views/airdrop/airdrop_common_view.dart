@@ -5,7 +5,9 @@ import 'package:treasure_nft_project/constant/extension/num_extension.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
+import 'package:treasure_nft_project/widgets/drop_buttom/custom_drop_button.dart';
 import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
+import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
 
 import '../../constant/call_back_function.dart';
 import '../../constant/enum/airdrop_enum.dart';
@@ -62,7 +64,7 @@ class AirdropCommonView {
       case AirdropRewardType.ITEM:
         return tr("NFT");
       case AirdropRewardType.MEDAL:
-        return tr("纪念徽章");
+        return tr("commemorativeBadge");
       case AirdropRewardType.ALL:
         return "";
     }
@@ -114,9 +116,57 @@ class AirdropCommonView {
 
   //-----共用UI
 
-  Widget buildTitleView(String title) {
-    return GradientThirdText(title,
-        weight: FontWeight.w700, size: UIDefine.fontSize20);
+  Widget buildTitleView(String title, String infoMessage) {
+    return CustomDropButton(
+        dropdownDecoration: AppStyle()
+            .styleColorsRadiusBackground(color: const Color(0xFF386FDD)),
+        buildCustomDropCurrentItem: (index) => Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                /// 讓dropdown button 不觸發
+                GestureDetector(
+                  onTap: () {},
+                  child: GradientThirdText(title,
+                      weight: FontWeight.w700, size: UIDefine.fontSize20),
+                ),
+                Container(
+                  padding: EdgeInsets.all(UIDefine.getPixelWidth(3)),
+                  child: BaseIconWidget(
+                      imageAssetPath: AppImagePath.airdropInfo,
+                      size: UIDefine.getPixelWidth(22)),
+                ),
+              ],
+            ),
+        buildCustomDropItem: (index, needGradientText, needArrow) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(title,
+                  style: AppTextStyle.getBaseStyle(
+                      color: Colors.white,
+                      fontSize: UIDefine.fontSize16,
+                      fontWeight: FontWeight.w600)),
+              SizedBox(height: UIDefine.getPixelWidth(5)),
+              Expanded(
+                child: Text(infoMessage,
+                    textAlign: TextAlign.left,
+                    style: AppTextStyle.getBaseStyle(
+                        color: Colors.white,
+                        fontSize: UIDefine.fontSize12,
+                        fontWeight: FontWeight.w400)),
+              ),
+            ],
+          );
+        },
+        itemHeight: UIDefine.getPixelWidth(100),
+        needBorderBackground: false,
+        dropdownWidth: UIDefine.getWidth() * 0.87,
+        initIndex: 0,
+        listLength: 1,
+        itemString: (index, arrow) => infoMessage,
+        onChanged: (index) {});
   }
 
   Widget buildContextView(String context) {
@@ -137,7 +187,7 @@ class AirdropCommonView {
       case AirdropType.dailyReward:
         switch (rewardType) {
           case AirdropRewardType.EMPTY:
-            title = title + tr("空寶箱");
+            title = title + tr("appEmptyBox");
             break;
           case AirdropRewardType.MONEY:
             title = "$title${data.startRange}-${data.endRange} USDT";
@@ -146,7 +196,7 @@ class AirdropCommonView {
             title = "$title${data.startRange}-${data.endRange} NFT";
             break;
           case AirdropRewardType.MEDAL:
-            title = title + tr("随机款纪念徽章");
+            title = title + tr("randomBadge");
             break;
           case AirdropRewardType.ALL:
             break;
@@ -164,7 +214,7 @@ class AirdropCommonView {
             context = "${data.startRange}-${data.endRange} NFT";
             break;
           case AirdropRewardType.MEDAL:
-            context = tr("随机款纪念徽章");
+            context = tr("randomBadge");
             break;
           case AirdropRewardType.ALL:
             break;
@@ -210,22 +260,36 @@ class AirdropCommonView {
 
   Widget buildStackRewardIcon(
       AirdropBoxReward reward, AirdropRewardType imgType,
-      {double? size}) {
+      {double? size, double? fontSize}) {
     String text = "x1";
     if (imgType == AirdropRewardType.MONEY) {
       text = "+${reward.reward.removeTwoPointFormat()}";
     }
-    return Padding(
+    return Container(
       padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(5)),
       child: Stack(children: [
         buildRewardIcon(reward, imgType, size: size),
+        Positioned(
+            top: size == null ? UIDefine.getPixelWidth(40) : size / 2,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Container(
+              decoration: AppStyle().buildGradient(
+                  radius: 10,
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Colors.transparent, const Color(0xFF2D1F0A)]),
+            )),
         Positioned(
             bottom: 0,
             left: 0,
             right: 0,
             child: Text(text,
                 textAlign: TextAlign.center,
-                style: AppTextStyle.getBaseStyle(color: Colors.white))),
+                style: AppTextStyle.getBaseStyle(
+                    color: Colors.white,
+                    fontSize: fontSize ?? UIDefine.fontSize20))),
       ]),
     );
   }
@@ -251,7 +315,17 @@ class AirdropCommonView {
     return Container(
       height: size ?? UIDefine.getPixelWidth(80),
       width: size ?? UIDefine.getPixelWidth(80),
-      decoration: AppStyle().baseFlipGradient(radius: 10),
+      decoration: AppStyle().buildGradient(
+          borderWith: size==null?3.5:1,
+          radius: 10,
+          colors: const [
+            Color(0xFFF3B617),
+            Color(0xFFE0C285),
+            Color(0xFFB88B3D),
+            Color(0xFFC96933)
+          ],
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft),
       padding: EdgeInsets.all(UIDefine.getPixelWidth(1)),
       child: Center(
         child: ClipRRect(
