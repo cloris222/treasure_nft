@@ -1,21 +1,22 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
-import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import '../constant/enum/setting_enum.dart';
 
+import '../constant/subject_key.dart';
 import '../constant/theme/app_colors.dart';
 
 import '../utils/language_util.dart';
-import 'custom_appbar_view.dart';
-import 'main_page.dart';
+import '../utils/observer_pattern/notification_data.dart';
 
 class SettingLanguagePage extends StatefulWidget {
-  const SettingLanguagePage({Key? key}) : super(key: key);
+  const SettingLanguagePage({Key? key, required this.isMainPage})
+      : super(key: key);
+  final bool isMainPage;
 
   @override
   State<SettingLanguagePage> createState() => _SettingLanguagePageState();
@@ -32,22 +33,31 @@ class _SettingLanguagePageState extends State<SettingLanguagePage> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomAppbarView(
-      needScrollView: false,
-      needCover: false,
-      type: GlobalData.mainBottomType,
-      body: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 30),
-          child: _buildLanguageView(context)),
-      onLanguageChange: () {},
+    return GestureDetector(
+      onTap: () => BaseViewModel().popPage(context),
+      child: Scaffold(
+        backgroundColor: AppColors.opacityBackground,
+        body: Container(
+          alignment: Alignment.centerRight,
+          child: GestureDetector(
+            onTap: () {},
+            child: Container(
+                margin: EdgeInsets.all(MediaQuery.of(context).padding.top),
+                color: Colors.white,
+                width: UIDefine.getPixelWidth(240),
+                child: _buildLanguageView(context)),
+          ),
+        ),
+      ),
     );
   }
 
   Widget _buildLanguageView(BuildContext context) {
     return ListView.separated(
-        padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
+        padding: EdgeInsets.zero,
         separatorBuilder: (context, index) {
-          return const Divider(color: AppColors.searchBar);
+          // return const Divider(color: AppColors.searchBar);
+          return const SizedBox();
         },
         itemBuilder: (context, index) {
           String imageCountry;
@@ -132,29 +142,26 @@ class _SettingLanguagePageState extends State<SettingLanguagePage> {
           return InkWell(
             onTap: () => _onChangeLang(context, type),
             child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-              child: Row(
-                children: [
-                  Image.asset(format(
-                      AppImagePath.languageIcon, {'country': imageCountry})),
-                  const SizedBox(width: 10),
-                  Text(LanguageUtil.getLanguageName(type)),
-                  Flexible(child: Container(width: UIDefine.getWidth())),
-                  currentLanguage == type
-                      ? Image.asset(AppImagePath.languageCheckIcon)
-                      : Container(),
-                ],
-              ),
-            ),
+                margin:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                height: UIDefine.getPixelWidth(40),
+                child: Text(
+                  LanguageUtil.getLanguageName(type),
+                  maxLines: 1,
+                  style: AppTextStyle.getBaseStyle(
+                      fontSize: UIDefine.fontSize16,
+                      fontWeight: FontWeight.w400),
+                )),
           );
         },
         itemCount: LanguageType.values.length);
   }
 
   _onChangeLang(BuildContext context, LanguageType currentLanguage) async {
-    await LanguageUtil.setLanguageUtil(context, currentLanguage);
-    // BaseViewModel().popPage(context);
-    BaseViewModel()
-        .pushAndRemoveUntil(context, MainPage(type: GlobalData.mainBottomType));
+    BaseViewModel().popPage(context);
+    LanguageUtil.setLanguageUtil(context, currentLanguage).then((value) {
+      GlobalData.languageSubject.notifyObservers(NotificationData(
+          key: SubjectKey.keyChangeLanguage, data: widget.isMainPage));
+    });
   }
 }

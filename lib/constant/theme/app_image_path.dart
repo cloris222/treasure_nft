@@ -17,6 +17,7 @@ class AppImagePath {
   static const String copyIcon = '$_btnPath/btn_copy_01.png';
   static const String preloadIcon = '$_imgPath/img_loding_01.png';
   static const String closeIcon = '$_btnPath/btn_cross_01.png';
+  static const String menuIcon = '$_btnPath/btn_menu_01.png';
 
   ///MARK: Arrow Icon
   static const String arrowUpGrey = '$_btnPath/btn_arrow_02_up.png';
@@ -227,4 +228,12 @@ class AppImagePath {
       '$_imgPath/img_logo_check_account_01.png';
 
   static const String rewardIcon = '$_imgPath/img_congratulation_01.png';
+
+  /// 預約箱子
+  static const String airdropBox = '$_imgPath/img_lv{level}_{status}.png';
+  static const String airdropAnimateBg = "$_imgPath/img_airdrop_bg_03.png";
+  static const String airdropUSDT = "$_imgPath/img_usdt_square_01.png";
+  static const String airdropShare = "$_iconPath/icon_share_01.png";
+  static const String airdropInfo = "$_btnPath/btn_info_02.png";
+  static const String airdropSoul = "$_imgPath/img_coming_soon_01.png";
 }

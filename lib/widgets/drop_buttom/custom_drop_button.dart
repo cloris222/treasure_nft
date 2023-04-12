@@ -25,7 +25,9 @@ class CustomDropButton extends StatefulWidget {
       this.padding,
       this.hintSelect,
       this.dropdownWidth,
-      this.needShowEmpty = true})
+      this.needShowEmpty = true,
+      this.dropdownDecoration,
+      this.itemHeight})
       : super(key: key);
   final int listLength;
   final int? initIndex;
@@ -42,6 +44,8 @@ class CustomDropButton extends StatefulWidget {
   final double? dropdownWidth;
   final Widget Function()? buildCustomSelectHintItem;
   final bool needShowEmpty;
+  final BoxDecoration? dropdownDecoration;
+  final double? itemHeight;
 
   @override
   State<CustomDropButton> createState() => _CustomDropButtonState();
@@ -82,6 +86,7 @@ class _CustomDropButtonState extends State<CustomDropButton> {
           vertical: UIDefine.getPixelWidth(3)),
       child: DropdownButtonHideUnderline(
           child: DropdownButton2(
+        dropdownDecoration: widget.dropdownDecoration,
         offset: Offset(0, -UIDefine.getPixelWidth(20)),
         customButton: widget.buildCustomDropCurrentItem != null
             ? widget.buildCustomDropCurrentItem!(currentIndex)
@@ -105,7 +110,7 @@ class _CustomDropButtonState extends State<CustomDropButton> {
           }
         },
         dropdownWidth: widget.dropdownWidth,
-        itemHeight: UIDefine.getPixelWidth(40),
+        itemHeight: widget.itemHeight ?? UIDefine.getPixelWidth(40),
       )),
     );
   }
@@ -159,7 +164,6 @@ class _CustomDropButtonState extends State<CustomDropButton> {
       alignment: Alignment.centerLeft,
       height: widget.height ?? UIDefine.getPixelWidth(40),
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      // color: AppColors.textFieldBackground,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [

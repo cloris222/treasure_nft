@@ -52,7 +52,8 @@ class HomeSubUsdtView extends StatelessWidget with HomeMainStyle {
           buildSpace(height: 5),
 
           /// USDT_Info
-          const HomeUsdtInfo(),
+           // ignore: prefer_const_constructors
+           HomeUsdtInfo(),
 
           buildSpace(height: 5),
 

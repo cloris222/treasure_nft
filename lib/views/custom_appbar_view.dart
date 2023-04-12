@@ -10,6 +10,7 @@ import 'package:treasure_nft_project/views/setting_language_page.dart';
 import '../constant/ui_define.dart';
 import '../widgets/app_bottom_navigation_bar.dart';
 import '../widgets/appbar/custom_app_bar.dart';
+import 'airdrop/airdrop_main_page.dart';
 
 ///MARK:用於部分有瀏海的頁面
 class CustomAppbarView extends StatefulWidget {
@@ -23,6 +24,7 @@ class CustomAppbarView extends StatefulWidget {
       this.backgroundColor = Colors.white,
       this.needAppBar = true,
       this.needBottom = true,
+      this.isAirDrop = false,
       required this.onLanguageChange})
       : super(key: key);
   final Widget body;
@@ -33,6 +35,7 @@ class CustomAppbarView extends StatefulWidget {
   final Color backgroundColor;
   final bool needAppBar;
   final bool needBottom;
+  final bool isAirDrop;
   final onClickFunction onLanguageChange;
 
   @override
@@ -70,7 +73,8 @@ class _CustomAppbarViewState extends State<CustomAppbarView> {
             ? CustomAppBar.mainAppBar(
                 serverAction: () => _serverAction(context),
                 globalAction: () => _globalAction(context),
-                mainAction: () => _mainAction(context))
+                mainAction: () => _mainAction(context),
+                airdropAction: () => _airdropAction(context))
             : null,
         body: GestureDetector(
           onTap: () => BaseViewModel().clearAllFocus(),
@@ -103,11 +107,17 @@ class _CustomAppbarViewState extends State<CustomAppbarView> {
   }
 
   void _globalAction(BuildContext context) async {
-    await BaseViewModel().pushPage(context, const SettingLanguagePage());
+    await BaseViewModel().pushPage(context, const SettingLanguagePage(isMainPage:false));
   }
 
   void _mainAction(BuildContext context) {
     BaseViewModel().pushAndRemoveUntil(
         context, const MainPage(type: AppNavigationBarType.typeMain));
+  }
+
+  void _airdropAction(BuildContext context) {
+    if (!widget.isAirDrop) {
+      BaseViewModel().pushPage(context, const AirdropMainPage());
+    }
   }
 }
