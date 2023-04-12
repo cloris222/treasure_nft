@@ -150,17 +150,19 @@ class AirdropCommonView {
                       fontWeight: FontWeight.w600)),
               SizedBox(height: UIDefine.getPixelWidth(5)),
               Expanded(
-                child: Text(infoMessage,
-                    textAlign: TextAlign.left,
-                    style: AppTextStyle.getBaseStyle(
-                        color: Colors.white,
-                        fontSize: UIDefine.fontSize12,
-                        fontWeight: FontWeight.w400)),
+                child: Center(
+                  child: Text(infoMessage,
+                      textAlign: TextAlign.left,
+                      style: AppTextStyle.getBaseStyle(
+                          color: Colors.white,
+                          fontSize: UIDefine.fontSize12,
+                          fontWeight: FontWeight.w400)),
+                ),
               ),
             ],
           );
         },
-        itemHeight: UIDefine.getPixelWidth(100),
+        itemHeight: UIDefine.getPixelWidth(140),
         needBorderBackground: false,
         dropdownWidth: UIDefine.getWidth() * 0.87,
         initIndex: 0,
@@ -179,7 +181,7 @@ class AirdropCommonView {
                 fontSize: UIDefine.fontSize12)));
   }
 
-  Widget buildRewardInfo(AirdropType boxType, AirdropRewardInfo data) {
+  Widget buildRewardInfo(AirdropType boxType, AirdropRewardConfig data) {
     AirdropRewardType rewardType = getRewardType(data.rewardType);
     String title = "${_getRewardTypeTitle(rewardType)} : ";
     String context = "";

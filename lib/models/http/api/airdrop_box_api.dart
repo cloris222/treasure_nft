@@ -8,34 +8,30 @@ import '../parameter/airdrop_reward_info.dart';
 class AirdropBoxAPI extends HttpManager {
   AirdropBoxAPI({super.onConnectFail});
 
-  Future<List<AirdropRewardInfo>> getReserveBoxInfo() async {
+  Future<AirdropRewardInfo?> getReserveBoxInfo() async {
     try {
       var response = await get("/treasureBox/setting",
           queryParameters: {"boxType": "RESERVE_BOX"});
-      List<AirdropRewardInfo> list = [];
       for (Map<String, dynamic> json in response.data) {
-        list.add(AirdropRewardInfo.fromJson(json));
+        return AirdropRewardInfo.fromJson(json);
       }
-      return list;
     } catch (e) {
       GlobalData.printLog(e.toString());
     }
-    return [];
+    return null;
   }
 
-  Future<List<AirdropRewardInfo>> getLevelBoxInfo(int level) async {
+  Future<AirdropRewardInfo?> getLevelBoxInfo(int level) async {
     try {
       var response = await get("/treasureBox/setting",
           queryParameters: {"boxType": "LEVEL_BOX_$level"});
-      List<AirdropRewardInfo> list = [];
       for (Map<String, dynamic> json in response.data) {
-        list.add(AirdropRewardInfo.fromJson(json));
+        return AirdropRewardInfo.fromJson(json);
       }
-      return list;
     } catch (e) {
       GlobalData.printLog(e.toString());
     }
-    return [];
+    return null;
   }
 
   /// 未開的箱子

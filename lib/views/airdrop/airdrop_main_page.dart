@@ -186,11 +186,14 @@ class _AirdropMainPageState extends ConsumerState<AirdropMainPage>
   Widget _buildPageView(AirdropType type) {
     switch (type) {
       case AirdropType.dailyReward:
-        return const AirdropDailyPage();
+        // ignore: prefer_const_constructors
+        return  AirdropDailyPage();
       case AirdropType.growthReward:
-        return const AirdropGrowthPage();
+      // ignore: prefer_const_constructors
+        return  AirdropGrowthPage();
       case AirdropType.soulPath:
-        return const AirdropSoulPage();
+      // ignore: prefer_const_constructors
+        return  AirdropSoulPage();
     }
   }
 

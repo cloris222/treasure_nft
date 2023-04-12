@@ -34,7 +34,7 @@ class _AirdropDailyPageState extends ConsumerState<AirdropDailyPage>
 
   @override
   Widget build(BuildContext context) {
-    List<AirdropRewardInfo> list = ref.watch(airdropDailyBoxInfoProvider);
+    AirdropRewardInfo? rewardInfo = ref.watch(airdropDailyBoxInfoProvider);
     List<AirdropBoxInfo> record = ref.watch(airdropDailyRecordProvider);
     BoxStatus canOpenBox = checkStatus(record);
     String orderNo = "";
@@ -50,13 +50,15 @@ class _AirdropDailyPageState extends ConsumerState<AirdropDailyPage>
       child: SingleChildScrollView(
         child: Column(
           children: [
-            buildTitleView(tr("dailyRewards"),tr("reserveCratesInfo")),
+            buildTitleView(tr("dailyRewards"), tr("reserveCratesInfo")),
             buildContextView(tr("reserveCratesInfo")),
             buildBoxView(canOpenBox),
-            ...List<Widget>.generate(
-                list.length,
-                (index) =>
-                    buildRewardInfo(AirdropType.dailyReward, list[index])),
+            ...rewardInfo != null
+                ? List<Widget>.generate(
+                    rewardInfo.config.length,
+                    (index) => buildRewardInfo(
+                        AirdropType.dailyReward, rewardInfo.config[index]))
+                : [],
             buildButton(
                 canOpenBox == BoxStatus.unlocked, () => _onPressOpen(orderNo)),
             SizedBox(height: UIDefine.getPixelWidth(20)),

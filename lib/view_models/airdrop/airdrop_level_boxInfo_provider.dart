@@ -12,53 +12,49 @@ final airdropLevelBoxIndexProvider =
 });
 
 final airdropLevelBoxInfoProvider = StateNotifierProvider.family<
-    AirDropLevelBoxInfoNotifier, List<AirdropRewardInfo>, int>((ref, level) {
+    AirDropLevelBoxInfoNotifier,AirdropRewardInfo?, int>((ref, level) {
   return AirDropLevelBoxInfoNotifier(level);
 });
 
-class AirDropLevelBoxInfoNotifier extends StateNotifier<List<AirdropRewardInfo>>
+class AirDropLevelBoxInfoNotifier extends StateNotifier<AirdropRewardInfo?>
     with BasePrefProvider {
-  AirDropLevelBoxInfoNotifier(this.level) : super([]);
+  AirDropLevelBoxInfoNotifier(this.level) : super(null);
   final int level;
 
   @override
   Future<void> initProvider() async {
-    state = [];
+    state = null;
   }
 
   @override
   Future<void> initValue() async {
-    state = [];
+    state = null;
   }
 
   @override
   Future<void> readAPIValue({ResponseErrorFunction? onConnectFail}) async {
-    state = [
-      ...await AirdropBoxAPI(onConnectFail: onConnectFail)
-          .getLevelBoxInfo(level)
-    ];
+    state = await AirdropBoxAPI(onConnectFail: onConnectFail)
+        .getLevelBoxInfo(level);
   }
 
   @override
   Future<void> readSharedPreferencesValue() async {
     var json = await AppSharedPreferences.getJson(getSharedPreferencesKey());
     if (json != null) {
-      state = [
-        ...List<AirdropRewardInfo>.from(
-            json.map((x) => AirdropRewardInfo.fromJson(x)))
-      ];
+      state = AirdropRewardInfo.fromJson(json);
     }
   }
 
   @override
   String setKey() {
-    return "airdropLevelBoxInfo_$level";
+    return "airdropLevelBoxInfo_2_$level";
   }
 
   @override
   Future<void> setSharedPreferencesValue() async {
-    await AppSharedPreferences.setJson(getSharedPreferencesKey(),
-        List<dynamic>.from(state.map((x) => x.toJson())));
+    if (state != null) {
+      await AppSharedPreferences.setJson(getSharedPreferencesKey(), state!.toJson());
+    }
   }
 
   @override

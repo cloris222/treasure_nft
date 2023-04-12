@@ -51,10 +51,10 @@ class _AirdropDailyPageState extends ConsumerState<AirdropGrowthPage>
     ref.watch(airdropLevelBoxIndexProvider(currentTag));
     ref.watch(airdropLevelBoxIndexProvider(nextTag));
 
-    List<AirdropRewardInfo> list = [];
+    AirdropRewardInfo? rewardInfo;
     List<AirdropBoxInfo> record = [];
     if (currentBox != null) {
-      list = ref.read(airdropLevelBoxInfoProvider(currentBox!));
+      rewardInfo = ref.read(airdropLevelBoxInfoProvider(currentBox!));
       record = ref.read(airdropLevelRecordProvider(currentBox!));
     }
     String orderNo = "";
@@ -71,10 +71,12 @@ class _AirdropDailyPageState extends ConsumerState<AirdropGrowthPage>
             buildTitleView(tr("growthProcess"), tr("upgradeChestText")),
             buildContextView(tr("upgradeChestText")),
             buildBoxView(),
-            ...List<Widget>.generate(
-                list.length,
-                (index) =>
-                    buildRewardInfo(AirdropType.growthReward, list[index])),
+            ...rewardInfo != null
+                ? List<Widget>.generate(
+                    rewardInfo.config.length,
+                    (index) => buildRewardInfo(
+                        AirdropType.growthReward, rewardInfo!.config[index]))
+                : [],
             buildButton(
                 canOpenBox == BoxStatus.unlocked, () => _onPressOpen(orderNo)),
             SizedBox(height: UIDefine.getPixelWidth(20)),
