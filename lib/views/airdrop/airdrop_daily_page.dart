@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/view_models/airdrop/airdrop_count_provider.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../constant/enum/airdrop_enum.dart';
@@ -91,6 +92,7 @@ class _AirdropDailyPageState extends ConsumerState<AirdropDailyPage>
         BaseViewModel()
             .pushPage(context, AirdropOpenPage(level: 0, reward: list.first));
         ref.read(airdropDailyRecordProvider.notifier).update();
+        ref.read(airdropCountProvider(true).notifier).update();
       }
     });
   }

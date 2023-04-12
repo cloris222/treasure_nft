@@ -13,6 +13,7 @@ import '../../constant/ui_define.dart';
 import '../../models/http/api/airdrop_box_api.dart';
 import '../../models/http/parameter/airdrop_box_info.dart';
 import '../../models/http/parameter/airdrop_reward_info.dart';
+import '../../view_models/airdrop/airdrop_count_provider.dart';
 import '../../view_models/base_view_model.dart';
 import 'airdrop_common_view.dart';
 import 'airdrop_open_page.dart';
@@ -139,6 +140,7 @@ class _AirdropDailyPageState extends ConsumerState<AirdropGrowthPage>
           BaseViewModel().pushPage(
               context, AirdropOpenPage(level: currentBox!, reward: list.first));
           ref.read(airdropLevelRecordProvider(currentBox!).notifier).update();
+          ref.read(airdropCountProvider(true).notifier).update();
         }
       });
     }

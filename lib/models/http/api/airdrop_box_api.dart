@@ -36,8 +36,13 @@ class AirdropBoxAPI extends HttpManager {
 
   /// 未開的箱子
   Future<int> checkReserveBoxCount() async {
-    var response = await get("/treasureBox/record/unOpen/count");
-    return response.data["count"];
+    try {
+      var response = await get("/treasureBox/record/unOpen/count");
+      return response.data["count"];
+    } catch (e) {
+      GlobalData.printLog(e.toString());
+    }
+    return 0;
   }
 
   Future<List<AirdropBoxInfo>> getAirdropBoxRecord() async {

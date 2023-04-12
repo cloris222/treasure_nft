@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 
 import '../../constant/theme/app_style.dart';
 import '../../constant/ui_define.dart';
@@ -20,7 +21,11 @@ class _AirdropDailyPageState extends ConsumerState<AirdropSoulPage> {
       decoration: AppStyle().buildAirdropBackground(),
       padding: EdgeInsets.all(UIDefine.getPixelWidth(5)),
       child: SingleChildScrollView(
-        child: Column(),
+        child: Column(
+          children: [
+            Image.asset(AppImagePath.airdropSoul),
+          ],
+        ),
       ),
     );
   }

@@ -11,6 +11,7 @@ import 'package:treasure_nft_project/views/custom_appbar_view.dart';
 
 import '../../constant/enum/airdrop_enum.dart';
 import '../../constant/theme/app_colors.dart';
+import '../../view_models/airdrop/airdrop_count_provider.dart';
 import '../../view_models/airdrop/airdrop_daily_boxInfo_provider.dart';
 import '../../view_models/airdrop/airdrop_daily_record_provider.dart';
 import '../../view_models/airdrop/airdrop_level_boxInfo_provider.dart';
@@ -41,6 +42,7 @@ class _AirdropMainPageState extends ConsumerState<AirdropMainPage>
 
   @override
   void initState() {
+    ref.read(airdropCountProvider(true).notifier).init();
     initDailyProvider();
     initLevelProvider();
     super.initState();
@@ -179,7 +181,7 @@ class _AirdropMainPageState extends ConsumerState<AirdropMainPage>
       case AirdropType.growthReward:
         return tr("growthProcess");
       case AirdropType.soulPath:
-        return tr("growthProcess");
+        return tr("SoulPath");
     }
   }
 
@@ -187,13 +189,13 @@ class _AirdropMainPageState extends ConsumerState<AirdropMainPage>
     switch (type) {
       case AirdropType.dailyReward:
         // ignore: prefer_const_constructors
-        return  AirdropDailyPage();
+        return AirdropDailyPage();
       case AirdropType.growthReward:
-      // ignore: prefer_const_constructors
-        return  AirdropGrowthPage();
+        // ignore: prefer_const_constructors
+        return AirdropGrowthPage();
       case AirdropType.soulPath:
-      // ignore: prefer_const_constructors
-        return  AirdropSoulPage();
+        // ignore: prefer_const_constructors
+        return AirdropSoulPage();
     }
   }
 

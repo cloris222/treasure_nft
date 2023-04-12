@@ -180,12 +180,12 @@ class _AirdropOpenPageState extends State<AirdropOpenPage>
         showUSDT = true;
         showTitle = true;
         usdt = reward.itemPrice;
-        title = "NFT";
+        title = tr("nft");
         context = reward.itemName;
         break;
       case AirdropRewardType.MEDAL:
         showTitle = true;
-        title = "勳章";
+        title = tr("appMedal");
         context = reward.medalName;
         break;
       case AirdropRewardType.ALL:
@@ -293,13 +293,13 @@ class _AirdropOpenPageState extends State<AirdropOpenPage>
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text("No prize...",
+        Text(tr("noPrize"),
             style: AppTextStyle.getBaseStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
                 fontSize: UIDefine.fontSize40)),
         GradientThirdText(
-          "Better luck next time!",
+          tr("noPrizeText"),
           size: UIDefine.fontSize24,
           weight: FontWeight.w500,
         )
