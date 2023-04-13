@@ -5,20 +5,23 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 class GradientText extends StatelessWidget {
-  const GradientText(this.text,
-      {super.key,
-      this.size,
-      this.weight = FontWeight.w400,
-      this.starColor = AppColors.mainThemeButton,
-      this.endColor = AppColors.deepBlue,
-      this.begin = Alignment.bottomLeft,
-      this.end = Alignment.topRight,
-      this.maxLines,
-      this.overflow,
-      this.strutStyle,
-      this.styleHeight,
-      this.colors,
-      this.fontFamily = AppTextFamily.PosteramaText});
+  const GradientText(
+    this.text, {
+    super.key,
+    this.size,
+    this.weight = FontWeight.w400,
+    this.starColor = AppColors.mainThemeButton,
+    this.endColor = AppColors.deepBlue,
+    this.begin = Alignment.bottomLeft,
+    this.end = Alignment.topRight,
+    this.maxLines,
+    this.overflow,
+    this.strutStyle,
+    this.styleHeight,
+    this.colors,
+    this.fontFamily = AppTextFamily.PosteramaText,
+    this.textDecoration,
+  });
 
   final String text;
   final double? size;
@@ -33,6 +36,7 @@ class GradientText extends StatelessWidget {
   final double? styleHeight;
   final List<Color>? colors;
   final AppTextFamily fontFamily;
+  final TextDecoration? textDecoration;
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +58,7 @@ class GradientText extends StatelessWidget {
           maxLines: maxLines,
           overflow: overflow,
           style: AppTextStyle.getBaseStyle(
+              textDecoration: textDecoration,
               fontFamily: fontFamily,
               fontSize: size ?? UIDefine.fontSize20,
               fontWeight: weight,

@@ -7,21 +7,21 @@ import 'package:treasure_nft_project/utils/app_text_style.dart';
 import '../../constant/theme/app_colors.dart';
 
 class LoginBolderButtonWidget extends StatefulWidget {
-  const LoginBolderButtonWidget(
-      {Key? key,
-      required this.btnText,
-      required this.onPressed,
-      this.width,
-      this.height,
-      this.needTimes = 1,
-        this.radius = 15,
-        this.fontSize,
-        this.fontWeight,
-        this.isFillWidth = true,
-        this.margin = const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-        this.padding,
-        this.alignment = Alignment.center,})
-      : super(key: key);
+  const LoginBolderButtonWidget({
+    Key? key,
+    required this.btnText,
+    required this.onPressed,
+    this.width,
+    this.height,
+    this.needTimes = 1,
+    this.radius = 15,
+    this.fontSize,
+    this.fontWeight,
+    this.isFillWidth = true,
+    this.margin = const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+    this.padding,
+    this.alignment = Alignment.center,
+  }) : super(key: key);
   final String btnText;
   final VoidCallback onPressed;
   final double? width;
@@ -75,7 +75,8 @@ class _LoginBolderButtonWidgetState extends State<LoginBolderButtonWidget> {
                   color: Colors.grey,
                   backgroundColor: Colors.transparent,
                   radius: widget.radius),
-              width: widget.width ?? (widget.isFillWidth ? UIDefine.getWidth() : null),
+              width: widget.width ??
+                  (widget.isFillWidth ? UIDefine.getWidth() : null),
               height: widget.height ?? UIDefine.getPixelWidth(50),
               margin: widget.margin,
               padding: widget.padding ??

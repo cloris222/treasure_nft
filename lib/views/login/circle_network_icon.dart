@@ -19,6 +19,8 @@ class CircleNetworkIcon extends StatelessWidget {
     return GraduallyNetworkImage(
       showNormal: showNormal,
         imageUrl: networkUrl,
+        width: radius*2,
+        height: radius*2,
         imageWidgetBuilder: (context, imageProvider) => CircleAvatar(
             radius: radius,
             backgroundImage: imageProvider,

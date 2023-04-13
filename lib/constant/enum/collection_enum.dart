@@ -10,6 +10,9 @@ enum CollectionTag {
 
   /// 我的票券
   Ticket,
+
+  ///勳章
+  Medal
 }
 
 enum DepositChain{

@@ -138,7 +138,7 @@ class _OrderInfoPageState extends ConsumerState<OrderInfoPage>
     return await OrderAPI().getOrderMessageListResponse(
         page: page,
         size: size,
-        type: viewModel.currentType.name,
+        type: viewModel.currentType,
         startTime: viewModel.getStartTime(viewModel.startDate),
         endTime: viewModel.getEndTime(viewModel.endDate));
   }

@@ -17,5 +17,6 @@ class GradientThirdText extends GradientText {
     super.styleHeight,
     super.colors = AppColors.gradientBaseColorBg,
     super.fontFamily,
+    super.textDecoration,
   });
 }

@@ -124,10 +124,12 @@ class AirdropCommonView {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 /// 讓dropdown button 不觸發
-                GestureDetector(
-                  onTap: () {},
-                  child: GradientThirdText(title,
-                      weight: FontWeight.w700, size: UIDefine.fontSize20),
+                Flexible(
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: GradientThirdText(title,
+                        weight: FontWeight.w700, size: UIDefine.fontSize20),
+                  ),
                 ),
                 Container(
                   padding: EdgeInsets.all(UIDefine.getPixelWidth(3)),
@@ -229,13 +231,15 @@ class AirdropCommonView {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(5)),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(title,
-              style: AppTextStyle.getBaseStyle(
-                  color: const Color(0xFF969696),
-                  fontWeight: FontWeight.w400,
-                  fontSize: UIDefine.fontSize14)),
-          const Spacer(),
+          Flexible(
+            child: Text(title,
+                style: AppTextStyle.getBaseStyle(
+                    color: const Color(0xFF969696),
+                    fontWeight: FontWeight.w400,
+                    fontSize: UIDefine.fontSize14)),
+          ),
           Text(context,
               style: AppTextStyle.getBaseStyle(
                   color: Colors.white,
@@ -290,6 +294,7 @@ class AirdropCommonView {
             child: Text(text,
                 textAlign: TextAlign.center,
                 style: AppTextStyle.getBaseStyle(
+                    height: 1.1,
                     color: Colors.white,
                     fontSize: fontSize ?? UIDefine.fontSize20))),
       ]),
@@ -318,7 +323,7 @@ class AirdropCommonView {
       height: size ?? UIDefine.getPixelWidth(80),
       width: size ?? UIDefine.getPixelWidth(80),
       decoration: AppStyle().buildGradient(
-          borderWith: size==null?3.5:1,
+          borderWith: size == null ? 3.5 : 1,
           radius: 10,
           colors: const [
             Color(0xFFF3B617),

@@ -1,4 +1,5 @@
 import '../../../constant/enum/airdrop_enum.dart';
+import 'airdrop_box_reward.dart';
 
 class TreasureBoxRecord {
   TreasureBoxRecord({
@@ -14,6 +15,7 @@ class TreasureBoxRecord {
     required this.imgUrl,
     required this.reward,
     required this.status,
+    required this.medalName,
   });
 
   final String type;
@@ -28,8 +30,7 @@ class TreasureBoxRecord {
   final String imgUrl;
   final num reward;
   final String status;
-
-
+  final String medalName;
 
   BoxType getBoxType() {
     for (var element in BoxType.values) {
@@ -38,5 +39,23 @@ class TreasureBoxRecord {
       }
     }
     return BoxType.RESERVE_BOX;
+  }
+
+  AirdropBoxReward changeReward() {
+    return AirdropBoxReward(
+      type: type,
+      orderNo: orderNo,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+      boxType: boxType,
+      rewardType: rewardType,
+      medal: medal,
+      medalName: medalName,
+      itemName: itemName,
+      itemPrice: itemPrice,
+      imgUrl: imgUrl,
+      reward: reward,
+      status: status,
+    );
   }
 }

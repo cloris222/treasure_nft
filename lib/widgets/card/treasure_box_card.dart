@@ -14,6 +14,7 @@ import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
 import '../../models/http/parameter/treasure_box_record.dart';
 import '../../view_models/base_view_model.dart';
+import '../../views/airdrop/airdrop_level_reward_page.dart';
 
 class TreasureBoxCard extends StatelessWidget with AirdropCommonView {
   TreasureBoxCard({Key? key, required this.record}) : super(key: key);
@@ -36,7 +37,7 @@ class TreasureBoxCard extends StatelessWidget with AirdropCommonView {
           child: Row(children: [
             buildBoxImage(boxType.index),
             SizedBox(width: UIDefine.getPixelWidth(5)),
-            Expanded(child: buildBoxType(boxType, rewardType)),
+            Expanded(child: buildBoxType(context,boxType, rewardType)),
           ]),
         ),
         Container(
@@ -64,7 +65,8 @@ class TreasureBoxCard extends StatelessWidget with AirdropCommonView {
     );
   }
 
-  Widget buildBoxType(BoxType boxType, AirdropRewardType rewardType) {
+  Widget buildBoxType(
+      BuildContext context, BoxType boxType, AirdropRewardType rewardType) {
     return Row(
       children: [
         Column(
@@ -84,7 +86,7 @@ class TreasureBoxCard extends StatelessWidget with AirdropCommonView {
         Expanded(
             child: Container(
                 alignment: Alignment.centerRight,
-                child: buildReward(boxType, rewardType))),
+                child: buildReward(context, boxType, rewardType))),
         SizedBox(width: UIDefine.getPixelWidth(10)),
       ],
     );
@@ -144,7 +146,8 @@ class TreasureBoxCard extends StatelessWidget with AirdropCommonView {
     );
   }
 
-  Widget buildReward(BoxType boxType, AirdropRewardType rewardType) {
+  Widget buildReward(
+      BuildContext context, BoxType boxType, AirdropRewardType rewardType) {
     switch (rewardType) {
       case AirdropRewardType.EMPTY:
         return Text("--",
@@ -172,11 +175,19 @@ class TreasureBoxCard extends StatelessWidget with AirdropCommonView {
             width: UIDefine.getPixelWidth(48),
             fit: BoxFit.cover);
       case AirdropRewardType.ALL:
-        return Text("${tr("appSellMore")} >",
-            style: AppTextStyle.getBaseStyle(
-                color: const Color(0xFF828282),
-                fontWeight: FontWeight.w500,
-                fontSize: UIDefine.fontSize12));
+        return GestureDetector(
+          onTap: () => BaseViewModel().pushOpacityPage(
+              context, AirdropLevelRewardPage(record: record)),
+          child: Container(
+            color: Colors.transparent,
+            padding: EdgeInsets.all(UIDefine.getPixelWidth(5)),
+            child: Text("${tr("appSellMore")} >",
+                style: AppTextStyle.getBaseStyle(
+                    color: const Color(0xFF828282),
+                    fontWeight: FontWeight.w500,
+                    fontSize: UIDefine.fontSize12)),
+          ),
+        );
     }
   }
 }

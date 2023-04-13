@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
@@ -32,13 +31,16 @@ class AppTextStyle {
       FontWeight? fontWeight,
       AppTextFamily fontFamily = AppTextFamily.PosteramaText,
       FontStyle? fontStyle,
-      double? height}) {
+      double? height,
+      TextDecoration? textDecoration}) {
     return TextStyle(
-        color: color,
-        fontSize: fontSize ?? UIDefine.fontSize12,
-        fontFamily: fontFamily.name,
-        fontWeight: getFontWeight(fontWeight),
-        fontStyle: fontStyle,
-        height: height);
+      color: color,
+      fontSize: fontSize ?? UIDefine.fontSize12,
+      fontFamily: fontFamily.name,
+      fontWeight: getFontWeight(fontWeight),
+      fontStyle: fontStyle,
+      height: height,
+      decoration: textDecoration,
+    );
   }
 }

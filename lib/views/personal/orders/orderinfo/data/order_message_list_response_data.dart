@@ -49,6 +49,7 @@ class OrderMessageListResponseData {
     this.updatedAt = "",
     this.itemPrice = 0,
     this.reward = 0,
+    this.medalName = "",
   });
 
   String orderNo;
@@ -85,6 +86,7 @@ class OrderMessageListResponseData {
   String rewardType;
   String medal;
   String updatedAt;
+  String medalName;
   num itemPrice;
   num reward;
 
@@ -125,6 +127,7 @@ class OrderMessageListResponseData {
         updatedAt: json["updatedAt"] ?? "",
         itemPrice: json["itemPrice"] ?? 0,
         reward: json["reward"] ?? 0,
+        medalName: json["medalName"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
@@ -163,6 +166,7 @@ class OrderMessageListResponseData {
         "updatedAt": updatedAt,
         "itemPrice": itemPrice,
         "reward": reward,
+        "medalName": medalName,
       };
 
   TreasureBoxRecord changeBoxRecord() {
@@ -179,6 +183,7 @@ class OrderMessageListResponseData {
       imgUrl: imgUrl,
       reward: reward,
       status: status,
+      medalName: medalName,
     );
   }
 }

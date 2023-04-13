@@ -10,7 +10,6 @@ import '../../constant/call_back_function.dart';
 import '../../constant/enum/collection_enum.dart';
 import '../../constant/ui_define.dart';
 import '../../views/collection/data/collection_nft_item_response_data.dart';
-import '../../views/collection/data/collection_reservation_response_data.dart';
 import '../../views/collection/data/collection_ticket_response_data.dart';
 
 class CollectionMainViewModel extends BaseViewModel {
@@ -74,6 +73,8 @@ class CollectionMainViewModel extends BaseViewModel {
         return tr('tab_unsell');
       case CollectionTag.Ticket:
         return tr('myTicket');
+      case CollectionTag.Medal:
+        return tr("appMedal");
     }
   }
 

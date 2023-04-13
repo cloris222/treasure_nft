@@ -1,6 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/view_models/base_pref_provider.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../constant/call_back_function.dart';
 import '../../models/http/api/user_info_api.dart';
@@ -58,5 +61,12 @@ class UserInfoNotifier extends StateNotifier<UserInfoData>
   @override
   bool setUserTemporaryValue() {
     return true;
+  }
+
+  void setAvatarMedal(BuildContext context, String url) async {
+    UserInfoAPI().setUserAvtar(url).then((value) {
+      update();
+      BaseViewModel().showToast(context, tr("success"));
+    });
   }
 }

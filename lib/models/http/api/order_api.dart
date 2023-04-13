@@ -3,6 +3,7 @@ import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/http_manager.dart';
 import 'package:treasure_nft_project/models/http/parameter/api_response.dart';
 
+import '../../../constant/enum/order_enum.dart';
 import '../../../views/personal/orders/orderinfo/data/order_message_list_response_data.dart';
 import '../parameter/check_earning_income.dart';
 import '../parameter/team_share_info.dart';
@@ -64,7 +65,7 @@ class OrderAPI extends HttpManager {
   Future<List<OrderMessageListResponseData>> getOrderMessageListResponse(
       {int page = 1,
       int size = 10,
-      String type = '',
+      required OrderInfoType type,
       String startTime = '',
       String endTime = ''}) async {
     List<OrderMessageListResponseData> result =
@@ -73,12 +74,21 @@ class OrderAPI extends HttpManager {
       ApiResponse response = await get('/order/message-list', queryParameters: {
         'page': page,
         'size': size,
-        'type': type,
+        'type': type.name,
         'startTime': startTime,
         'endTime': endTime
       });
       for (Map<String, dynamic> json in response.data['pageList']) {
-        result.add(OrderMessageListResponseData.fromJson(json));
+        OrderMessageListResponseData data =
+            OrderMessageListResponseData.fromJson(json);
+        /// 只顯示已開過的寶箱
+        if (type == OrderInfoType.TREASURE_BOX) {
+          if (data.status == "OPENED") {
+            result.add(data);
+          }
+        } else {
+          result.add(data);
+        }
       }
     } catch (e) {
       GlobalData.printLog(e.toString());
