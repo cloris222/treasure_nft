@@ -75,7 +75,7 @@ class TreasureBoxCard extends StatelessWidget with AirdropCommonView {
             Text(
                 boxType == BoxType.RESERVE_BOX
                     ? tr("appTypeReserveBox")
-                    : tr("appTypeLevelBox"),
+                    : tr(boxType.name),
                 style: AppTextStyle.getBaseStyle(
                     fontSize: UIDefine.fontSize12,
                     fontWeight: FontWeight.w600)),

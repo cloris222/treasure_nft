@@ -19,10 +19,10 @@ import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 import 'package:treasure_nft_project/widgets/dialog/app_version_update_dialog.dart';
 import 'package:wallet_connect_plugin/model/wallet_info.dart';
 
+import '../constant/app_routes.dart';
 import '../constant/global_data.dart';
 import '../constant/ui_define.dart';
 import '../widgets/app_bottom_navigation_bar.dart';
-import 'airdrop/airdrop_main_page.dart';
 import 'full_animation_page.dart';
 import 'home/home_main_view.dart';
 
@@ -265,7 +265,7 @@ class _MainPageState extends State<MainPage> {
   void _airdropAction() {
     BaseViewModel viewModel = BaseViewModel();
     if (viewModel.isLogin()) {
-      viewModel.pushPage(context, const AirdropMainPage());
+      AppRoutes.pushAirdrop(context);
     } else {
       viewModel.pushAndRemoveUntil(
           context, const MainPage(type: AppNavigationBarType.typeLogin));

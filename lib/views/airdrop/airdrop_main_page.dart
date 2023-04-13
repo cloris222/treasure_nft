@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
@@ -38,11 +39,13 @@ class _AirdropMainPageState extends ConsumerState<AirdropMainPage>
   @override
   void dispose() {
     controller.dispose();
+    GlobalData.isAirDrop = false;
     super.dispose();
   }
 
   @override
   void initState() {
+    GlobalData.isAirDrop = true;
     ref.read(airdropCountProvider(true).notifier).init();
     initDailyProvider();
     initLevelProvider();

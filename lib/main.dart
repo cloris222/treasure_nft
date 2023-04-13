@@ -12,11 +12,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/theme/app_theme.dart';
 import 'package:treasure_nft_project/views/splash_screen_page.dart';
 
+import 'constant/app_routes.dart';
 import 'constant/global_data.dart';
 import 'firebase_options.dart';
 import 'utils/language_util.dart';
-
-
 
 /// Initialize the [FlutterLocalNotificationsPlugin] package.
 late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
@@ -44,7 +43,7 @@ Future<void> setupFlutterNotifications() async {
     'high_importance_channel', // id
     'High Importance Notifications', // title
     description:
-    'This channel is used for important notifications.', // description
+        'This channel is used for important notifications.', // description
     importance: Importance.high,
   );
 
@@ -56,7 +55,7 @@ Future<void> setupFlutterNotifications() async {
   /// default FCM channel to enable heads up notifications.
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
-      AndroidFlutterLocalNotificationsPlugin>()
+          AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
 
   /// Update the iOS foreground notification presentation options to allow
@@ -108,7 +107,7 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   final String? fcmToken = await FirebaseMessaging.instance.getToken();
-  debugPrint('FCM憑證：${fcmToken??''}');
+  debugPrint('FCM憑證：${fcmToken ?? ''}');
 
   initApp();
 }
@@ -144,6 +143,7 @@ class MyApp extends StatelessWidget {
       navigatorKey: GlobalData.globalKey,
       title: 'TreasureNft',
       theme: AppTheme.define(),
+      routes: AppRoutes.define(),
       builder: (context, widget) {
         ///MARK:textScaleFactor 控制文字比例大小
         ///MARK:boldText 控制文字粗體(測試無效果，可能要看看IOS)

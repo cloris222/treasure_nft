@@ -39,6 +39,7 @@ class GlobalData {
   static String userToken = '';
   static String userMemberId = '';
   static String userZone = 'GMT+8';
+  static bool isAirDrop=false;
 
   ///MARK: 控管bar的圖案顯示
   static bool isPrePage = false;

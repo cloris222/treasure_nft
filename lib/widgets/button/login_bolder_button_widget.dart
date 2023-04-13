@@ -21,6 +21,7 @@ class LoginBolderButtonWidget extends StatefulWidget {
     this.margin = const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
     this.padding,
     this.alignment = Alignment.center,
+    this.maxLines=2,
   }) : super(key: key);
   final String btnText;
   final VoidCallback onPressed;
@@ -34,6 +35,7 @@ class LoginBolderButtonWidget extends StatefulWidget {
   final EdgeInsetsGeometry margin;
   final bool isFillWidth;
   final AlignmentGeometry alignment;
+  final int maxLines;
 
   @override
   State<LoginBolderButtonWidget> createState() =>
@@ -84,7 +86,7 @@ class _LoginBolderButtonWidgetState extends State<LoginBolderButtonWidget> {
                       horizontal: UIDefine.getPixelWidth(10),
                       vertical: UIDefine.getPixelWidth(5)),
               child: Text(widget.btnText,
-                  maxLines: 2,
+                  maxLines: widget.maxLines,
                   overflow: TextOverflow.ellipsis,
                   style: AppTextStyle.getBaseStyle(
                       fontSize: widget.fontSize ?? UIDefine.fontSize16,

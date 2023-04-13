@@ -53,13 +53,16 @@ class CollectionMedalItemView extends ConsumerWidget {
                   child: Row(children: [
                     Expanded(
                         child: LoginBolderButtonWidget(
+                      maxLines: 1,
+                      margin: EdgeInsets.zero,
                       height: UIDefine.getPixelWidth(30),
-                      fontSize: UIDefine.fontSize12,
+                      fontSize: UIDefine.fontSize10,
                       fontWeight: FontWeight.w400,
                       radius: 14,
                       btnText: tr("appSetAvatar"),
                       onPressed: () => _onSetAvatar(context, ref),
                     )),
+                    SizedBox(width: UIDefine.getPixelWidth(3)),
                     Expanded(
                         child: GestureDetector(
                       onTap: () => _onShare(context),
@@ -73,14 +76,15 @@ class CollectionMedalItemView extends ConsumerWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(tr("share"),
+                                  maxLines: 1,
                                   style: AppTextStyle.getBaseStyle(
-                                      fontSize: UIDefine.fontSize12,
+                                      fontSize: UIDefine.fontSize10,
                                       color: Colors.white,
                                       fontWeight: FontWeight.w400)),
                               BaseIconWidget(
                                   imageAssetPath: AppImagePath.airdropShare,
                                   color: Colors.white,
-                                  size: UIDefine.getPixelWidth(15)),
+                                  size: UIDefine.getPixelWidth(12)),
                             ],
                           )),
                     ))

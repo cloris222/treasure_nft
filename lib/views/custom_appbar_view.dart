@@ -7,6 +7,7 @@ import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/views/server_web_page.dart';
 import 'package:treasure_nft_project/views/setting_language_page.dart';
+import '../constant/app_routes.dart';
 import '../constant/ui_define.dart';
 import '../widgets/app_bottom_navigation_bar.dart';
 import '../widgets/appbar/custom_app_bar.dart';
@@ -116,8 +117,6 @@ class _CustomAppbarViewState extends State<CustomAppbarView> {
   }
 
   void _airdropAction(BuildContext context) {
-    if (!widget.isAirDrop) {
-      BaseViewModel().pushPage(context, const AirdropMainPage());
-    }
+    AppRoutes.pushAirdrop(context);
   }
 }

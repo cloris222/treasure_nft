@@ -35,6 +35,7 @@ class AirdropLevelRewardPage extends StatelessWidget with AirdropCommonView {
                         _buildRewardIcon(),
                         SizedBox(height: UIDefine.getPixelWidth(60)),
                         LoginButtonWidget(
+                          height: UIDefine.getPixelWidth(45),
                             radius: 22,
                             btnText: tr("appWow"),
                             onPressed: () => BaseViewModel().popPage(context)),

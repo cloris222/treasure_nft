@@ -44,23 +44,21 @@ class _AirdropDailyPageState extends ConsumerState<AirdropDailyPage>
       padding: EdgeInsets.symmetric(
           horizontal: UIDefine.getPixelWidth(15),
           vertical: UIDefine.getPixelWidth(20)),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            buildTitleView(tr("dailyRewards"), tr("dailyRewardsInfoText")),
-            buildContextView(tr("reserveCratesInfo")),
-            buildBoxView(canOpenBox),
-            ...rewardInfo != null
-                ? List<Widget>.generate(
-                    rewardInfo.config.length,
-                    (index) => buildRewardInfo(
-                        AirdropType.dailyReward, rewardInfo.config[index]))
-                : [],
-            buildButton(
-                canOpenBox == BoxStatus.unlocked, () => _onPressOpen(orderNo)),
-            SizedBox(height: UIDefine.getPixelWidth(20)),
-          ],
-        ),
+      child: Column(
+        children: [
+          buildTitleView(tr("dailyRewards"), tr("dailyRewardsInfoText")),
+          buildContextView(tr("reserveCratesInfo")),
+          Flexible(child: buildBoxView(canOpenBox)),
+          ...rewardInfo != null
+              ? List<Widget>.generate(
+                  rewardInfo.config.length,
+                  (index) => buildRewardInfo(
+                      AirdropType.dailyReward, rewardInfo.config[index]))
+              : [],
+          buildButton(
+              canOpenBox == BoxStatus.unlocked, () => _onPressOpen(orderNo)),
+          SizedBox(height: UIDefine.getPixelWidth(20)),
+        ],
       ),
     );
   }

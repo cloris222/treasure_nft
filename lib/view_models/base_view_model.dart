@@ -12,6 +12,7 @@ import 'package:stomp_dart_client/stomp_frame.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/utils/animation_download_util.dart';
+import 'package:treasure_nft_project/views/airdrop/airdrop_get_box_page.dart';
 import 'package:treasure_nft_project/views/collection/api/collection_api.dart';
 import 'package:treasure_nft_project/views/full_animation_page.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
@@ -320,6 +321,18 @@ class BaseViewModel with ControlRouterViewModel {
             }
           },
         );
+
+    ///MARK: 寶箱通知
+    StompSocketUtil().stompClient!.subscribe(
+          destination: '/user/treasureBox/${GlobalData.userMemberId}',
+          callback: (frame) {
+            GlobalData.printLog('${StompSocketUtil().key} ${frame.body}');
+            var result = json.decode(frame.body!);
+            if (result['toUserId'] == GlobalData.userMemberId) {
+              showBoxDialog();
+            }
+          },
+        );
   }
 
   void showBuySuccessAnimate() async {
@@ -395,6 +408,10 @@ class BaseViewModel with ControlRouterViewModel {
           amount: amount,
           expireDays: expireDays,
         ));
+  }
+
+  void showBoxDialog() {
+    pushOpacityPage(getGlobalContext(), const AirdropGetBoxPage());
   }
 
   String getStartTime(String startDate) {

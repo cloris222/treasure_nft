@@ -165,7 +165,7 @@ class CustomAppBar {
           Expanded(
             child: Container(
               alignment: Alignment.centerLeft,
-              child: InkWell(
+              child: GestureDetector(
                   onTap: mainAction,
                   child: Image.asset(AppImagePath.mainAppBarLogo,
                       height: 35, fit: BoxFit.fitHeight)),
