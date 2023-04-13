@@ -65,21 +65,23 @@ class _AirdropDailyPageState extends ConsumerState<AirdropGrowthPage>
       padding: EdgeInsets.symmetric(
           horizontal: UIDefine.getPixelWidth(15),
           vertical: UIDefine.getPixelWidth(20)),
-      child: Column(
-        children: [
-          buildTitleView(tr("growthProcess"), tr("upgradeChestInfoText")),
-          buildContextView(tr("upgradeChestText")),
-          Flexible(child: buildBoxView()),
-          ...rewardInfo != null
-              ? List<Widget>.generate(
-                  rewardInfo.config.length,
-                  (index) => buildRewardInfo(
-                      AirdropType.growthReward, rewardInfo!.config[index]))
-              : [],
-          buildButton(
-              canOpenBox == BoxStatus.unlocked, () => _onPressOpen(orderNo)),
-          SizedBox(height: UIDefine.getPixelWidth(20)),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            buildTitleView(tr("growthProcess"), tr("upgradeChestInfoText")),
+            buildContextView(tr("upgradeChestText")),
+            buildBoxView(),
+            ...rewardInfo != null
+                ? List<Widget>.generate(
+                    rewardInfo.config.length,
+                    (index) => buildRewardInfo(
+                        AirdropType.growthReward, rewardInfo!.config[index]))
+                : [],
+            buildButton(
+                canOpenBox == BoxStatus.unlocked, () => _onPressOpen(orderNo)),
+            SizedBox(height: UIDefine.getPixelWidth(20)),
+          ],
+        ),
       ),
     );
   }
@@ -130,10 +132,8 @@ class _AirdropDailyPageState extends ConsumerState<AirdropGrowthPage>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Flexible(
-              child: Image.asset(format(AppImagePath.airdropBox,
-                  {"level": level, "status": canOpenBox.name})),
-            ),
+            Image.asset(format(AppImagePath.airdropBox,
+                {"level": level, "status": canOpenBox.name})),
             Text("LV$level",
                 style: AppTextStyle.getBaseStyle(
                   color: isCurrent ? Colors.white : Colors.grey,

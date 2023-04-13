@@ -24,18 +24,21 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:wallet_connect_plugin/model/wallet_info.dart';
 
 import '../constant/call_back_function.dart';
+import '../constant/enum/airdrop_enum.dart';
 import '../constant/global_data.dart';
 import '../constant/theme/app_animation_path.dart';
 import '../constant/theme/app_colors.dart';
 import '../models/http/api/common_api.dart';
 import '../models/http/api/wallet_connect_api.dart';
 import '../models/http/http_setting.dart';
+import '../models/http/parameter/airdrop_box_reward.dart';
 import '../models/http/parameter/api_response.dart';
 import '../models/http/parameter/sign_in_data.dart';
 import '../utils/app_shared_Preferences.dart';
 import '../utils/date_format_util.dart';
 import '../utils/stomp_socket_util.dart';
 import '../utils/trade_timer_util.dart';
+import '../views/airdrop/airdrop_open_page.dart';
 import '../widgets/dialog/reward_notify_dialog.dart';
 import '../widgets/dialog/simple_custom_dialog.dart';
 import 'control_router_viem_model.dart';
@@ -550,5 +553,25 @@ class BaseViewModel with ControlRouterViewModel {
       GlobalData.printLog('驗證錢包失敗');
       return false;
     }
+  }
+
+  void testAirDrop(BuildContext context){
+    AirdropBoxReward reward = AirdropBoxReward(
+        type: 'TREASURE_BOX',
+        orderNo: '',
+        createdAt: '',
+        updatedAt: '',
+        boxType: "RESERVE_BOX",
+        rewardType: AirdropRewardType.ITEM.name,
+        medal: "https://devimage-dan.treasurenft.xyz/CoolAPE/CoolAPE_9978.png",
+        medalName: "030",
+        itemName: "CoolAPE_9978",
+        itemPrice: 83.1,
+        imgUrl: "https://devimage-dan.treasurenft.xyz/CoolAPE/CoolAPE_9978.png",
+        reward: 200,
+        status: "OPENED");
+
+    BaseViewModel()
+        .pushPage(context, AirdropOpenPage(level: 0, reward: reward));
   }
 }

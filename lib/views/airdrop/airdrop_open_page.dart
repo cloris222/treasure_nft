@@ -81,15 +81,23 @@ class _AirdropOpenPageState extends State<AirdropOpenPage>
             Opacity(opacity: showReward ? 1 : 0, child: buildCurrentReward()),
 
             ///判斷動畫
-            status != BoxAnimateStatus.next
-                ? buildOpenAnimate()
-                : buildWaitAnimate(),
+            Stack(
+              children: [
+                status != BoxAnimateStatus.next
+                    ? buildOpenAnimate()
+                    : buildWaitAnimate(),
 
-            ///顯示最後獎勵用
-            Visibility(
-                visible: status == BoxAnimateStatus.finish &&
-                    rewardType != AirdropRewardType.EMPTY,
-                child: _buildFinishReward()),
+                ///顯示最後獎勵用
+                Positioned(
+                    bottom: 0,
+                    right: 0,
+                    left: 0,
+                    child: Visibility(
+                        visible: status == BoxAnimateStatus.finish &&
+                            rewardType != AirdropRewardType.EMPTY,
+                        child: _buildFinishReward()))
+              ],
+            ),
 
             ///按鈕顯示
             Opacity(
