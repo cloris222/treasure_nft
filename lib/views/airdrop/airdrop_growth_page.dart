@@ -25,17 +25,20 @@ class AirdropGrowthPage extends ConsumerStatefulWidget {
 
 class _AirdropDailyPageState extends ConsumerState<AirdropGrowthPage>
     with AirdropCommonView {
-  int initLevel = 1;
-
-  int? get preBox => ref.read(airdropLevelBoxIndexProvider(preTag));
-
   int? get currentBox => ref.read(airdropLevelBoxIndexProvider(currentTag));
-
-  int? get nextBox => ref.read(airdropLevelBoxIndexProvider(nextTag));
+  late PageController controller;
 
   @override
   void initState() {
+    controller =
+        PageController(initialPage: currentBox != null ? currentBox! - 1 : 0);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -44,9 +47,7 @@ class _AirdropDailyPageState extends ConsumerState<AirdropGrowthPage>
       ref.watch(airdropLevelBoxInfoProvider(i));
       ref.watch(airdropLevelRecordProvider(i));
     }
-    ref.watch(airdropLevelBoxIndexProvider(preTag));
     ref.watch(airdropLevelBoxIndexProvider(currentTag));
-    ref.watch(airdropLevelBoxIndexProvider(nextTag));
 
     AirdropRewardInfo? rewardInfo;
     List<AirdropBoxInfo> record = [];
@@ -88,14 +89,27 @@ class _AirdropDailyPageState extends ConsumerState<AirdropGrowthPage>
   Widget buildBoxView() {
     return Container(
       margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(15)),
-      child: Row(
-        children: [
-          Expanded(child: buildBoxItem(preBox)),
-          SizedBox(
-              width: UIDefine.getPixelWidth(200),
-              child: buildBoxItem(currentBox)),
-          Expanded(child: buildBoxItem(nextBox)),
-        ],
+      height: UIDefine.getPixelWidth(200),
+      child: PageView(
+        controller: controller,
+        onPageChanged: (value) {
+          onChangeIndex(ref, value + 1);
+        },
+        children: List<Widget>.generate(6, (index) {
+          int currentLevel = index + 1;
+          int? preLevel = (currentLevel == 1) ? null : currentLevel - 1;
+          int? nextLevel = (currentLevel == 6) ? null : currentLevel + 1;
+
+          return Row(
+            children: [
+              Expanded(child: buildBoxItem(preLevel)),
+              SizedBox(
+                  width: UIDefine.getPixelWidth(200),
+                  child: buildBoxItem(currentLevel)),
+              Expanded(child: buildBoxItem(nextLevel)),
+            ],
+          );
+        }),
       ),
     );
   }
@@ -111,10 +125,12 @@ class _AirdropDailyPageState extends ConsumerState<AirdropGrowthPage>
     return GestureDetector(
       onTap: () {
         onChangeIndex(ref, level);
+        controller.jumpToPage(level - 1);
       },
       child: Container(
         color: Colors.transparent,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(format(AppImagePath.airdropBox,
                 {"level": level, "status": canOpenBox.name})),
@@ -133,8 +149,9 @@ class _AirdropDailyPageState extends ConsumerState<AirdropGrowthPage>
 
   void _onPressOpen(String orderNo) {
     if (currentBox != null) {
-      ref.read(airdropLevelRecordProvider(currentBox!).notifier).openBox(
-          context, orderNo, ref);
+      ref
+          .read(airdropLevelRecordProvider(currentBox!).notifier)
+          .openBox(context, orderNo, ref);
     }
   }
 }

@@ -113,6 +113,7 @@ class TreasureBoxCard extends StatelessWidget with AirdropCommonView {
       case AirdropRewardType.MEDAL:
         color = const Color(0xFF72B8F9);
         title = tr("appMedal");
+        imageAsset = AppImagePath.airdropMedal;
         break;
       case AirdropRewardType.ALL:
         color = const Color(0xFFFF8F28);

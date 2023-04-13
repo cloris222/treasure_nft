@@ -19,6 +19,7 @@ import '../../constant/enum/airdrop_enum.dart';
 import '../../models/http/parameter/airdrop_box_reward.dart';
 import 'airdrop_common_view.dart';
 
+/// 開箱動畫
 class AirdropOpenPage extends StatefulWidget {
   const AirdropOpenPage({Key? key, required this.level, required this.reward})
       : super(key: key);
@@ -99,8 +100,9 @@ class _AirdropOpenPageState extends State<AirdropOpenPage>
                       margin: EdgeInsets.symmetric(
                           vertical: UIDefine.getPixelWidth(5)),
                       padding: EdgeInsets.symmetric(
-                          horizontal: UIDefine.getPixelWidth(20),
+                          horizontal: UIDefine.getPixelWidth(50),
                           vertical: UIDefine.getPixelWidth(5)),
+                      height: UIDefine.getPixelWidth(45),
                       radius: 22,
                       isFillWidth: false,
                       btnText: status == BoxAnimateStatus.finish

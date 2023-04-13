@@ -81,6 +81,7 @@ class _AirdropSharePageState extends ConsumerState<AirdropSharePage>
                   children: [
                     Expanded(
                         child: LoginButtonWidget(
+                          height: UIDefine.getPixelWidth(45),
                             margin: EdgeInsets.zero,
                             radius: 22,
                             btnText: tr("share"),
@@ -88,6 +89,7 @@ class _AirdropSharePageState extends ConsumerState<AirdropSharePage>
                     SizedBox(width: UIDefine.getPixelWidth(5)),
                     Expanded(
                         child: GradientButtonWidget(
+                            height: UIDefine.getPixelWidth(45),
                             margin: EdgeInsets.zero,
                             radius: 22,
                             btnText: tr("cancel"),

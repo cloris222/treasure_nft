@@ -127,6 +127,7 @@ class _AirdropMainPageState extends ConsumerState<AirdropMainPage>
             Expanded(
                 child: PageView(
               controller: controller,
+              physics: const NeverScrollableScrollPhysics(),
               onPageChanged: _onPageChange,
               children: List<Widget>.generate(AirdropType.values.length,
                   (index) => _buildPageView(AirdropType.values[index])),

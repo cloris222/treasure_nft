@@ -20,27 +20,15 @@ import '../../view_models/airdrop/airdrop_level_boxInfo_provider.dart';
 import '../../widgets/label/gradually_network_image.dart';
 
 class AirdropCommonView {
-  final String preTag = "preTag";
   final String currentTag = "currentTag";
-  final String nextTag = "nextTag";
 
   /// level寶箱 切換用
   void onChangeIndex(WidgetRef ref, int currentLevel) {
-    if (currentLevel == 1 || currentLevel == 0) {
-      ref.read(airdropLevelBoxIndexProvider(preTag).notifier).state = null;
+    if (currentLevel == 0) {
       ref.read(airdropLevelBoxIndexProvider(currentTag).notifier).state = 1;
-      ref.read(airdropLevelBoxIndexProvider(nextTag).notifier).state = 2;
-    } else if (currentLevel == 6) {
-      ref.read(airdropLevelBoxIndexProvider(preTag).notifier).state = 5;
-      ref.read(airdropLevelBoxIndexProvider(currentTag).notifier).state = 6;
-      ref.read(airdropLevelBoxIndexProvider(nextTag).notifier).state = null;
     } else {
-      ref.read(airdropLevelBoxIndexProvider(preTag).notifier).state =
-          currentLevel - 1;
       ref.read(airdropLevelBoxIndexProvider(currentTag).notifier).state =
           currentLevel;
-      ref.read(airdropLevelBoxIndexProvider(nextTag).notifier).state =
-          currentLevel + 1;
     }
   }
 
