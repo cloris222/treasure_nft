@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
@@ -9,11 +10,26 @@ import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import '../../constant/app_routes.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/ui_define.dart';
+import '../../view_models/airdrop/airdrop_count_provider.dart';
 import '../../view_models/base_view_model.dart';
 
 /// 取得寶箱的通知
-class AirdropGetBoxPage extends StatelessWidget {
-  const AirdropGetBoxPage({Key? key}) : super(key: key);
+class AirdropGetBoxPage extends ConsumerStatefulWidget {
+  const AirdropGetBoxPage({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  ConsumerState createState() => _AirdropGetBoxPageState();
+}
+
+class _AirdropGetBoxPageState extends ConsumerState<AirdropGetBoxPage> {
+  @override
+  void initState() {
+    /// 更新寶箱數量
+    ref.read(airdropCountProvider(true).notifier).update();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +89,7 @@ class AirdropGetBoxPage extends StatelessWidget {
       children: [
         Image.asset(AppImagePath.mainAppBarLogo),
         Container(
-          margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(10)),
+            margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(10)),
             padding: EdgeInsets.only(right: UIDefine.getPixelWidth(100)),
             child: Text(
               tr("airdropInProgress"),
