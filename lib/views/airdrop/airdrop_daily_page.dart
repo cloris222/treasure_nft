@@ -66,11 +66,17 @@ class _AirdropDailyPageState extends ConsumerState<AirdropDailyPage>
   }
 
   void _onPressOpen(String orderNo) async {
-    ref.read(airdropDailyRecordProvider.notifier).openBox(context, orderNo, ref);
+    ref
+        .read(airdropDailyRecordProvider.notifier)
+        .openBox(context, orderNo, ref);
   }
 
   Widget buildBoxView(BoxStatus status) {
-    return Image.asset(
-        format(AppImagePath.airdropBox, {"level": 0, "status": status.name}));
+    ///不顯示未開啟的圖案
+    return Image.asset(format(AppImagePath.airdropBox, {
+      "level": 0,
+      "status":
+          status == BoxStatus.locked ? BoxStatus.unlocked.name : status.name
+    }));
   }
 }

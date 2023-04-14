@@ -83,9 +83,7 @@ class _AirdropOpenPageState extends State<AirdropOpenPage>
             ///判斷動畫
             Stack(
               children: [
-                status != BoxAnimateStatus.next
-                    ? buildOpenAnimate()
-                    : buildWaitAnimate(),
+                _buildBoxAnime(),
 
                 ///顯示最後獎勵用
                 Positioned(
@@ -118,6 +116,7 @@ class _AirdropOpenPageState extends State<AirdropOpenPage>
                           : tr("Next"),
                       onPressed: () {
                         switch (status) {
+                          case BoxAnimateStatus.nexting:
                           case BoxAnimateStatus.opening:
                             break;
                           case BoxAnimateStatus.next:
@@ -144,6 +143,19 @@ class _AirdropOpenPageState extends State<AirdropOpenPage>
     ));
   }
 
+  Widget _buildBoxAnime() {
+    switch (status) {
+      case BoxAnimateStatus.opening:
+        return buildOpenAnimate();
+      case BoxAnimateStatus.nexting:
+        return buildWaitAnimate();
+      case BoxAnimateStatus.next:
+      case BoxAnimateStatus.noNext:
+      case BoxAnimateStatus.finish:
+        return buildOpenedBox();
+    }
+  }
+
   Widget buildOpenAnimate() {
     return Gif(
       height: UIDefine.getPixelWidth(300),
@@ -166,9 +178,27 @@ class _AirdropOpenPageState extends State<AirdropOpenPage>
       fit: BoxFit.fitHeight,
       image: AssetImage(
           format(AppAnimationPath.airdropWait, {"level": widget.level})),
-      autostart: Autostart.loop,
+      autostart: Autostart.once,
       controller: _controller,
-      onFetchCompleted: () {},
+      onFetchCompleted: () {
+        Future.delayed(const Duration(milliseconds: 1500)).then((value) {
+          _showItem();
+        });
+      },
+    );
+  }
+
+  Widget buildOpenedBox() {
+    return SizedBox(
+      height: UIDefine.getPixelWidth(300),
+      child: Center(
+        child: Image.asset(
+          format(AppImagePath.airdropBox,
+              {"level": 0, "status": BoxStatus.opened.name}),
+          height: UIDefine.getPixelWidth(250),
+          fit: BoxFit.fitHeight,
+        ),
+      ),
     );
   }
 
@@ -339,7 +369,7 @@ class _AirdropOpenPageState extends State<AirdropOpenPage>
     if (mounted) {
       setState(() {
         showReward = false;
-        status = BoxAnimateStatus.opening;
+        status = BoxAnimateStatus.nexting;
       });
 
       setState(() {

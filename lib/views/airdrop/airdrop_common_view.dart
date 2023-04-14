@@ -24,11 +24,12 @@ class AirdropCommonView {
 
   /// level寶箱 切換用
   void onChangeIndex(WidgetRef ref, int currentLevel) {
-    if (currentLevel == 0) {
-      ref.read(airdropLevelBoxIndexProvider(currentTag).notifier).state = 1;
+    if (currentLevel == 6) {
+      ref.read(airdropLevelBoxIndexProvider(currentTag).notifier).state = 6;
     } else {
+      ///預設顯示下一階段寶箱
       ref.read(airdropLevelBoxIndexProvider(currentTag).notifier).state =
-          currentLevel;
+          currentLevel + 1;
     }
   }
 
@@ -331,6 +332,10 @@ class AirdropCommonView {
                   fit: BoxFit.cover,
                 )
               : GraduallyNetworkImage(
+                  showNormal: true,
+                  width: size ?? UIDefine.getPixelWidth(80),
+                  height: size ?? UIDefine.getPixelWidth(80),
+                  cacheWidth: 80,
                   imageUrl: imageUrl,
                   fit: BoxFit.cover,
                 ),

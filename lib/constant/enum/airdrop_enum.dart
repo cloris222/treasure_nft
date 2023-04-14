@@ -42,6 +42,9 @@ enum BoxAnimateStatus {
   ///箱子還有下一個
   next,
 
+  ///開下一個箱子
+  nexting,
+
   ///沒有箱子了
   noNext,
 

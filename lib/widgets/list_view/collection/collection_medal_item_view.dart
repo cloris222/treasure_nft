@@ -31,9 +31,11 @@ class CollectionMedalItemView extends ConsumerWidget {
               ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 child: GraduallyNetworkImage(
+                  showNormal: true,
                   imageUrl: record.medal,
                   height: UIDefine.getPixelWidth(150),
                   width: UIDefine.getPixelWidth(150),
+                  cacheWidth: 150,
                   fit: BoxFit.cover,
                 ),
               ),
