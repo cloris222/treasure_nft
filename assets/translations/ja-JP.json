@@ -1232,8 +1232,8 @@
     "SoulPath":"ボーナスプール",
     "treasurePrizePool":"賞品プール",
     "reserveCratesInfo":"確立されたセッションごとに、予約のトレジャーチェストを開くことができます。これは、賞金プールから1つの報酬のみを得ることができます。現在、2つの予約セッションがあり、宝箱は1日に最大2回開くことができます。",
-    "commemorativeBadge":"記念バッジ",
-    "randomBadge":"ランダムバッジ",
+    "commemorativeBadge":"バッジ",
+    "randomBadge":"ランダム",
     "Vietnam":"ベトナム",
     "SouthAfrica":"南アフリカ",
     "Georgia":"ジョージア",
@@ -1290,7 +1290,7 @@
     "LEVEL_BOX_5":"LV5トレジャーボックス",
     "LEVEL_BOX_6":"LV6トレジャーボックス",
     "RESERVE_BOX":"予約報酬",
-
+    "reserveRandomBadge": "ランダムバッジ",
 
 
 

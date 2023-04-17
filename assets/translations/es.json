@@ -1232,8 +1232,8 @@
   "SoulPath":"Piscina de bonificación",
   "treasurePrizePool":"Bolsa de premios",
   "reserveCratesInfo":"Para cada sesión reservada con éxito, puede abrir un cofre del tesoro de reservas, que solo puede obtener una recompensa del grupo de premios. Actualmente, hay dos sesiones de reserva, y el cofre del tesoro se puede abrir un máximo de dos veces al día.",
-  "commemorativeBadge":"Insignia conmemorativa",
-  "randomBadge":"Insignia aleatoria",
+  "commemorativeBadge":"Insignia",
+  "randomBadge":"Aleatorio",
   "Vietnam":"Vietnam",
   "SouthAfrica":"Sudáfrica",
   "Georgia":"Georgia",
@@ -1290,7 +1290,7 @@
   "LEVEL_BOX_5":"Caja de tesoros LV5",
   "LEVEL_BOX_6":"Caja de tesoros LV6",
   "RESERVE_BOX":"Recompensa de reserva",
-
+  "reserveRandomBadge": "Insignia aleatoria",
 
 
 

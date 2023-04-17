@@ -1232,8 +1232,8 @@
   "SoulPath":"Kolam bonus",
   "treasurePrizePool":"Kolam hadiah",
   "reserveCratesInfo":"Untuk setiap sesi yang berjaya, anda boleh membuka dada harta karun tempahan, yang hanya boleh mendapatkan satu ganjaran dari kolam hadiah. Pada masa ini, terdapat dua sesi tempahan, dan dada harta boleh dibuka maksimum dua kali sehari.",
-  "commemorativeBadge":"Lencana peringatan",
-  "randomBadge":"Lencana rawak",
+  "commemorativeBadge":"Lencana",
+  "randomBadge":"Rawak",
   "Vietnam":"Vietnam",
   "SouthAfrica":"Afrika Selatan",
   "Georgia":"Georgia",
@@ -1290,7 +1290,7 @@
   "LEVEL_BOX_5":"LV5 Treasure Box",
   "LEVEL_BOX_6":"Lv6 Treasure Box",
   "RESERVE_BOX":"Ganjaran tempahan",
-
+  "reserveRandomBadge": "Lencana rawak",
 
 
 

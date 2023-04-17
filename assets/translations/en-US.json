@@ -1232,8 +1232,8 @@
   "SoulPath":"Bonus pool",
   "treasurePrizePool":"Prize Pool",
   "reserveCratesInfo":"For every successfully reserved session, you can open a reservation treasure chest, which can only obtain one reward from the prize pool. Currently, there are two reservation sessions, and the treasure chest can be opened a maximum of two times per day.",
-  "commemorativeBadge":"Commemorative Badge",
-  "randomBadge":"Random Badge",
+  "commemorativeBadge":"Badge",
+  "randomBadge":"Random",
   "Vietnam":"Vietnam",
   "SouthAfrica":"SouthAfrica",
   "Georgia":"Georgia",
@@ -1290,7 +1290,7 @@
   "LEVEL_BOX_5":"LV5 treasure box",
   "LEVEL_BOX_6":"LV6 treasure box",
   "RESERVE_BOX":"Reservation reward",
-
+  "reserveRandomBadge": "Random Badge",
 
 
 

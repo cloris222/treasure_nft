@@ -1232,8 +1232,8 @@
   "SoulPath":"Bool thưởng",
   "treasurePrizePool":"Giải thưởng",
   "reserveCratesInfo":"Đối với mỗi phiên dành riêng thành công, bạn có thể mở một rương kho báu đặt phòng, chỉ có thể nhận được một phần thưởng từ nhóm giải thưởng. Hiện tại, có hai phiên đặt chỗ, và rương kho báu có thể được mở tối đa hai lần mỗi ngày.",
-  "commemorativeBadge":"Huy hiệu kỷ niệm",
-  "randomBadge":"Huy hiệu ngẫu nhiên",
+  "commemorativeBadge":"Huy hiệu",
+  "randomBadge":"Ngẫu nhiên",
   "Vietnam":"Việt Nam",
   "SouthAfrica":"Nam Phi",
   "Georgia":"Georgia",
@@ -1290,7 +1290,7 @@
   "LEVEL_BOX_5":"Hộp kho báu LV5",
   "LEVEL_BOX_6":"Hộp kho báu LV6",
   "RESERVE_BOX":"Phần thưởng đặt phòng",
-
+  "reserveRandomBadge": "Huy hiệu ngẫu nhiên",
 
 
 

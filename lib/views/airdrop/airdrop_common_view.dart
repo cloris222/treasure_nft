@@ -53,7 +53,7 @@ class AirdropCommonView {
       case AirdropRewardType.ITEM:
         return tr("nft");
       case AirdropRewardType.MEDAL:
-        return tr("commemorativeBadge");
+        return tr("reserveRandomBadge");
       case AirdropRewardType.ALL:
         return "";
     }
@@ -180,7 +180,7 @@ class AirdropCommonView {
       case AirdropType.dailyReward:
         switch (rewardType) {
           case AirdropRewardType.EMPTY:
-            title = title + tr("appEmptyBox");
+            title = tr("appEmptyBox");
             break;
           case AirdropRewardType.MONEY:
             title = "$title${data.startRange}-${data.endRange} USDT";
@@ -189,7 +189,7 @@ class AirdropCommonView {
             title = "$title${data.startRange}-${data.endRange} NFT";
             break;
           case AirdropRewardType.MEDAL:
-            title = title + tr("randomBadge");
+            title = tr("reserveRandomBadge");
             break;
           case AirdropRewardType.ALL:
             break;
@@ -207,6 +207,7 @@ class AirdropCommonView {
             context = "${data.startRange}-${data.endRange} NFT";
             break;
           case AirdropRewardType.MEDAL:
+            title = tr("commemorativeBadge");
             context = tr("randomBadge");
             break;
           case AirdropRewardType.ALL:

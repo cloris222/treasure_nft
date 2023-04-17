@@ -1232,8 +1232,8 @@
   "SoulPath":"Bonus havuzu",
   "treasurePrizePool":"Ödül havuzu",
   "reserveCratesInfo":"Başarılı bir şekilde ayrılmış her oturum için, ödül havuzundan yalnızca bir ödül alabilen bir rezervasyon hazine sandığı açabilirsiniz. Şu anda, iki rezervasyon oturumu var ve hazine sandığı günde en fazla iki kez açılabilir.",
-  "commemorativeBadge":"Hatıra rozeti",
-  "randomBadge":"Rastgele rozet",
+  "commemorativeBadge":"Rozet",
+  "randomBadge":"Rastgele",
   "Vietnam":"Vietnam",
   "SouthAfrica":"Güney Afrika",
   "Georgia":"Gürcistan",
@@ -1290,7 +1290,7 @@
   "LEVEL_BOX_5":"LV5 Hazine Kutusu",
   "LEVEL_BOX_6":"LV6 Hazine Kutusu",
   "RESERVE_BOX":"Rezervasyon ödülü",
-
+  "reserveRandomBadge": "Rastgele rozet",
 
 
 

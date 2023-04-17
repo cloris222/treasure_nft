@@ -1232,8 +1232,8 @@
   "SoulPath":"تجمع المكافآت",
   "treasurePrizePool":"مجموع جوائز",
   "reserveCratesInfo":"لكل جلسة مخصصة بنجاح ، يمكنك فتح صندوق حجز كنز ، والذي يمكنه الحصول على مكافأة واحدة فقط من تجمع الجوائز. حاليًا ، هناك جلستان للحجز ، ويمكن فتح صندوق الكنز بحد أقصى مرتين في اليوم.",
-  "commemorativeBadge":"شارة تذكارية",
-  "randomBadge":"شارة عشوائية",
+  "commemorativeBadge":"شارة",
+  "randomBadge":"عشوائي",
   "Vietnam":"فيتنام",
   "SouthAfrica":"جنوب أفريقيا",
   "Georgia":"جورجيا",
@@ -1290,7 +1290,7 @@
   "LEVEL_BOX_5":"LV5 الكنز مربع",
   "LEVEL_BOX_6":"LV6 Treasure Box",
   "RESERVE_BOX":"مكافأة الحجز",
-
+  "reserveRandomBadge": "شارة عشوائية",
 
 
 

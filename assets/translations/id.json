@@ -1232,8 +1232,8 @@
   "SoulPath":"Bonus Pool",
   "treasurePrizePool":"Kolam Hadiah",
   "reserveCratesInfo":"Untuk setiap sesi yang berhasil dipesan, Anda dapat membuka peti harta karun reservasi, yang hanya dapat memperoleh satu hadiah dari kolam hadiah. Saat ini, ada dua sesi reservasi, dan peti harta karun dapat dibuka maksimal dua kali per hari.",
-  "commemorativeBadge":"Lencana Peringatan",
-  "randomBadge":"Lencana acak",
+  "commemorativeBadge":"Lencana",
+  "randomBadge":"Acak",
   "Vietnam":"Vietnam",
   "SouthAfrica":"Afrika Selatan",
   "Georgia":"Georgia",
@@ -1290,7 +1290,7 @@
   "LEVEL_BOX_5":"LV5 Treasure Box",
   "LEVEL_BOX_6":"LV6 Treasure Box",
   "RESERVE_BOX":"Hadiah Reservasi",
-
+  "reserveRandomBadge": "Lencana acak",
 
 
 
