@@ -18,6 +18,7 @@ class CustomDropButton extends StatefulWidget {
       required this.onChanged,
       this.initIndex,
       this.needBorderBackground = true,
+      this.needBackgroundOpacity = false,
       this.height,
       this.buildCustomDropItem,
       this.buildCustomSelectHintItem,
@@ -39,6 +40,7 @@ class CustomDropButton extends StatefulWidget {
   final void Function(int index) onChanged;
   final double? height;
   final bool needBorderBackground;
+  final bool needBackgroundOpacity;
   final EdgeInsetsGeometry? padding;
   final String? hintSelect;
   final double? dropdownWidth;
@@ -79,7 +81,13 @@ class _CustomDropButtonState extends State<CustomDropButton> {
     return Container(
       decoration: widget.needBorderBackground
           ? AppStyle().styleColorBorderBackground(
-              color: AppColors.bolderGrey, radius: 8, borderLine: 1)
+              color: AppColors.bolderGrey,
+              backgroundColor: widget.needBackgroundOpacity
+                  ? AppColors.textWhite.withOpacity(0.5)
+                  : AppColors.textWhite,
+              radius: 8,
+              borderLine: 1
+            )
           : null,
       padding: EdgeInsets.symmetric(
           horizontal: UIDefine.getPixelWidth(10),

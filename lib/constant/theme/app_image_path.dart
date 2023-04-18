@@ -33,6 +33,7 @@ class AppImagePath {
   ///MARK: image background
   static const String backgroundLand = '$_imgPath/img_background_01.png';
   static const String backgroundUser = '$_imgPath/img_background_05.png';
+  static const String backgroundDeposit = '$_imgPath/img_background_06.png';
 
   ///MARK: bottom navigation
   static const String mainTypeExplore = '$_btnPath/btn_explore_02.png';
@@ -153,6 +154,7 @@ class AppImagePath {
   static const String walletWithdrawIcon = '$_btnPath/btn_withdraw_01.png';
   static const String walletSettingIcon = '$_btnPath/btn_setting_01.png';
   static const String walletLogIcon = '$_btnPath/btn_receipt_01.png';
+  static const String walletDepositDollar = '$_imgPath/img_dollar_01.png';
 
   ///等級
   static const String blueCheckIcon = '$_iconPath/icon_check_ok_02.png';

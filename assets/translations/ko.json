@@ -1350,5 +1350,12 @@
   "appWow":"wow,Cool",
   "less":"더 적은",
   "appSetAvatar":"프로필 사진을 설정하십시오",
-  "appMyMedal":"내 배지"
+  "appMyMedal":"내 배지",
+  "fiatCurrencyRecharge": "화폐 통화 재충전",
+  "selectCurrency": "통화를 선택하십시오",
+  "chooseAPaymentMethod": "지불 방법을 선택하십시오",
+  "purchasingPrice":"양",
+  "maximum":"최고",
+  "minimum":"최저한의",
+  "available":"받을 수 있습니다"
 }

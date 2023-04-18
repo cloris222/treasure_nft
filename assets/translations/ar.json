@@ -1350,5 +1350,12 @@
   "appWow":"wow,Cool",
   "less":"أقل",
   "appSetAvatar":"اضبط صورة الملف الشخصي",
-  "appMyMedal":"شاراتي"
+  "appMyMedal":"شاراتي",
+  "fiatCurrencyRecharge": "إعادة شحن العملة فيات",
+  "selectCurrency": "الرجاء اختيار العملة",
+  "chooseAPaymentMethod": "الرجاء اختيار طريقة الدفع",
+  "purchasingPrice":"كمية",
+  "maximum":"أقصى",
+  "minimum":"الحد الأدنى",
+  "available":"ويمكن الحصول على"
 }

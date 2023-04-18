@@ -1350,5 +1350,12 @@
   "appWow":"wow,Cool",
   "less":"menos",
   "appSetAvatar":"Defina a imagem do perfil",
-  "appMyMedal":"Meus crachás"
+  "appMyMedal":"Meus crachás",
+  "fiatCurrencyRecharge": "Recarga da moeda fiduciária",
+  "selectCurrency": "Selecione a moeda",
+  "chooseAPaymentMethod": "Escolha um método de pagamento",
+  "purchasingPrice":"Quantia",
+  "maximum":"Máximo",
+  "minimum":"Mínimo",
+  "available":"Pode receber"
 }

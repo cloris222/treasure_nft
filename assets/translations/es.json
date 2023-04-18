@@ -1350,5 +1350,12 @@
   "appWow":"wow,Cool",
   "less":"menos",
   "appSetAvatar":"Establecer una foto de perfil",
-  "appMyMedal":"Mis insignias"
+  "appMyMedal":"Mis insignias",
+  "fiatCurrencyRecharge": "Recarga de moneda fiduciaria",
+  "selectCurrency": "Seleccione la moneda",
+  "chooseAPaymentMethod": "Elija un método de pago",
+  "purchasingPrice":"Cantidad",
+  "maximum":"Máximo",
+  "minimum":"Mínimo",
+  "available":"Puede recibir"
 }

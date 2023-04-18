@@ -1350,5 +1350,12 @@
   "appWow":"wow,Cool",
   "less":"ít hơn",
   "appSetAvatar":"Đặt hình ảnh hồ sơ",
-  "appMyMedal":"Huy hiệu của tôi"
+  "appMyMedal":"Huy hiệu của tôi",
+  "fiatCurrencyRecharge": "Tái sạc tiền tệ fiat",
+  "selectCurrency": "Vui lòng chọn tiền tệ",
+  "chooseAPaymentMethod": "Vui lòng chọn phương thức thanh toán",
+  "purchasingPrice":"Số lượng",
+  "maximum":"Tối đa",
+  "minimum":"Tối thiểu",
+  "available":"Có thể nhận"
 }

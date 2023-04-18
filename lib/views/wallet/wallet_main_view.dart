@@ -11,6 +11,7 @@ import 'package:treasure_nft_project/view_models/gobal_provider/user_property_in
 import 'package:treasure_nft_project/view_models/wallet/wallet_balance_recharge_provider.dart';
 import 'package:treasure_nft_project/view_models/wallet/wallet_main_record_provider.dart';
 import 'package:treasure_nft_project/views/wallet/data/app_purchase.dart';
+import 'package:treasure_nft_project/views/wallet/wallet_fiat_deposit_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
@@ -19,6 +20,7 @@ import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/theme/app_style.dart';
+import '../../widgets/button/gradient_button_widget.dart';
 import '../../widgets/label/coin/tether_coin_widget.dart';
 import '../../widgets/label/wallet_info_item.dart';
 import '../personal/orders/order_info_page.dart';
@@ -78,6 +80,7 @@ class _WalletMainViewState extends ConsumerState<WalletMainView> {
               children: [
                 _buildWalletAddress(),
                 _buildWalletFunction(),
+                _buildDepositButton(),
                 _buildWalletHistory(),
               ],
             ),
@@ -250,6 +253,15 @@ class _WalletMainViewState extends ConsumerState<WalletMainView> {
               onPress: _showWalletSettingIcon),
         ],
       ),
+    );
+  }
+
+  Widget _buildDepositButton () {
+    return LoginButtonWidget(
+      radius: 25,
+      showIcon: true,
+      btnText: tr("fiatCurrencyRecharge"),
+      onPressed: () => viewModel.pushOpacityPage(context, const FiatDepositPage()),
     );
   }
 

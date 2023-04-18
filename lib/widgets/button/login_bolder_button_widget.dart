@@ -22,6 +22,7 @@ class LoginBolderButtonWidget extends StatefulWidget {
     this.padding,
     this.alignment = Alignment.center,
     this.maxLines=2,
+    this.needWhiteBackground = false,
   }) : super(key: key);
   final String btnText;
   final VoidCallback onPressed;
@@ -36,6 +37,7 @@ class LoginBolderButtonWidget extends StatefulWidget {
   final bool isFillWidth;
   final AlignmentGeometry alignment;
   final int maxLines;
+  final bool needWhiteBackground;
 
   @override
   State<LoginBolderButtonWidget> createState() =>
@@ -62,7 +64,26 @@ class _LoginBolderButtonWidgetState extends State<LoginBolderButtonWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () => intervalClick(widget.needTimes),
-        child: ShaderMask(
+        child: Stack(children: [
+          Visibility(
+          visible: widget.needWhiteBackground,
+        child:Container(
+          alignment: widget.alignment,
+          decoration: AppStyle().styleColorBorderBackground(
+              color: Colors.grey,
+              backgroundColor:Colors.white.withOpacity(0.5),
+              radius: widget.radius),
+          width: widget.width ??
+              (widget.isFillWidth ? UIDefine.getWidth() : null),
+          height: widget.height ?? UIDefine.getPixelWidth(50),
+          margin: widget.margin,
+          padding: widget.padding ??
+              EdgeInsets.symmetric(
+                  horizontal: UIDefine.getPixelWidth(10),
+                  vertical: UIDefine.getPixelWidth(5)),
+        )),
+
+        ShaderMask(
           blendMode: BlendMode.srcIn,
           shaderCallback: (bounds) => const LinearGradient(
                   begin: Alignment.bottomLeft,
@@ -91,6 +112,8 @@ class _LoginBolderButtonWidgetState extends State<LoginBolderButtonWidget> {
                   style: AppTextStyle.getBaseStyle(
                       fontSize: widget.fontSize ?? UIDefine.fontSize16,
                       fontWeight: widget.fontWeight))),
-        ));
+
+        )])
+    );
   }
 }

@@ -1350,5 +1350,12 @@
   "appWow":"wow,Cool",
   "less":"az",
   "appSetAvatar":"Profil resmi ayarlayın",
-  "appMyMedal":"Rozetlerim"
+  "appMyMedal":"Rozetlerim",
+  "fiatCurrencyRecharge": "Fiat Para Birimi Şarjı",
+  "selectCurrency": "Lütfen para birimini seçin",
+  "chooseAPaymentMethod": "Lütfen bir ödeme yöntemi seçin",
+  "purchasingPrice":"Miktar",
+  "maximum":"Maksimum",
+  "minimum":"Minimum",
+  "available":"Teslim alabilmek"
 }

@@ -1350,5 +1350,12 @@
   "appWow":"wow,Cool",
   "less":"less",
   "appSetAvatar":"Set profile picture",
-  "appMyMedal":"My badges"
+  "appMyMedal":"My badges",
+  "fiatCurrencyRecharge": "Fiat Currency Recharge",
+  "selectCurrency": "Please select currency",
+  "chooseAPaymentMethod": "Please choose a payment method",
+  "purchasingPrice":"Amount",
+  "maximum":"Maximum",
+  "minimum":"Minimum",
+  "available":"Can receive"
 }

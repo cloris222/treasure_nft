@@ -1350,5 +1350,12 @@
   "appWow":"wow,Cool",
   "less":"کمتر",
   "appSetAvatar":"عکس پروفایل را تنظیم کنید",
-  "appMyMedal":"نشان های من"
+  "appMyMedal":"نشان های من",
+  "fiatCurrencyRecharge": "شارژ مجدد ارز فیات",
+  "selectCurrency": "لطفا ارز را انتخاب کنید",
+  "chooseAPaymentMethod": "لطفا یک روش پرداخت را انتخاب کنید",
+  "purchasingPrice":"میزان",
+  "maximum":"بیشترین",
+  "minimum":"کمترین",
+  "available":"می تواند دریافت کند"
 }

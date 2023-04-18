@@ -1350,5 +1350,12 @@
   "appWow":"wow,Cool",
   "less":"lebih sedikit",
   "appSetAvatar":"Atur gambar profil",
-  "appMyMedal":"Lencana saya"
+  "appMyMedal":"Lencana saya",
+  "fiatCurrencyRecharge": "Pengisian ulang mata uang fiat",
+  "selectCurrency": "Pilih Mata Uang",
+  "chooseAPaymentMethod": "Pilih metode pembayaran",
+  "purchasingPrice":"Jumlah",
+  "maximum":"Maksimum",
+  "minimum":"Minimum",
+  "available":"Dapat menerima"
 }

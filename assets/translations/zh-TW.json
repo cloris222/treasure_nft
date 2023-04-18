@@ -1350,5 +1350,12 @@
   "appWow":"wow,Cool",
   "less":"更少",
   "appSetAvatar":"設置頭像",
-  "appMyMedal":"我的徽章"
+  "appMyMedal":"我的徽章",
+  "fiatCurrencyRecharge": "法幣充值",
+  "selectCurrency": "請選擇幣種",
+  "chooseAPaymentMethod": "請選擇付款方式",
+  "purchasingPrice":"購買金額",
+  "maximum":"最大",
+  "minimum":"最小",
+  "available":"可獲得"
 }

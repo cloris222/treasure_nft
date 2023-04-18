@@ -1350,5 +1350,12 @@
   "appWow":"wow,Cool",
   "less":"меньше",
   "appSetAvatar":"Установите изображение профиля",
-  "appMyMedal":"Мои значки"
+  "appMyMedal":"Мои значки",
+  "fiatCurrencyRecharge": "Fiat Currency Recharge",
+  "selectCurrency": "Пожалуйста, выберите валюту",
+  "chooseAPaymentMethod": "Пожалуйста, выберите способ оплаты",
+  "purchasingPrice":"Количество",
+  "maximum":"Максимум",
+  "minimum":"Минимум",
+  "available":"Может получить"
 }

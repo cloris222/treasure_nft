@@ -1350,5 +1350,12 @@
   "appWow":"wow,Cool",
   "less":"น้อย",
   "appSetAvatar":"ตั้งรูปโปรไฟล์",
-  "appMyMedal":"ป้ายของฉัน"
+  "appMyMedal":"ป้ายของฉัน",
+  "fiatCurrencyRecharge": "ชาร์จสกุลเงิน fiat",
+  "selectCurrency": "กรุณาเลือกสกุลเงิน",
+  "chooseAPaymentMethod": "โปรดเลือกวิธีการชำระเงิน",
+  "purchasingPrice":"จำนวน",
+  "maximum":"ขีดสุด",
+  "minimum":"ขั้นต่ำสุด",
+  "available":"สามารถรับได้"
 }

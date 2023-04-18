@@ -1350,5 +1350,12 @@
     "appWow":"wow,Cool",
     "less":"以下",
     "appSetAvatar":"プロフィール画像を設定します",
-    "appMyMedal":"私のバッジ"
+    "appMyMedal":"私のバッジ",
+    "fiatCurrencyRecharge": "フィアット通貨充電",
+    "selectCurrency": "通貨を選択してください",
+    "chooseAPaymentMethod": "支払い方法を選択してください",
+    "purchasingPrice":"額",
+    "maximum":"最大",
+    "minimum":"最小",
+    "available":"受け取ることができます"
 }
