@@ -1361,5 +1361,7 @@
   "minimum":"الحد الأدنى",
   "available":"ويمكن الحصول على",
   "placeholder-coin":"الرجاء اختيار العملة",
-  "rechargeUSDT-frenchCurrency":"إيداع USDT (عملة فيات)"
+  "rechargeUSDT-frenchCurrency":"إيداع USDT (عملة فيات)",
+  "amountRangeError": "الرجاء إدخال المبلغ ضمن النطاق"
+
 }

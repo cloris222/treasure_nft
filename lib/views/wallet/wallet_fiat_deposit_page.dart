@@ -181,25 +181,35 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-    Container(
-    padding: EdgeInsets.only(top: UIDefine.getPixelWidth(10)),
-    child:Text(tr("purchasingPrice"),
-        maxLines: 1,
-        style: AppTextStyle.getBaseStyle(
-            fontSize: UIDefine.fontSize14,
-            fontWeight: FontWeight.w400,
-            color: AppColors.textBlack))),
+          Container(
+              padding: EdgeInsets.only(top: UIDefine.getPixelWidth(10)),
+              child:Text(tr("purchasingPrice"),
+                  maxLines: 1,
+                  style: AppTextStyle.getBaseStyle(
+                      fontSize: UIDefine.fontSize14,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.textBlack))),
 
-    Container(
-    padding: EdgeInsets.only(bottom: UIDefine.getPixelWidth(10)),
-    child:LoginTextWidget(
-        initColor:Colors.white.withOpacity(0.5),
-        hintText: tr("mintAmount-placeholder'"),
-        controller: viewModel.amountController,
-        contentPaddingRight: UIDefine.getScreenWidth(20),
-        bFocusedGradientBolder: true,
-        onChanged:(v)=>viewModel.onTextChange()
-      )),
+          LoginTextWidget(
+              initColor:Colors.white.withOpacity(0.5),
+              hintText: tr("mintAmount-placeholder'"),
+              controller: viewModel.amountController,
+              contentPaddingRight: UIDefine.getScreenWidth(20),
+              bFocusedGradientBolder: true,
+              onChanged:(v)=>viewModel.onTextChange()
+          ),
+
+          Container(
+              padding: EdgeInsets.only(bottom: UIDefine.getPixelWidth(10)),
+              child:Visibility(
+                  visible: viewModel.errorHint,
+                  child: Text(tr("amountRangeError"),
+                      maxLines: 1,
+                      style: AppTextStyle.getBaseStyle(
+                          fontSize: UIDefine.fontSize14,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.rateRed))
+              ))
     ]);
   }
 

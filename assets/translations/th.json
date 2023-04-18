@@ -1361,5 +1361,7 @@
   "minimum":"ขั้นต่ำสุด",
   "available":"สามารถรับได้",
   "placeholder-coin":"กรุณาเลือกสกุลเงิน",
-  "rechargeUSDT-frenchCurrency":"ฝาก USDT (สกุลเงินคำสั่ง)"
+  "rechargeUSDT-frenchCurrency":"ฝาก USDT (สกุลเงินคำสั่ง)",
+  "amountRangeError": "โปรดป้อนจำนวนเงินภายในช่วง"
+
 }

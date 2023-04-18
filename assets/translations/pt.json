@@ -1361,5 +1361,7 @@
   "minimum":"Mínimo",
   "available":"Pode receber",
   "placeholder-coin":"Selecione a moeda",
-  "rechargeUSDT-frenchCurrency":"Depósito USDT (moeda fiduciária)"
+  "rechargeUSDT-frenchCurrency":"Depósito USDT (moeda fiduciária)",
+  "amountRangeError": "Por favor, insira o valor dentro do intervalo"
+
 }

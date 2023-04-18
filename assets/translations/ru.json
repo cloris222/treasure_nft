@@ -1361,5 +1361,7 @@
   "minimum":"Минимум",
   "available":"Может получить",
   "placeholder-coin":"Пожалуйста, выберите валюту",
-  "rechargeUSDT-frenchCurrency":"Депонировать USDT (Fiat Vurrance)"
+  "rechargeUSDT-frenchCurrency":"Депонировать USDT (Fiat Vurrance)",
+  "amountRangeError": "Пожалуйста, введите сумму в диапазоне"
+
 }

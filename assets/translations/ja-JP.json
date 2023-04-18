@@ -1361,5 +1361,7 @@
     "minimum":"最小",
     "available":"受け取ることができます",
     "placeholder-coin":"通貨を選択してください",
-    "rechargeUSDT-frenchCurrency":"USDTをデポジット（フィアット通貨）"
+    "rechargeUSDT-frenchCurrency":"USDTをデポジット（フィアット通貨）",
+    "amountRangeError": "範囲内の金額を入力してください"
+
 }

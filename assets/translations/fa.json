@@ -1361,5 +1361,7 @@
   "minimum":"کمترین",
   "available":"می تواند دریافت کند",
   "placeholder-coin":"لطفا ارز را انتخاب کنید",
-  "rechargeUSDT-frenchCurrency":"سپرده USDT (ارز فیات)"
+  "rechargeUSDT-frenchCurrency":"سپرده USDT (ارز فیات)",
+  "amountRangeError": "لطفاً مقدار را در محدوده وارد کنید"
+
 }

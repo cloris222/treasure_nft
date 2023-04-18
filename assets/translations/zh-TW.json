@@ -1361,5 +1361,7 @@
   "minimum":"最小",
   "available":"可獲得",
   "placeholder-coin":"請選擇幣種",
-  "rechargeUSDT-frenchCurrency":"充值USDT(法幣)"
+  "rechargeUSDT-frenchCurrency":"充值USDT(法幣)",
+  "amountRangeError": "請輸入範圍內金額"
+
 }

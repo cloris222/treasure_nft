@@ -1361,5 +1361,7 @@
   "minimum":"Minimum",
   "available":"Teslim alabilmek",
   "placeholder-coin":"Lütfen para birimini seçin",
-  "rechargeUSDT-frenchCurrency":"Depozito USDT (Fiat Para Birimi)"
+  "rechargeUSDT-frenchCurrency":"Depozito USDT (Fiat Para Birimi)",
+  "amountRangeError": "Lütfen miktarı aralık içindeki girin"
+
 }

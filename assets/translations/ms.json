@@ -1361,5 +1361,7 @@
   "minimum":"Minimum",
   "available":"Boleh menerima",
   "placeholder-coin":"Sila pilih mata wang",
-  "rechargeUSDT-frenchCurrency":"Deposit USDT (Mata Wang Fiat)"
+  "rechargeUSDT-frenchCurrency":"Deposit USDT (Mata Wang Fiat)",
+  "amountRangeError": "Sila masukkan jumlah dalam julat"
+
 }

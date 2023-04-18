@@ -1361,5 +1361,7 @@
   "minimum":"Minimum",
   "available":"Dapat menerima",
   "placeholder-coin":"Pilih Mata Uang",
-  "rechargeUSDT-frenchCurrency":"Setor USDT (mata uang fiat)"
+  "rechargeUSDT-frenchCurrency":"Setor USDT (mata uang fiat)",
+  "amountRangeError": "Harap masukkan jumlah dalam kisaran"
+
 }

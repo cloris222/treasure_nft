@@ -1361,5 +1361,7 @@
   "minimum":"Mínimo",
   "available":"Puede recibir",
   "placeholder-coin":"Seleccione la moneda",
-  "rechargeUSDT-frenchCurrency":"Deposite USDT (moneda fiat)"
+  "rechargeUSDT-frenchCurrency":"Deposite USDT (moneda fiat)",
+  "amountRangeError": "Ingrese la cantidad dentro del rango"
+
 }

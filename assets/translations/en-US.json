@@ -1360,5 +1360,6 @@
   "minimum":"Minimum",
   "available":"Can receive",
   "placeholder-coin":"Please select currency",
-  "rechargeUSDT-frenchCurrency":"Deposit USDT (fiat currency)"
+  "rechargeUSDT-frenchCurrency":"Deposit USDT (fiat currency)",
+  "amountRangeError": "Please enter the amount within the range"
 }

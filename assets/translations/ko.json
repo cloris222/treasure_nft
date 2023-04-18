@@ -1361,5 +1361,7 @@
   "minimum":"최저한의",
   "available":"받을 수 있습니다",
   "placeholder-coin":"통화를 선택하십시오",
-  "rechargeUSDT-frenchCurrency":"USDT 입금 (Fiat Currency)"
+  "rechargeUSDT-frenchCurrency":"USDT 입금 (Fiat Currency)",
+  "amountRangeError": "범위 내에 금액을 입력하십시오"
+
 }

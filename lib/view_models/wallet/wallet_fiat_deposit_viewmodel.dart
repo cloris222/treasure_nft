@@ -20,6 +20,8 @@ class WalletFiatDepositViewModel extends BaseViewModel {
   TextEditingController amountController = TextEditingController();
   String available = '0.00';
 
+  bool errorHint = false;
+
   void onTextChange() {
     available = getAvailable();
     onViewChange();
@@ -48,14 +50,30 @@ class WalletFiatDepositViewModel extends BaseViewModel {
   }
 
   void onPressConfirm() async{
-    await WalletAPI().depositCurrency(
-      payType: ref.read(currentPayTypeProvider.notifier).state.type,
-      currency: ref.read(currentFiatProvider.notifier).state,
-      amount: double.parse(amountController.text),
-    ).then((value) => {
-      popPage(context),
-      launchInBrowser(value.redirectUrl),
-    });
+    if (checkAmount()) {
+      await WalletAPI().depositCurrency(
+        payType: ref.read(currentPayTypeProvider.notifier).state.type,
+        currency: ref.read(currentFiatProvider.notifier).state,
+        amount: double.parse(amountController.text),
+      ).then((value) => {
+        popPage(context),
+        launchInBrowser(value.redirectUrl),
+      });
+    }
+  }
+
+  bool checkAmount() {
+    if(double.parse(amountController.text)
+        < ref.read(currentPayTypeProvider.notifier).state.startPrice
+        || double.parse(amountController.text)
+            > ref.read(currentPayTypeProvider.notifier).state.endPrice){
+      errorHint = true;
+      onViewChange();
+      return false;
+    }
+    errorHint = false;
+    onViewChange();
+    return true;
   }
 
 }
