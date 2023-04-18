@@ -50,6 +50,8 @@ class OrderMessageListResponseData {
     this.itemPrice = 0,
     this.reward = 0,
     this.medalName = "",
+    this.currency = "",
+    this.usdtAmount = 0.00,
   });
 
   String orderNo;
@@ -90,6 +92,9 @@ class OrderMessageListResponseData {
   num itemPrice;
   num reward;
 
+  String currency;
+  double usdtAmount;
+
   factory OrderMessageListResponseData.fromJson(Map<String, dynamic> json) =>
       OrderMessageListResponseData(
         orderNo: json["orderNo"] ?? '',
@@ -128,6 +133,8 @@ class OrderMessageListResponseData {
         itemPrice: json["itemPrice"] ?? 0,
         reward: json["reward"] ?? 0,
         medalName: json["medalName"] ?? "",
+        currency: json["currency"] ?? "",
+        usdtAmount: json["usdtAmount"] ?? 0.00,
       );
 
   Map<String, dynamic> toJson() => {
@@ -167,6 +174,8 @@ class OrderMessageListResponseData {
         "itemPrice": itemPrice,
         "reward": reward,
         "medalName": medalName,
+        "currency": currency,
+        "usdtAmount": usdtAmount,
       };
 
   TreasureBoxRecord changeBoxRecord() {

@@ -1351,11 +1351,15 @@
   "less":"น้อย",
   "appSetAvatar":"ตั้งรูปโปรไฟล์",
   "appMyMedal":"ป้ายของฉัน",
-  "fiatCurrencyRecharge": "ชาร์จสกุลเงิน fiat",
   "selectCurrency": "กรุณาเลือกสกุลเงิน",
   "chooseAPaymentMethod": "โปรดเลือกวิธีการชำระเงิน",
+  "currency":"สกุลเงิน",
+  "getUsdt":"รับ USDT",
+  "fiatCurrencyRecharge":"ฝากเป็นสกุลเงินคำสั่ง",
   "purchasingPrice":"จำนวน",
   "maximum":"ขีดสุด",
   "minimum":"ขั้นต่ำสุด",
-  "available":"สามารถรับได้"
+  "available":"สามารถรับได้",
+  "placeholder-coin":"กรุณาเลือกสกุลเงิน",
+  "rechargeUSDT-frenchCurrency":"ฝาก USDT (สกุลเงินคำสั่ง)"
 }

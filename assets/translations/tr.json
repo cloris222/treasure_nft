@@ -1351,11 +1351,15 @@
   "less":"az",
   "appSetAvatar":"Profil resmi ayarlayın",
   "appMyMedal":"Rozetlerim",
-  "fiatCurrencyRecharge": "Fiat Para Birimi Şarjı",
   "selectCurrency": "Lütfen para birimini seçin",
   "chooseAPaymentMethod": "Lütfen bir ödeme yöntemi seçin",
+  "currency":"Para birimi",
+  "getUsdt":"USDT al",
+  "fiatCurrencyRecharge":"Fiat para biriminde yatırma",
   "purchasingPrice":"Miktar",
   "maximum":"Maksimum",
   "minimum":"Minimum",
-  "available":"Teslim alabilmek"
+  "available":"Teslim alabilmek",
+  "placeholder-coin":"Lütfen para birimini seçin",
+  "rechargeUSDT-frenchCurrency":"Depozito USDT (Fiat Para Birimi)"
 }

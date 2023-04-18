@@ -145,7 +145,7 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
             needBackgroundOpacity: true,
             initIndex: currentFiatIndex,
             needShowEmpty: false,
-            hintSelect: tr("selectCurrency"),
+            hintSelect: tr("placeholder-coin"),
             listLength: fiatList.length,
             itemString: (int index, bool needArrow) => fiatList[index],
             onChanged: (index) {

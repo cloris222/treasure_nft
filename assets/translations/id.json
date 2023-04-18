@@ -1351,11 +1351,15 @@
   "less":"lebih sedikit",
   "appSetAvatar":"Atur gambar profil",
   "appMyMedal":"Lencana saya",
-  "fiatCurrencyRecharge": "Pengisian ulang mata uang fiat",
   "selectCurrency": "Pilih Mata Uang",
   "chooseAPaymentMethod": "Pilih metode pembayaran",
+  "currency":"Mata uang",
+  "getUsdt":"Dapatkan USDT",
+  "fiatCurrencyRecharge":"Setoran dalam mata uang fiat",
   "purchasingPrice":"Jumlah",
   "maximum":"Maksimum",
   "minimum":"Minimum",
-  "available":"Dapat menerima"
+  "available":"Dapat menerima",
+  "placeholder-coin":"Pilih Mata Uang",
+  "rechargeUSDT-frenchCurrency":"Setor USDT (mata uang fiat)"
 }

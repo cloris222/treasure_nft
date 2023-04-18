@@ -78,6 +78,7 @@ class BalanceRecordItemView extends StatelessWidget {
   /// ACTIVITY_AWARD(活動獎勵)
   /// EXPERIENCE_ADD(體驗金增加)
   /// EXPERIENCE_RECYCLE(體驗金回收)
+  /// FLAT(法幣充值)
   String _getTitle() {
     if (data.type == 'ACTIVITY_AWARD') {
       return tr('ACTIVITY_AWARD');
@@ -90,6 +91,8 @@ class BalanceRecordItemView extends StatelessWidget {
     }
 
     switch (data.type) {
+      case 'FLAT':
+        return tr("fiatCurrencyRecharge");
       case 'BSC':
         return bDeposit ? tr("rechargeUSDT-BSC'") : tr("depositUSDT-BSC'");
       case 'TRON':

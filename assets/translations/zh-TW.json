@@ -1351,11 +1351,15 @@
   "less":"更少",
   "appSetAvatar":"設置頭像",
   "appMyMedal":"我的徽章",
-  "fiatCurrencyRecharge": "法幣充值",
   "selectCurrency": "請選擇幣種",
   "chooseAPaymentMethod": "請選擇付款方式",
+  "currency":"幣種",
+  "getUsdt":"獲得USDT",
+  "fiatCurrencyRecharge":"法幣充值",
   "purchasingPrice":"購買金額",
   "maximum":"最大",
   "minimum":"最小",
-  "available":"可獲得"
+  "available":"可獲得",
+  "placeholder-coin":"請選擇幣種",
+  "rechargeUSDT-frenchCurrency":"充值USDT(法幣)"
 }
