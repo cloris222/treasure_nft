@@ -1351,11 +1351,15 @@
   "less":"menos",
   "appSetAvatar":"Establecer una foto de perfil",
   "appMyMedal":"Mis insignias",
-  "fiatCurrencyRecharge": "Recarga de moneda fiduciaria",
   "selectCurrency": "Seleccione la moneda",
   "chooseAPaymentMethod": "Elija un método de pago",
+  "currency":"Divisa",
+  "getUsdt":"Obtener USDT",
+  "fiatCurrencyRecharge":"Depositar en moneda fiduciaria",
   "purchasingPrice":"Cantidad",
   "maximum":"Máximo",
   "minimum":"Mínimo",
-  "available":"Puede recibir"
+  "available":"Puede recibir",
+  "placeholder-coin":"Seleccione la moneda",
+  "rechargeUSDT-frenchCurrency":"Deposite USDT (moneda fiat)"
 }

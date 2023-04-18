@@ -1351,11 +1351,15 @@
   "less":"меньше",
   "appSetAvatar":"Установите изображение профиля",
   "appMyMedal":"Мои значки",
-  "fiatCurrencyRecharge": "Fiat Currency Recharge",
   "selectCurrency": "Пожалуйста, выберите валюту",
   "chooseAPaymentMethod": "Пожалуйста, выберите способ оплаты",
+  "currency":"Валюта",
+  "getUsdt":"Получить USDT",
+  "fiatCurrencyRecharge":"Депозит в фиатной валюте",
   "purchasingPrice":"Количество",
   "maximum":"Максимум",
   "minimum":"Минимум",
-  "available":"Может получить"
+  "available":"Может получить",
+  "placeholder-coin":"Пожалуйста, выберите валюту",
+  "rechargeUSDT-frenchCurrency":"Депонировать USDT (Fiat Vurrance)"
 }

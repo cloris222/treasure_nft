@@ -1351,11 +1351,15 @@
   "less":"kurang",
   "appSetAvatar":"Tetapkan gambar profil",
   "appMyMedal":"Lencana saya",
-  "fiatCurrencyRecharge": "Fiat Mata Wang Recharge",
   "selectCurrency": "Sila pilih mata wang",
   "chooseAPaymentMethod": "Sila pilih kaedah pembayaran",
+  "currency":"Mata wang",
+  "getUsdt":"Dapatkan USDT",
+  "fiatCurrencyRecharge":"Deposit dalam mata wang fiat",
   "purchasingPrice":"Jumlah",
   "maximum":"Maksimum",
   "minimum":"Minimum",
-  "available":"Boleh menerima"
+  "available":"Boleh menerima",
+  "placeholder-coin":"Sila pilih mata wang",
+  "rechargeUSDT-frenchCurrency":"Deposit USDT (Mata Wang Fiat)"
 }

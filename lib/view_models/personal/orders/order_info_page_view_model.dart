@@ -368,11 +368,25 @@ class OrderInfoPageViewModel extends BaseViewModel {
       dataList.add(data);
     }
 
+    if (resData.type == 'FLAT') {
+      data = CardShowingData();
+      data.title = tr('currency');
+      data.content = resData.currency;
+      dataList.add(data);
+    }
+
     data = CardShowingData();
     data.title = tr('amount');
     data.content = resData.amount.toString();
     data.bPrice = true;
     dataList.add(data);
+
+    if (resData.type == 'FLAT') {
+      data = CardShowingData();
+      data.title = tr('getUsdt');
+      data.content = resData.usdtAmount.toString();
+      dataList.add(data);
+    }
 
     return dataList;
   }

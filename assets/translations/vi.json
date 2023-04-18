@@ -1351,11 +1351,15 @@
   "less":"ít hơn",
   "appSetAvatar":"Đặt hình ảnh hồ sơ",
   "appMyMedal":"Huy hiệu của tôi",
-  "fiatCurrencyRecharge": "Tái sạc tiền tệ fiat",
   "selectCurrency": "Vui lòng chọn tiền tệ",
   "chooseAPaymentMethod": "Vui lòng chọn phương thức thanh toán",
+  "currency":"Tiền tệ",
+  "getUsdt":"Nhận USDT",
+  "fiatCurrencyRecharge":"Gửi tiền bằng tiền tệ fiat",
   "purchasingPrice":"Số lượng",
   "maximum":"Tối đa",
   "minimum":"Tối thiểu",
-  "available":"Có thể nhận"
+  "available":"Có thể nhận",
+  "placeholder-coin":"Vui lòng chọn tiền tệ",
+  "rechargeUSDT-frenchCurrency":"Gửi USDT (tiền tệ fiat)"
 }

@@ -1351,11 +1351,14 @@
   "less":"less",
   "appSetAvatar":"Set profile picture",
   "appMyMedal":"My badges",
-  "fiatCurrencyRecharge": "Fiat Currency Recharge",
-  "selectCurrency": "Please select currency",
   "chooseAPaymentMethod": "Please choose a payment method",
+  "currency":"Currency",
+  "getUsdt":"Get USDT",
+  "fiatCurrencyRecharge":"Deposit in fiat currency",
   "purchasingPrice":"Amount",
   "maximum":"Maximum",
   "minimum":"Minimum",
-  "available":"Can receive"
+  "available":"Can receive",
+  "placeholder-coin":"Please select currency",
+  "rechargeUSDT-frenchCurrency":"Deposit USDT (fiat currency)"
 }

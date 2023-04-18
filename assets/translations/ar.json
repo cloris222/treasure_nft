@@ -1351,11 +1351,15 @@
   "less":"أقل",
   "appSetAvatar":"اضبط صورة الملف الشخصي",
   "appMyMedal":"شاراتي",
-  "fiatCurrencyRecharge": "إعادة شحن العملة فيات",
   "selectCurrency": "الرجاء اختيار العملة",
   "chooseAPaymentMethod": "الرجاء اختيار طريقة الدفع",
+  "currency":"عملة",
+  "getUsdt":"احصل على USDT",
+  "fiatCurrencyRecharge":"الإيداع بالعملة فيات",
   "purchasingPrice":"كمية",
   "maximum":"أقصى",
   "minimum":"الحد الأدنى",
-  "available":"ويمكن الحصول على"
+  "available":"ويمكن الحصول على",
+  "placeholder-coin":"الرجاء اختيار العملة",
+  "rechargeUSDT-frenchCurrency":"إيداع USDT (عملة فيات)"
 }

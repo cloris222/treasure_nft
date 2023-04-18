@@ -1351,11 +1351,15 @@
   "less":"کمتر",
   "appSetAvatar":"عکس پروفایل را تنظیم کنید",
   "appMyMedal":"نشان های من",
-  "fiatCurrencyRecharge": "شارژ مجدد ارز فیات",
   "selectCurrency": "لطفا ارز را انتخاب کنید",
   "chooseAPaymentMethod": "لطفا یک روش پرداخت را انتخاب کنید",
+  "currency":"واحد پول",
+  "getUsdt":"USDT دریافت کنید",
+  "fiatCurrencyRecharge":"واریز در ارز فیات",
   "purchasingPrice":"میزان",
   "maximum":"بیشترین",
   "minimum":"کمترین",
-  "available":"می تواند دریافت کند"
+  "available":"می تواند دریافت کند",
+  "placeholder-coin":"لطفا ارز را انتخاب کنید",
+  "rechargeUSDT-frenchCurrency":"سپرده USDT (ارز فیات)"
 }
