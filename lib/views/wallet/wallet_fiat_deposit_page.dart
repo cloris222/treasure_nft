@@ -65,12 +65,19 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
                         Padding(
                           padding: EdgeInsets.symmetric(
                               vertical: UIDefine.getPixelWidth(20)),
-                          child: _buildBackground(child: _buildBody(context)),
+                          child: _buildBackground(child: _buildBody(context, false)),
                         ),
+
                         Positioned(
                             top: -10,
                             right: -1,
                             child: Image.asset(AppImagePath.walletDepositDollar)),
+
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: UIDefine.getPixelWidth(20)),
+                          child: _buildBody(context, true),
+                        )
                       ],
                     ),
                   ),
@@ -92,21 +99,29 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
               image: DecorationImage(
                   image: AssetImage(AppImagePath.backgroundDeposit),
                   fit: BoxFit.cover)),
-          padding: EdgeInsets.all(UIDefine.getPixelWidth(20)),
           child: child,
         ),
       ),
     );
   }
 
-  Widget _buildBody(BuildContext context) {
-    return Column(
+  Widget _buildBody(BuildContext context, bool vis) {
+    return Visibility(
+        visible: vis,
+        maintainState: true,
+        maintainAnimation: true,
+        maintainSize: true,
+        child:Container(
+        width: UIDefine.getWidth(),
+    margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(25)),
+    padding: EdgeInsets.all(UIDefine.getPixelWidth(20)),
+    child:Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
             margin: EdgeInsets.all(UIDefine.getPixelWidth(18)),
-            padding: EdgeInsets.only(right: UIDefine.getPixelWidth(100)),
+            padding: EdgeInsets.only(right: UIDefine.getPixelWidth(60)),
             child: Text(
               tr("fiatCurrencyRecharge"),
               style: AppTextStyle.getBaseStyle(
@@ -115,16 +130,16 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
         _buildContext(),
         _buildButton(),
       ],
-    );
+    )));
   }
 
   Widget _buildContext() {
     return Container(
-        margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(10)),
+        margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(1)),
         padding: EdgeInsets.symmetric(
-            vertical: UIDefine.getPixelWidth(15),
+            vertical:  UIDefine.getPixelWidth(10),
             horizontal: UIDefine.getPixelWidth(20)),
-        constraints: BoxConstraints(maxHeight: UIDefine.getPixelWidth(400)),//內容高
+        constraints: BoxConstraints(maxHeight: UIDefine.getPixelWidth(365)),//內容高
         width: UIDefine.getWidth(),
         child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -263,25 +278,30 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
   }
 
   Widget _buildButton() {
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(child:
-          LoginBolderButtonWidget(
-            btnText: tr("cancel"),
-            onPressed: () => viewModel.popPage(context),
-            isFillWidth: false,
-            fontWeight: FontWeight.w600,
-          )),
+    return Container(
+        margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelHeight(5)),
+        child:Row(
+            children: [
+              Expanded(child:
+              LoginBolderButtonWidget(
+                btnText: tr("cancel"),
+                onPressed: () => viewModel.popPage(context),
+                isFillWidth: false,
+                fontWeight: FontWeight.w600,
+                fontSize: UIDefine.fontSize14,
+              )),
 
-          Expanded(child:
-          LoginButtonWidget(
-            btnText: tr("confirm"),
-            onPressed: () => viewModel.onPressConfirm(),
-            isFillWidth: false,
-          ))
+              Expanded(child:
+              LoginButtonWidget(
+                btnText: tr("confirm"),
+                onPressed: () => viewModel.onPressConfirm(),
+                isFillWidth: false,
+                fontWeight: FontWeight.w600,
+                fontSize: UIDefine.fontSize14,
+              ))
 
-        ]);
+            ])
+    );
   }
 
 
