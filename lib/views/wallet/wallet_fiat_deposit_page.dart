@@ -191,6 +191,7 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
                       color: AppColors.textBlack))),
 
           LoginTextWidget(
+              bLimitDecimalLength:true,
               initColor:Colors.white.withOpacity(0.5),
               hintText: tr("mintAmount-placeholder'"),
               controller: viewModel.amountController,

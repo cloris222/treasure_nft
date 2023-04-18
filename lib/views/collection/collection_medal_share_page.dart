@@ -238,9 +238,11 @@ class _CollectionMedalSharePageState
             ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: GraduallyNetworkImage(
+                  showNormal: true,
                   imageUrl: widget.medal,
                   width: UIDefine.getPixelWidth(130),
                   height: UIDefine.getPixelWidth(130),
+                  cacheWidth: 150,
                   fit: BoxFit.cover,
                 )),
           ],
