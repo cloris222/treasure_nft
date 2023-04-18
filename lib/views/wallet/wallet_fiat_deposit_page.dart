@@ -139,7 +139,7 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
         padding: EdgeInsets.symmetric(
             vertical:  UIDefine.getPixelWidth(10),
             horizontal: UIDefine.getPixelWidth(20)),
-        constraints: BoxConstraints(maxHeight: UIDefine.getPixelWidth(365)),//內容高
+        constraints: BoxConstraints(maxHeight: UIDefine.getPixelWidth(380)),//內容高
         width: UIDefine.getWidth(),
         child: Column(
             mainAxisSize: MainAxisSize.max,
