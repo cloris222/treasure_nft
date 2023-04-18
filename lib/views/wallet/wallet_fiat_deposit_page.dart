@@ -28,9 +28,9 @@ class FiatDepositPage extends ConsumerStatefulWidget {
 
 class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
   late WalletFiatDepositViewModel viewModel;
-  int? get currentFiatIndex => ref.read(fiatCurrentIndexProvider);
-  int? get currentPayTypeIndex => ref.read(payTypeCurrentIndexProvider);
-  List<String> get fiatList => ref.read(walletFiatTypeProvider) ?? [];
+  int? get currentFiatIndex => ref.watch(fiatCurrentIndexProvider);
+  int? get currentPayTypeIndex => ref.watch(payTypeCurrentIndexProvider);
+  List<String> get fiatList => ref.watch(walletFiatTypeProvider) ?? [];
   List<PayTypeData> get payTypeList => ref.watch(walletPayTypeProvider) ?? [];
 
   @override

@@ -80,7 +80,8 @@ class _WalletMainViewState extends ConsumerState<WalletMainView> {
               children: [
                 _buildWalletAddress(),
                 _buildWalletFunction(),
-                _buildDepositButton(),
+                Visibility(
+                    visible: Platform.isAndroid, child: _buildDepositButton()),
                 _buildWalletHistory(),
               ],
             ),
@@ -256,12 +257,13 @@ class _WalletMainViewState extends ConsumerState<WalletMainView> {
     );
   }
 
-  Widget _buildDepositButton () {
+  Widget _buildDepositButton() {
     return LoginButtonWidget(
       radius: 25,
       showIcon: true,
       btnText: tr("fiatCurrencyRecharge"),
-      onPressed: () => viewModel.pushOpacityPage(context, const FiatDepositPage()),
+      onPressed: () =>
+          viewModel.pushOpacityPage(context, const FiatDepositPage()),
     );
   }
 
@@ -310,7 +312,8 @@ class _WalletMainViewState extends ConsumerState<WalletMainView> {
             style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500)),
         Flexible(child: Container()),
-        Text(NumberFormatUtil().removeTwoPointFormat(userProperty?.getBalance()),
+        Text(
+            NumberFormatUtil().removeTwoPointFormat(userProperty?.getBalance()),
             style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize16, fontWeight: FontWeight.w500))
       ])
