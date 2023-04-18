@@ -135,11 +135,9 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
 
   Widget _buildContext() {
     return Container(
-        margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(1)),
         padding: EdgeInsets.symmetric(
-            vertical:  UIDefine.getPixelWidth(10),
             horizontal: UIDefine.getPixelWidth(20)),
-        constraints: BoxConstraints(maxHeight: UIDefine.getPixelWidth(380)),//內容高
+        constraints: BoxConstraints(maxHeight: UIDefine.getPixelWidth(365)),//內容高
         width: UIDefine.getWidth(),
         child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -216,7 +214,7 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
           ),
 
           Container(
-              padding: EdgeInsets.only(bottom: UIDefine.getPixelWidth(10)),
+              padding: EdgeInsets.only(bottom: UIDefine.getPixelWidth(5)),
               child:Visibility(
                   visible: viewModel.errorHint,
                   child: Text(tr("amountRangeError"),
@@ -231,7 +229,7 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
 
   Widget _buildMinMaxButton(){
     return Container(
-      margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(10)),
+      margin: EdgeInsets.only(bottom: UIDefine.getPixelHeight(5)),
       child:Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
