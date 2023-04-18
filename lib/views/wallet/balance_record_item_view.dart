@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/extension/num_extension.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
@@ -115,7 +116,7 @@ class BalanceRecordItemView extends StatelessWidget {
 
   String _getAmount() {
     if (data.amount > 0) {
-      return '+${data.amount}';
+      return '+${data.amount.removeTwoPointFormat}';
     }
     return data.amount.toString();
   }

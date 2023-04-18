@@ -385,6 +385,7 @@ class OrderInfoPageViewModel extends BaseViewModel {
       data = CardShowingData();
       data.title = tr('getUsdt');
       data.content = resData.usdtAmount.toString();
+      data.bPrice = true;
       dataList.add(data);
     }
 
