@@ -194,7 +194,7 @@ class _AirdropOpenPageState extends State<AirdropOpenPage>
       child: Center(
         child: Image.asset(
           format(AppImagePath.airdropBox,
-              {"level": 0, "status": BoxStatus.opened.name}),
+              {"level": widget.level, "status": BoxStatus.opened.name}),
           height: UIDefine.getPixelWidth(250),
           fit: BoxFit.fitHeight,
         ),

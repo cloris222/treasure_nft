@@ -29,7 +29,7 @@ class AirdropCommonView {
     } else {
       ///預設顯示下一階段寶箱
       ref.read(airdropLevelBoxIndexProvider(currentTag).notifier).state =
-          currentLevel + 1;
+          currentLevel;
     }
   }
 
@@ -153,7 +153,7 @@ class AirdropCommonView {
             ],
           );
         },
-        itemHeight: UIDefine.getPixelWidth(140),
+        itemHeight: UIDefine.getPixelWidth(150),
         needBorderBackground: false,
         dropdownWidth: UIDefine.getWidth() * 0.87,
         initIndex: 0,

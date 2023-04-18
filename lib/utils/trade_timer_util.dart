@@ -177,18 +177,23 @@ class TradeTimerUtil {
   }
 
   void _setTime(CheckReservationInfo reservationInfo) {
+    ///MARK: 系統目前日期
+    if (reservationInfo.systemDate.isEmpty) {
+      reservationInfo.systemDate = DateFormatUtil().getNowTimeWithDayFormat();
+    }
+
     ///MARK: 加入系統預約日期判斷
     if (reservationInfo.reserveStartDate.isEmpty) {
-      reservationInfo.reserveStartDate = DateFormatUtil().getNowTimeWithDayFormat();
+      reservationInfo.reserveStartDate = reservationInfo.systemDate;
     }
 
     if (reservationInfo.reserveEndDate.isEmpty) {
-      reservationInfo.reserveEndDate = DateFormatUtil().getNowTimeWithDayFormat();
+      reservationInfo.reserveEndDate = reservationInfo.systemDate;
     }
 
     /// 現在時間（系統時間）
     _dateCurrentTime = DateTime.parse(
-        '${DateFormatUtil().getNowTimeWithDayFormat()} ${reservationInfo.systemTime}');
+        '${reservationInfo.systemDate} ${reservationInfo.systemTime}');
 
     /// 預約日期＋預約時間 就是sellDate
     /// 開始預約時間(系統)

@@ -66,25 +66,6 @@ class AirdropLevelRecordNotifier extends StateNotifier<List<AirdropBoxInfo>>
   }
 
   void openBox(BuildContext context, String orderNo, WidgetRef ref) {
-    // AirdropBoxReward reward = AirdropBoxReward(
-    //     type: 'TREASURE_BOX',
-    //     orderNo: '',
-    //     createdAt: '',
-    //     updatedAt: '',
-    //     boxType: "RESERVE_BOX",
-    //     rewardType: AirdropRewardType.ALL.name,
-    //     medal: "https://devimage-dan.treasurenft.xyz/CoolAPE/CoolAPE_9978.png",
-    //     medalName: "030",
-    //     itemName: "CoolAPE_9978",
-    //     itemPrice: 83.1,
-    //     imgUrl: "https://devimage-dan.treasurenft.xyz/CoolAPE/CoolAPE_9978.png",
-    //     reward: 200,
-    //     status: "OPENED");
-    //
-    // BaseViewModel()
-    //     .pushPage(context, AirdropOpenPage(level: 5, reward: reward));
-    // return ;
-
     AirdropBoxAPI().openAirdropBox(orderNo).then((list) {
       if (list.isNotEmpty) {
         BaseViewModel().pushPage(

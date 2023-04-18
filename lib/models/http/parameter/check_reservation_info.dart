@@ -18,6 +18,7 @@ class CheckReservationInfo {
     required this.systemStartTime,
     required this.systemEndTime,
     required this.systemTime,
+    required this.systemDate,
     required this.sellDate,
     required this.systemZone,
     required this.zone,
@@ -40,7 +41,12 @@ class CheckReservationInfo {
   String localTime;
   String systemStartTime;
   String systemEndTime;
+
+  ///系統目前時間
   String systemTime;
+
+  ///系統目前日期
+  String systemDate;
   String sellDate;
   String systemZone;
   String zone;
@@ -84,6 +90,7 @@ class CheckReservationInfo {
         systemStartTime: json["systemStartTime"],
         systemEndTime: json["systemEndTime"],
         systemTime: json["systemTime"],
+        systemDate: json["systemDate"] ?? "",
         sellDate: json["sellDate"] ?? "",
         systemZone: json["systemZone"],
         zone: json["zone"],
@@ -109,6 +116,7 @@ class CheckReservationInfo {
         "systemStartTime": systemStartTime,
         "systemEndTime": systemEndTime,
         "systemTime": systemTime,
+        "systemDate": systemDate,
         "sellDate": sellDate,
         "systemZone": systemZone,
         "zone": zone,

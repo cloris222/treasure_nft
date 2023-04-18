@@ -63,7 +63,7 @@ class _AirdropMainPageState extends ConsumerState<AirdropMainPage>
     }
 
     Future.delayed(const Duration(milliseconds: 300))
-        .then((value) => onChangeIndex(ref, initLevel));
+        .then((value) => onChangeIndex(ref, initLevel+1));
   }
 
   void initDailyProvider() {
