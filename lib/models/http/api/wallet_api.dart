@@ -1,9 +1,14 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/models/http/http_manager.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../../constant/enum/coin_enum.dart';
+import '../../../view_models/wallet/wallet_fiat_deposit_viewmodel.dart';
 import '../../../views/wallet/data/BalanceRecordResponseData.dart';
 import '../../../views/wallet/data/deposit_response_data.dart';
 import '../../../views/wallet/data/pay_type_data.dart';
+import '../../../widgets/dialog/common_custom_dialog.dart';
 import '../parameter/api_response.dart';
 import '../parameter/payment_info.dart';
 import '../parameter/withdraw_alert_info.dart';

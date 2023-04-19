@@ -1362,6 +1362,7 @@
   "available":"Dapat menerima",
   "placeholder-coin":"Pilih Mata Uang",
   "rechargeUSDT-frenchCurrency":"Setor USDT (mata uang fiat)",
-  "amountRangeError": "Harap masukkan jumlah dalam kisaran"
-
+  "amountRangeError": "Harap masukkan jumlah dalam kisaran",
+  "APP_0094":"Anda memiliki banyak pesanan yang sedang berlangsung. Silakan coba lagi nanti.",
+  "applicationFailed":"Aplikasi gagal"
 }

@@ -1362,6 +1362,7 @@
   "available":"Puede recibir",
   "placeholder-coin":"Seleccione la moneda",
   "rechargeUSDT-frenchCurrency":"Deposite USDT (moneda fiat)",
-  "amountRangeError": "Ingrese la cantidad dentro del rango"
-
+  "amountRangeError": "Ingrese la cantidad dentro del rango",
+  "APP_0094":"Tienes múltiples pedidos en progreso. Por favor, inténtelo de nuevo más tarde.",
+  "applicationFailed":"Falló la aplicación"
 }

@@ -1362,6 +1362,7 @@
   "available":"Teslim alabilmek",
   "placeholder-coin":"Lütfen para birimini seçin",
   "rechargeUSDT-frenchCurrency":"Depozito USDT (Fiat Para Birimi)",
-  "amountRangeError": "Lütfen miktarı aralık içindeki girin"
-
+  "amountRangeError": "Lütfen miktarı aralık içindeki girin",
+  "APP_0094":"Devam eden birden fazla siparişiniz var. Lütfen daha sonra tekrar deneyiniz.",
+  "applicationFailed":"Uygulama başarısız oldu"
 }

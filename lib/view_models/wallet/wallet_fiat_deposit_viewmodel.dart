@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/models/http/api/wallet_api.dart';
 import 'package:treasure_nft_project/view_models/wallet/wallet_fiat_currency_provider.dart';
 import 'package:treasure_nft_project/view_models/wallet/wallet_pay_type_provider.dart';
 import '../../constant/call_back_function.dart';
+import '../../widgets/dialog/common_custom_dialog.dart';
 import '../base_view_model.dart';
 
 
@@ -49,7 +51,7 @@ class WalletFiatDepositViewModel extends BaseViewModel {
         2).toString();
   }
 
-  void onPressConfirm() async{
+  void onPressConfirm() async {
     if (checkAmount()) {
       await WalletAPI().depositCurrency(
         payType: ref.read(currentPayTypeProvider.notifier).state.type,

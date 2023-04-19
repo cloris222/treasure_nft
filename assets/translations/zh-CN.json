@@ -1362,6 +1362,7 @@
   "available":"可获得",
   "placeholder-coin":"请选择币种",
   "rechargeUSDT-frenchCurrency":"充值USDT(法币)",
-  "amountRangeError": "请输入范围内金额"
-
+  "amountRangeError": "请输入范围内金额",
+  "APP_0094":"您有多笔订单正在处理中，请稍后再次申请。",
+  "applicationFailed":"申请失败"
 }

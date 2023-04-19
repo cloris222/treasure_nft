@@ -1362,6 +1362,7 @@
   "available":"Có thể nhận",
   "placeholder-coin":"Vui lòng chọn tiền tệ",
   "rechargeUSDT-frenchCurrency":"Gửi USDT (tiền tệ fiat)",
-  "amountRangeError": "Vui lòng nhập số tiền trong phạm vi"
-
+  "amountRangeError": "Vui lòng nhập số tiền trong phạm vi",
+  "APP_0094":"Bạn có nhiều đơn đặt hàng đang được tiến hành. Vui lòng thử lại sau.",
+  "applicationFailed":"Ứng dụng không thành công"
 }

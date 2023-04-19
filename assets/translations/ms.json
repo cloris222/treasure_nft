@@ -1362,6 +1362,7 @@
   "available":"Boleh menerima",
   "placeholder-coin":"Sila pilih mata wang",
   "rechargeUSDT-frenchCurrency":"Deposit USDT (Mata Wang Fiat)",
-  "amountRangeError": "Sila masukkan jumlah dalam julat"
-
+  "amountRangeError": "Sila masukkan jumlah dalam julat",
+  "APP_0094":"Anda mempunyai banyak pesanan yang sedang berjalan. Sila cuba sebentar lagi.",
+  "applicationFailed":"Permohonan gagal"
 }

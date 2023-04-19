@@ -1361,5 +1361,7 @@
   "available":"Can receive",
   "placeholder-coin":"Please select currency",
   "rechargeUSDT-frenchCurrency":"Deposit USDT (fiat currency)",
-  "amountRangeError": "Please enter the amount within the range"
+  "amountRangeError": "Please enter the amount within the range",
+  "APP_0094":"You have multiple orders in progress. Please try again later.",
+  "applicationFailed":"Application failed"
 }

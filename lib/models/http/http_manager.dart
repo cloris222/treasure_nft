@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
@@ -8,6 +9,7 @@ import '../../constant/call_back_function.dart';
 import '../../constant/global_data.dart';
 import '../../utils/language_util.dart';
 import '../../utils/rsa_util.dart';
+import '../../widgets/dialog/common_custom_dialog.dart';
 import 'http_exceptions.dart';
 import 'http_setting.dart';
 import 'parameter/api_response.dart';
@@ -63,6 +65,14 @@ class HttpManager {
       BaseViewModel().clearUserLoginInfo();
       BaseViewModel().globalPushAndRemoveUntil(
           const MainPage(type: AppNavigationBarType.typeLogin));
+    } else if (result.code == "APP_0094"){
+      BaseViewModel().showFailDialog(
+          DialogImageType.fail,
+          tr("applicationFailed"),
+          tr("APP_0094"),
+          tr('confirm'),
+              () => Navigator.pop(BaseViewModel().getGlobalContext())
+      );
     }
 
     ///MARK: 檢查結果 有異常時 直接拋出錯誤

@@ -574,4 +574,16 @@ class BaseViewModel with ControlRouterViewModel {
     BaseViewModel()
         .pushPage(context, AirdropOpenPage(level: 0, reward: reward));
   }
+
+  void showFailDialog(DialogImageType type, String title, String content,
+      String rightBtnText,  Function click) {
+    CommonCustomDialog(getGlobalContext(),
+        type: type,
+        title: title,
+        content: content,
+        rightBtnText: '   $rightBtnText   ',
+        onLeftPress: () {},
+        onRightPress: click
+    ).show();
+  }
 }
