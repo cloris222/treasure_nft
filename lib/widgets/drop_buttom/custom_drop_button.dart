@@ -86,8 +86,7 @@ class _CustomDropButtonState extends State<CustomDropButton> {
                   ? AppColors.textWhite.withOpacity(0.5)
                   : AppColors.textWhite,
               radius: 8,
-              borderLine: 1
-            )
+              borderLine: 1)
           : null,
       padding: EdgeInsets.symmetric(
           horizontal: UIDefine.getPixelWidth(10),
@@ -167,7 +166,6 @@ class _CustomDropButtonState extends State<CustomDropButton> {
     } else {
       itemContext = _getItemString(index, needArrow);
     }
-
     return Container(
       alignment: Alignment.centerLeft,
       height: widget.height ?? UIDefine.getPixelWidth(40),
@@ -175,7 +173,8 @@ class _CustomDropButtonState extends State<CustomDropButton> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          widget.itemIcon != null && index >= 0
+          ///MARK: 未選擇時 index=-1
+          widget.itemIcon != null && widget.listLength > 0 && index >= 0
               ? Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: UIDefine.getPixelWidth(5)),
