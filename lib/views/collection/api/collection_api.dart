@@ -89,7 +89,7 @@ class CollectionApi extends HttpManager {
       ApiResponse response = await get('/order/message-list', queryParameters: {
         'page': page,
         'size': size,
-        'type': OrderInfoType.TREASURE_BOX.name,
+        'type': "TREASURE_BOX",
         'startTime': '',
         'endTime': ''
       });

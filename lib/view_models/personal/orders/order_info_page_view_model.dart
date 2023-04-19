@@ -243,8 +243,8 @@ class OrderInfoPageViewModel extends BaseViewModel {
             imageUrl: data.imgUrl,
             price: '',
             dataList: _depositAndTransferNFTContent(data));
-      case OrderInfoType.TREASURE_BOX:
-        return TreasureBoxCard(record: data.changeBoxRecord());
+      // case OrderInfoType.TREASURE_BOX:
+      //   return TreasureBoxCard(record: data.changeBoxRecord());
     }
   }
 

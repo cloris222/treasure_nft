@@ -75,8 +75,8 @@ class OrderInfoSelectorDropDownBar extends StatelessWidget {
         return tr('depositNFT');
       case OrderInfoType.TRANSFER_NFT:
         return tr('transferOut');
-      case OrderInfoType.TREASURE_BOX:
-        return tr("appTypeAirdrop");
+      // case OrderInfoType.TREASURE_BOX:
+      //   return tr("appTypeAirdrop");
     }
   }
 }

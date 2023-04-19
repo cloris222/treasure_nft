@@ -31,5 +31,5 @@ enum OrderInfoType {
   TRANSFER_NFT,
 
   /// 寶箱
-  TREASURE_BOX,
+  // TREASURE_BOX,
 }

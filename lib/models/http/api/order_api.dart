@@ -81,14 +81,15 @@ class OrderAPI extends HttpManager {
       for (Map<String, dynamic> json in response.data['pageList']) {
         OrderMessageListResponseData data =
             OrderMessageListResponseData.fromJson(json);
-        /// 只顯示已開過的寶箱
-        if (type == OrderInfoType.TREASURE_BOX) {
-          if (data.status == "OPENED") {
-            result.add(data);
-          }
-        } else {
-          result.add(data);
-        }
+        ///TODO: 只顯示已開過的寶箱
+        // if (type == OrderInfoType.TREASURE_BOX) {
+        //   if (data.status == "OPENED") {
+        //     result.add(data);
+        //   }
+        // } else {
+        //   result.add(data);
+        // }
+        result.add(data);
       }
     } catch (e) {
       GlobalData.printLog(e.toString());

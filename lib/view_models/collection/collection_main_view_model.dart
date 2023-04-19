@@ -73,8 +73,8 @@ class CollectionMainViewModel extends BaseViewModel {
         return tr('tab_unsell');
       case CollectionTag.Ticket:
         return tr('myTicket');
-      case CollectionTag.Medal:
-        return tr("appMedal");
+      // case CollectionTag.Medal:
+      //   return tr("appMedal");
     }
   }
 

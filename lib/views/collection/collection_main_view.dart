@@ -80,8 +80,8 @@ class _CollectionMainView extends State<CollectionMainView> {
           return const CollectionSellingListView();
         case CollectionTag.Ticket:
           return const CollectionTicketListView();
-        case CollectionTag.Medal:
-          return const CollectionMedalListView();
+        // case CollectionTag.Medal:
+        //   return const CollectionMedalListView();
       }
     });
   }
