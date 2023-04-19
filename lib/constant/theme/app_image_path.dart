@@ -155,6 +155,8 @@ class AppImagePath {
   static const String walletSettingIcon = '$_btnPath/btn_setting_01.png';
   static const String walletLogIcon = '$_btnPath/btn_receipt_01.png';
   static const String walletDepositDollar = '$_imgPath/img_dollar_01.png';
+  static const String walletFiatIcon = '$_iconPath/icon_{fiat}_01.png';
+  static const String walletPayTypeIcon = '$_iconPath/icon_{payType}_01.png';
 
   ///等級
   static const String blueCheckIcon = '$_iconPath/icon_check_ok_02.png';

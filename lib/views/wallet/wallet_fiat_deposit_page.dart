@@ -155,6 +155,7 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
     return Container(
         padding: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(10)),
         child:CustomDropButton(
+            itemIcon: (index) => viewModel.getFiatItemIcon(fiatList[index]),
             needBackgroundOpacity: true,
             initIndex: currentFiatIndex,
             needShowEmpty: false,
@@ -176,6 +177,7 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
     return Container(
         padding: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(10)),
         child:CustomDropButton(
+            itemIcon: (index) => viewModel.getPayTypeItemIcon(payTypeList[index].type),
             needBackgroundOpacity: true,
             initIndex: currentPayTypeIndex,
             needShowEmpty: true,
