@@ -102,13 +102,14 @@ void main() async {
         const SystemUiOverlayStyle(statusBarColor: Colors.transparent);
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   }
-
-  /// Firebase初始化＋監聽背景推播
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  final String? fcmToken = await FirebaseMessaging.instance.getToken();
-  debugPrint('FCM憑證：${fcmToken ?? ''}');
-
+  try {
+    /// Firebase初始化＋監聽背景推播
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    final String? fcmToken = await FirebaseMessaging.instance.getToken();
+    GlobalData.printLog('FCM憑證：${fcmToken ?? ''}');
+  } catch (e) {}
   initApp();
 }
 
