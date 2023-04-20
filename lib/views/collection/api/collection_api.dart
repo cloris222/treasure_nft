@@ -1,6 +1,8 @@
+import '../../../constant/enum/order_enum.dart';
 import '../../../models/http/http_manager.dart';
 import '../../../models/http/http_setting.dart';
 import '../../../models/http/parameter/api_response.dart';
+import '../../personal/orders/orderinfo/data/order_message_list_response_data.dart';
 import '../data/collection_item_status_response_error_data.dart';
 import '../data/collection_level_fee_response_data.dart';
 import '../data/collection_nft_item_response_data.dart';
@@ -71,6 +73,32 @@ class CollectionApi extends HttpManager {
       });
       for (Map<String, dynamic> json in response.data['pageList']) {
         result.add(CollectionTicketResponseData.fromJson(json));
+      }
+    } catch (e) {
+      GlobalData.printLog(e.toString());
+    }
+    return result;
+  }
+
+  /// 查詢我的勳章
+  Future<List<OrderMessageListResponseData>> getMedalResponse(
+      {int page = 1, int size = 10}) async {
+    List<OrderMessageListResponseData> result =
+        <OrderMessageListResponseData>[];
+    try {
+      ApiResponse response = await get('/order/message-list', queryParameters: {
+        'page': page,
+        'size': size,
+        'type': "TREASURE_BOX",
+        'startTime': '',
+        'endTime': ''
+      });
+      for (Map<String, dynamic> json in response.data['pageList']) {
+        OrderMessageListResponseData data =
+            OrderMessageListResponseData.fromJson(json);
+        if (data.medalName.isNotEmpty && data.medal.isNotEmpty) {
+          result.add(data);
+        }
       }
     } catch (e) {
       GlobalData.printLog(e.toString());

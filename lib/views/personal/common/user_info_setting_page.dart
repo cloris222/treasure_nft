@@ -85,13 +85,11 @@ class _UserInfoSettingPageState extends ConsumerState<UserInfoSettingPage> {
                       SizedBox(height: UIDefine.getScreenWidth(4.16)),
                       _getUnEditFormView(tr('walletAddress'), userInfo.address),
                       SizedBox(height: UIDefine.getScreenWidth(4.16)),
-                      _getUnEditFormView(tr('account'), userInfo.account),
-                      SizedBox(height: UIDefine.getScreenWidth(4.16)),
                       LoginParamView(
-                          titleText: tr('nickname'),
-                          hintText: tr("placeholder-nickname'"),
-                          controller: viewModel.nickNameController,
-                          data: viewModel.nickNameData,
+                          titleText: tr('account'),
+                          hintText: tr("placeholder-account'"),
+                          controller: viewModel.accountController,
+                          data: viewModel.accountData,
                           onChanged: viewModel.onNicknameChanged),
                       SizedBox(height: UIDefine.getScreenWidth(4.16)),
                       PhoneParamView(

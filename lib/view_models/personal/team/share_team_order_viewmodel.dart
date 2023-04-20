@@ -28,12 +28,14 @@ class ShareTeamOrderViewModel extends BaseViewModel {
   TeamShareInfo? teamShareInfo;
 
   void initState(TeamOrderData itemData, bool fromSell) async {
-    MissionAPI().finishShareMission();
-    if (fromSell) {
-      teamShareInfo = await OrderAPI().getOrderShareInfo(itemData.orderNo);
-    } else {
-      teamShareInfo = await GroupAPI().getTeamShareInfo(itemData.orderNo);
-    }
+    try {
+      if (fromSell) {
+        teamShareInfo = await OrderAPI().getOrderShareInfo(itemData.orderNo);
+      } else {
+        teamShareInfo = await GroupAPI().getTeamShareInfo(itemData.orderNo);
+      }
+      MissionAPI().finishShareMission();
+    } catch (e) {}
     onViewUpdate();
 
     ///MARK: time late 做 share image

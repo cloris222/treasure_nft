@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/extension/num_extension.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
@@ -78,6 +79,7 @@ class BalanceRecordItemView extends StatelessWidget {
   /// ACTIVITY_AWARD(活動獎勵)
   /// EXPERIENCE_ADD(體驗金增加)
   /// EXPERIENCE_RECYCLE(體驗金回收)
+  /// FLAT(法幣充值)
   String _getTitle() {
     if (data.type == 'ACTIVITY_AWARD') {
       return tr('ACTIVITY_AWARD');
@@ -90,6 +92,8 @@ class BalanceRecordItemView extends StatelessWidget {
     }
 
     switch (data.type) {
+      case 'FLAT':
+        return tr("fiatCurrencyRecharge");
       case 'BSC':
         return bDeposit ? tr("rechargeUSDT-BSC'") : tr("depositUSDT-BSC'");
       case 'TRON':
@@ -112,7 +116,7 @@ class BalanceRecordItemView extends StatelessWidget {
 
   String _getAmount() {
     if (data.amount > 0) {
-      return '+${data.amount}';
+      return '+${data.amount.removeTwoPointFormat}';
     }
     return data.amount.toString();
   }

@@ -22,7 +22,7 @@ class TeamContributeItemView extends StatelessWidget {
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Expanded(
             flex: 2,
-            child: Text('$serialNumber. ${itemData.name}',
+            child: Text('$serialNumber. ${itemData.account}',
                 textAlign: TextAlign.start,
                 style: AppTextStyle.getBaseStyle(
                     fontSize: UIDefine.fontSize14,

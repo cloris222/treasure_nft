@@ -29,4 +29,7 @@ enum OrderInfoType {
 
   ///轉移NFT
   TRANSFER_NFT,
+
+  /// 寶箱
+  // TREASURE_BOX,
 }

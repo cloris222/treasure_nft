@@ -18,6 +18,7 @@ class CheckReservationInfo {
     required this.systemStartTime,
     required this.systemEndTime,
     required this.systemTime,
+    required this.systemDate,
     required this.sellDate,
     required this.systemZone,
     required this.zone,
@@ -31,6 +32,8 @@ class CheckReservationInfo {
     required this.reserveDate,
     required this.systemReserveStartTime,
     required this.systemReserveEndTime,
+    required this.reserveStartDate,
+    required this.reserveEndDate,
   });
 
   String startTime;
@@ -38,7 +41,12 @@ class CheckReservationInfo {
   String localTime;
   String systemStartTime;
   String systemEndTime;
+
+  ///系統目前時間
   String systemTime;
+
+  ///系統目前日期
+  String systemDate;
   String sellDate;
   String systemZone;
   String zone;
@@ -54,6 +62,12 @@ class CheckReservationInfo {
   String reserveDate;
   String systemReserveStartTime;
   String systemReserveEndTime;
+
+  /// 預約開始日期
+  String reserveStartDate;
+
+  /// 預約結束日期
+  String reserveEndDate;
 
   // List<ReserveItem> reserveItems;
 
@@ -76,6 +90,7 @@ class CheckReservationInfo {
         systemStartTime: json["systemStartTime"],
         systemEndTime: json["systemEndTime"],
         systemTime: json["systemTime"],
+        systemDate: json["systemDate"] ?? "",
         sellDate: json["sellDate"] ?? "",
         systemZone: json["systemZone"],
         zone: json["zone"],
@@ -90,6 +105,8 @@ class CheckReservationInfo {
         systemReserveStartTime: json["systemReserveStartTime"] ?? '00:00:00',
         systemReserveEndTime: json["systemReserveEndTime"] ?? '00:00:00',
         reserveDate: json["reserveDate"] ?? "",
+        reserveStartDate: json["reserveStartDate"] ?? "",
+        reserveEndDate: json["reserveEndDate"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
@@ -99,6 +116,7 @@ class CheckReservationInfo {
         "systemStartTime": systemStartTime,
         "systemEndTime": systemEndTime,
         "systemTime": systemTime,
+        "systemDate": systemDate,
         "sellDate": sellDate,
         "systemZone": systemZone,
         "zone": zone,
@@ -113,6 +131,8 @@ class CheckReservationInfo {
         "systemReserveStartTime": systemReserveStartTime,
         "systemReserveEndTime": systemReserveEndTime,
         "reserveDate": reserveDate,
+        "reserveStartDate": reserveStartDate,
+        "reserveEndDate": reserveEndDate,
       };
 }
 

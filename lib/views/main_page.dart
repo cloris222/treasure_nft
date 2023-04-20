@@ -19,6 +19,7 @@ import 'package:treasure_nft_project/widgets/appbar/custom_app_bar.dart';
 import 'package:treasure_nft_project/widgets/dialog/app_version_update_dialog.dart';
 import 'package:wallet_connect_plugin/model/wallet_info.dart';
 
+import '../constant/app_routes.dart';
 import '../constant/global_data.dart';
 import '../constant/ui_define.dart';
 import '../widgets/app_bottom_navigation_bar.dart';
@@ -155,7 +156,8 @@ class _MainPageState extends State<MainPage> {
           isMainPage: true,
           serverAction: _serverAction,
           globalAction: _globalAction,
-          mainAction: _mainAction),
+          mainAction: _mainAction,
+          airdropAction: _airdropAction),
       body: Stack(
         children: [
           Padding(
@@ -167,11 +169,16 @@ class _MainPageState extends State<MainPage> {
 
               ///MARK: 不要放const
               children: [
+                // ignore: prefer_const_constructors
                 ExploreMainView(),
+                // ignore: prefer_const_constructors
                 CollectionMainView(),
+                // ignore: prefer_const_constructors
                 TradeNewMainView(),
                 WalletMainView(onPrePage: _onPrePage),
+                // ignore: prefer_const_constructors
                 PersonalMainView(),
+                // ignore: prefer_const_constructors
                 HomeMainView(),
                 LoginMainView(preWalletInfo: widget.walletInfo)
               ],
@@ -237,7 +244,8 @@ class _MainPageState extends State<MainPage> {
   }
 
   void _globalAction() async {
-    await BaseViewModel().pushPage(context, const SettingLanguagePage());
+    await BaseViewModel()
+        .pushPage(context, const SettingLanguagePage(isMainPage: true));
     setState(() {});
   }
 
@@ -252,5 +260,15 @@ class _MainPageState extends State<MainPage> {
     setState(() {
       pageController.jumpToPage(getViewIndex(viewModel.getPreBottomType()));
     });
+  }
+
+  void _airdropAction() {
+    BaseViewModel viewModel = BaseViewModel();
+    if (viewModel.isLogin()) {
+      AppRoutes.pushAirdrop(context);
+    } else {
+      viewModel.pushAndRemoveUntil(
+          context, const MainPage(type: AppNavigationBarType.typeLogin));
+    }
   }
 }

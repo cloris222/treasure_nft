@@ -177,23 +177,32 @@ class TradeTimerUtil {
   }
 
   void _setTime(CheckReservationInfo reservationInfo) {
-    /// if sellDate == null , sell day is today
-    if (reservationInfo.reserveDate.isEmpty) {
-      reservationInfo.reserveDate = DateFormatUtil().getNowTimeWithDayFormat();
+    ///MARK: 系統目前日期
+    if (reservationInfo.systemDate.isEmpty) {
+      reservationInfo.systemDate = DateFormatUtil().getNowTimeWithDayFormat();
+    }
+
+    ///MARK: 加入系統預約日期判斷
+    if (reservationInfo.reserveStartDate.isEmpty) {
+      reservationInfo.reserveStartDate = reservationInfo.systemDate;
+    }
+
+    if (reservationInfo.reserveEndDate.isEmpty) {
+      reservationInfo.reserveEndDate = reservationInfo.systemDate;
     }
 
     /// 現在時間（系統時間）
     _dateCurrentTime = DateTime.parse(
-        '${DateFormatUtil().getNowTimeWithDayFormat()} ${reservationInfo.systemTime}');
+        '${reservationInfo.systemDate} ${reservationInfo.systemTime}');
 
     /// 預約日期＋預約時間 就是sellDate
     /// 開始預約時間(系統)
     _dateSellStartTime = DateTime.parse(
-        '${reservationInfo.reserveDate} ${reservationInfo.systemReserveStartTime}');
+        '${reservationInfo.reserveStartDate} ${reservationInfo.systemReserveStartTime}');
 
     ///關閉預約時間(系統)
     _dateSellEndTime = DateTime.parse(
-        '${reservationInfo.reserveDate} ${reservationInfo.systemReserveEndTime}');
+        '${reservationInfo.reserveEndDate} ${reservationInfo.systemReserveEndTime}');
 
     ///如果預約開始時間>預約結束時間 代表預約結束時跨日
     if (reservationInfo.systemReserveStartTime

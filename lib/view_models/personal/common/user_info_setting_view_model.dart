@@ -19,11 +19,11 @@ class UserInfoSettingViewModel extends BaseViewModel {
 
   final onClickFunction onViewChange;
   final UserInfoData userInfo;
-  late TextEditingController nickNameController;
+  late TextEditingController accountController;
   late TextEditingController phoneController;
 
   void init() {
-    nickNameController = TextEditingController(text: userInfo.name);
+    accountController = TextEditingController(text: userInfo.account);
     phoneController = TextEditingController(text: userInfo.phone);
   }
 
@@ -31,7 +31,7 @@ class UserInfoSettingViewModel extends BaseViewModel {
   String phoneCountry = '';
   String gender = '';
 
-  ValidateResultData nickNameData = ValidateResultData();
+  ValidateResultData accountData = ValidateResultData();
   ValidateResultData phoneData = ValidateResultData();
   ValidateResultData birthdayData = ValidateResultData();
 
@@ -47,7 +47,7 @@ class UserInfoSettingViewModel extends BaseViewModel {
   }
 
   void dispose() {
-    nickNameController.dispose();
+    accountController.dispose();
     phoneController.dispose();
     emailController.dispose();
     emailCodeController.dispose();
@@ -70,17 +70,17 @@ class UserInfoSettingViewModel extends BaseViewModel {
   }
 
   bool _checkEmptyController() {
-    return nickNameController.text.isNotEmpty &&
+    return accountController.text.isNotEmpty &&
         phoneController.text.isNotEmpty;
   }
 
   bool _checkData() {
-    return nickNameData.result && phoneData.result && birthdayData.result;
+    return accountData.result && phoneData.result && birthdayData.result;
   }
 
   ///MARK: 重置紅框紅字
   void _resetData() {
-    nickNameData = ValidateResultData();
+    accountData = ValidateResultData();
     phoneData = ValidateResultData();
     birthdayData = ValidateResultData();
     emailCodeData = ValidateResultData();
@@ -93,15 +93,15 @@ class UserInfoSettingViewModel extends BaseViewModel {
     onViewChange();
   }
 
-  ///MARK: 檢查暱稱
+  ///MARK: 檢查帳號
   void _checkNickname() {
-    if (nickNameController.text.isNotEmpty) {
-      nickNameData = ValidateResultData(
+    if (accountController.text.isNotEmpty) {
+      accountData = ValidateResultData(
           result: RegularExpressionUtil()
-              .checkFormatNickName(nickNameController.text),
+              .checkFormatNickName(accountController.text),
           message: tr('accountLimitHint'));
     } else {
-      nickNameData = ValidateResultData();
+      accountData = ValidateResultData();
     }
   }
 
@@ -110,8 +110,8 @@ class UserInfoSettingViewModel extends BaseViewModel {
 
     ///MARK: 檢查是否有欄位未填
     if (!_checkEmptyController()) {
-      nickNameData =
-          ValidateResultData(result: nickNameController.text.isNotEmpty);
+      accountData =
+          ValidateResultData(result: accountController.text.isNotEmpty);
       phoneData = ValidateResultData(result: phoneController.text.isNotEmpty);
       birthdayData = ValidateResultData(result: birthday.isNotEmpty);
       onViewChange();
@@ -139,7 +139,7 @@ class UserInfoSettingViewModel extends BaseViewModel {
     ///MARK: 儲存修改的API
     UserInfoAPI(onConnectFail: (message) => onBaseConnectFail(context, message))
         .updatePersonInfo(
-            name: nickNameController.text,
+            name: accountController.text,
             phoneCountry: phoneCountry,
             phone: phoneController.text,
             password: '',

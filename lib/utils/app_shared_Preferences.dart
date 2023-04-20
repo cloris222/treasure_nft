@@ -29,13 +29,27 @@ class AppSharedPreferences {
     }
   }
 
+  static Future<void> setStringList(String key, List<String> value) async {
+    SharedPreferences pref = await _getPreferences();
+    await pref.setStringList(key, value);
+  }
+
+  static Future<List<String>> getStringList(String key,
+      {List<String> defaultValue = const []}) async {
+    SharedPreferences pref = await _getPreferences();
+    if (await checkKey(key, pref: pref)) {
+      return pref.getStringList(key)!;
+    } else {
+      return defaultValue;
+    }
+  }
+
   static Future<void> setDouble(String key, double value) async {
     SharedPreferences pref = await _getPreferences();
     await pref.setDouble(key, value);
   }
 
-  static Future<double> getDouble(String key,
-      {double defaultValue = 0}) async {
+  static Future<double> getDouble(String key, {double defaultValue = 0}) async {
     SharedPreferences pref = await _getPreferences();
     if (await checkKey(key, pref: pref)) {
       return pref.getDouble(key)!;

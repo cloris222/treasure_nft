@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gradient_borders/box_borders/gradient_box_border.dart';
+import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 
 import 'app_colors.dart';
 
@@ -26,26 +28,57 @@ class AppStyle {
       {double radius = 0,
       Color borderColor = Colors.transparent,
       double borderWith = 1,
-        bool hasTopLeft = true,
-        bool hasTopRight = true,
-        bool hasBottomLef = true,
-        bool hasBottomRight = true,
+      bool hasTopLeft = true,
+      bool hasTopRight = true,
+      bool hasBottomLef = true,
+      bool hasBottomRight = true,
       AlignmentGeometry begin = Alignment.centerLeft,
       AlignmentGeometry end = Alignment.centerRight}) {
     return BoxDecoration(
         borderRadius: BorderRadius.only(
           topLeft:
-          hasTopLeft ? Radius.circular(radius) : const Radius.circular(0),
+              hasTopLeft ? Radius.circular(radius) : const Radius.circular(0),
           topRight:
-          hasTopRight ? Radius.circular(radius) : const Radius.circular(0),
+              hasTopRight ? Radius.circular(radius) : const Radius.circular(0),
           bottomLeft:
-          hasBottomLef ? Radius.circular(radius) : const Radius.circular(0),
-          bottomRight:
-          hasBottomRight ? Radius.circular(radius) : const Radius.circular(0),
+              hasBottomLef ? Radius.circular(radius) : const Radius.circular(0),
+          bottomRight: hasBottomRight
+              ? Radius.circular(radius)
+              : const Radius.circular(0),
         ),
         border: Border.all(color: borderColor, width: borderWith),
         gradient: LinearGradient(
             begin: begin, end: end, colors: AppColors.gradientBaseColorBg));
+  }
+
+  BoxDecoration baseBolderGradient(
+      {double radius = 0,
+      Color backgroundColor = Colors.transparent,
+      double borderWidth = 1,
+      bool hasTopLeft = true,
+      bool hasTopRight = true,
+      bool hasBottomLef = true,
+      bool hasBottomRight = true,
+      AlignmentGeometry begin = Alignment.centerLeft,
+      AlignmentGeometry end = Alignment.centerRight}) {
+    return BoxDecoration(
+      color: backgroundColor,
+      borderRadius: BorderRadius.only(
+        topLeft:
+            hasTopLeft ? Radius.circular(radius) : const Radius.circular(0),
+        topRight:
+            hasTopRight ? Radius.circular(radius) : const Radius.circular(0),
+        bottomLeft:
+            hasBottomLef ? Radius.circular(radius) : const Radius.circular(0),
+        bottomRight:
+            hasBottomRight ? Radius.circular(radius) : const Radius.circular(0),
+      ),
+      border: GradientBoxBorder(
+        gradient: LinearGradient(
+            begin: begin, end: end, colors: AppColors.gradientBaseColorBg),
+        width: borderWidth,
+      ),
+    );
   }
 
   /// 漸層色紫藍色(反轉)
@@ -61,15 +94,18 @@ class AppStyle {
   }
 
   /// 自定義漸層
-  BoxDecoration buildGradient(
-      {double radius = 0,
-      Color borderColor = Colors.transparent,
-      required List<Color> colors,
-      double borderWith = 1}) {
+  BoxDecoration buildGradient({
+    double radius = 0,
+    Color borderColor = Colors.transparent,
+    required List<Color> colors,
+    double borderWith = 1,
+    AlignmentGeometry begin = Alignment.centerLeft,
+    AlignmentGeometry end = Alignment.centerRight,
+  }) {
     return BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(radius)),
         border: Border.all(color: Colors.transparent, width: borderWith),
-        gradient: LinearGradient(colors: colors));
+        gradient: LinearGradient(begin: begin, end: end, colors: colors));
   }
 
   BoxDecoration styleColorBorderBackground({
@@ -180,5 +216,11 @@ class AppStyle {
     return OutlineInputBorder(
         borderSide: BorderSide(color: color, width: width),
         borderRadius: BorderRadius.all(Radius.circular(radius)));
+  }
+
+  BoxDecoration buildAirdropBackground() {
+    return const BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage(AppImagePath.airdropPageBg), fit: BoxFit.fill));
   }
 }

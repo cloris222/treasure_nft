@@ -94,4 +94,17 @@ class CommonAPI extends HttpManager {
     } catch (e) {}
     return '';
   }
+
+  // Future<List<String>> getRegisterCountryInfo() async {
+  //   try {
+  //     var response = await get('/query/country/type',
+  //         queryParameters: {"isQueryUserAppCountry": true});
+  //     List<String> list = [];
+  //     for (String value in response.data["userAppCountry"]) {
+  //       list.add(value);
+  //     }
+  //     return list;
+  //   } catch (e) {}
+  //   return [];
+  // }
 }

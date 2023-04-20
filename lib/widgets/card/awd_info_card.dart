@@ -19,7 +19,7 @@ class AWDInfoCard extends StatelessWidget {
   String status;
 
   /// ACTIVITY_AWARD:活動獎勵, LEVEL_UP_ADD:升等獎勵(儲金罐), AD_PRIZE:活動副本(獎金),
-  /// EXPERIENCE_ADD(體驗金增加),EXPERIENCE_RECYCLE(體驗金回收)
+  /// EXPERIENCE_ADD(體驗金增加),EXPERIENCE_RECYCLE(體驗金回收), FLAT(法幣充值)
   String type;
 
   String datetime;
@@ -185,6 +185,8 @@ class AWDInfoCard extends StatelessWidget {
       return tr('recharge');
     } else if (type.contains('WITHDRAW')) {
       return tr('withdraw');
+    } else if (type.contains('FLAT')) {
+      return tr('fiatCurrencyRecharge');
     }
     return tr(type);
   }

@@ -1,11 +1,13 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/view_models/gobal_provider/user_info_provider.dart';
 import 'package:treasure_nft_project/views/personal/team/team_main_style.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
@@ -21,14 +23,17 @@ import '../../../widgets/list_view/team/team_order_item.dart';
 import '../../custom_appbar_view.dart';
 
 ///MARK:團隊訂單
-class TeamOrderPage extends StatefulWidget {
-  const TeamOrderPage({Key? key}) : super(key: key);
+class TeamOrderPage extends ConsumerStatefulWidget {
+  const TeamOrderPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<TeamOrderPage> createState() => _TeamOrderPageState();
+  ConsumerState createState() => _TeamOrderPageState();
 }
 
-class _TeamOrderPageState extends State<TeamOrderPage> with BaseListInterface {
+class _TeamOrderPageState extends ConsumerState<TeamOrderPage>
+    with BaseListInterface {
   TeamMainStyle style = TeamMainStyle();
   int currentBuyOrSellIndex = 0;
   int currentTimeOrPriceIndex = 0;
@@ -331,7 +336,11 @@ class _TeamOrderPageState extends State<TeamOrderPage> with BaseListInterface {
 
   @override
   Widget buildItemBuilder(int index, data) {
-    return TeamOrderItemView(itemData: data);
+    TeamOrderData itemData = data;
+    bool showShare = (itemData.type == 'SELL') &&
+        (itemData.sellerName.compareTo(ref.read(userInfoProvider).account) !=
+            0);
+    return TeamOrderItemView(itemData: data, showShare: showShare);
   }
 
   @override

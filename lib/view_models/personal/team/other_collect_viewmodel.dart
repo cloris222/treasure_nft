@@ -30,12 +30,10 @@ class OtherCollectViewModel extends BaseListViewModel {
   @override
   Widget itemView(int index, data) {
     return Padding(
-      padding: index % 2 == 0 ?
-      EdgeInsets.only(left: UIDefine.getScreenWidth(4))
-        :
-      EdgeInsets.only(right: UIDefine.getScreenWidth(4)),
-      child: OtherCollectItem(data: data)
-    );
+        padding: index % 2 == 0
+            ? EdgeInsets.only(left: UIDefine.getScreenWidth(4))
+            : EdgeInsets.only(right: UIDefine.getScreenWidth(4)),
+        child: OtherCollectItem(data: data));
   }
 
   @override
@@ -58,6 +56,7 @@ class OtherCollectViewModel extends BaseListViewModel {
       bannerUrl: userInfo?.bannerUrl ?? '',
       photoUrl: userInfo?.photoUrl ?? '',
       name: userInfo?.name ?? '',
+      account: userInfo?.account ?? '',
       medal: userInfo?.medalCode ?? '',
       level: userInfo?.userLevel ?? 0,
     );

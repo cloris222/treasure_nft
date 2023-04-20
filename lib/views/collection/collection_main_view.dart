@@ -6,6 +6,7 @@ import '../../constant/enum/collection_enum.dart';
 import '../../constant/ui_define.dart';
 import '../../view_models/collection/collection_main_view_model.dart';
 import '../../widgets/button/icon_text_button_widget.dart';
+import 'collection_medal_list_view.dart';
 import 'collection_pending_list_view.dart';
 import 'collection_reservation_list_view.dart';
 import 'collection_selling_list_view.dart';
@@ -79,6 +80,8 @@ class _CollectionMainView extends State<CollectionMainView> {
           return const CollectionSellingListView();
         case CollectionTag.Ticket:
           return const CollectionTicketListView();
+        // case CollectionTag.Medal:
+        //   return const CollectionMedalListView();
       }
     });
   }

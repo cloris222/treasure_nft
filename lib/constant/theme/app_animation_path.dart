@@ -50,4 +50,6 @@ class AppAnimationPath {
 
   /// 活動預約成功
   static const String activitySuccess = 'confetti_transparent.gif';
+  static const String airdropOpen="$animationPathJson/box_open_lv{level}_01.gif";
+  static const String airdropWait="$animationPathJson/box_open_lv{level}_02.gif";
 }

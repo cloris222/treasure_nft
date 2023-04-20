@@ -2,16 +2,14 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/src/consumer.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/enum/login_enum.dart';
-import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/api/auth_api.dart';
 import 'package:treasure_nft_project/utils/regular_expression_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:wallet_connect_plugin/model/wallet_info.dart';
 
 import '../../constant/call_back_function.dart';
-import '../../constant/theme/app_animation_path.dart';
 import '../../models/data/validate_result_data.dart';
 import '../../models/http/api/login_api.dart';
 import '../../utils/animation_download_util.dart';
@@ -24,6 +22,7 @@ class RegisterMainViewModel extends BaseViewModel {
 
   final ViewChange setState;
   WalletInfo? walletInfo;
+  String currentCountry="";
 
   TextEditingController accountController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -32,7 +31,6 @@ class RegisterMainViewModel extends BaseViewModel {
   TextEditingController emailCodeController = TextEditingController();
   TextEditingController nicknameController = TextEditingController();
   TextEditingController referralController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
 
   ValidateResultData accountData = ValidateResultData();
   ValidateResultData passwordData = ValidateResultData();
@@ -41,14 +39,11 @@ class RegisterMainViewModel extends BaseViewModel {
   ValidateResultData emailCodeData = ValidateResultData();
   ValidateResultData nicknameData = ValidateResultData();
   ValidateResultData referralData = ValidateResultData();
-  ValidateResultData phoneData = ValidateResultData();
+  ValidateResultData countryData = ValidateResultData();
 
   ///是否判斷過驗證碼
   bool checkEmail = false;
   String validateEmail = '';
-
-  String phoneCountry =
-      GlobalData.country.isNotEmpty ? GlobalData.country.first.country : '';
 
   void dispose() {
     accountController.dispose();
@@ -58,7 +53,6 @@ class RegisterMainViewModel extends BaseViewModel {
     emailCodeController.dispose();
     nicknameController.dispose();
     referralController.dispose();
-    phoneController.dispose();
   }
 
   bool checkEmptyController() {
@@ -67,7 +61,7 @@ class RegisterMainViewModel extends BaseViewModel {
         rePasswordController.text.isNotEmpty &&
         emailController.text.isNotEmpty &&
         emailCodeController.text.isNotEmpty &&
-        phoneController.text.isNotEmpty;
+        currentCountry.isNotEmpty;
   }
 
   bool checkData() {
@@ -78,7 +72,7 @@ class RegisterMainViewModel extends BaseViewModel {
         emailCodeData.result &&
         nicknameData.result &&
         referralData.result &&
-        phoneData.result;
+        countryData.result;
   }
 
   void resetData() {
@@ -89,7 +83,7 @@ class RegisterMainViewModel extends BaseViewModel {
     emailCodeData = ValidateResultData();
     nicknameData = ValidateResultData();
     referralData = ValidateResultData();
-    phoneData = ValidateResultData();
+    countryData = ValidateResultData();
   }
 
   bool checkPress() {
@@ -161,7 +155,7 @@ class RegisterMainViewModel extends BaseViewModel {
         emailData = ValidateResultData(result: emailController.text.isNotEmpty);
         emailCodeData =
             ValidateResultData(result: emailCodeController.text.isNotEmpty);
-        phoneData = ValidateResultData(result: phoneController.text.isNotEmpty);
+        countryData = ValidateResultData(result: currentCountry.isNotEmpty);
       });
       return;
     } else {
@@ -191,8 +185,7 @@ class RegisterMainViewModel extends BaseViewModel {
               email: emailController.text,
               nickname: nicknameController.text,
               inviteCode: referralController.text,
-              phone: phoneController.text,
-              phoneCountry: phoneCountry,
+              country: currentCountry,
               emailVerifyCode: emailCodeController.text,
               walletInfo: walletInfo)
           .then((value) async {
@@ -231,23 +224,22 @@ class RegisterMainViewModel extends BaseViewModel {
     });
   }
 
-  Future<bool> checkEmailFormat() async {
-    if (emailController.text.isNotEmpty) {
-      var result =
-          RegularExpressionUtil().checkFormatEmail(emailController.text);
-      setState(() {
-        emailData =
-            ValidateResultData(result: result, message: tr('rule_email'));
-      });
-      return result;
-    } else {
-      setState(() {
-        emailData = ValidateResultData(result: false);
-      });
-    }
-
-    return false;
-  }
+  // Future<bool> checkEmailFormat() async {
+  //   if (emailController.text.isNotEmpty) {
+  //     var result =
+  //         RegularExpressionUtil().checkFormatEmail(emailController.text);
+  //     setState(() {
+  //       emailData =
+  //           ValidateResultData(result: result, message: tr('rule_email'));
+  //     });
+  //     return result;
+  //   } else {
+  //     setState(() {
+  //       emailData = ValidateResultData(result: false);
+  //     });
+  //   }
+  //   return false;
+  // }
 
   void onPasswordChanged(String value) {
     setState(() {
@@ -274,10 +266,6 @@ class RegisterMainViewModel extends BaseViewModel {
         isWallet: false);
     await saveUserLoginInfo(response: response, ref: ref, isLogin: isLogin);
     startUserListener();
-  }
-
-  void setPhoneCountry(String value) {
-    phoneCountry = value;
   }
 
   ValidateResultData checkAccount(String value) {

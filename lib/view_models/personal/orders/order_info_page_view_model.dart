@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import '../../../constant/enum/order_enum.dart';
 import '../../../views/personal/orders/orderinfo/data/order_message_list_response_data.dart';
@@ -7,6 +8,7 @@ import '../../../widgets/card/buyer_seller_info_card.dart';
 import '../../../widgets/card/data/card_showing_data.dart';
 import '../../../widgets/card/item_info_card.dart';
 import '../../../widgets/card/order_info_card.dart';
+import '../../../widgets/card/treasure_box_card.dart';
 
 class OrderInfoPageViewModel extends BaseViewModel {
   OrderInfoPageViewModel();
@@ -161,7 +163,7 @@ class OrderInfoPageViewModel extends BaseViewModel {
   // }
 
   ///MARK: 給定不同的卡牌樣式＆資料
-  createItemView(int index, OrderMessageListResponseData data) {
+  Widget createItemView(int index, OrderMessageListResponseData data) {
     switch (currentType) {
       // case 'ITEM': // 隱藏不做
       //   return ItemInfoCard(itemName: data.itemName, dateTime: BaseViewModel().changeTimeZone(data.createdAt),
@@ -241,6 +243,8 @@ class OrderInfoPageViewModel extends BaseViewModel {
             imageUrl: data.imgUrl,
             price: '',
             dataList: _depositAndTransferNFTContent(data));
+      // case OrderInfoType.TREASURE_BOX:
+      //   return TreasureBoxCard(record: data.changeBoxRecord());
     }
   }
 
@@ -364,11 +368,26 @@ class OrderInfoPageViewModel extends BaseViewModel {
       dataList.add(data);
     }
 
+    if (resData.type == 'FLAT') {
+      data = CardShowingData();
+      data.title = tr('currency');
+      data.content = resData.currency;
+      dataList.add(data);
+    }
+
     data = CardShowingData();
     data.title = tr('amount');
     data.content = resData.amount.toString();
     data.bPrice = true;
     dataList.add(data);
+
+    if (resData.type == 'FLAT') {
+      data = CardShowingData();
+      data.title = tr('getUsdt');
+      data.content = resData.usdtAmount.toString();
+      data.bPrice = true;
+      dataList.add(data);
+    }
 
     return dataList;
   }

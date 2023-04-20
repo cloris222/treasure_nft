@@ -111,9 +111,9 @@ class MemberDetailItemView extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(tr('nickname'), style: titleStyle),
+                        Text(tr('account'), style: titleStyle),
                         style.getPadding(1),
-                        Text(itemData.userName, style: contentStyle),
+                        Text(itemData.account, style: contentStyle),
                       ],
                     ),
 

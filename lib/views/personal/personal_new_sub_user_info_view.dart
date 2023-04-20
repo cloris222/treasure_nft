@@ -223,10 +223,10 @@ class PersonalNewSubUserInfoView extends ConsumerWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('(${userInfo.account})',
-            style: AppTextStyle.getBaseStyle(
-                fontSize: UIDefine.fontSize12,
-                color: AppColors.textThreeBlack)),
+        // Text('(${userInfo.account})',
+        //     style: AppTextStyle.getBaseStyle(
+        //         fontSize: UIDefine.fontSize12,
+        //         color: AppColors.textThreeBlack)),
         Row(children: [
           Text('UID : ',
               style: AppTextStyle.getBaseStyle(

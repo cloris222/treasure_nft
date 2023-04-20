@@ -17,6 +17,7 @@ class AppImagePath {
   static const String copyIcon = '$_btnPath/btn_copy_01.png';
   static const String preloadIcon = '$_imgPath/img_loding_01.png';
   static const String closeIcon = '$_btnPath/btn_cross_01.png';
+  static const String menuIcon = '$_btnPath/btn_menu_01.png';
 
   ///MARK: Arrow Icon
   static const String arrowUpGrey = '$_btnPath/btn_arrow_02_up.png';
@@ -32,6 +33,7 @@ class AppImagePath {
   ///MARK: image background
   static const String backgroundLand = '$_imgPath/img_background_01.png';
   static const String backgroundUser = '$_imgPath/img_background_05.png';
+  static const String backgroundDeposit = '$_imgPath/img_background_06.png';
 
   ///MARK: bottom navigation
   static const String mainTypeExplore = '$_btnPath/btn_explore_02.png';
@@ -152,6 +154,9 @@ class AppImagePath {
   static const String walletWithdrawIcon = '$_btnPath/btn_withdraw_01.png';
   static const String walletSettingIcon = '$_btnPath/btn_setting_01.png';
   static const String walletLogIcon = '$_btnPath/btn_receipt_01.png';
+  static const String walletDepositDollar = '$_imgPath/img_dollar_01.png';
+  static const String walletFiatIcon = '$_iconPath/icon_{fiat}_01.png';
+  static const String walletPayTypeIcon = '$_iconPath/icon_{payType}_01.png';
 
   ///等級
   static const String blueCheckIcon = '$_iconPath/icon_check_ok_02.png';
@@ -181,7 +186,7 @@ class AppImagePath {
   /// Sharing Center
   static const String rewardGradient = '$_iconPath/icon_rewards_01.png';
   static const String clockGradient = '$_iconPath/icon_clock_02.png';
-  static const String shareBackground = '$_imgPath/img_share_01.jpg';
+  static const String shareBackground = '$_imgPath/img_background_04.png';
   static const String shareText1 = '$_imgPath/img_share_font_03.png';
   static const String shareText2 = '$_imgPath/img_share_font_04.png';
   static const String shareTitleImg = '$_imgPath/img_share_logo.png';
@@ -227,4 +232,17 @@ class AppImagePath {
       '$_imgPath/img_logo_check_account_01.png';
 
   static const String rewardIcon = '$_imgPath/img_congratulation_01.png';
+
+  /// 預約箱子
+  static const String airdropBox = '$_imgPath/img_lv{level}_{status}.png';
+  static const String airdropAnimateBg = "$_imgPath/img_airdrop_bg_03.png";
+  static const String airdropUSDT = "$_imgPath/img_usdt_square_01.png";
+  static const String airdropShare = "$_iconPath/icon_share_01.png";
+  static const String airdropInfo = "$_btnPath/btn_info_02.png";
+  static const String airdropSoul = "$_imgPath/img_coming_soon_01.png";
+  static const String airdropMedal = "$_iconPath/icon_badge_01.png";
+
+  static const String airdropMainBg = "$_imgPath/img_airdrop_bg_02.png";
+  static const String airdropPageBg = "$_imgPath/img_airdrop_bg_01.png";
+  static const String airdropBoxIcon="$_imgPath/img_airdrop_box_01.png";
 }
