@@ -79,11 +79,17 @@ class WalletFiatDepositViewModel extends BaseViewModel {
   }
 
   Widget getFiatItemIcon(String fiatName) {
-    return Image.asset(format(AppImagePath.walletFiatIcon, {"fiat": fiatName.toLowerCase()}));
+    return Image.asset(
+      format(AppImagePath.walletFiatIcon, {"fiat": fiatName.toLowerCase()}),
+      scale: 0.75,
+    );
   }
 
   Widget getPayTypeItemIcon(String typeName) {
-    return Image.asset(format(AppImagePath.walletPayTypeIcon, {"payType": typeName.toLowerCase()}));
+    return Image.asset(
+      format(AppImagePath.walletPayTypeIcon, {"payType": typeName.toLowerCase()}),
+      scale: 0.75,
+    );
   }
 
 }

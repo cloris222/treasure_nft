@@ -28,7 +28,10 @@ class CustomDropButton extends StatefulWidget {
       this.dropdownWidth,
       this.needShowEmpty = true,
       this.dropdownDecoration,
-      this.itemHeight})
+      this.itemHeight,
+      this.needGradient = true,
+      this.needHorizontalPadding = true,
+      })
       : super(key: key);
   final int listLength;
   final int? initIndex;
@@ -48,6 +51,8 @@ class CustomDropButton extends StatefulWidget {
   final bool needShowEmpty;
   final BoxDecoration? dropdownDecoration;
   final double? itemHeight;
+  final bool needGradient;
+  final bool needHorizontalPadding;
 
   @override
   State<CustomDropButton> createState() => _CustomDropButtonState();
@@ -93,6 +98,10 @@ class _CustomDropButtonState extends State<CustomDropButton> {
           vertical: UIDefine.getPixelWidth(3)),
       child: DropdownButtonHideUnderline(
           child: DropdownButton2(
+            buttonPadding:const EdgeInsets.all(0),
+        itemPadding: widget.needHorizontalPadding
+            ? const EdgeInsets.all(0)
+            : EdgeInsets.only(right: UIDefine.getPixelHeight(1)),
         dropdownDecoration: widget.dropdownDecoration,
         offset: Offset(0, -UIDefine.getPixelWidth(20)),
         customButton: widget.buildCustomDropCurrentItem != null
@@ -105,7 +114,7 @@ class _CustomDropButtonState extends State<CustomDropButton> {
           return DropdownMenuItem<int>(
               enabled: !(widget.listLength == 0 && widget.needShowEmpty),
               value: index,
-              child: _buildDropItem(index, true, false));
+              child: _buildDropItem(index, widget.needGradient, false));
         }),
         value: widget.listLength == 0 ? null : currentIndex,
         onChanged: (value) {
@@ -118,6 +127,7 @@ class _CustomDropButtonState extends State<CustomDropButton> {
         },
         dropdownWidth: widget.dropdownWidth,
         itemHeight: widget.itemHeight ?? UIDefine.getPixelWidth(40),
+
       )),
     );
   }
@@ -169,7 +179,9 @@ class _CustomDropButtonState extends State<CustomDropButton> {
     return Container(
       alignment: Alignment.centerLeft,
       height: widget.height ?? UIDefine.getPixelWidth(40),
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      padding: widget.needHorizontalPadding
+          ? const EdgeInsets.symmetric(horizontal: 8.0)
+          : const EdgeInsets.symmetric(horizontal: 0),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
