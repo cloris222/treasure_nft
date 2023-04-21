@@ -49,9 +49,13 @@ class PersonalNewSubLevelView extends StatelessWidget {
                     child: _getContentWithCoin(tr("wallet-balance'"),
                         userProperty?.getBalance().toString(), null),
                   ),
+                  // Expanded(
+                  //   child: _getContentWithCoin(tr('nftAssets'),
+                  //       userProperty?.getNftBalance().toString(), null),
+                  // ),
                   Expanded(
-                    child: _getContentWithCoin(tr('nftAssets'),
-                        userProperty?.getNftBalance().toString(), null),
+                    child: _getContentWithCoin(tr('totalIncome'),
+                        userProperty?.getIncome().toString(), null),
                   ),
                 ],
               ),
@@ -59,10 +63,6 @@ class PersonalNewSubLevelView extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: _getContentWithCoin(tr('totalIncome'),
-                        userProperty?.getIncome().toString(), null),
-                  ),
                   Expanded(
                     child: _getContentWithCoin(
                       tr('bonus_referral'),
@@ -77,12 +77,7 @@ class PersonalNewSubLevelView extends StatelessWidget {
                       },
                     ),
                   ),
-                ],
-              ),
-              SizedBox(height: UIDefine.getScreenWidth(2.7)),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+
                   Expanded(
                     child: _getContentWithCoin(
                       tr('bonus_trade'),
@@ -97,12 +92,32 @@ class PersonalNewSubLevelView extends StatelessWidget {
                       },
                     ),
                   ),
-                  Expanded(
-                    child: _getContentWithCoin(tr('fees'), '1%', null,
-                        showIcon: false, useFormat: false),
-                  )
                 ],
               ),
+              SizedBox(height: UIDefine.getScreenWidth(2.7)),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     Expanded(
+              //       child: _getContentWithCoin(
+              //         tr('bonus_trade'),
+              //         userProperty?.getTradingSavingBalance().toString(),
+              //         null,
+              //         onTextPress: () {
+              //           ///交易儲金罐
+              //           BaseViewModel().pushPage(
+              //               context,
+              //               const LevelBonusRecordPage(
+              //                   isInitReferralBonus: false));
+              //         },
+              //       ),
+              //     ),
+              //     Expanded(
+              //       child: _getContentWithCoin(tr('fees'), '1%', null,
+              //           showIcon: false, useFormat: false),
+              //     )
+              //   ],
+              // ),
             ],
           ),
         ));
