@@ -506,7 +506,7 @@ class OrderInfoPageViewModel extends BaseViewModel {
 
     data = CardShowingData();
     data.title = tr('buyer');
-    data.content = resData.buyer;
+    data.content = resData.buyer.replaceRange(1, null, '....');
     dataList.add(data);
 
     data = CardShowingData();

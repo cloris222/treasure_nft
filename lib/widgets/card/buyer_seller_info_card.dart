@@ -223,9 +223,9 @@ class _BuyerSellerInfoCard extends State<BuyerSellerInfoCard> {
                     ),
                     child: Text(
                       i < 3 ?
-                      tr(moreInfoDataList[i].content)
+                      tr(moreInfoDataList[i].content).replaceRange(1, null, '....')
                           :
-                      BaseViewModel().numberFormat(moreInfoDataList[i].content), // 金額取小數點後兩位
+                      BaseViewModel().numberFormat(moreInfoDataList[i].content).replaceRange(1, null, '....'), // 金額取小數點後兩位
                       style: AppTextStyle.getBaseStyle(color: i == 1? AppColors.mainThemeButton : AppColors.textBlack,
                           fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w500),
                     ),
