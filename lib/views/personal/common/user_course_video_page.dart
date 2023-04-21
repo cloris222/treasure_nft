@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/utils/language_util.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../constant/enum/setting_enum.dart';
@@ -34,7 +36,10 @@ class _CourseVideoPageState extends State<CourseVideoPage> {
               looping: true,
               allowFullScreen: false,
               aspectRatio: UIDefine.getWidth() /
-                  (UIDefine.getHeight() - MediaQuery.of(context).padding.top),
+                  (UIDefine.getHeight() - MediaQuery
+                      .of(context)
+                      .padding
+                      .top),
               customControls: const CupertinoControls(
                 backgroundColor: Color.fromRGBO(41, 41, 41, 0.7),
                 iconColor: Color.fromARGB(255, 200, 200, 200),
@@ -58,22 +63,28 @@ class _CourseVideoPageState extends State<CourseVideoPage> {
         backgroundColor: AppColors.opacityBackground,
         body: Stack(children: [
           Padding(
-            padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+            padding: EdgeInsets.only(top: MediaQuery
+                .of(context)
+                .padding
+                .top),
             child: videoController.value.isInitialized
                 ? Chewie(controller: _playerController!)
                 : SizedBox(
-                    width: getVideoWidth(),
-                    height: getVideoHeight(),
-                    child: Image.asset(
-                      format(AppImagePath.videoCover, {
-                        'index':
-                            VideoStrEnum.values.indexOf(widget.videoStr) + 1
-                      }),
-                      fit: BoxFit.cover,
-                    )),
+                width: getVideoWidth(),
+                height: getVideoHeight(),
+                child: Image.asset(
+                  format(AppImagePath.videoCover, {
+                    'index':
+                    VideoStrEnum.values.indexOf(widget.videoStr) + 1
+                  }),
+                  fit: BoxFit.cover,
+                )),
           ),
           Positioned(
-              top: MediaQuery.of(context).padding.top,
+              top: MediaQuery
+                  .of(context)
+                  .padding
+                  .top,
               left: 5,
               child: IconButton(
                 icon: const Icon(
@@ -93,16 +104,16 @@ class _CourseVideoPageState extends State<CourseVideoPage> {
         fit: BoxFit.cover,
         child: videoController.value.isInitialized
             ? AspectRatio(
-                aspectRatio: videoController.value.aspectRatio,
-                child: VideoPlayer(
-                  videoController,
-                ))
+            aspectRatio: videoController.value.aspectRatio,
+            child: VideoPlayer(
+              videoController,
+            ))
             : Image.asset(
-                format(AppImagePath.videoCover, {
-                  'index': VideoStrEnum.values.indexOf(widget.videoStr) + 1
-                }),
-                fit: BoxFit.cover,
-              ),
+          format(AppImagePath.videoCover, {
+            'index': VideoStrEnum.values.indexOf(widget.videoStr) + 1
+          }),
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }
@@ -120,24 +131,32 @@ class _CourseVideoPageState extends State<CourseVideoPage> {
   }
 
   String getVideoPath(VideoStrEnum videoStrPath) {
+    String path = "";
+    if (LanguageUtil.getAppStrLanguage() == "vi") {
+      path =
+        "https://image.treasurenft.xyz/PC/video/vn_mb_tutorial_{number}.mp4";
+    } else {
+      path =
+        "https://image.treasurenft.xyz/PC/video/mb_tutorial_{number}.mp4";
+    }
     switch (videoStrPath) {
       case VideoStrEnum.howSignUp:
-        return 'https://image.treasurenft.xyz/video/mb_tutorial_01.mp4';
+        return format(path, {"number": "01"});
 
       case VideoStrEnum.howToDeposit:
-        return 'https://image.treasurenft.xyz/video/mb_tutorial_02.mp4';
+        return format(path, {"number": "02"});
 
       case VideoStrEnum.howToBuy:
-        return 'https://image.treasurenft.xyz/video/mb_tutorial_03.mp4';
+        return format(path, {"number": "03"});
 
       case VideoStrEnum.howToWithdraw:
-        return 'https://image.treasurenft.xyz/video/mb_tutorial_04.mp4';
+        return format(path, {"number": "04"});
 
       case VideoStrEnum.howToViewInvitations:
-        return 'https://image.treasurenft.xyz/video/mb_tutorial_05.mp4';
+        return format(path, {"number": "05"});
 
       case VideoStrEnum.howToViewEarnings:
-        return 'https://image.treasurenft.xyz/video/mb_tutorial_06.mp4';
+        return format(path, {"number": "06"});
     }
   }
 }

@@ -142,26 +142,4 @@ class _UserNovicePageState extends State<UserNovicePage> {
               ]));
         });
   }
-
-  String getVideoPath(VideoStrEnum videoStrPath) {
-    switch (videoStrPath) {
-      case VideoStrEnum.howSignUp:
-        return 'https://image.treasurenft.xyz/video/mb_tutorial_01.mp4';
-
-      case VideoStrEnum.howToDeposit:
-        return 'https://image.treasurenft.xyz/video/mb_tutorial_02.mp4';
-
-      case VideoStrEnum.howToBuy:
-        return 'https://image.treasurenft.xyz/video/mb_tutorial_03.mp4';
-
-      case VideoStrEnum.howToWithdraw:
-        return 'https://image.treasurenft.xyz/video/mb_tutorial_04.mp4';
-
-      case VideoStrEnum.howToViewInvitations:
-        return 'https://image.treasurenft.xyz/video/mb_tutorial_05.mp4';
-
-      case VideoStrEnum.howToViewEarnings:
-        return 'https://image.treasurenft.xyz/video/mb_tutorial_06.mp4';
-    }
-  }
 }
