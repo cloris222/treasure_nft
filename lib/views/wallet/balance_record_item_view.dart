@@ -110,13 +110,11 @@ class BalanceRecordItemView extends StatelessWidget {
       default:
         return tr(data.type);
     }
-
-    return '';
   }
 
   String _getAmount() {
     if (data.amount > 0) {
-      return '+${data.amount.removeTwoPointFormat}';
+      return '+${data.amount.removeTwoPointFormat(needCheckNegative: false)}';
     }
     return data.amount.toString();
   }

@@ -1364,5 +1364,6 @@
   "rechargeUSDT-frenchCurrency":"سپرده USDT (ارز فیات)",
   "amountRangeError": "لطفاً مقدار را در محدوده وارد کنید",
   "APP_0094":"شما چندین سفارش در حال انجام دارید. لطفا بعداً دوباره امتحان کنید.",
-  "applicationFailed":"درخواست انجام نشد"
+  "applicationFailed":"درخواست انجام نشد",
+  "daily-profit":"سود روزانه"
 }

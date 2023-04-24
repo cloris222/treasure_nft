@@ -1364,5 +1364,6 @@
   "rechargeUSDT-frenchCurrency":"Депонировать USDT (Fiat Vurrance)",
   "amountRangeError": "Пожалуйста, введите сумму в диапазоне",
   "APP_0094":"У вас есть несколько заказов. Пожалуйста, повторите попытку позже.",
-  "applicationFailed":"Приложение не удалось"
+  "applicationFailed":"Приложение не удалось",
+  "daily-profit":"Ежедневная прибыль"
 }

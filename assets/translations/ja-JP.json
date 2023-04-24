@@ -1364,5 +1364,6 @@
     "rechargeUSDT-frenchCurrency":"USDTをデポジット（フィアット通貨）",
     "amountRangeError": "範囲内の金額を入力してください",
     "APP_0094":"複数の注文が進行中です。後でもう一度やり直してください。",
-    "applicationFailed":"アプリケーションに失敗しました"
+    "applicationFailed":"アプリケーションに失敗しました",
+    "daily-profit":"毎日の利益"
 }

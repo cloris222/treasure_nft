@@ -38,22 +38,27 @@ class PersonalNewSubLevelView extends StatelessWidget {
                       fontSize: UIDefine.fontSize16,
                       fontWeight: FontWeight.w600)),
               _getLine(),
-              _getContentWithCoin(tr('totalAssets'),
-                  userProperty?.getTotalBalance().toString(), UIDefine.fontSize14,
-                  isTotal: true),
+              //總資產
+              // _getContentWithCoin(tr('totalAssets'),
+              //     userProperty?.getTotalBalance().toString(), UIDefine.fontSize14,
+              //     isTotal: true),
+              ///錢包餘額
+              _getContentWithCoin(tr("wallet-balance'"),
+                  userProperty?.getBalance().toString(), null),
+
               _getLine(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: _getContentWithCoin(tr("wallet-balance'"),
-                        userProperty?.getBalance().toString(), null),
+                  Expanded( ///每日收益
+                    child: _getContentWithCoin(tr("daily-profit"),
+                        userProperty?.getTodayIncome().toString(), null),
                   ),
                   // Expanded(
                   //   child: _getContentWithCoin(tr('nftAssets'),
                   //       userProperty?.getNftBalance().toString(), null),
                   // ),
-                  Expanded(
+                  Expanded( ///綜合收入
                     child: _getContentWithCoin(tr('totalIncome'),
                         userProperty?.getIncome().toString(), null),
                   ),

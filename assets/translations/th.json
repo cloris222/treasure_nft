@@ -1364,5 +1364,6 @@
   "rechargeUSDT-frenchCurrency":"ฝาก USDT (สกุลเงินคำสั่ง)",
   "amountRangeError": "โปรดป้อนจำนวนเงินภายในช่วง",
   "APP_0094":"คุณมีคำสั่งซื้อหลายคำสั่ง กรุณาลองใหม่อีกครั้งในภายหลัง.",
-  "applicationFailed":"แอปพลิเคชันล้มเหลว"
+  "applicationFailed":"แอปพลิเคชันล้มเหลว",
+  "daily-profit":"กำไรรายวัน"
 }

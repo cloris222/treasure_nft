@@ -1363,5 +1363,6 @@
   "rechargeUSDT-frenchCurrency":"Deposit USDT (fiat currency)",
   "amountRangeError": "Please enter the amount within the range",
   "APP_0094":"You have multiple orders in progress. Please try again later.",
-  "applicationFailed":"Application failed"
+  "applicationFailed":"Application failed",
+  "daily-profit":"Daily profit"
 }

@@ -1364,5 +1364,6 @@
   "rechargeUSDT-frenchCurrency":"إيداع USDT (عملة فيات)",
   "amountRangeError": "الرجاء إدخال المبلغ ضمن النطاق",
   "APP_0094":"لديك أوامر متعددة قيد التقدم. الرجاء معاودة المحاولة في وقت لاحق.",
-  "applicationFailed":"فشل التطبيق"
+  "applicationFailed":"فشل التطبيق",
+  "daily-profit":"الربح اليومي"
 }

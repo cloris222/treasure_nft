@@ -19,6 +19,7 @@ class UserProperty {
     required this.totalBalance,
     required this.tradingSavingBalance,
     required this.experienceMoney,
+    required this.todayIncome,
   });
 
   num income;
@@ -41,6 +42,9 @@ class UserProperty {
   /// 工單691 增加體驗金
   num experienceMoney;
 
+  /// 工單799 增加每日收益
+  num todayIncome;
+
   factory UserProperty.fromJson(Map<String, dynamic> json) => UserProperty(
         income: json["income"] ?? 0,
         withdraw: json["withdraw"] ?? 0,
@@ -50,6 +54,7 @@ class UserProperty {
         totalBalance: json["totalBalance"] ?? 0,
         tradingSavingBalance: json["tradingSavingBalance"] ?? 0,
         experienceMoney: json["experienceMoney"] ?? 0,
+        todayIncome: json["todayIncome"] ?? 0,
       );
 
   Map<String, dynamic> toJson() => {
@@ -61,6 +66,7 @@ class UserProperty {
         "totalBalance": totalBalance,
         "tradingSavingBalance": tradingSavingBalance,
         "experienceMoney": experienceMoney,
+        "todayIncome": todayIncome,
       };
 
   num _checkMoney(num check) {
@@ -91,4 +97,6 @@ class UserProperty {
   num getTotalBalance() => _checkMoney(totalBalance);
 
   num getTradingSavingBalance()=>_checkMoney(tradingSavingBalance);
+
+  num getTodayIncome()=>_checkMoney(todayIncome);
 }
