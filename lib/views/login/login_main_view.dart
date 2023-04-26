@@ -84,7 +84,7 @@ class _LoginMainViewState extends ConsumerState<LoginMainView> {
               data: viewModel.accountData,
               onTap: viewModel.onTap),
           LoginParamView(
-              bPasswordFormatter: true,
+              // bPasswordFormatter: true,
               titleText: tr('password'),
               hintText: tr("placeholder-password"),
               controller: viewModel.passwordController,

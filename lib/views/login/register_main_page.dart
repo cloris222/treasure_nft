@@ -119,7 +119,7 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
 
           ///MARK:密碼
           LoginParamView(
-              bPasswordFormatter: true,
+              // bPasswordFormatter: true,
               titleText: tr('password'),
               hintText: tr("placeholder-password"),
               controller: viewModel.passwordController,
@@ -129,7 +129,7 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
 
           ///MARK:再次確認密碼
           LoginParamView(
-              bPasswordFormatter: true,
+              // bPasswordFormatter: true,
               titleText: tr("placeholder-password-again'"),
               hintText: tr("placeholder-password-again'"),
               controller: viewModel.rePasswordController,
