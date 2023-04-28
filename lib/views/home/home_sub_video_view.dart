@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
+import '../../constant/theme/app_image_path.dart';
 import '../../constant/ui_define.dart';
 import '../../models/http/http_setting.dart';
 
@@ -65,8 +70,10 @@ class _HomeSubVideoViewState extends State<HomeSubVideoView> {
                       child: InkWell(
                           onTap: _onStart,
                           child: Stack(alignment: Alignment.center, children: [
-                            Image.asset('',
-                                height: UIDefine.getScreenHeight(15)),
+                            Image.asset(AppImagePath.walletConnectCheckIcon,
+                                height: UIDefine.getScreenHeight(15),
+                            ),
+
                             Opacity(
                                 opacity: 0.87,
                                 child: CircleAvatar(
@@ -87,5 +94,17 @@ class _HomeSubVideoViewState extends State<HomeSubVideoView> {
   void _onStart() {
     _videoController.seekTo(const Duration(seconds: 0)).then(
         (value) => _videoController.play().then((value) => setState(() {})));
+  }
+
+  Future<File> genThumbnailFile(String path) async {
+    final fileName = await VideoThumbnail.thumbnailFile(
+      video: path,
+      thumbnailPath: (await getTemporaryDirectory()).path,
+      imageFormat: ImageFormat.PNG,
+      maxHeight: 100, // specify the height of the thumbnail, let the width auto-scaled to keep the source aspect ratio
+      quality: 75,
+    );
+    File file = File(fileName!);
+    return file;
   }
 }

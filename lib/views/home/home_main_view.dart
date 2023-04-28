@@ -31,6 +31,7 @@ import '../../view_models/home/provider/home_contact_info_provider.dart';
 import '../../view_models/home/provider/home_discover_provider.dart';
 import '../../view_models/home/provider/home_usdt_provider.dart';
 import '../../widgets/dialog/simple_custom_dialog.dart';
+import 'home_sub_video_view.dart';
 import 'widget/sponsor_row_widget.dart';
 
 class HomeMainView extends ConsumerStatefulWidget {
@@ -117,6 +118,12 @@ class _HomeMainViewState extends ConsumerState<HomeMainView>
 
                 buildSpace(height: 3),
 
+                /// 形象影片
+                const HomeSubVideoView(),
+
+                buildSpace(height: 3),
+
+                /// 文字介紹
                 const HomeSubIllustrateView(),
 
                 buildSpace(height: 3),
@@ -144,9 +151,6 @@ class _HomeMainViewState extends ConsumerState<HomeMainView>
 
                 /// Email訂閱
                 mailSubmit(),
-
-                /// 教學影片
-                // const HomeSubVideoView(),
 
                 /// 贊助
                 // sponsor(),
