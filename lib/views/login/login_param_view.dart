@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 
 import '../../constant/theme/app_colors.dart';
@@ -21,6 +22,7 @@ class LoginParamView extends StatelessWidget {
     this.bPasswordFormatter = false,
     this.bLimitDecimalLength = false,
     this.bShowRed = false,
+    this.inputFormatters = const [],
   }) : super(key: key);
   final String titleText;
   final String hintText;
@@ -31,6 +33,7 @@ class LoginParamView extends StatelessWidget {
   final GestureTapCallback? onTap;
   final TextInputType? keyboardType;
   final bool bShowRed;
+  final List<TextInputFormatter> inputFormatters;
 
   ///MARK: 帳號輸入資訊限制
   final bool bPasswordFormatter;
@@ -54,6 +57,7 @@ class LoginParamView extends StatelessWidget {
         onTap: onTap,
         bPasswordFormatter: bPasswordFormatter,
         bLimitDecimalLength: bLimitDecimalLength,
+        inputFormatters: inputFormatters,
       ),
       ErrorTextWidget(data: data, alignment: Alignment.centerRight)
     ]);

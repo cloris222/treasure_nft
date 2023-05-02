@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
@@ -115,6 +116,7 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
             controller: viewModel.accountController,
             data: viewModel.accountData,
             onChanged: viewModel.onAccountChanged,
+            inputFormatters: denySpace(),
           ),
 
           ///MARK:密碼
@@ -125,7 +127,9 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
               controller: viewModel.passwordController,
               isSecure: true,
               data: viewModel.passwordData,
-              onChanged: viewModel.onPasswordChanged),
+              onChanged: viewModel.onPasswordChanged,
+              inputFormatters: denySpace(),
+          ),
 
           ///MARK:再次確認密碼
           LoginParamView(
@@ -135,7 +139,9 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
               controller: viewModel.rePasswordController,
               isSecure: true,
               data: viewModel.rePasswordData,
-              onChanged: viewModel.onPasswordChanged),
+              onChanged: viewModel.onPasswordChanged,
+              inputFormatters: denySpace(),
+          ),
 
           ///MARK: 選擇國籍
           ..._buildRegisterCountry(),
@@ -147,6 +153,7 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
             controller: viewModel.emailController,
             data: viewModel.emailData,
             onChanged: viewModel.onEmailChange,
+            inputFormatters: denySpace(),
           ),
 
           ///MARK:驗證碼
@@ -167,7 +174,9 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
               titleText: '${tr('referralCode')} (${tr('optional')})',
               hintText: tr("placeholder-referralCode'"),
               controller: viewModel.referralController,
-              data: viewModel.referralData),
+              data: viewModel.referralData,
+              inputFormatters: denySpace(),
+          ),
 
           ///MARK: 註冊按鈕
           LoginButtonWidget(
@@ -233,5 +242,10 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
         }
       }
     }
+  }
+
+  ///MARK: 限制空格輸入
+  List<TextInputFormatter> denySpace() {
+    return [FilteringTextInputFormatter.deny(RegExp(r'\s'))];
   }
 }
