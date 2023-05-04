@@ -186,7 +186,7 @@ class _OrderInfoCard extends State<OrderInfoCard> {
       case 'PENDING':
         return tr("notification-PENDING'");
       case 'FAIL':
-        return tr("notification-FAIL'");
+        return tr("notification-NOTWON'");
       case 'THROW':
         return tr("notification-THROW'");
     }

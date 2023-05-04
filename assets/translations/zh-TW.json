@@ -1365,5 +1365,6 @@
   "amountRangeError": "請輸入範圍內金額",
   "APP_0094":"您有多筆訂單正在處理中，請稍後再次申請。",
   "applicationFailed":"申請失敗",
-  "daily-profit":"每日盈利"
+  "daily-profit":"每日盈利",
+  "notification-NOTWON'":"未成功"
 }
