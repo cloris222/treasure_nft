@@ -152,6 +152,7 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
     );
   }
 
+  /// 選擇幣種
   Widget _buildFirstDrop() {
     return Container(
         padding: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(10)),
@@ -176,6 +177,7 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
             }));
   }
 
+  /// 選擇付款方式
   Widget _buildSecondDrop() {
     return Container(
         padding: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(10)),
