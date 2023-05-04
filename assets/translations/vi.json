@@ -1365,5 +1365,6 @@
   "amountRangeError": "Vui lòng nhập số tiền trong phạm vi",
   "APP_0094":"Bạn có nhiều đơn đặt hàng đang được tiến hành. Vui lòng thử lại sau.",
   "applicationFailed":"Ứng dụng không thành công",
-  "daily-profit":"Lợi nhuận hàng ngày"
+  "daily-profit":"Lợi nhuận hàng ngày",
+  "notification-NOTWON'":"đã không giành chiến thắng"
 }
