@@ -12,6 +12,7 @@ import '../../../constant/enum/setting_enum.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_image_path.dart';
 import '../../../constant/theme/app_style.dart';
+import '../../../utils/language_util.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../custom_appbar_view.dart';
 
@@ -125,8 +126,13 @@ class _UserNovicePageState extends State<UserNovicePage> {
                                       videoStr: VideoStrEnum.values[index]));
                             },
                             child: Image.asset(
-                              format(AppImagePath.videoCover,
-                                  {'index': index + 1}),
+                              LanguageUtil.getAppStrLanguage() == "vi"
+                                  ? format(AppImagePath.videoCoverVi, {
+                                'index': index + 1
+                              })
+                                  : format(AppImagePath.videoCover, {
+                                'index': index + 1
+                              }),
                               fit: BoxFit.cover,
                             ),
                           ),

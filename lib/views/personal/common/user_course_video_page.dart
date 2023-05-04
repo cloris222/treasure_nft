@@ -73,9 +73,12 @@ class _CourseVideoPageState extends State<CourseVideoPage> {
                 width: getVideoWidth(),
                 height: getVideoHeight(),
                 child: Image.asset(
-                  format(AppImagePath.videoCover, {
-                    'index':
-                    VideoStrEnum.values.indexOf(widget.videoStr) + 1
+                  LanguageUtil.getAppStrLanguage() == "vi"
+                      ? format(AppImagePath.videoCoverVi, {
+                    'index': VideoStrEnum.values.indexOf(widget.videoStr) + 1
+                  })
+                      : format(AppImagePath.videoCover, {
+                    'index': VideoStrEnum.values.indexOf(widget.videoStr) + 1
                   }),
                   fit: BoxFit.cover,
                 )),
@@ -98,25 +101,6 @@ class _CourseVideoPageState extends State<CourseVideoPage> {
         ]));
   }
 
-  Widget _buildVideo() {
-    return SizedBox.expand(
-      child: FittedBox(
-        fit: BoxFit.cover,
-        child: videoController.value.isInitialized
-            ? AspectRatio(
-            aspectRatio: videoController.value.aspectRatio,
-            child: VideoPlayer(
-              videoController,
-            ))
-            : Image.asset(
-          format(AppImagePath.videoCover, {
-            'index': VideoStrEnum.values.indexOf(widget.videoStr) + 1
-          }),
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
-  }
 
   double getVideoHeight() {
     return videoController.value.isInitialized
