@@ -118,11 +118,6 @@ class _HomeMainViewState extends ConsumerState<HomeMainView>
 
                 buildSpace(height: 3),
 
-                /// 形象影片
-                const HomeSubVideoView(),
-
-                buildSpace(height: 3),
-
                 /// 文字介紹
                 const HomeSubIllustrateView(),
 

@@ -10,6 +10,7 @@ import '../../widgets/app_bottom_navigation_bar.dart';
 import '../../widgets/list_view/home/carousel_listview.dart';
 import '../main_page.dart';
 import 'home_main_style.dart';
+import 'home_sub_video_view.dart';
 
 class HomeSubUsdtView extends StatelessWidget with HomeMainStyle {
   const HomeSubUsdtView({Key? key}) : super(key: key);
@@ -54,6 +55,11 @@ class HomeSubUsdtView extends StatelessWidget with HomeMainStyle {
           /// USDT_Info
            // ignore: prefer_const_constructors
            HomeUsdtInfo(),
+
+          buildSpace(height: 3),
+
+          ///MARK: 形象影片
+          const HomeSubVideoView(),
 
           buildSpace(height: 5),
 
