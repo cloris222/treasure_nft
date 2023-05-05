@@ -126,7 +126,7 @@ class _UserNovicePageState extends State<UserNovicePage> {
                                       videoStr: VideoStrEnum.values[index]));
                             },
                             child: Image.asset(
-                              LanguageUtil.getAppStrLanguage() == "vi"
+                              LanguageUtil.getSettingLanguageType() == LanguageType.Vietnamese
                                   ? format(AppImagePath.videoCoverVi, {
                                 'index': index + 1
                               })

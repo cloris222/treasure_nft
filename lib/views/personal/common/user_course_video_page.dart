@@ -73,7 +73,7 @@ class _CourseVideoPageState extends State<CourseVideoPage> {
                 width: getVideoWidth(),
                 height: getVideoHeight(),
                 child: Image.asset(
-                  LanguageUtil.getAppStrLanguage() == "vi"
+                  LanguageUtil.getSettingLanguageType() == LanguageType.Vietnamese
                       ? format(AppImagePath.videoCoverVi, {
                     'index': VideoStrEnum.values.indexOf(widget.videoStr) + 1
                   })
@@ -116,7 +116,7 @@ class _CourseVideoPageState extends State<CourseVideoPage> {
 
   String getVideoPath(VideoStrEnum videoStrPath) {
     String path = "";
-    if (LanguageUtil.getAppStrLanguage() == "vi") {
+    if (LanguageUtil.getSettingLanguageType() == LanguageType.Vietnamese) {
       path =
         "https://image.treasurenft.xyz/PC/video/vn_mb_tutorial_{number}.mp4";
     } else {
