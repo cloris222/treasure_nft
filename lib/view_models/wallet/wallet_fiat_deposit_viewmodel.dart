@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
+import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/api/wallet_api.dart';
 import 'package:treasure_nft_project/view_models/wallet/wallet_fiat_currency_provider.dart';
 import 'package:treasure_nft_project/view_models/wallet/wallet_pay_type_provider.dart';
 import '../../constant/call_back_function.dart';
 import '../base_view_model.dart';
+import 'package:intl/intl.dart';
 
 
 class WalletFiatDepositViewModel extends BaseViewModel {
@@ -25,9 +27,18 @@ class WalletFiatDepositViewModel extends BaseViewModel {
   bool errorHint = false;
 
   void onTextChange() {
-    debugPrint("onTextChange>>>");
     available = getAvailable();
     onViewChange();
+  }
+
+  String getMinText() {
+    return getThousandFormat(
+        ref.read(currentPayTypeProvider.notifier).state.startPrice);
+  }
+
+  String getMaxText() {
+    return getThousandFormat(
+        ref.read(currentPayTypeProvider.notifier).state.endPrice);
   }
 
   void onMinimum() {
@@ -38,7 +49,7 @@ class WalletFiatDepositViewModel extends BaseViewModel {
 
   void onMaximum() {
     amountController.text =
-      ref.read(currentPayTypeProvider.notifier).state.endPrice.toString();
+        ref.read(currentPayTypeProvider.notifier).state.endPrice.toString();
     onTextChange();
   }
 
@@ -89,9 +100,15 @@ class WalletFiatDepositViewModel extends BaseViewModel {
   Widget getPayTypeItemIcon(String typeName) {
     return Image.asset(
       format(AppImagePath.walletPayTypeIcon, {"payType": typeName.toLowerCase()}),
+      width: UIDefine.getPixelHeight(32),
       scale: 0.75,
       errorBuilder: (context, error, stackTrace) => Container(),
     );
+  }
+
+  String getThousandFormat(num number) {
+    var formatter = NumberFormat('###,###,###');
+    return formatter.format(number);
   }
 
 }
