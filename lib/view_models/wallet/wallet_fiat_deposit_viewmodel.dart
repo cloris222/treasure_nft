@@ -25,6 +25,7 @@ class WalletFiatDepositViewModel extends BaseViewModel {
   bool errorHint = false;
 
   void onTextChange() {
+    debugPrint("onTextChange>>>");
     available = getAvailable();
     onViewChange();
   }
@@ -89,6 +90,7 @@ class WalletFiatDepositViewModel extends BaseViewModel {
     return Image.asset(
       format(AppImagePath.walletPayTypeIcon, {"payType": typeName.toLowerCase()}),
       scale: 0.75,
+      errorBuilder: (context, error, stackTrace) => Container(),
     );
   }
 

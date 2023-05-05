@@ -172,7 +172,7 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
                   .update((state) => index);
 
               /// 選擇幣種後查詢支付類型
-              ref.read(walletPayTypeProvider.notifier).setRef(ref);
+              ref.read(walletPayTypeProvider.notifier).setRefAndVM(ref, viewModel);
               ref.read(walletPayTypeProvider.notifier).init();
             }));
   }
@@ -195,7 +195,7 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
               ref.read(currentPayTypeProvider.notifier).state = payTypeList[index];
               ref.read(payTypeCurrentIndexProvider.notifier)
                   .update((state) => index);
-              viewModel.onViewChange();
+              viewModel.onTextChange();
             }));
   }
 

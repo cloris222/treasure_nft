@@ -66,9 +66,9 @@ class _HomeSubVideoViewState extends State<HomeSubVideoView> {
                       child: InkWell(
                           onTap: _onStart,
                           child: Stack(alignment: Alignment.center, children: [
-                            Image.asset(AppImagePath.walletConnectCheckIcon,
-                                height: UIDefine.getScreenHeight(15),
-                            ),
+                            Transform.scale(
+                              scaleX: 1.1,
+                             child:Image.asset(AppImagePath.videoPoster)),
 
                             Opacity(
                                 opacity: 0.87,
