@@ -115,6 +115,8 @@ class AppImagePath {
   static const String fastIcon = '$_iconPath/icon_fasttransaction_01.png';
   static const String growthIcon = '$_iconPath/icon_growthtransaction_01.png';
   static const String helpIcon = '$_btnPath/btn_help_01.png';
+  static const String videoPoster = '$_imgPath/img_video_poster.jpg';
+
 
   /// personal page
   static const String defaultBanner = '$_imgPath/img_banner_01_defult.jpg';
@@ -176,6 +178,7 @@ class AppImagePath {
   /// beginner course
   static const String userGradient = '$_iconPath/icon_user_02.png';
   static const String videoCover = '$_imgPath/img_video_0{index}.png';
+  static const String videoCoverVi = '$_imgPath/mb_tutorial_0{index}_cover.jpg';
 
   /// sign in
   static const String dailyCurrentDay = '$_iconPath/icon_date_04.png';

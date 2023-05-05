@@ -38,7 +38,9 @@ class PersonalNewSubUserInfoView extends ConsumerWidget {
       this.showPoint = true,
       this.enableModify = false,
       this.userLevelInfo,
-      this.shareUrl});
+      this.shareUrl,
+      this.isHideName = false,
+      });
 
   ///MARK: 是否顯示他人
   final UserInfoData? setUserInfo;
@@ -52,6 +54,7 @@ class PersonalNewSubUserInfoView extends ConsumerWidget {
   final bool showPoint;
   final bool showId;
   final String? shareUrl;
+  final bool isHideName;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -89,7 +92,11 @@ class PersonalNewSubUserInfoView extends ConsumerWidget {
                   Row(
                     children: [
                       WarpTwoTextWidget(
-                          text: userInfo.getUserName(),
+                          text: isHideName
+                              ? userInfo.getUserName() != ""
+                                  ? userInfo.getUserName().replaceRange(1, null, '....')
+                                  : ""
+                              : userInfo.getUserName(),
                           fontSize: UIDefine.fontSize18,
                           fontWeight: FontWeight.w600),
                       SizedBox(width: UIDefine.getPixelWidth(5)),

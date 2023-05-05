@@ -222,8 +222,10 @@ class _BuyerSellerInfoCard extends State<BuyerSellerInfoCard> {
                       Rect.fromLTWH(0, 0, bounds.width, bounds.height),
                     ),
                     child: Text(
-                      i < 3 ?
-                      tr(moreInfoDataList[i].content)
+                      i < 3
+                          ? i == 1
+                              ? tr(moreInfoDataList[i].content).replaceRange(1, null, '....')
+                              : tr(moreInfoDataList[i].content)
                           :
                       BaseViewModel().numberFormat(moreInfoDataList[i].content), // 金額取小數點後兩位
                       style: AppTextStyle.getBaseStyle(color: i == 1? AppColors.mainThemeButton : AppColors.textBlack,

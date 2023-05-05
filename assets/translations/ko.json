@@ -1364,5 +1364,7 @@
   "rechargeUSDT-frenchCurrency":"USDT 입금 (Fiat Currency)",
   "amountRangeError": "범위 내에 금액을 입력하십시오",
   "APP_0094":"여러 주문이 진행 중입니다. 나중에 다시 시도 해주십시오.",
-  "applicationFailed":"응용 프로그램이 실패했습니다"
+  "applicationFailed":"응용 프로그램이 실패했습니다",
+  "daily-profit":"일일 이익",
+  "notification-NOTWON'":"미당첨"
 }

@@ -1364,5 +1364,7 @@
   "rechargeUSDT-frenchCurrency":"Setor USDT (mata uang fiat)",
   "amountRangeError": "Harap masukkan jumlah dalam kisaran",
   "APP_0094":"Anda memiliki banyak pesanan yang sedang berlangsung. Silakan coba lagi nanti.",
-  "applicationFailed":"Aplikasi gagal"
+  "applicationFailed":"Aplikasi gagal",
+  "daily-profit":"Laba harian",
+  "notification-NOTWON'":"Tidak menang"
 }

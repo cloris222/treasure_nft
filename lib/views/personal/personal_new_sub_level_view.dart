@@ -38,20 +38,29 @@ class PersonalNewSubLevelView extends StatelessWidget {
                       fontSize: UIDefine.fontSize16,
                       fontWeight: FontWeight.w600)),
               _getLine(),
-              _getContentWithCoin(tr('totalAssets'),
-                  userProperty?.getTotalBalance().toString(), UIDefine.fontSize14,
-                  isTotal: true),
+              //總資產
+              // _getContentWithCoin(tr('totalAssets'),
+              //     userProperty?.getTotalBalance().toString(), UIDefine.fontSize14,
+              //     isTotal: true),
+              ///錢包餘額
+              _getContentWithCoin(tr("wallet-balance'"),
+                  userProperty?.getBalance().toString(), null),
+
               _getLine(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: _getContentWithCoin(tr("wallet-balance'"),
-                        userProperty?.getBalance().toString(), null),
+                  Expanded( ///每日收益
+                    child: _getContentWithCoin(tr("daily-profit"),
+                        userProperty?.getTodayIncome().toString(), null),
                   ),
-                  Expanded(
-                    child: _getContentWithCoin(tr('nftAssets'),
-                        userProperty?.getNftBalance().toString(), null),
+                  // Expanded(
+                  //   child: _getContentWithCoin(tr('nftAssets'),
+                  //       userProperty?.getNftBalance().toString(), null),
+                  // ),
+                  Expanded( ///綜合收入
+                    child: _getContentWithCoin(tr('totalIncome'),
+                        userProperty?.getIncome().toString(), null),
                   ),
                 ],
               ),
@@ -59,10 +68,6 @@ class PersonalNewSubLevelView extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: _getContentWithCoin(tr('totalIncome'),
-                        userProperty?.getIncome().toString(), null),
-                  ),
                   Expanded(
                     child: _getContentWithCoin(
                       tr('bonus_referral'),
@@ -77,12 +82,7 @@ class PersonalNewSubLevelView extends StatelessWidget {
                       },
                     ),
                   ),
-                ],
-              ),
-              SizedBox(height: UIDefine.getScreenWidth(2.7)),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+
                   Expanded(
                     child: _getContentWithCoin(
                       tr('bonus_trade'),
@@ -97,12 +97,32 @@ class PersonalNewSubLevelView extends StatelessWidget {
                       },
                     ),
                   ),
-                  Expanded(
-                    child: _getContentWithCoin(tr('fees'), '1%', null,
-                        showIcon: false, useFormat: false),
-                  )
                 ],
               ),
+              SizedBox(height: UIDefine.getScreenWidth(2.7)),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     Expanded(
+              //       child: _getContentWithCoin(
+              //         tr('bonus_trade'),
+              //         userProperty?.getTradingSavingBalance().toString(),
+              //         null,
+              //         onTextPress: () {
+              //           ///交易儲金罐
+              //           BaseViewModel().pushPage(
+              //               context,
+              //               const LevelBonusRecordPage(
+              //                   isInitReferralBonus: false));
+              //         },
+              //       ),
+              //     ),
+              //     Expanded(
+              //       child: _getContentWithCoin(tr('fees'), '1%', null,
+              //           showIcon: false, useFormat: false),
+              //     )
+              //   ],
+              // ),
             ],
           ),
         ));

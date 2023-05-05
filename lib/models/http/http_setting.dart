@@ -10,8 +10,13 @@ class HttpSetting {
   static const String socketUrl =
       'https://treasurenft.xyz/gateway/websocket/websocket-connect';
   static const String homeAdUrl =
+<<<<<<< HEAD
       'https://image.treasurenft.xyz/Treasure2.5/index/pc_ad_01.mp4';
   static const String systemTimeZone='GMT+4';
+=======
+      'https://devimage.treasurenft.xyz/video/index_video.mp4';
+  static const String systemTimeZone = 'GMT+8';
+>>>>>>> develop
   static const String pcArtistUrl =
       'https://treasurenft.xyz/#/userMap/exploreCreator?id={artistId}';
   static const String shareOther =

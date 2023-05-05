@@ -146,11 +146,13 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
               _buildSecondDrop(),
               _buildAmount(),
               _buildMinMaxButton(),
+              _buildRate(),
               _buildEarn(),
         ])
     );
   }
 
+  /// 選擇幣種
   Widget _buildFirstDrop() {
     return Container(
         padding: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(10)),
@@ -170,11 +172,12 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
                   .update((state) => index);
 
               /// 選擇幣種後查詢支付類型
-              ref.read(walletPayTypeProvider.notifier).setRef(ref);
+              ref.read(walletPayTypeProvider.notifier).setRefAndVM(ref, viewModel);
               ref.read(walletPayTypeProvider.notifier).init();
             }));
   }
 
+  /// 選擇付款方式
   Widget _buildSecondDrop() {
     return Container(
         padding: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(10)),
@@ -192,7 +195,7 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
               ref.read(currentPayTypeProvider.notifier).state = payTypeList[index];
               ref.read(payTypeCurrentIndexProvider.notifier)
                   .update((state) => index);
-              viewModel.onViewChange();
+              viewModel.onTextChange();
             }));
   }
 
@@ -245,7 +248,7 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
             needWhiteBackground: true,
             height: UIDefine.getPixelWidth(45),
             margin:EdgeInsets.only(right: UIDefine.getPixelHeight(5)),
-            btnText: '${tr("minimum")} ${ref.read(currentPayTypeProvider.notifier).state.startPrice}',
+            btnText: '${tr("minimum")} ${viewModel.getMinText()}',
             onPressed: () => viewModel.onMinimum(),
             isFillWidth: false,
             fontWeight: FontWeight.w600,
@@ -258,7 +261,7 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
             needWhiteBackground: true,
             height: UIDefine.getPixelWidth(45),
             margin:EdgeInsets.only(left: UIDefine.getPixelHeight(5)),
-            btnText: '${tr("maximum")} ${ref.read(currentPayTypeProvider.notifier).state.endPrice}',
+            btnText: '${tr("maximum")} ${viewModel.getMaxText()}',
             onPressed: () => viewModel.onMaximum(),
             isFillWidth: false,
             fontWeight: FontWeight.w600,
@@ -268,11 +271,24 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
         ]));
   }
 
+  Widget _buildRate() {
+    return Align(
+        alignment: Alignment.centerLeft,
+        child:Text(
+            '${tr("exchangeRate")}：${ref.read(currentPayTypeProvider.notifier).state.currentRate}',
+            maxLines: 1,
+            style: AppTextStyle.getBaseStyle(
+                fontSize: UIDefine.fontSize14,
+                fontWeight: FontWeight.w400,
+                color: AppColors.textBlack)
+        ));
+  }
+
   Widget _buildEarn() {
     return Align(
         alignment: Alignment.centerLeft,
         child:Text(
-            '${tr("available")}:≈${viewModel.available} USDT',
+            '${tr("available")}：≈${viewModel.available} USDT',
             maxLines: 1,
             style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize14,

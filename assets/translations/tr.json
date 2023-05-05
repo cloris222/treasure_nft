@@ -1364,5 +1364,7 @@
   "rechargeUSDT-frenchCurrency":"Depozito USDT (Fiat Para Birimi)",
   "amountRangeError": "Lütfen miktarı aralık içindeki girin",
   "APP_0094":"Devam eden birden fazla siparişiniz var. Lütfen daha sonra tekrar deneyiniz.",
-  "applicationFailed":"Uygulama başarısız oldu"
+  "applicationFailed":"Uygulama başarısız oldu",
+  "daily-profit":"Günlük kâr",
+  "notification-NOTWON'":"Başarısız"
 }

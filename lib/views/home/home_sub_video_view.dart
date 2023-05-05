@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
+import '../../constant/theme/app_image_path.dart';
 import '../../constant/ui_define.dart';
 import '../../models/http/http_setting.dart';
 
@@ -65,8 +66,10 @@ class _HomeSubVideoViewState extends State<HomeSubVideoView> {
                       child: InkWell(
                           onTap: _onStart,
                           child: Stack(alignment: Alignment.center, children: [
-                            Image.asset('',
-                                height: UIDefine.getScreenHeight(15)),
+                            Transform.scale(
+                              scaleX: 1.1,
+                             child:Image.asset(AppImagePath.videoPoster)),
+
                             Opacity(
                                 opacity: 0.87,
                                 child: CircleAvatar(

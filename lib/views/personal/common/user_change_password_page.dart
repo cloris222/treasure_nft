@@ -64,7 +64,7 @@ class _UserChangePasswordPageState
                   children: [
                     LoginParamView(
                         isSecure: true,
-                        bPasswordFormatter: true,
+                        // bPasswordFormatter: true,
                         titleText: tr('oldPassword'),
                         hintText: tr("placeholder-old-password'"),
                         controller: viewModel.oldPasswordController,
@@ -73,7 +73,7 @@ class _UserChangePasswordPageState
                     SizedBox(height: UIDefine.getScreenWidth(4.16)),
                     LoginParamView(
                         isSecure: true,
-                        bPasswordFormatter: true,
+                        // bPasswordFormatter: true,
                         titleText: tr('newPassword'),
                         hintText: tr("placeholder-new-password'"),
                         controller: viewModel.newPasswordController,
@@ -82,7 +82,7 @@ class _UserChangePasswordPageState
                     SizedBox(height: UIDefine.getScreenWidth(4.16)),
                     LoginParamView(
                         isSecure: true,
-                        bPasswordFormatter: true,
+                        // bPasswordFormatter: true,
                         titleText: tr('confirmPW'),
                         hintText: tr("placeholder-password-again'"),
                         controller: viewModel.rePasswordController,

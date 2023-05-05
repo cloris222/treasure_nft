@@ -29,7 +29,8 @@ class LoginTextWidget extends StatefulWidget {
       this.bLimitDecimalLength = false,
       this.bPasswordFormatter = false,
       this.inputFormatters = const [],
-      this.bFocusedGradientBolder = false})
+      this.bFocusedGradientBolder = false,
+      })
       : super(key: key);
   final String hintText;
   final double? fontSize;
