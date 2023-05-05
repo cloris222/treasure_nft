@@ -93,7 +93,9 @@ class PersonalNewSubUserInfoView extends ConsumerWidget {
                     children: [
                       WarpTwoTextWidget(
                           text: isHideName
-                              ? userInfo.getUserName().replaceRange(1, null, '....')
+                              ? userInfo.getUserName() != ""
+                                  ? userInfo.getUserName().replaceRange(1, null, '....')
+                                  : ""
                               : userInfo.getUserName(),
                           fontSize: UIDefine.fontSize18,
                           fontWeight: FontWeight.w600),
