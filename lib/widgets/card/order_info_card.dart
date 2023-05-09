@@ -137,16 +137,12 @@ class _OrderInfoCard extends State<OrderInfoCard> {
                                         decoration: BoxDecoration(
                                           color: AppColors.textWhite,
                                           border: Border.all(
-                                              color: AppColors.textRed, width: 2),
+                                              color: AppColors.growPrice, width: 2),
                                         ),
-                                        padding: const EdgeInsets.fromLTRB(1, 1, 1, 1),
+                                        padding: const EdgeInsets.fromLTRB(1.5, 1, 1.5, 1),
                                         child: Row(children: [
                                           Image.asset(AppImagePath.giftIcon),
-                                          Icon(
-                                            Icons.arrow_forward_ios,
-                                            color: AppColors.textRed,
-                                            size: UIDefine.getPixelHeight(10),
-                                          ),
+                                          Image.asset(AppImagePath.arrowRightIcon),
                                         ]),
                                       )))
                             ])
