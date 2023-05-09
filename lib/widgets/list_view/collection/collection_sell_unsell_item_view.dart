@@ -108,7 +108,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   SizedBox(
-                      width: UIDefine.getScreenWidth(37),
+                      width: UIDefine.getScreenWidth(37.5),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -327,7 +327,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                               _pressTransfer();
                             },
                             child: GradientText(
-                              tr('transfer'), // 轉讓
+                              tr('transfer'), // 轉出
                               weight: FontWeight.w500,
                               size: UIDefine.fontSize16,
                               starColor: AppColors.gradientBaseColorBg[0],
@@ -351,7 +351,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                       _pressSell();
                     },
                     child: Text(
-                      tr('sell'), // 販售
+                      tr('sell'), // 賣出
                       style: AppTextStyle.getBaseStyle(
                           color: AppColors.textWhite,
                           fontSize: UIDefine.fontSize16,

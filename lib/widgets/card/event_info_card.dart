@@ -96,7 +96,7 @@ class _EventInfoCard extends State<EventInfoCard> {
                 /// 這張的獎號
                 Text(
                   widget.lotteryNo,
-                  style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
+                  style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize18, fontWeight: FontWeight.w500),
                 ),
                 /// 中籤icon 2
                 Container(
@@ -104,7 +104,7 @@ class _EventInfoCard extends State<EventInfoCard> {
                       color: _getPrizeBkgrnColor(),
                       border: Border.all(color: _getPrizeBorderColor(), width: 2),
                     ),
-                    padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
+                    padding: const EdgeInsets.fromLTRB(1, 2, 1, 2),
                     child: Row(
                       children: [
                         Image.asset(_getPrizeIconColor()),
@@ -348,7 +348,7 @@ class _EventInfoCard extends State<EventInfoCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                    width: UIDefine.getScreenWidth(50),
+                    width: UIDefine.getScreenWidth(45),
                     child: Text(
                       bIsItem? widget.itemName: tr('awardMoney'),
                       style: AppTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize18, fontWeight: FontWeight.w500),
