@@ -29,8 +29,7 @@ class _CollectionTicketItemView extends State<CollectionTicketItemView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(1), 3,
-          UIDefine.getScreenWidth(1), 3),
+      margin: const EdgeInsets.fromLTRB(0, 3, 0, 3),
       child: EventInfoCard(
           itemStatus: data.itemStatus,
           prizeStatus: data.winPrizeStatus,
