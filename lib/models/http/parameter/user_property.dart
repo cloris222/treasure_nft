@@ -94,9 +94,9 @@ class UserProperty {
     return check;
   }
 
-  ///MARK: 加上體驗金
+  ///MARK: 減體驗金
   num getWalletAccount() {
-    num money = balance + experienceMoney;
+    num money = balance - experienceMoney;
     return _checkMoney(money);
   }
 
