@@ -41,7 +41,7 @@ class _EventInfoCard extends State<EventInfoCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(UIDefine.getScreenWidth(4.4)),
+        padding: EdgeInsets.all(UIDefine.getScreenWidth(4)),
         decoration: BoxDecoration(
           border: Border.all(color: AppColors.bolderGrey, width: 2.5),
           borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -104,7 +104,7 @@ class _EventInfoCard extends State<EventInfoCard> {
                       color: _getPrizeBkgrnColor(),
                       border: Border.all(color: _getPrizeBorderColor(), width: 2),
                     ),
-                    padding: const EdgeInsets.fromLTRB(1, 2, 1, 2),
+                    padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
                     child: Row(
                       children: [
                         Image.asset(_getPrizeIconColor()),

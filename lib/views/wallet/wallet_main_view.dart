@@ -148,7 +148,7 @@ class _WalletMainViewState extends ConsumerState<WalletMainView> {
                     Text(
                         NumberFormatUtil().removeTwoPointFormat(
                             userProperty != null
-                                ? userProperty.getWalletAccount()
+                                ? userProperty.getBalance()
                                 : 0),
                         style: AppTextStyle.getBaseStyle(
                             fontSize: UIDefine.fontSize40,
@@ -167,7 +167,7 @@ class _WalletMainViewState extends ConsumerState<WalletMainView> {
                         Flexible(
                             child: WalletInfoItem(
                                 title: tr('notExtracted'),
-                                value: userProperty?.getBalance())),
+                                value: userProperty?.getWalletAccount())),
                       ],
                     ),
                   ],
