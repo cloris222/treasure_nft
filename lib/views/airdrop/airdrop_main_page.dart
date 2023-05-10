@@ -36,6 +36,8 @@ class _AirdropMainPageState extends ConsumerState<AirdropMainPage>
   AirdropType currentType = AirdropType.values.first;
   PageController controller = PageController();
 
+  int get airDropCount => ref.watch(airdropCountProvider(true));
+
   @override
   void dispose() {
     controller.dispose();
@@ -196,7 +198,7 @@ class _AirdropMainPageState extends ConsumerState<AirdropMainPage>
     switch (type) {
       case AirdropType.dailyReward:
         // ignore: prefer_const_constructors
-        return AirdropDailyPage();
+        return AirdropDailyPage(count:airDropCount);
       case AirdropType.growthReward:
         // ignore: prefer_const_constructors
         return AirdropGrowthPage();
