@@ -20,10 +20,17 @@ class UserProperty {
     required this.tradingSavingBalance,
     required this.experienceMoney,
     required this.todayIncome,
+    required this.spreadSavingsTotal,
+    required this.tradeSavingsTotal,
   });
 
+  /// 總收益
   num income;
+
+  /// 已提領
   num withdraw;
+
+  /// 錢包餘額(未提取)
   num balance;
 
   /// 儲金罐餘額
@@ -39,11 +46,18 @@ class UserProperty {
   /// 交易儲金罐餘額
   num tradingSavingBalance;
 
-  /// 工單691 增加體驗金
+  /// 工單691增加 體驗金
   num experienceMoney;
 
-  /// 工單799 增加每日收益
+  /// 工單799增加 每日收益
   num todayIncome;
+
+  /// 工單812增加 推廣儲金罐總額
+  num spreadSavingsTotal;
+
+  /// 工單812增加 交易儲金罐總額
+  num tradeSavingsTotal;
+
 
   factory UserProperty.fromJson(Map<String, dynamic> json) => UserProperty(
         income: json["income"] ?? 0,
@@ -55,6 +69,8 @@ class UserProperty {
         tradingSavingBalance: json["tradingSavingBalance"] ?? 0,
         experienceMoney: json["experienceMoney"] ?? 0,
         todayIncome: json["todayIncome"] ?? 0,
+        spreadSavingsTotal: json["spreadSavingsTotal"] ?? 0,
+        tradeSavingsTotal: json["tradeSavingsTotal"] ?? 0,
       );
 
   Map<String, dynamic> toJson() => {
@@ -67,6 +83,8 @@ class UserProperty {
         "tradingSavingBalance": tradingSavingBalance,
         "experienceMoney": experienceMoney,
         "todayIncome": todayIncome,
+        "spreadSavingsTotal": spreadSavingsTotal,
+        "tradeSavingsTotal": tradeSavingsTotal,
       };
 
   num _checkMoney(num check) {
@@ -76,9 +94,9 @@ class UserProperty {
     return check;
   }
 
-  ///MARK: 扣除體驗金
+  ///MARK: 加上體驗金
   num getWalletAccount() {
-    num money = balance - experienceMoney;
+    num money = balance + experienceMoney;
     return _checkMoney(money);
   }
 
@@ -99,4 +117,8 @@ class UserProperty {
   num getTradingSavingBalance()=>_checkMoney(tradingSavingBalance);
 
   num getTodayIncome()=>_checkMoney(todayIncome);
+
+  num getSpreadSavingsTotal()=>_checkMoney(spreadSavingsTotal);
+
+  num getTradeSavingsTotal()=>_checkMoney(tradeSavingsTotal);
 }

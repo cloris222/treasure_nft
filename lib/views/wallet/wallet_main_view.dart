@@ -167,7 +167,7 @@ class _WalletMainViewState extends ConsumerState<WalletMainView> {
                         Flexible(
                             child: WalletInfoItem(
                                 title: tr('notExtracted'),
-                                value: userProperty?.getWalletAccount())),
+                                value: userProperty?.getBalance())),
                       ],
                     ),
                   ],
