@@ -68,7 +68,7 @@ class _EventInfoCard extends State<EventInfoCard> {
                 ),
                 /// 中籤icon 1
                 Container(
-                    width: UIDefine.getPixelHeight(90),
+                    width: UIDefine.getScreenWidth(22.5),
                     decoration: BoxDecoration(
                       color: _getLuckyStrawBkgrnColor(),
                       border: Border.all(color: _getLuckyStrawBorderColor(), width: 2),
@@ -79,7 +79,7 @@ class _EventInfoCard extends State<EventInfoCard> {
                         Image.asset(_getItemIconColor()),
                         const SizedBox(width: 4),
                         SizedBox(
-                            width: UIDefine.getPixelHeight(43),
+                            width: UIDefine.getScreenWidth(10),
                             child:Text(
                               _getLuckyStrawString(),
                               overflow: TextOverflow.ellipsis,
@@ -104,7 +104,7 @@ class _EventInfoCard extends State<EventInfoCard> {
                 ),
                 /// 中籤icon 2
                 Container(
-                  width: UIDefine.getPixelHeight(90),
+                    width: UIDefine.getScreenWidth(22.5),
                     decoration: BoxDecoration(
                       color: _getPrizeBkgrnColor(),
                       border: Border.all(color: _getPrizeBorderColor(), width: 2),
@@ -115,7 +115,7 @@ class _EventInfoCard extends State<EventInfoCard> {
                         Image.asset(_getPrizeIconColor()),
                         const SizedBox(width: 4),
                         SizedBox(
-                            width: UIDefine.getPixelHeight(43),
+                            width: UIDefine.getScreenWidth(10),
                             child:Text(
                               _getPrizeLuckyStrawString(),
                               overflow: TextOverflow.ellipsis,
