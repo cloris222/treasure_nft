@@ -68,6 +68,7 @@ class _EventInfoCard extends State<EventInfoCard> {
                 ),
                 /// 中籤icon 1
                 Container(
+                    width: UIDefine.getPixelHeight(90),
                     decoration: BoxDecoration(
                       color: _getLuckyStrawBkgrnColor(),
                       border: Border.all(color: _getLuckyStrawBorderColor(), width: 2),
@@ -77,10 +78,13 @@ class _EventInfoCard extends State<EventInfoCard> {
                       children: [
                         Image.asset(_getItemIconColor()),
                         const SizedBox(width: 4),
-                        Text(
-                          _getLuckyStrawString(),
-                          style: AppTextStyle.getBaseStyle(color: _getLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
-                        )
+                        SizedBox(
+                            width: UIDefine.getPixelHeight(43),
+                            child:Text(
+                              _getLuckyStrawString(),
+                              overflow: TextOverflow.ellipsis,
+                              style: AppTextStyle.getBaseStyle(color: _getLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+                            ))
                       ],
                     )
                 )
@@ -100,6 +104,7 @@ class _EventInfoCard extends State<EventInfoCard> {
                 ),
                 /// 中籤icon 2
                 Container(
+                  width: UIDefine.getPixelHeight(90),
                     decoration: BoxDecoration(
                       color: _getPrizeBkgrnColor(),
                       border: Border.all(color: _getPrizeBorderColor(), width: 2),
@@ -109,10 +114,13 @@ class _EventInfoCard extends State<EventInfoCard> {
                       children: [
                         Image.asset(_getPrizeIconColor()),
                         const SizedBox(width: 4),
-                        Text(
-                          _getPrizeLuckyStrawString(),
-                          style: AppTextStyle.getBaseStyle(color: _getPrizeLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
-                        )
+                        SizedBox(
+                            width: UIDefine.getPixelHeight(43),
+                            child:Text(
+                              _getPrizeLuckyStrawString(),
+                              overflow: TextOverflow.ellipsis,
+                              style: AppTextStyle.getBaseStyle(color: _getPrizeLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+                            ))
                       ],
                     )
                 )
