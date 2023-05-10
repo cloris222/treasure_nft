@@ -114,6 +114,9 @@ class BalanceRecordItemView extends StatelessWidget {
 
   String _getAmount() {
     if (data.type == 'EXPERIENCE_RECYCLE') {
+      if(data.amount.toString().contains("-")){
+        return data.amount.removeTwoPointFormat(needCheckNegative: false);
+      }
       return '-${data.amount.removeTwoPointFormat(needCheckNegative: false)}';
     }
     if (data.amount > 0) {

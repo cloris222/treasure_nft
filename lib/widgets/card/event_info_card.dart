@@ -68,7 +68,7 @@ class _EventInfoCard extends State<EventInfoCard> {
                 ),
                 /// 中籤icon 1
                 Container(
-                    width: UIDefine.getScreenWidth(22.5),
+                    width: UIDefine.getScreenWidth(24),
                     decoration: BoxDecoration(
                       color: _getLuckyStrawBkgrnColor(),
                       border: Border.all(color: _getLuckyStrawBorderColor(), width: 2),
@@ -104,7 +104,7 @@ class _EventInfoCard extends State<EventInfoCard> {
                 ),
                 /// 中籤icon 2
                 Container(
-                    width: UIDefine.getScreenWidth(22.5),
+                    width: UIDefine.getScreenWidth(24),
                     decoration: BoxDecoration(
                       color: _getPrizeBkgrnColor(),
                       border: Border.all(color: _getPrizeBorderColor(), width: 2),
