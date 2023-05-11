@@ -126,25 +126,25 @@ class _OrderInfoCard extends State<OrderInfoCard> {
                                     ))),
                             SizedBox(width: UIDefine.getPixelHeight(5)),
 
-                            /// 未中籤寶箱icon
-                              Visibility(
-                                  visible: widget.status == 'FAIL',
-                                  child:  GestureDetector(
-                                      onTap: () => viewModel.pushPage(
-                                          context, const AirdropMainPage()),
-                                      child: Container(
-                                        height: UIDefine.getPixelHeight(32),
-                                        decoration: BoxDecoration(
-                                          color: AppColors.textWhite,
-                                          border: Border.all(
-                                              color: AppColors.growPrice, width: 2),
-                                        ),
-                                        padding: const EdgeInsets.fromLTRB(1.5, 1, 1.5, 1),
-                                        child: Row(children: [
-                                          Image.asset(AppImagePath.giftIcon),
-                                          Image.asset(AppImagePath.arrowRightIcon),
-                                        ]),
-                                      )))
+                            /// 未中籤寶箱icon暫時隱藏
+                            //   Visibility(
+                            //       visible: widget.status == 'FAIL',
+                            //       child:  GestureDetector(
+                            //           onTap: () => viewModel.pushPage(
+                            //               context, const AirdropMainPage()),
+                            //           child: Container(
+                            //             height: UIDefine.getPixelHeight(32),
+                            //             decoration: BoxDecoration(
+                            //               color: AppColors.textWhite,
+                            //               border: Border.all(
+                            //                   color: AppColors.growPrice, width: 2),
+                            //             ),
+                            //             padding: const EdgeInsets.fromLTRB(1.5, 1, 1.5, 1),
+                            //             child: Row(children: [
+                            //               Image.asset(AppImagePath.giftIcon),
+                            //               Image.asset(AppImagePath.arrowRightIcon),
+                            //             ]),
+                            //           )))
                             ])
 
                         ])),
