@@ -148,7 +148,7 @@ class _WalletMainViewState extends ConsumerState<WalletMainView> {
                     Text(
                         NumberFormatUtil().removeTwoPointFormat(
                             userProperty != null
-                                ? userProperty.getWalletAccount()
+                                ? userProperty.getBalance()
                                 : 0),
                         style: AppTextStyle.getBaseStyle(
                             fontSize: UIDefine.fontSize40,

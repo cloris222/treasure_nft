@@ -113,6 +113,12 @@ class BalanceRecordItemView extends StatelessWidget {
   }
 
   String _getAmount() {
+    if (data.type == 'EXPERIENCE_RECYCLE') {
+      if(data.amount.toString().contains("-")){
+        return data.amount.removeTwoPointFormat(needCheckNegative: false);
+      }
+      return '-${data.amount.removeTwoPointFormat(needCheckNegative: false)}';
+    }
     if (data.amount > 0) {
       return '+${data.amount.removeTwoPointFormat(needCheckNegative: false)}';
     }
@@ -120,7 +126,7 @@ class BalanceRecordItemView extends StatelessWidget {
   }
 
   Color _getColor() {
-    if (data.amount > 0) {
+    if (data.amount > 0 && data.type != 'EXPERIENCE_RECYCLE') {
       return AppColors.rateGreen;
     } else {
       return AppColors.rateRed;

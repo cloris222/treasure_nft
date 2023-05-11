@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../constant/enum/airdrop_enum.dart';
 import '../../constant/theme/app_image_path.dart';
@@ -12,11 +13,16 @@ import '../../models/http/parameter/airdrop_reward_info.dart';
 import '../../view_models/airdrop/airdrop_daily_boxInfo_provider.dart';
 import '../../view_models/airdrop/airdrop_daily_record_provider.dart';
 import 'airdrop_common_view.dart';
+import 'airdrop_main_page.dart';
 
+/// 預約獎勵
 class AirdropDailyPage extends ConsumerStatefulWidget {
   const AirdropDailyPage({
     Key? key,
+    required this.count,
   }) : super(key: key);
+
+  final int count;
 
   @override
   ConsumerState createState() => _AirdropDailyPageState();
@@ -36,8 +42,16 @@ class _AirdropDailyPageState extends ConsumerState<AirdropDailyPage>
     BoxStatus canOpenBox = checkStatus(record);
     String orderNo = "";
     if (record.isNotEmpty) {
-      orderNo = record.first.orderNo;
+    //   orderNo = record.first.orderNo;
+      for (int i=0 ; i < record.length ; i++){
+        if (record[i].status == "UNOPENED") {
+          orderNo = record[i].orderNo;
+          continue;
+        }
+      }
     }
+
+
 
     return Container(
       decoration: AppStyle().buildAirdropBackground(),
@@ -65,9 +79,8 @@ class _AirdropDailyPageState extends ConsumerState<AirdropDailyPage>
   }
 
   void _onPressOpen(String orderNo) async {
-    ref
-        .read(airdropDailyRecordProvider.notifier)
-        .openBox(context, orderNo, ref);
+    ref.read(airdropDailyRecordProvider.notifier)
+       .openBox(context, orderNo, ref);
   }
 
   Widget buildBoxView(BoxStatus status) {

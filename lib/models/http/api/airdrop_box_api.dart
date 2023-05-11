@@ -48,7 +48,7 @@ class AirdropBoxAPI extends HttpManager {
   Future<List<AirdropBoxInfo>> getAirdropBoxRecord() async {
     try {
       var response = await get("/treasureBox/record/all",
-          queryParameters: {"boxType": "RESERVE_BOX", "page": 1, "size": 1});
+          queryParameters: {"boxType": "RESERVE_BOX", "page": 1, "size": 10});
       List<AirdropBoxInfo> list = [];
       for (Map<String, dynamic> json in response.data["pageList"]) {
         list.add(AirdropBoxInfo.fromJson(json));

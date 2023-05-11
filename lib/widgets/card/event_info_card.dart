@@ -41,7 +41,7 @@ class _EventInfoCard extends State<EventInfoCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(UIDefine.getScreenWidth(4.4)),
+        padding: EdgeInsets.all(UIDefine.getScreenWidth(4)),
         decoration: BoxDecoration(
           border: Border.all(color: AppColors.bolderGrey, width: 2.5),
           borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -68,6 +68,7 @@ class _EventInfoCard extends State<EventInfoCard> {
                 ),
                 /// 中籤icon 1
                 Container(
+                    width: UIDefine.getScreenWidth(24),
                     decoration: BoxDecoration(
                       color: _getLuckyStrawBkgrnColor(),
                       border: Border.all(color: _getLuckyStrawBorderColor(), width: 2),
@@ -77,10 +78,13 @@ class _EventInfoCard extends State<EventInfoCard> {
                       children: [
                         Image.asset(_getItemIconColor()),
                         const SizedBox(width: 4),
-                        Text(
-                          _getLuckyStrawString(),
-                          style: AppTextStyle.getBaseStyle(color: _getLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
-                        )
+                        SizedBox(
+                            width: UIDefine.getScreenWidth(10),
+                            child:Text(
+                              _getLuckyStrawString(),
+                              overflow: TextOverflow.ellipsis,
+                              style: AppTextStyle.getBaseStyle(color: _getLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+                            ))
                       ],
                     )
                 )
@@ -96,10 +100,11 @@ class _EventInfoCard extends State<EventInfoCard> {
                 /// 這張的獎號
                 Text(
                   widget.lotteryNo,
-                  style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize20, fontWeight: FontWeight.w500),
+                  style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize18, fontWeight: FontWeight.w500),
                 ),
                 /// 中籤icon 2
                 Container(
+                    width: UIDefine.getScreenWidth(24),
                     decoration: BoxDecoration(
                       color: _getPrizeBkgrnColor(),
                       border: Border.all(color: _getPrizeBorderColor(), width: 2),
@@ -109,10 +114,13 @@ class _EventInfoCard extends State<EventInfoCard> {
                       children: [
                         Image.asset(_getPrizeIconColor()),
                         const SizedBox(width: 4),
-                        Text(
-                          _getPrizeLuckyStrawString(),
-                          style: AppTextStyle.getBaseStyle(color: _getPrizeLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
-                        )
+                        SizedBox(
+                            width: UIDefine.getScreenWidth(10),
+                            child:Text(
+                              _getPrizeLuckyStrawString(),
+                              overflow: TextOverflow.ellipsis,
+                              style: AppTextStyle.getBaseStyle(color: _getPrizeLuckyStrawStringColor(), fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w500),
+                            ))
                       ],
                     )
                 )
@@ -348,7 +356,7 @@ class _EventInfoCard extends State<EventInfoCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                    width: UIDefine.getScreenWidth(50),
+                    width: UIDefine.getScreenWidth(45),
                     child: Text(
                       bIsItem? widget.itemName: tr('awardMoney'),
                       style: AppTextStyle.getBaseStyle(color: AppColors.textBlack, fontSize: UIDefine.fontSize18, fontWeight: FontWeight.w500),

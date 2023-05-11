@@ -175,6 +175,7 @@ class CustomAppBar {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                /// appbar寶箱
                 // GestureDetector(
                 //   onTap: airdropAction,
                 //   child: Stack(

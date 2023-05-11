@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/utils/date_format_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/button/action_button_widget.dart';
@@ -11,6 +12,7 @@ import 'package:treasure_nft_project/utils/app_text_style.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/ui_define.dart';
 import '../../view_models/collection/collection_main_view_model.dart';
+import '../../views/airdrop/airdrop_main_page.dart';
 import '../dialog/simple_custom_dialog.dart';
 import 'data/card_showing_data.dart';
 
@@ -18,15 +20,15 @@ import 'data/card_showing_data.dart';
 class OrderInfoCard extends StatefulWidget {
   const OrderInfoCard(
       {super.key,
-      this.status = '',
-      this.isPaying = false,
-      required this.imageUrl,
-      required this.itemName,
-      this.price = '',
-      required this.orderNumber,
-      required this.dateTime,
-      required this.dataList,
-      required this.drewAt});
+        this.status = '',
+        this.isPaying = false,
+        required this.imageUrl,
+        required this.itemName,
+        this.price = '',
+        required this.orderNumber,
+        required this.dateTime,
+        required this.dataList,
+        required this.drewAt});
 
   final String status;
   final String itemName;
@@ -71,11 +73,11 @@ class _OrderInfoCard extends State<OrderInfoCard> {
             ///開獎日期
             ...(widget.drewAt != null)
                 ? [
-                    GradientThirdText(
-                      '${tr('drawDate')}:${DateFormatUtil().getFullWithDateFormat(widget.drewAt!)}',
-                      size: UIDefine.fontSize12,weight: FontWeight.w500,
-                    )
-                  ]
+              GradientThirdText(
+                '${tr('drawDate')}:${DateFormatUtil().getFullWithDateFormat(widget.drewAt!)}',
+                size: UIDefine.fontSize12,weight: FontWeight.w500,
+              )
+            ]
                 : [],
 
             /// 上半部
@@ -87,13 +89,66 @@ class _OrderInfoCard extends State<OrderInfoCard> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      tr('orderNo') + ':',
-                      style: AppTextStyle.getBaseStyle(
-                          color: AppColors.textBlack,
-                          fontSize: UIDefine.fontSize20,
-                          fontWeight: FontWeight.w500),
-                    ),
+
+                    SizedBox(width: UIDefine.getScreenWidth(79.5),
+                        child:Row(children: [
+                          Text(
+                            '${tr('orderNo')}:',
+                            style: AppTextStyle.getBaseStyle(
+                                color: AppColors.textBlack,
+                                fontSize: UIDefine.fontSize20,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          // Flexible(child:Container()),
+
+                          Expanded(child: Container()),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                            /// 中籤icon
+                            Visibility(
+                                visible: widget.status != '',
+                                child: Container(
+                                    height: UIDefine.getPixelHeight(32),
+                                    decoration: BoxDecoration(
+                                      color: _getLuckyStrawColor(),
+                                      border: Border.all(
+                                          color: _getLuckyStrawBorderColor(), width: 2),
+                                    ),
+                                    padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
+                                    child: Text(
+                                      _getLuckyStrawString(),
+                                      style: AppTextStyle.getBaseStyle(
+                                          color: _getLuckyStrawStringColor(),
+                                          fontSize: UIDefine.fontSize12,
+                                          fontWeight: FontWeight.w500),
+                                    ))),
+                            SizedBox(width: UIDefine.getPixelHeight(5)),
+
+                            /// 未中籤寶箱icon暫時隱藏
+                            //   Visibility(
+                            //       visible: widget.status == 'FAIL',
+                            //       child:  GestureDetector(
+                            //           onTap: () => viewModel.pushPage(
+                            //               context, const AirdropMainPage()),
+                            //           child: Container(
+                            //             height: UIDefine.getPixelHeight(32),
+                            //             decoration: BoxDecoration(
+                            //               color: AppColors.textWhite,
+                            //               border: Border.all(
+                            //                   color: AppColors.growPrice, width: 2),
+                            //             ),
+                            //             padding: const EdgeInsets.fromLTRB(1.5, 1, 1.5, 1),
+                            //             child: Row(children: [
+                            //               Image.asset(AppImagePath.giftIcon),
+                            //               Image.asset(AppImagePath.arrowRightIcon),
+                            //             ]),
+                            //           )))
+                            ])
+
+                        ])),
+
                     const SizedBox(height: 4),
                     Text(
                       widget.orderNumber,
@@ -113,23 +168,6 @@ class _OrderInfoCard extends State<OrderInfoCard> {
                   ],
                 ),
 
-                /// 中籤icon
-                Visibility(
-                    visible: widget.status != '',
-                    child: Container(
-                        decoration: BoxDecoration(
-                          color: _getLuckyStrawColor(),
-                          border: Border.all(
-                              color: _getLuckyStrawBorderColor(), width: 2),
-                        ),
-                        padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
-                        child: Text(
-                          _getLuckyStrawString(),
-                          style: AppTextStyle.getBaseStyle(
-                              color: _getLuckyStrawStringColor(),
-                              fontSize: UIDefine.fontSize12,
-                              fontWeight: FontWeight.w500),
-                        )))
               ],
             ),
 
@@ -233,7 +271,7 @@ class _OrderInfoCard extends State<OrderInfoCard> {
                   Text(
                     widget.dataList[i].bPrice
                         ? BaseViewModel()
-                            .numberFormat(widget.dataList[i].content)
+                        .numberFormat(widget.dataList[i].content)
                         : widget.dataList[i].content,
                     style: AppTextStyle.getBaseStyle(
                         color: AppColors.textBlack,
@@ -339,10 +377,10 @@ class _OrderInfoCard extends State<OrderInfoCard> {
   void _onMakeUpBalance() {
     viewModel
         .requestMakeUpBalance(
-            recordNo: widget.orderNumber,
-            onConnectFail: (errMessage) {
-              viewModel.onBaseConnectFail(context, errMessage);
-            })
+        recordNo: widget.orderNumber,
+        onConnectFail: (errMessage) {
+          viewModel.onBaseConnectFail(context, errMessage);
+        })
         .then((value) {
       if (value == 'SUCCESS') {
         SimpleCustomDialog(context, isSuccess: true).show();
