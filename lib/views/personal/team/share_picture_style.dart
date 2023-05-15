@@ -235,18 +235,41 @@ class _SharePicStyleState extends ConsumerState<SharePicStyle> {
       children: [
         _buildSpace(),
         Container(
-            padding: EdgeInsets.all(UIDefine.getScreenWidth(2.4)),
+            padding: EdgeInsets.symmetric(
+                horizontal: UIDefine.getScreenWidth(6),
+                vertical: UIDefine.getScreenWidth(2.4)
+            ),
             decoration: const BoxDecoration(
                 color: AppColors.textWhite,
                 borderRadius: BorderRadius.all(Radius.circular(10))),
-            child: index == 0
-                ? Image.asset(
-                    AppImagePath.shareText1,
-                    height: UIDefine.getScreenHeight(10),
-                    fit: BoxFit.contain,
-                  )
-                : Image.asset(AppImagePath.shareText2,
-                    height: UIDefine.getScreenHeight(10), fit: BoxFit.contain)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Register Now!',
+                    style: AppTextStyle.getBaseStyle(
+                        fontSize: UIDefine.fontSize14
+                    )),
+              Row(children: [
+                Text('Get ',
+                  style: AppTextStyle.getBaseStyle(
+                      fontSize: UIDefine.fontSize14
+                  )),
+                Image.asset(AppImagePath.shareText3),
+                Text(' and earn more',
+                    style: AppTextStyle.getBaseStyle(
+                        fontSize: UIDefine.fontSize14
+                    )),
+              ])
+            ],),
+           ),
+            // index == 0
+            //     ? Image.asset(
+            //         AppImagePath.shareText1,
+            //         height: UIDefine.getScreenHeight(10),
+            //         fit: BoxFit.contain,
+            //       )
+            //     : Image.asset(AppImagePath.shareText2,
+            //         height: UIDefine.getScreenHeight(10), fit: BoxFit.contain)),
         _buildSpace(),
         Flexible(
           child: QrImage(

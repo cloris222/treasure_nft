@@ -192,6 +192,7 @@ class AppImagePath {
   static const String shareBackground = '$_imgPath/img_background_04.png';
   static const String shareText1 = '$_imgPath/img_share_font_03.png';
   static const String shareText2 = '$_imgPath/img_share_font_04.png';
+  static const String shareText3 = '$_imgPath/img_gift_150.png';
   static const String shareTitleImg = '$_imgPath/img_share_logo.png';
 
   ///notify
