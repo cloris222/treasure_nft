@@ -176,37 +176,37 @@ class CustomAppBar {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 /// appbar寶箱
-                // GestureDetector(
-                //   onTap: airdropAction,
-                //   child: Stack(
-                //     children: [
-                //       Container(
-                //           padding: EdgeInsets.symmetric(
-                //               horizontal: UIDefine.getPixelWidth(15),vertical: UIDefine.getPixelWidth(5)),
-                //           color: Colors.transparent,
-                //           child: GradientThirdText(tr("airdrop"),styleHeight: 1.1,textDecoration: TextDecoration.underline)),
-                //       Positioned(
-                //         right: 0,
-                //         top: 0,
-                //         child: Consumer(builder: (BuildContext context,
-                //             WidgetRef ref, Widget? child) {
-                //           int counts = ref.watch(
-                //               airdropCountProvider(BaseViewModel().isLogin()));
-                //           return counts > 0
-                //               ? CircleAvatar(
-                //                   maxRadius: 8,
-                //                   backgroundColor: Colors.red,
-                //                   child: Text("$counts",
-                //                       style: AppTextStyle.getBaseStyle(
-                //                           color: Colors.white,
-                //                           fontSize: UIDefine.fontSize8)),
-                //                 )
-                //               : const SizedBox();
-                //         }),
-                //       ),
-                //     ],
-                //   ),
-                // ),
+                GestureDetector(
+                  onTap: airdropAction,
+                  child: Stack(
+                    children: [
+                      Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: UIDefine.getPixelWidth(15),vertical: UIDefine.getPixelWidth(5)),
+                          color: Colors.transparent,
+                          child: GradientThirdText(tr("airdrop"),styleHeight: 1.1,textDecoration: TextDecoration.underline)),
+                      Positioned(
+                        right: 0,
+                        top: 0,
+                        child: Consumer(builder: (BuildContext context,
+                            WidgetRef ref, Widget? child) {
+                          int counts = ref.watch(
+                              airdropCountProvider(BaseViewModel().isLogin()));
+                          return counts > 0
+                              ? CircleAvatar(
+                                  maxRadius: 8,
+                                  backgroundColor: Colors.red,
+                                  child: Text("$counts",
+                                      style: AppTextStyle.getBaseStyle(
+                                          color: Colors.white,
+                                          fontSize: UIDefine.fontSize8)),
+                                )
+                              : const SizedBox();
+                        }),
+                      ),
+                    ],
+                  ),
+                ),
                 SizedBox(width: 1),
                 MenuButtonWidget(
                     serverAction: serverAction,
