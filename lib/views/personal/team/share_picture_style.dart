@@ -245,17 +245,17 @@ class _SharePicStyleState extends ConsumerState<SharePicStyle> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Register Now!',
+                Text(tr("registerNow"),
                     style: AppTextStyle.getBaseStyle(
                         fontSize: UIDefine.fontSize14
                     )),
               Row(children: [
-                Text('Get ',
+                Text('${tr("get")} ',
                   style: AppTextStyle.getBaseStyle(
                       fontSize: UIDefine.fontSize14
                   )),
                 Image.asset(AppImagePath.shareText3),
-                Text(' and earn more',
+                Text(' ${tr("andEarnMore")}',
                     style: AppTextStyle.getBaseStyle(
                         fontSize: UIDefine.fontSize14
                     )),
