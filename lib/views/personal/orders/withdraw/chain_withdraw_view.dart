@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:treasure_nft_project/constant/enum/coin_enum.dart';
@@ -19,6 +20,7 @@ import '../../../../constant/ui_define.dart';
 import '../../../../models/http/parameter/user_info_data.dart';
 import '../../../../models/http/parameter/withdraw_alert_info.dart';
 import '../../../../utils/qrcode_scanner_util.dart';
+import '../../../../view_models/gobal_provider/global_tag_controller_provider.dart';
 import '../../../../view_models/gobal_provider/user_experience_info_provider.dart';
 import '../../../../view_models/gobal_provider/user_info_provider.dart';
 import '../../../../view_models/personal/orders/order_chain_withdraw_view_model.dart';
@@ -91,6 +93,7 @@ class _ChainWithdrawViewState extends ConsumerState<ChainWithdrawView> {
             height: UIDefine.getPixelWidth(15),
             color: AppColors.defaultBackgroundSpace),
         _buildWithdrawEmailView(userInfo),
+        _buildGoogleVerify(),
         Container(
             width: double.infinity,
             height: UIDefine.getPixelWidth(2),
@@ -408,6 +411,22 @@ class _ChainWithdrawViewState extends ConsumerState<ChainWithdrawView> {
                 viewModel.onPressCheckVerify(context, userInfo)),
       ],
     );
+  }
+
+  Widget _buildGoogleVerify() {
+    return Container(
+        padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(16)),
+        child:LoginParamView(
+          titleText: tr('googleVerify'),
+          hintText: tr("enterGoogleVerification"),
+          controller: viewModel.googleVerifyController,
+          data: viewModel.googleCodeData,
+          keyboardType:TextInputType.number,
+          inputFormatters: denySpace(),
+        ));
+  }
+  List<TextInputFormatter> denySpace() {
+    return [FilteringTextInputFormatter.deny(RegExp(r'\s'))];
   }
 
   Widget _buildWithdrawInfo() {

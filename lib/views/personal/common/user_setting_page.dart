@@ -28,6 +28,7 @@ import '../../../view_models/login/wallet_bind_view_model.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../custom_appbar_view.dart';
 import '../../main_page.dart';
+import 'google_authenticator_page.dart';
 
 ///MARK: 個人設置
 class UserSettingPage extends ConsumerStatefulWidget {
@@ -42,6 +43,7 @@ class UserSettingPage extends ConsumerStatefulWidget {
 class _UserSettingPageState extends ConsumerState<UserSettingPage> {
   String version = '';
   bool isWalletBind = false;
+  bool isGoogleBind = false;
 
   UserInfoData get userInfo {
     return ref.read(userInfoProvider);
@@ -51,6 +53,7 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
   void initState() {
     super.initState();
     isWalletBind = userInfo.address.isNotEmpty;
+    isGoogleBind = userInfo.bindGoogle;
     _initPackageInfo();
   }
 
@@ -115,12 +118,11 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
             padding: EdgeInsets.all(UIDefine.getPixelWidth(15)),
             child: Row(
               children: [
-                Expanded(
-                  child: _getWalletBolderButton(),
-                ),
-                const Expanded(
-                  child: SizedBox(),
-                ),
+                _getWalletBolderButton(),
+                _getGoogleAuthButton(),
+                // const Expanded(
+                //   child: SizedBox(),
+                // ),
               ],
             ),
           ),
@@ -183,31 +185,61 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
   }
 
   Widget _getWalletBolderButton() {
-    return GestureDetector(
-      onTap: () => _onBindWallet(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Image.asset(AppImagePath.walletConnectIcon,
-              width: UIDefine.getPixelWidth(30),
-              height: UIDefine.getPixelWidth(30),
-              fit: BoxFit.contain),
-          Text(
-            tr('bindWallet'),
-            style: AppTextStyle.getBaseStyle(
-                color: AppColors.textBlack, fontSize: UIDefine.fontSize12),
+    return Expanded(
+        child: GestureDetector(
+          onTap: () => _onBindWallet(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(AppImagePath.walletConnectIcon,
+                  width: UIDefine.getPixelWidth(30),
+                  height: UIDefine.getPixelWidth(30),
+                  fit: BoxFit.contain),
+              Text(
+                tr('bindWallet'),
+                style: AppTextStyle.getBaseStyle(
+                    color: AppColors.textBlack, fontSize: UIDefine.fontSize12),
+              ),
+              Text(
+                isWalletBind ? tr('bound') : tr('unBound'),
+                style: AppTextStyle.getBaseStyle(
+                    color: isWalletBind
+                        ? const Color(0xFF6CCA98)
+                        : const Color(0xFFFF0000),
+                    fontSize: UIDefine.fontSize10),
+              )
+            ],
           ),
-          Text(
-            isWalletBind ? tr('bound') : tr('unBound'),
-            style: AppTextStyle.getBaseStyle(
-                color: isWalletBind
-                    ? const Color(0xFF6CCA98)
-                    : const Color(0xFFFF0000),
-                fontSize: UIDefine.fontSize10),
-          )
-        ],
-      ),
-    );
+        ));
+  }
+
+  Widget _getGoogleAuthButton() {
+    return Expanded(
+        child: GestureDetector(
+          onTap: () => BaseViewModel().pushPage(context, const GoogleSettingPage()),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(AppImagePath.googleAuthIcon,
+                  width: UIDefine.getPixelWidth(30),
+                  height: UIDefine.getPixelWidth(30),
+                  fit: BoxFit.contain),
+              Text(
+                tr('googleValid'),
+                style: AppTextStyle.getBaseStyle(
+                    color: AppColors.textBlack, fontSize: UIDefine.fontSize12),
+              ),
+              Text(
+                isGoogleBind ? tr('bound') : tr('unBound'),
+                style: AppTextStyle.getBaseStyle(
+                    color: isGoogleBind
+                        ? const Color(0xFF6CCA98)
+                        : const Color(0xFFFF0000),
+                    fontSize: UIDefine.fontSize10),
+              )
+            ],
+          ),
+        ));
   }
 
   void _goChangePwd(BuildContext context) {

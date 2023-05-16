@@ -1293,7 +1293,15 @@
   "reserveRandomBadge": "Случайный значок",
   "registerNow":"Зарегистрироваться!",
   "andEarnMore":"и заработать больше",
-
+  "googleVerify":"Проверка Google",
+  "googleAuthenticator":"Google Authenticator",
+  "googleVerify-text1":"1. Загрузите Google Authenticator на свой телефон.",
+  "googleVerify-text2":"2. Войдите в свою учетную запись Google.",
+  "googleVerify-text3":"3. Щелкните значок (+) в правом нижнем углу.",
+  "enterGoogleVerification":"Введите проверку Google",
+  "key":"Ключ",
+  "copied":"копировать успешно",
+  "googleVerificationError":"Вы еще не завершили аутентификацию Google. Пожалуйста, сначала завершите аутентификацию Google.",
 
 
   "--//app use":"---",

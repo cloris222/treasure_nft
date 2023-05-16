@@ -1293,7 +1293,15 @@
   "reserveRandomBadge": "Rastgele rozet",
   "registerNow":"Şimdi üye Ol!",
   "andEarnMore":"Ve daha fazla kazanın",
-
+  "googleVerify":"Google Doğrulama",
+  "googleAuthenticator":"Google Authenticator",
+  "googleVerify-text1":"1. Google Authenticator'ı telefonunuzdan indirin.",
+  "googleVerify-text2":"2. Google hesabınıza giriş yapın.",
+  "googleVerify-text3":"3. Sağ alt köşedeki (+) simgesini tıklayın.",
+  "enterGoogleVerification":"Google Doğrulamaya Girin",
+  "key":"Anahtar",
+  "copied":"Başarılı bir şekilde kopyala",
+  "googleVerificationError":"Google kimlik doğrulamasını henüz tamamlamadınız. Lütfen önce Google kimlik doğrulamasını tamamlayın.",
 
 
   "--//app use":"---",

@@ -1293,7 +1293,15 @@
   "reserveRandomBadge": "نشان تصادفی",
   "registerNow":"اکنون ثبت نام کنید!",
   "andEarnMore":"و درآمد بیشتری کسب کنید",
-
+  "googleVerify":"تأیید گوگل",
+  "googleAuthenticator":"احراز هویت گوگل",
+  "googleVerify-text1":"1. Authenticator Google را از طریق تلفن خود بارگیری کنید.",
+  "googleVerify-text2":"2. وارد حساب Google خود شوید.",
+  "googleVerify-text3":"3. روی نماد (+) در گوشه پایین سمت راست کلیک کنید.",
+  "enterGoogleVerification":"تأیید Google را وارد کنید",
+  "key":"کلید",
+  "copied":"با موفقیت کپی کنید",
+  "googleVerificationError":"شما هنوز احراز هویت Google را تکمیل نکرده اید. لطفاً ابتدا تأیید هویت Google را تکمیل کنید.",
 
 
   "--//app use":"---",

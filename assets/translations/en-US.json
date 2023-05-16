@@ -1293,7 +1293,15 @@
   "reserveRandomBadge": "Random Badge",
   "registerNow":"Register Now!",
   "andEarnMore":"and earn more",
-
+  "googleVerify":"Google Verification",
+  "googleAuthenticator":"Google Authenticator",
+  "googleVerify-text1":"1. Download Google Authenticator on your phone.",
+  "googleVerify-text2":"2. Log in to your Google account.",
+  "googleVerify-text3":"3. Click the (+) icon in the bottom right corner.",
+  "enterGoogleVerification":"Enter Google Verification",
+  "key":"Key",
+  "copied":"copy successfully",
+  "googleVerificationError":"You haven't completed Google authentication yet. Please complete Google authentication first.",
 
 
   "--//app use":"---",

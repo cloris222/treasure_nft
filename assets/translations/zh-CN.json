@@ -1293,7 +1293,15 @@
   "reserveRandomBadge": "随机纪念勋章",
   "registerNow":"现在!",
   "andEarnMore":"并赚取更多",
-
+  "googleVerify":"Google验证",
+  "googleAuthenticator":"Google验证",
+  "googleVerify-text1":"1.  手机下载Google authenticator",
+  "googleVerify-text2":"2.  登入Google帐号",
+  "googleVerify-text3":"3.  点选右下角(+)",
+  "enterGoogleVerification":"请输入Google验证",
+  "key":"Key",
+  "copied":"复制成功",
+  "googleVerificationError":"您尚未完成Google认证，请先完成Google认证",
 
 
   "--//app use":"---",

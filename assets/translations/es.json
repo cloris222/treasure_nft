@@ -1293,7 +1293,15 @@
   "reserveRandomBadge": "Insignia aleatoria",
   "registerNow":"¡Regístrate ahora!",
   "andEarnMore":"y ganar más",
-
+  "googleVerify":"Verificación de Google",
+  "googleAuthenticator":"Autenticador de Google",
+  "googleVerify-text1":"1. Descargue Google Authenticator en su teléfono.",
+  "googleVerify-text2":"2. Inicie sesión en su cuenta de Google.",
+  "googleVerify-text3":"3. Haga clic en el icono (+) en la esquina inferior derecha.",
+  "enterGoogleVerification":"Ingrese la verificación de Google",
+  "key":"Llave",
+  "copied":"Copiar con éxito",
+  "googleVerificationError":"Todavía no ha completado la autenticación de Google. Complete primero la autenticación de Google.",
 
 
   "--//app use":"---",
