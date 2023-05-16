@@ -2,6 +2,7 @@ import 'package:treasure_nft_project/models/http/http_manager.dart';
 
 import '../parameter/api_response.dart';
 import '../parameter/check_level_info.dart';
+import '../parameter/google_auth_data.dart';
 import '../parameter/sign_in_data.dart';
 import '../parameter/user_info_data.dart';
 import '../parameter/user_order_info.dart';
@@ -98,5 +99,18 @@ class UserInfoAPI extends HttpManager {
       return response.data;
     } catch (e) {}
     return "";
+  }
+
+
+  ///MARK: 取得二步驗証碼
+  Future<GoogleAuthData> getUserGoogleAuth() async {
+    var response = await get('/user/googleAuth');
+    return GoogleAuthData.fromJson(response.data);
+  }
+
+  ///MARK: 綁定二步驗証碼
+  Future<String> bindGoogleAuth(String code) async {
+    var response = await post('/user/googleAuth/bind', data:{"code":code});
+    return response.message;
   }
 }

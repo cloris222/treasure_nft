@@ -25,11 +25,13 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
   TextEditingController amountController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController emailCodeController = TextEditingController();
+  TextEditingController googleVerifyController = TextEditingController();
 
   ValidateResultData accountData = ValidateResultData();
   ValidateResultData amountData = ValidateResultData();
   ValidateResultData passwordData = ValidateResultData();
   ValidateResultData emailCodeData = ValidateResultData();
+  ValidateResultData googleCodeData = ValidateResultData();
 
 
   ///是否判斷過驗證碼
@@ -115,6 +117,8 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
       //     ValidateResultData(result: passwordController.text.isNotEmpty);
       emailCodeData =
           ValidateResultData(result: emailCodeController.text.isNotEmpty);
+      googleCodeData =
+          ValidateResultData(result: googleVerifyController.text.isNotEmpty);
       onViewChange();
       return;
     } else {
@@ -181,7 +185,9 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
             address: '',
             amount: amountController.text,
             account: accountController.text,
-            emailVerifyCode: emailCodeController.text)
+            emailVerifyCode: emailCodeController.text,
+            code: googleVerifyController.text
+    )
         .then((value) async {
       SimpleCustomDialog(context, mainText: tr('success')).show();
       pushAndRemoveUntil(

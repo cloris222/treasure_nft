@@ -1293,7 +1293,15 @@
     "reserveRandomBadge": "ランダムバッジ",
     "registerNow":"今すぐ登録！",
     "andEarnMore":"そしてもっと稼いでください",
-
+    "googleVerify":"Google検証",
+    "googleAuthenticator":"Google Authenticator",
+    "googleVerify-text1":"1.携帯電話にGoogle Authenticatorをダウンロードします。",
+    "googleVerify-text2":"2. Googleアカウントにログインします。",
+    "googleVerify-text3":"3.右下隅にある（+）アイコンをクリックします。",
+    "enterGoogleVerification":"Google検証を入力してください",
+    "key":"鍵",
+    "copied":"正常にコピーします",
+    "googleVerificationError":"まだGoogle認証を完了していません。最初にGoogle認証を完了してください。",
 
 
     "--//app use":"---",

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
@@ -70,6 +71,8 @@ class _InternalWithdrawViewState extends ConsumerState<InternalWithdrawView> {
             height: UIDefine.getPixelWidth(15),
             color: AppColors.defaultBackgroundSpace),
         _buildWithdrawEmailView(userInfo),
+
+        _buildGoogleVerify(),
         Container(
             width: double.infinity,
             height: UIDefine.getPixelWidth(2),
@@ -376,5 +379,21 @@ class _InternalWithdrawViewState extends ConsumerState<InternalWithdrawView> {
                 viewModel.onPressCheckVerify(context, userInfo)),
       ],
     );
+  }
+
+  Widget _buildGoogleVerify() {
+    return Container(
+        padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(16)),
+        child:LoginParamView(
+          titleText: tr('googleVerify'),
+          hintText: tr("enterGoogleVerification"),
+          controller: viewModel.googleVerifyController,
+          data: viewModel.googleCodeData,
+          keyboardType:TextInputType.number,
+          inputFormatters: denySpace(),
+        ));
+  }
+  List<TextInputFormatter> denySpace() {
+    return [FilteringTextInputFormatter.deny(RegExp(r'\s'))];
   }
 }

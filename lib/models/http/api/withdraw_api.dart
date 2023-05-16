@@ -35,13 +35,15 @@ class WithdrawApi extends HttpManager {
       required String amount,
       required String address,
       required String account,
-      required String emailVerifyCode}) async {
+      required String emailVerifyCode,
+      required String code}) async {
     ApiResponse response = await post('/user/balance-withdraw', data: {
       'chain': chain,
       'amount': amount,
       'address': address,
       'account': account,
-      'emailVerifyCode': emailVerifyCode.trim()
+      'emailVerifyCode': emailVerifyCode.trim(),
+      'code': code.trim(), //google驗證碼
     });
     return response;
   }

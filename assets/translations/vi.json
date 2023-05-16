@@ -1293,7 +1293,15 @@
   "reserveRandomBadge": "Huy hiệu ngẫu nhiên",
   "registerNow":"Đăng ký ngay!",
   "andEarnMore":"Và kiếm được nhiều hơn",
-
+  "googleVerify":"Xác minh Google",
+  "googleAuthenticator":"Google Authenticator",
+  "googleVerify-text1":"1. Tải xuống Google Authenticator trên điện thoại của bạn.",
+  "googleVerify-text2":"2. Đăng nhập vào tài khoản Google của bạn.",
+  "googleVerify-text3":"3. Nhấp vào biểu tượng (+) ở góc dưới cùng bên phải.",
+  "enterGoogleVerification":"Nhập xác minh Google",
+  "key":"Chìa khóa",
+  "copied":"Sao chép thành công",
+  "googleVerificationError":"Bạn chưa hoàn thành xác thực Google. Vui lòng hoàn thành xác thực Google trước.",
 
 
   "--//app use":"---",

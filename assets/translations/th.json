@@ -1293,7 +1293,15 @@
   "reserveRandomBadge": "ป้ายสุ่ม",
   "registerNow":"สมัครตอนนี้!",
   "andEarnMore":"และรับมากขึ้น",
-
+  "googleVerify":"การยืนยันของ Google",
+  "googleAuthenticator":"Google Authenticator",
+  "googleVerify-text1":"1. ดาวน์โหลด Google Authenticator บนโทรศัพท์ของคุณ",
+  "googleVerify-text2":"2. เข้าสู่ระบบบัญชี Google ของคุณ",
+  "googleVerify-text3":"3. คลิกที่ไอคอน (+) ที่มุมล่างขวา",
+  "enterGoogleVerification":"ป้อนการยืนยันของ Google",
+  "key":"สำคัญ",
+  "copied":"คัดลอกสำเร็จ",
+  "googleVerificationError":"คุณยังไม่ได้เสร็จสิ้นการรับรองความถูกต้องของ Google โปรดกรอกข้อมูลการรับรองความถูกต้องของ Google ก่อน",
 
 
   "--//app use":"---",

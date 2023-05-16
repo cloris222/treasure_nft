@@ -1293,7 +1293,15 @@
   "reserveRandomBadge": "Crachá aleatório",
   "registerNow":"Registrar agora!",
   "andEarnMore":"e ganhar mais",
-
+  "googleVerify":"Verificação do Google",
+  "googleAuthenticator":"Google Authenticator",
+  "googleVerify-text1":"1. Faça o download do Google Authenticator no seu telefone.",
+  "googleVerify-text2":"2. Faça login na sua conta do Google.",
+  "googleVerify-text3":"3. Clique no ícone (+) no canto inferior direito.",
+  "enterGoogleVerification":"Digite verificação do Google",
+  "key":"Chave",
+  "copied":"copiar com sucesso",
+  "googleVerificationError":"Você ainda não concluiu a autenticação do Google. Preencha primeiro a autenticação do Google.",
 
 
   "--//app use":"---",
