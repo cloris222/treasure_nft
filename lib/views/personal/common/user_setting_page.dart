@@ -43,7 +43,7 @@ class UserSettingPage extends ConsumerStatefulWidget {
 class _UserSettingPageState extends ConsumerState<UserSettingPage> {
   String version = '';
   bool isWalletBind = false;
-  bool isGoogleBind = false;
+  bool get isGoogleBind => ref.watch(userInfoProvider).bindGoogle;
 
   UserInfoData get userInfo {
     return ref.read(userInfoProvider);
@@ -53,7 +53,6 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
   void initState() {
     super.initState();
     isWalletBind = userInfo.address.isNotEmpty;
-    isGoogleBind = userInfo.bindGoogle;
     _initPackageInfo();
   }
 
@@ -216,7 +215,9 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
   Widget _getGoogleAuthButton() {
     return Expanded(
         child: GestureDetector(
-          onTap: () => BaseViewModel().pushPage(context, const GoogleSettingPage()),
+          onTap: () => BaseViewModel().pushPage(
+              context, const GoogleSettingPage())
+              .then((value) => ref.read(userInfoProvider.notifier).init()),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [

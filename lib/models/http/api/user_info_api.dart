@@ -111,6 +111,6 @@ class UserInfoAPI extends HttpManager {
   ///MARK: 綁定二步驗証碼
   Future<String> bindGoogleAuth(String code) async {
     var response = await post('/user/googleAuth/bind', data:{"code":code});
-    return response.data;
+    return response.message;
   }
 }
