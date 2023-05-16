@@ -215,9 +215,7 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
   Widget _getGoogleAuthButton() {
     return Expanded(
         child: GestureDetector(
-          onTap: () => BaseViewModel().pushPage(
-              context, const GoogleSettingPage())
-              .then((value) => ref.read(userInfoProvider.notifier).init()),
+          onTap: () => onGoogleButton(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -241,6 +239,14 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
             ],
           ),
         ));
+  }
+
+  void onGoogleButton() {
+    if (!isGoogleBind) {
+      BaseViewModel().pushPage(
+          context, const GoogleSettingPage())
+          .then((value) => ref.read(userInfoProvider.notifier).init());
+    }
   }
 
   void _goChangePwd(BuildContext context) {
