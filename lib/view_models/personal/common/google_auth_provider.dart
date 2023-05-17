@@ -6,6 +6,11 @@ import '../../../models/http/parameter/google_auth_data.dart';
 import '../../../utils/app_shared_Preferences.dart';
 
 
+final googleProcessProvider = StateProvider.autoDispose<bool>((ref) {
+  return false;
+});
+
+
 final userGoogleAuthProvider =
 StateNotifierProvider.autoDispose<UserGoogleAuthNotifier,
     GoogleAuthData>((ref) {

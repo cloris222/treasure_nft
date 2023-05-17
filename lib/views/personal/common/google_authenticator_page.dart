@@ -37,7 +37,7 @@ class _GoogleSettingPageState extends ConsumerState<GoogleSettingPage> {
   @override
   void initState() {
     ref.read(userGoogleAuthProvider.notifier).init();
-    viewModel = GoogleAuthViewModel(setState: setState);
+    viewModel = GoogleAuthViewModel(ref, setState: setState);
     super.initState();
   }
 
@@ -154,6 +154,8 @@ class _GoogleSettingPageState extends ConsumerState<GoogleSettingPage> {
 
           LoginButtonWidget(
             // Save按鈕
+              isShowProgress: viewModel.isProcess,
+              needTimes: 2,
               isGradient: true,
               isFillWidth: false,
               radius:45,
