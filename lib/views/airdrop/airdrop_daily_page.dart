@@ -62,13 +62,17 @@ class _AirdropDailyPageState extends ConsumerState<AirdropDailyPage>
         child: Column(
           children: [
             buildTitleView(tr("dailyRewards"), tr("reserveCratesInfo")),
+            SizedBox(height: UIDefine.getPixelWidth(20)),
             buildBoxView(canOpenBox),
-            ...rewardInfo != null
-                ? List<Widget>.generate(
-                    rewardInfo.config.length,
-                    (index) => buildRewardInfo(
-                        AirdropType.dailyReward, rewardInfo.config[index]))
-                : [],
+            /// 隱藏獎項
+            // ...rewardInfo != null
+            //     ? List<Widget>.generate(
+            //         rewardInfo.config.length,
+            //         (index) => buildRewardInfo(
+            //             AirdropType.dailyReward, rewardInfo.config[index]))
+            //     : [],
+            SizedBox(height: UIDefine.getPixelWidth(20)),
+
             buildButton(
                 canOpenBox == BoxStatus.unlocked, () => _onPressOpen(orderNo)),
             SizedBox(height: UIDefine.getPixelWidth(20)),

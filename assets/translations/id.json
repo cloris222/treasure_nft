@@ -1293,7 +1293,15 @@
   "reserveRandomBadge": "Lencana acak",
   "registerNow":"Daftar sekarang!",
   "andEarnMore":"dan dapatkan lebih banyak",
-
+  "googleVerify":"Verifikasi Google",
+  "googleAuthenticator":"Google Authenticator",
+  "googleVerify-text1":"1. Unduh Google Authenticator di ponsel Anda.",
+  "googleVerify-text2":"2. Masuk ke akun Google Anda.",
+  "googleVerify-text3":"3. Klik ikon (+) di sudut kanan bawah.",
+  "enterGoogleVerification":"Masukkan verifikasi Google",
+  "key":"Kunci",
+  "copied":"Salin berhasil",
+  "googleVerificationError":"Anda belum menyelesaikan otentikasi google. Harap selesaikan otentikasi google terlebih dahulu.",
 
 
   "--//app use":"---",

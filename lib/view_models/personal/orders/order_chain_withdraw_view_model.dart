@@ -26,11 +26,13 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
   TextEditingController amountController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController emailCodeController = TextEditingController();
+  TextEditingController googleVerifyController = TextEditingController();
 
   ValidateResultData addressData = ValidateResultData();
   ValidateResultData amountData = ValidateResultData();
   ValidateResultData passwordData = ValidateResultData();
   ValidateResultData emailCodeData = ValidateResultData();
+  ValidateResultData googleCodeData = ValidateResultData();
 
   ///是否判斷過驗證碼
   bool checkEmail = false;
@@ -55,28 +57,28 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
   void dispose() {
     addressController.dispose();
     amountController.dispose();
-    passwordController.dispose();
+    googleVerifyController.dispose();
     emailCodeController.dispose();
   }
 
   bool checkEmptyController() {
     return addressController.text.isNotEmpty &&
         amountController.text.isNotEmpty &&
-        // passwordController.text.isNotEmpty &&
+        googleVerifyController.text.isNotEmpty &&
         (emailCodeController.text.isNotEmpty || checkExperience);
   }
 
   bool checkData() {
     return addressData.result &&
         amountData.result &&
-        // passwordData.result &&
+        googleCodeData.result &&
         emailCodeData.result;
   }
 
   void _resetData() {
     addressData = ValidateResultData();
     amountData = ValidateResultData();
-    // passwordData = ValidateResultData();
+    googleCodeData = ValidateResultData();
     emailCodeData = ValidateResultData();
   }
 
@@ -124,6 +126,8 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
       //     ValidateResultData(result: passwordController.text.isNotEmpty);
       emailCodeData =
           ValidateResultData(result: emailCodeController.text.isNotEmpty);
+      googleCodeData =
+          ValidateResultData(result: googleVerifyController.text.isNotEmpty);
       onViewChange();
       return;
     } else {
@@ -217,7 +221,9 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
             address: addressController.text,
             amount: amountController.text,
             account: '',
-            emailVerifyCode: emailCodeController.text)
+            emailVerifyCode: emailCodeController.text,
+            code: googleVerifyController.text,
+    )
         .then((value) async {
       SimpleCustomDialog(context, mainText: tr('success')).show();
       pushAndRemoveUntil(

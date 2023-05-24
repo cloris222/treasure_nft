@@ -1293,7 +1293,15 @@
   "reserveRandomBadge": "Lencana rawak",
   "registerNow":"Daftar sekarang!",
   "andEarnMore":"dan dapatkan lebih banyak",
-
+  "googleVerify":"Pengesahan Google",
+  "googleAuthenticator":"Google Authenticator",
+  "googleVerify-text1":"1. Muat turun Google Authenticator di telefon anda.",
+  "googleVerify-text2":"2. Log masuk ke akaun Google anda.",
+  "googleVerify-text3":"3. Klik ikon (+) di sudut kanan bawah.",
+  "enterGoogleVerification":"Masukkan pengesahan Google",
+  "key":"Kunci",
+  "copied":"Salin berjaya",
+  "googleVerificationError":"Anda belum menyelesaikan pengesahan Google. Sila lengkapkan Pengesahan Google terlebih dahulu.",
 
 
   "--//app use":"---",

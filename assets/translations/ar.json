@@ -1293,7 +1293,15 @@
   "reserveRandomBadge": "شارة عشوائية",
   "registerNow":"سجل الان!",
   "andEarnMore":"وكسب المزيد",
-
+  "googleVerify":"التحقق من Google",
+  "googleAuthenticator":"مصادقة Google",
+  "googleVerify-text1":"1. قم بتنزيل Google Authenticator على هاتفك.",
+  "googleVerify-text2":"2. قم بتسجيل الدخول إلى حساب Google الخاص بك.",
+  "googleVerify-text3":"3. انقر فوق أيقونة (+) في الزاوية اليمنى السفلية.",
+  "enterGoogleVerification":"أدخل Google التحقق",
+  "key":"مفتاح",
+  "copied":"نسخ بنجاح",
+  "googleVerificationError":"لم تكمل مصادقة Google بعد. يرجى إكمال مصادقة Google أولاً.",
 
 
   "--//app use":"---",

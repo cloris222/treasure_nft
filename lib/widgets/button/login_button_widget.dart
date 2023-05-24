@@ -28,7 +28,8 @@ class LoginButtonWidget extends StatefulWidget {
       this.margin = const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
       this.padding,
       this.fontFamily = AppTextFamily.PosteramaText,
-      this.customGradientColor})
+        this.isShowProgress = false,
+        this.customGradientColor})
       : super(key: key);
   final String btnText;
   final VoidCallback onPressed;
@@ -49,6 +50,8 @@ class LoginButtonWidget extends StatefulWidget {
   final AppTextFamily fontFamily;
   final List<Color>? customGradientColor;
   final bool isUnEnableGradient;
+  final bool isShowProgress;
+
 
   @override
   State<LoginButtonWidget> createState() => _LoginButtonWidgetState();
@@ -121,14 +124,26 @@ class _LoginButtonWidgetState extends State<LoginButtonWidget> {
                   child: SizedBox(
                     width: UIDefine.getPixelWidth(5),
                   )),
-              Text(widget.btnText,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppTextStyle.getBaseStyle(
-                      color: Colors.white,
-                      fontSize: widget.fontSize ?? UIDefine.fontSize16,
-                      fontWeight: widget.fontWeight ?? FontWeight.w600,
-                      fontFamily: widget.fontFamily)),
+
+          Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Visibility(visible: widget.isShowProgress,
+                    child: Container(
+                        margin: EdgeInsets.only(right: UIDefine.getPixelHeight(10)),
+                        height: UIDefine.getPixelHeight(15),
+                        width: UIDefine.getPixelHeight(15),
+                        child:const CircularProgressIndicator(strokeWidth: 2))),
+                Text(widget.btnText,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTextStyle.getBaseStyle(
+                        color: Colors.white,
+                        fontSize: widget.fontSize ?? UIDefine.fontSize16,
+                        fontWeight: widget.fontWeight ?? FontWeight.w600,
+                        fontFamily: widget.fontFamily)),
+              ])
+
             ],
           )),
     );
