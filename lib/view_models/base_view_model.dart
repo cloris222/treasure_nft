@@ -7,6 +7,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:format/format.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
@@ -52,11 +53,14 @@ class BaseViewModel with ControlRouterViewModel {
   }
 
   void showToast(BuildContext context, String text) {
-    final scaffold = ScaffoldMessenger.of(context);
-    scaffold.showSnackBar(
-      SnackBar(
-        content: Text(text),
-      ),
+    Fluttertoast.showToast(
+        msg: text,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.textGrey,
+        textColor: Colors.white,
+        fontSize: 14.0
     );
   }
 

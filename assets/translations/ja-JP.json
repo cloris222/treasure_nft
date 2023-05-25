@@ -1302,6 +1302,9 @@
     "key":"鍵",
     "copied":"正常にコピーします",
     "googleVerificationError":"まだGoogle認証を完了していません。最初にGoogle認証を完了してください。",
+    "redirect":"リダイレクト",
+    "copyLink":"リンクをコピーする",
+    "redirectMsg":"リダイレクトされていない場合は、下のボタンを使用してください。",
 
 
     "--//app use":"---",

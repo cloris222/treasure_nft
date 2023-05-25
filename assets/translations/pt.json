@@ -1302,6 +1302,9 @@
   "key":"Chave",
   "copied":"copiar com sucesso",
   "googleVerificationError":"Você ainda não concluiu a autenticação do Google. Preencha primeiro a autenticação do Google.",
+  "redirect":"Redirecionar",
+  "copyLink":"Link de cópia",
+  "redirectMsg":"Se não for redirecionado, use o botão abaixo.",
 
 
   "--//app use":"---",

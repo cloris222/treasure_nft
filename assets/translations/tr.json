@@ -1302,6 +1302,9 @@
   "key":"Anahtar",
   "copied":"Başarılı bir şekilde kopyala",
   "googleVerificationError":"Google kimlik doğrulamasını henüz tamamlamadınız. Lütfen önce Google kimlik doğrulamasını tamamlayın.",
+  "redirect":"Yeniden yönlendirmek",
+  "copyLink":"Bağlantıyı kopyala",
+  "redirectMsg":"Yönlendirilmezse, lütfen aşağıdaki düğmeyi kullanın.",
 
 
   "--//app use":"---",
