@@ -459,8 +459,9 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
           context: NumberFormatUtil().integerFormat(reserveCoin?.deposit ?? 0)),
       _buildDivisionInfoItem(
           title: tr('transactionReward'),
-          context:
-              '${NumberFormatUtil().removeTwoPointFormat(reserveCoin?.reward ?? 0)} %'),
+          context: "${getLevelReward()} %",
+              // '${NumberFormatUtil().removeTwoPointFormat(reserveCoin?.reward ?? 0)} %'),
+      )
     ]);
   }
 
@@ -666,5 +667,24 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
         reserveDivisionRanges[rangeIndex].startPrice,
         reserveDivisionRanges[rangeIndex].endPrice);
     ref.read(tradeReserveCoinProvider.notifier).init();
+  }
+
+  String getLevelReward() {
+    switch (currentDivisionIndex+1) {
+      case 1:
+        return "1.7";
+      case 2:
+        return "3.4";
+      case 3:
+        return "5.1";
+      case 4:
+        return "6.8";
+      case 5:
+        return "8.5";
+      case 6:
+        return "10.2";
+      default:
+        return "";
+    }
   }
 }
