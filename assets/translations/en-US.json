@@ -1302,6 +1302,9 @@
   "key":"Key",
   "copied":"copy successfully",
   "googleVerificationError":"You haven't completed Google authentication yet. Please complete Google authentication first.",
+  "redirect":"Redirect",
+  "copyLink":"Copy Link",
+  "redirectMsg":"If not redirected, please use the button below.",
 
 
   "--//app use":"---",

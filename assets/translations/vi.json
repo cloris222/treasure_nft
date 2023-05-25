@@ -1302,6 +1302,9 @@
   "key":"Chìa khóa",
   "copied":"Sao chép thành công",
   "googleVerificationError":"Bạn chưa hoàn thành xác thực Google. Vui lòng hoàn thành xác thực Google trước.",
+  "redirect":"Chuyển hướng",
+  "copyLink":"Sao chép đường dẫn",
+  "redirectMsg":"Nếu không được chuyển hướng, vui lòng sử dụng nút bên dưới.",
 
 
   "--//app use":"---",

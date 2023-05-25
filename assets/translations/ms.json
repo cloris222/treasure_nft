@@ -1302,6 +1302,9 @@
   "key":"Kunci",
   "copied":"Salin berjaya",
   "googleVerificationError":"Anda belum menyelesaikan pengesahan Google. Sila lengkapkan Pengesahan Google terlebih dahulu.",
+  "redirect":"Redirect",
+  "copyLink":"Salin pautan",
+  "redirectMsg":"Jika tidak diarahkan, sila gunakan butang di bawah.",
 
 
   "--//app use":"---",

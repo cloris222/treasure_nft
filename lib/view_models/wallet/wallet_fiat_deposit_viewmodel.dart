@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:format/format.dart';
@@ -7,6 +8,7 @@ import 'package:treasure_nft_project/models/http/api/wallet_api.dart';
 import 'package:treasure_nft_project/view_models/wallet/wallet_fiat_currency_provider.dart';
 import 'package:treasure_nft_project/view_models/wallet/wallet_pay_type_provider.dart';
 import '../../constant/call_back_function.dart';
+import '../../widgets/dialog/common_custom_dialog.dart';
 import '../base_view_model.dart';
 import 'package:intl/intl.dart';
 
@@ -71,6 +73,7 @@ class WalletFiatDepositViewModel extends BaseViewModel {
         amount: double.parse(amountController.text),
       ).then((value) => {
         popPage(context),
+        showSuccessDialog(value.redirectUrl),
         launchInBrowser(value.redirectUrl),
       });
     }
@@ -109,6 +112,21 @@ class WalletFiatDepositViewModel extends BaseViewModel {
   String getThousandFormat(num number) {
     var formatter = NumberFormat('###,###,###');
     return formatter.format(number);
+  }
+
+  void showSuccessDialog(String link) {
+    CommonCustomDialog(context,
+        bOneButton: false,
+        title: tr("success"),
+        content: "${tr('aboutJump')}\n${tr("redirectMsg")}",
+        type: DialogImageType.success,
+        leftBtnText: tr("redirect"),
+        rightBtnText: tr('copyLink'),
+        onLeftPress: () => launchInBrowser(link),
+        onRightPress: () => {
+          showToast(getGlobalContext(), tr("copied")),
+          copyText(copyText: link)}
+    ).show();
   }
 
 }
