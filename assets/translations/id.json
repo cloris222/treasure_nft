@@ -1302,6 +1302,9 @@
   "key":"Kunci",
   "copied":"Salin berhasil",
   "googleVerificationError":"Anda belum menyelesaikan otentikasi google. Harap selesaikan otentikasi google terlebih dahulu.",
+  "redirect":"Redirect",
+  "copyLink":"Salin tautan",
+  "redirectMsg":"Jika tidak dialihkan, silakan gunakan tombol di bawah ini.",
 
 
   "--//app use":"---",

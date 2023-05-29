@@ -1302,6 +1302,9 @@
   "key":"Llave",
   "copied":"Copiar con éxito",
   "googleVerificationError":"Todavía no ha completado la autenticación de Google. Complete primero la autenticación de Google.",
+  "redirect":"Redireccionar",
+  "copyLink":"Copiar link",
+  "redirectMsg":"Si no se redirige, use el botón a continuación.",
 
 
   "--//app use":"---",

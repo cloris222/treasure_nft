@@ -1302,6 +1302,9 @@
   "key":"Key",
   "copied":"複製成功",
   "googleVerificationError":"您尚未完成Google認證，請先完成Google認證",
+  "redirect":"跳轉",
+  "copyLink":"複製連結",
+  "redirectMsg":"如果沒有跳轉，請使用下方按鈕。",
 
 
   "--//app use":"---",
