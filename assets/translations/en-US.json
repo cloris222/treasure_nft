@@ -1377,5 +1377,7 @@
   "APP_0094":"You have multiple orders in progress. Please try again later.",
   "applicationFailed":"Application failed",
   "daily-profit":"Daily profit",
-  "notification-NOTWON'":"Not won"
+  "notification-NOTWON'":"Not won",
+  "announcement":"Announcement"
+
 }

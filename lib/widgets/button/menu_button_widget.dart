@@ -5,11 +5,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/views/setting_language_page.dart';
 
 import '../../constant/enum/setting_enum.dart';
+import '../../constant/enum/style_enum.dart';
+import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/ui_define.dart';
 import '../../utils/app_text_style.dart';
 import '../../view_models/base_view_model.dart';
 import '../../view_models/home/provider/home_contact_info_provider.dart';
+import '../../views/announcement/announcement_main_page.dart';
 
 class MenuButtonWidget extends ConsumerWidget {
   const MenuButtonWidget({
@@ -65,6 +68,7 @@ class MenuButtonWidget extends ConsumerWidget {
   Widget _buildCell(MenuIcon type) {
     String imgPath;
     String cellTitle;
+    Color? color;
     switch (type) {
       case MenuIcon.home:
         imgPath = AppImagePath.homeImage;
@@ -82,6 +86,11 @@ class MenuButtonWidget extends ConsumerWidget {
         imgPath = AppImagePath.tg;
         cellTitle = tr("Telegram");
         break;
+      case MenuIcon.announcement:
+        imgPath = AppImagePath.noticeIcon;
+        color = AppColors.textBlack;
+        cellTitle = tr("announcement");
+        break;
     }
     Widget item = Row(
       children: [
@@ -89,6 +98,7 @@ class MenuButtonWidget extends ConsumerWidget {
           imgPath,
           width: UIDefine.getPixelWidth(25),
           height: UIDefine.getPixelWidth(25),
+          color: color,
           fit: BoxFit.contain,
         ),
         SizedBox(width: UIDefine.getPixelWidth(5)),
@@ -123,6 +133,9 @@ class MenuButtonWidget extends ConsumerWidget {
         break;
       case MenuIcon.telegram:
         _showTelegram(footers);
+        break;
+      case MenuIcon.announcement:
+        BaseViewModel().pushPage(context, const AnnouncementMainPage());
         break;
     }
   }

@@ -1378,5 +1378,6 @@
     "APP_0094":"複数の注文が進行中です。後でもう一度やり直してください。",
     "applicationFailed":"アプリケーションに失敗しました",
     "daily-profit":"毎日の利益",
-    "notification-NOTWON'":"Not won"
+    "notification-NOTWON'":"Not won",
+    "announcement":"発表"
 }
