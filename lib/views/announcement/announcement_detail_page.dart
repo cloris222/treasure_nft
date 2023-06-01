@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,6 +11,7 @@ import '../../models/http/parameter/announce_data.dart';
 import '../../utils/app_text_style.dart';
 import '../../view_models/announcement/announce_tag_provider.dart';
 import '../../view_models/announcement/announcement_view_model.dart';
+import '../../widgets/label/gradually_network_image.dart';
 import '../custom_appbar_view.dart';
 import 'announcement_list_view.dart';
 
@@ -102,8 +104,10 @@ class _AnnouncementDetailPageState extends ConsumerState<AnnouncementDetailPage>
               ]),
 
               SizedBox(height: UIDefine.getPixelHeight(26)),
-              Image.network(data.bannerMbUrl,
-                width: UIDefine.getWidth(),
+              CachedNetworkImage(
+                  imageUrl: data.bannerMbUrl,
+                  fit: BoxFit.cover,
+                  width: UIDefine.getWidth(),
               ),
               SizedBox(height: UIDefine.getPixelHeight(26)),
 

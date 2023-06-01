@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -6,6 +7,7 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import '../../models/http/parameter/announce_data.dart';
 import '../../view_models/announcement/announcement_view_model.dart';
+import '../../widgets/label/gradually_network_image.dart';
 import 'announcement_detail_page.dart';
 
 
@@ -56,7 +58,8 @@ class _AnnouncementItemViewItemView extends State<AnnouncementItemView> {
                   style: TextStyle(fontSize: UIDefine.fontSize12)),
             ])),
 
-        Image.network(data.bannerMbUrl),
+        CachedNetworkImage(
+            imageUrl: data.bannerMbUrl),
 
       ]),
     ));
