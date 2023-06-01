@@ -8,12 +8,9 @@ import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_style.dart';
 import '../../constant/ui_define.dart';
 import '../../models/http/parameter/announce_data.dart';
-import '../../utils/app_text_style.dart';
-import '../../view_models/announcement/announce_tag_provider.dart';
 import '../../view_models/announcement/announcement_view_model.dart';
-import '../../widgets/label/gradually_network_image.dart';
 import '../custom_appbar_view.dart';
-import 'announcement_list_view.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 
 ///公告詳細資訊
@@ -105,9 +102,13 @@ class _AnnouncementDetailPageState extends ConsumerState<AnnouncementDetailPage>
 
               SizedBox(height: UIDefine.getPixelHeight(26)),
               CachedNetworkImage(
-                  imageUrl: data.bannerMbUrl,
-                  fit: BoxFit.cover,
-                  width: UIDefine.getWidth(),
+                imageUrl: data.bannerMbUrl,
+                fit: BoxFit.cover,
+                memCacheWidth: 480,
+                cacheManager: CacheManager(
+                  Config("flutterCampus", stalePeriod: const Duration(minutes: 5)),
+                ),
+                width: UIDefine.getWidth(),
               ),
               SizedBox(height: UIDefine.getPixelHeight(26)),
 

@@ -7,8 +7,8 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import '../../models/http/parameter/announce_data.dart';
 import '../../view_models/announcement/announcement_view_model.dart';
-import '../../widgets/label/gradually_network_image.dart';
 import 'announcement_detail_page.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 
 /// 公告欄 ItemView
@@ -59,7 +59,12 @@ class _AnnouncementItemViewItemView extends State<AnnouncementItemView> {
             ])),
 
         CachedNetworkImage(
-            imageUrl: data.bannerMbUrl),
+          imageUrl: data.bannerMbUrl,
+          memCacheWidth: 480,
+          cacheManager: CacheManager(
+            Config("flutterCampus", stalePeriod: const Duration(minutes: 5)),
+          ),
+        ),
 
       ]),
     ));
