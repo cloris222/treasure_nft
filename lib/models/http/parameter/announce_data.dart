@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 
+
 AnnounceData announceDataFromJson(String str) => AnnounceData.fromJson(json.decode(str));
 
 String announceDataToJson(AnnounceData data) => json.encode(data.toJson());
@@ -34,7 +35,7 @@ class AnnounceData {
   factory AnnounceData.fromJson(Map<String, dynamic> json) => AnnounceData(
     id: json["id"]??0,
     title: json["title"]??'',
-    content: json["content"]??'',
+    content: json["content"].toString()??'',
     tagId: List<String>.from(json["tagId"].map((x) => x)),
     bannerMbUrl: json["bannerMbUrl"]??'',
     bannerPcUrl: json["bannerPcUrl"]??'',
@@ -54,6 +55,7 @@ class AnnounceData {
     "endAt": endAt,
     "sort": sort,
   };
+
 }
 
 

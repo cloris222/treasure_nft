@@ -34,7 +34,7 @@ class AnnouncementViewModel extends BaseViewModel {
         return tagList[i].color;
       }
     }
-    return "";
+    return "#C1C1C1FF";
   }
 
 

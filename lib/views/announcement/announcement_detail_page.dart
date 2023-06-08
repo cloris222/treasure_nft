@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_style.dart';
 import '../../constant/ui_define.dart';
@@ -11,6 +13,8 @@ import '../../models/http/parameter/announce_data.dart';
 import '../../view_models/announcement/announcement_view_model.dart';
 import '../custom_appbar_view.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:html/parser.dart';
+
 
 
 ///公告詳細資訊
@@ -92,27 +96,38 @@ class _AnnouncementDetailPageState extends ConsumerState<AnnouncementDetailPage>
               SizedBox(height: UIDefine.getPixelHeight(11)),
 
               Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                Text(getTime(data.startAt),
-                    style: TextStyle(fontSize: UIDefine.fontSize12)),
+                    Text(getTime(data.startAt),
+                        style: TextStyle(fontSize: UIDefine.fontSize12)),
 
-                Row(children: buildTagItem(data.tagId)),
-              ]),
+                    Row(children: buildTagItem(data.tagId)),
+                  ]),
 
               SizedBox(height: UIDefine.getPixelHeight(26)),
-              CachedNetworkImage(
-                imageUrl: data.bannerMbUrl,
-                fit: BoxFit.cover,
-                memCacheWidth: 480,
-                cacheManager: CacheManager(
-                  Config("flutterCampus", stalePeriod: const Duration(minutes: 5)),
-                ),
-                width: UIDefine.getWidth(),
-              ),
+              ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(12)),
+                  child:CachedNetworkImage(
+                    imageUrl: data.bannerMbUrl,
+                    fit: BoxFit.cover,
+                    memCacheWidth: 480,
+                    errorWidget: (BuildContext context,
+                        String url,
+                        dynamic error)=>const SizedBox(),
+                    cacheManager: CacheManager(
+                      Config("flutterCampus", stalePeriod: const Duration(minutes: 5)),
+                    ),
+                    width: UIDefine.getWidth(),
+                  )),
               SizedBox(height: UIDefine.getPixelHeight(26)),
 
-              Text(data.content,
+              data.content.toString().contains("p>")
+                  ? Html(
+                  data: data.content,
+                  onLinkTap: (String? url, RenderContext context, Map<String, String> attributes, element) {
+                   viewModel.launchInBrowser(url!);
+                  })
+                  :  Text(data.content,
                   style: TextStyle(fontSize: UIDefine.fontSize14)),
               SizedBox(height: UIDefine.getPixelHeight(26)),
             ]),
@@ -129,18 +144,20 @@ class _AnnouncementDetailPageState extends ConsumerState<AnnouncementDetailPage>
   List<Widget> buildTagItem(List<String> tagId) {
     List<Widget> widgets = [];
     for (String id in tagId) {
-      widgets.add(Container(
-        alignment: Alignment.bottomCenter,
-        margin: EdgeInsets.only(left: UIDefine.getPixelWidth(10)),
-        padding: const EdgeInsets.fromLTRB(6, 1, 6, 2),
-        height: UIDefine.getPixelHeight(24),
-        color: HexColor(viewModel.getTagColor(id)),
-        child: Text(viewModel.getTagText(id),
-            style: TextStyle(
-              fontSize: UIDefine.fontSize12,
-              color: AppColors.dialogBlack,
-            )),
-      ));
+      widgets.add(SizedBox(width: UIDefine.getPixelWidth(10)));
+      widgets.add( ClipRRect(
+          borderRadius: const BorderRadius.all(Radius.circular(6)),
+          child:Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.fromLTRB(6, 1, 6, 1),
+            height: UIDefine.getPixelHeight(24),
+            color: HexColor(viewModel.getTagColor(id)),
+            child: Text(viewModel.getTagText(id),
+                style: TextStyle(
+                  fontSize: UIDefine.fontSize12,
+                  color: AppColors.dialogBlack,
+                )),
+          )));
     }
     return widgets;
   }
