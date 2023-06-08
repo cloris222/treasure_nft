@@ -155,7 +155,9 @@ class CustomAppBar {
     required VoidCallback globalAction,
     required VoidCallback mainAction,
     required VoidCallback airdropAction,
+    required VoidCallback announcementAction,
     bool isMainPage = false,
+    bool isShowNotice = true,
   }) {
     var space = const SizedBox(width: 8);
     double iconSize = 28;
@@ -175,14 +177,29 @@ class CustomAppBar {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                /// 公告欄
+                Visibility(
+                    visible: isShowNotice,
+                    child:GestureDetector(
+                      onTap: announcementAction,
+                      child: Image.asset(
+                        AppImagePath.noticeIcon,
+                        color: AppColors.textBlack,
+                        scale: 0.95,
+                      ),
+                    )),
                 /// appbar寶箱
                 GestureDetector(
                   onTap: airdropAction,
                   child: Stack(
                     children: [
                       Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: UIDefine.getPixelWidth(15),vertical: UIDefine.getPixelWidth(5)),
+                          padding: EdgeInsets.fromLTRB(
+                              UIDefine.getPixelWidth(10),
+                              UIDefine.getPixelWidth(5),
+                              UIDefine.getPixelWidth(15),
+                              UIDefine.getPixelWidth(5),
+                          ),
                           color: Colors.transparent,
                           child: GradientThirdText(tr("airdrop"),styleHeight: 1.1,textDecoration: TextDecoration.underline)),
                       Positioned(
