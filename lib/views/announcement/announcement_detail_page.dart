@@ -96,12 +96,17 @@ class _AnnouncementDetailPageState extends ConsumerState<AnnouncementDetailPage>
               SizedBox(height: UIDefine.getPixelHeight(11)),
 
               Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(getTime(data.startAt),
-                        style: TextStyle(fontSize: UIDefine.fontSize12)),
+                    Container(
+                      margin: EdgeInsets.only(top: UIDefine.getPixelHeight(4), right: UIDefine.getPixelHeight(6)),
+                    child:Text(getTime(data.startAt),
+                        style: TextStyle(fontSize: UIDefine.fontSize12))),
 
-                    Row(children: buildTagItem(data.tagId)),
+                    Expanded(child:Wrap(
+                        spacing: UIDefine.getPixelWidth(8),
+                        runSpacing: UIDefine.getPixelHeight(6),
+                        children:buildTagItem(data.tagId))),
                   ]),
 
               SizedBox(height: UIDefine.getPixelHeight(26)),
@@ -109,7 +114,9 @@ class _AnnouncementDetailPageState extends ConsumerState<AnnouncementDetailPage>
                   borderRadius: const BorderRadius.all(Radius.circular(12)),
                   child:CachedNetworkImage(
                     imageUrl: data.bannerMbUrl,
-                    fit: BoxFit.cover,
+                    width: UIDefine.getPixelWidth(355),
+                    height: UIDefine.getPixelHeight(207),
+                    fit: BoxFit.fitWidth,
                     memCacheWidth: 480,
                     errorWidget: (BuildContext context,
                         String url,
@@ -117,7 +124,6 @@ class _AnnouncementDetailPageState extends ConsumerState<AnnouncementDetailPage>
                     cacheManager: CacheManager(
                       Config("flutterCampus", stalePeriod: const Duration(minutes: 5)),
                     ),
-                    width: UIDefine.getWidth(),
                   )),
               SizedBox(height: UIDefine.getPixelHeight(26)),
 
@@ -144,8 +150,10 @@ class _AnnouncementDetailPageState extends ConsumerState<AnnouncementDetailPage>
   List<Widget> buildTagItem(List<String> tagId) {
     List<Widget> widgets = [];
     for (String id in tagId) {
-      widgets.add(SizedBox(width: UIDefine.getPixelWidth(10)));
-      widgets.add( ClipRRect(
+      widgets.add(
+          Row(mainAxisSize: MainAxisSize.min,
+              children: [
+          ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(6)),
           child:Container(
             alignment: Alignment.center,
@@ -157,7 +165,8 @@ class _AnnouncementDetailPageState extends ConsumerState<AnnouncementDetailPage>
                   fontSize: UIDefine.fontSize12,
                   color: AppColors.dialogBlack,
                 )),
-          )));
+          ))
+    ]));
     }
     return widgets;
   }
