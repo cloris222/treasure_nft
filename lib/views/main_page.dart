@@ -121,12 +121,10 @@ class _MainPageState extends State<MainPage> {
                     isPushNextPage: true))
             .then((value) {
           showSignView();
-          showNoticeView();
         });
       } else {
         GlobalData.showLoginAnimate = false;
         showSignView();
-        showNoticeView();
       }
     }
   }
@@ -145,13 +143,6 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
-  void showNoticeView(){
-    Future.delayed(const Duration(seconds: 2)).then((value) {
-      AnnounceAPI().getAnnounceLast().then((value) =>
-          BaseViewModel().pushOpacityPage(
-              context, AnnouncementDialogPage(value)));
-    });
-  }
 
   @override
   void dispose() {
