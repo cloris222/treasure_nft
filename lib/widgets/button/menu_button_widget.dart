@@ -2,6 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/views/setting_language_page.dart';
 
 import '../../constant/enum/setting_enum.dart';
@@ -13,6 +14,7 @@ import '../../utils/app_text_style.dart';
 import '../../view_models/base_view_model.dart';
 import '../../view_models/home/provider/home_contact_info_provider.dart';
 import '../../views/announcement/announcement_main_page.dart';
+import '../app_bottom_navigation_bar.dart';
 
 class MenuButtonWidget extends ConsumerWidget {
   const MenuButtonWidget({
@@ -135,7 +137,9 @@ class MenuButtonWidget extends ConsumerWidget {
         _showTelegram(footers);
         break;
       case MenuIcon.announcement:
-        BaseViewModel().pushPage(context, const AnnouncementMainPage());
+        BaseViewModel().isLogin()
+            ? BaseViewModel().pushPage(context, const AnnouncementMainPage())
+            : BaseViewModel().pushPage(context, const MainPage(type: AppNavigationBarType.typeLogin));
         break;
     }
   }

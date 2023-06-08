@@ -44,17 +44,22 @@ class _AnnouncementItemViewItemView extends State<AnnouncementItemView> {
         onTap: () => BaseViewModel().pushPage(
             context, AnnouncementDetailPage(data: data, viewModel: viewModel)),
         child: Container(
-          height: UIDefine.getPixelHeight(120),
+          height: UIDefine.getPixelHeight(125),
           width: UIDefine.getWidth(),
-          margin: const EdgeInsets.fromLTRB(8, 3, 8, 3),
-          child: Row(children: [
+          margin: const EdgeInsets.fromLTRB(8, 6, 8, 6),
+          child: Row(crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
             Expanded(child:
             Column(crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(data.title,
                       style: TextStyle(fontSize: UIDefine.fontSize16)),
                   SizedBox(height: UIDefine.getPixelHeight(8)),
-                  Row(children:buildTagItem(data.tagId)),
+                  Wrap(
+                      spacing: UIDefine.getPixelWidth(8),
+                      runSpacing: UIDefine.getPixelHeight(6),
+                      children:buildTagItem(data.tagId)
+                  ),
                   SizedBox(height: UIDefine.getPixelHeight(8)),
                   Text(getTime(data.startAt),
                       style: TextStyle(fontSize: UIDefine.fontSize12)),
@@ -63,6 +68,9 @@ class _AnnouncementItemViewItemView extends State<AnnouncementItemView> {
             ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(12)),
               child:CachedNetworkImage(
+                width: UIDefine.getPixelWidth(128),
+                height: UIDefine.getPixelHeight(75),
+                fit: BoxFit.fitWidth,
                 imageUrl: data.bannerMbUrl,
                 memCacheWidth: 160,
                 errorWidget: (BuildContext context,
@@ -82,20 +90,23 @@ class _AnnouncementItemViewItemView extends State<AnnouncementItemView> {
   List<Widget> buildTagItem(List<String> tagId) {
     List<Widget> widgets = [];
     for (String id in tagId) {
-      widgets.add( ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(6)),
-          child:Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.fromLTRB(6, 1, 6, 1),
-            height: UIDefine.getPixelHeight(24),
-            color: HexColor(viewModel.getTagColor(id)),
-            child: Text(viewModel.getTagText(id),
-                style: TextStyle(
-                  fontSize: UIDefine.fontSize12,
-                  color: AppColors.dialogBlack,
-                )),
-          )));
-      widgets.add(SizedBox(width: UIDefine.getPixelWidth(10)));
+      widgets.add( Row(mainAxisSize: MainAxisSize.min,
+          children: [
+        ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(6)),
+            child:Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.fromLTRB(6, 1, 6, 1),
+              height: UIDefine.getPixelHeight(24),
+              color: HexColor(viewModel.getTagColor(id)),
+              child: Text(viewModel.getTagText(id),
+                  style: TextStyle(
+                    fontSize: UIDefine.fontSize12,
+                    color: AppColors.dialogBlack,
+                  )),
+            ))
+      ]));
+      // widgets.add(SizedBox(width: UIDefine.getPixelWidth(7)));
     }
     return widgets;
   }
