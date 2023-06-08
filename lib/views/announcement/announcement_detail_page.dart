@@ -104,10 +104,11 @@ class _AnnouncementDetailPageState extends ConsumerState<AnnouncementDetailPage>
                     child:Text(getTime(data.startAt),
                         style: TextStyle(fontSize: UIDefine.fontSize12))),
 
-                    Expanded(child:Wrap(
-                        spacing: UIDefine.getPixelWidth(8),
-                        runSpacing: UIDefine.getPixelHeight(6),
-                        children:buildTagItem(data.tagId))),
+                    /// 工單842_改為不顯示內文標籤
+                    // Expanded(child:Wrap(
+                    //     spacing: UIDefine.getPixelWidth(8),
+                    //     runSpacing: UIDefine.getPixelHeight(6),
+                    //     children:buildTagItem(data.tagId))),
                   ]),
 
               SizedBox(height: UIDefine.getPixelHeight(26)),
