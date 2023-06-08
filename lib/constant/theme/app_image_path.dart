@@ -254,4 +254,7 @@ class AppImagePath {
 
   static const String giftIcon="$_iconPath/icon_not_won_gift_01.png";
   static const String arrowRightIcon="$_iconPath/icon_not_won_arrow_01.png";
+
+  static const String noticeBackground = "$_imgPath/img_notice_background.png";
+
 }

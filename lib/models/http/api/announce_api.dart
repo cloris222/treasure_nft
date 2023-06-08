@@ -16,6 +16,19 @@ class AnnounceAPI extends HttpManager {
     return list;
   }
 
+  ///MARK: 查詢最新一筆公告
+  Future<AnnounceData> getAnnounceLast() async {
+    AnnounceData data = AnnounceData();
+    var response = await get('/announce/all', queryParameters: {
+      "page":1,
+      "size":1
+    });
+    for (Map<String, dynamic> json in response.data["pageList"]) {
+      data = AnnounceData.fromJson(json);
+    }
+    return data;
+  }
+
   ///MARK: 查詢標籤
   Future<List<AnnounceTagData>> getAnnounceTag() async {
     List<AnnounceTagData> list = [];
