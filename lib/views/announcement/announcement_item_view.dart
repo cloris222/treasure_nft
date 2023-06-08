@@ -63,6 +63,9 @@ class _AnnouncementItemViewItemView extends State<AnnouncementItemView> {
             ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(12)),
               child:CachedNetworkImage(
+                width: UIDefine.getPixelWidth(128),
+                height: UIDefine.getPixelHeight(75),
+                fit: BoxFit.fill,
                 imageUrl: data.bannerMbUrl,
                 memCacheWidth: 160,
                 errorWidget: (BuildContext context,
