@@ -72,5 +72,4 @@ enum MenuIcon{
   language,
   service,
   telegram,
-  announcement,
 }

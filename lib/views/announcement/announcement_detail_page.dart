@@ -50,6 +50,7 @@ class _AnnouncementDetailPageState extends ConsumerState<AnnouncementDetailPage>
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: true,
+      isShowNotice: false,
       needBottom: false,
       onLanguageChange: () {
         if (mounted) {

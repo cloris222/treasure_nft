@@ -88,11 +88,6 @@ class MenuButtonWidget extends ConsumerWidget {
         imgPath = AppImagePath.tg;
         cellTitle = tr("Telegram");
         break;
-      case MenuIcon.announcement:
-        imgPath = AppImagePath.noticeIcon;
-        color = AppColors.textBlack;
-        cellTitle = tr("announcement");
-        break;
     }
     Widget item = Row(
       children: [
@@ -135,11 +130,6 @@ class MenuButtonWidget extends ConsumerWidget {
         break;
       case MenuIcon.telegram:
         _showTelegram(footers);
-        break;
-      case MenuIcon.announcement:
-        BaseViewModel().isLogin()
-            ? BaseViewModel().pushPage(context, const AnnouncementMainPage())
-            : BaseViewModel().pushPage(context, const MainPage(type: AppNavigationBarType.typeLogin));
         break;
     }
   }
