@@ -13,6 +13,7 @@ import '../constant/ui_define.dart';
 import '../widgets/app_bottom_navigation_bar.dart';
 import '../widgets/appbar/custom_app_bar.dart';
 import 'airdrop/airdrop_main_page.dart';
+import 'announcement/announcement_dialog_page.dart';
 
 ///MARK:用於部分有瀏海的頁面
 class CustomAppbarView extends StatefulWidget {
@@ -127,7 +128,7 @@ class _CustomAppbarViewState extends State<CustomAppbarView> {
   }
 
   void _announcementAction(BuildContext context) {
-  BaseViewModel().isLogin()
+    BaseViewModel().isLogin()
           ? BaseViewModel().pushPage(context, const AnnouncementMainPage())
           : BaseViewModel().pushPage(context, const MainPage(type: AppNavigationBarType.typeLogin));
   }

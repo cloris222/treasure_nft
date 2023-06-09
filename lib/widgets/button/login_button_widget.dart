@@ -29,6 +29,7 @@ class LoginButtonWidget extends StatefulWidget {
       this.padding,
       this.fontFamily = AppTextFamily.PosteramaText,
         this.isShowProgress = false,
+        this.textColor = Colors.white,
         this.customGradientColor})
       : super(key: key);
   final String btnText;
@@ -51,6 +52,7 @@ class LoginButtonWidget extends StatefulWidget {
   final List<Color>? customGradientColor;
   final bool isUnEnableGradient;
   final bool isShowProgress;
+  final Color textColor;
 
 
   @override
@@ -138,7 +140,7 @@ class _LoginButtonWidgetState extends State<LoginButtonWidget> {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: AppTextStyle.getBaseStyle(
-                        color: Colors.white,
+                        color: widget.textColor,
                         fontSize: widget.fontSize ?? UIDefine.fontSize16,
                         fontWeight: widget.fontWeight ?? FontWeight.w600,
                         fontFamily: widget.fontFamily)),

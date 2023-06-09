@@ -29,6 +29,7 @@ import '../constant/enum/airdrop_enum.dart';
 import '../constant/global_data.dart';
 import '../constant/theme/app_animation_path.dart';
 import '../constant/theme/app_colors.dart';
+import '../models/http/api/announce_api.dart';
 import '../models/http/api/common_api.dart';
 import '../models/http/api/wallet_connect_api.dart';
 import '../models/http/http_setting.dart';
@@ -40,6 +41,7 @@ import '../utils/date_format_util.dart';
 import '../utils/stomp_socket_util.dart';
 import '../utils/trade_timer_util.dart';
 import '../views/airdrop/airdrop_open_page.dart';
+import '../views/announcement/announcement_dialog_page.dart';
 import '../widgets/dialog/reward_notify_dialog.dart';
 import '../widgets/dialog/simple_custom_dialog.dart';
 import 'control_router_viem_model.dart';
@@ -163,7 +165,16 @@ class BaseViewModel with ControlRouterViewModel {
         .setSignIn();
     await SimpleCustomDialog(context,
             mainText: tr('signSuccessfully'), isSuccess: true)
-        .show();
+        .show().then((value) => showNoticeView(context));
+  }
+
+  ///MARK: 跳出最新公告彈窗
+  void showNoticeView(BuildContext context){
+    Future.delayed(const Duration(seconds: 1)).then((value) {
+      AnnounceAPI().getAnnounceLast().then((value) =>
+          BaseViewModel().pushOpacityPage(
+              context, AnnouncementDialogPage(value)));
+    });
   }
 
   ///MARK: 取得收藏未讀通知數(需要補餘額的count)
