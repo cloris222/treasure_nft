@@ -50,8 +50,7 @@ class _AnnouncementDetailPageState extends ConsumerState<AnnouncementDetailPage>
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: true,
-      isShowNotice: false,
-      needBottom: false,
+      needBottom: true,
       onLanguageChange: () {
         if (mounted) {
           setState(() {});
@@ -137,7 +136,7 @@ class _AnnouncementDetailPageState extends ConsumerState<AnnouncementDetailPage>
                   })
                   :  Text(data.content,
                   style: TextStyle(fontSize: UIDefine.fontSize14)),
-              SizedBox(height: UIDefine.getPixelHeight(26)),
+              SizedBox(height: UIDefine.getPixelHeight(75)),
             ]),
       ),
     );

@@ -37,9 +37,8 @@ class _AnnouncementListPageState extends ConsumerState<AnnouncementMainPage> {
   Widget build(BuildContext context) {
     return CustomAppbarView(
       isAirDrop: true,
-      isShowNotice: false,
       needScrollView: false,
-      needBottom: false,
+      needBottom: true,
       onLanguageChange: () {
         if (mounted) {
           setState(() {});
