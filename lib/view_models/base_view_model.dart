@@ -601,4 +601,14 @@ class BaseViewModel with ControlRouterViewModel {
         onRightPress: click
     ).show();
   }
+
+  void onLoginFail(String code, int now, int accumulation) {
+    SimpleCustomDialog(
+        getGlobalContext(),
+        mainText: "${format(tr("errorMsgNow"), {"now":now})}, "
+            "${format(tr("errorMsgAccumulation"), {"accumulation":accumulation})}"
+            " ${tr("loginForbidden")}",
+        isSuccess: false).show();
+  }
+
 }

@@ -58,9 +58,7 @@ class LoginMainViewModel extends BaseViewModel {
       }
       try {
         ///MARK: 註冊API
-        await LoginAPI(
-                onConnectFail: (message) => onBaseConnectFail(context, message))
-            .login(
+        await LoginAPI().login(
                 account: accountController.text,
                 password: passwordController.text,
                 isWallet: false)

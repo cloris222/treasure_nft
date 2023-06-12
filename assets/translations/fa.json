@@ -1379,5 +1379,8 @@
   "applicationFailed":"درخواست انجام نشد",
   "daily-profit":"سود روزانه",
   "notification-NOTWON'":"برنده نشد",
-  "announcement":"اعلامیه"
+  "announcement":"اعلامیه",
+  "errorMsgNow":"تاکنون خطاهای {now} وجود داشته است",
+  "errorMsgAccumulation":"با کل {accumulation} خطاهای انباشته شده.",
+  "loginForbidden":"سیستم ورود شما را غیرفعال می کند."
 }

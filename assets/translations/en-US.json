@@ -1378,6 +1378,8 @@
   "applicationFailed":"Application failed",
   "daily-profit":"Daily profit",
   "notification-NOTWON'":"Not won",
-  "announcement":"Announcement"
-
+  "announcement":"Announcement",
+  "errorMsgNow":"There have been {now} errors so far",
+  "errorMsgAccumulation":"with a total of {accumulation} errors accumulated.",
+  "loginForbidden":"The system will disable your login."
 }

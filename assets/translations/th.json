@@ -1379,5 +1379,8 @@
   "applicationFailed":"แอปพลิเคชันล้มเหลว",
   "daily-profit":"กำไรรายวัน",
   "notification-NOTWON'":"ไม่ชนะ",
-  "announcement":"ประกาศ"
+  "announcement":"ประกาศ",
+  "errorMsgNow":"มีข้อผิดพลาด {now} จนถึงตอนนี้",
+  "errorMsgAccumulation":"มีข้อผิดพลาดทั้งหมด {accumulation} สะสม",
+  "loginForbidden":"ระบบจะปิดใช้งานการเข้าสู่ระบบของคุณ"
 }

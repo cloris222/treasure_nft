@@ -1379,5 +1379,9 @@
   "applicationFailed":"응용 프로그램이 실패했습니다",
   "daily-profit":"일일 이익",
   "notification-NOTWON'":"미당첨",
-  "announcement":"발표"
+  "announcement":"발표",
+  "errorMsgNow":"지금까지 {now} 오류가있었습니다",
+  "errorMsgAccumulation":"총 {accumulation} 오류가 누적됩니다.",
+  "loginForbidden":"시스템은 로그인을 비활성화합니다.",
+
 }

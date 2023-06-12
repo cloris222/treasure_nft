@@ -1379,5 +1379,8 @@
   "applicationFailed":"Falha no aplicativo",
   "daily-profit":"Lucro diário",
   "notification-NOTWON'":"Indemnes",
-  "announcement":"Anúncio"
+  "announcement":"Anúncio",
+  "errorMsgNow":"Houve erros {now} até agora",
+  "errorMsgAccumulation":"com um total de erros {accumulation} acumulados.",
+  "loginForbidden":"O sistema desativará seu login."
 }

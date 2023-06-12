@@ -1379,5 +1379,8 @@
   "applicationFailed":"Permohonan gagal",
   "daily-profit":"Keuntungan harian",
   "notification-NOTWON'":"tidak menang",
-  "announcement":"Pengumuman"
+  "announcement":"Pengumuman",
+  "errorMsgNow":"Ada kesilapan {now} setakat ini",
+  "errorMsgAccumulation":"dengan jumlah {accumulation} yang terkumpul.",
+  "loginForbidden":"Sistem ini akan melumpuhkan log masuk anda."
 }
