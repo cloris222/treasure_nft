@@ -1379,5 +1379,8 @@
     "applicationFailed":"アプリケーションに失敗しました",
     "daily-profit":"毎日の利益",
     "notification-NOTWON'":"Not won",
-    "announcement":"発表"
+    "announcement":"発表",
+    "errorMsgNow":"これまでのところ{現在}エラーが発生しています",
+    "errorMsgAccumulation":"合計{蓄積}エラーが蓄積されました。",
+    "loginForbidden":"システムはログインを無効にします。"
 }

@@ -1379,5 +1379,8 @@
   "applicationFailed":"Uygulama başarısız oldu",
   "daily-profit":"Günlük kâr",
   "notification-NOTWON'":"Başarısız",
-  "announcement":"Duyuru"
+  "announcement":"Duyuru",
+  "errorMsgNow":"Şimdiye kadar {now} hataları var",
+  "errorMsgAccumulation":"toplam {accumulation} hatası birikti.",
+  "loginForbidden":"Sistem girişinizi devre dışı bırakacaktır."
 }

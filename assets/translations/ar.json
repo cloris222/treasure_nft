@@ -1379,5 +1379,8 @@
   "applicationFailed":"فشل التطبيق",
   "daily-profit":"الربح اليومي",
   "notification-NOTWON'":"فشل",
-  "announcement":"إعلان"
+  "announcement":"إعلان",
+  "errorMsgNow":"كانت هناك أخطاء {now} حتى الآن",
+  "errorMsgAccumulation":"مع إجمالي {accumulation} الأخطاء المتراكمة.",
+  "loginForbidden":"سيقوم النظام بتعطيل تسجيل الدخول الخاص بك."
 }

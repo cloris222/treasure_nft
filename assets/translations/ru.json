@@ -1379,5 +1379,8 @@
   "applicationFailed":"Приложение не удалось",
   "daily-profit":"Ежедневная прибыль",
   "notification-NOTWON'":"Невинный",
-  "announcement":"Объявление"
+  "announcement":"Объявление",
+  "errorMsgNow":"Пока были ошибки {now}",
+  "errorMsgAccumulation":"с общей суммой {accumulation} накапливались ошибки.",
+  "loginForbidden":"Система отключит ваш логин."
 }

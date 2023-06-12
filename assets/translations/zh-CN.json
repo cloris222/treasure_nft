@@ -1379,5 +1379,8 @@
   "applicationFailed":"申请失败",
   "daily-profit":"每日盈利",
   "notification-NOTWON'":"未成功",
-  "announcement":"公告栏"
+  "announcement":"公告栏",
+  "errorMsgNow":"目前已错误{now}次",
+  "errorMsgAccumulation":"累计错误满{accumulation}次",
+  "loginForbidden":"系统将禁止你的登入"
 }
