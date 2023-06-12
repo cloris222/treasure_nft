@@ -44,9 +44,8 @@ class _AnnouncementItemViewItemView extends State<AnnouncementItemView> {
         onTap: () => BaseViewModel().pushPage(
             context, AnnouncementDetailPage(data: data, viewModel: viewModel)),
         child: Container(
-          height: UIDefine.getPixelHeight(125),
           width: UIDefine.getWidth(),
-          margin: const EdgeInsets.fromLTRB(8, 6, 8, 6),
+          margin: const EdgeInsets.fromLTRB(8, 6, 8, 64),
           child: Row(crossAxisAlignment: CrossAxisAlignment.start,
               children: [
             Expanded(child:
@@ -102,7 +101,7 @@ class _AnnouncementItemViewItemView extends State<AnnouncementItemView> {
               child: Text(viewModel.getTagText(id),
                   style: TextStyle(
                     fontSize: UIDefine.fontSize12,
-                    color: AppColors.dialogBlack,
+                    color: AppColors.textWhite,
                   )),
             ))
       ]));

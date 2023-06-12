@@ -13,7 +13,7 @@ class AnnouncementViewModel extends BaseViewModel {
   final onClickFunction onViewChange;
   final WidgetRef ref;
 
-  List<AnnounceTagData> get tagList => ref.read(announceTagProvider);
+  List<AnnounceTagData> get tagList => ref.watch(announceTagProvider);
 
   void initState() {
   }
@@ -34,7 +34,7 @@ class AnnouncementViewModel extends BaseViewModel {
         return tagList[i].color;
       }
     }
-    return "#C1C1C1FF";
+    return "#FFFFFFFF";
   }
 
 

@@ -7,8 +7,10 @@ import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/models/http/parameter/announce_data.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/announcement/announcement_main_page.dart';
+import '../../constant/enum/style_enum.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/ui_define.dart';
+import '../../utils/app_text_style.dart';
 import '../../widgets/button/login_button_widget.dart';
 
 
@@ -106,40 +108,78 @@ class _AnnouncementDialogPageState extends ConsumerState<AnnouncementDialogPage>
 
                 Stack(children: [
                   // Image.asset(AppImagePath.noticeBackground, fit: BoxFit.fitWidth),
-                  Text("Notification", style: TextStyle(fontSize: UIDefine.fontSize28, fontWeight: FontWeight.w800)),
+                  Text("Notification",
+                      style: AppTextStyle.getBaseStyle(
+                          color: AppColors.textBlack,
+                          fontSize: UIDefine.fontSize28,
+                          fontWeight: FontWeight.w800,
+                          fontFamily: AppTextFamily.PosteramaText)
+                  ),
                 ]),
 
                 SizedBox(height: UIDefine.getPixelHeight(24)),
 
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(10), vertical: UIDefine.getPixelWidth(15)),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: UIDefine.getPixelWidth(10),
+                      vertical: UIDefine.getPixelWidth(15)),
                   width: UIDefine.getWidth(),
                   decoration: AppStyle().baseBolderGradient(radius:12, borderWidth: 2),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(7)),
-                        child: Text(widget.data.title,
-                            maxLines: 4,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: UIDefine.fontSize12,
-                                fontWeight: FontWeight.w600
-                            ))),
 
-                        SizedBox(height: UIDefine.getPixelHeight(10)),
+                  Html(
+                  data: widget.data.title,
+                    style: {
+                      "*": Style(
+                          fontSize: FontSize(UIDefine.fontSize12),
+                          color: AppColors.textBlack,
+                          fontWeight: FontWeight.w600,
+                          padding: EdgeInsets.zero,
+                          fontFamily: AppTextFamily.PosteramaText.name
+                      ),
+                    },
+                  ),
 
-                        widget.data.content.toString().contains("p>")
-                            ? Html(
-                            data: '${widget.data.content.substring(0, 65)}..',
+                        // Text(widget.data.title,
+                        //     maxLines: 4,
+                        //     overflow: TextOverflow.ellipsis,
+                        //     style: AppTextStyle.getBaseStyle(
+                        //         color: AppColors.textBlack,
+                        //         fontSize: UIDefine.fontSize12,
+                        //         fontWeight: FontWeight.w600,
+                        //         fontFamily: AppTextFamily.PosteramaText)),
+
+                        SizedBox(height: UIDefine.getPixelHeight(8)),
+
+                        // widget.data.content.toString().contains("p>")
+                        //     ?
+                        Html(
+                            data: widget.data.content,
                             onLinkTap: (String? url, RenderContext context, Map<String, String> attributes, element) {
                               viewModel.launchInBrowser(url!);
-                            })
-                            :  Text(widget.data.content,
-                            maxLines: 4,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontSize: UIDefine.fontSize12, fontWeight: FontWeight.w400)),
+                            },
+                            style: {
+                                "*": Style(
+                                  maxLines: 3,
+                                  fontSize: FontSize(UIDefine.fontSize12),
+                                  fontWeight: FontWeight.w400,
+                                  padding: EdgeInsets.zero,
+                                  fontFamily: AppTextFamily.PosteramaText.name
+                                ),
+                              },
+                            )
+
+                            // :  Text(widget.data.content,
+                            // maxLines: 4,
+                            // overflow: TextOverflow.ellipsis,
+                            // style: AppTextStyle.getBaseStyle(
+                            //     color: AppColors.textBlack,
+                            //     fontSize: UIDefine.fontSize12,
+                            //     fontWeight: FontWeight.w400,
+                            //     fontFamily:
+                            //     AppTextFamily.PosteramaText)),
 
                       ]),
                 ),

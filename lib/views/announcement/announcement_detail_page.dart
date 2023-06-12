@@ -50,8 +50,7 @@ class _AnnouncementDetailPageState extends ConsumerState<AnnouncementDetailPage>
   Widget build(BuildContext context) {
     return CustomAppbarView(
       needScrollView: true,
-      isShowNotice: false,
-      needBottom: false,
+      needBottom: true,
       onLanguageChange: () {
         if (mounted) {
           setState(() {});
@@ -104,10 +103,11 @@ class _AnnouncementDetailPageState extends ConsumerState<AnnouncementDetailPage>
                     child:Text(getTime(data.startAt),
                         style: TextStyle(fontSize: UIDefine.fontSize12))),
 
-                    Expanded(child:Wrap(
-                        spacing: UIDefine.getPixelWidth(8),
-                        runSpacing: UIDefine.getPixelHeight(6),
-                        children:buildTagItem(data.tagId))),
+                    /// 工單842_改為不顯示內文標籤
+                    // Expanded(child:Wrap(
+                    //     spacing: UIDefine.getPixelWidth(8),
+                    //     runSpacing: UIDefine.getPixelHeight(6),
+                    //     children:buildTagItem(data.tagId))),
                   ]),
 
               SizedBox(height: UIDefine.getPixelHeight(26)),
@@ -136,7 +136,7 @@ class _AnnouncementDetailPageState extends ConsumerState<AnnouncementDetailPage>
                   })
                   :  Text(data.content,
                   style: TextStyle(fontSize: UIDefine.fontSize14)),
-              SizedBox(height: UIDefine.getPixelHeight(26)),
+              SizedBox(height: UIDefine.getPixelHeight(75)),
             ]),
       ),
     );
