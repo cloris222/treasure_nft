@@ -171,9 +171,12 @@ class BaseViewModel with ControlRouterViewModel {
   ///MARK: 跳出最新公告彈窗
   void showNoticeView(BuildContext context){
     Future.delayed(const Duration(seconds: 1)).then((value) {
-      AnnounceAPI().getAnnounceLast().then((value) =>
-          BaseViewModel().pushOpacityPage(
-              context, AnnouncementDialogPage(value)));
+      AnnounceAPI().getAnnounceLast().then((value) => {
+        if (value.title != GlobalData.lastAnnounce.title) {
+          GlobalData.lastAnnounce = value,
+          BaseViewModel().pushOpacityPage(context, AnnouncementDialogPage(value))
+        }
+      });
     });
   }
 
