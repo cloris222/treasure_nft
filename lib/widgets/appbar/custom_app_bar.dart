@@ -182,11 +182,27 @@ class CustomAppBar {
                     visible: isShowNotice,
                     child:GestureDetector(
                       onTap: announcementAction,
-                      child: Image.asset(
+                      child: Stack(
+                        children: [
+                      Image.asset(
                         AppImagePath.noticeIcon,
                         color: AppColors.textBlack,
                         scale: 0.95,
                       ),
+                          Positioned(
+                            right: 0,
+                            top: 0,
+                            child: Consumer(builder: (BuildContext context,
+                                WidgetRef ref, Widget? child) {
+                              // bool hasNew = ref.watch(hasNewAnnounceProvider);
+                              return const CircleAvatar(
+                                maxRadius: 5,
+                                backgroundColor: Colors.red,
+                                child:SizedBox(),
+                              );
+                            }),
+                          ),
+                      ]),
                     )),
                 /// appbar寶箱
                 GestureDetector(
