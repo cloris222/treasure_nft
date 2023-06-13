@@ -40,7 +40,8 @@ class _AnnouncementDialogPageState extends ConsumerState<AnnouncementDialogPage>
         resizeToAvoidBottomInset: false,
         backgroundColor: AppColors.opacityBackground,
         body: GestureDetector(
-            onTap: () => viewModel.popPage(context),
+            // onTap: () => viewModel.popPage(context),
+            onTap: () => {},
             child: Container(
                 constraints: const BoxConstraints.expand(),
                 color: Colors.transparent,
@@ -59,7 +60,14 @@ class _AnnouncementDialogPageState extends ConsumerState<AnnouncementDialogPage>
                           padding: EdgeInsets.symmetric(
                               vertical: UIDefine.getPixelWidth(25)),
                           child: _buildBody(context, true),
-                        )
+                        ),
+
+                        Positioned(
+                            top: 40,
+                            right: 50,
+                            child: InkWell(
+                                onTap: () => viewModel.popPage(context),
+                                child: Image.asset(AppImagePath.dialogCloseBtn)))
                       ],
                     ),
                   ),
