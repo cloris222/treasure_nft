@@ -5,6 +5,7 @@ import '../../../views/wallet/data/deposit_response_data.dart';
 import '../../../views/wallet/data/pay_type_data.dart';
 import '../parameter/api_response.dart';
 import '../parameter/payment_info.dart';
+import '../parameter/wallet_payment_type.dart';
 import '../parameter/withdraw_alert_info.dart';
 
 class WalletAPI extends HttpManager {
@@ -82,7 +83,7 @@ class WalletAPI extends HttpManager {
   Future<List<PayTypeData>> getPayType(String currency) async {
     List<PayTypeData> result = [];
     var response = await get('/flatCurrency/payType/all',
-        queryParameters: {"currency":currency});
+        queryParameters: {"currency": currency});
     for (Map<String, dynamic> json in response.data) {
       result.add(PayTypeData.fromJson(json));
     }
@@ -91,16 +92,27 @@ class WalletAPI extends HttpManager {
 
   ///MARK: 申請法幣充值
   Future<DepositResponseData> depositCurrency(
-      { required String payType,
-        required String currency,
-        required double amount}) async {
-    var response = await post('/flatCurrency/deposit',
-     data: {
-         "payType": payType,//"MOMO"
-         "currency": currency,//"VND"
-         "amount": amount //1000.00
-      });
+      {required String payType,
+      required String currency,
+      required double amount}) async {
+    var response = await post('/flatCurrency/deposit', data: {
+      "payType": payType, //"MOMO"
+      "currency": currency, //"VND"
+      "amount": amount //1000.00
+    });
     return DepositResponseData.fromJson(response.data);
   }
 
+  /// 查詢支付類型
+  Future<List<WalletPaymentType>> queryPaymentType(bool isDeposit) async {
+    List<WalletPaymentType> result = [];
+    var response = await get('/flatCurrency/payType/all', queryParameters: {
+      "currency": "USDT",
+      "poolType": isDeposit ? "DEPOSIT" : "WITHDRAW"
+    });
+    for (Map<String, dynamic> json in response.data) {
+      result.add(WalletPaymentType.fromJson(json));
+    }
+    return result;
+  }
 }

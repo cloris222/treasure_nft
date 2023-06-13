@@ -10,7 +10,6 @@ import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/personal/orders/order_withdraw_balance_provider.dart';
 import 'package:treasure_nft_project/views/personal/orders/withdraw/data/withdraw_balance_response_data.dart';
-import 'package:treasure_nft_project/widgets/dropdownButton/chain_dropdown_button.dart';
 import 'package:treasure_nft_project/widgets/button/login_bolder_button_widget.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/simple_custom_dialog.dart';
@@ -18,13 +17,16 @@ import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
 
 import '../../../../constant/ui_define.dart';
 import '../../../../models/http/parameter/user_info_data.dart';
+import '../../../../models/http/parameter/wallet_payment_type.dart';
 import '../../../../models/http/parameter/withdraw_alert_info.dart';
 import '../../../../utils/qrcode_scanner_util.dart';
-import '../../../../view_models/gobal_provider/global_tag_controller_provider.dart';
 import '../../../../view_models/gobal_provider/user_experience_info_provider.dart';
 import '../../../../view_models/gobal_provider/user_info_provider.dart';
 import '../../../../view_models/personal/orders/order_chain_withdraw_view_model.dart';
+import '../../../../view_models/wallet/wallet_withdraw_payment_provider.dart';
 import '../../../../widgets/button/login_button_widget.dart';
+import '../../../../widgets/drop_buttom/custom_drop_button.dart';
+import '../../../../widgets/label/coin/tether_coin_widget.dart';
 import '../../../../widgets/label/error_text_widget.dart';
 import '../../../../widgets/text_field/login_text_widget.dart';
 import '../../../login/login_email_code_view.dart';
@@ -52,6 +54,23 @@ class _ChainWithdrawViewState extends ConsumerState<ChainWithdrawView> {
   WithdrawBalanceResponseData get withdrawInfo {
     return ref.read(orderWithdrawBalanceProvider(currentChain.name));
   }
+
+  int? get currentIndex {
+    return ref.read(currentWithdrawPaymentProvider);
+  }
+
+  List<WalletPaymentType> get payments {
+    List<WalletPaymentType> list = ref.read(walletWithdrawPaymentProvider);
+    List<WalletPaymentType> result = [];
+    for (var element in list) {
+      if (element.chain != "內部轉帳") {
+        result.add(element);
+      }
+    }
+    return result;
+  }
+
+  bool get showInfo => (currentIndex != null);
 
   @override
   initState() {
@@ -88,21 +107,25 @@ class _ChainWithdrawViewState extends ConsumerState<ChainWithdrawView> {
         child: Column(
       children: [
         _buildWithdrawTopView(),
-        Container(
-            width: double.infinity,
-            height: UIDefine.getPixelWidth(15),
-            color: AppColors.defaultBackgroundSpace),
-        _buildWithdrawEmailView(userInfo),
-        _buildGoogleVerify(),
-        Container(
-            width: double.infinity,
-            height: UIDefine.getPixelWidth(2),
-            color: AppColors.defaultBackgroundSpace),
-        _buildWithdrawSubmit(),
-        SizedBox(
-          width: double.infinity,
-          height: UIDefine.navigationBarPadding,
-        ),
+        ...showInfo
+            ? [
+                Container(
+                    width: double.infinity,
+                    height: UIDefine.getPixelWidth(15),
+                    color: AppColors.defaultBackgroundSpace),
+                _buildWithdrawEmailView(userInfo),
+                _buildGoogleVerify(),
+                Container(
+                    width: double.infinity,
+                    height: UIDefine.getPixelWidth(2),
+                    color: AppColors.defaultBackgroundSpace),
+                _buildWithdrawSubmit(),
+                SizedBox(
+                  width: double.infinity,
+                  height: UIDefine.navigationBarPadding,
+                ),
+              ]
+            : []
       ],
     ));
   }
@@ -114,13 +137,17 @@ class _ChainWithdrawViewState extends ConsumerState<ChainWithdrawView> {
         mainAxisSize: MainAxisSize.min,
         children: [
           _buildChainDropDownBar(),
-          SizedBox(height: UIDefine.getScreenWidth(5.5)),
-          _buildAddressInputBar(),
-          SizedBox(height: UIDefine.getScreenWidth(5.5)),
-          _buildAmountInputBar(),
-          SizedBox(height: UIDefine.getScreenWidth(2.77)),
-          _buildWithdrawInfo(),
-          SizedBox(height: UIDefine.getScreenWidth(2.77)),
+          ...showInfo
+              ? [
+                  SizedBox(height: UIDefine.getScreenWidth(5.5)),
+                  _buildAddressInputBar(),
+                  SizedBox(height: UIDefine.getScreenWidth(5.5)),
+                  _buildAmountInputBar(),
+                  SizedBox(height: UIDefine.getScreenWidth(2.77)),
+                  _buildWithdrawInfo(),
+                  SizedBox(height: UIDefine.getScreenWidth(2.77)),
+                ]
+              : []
         ],
       ),
     );
@@ -180,18 +207,34 @@ class _ChainWithdrawViewState extends ConsumerState<ChainWithdrawView> {
   }
 
   Widget _buildChainDropDownBar() {
-    return ChainDropDownButton(
-        onChainChange: (chain) {
+    return CustomDropButton(
+        hintSelect: tr("chooseNetwork"),
+        itemIcon: (index) => TetherCoinWidget(size: UIDefine.getPixelWidth(15)),
+        initIndex: currentIndex,
+        listLength: payments.length,
+        itemString: (int index, bool needArrow) {
+          return "${payments[index].currency} - ${payments[index].chain}";
+        },
+        onChanged: (int index) {
           viewModel.addressController.text = '';
-          ref.read(orderCurrentChainProvider.notifier).state = chain;
+          ref
+              .read(currentWithdrawPaymentProvider.notifier)
+              .update((state) => index);
+          for (var element in CoinEnum.values) {
+            if (element.name == payments[index].chain) {
+              ref
+                  .read(orderCurrentChainProvider.notifier)
+                  .update((state) => element);
+              break;
+            }
+          }
           ref
               .read(orderWithdrawBalanceProvider(currentChain.name).notifier)
               .init(onFinish: () {
             viewModel.onAmountChange(
                 viewModel.amountController.text, withdrawInfo);
           });
-        },
-        currentChain: currentChain);
+        });
   }
 
   Widget _buildAddressInputBar() {
@@ -416,15 +459,16 @@ class _ChainWithdrawViewState extends ConsumerState<ChainWithdrawView> {
   Widget _buildGoogleVerify() {
     return Container(
         padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(16)),
-        child:LoginParamView(
+        child: LoginParamView(
           titleText: tr('googleVerify'),
           hintText: tr("enterGoogleVerification"),
           controller: viewModel.googleVerifyController,
           data: viewModel.googleCodeData,
-          keyboardType:TextInputType.number,
+          keyboardType: TextInputType.number,
           inputFormatters: denySpace(),
         ));
   }
+
   List<TextInputFormatter> denySpace() {
     return [FilteringTextInputFormatter.deny(RegExp(r'\s'))];
   }
