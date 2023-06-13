@@ -12,6 +12,7 @@ import 'package:format/format.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
+import 'package:treasure_nft_project/models/http/parameter/announce_data.dart';
 import 'package:treasure_nft_project/utils/animation_download_util.dart';
 import 'package:treasure_nft_project/views/airdrop/airdrop_get_box_page.dart';
 import 'package:treasure_nft_project/views/collection/api/collection_api.dart';
@@ -201,6 +202,7 @@ class BaseViewModel with ControlRouterViewModel {
     GlobalData.userMemberId = '';
     GlobalData.showLoginAnimate = false;
     GlobalData.signInInfo = null;
+    GlobalData.lastAnnounce = AnnounceData();
     stopUserListener();
   }
 
