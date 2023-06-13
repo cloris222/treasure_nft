@@ -6,11 +6,13 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/models/http/parameter/announce_data.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/views/announcement/announcement_detail_page.dart';
 import 'package:treasure_nft_project/views/announcement/announcement_main_page.dart';
 import '../../constant/enum/style_enum.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/ui_define.dart';
 import '../../utils/app_text_style.dart';
+import '../../view_models/announcement/announcement_view_model.dart';
 import '../../widgets/button/login_button_widget.dart';
 
 
@@ -28,9 +30,11 @@ class AnnouncementDialogPage extends ConsumerStatefulWidget {
 
 class _AnnouncementDialogPageState extends ConsumerState<AnnouncementDialogPage> {
   BaseViewModel viewModel = BaseViewModel();
+  late AnnouncementViewModel announcementViewModel;
 
   @override
   void initState() {
+    announcementViewModel = AnnouncementViewModel(onViewChange: ()=> setState, ref: ref);
     super.initState();
   }
 
@@ -208,7 +212,7 @@ class _AnnouncementDialogPageState extends ConsumerState<AnnouncementDialogPage>
                           textColor: AppColors.textBlack,
                           fontSize: UIDefine.fontSize20,
                           onPressed: () => viewModel.pushPage(
-                              context, const AnnouncementMainPage()))),
+                              context, AnnouncementDetailPage(data: widget.data, viewModel: announcementViewModel)))),
                 ]),
 
 
