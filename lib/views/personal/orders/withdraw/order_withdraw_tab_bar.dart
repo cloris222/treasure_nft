@@ -6,31 +6,44 @@ import 'package:treasure_nft_project/utils/app_text_style.dart';
 import '../../../../constant/ui_define.dart';
 
 class OrderWithdrawTabBar {
-  Widget getCollectionTypeButtons(
-      {required String currentExploreType,
-      required List<String> dataList,
-      required Function(String exploreType) changePage}) {
+  Widget getCollectionTypeButtons({
+    required String currentExploreType,
+    required List<String> dataList,
+    required Function(String exploreType) changePage,
+    required bool canInternal,
+  }) {
     List<Widget> buttons = <Widget>[];
     for (int i = 0; i < dataList.length; i++) {
       bool isCurrent = (dataList[i] == currentExploreType);
-      buttons.add(IntrinsicWidth(
-        child: InkWell(
-          onTap: () {
-            changePage(dataList[i]);
-          },
-          child: Container(
-            padding: EdgeInsets.symmetric(
-                horizontal: UIDefine.getPixelWidth(15),
-                vertical: UIDefine.getPixelWidth(10)),
-            decoration: isCurrent ? AppStyle().baseGradient(radius: 18) : null,
-            child: Text(
-              _getTabTitle(dataList[i]),
-              maxLines: 1,
-              style: AppTextStyle.getBaseStyle(
-                  color: _getButtonColor(isCurrent),
-                  fontSize: UIDefine.fontSize12,
-                  fontWeight: _getTextWeight(isCurrent)),
-              textAlign: TextAlign.center,
+      bool show = true;
+
+      /// 判斷內部轉帳是否要關閉
+      if (i == 1 && !canInternal) {
+        show = false;
+      }
+
+      buttons.add(Visibility(
+        visible: show,
+        child: IntrinsicWidth(
+          child: InkWell(
+            onTap: () {
+              changePage(dataList[i]);
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                  horizontal: UIDefine.getPixelWidth(15),
+                  vertical: UIDefine.getPixelWidth(10)),
+              decoration:
+                  isCurrent ? AppStyle().baseGradient(radius: 18) : null,
+              child: Text(
+                _getTabTitle(dataList[i]),
+                maxLines: 1,
+                style: AppTextStyle.getBaseStyle(
+                    color: _getButtonColor(isCurrent),
+                    fontSize: UIDefine.fontSize12,
+                    fontWeight: _getTextWeight(isCurrent)),
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
         ),
