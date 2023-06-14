@@ -1305,6 +1305,10 @@
     "redirect":"リダイレクト",
     "copyLink":"リンクをコピーする",
     "redirectMsg":"リダイレクトされていない場合は、下のボタンを使用してください。",
+    "history_SUCCESS":"成功",
+    "history_FAIL":"失敗",
+    "history_PENDING":"保留中",
+    "history_BROADCASTING":"保留中",
 
 
     "--//app use":"---",

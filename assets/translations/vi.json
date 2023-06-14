@@ -1305,6 +1305,10 @@
   "redirect":"Chuyển hướng",
   "copyLink":"Sao chép đường dẫn",
   "redirectMsg":"Nếu không được chuyển hướng, vui lòng sử dụng nút bên dưới.",
+  "history_SUCCESS":"thành công",
+  "history_FAIL":"thất bại",
+  "history_PENDING":"chưa giải quyết",
+  "history_BROADCASTING":"chưa giải quyết",
 
 
   "--//app use":"---",

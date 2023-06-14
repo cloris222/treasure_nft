@@ -1305,6 +1305,10 @@
   "redirect":"跳转",
   "copyLink":"复制连结",
   "redirectMsg":"如果没有跳转，请使用下方按钮。",
+  "history_SUCCESS":"成功",
+  "history_FAIL":"失败",
+  "history_PENDING":"处理中",
+  "history_BROADCASTING":"处理中",
 
 
   "--//app use":"---",
