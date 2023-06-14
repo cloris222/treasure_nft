@@ -1305,6 +1305,10 @@
   "redirect":"Перенаправить",
   "copyLink":"Копировать ссылку",
   "redirectMsg":"Если не перенаправлен, используйте кнопку ниже.",
+  "history_SUCCESS":"успех",
+  "history_FAIL":"неудача",
+  "history_PENDING":"в ожидании",
+  "history_BROADCASTING":"в ожидании",
 
 
   "--//app use":"---",

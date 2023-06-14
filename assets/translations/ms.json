@@ -1305,6 +1305,10 @@
   "redirect":"Redirect",
   "copyLink":"Salin pautan",
   "redirectMsg":"Jika tidak diarahkan, sila gunakan butang di bawah.",
+  "history_SUCCESS":"kejayaan",
+  "history_FAIL":"gagal",
+  "history_PENDING":"yang belum selesai",
+  "history_BROADCASTING":"yang belum selesai",
 
 
   "--//app use":"---",

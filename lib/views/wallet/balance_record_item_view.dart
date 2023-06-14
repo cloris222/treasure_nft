@@ -17,7 +17,9 @@ class BalanceRecordItemView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Container(
+      margin: EdgeInsets.only(bottom: UIDefine.getPixelHeight(10)),
+      child:Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Row(
@@ -45,13 +47,34 @@ class BalanceRecordItemView extends StatelessWidget {
                 ),
               ],
             ),
-            Text(
-              _getAmount(),
-              style: AppTextStyle.getBaseStyle(
-                  color: _getColor(),
-                  fontSize: UIDefine.fontSize16,
-                  fontWeight: FontWeight.w600),
-            ),
+            Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    _getAmount(),
+                    style: AppTextStyle.getBaseStyle(
+                        color: _getColor(),
+                        fontSize: UIDefine.fontSize16,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  const SizedBox(height: 5),
+                  Container(
+                      height: UIDefine.getPixelHeight(24),
+                      decoration: BoxDecoration(
+                        color: _getStrawColor(),
+                        border: Border.all(
+                            color: _getBorderColor(), width: 2),
+                      ),
+                      padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                      child: Text(
+                        _getStrawString(),
+                        style: AppTextStyle.getBaseStyle(
+                            color: _getStrawStringColor(),
+                            fontSize: UIDefine.fontSize12,
+                            fontWeight: FontWeight.w500),
+                      ))
+                ]),
+
           ],
         ),
 
@@ -59,7 +82,7 @@ class BalanceRecordItemView extends StatelessWidget {
         // Container(width: double.infinity, height: 1, color: AppColors.searchBar),
         // SizedBox(height: UIDefine.getScreenWidth(5.5))
       ],
-    );
+    ));
   }
 
   String _getIcon() {
@@ -132,4 +155,59 @@ class BalanceRecordItemView extends StatelessWidget {
       return AppColors.rateRed;
     }
   }
+
+
+  Color _getBorderColor() {
+    switch (data.status) {
+      case 'SUCCESS':
+        return AppColors.growPrice;
+      case 'PENDING':
+      case 'BROADCASTING':
+        return AppColors.textGrey;
+      case 'FAIL':
+        return AppColors.textRed;
+    }
+    return AppColors.transParent;
+  }
+
+  Color _getStrawColor() {
+    switch (data.status) {
+      case 'SUCCESS':
+        return AppColors.growPrice;
+      case 'PENDING':
+      case 'BROADCASTING':
+        return AppColors.textGrey;
+      case 'FAIL':
+        return AppColors.textRed;
+    }
+    return AppColors.transParent;
+  }
+
+  Color _getStrawStringColor() {
+    switch (data.status) {
+      case 'SUCCESS':
+        return AppColors.textWhite;
+      case 'PENDING':
+      case 'BROADCASTING':
+        return AppColors.textWhite;
+      case 'FAIL':
+        return AppColors.textWhite;
+    }
+    return AppColors.transParent;
+  }
+
+  String _getStrawString() {
+    switch (data.status) {
+      case 'SUCCESS':
+        return tr("history_SUCCESS");
+      case 'PENDING':
+        return tr("history_PENDING");
+      case 'FAIL':
+        return tr("history_FAIL");
+      case 'BROADCASTING':
+        return tr("history_BROADCASTING");
+    }
+    return '';
+  }
+
 }

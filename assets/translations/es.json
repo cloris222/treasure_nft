@@ -1305,6 +1305,10 @@
   "redirect":"Redireccionar",
   "copyLink":"Copiar link",
   "redirectMsg":"Si no se redirige, use el botón a continuación.",
+  "history_SUCCESS":"éxito",
+  "history_FAIL":"fallar",
+  "history_PENDING":"pendiente",
+  "history_BROADCASTING":"pendiente",
 
 
   "--//app use":"---",

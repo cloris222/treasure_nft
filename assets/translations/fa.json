@@ -1305,6 +1305,10 @@
   "redirect":"تغییر مسیر دادن",
   "copyLink":"لینک کپی",
   "redirectMsg":"اگر هدایت نشوید ، لطفاً از دکمه زیر استفاده کنید.",
+  "history_SUCCESS":"موفقیت",
+  "history_FAIL":"شکست",
+  "history_PENDING":"انتظار",
+  "history_BROADCASTING":"انتظار",
 
 
   "--//app use":"---",

@@ -1305,6 +1305,10 @@
   "redirect":"리디렉션",
   "copyLink":"링크 복사",
   "redirectMsg":"리디렉션되지 않은 경우 아래 버튼을 사용하십시오.",
+  "history_SUCCESS":"성공",
+  "history_FAIL":"실패하다",
+  "history_PENDING":"보류 중",
+  "history_BROADCASTING":"보류 중",
 
 
   "--//app use":"---",
@@ -1382,6 +1386,6 @@
   "announcement":"발표",
   "errorMsgNow":"지금까지 {now} 오류가있었습니다",
   "errorMsgAccumulation":"총 {accumulation} 오류가 누적됩니다.",
-  "loginForbidden":"시스템은 로그인을 비활성화합니다.",
+  "loginForbidden":"시스템은 로그인을 비활성화합니다."
 
 }
