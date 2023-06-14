@@ -14,6 +14,7 @@ import '../../models/http/parameter/airdrop_box_info.dart';
 import '../../models/http/parameter/airdrop_reward_info.dart';
 import 'airdrop_common_view.dart';
 
+/// 升級獎勵
 class AirdropGrowthPage extends ConsumerStatefulWidget {
   const AirdropGrowthPage({
     Key? key,
@@ -70,12 +71,13 @@ class _AirdropDailyPageState extends ConsumerState<AirdropGrowthPage>
           children: [
             buildTitleView(tr("growthProcess"), tr("upgradeChestText")),
             buildBoxView(),
-            ...rewardInfo != null
-                ? List<Widget>.generate(
-                    rewardInfo.config.length,
-                    (index) => buildRewardInfo(
-                        AirdropType.growthReward, rewardInfo!.config[index]))
-                : [],
+            /// 暫時隱藏寶箱資訊
+            // ...rewardInfo != null
+            //     ? List<Widget>.generate(
+            //         rewardInfo.config.length,
+            //         (index) => buildRewardInfo(
+            //             AirdropType.growthReward, rewardInfo!.config[index]))
+            //     : [],
             buildButton(
                 canOpenBox == BoxStatus.unlocked, () => _onPressOpen(orderNo)),
             SizedBox(height: UIDefine.getPixelWidth(20)),
@@ -88,7 +90,7 @@ class _AirdropDailyPageState extends ConsumerState<AirdropGrowthPage>
   Widget buildBoxView() {
     return Container(
       margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(15)),
-      height: UIDefine.getPixelWidth(200),
+      height: UIDefine.getPixelWidth(210),
       child: PageView(
         controller: controller,
         onPageChanged: (value) {
