@@ -7,11 +7,11 @@ import 'package:treasure_nft_project/views/custom_appbar_view.dart';
 import 'package:treasure_nft_project/views/personal/orders/withdraw/order_withdraw_type_page.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import '../../../constant/ui_define.dart';
-import '../../../models/http/parameter/wallet_payment_type.dart';
 import '../../../models/http/parameter/withdraw_alert_info.dart';
 import '../../../view_models/base_view_model.dart';
 import '../../../view_models/gobal_provider/user_info_provider.dart';
 import '../../../view_models/gobal_provider/user_property_info_provider.dart';
+import '../../../view_models/wallet/wallet_withdraw_inter_payment_provider.dart';
 import '../../../view_models/wallet/wallet_withdraw_payment_provider.dart';
 import '../../../widgets/dialog/common_custom_dialog.dart';
 import '../common/google_authenticator_page.dart';
@@ -43,14 +43,7 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
 
   /// 是否能夠內部轉帳
   bool get canInternal {
-    // return true;
-    List<WalletPaymentType> list = ref.read(walletWithdrawPaymentProvider);
-    for (var element in list) {
-      if (element.chain == "內部轉帳") {
-        return true;
-      }
-    }
-    return false;
+    return ref.read(walletWithdrawInterPaymentProvider).isNotEmpty;
   }
 
   @override
@@ -63,6 +56,7 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
     }
 
     ref.read(walletWithdrawPaymentProvider.notifier).init();
+    ref.read(walletWithdrawInterPaymentProvider.notifier).init();
 
     WalletAPI().checkWithdrawAlert().then((value) {
       withdrawAlertInfo = value;
@@ -85,6 +79,7 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
     ref.watch(userPropertyInfoProvider);
     ref.watch(currentWithdrawPaymentProvider);
     ref.watch(walletWithdrawPaymentProvider);
+    ref.watch(walletWithdrawInterPaymentProvider);
 
     return CustomAppbarView(
       needScrollView: false,
@@ -111,6 +106,7 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
             child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: OrderWithdrawTabBar().getCollectionTypeButtons(
+                    canInternal: canInternal,
                     dataList: dataList,
                     currentExploreType: currentExploreType,
                     changePage: (String exploreType) {

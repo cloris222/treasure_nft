@@ -60,14 +60,7 @@ class _ChainWithdrawViewState extends ConsumerState<ChainWithdrawView> {
   }
 
   List<WalletPaymentType> get payments {
-    List<WalletPaymentType> list = ref.read(walletWithdrawPaymentProvider);
-    List<WalletPaymentType> result = [];
-    for (var element in list) {
-      if (element.chain != "內部轉帳") {
-        result.add(element);
-      }
-    }
-    return result;
+    return ref.read(walletWithdrawPaymentProvider);
   }
 
   bool get showInfo => (currentIndex != null);

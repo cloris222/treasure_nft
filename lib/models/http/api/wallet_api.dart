@@ -115,4 +115,19 @@ class WalletAPI extends HttpManager {
     }
     return result;
   }
+
+  /// 查詢內部轉帳是否開啟 空陣列代表未開啟
+  /// /flatCurrency/payType/all?currency=USDT&poolType=WITHDRAW&chain=INTER
+  Future<List<WalletPaymentType>> queryInterPaymentType() async {
+    List<WalletPaymentType> result = [];
+    var response = await get('/flatCurrency/payType/all', queryParameters: {
+      "currency": "USDT",
+      "poolType": "WITHDRAW",
+      "chain": "INTER",
+    });
+    for (Map<String, dynamic> json in response.data) {
+      result.add(WalletPaymentType.fromJson(json));
+    }
+    return result;
+  }
 }
