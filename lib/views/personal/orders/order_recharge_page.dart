@@ -6,19 +6,20 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
-import 'package:treasure_nft_project/view_models/base_view_model.dart';
-import 'package:treasure_nft_project/view_models/wallet/wallet_balance_recharge_provider.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
-import 'package:treasure_nft_project/widgets/dropdownButton/chain_dropdown_button.dart';
+import 'package:treasure_nft_project/widgets/drop_buttom/custom_drop_button.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 
 import '../../../constant/enum/coin_enum.dart';
-import '../../../constant/global_data.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_style.dart';
+import '../../../models/http/parameter/wallet_payment_type.dart';
 import '../../../view_models/personal/orders/order_recharge_viewmodel.dart';
+import '../../../view_models/wallet/wallet_balance_recharge_provider.dart';
+import '../../../view_models/wallet/wallet_deposit_payment_provider.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/dialog/common_custom_dialog.dart';
+import '../../../widgets/label/coin/tether_coin_widget.dart';
 
 ///MARK: 充值
 class OrderRechargePage extends ConsumerStatefulWidget {
@@ -45,11 +46,18 @@ class _OrderRechargePageState extends ConsumerState<OrderRechargePage> {
     return ref.read(walletBalanceRechargeProvider);
   }
 
+  int? get currentIndex {
+    return ref.read(currentDepositPaymentProvider);
+  }
+
+  List<WalletPaymentType> get payments {
+    return ref.read(walletDepositPaymentProvider);
+  }
+
   @override
   void initState() {
     ref.read(walletBalanceRechargeProvider.notifier).update();
-    Future.delayed(const Duration(milliseconds: 300)).then((value) =>
-        ref.read(walletCurrentChainProvider.notifier).state = CoinEnum.TRON);
+    ref.read(walletDepositPaymentProvider.notifier).init();
     super.initState();
   }
 
@@ -58,6 +66,9 @@ class _OrderRechargePageState extends ConsumerState<OrderRechargePage> {
     ///監聽
     ref.watch(walletCurrentChainProvider);
     ref.watch(walletBalanceRechargeProvider);
+
+    ref.watch(currentDepositPaymentProvider);
+    ref.watch(walletDepositPaymentProvider);
 
     return CustomAppbarView(
       needScrollView: false,
@@ -86,19 +97,22 @@ class _OrderRechargePageState extends ConsumerState<OrderRechargePage> {
       children: [
         SizedBox(height: UIDefine.getScreenWidth(0.97)),
         _buildChoseAddress(),
-        Wrap(
-          runSpacing: 20,
-          children: [
-            const SizedBox(width: 1),
-            _buildAddressInfo(),
-            _buildLine(),
+        Visibility(
+          visible: currentIndex != null,
+          child: Wrap(
+            runSpacing: 20,
+            children: [
+              const SizedBox(width: 1),
+              _buildAddressInfo(),
+              _buildLine(),
 
-            ///MARK: 充值的注意事項
-            _buildHint(),
-            _buildAddressPath(),
-            _buildAddressChain(),
-            const SizedBox(width: 1),
-          ],
+              ///MARK: 充值的注意事項
+              _buildHint(),
+              _buildAddressPath(),
+              _buildAddressChain(),
+              const SizedBox(width: 1),
+            ],
+          ),
         ),
         SizedBox(
           width: double.infinity,
@@ -118,11 +132,29 @@ class _OrderRechargePageState extends ConsumerState<OrderRechargePage> {
   Widget _buildChoseAddress() {
     return Padding(
         padding: mainPadding,
-        child: ChainDropDownButton(
-            onChainChange: (chain) {
-              ref.read(walletCurrentChainProvider.notifier).state = chain;
-            },
-            currentChain: currentChain));
+        child: CustomDropButton(
+          hintSelect: tr("chooseNetwork"),
+          itemIcon: (index) =>
+              TetherCoinWidget(size: UIDefine.getPixelWidth(15)),
+          initIndex: currentIndex,
+          listLength: payments.length,
+          itemString: (int index, bool needArrow) {
+            return "${payments[index].currency} - ${payments[index].chain}";
+          },
+          onChanged: (int index) {
+            ref
+                .read(currentDepositPaymentProvider.notifier)
+                .update((state) => index);
+            for (var element in CoinEnum.values) {
+              if (element.name == payments[index].chain) {
+                ref
+                    .read(walletCurrentChainProvider.notifier)
+                    .update((state) => element);
+                break;
+              }
+            }
+          },
+        ));
   }
 
   Widget _buildAddressInfo() {
@@ -322,7 +354,8 @@ class _OrderRechargePageState extends ConsumerState<OrderRechargePage> {
     if (status.isGranted) {
       // 檢查權限
       if (mounted) {
-        viewModel.onSaveQrcode(context, repaintKey,userWalletInfo?[currentChain.name]);
+        viewModel.onSaveQrcode(
+            context, repaintKey, userWalletInfo?[currentChain.name]);
       }
     }
   }

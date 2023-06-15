@@ -12,6 +12,7 @@ import 'package:format/format.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
+import 'package:treasure_nft_project/models/http/parameter/announce_data.dart';
 import 'package:treasure_nft_project/utils/animation_download_util.dart';
 import 'package:treasure_nft_project/views/airdrop/airdrop_get_box_page.dart';
 import 'package:treasure_nft_project/views/collection/api/collection_api.dart';
@@ -29,6 +30,7 @@ import '../constant/enum/airdrop_enum.dart';
 import '../constant/global_data.dart';
 import '../constant/theme/app_animation_path.dart';
 import '../constant/theme/app_colors.dart';
+import '../models/http/api/announce_api.dart';
 import '../models/http/api/common_api.dart';
 import '../models/http/api/wallet_connect_api.dart';
 import '../models/http/http_setting.dart';
@@ -40,6 +42,7 @@ import '../utils/date_format_util.dart';
 import '../utils/stomp_socket_util.dart';
 import '../utils/trade_timer_util.dart';
 import '../views/airdrop/airdrop_open_page.dart';
+import '../views/announcement/announcement_dialog_page.dart';
 import '../widgets/dialog/reward_notify_dialog.dart';
 import '../widgets/dialog/simple_custom_dialog.dart';
 import 'control_router_viem_model.dart';
@@ -163,7 +166,19 @@ class BaseViewModel with ControlRouterViewModel {
         .setSignIn();
     await SimpleCustomDialog(context,
             mainText: tr('signSuccessfully'), isSuccess: true)
-        .show();
+        .show().then((value) => showNoticeView(context));
+  }
+
+  ///MARK: 跳出最新公告彈窗
+  void showNoticeView(BuildContext context){
+    Future.delayed(const Duration(seconds: 1)).then((value) {
+      AnnounceAPI().getAnnounceLast().then((value) => {
+        if (value.title != GlobalData.lastAnnounce.title) {
+          GlobalData.lastAnnounce = value,
+          BaseViewModel().pushOpacityPage(context, AnnouncementDialogPage(value))
+        }
+      });
+    });
   }
 
   ///MARK: 取得收藏未讀通知數(需要補餘額的count)
@@ -187,6 +202,7 @@ class BaseViewModel with ControlRouterViewModel {
     GlobalData.userMemberId = '';
     GlobalData.showLoginAnimate = false;
     GlobalData.signInInfo = null;
+    GlobalData.lastAnnounce = AnnounceData();
     stopUserListener();
   }
 
@@ -590,4 +606,14 @@ class BaseViewModel with ControlRouterViewModel {
         onRightPress: click
     ).show();
   }
+
+  void onLoginFail(String code, int now, int accumulation) {
+    SimpleCustomDialog(
+        getGlobalContext(),
+        mainText: "${format(tr("errorMsgNow"), {"now":now})}, "
+            "${format(tr("errorMsgAccumulation"), {"accumulation":accumulation})}"
+            " ${tr("loginForbidden")}",
+        isSuccess: false).show();
+  }
+
 }

@@ -1305,6 +1305,10 @@
   "redirect":"Перенаправить",
   "copyLink":"Копировать ссылку",
   "redirectMsg":"Если не перенаправлен, используйте кнопку ниже.",
+  "history_SUCCESS":"успех",
+  "history_FAIL":"неудача",
+  "history_PENDING":"в ожидании",
+  "history_BROADCASTING":"в ожидании",
 
 
   "--//app use":"---",
@@ -1378,5 +1382,9 @@
   "APP_0094":"У вас есть несколько заказов. Пожалуйста, повторите попытку позже.",
   "applicationFailed":"Приложение не удалось",
   "daily-profit":"Ежедневная прибыль",
-  "notification-NOTWON'":"Невинный"
+  "notification-NOTWON'":"Невинный",
+  "announcement":"Объявление",
+  "errorMsgNow":"Пока были ошибки {now}",
+  "errorMsgAccumulation":"с общей суммой {accumulation} накапливались ошибки.",
+  "loginForbidden":"Система отключит ваш логин."
 }

@@ -1305,6 +1305,10 @@
   "redirect":"Redirect",
   "copyLink":"Copy Link",
   "redirectMsg":"If not redirected, please use the button below.",
+  "history_SUCCESS":"success",
+  "history_FAIL":"fail",
+  "history_PENDING":"pending",
+  "history_BROADCASTING":"pending",
 
 
   "--//app use":"---",
@@ -1377,5 +1381,9 @@
   "APP_0094":"You have multiple orders in progress. Please try again later.",
   "applicationFailed":"Application failed",
   "daily-profit":"Daily profit",
-  "notification-NOTWON'":"Not won"
+  "notification-NOTWON'":"Not won",
+  "announcement":"Announcement",
+  "errorMsgNow":"There have been {now} errors so far",
+  "errorMsgAccumulation":"with a total of {accumulation} errors accumulated.",
+  "loginForbidden":"The system will disable your login."
 }

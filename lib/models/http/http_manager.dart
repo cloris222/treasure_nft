@@ -65,6 +65,12 @@ class HttpManager {
       BaseViewModel().clearUserLoginInfo();
       BaseViewModel().globalPushAndRemoveUntil(
           const MainPage(type: AppNavigationBarType.typeLogin));
+    } else if (result.code == "EO_001_3") {
+      BaseViewModel().onLoginFail(result.code,
+          result.data["currentErrorNum"],
+          result.data["totalCanErrorNum"]);
+    } else if (result.code.contains("EO_001")) {
+      BaseViewModel().onBaseConnectFail(BaseViewModel().getGlobalContext(), tr(result.code));
     } else if (result.code == "APP_0094"){
       BaseViewModel().showFailDialog(
           DialogImageType.fail,

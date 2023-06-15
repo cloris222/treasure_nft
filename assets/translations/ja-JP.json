@@ -1305,6 +1305,10 @@
     "redirect":"リダイレクト",
     "copyLink":"リンクをコピーする",
     "redirectMsg":"リダイレクトされていない場合は、下のボタンを使用してください。",
+    "history_SUCCESS":"成功",
+    "history_FAIL":"失敗",
+    "history_PENDING":"保留中",
+    "history_BROADCASTING":"保留中",
 
 
     "--//app use":"---",
@@ -1378,5 +1382,9 @@
     "APP_0094":"複数の注文が進行中です。後でもう一度やり直してください。",
     "applicationFailed":"アプリケーションに失敗しました",
     "daily-profit":"毎日の利益",
-    "notification-NOTWON'":"Not won"
+    "notification-NOTWON'":"Not won",
+    "announcement":"発表",
+    "errorMsgNow":"これまでのところ{現在}エラーが発生しています",
+    "errorMsgAccumulation":"合計{蓄積}エラーが蓄積されました。",
+    "loginForbidden":"システムはログインを無効にします。"
 }

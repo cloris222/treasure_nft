@@ -1305,6 +1305,10 @@
   "redirect":"Yeniden yönlendirmek",
   "copyLink":"Bağlantıyı kopyala",
   "redirectMsg":"Yönlendirilmezse, lütfen aşağıdaki düğmeyi kullanın.",
+  "history_SUCCESS":"başarı",
+  "history_FAIL":"hata",
+  "history_PENDING":"askıda olması",
+  "history_BROADCASTING":"askıda olması",
 
 
   "--//app use":"---",
@@ -1378,5 +1382,9 @@
   "APP_0094":"Devam eden birden fazla siparişiniz var. Lütfen daha sonra tekrar deneyiniz.",
   "applicationFailed":"Uygulama başarısız oldu",
   "daily-profit":"Günlük kâr",
-  "notification-NOTWON'":"Başarısız"
+  "notification-NOTWON'":"Başarısız",
+  "announcement":"Duyuru",
+  "errorMsgNow":"Şimdiye kadar {now} hataları var",
+  "errorMsgAccumulation":"toplam {accumulation} hatası birikti.",
+  "loginForbidden":"Sistem girişinizi devre dışı bırakacaktır."
 }

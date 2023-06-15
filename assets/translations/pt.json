@@ -1305,6 +1305,10 @@
   "redirect":"Redirecionar",
   "copyLink":"Link de cópia",
   "redirectMsg":"Se não for redirecionado, use o botão abaixo.",
+  "history_SUCCESS":"sucesso",
+  "history_FAIL":"falhar",
+  "history_PENDING":"pendente",
+  "history_BROADCASTING":"pendente",
 
 
   "--//app use":"---",
@@ -1378,5 +1382,9 @@
   "APP_0094":"Você tem vários pedidos em andamento. Por favor, tente novamente mais tarde.",
   "applicationFailed":"Falha no aplicativo",
   "daily-profit":"Lucro diário",
-  "notification-NOTWON'":"Indemnes"
+  "notification-NOTWON'":"Indemnes",
+  "announcement":"Anúncio",
+  "errorMsgNow":"Houve erros {now} até agora",
+  "errorMsgAccumulation":"com um total de erros {accumulation} acumulados.",
+  "loginForbidden":"O sistema desativará seu login."
 }

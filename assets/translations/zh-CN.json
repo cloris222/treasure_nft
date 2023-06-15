@@ -1305,6 +1305,10 @@
   "redirect":"跳转",
   "copyLink":"复制连结",
   "redirectMsg":"如果没有跳转，请使用下方按钮。",
+  "history_SUCCESS":"成功",
+  "history_FAIL":"失败",
+  "history_PENDING":"处理中",
+  "history_BROADCASTING":"处理中",
 
 
   "--//app use":"---",
@@ -1378,5 +1382,9 @@
   "APP_0094":"您有多笔订单正在处理中，请稍后再次申请。",
   "applicationFailed":"申请失败",
   "daily-profit":"每日盈利",
-  "notification-NOTWON'":"未成功"
+  "notification-NOTWON'":"未成功",
+  "announcement":"公告栏",
+  "errorMsgNow":"目前已错误{now}次",
+  "errorMsgAccumulation":"累计错误满{accumulation}次",
+  "loginForbidden":"系统将禁止你的登入"
 }

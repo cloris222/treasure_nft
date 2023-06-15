@@ -116,6 +116,7 @@ class AppImagePath {
   static const String growthIcon = '$_iconPath/icon_growthtransaction_01.png';
   static const String helpIcon = '$_btnPath/btn_help_01.png';
   static const String videoPoster = '$_imgPath/img_video_poster.jpg';
+  static const String noticeIcon = '$_iconPath/icon_notice_01.png';
 
 
   /// personal page
@@ -253,4 +254,7 @@ class AppImagePath {
 
   static const String giftIcon="$_iconPath/icon_not_won_gift_01.png";
   static const String arrowRightIcon="$_iconPath/icon_not_won_arrow_01.png";
+
+  static const String noticeBackground = "$_imgPath/img_notice_background.png";
+
 }

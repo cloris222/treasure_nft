@@ -2,14 +2,19 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/views/setting_language_page.dart';
 
 import '../../constant/enum/setting_enum.dart';
+import '../../constant/enum/style_enum.dart';
+import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/ui_define.dart';
 import '../../utils/app_text_style.dart';
 import '../../view_models/base_view_model.dart';
 import '../../view_models/home/provider/home_contact_info_provider.dart';
+import '../../views/announcement/announcement_main_page.dart';
+import '../app_bottom_navigation_bar.dart';
 
 class MenuButtonWidget extends ConsumerWidget {
   const MenuButtonWidget({
@@ -65,6 +70,7 @@ class MenuButtonWidget extends ConsumerWidget {
   Widget _buildCell(MenuIcon type) {
     String imgPath;
     String cellTitle;
+    Color? color;
     switch (type) {
       case MenuIcon.home:
         imgPath = AppImagePath.homeImage;
@@ -89,6 +95,7 @@ class MenuButtonWidget extends ConsumerWidget {
           imgPath,
           width: UIDefine.getPixelWidth(25),
           height: UIDefine.getPixelWidth(25),
+          color: color,
           fit: BoxFit.contain,
         ),
         SizedBox(width: UIDefine.getPixelWidth(5)),

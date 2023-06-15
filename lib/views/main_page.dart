@@ -22,7 +22,10 @@ import 'package:wallet_connect_plugin/model/wallet_info.dart';
 import '../constant/app_routes.dart';
 import '../constant/global_data.dart';
 import '../constant/ui_define.dart';
+import '../models/http/api/announce_api.dart';
 import '../widgets/app_bottom_navigation_bar.dart';
+import 'announcement/announcement_dialog_page.dart';
+import 'announcement/announcement_main_page.dart';
 import 'full_animation_page.dart';
 import 'home/home_main_view.dart';
 
@@ -140,6 +143,7 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
+
   @override
   void dispose() {
     super.dispose();
@@ -157,7 +161,8 @@ class _MainPageState extends State<MainPage> {
           serverAction: _serverAction,
           globalAction: _globalAction,
           mainAction: _mainAction,
-          airdropAction: _airdropAction),
+          airdropAction: _airdropAction,
+          announcementAction: _announcementAction),
       body: Stack(
         children: [
           Padding(
@@ -202,6 +207,7 @@ class _MainPageState extends State<MainPage> {
   _changePage(AppNavigationBarType type) {
     viewModel.setCurrentBottomType(type);
     pageController.jumpToPage(getViewIndex(type));
+    checkLastAnnounce();
   }
 
   void _searchAction() {
@@ -269,6 +275,18 @@ class _MainPageState extends State<MainPage> {
     } else {
       viewModel.pushAndRemoveUntil(
           context, const MainPage(type: AppNavigationBarType.typeLogin));
+    }
+  }
+
+  void _announcementAction() {
+    BaseViewModel().isLogin()
+        ? BaseViewModel().pushPage(context, const AnnouncementMainPage())
+        : BaseViewModel().pushPage(context, const MainPage(type: AppNavigationBarType.typeLogin));
+  }
+
+  void checkLastAnnounce() {
+    if (GlobalData.userToken.isNotEmpty) {
+      BaseViewModel().showNoticeView(BaseViewModel().getGlobalContext());
     }
   }
 }

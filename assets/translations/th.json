@@ -1305,6 +1305,10 @@
   "redirect":"เปลี่ยนเส้นทาง",
   "copyLink":"คัดลอกลิงค์",
   "redirectMsg":"หากไม่ได้เปลี่ยนเส้นทางโปรดใช้ปุ่มด้านล่าง",
+  "history_SUCCESS":"ความสำเร็จ",
+  "history_FAIL":"ล้มเหลว",
+  "history_PENDING":"รอดำเนินการ",
+  "history_BROADCASTING":"รอดำเนินการ",
 
 
   "--//app use":"---",
@@ -1378,5 +1382,9 @@
   "APP_0094":"คุณมีคำสั่งซื้อหลายคำสั่ง กรุณาลองใหม่อีกครั้งในภายหลัง.",
   "applicationFailed":"แอปพลิเคชันล้มเหลว",
   "daily-profit":"กำไรรายวัน",
-  "notification-NOTWON'":"ไม่ชนะ"
+  "notification-NOTWON'":"ไม่ชนะ",
+  "announcement":"ประกาศ",
+  "errorMsgNow":"มีข้อผิดพลาด {now} จนถึงตอนนี้",
+  "errorMsgAccumulation":"มีข้อผิดพลาดทั้งหมด {accumulation} สะสม",
+  "loginForbidden":"ระบบจะปิดใช้งานการเข้าสู่ระบบของคุณ"
 }

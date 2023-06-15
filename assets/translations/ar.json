@@ -1305,6 +1305,10 @@
   "redirect":"إعادة توجيه",
   "copyLink":"نسخ الوصلة",
   "redirectMsg":"إذا لم يتم إعادة توجيهها ، يرجى استخدام الزر أدناه.",
+  "history_SUCCESS":"نجاح",
+  "history_FAIL":"يفشل",
+  "history_PENDING":"قيد الانتظار",
+  "history_BROADCASTING":"قيد الانتظار",
 
 
   "--//app use":"---",
@@ -1378,5 +1382,9 @@
   "APP_0094":"لديك أوامر متعددة قيد التقدم. الرجاء معاودة المحاولة في وقت لاحق.",
   "applicationFailed":"فشل التطبيق",
   "daily-profit":"الربح اليومي",
-  "notification-NOTWON'":"فشل"
+  "notification-NOTWON'":"فشل",
+  "announcement":"إعلان",
+  "errorMsgNow":"كانت هناك أخطاء {now} حتى الآن",
+  "errorMsgAccumulation":"مع إجمالي {accumulation} الأخطاء المتراكمة.",
+  "loginForbidden":"سيقوم النظام بتعطيل تسجيل الدخول الخاص بك."
 }

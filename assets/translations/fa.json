@@ -1305,6 +1305,10 @@
   "redirect":"تغییر مسیر دادن",
   "copyLink":"لینک کپی",
   "redirectMsg":"اگر هدایت نشوید ، لطفاً از دکمه زیر استفاده کنید.",
+  "history_SUCCESS":"موفقیت",
+  "history_FAIL":"شکست",
+  "history_PENDING":"انتظار",
+  "history_BROADCASTING":"انتظار",
 
 
   "--//app use":"---",
@@ -1378,5 +1382,9 @@
   "APP_0094":"شما چندین سفارش در حال انجام دارید. لطفا بعداً دوباره امتحان کنید.",
   "applicationFailed":"درخواست انجام نشد",
   "daily-profit":"سود روزانه",
-  "notification-NOTWON'":"برنده نشد"
+  "notification-NOTWON'":"برنده نشد",
+  "announcement":"اعلامیه",
+  "errorMsgNow":"تاکنون خطاهای {now} وجود داشته است",
+  "errorMsgAccumulation":"با کل {accumulation} خطاهای انباشته شده.",
+  "loginForbidden":"سیستم ورود شما را غیرفعال می کند."
 }

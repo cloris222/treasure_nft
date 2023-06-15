@@ -1305,6 +1305,10 @@
   "redirect":"Chuyển hướng",
   "copyLink":"Sao chép đường dẫn",
   "redirectMsg":"Nếu không được chuyển hướng, vui lòng sử dụng nút bên dưới.",
+  "history_SUCCESS":"thành công",
+  "history_FAIL":"thất bại",
+  "history_PENDING":"chưa giải quyết",
+  "history_BROADCASTING":"chưa giải quyết",
 
 
   "--//app use":"---",
@@ -1378,5 +1382,9 @@
   "APP_0094":"Bạn có nhiều đơn đặt hàng đang được tiến hành. Vui lòng thử lại sau.",
   "applicationFailed":"Ứng dụng không thành công",
   "daily-profit":"Lợi nhuận hàng ngày",
-  "notification-NOTWON'":"đã không giành chiến thắng"
+  "notification-NOTWON'":"đã không giành chiến thắng",
+  "announcement":"Thông báo",
+  "errorMsgNow":"Đã có {now} lỗi cho đến nay",
+  "errorMsgAccumulation":"với tổng số lỗi {accumulation} được tích lũy.",
+  "loginForbidden":"Hệ thống sẽ vô hiệu hóa đăng nhập của bạn."
 }

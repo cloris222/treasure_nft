@@ -11,6 +11,8 @@ import '../../../models/http/parameter/withdraw_alert_info.dart';
 import '../../../view_models/base_view_model.dart';
 import '../../../view_models/gobal_provider/user_info_provider.dart';
 import '../../../view_models/gobal_provider/user_property_info_provider.dart';
+import '../../../view_models/wallet/wallet_withdraw_inter_payment_provider.dart';
+import '../../../view_models/wallet/wallet_withdraw_payment_provider.dart';
 import '../../../widgets/dialog/common_custom_dialog.dart';
 import '../common/google_authenticator_page.dart';
 import 'withdraw/order_withdraw_tab_bar.dart';
@@ -39,6 +41,11 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
     return ref.read(userPropertyInfoProvider)?.getExperienceMoney() ?? 0;
   }
 
+  /// 是否能夠內部轉帳
+  bool get canInternal {
+    return ref.read(walletWithdrawInterPaymentProvider).isNotEmpty;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -47,6 +54,9 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
     if (!ref.read(userInfoProvider).bindGoogle) {
       showGoogleUnVerify();
     }
+
+    ref.read(walletWithdrawPaymentProvider.notifier).init();
+    ref.read(walletWithdrawInterPaymentProvider.notifier).init();
 
     WalletAPI().checkWithdrawAlert().then((value) {
       withdrawAlertInfo = value;
@@ -67,6 +77,9 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
   Widget build(BuildContext context) {
     ///監聽用
     ref.watch(userPropertyInfoProvider);
+    ref.watch(currentWithdrawPaymentProvider);
+    ref.watch(walletWithdrawPaymentProvider);
+    ref.watch(walletWithdrawInterPaymentProvider);
 
     return CustomAppbarView(
       needScrollView: false,
@@ -93,6 +106,7 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
             child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: OrderWithdrawTabBar().getCollectionTypeButtons(
+                    canInternal: canInternal,
                     dataList: dataList,
                     currentExploreType: currentExploreType,
                     changePage: (String exploreType) {
@@ -104,6 +118,7 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
               child: PageView(
             controller: pageController,
             onPageChanged: _onPageChange,
+            physics: canInternal ? null : const NeverScrollableScrollPhysics(),
             children: List<Widget>.generate(
                 dataList.length,
                 (index) => OrderWithdrawTypePage(
@@ -115,6 +130,7 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
       ),
     );
   }
+
   // void _setPage() {
   //   pages = List<Widget>.generate(
   //       dataList.length,
@@ -124,15 +140,22 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
   // }
 
   void _changePage(String exploreType) {
+    int index = _getExploreTypeIndex(exploreType);
+
+    /// 關閉內部轉帳
+    if (index == 1 && !canInternal) {
+      return;
+    }
+
     setState(() {
       currentExploreType = exploreType;
-      pageController.jumpToPage(_getExploreTypeIndex(currentExploreType));
+      pageController.jumpToPage(index);
     });
   }
 
-  void _onPageChange(int value) {
+  void _onPageChange(int index) {
     setState(() {
-      currentExploreType = dataList[value];
+      currentExploreType = dataList[index];
       // listController.jumpTo(value * 25);
     });
   }
@@ -147,15 +170,14 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
   }
 
   void showGoogleUnVerify() {
-    CommonCustomDialog(
-        context,
-        type: DialogImageType.fail,
-        title: "",
-        content: tr('googleVerificationError'),
-        rightBtnText: tr('confirm'),
-        onLeftPress: () {},
-        onRightPress: () =>
-            BaseViewModel().pushPage(context, const GoogleSettingPage())
-    ).show();
+    CommonCustomDialog(context,
+            type: DialogImageType.fail,
+            title: "",
+            content: tr('googleVerificationError'),
+            rightBtnText: tr('confirm'),
+            onLeftPress: () {},
+            onRightPress: () =>
+                BaseViewModel().pushPage(context, const GoogleSettingPage()))
+        .show();
   }
 }

@@ -1305,6 +1305,10 @@
   "redirect":"Redirect",
   "copyLink":"Salin tautan",
   "redirectMsg":"Jika tidak dialihkan, silakan gunakan tombol di bawah ini.",
+  "history_SUCCESS":"kesuksesan",
+  "history_FAIL":"gagal",
+  "history_PENDING":"tertunda",
+  "history_BROADCASTING":"tertunda",
 
 
   "--//app use":"---",
@@ -1378,5 +1382,9 @@
   "APP_0094":"Anda memiliki banyak pesanan yang sedang berlangsung. Silakan coba lagi nanti.",
   "applicationFailed":"Aplikasi gagal",
   "daily-profit":"Laba harian",
-  "notification-NOTWON'":"Tidak menang"
+  "notification-NOTWON'":"Tidak menang",
+  "announcement":"Pengumuman",
+  "errorMsgNow":"Sejauh ini ada kesalahan {now}",
+  "errorMsgAccumulation":"dengan total kesalahan {accumulation} terakumulasi.",
+  "loginForbidden":"Sistem akan menonaktifkan login Anda."
 }

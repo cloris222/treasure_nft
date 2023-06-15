@@ -13,21 +13,25 @@ class BalanceRecordResponseData {
     this.time = '',
     this.amount = 0,
     this.type = '',
+    this.status = '',
   });
 
   String time;
   num amount;
   String type;
+  String status;
 
   factory BalanceRecordResponseData.fromJson(Map<String, dynamic> json) => BalanceRecordResponseData(
-    time: json["time"],
+    time: json["time"]??'',
     amount: json["amount"],
-    type: json["type"],
+    type: json["type"]??'',
+    status: json["status"]??'',
   );
 
   Map<String, dynamic> toJson() => {
     "time": time,
     "amount": amount,
     "type": type,
+    "status": status,
   };
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/models/http/http_setting.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/subject.dart';
 
+import '../models/http/parameter/announce_data.dart';
 import '../models/http/parameter/country_phone_data.dart';
 import '../models/http/parameter/sign_in_data.dart';
 import '../widgets/app_bottom_navigation_bar.dart';
@@ -68,4 +70,8 @@ class GlobalData {
 
   ///MARK: 判斷是否有進行綁定動作
   static bool passBindWalletAction = false;
+
+  ///MARK: 最新公告
+  static AnnounceData lastAnnounce = AnnounceData();
+
 }

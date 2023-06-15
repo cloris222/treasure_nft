@@ -4,6 +4,7 @@ import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/subject_key.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/custom/language_observer.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/views/announcement/announcement_main_page.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/views/server_web_page.dart';
 import 'package:treasure_nft_project/views/setting_language_page.dart';
@@ -12,6 +13,7 @@ import '../constant/ui_define.dart';
 import '../widgets/app_bottom_navigation_bar.dart';
 import '../widgets/appbar/custom_app_bar.dart';
 import 'airdrop/airdrop_main_page.dart';
+import 'announcement/announcement_dialog_page.dart';
 
 ///MARK:用於部分有瀏海的頁面
 class CustomAppbarView extends StatefulWidget {
@@ -26,6 +28,7 @@ class CustomAppbarView extends StatefulWidget {
       this.needAppBar = true,
       this.needBottom = true,
       this.isAirDrop = false,
+      this.isShowNotice = true,
       required this.onLanguageChange})
       : super(key: key);
   final Widget body;
@@ -38,6 +41,7 @@ class CustomAppbarView extends StatefulWidget {
   final bool needBottom;
   final bool isAirDrop;
   final onClickFunction onLanguageChange;
+  final bool isShowNotice;
 
   @override
   State<CustomAppbarView> createState() => _CustomAppbarViewState();
@@ -75,7 +79,10 @@ class _CustomAppbarViewState extends State<CustomAppbarView> {
                 serverAction: () => _serverAction(context),
                 globalAction: () => _globalAction(context),
                 mainAction: () => _mainAction(context),
-                airdropAction: () => _airdropAction(context))
+                airdropAction: () => _airdropAction(context),
+                announcementAction: () => _announcementAction(context),
+                isShowNotice: widget.isShowNotice,
+        )
             : null,
         body: GestureDetector(
           onTap: () => BaseViewModel().clearAllFocus(),
@@ -119,4 +126,11 @@ class _CustomAppbarViewState extends State<CustomAppbarView> {
   void _airdropAction(BuildContext context) {
     AppRoutes.pushAirdrop(context);
   }
+
+  void _announcementAction(BuildContext context) {
+    BaseViewModel().isLogin()
+          ? BaseViewModel().pushPage(context, const AnnouncementMainPage())
+          : BaseViewModel().pushPage(context, const MainPage(type: AppNavigationBarType.typeLogin));
+  }
+
 }

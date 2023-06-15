@@ -8,6 +8,7 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/utils/language_util.dart';
 import 'package:treasure_nft_project/view_models/airdrop/airdrop_count_provider.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
 import 'package:treasure_nft_project/views/home/home_main_style.dart';
 import 'package:treasure_nft_project/views/home/home_sub_discover_nft_view.dart';
@@ -31,6 +32,7 @@ import '../../view_models/home/provider/home_contact_info_provider.dart';
 import '../../view_models/home/provider/home_discover_provider.dart';
 import '../../view_models/home/provider/home_usdt_provider.dart';
 import '../../widgets/dialog/simple_custom_dialog.dart';
+import '../announcement/announcement_dialog_page.dart';
 import 'home_sub_video_view.dart';
 import 'widget/sponsor_row_widget.dart';
 
