@@ -1317,6 +1317,10 @@
   "emailCheckText":"After changing this setting, the withdrawal service will be disabled for {time} to protect your account.",
   "editEmail":"Change email address",
   "placeholder-loginPassword":"Please enter your login password",
+  "resetSuccess":"Reset successful",
+  "verifyError":"Verification failed",
+  "resetUnlockText":"Due to changes made to your email or password, the system has temporarily suspended your withdrawal function.It will be unlocked at {time}",
+  "changeSuccess":"Change successful",
 
 
   "--//app use":"---",

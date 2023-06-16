@@ -1317,6 +1317,10 @@
   "emailCheckText":"이 설정을 변경하면 {time}이 계정을 보호하기 위해 인출 서비스가 비활성화됩니다.",
   "editEmail":"이메일 주소를 변경하십시오",
   "placeholder-loginPassword":"로그인 비밀번호를 입력하십시오",
+  "resetSuccess":"성공적으로 재설정하십시오",
+  "verifyError":"확인이 실패했습니다",
+  "resetUnlockText":"이메일이나 비밀번호의 변경으로 인해 시스템은 일시적으로 인출 기능을 중단했습니다.{time}에서 잠금 해제됩니다.",
+  "changeSuccess":"성공적으로 변경하십시오",
 
 
   "--//app use":"---",

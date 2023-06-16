@@ -1317,6 +1317,10 @@
   "emailCheckText":"Bu ayarı değiştirdikten sonra, hesabınızı korumak için {time} için para çekme hizmeti devre dışı bırakılacaktır.",
   "editEmail":"e-posta adresini değiştir",
   "placeholder-loginPassword":"Lütfen giriş şifrenizi girin",
+  "resetSuccess":"Sıfırla Başarılı",
+  "verifyError":"Doğrulama başarısız oldu",
+  "resetUnlockText":"E -postanızda veya şifrenizde yapılan değişiklikler nedeniyle, sistem para çekme işlevinizi geçici olarak askıya aldı.{Time} 'dan kilidi açılacak",
+  "changeSuccess":"Başarılı Değiştir",
 
 
   "--//app use":"---",

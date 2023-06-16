@@ -1317,6 +1317,10 @@
     "emailCheckText":"この設定を変更した後、アカウントを保護するために{時間}のために離脱サービスが無効になります。",
     "editEmail":"メールアドレスを変更する",
     "placeholder-loginPassword":"ログインパスワードを入力してください",
+    "resetSuccess":"リセット成功",
+    "verifyError":"検証に失敗しました",
+    "resetUnlockText":"メールまたはパスワードに変更された変更により、システムは一時的に引き出し機能を停止しました。{時間}でロックが解除されます",
+    "changeSuccess":"成功しました",
 
 
     "--//app use":"---",

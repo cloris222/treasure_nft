@@ -1317,6 +1317,10 @@
   "emailCheckText":"Selepas menukar tetapan ini, perkhidmatan pengeluaran akan dilumpuhkan untuk {time} untuk melindungi akaun anda.",
   "editEmail":"Tukar alamat emel",
   "placeholder-loginPassword":"Sila masukkan kata laluan masuk anda",
+  "resetSuccess":"Tetapkan semula berjaya",
+  "verifyError":"Pengesahan gagal",
+  "resetUnlockText":"Oleh kerana perubahan yang dibuat pada e -mel atau kata laluan anda, sistem telah menggantung fungsi pengeluaran anda secara sementara.Ia akan dibuka pada {masa}",
+  "changeSuccess":"Perubahan berjaya",
 
 
   "--//app use":"---",

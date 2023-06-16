@@ -1317,6 +1317,10 @@
   "emailCheckText":"Depois de alterar essa configuração, o serviço de retirada será desativado para {time} para proteger sua conta.",
   "editEmail":"Mude o endereço de email",
   "placeholder-loginPassword":"Por favor, insira sua senha de login",
+  "resetSuccess":"Redefinir bem -sucedido",
+  "verifyError":"Falha na verificação",
+  "resetUnlockText":"Devido às alterações feitas em seu email ou senha, o sistema suspendeu temporariamente sua função de retirada.Será desbloqueado em {time}",
+  "changeSuccess":"Mudar bem -sucedido",
 
 
   "--//app use":"---",

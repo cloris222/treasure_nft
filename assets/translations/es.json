@@ -1317,6 +1317,10 @@
   "emailCheckText":"Después de cambiar esta configuración, el servicio de retiro se deshabilitará durante {tiempo} para proteger su cuenta.",
   "editEmail":"Cambiar la dirección de correo electrónico",
   "placeholder-loginPassword":"Ingrese su contraseña de inicio de sesión",
+  "resetSuccess":"Restablecer exitoso",
+  "verifyError":"Fallo en la verificación",
+  "resetUnlockText":"Debido a los cambios realizados en su correo electrónico o contraseña, el sistema ha suspendido temporalmente su función de retiro.Se desbloqueará en {tiempo}",
+  "changeSuccess":"Cambio exitoso",
 
 
 
