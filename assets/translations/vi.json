@@ -1309,6 +1309,14 @@
   "history_FAIL":"thất bại",
   "history_PENDING":"chưa giải quyết",
   "history_BROADCASTING":"chưa giải quyết",
+  "googleCheckTitle":"Bạn có chắc là bạn muốn vô hiệu hóa xác minh Google của mình không?",
+  "googleCheckText":"Sau khi thay đổi cài đặt này, dịch vụ rút tiền sẽ bị vô hiệu hóa cho {Time} để bảo vệ tài khoản của bạn.",
+  "liftedGoogle":"Tắt xác minh Google",
+  "loginPassword":"Mật khẩu đăng nhập",
+  "emailCheckTitle":"Bạn có chắc là bạn muốn thay đổi địa chỉ email của mình không?",
+  "emailCheckText":"Sau khi thay đổi cài đặt này, dịch vụ rút tiền sẽ bị vô hiệu hóa cho {Time} để bảo vệ tài khoản của bạn.",
+  "editEmail":"Thay đổi địa chỉ email",
+  "placeholder-loginPassword":"Vui lòng nhập mật khẩu đăng nhập của bạn",
 
 
   "--//app use":"---",

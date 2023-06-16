@@ -1309,6 +1309,14 @@
   "history_FAIL":"fail",
   "history_PENDING":"pending",
   "history_BROADCASTING":"pending",
+  "googleCheckTitle":"Are you sure you want to disable your Google verification?",
+  "googleCheckText":"After changing this setting, the withdrawal service will be disabled for {time} to protect your account.",
+  "liftedGoogle":"Disable Google verification",
+  "loginPassword":"Login password",
+  "emailCheckTitle":"Are you sure you want to change your email address?",
+  "emailCheckText":"After changing this setting, the withdrawal service will be disabled for {time} to protect your account.",
+  "editEmail":"Change email address",
+  "placeholder-loginPassword":"Please enter your login password",
 
 
   "--//app use":"---",

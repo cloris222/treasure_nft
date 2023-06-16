@@ -14,7 +14,7 @@ import '../../../view_models/gobal_provider/user_property_info_provider.dart';
 import '../../../view_models/wallet/wallet_withdraw_inter_payment_provider.dart';
 import '../../../view_models/wallet/wallet_withdraw_payment_provider.dart';
 import '../../../widgets/dialog/common_custom_dialog.dart';
-import '../common/google_authenticator_page.dart';
+import '../common/google_auth/google_authenticator_page.dart';
 import 'withdraw/order_withdraw_tab_bar.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 

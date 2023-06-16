@@ -2,10 +2,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../constant/call_back_function.dart';
-import '../../../models/http/api/user_info_api.dart';
-import '../../../widgets/dialog/simple_custom_dialog.dart';
-import '../../base_view_model.dart';
+import '../../../../constant/call_back_function.dart';
+import '../../../../models/http/api/user_info_api.dart';
+import '../../../../widgets/dialog/simple_custom_dialog.dart';
+import '../../../base_view_model.dart';
 import 'google_auth_provider.dart';
 
 

@@ -1309,6 +1309,14 @@
   "history_FAIL":"hata",
   "history_PENDING":"askıda olması",
   "history_BROADCASTING":"askıda olması",
+  "googleCheckTitle":"Google doğrulamanızı devre dışı bırakmak istediğinizden emin misiniz?",
+  "googleCheckText":"Bu ayarı değiştirdikten sonra, hesabınızı korumak için {time} için para çekme hizmeti devre dışı bırakılacaktır.",
+  "liftedGoogle":"Google doğrulamasını devre dışı bırakın",
+  "loginPassword":"Giriş şifresi",
+  "emailCheckTitle":"E -posta adresinizi değiştirmek istediğinizden emin misiniz?",
+  "emailCheckText":"Bu ayarı değiştirdikten sonra, hesabınızı korumak için {time} için para çekme hizmeti devre dışı bırakılacaktır.",
+  "editEmail":"e-posta adresini değiştir",
+  "placeholder-loginPassword":"Lütfen giriş şifrenizi girin",
 
 
   "--//app use":"---",

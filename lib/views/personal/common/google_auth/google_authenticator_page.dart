@@ -4,21 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:treasure_nft_project/view_models/personal/common/google_auth_view_model.dart';
-import '../../../constant/theme/app_colors.dart';
-import '../../../constant/theme/app_image_path.dart';
-import '../../../constant/theme/app_style.dart';
-import '../../../constant/ui_define.dart';
-import '../../../models/http/parameter/google_auth_data.dart';
-import '../../../view_models/base_view_model.dart';
-import '../../../view_models/gobal_provider/global_tag_controller_provider.dart';
-import '../../../view_models/personal/common/google_auth_provider.dart';
-import '../../../widgets/app_bottom_navigation_bar.dart';
-import '../../../widgets/appbar/title_app_bar.dart';
-import '../../../widgets/button/login_button_widget.dart';
-import '../../../widgets/label/gradient_bolder_widget.dart';
-import '../../custom_appbar_view.dart';
-import '../../login/login_param_view.dart';
+import 'package:treasure_nft_project/view_models/personal/common/google_auth/google_auth_view_model.dart';
+import '../../../../constant/theme/app_colors.dart';
+import '../../../../constant/theme/app_image_path.dart';
+import '../../../../constant/theme/app_style.dart';
+import '../../../../constant/ui_define.dart';
+import '../../../../models/http/parameter/google_auth_data.dart';
+import '../../../../view_models/base_view_model.dart';
+import '../../../../view_models/gobal_provider/global_tag_controller_provider.dart';
+import '../../../../view_models/personal/common/google_auth/google_auth_provider.dart';
+import '../../../../widgets/app_bottom_navigation_bar.dart';
+import '../../../../widgets/appbar/title_app_bar.dart';
+import '../../../../widgets/button/login_button_widget.dart';
+import '../../../../widgets/label/gradient_bolder_widget.dart';
+import '../../../custom_appbar_view.dart';
+import '../../../login/login_param_view.dart';
 
 ///MARK: google驗證
 class GoogleSettingPage extends ConsumerStatefulWidget {

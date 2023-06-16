@@ -1309,6 +1309,14 @@
   "history_FAIL":"falhar",
   "history_PENDING":"pendente",
   "history_BROADCASTING":"pendente",
+  "googleCheckTitle":"Tem certeza de que deseja desativar sua verificação do Google?",
+  "googleCheckText":"Depois de alterar essa configuração, o serviço de retirada será desativado para {time} para proteger sua conta.",
+  "liftedGoogle":"Desative a verificação do Google",
+  "loginPassword":"Senha de login",
+  "emailCheckTitle":"Tem certeza de que deseja alterar seu endereço de e -mail?",
+  "emailCheckText":"Depois de alterar essa configuração, o serviço de retirada será desativado para {time} para proteger sua conta.",
+  "editEmail":"Mude o endereço de email",
+  "placeholder-loginPassword":"Por favor, insira sua senha de login",
 
 
   "--//app use":"---",

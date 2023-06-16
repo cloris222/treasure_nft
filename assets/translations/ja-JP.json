@@ -1309,6 +1309,14 @@
     "history_FAIL":"失敗",
     "history_PENDING":"保留中",
     "history_BROADCASTING":"保留中",
+    "googleCheckTitle":"Googleの確認を無効にしたいですか？",
+    "googleCheckText":"この設定を変更した後、アカウントを保護するために{時間}のために離脱サービスが無効になります。",
+    "liftedGoogle":"Google検証を無効にします",
+    "loginPassword":"ログインパスワード",
+    "emailCheckTitle":"メールアドレスを変更したいですか？",
+    "emailCheckText":"この設定を変更した後、アカウントを保護するために{時間}のために離脱サービスが無効になります。",
+    "editEmail":"メールアドレスを変更する",
+    "placeholder-loginPassword":"ログインパスワードを入力してください",
 
 
     "--//app use":"---",

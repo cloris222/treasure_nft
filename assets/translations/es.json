@@ -1309,6 +1309,15 @@
   "history_FAIL":"fallar",
   "history_PENDING":"pendiente",
   "history_BROADCASTING":"pendiente",
+  "googleCheckTitle":"¿Estás seguro de que quieres deshabilitar tu verificación de Google?",
+  "googleCheckText":"Después de cambiar esta configuración, el servicio de retiro se deshabilitará durante {tiempo} para proteger su cuenta.",
+  "liftedGoogle":"Deshabilitar la verificación de Google",
+  "loginPassword":"Contraseña de inicio de sesión",
+  "emailCheckTitle":"¿Estás seguro de que quieres cambiar tu dirección de correo electrónico?",
+  "emailCheckText":"Después de cambiar esta configuración, el servicio de retiro se deshabilitará durante {tiempo} para proteger su cuenta.",
+  "editEmail":"Cambiar la dirección de correo electrónico",
+  "placeholder-loginPassword":"Ingrese su contraseña de inicio de sesión",
+
 
 
   "--//app use":"---",

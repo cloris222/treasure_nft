@@ -1309,6 +1309,14 @@
   "history_FAIL":"gagal",
   "history_PENDING":"yang belum selesai",
   "history_BROADCASTING":"yang belum selesai",
+  "googleCheckTitle":"Adakah anda pasti mahu melumpuhkan pengesahan Google anda?",
+  "googleCheckText":"Selepas menukar tetapan ini, perkhidmatan pengeluaran akan dilumpuhkan untuk {time} untuk melindungi akaun anda.",
+  "liftedGoogle":"Lumpuhkan pengesahan Google",
+  "loginPassword":"Kata laluan masuk",
+  "emailCheckTitle":"Adakah anda pasti mahu menukar alamat e -mel anda?",
+  "emailCheckText":"Selepas menukar tetapan ini, perkhidmatan pengeluaran akan dilumpuhkan untuk {time} untuk melindungi akaun anda.",
+  "editEmail":"Tukar alamat emel",
+  "placeholder-loginPassword":"Sila masukkan kata laluan masuk anda",
 
 
   "--//app use":"---",

@@ -1309,6 +1309,14 @@
   "history_FAIL":"يفشل",
   "history_PENDING":"قيد الانتظار",
   "history_BROADCASTING":"قيد الانتظار",
+  "googleCheckTitle":"هل أنت متأكد من أنك تريد تعطيل التحقق من Google؟",
+  "googleCheckText":"بعد تغيير هذا الإعداد ، سيتم تعطيل خدمة السحب لـ {time} لحماية حسابك.",
+  "liftedGoogle":"تعطيل التحقق من Google",
+  "loginPassword":"كلمة سر الدخول",
+  "emailCheckTitle":"هل أنت متأكد من أنك تريد تغيير عنوان بريدك الإلكتروني؟",
+  "emailCheckText":"بعد تغيير هذا الإعداد ، سيتم تعطيل خدمة السحب لـ {time} لحماية حسابك.",
+  "editEmail":"تغيير البريد الالكتروني",
+  "placeholder-loginPassword":"الرجاء إدخال كلمة مرور تسجيل الدخول الخاصة بك",
 
 
   "--//app use":"---",

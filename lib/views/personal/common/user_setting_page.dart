@@ -28,7 +28,8 @@ import '../../../view_models/login/wallet_bind_view_model.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../custom_appbar_view.dart';
 import '../../main_page.dart';
-import 'google_authenticator_page.dart';
+import 'google_auth/google_authenticator_page.dart';
+import 'google_auth/google_disable_page.dart';
 
 ///MARK: 個人設置
 class UserSettingPage extends ConsumerStatefulWidget {
@@ -246,7 +247,20 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
       BaseViewModel().pushPage(
           context, const GoogleSettingPage())
           .then((value) => ref.read(userInfoProvider.notifier).init());
+    } else {
+      _showGoogleReset();
     }
+  }
+
+  void _showGoogleReset() {
+    CommonCustomDialog(context,
+        title: tr("googleCheckTitle"),
+        content: tr("googleCheckText"),
+        type: DialogImageType.warning,
+        rightBtnText: tr('confirm'),
+        onLeftPress: () {}, onRightPress: () {
+          BaseViewModel().pushPage(context, const GoogleDisablePage());
+        }).show();
   }
 
   void _goChangePwd(BuildContext context) {
