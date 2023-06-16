@@ -29,6 +29,7 @@ class UserInfoData {
     this.country = '',
     this.zone = '',
     this.address = '',
+    this.uid = '',
   });
 
   /// 暱稱
@@ -85,6 +86,9 @@ class UserInfoData {
   ///錢包位址
   String address;
 
+  /// 使用者id
+  String uid;
+
   factory UserInfoData.fromJson(Map<String, dynamic> json) => UserInfoData(
         name: json["name"],
         account: json['account'],
@@ -104,6 +108,7 @@ class UserInfoData {
         country: json["country"],
         zone: json["zone"],
         address: json["address"] ?? '',
+        uid: json["uid"] ?? '',
       );
 
   Map<String, dynamic> toJson() => {
@@ -125,6 +130,7 @@ class UserInfoData {
         "country": country,
         "zone": zone,
         "address": address,
+        "uid": uid,
       };
 
   String getStrZone() {
