@@ -1319,7 +1319,7 @@
   "placeholder-loginPassword":"Por favor, insira sua senha de login",
   "resetSuccess":"Redefinir bem -sucedido",
   "verifyError":"Falha na verificação",
-  "resetUnlockText":"Devido às alterações feitas em seu email ou senha, o sistema suspendeu temporariamente sua função de retirada.Será desbloqueado em {time}",
+  "resetUnlockText":"Devido às alterações feitas em suas configurações de verificação de e -mail, senha ou Google, o sistema suspendeu temporariamente sua função de retirada.Será desbloqueado em {time}",
   "changeSuccess":"Mudar bem -sucedido",
   "hours":"Horas",
   "minutes":"Minutos",

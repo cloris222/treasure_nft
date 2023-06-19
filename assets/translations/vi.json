@@ -1319,7 +1319,7 @@
   "placeholder-loginPassword":"Vui lòng nhập mật khẩu đăng nhập của bạn",
   "resetSuccess":"Đặt lại thành công",
   "verifyError":"Xác minh không hoàn thành",
-  "resetUnlockText":"Do những thay đổi được thực hiện cho email hoặc mật khẩu của bạn, hệ thống đã tạm thời đình chỉ chức năng rút tiền của bạn.Nó sẽ được mở khóa tại {thời gian}",
+  "resetUnlockText":"Do những thay đổi được thực hiện cho cài đặt xác minh email, mật khẩu hoặc Google của bạn, hệ thống đã tạm thời đình chỉ chức năng rút tiền của bạn.Nó sẽ được mở khóa tại {time}",
   "changeSuccess":"Thay đổi thành công",
   "hours":"Giờ",
   "minutes":"Phút",

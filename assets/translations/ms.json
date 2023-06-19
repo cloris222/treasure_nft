@@ -1319,7 +1319,7 @@
   "placeholder-loginPassword":"Sila masukkan kata laluan masuk anda",
   "resetSuccess":"Tetapkan semula berjaya",
   "verifyError":"Pengesahan gagal",
-  "resetUnlockText":"Oleh kerana perubahan yang dibuat pada e -mel atau kata laluan anda, sistem telah menggantung fungsi pengeluaran anda secara sementara.Ia akan dibuka pada {masa}",
+  "resetUnlockText":"Oleh kerana perubahan yang dibuat pada e -mel, kata laluan, atau tetapan pengesahan Google, sistem telah menggantung fungsi pengeluaran anda secara sementara.Ia akan dibuka pada {time}",
   "changeSuccess":"Perubahan berjaya",
   "hours":"Jam",
   "minutes":"Minit",
