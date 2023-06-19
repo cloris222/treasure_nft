@@ -1,6 +1,7 @@
 import 'package:treasure_nft_project/models/http/http_manager.dart';
 
 import '../parameter/api_response.dart';
+import '../parameter/blacklist_config_data.dart';
 import '../parameter/check_level_info.dart';
 import '../parameter/google_auth_data.dart';
 import '../parameter/sign_in_data.dart';
@@ -136,5 +137,12 @@ class UserInfoAPI extends HttpManager {
         });
     return response.message;
   }
+
+  ///MARK: 查詢黑名單資訊
+  Future<BlacklistConfigData> getBlacklistConfig() async {
+    var response = await get('/blacklist/config');
+    return BlacklistConfigData.fromJson(response.data);
+  }
+
 
 }

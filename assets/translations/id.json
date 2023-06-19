@@ -1321,6 +1321,9 @@
   "verifyError":"Verifikasi gagal",
   "resetUnlockText":"Karena perubahan yang dilakukan pada email atau kata sandi Anda, sistem telah sementara menangguhkan fungsi penarikan Anda.Itu akan dibuka di {time}",
   "changeSuccess":"Berubah berhasil",
+  "hours":"Jam",
+  "minutes":"Menit",
+  "second":"Kedua",
 
 
   "--//app use":"---",

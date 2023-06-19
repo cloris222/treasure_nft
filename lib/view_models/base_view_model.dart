@@ -616,4 +616,27 @@ class BaseViewModel with ControlRouterViewModel {
         isSuccess: false).show();
   }
 
+
+  /// 總秒數轉為時分秒並使0不回傳
+  String formatDuration(int seconds) {
+    final Duration duration = Duration(seconds: seconds);
+    final String formattedDuration =
+        DateFormat('HH.mm,ss;').format(DateTime(0).add(duration));
+    // 移除小時和分都為0的情況
+    String processedDuration;
+    if (formattedDuration.startsWith('00.00,')) {
+      processedDuration = formattedDuration.substring(6);
+    } else if (formattedDuration.startsWith('00.')) {
+      processedDuration = formattedDuration.substring(3);
+    } else {
+      processedDuration = formattedDuration;
+    }
+    // 替換冒號為文字
+    final replacedDuration = processedDuration
+        .replaceAll('.', tr("hours"))
+        .replaceAll(',', tr("minutes"))
+        .replaceAll(';', tr("second"));
+
+    return replacedDuration;
+  }
 }

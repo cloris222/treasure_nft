@@ -1321,6 +1321,9 @@
   "verifyError":"Verification failed",
   "resetUnlockText":"Due to changes made to your email or password, the system has temporarily suspended your withdrawal function.It will be unlocked at {time}",
   "changeSuccess":"Change successful",
+  "hours":"Hours",
+  "minutes":"Minutes",
+  "second":"Second",
 
 
   "--//app use":"---",

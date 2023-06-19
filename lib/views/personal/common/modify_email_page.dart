@@ -3,6 +3,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:format/format.dart';
+import 'package:treasure_nft_project/models/http/parameter/blacklist_config_data.dart';
 import '../../../../constant/theme/app_colors.dart';
 import '../../../../constant/theme/app_style.dart';
 import '../../../../constant/ui_define.dart';
@@ -18,20 +20,23 @@ import '../../login/login_param_view.dart';
 
 ///MARK: 更改信箱
 class ModifyEmailPage extends ConsumerStatefulWidget {
-  const ModifyEmailPage({
+  const ModifyEmailPage(this.blacklistConfigData, {
     Key? key,
   }) : super(key: key);
+
+  final BlacklistConfigData blacklistConfigData;
 
   @override
   ConsumerState createState() => _ModifyEmailPageState();
 }
 
 class _ModifyEmailPageState extends ConsumerState<ModifyEmailPage> {
+  BlacklistConfigData get blacklistConfigData => widget.blacklistConfigData;
   late ModifyEmailViewModel viewModel;
 
   @override
   void initState() {
-    viewModel = ModifyEmailViewModel(ref, setState: setState);
+    viewModel = ModifyEmailViewModel(ref, blacklistConfigData, setState: setState);
     super.initState();
   }
 
@@ -74,7 +79,9 @@ class _ModifyEmailPageState extends ConsumerState<ModifyEmailPage> {
         padding: EdgeInsets.all(UIDefine.getPixelHeight(15)),
         decoration: AppStyle().styleColorsRadiusBackground(
             color: AppColors.textBlack.withOpacity(0.06), radius: 12),
-        child: Text("${tr("googleCheckText")}",
+        child: Text(format(tr("emailCheckText"),
+            {"time": viewModel.formatDuration(
+                blacklistConfigData.unableWithdrawByEmail)}),
             textAlign: TextAlign.center,
             style: const TextStyle(color: AppColors.dialogBlack))
     );

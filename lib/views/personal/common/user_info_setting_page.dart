@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
+import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/view_models/gobal_provider/user_info_provider.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
@@ -12,6 +14,7 @@ import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 
 import '../../../constant/ui_define.dart';
+import '../../../models/http/parameter/blacklist_config_data.dart';
 import '../../../models/http/parameter/user_info_data.dart';
 import '../../../view_models/base_view_model.dart';
 import '../../../view_models/personal/common/user_info_setting_view_model.dart';
@@ -24,9 +27,11 @@ import 'modify_email_page.dart';
 
 /// 使用者設定
 class UserInfoSettingPage extends ConsumerStatefulWidget {
-  const UserInfoSettingPage({
+  const UserInfoSettingPage(this.blacklistData, {
     Key? key,
   }) : super(key: key);
+
+  final BlacklistConfigData blacklistData;
 
   @override
   ConsumerState createState() => _UserInfoSettingPageState();
@@ -34,6 +39,8 @@ class UserInfoSettingPage extends ConsumerStatefulWidget {
 
 class _UserInfoSettingPageState extends ConsumerState<UserInfoSettingPage> {
   late UserInfoSettingViewModel viewModel;
+
+  BlacklistConfigData get blacklistData => widget.blacklistData;
 
   @override
   void initState() {
@@ -232,11 +239,14 @@ class _UserInfoSettingPageState extends ConsumerState<UserInfoSettingPage> {
   void _showEMailReset() {
     CommonCustomDialog(context,
         title: tr("emailCheckTitle"),
-        content: tr("emailCheckText"),
+        content: format(tr("emailCheckText"),
+            {"time": viewModel.formatDuration(
+                blacklistData.unableWithdrawByEmail)}),
         type: DialogImageType.warning,
         rightBtnText: tr('confirm'),
         onLeftPress: () {}, onRightPress: () {
-          BaseViewModel().pushPage(context, const ModifyEmailPage());
+          BaseViewModel().pushPage(context,
+              ModifyEmailPage(blacklistData));
         }).show();
   }
 }

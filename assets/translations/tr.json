@@ -1321,6 +1321,9 @@
   "verifyError":"Doğrulama başarısız oldu",
   "resetUnlockText":"E -postanızda veya şifrenizde yapılan değişiklikler nedeniyle, sistem para çekme işlevinizi geçici olarak askıya aldı.{Time} 'dan kilidi açılacak",
   "changeSuccess":"Başarılı Değiştir",
+  "hours":"Saat",
+  "minutes":"Dakikalar",
+  "second":"Saniye",
 
 
   "--//app use":"---",

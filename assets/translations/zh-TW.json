@@ -1321,6 +1321,10 @@
   "verifyError":"驗證失敗",
   "resetUnlockText":"由於您更改過信箱或密碼，系統暫時暫停您的提領功能將於{time}解鎖",
   "changeSuccess":"更改成功",
+  "hours":"時",
+  "minutes":"分",
+  "second":"秒",
+
 
 
   "--//app use":"---",

@@ -1321,6 +1321,9 @@
   "verifyError":"Pengesahan gagal",
   "resetUnlockText":"Oleh kerana perubahan yang dibuat pada e -mel atau kata laluan anda, sistem telah menggantung fungsi pengeluaran anda secara sementara.Ia akan dibuka pada {masa}",
   "changeSuccess":"Perubahan berjaya",
+  "hours":"Jam",
+  "minutes":"Minit",
+  "second":"Kedua",
 
 
   "--//app use":"---",

@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:format/format.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:treasure_nft_project/view_models/personal/common/google_auth/google_auth_view_model.dart';
 
@@ -10,6 +11,7 @@ import '../../../../constant/theme/app_colors.dart';
 import '../../../../constant/theme/app_image_path.dart';
 import '../../../../constant/theme/app_style.dart';
 import '../../../../constant/ui_define.dart';
+import '../../../../models/http/parameter/blacklist_config_data.dart';
 import '../../../../models/http/parameter/google_auth_data.dart';
 import '../../../../utils/app_text_style.dart';
 import '../../../../view_models/base_view_model.dart';
@@ -26,15 +28,18 @@ import '../../../login/login_param_view.dart';
 
 ///MARK: 解除google驗證
 class GoogleDisablePage extends ConsumerStatefulWidget {
-  const GoogleDisablePage({
+  const GoogleDisablePage(this.blacklistConfigData, {
     Key? key,
   }) : super(key: key);
+
+  final BlacklistConfigData blacklistConfigData;
 
   @override
   ConsumerState createState() => _GoogleDisablePageState();
 }
 
 class _GoogleDisablePageState extends ConsumerState<GoogleDisablePage> {
+  BlacklistConfigData get blacklistConfigData => widget.blacklistConfigData;
   late GoogleDisableViewModel viewModel;
 
   @override
@@ -80,7 +85,10 @@ class _GoogleDisablePageState extends ConsumerState<GoogleDisablePage> {
         padding: EdgeInsets.all(UIDefine.getPixelHeight(15)),
         decoration: AppStyle().styleColorsRadiusBackground(
             color: AppColors.textBlack.withOpacity(0.06), radius: 12),
-        child: Text("${tr("googleCheckText")}",
+        child: Text(format(tr("googleCheckText"),
+            {"time": viewModel.formatDuration(
+                blacklistConfigData.unableWithdrawByGoogle)}
+        ),
             textAlign: TextAlign.center,
             style: const TextStyle(color: AppColors.dialogBlack))
     );

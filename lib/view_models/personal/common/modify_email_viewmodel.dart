@@ -10,6 +10,7 @@ import '../../../../models/http/api/auth_api.dart';
 import '../../../../models/http/parameter/user_info_data.dart';
 import '../../../../widgets/dialog/simple_custom_dialog.dart';
 import '../../../models/http/api/user_info_api.dart';
+import '../../../models/http/parameter/blacklist_config_data.dart';
 import '../../../views/main_page.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/dialog/common_custom_dialog.dart';
@@ -19,9 +20,11 @@ import '../../gobal_provider/user_info_provider.dart';
 
 
 class ModifyEmailViewModel extends BaseViewModel {
-  ModifyEmailViewModel(this.ref, {required this.setState});
+  ModifyEmailViewModel(this.ref, this.blacklistConfigData, {required this.setState});
   final ViewChange setState;
   final WidgetRef ref;
+  final BlacklistConfigData blacklistConfigData;
+
 
   TextEditingController passwordController = TextEditingController();
   TextEditingController googleCodeController = TextEditingController();
@@ -95,7 +98,7 @@ class ModifyEmailViewModel extends BaseViewModel {
         rightBtnText: tr('confirm'),
         onLeftPress: () {}, onRightPress: () => {
           pushPage(context,const MainPage(type:AppNavigationBarType.typePersonal)),
-          pushPage(context, const UserInfoSettingPage()),
+          pushPage(context, UserInfoSettingPage(blacklistConfigData)),
         }).show();
   }
 

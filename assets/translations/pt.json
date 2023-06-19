@@ -1321,6 +1321,9 @@
   "verifyError":"Falha na verificação",
   "resetUnlockText":"Devido às alterações feitas em seu email ou senha, o sistema suspendeu temporariamente sua função de retirada.Será desbloqueado em {time}",
   "changeSuccess":"Mudar bem -sucedido",
+  "hours":"Horas",
+  "minutes":"Minutos",
+  "second":"Segundo",
 
 
   "--//app use":"---",

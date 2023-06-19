@@ -1321,6 +1321,9 @@
   "verifyError":"확인이 실패했습니다",
   "resetUnlockText":"이메일이나 비밀번호의 변경으로 인해 시스템은 일시적으로 인출 기능을 중단했습니다.{time}에서 잠금 해제됩니다.",
   "changeSuccess":"성공적으로 변경하십시오",
+  "hours":"시간",
+  "minutes":"분",
+  "second":"두번째",
 
 
   "--//app use":"---",
