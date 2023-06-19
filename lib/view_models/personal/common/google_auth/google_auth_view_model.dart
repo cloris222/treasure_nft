@@ -4,6 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constant/call_back_function.dart';
 import '../../../../models/http/api/user_info_api.dart';
+import '../../../../views/main_page.dart';
+import '../../../../views/personal/common/user_setting_page.dart';
+import '../../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../../widgets/dialog/simple_custom_dialog.dart';
 import '../../../base_view_model.dart';
 import 'google_auth_provider.dart';
@@ -31,7 +34,11 @@ class GoogleAuthViewModel extends BaseViewModel {
           switchProcess()
         })
         .bindGoogleAuth(verifyController.text)
-        .then((value) => {popPage(context), switchProcess()});
+        .then((value) => {
+      pushPage(context,const MainPage(type:AppNavigationBarType.typePersonal)),
+      pushPage(context, const UserSettingPage()),
+      switchProcess()
+    });
   }
 
   void switchProcess() {
