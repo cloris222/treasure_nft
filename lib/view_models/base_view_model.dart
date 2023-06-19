@@ -618,24 +618,25 @@ class BaseViewModel with ControlRouterViewModel {
 
 
   /// 總秒數轉為時分秒並使0不回傳
-  String formatDuration(int seconds) {
-    final Duration duration = Duration(seconds: seconds);
+  String formatDuration(int minutes) {
+    final Duration duration = Duration(minutes: minutes);
     final String formattedDuration =
-        DateFormat('HH.mm,ss;').format(DateTime(0).add(duration));
-    // 移除小時和分都為0的情況
+        DateFormat('H.m,').format(DateTime(0).add(duration));
     String processedDuration;
-    if (formattedDuration.startsWith('00.00,')) {
-      processedDuration = formattedDuration.substring(6);
-    } else if (formattedDuration.startsWith('00.')) {
+    // 移除小時為0的情況
+    if (formattedDuration.startsWith('0.')) {
       processedDuration = formattedDuration.substring(3);
     } else {
       processedDuration = formattedDuration;
     }
+    // 移除分鐘為0的情況
+    if (minutes % 60 == 0) {
+      processedDuration = processedDuration.replaceAll('0,', '');
+    }
     // 替換冒號為文字
     final replacedDuration = processedDuration
         .replaceAll('.', tr("hours"))
-        .replaceAll(',', tr("minutes"))
-        .replaceAll(';', tr("second"));
+        .replaceAll(',', tr("minutes"));
 
     return replacedDuration;
   }
