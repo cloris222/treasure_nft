@@ -1309,6 +1309,22 @@
   "history_FAIL":"失敗",
   "history_PENDING":"處理中",
   "history_BROADCASTING":"處理中",
+  "googleCheckTitle":"確定要解除您的Google驗證嗎?",
+  "googleCheckText":"在您更改此設定後，提領服務將被停用{time}，以保護您的帳戶。",
+  "liftedGoogle":"解除Google驗證",
+  "loginPassword":"登入密碼",
+  "emailCheckTitle":"確定要更改您的信箱嗎?",
+  "emailCheckText":"在您更改此設定後，提領服務將被停用{time}，以保護您的帳戶。",
+  "editEmail":"更改信箱",
+  "placeholder-loginPassword":"請輸入登入密碼",
+  "resetSuccess":"重置成功",
+  "verifyError":"驗證失敗",
+  "resetUnlockText":"由於您更改過信箱或密碼，系統暫時暫停您的提領功能將於{time}解鎖",
+  "changeSuccess":"更改成功",
+  "hours":"時",
+  "minutes":"分",
+  "second":"秒",
+
 
 
   "--//app use":"---",

@@ -2,8 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/view_models/base_pref_provider.dart';
-import '../../../models/http/parameter/google_auth_data.dart';
-import '../../../utils/app_shared_Preferences.dart';
+import '../../../../models/http/parameter/google_auth_data.dart';
+import '../../../../utils/app_shared_Preferences.dart';
 
 
 final googleProcessProvider = StateProvider.autoDispose<bool>((ref) {

@@ -2,19 +2,22 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:format/format.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/api/wallet_api.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
 import 'package:treasure_nft_project/views/personal/orders/withdraw/order_withdraw_type_page.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
 import '../../../constant/ui_define.dart';
 import '../../../models/http/parameter/withdraw_alert_info.dart';
+import '../../../utils/timer_util.dart';
 import '../../../view_models/base_view_model.dart';
 import '../../../view_models/gobal_provider/user_info_provider.dart';
 import '../../../view_models/gobal_provider/user_property_info_provider.dart';
 import '../../../view_models/wallet/wallet_withdraw_inter_payment_provider.dart';
 import '../../../view_models/wallet/wallet_withdraw_payment_provider.dart';
 import '../../../widgets/dialog/common_custom_dialog.dart';
-import '../common/google_authenticator_page.dart';
+import '../common/google_auth/google_authenticator_page.dart';
 import 'withdraw/order_withdraw_tab_bar.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 
@@ -67,8 +70,18 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
             type: DialogImageType.fail,
             rightBtnText: tr('confirm'),
             onLeftPress: () {}, onRightPress: () {
-          Navigator.pop(context);
-        }).show();
+              Navigator.pop(context);
+            }).show();
+      } else if (withdrawAlertInfo.isBlock) {
+        CommonCustomDialog(context,
+            title: tr("applicationFailed"),
+            content: format(tr("resetUnlockText"),
+                {"time": getBlockTimeFormat(value.expireIn.toInt())}),
+            type: DialogImageType.fail,
+            rightBtnText: tr('confirm'),
+            onLeftPress: () {}, onRightPress: () {
+              Navigator.pop(context);
+            }).show();
       }
     });
   }
@@ -173,11 +186,29 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
     CommonCustomDialog(context,
             type: DialogImageType.fail,
             title: "",
-            content: tr('googleVerificationError'),
+            content: tr("googleVerificationError"),
             rightBtnText: tr('confirm'),
             onLeftPress: () {},
             onRightPress: () =>
                 BaseViewModel().pushPage(context, const GoogleSettingPage()))
         .show();
+  }
+
+  /// 現在時間加上禁止秒數 再轉為(GMT+)HH:mm:ss
+  String getBlockTimeFormat(int second) {
+    DateTime now = DateTime.now();
+    DateTime result = now.add(Duration(seconds: second));
+
+    String forLocalDateTime = DateFormat('yyyy-MM-dd HH:mm:ss').format(result);
+    DateFormat inputFormat = DateFormat('yyyy/MM/dd HH:mm:ss');
+    DateFormat outputFormat = DateFormat("HH:mm:ss");
+
+    DateTime inputDateTime = inputFormat.parse(
+        BaseViewModel().changeTimeZone(forLocalDateTime).toString());
+
+    String formattedDateTime =
+        "(${GlobalData.userZone})${outputFormat.format(inputDateTime)}";
+
+    return formattedDateTime;
   }
 }
