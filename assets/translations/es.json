@@ -1319,7 +1319,7 @@
   "placeholder-loginPassword":"Ingrese su contraseña de inicio de sesión",
   "resetSuccess":"Restablecer exitoso",
   "verifyError":"Fallo en la verificación",
-  "resetUnlockText":"Debido a los cambios realizados en su correo electrónico o contraseña, el sistema ha suspendido temporalmente su función de retiro.Se desbloqueará en {tiempo}",
+  "resetUnlockText":"Debido a los cambios realizados en su correo electrónico, contraseña o configuración de verificación de Google, el sistema ha suspendido temporalmente su función de retiro.Se desbloqueará en {time}",
   "changeSuccess":"Cambio exitoso",
   "hours":"Horas",
   "minutes":"Minutos",

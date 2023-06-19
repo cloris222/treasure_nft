@@ -1319,7 +1319,7 @@
   "placeholder-loginPassword":"請輸入登入密碼",
   "resetSuccess":"重置成功",
   "verifyError":"驗證失敗",
-  "resetUnlockText":"由於您更改過信箱或密碼，系統暫時暫停您的提領功能將於{time}解鎖",
+  "resetUnlockText":"由於您更改過信箱、密碼、Google驗證其中一項設定，系統暫時暫停您的提領功能將於{time}解鎖",
   "changeSuccess":"更改成功",
   "hours":"時",
   "minutes":"分",

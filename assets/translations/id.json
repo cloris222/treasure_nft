@@ -1319,7 +1319,7 @@
   "placeholder-loginPassword":"Harap masukkan kata sandi login Anda",
   "resetSuccess":"Reset Sukses",
   "verifyError":"Verifikasi gagal",
-  "resetUnlockText":"Karena perubahan yang dilakukan pada email atau kata sandi Anda, sistem telah sementara menangguhkan fungsi penarikan Anda.Itu akan dibuka di {time}",
+  "resetUnlockText":"Karena perubahan yang dilakukan pada email, kata sandi, atau pengaturan verifikasi Google Anda, sistem sementara telah menangguhkan fungsi penarikan Anda.Itu akan dibuka di {time}",
   "changeSuccess":"Berubah berhasil",
   "hours":"Jam",
   "minutes":"Menit",

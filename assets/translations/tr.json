@@ -1319,7 +1319,7 @@
   "placeholder-loginPassword":"Lütfen giriş şifrenizi girin",
   "resetSuccess":"Sıfırla Başarılı",
   "verifyError":"Doğrulama başarısız oldu",
-  "resetUnlockText":"E -postanızda veya şifrenizde yapılan değişiklikler nedeniyle, sistem para çekme işlevinizi geçici olarak askıya aldı.{Time} 'dan kilidi açılacak",
+  "resetUnlockText":"E -postanızda, şifrenizde veya Google doğrulama ayarlarınızda yapılan değişiklikler nedeniyle, sistem para çekme işlevinizi geçici olarak askıya aldı.{time} 'dan kilidi açılacak",
   "changeSuccess":"Başarılı Değiştir",
   "hours":"Saat",
   "minutes":"Dakikalar",
