@@ -12,5 +12,11 @@ enum LoginAction {
   updatePsw,
 
   ///綁定email
-  bind
+  bind,
+
+  ///解除綁定google
+  unbind,
+
+  ///更改信箱
+  updateEmail,
 }

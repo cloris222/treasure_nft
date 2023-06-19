@@ -1,6 +1,7 @@
 import 'package:treasure_nft_project/models/http/http_manager.dart';
 
 import '../parameter/api_response.dart';
+import '../parameter/blacklist_config_data.dart';
 import '../parameter/check_level_info.dart';
 import '../parameter/google_auth_data.dart';
 import '../parameter/sign_in_data.dart';
@@ -113,4 +114,35 @@ class UserInfoAPI extends HttpManager {
     var response = await post('/user/googleAuth/bind', data:{"code":code});
     return response.message;
   }
+
+  ///MARK: 解除綁定二步驗証碼
+  Future<String> unBindGoogleAuth(String code, String password) async {
+    var response = await post('/user/googleAuth/unbind',
+        data:{
+          "code":code,
+          "password":password
+        });
+    return response.message;
+  }
+
+  ///MARK: 更改信箱
+  Future<String> modifyEmail(
+      String code, String password, String email, String emailVerifyCode) async{
+    var response = await post('/user/update/email',
+        data:{
+          "code":code,
+          "password":password,
+          "email": email,
+          "emailVerifyCode": emailVerifyCode
+        });
+    return response.message;
+  }
+
+  ///MARK: 查詢黑名單資訊
+  Future<BlacklistConfigData> getBlacklistConfig() async {
+    var response = await get('/blacklist/config');
+    return BlacklistConfigData.fromJson(response.data);
+  }
+
+
 }

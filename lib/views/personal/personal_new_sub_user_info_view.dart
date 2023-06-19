@@ -239,13 +239,13 @@ class PersonalNewSubUserInfoView extends ConsumerWidget {
               style: AppTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize12,
                   color: AppColors.textThreeBlack)),
-          Text(userInfo.inviteCode,
+          Text(userInfo.uid,
               style: AppTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize12,
                   color: AppColors.textThreeBlack)),
           GestureDetector(
               onTap: () {
-                BaseViewModel().copyText(copyText: userInfo.inviteCode);
+                BaseViewModel().copyText(copyText: userInfo.uid);
                 BaseViewModel().showToast(context, tr('copiedSuccess'));
               },
               child: Padding(

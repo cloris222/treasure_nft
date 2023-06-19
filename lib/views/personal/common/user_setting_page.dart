@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:format/format.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
@@ -23,12 +24,14 @@ import 'package:wallet_connect_plugin/model/wallet_info.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/ui_define.dart';
 import '../../../models/http/api/login_api.dart';
+import '../../../models/http/parameter/blacklist_config_data.dart';
 import '../../../models/http/parameter/user_info_data.dart';
 import '../../../view_models/login/wallet_bind_view_model.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../custom_appbar_view.dart';
 import '../../main_page.dart';
-import 'google_authenticator_page.dart';
+import 'google_auth/google_authenticator_page.dart';
+import 'google_auth/google_disable_page.dart';
 
 ///MARK: 個人設置
 class UserSettingPage extends ConsumerStatefulWidget {
@@ -49,11 +52,16 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
     return ref.read(userInfoProvider);
   }
 
+  BlacklistConfigData blacklistData = BlacklistConfigData();
+
+
   @override
   void initState() {
     super.initState();
     isWalletBind = userInfo.address.isNotEmpty;
     _initPackageInfo();
+    /// 取得鎖定時間
+    UserInfoAPI().getBlacklistConfig().then((value) => blacklistData = value);
   }
 
   void _initPackageInfo() {
@@ -246,7 +254,23 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
       BaseViewModel().pushPage(
           context, const GoogleSettingPage())
           .then((value) => ref.read(userInfoProvider.notifier).init());
+    } else {
+      _showGoogleReset();
     }
+  }
+
+  void _showGoogleReset() {
+    CommonCustomDialog(context,
+        title: tr("googleCheckTitle"),
+        content: format(tr("googleCheckText"),
+            {"time": BaseViewModel().formatDuration(
+                blacklistData.unableWithdrawByGoogle)}
+        ),
+        type: DialogImageType.warning,
+        rightBtnText: tr('confirm'),
+        onLeftPress: () {}, onRightPress: () {
+          BaseViewModel().pushPage(context, GoogleDisablePage(blacklistData));
+        }).show();
   }
 
   void _goChangePwd(BuildContext context) {
@@ -255,7 +279,7 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
   }
 
   void _goUserSetting(BuildContext context) {
-    BaseViewModel().pushPage(context, const UserInfoSettingPage());
+    BaseViewModel().pushPage(context, UserInfoSettingPage(blacklistData));
     // PageBottomSheet(context, page: const UserInfoSettingPage()).show();
   }
 
