@@ -130,8 +130,8 @@ class _WalletMainViewState extends ConsumerState<WalletMainView> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: UIDefine.getPixelWidth(10)),
-              _buildPreButton(),
+              SizedBox(height: UIDefine.getPixelWidth(34)),
+              // _buildPreButton(),
               SizedBox(height: UIDefine.getPixelWidth(10)),
               Container(
                 width: UIDefine.getWidth(),
