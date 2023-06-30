@@ -59,6 +59,7 @@ class AchievementItemWidget extends StatelessWidget {
                                   right: UIDefine.getPixelHeight(4)),
                               child: _buildTaskInfo(context, status, code)))
                     ]),
+                /// 累計文字
                 Padding(
                   padding: EdgeInsets.only(
                       top: UIDefine.getPixelHeight(10),
@@ -66,9 +67,12 @@ class AchievementItemWidget extends StatelessWidget {
                       right: UIDefine.getPixelHeight(4)),
                   child: WarpTwoTextWidget(
                       fontSize: UIDefine.fontSize12,
-                      text: data.getAchievementCurrentTaskSubText(code),
+                      text: data.nowValue >= data.goalValue
+                          ? tr("Done")
+                          : data.getAchievementCurrentTaskSubText(code),
                       color: AppColors.textNineBlack),
                 ),
+                /// 累計進度條
                 Padding(
                   padding: EdgeInsets.only(
                       top: UIDefine.getPixelHeight(5),
