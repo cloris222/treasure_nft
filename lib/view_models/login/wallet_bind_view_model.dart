@@ -42,6 +42,7 @@ class WalletBindViewModel extends BaseViewModel {
               account: '',
               password: '',
               email: '',
+              phone: '',
               nickname: '',
               inviteCode: inviteCode,
               country: '',
