@@ -23,6 +23,7 @@ class LoginParamView extends StatelessWidget {
     this.bLimitDecimalLength = false,
     this.bShowRed = false,
     this.inputFormatters = const [],
+    this.showTitleText = true,
   }) : super(key: key);
   final String titleText;
   final String hintText;
@@ -34,6 +35,7 @@ class LoginParamView extends StatelessWidget {
   final TextInputType? keyboardType;
   final bool bShowRed;
   final List<TextInputFormatter> inputFormatters;
+  final bool showTitleText;
 
   ///MARK: 帳號輸入資訊限制
   final bool bPasswordFormatter;
@@ -44,7 +46,9 @@ class LoginParamView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      _buildTextTitle(titleText),
+      Visibility(
+        visible: showTitleText,
+        child:_buildTextTitle(titleText)),
       LoginTextWidget(
         keyboardType: keyboardType,
         hintText: hintText,

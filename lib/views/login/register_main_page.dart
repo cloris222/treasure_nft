@@ -206,25 +206,51 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
     return [
       Container(
           margin: const EdgeInsets.symmetric(vertical: 5),
-          child: Text(tr("register-country"),
+          child: Text(tr("phone"),
               style: AppTextStyle.getBaseStyle(
                   fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14))),
-      Container(
-        margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(5)),
-        child: CustomDropButton(
-            initIndex: currentCountryIndex,
-            needShowEmpty: false,
-            hintSelect: tr("placeholder-register-country"),
-            listLength: countryList.length,
-            itemString: (int index, bool needArrow) =>
-                "${tr(countryList[index].country)} (+${countryList[index].areaCode})",
-            onChanged: (index) {
-              viewModel.currentCountry = countryList[index].country;
-              ref
-                  .read(registerCurrentIndexProvider.notifier)
-                  .update((state) => index);
-            }),
-      ),
+
+      SizedBox(
+      height: UIDefine.getPixelHeight(80),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+
+    Container(
+    width: UIDefine.getWidth()/2.6,
+          padding: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(12)),
+          child: CustomDropButton(
+            height: UIDefine.getPixelHeight(42),
+              initIndex: currentCountryIndex,
+              needShowEmpty: false,
+              hintSelect: tr("placeholder-register-country"),
+              listLength: countryList.length,
+              itemString: (int index, bool needArrow) =>
+              "${tr(countryList[index].country)} (+${countryList[index].areaCode})",
+              onChanged: (index) {
+                viewModel.currentCountry = countryList[index].country;
+                ref
+                    .read(registerCurrentIndexProvider.notifier)
+                    .update((state) => index);
+              }),
+        ),
+
+        SizedBox(
+          width: UIDefine.getWidth()/2,
+        ///MARK:Phone
+        child:LoginParamView(
+          showTitleText: false,
+          titleText: "",
+          hintText: tr("placeholder-phone'"),
+          controller: viewModel.phoneController,
+          data: viewModel.phoneData,
+          onChanged: viewModel.onPhoneChange,
+          inputFormatters: denySpace(),
+        )),
+
+      ])),
+
       ErrorTextWidget(
           data: viewModel.countryData, alignment: Alignment.centerRight),
     ];

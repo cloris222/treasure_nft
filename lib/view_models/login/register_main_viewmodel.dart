@@ -31,6 +31,7 @@ class RegisterMainViewModel extends BaseViewModel {
   TextEditingController emailCodeController = TextEditingController();
   TextEditingController nicknameController = TextEditingController();
   TextEditingController referralController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
 
   ValidateResultData accountData = ValidateResultData();
   ValidateResultData passwordData = ValidateResultData();
@@ -40,6 +41,7 @@ class RegisterMainViewModel extends BaseViewModel {
   ValidateResultData nicknameData = ValidateResultData();
   ValidateResultData referralData = ValidateResultData();
   ValidateResultData countryData = ValidateResultData();
+  ValidateResultData phoneData = ValidateResultData();
 
   ///是否判斷過驗證碼
   bool checkEmail = false;
@@ -53,6 +55,7 @@ class RegisterMainViewModel extends BaseViewModel {
     emailCodeController.dispose();
     nicknameController.dispose();
     referralController.dispose();
+    phoneController.dispose();
   }
 
   bool checkEmptyController() {
@@ -185,6 +188,7 @@ class RegisterMainViewModel extends BaseViewModel {
               email: emailController.text,
               nickname: nicknameController.text,
               inviteCode: referralController.text,
+              phone: phoneController.text,
               country: currentCountry,
               emailVerifyCode: emailCodeController.text,
               walletInfo: walletInfo)
@@ -255,6 +259,10 @@ class RegisterMainViewModel extends BaseViewModel {
         checkEmail = false;
       }
     });
+  }
+
+  void onPhoneChange(String value) {
+    setState(() {});
   }
 
   ///更新使用者資料
