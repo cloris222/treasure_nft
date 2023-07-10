@@ -217,14 +217,14 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
                   fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14))),
 
       SizedBox(
-      height: UIDefine.getPixelHeight(100),
+      height: UIDefine.getPixelHeight(90 + (viewModel.phoneData.result?0:20)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
     Container(
-      height: UIDefine.getPixelHeight(80),
+      height: UIDefine.getPixelHeight(75),
       width: UIDefine.getWidth()/2.6,
           padding: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(12)),
           child: CustomDropButton(
@@ -271,12 +271,14 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
           data: viewModel.phoneData,
           onChanged: viewModel.onPhoneChange,
           inputFormatters: denySpace(),
+          keyboardType: TextInputType.phone,
         )),
 
       ])),
 
       ErrorTextWidget(
           data: viewModel.countryData, alignment: Alignment.centerRight),
+
     ];
   }
 
