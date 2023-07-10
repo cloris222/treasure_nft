@@ -34,7 +34,7 @@ class GoogleAuthViewModel extends BaseViewModel {
               if (value == "SUCCESS")
                 {
                   CommonCustomDialog(context,
-                      title: tr("resetSuccess"),
+                      title: tr("bind-successfully"),
                       content: "",
                       type: DialogImageType.success,
                       rightBtnText: tr('confirm'),
