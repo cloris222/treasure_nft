@@ -58,13 +58,16 @@ class RegisterMainViewModel extends BaseViewModel {
     phoneController.dispose();
   }
 
-  bool checkEmptyController() {
+  bool checkEmptyController(int currentIndex) {
     return accountController.text.isNotEmpty &&
         passwordController.text.isNotEmpty &&
         rePasswordController.text.isNotEmpty &&
         emailController.text.isNotEmpty &&
         emailCodeController.text.isNotEmpty &&
-        currentCountry.isNotEmpty;
+
+        currentIndex == 0
+        ? phoneController.text.isEmpty
+        : phoneController.text.isNotEmpty;
   }
 
   bool checkData() {
@@ -142,12 +145,12 @@ class RegisterMainViewModel extends BaseViewModel {
   }
 
   ///MARK: 註冊
-  void onPressRegister(BuildContext context, WidgetRef ref) async {
+  void onPressRegister(BuildContext context, WidgetRef ref, currentIndex) async {
     resetData();
     clearAllFocus();
 
     ///MARK: 檢查是否有欄位未填
-    if (!checkEmptyController()) {
+    if (!checkEmptyController(currentIndex)) {
       setState(() {
         accountData =
             ValidateResultData(result: accountController.text.isNotEmpty);
@@ -158,7 +161,17 @@ class RegisterMainViewModel extends BaseViewModel {
         emailData = ValidateResultData(result: emailController.text.isNotEmpty);
         emailCodeData =
             ValidateResultData(result: emailCodeController.text.isNotEmpty);
-        countryData = ValidateResultData(result: currentCountry.isNotEmpty);
+
+        if(currentIndex == 0) {
+          showToast(getGlobalContext(), tr("placeholder-register-country"));
+        }
+
+        phoneData = ValidateResultData(result:
+          currentCountry == tr("placeholder-register-country")
+            ? phoneController.text.isEmpty
+            : phoneController.text.isNotEmpty
+        );
+
       });
       return;
     } else {
@@ -262,6 +275,11 @@ class RegisterMainViewModel extends BaseViewModel {
   }
 
   void onPhoneChange(String value) {
+    setState(() {});
+  }
+
+  void onPhoneCheck(int index) {
+    phoneData = ValidateResultData(result: phoneController.text.isNotEmpty && index > 0);
     setState(() {});
   }
 
