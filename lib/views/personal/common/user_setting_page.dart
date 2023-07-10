@@ -253,7 +253,7 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
     if (!isGoogleBind) {
       BaseViewModel().pushPage(
           context, const GoogleSettingPage())
-          .then((value) => ref.read(userInfoProvider.notifier).init());
+          .then((value) => ref.read(userInfoProvider.notifier).update());
     }
     /// 重置google 暫時隱藏
     // else {
