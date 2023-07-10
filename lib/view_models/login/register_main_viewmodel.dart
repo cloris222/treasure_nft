@@ -195,6 +195,11 @@ class RegisterMainViewModel extends BaseViewModel {
         setState(() {});
         return;
       }
+
+      ///MARK: 沒選擇國家時清空
+      if(currentIndex == 0) {
+        currentCountry = "";
+      }
       LoginAPI(onConnectFail: (message) => onBaseConnectFail(context, message))
           .register(
               account: accountController.text,
@@ -225,6 +230,7 @@ class RegisterMainViewModel extends BaseViewModel {
               ));
         } else {
           await _updateRegisterInfo(ref: ref, isLogin: true);
+          BaseViewModel().pushAndRemoveUntil(context, const MainPage());
         }
       });
     }
