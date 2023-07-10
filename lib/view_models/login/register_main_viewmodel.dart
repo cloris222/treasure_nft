@@ -90,6 +90,7 @@ class RegisterMainViewModel extends BaseViewModel {
     nicknameData = ValidateResultData();
     referralData = ValidateResultData();
     countryData = ValidateResultData();
+    phoneData = ValidateResultData();
   }
 
   bool checkPress() {
@@ -275,11 +276,11 @@ class RegisterMainViewModel extends BaseViewModel {
   }
 
   void onPhoneChange(String value) {
+    phoneData = ValidateResultData(result: phoneController.text.isNotEmpty);
     setState(() {});
   }
 
   void onPhoneCheck(int index) {
-    phoneData = ValidateResultData(result: phoneController.text.isNotEmpty && index > 0);
     setState(() {});
   }
 
