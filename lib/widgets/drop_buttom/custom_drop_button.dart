@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
@@ -31,6 +32,9 @@ class CustomDropButton extends StatefulWidget {
       this.itemHeight,
       this.needGradient = true,
       this.needHorizontalPadding = true,
+      this.showClearButton = false,
+      this.onPressClear,
+      this.needArrow = true,
       })
       : super(key: key);
   final int listLength;
@@ -53,6 +57,9 @@ class CustomDropButton extends StatefulWidget {
   final double? itemHeight;
   final bool needGradient;
   final bool needHorizontalPadding;
+  final bool showClearButton;
+  final onClickFunction? onPressClear;
+  final bool needArrow;
 
   @override
   State<CustomDropButton> createState() => _CustomDropButtonState();
@@ -96,39 +103,53 @@ class _CustomDropButtonState extends State<CustomDropButton> {
       padding: EdgeInsets.symmetric(
           horizontal: UIDefine.getPixelWidth(10),
           vertical: UIDefine.getPixelWidth(3)),
-      child: DropdownButtonHideUnderline(
-          child: DropdownButton2(
-            buttonPadding:const EdgeInsets.all(0),
-        itemPadding: widget.needHorizontalPadding
-            ? const EdgeInsets.all(0)
-            : EdgeInsets.only(right: UIDefine.getPixelHeight(1)),
-        dropdownDecoration: widget.dropdownDecoration,
-        offset: Offset(0, -UIDefine.getPixelWidth(20)),
-        customButton: widget.buildCustomDropCurrentItem != null
-            ? widget.buildCustomDropCurrentItem!(currentIndex)
-            : currentIndex != null
-                ? _buildDropItem(currentIndex!, false, true)
-                : _buildSelectHintItem(),
-        isExpanded: true,
-        items: List<DropdownMenuItem<int>>.generate(_getListLength(), (index) {
-          return DropdownMenuItem<int>(
-              enabled: !(widget.listLength == 0 && widget.needShowEmpty),
-              value: index,
-              child: _buildDropItem(index, widget.needGradient, false));
-        }),
-        value: widget.listLength == 0 ? null : currentIndex,
-        onChanged: (value) {
-          if (value != null) {
-            setState(() {
-              currentIndex = value;
-            });
-            widget.onChanged(currentIndex!);
-          }
-        },
-        dropdownWidth: widget.dropdownWidth,
-        itemHeight: widget.itemHeight ?? UIDefine.getPixelWidth(40),
+      child: Stack(children: [
+        DropdownButtonHideUnderline(
+            child: DropdownButton2(
+              buttonPadding:const EdgeInsets.all(0),
+              itemPadding: widget.needHorizontalPadding
+                  ? const EdgeInsets.all(0)
+                  : EdgeInsets.only(right: UIDefine.getPixelHeight(1)),
+              dropdownDecoration: widget.dropdownDecoration,
+              offset: Offset(0, -UIDefine.getPixelWidth(20)),
+              customButton: widget.buildCustomDropCurrentItem != null
+                  ? widget.buildCustomDropCurrentItem!(currentIndex)
+                  : currentIndex != null
+                  ? _buildDropItem(currentIndex!, false, widget.needArrow)
+                  : _buildSelectHintItem(),
+              isExpanded: true,
+              items: List<DropdownMenuItem<int>>.generate(_getListLength(), (index) {
+                return DropdownMenuItem<int>(
+                    enabled: !(widget.listLength == 0 && widget.needShowEmpty),
+                    value: index,
+                    child: _buildDropItem(index, widget.needGradient, false));
+              }),
+              value: widget.listLength == 0 ? null : currentIndex,
+              onChanged: (value) {
+                if (value != null) {
+                  setState(() {
+                    currentIndex = value;
+                  });
+                  widget.onChanged(currentIndex!);
+                }
+              },
+              dropdownWidth: widget.dropdownWidth,
+              itemHeight: widget.itemHeight ?? UIDefine.getPixelWidth(40),
 
-      )),
+            )),
+
+        Visibility(
+            visible: widget.showClearButton,
+            child:Align(
+                alignment: Alignment.centerRight,
+                child: InkWell(
+                  child: const Icon(Icons.clear),
+                  onTap: () => {widget.onPressClear!()},
+                )
+            )),
+
+      ])
+
     );
   }
 

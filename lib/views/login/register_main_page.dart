@@ -34,14 +34,17 @@ class RegisterMainPage extends ConsumerStatefulWidget {
 class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
   late RegisterMainViewModel viewModel;
 
-  List<CountryPhoneData> get countryList => ref.read(registerCountryProvider);
+  List<CountryPhoneData> get countryList => ref.read(registerCountryProvider) ;
 
   int? get currentCountryIndex => ref.read(registerCurrentIndexProvider);
   String ipCountry = "";
 
+  bool clearButton = true;
+
   @override
   void initState() {
     super.initState();
+
     Future.delayed(const Duration(milliseconds: 300)).then((value) =>
         ref.read(connectWalletProvider.notifier).initConnectWallet());
     ref
@@ -111,6 +114,7 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
 
           ///MARK: 帳號
           LoginParamView(
+            bShowRed:true,
             titleText: tr('account'),
             hintText: tr("placeholder-account'"),
             controller: viewModel.accountController,
@@ -121,7 +125,8 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
 
           ///MARK:密碼
           LoginParamView(
-              // bPasswordFormatter: true,
+              bShowRed:true,
+            // bPasswordFormatter: true,
               titleText: tr('password'),
               hintText: tr("placeholder-password"),
               controller: viewModel.passwordController,
@@ -148,6 +153,7 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
 
           ///MARK:Email
           LoginParamView(
+            bShowRed:true,
             titleText: tr('email'),
             hintText: tr("placeholder-email'"),
             controller: viewModel.emailController,
@@ -182,7 +188,7 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
           LoginButtonWidget(
             btnText: tr('register'),
             // enable: viewModel.checkPress(),
-            onPressed: () => viewModel.onPressRegister(context, ref),
+            onPressed: () => viewModel.onPressRegister(context, ref, currentCountryIndex),
           ),
           Row(children: [
             Flexible(
@@ -211,28 +217,46 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
                   fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14))),
 
       SizedBox(
-      height: UIDefine.getPixelHeight(80),
+      height: UIDefine.getPixelHeight(100),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
     Container(
-    width: UIDefine.getWidth()/2.6,
+      height: UIDefine.getPixelHeight(80),
+      width: UIDefine.getWidth()/2.6,
           padding: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(12)),
           child: CustomDropButton(
-            height: UIDefine.getPixelHeight(42),
+              needArrow: !clearButton,
+              showClearButton: clearButton,
+              onPressClear: (){
+                clearButton = false;
+                ref.read(registerCurrentIndexProvider.notifier).update((state) => 0);
+                debugPrint("onPressClear");
+                setState(() {});
+              },
+              height: UIDefine.getPixelHeight(42),
               initIndex: currentCountryIndex,
               needShowEmpty: false,
               hintSelect: tr("placeholder-register-country"),
               listLength: countryList.length,
-              itemString: (int index, bool needArrow) =>
-              "${tr(countryList[index].country)} (+${countryList[index].areaCode})",
+              itemString: (int index, bool needArrow)=>
+                      "${tr(countryList[index].country)} (+${countryList[index]
+                        .areaCode})",
               onChanged: (index) {
+                if (index > 1) {
+                  clearButton = true;
+                }else {
+                  clearButton = false;
+                }
+
                 viewModel.currentCountry = countryList[index].country;
                 ref
                     .read(registerCurrentIndexProvider.notifier)
                     .update((state) => index);
+
+                  viewModel.onPhoneCheck(index);
               }),
         ),
 
