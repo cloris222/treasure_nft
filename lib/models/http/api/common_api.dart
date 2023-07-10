@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/parameter/animation_path_data.dart';
@@ -36,6 +37,7 @@ class CommonAPI extends HttpManager {
     try {
       var response = await get('/query/areaCode');
 
+      list.add(CountryPhoneData(country: tr("placeholder-register-country"), areaCode: ''));
       for (Map<String, dynamic> json in response.data) {
         list.add(CountryPhoneData.fromJson(json));
       }

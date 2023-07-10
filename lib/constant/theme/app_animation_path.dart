@@ -13,7 +13,7 @@ class AppAnimationPath {
   // static const String loginMorning = 'mb_login_morning.json';
   // static const String loginAfternoon = 'mb_login_afternoon.json';
   // static const String loginNight = 'mb_login_night.json';
-  static const String loginAnimation = 'miaopai_mb_login.json';
+  static const String loginAnimation = 'a_miaopai_mb_login.json';
 
   /// 註冊成功動畫
   /// v2.1.2_729 移除註冊動畫

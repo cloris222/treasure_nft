@@ -164,15 +164,15 @@ class CustomAppBar {
     return _getCustomAppBar(
         margin: const EdgeInsets.symmetric(horizontal: 10),
         actions: [
-          Expanded(
-            child: Container(
+          Container(
               alignment: Alignment.centerLeft,
               child: GestureDetector(
                   onTap: mainAction,
                   child: Image.asset(AppImagePath.mainAppBarLogo,
                       height: 35, fit: BoxFit.fitHeight)),
             ),
-          ),
+
+          const Expanded(child:SizedBox(width: 1)),
           Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,

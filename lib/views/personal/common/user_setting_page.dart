@@ -254,9 +254,11 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
       BaseViewModel().pushPage(
           context, const GoogleSettingPage())
           .then((value) => ref.read(userInfoProvider.notifier).init());
-    } else {
-      _showGoogleReset();
     }
+    /// 重置google 暫時隱藏
+    // else {
+    //   _showGoogleReset();
+    // }
   }
 
   void _showGoogleReset() {

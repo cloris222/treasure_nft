@@ -31,6 +31,7 @@ class RegisterMainViewModel extends BaseViewModel {
   TextEditingController emailCodeController = TextEditingController();
   TextEditingController nicknameController = TextEditingController();
   TextEditingController referralController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
 
   ValidateResultData accountData = ValidateResultData();
   ValidateResultData passwordData = ValidateResultData();
@@ -40,6 +41,7 @@ class RegisterMainViewModel extends BaseViewModel {
   ValidateResultData nicknameData = ValidateResultData();
   ValidateResultData referralData = ValidateResultData();
   ValidateResultData countryData = ValidateResultData();
+  ValidateResultData phoneData = ValidateResultData();
 
   ///是否判斷過驗證碼
   bool checkEmail = false;
@@ -53,15 +55,19 @@ class RegisterMainViewModel extends BaseViewModel {
     emailCodeController.dispose();
     nicknameController.dispose();
     referralController.dispose();
+    phoneController.dispose();
   }
 
-  bool checkEmptyController() {
+  bool checkEmptyController(int currentIndex) {
     return accountController.text.isNotEmpty &&
         passwordController.text.isNotEmpty &&
         rePasswordController.text.isNotEmpty &&
         emailController.text.isNotEmpty &&
         emailCodeController.text.isNotEmpty &&
-        currentCountry.isNotEmpty;
+
+        currentIndex == 0
+        ? phoneController.text.isEmpty
+        : phoneController.text.isNotEmpty;
   }
 
   bool checkData() {
@@ -84,6 +90,7 @@ class RegisterMainViewModel extends BaseViewModel {
     nicknameData = ValidateResultData();
     referralData = ValidateResultData();
     countryData = ValidateResultData();
+    phoneData = ValidateResultData();
   }
 
   bool checkPress() {
@@ -139,12 +146,12 @@ class RegisterMainViewModel extends BaseViewModel {
   }
 
   ///MARK: 註冊
-  void onPressRegister(BuildContext context, WidgetRef ref) async {
+  void onPressRegister(BuildContext context, WidgetRef ref, currentIndex) async {
     resetData();
     clearAllFocus();
 
     ///MARK: 檢查是否有欄位未填
-    if (!checkEmptyController()) {
+    if (!checkEmptyController(currentIndex)) {
       setState(() {
         accountData =
             ValidateResultData(result: accountController.text.isNotEmpty);
@@ -155,7 +162,17 @@ class RegisterMainViewModel extends BaseViewModel {
         emailData = ValidateResultData(result: emailController.text.isNotEmpty);
         emailCodeData =
             ValidateResultData(result: emailCodeController.text.isNotEmpty);
-        countryData = ValidateResultData(result: currentCountry.isNotEmpty);
+
+        if(currentIndex == 0) {
+          showToast(getGlobalContext(), tr("placeholder-register-country"));
+        }
+
+        phoneData = ValidateResultData(result:
+          currentCountry == tr("placeholder-register-country")
+            ? phoneController.text.isEmpty
+            : phoneController.text.isNotEmpty
+        );
+
       });
       return;
     } else {
@@ -178,6 +195,11 @@ class RegisterMainViewModel extends BaseViewModel {
         setState(() {});
         return;
       }
+
+      ///MARK: 沒選擇國家時清空
+      if(currentIndex == 0) {
+        currentCountry = "";
+      }
       LoginAPI(onConnectFail: (message) => onBaseConnectFail(context, message))
           .register(
               account: accountController.text,
@@ -185,6 +207,7 @@ class RegisterMainViewModel extends BaseViewModel {
               email: emailController.text,
               nickname: nicknameController.text,
               inviteCode: referralController.text,
+              phone: phoneController.text,
               country: currentCountry,
               emailVerifyCode: emailCodeController.text,
               walletInfo: walletInfo)
@@ -207,6 +230,7 @@ class RegisterMainViewModel extends BaseViewModel {
               ));
         } else {
           await _updateRegisterInfo(ref: ref, isLogin: true);
+          BaseViewModel().pushAndRemoveUntil(context, const MainPage());
         }
       });
     }
@@ -255,6 +279,15 @@ class RegisterMainViewModel extends BaseViewModel {
         checkEmail = false;
       }
     });
+  }
+
+  void onPhoneChange(String value) {
+    phoneData = ValidateResultData(result: phoneController.text.isNotEmpty);
+    setState(() {});
+  }
+
+  void onPhoneCheck(int index) {
+    setState(() {});
   }
 
   ///更新使用者資料

@@ -34,14 +34,17 @@ class RegisterMainPage extends ConsumerStatefulWidget {
 class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
   late RegisterMainViewModel viewModel;
 
-  List<CountryPhoneData> get countryList => ref.read(registerCountryProvider);
+  List<CountryPhoneData> get countryList => ref.read(registerCountryProvider) ;
 
   int? get currentCountryIndex => ref.read(registerCurrentIndexProvider);
   String ipCountry = "";
 
+  bool clearButton = true;
+
   @override
   void initState() {
     super.initState();
+
     Future.delayed(const Duration(milliseconds: 300)).then((value) =>
         ref.read(connectWalletProvider.notifier).initConnectWallet());
     ref
@@ -111,6 +114,7 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
 
           ///MARK: 帳號
           LoginParamView(
+            bShowRed:true,
             titleText: tr('account'),
             hintText: tr("placeholder-account'"),
             controller: viewModel.accountController,
@@ -121,7 +125,8 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
 
           ///MARK:密碼
           LoginParamView(
-              // bPasswordFormatter: true,
+              bShowRed:true,
+            // bPasswordFormatter: true,
               titleText: tr('password'),
               hintText: tr("placeholder-password"),
               controller: viewModel.passwordController,
@@ -148,6 +153,7 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
 
           ///MARK:Email
           LoginParamView(
+            bShowRed:true,
             titleText: tr('email'),
             hintText: tr("placeholder-email'"),
             controller: viewModel.emailController,
@@ -182,7 +188,7 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
           LoginButtonWidget(
             btnText: tr('register'),
             // enable: viewModel.checkPress(),
-            onPressed: () => viewModel.onPressRegister(context, ref),
+            onPressed: () => viewModel.onPressRegister(context, ref, currentCountryIndex),
           ),
           Row(children: [
             Flexible(
@@ -206,27 +212,73 @@ class _RegisterMainPageState extends ConsumerState<RegisterMainPage> {
     return [
       Container(
           margin: const EdgeInsets.symmetric(vertical: 5),
-          child: Text(tr("register-country"),
+          child: Text(tr("phone"),
               style: AppTextStyle.getBaseStyle(
                   fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14))),
-      Container(
-        margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(5)),
-        child: CustomDropButton(
-            initIndex: currentCountryIndex,
-            needShowEmpty: false,
-            hintSelect: tr("placeholder-register-country"),
-            listLength: countryList.length,
-            itemString: (int index, bool needArrow) =>
-                "${tr(countryList[index].country)} (+${countryList[index].areaCode})",
-            onChanged: (index) {
-              viewModel.currentCountry = countryList[index].country;
-              ref
-                  .read(registerCurrentIndexProvider.notifier)
-                  .update((state) => index);
-            }),
-      ),
+
+      SizedBox(
+      height: UIDefine.getPixelHeight(90 + (viewModel.phoneData.result?0:20)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+
+    Container(
+      height: UIDefine.getPixelHeight(75),
+      width: UIDefine.getWidth()/2.6,
+          padding: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(12)),
+          child: CustomDropButton(
+              needArrow: !clearButton,
+              showClearButton: clearButton,
+              onPressClear: (){
+                clearButton = false;
+                ref.read(registerCurrentIndexProvider.notifier).update((state) => 0);
+                debugPrint("onPressClear");
+                setState(() {});
+              },
+              height: UIDefine.getPixelHeight(42),
+              initIndex: currentCountryIndex,
+              needShowEmpty: false,
+              hintSelect: tr("placeholder-register-country"),
+              listLength: countryList.length,
+              itemString: (int index, bool needArrow)=>
+                      "${tr(countryList[index].country)} (+${countryList[index]
+                        .areaCode})",
+              onChanged: (index) {
+                if (index > 1) {
+                  clearButton = true;
+                }else {
+                  clearButton = false;
+                }
+
+                viewModel.currentCountry = countryList[index].country;
+                ref
+                    .read(registerCurrentIndexProvider.notifier)
+                    .update((state) => index);
+
+                  viewModel.onPhoneCheck(index);
+              }),
+        ),
+
+        SizedBox(
+          width: UIDefine.getWidth()/2,
+        ///MARK:Phone
+        child:LoginParamView(
+          showTitleText: false,
+          titleText: "",
+          hintText: tr("placeholder-phone'"),
+          controller: viewModel.phoneController,
+          data: viewModel.phoneData,
+          onChanged: viewModel.onPhoneChange,
+          inputFormatters: denySpace(),
+          keyboardType: TextInputType.phone,
+        )),
+
+      ])),
+
       ErrorTextWidget(
           data: viewModel.countryData, alignment: Alignment.centerRight),
+
     ];
   }
 

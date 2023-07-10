@@ -225,10 +225,11 @@ class _UserInfoSettingPageState extends ConsumerState<UserInfoSettingPage> {
                       fontWeight: FontWeight.w500,
                       fontSize: UIDefine.fontSize14)),
 
-              InkWell(
-                onTap: () => _showEMailReset(),
-                child: Image.asset(AppImagePath.editIcon),
-              )
+              /// 修改信箱 暫時隱藏
+              // InkWell(
+              //   onTap: () => _showEMailReset(),
+              //   child: Image.asset(AppImagePath.editIcon),
+              // )
 
     ]),
            ),
