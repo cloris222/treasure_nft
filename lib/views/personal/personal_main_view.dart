@@ -70,11 +70,11 @@ class _PersonalMainViewState extends ConsumerState<PersonalMainView> {
   }
 
   void updateData() {
-    ref.read(userLevelInfoProvider.notifier).init();
-    ref.read(userPropertyInfoProvider.notifier).init();
-    ref.read(userOrderInfoProvider.notifier).init();
-    ref.read(userInfoProvider.notifier).init();
-    ref.read(userExperienceInfoProvider.notifier).init();
-    ref.read(userTradeStatusProvider.notifier).init();
+    ref.read(userLevelInfoProvider.notifier).update();
+    ref.read(userPropertyInfoProvider.notifier).update();
+    ref.read(userOrderInfoProvider.notifier).update();
+    ref.read(userInfoProvider.notifier).update();
+    ref.read(userExperienceInfoProvider.notifier).update();
+    ref.read(userTradeStatusProvider.notifier).update();
   }
 }
