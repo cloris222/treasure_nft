@@ -971,7 +971,7 @@
   "notification-PAYING":"Won",
   "enter":"ingresar",
   "expEnd_title":"Su período de inicio ha terminado",
-  "expEnd_title_hint":"Desbloquee LV1 con 50U para reservar NFT de mayor valor",
+  "expEnd_title_hint":"Desbloquee LV1 con {amount}U para reservar NFT de mayor valor",
   "goRecharge":"Recarga",
   "APP_0059":"Superar el límite de retiro de la cuenta de experiencia",
   "EO_004_7":"Código de referencia no válido",

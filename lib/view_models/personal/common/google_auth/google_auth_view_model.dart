@@ -26,7 +26,6 @@ class GoogleAuthViewModel extends BaseViewModel {
       SimpleCustomDialog(context, isSuccess: false, mainText: tr('enterGoogleVerification')).show();
       return;
     }
-    print("first pppppp");
     switchProcess();
     await UserInfoAPI(onConnectFail: (message) => {onBaseConnectFail(context, message), switchProcess()})
         .bindGoogleAuth(verifyController.text)

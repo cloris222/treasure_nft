@@ -971,7 +971,7 @@
   "notification-PAYING":"đã thắng",
   "enter":"đi vào",
   "expEnd_title":"Thời kỳ bắt đầu của bạn đã kết thúc",
-  "expEnd_title_hint":"Mở khóa LV1 với 50U để đặt trước NFT giá trị cao hơn",
+  "expEnd_title_hint":"Mở khóa LV1 với {amount}U để đặt trước NFT giá trị cao hơn",
   "goRecharge":"nạp điện",
   "APP_0059":"Vượt quá giới hạn rút tiền của tài khoản trải nghiệm",
   "EO_004_7":"Mã giới thiệu không hợp lệ",

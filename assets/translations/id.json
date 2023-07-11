@@ -971,7 +971,7 @@
   "notification-PAYING":"Menang",
   "enter":"memasuki",
   "expEnd_title":"Periode pemula Anda telah berakhir",
-  "expEnd_title_hint":"Buka kunci LV1 dengan 50U untuk memesan NFT bernilai lebih tinggi",
+  "expEnd_title_hint":"Buka kunci LV1 dengan {amount}U untuk memesan NFT bernilai lebih tinggi",
   "goRecharge":"Isi ulang",
   "APP_0059":"Melebihi batas penarikan akun pengalaman",
   "EO_004_7":"Kode referensi tidak valid",
