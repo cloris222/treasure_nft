@@ -971,7 +971,7 @@
   "notification-PAYING":"Ganhou",
   "enter":"digitar",
   "expEnd_title":"Seu período inicial terminou",
-  "expEnd_title_hint":"Desbloqueie LV1 com 50U para reservar NFTs de maior valor",
+  "expEnd_title_hint":"Desbloqueie LV1 com {amount}U para reservar NFTs de maior valor",
   "goRecharge":"Recarga",
   "APP_0059":"Exceder o limite de retirada da conta de experiência",
   "EO_004_7":"Código de referência inválido",

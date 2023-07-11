@@ -971,7 +971,7 @@
   "notification-PAYING":"已中獎",
   "enter":"進入",
   "expEnd_title":"您的新手體驗期已結束",
-  "expEnd_title_hint":"充值滿50U即可升級LV1解鎖，預約更高等NFT",
+  "expEnd_title_hint":"充值滿{amount}U即可升級LV1解鎖，預約更高等NFT",
   "goRecharge":"前往充值",
   "APP_0059":"體驗帳號提領超額",
   "EO_004_7":"邀請碼為新手",

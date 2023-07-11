@@ -971,7 +971,7 @@
   "notification-PAYING":"成功",
   "enter":"进入",
   "expEnd_title":"您的新手体验期已结束",
-  "expEnd_title_hint":"充值满50U即可升级LV1解锁，预约更高价NFT",
+  "expEnd_title_hint":"充值满{amount}U即可升级LV1解锁，预约更高价NFT",
   "goRecharge":"前往充值",
   "APP_0059":"体验账号提现超额",
   "EO_004_7":"邀请码为新手",

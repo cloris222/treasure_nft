@@ -971,7 +971,7 @@
   "notification-PAYING":"Success",
   "enter":"Enter",
   "expEnd_title":"Your session has expired",
-  "expEnd_title_hint":"Unlock LV1 with 50U to reserve higher value NFTs",
+  "expEnd_title_hint":"Unlock LV1 with {amount}U to reserve higher value NFTs",
   "goRecharge":"Deposit",
   "APP_0059":"Exceed experience account withdrawal limit",
   "EO_004_7":"Invalid referral code",

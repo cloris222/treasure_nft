@@ -971,7 +971,7 @@
   "notification-PAYING":"Kazanmak",
   "enter":"girmek",
   "expEnd_title":"Başlangıç ​​döneminiz sona erdi",
-  "expEnd_title_hint":"Daha yüksek değerli NFT'ler ayırmak için LV1'in kilidini 50U ile açın",
+  "expEnd_title_hint":"Daha yüksek değerli NFT'ler ayırmak için LV1'in kilidini {amount}U ile açın",
   "goRecharge":"Yatırma",
   "APP_0059":"Deneyim hesabı çekme limitini aş",
   "EO_004_7":"Geçersiz yönlendirme kodu",
