@@ -148,6 +148,18 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
         return;
       }
 
+      if(num.parse(amountController.text)< num.parse(withdrawInfo.internalMinAmount)){
+        CommonCustomDialog(context,
+            title: tr("point-FAIL'"),
+            content: '${tr("errorChainMinAmount")}${withdrawInfo.internalMinAmount}',
+            type: DialogImageType.fail,
+            rightBtnText: tr('confirm'),
+            onLeftPress: () {}, onRightPress: () {
+              Navigator.pop(context);
+            }).show();
+        return;
+      }
+
       if (alertInfo.isReserve) {
         CommonCustomDialog(context,
             title: tr("reservenotDrawn"),
