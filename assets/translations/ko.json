@@ -971,7 +971,7 @@
   "notification-PAYING":"당첨",
   "enter":"입력하다",
   "expEnd_title":"시작 기간이 종료되었습니다.",
-  "expEnd_title_hint":"더 높은 가치의 NFT를 예약하려면 50U로 LV1을 잠금 해제하세요.",
+  "expEnd_title_hint":"더 높은 가치의 NFT를 예약하려면 {amount}U로 LV1을 잠금 해제하세요.",
   "goRecharge":"충전",
   "APP_0059":"경험치 계정 출금 한도 초과",
   "EO_004_7":"잘못된 추천 코드",

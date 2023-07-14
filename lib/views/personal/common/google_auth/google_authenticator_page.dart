@@ -36,7 +36,7 @@ class _GoogleSettingPageState extends ConsumerState<GoogleSettingPage> {
 
   @override
   void initState() {
-    ref.read(userGoogleAuthProvider.notifier).init();
+    ref.read(userGoogleAuthProvider.notifier).update();
     viewModel = GoogleAuthViewModel(ref, setState: setState);
     super.initState();
   }

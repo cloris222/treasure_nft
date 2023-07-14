@@ -42,24 +42,16 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
 
   @override
   void initState() {
-    viewModel = TradeNewMainViewModel(
-      reservationSuccess: () {
-        SuccessDialog(context,
-                callOkFunction: () {},
-                isSuccess: true,
-                mainText: tr("reserve-success'"),
-                subText: tr("reserve-success-text'"))
-            .show();
-      },
-      errorMsgDialog: (String mainText, String subText) {
-        SuccessDialog(context,
-                callOkFunction: () {},
-                isSuccess: false,
-                mainText: mainText,
-                subText: subText)
-            .show();
-      },
-    );
+    viewModel = TradeNewMainViewModel(reservationSuccess: () {
+      SuccessDialog(context,
+              callOkFunction: () {},
+              isSuccess: true,
+              mainText: tr("reserve-success'"),
+              subText: tr("reserve-success-text'"))
+          .show();
+    }, errorMsgDialog: (String mainText, String subText) {
+      SuccessDialog(context, callOkFunction: () {}, isSuccess: false, mainText: mainText, subText: subText).show();
+    }, ref);
 
     ///MARK: 初始化
     TradeTimerUtil().addListener(_onUpdateTrade);
@@ -69,16 +61,18 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
     ref.read(tradeReserveVolumeProvider.notifier).setDivisionIndex(0);
     ref.read(tradeReserveVolumeProvider.notifier).init();
     ref.read(tradeReserveDivisionProvider.notifier).init();
-    ref.read(tradeReserveInfoProvider.notifier).setCurrentChoose(
-        ref.read(userInfoProvider).level > 0 ? 1 : 0, null, null);
+    ref
+        .read(tradeReserveInfoProvider.notifier)
+        .setCurrentChoose(ref.read(userInfoProvider).level > 0 ? 1 : 0, null, null);
+    ref.read(tradeReserveInfoProvider.notifier).getBeginerHintNum().then((value) {
+      ref.read(beginAmount.notifier).update((state) => value.toString());
+      print("the provider: ${ref.watch(beginAmount)}");
+    });
     ref.read(tradeReserveInfoProvider.notifier).init(onFinish: () {
       if (ref.read(tradeReserveInfoProvider) != null) {
         if (ref.read(tradeReserveInfoProvider)!.reserveRanges.isNotEmpty) {
-          ReserveRange range =
-              ref.read(tradeReserveInfoProvider)!.reserveRanges[0];
-          ref
-              .read(tradeReserveCoinProvider.notifier)
-              .setSelectValue(range.index, range.startPrice, range.endPrice);
+          ReserveRange range = ref.read(tradeReserveInfoProvider)!.reserveRanges[0];
+          ref.read(tradeReserveCoinProvider.notifier).setSelectValue(range.index, range.startPrice, range.endPrice, range.rewardRate);
           ref.read(tradeReserveCoinProvider.notifier).init();
         }
       }
@@ -106,8 +100,7 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
             _buildTitle(userInfo),
 
             ///微小的彩虹色露出O_O
-            Container(
-                height: 1, width: UIDefine.getWidth(), color: backgroundColor),
+            Container(height: 1, width: UIDefine.getWidth(), color: backgroundColor),
             Container(
               width: UIDefine.getWidth(),
               padding: EdgeInsets.only(
@@ -121,9 +114,7 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
                 TradeMainLevelView(
                     viewModel: viewModel,
                     onScrollTop: () {
-                      controller.animateTo(0,
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.fastOutSlowIn);
+                      controller.animateTo(0, duration: const Duration(milliseconds: 300), curve: Curves.fastOutSlowIn);
                     }),
                 SizedBox(height: UIDefine.navigationBarPadding),
               ]),
@@ -136,22 +127,16 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
 
   Widget _buildTitle(UserInfoData userInfo) {
     return Container(
-      decoration: AppStyle().buildGradient(
-          borderWith: 0, colors: AppColors.gradientBackgroundColorNoFloatBg),
+      decoration: AppStyle().buildGradient(borderWith: 0, colors: AppColors.gradientBackgroundColorNoFloatBg),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            padding: EdgeInsets.symmetric(
-                horizontal: UIDefine.getPixelWidth(15),
-                vertical: UIDefine.getPixelWidth(15)),
+            padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(15), vertical: UIDefine.getPixelWidth(15)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                LevelIconWidget(
-                    level: userInfo.level,
-                    needBig: true,
-                    size: UIDefine.getPixelWidth(40)),
+                LevelIconWidget(level: userInfo.level, needBig: true, size: UIDefine.getPixelWidth(40)),
                 // Text(
                 //   '${tr('level')} ${userInfo.level}',
                 //   style: AppTextStyle.getBaseStyle(
@@ -168,9 +153,7 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
                     child: Text(
                       tr('trade-rules'),
                       style: AppTextStyle.getBaseStyle(
-                          fontSize: UIDefine.fontSize14,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xFF5CBFFE)),
+                          fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w400, color: const Color(0xFF5CBFFE)),
                     ),
                   ),
                 ),
@@ -180,10 +163,8 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
           Container(
             height: UIDefine.getPixelWidth(15),
             width: UIDefine.getWidth(),
-            decoration: AppStyle().styleColorsRadiusBackground(
-                color: backgroundColor,
-                hasBottomRight: false,
-                hasBottomLef: false),
+            decoration: AppStyle()
+                .styleColorsRadiusBackground(color: backgroundColor, hasBottomRight: false, hasBottomLef: false),
           )
         ],
       ),

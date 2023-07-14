@@ -971,7 +971,7 @@
   "notification-PAYING":"فاز",
   "enter":"أدخل",
   "expEnd_title":"انتهت فترة البداية الخاصة بك",
-  "expEnd_title_hint":"افتح LV1 مع 50U للاحتفاظ بـ NFTs ذات القيمة الأعلى",
+  "expEnd_title_hint":"افتح LV1 مع {amount}U للاحتفاظ بـ NFTs ذات القيمة الأعلى",
   "goRecharge":"إيداع",
   "APP_0059":"تجاوز حد سحب حساب الخبرة",
   "EO_004_7":"رمز الإحالة غير صالح",

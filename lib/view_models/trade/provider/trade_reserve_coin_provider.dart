@@ -19,11 +19,13 @@ class TradeReserveCoinNotifier extends StateNotifier<CheckReserveDeposit?>
   int index = 0;
   num startPrice = 0;
   num endPrice = 0;
+  num rewardRate = 0;
 
-  void setSelectValue(int index, num startPrice, num endPrice) {
+  void setSelectValue(int index, num startPrice, num endPrice, num rewardRate) {
     this.index = index;
     this.startPrice = startPrice;
     this.endPrice = endPrice;
+    this.rewardRate = rewardRate;
   }
 
   @override

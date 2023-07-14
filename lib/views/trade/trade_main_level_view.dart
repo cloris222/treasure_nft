@@ -76,7 +76,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     return ref.read(tradeReserveCoinProvider);
   }
 
-  ///MARK:區間
+  ///MARK:區間(Lv)
   int get currentDivisionIndex {
     return ref.read(tradeCurrentDivisionIndexProvider);
   }
@@ -85,7 +85,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     return ref.read(tradeReserveDivisionProvider);
   }
 
-  ///MARK: 區間底下的ranges
+  ///MARK: 區間底下的ranges(錢的range）
   int get currentDivisionRangeIndex {
     return ref.read(tradeCurrentRangeIndexProvider);
   }
@@ -459,7 +459,9 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
           context: NumberFormatUtil().integerFormat(reserveCoin?.deposit ?? 0)),
       _buildDivisionInfoItem(
           title: tr('transactionReward'),
-          context: "${getLevelReward()} %",
+          context: reserveDivisionRanges.isNotEmpty?
+          // "${getLevelReward()} %",
+              "${reserveDivisionRanges[currentDivisionRangeIndex].rewardRate} %":""
               // '${NumberFormatUtil().removeTwoPointFormat(reserveCoin?.reward ?? 0)} %'),
       )
     ]);
@@ -665,7 +667,8 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     ref.read(tradeReserveCoinProvider.notifier).setSelectValue(
         reserveDivisionRanges[rangeIndex].index,
         reserveDivisionRanges[rangeIndex].startPrice,
-        reserveDivisionRanges[rangeIndex].endPrice);
+        reserveDivisionRanges[rangeIndex].endPrice,
+        reserveDivisionRanges[rangeIndex].rewardRate);
     ref.read(tradeReserveCoinProvider.notifier).init();
   }
 

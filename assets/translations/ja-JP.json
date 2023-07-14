@@ -971,7 +971,7 @@
     "notification-PAYING":"獲得しています",
     "enter":"入力",
     "expEnd_title":"初心者試用期間が終了しました",
-    "expEnd_title_hint":"50U をフル充電して LV1 アンロックをアップグレードし、より高い NFT を予約します",
+    "expEnd_title_hint":"{amount}U をフル充電して LV1 アンロックをアップグレードし、より高い NFT を予約します",
     "goRecharge":"充電に行く",
     "APP_0059":"経験値口座の出金限度額超過",
     "EO_004_7":"初心者向け招待コード",
