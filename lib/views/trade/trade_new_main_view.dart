@@ -72,7 +72,7 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
       if (ref.read(tradeReserveInfoProvider) != null) {
         if (ref.read(tradeReserveInfoProvider)!.reserveRanges.isNotEmpty) {
           ReserveRange range = ref.read(tradeReserveInfoProvider)!.reserveRanges[0];
-          ref.read(tradeReserveCoinProvider.notifier).setSelectValue(range.index, range.startPrice, range.endPrice);
+          ref.read(tradeReserveCoinProvider.notifier).setSelectValue(range.index, range.startPrice, range.endPrice, range.rewardRate);
           ref.read(tradeReserveCoinProvider.notifier).init();
         }
       }
