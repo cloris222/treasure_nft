@@ -680,35 +680,35 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
       case 0:
         double levelResult = 1.5;
         double num = levelResult*(chooseLevel+1);
-        return num.removeTwoPointFormat();
+        return num.removeTwoPointFormat().replaceAll(".0", "");
       case 1:
         double levelResult = 1.5;
         double num = levelResult*(chooseLevel+1);
-        return num.removeTwoPointFormat();
+        return num.removeTwoPointFormat().replaceAll(".0", "");
       case 2:
         double levelResult = 1.7;
         double num = levelResult*(chooseLevel+1);
-        return num.removeTwoPointFormat();
+        return num.removeTwoPointFormat().replaceAll(".0", "");
       case 3:
         double levelResult = 1.9;
         double num = levelResult*(chooseLevel+1);
-        return num.removeTwoPointFormat();
+        return num.removeTwoPointFormat().replaceAll(".0", "");
       case 4:
         double levelResult = 2.1;
         double num = levelResult*(chooseLevel+1);
-        return num.removeTwoPointFormat();
+        return num.removeTwoPointFormat().replaceAll(".0", "");
       case 5:
         double levelResult = 2.3;
         double num = levelResult*(chooseLevel+1);
-        return num.removeTwoPointFormat();
+        return num.removeTwoPointFormat().replaceAll(".0", "");
       case 6:
         double levelResult = 2.5;
         double num = levelResult*(chooseLevel+1);
-        return num.removeTwoPointFormat();
+        return num.removeTwoPointFormat().replaceAll(".0", "");
       default:
         double levelResult = 0;
         double num = levelResult*(chooseLevel+1);
-        return num.removeTwoPointFormat();
+        return num.removeTwoPointFormat().replaceAll(".0", "");
     }
   }
 }
