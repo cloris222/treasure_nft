@@ -680,35 +680,35 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
       case 0:
         double levelResult = 1.5;
         double num = levelResult*(chooseLevel+1);
-        return num.removeTwoPointFormat().replaceAll(".0", "");
+        return NumberFormatUtil().removeOnePointFormat(num);
       case 1:
         double levelResult = 1.5;
         double num = levelResult*(chooseLevel+1);
-        return num.removeTwoPointFormat().replaceAll(".0", "");
+        return NumberFormatUtil().removeOnePointFormat(num);
       case 2:
         double levelResult = 1.7;
         double num = levelResult*(chooseLevel+1);
-        return num.removeTwoPointFormat().replaceAll(".0", "");
+        return NumberFormatUtil().removeOnePointFormat(num);
       case 3:
         double levelResult = 1.9;
         double num = levelResult*(chooseLevel+1);
-        return num.removeTwoPointFormat().replaceAll(".0", "");
+        return NumberFormatUtil().removeOnePointFormat(num);
       case 4:
         double levelResult = 2.1;
         double num = levelResult*(chooseLevel+1);
-        return num.removeTwoPointFormat().replaceAll(".0", "");
+        return NumberFormatUtil().removeOnePointFormat(num);
       case 5:
         double levelResult = 2.3;
         double num = levelResult*(chooseLevel+1);
-        return num.removeTwoPointFormat().replaceAll(".0", "");
+        return NumberFormatUtil().removeOnePointFormat(num);
       case 6:
         double levelResult = 2.5;
         double num = levelResult*(chooseLevel+1);
-        return num.removeTwoPointFormat().replaceAll(".0", "");
+        return NumberFormatUtil().removeOnePointFormat(num);
       default:
         double levelResult = 0;
         double num = levelResult*(chooseLevel+1);
-        return num.removeTwoPointFormat().replaceAll(".0", "");
+        return NumberFormatUtil().removeOnePointFormat(num);
     }
   }
 }
