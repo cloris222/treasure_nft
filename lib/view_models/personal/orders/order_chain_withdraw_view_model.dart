@@ -157,7 +157,7 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
         return;
       }
 
-      ///MARK: 提領金額是否大於最低金額
+      ///MARK: 提領金額是否大於鏈上最低金額
       if (num.parse(amountController.text) <
           num.parse(withdrawInfo.minAmount)) {
         CommonCustomDialog(context,

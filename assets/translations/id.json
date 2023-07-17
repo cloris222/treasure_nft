@@ -1401,5 +1401,8 @@
   "announcement":"Pengumuman",
   "errorMsgNow":"Sejauh ini ada kesalahan {now}",
   "errorMsgAccumulation":"dengan total kesalahan {accumulation} terakumulasi.",
-  "loginForbidden":"Sistem akan menonaktifkan login Anda."
+  "loginForbidden":"Sistem akan menonaktifkan login Anda.",
+  "chainMinAmount":"Jumlah penarikan minimum pada rantai.",
+  "innerMinAmount":"Jumlah penarikan internal minimum.",
+  "errorChainMinAmount":"Batas penarikan internal Anda harus lebih besar dari."
 }

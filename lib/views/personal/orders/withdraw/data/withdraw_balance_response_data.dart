@@ -17,6 +17,7 @@ class WithdrawBalanceResponseData {
     this.feeRate = '',
     this.fee = '',
     this.minAmount = '',
+    this.internalMinAmount = '',
   });
 
   String address;
@@ -24,6 +25,7 @@ class WithdrawBalanceResponseData {
   String feeRate;
   String fee;
   String minAmount;
+  String internalMinAmount;
 
   factory WithdrawBalanceResponseData.fromJson(Map<String, dynamic> json) =>
       WithdrawBalanceResponseData(
@@ -32,6 +34,7 @@ class WithdrawBalanceResponseData {
         feeRate: json["feeRate"] ?? '',
         fee: json["fee"] ?? '',
         minAmount: json["minAmount"] ?? '',
+        internalMinAmount: json["internalMinAmount"] ?? '',
       );
 
   Map<String, dynamic> toJson() => {
@@ -40,6 +43,7 @@ class WithdrawBalanceResponseData {
         "feeRate": feeRate,
         "fee": fee,
         "minAmount": minAmount,
+        "internamMinAmount": internalMinAmount,
       };
 
   num _checkMoney(String number) {

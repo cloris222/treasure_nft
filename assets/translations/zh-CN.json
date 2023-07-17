@@ -1401,5 +1401,8 @@
   "announcement":"公告栏",
   "errorMsgNow":"目前已错误{now}次",
   "errorMsgAccumulation":"累计错误满{accumulation}次",
-  "loginForbidden":"系统将禁止你的登入"
+  "loginForbidden":"系统将禁止你的登入",
+  "chainMinAmount":"链上最低提现金额",
+  "innerMinAmount":"内部最低提现金额",
+  "errorChainMinAmount":"您的内部提款额度必须大于"
 }
