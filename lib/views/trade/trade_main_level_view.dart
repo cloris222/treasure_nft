@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
+import 'package:treasure_nft_project/constant/extension/double_extension.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_animation_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
@@ -459,10 +460,12 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
           context: NumberFormatUtil().integerFormat(reserveCoin?.deposit ?? 0)),
       _buildDivisionInfoItem(
           title: tr('transactionReward'),
-          context: reserveDivisionRanges.isNotEmpty?
-          // "${getLevelReward()} %",
-              "${reserveDivisionRanges[currentDivisionRangeIndex].rewardRate} %":""
-              // '${NumberFormatUtil().removeTwoPointFormat(reserveCoin?.reward ?? 0)} %'),
+          context:
+          reserveDivisionRanges.isNotEmpty?
+          // "${reserveDivisionRanges[currentDivisionRangeIndex].rewardRate} %":""
+          // "${currentDivisionIndex.runtimeType},${reserveDivisionRanges[currentDivisionRangeIndex].startPrice.runtimeType},${reserveDivisionRanges[currentDivisionRangeIndex].endPrice.runtimeType}":""
+          "${getLevelReward(userInfo.level, currentDivisionIndex)}%":"",
+          //     '${NumberFormatUtil().removeTwoPointFormat(reserveCoin?.reward ?? 0)} %'),
       )
     ]);
   }
@@ -672,22 +675,36 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     ref.read(tradeReserveCoinProvider.notifier).init();
   }
 
-  String getLevelReward() {
-    switch (currentDivisionIndex+1) {
+  String getLevelReward(int userLevel, int chooseLevel) {
+    switch (userLevel) {
       case 1:
-        return "1.7";
+        double levelResult = 1.5;
+        double num = levelResult*(chooseLevel+1);
+        return num.removeTwoPointFormat();
       case 2:
-        return "3.4";
+        double levelResult = 1.7;
+        double num = levelResult*(chooseLevel+1);
+        return num.removeTwoPointFormat();
       case 3:
-        return "5.1";
+        double levelResult = 1.9;
+        double num = levelResult*(chooseLevel+1);
+        return num.removeTwoPointFormat();
       case 4:
-        return "6.8";
+        double levelResult = 2.1;
+        double num = levelResult*(chooseLevel+1);
+        return num.removeTwoPointFormat();
       case 5:
-        return "8.5";
+        double levelResult = 2.3;
+        double num = levelResult*(chooseLevel+1);
+        return num.removeTwoPointFormat();
       case 6:
-        return "10.2";
+        double levelResult = 2.5;
+        double num = levelResult*(chooseLevel+1);
+        return num.removeTwoPointFormat();
       default:
-        return "";
+        double levelResult = 0;
+        double num = levelResult*(chooseLevel+1);
+        return num.removeTwoPointFormat();
     }
   }
 }
