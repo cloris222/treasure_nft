@@ -173,7 +173,7 @@ class _InternalWithdrawViewState extends ConsumerState<InternalWithdrawView> {
           //     '${viewModel.numberFormat(withdrawInfo.minAmount)} USDT'),
           SizedBox(height: UIDefine.getScreenWidth(2.27)),
           _buildTextContent(tr('innerMinAmount'),
-              '${viewModel.numberFormat(withdrawInfo.minAmount)} USDT'),
+              '${viewModel.numberFormat(withdrawInfo.internalMinAmount)} USDT'),
         ],
       ),
     );
