@@ -168,12 +168,12 @@ class _InternalWithdrawViewState extends ConsumerState<InternalWithdrawView> {
           //     ? (num.parse(viewModel.data.balance) - widget.experienceMoney)
           //         .toString()
           //     : '')),
-          SizedBox(height: UIDefine.getScreenWidth(2.77)),
-          _buildTextContent(tr('chainMinAmount'),
-              '${viewModel.numberFormat(withdrawInfo.minAmount)} USDT'),
+          // SizedBox(height: UIDefine.getScreenWidth(2.77)),
+          // _buildTextContent(tr('chainMinAmount'),
+          //     '${viewModel.numberFormat(withdrawInfo.minAmount)} USDT'),
           SizedBox(height: UIDefine.getScreenWidth(2.27)),
           _buildTextContent(tr('innerMinAmount'),
-              '${viewModel.numberFormat(withdrawInfo.minAmount)}'),
+              '${viewModel.numberFormat(withdrawInfo.minAmount)} USDT'),
         ],
       ),
     );
