@@ -676,9 +676,6 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
   }
 
   String getLevelReward(int userLevel, int chooseLevel) {
-    print(userLevel);
-    print(chooseLevel);
-    print("ffsfasdfasdfsadf");
     switch (userLevel) {
       case 1:
         double levelResult = 1.5;
