@@ -1401,5 +1401,8 @@
   "announcement":"Объявление",
   "errorMsgNow":"Пока были ошибки {now}",
   "errorMsgAccumulation":"с общей суммой {accumulation} накапливались ошибки.",
-  "loginForbidden":"Система отключит ваш логин."
+  "loginForbidden":"Система отключит ваш логин.",
+  "chainMinAmount":"Минимальная сумма снятия на цепочке.",
+  "innerMinAmount":"Минимальная внутренняя сумма снятия.",
+  "errorChainMinAmount":"Ваш внутренний предел отмены должен быть больше, чем."
 }

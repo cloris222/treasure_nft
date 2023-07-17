@@ -1401,5 +1401,8 @@
   "announcement":"اعلامیه",
   "errorMsgNow":"تاکنون خطاهای {now} وجود داشته است",
   "errorMsgAccumulation":"با کل {accumulation} خطاهای انباشته شده.",
-  "loginForbidden":"سیستم ورود شما را غیرفعال می کند."
+  "loginForbidden":"سیستم ورود شما را غیرفعال می کند.",
+  "chainMinAmount":"حداقل مبلغ برداشت در زنجیره.",
+  "innerMinAmount":"حداقل میزان برداشت داخلی.",
+  "errorChainMinAmount":"حد خروج داخلی شما باید بیشتر از باشد."
 }

@@ -1401,6 +1401,8 @@
   "announcement":"발표",
   "errorMsgNow":"지금까지 {now} 오류가있었습니다",
   "errorMsgAccumulation":"총 {accumulation} 오류가 누적됩니다.",
-  "loginForbidden":"시스템은 로그인을 비활성화합니다."
-
+  "loginForbidden":"시스템은 로그인을 비활성화합니다.",
+  "chainMinAmount":"체인의 최소 인출 금액.",
+  "innerMinAmount":"최소 내부 철수 금액.",
+  "errorChainMinAmount":"내부 철수 한도는보다 커야합니다."
 }
