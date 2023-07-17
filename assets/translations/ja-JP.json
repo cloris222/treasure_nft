@@ -1401,5 +1401,8 @@
     "announcement":"発表",
     "errorMsgNow":"これまでのところ{現在}エラーが発生しています",
     "errorMsgAccumulation":"合計{蓄積}エラーが蓄積されました。",
-    "loginForbidden":"システムはログインを無効にします。"
+    "loginForbidden":"システムはログインを無効にします。",
+    "chainMinAmount":"チェーン上の最低引き出し額。",
+    "innerMinAmount":"最小内部引き出し額。",
+    "errorChainMinAmount":"あなたの内部離脱制限はより大きくなければなりません。"
 }

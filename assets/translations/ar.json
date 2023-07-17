@@ -1401,5 +1401,8 @@
   "announcement":"إعلان",
   "errorMsgNow":"كانت هناك أخطاء {now} حتى الآن",
   "errorMsgAccumulation":"مع إجمالي {accumulation} الأخطاء المتراكمة.",
-  "loginForbidden":"سيقوم النظام بتعطيل تسجيل الدخول الخاص بك."
+  "loginForbidden":"سيقوم النظام بتعطيل تسجيل الدخول الخاص بك.",
+  "chainMinAmount":"الحد الأدنى لمبلغ السحب على السلسلة.",
+  "innerMinAmount":"الحد الأدنى من المبلغ السحب الداخلي.",
+  "errorChainMinAmount":"يجب أن يكون حد الانسحاب الداخلي الخاص بك أكبر من."
 }

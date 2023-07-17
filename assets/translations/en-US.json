@@ -1400,5 +1400,8 @@
   "announcement":"Announcement",
   "errorMsgNow":"There have been {now} errors so far",
   "errorMsgAccumulation":"with a total of {accumulation} errors accumulated.",
-  "loginForbidden":"The system will disable your login."
+  "loginForbidden":"The system will disable your login.",
+  "chainMinAmount":"Minimum withdrawal amount on the chain.",
+  "innerMinAmount":"Minimum internal withdrawal amount.",
+  "errorChainMinAmount":"Your internal withdrawal limit must be greater than."
 }

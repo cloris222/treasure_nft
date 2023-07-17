@@ -1401,5 +1401,8 @@
   "announcement":"Duyuru",
   "errorMsgNow":"Şimdiye kadar {now} hataları var",
   "errorMsgAccumulation":"toplam {accumulation} hatası birikti.",
-  "loginForbidden":"Sistem girişinizi devre dışı bırakacaktır."
+  "loginForbidden":"Sistem girişinizi devre dışı bırakacaktır.",
+  "chainMinAmount":"Zincir üzerinde minimum para çekme miktarı.",
+  "innerMinAmount":"Minimum iç çekme miktarı.",
+  "errorChainMinAmount":"Dahili para çekme sınırınızdan daha büyük olmalıdır."
 }
