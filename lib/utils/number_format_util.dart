@@ -5,6 +5,12 @@ class NumberFormatUtil {
     return value != null ? NumberFormat(format).format(value) : '0';
   }
 
+  String removeOnePointFormat(dynamic value,){
+    return _setNumberFormat(
+        format: '#,##0.##',
+    value:  double.parse(removePointFormat(value,1)));
+  }
+
   ///MARK: 小數點兩位 無條件捨去
   String removeTwoPointFormat(dynamic value, {bool needSeparator = true}) {
     return _setNumberFormat(
