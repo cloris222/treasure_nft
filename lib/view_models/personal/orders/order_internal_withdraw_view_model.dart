@@ -148,6 +148,7 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
         return;
       }
 
+      //MARK: 提領金是否大於內部最低提現金額
       if(num.parse(amountController.text)< num.parse(withdrawInfo.internalMinAmount)){
         CommonCustomDialog(context,
             title: tr("point-FAIL'"),
