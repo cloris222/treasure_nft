@@ -1401,5 +1401,8 @@
   "announcement":"Pengumuman",
   "errorMsgNow":"Ada kesilapan {now} setakat ini",
   "errorMsgAccumulation":"dengan jumlah {accumulation} yang terkumpul.",
-  "loginForbidden":"Sistem ini akan melumpuhkan log masuk anda."
+  "loginForbidden":"Sistem ini akan melumpuhkan log masuk anda.",
+  "chainMinAmount":"Jumlah pengeluaran minimum pada rantai.",
+  "innerMinAmount":"Jumlah pengeluaran dalaman minimum.",
+  "errorChainMinAmount":"Had pengeluaran dalaman anda mestilah lebih besar daripada."
 }

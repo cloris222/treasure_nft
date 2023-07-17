@@ -1401,5 +1401,8 @@
   "announcement":"ประกาศ",
   "errorMsgNow":"มีข้อผิดพลาด {now} จนถึงตอนนี้",
   "errorMsgAccumulation":"มีข้อผิดพลาดทั้งหมด {accumulation} สะสม",
-  "loginForbidden":"ระบบจะปิดใช้งานการเข้าสู่ระบบของคุณ"
+  "loginForbidden":"ระบบจะปิดใช้งานการเข้าสู่ระบบของคุณ",
+  "chainMinAmount":"จำนวนเงินถอนขั้นต่ำในห่วงโซ่",
+  "innerMinAmount":"จำนวนเงินถอนขั้นต่ำภายใน",
+  "errorChainMinAmount":"ขีด จำกัด การถอนภายในของคุณจะต้องมากกว่า"
 }

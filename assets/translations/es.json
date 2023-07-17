@@ -1401,5 +1401,8 @@
   "announcement":"Anuncio",
   "errorMsgNow":"Ha habido {now} errores hasta ahora",
   "errorMsgAccumulation":"con un total de {accumulation} errores acumulados.",
-  "loginForbidden":"El sistema deshabilitará su inicio de sesión."
+  "loginForbidden":"El sistema deshabilitará su inicio de sesión.",
+  "chainMinAmount":"Cantidad mínima de retiro en la cadena.",
+  "innerMinAmount":"Cantidad mínima de retiro interno.",
+  "errorChainMinAmount":"Su límite de retiro interno debe ser mayor que."
 }

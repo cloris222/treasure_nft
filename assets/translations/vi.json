@@ -1401,5 +1401,8 @@
   "announcement":"Thông báo",
   "errorMsgNow":"Đã có {now} lỗi cho đến nay",
   "errorMsgAccumulation":"với tổng số lỗi {accumulation} được tích lũy.",
-  "loginForbidden":"Hệ thống sẽ vô hiệu hóa đăng nhập của bạn."
+  "loginForbidden":"Hệ thống sẽ vô hiệu hóa đăng nhập của bạn.",
+  "chainMinAmount":"Số tiền rút tiền tối thiểu trên chuỗi.",
+  "innerMinAmount":"Số tiền rút tiền nội bộ tối thiểu.",
+  "errorChainMinAmount":"Giới hạn rút tiền nội bộ của bạn phải lớn hơn."
 }
