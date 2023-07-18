@@ -4,6 +4,7 @@ import 'package:treasure_nft_project/utils/app_shared_Preferences.dart';
 
 /// for 需要暫存的Provider使用
 abstract class BasePrefProvider {
+  DateTime? _updateTime;
   /// 定義此SharedPreferencesKey
   String setKey();
 
@@ -27,7 +28,7 @@ abstract class BasePrefProvider {
   Future<void> readAPIValue({ResponseErrorFunction? onConnectFail});
 
   void printLog(String log) {
-    if (false) {
+    if (true) {
       GlobalData.printLog('BasePrefProvider_${setKey()}:$log');
     }
   }
@@ -65,18 +66,50 @@ abstract class BasePrefProvider {
   Future<void> update(
       {onClickFunction? onFinish,
       onClickFunction? onUpdateFinish,
-      ResponseErrorFunction? onConnectFail}) async {
+      ResponseErrorFunction? onConnectFail,
+      bool needFocusUpdate = false,
+      }) async {
     await Future.delayed(const Duration(milliseconds: 300));
     printLog("readAPIValue");
 
-    await readAPIValue(onConnectFail: onConnectFail);
-    if (onFinish != null) {
-      onFinish();
+    if (_checkUpdateTime(needFocusUpdate)) {
+      await readAPIValue(onConnectFail: onConnectFail);
+      if (onFinish != null) {
+        onFinish();
+      }
+      if (onUpdateFinish != null) {
+        onUpdateFinish();
+      }
+      printLog("setSharedPreferencesValue");
+      setSharedPreferencesValue();
     }
-    if (onUpdateFinish != null) {
-      onUpdateFinish();
+  }
+
+  /// 判斷是否要更新
+  bool _checkUpdateTime(bool needFocusUpdate) {
+    /// 使用者相關資訊 不受一分鐘限制
+    if (setUserTemporaryValue()) {
+      printLog("_checkUpdateTime: is user data");
+      return true;
+    } else {
+      /// 需過一分鐘後才更新
+      DateTime now = DateTime.now();
+      if (_updateTime == null) {
+        _updateTime = now;
+        printLog("_checkUpdateTime: is null");
+        return true;
+      } else {
+        Duration duration = now.difference(_updateTime!);
+        printLog("_checkUpdateTime: duration ${duration.inSeconds}s");
+        if (duration.inSeconds > 60 || needFocusUpdate) {
+          _updateTime = now;
+          printLog("_checkUpdateTime: update time true");
+          return true;
+        } else {
+          printLog("_checkUpdateTime: update time false");
+          return false;
+        }
+      }
     }
-    printLog("setSharedPreferencesValue");
-    setSharedPreferencesValue();
   }
 }

@@ -68,10 +68,9 @@ final homeDiscoverCurrentTagProvider =
 
 ///MARK: Discover 清單
 final homeDiscoverListProvider =
-    StateNotifierProvider<HomeDiscoverListNotifier, List<DiscoverCollectData>>(
-        (ref) {
-  return HomeDiscoverListNotifier(
-      tag: ref.watch(homeDiscoverCurrentTagProvider));
+    StateNotifierProvider.family<HomeDiscoverListNotifier, List<DiscoverCollectData>,ExploreCategoryResponseData?>(
+        (ref,tag) {
+          return HomeDiscoverListNotifier(tag: tag);
 });
 
 class HomeDiscoverListNotifier extends StateNotifier<List<DiscoverCollectData>>
