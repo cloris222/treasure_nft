@@ -28,7 +28,7 @@ abstract class BasePrefProvider {
   Future<void> readAPIValue({ResponseErrorFunction? onConnectFail});
 
   void printLog(String log) {
-    if (true) {
+    if (false) {
       GlobalData.printLog('BasePrefProvider_${setKey()}:$log');
     }
   }
