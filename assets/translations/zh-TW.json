@@ -1405,5 +1405,6 @@
   "loginForbidden":"系統將禁止你的登入",
   "chainMinAmount":"鏈上最低提現金額",
   "innerMinAmount":"內部最低提現金額",
-  "errorChainMinAmount":"您的內部提款額度必須大於"
+  "errorChainMinAmount":"您的內部提款額度必須大於",
+  "rechargeMaintain":"充值通道正在維護"
 }
