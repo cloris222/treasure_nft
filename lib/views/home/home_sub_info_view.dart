@@ -9,6 +9,9 @@ import 'package:treasure_nft_project/views/home/home_main_style.dart';
 import 'package:treasure_nft_project/views/home/home_pdf_viewer.dart';
 import 'package:treasure_nft_project/views/personal/common/user_novice_page.dart';
 
+import 'widget/home_privacy.dart';
+import 'widget/home_terms_of_us.dart';
+
 class HomeSubInfoView extends StatelessWidget with HomeMainStyle{
   const HomeSubInfoView({Key? key}) : super(key: key);
 
@@ -107,10 +110,11 @@ class HomeSubInfoView extends StatelessWidget with HomeMainStyle{
                     onTap: () {
                       viewModel.pushPage(
                           GlobalData.globalKey.currentContext!,
-                          PDFViewerPage(
-                            title: tr('footer_privacy'),
-                            assetPath: 'assets/pdf/PrivacyPolicy.pdf',
-                          ));
+                          HomePrivacy());
+                          // PDFViewerPage(
+                          //   title: tr('footer_privacy'),
+                          //   assetPath: 'assets/pdf/PrivacyPolicy.pdf',
+                          // ));
                     },
                     child: Text(tr('footer_privacy'), style: contentStyle)),
                 buildSpace(height: padding),
@@ -118,10 +122,11 @@ class HomeSubInfoView extends StatelessWidget with HomeMainStyle{
                     onTap: () {
                       viewModel.pushPage(
                           GlobalData.globalKey.currentContext!,
-                          PDFViewerPage(
-                            title: tr('footer_agreement'),
-                            assetPath: 'assets/pdf/TermsOfUse.pdf',
-                          ));
+                          HomeTermsOfUs());
+                          // PDFViewerPage(
+                          //   title: tr('footer_agreement'),
+                          //   assetPath: 'assets/pdf/TermsOfUse.pdf',
+                          // ));
                     },
                     child: Text(tr('footer_agreement'), style: contentStyle))
               ])
