@@ -1404,5 +1404,6 @@
   "loginForbidden":"El sistema deshabilitará su inicio de sesión.",
   "chainMinAmount":"Cantidad mínima de retiro en la cadena.",
   "innerMinAmount":"Cantidad mínima de retiro interno.",
-  "errorChainMinAmount":"Su límite de retiro interno debe ser mayor que."
+  "errorChainMinAmount":"Su límite de retiro interno debe ser mayor que.",
+  "rechargeMaintain":"El canal de depósito está bajo mantenimiento."
 }

@@ -1403,5 +1403,6 @@
   "loginForbidden":"The system will disable your login.",
   "chainMinAmount":"Minimum withdrawal amount on the chain.",
   "innerMinAmount":"Minimum internal withdrawal amount.",
-  "errorChainMinAmount":"Your internal withdrawal limit must be greater than."
+  "errorChainMinAmount":"Your internal withdrawal limit must be greater than.",
+  "rechargeMaintain":"The deposit channel is under maintenance."
 }

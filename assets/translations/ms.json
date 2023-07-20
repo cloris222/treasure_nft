@@ -1404,5 +1404,6 @@
   "loginForbidden":"Sistem ini akan melumpuhkan log masuk anda.",
   "chainMinAmount":"Jumlah pengeluaran minimum pada rantai.",
   "innerMinAmount":"Jumlah pengeluaran dalaman minimum.",
-  "errorChainMinAmount":"Had pengeluaran dalaman anda mestilah lebih besar daripada."
+  "errorChainMinAmount":"Had pengeluaran dalaman anda mestilah lebih besar daripada.",
+  "rechargeMaintain":"Saluran deposit berada di bawah penyelenggaraan."
 }

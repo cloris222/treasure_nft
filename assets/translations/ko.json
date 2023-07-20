@@ -1404,5 +1404,6 @@
   "loginForbidden":"시스템은 로그인을 비활성화합니다.",
   "chainMinAmount":"체인의 최소 인출 금액.",
   "innerMinAmount":"최소 내부 철수 금액.",
-  "errorChainMinAmount":"내부 철수 한도는보다 커야합니다."
+  "errorChainMinAmount":"내부 철수 한도는보다 커야합니다.",
+  "rechargeMaintain":"예금 채널은 유지 보수 중입니다."
 }
