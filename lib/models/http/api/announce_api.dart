@@ -6,9 +6,11 @@ class AnnounceAPI extends HttpManager {
   AnnounceAPI({super.onConnectFail});
 
   ///MARK: 查詢公告
-  Future<List<AnnounceData>> getAnnounceAll() async {
+  Future<List<AnnounceData>> getAnnounceAll({required String lang}) async {
     List<AnnounceData> list = [];
-    var response = await get('/announce/all');
+    var response = await get('/announce/all', queryParameters: {
+      "lang": lang
+    });
 
     for (Map<String, dynamic> json in response.data["pageList"]) {
       list.add(AnnounceData.fromJson(json));
@@ -30,9 +32,11 @@ class AnnounceAPI extends HttpManager {
   }
 
   ///MARK: 查詢標籤
-  Future<List<AnnounceTagData>> getAnnounceTag() async {
+  Future<List<AnnounceTagData>> getAnnounceTag({required String lang}) async {
     List<AnnounceTagData> list = [];
-    var response = await get('/announce/tag');
+    var response = await get('/announce/tag', queryParameters: {
+      "lang": lang
+    });
 
     for (Map<String, dynamic> json in response.data["pageList"]) {
       list.add(AnnounceTagData.fromJson(json));
