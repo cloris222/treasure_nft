@@ -46,11 +46,15 @@ class WalletPayTypeNotifier extends StateNotifier<List<PayTypeData>>
     ref!.read(payTypeCurrentIndexProvider.notifier).update((state) => 0);
     await WalletAPI(onConnectFail: onConnectFail)
         .getPayType(ref!.read(currentFiatProvider))
-        .then((value) => {
-      ref!.read(currentPayTypeProvider.notifier).state = value[0],
-      ref!.read(payTypeCurrentIndexProvider.notifier).update((state) => 0),
-      state = value,
-      viewModel!.onTextChange()
+    .then((value) {
+      if(value.isNotEmpty){
+        ref!.read(currentPayTypeProvider.notifier).state = value[0];
+        ref!.read(payTypeCurrentIndexProvider.notifier).update((state) => 0);
+        state = value;
+      }else{
+        state = [PayTypeData(type: tr("rechargeMaintain"))];
+      }
+      viewModel!.onTextChange();
     });
   }
 
