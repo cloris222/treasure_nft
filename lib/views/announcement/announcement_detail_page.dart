@@ -5,7 +5,6 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_style.dart';
 import '../../constant/ui_define.dart';
@@ -13,7 +12,6 @@ import '../../models/http/parameter/announce_data.dart';
 import '../../view_models/announcement/announcement_view_model.dart';
 import '../custom_appbar_view.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:html/parser.dart';
 
 
 
@@ -131,7 +129,7 @@ class _AnnouncementDetailPageState extends ConsumerState<AnnouncementDetailPage>
               data.content.toString().contains("p>")
                   ? Html(
                   data: data.content,
-                  onLinkTap: (String? url, RenderContext context, Map<String, String> attributes, element) {
+                  onLinkTap: (String? url, Map<String, String> attributes, element) {
                    viewModel.launchInBrowser(url!);
                   })
                   :  Text(data.content,
