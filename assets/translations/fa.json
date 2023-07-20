@@ -1404,5 +1404,6 @@
   "loginForbidden":"سیستم ورود شما را غیرفعال می کند.",
   "chainMinAmount":"حداقل مبلغ برداشت در زنجیره.",
   "innerMinAmount":"حداقل میزان برداشت داخلی.",
-  "errorChainMinAmount":"حد خروج داخلی شما باید بیشتر از باشد."
+  "errorChainMinAmount":"حد خروج داخلی شما باید بیشتر از باشد.",
+  "rechargeMaintain":"کانال سپرده تحت نگهداری است."
 }

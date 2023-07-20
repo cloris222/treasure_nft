@@ -1404,5 +1404,6 @@
   "loginForbidden":"Sistem akan menonaktifkan login Anda.",
   "chainMinAmount":"Jumlah penarikan minimum pada rantai.",
   "innerMinAmount":"Jumlah penarikan internal minimum.",
-  "errorChainMinAmount":"Batas penarikan internal Anda harus lebih besar dari."
+  "errorChainMinAmount":"Batas penarikan internal Anda harus lebih besar dari.",
+  "rechargeMaintain":"Saluran setoran sedang dalam pemeliharaan."
 }

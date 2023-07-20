@@ -1404,5 +1404,6 @@
     "loginForbidden":"システムはログインを無効にします。",
     "chainMinAmount":"チェーン上の最低引き出し額。",
     "innerMinAmount":"最小内部引き出し額。",
-    "errorChainMinAmount":"あなたの内部離脱制限はより大きくなければなりません。"
+    "errorChainMinAmount":"あなたの内部離脱制限はより大きくなければなりません。",
+    "rechargeMaintain":"デポジットチャネルはメンテナンス中です。"
 }
