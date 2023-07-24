@@ -1404,5 +1404,9 @@
   "chainMinAmount":"Minimum withdrawal amount on the chain.",
   "innerMinAmount":"Minimum internal withdrawal amount.",
   "errorChainMinAmount":"Your internal withdrawal limit must be greater than.",
-  "rechargeMaintain":"The deposit channel is under maintenance."
+  "rechargeMaintain":"The deposit channel is under maintenance.",
+  "withdrawalErrorText":"You have pending withdrawal requests. Please wait for the previous withdrawal to be credited",
+  "withdrawalErrorTitle":"Please wait for the previous withdrawal to be processed",
+  "withdrawSuccessTitle":"The withdrawal request has been successfully initiated",
+  "withdrawSuccessText":"Withdrawals will be processed within a maximum of 96 hours. The processing time depends on the speed of the blockchain"
 }
