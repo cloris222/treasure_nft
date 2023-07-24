@@ -1405,5 +1405,9 @@
   "chainMinAmount":"链上最低提现金额",
   "innerMinAmount":"内部最低提现金额",
   "errorChainMinAmount":"您的内部提款额度必须大于",
-  "rechargeMaintain":"充值通道正在维护"
+  "rechargeMaintain":"充值通道正在维护",
+  "withdrawalErrorText":"您有待处理的提现请求请等待上一笔提现到帐",
+  "withdrawalErrorTitle":"请等待上一笔提现处理",
+  "withdrawSuccessTitle":"发起提现成功",
+  "withdrawSuccessText":"提现到帐最长时间不超过96H具体取决链上处理速度"
 }

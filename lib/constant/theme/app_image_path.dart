@@ -128,6 +128,8 @@ class AppImagePath {
   static const String lockIcon = '$_iconPath/icon_locked_01.png';
   static const String personalSettingIcon = '$_iconPath/icon_user_03.png';
   static const String googleAuthIcon = '$_iconPath/icon_google_authenticator_01.png';
+  static const String orderClockImg = '$_imgPath/img_clock_03.png';
+  static const String orderNoticImg = '$_imgPath/img_notice_01.png';
 
   ///personal 我的訂單
   static const String myOrderIcon = '$_iconPath/icon_file_02.png';

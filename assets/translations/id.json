@@ -1405,5 +1405,9 @@
   "chainMinAmount":"Jumlah penarikan minimum pada rantai.",
   "innerMinAmount":"Jumlah penarikan internal minimum.",
   "errorChainMinAmount":"Batas penarikan internal Anda harus lebih besar dari.",
-  "rechargeMaintain":"Saluran setoran sedang dalam pemeliharaan."
+  "rechargeMaintain":"Saluran setoran sedang dalam pemeliharaan.",
+  "withdrawalErrorText":"Anda memiliki permintaan penarikan yang tertunda. Harap tunggu penarikan sebelumnya dikreditkan",
+  "withdrawalErrorTitle":"Harap tunggu penarikan sebelumnya diproses",
+  "withdrawSuccessTitle":"Permintaan penarikan telah berhasil dimulai",
+  "withdrawSuccessText":"Penarikan akan diproses dalam waktu maksimal 96 jam. Waktu pemrosesan tergantung pada kecepatan blockchain"
 }
