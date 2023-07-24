@@ -13,7 +13,7 @@ import 'base_dialog.dart';
 
 class ImgTitleDialog extends BaseDialog{
   ImgTitleDialog(
-      super.context,{
+      BuildContext context,{
         this.mainText,
         this.subText = '',
         required this.img,
@@ -24,7 +24,7 @@ class ImgTitleDialog extends BaseDialog{
         this.wordImg = "",
         this.onLeftPress,
         this.onRightPress,
-  });
+  }):super(context, isDialogCancel: false);
 
   String? mainText;
   String subText;
@@ -91,7 +91,7 @@ class ImgTitleDialog extends BaseDialog{
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         LoginButtonWidget(
-          height: UIDefine.getPixelWidth(34),
+          height: UIDefine.getPixelWidth(38),
           width: UIDefine.getPixelWidth(109),
           isFillWidth: false,
           btnText: tr("check"),
