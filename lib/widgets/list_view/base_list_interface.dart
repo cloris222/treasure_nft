@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -240,7 +242,7 @@ abstract class BaseListInterface {
     }
 
     return _buildListListener(
-        topView: topView,
+        topView: Platform.isAndroid?topView:Container(),
         listBody: ListView.separated(
             padding: padding ??
                 EdgeInsets.only(
@@ -295,7 +297,7 @@ abstract class BaseListInterface {
     }
 
     return _buildListListener(
-        topView: topView,
+        topView: Platform.isAndroid?topView:Container(),
         listBody: Container(
           decoration: backgroundDecoration,
           child: ListView.separated(
@@ -370,11 +372,11 @@ abstract class BaseListInterface {
           return true;
         },
         child: topView != null
-            ? SingleChildScrollView(
-                child: Column(
-                children: [topView, listBody],
-              ))
-            : listBody);
+          ? SingleChildScrollView(
+            child: Column(
+              children: [topView, listBody],
+            ))
+          : listBody);
   }
 
   Widget _buildLoading() {
