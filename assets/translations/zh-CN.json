@@ -1409,5 +1409,8 @@
   "withdrawalErrorText":"您有待处理的提现请求请等待上一笔提现到帐",
   "withdrawalErrorTitle":"请等待上一笔提现处理",
   "withdrawSuccessTitle":"发起提现成功",
-  "withdrawSuccessText":"提现到帐最长时间不超过96H具体取决链上处理速度"
+  "withdrawSuccessText":"提现到帐最长时间不超过96H具体取决链上处理速度",
+  "teamBenefits":"团队收益",
+  "cumulativeIncome":"累计收益",
+  "todayEarnings":"今日收益"
 }

@@ -1409,5 +1409,9 @@
   "withdrawalErrorText":"لديك طلبات سحب معلقة. يرجى الانتظار حتى يتم الفضل في الانسحاب السابق",
   "withdrawalErrorTitle":"يرجى انتظار معالجة السحب السابق",
   "withdrawSuccessTitle":"بدأ طلب السحب بنجاح",
-  "withdrawSuccessText":"ستتم معالجة عمليات السحب في غضون 96 ساعة كحد أقصى. يعتمد وقت المعالجة على سرعة blockchain"
+  "withdrawSuccessText":"ستتم معالجة عمليات السحب في غضون 96 ساعة كحد أقصى. يعتمد وقت المعالجة على سرعة blockchain",
+  "teamBenefits":"فوائد الفريق",
+  "cumulativeIncome":"الدخل التراكمي",
+  "todayEarnings":"الأرباح اليوم",
+  "todayEarnings":"الأرباح اليوم"
 }

@@ -1408,5 +1408,8 @@
   "withdrawalErrorText":"You have pending withdrawal requests. Please wait for the previous withdrawal to be credited",
   "withdrawalErrorTitle":"Please wait for the previous withdrawal to be processed",
   "withdrawSuccessTitle":"The withdrawal request has been successfully initiated",
-  "withdrawSuccessText":"Withdrawals will be processed within a maximum of 96 hours. The processing time depends on the speed of the blockchain"
+  "withdrawSuccessText":"Withdrawals will be processed within a maximum of 96 hours. The processing time depends on the speed of the blockchain",
+  "teamBenefits":"Team Benefits",
+  "cumulativeIncome":"Cumulative Income",
+  "todayEarnings":"Today Earnings"
 }

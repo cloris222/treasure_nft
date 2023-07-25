@@ -1409,5 +1409,8 @@
   "withdrawalErrorText":"شما درخواست های برداشت را در انتظار دارید. لطفاً منتظر بمانید تا برداشت قبلی اعتبار شود",
   "withdrawalErrorTitle":"لطفاً صبر کنید تا برداشت قبلی پردازش شود",
   "withdrawSuccessTitle":"درخواست عقب نشینی با موفقیت آغاز شده است",
-  "withdrawSuccessText":"برداشت ها حداکثر 96 ساعت پردازش می شوند. زمان پردازش به سرعت blockchain بستگی دارد"
+  "withdrawSuccessText":"برداشت ها حداکثر 96 ساعت پردازش می شوند. زمان پردازش به سرعت blockchain بستگی دارد",
+  "teamBenefits":"مزایای تیمی",
+  "cumulativeIncome":"درآمد تجمعی",
+  "todayEarnings":"امروز درآمد"
 }
