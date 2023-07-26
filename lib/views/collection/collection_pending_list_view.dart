@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -99,13 +101,13 @@ class _CollectionPendingListViewState
 
   @override
   Widget? buildTopView() {
-    return IconTextButtonWidget(
+    return Platform.isAndroid? IconTextButtonWidget(
         height: UIDefine.getScreenWidth(10),
         btnText: tr("depositNFT"),
         iconPath: 'assets/icon/btn/btn_card_01_nor.png',
         onPressed: () {
           BaseViewModel().pushPage(context, const DepositNftMainView());
-        });
+        }):Container();
   }
 
   @override

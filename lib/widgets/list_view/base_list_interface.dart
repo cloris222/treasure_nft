@@ -242,7 +242,7 @@ abstract class BaseListInterface {
     }
 
     return _buildListListener(
-        topView: Platform.isAndroid?topView:Container(),
+        topView: topView,
         listBody: ListView.separated(
             padding: padding ??
                 EdgeInsets.only(
@@ -297,7 +297,7 @@ abstract class BaseListInterface {
     }
 
     return _buildListListener(
-        topView: Platform.isAndroid?topView:Container(),
+        topView: topView,
         listBody: Container(
           decoration: backgroundDecoration,
           child: ListView.separated(
