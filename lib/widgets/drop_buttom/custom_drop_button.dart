@@ -169,7 +169,7 @@ class _CustomDropButtonState extends State<CustomDropButton> {
   Widget _buildDropItem(int index, bool needGradientText, bool needArrow) {
     if (widget.listLength == 0 && widget.needShowEmpty) {
       return _buildItem(
-          context: tr('searching...'),
+          context: tr('ES_0007'),
           index: index,
           needGradientText: needGradientText,
           needArrow: needArrow);

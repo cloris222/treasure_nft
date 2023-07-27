@@ -43,7 +43,7 @@ class WalletPayTypeNotifier extends StateNotifier<List<PayTypeData>>
 
   @override
   Future<void> readAPIValue({ResponseErrorFunction? onConnectFail}) async {
-    state = [PayTypeData(type: tr("searching..."))];
+    state = [PayTypeData(type: tr("searching"))];
     ref!.read(payTypeCurrentIndexProvider.notifier).update((state) => 0);
     await WalletAPI(onConnectFail: onConnectFail)
         .getPayType(ref!.read(currentFiatProvider))
