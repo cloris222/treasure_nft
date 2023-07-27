@@ -1,7 +1,7 @@
-import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../constant/global_data.dart';
@@ -272,7 +272,71 @@ abstract class BaseListInterface {
             separatorBuilder: (BuildContext context, int index) =>
                 buildSeparatorBuilder(index)));
   }
+  /// 橫向輪播圖
+  Widget buildPageCarouselView(Key key, {String slideTransition = "3"}) {
+    int length = currentItems.length;
+    Widget? topView = buildTopView();
+    // bool hasTopView = topView != null;
 
+    if (_showWaitLoad || (!isAutoReloadMore() && nextItems.isNotEmpty)) {
+      length += 1;
+    }
+    CarouselSliderController sliderController = CarouselSliderController();
+
+    return length == 1
+        ? !_showWaitLoad
+        ? buildItemBuilder(0, currentItems[0])
+        : _buildLoading()
+        : _buildListListener(
+        topView: topView,
+        listBody:Container(
+          height: UIDefine.getPixelHeight(120),
+          margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(10)),
+          /// 0px 6px 5px rgba(9, 9, 9, 0.15);
+          // decoration: AppStyle().styleShadowBorderBackground(
+          //     backgroundColor: AppColors.transParent,
+          //     borderWidth: 0,
+          //     radius: 20,
+          //     borderColor: Colors.transparent,
+          //     offsetX: 0,
+          //     offsetY: 6,
+          //     blurRadius: 5,
+          //     shadowColor: const Color(0xFF090909).withOpacity(0.15)),
+          child: CarouselSlider.builder(
+            key: key,
+            unlimitedMode: true,
+            controller: sliderController,
+            slideBuilder: (index) {
+              int itemIndex = index;
+              if (itemIndex != currentItems.length) {
+                return Visibility(
+                    visible: !removeItems.contains(itemIndex),
+                    child:
+                    buildItemBuilder(itemIndex, currentItems[itemIndex]));
+              } else {
+                if (!_showWaitLoad &&
+                    (!isAutoReloadMore() && nextItems.isNotEmpty)) {
+                  return _buildReadMore();
+                }
+                return _buildLoading();
+              }
+            },
+            slideTransform: const DefaultTransform(),
+            itemCount: length,
+            enableAutoSlider: true,
+            autoSliderTransitionTime: Duration(seconds: int.parse(slideTransition)),
+            slideIndicator: CircularSlideIndicator(
+              itemSpacing: 10,
+              indicatorRadius: 3,
+              currentIndicatorColor: AppColors.buttonCarouselEnable,
+              indicatorBackgroundColor: AppColors.buttonCarouselUnable,
+              padding: const EdgeInsets.only(bottom: 5),
+            ),
+          ),
+        ));
+  }
+
+  /// 網格列表
   Widget buildGridView(
       {required int crossAxisCount,
       Widget spaceWidget = const SizedBox(),
