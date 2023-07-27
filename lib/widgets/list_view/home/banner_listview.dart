@@ -28,10 +28,7 @@ class _BannerListViewState extends ConsumerState<BannerListView> with BaseListIn
   @override
   Widget build(BuildContext context) {
     GlobalKey<_BannerListViewState> sliderKey = GlobalKey();
-    return buildPageCarouselView(
-        sliderKey,
-        slideTransition: ref.read(bannerSecondsProvider)
-    );
+    return currentItems.isNotEmpty ? buildPageCarouselView(sliderKey, slideTransition: ref.read(bannerSecondsProvider)) : const SizedBox();
   }
 
   @override
