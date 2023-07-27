@@ -65,7 +65,7 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
 
     WalletAPI().checkWithdrawAlert().then((value) {
       withdrawAlertInfo = value;
-      if (withdrawAlertInfo.isReserve) {
+      if (withdrawAlertInfo.isReserve||withdrawAlertInfo.hasWithdraw) {
         ImgTitleDialog(context,
             img: AppImagePath.orderNoticeImg,
             singleBottom: true,
