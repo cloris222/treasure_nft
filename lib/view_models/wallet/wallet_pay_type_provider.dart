@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/models/http/api/wallet_api.dart';
+import 'package:treasure_nft_project/view_models/wallet/wallet_aisle_provider.dart';
 import 'package:treasure_nft_project/view_models/wallet/wallet_fiat_currency_provider.dart';
 import 'package:treasure_nft_project/view_models/wallet/wallet_fiat_deposit_viewmodel.dart';
 import 'package:treasure_nft_project/views/wallet/data/pay_type_data.dart';
