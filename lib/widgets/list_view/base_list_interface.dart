@@ -290,7 +290,7 @@ abstract class BaseListInterface {
         : _buildListListener(
         topView: topView,
         listBody:Container(
-          height: UIDefine.getPixelHeight(120),
+          height: UIDefine.getPixelWidth(120),
           margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(10)),
           /// 0px 6px 5px rgba(9, 9, 9, 0.15);
           // decoration: AppStyle().styleShadowBorderBackground(

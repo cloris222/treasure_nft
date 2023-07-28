@@ -35,7 +35,7 @@ class _BannerListViewState extends ConsumerState<BannerListView> with BaseListIn
   Widget buildItemBuilder(int index, data) {
     return Container(
       alignment: Alignment.center,
-      padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(16)),
+      // padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(16)),
       child: BannerItemView(itemData: data),
     );
   }
