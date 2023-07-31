@@ -4,6 +4,7 @@ import '../../constant/call_back_function.dart';
 import '../../models/http/api/announce_api.dart';
 import '../../models/http/parameter/announce_data.dart';
 import '../../utils/app_shared_Preferences.dart';
+import '../../utils/language_util.dart';
 import '../base_pref_provider.dart';
 
 
@@ -28,7 +29,8 @@ class AnnounceTagNotifier extends StateNotifier<List<AnnounceTagData>>
 
   @override
   Future<void> readAPIValue({ResponseErrorFunction? onConnectFail}) async {
-    state = await AnnounceAPI(onConnectFail: onConnectFail).getAnnounceTag();
+    String lang = LanguageUtil.getAppStrLanguageForHttp();
+    state = await AnnounceAPI(onConnectFail: onConnectFail).getAnnounceTag(lang: lang);
   }
 
   @override
