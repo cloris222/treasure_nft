@@ -207,7 +207,7 @@ class _MainPageState extends State<MainPage> {
   _changePage(AppNavigationBarType type) {
     viewModel.setCurrentBottomType(type);
     pageController.jumpToPage(getViewIndex(type));
-    checkLastAnnounce();
+    checkLastAnnounce(type);
   }
 
   void _searchAction() {
@@ -259,6 +259,7 @@ class _MainPageState extends State<MainPage> {
     setState(() {
       viewModel.setCurrentBottomType(AppNavigationBarType.typeMain);
       pageController.jumpToPage(getViewIndex(GlobalData.mainBottomType));
+      checkLastAnnounce(AppNavigationBarType.typeMain);
     });
   }
 
@@ -284,9 +285,11 @@ class _MainPageState extends State<MainPage> {
         : BaseViewModel().pushPage(context, const MainPage(type: AppNavigationBarType.typeLogin));
   }
 
-  void checkLastAnnounce() {
+  void checkLastAnnounce(AppNavigationBarType type) {
     if (GlobalData.userToken.isNotEmpty) {
-      BaseViewModel().showNoticeView(BaseViewModel().getGlobalContext());
+      if(getViewIndex(type) == 5||getViewIndex(type)==2){
+        BaseViewModel().showNoticeView(BaseViewModel().getGlobalContext(),false);
+      }
     }
   }
 }

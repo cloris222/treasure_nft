@@ -122,7 +122,7 @@ class ControlRouterViewModel {
 
   void checkLastAnnounce() {
     if (GlobalData.userToken.isNotEmpty) {
-      BaseViewModel().showNoticeView(BaseViewModel().getGlobalContext());
+      BaseViewModel().showNoticeView(BaseViewModel().getGlobalContext(), true);
     }
   }
 }
