@@ -57,7 +57,6 @@ class _AnnouncementListViewState
   Future<List> loadData(int page, int size) async {
     // String getLang = await AppSharedPreferences.getLanguage();
     String lang = LanguageUtil.getAppStrLanguageForHttp();
-    print("the lange is :${lang}");
     List<AnnounceData> itemList = [];
     itemList.addAll(await AnnounceAPI().getAnnounceAll(lang: lang));
     return itemList;
