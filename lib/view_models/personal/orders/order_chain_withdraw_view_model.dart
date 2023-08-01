@@ -176,7 +176,7 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
 
       if (alertInfo.isReserve) {
         ImgTitleDialog(context,
-            img: AppImagePath.orderNoticImg,
+            img: AppImagePath.orderNoticeImg,
             singleBottom: true,
             onRightPress: () => Navigator.pop(context),
             mainText: tr("withdrawalErrorTitle"),
