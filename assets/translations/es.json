@@ -1404,5 +1404,16 @@
   "loginForbidden":"El sistema deshabilitará su inicio de sesión.",
   "chainMinAmount":"Cantidad mínima de retiro en la cadena.",
   "innerMinAmount":"Cantidad mínima de retiro interno.",
+<<<<<<< HEAD
   "errorChainMinAmount":"Su límite de retiro interno debe ser mayor que."
+=======
+  "errorChainMinAmount":"Su límite de retiro interno debe ser mayor que.",
+  "rechargeMaintain":"El canal de depósito está bajo mantenimiento.",
+  "withdrawalErrorText":"Tiene solicitudes de retiro pendientes. Espere a que se acredite el retiro anterior",
+  "withdrawalErrorTitle":"Espere a que se procese el retiro anterior",
+  "withdrawSuccessTitle":"La solicitud de retiro se ha iniciado con éxito",
+  "withdrawSuccessText":"Los retiros se procesarán dentro de un máximo de 96 horas. El tiempo de procesamiento depende de la velocidad de la cadena de bloques",
+  "expressway":"Carril rápido",
+  "placeholder-channel":"Seleccione un carril"
+>>>>>>> d8de264e (Merge branch 'feature/工單913_treasure' into 'develop')
 }

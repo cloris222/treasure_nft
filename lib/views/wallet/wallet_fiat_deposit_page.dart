@@ -4,9 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/views/wallet/data/aisle_type_data.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/ui_define.dart';
+import '../../view_models/wallet/wallet_aisle_provider.dart';
 import '../../view_models/wallet/wallet_fiat_currency_provider.dart';
 import '../../view_models/wallet/wallet_fiat_deposit_viewmodel.dart';
 import '../../view_models/wallet/wallet_pay_type_provider.dart';
@@ -30,8 +32,10 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
   late WalletFiatDepositViewModel viewModel;
   int? get currentFiatIndex => ref.watch(fiatCurrentIndexProvider);
   int? get currentPayTypeIndex => ref.watch(payTypeCurrentIndexProvider);
+  int? get currentAisleIndex => ref.watch(aisleCurrentIndexProvider);
   List<String> get fiatList => ref.watch(walletFiatTypeProvider) ?? [];
   List<PayTypeData> get payTypeList => ref.watch(walletPayTypeProvider) ?? [];
+  List<AisleTypeData> get aisleList => ref.watch(walletAisleTypeProvider) ?? [];
 
   @override
   void initState() {
@@ -69,13 +73,13 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
                         ),
 
                         Positioned(
-                            top: -10,
+                            top: -25,
                             right: -1,
                             child: Image.asset(AppImagePath.walletDepositDollar)),
 
                         Padding(
                           padding: EdgeInsets.symmetric(
-                              vertical: UIDefine.getPixelWidth(20)),
+                              vertical: UIDefine.getPixelWidth(15)),
                           child: _buildBody(context, true),
                         )
                       ],
@@ -113,6 +117,7 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
         maintainSize: true,
         child:Container(
         width: UIDefine.getWidth(),
+<<<<<<< HEAD
     margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(25)),
     padding: EdgeInsets.all(UIDefine.getPixelWidth(20)),
     child:Column(
@@ -131,12 +136,36 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
         _buildButton(),
       ],
     )));
+=======
+        // margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(25)),
+        padding: EdgeInsets.fromLTRB(
+            UIDefine.getPixelWidth(UIDefine.getPixelWidth(60)),
+            UIDefine.getPixelWidth(UIDefine.getPixelWidth(40)),
+            UIDefine.getPixelWidth(UIDefine.getPixelWidth(60)),
+            UIDefine.getPixelWidth(UIDefine.getPixelWidth(15))),
+        child:Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+                // margin: EdgeInsets.all(UIDefine.getPixelWidth(18)),
+                padding: EdgeInsets.only(right: UIDefine.getPixelWidth(60),bottom: UIDefine.getPixelWidth(30)),
+                child: Text(
+                  tr("fiatCurrencyRecharge"),
+                  style: AppTextStyle.getBaseStyle(
+                      fontWeight: FontWeight.w800, fontSize: UIDefine.fontSize28),
+                )),
+            _buildContext(),
+            _buildButton(),
+        ],
+      )));
+>>>>>>> d8de264e (Merge branch 'feature/工單913_treasure' into 'develop')
   }
 
   Widget _buildContext() {
     return Container(
-        padding: EdgeInsets.symmetric(
-            horizontal: UIDefine.getPixelWidth(20)),
+        // padding: EdgeInsets.symmetric(
+        //     horizontal: UIDefine.getPixelWidth(20)),
         constraints: BoxConstraints(maxHeight: UIDefine.getPixelWidth(365)),//內容高
         width: UIDefine.getWidth(),
         child: Column(
@@ -144,6 +173,7 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
             children: [
               _buildFirstDrop(),
               _buildSecondDrop(),
+              _buildThirdDrop(),
               _buildAmount(),
               _buildMinMaxButton(),
               _buildRate(),
@@ -155,7 +185,7 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
   /// 選擇幣種
   Widget _buildFirstDrop() {
     return Container(
-        padding: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(10)),
+        padding: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(5)),
         child:CustomDropButton(
             itemIcon: (index) => viewModel.getFiatItemIcon(fiatList[index]),
             needBackgroundOpacity: true,
@@ -170,33 +200,68 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
               ref.read(currentFiatProvider.notifier).state = fiatList[index];
               ref.read(fiatCurrentIndexProvider.notifier)
                   .update((state) => index);
-
+              aisleList.clear();
+              viewModel.onTextChange();
               /// 選擇幣種後查詢支付類型
               ref.read(walletPayTypeProvider.notifier).setRefAndVM(ref, viewModel);
               ref.read(walletPayTypeProvider.notifier).init();
+              Future.delayed(Duration(seconds: 2),() {
+                ref.read(walletAisleTypeProvider.notifier).setRefAndVM(ref, viewModel);
+                ref.read(walletAisleTypeProvider.notifier).init();
+              });
+
             }));
   }
 
   /// 選擇付款方式
   Widget _buildSecondDrop() {
     return Container(
-        padding: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(10)),
-        child:CustomDropButton(
-            itemIcon: (index) => viewModel.getPayTypeItemIcon(payTypeList[index].type),
-            needBackgroundOpacity: true,
-            initIndex: currentPayTypeIndex,
-            needShowEmpty: true,
-            needGradient: false,
-            needHorizontalPadding: false,
-            hintSelect: tr("chooseAPaymentMethod"),
-            listLength: payTypeList.length,
-            itemString: (int index, bool needArrow) => payTypeList[index].type,
-            onChanged: (index) {
-              ref.read(currentPayTypeProvider.notifier).state = payTypeList[index];
-              ref.read(payTypeCurrentIndexProvider.notifier)
-                  .update((state) => index);
-              viewModel.onTextChange();
-            }));
+      padding: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(5)),
+      child:CustomDropButton(
+        itemIcon: (index) => viewModel.getPayTypeItemIcon(payTypeList[index].type),
+        needBackgroundOpacity: true,
+        initIndex: currentPayTypeIndex,
+        needShowEmpty: true,
+        needGradient: false,
+        needHorizontalPadding: false,
+        hintSelect: tr("chooseAPaymentMethod"),
+        listLength: payTypeList.length,
+        itemString: (int index, bool needArrow) => payTypeList[index].type,
+        onChanged: (index) {
+          ref.read(currentPayTypeProvider.notifier).state = payTypeList[index];
+          ref.read(payTypeCurrentIndexProvider.notifier)
+              .update((state) => index);
+          aisleList.clear();
+
+          viewModel.onTextChange();
+
+          ref.read(walletAisleTypeProvider.notifier).setRefAndVM(ref, viewModel);
+          ref.read(walletAisleTypeProvider.notifier).init();
+        }));
+  }
+
+  Widget _buildThirdDrop(){
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(5)),
+      child: CustomDropButton(
+        itemIcon: (index) => viewModel.getAisleItem(),
+        needBackgroundOpacity: true,
+        initIndex: currentAisleIndex,
+        needShowEmpty: true,
+        needGradient: false,
+        needHorizontalPadding: false,
+        hintSelect: tr("placeholder-channel"),
+        listLength: aisleList.length,
+        itemString: (int index, bool needArrow) => aisleList[index].route == tr("rechargeMaintain")?
+        "${tr("rechargeMaintain")}" : "${tr("expressway")}${index+1}",
+        onChanged: (index) {
+          ref.read(currentAisleProvider.notifier).state = aisleList[index];
+          ref.read(aisleCurrentIndexProvider.notifier)
+              .update((state) => index);
+          viewModel.onTextChange();
+        },
+      ),
+    );
   }
 
   Widget _buildAmount() {
@@ -204,7 +269,7 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-              padding: EdgeInsets.only(top: UIDefine.getPixelWidth(10)),
+              padding: EdgeInsets.only(top: UIDefine.getPixelWidth(0)),
               child:Text(tr("purchasingPrice"),
                   maxLines: 1,
                   style: AppTextStyle.getBaseStyle(
@@ -244,10 +309,10 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
         children: [
           Expanded(child:
           LoginBolderButtonWidget(
-            radius: 10,
+            radius: 8,
             needWhiteBackground: true,
-            height: UIDefine.getPixelWidth(45),
-            margin:EdgeInsets.only(right: UIDefine.getPixelHeight(5)),
+            height: UIDefine.getPixelWidth(30),
+            margin:EdgeInsets.only(right: UIDefine.getPixelHeight(4)),
             btnText: '${tr("minimum")} ${viewModel.getMinText()}',
             onPressed: () => viewModel.onMinimum(),
             isFillWidth: false,
@@ -257,10 +322,10 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
 
           Expanded(child:
           LoginBolderButtonWidget(
-            radius: 10,
+            radius: 8,
             needWhiteBackground: true,
-            height: UIDefine.getPixelWidth(45),
-            margin:EdgeInsets.only(left: UIDefine.getPixelHeight(5)),
+            height: UIDefine.getPixelWidth(30),
+            margin:EdgeInsets.only(left: UIDefine.getPixelHeight(4)),
             btnText: '${tr("maximum")} ${viewModel.getMaxText()}',
             onPressed: () => viewModel.onMaximum(),
             isFillWidth: false,
@@ -298,30 +363,35 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
   }
 
   Widget _buildButton() {
-    return Container(
-        margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelHeight(5)),
-        child:Row(
-            children: [
-              Expanded(child:
-              LoginBolderButtonWidget(
-                btnText: tr("cancel"),
-                onPressed: () => viewModel.popPage(context),
-                isFillWidth: false,
-                fontWeight: FontWeight.w600,
-                fontSize: UIDefine.fontSize14,
-              )),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(child:
+          LoginBolderButtonWidget(
+            radius: 8,
+            height: UIDefine.getPixelWidth(40),
+            margin: EdgeInsets.only(right: UIDefine.getPixelWidth(4)),
+            btnText: tr("cancel"),
+            onPressed: () => viewModel.popPage(context),
+            isFillWidth: false,
+            fontWeight: FontWeight.w600,
+            fontSize: UIDefine.fontSize14,
+          )),
 
-              Expanded(child:
-              LoginButtonWidget(
-                btnText: tr("confirm"),
-                onPressed: () => viewModel.onPressConfirm(),
-                isFillWidth: false,
-                fontWeight: FontWeight.w600,
-                fontSize: UIDefine.fontSize14,
-              ))
+          Expanded(child:
+          LoginButtonWidget(
+            radius: 8,
+            height: UIDefine.getPixelWidth(40),
+            margin: EdgeInsets.only(left: UIDefine.getPixelWidth(4)),
+            btnText: tr("confirm"),
+            onPressed: () => viewModel.onPressConfirm(),
+            isFillWidth: false,
+            fontWeight: FontWeight.w600,
+            fontSize: UIDefine.fontSize14,
+          ))
 
-            ])
-    );
+        ]);
+
   }
 
 

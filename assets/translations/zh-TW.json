@@ -1405,5 +1405,16 @@
   "loginForbidden":"系統將禁止你的登入",
   "chainMinAmount":"鏈上最低提現金額",
   "innerMinAmount":"內部最低提現金額",
+<<<<<<< HEAD
   "errorChainMinAmount":"您的內部提款額度必須大於"
+=======
+  "errorChainMinAmount":"您的內部提款額度必須大於",
+  "rechargeMaintain":"充值通道正在維護",
+  "withdrawalErrorText":"您有待處理的提現請求請等待上一筆提現到帳",
+  "withdrawalErrorTitle":"請等待上一筆提現處理",
+  "withdrawSuccessTitle":"發起提現成功",
+  "withdrawSuccessText":"提現到帳最長時間不超過96H具體取決鏈上處理速度",
+  "expressway":"快速通道",
+  "placeholder-channel":"請選擇通道"
+>>>>>>> d8de264e (Merge branch 'feature/工單913_treasure' into 'develop')
 }

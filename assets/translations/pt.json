@@ -1404,5 +1404,16 @@
   "loginForbidden":"O sistema desativará seu login.",
   "chainMinAmount":"Valor mínimo de retirada na cadeia.",
   "innerMinAmount":"Valor mínimo de retirada interna.",
+<<<<<<< HEAD
   "errorChainMinAmount":"Seu limite interno de retirada deve ser maior que."
+=======
+  "errorChainMinAmount":"Seu limite interno de retirada deve ser maior que.",
+  "rechargeMaintain":"O canal de depósito está sob manutenção.",
+  "withdrawSuccessTitle":"A solicitação de retirada foi iniciada com sucesso",
+  "withdrawSuccessText":"Os saques serão processados ​​dentro de um máximo de 96 horas. O tempo de processamento depende da velocidade da blockchain",
+  "withdrawalErrorText":"Você tem solicitações de retirada pendentes. Aguarde a retirada anterior ser creditada",
+  "withdrawalErrorTitle":"Aguarde a retirada anterior ser processada",
+  "expressway":"Via rápida",
+  "placeholder-channel":"Selecione uma pista"
+>>>>>>> d8de264e (Merge branch 'feature/工單913_treasure' into 'develop')
 }
