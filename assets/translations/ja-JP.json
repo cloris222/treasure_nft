@@ -1404,9 +1404,6 @@
     "loginForbidden":"システムはログインを無効にします。",
     "chainMinAmount":"チェーン上の最低引き出し額。",
     "innerMinAmount":"最小内部引き出し額。",
-<<<<<<< HEAD
-    "errorChainMinAmount":"あなたの内部離脱制限はより大きくなければなりません。"
-=======
     "errorChainMinAmount":"あなたの内部離脱制限はより大きくなければなりません。",
     "rechargeMaintain":"デポジットチャネルはメンテナンス中です。",
     "withdrawalErrorText":"撤回のリクエストが保留されています。以前の撤退がクレジットされるのを待ってください",
@@ -1415,5 +1412,4 @@
     "withdrawSuccessText":"引き出しは最大96時間以内に処理されます。処理時間はブロックチェーンの速度に依存します",
     "expressway":"エクスプレスレーン",
     "placeholder-channel":"車線を選択してください"
->>>>>>> d8de264e (Merge branch 'feature/工單913_treasure' into 'develop')
 }

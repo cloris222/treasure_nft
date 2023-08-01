@@ -1404,9 +1404,6 @@
   "loginForbidden":"سیستم ورود شما را غیرفعال می کند.",
   "chainMinAmount":"حداقل مبلغ برداشت در زنجیره.",
   "innerMinAmount":"حداقل میزان برداشت داخلی.",
-<<<<<<< HEAD
-  "errorChainMinAmount":"حد خروج داخلی شما باید بیشتر از باشد."
-=======
   "errorChainMinAmount":"حد خروج داخلی شما باید بیشتر از باشد.",
   "rechargeMaintain":"کانال سپرده تحت نگهداری است.",
   "withdrawalErrorText":"شما درخواست های برداشت را در انتظار دارید. لطفاً منتظر بمانید تا برداشت قبلی اعتبار شود",
@@ -1415,5 +1412,4 @@
   "withdrawSuccessText":"برداشت ها حداکثر 96 ساعت پردازش می شوند. زمان پردازش به سرعت blockchain بستگی دارد",
   "expressway":"خط ابراز",
   "placeholder-channel":"لطفا یک خط را انتخاب کنید"
->>>>>>> d8de264e (Merge branch 'feature/工單913_treasure' into 'develop')
 }

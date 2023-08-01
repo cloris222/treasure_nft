@@ -117,26 +117,6 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
         maintainSize: true,
         child:Container(
         width: UIDefine.getWidth(),
-<<<<<<< HEAD
-    margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(25)),
-    padding: EdgeInsets.all(UIDefine.getPixelWidth(20)),
-    child:Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-            margin: EdgeInsets.all(UIDefine.getPixelWidth(18)),
-            padding: EdgeInsets.only(right: UIDefine.getPixelWidth(60)),
-            child: Text(
-              tr("fiatCurrencyRecharge"),
-              style: AppTextStyle.getBaseStyle(
-                  fontWeight: FontWeight.w800, fontSize: UIDefine.fontSize28),
-            )),
-        _buildContext(),
-        _buildButton(),
-      ],
-    )));
-=======
         // margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(25)),
         padding: EdgeInsets.fromLTRB(
             UIDefine.getPixelWidth(UIDefine.getPixelWidth(60)),
@@ -159,7 +139,6 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
             _buildButton(),
         ],
       )));
->>>>>>> d8de264e (Merge branch 'feature/工單913_treasure' into 'develop')
   }
 
   Widget _buildContext() {

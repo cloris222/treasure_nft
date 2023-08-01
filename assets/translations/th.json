@@ -1404,9 +1404,6 @@
   "loginForbidden":"ระบบจะปิดใช้งานการเข้าสู่ระบบของคุณ",
   "chainMinAmount":"จำนวนเงินถอนขั้นต่ำในห่วงโซ่",
   "innerMinAmount":"จำนวนเงินถอนขั้นต่ำภายใน",
-<<<<<<< HEAD
-  "errorChainMinAmount":"ขีด จำกัด การถอนภายในของคุณจะต้องมากกว่า"
-=======
   "errorChainMinAmount":"ขีด จำกัด การถอนภายในของคุณจะต้องมากกว่า",
   "rechargeMaintain":"ช่องทางฝากอยู่ภายใต้การบำรุงรักษา",
   "withdrawSuccessTitle":"คำขอถอนได้สำเร็จแล้ว",
@@ -1415,5 +1412,4 @@
   "withdrawalErrorTitle":"โปรดรอการถอนก่อนหน้านี้จะดำเนินการ",
   "expressway":"ช่องทาง",
   "placeholder-channel":"กรุณาเลือกเลน"
->>>>>>> d8de264e (Merge branch 'feature/工單913_treasure' into 'develop')
 }
