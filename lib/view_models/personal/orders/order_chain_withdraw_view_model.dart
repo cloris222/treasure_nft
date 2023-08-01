@@ -2,20 +2,21 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
-import 'package:treasure_nft_project/views/main_page.dart';
-import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
-import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
-
+import 'package:treasure_nft_project/widgets/dialog/img_title_dialog.dart';
 import '../../../constant/call_back_function.dart';
 import '../../../constant/enum/coin_enum.dart';
 import '../../../constant/enum/login_enum.dart';
+import '../../../constant/theme/app_image_path.dart';
 import '../../../models/data/validate_result_data.dart';
 import '../../../models/http/api/auth_api.dart';
 import '../../../models/http/api/withdraw_api.dart';
 import '../../../models/http/parameter/user_info_data.dart';
 import '../../../models/http/parameter/withdraw_alert_info.dart';
+import '../../../views/main_page.dart';
 import '../../../views/personal/orders/withdraw/data/withdraw_balance_response_data.dart';
 import '../../../views/personal/orders/withdraw/order_withdraw_confirm_dialog_view.dart';
+import '../../../widgets/app_bottom_navigation_bar.dart';
+import '../../../widgets/dialog/common_custom_dialog.dart';
 import '../../../widgets/dialog/simple_custom_dialog.dart';
 
 class OrderChainWithdrawViewModel extends BaseViewModel {
@@ -131,20 +132,21 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
       onViewChange();
       return;
     } else {
-      ///MARK: v0.0.12版 改為與提交時同送出信箱驗證碼
-      // ///MARK: 檢查是否驗證過信箱
-      // if (!checkExperience && !checkEmail) {
-      //   emailCodeData =
-      //       ValidateResultData(result: false, message: tr('rule_mail_valid'));
-      // }
 
-      ///MARK: 如果上面的檢查有部分錯誤時return
+      // MARK: v0.0.12版 改為與提交時同送出信箱驗證碼
+      ///MARK: 檢查是否驗證過信箱
+      if (!checkExperience && !checkEmail) {
+        emailCodeData =
+            ValidateResultData(result: false, message: tr('rule_mail_valid'));
+      }
+
+      // MARK: 如果上面的檢查有部分錯誤時return
       if (!checkData()) {
         onViewChange();
         return;
       }
 
-      ///MARK: 提領金額是否大於手續費
+      // MARK: 提領金額是否大於手續費
       if (num.parse(amountController.text) < currentAmount) {
         CommonCustomDialog(context,
             title: tr("point-FAIL'"),
@@ -157,7 +159,7 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
         return;
       }
 
-      ///MARK: 提領金額是否大於鏈上最低金額
+      // MARK: 提領金額是否大於鏈上最低金額
       if (num.parse(amountController.text) <
           num.parse(withdrawInfo.minAmount)) {
         CommonCustomDialog(context,
@@ -173,16 +175,12 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
       }
 
       if (alertInfo.isReserve) {
-        CommonCustomDialog(context,
-            title: tr("reservenotDrawn"),
-            content: format(tr('reservenotDrawn-hint-post'),
-                {"balance": alertInfo.validAmount}),
-            type: DialogImageType.fail,
-            rightBtnText: tr('confirm'),
-            onLeftPress: () {}, onRightPress: () {
-          Navigator.pop(context);
-          _showWithdrawConfirm(context, currentChain);
-        }).show();
+        ImgTitleDialog(context,
+            img: AppImagePath.orderNoticImg,
+            singleBottom: true,
+            onRightPress: () => Navigator.pop(context),
+            mainText: tr("withdrawalErrorTitle"),
+            subText: tr("withdrawalErrorText")).show();
       } else {
         _showWithdrawConfirm(context, currentChain);
       }
@@ -204,18 +202,18 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
   void _submitRequestApi(BuildContext context, CoinEnum currentChain) {
     ///MARK: 打提交API
     WithdrawApi(
-            showTrString: false,
-            onConnectFailResponse: (message, response) {
-              if (message == "APP_0071") {
-                onBaseConnectFail(
-                    context,
-                    format(tr('APP_0071'), {
-                      "startTime": response?.data["startTime"],
-                      "endTime": response?.data["endTime"]
-                    }));
-              }
-              onBaseConnectFail(context, tr(message));
-            })
+        showTrString: false,
+        onConnectFailResponse: (message, response) {
+          if (message == "APP_0071") {
+            onBaseConnectFail(
+                context,
+                format(tr('APP_0071'), {
+                  "startTime": response?.data["startTime"],
+                  "endTime": response?.data["endTime"]
+                }));
+          }
+          onBaseConnectFail(context, tr(message));
+        })
         .submitBalanceWithdraw(
             chain: currentChain.name,
             address: addressController.text,
@@ -224,10 +222,15 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
             emailVerifyCode: emailCodeController.text,
             code: googleVerifyController.text,
     )
-        .then((value) async {
-      SimpleCustomDialog(context, mainText: tr('success')).show();
-      pushAndRemoveUntil(
-          context, const MainPage(type: AppNavigationBarType.typeWallet));
+    .then((value) async {
+    //   SimpleCustomDialog(context, mainText: tr('success')).show();
+      ImgTitleDialog(context,
+          img: AppImagePath.orderClockImg,
+          wordImg: AppImagePath.questionBtn,
+          singleBottom: true,
+          onRightPress: () =>
+              pushAndRemoveUntil(context, const MainPage(type: AppNavigationBarType.typeWallet)),
+          mainText: tr("withdrawSuccessTitle"),subText: tr("withdrawSuccessText")).show();
     });
   }
 

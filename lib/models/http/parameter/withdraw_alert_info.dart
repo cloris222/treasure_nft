@@ -34,8 +34,8 @@ class WithdrawAlertInfo {
       WithdrawAlertInfo(
         isReserve: json["isReserve"],
         validAmount: json["validAmount"],
-        isBlock: json["isBlock"],
-        expireIn: json["expireIn"],
+        isBlock: json["isBlock"]??false,
+        expireIn: json["expireIn"]??0,
       );
 
   Map<String, dynamic> toJson() => {
