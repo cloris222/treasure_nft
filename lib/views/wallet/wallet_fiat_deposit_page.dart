@@ -114,13 +114,12 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
 
   Widget _buildBody(BuildContext context, bool vis) {
     return Visibility(
-        visible: vis,
-        maintainState: true,
-        maintainAnimation: true,
-        maintainSize: true,
-        child:Container(
+      visible: vis,
+      maintainState: true,
+      maintainAnimation: true,
+      maintainSize: true,
+      child:Container(
         width: UIDefine.getWidth(),
-        // margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(25)),
         padding: EdgeInsets.fromLTRB(
             UIDefine.getPixelWidth(UIDefine.getPixelWidth(60)),
             UIDefine.getPixelWidth(UIDefine.getPixelWidth(40)),
