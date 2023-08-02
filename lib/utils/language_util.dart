@@ -63,6 +63,10 @@ class LanguageUtil {
     return getStrLanguageForHttp(_appLang);
   }
 
+  static String getAnnouncementLanguage(){
+    return getStringAnnouncement(_appLang);
+  }
+
   /// 用於HttpManager 上，參考API文件的語系設定
   static String getStrLanguageForHttp(LanguageType type) {
     switch (type) {
@@ -96,6 +100,42 @@ class LanguageUtil {
         return 'zh-CN';
       case LanguageType.Japan:
         return 'ja-JP';
+    }
+  }
+
+  ///MARK: 公告欄語言
+  static String getStringAnnouncement(LanguageType type){
+    switch (type) {
+      case LanguageType.Mandarin:
+        return 'tw';
+      case LanguageType.English:
+        return 'en';
+      case LanguageType.Arabic:
+        return 'ar';
+      case LanguageType.Farsi:
+        return 'ir';
+      case LanguageType.Spanish:
+        return 'es';
+      case LanguageType.Russian:
+        return 'ru';
+      case LanguageType.Portuguese:
+        return 'pt';
+      case LanguageType.Korean:
+        return 'kr';
+      case LanguageType.Vietnamese:
+        return 'vn';
+      case LanguageType.Thai:
+        return 'th';
+      case LanguageType.Turkish:
+        return 'tr';
+      case LanguageType.Malaysia:
+        return 'ma';
+      case LanguageType.Indonesia:
+        return 'id';
+      case LanguageType.Chinese:
+        return 'cn';
+      case LanguageType.Japan:
+        return 'jp';
     }
   }
 

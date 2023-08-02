@@ -26,12 +26,11 @@ class _AnnouncementListPageState extends ConsumerState<AnnouncementMainPage> {
 
   @override
   void initState() {
-    ref.read(announceTagProvider.notifier).init();
+    ref.read(announceTagProvider.notifier).init(needFocusUpdate: false);
     viewModel = AnnouncementViewModel(onViewChange:()=> setState, ref: ref);
     viewModel.initState();
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +38,11 @@ class _AnnouncementListPageState extends ConsumerState<AnnouncementMainPage> {
       isAirDrop: true,
       needScrollView: false,
       needBottom: true,
-      onLanguageChange: () {
+      onLanguageChange: () async {
+          await ref.read(announceTagProvider.notifier).init(needFocusUpdate: true);
         if (mounted) {
-          setState(() {});
+          setState(() {
+          });
         }
       },
       body: _buildBody(),
@@ -78,7 +79,7 @@ class _AnnouncementListPageState extends ConsumerState<AnnouncementMainPage> {
       child: Container(
         color: AppColors.textWhite,
         padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(10)),
-        child: AnnouncementListView(viewModel),
+        child: AnnouncementListView(viewModel,key: UniqueKey(),),
         ),
     );
   }
