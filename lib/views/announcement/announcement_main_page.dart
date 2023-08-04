@@ -39,7 +39,7 @@ class _AnnouncementListPageState extends ConsumerState<AnnouncementMainPage> {
       needScrollView: false,
       needBottom: true,
       onLanguageChange: () async {
-          await ref.read(announceTagProvider.notifier).init(needFocusUpdate: true);
+        await ref.read(announceTagProvider.notifier).init(needFocusUpdate: true);
         if (mounted) {
           setState(() {
           });
