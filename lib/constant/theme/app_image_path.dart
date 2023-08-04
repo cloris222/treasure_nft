@@ -115,7 +115,7 @@ class AppImagePath {
   static const String fastIcon = '$_iconPath/icon_fasttransaction_01.png';
   static const String growthIcon = '$_iconPath/icon_growthtransaction_01.png';
   static const String helpIcon = '$_btnPath/btn_help_01.png';
-  static const String videoPoster = '$_imgPath/img_video_poster.jpg';
+  static const String videoPoster = '$_imgPath/img_video_poster_{lang}.jpg';
   static const String noticeIcon = '$_iconPath/icon_notice_01.png';
 
 
