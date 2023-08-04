@@ -41,6 +41,9 @@ class AppColors {
   static const Color lineBarGrey = Color(0xFFE5E5E5);
   static const Color itemBackground = Color(0xFFF7F7F7);
 
+  static const Color buttonCarouselEnable=Color(0xFF039BE5);
+  static const Color buttonCarouselUnable=Color(0xFF959292);
+
   ///MARK:主題色彩
   static const Color mainThemeButton = Color(0xFF3B82F6);
   static const Color subThemePurple = Color(0xFF9657D7);
