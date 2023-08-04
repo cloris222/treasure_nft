@@ -4,7 +4,7 @@ class HttpSetting {
   ///MARK: Release Setting
   static const String appUrl = "https://treasurenft.xyz/gateway/app";
   static const String commonUrl = "https://treasurenft.xyz/gateway/common";
-  static const String adminUrl = "https://dev.treasurenft.xyz/gateway/admin";
+  static const String adminUrl = "https://treasurenft.xyz/gateway/admin";
   static const String imgUrl = "https://image.treasurenft.xyz";
   static const String postKey =
       "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDPPrcA1ZO5YmIPDqq/fBp6wQl3y1sAuVQhiTFmVLuUTh2euLZVFE2QzPLmY+9J+uxdLJrvXKWgQA8z5rC8TJrd41jxWdADH8D931UHm50lmZJcA8JEpTNEnXUkX5aR8kJWcy59ogGsE/cCu2+xzfkQOu9urc12dyw1zaPDVqQRSwIDAQAB";
@@ -17,7 +17,7 @@ class HttpSetting {
       'https://image.treasurenft.xyz/video/index_video_{lang}.mp4';
   static const String shareOther =
       'https://treasurenft.xyz/#/otherCol?orderNo={orderNo}&type={type}';
-  static const bool debugMode = false;
+  static const bool debugMode = true;
 
   ///MARK: develop Setting
   // static const String appUrl = "https://dev.treasurenft.xyz/gateway/app";
