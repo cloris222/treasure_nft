@@ -479,7 +479,9 @@ class _ChainWithdrawViewState extends ConsumerState<ChainWithdrawView> {
               NumberFormatUtil()
                   .removeTwoPointFormat(withdrawInfo.getBalance())),
           SizedBox(height: UIDefine.getScreenWidth(2.77)),
-          _buildTextContent(tr('chainMinAmount'),
+          /// 工單722 minAmount => chainMinAmount
+          // _buildTextContent(tr('chainMinAmount'),
+          _buildTextContent(tr('minAmount'),
               '${viewModel.numberFormat(withdrawInfo.minAmount)} USDT'),
           SizedBox(height: UIDefine.getScreenWidth(2.77)),
           _buildTextContent(tr('withdrawFee'),
