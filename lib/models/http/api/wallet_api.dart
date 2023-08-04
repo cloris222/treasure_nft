@@ -1,4 +1,5 @@
 import 'package:treasure_nft_project/models/http/http_manager.dart';
+import 'package:treasure_nft_project/views/wallet/data/aisle_type_data.dart';
 import '../../../constant/enum/coin_enum.dart';
 import '../../../views/wallet/data/BalanceRecordResponseData.dart';
 import '../../../views/wallet/data/deposit_response_data.dart';
@@ -79,6 +80,17 @@ class WalletAPI extends HttpManager {
     return List<String>.from(response.data);
   }
 
+  /// MARK: 查詢渠道
+  Future<List<AisleTypeData>> getAisleType(String currency,String payType)async{
+    List<AisleTypeData> result = [];
+    var response = await get('/flatCurrency/cashPool/all',
+    queryParameters: {"currency": currency, "payType": payType});
+    for(Map<String, dynamic> json in response.data["pageList"]){
+      result.add(AisleTypeData.fromJson(json));
+    }
+    return result;
+  }
+
   ///MARK: 查詢支付類型
   Future<List<PayTypeData>> getPayType(String currency) async {
     List<PayTypeData> result = [];
@@ -94,11 +106,13 @@ class WalletAPI extends HttpManager {
   Future<DepositResponseData> depositCurrency(
       {required String payType,
       required String currency,
-      required double amount}) async {
+      required double amount,
+      required String route}) async {
     var response = await post('/flatCurrency/deposit', data: {
       "payType": payType, //"MOMO"
       "currency": currency, //"VND"
-      "amount": amount //1000.00
+      "amount": amount, //1000.00
+      "route": route
     });
     return DepositResponseData.fromJson(response.data);
   }

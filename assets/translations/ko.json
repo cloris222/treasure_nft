@@ -1404,5 +1404,12 @@
   "loginForbidden":"시스템은 로그인을 비활성화합니다.",
   "chainMinAmount":"체인의 최소 인출 금액.",
   "innerMinAmount":"최소 내부 철수 금액.",
-  "errorChainMinAmount":"내부 철수 한도는보다 커야합니다."
+  "errorChainMinAmount":"내부 철수 한도는보다 커야합니다.",
+  "rechargeMaintain":"예금 채널은 유지 보수 중입니다.",
+  "withdrawSuccessTitle":"철수 요청이 성공적으로 시작되었습니다",
+  "withdrawSuccessText":"인출은 최대 96 시간 이내에 처리됩니다. 처리 시간은 블록 체인의 속도에 따라 다릅니다.",
+  "withdrawalErrorText":"보류중인 철수 요청이 있습니다. 이전 철수가 인정받을 때까지 기다리십시오",
+  "withdrawalErrorTitle":"이전 철수가 처리 될 때까지 기다리십시오",
+  "expressway":"Express 차선",
+  "placeholder-channel":"차선을 선택하십시오"
 }

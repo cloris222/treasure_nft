@@ -1404,5 +1404,12 @@
   "loginForbidden":"سيقوم النظام بتعطيل تسجيل الدخول الخاص بك.",
   "chainMinAmount":"الحد الأدنى لمبلغ السحب على السلسلة.",
   "innerMinAmount":"الحد الأدنى من المبلغ السحب الداخلي.",
-  "errorChainMinAmount":"يجب أن يكون حد الانسحاب الداخلي الخاص بك أكبر من."
+  "errorChainMinAmount":"يجب أن يكون حد الانسحاب الداخلي الخاص بك أكبر من.",
+  "rechargeMaintain":"قناة الإيداع تحت الصيانة.",
+  "withdrawalErrorText":"لديك طلبات سحب معلقة. يرجى الانتظار حتى يتم الفضل في الانسحاب السابق",
+  "withdrawalErrorTitle":"يرجى انتظار معالجة السحب السابق",
+  "withdrawSuccessTitle":"بدأ طلب السحب بنجاح",
+  "withdrawSuccessText":"ستتم معالجة عمليات السحب في غضون 96 ساعة كحد أقصى. يعتمد وقت المعالجة على سرعة blockchain",
+  "expressway":"Express Lane",
+  "placeholder-channel":"الرجاء تحديد حارة"
 }

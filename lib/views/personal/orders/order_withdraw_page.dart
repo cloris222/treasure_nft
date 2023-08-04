@@ -8,6 +8,7 @@ import 'package:treasure_nft_project/models/http/api/wallet_api.dart';
 import 'package:treasure_nft_project/views/custom_appbar_view.dart';
 import 'package:treasure_nft_project/views/personal/orders/withdraw/order_withdraw_type_page.dart';
 import 'package:treasure_nft_project/widgets/appbar/title_app_bar.dart';
+import '../../../constant/theme/app_image_path.dart';
 import '../../../constant/ui_define.dart';
 import '../../../models/http/parameter/withdraw_alert_info.dart';
 import '../../../utils/timer_util.dart';
@@ -17,6 +18,7 @@ import '../../../view_models/gobal_provider/user_property_info_provider.dart';
 import '../../../view_models/wallet/wallet_withdraw_inter_payment_provider.dart';
 import '../../../view_models/wallet/wallet_withdraw_payment_provider.dart';
 import '../../../widgets/dialog/common_custom_dialog.dart';
+import '../../../widgets/dialog/img_title_dialog.dart';
 import '../common/google_auth/google_authenticator_page.dart';
 import 'withdraw/order_withdraw_tab_bar.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
@@ -63,15 +65,13 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
 
     WalletAPI().checkWithdrawAlert().then((value) {
       withdrawAlertInfo = value;
-      if (withdrawAlertInfo.isReserve) {
-        CommonCustomDialog(context,
-            title: tr("reservenotDrawn"),
-            content: tr('reservenotDrawn-hint'),
-            type: DialogImageType.fail,
-            rightBtnText: tr('confirm'),
-            onLeftPress: () {}, onRightPress: () {
-              Navigator.pop(context);
-            }).show();
+      if (withdrawAlertInfo.isReserve||withdrawAlertInfo.hasWithdraw) {
+        ImgTitleDialog(context,
+            img: AppImagePath.orderNoticeImg,
+            singleBottom: true,
+            onRightPress: () => Navigator.pop(context),
+            mainText: tr("withdrawalErrorTitle"),
+            subText: tr("withdrawalErrorText")).show();
       } else if (withdrawAlertInfo.isBlock) {
         CommonCustomDialog(context,
             title: tr("applicationFailed"),

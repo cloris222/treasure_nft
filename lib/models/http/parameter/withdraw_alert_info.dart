@@ -16,6 +16,7 @@ class WithdrawAlertInfo {
     this.validAmount = '0.0',
     this.isBlock = false,
     this.expireIn = 0,
+    this.hasWithdraw = false,
   });
 
   /// 是否有預約單
@@ -30,18 +31,23 @@ class WithdrawAlertInfo {
   /// 禁止時間(秒)
   num expireIn;
 
+  /// 是否有提現單
+  bool hasWithdraw;
+
   factory WithdrawAlertInfo.fromJson(Map<String, dynamic> json) =>
-      WithdrawAlertInfo(
-        isReserve: json["isReserve"],
-        validAmount: json["validAmount"],
-        isBlock: json["isBlock"],
-        expireIn: json["expireIn"],
-      );
+    WithdrawAlertInfo(
+      isReserve: json["isReserve"],
+      validAmount: json["validAmount"],
+      isBlock: json["isBlock"]??false,
+      expireIn: json["expireIn"]??0,
+      hasWithdraw: json["hasWithdraw"],
+    );
 
   Map<String, dynamic> toJson() => {
-        "isReserve": isReserve,
-        "validAmount": validAmount,
-        "isBlock": isBlock,
-        "expireIn": expireIn,
-      };
+    "isReserve": isReserve,
+    "validAmount": validAmount,
+    "isBlock": isBlock,
+    "expireIn": expireIn,
+    "hasWithdraw": hasWithdraw,
+  };
 }

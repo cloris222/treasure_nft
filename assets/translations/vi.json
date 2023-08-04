@@ -1404,5 +1404,12 @@
   "loginForbidden":"Hệ thống sẽ vô hiệu hóa đăng nhập của bạn.",
   "chainMinAmount":"Số tiền rút tiền tối thiểu trên chuỗi.",
   "innerMinAmount":"Số tiền rút tiền nội bộ tối thiểu.",
-  "errorChainMinAmount":"Giới hạn rút tiền nội bộ của bạn phải lớn hơn."
+  "errorChainMinAmount":"Giới hạn rút tiền nội bộ của bạn phải lớn hơn.",
+  "rechargeMaintain":"Kênh tiền gửi đang được bảo trì.",
+  "withdrawSuccessTitle":"Yêu cầu rút tiền đã được bắt đầu thành công",
+  "withdrawSuccessText":"Việc rút tiền sẽ được xử lý trong vòng tối đa 96 giờ. Thời gian xử lý phụ thuộc vào tốc độ của blockchain",
+  "withdrawalErrorText":"Bạn có yêu cầu rút tiền đang chờ xử lý. Vui lòng đợi lần rút tiền trước đó được ghi nhận",
+  "withdrawalErrorTitle":"Vui lòng đợi lần rút tiền trước đó được xử lý",
+  "expressway":"Thể hiện làn đường",
+  "placeholder-channel":"Vui lòng chọn làn đường"
 }
