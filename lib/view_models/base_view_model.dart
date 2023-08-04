@@ -166,14 +166,16 @@ class BaseViewModel with ControlRouterViewModel {
         .setSignIn();
     await SimpleCustomDialog(context,
             mainText: tr('signSuccessfully'), isSuccess: true)
-        .show().then((value) => showNoticeView(context));
+        .show().then((value) => showNoticeView(context, true));
   }
 
   ///MARK: 跳出最新公告彈窗
-  void showNoticeView(BuildContext context){
+  void showNoticeView(BuildContext context, bool compareIt){
     Future.delayed(const Duration(seconds: 1)).then((value) {
       AnnounceAPI().getAnnounceLast().then((value) => {
-        if (value.title != GlobalData.lastAnnounce.title) {
+        if(compareIt == false){
+          BaseViewModel().pushOpacityPage(context, AnnouncementDialogPage(value))
+        }else if(value.title != GlobalData.lastAnnounce.title) {
           GlobalData.lastAnnounce = value,
           BaseViewModel().pushOpacityPage(context, AnnouncementDialogPage(value))
         }

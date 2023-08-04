@@ -1409,5 +1409,7 @@
   "withdrawSuccessTitle":"คำขอถอนได้สำเร็จแล้ว",
   "withdrawSuccessText":"การถอนจะดำเนินการภายในสูงสุด 96 ชั่วโมง เวลาในการประมวลผลขึ้นอยู่กับความเร็วของ blockchain",
   "withdrawalErrorText":"คุณมีคำขอถอนที่รอดำเนินการ โปรดรอการถอนเงินก่อนหน้านี้ได้รับเครดิต",
-  "withdrawalErrorTitle":"โปรดรอการถอนก่อนหน้านี้จะดำเนินการ"
+  "withdrawalErrorTitle":"โปรดรอการถอนก่อนหน้านี้จะดำเนินการ",
+  "expressway":"ช่องทาง",
+  "placeholder-channel":"กรุณาเลือกเลน"
 }

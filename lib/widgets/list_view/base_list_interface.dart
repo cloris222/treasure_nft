@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
@@ -435,11 +437,11 @@ abstract class BaseListInterface {
           return true;
         },
         child: topView != null
-            ? SingleChildScrollView(
-                child: Column(
-                children: [topView, listBody],
-              ))
-            : listBody);
+          ? SingleChildScrollView(
+            child: Column(
+              children: [topView, listBody],
+            ))
+          : listBody);
   }
 
   Widget _buildLoading() {

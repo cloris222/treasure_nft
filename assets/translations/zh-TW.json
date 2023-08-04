@@ -1410,5 +1410,7 @@
   "withdrawalErrorText":"您有待處理的提現請求請等待上一筆提現到帳",
   "withdrawalErrorTitle":"請等待上一筆提現處理",
   "withdrawSuccessTitle":"發起提現成功",
-  "withdrawSuccessText":"提現到帳最長時間不超過96H具體取決鏈上處理速度"
+  "withdrawSuccessText":"提現到帳最長時間不超過96H具體取決鏈上處理速度",
+  "expressway":"快速通道",
+  "placeholder-channel":"請選擇通道"
 }

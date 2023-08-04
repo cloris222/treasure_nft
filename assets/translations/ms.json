@@ -1409,5 +1409,7 @@
   "withdrawSuccessTitle":"Permintaan pengeluaran telah berjaya dimulakan",
   "withdrawSuccessText":"Pengeluaran akan diproses dalam masa maksimum 96 jam. Waktu pemprosesan bergantung pada kelajuan blockchain",
   "withdrawalErrorText":"Anda telah menunggu permintaan pengeluaran. Sila tunggu pengeluaran sebelumnya dikreditkan",
-  "withdrawalErrorTitle":"Sila tunggu pengeluaran sebelumnya diproses"
+  "withdrawalErrorTitle":"Sila tunggu pengeluaran sebelumnya diproses",
+  "expressway":"Express Lane",
+  "placeholder-channel":"Sila pilih lorong"
 }

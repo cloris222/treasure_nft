@@ -1409,5 +1409,7 @@
   "withdrawSuccessTitle":"Para çekme talebi başarıyla başlatıldı",
   "withdrawSuccessText":"Para çekme işlemleri en fazla 96 saat içinde işlenecektir. İşleme süresi, blok zincirinin hızına bağlıdır",
   "withdrawalErrorText":"Bekleyen para çekme talepleriniz var. Lütfen önceki para çekme işleminin kredilendirilmesini bekleyin",
-  "withdrawalErrorTitle":"Lütfen önceki para çekme işleminin işlenmesini bekleyin"
+  "withdrawalErrorTitle":"Lütfen önceki para çekme işleminin işlenmesini bekleyin",
+  "expressway":"Express Lane",
+  "placeholder-channel":"Lütfen bir şerit seçin"
 }
