@@ -1404,5 +1404,10 @@
     "loginForbidden":"システムはログインを無効にします。",
     "chainMinAmount":"チェーン上の最低引き出し額。",
     "innerMinAmount":"最小内部引き出し額。",
-    "errorChainMinAmount":"あなたの内部離脱制限はより大きくなければなりません。"
+    "errorChainMinAmount":"あなたの内部離脱制限はより大きくなければなりません。",
+    "rechargeMaintain":"デポジットチャネルはメンテナンス中です。",
+    "withdrawalErrorText":"撤回のリクエストが保留されています。以前の撤退がクレジットされるのを待ってください",
+    "withdrawalErrorTitle":"以前の撤退が処理されるのを待ってください",
+    "withdrawSuccessTitle":"撤退要求は正常に開始されました",
+    "withdrawSuccessText":"引き出しは最大96時間以内に処理されます。処理時間はブロックチェーンの速度に依存します"
 }
