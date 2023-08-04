@@ -303,7 +303,7 @@ class _OrderRechargePageState extends ConsumerState<OrderRechargePage> {
                   fontSize: UIDefine.fontSize12,
                   color: AppColors.textNineBlack)),
           SizedBox(width: UIDefine.getPixelWidth(5)),
-          Text('20 USDT',
+          Text('30 USDT',
               style: AppTextStyle.getBaseStyle(
                   fontSize: UIDefine.fontSize12,
                   color: AppColors.textNineBlack))

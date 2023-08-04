@@ -136,30 +136,30 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
       }
 
       // ///MARK: 提領金額是否大於最低金額
-      // if (num.parse(amountController.text) < num.parse(withdrawInfo.minAmount)) {
-      //   CommonCustomDialog(context,
-      //       title: tr("point-FAIL'"),
-      //       content: '${tr("errorMinAmount")}${withdrawInfo.minAmount} USDT',
-      //       type: DialogImageType.fail,
-      //       rightBtnText: tr('confirm'),
-      //       onLeftPress: () {}, onRightPress: () {
-      //     Navigator.pop(context);
-      //   }).show();
-      //   return;
-      // }
-
-      //MARK: 提領金是否大於內部最低提現金額
-      if(num.parse(amountController.text)< num.parse(withdrawInfo.internalMinAmount)){
+      if (num.parse(amountController.text) < num.parse(withdrawInfo.minAmount)) {
         CommonCustomDialog(context,
             title: tr("point-FAIL'"),
-            content: '${tr("errorChainMinAmount")}${withdrawInfo.internalMinAmount}',
+            content: '${tr("errorMinAmount")}${withdrawInfo.minAmount} USDT',
             type: DialogImageType.fail,
             rightBtnText: tr('confirm'),
             onLeftPress: () {}, onRightPress: () {
-              Navigator.pop(context);
-            }).show();
+          Navigator.pop(context);
+        }).show();
         return;
       }
+
+      //MARK: 提領金是否大於內部最低提現金額
+      // if(num.parse(amountController.text)< num.parse(withdrawInfo.internalMinAmount)){
+      //   CommonCustomDialog(context,
+      //       title: tr("point-FAIL'"),
+      //       content: '${tr("errorChainMinAmount")}${withdrawInfo.internalMinAmount}',
+      //       type: DialogImageType.fail,
+      //       rightBtnText: tr('confirm'),
+      //       onLeftPress: () {}, onRightPress: () {
+      //         Navigator.pop(context);
+      //       }).show();
+      //   return;
+      // }
 
       if (alertInfo.isReserve) {
         CommonCustomDialog(context,
