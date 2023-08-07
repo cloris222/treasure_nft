@@ -1405,5 +1405,12 @@
   "chainMinAmount":"Zincir üzerinde minimum para çekme miktarı.",
   "innerMinAmount":"Minimum iç çekme miktarı.",
   "errorChainMinAmount":"Dahili para çekme sınırınızdan daha büyük olmalıdır.",
-  "rechargeMaintain":"Depozito kanalı bakım altında."
+  "rechargeMaintain":"Depozito kanalı bakım altında.",
+  "withdrawSuccessTitle":"Para çekme talebi başarıyla başlatıldı",
+  "withdrawSuccessText":"Para çekme işlemleri en fazla 96 saat içinde işlenecektir. İşleme süresi, blok zincirinin hızına bağlıdır",
+  "withdrawalErrorText":"Bekleyen para çekme talepleriniz var. Lütfen önceki para çekme işleminin kredilendirilmesini bekleyin",
+  "withdrawalErrorTitle":"Lütfen önceki para çekme işleminin işlenmesini bekleyin",
+  "expressway":"Express Lane",
+  "placeholder-channel":"Lütfen bir şerit seçin",
+  "Zambia":"Zambiya"
 }

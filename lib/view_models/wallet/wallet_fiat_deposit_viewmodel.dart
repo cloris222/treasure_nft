@@ -5,6 +5,7 @@ import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/api/wallet_api.dart';
+import 'package:treasure_nft_project/view_models/wallet/wallet_aisle_provider.dart';
 import 'package:treasure_nft_project/view_models/wallet/wallet_fiat_currency_provider.dart';
 import 'package:treasure_nft_project/view_models/wallet/wallet_pay_type_provider.dart';
 import '../../constant/call_back_function.dart';
@@ -71,6 +72,7 @@ class WalletFiatDepositViewModel extends BaseViewModel {
         payType: ref.read(currentPayTypeProvider.notifier).state.type,
         currency: ref.read(currentFiatProvider.notifier).state,
         amount: double.parse(amountController.text),
+        route: ref.read(currentAisleProvider.notifier).state.route
       ).then((value) => {
         popPage(context),
         showSuccessDialog(value.redirectUrl),
@@ -107,6 +109,10 @@ class WalletFiatDepositViewModel extends BaseViewModel {
       scale: 0.75,
       errorBuilder: (context, error, stackTrace) => Container(),
     );
+  }
+
+  Widget getAisleItem(){
+    return Container();
   }
 
   String getThousandFormat(num number) {

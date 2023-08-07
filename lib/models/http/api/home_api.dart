@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/models/http/http_manager.dart';
@@ -14,6 +15,8 @@ import 'package:treasure_nft_project/models/http/parameter/random_collect_info.d
 import 'package:treasure_nft_project/views/explore/api/explore_api.dart';
 import 'package:treasure_nft_project/views/explore/data/explore_category_response_data.dart';
 
+import '../../../view_models/home/provider/home_banner_provider.dart';
+import '../parameter/home_banner_data.dart';
 import '../parameter/trading_volume_data.dart';
 
 class HomeAPI extends HttpManager {
@@ -134,5 +137,23 @@ class HomeAPI extends HttpManager {
     data.name = '';
     tags.insert(0, data);
     return tags;
+  }
+
+  ///MARK: 查詢廣告
+  Future<List<BannerData>> getBanner(WidgetRef ref) async {
+    List<BannerData> result = <BannerData>[];
+    try {
+      ApiResponse response = await get('/index/banner/all');
+
+      ref.read(bannerSecondsProvider.notifier)
+          .update((state) => response.data['carouselSeconds']);
+
+      for (Map<String, dynamic> json in response.data['pageList']) {
+        result.add(BannerData.fromJson(json));
+      }
+    } catch (e) {
+      GlobalData.printLog(e.toString());
+    }
+    return result;
   }
 }
