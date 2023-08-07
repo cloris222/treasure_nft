@@ -22,6 +22,7 @@ class AnnouncementListView extends ConsumerStatefulWidget {
 
   @override
   ConsumerState createState() => _AnnouncementListViewState();
+
 }
 
 class _AnnouncementListViewState
@@ -56,7 +57,7 @@ class _AnnouncementListViewState
   @override
   Future<List> loadData(int page, int size) async {
     // String getLang = await AppSharedPreferences.getLanguage();
-    String lang = LanguageUtil.getAppStrLanguageForHttp();
+    String lang = LanguageUtil.getAnnouncementLanguage();
     List<AnnounceData> itemList = [];
     itemList.addAll(await AnnounceAPI().getAnnounceAll(lang: lang));
     return itemList;

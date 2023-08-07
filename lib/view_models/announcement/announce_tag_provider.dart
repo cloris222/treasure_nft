@@ -29,7 +29,7 @@ class AnnounceTagNotifier extends StateNotifier<List<AnnounceTagData>>
 
   @override
   Future<void> readAPIValue({ResponseErrorFunction? onConnectFail}) async {
-    String lang = LanguageUtil.getAppStrLanguageForHttp();
+    String lang = LanguageUtil.getAnnouncementLanguage();
     state = await AnnounceAPI(onConnectFail: onConnectFail).getAnnounceTag(lang: lang);
   }
 

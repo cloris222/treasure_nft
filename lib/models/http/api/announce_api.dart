@@ -8,13 +8,13 @@ class AnnounceAPI extends HttpManager {
   ///MARK: 查詢公告
   Future<List<AnnounceData>> getAnnounceAll({required String lang}) async {
     List<AnnounceData> list = [];
-    var response = await get('/announce/all', queryParameters: {
-      "lang": lang
-    });
-
-    for (Map<String, dynamic> json in response.data["pageList"]) {
-      list.add(AnnounceData.fromJson(json));
-    }
+      var response = await get('/announce/all', queryParameters: {
+        "lang": lang,
+      });
+      
+      for (Map<String, dynamic> json in response.data["pageList"]) {
+        list.add(AnnounceData.fromJson(json));
+      }
     return list;
   }
 
