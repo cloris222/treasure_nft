@@ -19,9 +19,10 @@ class AnnounceAPI extends HttpManager {
   }
 
   ///MARK: 查詢最新一筆公告
-  Future<AnnounceData> getAnnounceLast() async {
+  Future<AnnounceData> getAnnounceLast(String lang) async {
     AnnounceData data = AnnounceData();
     var response = await get('/announce/all', queryParameters: {
+      "lang": lang,
       "page":1,
       "size":1
     });

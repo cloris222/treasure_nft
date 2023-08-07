@@ -43,31 +43,6 @@ class _AnnouncementDetailPageState extends ConsumerState<AnnouncementDetailPage>
     return widget.data;
   }
 
-  Future<void> _updateData() async {
-    try {
-      // Fetch the new data based on the current data's ID
-      String lang = LanguageUtil.getAnnouncementLanguage();
-      List<AnnounceData> newDataList =
-      await AnnounceAPI().getAnnounceAll(lang: lang);
-
-      // Find the new data that matches the ID of the current data
-      AnnounceData newData = newDataList.firstWhere(
-            (data) => data.id == widget.data.id,
-        orElse: () => widget.data, // Use the current data if not found in the new data list
-      );
-      print("ne: ${newData.title}");
-      // Update the UI with the new data
-      setState(() {
-        widget.data.title = newData.title;
-        widget.data.content = newData.content;
-        // Update other fields as needed
-      });
-    } catch (e) {
-      // Handle any errors that might occur during data fetching or updating
-      print('Error updating data: $e');
-    }
-  }
-
   @override
   void initState() {
     super.initState();
@@ -80,7 +55,6 @@ class _AnnouncementDetailPageState extends ConsumerState<AnnouncementDetailPage>
       needScrollView: true,
       needBottom: true,
       onLanguageChange: () async {
-            print("oldData: ${data.title}");
         await ref.read(announceTagProvider.notifier).init(needFocusUpdate: true);
         await _updateData();
         if (mounted) {
@@ -217,5 +191,33 @@ class _AnnouncementDetailPageState extends ConsumerState<AnnouncementDetailPage>
     List<AnnounceData> itemList = [];
     itemList.addAll(await AnnounceAPI().getAnnounceAll(lang: lang));
     return itemList;
+  }
+
+  Future<void> _updateData() async {
+    try {
+      // Fetch the new data based on the current data's ID
+      String lang = LanguageUtil.getAnnouncementLanguage();
+      List<AnnounceData> newDataList =
+      await AnnounceAPI().getAnnounceAll(lang: lang);
+
+      // Find the new data that matches the ID of the current data
+      AnnounceData newData = newDataList.firstWhere(
+            (data) => data.id == widget.data.id,
+        orElse: () => widget.data,
+      );
+      setState(() {
+        widget.data.title = newData.title;
+        widget.data.content = newData.content;
+        widget.data.content = newData.content;
+        widget.data.tagId = newData.tagId;
+        widget.data.bannerMbUrl = newData.bannerMbUrl;
+        widget.data.bannerPcUrl = newData.bannerPcUrl;
+        widget.data.startAt = newData.startAt;
+        widget.data.endAt = newData.endAt;
+        widget.data.sort = newData.sort;
+      });
+    } catch (e) {
+      print('Error updating data: $e');
+    }
   }
 }
