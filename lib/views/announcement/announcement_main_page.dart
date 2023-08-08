@@ -26,7 +26,7 @@ class _AnnouncementListPageState extends ConsumerState<AnnouncementMainPage> {
 
   @override
   void initState() {
-    ref.read(announceTagProvider.notifier).init(needFocusUpdate: false);
+    ref.read(announceTagProvider.notifier).init(needFocusUpdate: true);
     viewModel = AnnouncementViewModel(onViewChange:()=> setState, ref: ref);
     viewModel.initState();
     super.initState();
