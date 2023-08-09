@@ -112,7 +112,7 @@ class _CollectionPendingListViewState
 
   @override
   Future<List> loadData(int page, int size) async {
-    return await CollectionApi()
+    return await CollectionApi(onConnectFail: (msg)=>reloadAPI(page,size))
         .getNFTItemResponse(page: page, size: size, status: 'PENDING');
   }
 
