@@ -37,8 +37,8 @@ class HttpSetting {
   static const bool debugMode = true;
 
   // receiveTimeout
-  static const int receiveTimeout = 60000;
+  static const int receiveTimeout = 180000;
 
   // connectTimeout
-  static const int connectionTimeout = 60000;
+  static const int connectionTimeout = 180000;
 }
