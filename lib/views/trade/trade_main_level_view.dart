@@ -145,10 +145,10 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
         /// 交易的主要區塊
         _buildDivision(),
 
-        SizedBox(height: UIDefine.getPixelWidth(10)),
+        // SizedBox(height: UIDefine.getPixelWidth(10)),
 
         /// 交易的其他資訊
-        _buildSystemInfo(),
+        // _buildSystemInfo(),
       ],
     );
   }
@@ -267,19 +267,19 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
           horizontal: UIDefine.getPixelWidth(10),
           vertical: UIDefine.getPixelWidth(3)),
       child: DropdownButtonHideUnderline(
-          child: DropdownButton2(
-        customButton:
-            _buildRangDropItem(currentDivisionRangeIndex, false, true),
-        isExpanded: true,
-        hint: Row(children: [
-          TetherCoinWidget(size: UIDefine.getPixelWidth(15)),
-          SizedBox(width: UIDefine.getPixelWidth(5)),
-          Text('0 - 0',
-              style: AppTextStyle.getBaseStyle(
-                  fontSize: UIDefine.fontSize12,
-                  color: AppColors.textSixBlack,
-                  fontWeight: FontWeight.w600))
-        ]),
+        child: DropdownButton2(
+          customButton: _buildRangDropItem(currentDivisionRangeIndex, false, true),
+          isExpanded: true,
+          hint: Row(
+            children: [
+              TetherCoinWidget(size: UIDefine.getPixelWidth(15)),
+              SizedBox(width: UIDefine.getPixelWidth(5)),
+              Text('0 - 0',
+                  style: AppTextStyle.getBaseStyle(
+                      fontSize: UIDefine.fontSize12,
+                      color: AppColors.textSixBlack,
+                      fontWeight: FontWeight.w600))
+          ]),
         items: List<DropdownMenuItem<int>>.generate(
             reserveDivisionRanges.length,
             (index) => DropdownMenuItem<int>(
@@ -455,9 +455,18 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
       _buildDivisionInfoItem(
           title: tr('NFTResultTime'),
           context: TradeTimerUtil().getResultTime()),
+      /// Mark 預約金
+      // _buildDivisionInfoItem(
+      //     title: tr('reservationFee'),
+      //     context: NumberFormatUtil().integerFormat(reserveCoin?.deposit ?? 0)),
       _buildDivisionInfoItem(
-          title: tr('reservationFee'),
-          context: NumberFormatUtil().integerFormat(reserveCoin?.deposit ?? 0)),
+        title: tr("pfIncome"),
+        needCoin: true,
+        context: reserveDivisionRanges.isNotEmpty?
+        "${getPfIncome(userInfo.level, currentDivisionIndex, currentDivisionRangeIndex)}USDT":"0 - 0USDT",
+        color: AppColors.coinColorGreen,
+        weight: FontWeight.w600,
+      ),
       _buildDivisionInfoItem(
           title: tr('transactionReward'),
           context:
@@ -471,7 +480,8 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
   }
 
   Widget _buildDivisionInfoItem(
-      {required String title, required String context, bool needCoin = false}) {
+      {required String title, required String context, bool needCoin = false,
+        Color color = AppColors.textSixBlack, FontWeight weight = FontWeight.w400}) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(5)),
       child: Row(
@@ -488,8 +498,8 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
           SizedBox(width: UIDefine.getPixelWidth(5)),
           Text(context,
               style: AppTextStyle.getBaseStyle(
-                  color: AppColors.textSixBlack,
-                  fontWeight: FontWeight.w600,
+                  color: color,
+                  fontWeight: weight,
                   fontSize: UIDefine.fontSize14)),
         ],
       ),
@@ -673,6 +683,15 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
         reserveDivisionRanges[rangeIndex].endPrice,
         reserveDivisionRanges[rangeIndex].rewardRate);
     ref.read(tradeReserveCoinProvider.notifier).init();
+  }
+
+  String getPfIncome(int userLevel, int chooseLevel, int index){
+    double getReward = double.parse(getLevelReward(userLevel, chooseLevel));
+    var startPrice = reserveDivisionRanges[index].startPrice;
+    var endPrice = reserveDivisionRanges[index].endPrice;
+    double pfStart = getReward * startPrice.round();
+    double pfEnd = getReward* endPrice.round();
+    return "${NumberFormatUtil().removeTwoPointFormat(pfStart)} - ${NumberFormatUtil().removeTwoPointFormat(pfEnd)}";
   }
 
   String getLevelReward(int userLevel, int chooseLevel) {

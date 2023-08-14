@@ -1412,5 +1412,9 @@
   "withdrawalErrorTitle":"Lütfen önceki para çekme işleminin işlenmesini bekleyin",
   "expressway":"Express Lane",
   "placeholder-channel":"Lütfen bir şerit seçin",
-  "Zambia":"Zambiya"
+  "Zambia":"Zambiya",
+  "teamBenefits":"Takım Faydaları",
+  "cumulativeIncome":"Kümülatif gelir",
+  "todayEarnings":"Bugün Kazanç",
+  "pfIncome":"Tahmini Kazanç"
 }

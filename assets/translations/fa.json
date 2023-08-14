@@ -1412,5 +1412,9 @@
   "withdrawSuccessText":"برداشت ها حداکثر 96 ساعت پردازش می شوند. زمان پردازش به سرعت blockchain بستگی دارد",
   "expressway":"خط ابراز",
   "placeholder-channel":"لطفا یک خط را انتخاب کنید",
-  "Zambia":"زامبیا"
+  "Zambia":"زامبیا",
+  "teamBenefits":"مزایای تیمی",
+  "cumulativeIncome":"درآمد تجمعی",
+  "todayEarnings":"امروز درآمد",
+  "pfIncome":"درآمد تخمینی"
 }
