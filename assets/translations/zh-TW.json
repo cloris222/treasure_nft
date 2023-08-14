@@ -378,11 +378,11 @@
   "select_date":"請選擇時間",
   "myTeam":"我的團隊",
   "validInvites":"有效邀請",
-  "ALevel":"A級愛好者",
-  "BCLevel":"B+C級愛好者",
-  "teamMember":"社區愛好者",
-  "teamContribution":"社區貢獻",
-  "teamOrder":"社區訂單",
+  "ALevel":"A級成員",
+  "BCLevel":"B+C級成員",
+  "teamMember":"團隊成員",
+  "teamContribution":"團隊貢獻",
+  "teamOrder":"團隊訂單",
   "referral-code'":"分享",
   "reservation-product-amount'":"預約商品金額",
   "preOrderCoupon":"預購券",
@@ -1413,5 +1413,9 @@
   "withdrawSuccessText":"提現到帳最長時間不超過96H具體取決鏈上處理速度",
   "expressway":"快速通道",
   "placeholder-channel":"請選擇通道",
-  "Zambia":"尚比亞"
+  "Zambia":"尚比亞",
+  "teamBenefits":"團隊收益",
+  "cumulativeIncome":"累計收益",
+  "todayEarnings":"今日收益",
+  "pfIncome":"預估收益"
 }

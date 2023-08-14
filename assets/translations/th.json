@@ -1412,5 +1412,9 @@
   "withdrawalErrorTitle":"โปรดรอการถอนก่อนหน้านี้จะดำเนินการ",
   "expressway":"ช่องทาง",
   "placeholder-channel":"กรุณาเลือกเลน",
-  "Zambia":"ชาวแซมเบีย"
+  "Zambia":"ชาวแซมเบีย",
+  "teamBenefits":"ผลประโยชน์ของทีม",
+  "cumulativeIncome":"รายได้สะสม",
+  "todayEarnings":"วันนี้รายได้",
+  "pfIncome":"รายได้โดยประมาณ"
 }

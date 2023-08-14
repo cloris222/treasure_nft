@@ -1412,5 +1412,9 @@
   "withdrawalErrorTitle":"이전 철수가 처리 될 때까지 기다리십시오",
   "expressway":"Express 차선",
   "placeholder-channel":"차선을 선택하십시오",
-  "Zambia":"잠비아"
+  "Zambia":"잠비아",
+  "teamBenefits":"팀 혜택",
+  "cumulativeIncome":"누적 수입",
+  "todayEarnings":"오늘 수입",
+  "pfIncome":"예상 수입"
 }

@@ -8,9 +8,14 @@ import '../parameter/level_bonus_data.dart';
 class LevelAPI extends HttpManager {
   LevelAPI({super.onConnectFail});
 
+  ///MARK: 檢查是否可升級
   Future<bool> checkLevelUpdate() async {
     var response = await get('/level/can-level-up');
     return response.data;
+  }
+
+  Future<void> setLevelUp() async {
+    await post("/level/level-up");
   }
 
   Future<List<LevelInfoData>> getAllLevelInfo() async {

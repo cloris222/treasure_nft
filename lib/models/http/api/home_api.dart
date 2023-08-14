@@ -12,6 +12,7 @@ import 'package:treasure_nft_project/models/http/parameter/home_artist_record.da
 import 'package:treasure_nft_project/models/http/parameter/home_carousel.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_footer_data.dart';
 import 'package:treasure_nft_project/models/http/parameter/random_collect_info.dart';
+import 'package:treasure_nft_project/utils/language_util.dart';
 import 'package:treasure_nft_project/views/explore/api/explore_api.dart';
 import 'package:treasure_nft_project/views/explore/data/explore_category_response_data.dart';
 
@@ -143,7 +144,7 @@ class HomeAPI extends HttpManager {
   Future<List<BannerData>> getBanner(WidgetRef ref) async {
     List<BannerData> result = <BannerData>[];
     try {
-      ApiResponse response = await get('/index/banner/all');
+      ApiResponse response = await get('/index/banner/all',queryParameters: {"lang":LanguageUtil.getAnnouncementLanguage()});
 
       ref.read(bannerSecondsProvider.notifier)
           .update((state) => response.data['carouselSeconds']);

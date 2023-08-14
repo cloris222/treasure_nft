@@ -13,6 +13,7 @@ import 'package:treasure_nft_project/models/http/parameter/level_info_data.dart'
 import 'package:treasure_nft_project/models/http/parameter/user_info_data.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
+import 'package:treasure_nft_project/view_models/gobal_provider/global_tag_controller_provider.dart';
 import 'package:treasure_nft_project/view_models/gobal_provider/user_level_info_provider.dart';
 import 'package:treasure_nft_project/view_models/personal/level/level_detail_list_provider.dart';
 import 'package:treasure_nft_project/view_models/personal/level/level_detail_view_model.dart';
@@ -27,6 +28,7 @@ import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
 
 import '../../../models/http/parameter/check_level_info.dart';
 import '../../../view_models/gobal_provider/user_info_provider.dart';
+import '../../../widgets/button/text_button_widget.dart';
 
 ///MARK: 等級詳細
 class LevelDetailPage extends ConsumerStatefulWidget {
@@ -40,6 +42,7 @@ class LevelDetailPage extends ConsumerStatefulWidget {
 
 class _LevelDetailPageState extends ConsumerState<LevelDetailPage> {
   LevelDetailViewModel viewModel = LevelDetailViewModel();
+  final String levelUpTag = "levelUpTag";
 
   List<LevelInfoData> get levelDataList {
     return ref.read(levelDetailListProvider);
@@ -48,6 +51,8 @@ class _LevelDetailPageState extends ConsumerState<LevelDetailPage> {
   CheckLevelInfo? get userLevelInfo {
     return ref.read(userLevelInfoProvider);
   }
+
+  bool get canLevelUp => ref.read(globalBoolProvider(levelUpTag));
 
   int currentIndex = 0;
   PageController? pageController;
@@ -79,6 +84,7 @@ class _LevelDetailPageState extends ConsumerState<LevelDetailPage> {
         }
       }
     });
+    viewModel.checkLevelUP().then((value) => ref.read(globalBoolProvider(levelUpTag).notifier).update((state) => value));
   }
 
   @override
@@ -94,6 +100,7 @@ class _LevelDetailPageState extends ConsumerState<LevelDetailPage> {
   @override
   Widget build(BuildContext context) {
     ref.watch(levelDetailListProvider);
+    ref.watch(globalBoolProvider(levelUpTag));
     UserInfoData userInfo = ref.watch(userInfoProvider);
     return CustomAppbarView(
       needScrollView: false,
@@ -175,18 +182,24 @@ class _LevelDetailPageState extends ConsumerState<LevelDetailPage> {
                 ),
               ),
               SizedBox(width: UIDefine.getPixelWidth(30)),
-              // TextButtonWidget(
-              //     margin: EdgeInsets.only(right: UIDefine.getPixelWidth(20)),
-              //     btnText: tr('levelUp'),
-              //     onPressed: () => viewModel.onPressLevelUp(context),
-              //     backgroundHorizontal: UIDefine.getPixelWidth(15),
-              //     setSubColor: Colors.transparent,
-              //     isFillWidth: false,
-              //     fontWeight: FontWeight.w600,
-              //     fontSize: UIDefine.fontSize12,
-              //     setMainColor: Colors.white,
-              //     radius: 13,
-              //     isBorderStyle: true)
+              TextButtonWidget(
+                margin: EdgeInsets.only(right: UIDefine.getPixelWidth(20)),
+                btnText: tr('levelUp'),
+                onPressed: () {
+                  if (canLevelUp) {
+                    viewModel.onPressLevelUp(context, ref);
+                  }
+                },
+                backgroundHorizontal: UIDefine.getPixelWidth(15),
+                setSubColor: Colors.transparent,
+                isFillWidth: false,
+                fontWeight: FontWeight.w600,
+                fontSize: UIDefine.fontSize12,
+                setMainColor: Colors.white,
+                borderSize: 1,
+                radius: 13,
+                isBorderStyle: true,
+              )
             ])
           ]))
     ]);

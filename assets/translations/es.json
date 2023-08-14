@@ -1410,6 +1410,10 @@
   "withdrawalErrorTitle":"Espere a que se procese el retiro anterior",
   "withdrawSuccessTitle":"La solicitud de retiro se ha iniciado con éxito",
   "withdrawSuccessText":"Los retiros se procesarán dentro de un máximo de 96 horas. El tiempo de procesamiento depende de la velocidad de la cadena de bloques",
+  "teamBenefits":"Beneficios del equipo",
+  "cumulativeIncome":"Ingreso acumulativo",
+  "todayEarnings":"Hoy ganancias",
+  "pfIncome":"Ganancias estimadas",
   "expressway":"Carril rápido",
   "placeholder-channel":"Seleccione un carril",
   "Zambia":"Zambia"

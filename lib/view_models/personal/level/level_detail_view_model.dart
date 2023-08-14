@@ -1,11 +1,11 @@
-import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/constant/call_back_function.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/models/http/api/level_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/level_info_data.dart';
 import 'package:treasure_nft_project/models/http/parameter/user_info_data.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/view_models/gobal_provider/user_info_provider.dart';
 import 'package:treasure_nft_project/views/personal/level/level_bonus_page.dart';
 
 import '../../../models/http/parameter/check_level_info.dart';
@@ -46,5 +46,21 @@ class LevelDetailViewModel extends BaseViewModel {
   ///MARK: 顯示下一等級獎勵
   void showLeveLBonus(BuildContext context) async {
     pushPage(context, const LevelBonusPage());
+  }
+
+  Future<bool> checkLevelUP() async {
+    try {
+      return await LevelAPI().checkLevelUpdate();
+    } catch (e) {
+      return false;
+    }
+  }
+
+  void onPressLevelUp(BuildContext context,WidgetRef ref) {
+    LevelAPI(onConnectFail: (msg) => onBaseConnectFail(context, msg)).setLevelUp().then((value) {
+      int level = ref.read(userInfoProvider).level;
+      showLevelUpAnimate(level, level + 1);
+      ref.read(userInfoProvider.notifier).update();
+    });
   }
 }
