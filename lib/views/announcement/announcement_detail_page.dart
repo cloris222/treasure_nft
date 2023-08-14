@@ -137,7 +137,7 @@ class _AnnouncementDetailPageState extends ConsumerState<AnnouncementDetailPage>
               data.content.toString().contains("p>")
                   ? Html(
                   data: data.content,
-                  onLinkTap: (String? url, RenderContext context, Map<String, String> attributes, element) {
+                  onLinkTap: (String? url,  Map<String, String> attributes, element) {
                    viewModel.launchInBrowser(url!);
                   })
                   :  Text(data.content,

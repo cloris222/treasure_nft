@@ -72,4 +72,6 @@ enum MenuIcon{
   language,
   service,
   telegram,
+  /// 站內信
+  internalMessage,
 }

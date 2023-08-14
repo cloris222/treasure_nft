@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 
 import '../views/airdrop/airdrop_main_page.dart';
+import '../views/internal_message/internal_message_main_page.dart';
 
 @immutable //不可變物件
 class AppRoutes {
   const AppRoutes._();
 
   static Map<String, WidgetBuilder> define() {
-    return {"/AirdropMain": (context) => const AirdropMainPage()};
+    return {
+      "/AirdropMain": (context) => const AirdropMainPage(),
+      "/InternalMessage": (context) => const InternalMessageMainPage(),
+    };
   }
 
   static _checkRoutePath(BuildContext context, String routePath) {
@@ -26,5 +30,10 @@ class AppRoutes {
   ///推到寶箱首頁
   static pushAirdrop(BuildContext context) {
     _checkRoutePath(context, "/AirdropMain");
+  }
+
+  ///推到站內信首頁
+  static pushInternalMessage(BuildContext context) {
+    _checkRoutePath(context, "/InternalMessage");
   }
 }

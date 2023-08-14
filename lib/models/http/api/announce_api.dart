@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../../data/station_letter_data.dart';
 import '../http_manager.dart';
 import '../parameter/announce_data.dart';
 
@@ -45,5 +46,21 @@ class AnnounceAPI extends HttpManager {
     return list;
   }
 
+  ///MARK: 查詢用戶站內信
+  Future<List<StationLetterData>> getStationLetterList({int page = 1, int size = 20}) async {
+    List<StationLetterData> list = [];
+    var response = await get("/stationLetter/all", queryParameters: {"page": page, "size": size});
 
+    for (Map<String, dynamic> json in response.data["pageList"]) {
+      list.add(StationLetterData.fromJson(json));
+    }
+    return List<StationLetterData>.generate(10, (index) => StationLetterData(id: "${DateTime.timestamp().toIso8601String()}_$index", title: 'ATitle($index)', content: '123456', isRead: false));
+
+    return list;
+  }
+
+  ///MARK: 已讀站內信
+  Future<void> setStationLetterRead(String id)async{
+    await post("/stationLetter/save/readTime",data: {"letterId":id});
+  }
 }
