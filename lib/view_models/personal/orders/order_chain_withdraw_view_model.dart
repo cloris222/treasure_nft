@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/view_models/gobal_provider/user_info_provider.dart';
 import 'package:treasure_nft_project/widgets/dialog/img_title_dialog.dart';
 import '../../../constant/call_back_function.dart';
 import '../../../constant/enum/coin_enum.dart';
@@ -102,7 +103,7 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
 
       checkEmail = true;
       onViewChange();
-      SimpleCustomDialog(context).show();
+      // SimpleCustomDialog(context).show();
     } else {
       emailCodeData =
           ValidateResultData(result: emailCodeController.text.isNotEmpty);
@@ -114,7 +115,7 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
     BuildContext context,
     WithdrawAlertInfo alertInfo,
     WithdrawBalanceResponseData withdrawInfo,
-    CoinEnum currentChain,
+    CoinEnum currentChain
   ) {
     clearAllFocus();
 
@@ -132,13 +133,16 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
       onViewChange();
       return;
     } else {
-
       // MARK: v0.0.12版 改為與提交時同送出信箱驗證碼
       ///MARK: 檢查是否驗證過信箱
-      if (!checkExperience && !checkEmail) {
-        emailCodeData =
-            ValidateResultData(result: false, message: tr('rule_mail_valid'));
-      }
+      // await onPressCheckVerify(context, userInfo);
+      // print("exp: $checkExperience");
+      // print("em: $checkEmail");
+      // if (!checkExperience && !checkEmail) {
+      //   print("in !checkEmail");
+      //   emailCodeData = ValidateResultData(result: false, message: tr('rule_mail_valid'));
+      //   return;
+      // }
 
       // MARK: 如果上面的檢查有部分錯誤時return
       if (!checkData()) {
@@ -202,25 +206,24 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
   void _submitRequestApi(BuildContext context, CoinEnum currentChain) {
     ///MARK: 打提交API
     WithdrawApi(
-        showTrString: false,
-        onConnectFailResponse: (message, response) {
-          if (message == "APP_0071") {
-            onBaseConnectFail(
-                context,
-                format(tr('APP_0071'), {
-                  "startTime": response?.data["startTime"],
-                  "endTime": response?.data["endTime"]
-                }));
-          }
-          onBaseConnectFail(context, tr(message));
-        })
-        .submitBalanceWithdraw(
-            chain: currentChain.name,
-            address: addressController.text,
-            amount: amountController.text,
-            account: '',
-            emailVerifyCode: emailCodeController.text,
-            code: googleVerifyController.text,
+      showTrString: false,
+      onConnectFailResponse: (message, response) {
+        if (message == "APP_0071") {
+          onBaseConnectFail(
+              context,
+              format(tr('APP_0071'), {
+                "startTime": response?.data["startTime"],
+                "endTime": response?.data["endTime"]
+              }));
+        }
+        onBaseConnectFail(context, tr(message));
+      }).submitBalanceWithdraw(
+          chain: currentChain.name,
+          address: addressController.text,
+          amount: amountController.text,
+          account: '',
+          emailVerifyCode: emailCodeController.text,
+          code: googleVerifyController.text,
     )
     .then((value) async {
     //   SimpleCustomDialog(context, mainText: tr('success')).show();

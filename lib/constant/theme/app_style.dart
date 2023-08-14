@@ -171,6 +171,7 @@ class AppStyle {
   ///drop-shadow(offset-x offset-y blur-radius spread-radius color)
   BoxDecoration styleShadowBorderBackground(
       {double radius = 15.0,
+      Color backgroundColor = Colors.white,
       Color borderBgColor = Colors.white,
       Color borderColor = Colors.transparent,
       double borderWidth = 0,
@@ -181,7 +182,7 @@ class AppStyle {
       double spreadRadius = 0}) {
     return BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(radius)),
-        color: Colors.white,
+        color: backgroundColor,
         border: Border.all(color: borderColor, width: borderWidth),
         boxShadow: [
           BoxShadow(

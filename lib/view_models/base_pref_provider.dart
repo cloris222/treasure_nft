@@ -41,7 +41,9 @@ abstract class BasePrefProvider {
   Future<void> init(
       {onClickFunction? onFinish,
       onClickFunction? onUpdateFinish,
-      ResponseErrorFunction? onConnectFail}) async {
+      ResponseErrorFunction? onConnectFail,
+      bool needFocusUpdate = false,
+      }) async {
     await Future.delayed(const Duration(milliseconds: 300));
     printLog("initProvider");
     await initProvider();
@@ -60,9 +62,10 @@ abstract class BasePrefProvider {
     update(
         onFinish: onFinish,
         onUpdateFinish: onUpdateFinish,
-        onConnectFail: onConnectFail);
+        onConnectFail: onConnectFail,
+        needFocusUpdate:needFocusUpdate,
+    );
   }
-
   Future<void> update(
       {onClickFunction? onFinish,
       onClickFunction? onUpdateFinish,

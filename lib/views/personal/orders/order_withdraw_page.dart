@@ -65,13 +65,22 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
 
     WalletAPI().checkWithdrawAlert().then((value) {
       withdrawAlertInfo = value;
-      if (withdrawAlertInfo.isReserve) {
+      if (withdrawAlertInfo.hasWithdraw) {
         ImgTitleDialog(context,
             img: AppImagePath.orderNoticeImg,
             singleBottom: true,
             onRightPress: () => Navigator.pop(context),
             mainText: tr("withdrawalErrorTitle"),
             subText: tr("withdrawalErrorText")).show();
+      } else if(withdrawAlertInfo.isReserve){
+        CommonCustomDialog(context,
+            title: tr("reservenotDrawn"),
+            content: tr('reservenotDrawn-hint'),
+            type: DialogImageType.fail,
+            rightBtnText: tr('confirm'),
+            onLeftPress: () {}, onRightPress: () {
+              Navigator.pop(context);
+            }).show();
       } else if (withdrawAlertInfo.isBlock) {
         CommonCustomDialog(context,
             title: tr("applicationFailed"),

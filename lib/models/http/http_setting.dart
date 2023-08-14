@@ -13,7 +13,7 @@ class HttpSetting {
   //     'https://image.treasurenft.xyz/Treasure2.5/index/pc_ad_01.mp4';
   // static const String systemTimeZone='GMT+4';
   // static const String pcArtistUrl =
-  //     'https://treasurenft.xyz/#/userMap/exploreCreator?id={artistId}';
+  //     'https://image.treasurenft.xyz/video/index_video_{lang}.mp4';
   // static const String shareOther =
   //     'https://treasurenft.xyz/#/otherCol?orderNo={orderNo}&type={type}';
   // static const bool debugMode = false;
@@ -28,7 +28,7 @@ class HttpSetting {
   static const String socketUrl =
       'https://dev.treasurenft.xyz/gateway/websocket/websocket-connect';
   static const String homeAdUrl =
-      'https://devimage.treasurenft.xyz/video/index_video.mp4';
+      'https://devimage.treasurenft.xyz/video/index_video_{lang}.mp4';
   static const String systemTimeZone = 'GMT+8';
   static const String pcArtistUrl =
       'https://dev.treasurenft.xyz/#/userMap/exploreCreator?id={artistId}';
@@ -37,8 +37,8 @@ class HttpSetting {
   static const bool debugMode = true;
 
   // receiveTimeout
-  static const int receiveTimeout = 60000;
+  static const int receiveTimeout = 180000;
 
   // connectTimeout
-  static const int connectionTimeout = 60000;
+  static const int connectionTimeout = 180000;
 }

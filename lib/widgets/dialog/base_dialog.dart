@@ -48,7 +48,10 @@ abstract class BaseDialog {
             builder: (context, ref, child) {
               return StatefulBuilder(
                 builder: (context, setState) {
-                  return initContent(context, setState, ref);
+                  return WillPopScope(onWillPop: () async{
+                    return isDialogCancel;
+                  },
+                  child: initContent(context, setState, ref));
                 },
               );
             },

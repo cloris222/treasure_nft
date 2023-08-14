@@ -39,6 +39,7 @@ import '../models/http/parameter/api_response.dart';
 import '../models/http/parameter/sign_in_data.dart';
 import '../utils/app_shared_Preferences.dart';
 import '../utils/date_format_util.dart';
+import '../utils/language_util.dart';
 import '../utils/stomp_socket_util.dart';
 import '../utils/trade_timer_util.dart';
 import '../views/airdrop/airdrop_open_page.dart';
@@ -166,14 +167,17 @@ class BaseViewModel with ControlRouterViewModel {
         .setSignIn();
     await SimpleCustomDialog(context,
             mainText: tr('signSuccessfully'), isSuccess: true)
-        .show().then((value) => showNoticeView(context));
+        .show().then((value) => showNoticeView(context, true));
   }
 
   ///MARK: 跳出最新公告彈窗
-  void showNoticeView(BuildContext context){
+  void showNoticeView(BuildContext context, bool compareIt){
     Future.delayed(const Duration(seconds: 1)).then((value) {
-      AnnounceAPI().getAnnounceLast().then((value) => {
-        if (value.title != GlobalData.lastAnnounce.title) {
+      String lang = LanguageUtil.getAnnouncementLanguage();
+      AnnounceAPI().getAnnounceLast(lang).then((value) => {
+        if(compareIt == false){
+          BaseViewModel().pushOpacityPage(context, AnnouncementDialogPage(value))
+        }else if(value.title != GlobalData.lastAnnounce.title) {
           GlobalData.lastAnnounce = value,
           BaseViewModel().pushOpacityPage(context, AnnouncementDialogPage(value))
         }
