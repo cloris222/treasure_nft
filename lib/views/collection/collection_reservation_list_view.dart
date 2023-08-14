@@ -64,14 +64,14 @@ class _CollectionReservationListViewState
     ///MARK: 轉成系統時間
     String startTime = viewModel.getStartTime(today);
     String endTime = viewModel.getEndTime(today);
-    itemList.addAll(await CollectionApi().getReservationResponse(
+    itemList.addAll(await CollectionApi(onConnectFail: (msg)=>reloadAPI(page,size)).getReservationResponse(
       page: page,
       size: size,
       type: 'ITEM',
       startTime: startTime,
       endTime: endTime,
     ));
-    itemList.addAll(await CollectionApi().getReservationResponse(
+    itemList.addAll(await CollectionApi(onConnectFail: (msg)=>reloadAPI(page,size)).getReservationResponse(
       page: page,
       size: size,
       type: 'PRICE',

@@ -53,7 +53,7 @@ class _CollectionTicketListViewState
 
   @override
   Future<List> loadData(int page, int size) async {
-    return await CollectionApi()
+    return await CollectionApi(onConnectFail: (msg)=>reloadAPI(page,size))
         .getTicketResponse(page: page, size: size, type: 'TICKET');
   }
 
