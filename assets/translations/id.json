@@ -1412,5 +1412,9 @@
   "withdrawSuccessText":"Penarikan akan diproses dalam waktu maksimal 96 jam. Waktu pemrosesan tergantung pada kecepatan blockchain",
   "expressway":"Jalur Ekspres",
   "placeholder-channel":"Pilih jalur",
-  "Zambia":"Zambia"
+  "Zambia":"Zambia",
+  "stationMessage":"Pesan internal",
+  "serviceMessage":"Pemberitahuan pelanggan",
+  "systemMessage":"Pemberitahuan sistem",
+  "allRead":"Semua dibaca"
 }

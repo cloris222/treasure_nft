@@ -1412,5 +1412,9 @@
   "withdrawalErrorTitle":"Пожалуйста, дождитесь обработки предыдущего снятия",
   "expressway":"Экспресс -лейн",
   "placeholder-channel":"Пожалуйста, выберите переулок",
-  "Zambia":"Замбия"
+  "Zambia":"Замбия",
+  "stationMessage":"Внутреннее сообщение",
+  "serviceMessage":"Уведомление клиента",
+  "systemMessage":"Системное уведомление",
+  "allRead":"Все читается"
 }

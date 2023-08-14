@@ -1412,5 +1412,9 @@
   "withdrawSuccessText":"ستتم معالجة عمليات السحب في غضون 96 ساعة كحد أقصى. يعتمد وقت المعالجة على سرعة blockchain",
   "expressway":"Express Lane",
   "placeholder-channel":"الرجاء تحديد حارة",
-  "Zambia":"زامبيا"
+  "Zambia":"زامبيا",
+  "stationMessage":"رسالة داخلية",
+  "serviceMessage":"إخطار العملاء",
+  "systemMessage":"إشعار النظام",
+  "allRead":"الكل يقرأ"
 }

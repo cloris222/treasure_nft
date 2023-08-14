@@ -1412,5 +1412,9 @@
   "withdrawalErrorTitle":"Aguarde a retirada anterior ser processada",
   "expressway":"Via rápida",
   "placeholder-channel":"Selecione uma pista",
-  "Zambia":"Zâmbia"
+  "Zambia":"Zâmbia",
+  "stationMessage":"Mensagem interna",
+  "serviceMessage":"Notificação do cliente",
+  "systemMessage":"Notificação do sistema",
+  "allRead":"Tudo lido"
 }

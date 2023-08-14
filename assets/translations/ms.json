@@ -1412,5 +1412,9 @@
   "withdrawalErrorTitle":"Sila tunggu pengeluaran sebelumnya diproses",
   "expressway":"Express Lane",
   "placeholder-channel":"Sila pilih lorong",
-  "Zambia":"Zambia"
+  "Zambia":"Zambia",
+  "stationMessage":"Mesej dalaman",
+  "serviceMessage":"Pemberitahuan Pelanggan",
+  "systemMessage":"Pemberitahuan Sistem",
+  "allRead":"Semua dibaca"
 }

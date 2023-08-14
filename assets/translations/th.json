@@ -1412,5 +1412,9 @@
   "withdrawalErrorTitle":"โปรดรอการถอนก่อนหน้านี้จะดำเนินการ",
   "expressway":"ช่องทาง",
   "placeholder-channel":"กรุณาเลือกเลน",
-  "Zambia":"ชาวแซมเบีย"
+  "Zambia":"ชาวแซมเบีย",
+  "stationMessage":"ข้อความภายใน",
+  "serviceMessage":"การแจ้งเตือนลูกค้า",
+  "systemMessage":"การแจ้งเตือนระบบ",
+  "allRead":"อ่านทั้งหมด"
 }

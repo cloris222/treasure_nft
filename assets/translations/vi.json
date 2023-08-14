@@ -1412,5 +1412,9 @@
   "withdrawalErrorTitle":"Vui lòng đợi lần rút tiền trước đó được xử lý",
   "expressway":"Thể hiện làn đường",
   "placeholder-channel":"Vui lòng chọn làn đường",
-  "Zambia":"Zambia"
+  "Zambia":"Zambia",
+  "stationMessage":"Tin nhắn nội bộ",
+  "serviceMessage":"Thông báo của khách hàng",
+  "systemMessage":"Thông báo hệ thống",
+  "allRead":"Tất cả được đọc"
 }

@@ -1411,5 +1411,9 @@
   "withdrawSuccessText":"Withdrawals will be processed within a maximum of 96 hours. The processing time depends on the speed of the blockchain",
   "expressway":"Express Lane",
   "placeholder-channel":"Please select a lane",
-  "Zambia":"Zambia"
+  "Zambia":"Zambia",
+  "stationMessage":"Internal Message",
+  "serviceMessage":"Customer Notification",
+  "systemMessage":"System Notification",
+  "allRead":"All Read"
 }

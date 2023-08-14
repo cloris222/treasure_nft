@@ -1412,5 +1412,9 @@
     "withdrawSuccessText":"引き出しは最大96時間以内に処理されます。処理時間はブロックチェーンの速度に依存します",
     "expressway":"エクスプレスレーン",
     "placeholder-channel":"車線を選択してください",
-    "Zambia":"ザンビア"
+    "Zambia":"ザンビア",
+    "stationMessage":"内部メッセージ",
+    "serviceMessage":"顧客通知",
+    "systemMessage":"システム通知",
+    "allRead":"すべて読みます"
 }

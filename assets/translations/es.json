@@ -1412,5 +1412,9 @@
   "withdrawSuccessText":"Los retiros se procesarán dentro de un máximo de 96 horas. El tiempo de procesamiento depende de la velocidad de la cadena de bloques",
   "expressway":"Carril rápido",
   "placeholder-channel":"Seleccione un carril",
-  "Zambia":"Zambia"
+  "Zambia":"Zambia",
+  "stationMessage":"Mensaje interno",
+  "serviceMessage":"Notificacion al cliente",
+  "systemMessage":"Notificación del sistema",
+  "allRead":"Todo leido"
 }
