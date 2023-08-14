@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/widgets/gradient_text.dart';
 
@@ -26,7 +25,7 @@ class InternalMessageMainPage extends ConsumerStatefulWidget {
 class _InternalMessageMainPageState extends ConsumerState<InternalMessageMainPage> with TickerProviderStateMixin {
   int currentIndex = 1;
   final PageController _controller = PageController(initialPage: 1);
-  final GlobalKey _serviceKey=GlobalKey();
+  final GlobalKey<CustomerServiceListViewState> _serviceKey = GlobalKey<CustomerServiceListViewState>();
 
   @override
   void initState() {
@@ -49,7 +48,7 @@ class _InternalMessageMainPageState extends ConsumerState<InternalMessageMainPag
         }
       },
       body: LoginCommonView(
-          title: tr('internalMessage'),
+          title: tr("stationMessage"),
           pageHeight: UIDefine.getHeight(),
           body: Container(
             margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(10)),
@@ -69,7 +68,7 @@ class _InternalMessageMainPageState extends ConsumerState<InternalMessageMainPag
   }
 
   Widget _buildButtonList() {
-    List<String> titles = [tr("系统通知"), tr("客服通知")];
+    List<String> titles = [tr("systemMessage"), tr("serviceMessage")];
     return Stack(
       children: [
         Container(
@@ -95,10 +94,12 @@ class _InternalMessageMainPageState extends ConsumerState<InternalMessageMainPag
                           return _buildButton(index, titles[index]);
                         }),
                   ),
+                  SizedBox(width: UIDefine.getPixelWidth(10)),
                   GestureDetector(
                     behavior: HitTestBehavior.translucent,
+                    onTap: _readAll,
                     child: GradientText(
-                      tr("全部已讀"),
+                      tr("allRead"),
                       colors: AppColors.gradientBaseColorBg,
                       size: UIDefine.fontSize12,
                       weight: FontWeight.w400,
@@ -173,10 +174,14 @@ class _InternalMessageMainPageState extends ConsumerState<InternalMessageMainPag
     return PageView(
       controller: _controller,
       onPageChanged: (index) => setState(() => currentIndex = index),
-      children: const [
-        SizedBox(),
-        CustomerServiceListView(),
+      children: [
+        const SizedBox(),
+        CustomerServiceListView(key: _serviceKey),
       ],
     );
+  }
+
+  void _readAll() {
+    _serviceKey.currentState?.onPressReadAll();
   }
 }

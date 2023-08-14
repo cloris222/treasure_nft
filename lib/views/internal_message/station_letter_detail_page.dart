@@ -53,7 +53,7 @@ class _StationLetterDetailPageState extends State<StationLetterDetailPage> {
               fit: BoxFit.contain,
             ),
             SizedBox(width: UIDefine.getPixelWidth(10)),
-            Text(tr(widget.isSystemType ? "預約通知" : "客服通知"), style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize16, color: Colors.black, fontWeight: FontWeight.w400)),
+            Text(data.title, style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize16, color: Colors.black, fontWeight: FontWeight.w400)),
           ],
         ),
         SizedBox(height: UIDefine.getPixelWidth(20)),
@@ -74,7 +74,8 @@ class _StationLetterDetailPageState extends State<StationLetterDetailPage> {
     return Stack(
       children: [
         SizedBox(width: UIDefine.getWidth(), height: UIDefine.getPixelWidth(40)),
-        Positioned.fill(child: Center(child: Text(data.title, style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w600, fontSize: UIDefine.fontSize18, height: 1.1)))),
+        Positioned.fill(
+            child: Center(child: Text(tr("stationMessage"), style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w600, fontSize: UIDefine.fontSize18, height: 1.1)))),
         Positioned(
           left: 0,
           top: 0,

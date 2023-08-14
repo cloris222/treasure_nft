@@ -88,7 +88,7 @@ class MenuButtonWidget extends ConsumerWidget {
         break;
       case MenuIcon.internalMessage:
         imgPath = AppImagePath.internalMessageBtn;
-        cellTitle = tr("internalMessage");
+        cellTitle = tr("stationMessage");
         break;
     }
     Widget item = Row(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
-import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/views/internal_message/station_letter_detail_page.dart';
 import 'package:treasure_nft_project/views/internal_message/station_letter_item_view.dart';
 import 'package:treasure_nft_project/widgets/list_view/base_list_interface.dart';
@@ -20,10 +19,10 @@ class CustomerServiceListView extends ConsumerStatefulWidget {
   }) : super(key: key);
 
   @override
-  ConsumerState createState() => _CustomerServiceListViewState();
+  ConsumerState createState() => CustomerServiceListViewState();
 }
 
-class _CustomerServiceListViewState extends ConsumerState<CustomerServiceListView> with BaseListInterface {
+class CustomerServiceListViewState extends ConsumerState<CustomerServiceListView> with BaseListInterface {
   @override
   void initState() {
     init();
@@ -40,6 +39,7 @@ class _CustomerServiceListViewState extends ConsumerState<CustomerServiceListVie
   @override
   Widget buildItemBuilder(int index, data) {
     return GestureDetector(
+      behavior: HitTestBehavior.translucent,
       onTap: () => _onPressDetail(index, data),
       child: StationLetterItemView(data: data, isSystemType: false),
     );
@@ -112,6 +112,20 @@ class _CustomerServiceListViewState extends ConsumerState<CustomerServiceListVie
     setSharedPreferencesValue(maxSize: maxLoad());
 
     /// 已讀
-    // AnnounceAPI().setStationLetterRead(data.id);
+    AnnounceAPI().setStationLetterRead([data.id]);
+  }
+
+  /// 已讀全部
+  void onPressReadAll() async {
+    if (ref.read(userLetterCountProvider).isNotEmpty) {
+      await AnnounceAPI().setStationLetterRead(ref.read(userLetterCountProvider));
+      for (int index = 0; index < currentItems.length; index++) {
+        StationLetterData data = currentItems[index];
+        currentItems[index] = data.copyWith(isRead: true);
+      }
+      ref.read(userLetterCountProvider.notifier).clear();
+    }
+    loadingFinish();
+    setSharedPreferencesValue(maxSize: maxLoad());
   }
 }
