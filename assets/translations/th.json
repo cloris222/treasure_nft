@@ -1412,5 +1412,6 @@
   "withdrawalErrorTitle":"โปรดรอการถอนก่อนหน้านี้จะดำเนินการ",
   "teamBenefits":"ผลประโยชน์ของทีม",
   "cumulativeIncome":"รายได้สะสม",
-  "todayEarnings":"วันนี้รายได้"
+  "todayEarnings":"วันนี้รายได้",
+  "pfIncome":"รายได้โดยประมาณ"
 }

@@ -1412,5 +1412,6 @@
     "withdrawSuccessText":"引き出しは最大96時間以内に処理されます。処理時間はブロックチェーンの速度に依存します",
     "teamBenefits":"チームの利点",
     "cumulativeIncome":"累積収入",
-    "todayEarnings":"今日の収益"
+    "todayEarnings":"今日の収益",
+    "pfIncome":"推定収益額"
 }

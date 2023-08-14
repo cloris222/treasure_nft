@@ -1412,5 +1412,6 @@
   "withdrawSuccessText":"Los retiros se procesarán dentro de un máximo de 96 horas. El tiempo de procesamiento depende de la velocidad de la cadena de bloques",
   "teamBenefits":"Beneficios del equipo",
   "cumulativeIncome":"Ingreso acumulativo",
-  "todayEarnings":"Hoy ganancias"
+  "todayEarnings":"Hoy ganancias",
+  "pfIncome":"Ganancias estimadas"
 }

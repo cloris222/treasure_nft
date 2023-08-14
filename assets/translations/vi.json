@@ -1412,5 +1412,6 @@
   "withdrawalErrorTitle":"Vui lòng đợi lần rút tiền trước đó được xử lý",
   "teamBenefits":"Lợi ích của đội",
   "cumulativeIncome":"Thu nhập tích lũy",
-  "todayEarnings":"Hôm nay thu nhập"
+  "todayEarnings":"Hôm nay thu nhập",
+  "pfIncome":"Thu nhập ước tính"
 }

@@ -1412,5 +1412,6 @@
   "withdrawSuccessText":"Penarikan akan diproses dalam waktu maksimal 96 jam. Waktu pemrosesan tergantung pada kecepatan blockchain",
   "teamBenefits":"Manfaat tim",
   "cumulativeIncome":"Pendapatan kumulatif",
-  "todayEarnings":"Penghasilan hari ini"
+  "todayEarnings":"Penghasilan hari ini",
+  "pfIncome":"Perkiraan pendapatan"
 }

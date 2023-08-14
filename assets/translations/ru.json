@@ -1412,5 +1412,6 @@
   "withdrawalErrorTitle":"Пожалуйста, дождитесь обработки предыдущего снятия",
   "teamBenefits":"Командные преимущества",
   "cumulativeIncome":"Совокупный доход",
-  "todayEarnings":"Сегодня доходы"
+  "todayEarnings":"Сегодня доходы",
+  "pfIncome":"Расчетный доход"
 }

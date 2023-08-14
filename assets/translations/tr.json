@@ -1412,5 +1412,6 @@
   "withdrawalErrorTitle":"Lütfen önceki para çekme işleminin işlenmesini bekleyin",
   "teamBenefits":"Takım Faydaları",
   "cumulativeIncome":"Kümülatif gelir",
-  "todayEarnings":"Bugün Kazanç"
+  "todayEarnings":"Bugün Kazanç",
+  "pfIncome":"Tahmini Kazanç"
 }

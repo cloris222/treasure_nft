@@ -1412,5 +1412,6 @@
   "withdrawSuccessText":"提现到帐最长时间不超过96H具体取决链上处理速度",
   "teamBenefits":"团队收益",
   "cumulativeIncome":"累计收益",
-  "todayEarnings":"今日收益"
+  "todayEarnings":"今日收益",
+  "pfIncome":"预估收益"
 }

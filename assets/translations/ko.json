@@ -1412,5 +1412,6 @@
   "withdrawalErrorTitle":"이전 철수가 처리 될 때까지 기다리십시오",
   "teamBenefits":"팀 혜택",
   "cumulativeIncome":"누적 수입",
-  "todayEarnings":"오늘 수입"
+  "todayEarnings":"오늘 수입",
+  "pfIncome":"예상 수입"
 }

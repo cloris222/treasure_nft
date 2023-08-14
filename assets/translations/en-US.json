@@ -1411,5 +1411,6 @@
   "withdrawSuccessText":"Withdrawals will be processed within a maximum of 96 hours. The processing time depends on the speed of the blockchain",
   "teamBenefits":"Team Benefits",
   "cumulativeIncome":"Cumulative Income",
-  "todayEarnings":"Today Earnings"
+  "todayEarnings":"Today Earnings",
+  "pfIncome":"Estimated Earnings"
 }
