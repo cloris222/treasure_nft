@@ -26,6 +26,9 @@ abstract class BaseListInterface {
   ///MARK:移除項目清單
   List<int> removeItems = [];
 
+  ///MARK: 判斷是否重讀取過
+  bool hasReloadAPI = false;
+
   ///---- 實體化的function
 
   void loadingFinish();
@@ -225,6 +228,18 @@ abstract class BaseListInterface {
 
   void _readMorePage() {
     _currentPage += 1;
+  }
+
+  /// 判斷是否要重新讀取頁面
+  void reloadAPI(int page, int size) async{
+    /// 代表初次讀取就有問題
+    if (page == 1) {
+      if (!hasReloadAPI) {
+        GlobalData.printLog('BaseListInterface reloadAPI');
+        hasReloadAPI = true;
+        reloadInit();
+      }
+    }
   }
 
   ///-----View 建立

@@ -15,6 +15,7 @@ import 'package:treasure_nft_project/views/splash_screen_page.dart';
 import 'constant/app_routes.dart';
 import 'constant/global_data.dart';
 import 'firebase_options.dart';
+import 'utils/firebase_crashlytics_util.dart';
 import 'utils/language_util.dart';
 
 /// Initialize the [FlutterLocalNotificationsPlugin] package.
@@ -25,6 +26,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FirebaseCrashlyticsUtil.init();
   await setupFlutterNotifications();
 
   print('FCM 背景收到的資料： ${message.data['testData']}');
@@ -106,6 +108,7 @@ void main() async {
     /// Firebase初始化＋監聽背景推播
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
+    await FirebaseCrashlyticsUtil.init();
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     final String? fcmToken = await FirebaseMessaging.instance.getToken();
     GlobalData.printLog('FCM憑證：${fcmToken ?? ''}');
