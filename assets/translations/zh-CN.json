@@ -1411,5 +1411,6 @@
   "withdrawSuccessTitle":"发起提现成功",
   "withdrawSuccessText":"提现到帐最长时间不超过96H具体取决链上处理速度",
   "expressway":"快速通道",
-  "placeholder-channel":"请选择通道"
+  "placeholder-channel":"请选择通道",
+  "Zambia":"尚比亚"
 }

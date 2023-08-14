@@ -9,7 +9,10 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_style.dart';
 import '../../constant/ui_define.dart';
+import '../../models/http/api/announce_api.dart';
 import '../../models/http/parameter/announce_data.dart';
+import '../../utils/language_util.dart';
+import '../../view_models/announcement/announce_tag_provider.dart';
 import '../../view_models/announcement/announcement_view_model.dart';
 import '../custom_appbar_view.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -51,9 +54,12 @@ class _AnnouncementDetailPageState extends ConsumerState<AnnouncementDetailPage>
     return CustomAppbarView(
       needScrollView: true,
       needBottom: true,
-      onLanguageChange: () {
+      onLanguageChange: () async {
+        await ref.read(announceTagProvider.notifier).init(needFocusUpdate: true);
+        await _updateData();
         if (mounted) {
-          setState(() {});
+          setState(() {
+          });
         }
       },
       body: _buildBody(),
@@ -177,5 +183,41 @@ class _AnnouncementDetailPageState extends ConsumerState<AnnouncementDetailPage>
       onTap: () => Navigator.pop(context),
       child: Image.asset(AppImagePath.arrowLeftBlack,color: AppColors.textBlack),
     );
+  }
+
+  Future<List> updateData() async {
+    // String getLang = await AppSharedPreferences.getLanguage();
+    String lang = LanguageUtil.getAnnouncementLanguage();
+    List<AnnounceData> itemList = [];
+    itemList.addAll(await AnnounceAPI().getAnnounceAll(lang: lang));
+    return itemList;
+  }
+
+  Future<void> _updateData() async {
+    try {
+      // Fetch the new data based on the current data's ID
+      String lang = LanguageUtil.getAnnouncementLanguage();
+      List<AnnounceData> newDataList =
+      await AnnounceAPI().getAnnounceAll(lang: lang);
+
+      // Find the new data that matches the ID of the current data
+      AnnounceData newData = newDataList.firstWhere(
+            (data) => data.id == widget.data.id,
+        orElse: () => widget.data,
+      );
+      setState(() {
+        widget.data.title = newData.title;
+        widget.data.content = newData.content;
+        widget.data.content = newData.content;
+        widget.data.tagId = newData.tagId;
+        widget.data.bannerMbUrl = newData.bannerMbUrl;
+        widget.data.bannerPcUrl = newData.bannerPcUrl;
+        widget.data.startAt = newData.startAt;
+        widget.data.endAt = newData.endAt;
+        widget.data.sort = newData.sort;
+      });
+    } catch (e) {
+      print('Error updating data: $e');
+    }
   }
 }

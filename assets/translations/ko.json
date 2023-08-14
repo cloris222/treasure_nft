@@ -1411,5 +1411,6 @@
   "withdrawalErrorText":"보류중인 철수 요청이 있습니다. 이전 철수가 인정받을 때까지 기다리십시오",
   "withdrawalErrorTitle":"이전 철수가 처리 될 때까지 기다리십시오",
   "expressway":"Express 차선",
-  "placeholder-channel":"차선을 선택하십시오"
+  "placeholder-channel":"차선을 선택하십시오",
+  "Zambia":"잠비아"
 }

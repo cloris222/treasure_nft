@@ -26,7 +26,7 @@ class BannerItemView extends StatelessWidget {
               cacheWidth: 360,
               width: UIDefine.getPixelWidth(360),
               height: UIDefine.getPixelWidth(120),
-              fit: BoxFit.fill),
+              fit: BoxFit.cover),
         )
 
     );

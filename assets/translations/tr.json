@@ -1411,5 +1411,6 @@
   "withdrawalErrorText":"Bekleyen para çekme talepleriniz var. Lütfen önceki para çekme işleminin kredilendirilmesini bekleyin",
   "withdrawalErrorTitle":"Lütfen önceki para çekme işleminin işlenmesini bekleyin",
   "expressway":"Express Lane",
-  "placeholder-channel":"Lütfen bir şerit seçin"
+  "placeholder-channel":"Lütfen bir şerit seçin",
+  "Zambia":"Zambiya"
 }

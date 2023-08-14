@@ -81,6 +81,7 @@ dependencies:
   hexcolor: ^3.0.1
   flutter_html: any
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -80,7 +80,7 @@ class _HomeMainViewState extends ConsumerState<HomeMainView>
       if (ref.read(homeDisCoverTagsProvider).isNotEmpty) {
         ref.read(homeDiscoverCurrentTagProvider.notifier).state =
             ref.read(homeDisCoverTagsProvider).first;
-        ref.read(homeDiscoverListProvider.notifier).init();
+        ref.read(homeDiscoverListProvider(ref.read(homeDisCoverTagsProvider).first).notifier).init();
       }
     });
     ref.read(airdropCountProvider(viewModel.isLogin()).notifier).init();

@@ -40,9 +40,6 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
   @override
   void initState() {
     ref.read(walletFiatTypeProvider.notifier).init();
-    ref.read(currentAisleProvider.notifier).state.currentRate = 0.0;
-    ref.read(currentAisleProvider.notifier).state.startPrice = 0.0;
-    ref.read(currentAisleProvider.notifier).state.endPrice = 0.0;
     viewModel = WalletFiatDepositViewModel(
         onViewChange: () {
           if (mounted) {
@@ -120,6 +117,7 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
       maintainSize: true,
       child:Container(
         width: UIDefine.getWidth(),
+        // margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(25)),
         padding: EdgeInsets.fromLTRB(
             UIDefine.getPixelWidth(UIDefine.getPixelWidth(60)),
             UIDefine.getPixelWidth(UIDefine.getPixelWidth(40)),
@@ -284,35 +282,35 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
 
   Widget _buildMinMaxButton(){
     return Container(
-        margin: EdgeInsets.only(bottom: UIDefine.getPixelHeight(5)),
-        child:Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(child:
-              LoginBolderButtonWidget(
-                radius: 8,
-                needWhiteBackground: true,
-                height: UIDefine.getPixelWidth(30),
-                margin:EdgeInsets.only(right: UIDefine.getPixelHeight(4)),
-                btnText: viewModel.getMinText(),
-                onPressed: () => viewModel.onMinimum(),
-                isFillWidth: false,
-                fontWeight: FontWeight.w600,
-                fontSize: UIDefine.fontSize12,
-              )),
+      margin: EdgeInsets.only(bottom: UIDefine.getPixelHeight(5)),
+      child:Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(child:
+          LoginBolderButtonWidget(
+            radius: 8,
+            needWhiteBackground: true,
+            height: UIDefine.getPixelWidth(30),
+            margin:EdgeInsets.only(right: UIDefine.getPixelHeight(4)),
+            btnText: '${tr("minimum")} ${viewModel.getMinText()}',
+            onPressed: () => viewModel.onMinimum(),
+            isFillWidth: false,
+            fontWeight: FontWeight.w600,
+            fontSize: UIDefine.fontSize12,
+          )),
 
-              Expanded(child:
-              LoginBolderButtonWidget(
-                radius: 8,
-                needWhiteBackground: true,
-                height: UIDefine.getPixelWidth(30),
-                margin:EdgeInsets.only(left: UIDefine.getPixelHeight(4)),
-                btnText: viewModel.getMaxText(),
-                onPressed: () => viewModel.onMaximum(),
-                isFillWidth: false,
-                fontWeight: FontWeight.w600,
-                fontSize: UIDefine.fontSize12,
-              ))
+          Expanded(child:
+          LoginBolderButtonWidget(
+            radius: 8,
+            needWhiteBackground: true,
+            height: UIDefine.getPixelWidth(30),
+            margin:EdgeInsets.only(left: UIDefine.getPixelHeight(4)),
+            btnText: '${tr("maximum")} ${viewModel.getMaxText()}',
+            onPressed: () => viewModel.onMaximum(),
+            isFillWidth: false,
+            fontWeight: FontWeight.w600,
+            fontSize: UIDefine.fontSize12,
+          ))
 
             ]));
   }
@@ -320,9 +318,8 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
   Widget _buildRate() {
     return Align(
         alignment: Alignment.centerLeft,
-        child:Text(ref.watch(currentAisleProvider.notifier).state.currentRate == 0.0?
-        "${tr("exchangeRate")}： -":
-        "${tr("exchangeRate")}：${ref.watch(currentAisleProvider.notifier).state.currentRate}",
+        child:Text(
+            '${tr("exchangeRate")}：${ref.read(currentPayTypeProvider.notifier).state.currentRate}',
             maxLines: 1,
             style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize14,

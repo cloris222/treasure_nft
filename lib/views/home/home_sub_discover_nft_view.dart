@@ -60,7 +60,7 @@ class _HomeSubDiscoverNftViewState extends ConsumerState<HomeSubDiscoverNftView>
   Widget build(BuildContext context) {
     tags = ref.watch(homeDisCoverTagsProvider);
     currentTag = ref.watch(homeDiscoverCurrentTagProvider);
-    discoverList = ref.watch(homeDiscoverListProvider);
+    discoverList = ref.watch(homeDiscoverListProvider(currentTag));
     return Container(
       decoration: AppStyle().buildGradient(
           radius: 0, colors: AppColors.gradientBackgroundColorBg),
@@ -99,7 +99,7 @@ class _HomeSubDiscoverNftViewState extends ConsumerState<HomeSubDiscoverNftView>
 
   void changePage(ExploreCategoryResponseData exploreType) {
     ref.read(homeDiscoverCurrentTagProvider.notifier).state = exploreType;
-    ref.read(homeDiscoverListProvider.notifier).init();
+    ref.read(homeDiscoverListProvider(exploreType).notifier).update();
   }
 
   int getExploreTypeIndex(ExploreCategoryResponseData? type) {

@@ -5,7 +5,6 @@ import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/http/api/wallet_api.dart';
-import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/view_models/wallet/wallet_aisle_provider.dart';
 import 'package:treasure_nft_project/view_models/wallet/wallet_fiat_currency_provider.dart';
 import 'package:treasure_nft_project/view_models/wallet/wallet_pay_type_provider.dart';
@@ -36,40 +35,34 @@ class WalletFiatDepositViewModel extends BaseViewModel {
   }
 
   String getMinText() {
-    if(ref.watch(currentAisleProvider.notifier).state.startPrice == 0){
-      return "${tr("minimum")} -";
-    }
-    String minMum = ref.watch(currentAisleProvider.notifier).state.startPrice.toString();
-    return "${tr("minimum")} ${NumberFormatUtil().numberCompatFormat(minMum)}";
+    return getThousandFormat(
+        ref.read(currentPayTypeProvider.notifier).state.startPrice);
   }
 
   String getMaxText() {
-    if(ref.watch(currentAisleProvider.notifier).state.endPrice == 0){
-      return "${tr("maximum")} -";
-    }
-    String maxNum = ref.watch(currentAisleProvider.notifier).state.endPrice.toString();
-    return "${tr("maximum")} ${NumberFormatUtil().numberCompatFormat(maxNum)}";
+    return getThousandFormat(
+        ref.read(currentPayTypeProvider.notifier).state.endPrice);
   }
 
   void onMinimum() {
     amountController.text =
-        ref.read(currentAisleProvider.notifier).state.startPrice.toString();
+        ref.read(currentPayTypeProvider.notifier).state.startPrice.toString();
     onTextChange();
   }
 
   void onMaximum() {
     amountController.text =
-        ref.read(currentAisleProvider.notifier).state.endPrice.toString();
+        ref.read(currentPayTypeProvider.notifier).state.endPrice.toString();
     onTextChange();
   }
 
   String getAvailable() {
-    if(ref.watch(currentAisleProvider.notifier).state.startPrice==0){
-      return "0.00";
+    if (amountController.text.isEmpty) {
+      return '0.00';
     }
     return truncateToDecimalPlaces(
-        (double.parse(ref.watch(currentAisleProvider.notifier).state.startPrice.toString()) *
-            ref.read(currentAisleProvider.notifier).state.currentRate),
+        (double.parse(amountController.text) *
+            ref.read(currentPayTypeProvider.notifier).state.currentRate),
         2).toString();
   }
 
@@ -122,10 +115,10 @@ class WalletFiatDepositViewModel extends BaseViewModel {
     return Container();
   }
 
-  // String getThousandFormat(num number) {
-  //   var formatter = NumberFormat('###,###,###');
-  //   return formatter.format(number);
-  // }
+  String getThousandFormat(num number) {
+    var formatter = NumberFormat('###,###,###');
+    return formatter.format(number);
+  }
 
   void showSuccessDialog(String link) {
     CommonCustomDialog(context,

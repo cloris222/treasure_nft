@@ -1411,5 +1411,6 @@
   "withdrawSuccessTitle":"La solicitud de retiro se ha iniciado con éxito",
   "withdrawSuccessText":"Los retiros se procesarán dentro de un máximo de 96 horas. El tiempo de procesamiento depende de la velocidad de la cadena de bloques",
   "expressway":"Carril rápido",
-  "placeholder-channel":"Seleccione un carril"
+  "placeholder-channel":"Seleccione un carril",
+  "Zambia":"Zambia"
 }

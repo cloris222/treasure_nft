@@ -378,11 +378,11 @@
   "select_date":"เลือกวันที่",
   "myTeam":"ทีมของฉัน",
   "validInvites":"คำเชิญที่ถูกต้อง",
-  "ALevel":"ผู้ที่ชื่นชอบ",
-  "BCLevel":"ผู้ที่ชื่นชอบ B+C",
-  "teamMember":"ผู้ที่ชื่นชอบชุมชน",
-  "teamContribution":"การบริจาคชุมชน",
-  "teamOrder":"คำสั่งซื้อชุมชน",
+  "ALevel":"สมาชิกระดับ A",
+  "BCLevel":"สมาชิกคลาส B+C",
+  "teamMember":"สมาชิกในทีม",
+  "teamContribution":"ผลงานของทีม",
+  "teamOrder":"คำสั่งทีม",
   "referral-code'":"รหัสอ้างอิง",
   "reservation-product-amount'":"ยอดจองสินค้า",
   "preOrderCoupon":"คูปองพรีออเดอร์",
@@ -1411,5 +1411,6 @@
   "withdrawalErrorText":"คุณมีคำขอถอนที่รอดำเนินการ โปรดรอการถอนเงินก่อนหน้านี้ได้รับเครดิต",
   "withdrawalErrorTitle":"โปรดรอการถอนก่อนหน้านี้จะดำเนินการ",
   "expressway":"ช่องทาง",
-  "placeholder-channel":"กรุณาเลือกเลน"
+  "placeholder-channel":"กรุณาเลือกเลน",
+  "Zambia":"ชาวแซมเบีย"
 }
