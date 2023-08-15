@@ -52,7 +52,14 @@ class _InternalWithdrawViewState extends ConsumerState<InternalWithdrawView> {
         setState(() {});
       }
     });
-    ref.read(orderWithdrawBalanceProvider(null).notifier).init();
+    ref.read(orderWithdrawBalanceProvider(null).notifier).init(
+      onFinish: (){
+        if(withdrawInfo.fee.isNotEmpty){
+          viewModel.currentAmount = num.parse(withdrawInfo.fee);
+          viewModel.onViewChange;
+        }
+      }
+    );
   }
 
   @override
@@ -175,7 +182,8 @@ class _InternalWithdrawViewState extends ConsumerState<InternalWithdrawView> {
               '${viewModel.numberFormat(withdrawInfo.minAmount)} USDT'),
           SizedBox(height: UIDefine.getScreenWidth(2.27)),
           //*
-
+          _buildTextContent("${tr('withdrawFee')} ${chargeGet(withdrawInfo.feeRate,withdrawInfo.fee)}",
+              '${NumberFormatUtil().removeTwoPointFormat(viewModel.currentAmount)} USDT'),
           //* 工單722
           // SizedBox(height: UIDefine.getScreenWidth(2.77)),
           // _buildTextContent(tr('chainMinAmount'),
@@ -187,6 +195,12 @@ class _InternalWithdrawViewState extends ConsumerState<InternalWithdrawView> {
         ],
       ),
     );
+  }
+
+  String chargeGet(String theRate, String theFee){
+    bool zeroRate = theRate == "0";
+    bool zeroFee = theFee =="0";
+    return "(${tr("chargePrice")}${zeroRate?"":theRate+"%"}${zeroFee?"":"${zeroRate?"":"+"}${theFee+"u"}"})";
   }
 
   Widget _buildAddressInputBar() {

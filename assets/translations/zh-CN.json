@@ -1313,7 +1313,6 @@
   "placeholder-coin":"请选择币种",
   "rechargeUSDT-frenchCurrency":"充值USDT(法币)",
   "pleaseEnterCorrectAmount":"请输入正确金额",
-  "APP_0094":"法币订单数量已超限",
   "daily-profit":"每日盈利",
   "notificationList":"通知列表",
   "announcementManagement":"公告管理",
@@ -1360,8 +1359,6 @@
   "teamBenefits":"团队收益",
   "cumulativeIncome":"累计收益",
   "todayEarnings":"今日收益",
-  #VALUE!
-  #VALUE!
   "or":"或",
   "alreadyHaveAccount":"已有帐户?",
   "google":"Google",
@@ -1439,11 +1436,9 @@
   "appSetAvatar":"设置头像",
   "appMyMedal":"我的徽章",
   "search":"搜寻",
-  "fiatCurrencyRecharge":"法币充值",
   "chooseAPaymentMethod":"请选择付款方式",
   "amountRangeError":"请输入范围内金额",
   "APP_0094":"您有多笔订单正在处理中，请稍后再次申请。",
-  "applicationFailed":"申请失败",
   "notification-NOTWON'":"未成功",
   "earnings":"利息",
   "updateNoticeTitle":"更新通知",

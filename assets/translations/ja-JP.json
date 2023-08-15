@@ -1305,7 +1305,6 @@
     "currency":"通貨",
     "getUsdt":"USDTを取得します",
     "reserveRandomBadge":"ランダムバッジ",
-    "fiatCurrencyRecharge":"フィアット通貨に預金します",
     "purchasingPrice":"額",
     "maximum":"最大",
     "minimum":"最小",
@@ -1313,7 +1312,6 @@
     "placeholder-coin":"通貨を選択してください",
     "rechargeUSDT-frenchCurrency":"USDTをデポジット（フィアット通貨）",
     "pleaseEnterCorrectAmount":"正しい金額を入力してください。",
-    "APP_0094":"フィアット注文の量は制限を超えています。",
     "daily-profit":"毎日の利益",
     "notificationList":"通知リスト",
     "announcementManagement":"発表管理",
@@ -1376,12 +1374,6 @@
     "expressway":"エクスプレスレーン",
     "placeholder-channel":"レーンを選択してください",
     "Zambia":"ザンビア",
-
-
-
-
-
-
     "--//app use":"---",
     "goPermissionSetting":"スキャン機能を使用するには、カメラの権限を有効にする必要があります。設定ページに移動して設定しますか?",
     "ticketValue":"クーポン値",
@@ -1443,7 +1435,6 @@
     "chooseAPaymentMethod":"支払い方法を選択してください",
     "amountRangeError":"範囲内の金額を入力してください",
     "APP_0094":"複数の注文が進行中です。後でもう一度やり直してください。",
-    "applicationFailed":"アプリケーションに失敗しました",
     "notification-NOTWON'":"not won",
     "earnings":"収益",
     "updateNoticeTitle":"通知を更新します",
