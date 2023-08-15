@@ -1305,7 +1305,6 @@
   "currency":"عملة",
   "getUsdt":"احصل على USDT",
   "reserveRandomBadge":"شارة عشوائية",
-  "fiatCurrencyRecharge":"الإيداع بالعملة فيات",
   "purchasingPrice":"كمية",
   "maximum":"أقصى",
   "minimum":"الحد الأدنى",
@@ -1313,7 +1312,6 @@
   "placeholder-coin":"الرجاء اختيار العملة",
   "rechargeUSDT-frenchCurrency":"إيداع USDT (عملة فيات)",
   "pleaseEnterCorrectAmount":"الرجاء إدخال المبلغ الصحيح.",
-  "APP_0094":"لقد تجاوزت كمية أوامر FIAT الحد الأقصى.",
   "daily-profit":"الربح اليومي",
   "notificationList":"قائمة الإخطار",
   "announcementManagement":"إدارة الإعلان",
@@ -1351,7 +1349,6 @@
   "verifyError":"فشل التحقق",
   "resetUnlockText":"بسبب التغييرات التي تم إجراؤها على بريدك الإلكتروني أو كلمة المرور أو إعدادات التحقق من Google ، قام النظام بتعليق وظيفة السحب مؤقتًا.سيتم فتحه في {time}",
   "changeSuccess":"تغيير ناجح",
-  "applicationFailed":"فشل التطبيق",
   "hours":"ساعات",
   "minutes":"دقائق",
   "second":"ثانية",
@@ -1376,12 +1373,6 @@
   "expressway":"Express Lane",
   "placeholder-channel":"الرجاء تحديد حارة",
   "Zambia":"زامبيا",
-
-
-
-
-
-
   "--//app use":"---",
   "goPermissionSetting":"تتطلب وظيفة المسح إذن الكاميرا على هاتفك. اذهب إلى إعدادات هاتفك لفتحه؟",
   "ticketValue":"قيمة التذكرة",

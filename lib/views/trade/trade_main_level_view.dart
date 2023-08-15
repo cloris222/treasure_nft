@@ -685,12 +685,16 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     num getReward = num.parse(getLevelReward(userLevel, chooseLevel));
     var startPrice = reserveDivisionRanges[index].startPrice;
     var endPrice = reserveDivisionRanges[index].endPrice;
+    if (startPrice == 0.9) {
+      startPrice = 1;
+    }
     num pfStart = getReward * startPrice / 100;
     num pfEnd = getReward * endPrice / 100;
     return "${NumberFormatUtil().removeTwoPointFormat(pfStart)} - ${NumberFormatUtil().removeTwoPointFormat(pfEnd)}";
   }
 
   String getLevelReward(int userLevel, int chooseLevel) {
+        print("choose: $chooseLevel");
     switch (userLevel) {
       case 0:
         double levelResult = 1.5;

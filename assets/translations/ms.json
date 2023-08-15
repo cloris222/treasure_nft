@@ -1305,7 +1305,6 @@
   "currency":"Mata wang",
   "getUsdt":"Dapatkan USDT",
   "reserveRandomBadge":"Lencana rawak",
-  "fiatCurrencyRecharge":"Deposit dalam mata wang fiat",
   "purchasingPrice":"Jumlah",
   "maximum":"Maksimum",
   "minimum":"Minimum",
@@ -1313,7 +1312,6 @@
   "placeholder-coin":"Sila pilih mata wang",
   "rechargeUSDT-frenchCurrency":"Deposit USDT (Mata Wang Fiat)",
   "pleaseEnterCorrectAmount":"Sila masukkan jumlah yang betul.",
-  "APP_0094":"Kuantiti pesanan fiat telah melebihi had.",
   "daily-profit":"Keuntungan harian",
   "notificationList":"Senarai Pemberitahuan",
   "announcementManagement":"Pengurusan Pengumuman",
@@ -1351,7 +1349,6 @@
   "verifyError":"Pengesahan gagal",
   "resetUnlockText":"Oleh kerana perubahan yang dibuat pada e -mel, kata laluan, atau tetapan pengesahan Google, sistem telah menggantung fungsi pengeluaran anda secara sementara.Ia akan dibuka pada {masa}",
   "changeSuccess":"Perubahan berjaya",
-  "applicationFailed":"Permohonan gagal",
   "hours":"Jam",
   "minutes":"Minit",
   "second":"Kedua",
@@ -1376,12 +1373,6 @@
   "expressway":"Express Lane",
   "placeholder-channel":"Sila pilih lorong",
   "Zambia":"Zambia",
-
-
-
-
-
-
   "--//app use":"---",
   "goPermissionSetting":"Fungsi imbasan memerlukan kebenaran kamera pada telefon anda. Pergi ke tetapan telefon anda untuk membukanya?",
   "ticketValue":"Nilai tiket",

@@ -1305,7 +1305,6 @@
   "currency":"Currency",
   "getUsdt":"Get USDT",
   "reserveRandomBadge":"Random Badge",
-  "fiatCurrencyRecharge":"Deposit in fiat currency",
   "purchasingPrice":"Amount",
   "maximum":"Maximum",
   "minimum":"Minimum",
@@ -1313,7 +1312,6 @@
   "placeholder-coin":"Please select currency",
   "rechargeUSDT-frenchCurrency":"Deposit USDT (fiat currency)",
   "pleaseEnterCorrectAmount":"Please enter the correct amount.",
-  "APP_0094":"The quantity of fiat orders has exceeded the limit.",
   "daily-profit":"Daily profit",
   "notificationList":"Notification List",
   "announcementManagement":"Announcement Management",
@@ -1351,7 +1349,6 @@
   "verifyError":"Verification failed",
   "resetUnlockText":"Due to changes made to your email, password, or Google verification settings, the system has temporarily suspended your withdrawal function.It will be unlocked at {time}",
   "changeSuccess":"Change successful",
-  "applicationFailed":"Application failed",
   "hours":"Hours",
   "minutes":"Minutes",
   "second":"Second",
@@ -1376,12 +1373,6 @@
   "expressway":"Express Lane",
   "placeholder-channel":"Please select a lane",
   "Zambia":"Zambia",
-
-
-
-
-
-
   "--//app use":"---",
   "goPermissionSetting":"The scan function requires the camera permission on your phone. Go into your phone settings to open it?",
   "ticketValue":"Ticket value",
