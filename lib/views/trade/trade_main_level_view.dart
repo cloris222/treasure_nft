@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
-import 'package:treasure_nft_project/constant/extension/double_extension.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_animation_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
@@ -15,13 +14,11 @@ import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/animation_download_util.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
-import 'package:treasure_nft_project/utils/date_format_util.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/utils/trade_timer_util.dart';
 import 'package:treasure_nft_project/view_models/gobal_provider/user_experience_info_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_coin_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_division_provider.dart';
-import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_stage_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_volume_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/provider/trade_time_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/trade_new_main_view_model.dart';
@@ -39,7 +36,6 @@ import '../../models/http/parameter/check_experience_info.dart';
 import '../../models/http/parameter/check_reservation_info.dart';
 import '../../models/http/parameter/check_reserve_deposit.dart';
 import '../../models/http/parameter/reserve_view_data.dart';
-import '../../models/http/parameter/trade_reserve_stage__info.dart';
 import '../../models/http/parameter/user_info_data.dart';
 import '../../view_models/gobal_provider/user_info_provider.dart';
 import '../../view_models/trade/provider/trade_reserve_info_provider.dart';
@@ -686,11 +682,11 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
   }
 
   String getPfIncome(int userLevel, int chooseLevel, int index){
-    double getReward = double.parse(getLevelReward(userLevel, chooseLevel));
+    num getReward = num.parse(getLevelReward(userLevel, chooseLevel));
     var startPrice = reserveDivisionRanges[index].startPrice;
     var endPrice = reserveDivisionRanges[index].endPrice;
-    double pfStart = getReward * startPrice.round();
-    double pfEnd = getReward* endPrice.round();
+    num pfStart = getReward * startPrice / 100;
+    num pfEnd = getReward * endPrice / 100;
     return "${NumberFormatUtil().removeTwoPointFormat(pfStart)} - ${NumberFormatUtil().removeTwoPointFormat(pfEnd)}";
   }
 
