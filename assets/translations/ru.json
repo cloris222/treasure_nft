@@ -1416,5 +1416,6 @@
   "teamBenefits":"Командные преимущества",
   "cumulativeIncome":"Совокупный доход",
   "todayEarnings":"Сегодня доходы",
-  "pfIncome":"Расчетный доход"
+  "pfIncome":"Расчетный доход",
+  "chargePrice":"Получать"
 }

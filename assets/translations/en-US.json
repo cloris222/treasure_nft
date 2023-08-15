@@ -1415,5 +1415,6 @@
   "teamBenefits":"Team Benefits",
   "cumulativeIncome":"Cumulative Income",
   "todayEarnings":"Today Earnings",
-  "pfIncome":"Estimated Earnings"
+  "pfIncome":"Estimated Earnings",
+  "chargePrice":"Receive"
 }

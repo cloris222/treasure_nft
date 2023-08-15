@@ -1416,5 +1416,6 @@
   "teamBenefits":"团队收益",
   "cumulativeIncome":"累计收益",
   "todayEarnings":"今日收益",
-  "pfIncome":"预估收益"
+  "pfIncome":"预估收益",
+  "chargePrice":"本次收取"
 }
