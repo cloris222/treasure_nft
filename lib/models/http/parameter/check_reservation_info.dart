@@ -190,16 +190,16 @@ class ReserveRange {
   });
 
   int index;
-  dynamic startPrice;
-  dynamic endPrice;
+  num startPrice;
+  num endPrice;
   bool used;
   bool lock;
-  dynamic rewardRate;
+  num rewardRate;
 
   factory ReserveRange.fromJson(Map<String, dynamic> json) => ReserveRange(
         index: json["index"],
         startPrice: json["startPrice"] ?? 0,
-        endPrice: json["endPrice"],
+        endPrice: json["endPrice"]?? 0,
         used: json["used"],
         lock: json["lock"],
         rewardRate: json["rewardRate"]??0,

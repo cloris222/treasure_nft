@@ -7,15 +7,15 @@ class NumberFormatUtil {
 
   String removeOnePointFormat(dynamic value,){
     return _setNumberFormat(
-        format: '#,##0.##',
-    value:  double.parse(removePointFormat(value,1)));
+        format: '##0.##',
+    value:  num.parse(removePointFormat(value,1)));
   }
 
   ///MARK: 小數點兩位 無條件捨去
   String removeTwoPointFormat(dynamic value, {bool needSeparator = true}) {
     return _setNumberFormat(
         format: needSeparator ? '#,##0.##' : '##0.##',
-        value: double.parse(removePointFormat(value, 2)));
+        value: num.parse(removePointFormat(value, 2)));
   }
 
   ///MARK: 小數點兩位 無條件捨去
