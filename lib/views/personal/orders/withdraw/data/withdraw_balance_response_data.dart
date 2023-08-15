@@ -16,16 +16,23 @@ class WithdrawBalanceResponseData {
     this.balance = '',
     this.feeRate = '',
     this.fee = '',
+    this.dayLimit ='',
     this.minAmount = '',
     this.internalMinAmount = '',
+    this.startTime = "",
+    this.endTime = "" ,
+
   });
 
   String address;
   String balance;
   String feeRate;
   String fee;
+  String dayLimit;
   String minAmount;
   String internalMinAmount;
+  String startTime;
+  String endTime;
 
   factory WithdrawBalanceResponseData.fromJson(Map<String, dynamic> json) =>
       WithdrawBalanceResponseData(
@@ -33,18 +40,24 @@ class WithdrawBalanceResponseData {
         balance: json["balance"] ?? '',
         feeRate: json["feeRate"] ?? '',
         fee: json["fee"] ?? '',
+        dayLimit: json["dayLimit"] ?? '',
+        startTime: json["startTime"] ?? '',
+        endTime: json["endTime"] ?? '',
         minAmount: json["minAmount"] ?? '',
         internalMinAmount: json["internalMinAmount"] ?? '',
       );
 
   Map<String, dynamic> toJson() => {
-        "address": address,
-        "balance": balance,
-        "feeRate": feeRate,
-        "fee": fee,
-        "minAmount": minAmount,
-        "internamMinAmount": internalMinAmount,
-      };
+    "address": address,
+    "balance": balance,
+    "feeRate": feeRate,
+    "fee": fee,
+    "dayLimit": dayLimit,
+    "startTime": startTime,
+    "endTime": endTime,
+    "minAmount": minAmount,
+    "internamMinAmount": internalMinAmount,
+  };
 
   num _checkMoney(String number) {
     try {
