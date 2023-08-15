@@ -187,15 +187,15 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
             rightBtnText: tr('confirm'),
             onLeftPress: () {}, onRightPress: () {
           Navigator.pop(context);
-          sendConfirm(context);
+          sendConfirm(context,withdrawInfo);
         }).show();
       } else {
-        sendConfirm(context);
+        sendConfirm(context,withdrawInfo);
       }
     }
   }
 
-  void sendConfirm(BuildContext context) {
+  void sendConfirm(BuildContext context, WithdrawBalanceResponseData withdrawInfo) {
     ///MARK: 打提交API 餘額提現
     WithdrawApi(
             showTrString: false,
@@ -204,9 +204,10 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
                 onBaseConnectFail(
                     context,
                     format(tr('APP_0071'), {
-                      "startTime": response?.data["startTime"],
-                      "endTime": response?.data["endTime"]
+                      "startTime": withdrawInfo.startTime,
+                      "endTime":withdrawInfo.endTime
                     }));
+                return ;
               }
               onBaseConnectFail(context, tr(message));
             })

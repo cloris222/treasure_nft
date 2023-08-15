@@ -73,12 +73,21 @@ class _ChainWithdrawViewState extends ConsumerState<ChainWithdrawView> {
         setState(() {});
       }
     });
-    ref.read(orderWithdrawBalanceProvider(currentChain.name).notifier).init(
-        onFinish: () {
-      if (withdrawInfo.fee.isNotEmpty) {
-        viewModel.currentAmount = num.parse(withdrawInfo.fee);
-        viewModel.onViewChange();
+    Future.delayed(Duration.zero).then((value) {
+      if (currentIndex != null) {
+        for (var data in CoinEnum.values) {
+          if (payments[currentIndex!].chain == data.name) {
+            ref.read(orderCurrentChainProvider.notifier).update((state) => data);
+            break;
+          }
+        }
       }
+      ref.read(orderWithdrawBalanceProvider(currentChain.name).notifier).init(onFinish: () {
+        if (withdrawInfo.fee.isNotEmpty) {
+          viewModel.currentAmount = num.parse(withdrawInfo.fee);
+          viewModel.onViewChange();
+        }
+      });
     });
   }
 

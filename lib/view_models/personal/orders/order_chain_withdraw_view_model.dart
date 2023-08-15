@@ -178,23 +178,23 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
         return;
       }
 
-      _showWithdrawConfirm(context, currentChain);
+      _showWithdrawConfirm(context, currentChain,withdrawInfo);
     }
   }
 
-  void _showWithdrawConfirm(BuildContext context, CoinEnum currentChain) {
+  void _showWithdrawConfirm(BuildContext context, CoinEnum currentChain, WithdrawBalanceResponseData withdrawInfo,) {
     ///MARK: 最後確認地址的Dialog
     OrderWithdrawConfirmDialogView(context,
         chain: _getChainName(currentChain),
         address: addressController.text,
         onLeftPress: () => Navigator.pop(context),
         onRightPress: () => {
-              _submitRequestApi(context, currentChain),
+              _submitRequestApi(context, currentChain,withdrawInfo),
               Navigator.pop(context)
             }).show();
   }
 
-  void _submitRequestApi(BuildContext context, CoinEnum currentChain) {
+  void _submitRequestApi(BuildContext context, CoinEnum currentChain, WithdrawBalanceResponseData withdrawInfo,) {
     ///MARK: 打提交API
     WithdrawApi(
       showTrString: false,
@@ -203,9 +203,10 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
           onBaseConnectFail(
               context,
               format(tr('APP_0071'), {
-                "startTime": response?.data["startTime"],
-                "endTime": response?.data["endTime"]
+                "startTime": withdrawInfo.startTime,
+                "endTime":withdrawInfo.endTime
               }));
+          return;
         }
         onBaseConnectFail(context, tr(message));
       }).submitBalanceWithdraw(

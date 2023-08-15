@@ -18,9 +18,10 @@ class WithdrawBalanceResponseData {
     this.fee = '',
     this.dayLimit ='',
     this.minAmount = '',
-    this.startTime = '',
-    this.endTime = '',
     this.internalMinAmount = '',
+    this.startTime = "",
+    this.endTime = "" ,
+
   });
 
   String address;
@@ -29,9 +30,9 @@ class WithdrawBalanceResponseData {
   String fee;
   String dayLimit;
   String minAmount;
+  String internalMinAmount;
   String startTime;
   String endTime;
-  String internalMinAmount;
 
   factory WithdrawBalanceResponseData.fromJson(Map<String, dynamic> json) =>
       WithdrawBalanceResponseData(
