@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:treasure_nft_project/constant/enum/style_enum.dart';
+import 'package:treasure_nft_project/constant/theme/app_colors.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/list_view/base_list_interface.dart';
 
@@ -34,7 +37,9 @@ class _CollectionReservationListViewState
   @override
   Widget build(BuildContext context) {
     return buildListView(
-        padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding));
+        padding: EdgeInsets.only(bottom: UIDefine.navigationBarPadding),
+      placeHolderWidget: _buildPlaceHolderWidget()
+    );
   }
 
   @override
@@ -106,5 +111,19 @@ class _CollectionReservationListViewState
   @override
   changeDataFromJson(json) {
     return CollectionReservationResponseData.fromJson(json);
+  }
+  
+  Widget _buildPlaceHolderWidget(){
+    return Column(
+        children: [
+          Container(
+            margin: EdgeInsets.all(UIDefine.getPixelWidth(30)),
+          child: Image.asset('assets/icon/img/not_found_illustration.png'),
+    ),
+          Text('no_data_available'.tr(),style: AppTextStyle.getBaseStyle(fontSize:UIDefine.fontSize16,fontWeight: FontWeight.w700,color: Colors.black),),
+          SizedBox(height: UIDefine.getPixelWidth(8),),
+          Text('no_data_placeHolder_text'.tr(),style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12,fontWeight: FontWeight.w400,color: AppColors.hintGrey),)
+        ],
+      );
   }
 }

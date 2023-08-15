@@ -247,13 +247,25 @@ abstract class BaseListInterface {
   Widget buildListView(
       {bool shrinkWrap = true,
       ScrollPhysics? physics,
-      EdgeInsetsGeometry? padding}) {
+      EdgeInsetsGeometry? padding,
+        Widget? placeHolderWidget
+      }) {
     int length = currentItems.length;
     Widget? topView = buildTopView();
     bool hasTopView = topView != null;
 
     if (_showWaitLoad || (!isAutoReloadMore() && nextItems.isNotEmpty)) {
       length += 1;
+    }
+
+    if(length == 0){
+      return hasTopView?Column(
+        children: [
+          topView,
+          placeHolderWidget??Container()
+        ],
+      ):
+      placeHolderWidget??Container();
     }
 
     return _buildListListener(
