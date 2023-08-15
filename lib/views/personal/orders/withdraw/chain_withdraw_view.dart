@@ -449,6 +449,12 @@ class _ChainWithdrawViewState extends ConsumerState<ChainWithdrawView> {
     );
   }
 
+  String chargeGet(String theRate, String theFee){
+    bool zeroRate = theRate == "0";
+    bool zeroFee = theFee =="0";
+    return "(${tr("chargePrice")}${zeroRate?"":theRate+"%"}${zeroFee?"":"${zeroRate?"":"+"}${theFee+"u"}"})";
+  }
+
   Widget _buildGoogleVerify() {
     return Container(
         padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(16)),
@@ -484,7 +490,7 @@ class _ChainWithdrawViewState extends ConsumerState<ChainWithdrawView> {
           _buildTextContent(tr('minAmount'),
               '${viewModel.numberFormat(withdrawInfo.minAmount)} USDT'),
           SizedBox(height: UIDefine.getScreenWidth(2.77)),
-          _buildTextContent(tr('withdrawFee'),
+          _buildTextContent("${tr('withdrawFee')} ${chargeGet(withdrawInfo.feeRate,withdrawInfo.fee)}",
               '${NumberFormatUtil().removeTwoPointFormat(viewModel.currentAmount)} USDT'),
         ],
       ),

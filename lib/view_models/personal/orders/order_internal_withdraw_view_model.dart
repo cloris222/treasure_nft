@@ -37,6 +37,8 @@ class OrderInternalWithdrawViewModel extends BaseViewModel {
   ///是否判斷過驗證碼
   bool checkEmail = false;
   bool checkExperience = false;
+  num currentAmount = 0;
+
 
   void onTap() {
     _resetData();
