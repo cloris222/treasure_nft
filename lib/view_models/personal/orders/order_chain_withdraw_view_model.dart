@@ -178,16 +178,7 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
         return;
       }
 
-      if (alertInfo.isReserve) {
-        ImgTitleDialog(context,
-            img: AppImagePath.orderNoticeImg,
-            singleBottom: true,
-            onRightPress: () => Navigator.pop(context),
-            mainText: tr("withdrawalErrorTitle"),
-            subText: tr("withdrawalErrorText")).show();
-      } else {
-        _showWithdrawConfirm(context, currentChain);
-      }
+      _showWithdrawConfirm(context, currentChain);
     }
   }
 
