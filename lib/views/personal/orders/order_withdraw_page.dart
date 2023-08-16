@@ -208,9 +208,9 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
     DateTime now = DateTime.now();
     DateTime result = now.add(Duration(seconds: second));
 
-    String forLocalDateTime = DateFormat('yyyy-MM-dd HH:mm:ss').format(result);
-    DateFormat inputFormat = DateFormat('yyyy/MM/dd HH:mm:ss');
-    DateFormat outputFormat = DateFormat("HH:mm:ss");
+    String forLocalDateTime = DateFormat('yyyy-MM-dd HH:mm:ss',"en_US").format(result);
+    DateFormat inputFormat = DateFormat('yyyy/MM/dd HH:mm:ss',"en_US");
+    DateFormat outputFormat = DateFormat("HH:mm:ss","en_US");
 
     DateTime inputDateTime = inputFormat.parse(
         BaseViewModel().changeTimeZone(forLocalDateTime).toString());

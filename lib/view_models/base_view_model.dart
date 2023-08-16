@@ -284,7 +284,7 @@ class BaseViewModel with ControlRouterViewModel {
 
     if (double.parse(value) >= 1000) {
       List<String> num = number.toString().split('.');
-      var format = NumberFormat('0,000');
+      var format = NumberFormat('0,000',"en_US");
       String test = format.format(int.parse(num[0]));
       String finalNum = '$test.${num[1]}';
       return finalNum.replaceAll(regex, '');
@@ -479,7 +479,7 @@ class BaseViewModel with ControlRouterViewModel {
     if (strTime.isEmpty) {
       return "";
     }
-    var dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
+    var dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss',"en_US");
     DateTime time = dateFormat.parse(strTime);
 
     ///MARK: 計算
@@ -625,7 +625,7 @@ class BaseViewModel with ControlRouterViewModel {
   String formatDuration(int minutes) {
     final Duration duration = Duration(minutes: minutes);
     final String formattedDuration =
-        DateFormat('H.m,').format(DateTime(0).add(duration));
+        DateFormat('H.m,',"en_US").format(DateTime(0).add(duration));
     String processedDuration;
     // 移除小時為0的情況
     if (formattedDuration.startsWith('0.')) {

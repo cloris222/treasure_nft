@@ -140,7 +140,7 @@ class _ExploreChartView extends State<ExploreChartView> {
 
   /// 將今天的日期轉為HH/dd 顯示
   String _getMonthDate(String sValue) {
-    DateFormat dateFormat = DateFormat("MM-dd");
+    DateFormat dateFormat = DateFormat("MM-dd","en_US");
     String sDate = dateFormat.format(DateTime.now());
     return sDate.replaceAll('-', '/');
   }
