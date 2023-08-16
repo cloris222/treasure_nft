@@ -397,7 +397,7 @@ abstract class BaseListInterface {
       finalLength = rowLength;
     }
 
-    if(rowLength == 0){
+    if(finalLength == 0){
       if(!isInitFinish){
         return Container();
       }else{
