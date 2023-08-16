@@ -43,7 +43,7 @@ class DatePickerState extends State<DatePickerWidget> {
     super.initState();
     if (widget.bUsePhoneTime) {
       DateTime now = DateTime.now();
-      String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+      String formattedDate = DateFormat('yyyy-MM-dd',"en_US").format(now);
       startDate = formattedDate;
       endDate = formattedDate;
     } else {

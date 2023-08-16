@@ -149,7 +149,7 @@ class _AnnouncementDetailPageState extends ConsumerState<AnnouncementDetailPage>
   }
 
   String getTime(String strTime) {
-    var dateFormat = DateFormat('yyyy-MM-dd');
+    var dateFormat = DateFormat('yyyy-MM-dd',"en_US");
     DateTime time = dateFormat.parse(strTime);
     return "${time.year}-${time.month}-${time.day}";
   }

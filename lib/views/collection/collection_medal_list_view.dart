@@ -53,7 +53,7 @@ class _CollectionMedalListViewState
 
   @override
   Future<List> loadData(int page, int size) async {
-    return await CollectionApi().getMedalResponse(page: page, size: size);
+    return await CollectionApi(onConnectFail: (msg)=>reloadAPI(page,size)).getMedalResponse(page: page, size: size);
   }
 
   @override

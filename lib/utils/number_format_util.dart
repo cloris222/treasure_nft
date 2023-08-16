@@ -2,20 +2,20 @@ import 'package:easy_localization/easy_localization.dart';
 
 class NumberFormatUtil {
   String _setNumberFormat({required String format, dynamic value}) {
-    return value != null ? NumberFormat(format).format(value) : '0';
+    return value != null ? NumberFormat(format,"en_US").format(value) : '0';
   }
 
   String removeOnePointFormat(dynamic value,){
     return _setNumberFormat(
-        format: '#,##0.##',
-    value:  double.parse(removePointFormat(value,1)));
+        format: '##0.##',
+    value:  num.parse(removePointFormat(value,1)));
   }
 
   ///MARK: 小數點兩位 無條件捨去
   String removeTwoPointFormat(dynamic value, {bool needSeparator = true}) {
     return _setNumberFormat(
         format: needSeparator ? '#,##0.##' : '##0.##',
-        value: double.parse(removePointFormat(value, 2)));
+        value: num.parse(removePointFormat(value, 2)));
   }
 
   ///MARK: 小數點兩位 無條件捨去

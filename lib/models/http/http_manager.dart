@@ -162,7 +162,7 @@ class HttpManager {
       }
       callFailConnect(errorMessage,
           response: e.response, isOther: e.type == DioErrorType.other);
-      throw HttpSetting.debugMode ? errorMessage : '';
+      throw "Connect Fail : $errorMessage";
     } catch (e) {
       callFailConnect(e.toString(), response: null);
       rethrow;
@@ -205,7 +205,7 @@ class HttpManager {
       }
       callFailConnect(errorMessage,
           response: e.response, isOther: e.type == DioErrorType.other);
-      throw HttpSetting.debugMode ? errorMessage : '';
+      throw "Connect Fail : $errorMessage";
     } catch (e) {
       callFailConnect(e.toString(), response: null);
       rethrow;
@@ -245,7 +245,7 @@ class HttpManager {
       }
       callFailConnect(errorMessage,
           response: e.response, isOther: e.type == DioErrorType.other);
-      throw HttpSetting.debugMode ? errorMessage : '';
+      throw "Connect Fail : $errorMessage";
     } catch (e) {
       callFailConnect(e.toString(), response: null);
       rethrow;
@@ -279,7 +279,7 @@ class HttpManager {
       }
       callFailConnect(errorMessage,
           response: e.response, isOther: e.type == DioErrorType.other);
-      throw HttpSetting.debugMode ? errorMessage : '';
+      throw "Connect Fail : $errorMessage";
     } catch (e) {
       callFailConnect(e.toString(), response: null);
       rethrow;
@@ -305,7 +305,7 @@ class HttpManager {
       }
       callFailConnect(errorMessage,
           response: e.response, isOther: e.type == DioErrorType.other);
-      throw HttpSetting.debugMode ? errorMessage : '';
+      throw "Connect Fail : $errorMessage";
     } catch (e) {
       callFailConnect(e.toString(), response: null);
       rethrow;

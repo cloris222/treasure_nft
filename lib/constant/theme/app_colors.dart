@@ -26,6 +26,16 @@ class AppColors {
   static const Color prizePurple = Color(0xFF996CDD);
   static const Color personalBar = Color(0xFFF2F2F2);
   static const Color dailyAcceptedReward = Color(0xFFE2E2E2);
+  static const Color coinColorGreen = Color(0xFF26A17B);
+  static const Color hintGrey = Color(0xFF9E9E9E);
+  /// 交易收益卡片顏色
+  static const Color borderGrey = Color(0xFFE6E9EE);
+  static const Color tradeGrey = Color(0xFFAFAFAF);
+  static const Color cardDeepBlue = Color(0xFF00B3FF);
+  static const Color cardGreen = Color(0xFF2DD683);
+  static const Color cardOrg = Color(0xFFFA8B3A);
+  static const Color cardLightBlue = Color(0xFF76D9DF);
+  static const Color cardDeepGrey = Color(0xFF3B3F48);
 
   static const Color datePickerBorder = Color(0xFFE0EAF6);
 

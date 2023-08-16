@@ -34,6 +34,10 @@ class CheckReservationInfo {
     required this.systemReserveEndTime,
     required this.reserveStartDate,
     required this.reserveEndDate,
+    required this.todayIncome,
+    required this.income,
+    required this.teamIncome,
+    // required this.canReserve,
   });
 
   String startTime;
@@ -69,6 +73,11 @@ class CheckReservationInfo {
   /// 預約結束日期
   String reserveEndDate;
 
+  num todayIncome;
+  num income;
+  num teamIncome;
+  // bool canReserve;
+
   // List<ReserveItem> reserveItems;
 
   _checkNumber(num check) {
@@ -81,6 +90,12 @@ class CheckReservationInfo {
   num getBalance() => _checkNumber(balance);
 
   num getReserveBalance() => _checkNumber(reserveBalance);
+
+  num getTodayIncome() => _checkNumber(todayIncome);
+
+  num getIncome() => _checkNumber(income);
+
+  num getTeamIncome() => _checkNumber(teamIncome);
 
   factory CheckReservationInfo.fromJson(Map<String, dynamic> json) =>
       CheckReservationInfo(
@@ -107,33 +122,41 @@ class CheckReservationInfo {
         reserveDate: json["reserveDate"] ?? "",
         reserveStartDate: json["reserveStartDate"] ?? "",
         reserveEndDate: json["reserveEndDate"] ?? "",
+        todayIncome: json["todayIncome"]??0.0,
+        income: json["income"]??0.0,
+        teamIncome: json["teamIncome"]??0.0,
+        // canReserve: json["canReserve"],
       );
 
   Map<String, dynamic> toJson() => {
-        "startTime": startTime,
-        "endTime": endTime,
-        "localTime": localTime,
-        "systemStartTime": systemStartTime,
-        "systemEndTime": systemEndTime,
-        "systemTime": systemTime,
-        "systemDate": systemDate,
-        "sellDate": sellDate,
-        "systemZone": systemZone,
-        "zone": zone,
-        "reserveCount": reserveCount,
-        "balance": balance,
-        "reserveBalance": reserveBalance,
-        "reserveRanges":
-            List<dynamic>.from(reserveRanges.map((x) => x.toJson())),
-        // "reserveItems": List<dynamic>.from(reserveItems.map((x) => x.toJson())),
-        "reserveStartTime": reserveStartTime,
-        "reserveEndTime": reserveEndTime,
-        "systemReserveStartTime": systemReserveStartTime,
-        "systemReserveEndTime": systemReserveEndTime,
-        "reserveDate": reserveDate,
-        "reserveStartDate": reserveStartDate,
-        "reserveEndDate": reserveEndDate,
-      };
+    "startTime": startTime,
+    "endTime": endTime,
+    "localTime": localTime,
+    "systemStartTime": systemStartTime,
+    "systemEndTime": systemEndTime,
+    "systemTime": systemTime,
+    "systemDate": systemDate,
+    "sellDate": sellDate,
+    "systemZone": systemZone,
+    "zone": zone,
+    "reserveCount": reserveCount,
+    "balance": balance,
+    "reserveBalance": reserveBalance,
+    "reserveRanges":
+        List<dynamic>.from(reserveRanges.map((x) => x.toJson())),
+    // "reserveItems": List<dynamic>.from(reserveItems.map((x) => x.toJson())),
+    "reserveStartTime": reserveStartTime,
+    "reserveEndTime": reserveEndTime,
+    "systemReserveStartTime": systemReserveStartTime,
+    "systemReserveEndTime": systemReserveEndTime,
+    "reserveDate": reserveDate,
+    "reserveStartDate": reserveStartDate,
+    "reserveEndDate": reserveEndDate,
+    "todayIncome": todayIncome,
+    "income": income,
+    "teamIncome": teamIncome,
+    // "canReserve": canReserve,
+  };
 }
 
 class ReserveItem {
@@ -167,16 +190,16 @@ class ReserveRange {
   });
 
   int index;
-  dynamic startPrice;
-  dynamic endPrice;
+  num startPrice;
+  num endPrice;
   bool used;
   bool lock;
-  dynamic rewardRate;
+  num rewardRate;
 
   factory ReserveRange.fromJson(Map<String, dynamic> json) => ReserveRange(
         index: json["index"],
         startPrice: json["startPrice"] ?? 0,
-        endPrice: json["endPrice"],
+        endPrice: json["endPrice"]?? 0,
         used: json["used"],
         lock: json["lock"],
         rewardRate: json["rewardRate"]??0,

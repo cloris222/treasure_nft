@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
-import 'package:treasure_nft_project/constant/extension/double_extension.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_animation_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
@@ -15,13 +14,11 @@ import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/animation_download_util.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
-import 'package:treasure_nft_project/utils/date_format_util.dart';
 import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/utils/trade_timer_util.dart';
 import 'package:treasure_nft_project/view_models/gobal_provider/user_experience_info_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_coin_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_division_provider.dart';
-import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_stage_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_volume_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/provider/trade_time_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/trade_new_main_view_model.dart';
@@ -39,7 +36,6 @@ import '../../models/http/parameter/check_experience_info.dart';
 import '../../models/http/parameter/check_reservation_info.dart';
 import '../../models/http/parameter/check_reserve_deposit.dart';
 import '../../models/http/parameter/reserve_view_data.dart';
-import '../../models/http/parameter/trade_reserve_stage__info.dart';
 import '../../models/http/parameter/user_info_data.dart';
 import '../../view_models/gobal_provider/user_info_provider.dart';
 import '../../view_models/trade/provider/trade_reserve_info_provider.dart';
@@ -145,10 +141,10 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
         /// 交易的主要區塊
         _buildDivision(),
 
-        SizedBox(height: UIDefine.getPixelWidth(10)),
+        // SizedBox(height: UIDefine.getPixelWidth(10)),
 
         /// 交易的其他資訊
-        _buildSystemInfo(),
+        // _buildSystemInfo(),
       ],
     );
   }
@@ -267,19 +263,19 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
           horizontal: UIDefine.getPixelWidth(10),
           vertical: UIDefine.getPixelWidth(3)),
       child: DropdownButtonHideUnderline(
-          child: DropdownButton2(
-        customButton:
-            _buildRangDropItem(currentDivisionRangeIndex, false, true),
-        isExpanded: true,
-        hint: Row(children: [
-          TetherCoinWidget(size: UIDefine.getPixelWidth(15)),
-          SizedBox(width: UIDefine.getPixelWidth(5)),
-          Text('0 - 0',
-              style: AppTextStyle.getBaseStyle(
-                  fontSize: UIDefine.fontSize12,
-                  color: AppColors.textSixBlack,
-                  fontWeight: FontWeight.w600))
-        ]),
+        child: DropdownButton2(
+          customButton: _buildRangDropItem(currentDivisionRangeIndex, false, true),
+          isExpanded: true,
+          hint: Row(
+            children: [
+              TetherCoinWidget(size: UIDefine.getPixelWidth(15)),
+              SizedBox(width: UIDefine.getPixelWidth(5)),
+              Text('0 - 0',
+                  style: AppTextStyle.getBaseStyle(
+                      fontSize: UIDefine.fontSize12,
+                      color: AppColors.textSixBlack,
+                      fontWeight: FontWeight.w600))
+          ]),
         items: List<DropdownMenuItem<int>>.generate(
             reserveDivisionRanges.length,
             (index) => DropdownMenuItem<int>(
@@ -455,9 +451,18 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
       _buildDivisionInfoItem(
           title: tr('NFTResultTime'),
           context: TradeTimerUtil().getResultTime()),
+      /// Mark 預約金
+      // _buildDivisionInfoItem(
+      //     title: tr('reservationFee'),
+      //     context: NumberFormatUtil().integerFormat(reserveCoin?.deposit ?? 0)),
       _buildDivisionInfoItem(
-          title: tr('reservationFee'),
-          context: NumberFormatUtil().integerFormat(reserveCoin?.deposit ?? 0)),
+        title: tr("pfIncome"),
+        needCoin: true,
+        context: reserveDivisionRanges.isNotEmpty?
+        "${getPfIncome(userInfo.level, currentDivisionIndex, currentDivisionRangeIndex)}USDT":"0 - 0USDT",
+        color: AppColors.coinColorGreen,
+        weight: FontWeight.w600,
+      ),
       _buildDivisionInfoItem(
           title: tr('transactionReward'),
           context:
@@ -471,7 +476,8 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
   }
 
   Widget _buildDivisionInfoItem(
-      {required String title, required String context, bool needCoin = false}) {
+      {required String title, required String context, bool needCoin = false,
+        Color color = AppColors.textSixBlack, FontWeight weight = FontWeight.w400}) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(5)),
       child: Row(
@@ -488,8 +494,8 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
           SizedBox(width: UIDefine.getPixelWidth(5)),
           Text(context,
               style: AppTextStyle.getBaseStyle(
-                  color: AppColors.textSixBlack,
-                  fontWeight: FontWeight.w600,
+                  color: color,
+                  fontWeight: weight,
                   fontSize: UIDefine.fontSize14)),
         ],
       ),
@@ -675,7 +681,20 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     ref.read(tradeReserveCoinProvider.notifier).init();
   }
 
+  String getPfIncome(int userLevel, int chooseLevel, int index){
+    num getReward = num.parse(getLevelReward(userLevel, chooseLevel));
+    var startPrice = reserveDivisionRanges[index].startPrice;
+    var endPrice = reserveDivisionRanges[index].endPrice;
+    if (startPrice == 0.9) {
+      startPrice = 1;
+    }
+    num pfStart = getReward * startPrice / 100;
+    num pfEnd = getReward * endPrice / 100;
+    return "${NumberFormatUtil().removeTwoPointFormat(pfStart)} - ${NumberFormatUtil().removeTwoPointFormat(pfEnd)}";
+  }
+
   String getLevelReward(int userLevel, int chooseLevel) {
+        print("choose: $chooseLevel");
     switch (userLevel) {
       case 0:
         double levelResult = 1.5;
