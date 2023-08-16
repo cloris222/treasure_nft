@@ -478,12 +478,10 @@ class _ExploreItemDetailPageState extends ConsumerState<ExploreItemDetailPage> {
         DateTime dateTime;
         if (sellTimeList[i].sellDate.isEmpty) {
           dateTime = DateTime.parse(
-              DateFormat('yyyy-MM-dd').format(DateTime.now()) +
-                  ' ' +
-                  sellTimeList[i].startTime);
+              '${DateFormat('yyyy-MM-dd',"en_US").format(DateTime.now())} ${sellTimeList[i].startTime}');
         } else {
           dateTime = DateTime.parse(
-              sellTimeList[i].sellDate + ' ' + sellTimeList[i].startTime);
+              '${sellTimeList[i].sellDate} ${sellTimeList[i].startTime}');
         }
         int secondLeft = dateTime.difference(DateTime.now()).inSeconds;
         if (secondLeft > 0) {

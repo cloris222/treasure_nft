@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 
 class NumberFormatUtil {
   String _setNumberFormat({required String format, dynamic value}) {
-    return value != null ? NumberFormat(format).format(value) : '0';
+    return value != null ? NumberFormat(format,"en_US").format(value) : '0';
   }
 
   String removeOnePointFormat(dynamic value,){

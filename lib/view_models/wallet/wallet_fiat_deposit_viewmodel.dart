@@ -116,7 +116,7 @@ class WalletFiatDepositViewModel extends BaseViewModel {
   }
 
   String getThousandFormat(num number) {
-    var formatter = NumberFormat('###,###,###');
+    var formatter = NumberFormat('###,###,###',"en_US");
     return formatter.format(number);
   }
 

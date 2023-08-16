@@ -9,7 +9,7 @@ class DateFormatUtil {
       required DateTime time,
       bool needLocale = false}) {
     return DateFormat(
-            strFormat, needLocale ? LanguageUtil.getTimeLocale() : "en")
+            strFormat, needLocale ? LanguageUtil.getTimeLocale() : "en_US")
         .format(time);
   }
 

@@ -89,6 +89,6 @@ class _DatePickerOne extends State<DatePickerOne> {
   }
 
   String dateTimeFormat(DateTime? time) {
-    return DateFormat('yyyy-MM-dd').format(time ?? DateTime.now());
+    return DateFormat('yyyy-MM-dd',"en_US").format(time ?? DateTime.now());
   }
 }
