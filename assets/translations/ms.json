@@ -856,7 +856,7 @@
   "APP_0052":"Jumlah pembelian harian telah dicapai",
   "APP_0058":"Bilangan maksimum transaksi dalam akaun pengalaman telah dicapai",
   "APP_0061":"Setiap salinan hanya boleh ditempah sekali sehari",
-  "defi-info-1":"Dua pelantikan setiap hari disediakan untuk setiap zon waktu.",
+  "defi-info-1":"Dua pelantikan sehari disediakan untuk setiap zon waktu.",
   "defi-info-2":"Tempoh masa tempahan setiap hari:\n Sesi pertama: masa janji temu: 10:00-12:00, masa simpan: 10:00-12:00, masa pengeluaran: 13:45-12:00, keputusan janji temu : 13: 00, masa dagangan: 13:00-13:35\n Sesi kedua: Masa janji temu: 19:00-21:00, masa simpan: 19:00-21:00, masa pengeluaran: 22:45-21:00, keputusan janji temu: 22:00, masa transaksi: 22: 00-22:35",
   "defi-info-3":"Masa pelantikan untuk Sesi 1: Masa Pelantikan: 08:00 - 12:00 pagi, Hasil Pelantikan: 13:00 PM, Masa Dagangan: 13:30 - 13:35 PM",
   "defi-info-4":"Masa tempahan untuk Sesi 2: Tempahan Masa: 17: 00-21: 00 PM, Hasil Tempahan: 22:00 PM, Waktu Perdagangan: 22: 30-22: 35 PM",
@@ -1305,6 +1305,7 @@
   "currency":"Mata wang",
   "getUsdt":"Dapatkan USDT",
   "reserveRandomBadge":"Lencana rawak",
+  "fiatCurrencyRecharge":"Deposit dalam mata wang fiat",
   "purchasingPrice":"Jumlah",
   "maximum":"Maksimum",
   "minimum":"Minimum",
@@ -1312,6 +1313,7 @@
   "placeholder-coin":"Sila pilih mata wang",
   "rechargeUSDT-frenchCurrency":"Deposit USDT (Mata Wang Fiat)",
   "pleaseEnterCorrectAmount":"Sila masukkan jumlah yang betul.",
+  "APP_0094":"Kuantiti pesanan fiat telah melebihi had.",
   "daily-profit":"Keuntungan harian",
   "notificationList":"Senarai Pemberitahuan",
   "announcementManagement":"Pengurusan Pengumuman",
@@ -1331,7 +1333,7 @@
   "redirectMsg":"Jika tidak diarahkan, sila gunakan butang di bawah.",
   "bulletinBoard":"Pengumuman",
   "errorMsgNow":"Ada kesilapan {sekarang} setakat ini",
-  "errorMsgAccumulation":"dengan jumlah kesilapan {pengumpulan} terkumpul.",
+  "errorMsgAccumulation":"dengan jumlah {pengumpulan} yang terkumpul.",
   "loginForbidden":"Sistem ini akan melumpuhkan log masuk anda.",
   "history_SUCCESS":"kejayaan",
   "history_FAIL":"gagal",
@@ -1349,6 +1351,7 @@
   "verifyError":"Pengesahan gagal",
   "resetUnlockText":"Oleh kerana perubahan yang dibuat pada e -mel, kata laluan, atau tetapan pengesahan Google, sistem telah menggantung fungsi pengeluaran anda secara sementara.Ia akan dibuka pada {masa}",
   "changeSuccess":"Perubahan berjaya",
+  "applicationFailed":"Permohonan gagal",
   "hours":"Jam",
   "minutes":"Minit",
   "second":"Kedua",
@@ -1373,6 +1376,12 @@
   "expressway":"Express Lane",
   "placeholder-channel":"Sila pilih lorong",
   "Zambia":"Zambia",
+
+
+
+
+
+
   "--//app use":"---",
   "goPermissionSetting":"Fungsi imbasan memerlukan kebenaran kamera pada telefon anda. Pergi ke tetapan telefon anda untuk membukanya?",
   "ticketValue":"Nilai tiket",
@@ -1447,18 +1456,6 @@
   "chainMinAmount":"Jumlah pengeluaran minimum pada rantai.",
   "innerMinAmount":"Jumlah pengeluaran dalaman minimum.",
   "errorChainMinAmount":"Had pengeluaran dalaman anda mestilah lebih besar daripada.",
-  "rechargeMaintain":"Saluran deposit berada di bawah penyelenggaraan.",
-  "withdrawSuccessTitle":"Permintaan pengeluaran telah berjaya dimulakan",
-  "withdrawSuccessText":"Pengeluaran akan diproses dalam masa maksimum 96 jam. Waktu pemprosesan bergantung pada kelajuan blockchain",
-  "withdrawalErrorText":"Anda telah menunggu permintaan pengeluaran. Sila tunggu pengeluaran sebelumnya dikreditkan",
-  "withdrawalErrorTitle":"Sila tunggu pengeluaran sebelumnya diproses",
-  "expressway":"Express Lane",
-  "placeholder-channel":"Sila pilih lorong",
-  "Zambia":"Zambia",
-  "stationMessage":"Mesej dalaman",
-  "serviceMessage":"Pemberitahuan Pelanggan",
-  "systemMessage":"Pemberitahuan Sistem",
-  "allRead":"Semua dibaca"
   "pfIncome":"Anggaran pendapatan",
   "textOr":"atau",
   "stationMessage":"Mesej dalaman",

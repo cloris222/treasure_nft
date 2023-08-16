@@ -1299,12 +1299,13 @@
   "cool":"와 멋있다",
   "decoration":"배지",
   "setAvatar":"프로필 사진으로 설정합니다",
-  "rareCommemorative":"희귀 한 기념 동전",
+  "rareCommemorative":"희귀 기념 동전",
   "myDecoration":"내 배지",
   "invitationLink":"초대장 링크를 생성하십시오",
   "currency":"통화",
   "getUsdt":"USDT를 얻으십시오",
   "reserveRandomBadge":"임의 배지",
+  "fiatCurrencyRecharge":"피아트 통화로 입금",
   "purchasingPrice":"양",
   "maximum":"최고",
   "minimum":"최저한의",
@@ -1312,6 +1313,7 @@
   "placeholder-coin":"통화를 선택하십시오",
   "rechargeUSDT-frenchCurrency":"USDT 입금 (Fiat Currency)",
   "pleaseEnterCorrectAmount":"올바른 금액을 입력하십시오.",
+  "APP_0094":"피아트 주문의 수량이 한도를 초과했습니다.",
   "daily-profit":"일일 이익",
   "notificationList":"알림 목록",
   "announcementManagement":"발표 관리",
@@ -1349,6 +1351,7 @@
   "verifyError":"확인이 실패했습니다",
   "resetUnlockText":"이메일, 비밀번호 또는 Google 확인 설정이 변경되면 시스템이 일시적으로 인출 기능을 중단했습니다.{time}에서 잠금 해제됩니다.",
   "changeSuccess":"성공적으로 변경하십시오",
+  "applicationFailed":"응용 프로그램이 실패했습니다",
   "hours":"시간",
   "minutes":"분",
   "second":"두번째",
@@ -1373,6 +1376,12 @@
   "expressway":"Express 차선",
   "placeholder-channel":"차선을 선택하십시오",
   "Zambia":"잠비아",
+
+
+
+
+
+
   "--//app use":"---",
   "goPermissionSetting":"스캔 기능을 사용하려면 휴대폰의 카메라 권한이 필요합니다. 전화 설정으로 이동하여 여시겠습니까?",
   "ticketValue":"티켓 가치",
@@ -1455,16 +1464,4 @@
   "allRead":"모두 읽었습니다",
   "chargePrice":"받다",
   "EO_004_9":"중복 IP 등록."
-  "rechargeMaintain":"예금 채널은 유지 보수 중입니다.",
-  "withdrawSuccessTitle":"철수 요청이 성공적으로 시작되었습니다",
-  "withdrawSuccessText":"인출은 최대 96 시간 이내에 처리됩니다. 처리 시간은 블록 체인의 속도에 따라 다릅니다.",
-  "withdrawalErrorText":"보류중인 철수 요청이 있습니다. 이전 철수가 인정받을 때까지 기다리십시오",
-  "withdrawalErrorTitle":"이전 철수가 처리 될 때까지 기다리십시오",
-  "expressway":"Express 차선",
-  "placeholder-channel":"차선을 선택하십시오",
-  "Zambia":"잠비아",
-  "stationMessage":"내부 메시지",
-  "serviceMessage":"고객 알림",
-  "systemMessage":"시스템 알림",
-  "allRead":"모두 읽었습니다"
 }

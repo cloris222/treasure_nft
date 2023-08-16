@@ -148,7 +148,7 @@ class _AnnouncementDialogPageState extends ConsumerState<AnnouncementDialogPage>
                           fontSize: FontSize(UIDefine.fontSize12),
                           color: AppColors.textBlack,
                           fontWeight: FontWeight.w600,
-                          padding: HtmlPaddings.zero,
+                          padding: EdgeInsets.zero,
                           fontFamily: AppTextFamily.PosteramaText.name
                       ),
                     },
@@ -169,7 +169,7 @@ class _AnnouncementDialogPageState extends ConsumerState<AnnouncementDialogPage>
                         //     ?
                         Html(
                             data: widget.data.content,
-                            onLinkTap: (String? url, Map<String, String> attributes, element) {
+                            onLinkTap: (String? url,RenderContext context, Map<String, String> attributes, element) {
                               viewModel.launchInBrowser(url!);
                             },
                             style: {
@@ -177,7 +177,7 @@ class _AnnouncementDialogPageState extends ConsumerState<AnnouncementDialogPage>
                                   maxLines: 3,
                                   fontSize: FontSize(UIDefine.fontSize12),
                                   fontWeight: FontWeight.w400,
-                                  padding: HtmlPaddings.zero,
+                                  padding: EdgeInsets.zero,
                                   fontFamily: AppTextFamily.PosteramaText.name
                                 ),
                               },

@@ -1305,6 +1305,7 @@
     "currency":"通貨",
     "getUsdt":"USDTを取得します",
     "reserveRandomBadge":"ランダムバッジ",
+    "fiatCurrencyRecharge":"フィアット通貨に預金します",
     "purchasingPrice":"額",
     "maximum":"最大",
     "minimum":"最小",
@@ -1312,6 +1313,7 @@
     "placeholder-coin":"通貨を選択してください",
     "rechargeUSDT-frenchCurrency":"USDTをデポジット（フィアット通貨）",
     "pleaseEnterCorrectAmount":"正しい金額を入力してください。",
+    "APP_0094":"フィアット注文の量は制限を超えています。",
     "daily-profit":"毎日の利益",
     "notificationList":"通知リスト",
     "announcementManagement":"発表管理",
@@ -1374,6 +1376,12 @@
     "expressway":"エクスプレスレーン",
     "placeholder-channel":"レーンを選択してください",
     "Zambia":"ザンビア",
+
+
+
+
+
+
     "--//app use":"---",
     "goPermissionSetting":"スキャン機能を使用するには、カメラの権限を有効にする必要があります。設定ページに移動して設定しますか?",
     "ticketValue":"クーポン値",
@@ -1435,6 +1443,7 @@
     "chooseAPaymentMethod":"支払い方法を選択してください",
     "amountRangeError":"範囲内の金額を入力してください",
     "APP_0094":"複数の注文が進行中です。後でもう一度やり直してください。",
+    "applicationFailed":"アプリケーションに失敗しました",
     "notification-NOTWON'":"not won",
     "earnings":"収益",
     "updateNoticeTitle":"通知を更新します",
@@ -1447,18 +1456,6 @@
     "chainMinAmount":"チェーン上の最低引き出し額。",
     "innerMinAmount":"最小内部引き出し額。",
     "errorChainMinAmount":"あなたの内部離脱制限はより大きくなければなりません。",
-    "rechargeMaintain":"デポジットチャネルはメンテナンス中です。",
-    "withdrawalErrorText":"撤回のリクエストが保留されています。以前の撤退がクレジットされるのを待ってください",
-    "withdrawalErrorTitle":"以前の撤退が処理されるのを待ってください",
-    "withdrawSuccessTitle":"撤退要求は正常に開始されました",
-    "withdrawSuccessText":"引き出しは最大96時間以内に処理されます。処理時間はブロックチェーンの速度に依存します",
-    "expressway":"エクスプレスレーン",
-    "placeholder-channel":"車線を選択してください",
-    "Zambia":"ザンビア",
-    "stationMessage":"内部メッセージ",
-    "serviceMessage":"顧客通知",
-    "systemMessage":"システム通知",
-    "allRead":"すべて読みます"
     "pfIncome":"推定収益額",
     "textOr":"または",
     "stationMessage":"内部メッセージ",
