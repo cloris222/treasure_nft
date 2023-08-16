@@ -959,7 +959,7 @@
   "invite-li-1":"Reservasi hari ini: informasi pemesanan reservasi (cocok)",
   "invite-li-2":"Listing: Pending order untuk dijual",
   "invite-li-3":"Tidak terdaftar: Informasi NFT yang telah berhasil dibeli",
-  "invite-text-5":"Silakan klik \"Tidak terdaftar\" dan pilih \"Jual NFT\"",
+  "invite-text-5":"لبيع NFT ، انقر فوق \"غير مدرج\" وحدد \"بيع.",
   "invite-text-6":"Klik \"Daftar\" untuk melihat pesanan yang sedang dijual",
   "tips":"Tips",
   "tips-subtitle":"Deskripsi waktu janji temu",
@@ -1414,7 +1414,7 @@
   "appLoginCheck":"Apakah Anda sudah memiliki akun Treasurenft?",
   "appHasAccount":"Ya",
   "appNotHasAccount":"TIDAK",
-  "appBindFailHint":"Tolong coba lagi",
+  "appBindFailHint":"Silakan coba lagi",
   "appBindAccountHint":"Akun ini sudah memiliki alamat yang mengikat",
   "appTradeNotYet":"Akan mulai",
   "appTradeReserving":"Waktu tersisa",
@@ -1463,5 +1463,11 @@
   "systemMessage":"Pemberitahuan sistem",
   "allRead":"Semua dibaca",
   "chargePrice":"Menerima",
-  "EO_004_9":"Duplikat Pendaftaran IP."
+  "EO_004_9":"Duplikat Pendaftaran IP.",
+  "no_data_available":"Tidak ada data yang tersedia",
+  "no_data_placeHolder_text":"Anda dapat kembali ke layar reservasi untuk melakukan operasi",
+  "loading":"Memuat...",
+  "enterEmail_verify":"Silakan masukkan kode verifikasi kotak surat Anda",
+  "enterPhone_verify":"Silakan masukkan kode verifikasi ponsel Anda",
+  "enterGoogle_verify":"Masukkan kode verifikasi Google Anda"
 }

@@ -1284,7 +1284,7 @@
   "badge":"Lencana",
   "chestRewards":"Ganjaran kotak harta karun",
   "LEVEL_BOX_1":"LV1 Treasure Box",
-  "LEVEL_BOX_2":"LV2 Treasure Box",
+  "LEVEL_BOX_2":"Kotak harta Lv2",
   "LEVEL_BOX_3":"LV3 Treasure Box",
   "LEVEL_BOX_4":"LV4 Treasure Box",
   "LEVEL_BOX_5":"LV5 Treasure Box",
@@ -1359,7 +1359,7 @@
   "partnerships":"Perkongsian",
   "teamBenefits":"Faedah pasukan",
   "cumulativeIncome":"Pendapatan kumulatif",
-  "todayEarnings":"Hari ini pendapatan",
+  "todayEarnings":"Pendapatan hari ini",
   "make":"Buat",
   "reservating":"Menyimpan",
   "or":"Atau",
@@ -1463,5 +1463,11 @@
   "systemMessage":"Pemberitahuan Sistem",
   "allRead":"Semua dibaca",
   "chargePrice":"Menerima",
-  "EO_004_9":"Pendaftaran IP Duplikat."
+  "EO_004_9":"Pendaftaran IP Duplikat.",
+  "no_data_available":"Tiada data yang tersedia",
+  "no_data_placeHolder_text":"Anda boleh kembali ke skrin tempahan untuk melaksanakan operasi",
+  "loading":"Memuatkan ...",
+  "enterEmail_verify":"Sila masukkan kod pengesahan e-mel anda",
+  "enterPhone_verify":"Sila masukkan kod pengesahan mudah alih anda",
+  "enterGoogle_verify":"Sila masukkan kod pengesahan Google anda"
 }

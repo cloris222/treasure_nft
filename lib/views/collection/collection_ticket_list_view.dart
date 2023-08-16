@@ -26,6 +26,8 @@ class CollectionTicketListView extends ConsumerStatefulWidget {
 
 class _CollectionTicketListViewState
     extends ConsumerState<CollectionTicketListView> with BaseListInterface {
+  DateTime loadTime = DateTime.now().toUtc();
+
   @override
   void initState() {
     init();
@@ -55,6 +57,7 @@ class _CollectionTicketListViewState
 
   @override
   Future<List> loadData(int page, int size) async {
+    loadTime = DateTime.now().toUtc();
     return await CollectionApi(onConnectFail: (msg)=>reloadAPI(page,size))
         .getTicketResponse(page: page, size: size, type: 'TICKET');
   }
@@ -94,6 +97,8 @@ class _CollectionTicketListViewState
           child: Image.asset('assets/icon/img/not_found_illustration.png'),
         ),
         Text('no_data_available'.tr(),style: AppTextStyle.getBaseStyle(fontSize:UIDefine.fontSize16,fontWeight: FontWeight.w700,color: Colors.black),),
+        SizedBox(height: UIDefine.getPixelWidth(8),),
+        Text(BaseViewModel().changeTimeZone(loadTime.toString(),setSystemZone: 'GMT+0',isShowGmt: true),style: AppTextStyle.getBaseStyle(fontSize:UIDefine.fontSize16,fontWeight: FontWeight.w700,color: Colors.black)),
         SizedBox(height: UIDefine.getPixelWidth(8),),
         Text('no_data_placeHolder_text'.tr(),style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12,fontWeight: FontWeight.w400,color: AppColors.hintGrey),)
       ],

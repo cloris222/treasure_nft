@@ -29,6 +29,7 @@ abstract class BaseListInterface {
   ///MARK: 判斷是否重讀取過
   bool hasReloadAPI = false;
 
+  ///MARK: 判斷是否讀取資料完成
   bool isInitFinish = false;
 
   ///---- 實體化的function

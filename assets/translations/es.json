@@ -991,7 +991,7 @@
   "bonus_trade":"banco comercial",
   "bonus_referral":"Banco de referencia",
   "bonus_keep_hint":"Las recompensas se conservarán {día} días. Si no pudo actualizar antes del {fecha}, se retirarán todas las recompensas",
-  "APP_0071":"El tiempo de retiro es: {starttime}-{endtime}, por favor solicite el retiro durante este período, gracias.",
+  "APP_0071":"El tiempo de retiro es: {starttime}-{endtime}, solicite el retiro durante este período, gracias.",
   "nftAssets":"Activo NFT",
   "totalAssets":"Activos totales",
   "reservenotDrawn":"Órdenes de reserva no giradas",
@@ -1431,7 +1431,7 @@
   "appMedal":"Insignia",
   "appRewards":"recompensas",
   "appTypeAirdrop":"Recompensas de la caja del tesoro",
-  "appTypeLevelBox":"Actualizar la caja del tesoro",
+  "appTypeLevelBox":"Box de tesoro de actualización",
   "appTypeReserveBox":"Caja del tesoro reservada",
   "appSellMore":"Vista",
   "appWow":"wow,Cool",
@@ -1463,5 +1463,11 @@
   "systemMessage":"Notificación del sistema",
   "allRead":"Todo leido",
   "chargePrice":"Recibir",
-  "EO_004_9":"Registro de IP duplicada."
+  "EO_004_9":"Registro de IP duplicada.",
+  "no_data_available":"Datos no disponibles",
+  "no_data_placeHolder_text":"Puede volver a la pantalla de reserva para realizar operaciones",
+  "loading":"Cargando...",
+  "enterEmail_verify":"Por favor, introduzca el código de verificación de su buzón",
+  "enterPhone_verify":"Introduzca el código de verificación de su teléfono móvil",
+  "enterGoogle_verify":"Introduce tu código de verificación de Google"
 }

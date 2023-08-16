@@ -1461,5 +1461,11 @@
   "systemMessage":"系统通知",
   "allRead":"全部已读",
   "chargePrice":"本次收取",
-  "EO_004_9":"重复IP注册"
+  "EO_004_9":"重复IP注册",
+  "no_data_available":"暂无资料",
+  "no_data_placeHolder_text":"您可以返回预约画面进行操作",
+  "loading":"读取中...",
+  "enterEmail_verify":"请输入您的邮箱验证码",
+  "enterPhone_verify":"请输入您的手机验证码",
+  "enterGoogle_verify":"请输入您的Google验证码"
 }

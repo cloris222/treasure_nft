@@ -1463,5 +1463,11 @@
   "systemMessage":"系統通知",
   "allRead":"全部已讀",
   "chargePrice":"本次收取",
-  "EO_004_9":"重複IP註冊"
+  "EO_004_9":"重複IP註冊",
+  "no_data_available":"暫無資料",
+  "no_data_placeHolder_text":"您可以返回預約畫面進行操作",
+  "loading":"讀取中...",
+  "enterEmail_verify":"請輸入您的信箱驗證碼",
+  "enterPhone_verify":"請輸入您的手機驗證碼",
+  "enterGoogle_verify":"請輸入您的Google驗證碼"
 }
