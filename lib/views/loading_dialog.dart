@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/custom/custom_observer.dart';
@@ -65,7 +66,7 @@ class _LoadingDialogState extends State<LoadingDialog> {
                             strokeWidth: 2,
                             color: AppColors.textWhite,
                           )),
-                      Text("loading...", style: AppTextStyle.getBaseStyle(color: AppColors.textWhite,fontSize: UIDefine.fontSize16,fontWeight: FontWeight.w400)),
+                      Text(tr("loading"), style: AppTextStyle.getBaseStyle(color: AppColors.textWhite,fontSize: UIDefine.fontSize16,fontWeight: FontWeight.w400)),
                     ],
                   )),
             ),

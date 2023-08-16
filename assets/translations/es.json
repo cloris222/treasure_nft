@@ -1460,5 +1460,6 @@
   "systemMessage":"Notificación del sistema",
   "allRead":"Todo leido",
   "chargePrice":"Recibir",
-  "EO_004_9":"Registro de IP duplicada."
+  "EO_004_9":"Registro de IP duplicada.",
+  "loading":"Cargando..."
 }

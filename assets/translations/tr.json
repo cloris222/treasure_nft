@@ -1460,5 +1460,6 @@
   "systemMessage":"Sistem bildirimi",
   "allRead":"Hepsi okundu",
   "chargePrice":"Almak",
-  "EO_004_9":"Yinelenen IP kaydı."
+  "EO_004_9":"Yinelenen IP kaydı.",
+  "loading":"Yükleniyor..."
 }

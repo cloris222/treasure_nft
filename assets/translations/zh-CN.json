@@ -1458,5 +1458,6 @@
   "systemMessage":"系统通知",
   "allRead":"全部已读",
   "chargePrice":"本次收取",
-  "EO_004_9":"重复IP注册"
+  "EO_004_9":"重复IP注册",
+  "loading":"读取中..."
 }
