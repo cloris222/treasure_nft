@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/models/data/validate_result_data.dart';
@@ -53,6 +55,8 @@ class LoginMainViewModel extends BaseViewModel {
         return;
       }
       showLoadingPage(context);
+      /// 將執行的程序往前
+      scheduleMicrotask(()async {
       try {
         ///MARK: 註冊API
         await LoginAPI().login(account: accountController.text, password: passwordController.text, isWallet: false).then((value) async {
@@ -85,6 +89,7 @@ class LoginMainViewModel extends BaseViewModel {
         loginWait = false;
       });
       closeLoadingPage();
+      });
     }
   }
 
