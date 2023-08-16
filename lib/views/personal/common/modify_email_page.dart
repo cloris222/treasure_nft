@@ -101,7 +101,7 @@ class _ModifyEmailPageState extends ConsumerState<ModifyEmailPage> {
   Widget _buildGoogleAuth() {
     return LoginParamView(
       titleText: tr("googleValid"),
-      hintText: tr("googleValid-placeholder'"),
+      hintText: tr("enterGoogle_verify"),
       controller: viewModel.googleCodeController,
       data: viewModel.googleCodeData,
       keyboardType:TextInputType.text,
@@ -117,7 +117,7 @@ class _ModifyEmailPageState extends ConsumerState<ModifyEmailPage> {
           LoginParamView(
             titleText: tr('email'),
             hintText: tr("placeholder-email'"),
-            controller: viewModel.emailCodeController,
+            controller: viewModel.emailController,
             data: viewModel.emailCodeData,
             onChanged: viewModel.onEmailChange,
             inputFormatters: denySpace(),

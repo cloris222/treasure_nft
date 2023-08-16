@@ -49,8 +49,11 @@ class ModifyEmailViewModel extends BaseViewModel {
   void onPressSendCode(BuildContext context) {
     AuthAPI(onConnectFail: (errorMessage)
     => onBaseConnectFail(context, errorMessage))
-        .sendAuthActionMail(action: LoginAction.updateEmail, userInfo: userInfo);
-    SimpleCustomDialog(context, mainText:tr('pleaseGotoMailboxReceive')).show();
+        .sendAuthActionMail(action: LoginAction.updateEmail, email: emailController.text,userInfo: userInfo).then((value) {
+      if(value.message =="SUCCESS"){
+        SimpleCustomDialog(context, mainText:tr('pleaseGotoMailboxReceive')).show();
+      }
+    });
   }
 
 

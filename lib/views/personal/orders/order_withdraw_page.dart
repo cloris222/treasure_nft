@@ -83,6 +83,7 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
             }).show();
       } else if (withdrawAlertInfo.isBlock) {
         CommonCustomDialog(context,
+            isDialogCancel: false,
             title: tr("applicationFailed"),
             content: format(tr("resetUnlockText"),
                 {"time": getBlockTimeFormat(value.expireIn.toInt())}),

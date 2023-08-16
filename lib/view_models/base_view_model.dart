@@ -623,25 +623,40 @@ class BaseViewModel with ControlRouterViewModel {
 
   /// 總秒數轉為時分秒並使0不回傳
   String formatDuration(int minutes) {
-    final Duration duration = Duration(minutes: minutes);
-    final String formattedDuration =
-        DateFormat('H.m,',"en_US").format(DateTime(0).add(duration));
-    String processedDuration;
-    // 移除小時為0的情況
-    if (formattedDuration.startsWith('0.')) {
-      processedDuration = formattedDuration.substring(3);
-    } else {
-      processedDuration = formattedDuration;
-    }
-    // 移除分鐘為0的情況
-    if (minutes % 60 == 0) {
-      processedDuration = processedDuration.replaceAll('0,', '');
-    }
-    // 替換冒號為文字
-    final replacedDuration = processedDuration
-        .replaceAll('.', tr("hours"))
-        .replaceAll(',', tr("minutes"));
+    // final Duration duration = Duration(minutes: minutes);
+    // final String formattedDuration = DateFormat('H.m,',"en_US").format(DateTime(0).add(duration));
+    String processedDuration = '';
+    int hours = minutes ~/ 60;
+    int remainMinutes = minutes % 60;
 
-    return replacedDuration;
+    if(hours > 0){
+      processedDuration += '$hours${tr('hours')}';
+    }
+    if(remainMinutes > 0){
+      processedDuration += '$remainMinutes${tr("minutes")}';
+    }
+
+    // 移除小時為0的情況
+    // if (formattedDuration.startsWith('0.')) {
+    //   processedDuration = formattedDuration.substring(2);
+    // } else {
+    //   processedDuration = formattedDuration;
+    // }
+    // print("process: $processedDuration");
+    // // 移除分鐘為0的情況
+    // if (minutes % 60 == 0) {
+    //   processedDuration = processedDuration.replaceAll('0,', '');
+    // }
+    // if(minutes % 60 >= 24){
+    //   print(">=24");
+    //   processedDuration = formattedDuration;
+    //   print("else if: $processedDuration");
+    // }
+    // 替換冒號為文字
+    // final replacedDuration = processedDuration
+    //     .replaceAll('.', tr("hours"))
+    //     .replaceAll(',', tr("minutes"));
+
+    return processedDuration;
   }
 }
