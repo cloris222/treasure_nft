@@ -90,18 +90,21 @@ class _CollectionTicketListViewState
   }
 
   Widget _buildPlaceHolderWidget(){
-    return Column(
-      children: [
-        Container(
-          margin: EdgeInsets.all(UIDefine.getPixelWidth(30)),
-          child: Image.asset('assets/icon/img/not_found_illustration.png'),
-        ),
-        Text('no_data_available'.tr(),style: AppTextStyle.getBaseStyle(fontSize:UIDefine.fontSize16,fontWeight: FontWeight.w700,color: Colors.black),),
-        SizedBox(height: UIDefine.getPixelWidth(8),),
-        Text(BaseViewModel().changeTimeZone(loadTime.toString(),setSystemZone: 'GMT+0',isShowGmt: true),style: AppTextStyle.getBaseStyle(fontSize:UIDefine.fontSize16,fontWeight: FontWeight.w700,color: Colors.black)),
-        SizedBox(height: UIDefine.getPixelWidth(8),),
-        Text('no_data_placeHolder_text'.tr(),style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12,fontWeight: FontWeight.w400,color: AppColors.hintGrey),)
-      ],
+    return Container(
+      width: UIDefine.getWidth()*0.7,
+      child: Column(
+        children: [
+          Container(
+            margin: EdgeInsets.all(UIDefine.getPixelWidth(30)),
+            child: Image.asset('assets/icon/img/not_found_illustration.png'),
+          ),
+          Text('no_data_available'.tr(),style: AppTextStyle.getBaseStyle(fontSize:UIDefine.fontSize16,fontWeight: FontWeight.w700,color: Colors.black),),
+          SizedBox(height: UIDefine.getPixelWidth(8),),
+          Text(BaseViewModel().changeTimeZone(loadTime.toString(),setSystemZone: 'GMT+0',isShowGmt: true),style: AppTextStyle.getBaseStyle(fontSize:UIDefine.fontSize14,fontWeight: FontWeight.w700,color: Colors.black)),
+          SizedBox(height: UIDefine.getPixelWidth(8),),
+          Text('no_data_placeHolder_text'.tr(),style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize12,fontWeight: FontWeight.w400,color: AppColors.hintGrey,),textAlign: TextAlign.center,)
+        ],
+      ),
     );
   }
 }
