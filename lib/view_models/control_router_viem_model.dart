@@ -3,6 +3,9 @@ import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:wallet_connect_plugin/model/wallet_info.dart';
 
+import '../constant/subject_key.dart';
+import '../utils/observer_pattern/notification_data.dart';
+import '../views/loading_dialog.dart';
 import '../views/main_page.dart';
 import '../views/wallet_connect_page.dart';
 import 'base_view_model.dart';
@@ -124,5 +127,16 @@ class ControlRouterViewModel {
     if (GlobalData.userToken.isNotEmpty) {
       BaseViewModel().showNoticeView(BaseViewModel().getGlobalContext(), true);
     }
+  }
+
+  /// 顯示讀取頁面
+  Future<void> showLoadingPage(BuildContext context) async {
+    closeLoadingPage();
+    await pushOpacityPage(context, const LoadingDialog());
+  }
+
+  /// 關閉讀取頁面
+  void closeLoadingPage() {
+    GlobalData.loadingSubject.notifyObservers(NotificationData(key: SubjectKey.keyCloseLoadingDialog, data: null));
   }
 }
