@@ -5,15 +5,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/views/setting_language_page.dart';
 
+import '../../constant/app_routes.dart';
 import '../../constant/enum/setting_enum.dart';
-import '../../constant/enum/style_enum.dart';
-import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/ui_define.dart';
 import '../../utils/app_text_style.dart';
 import '../../view_models/base_view_model.dart';
 import '../../view_models/home/provider/home_contact_info_provider.dart';
-import '../../views/announcement/announcement_main_page.dart';
 import '../app_bottom_navigation_bar.dart';
 
 class MenuButtonWidget extends ConsumerWidget {
@@ -88,6 +86,10 @@ class MenuButtonWidget extends ConsumerWidget {
         imgPath = AppImagePath.tg;
         cellTitle = tr("Telegram");
         break;
+      // case MenuIcon.internalMessage:
+      //   imgPath = AppImagePath.internalMessageBtn;
+      //   cellTitle = tr("stationMessage");
+      //   break;
     }
     Widget item = Row(
       children: [
@@ -117,6 +119,7 @@ class MenuButtonWidget extends ConsumerWidget {
 
   void _onTapType(
       BuildContext context, MenuIcon type, Map<String, dynamic> footers) {
+    var viewModel = BaseViewModel();
     switch (type) {
       case MenuIcon.home:
         mainAction();
@@ -131,6 +134,16 @@ class MenuButtonWidget extends ConsumerWidget {
       case MenuIcon.telegram:
         _showTelegram(footers);
         break;
+      // case MenuIcon.internalMessage:
+      //   {
+      //     if (viewModel.isLogin()) {
+      //       AppRoutes.pushInternalMessage(context);
+      //     } else {
+      //       viewModel.pushAndRemoveUntil(
+      //           context, const MainPage(type: AppNavigationBarType.typeLogin));
+      //     }
+      //   }
+      //   break;
     }
   }
 

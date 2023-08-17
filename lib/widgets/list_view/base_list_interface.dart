@@ -29,6 +29,9 @@ abstract class BaseListInterface {
   ///MARK: 判斷是否重讀取過
   bool hasReloadAPI = false;
 
+  ///MARK: 判斷是否讀取資料完成
+  bool isInitFinish = false;
+
   ///---- 實體化的function
 
   void loadingFinish();
@@ -117,12 +120,13 @@ abstract class BaseListInterface {
   }
 
   Future<void> init() async {
-    await Future.delayed(const Duration(milliseconds: 300));
+    // await Future.delayed(const Duration(milliseconds: 300));
     if (await AppSharedPreferences.checkKey(getSharedPreferencesKey())) {
       await readSharedPreferencesValue();
     } else {
       await initValue();
     }
+    isInitFinish = true;
     loadingFinish();
     initListView();
   }
@@ -185,8 +189,9 @@ abstract class BaseListInterface {
     _showWaitLoad = true;
     if (_currentPage == 1) {
       var list = await loadData(_currentPage, maxLoad());
-      currentItems.clear();
-      currentItems.addAll(list);
+      // currentItems.clear();
+      // currentItems.addAll(list);
+      currentItems = [...list];
 
       ///MARK:代表需要讀下一筆
       if (list.length >= maxLoad()) {
@@ -247,13 +252,29 @@ abstract class BaseListInterface {
   Widget buildListView(
       {bool shrinkWrap = true,
       ScrollPhysics? physics,
-      EdgeInsetsGeometry? padding}) {
+      EdgeInsetsGeometry? padding,
+        Widget? placeHolderWidget
+      }) {
     int length = currentItems.length;
     Widget? topView = buildTopView();
     bool hasTopView = topView != null;
 
     if (_showWaitLoad || (!isAutoReloadMore() && nextItems.isNotEmpty)) {
       length += 1;
+    }
+
+    if(length == 0){
+      if(!isInitFinish){
+        return Container();
+      }else{
+        return hasTopView?Column(
+          children: [
+            topView,
+            placeHolderWidget??Container()
+          ],
+        ):
+        placeHolderWidget??Container();
+      }
     }
 
     return _buildListListener(
@@ -305,7 +326,7 @@ abstract class BaseListInterface {
         : _buildListListener(
         topView: topView,
         listBody:Container(
-          height: UIDefine.getPixelWidth(120),
+          height: UIDefine.getPixelWidth(170),
           margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(10)),
           /// 0px 6px 5px rgba(9, 9, 9, 0.15);
           // decoration: AppStyle().styleShadowBorderBackground(
@@ -358,7 +379,9 @@ abstract class BaseListInterface {
       bool shrinkWrap = true,
       ScrollPhysics? physics,
       EdgeInsetsGeometry? padding,
-      Decoration? backgroundDecoration}) {
+      Decoration? backgroundDecoration,
+        Widget? placeHolderWidget
+      }) {
     int rowLength =
         currentItems.isNotEmpty ? currentItems.length ~/ crossAxisCount : 0;
 
@@ -373,6 +396,20 @@ abstract class BaseListInterface {
       finalLength = rowLength + 1;
     } else {
       finalLength = rowLength;
+    }
+
+    if(finalLength == 0){
+      if(!isInitFinish){
+        return Container();
+      }else{
+        return hasTopView?Column(
+          children: [
+            topView,
+            placeHolderWidget??Container()
+          ],
+        ):
+        placeHolderWidget??Container();
+      }
     }
 
     return _buildListListener(

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
@@ -37,16 +38,36 @@ class AnimationDownloadUtil {
   }
 
   void init() async {
-    ///MARK: 檢查權限
-    PermissionStatus status = await _getStoragePermission(true);
-    GlobalData.printLog('$key Permission $status');
-    if (status == PermissionStatus.permanentlyDenied ||
-        status == PermissionStatus.denied) {
-      showStorageDialog();
-    } else {
+    bool passCheckPermission = false;
+    if (Platform.isAndroid) {
+      AndroidDeviceInfo info = await getDeviceInfo();
+      final AndroidBuildVersion version = info.version;
+      final String release = version.release;
+      final int sdkInt = version.sdkInt;
+      if (int.parse(release) >= 13 && sdkInt >= 33) {
+        passCheckPermission = true;
+      }
+    }
+    if (passCheckPermission) {
       hasPermission = true;
       start();
+    } else {
+      ///MARK: 檢查權限
+      PermissionStatus status = await _getStoragePermission(true);
+      GlobalData.printLog('$key Permission $status');
+      if (status == PermissionStatus.permanentlyDenied || status == PermissionStatus.denied) {
+        showStorageDialog();
+      } else {
+        hasPermission = true;
+        start();
+      }
     }
+  }
+
+  Future<AndroidDeviceInfo> getDeviceInfo() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    return androidInfo;
   }
 
   void start() async {

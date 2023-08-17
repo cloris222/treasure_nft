@@ -64,6 +64,10 @@ class _LoginButtonWidgetState extends State<LoginButtonWidget> {
 
   /// 防止重複點擊button
   void intervalClick(int needTime) {
+    /// 讀取中禁止點擊
+    if (widget.isShowProgress) {
+      return;
+    }
     if (_delay == null ||
         DateTime.now().difference(_delay!) > Duration(seconds: needTime)) {
       GlobalData.printLog("允許點擊");
@@ -133,9 +137,9 @@ class _LoginButtonWidgetState extends State<LoginButtonWidget> {
                 Visibility(visible: widget.isShowProgress,
                     child: Container(
                         margin: EdgeInsets.only(right: UIDefine.getPixelHeight(10)),
-                        height: UIDefine.getPixelHeight(15),
-                        width: UIDefine.getPixelHeight(15),
-                        child:const CircularProgressIndicator(strokeWidth: 2))),
+                        height: UIDefine.getPixelWidth(15),
+                        width: UIDefine.getPixelWidth(15),
+                        child:const CircularProgressIndicator(strokeWidth: 2,color: AppColors.textWhite,))),
                 Text(widget.btnText,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,

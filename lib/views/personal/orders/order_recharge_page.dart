@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -346,17 +349,38 @@ class _OrderRechargePageState extends ConsumerState<OrderRechargePage> {
   }
 
   void _onSaveQRCode() async {
-    PermissionStatus status = await _getStoragePermission();
-    if (status == PermissionStatus.permanentlyDenied) {
-      showStorageDialog();
-    }
-
-    if (status.isGranted) {
-      // 檢查權限
-      if (mounted) {
-        viewModel.onSaveQrcode(
-            context, repaintKey, userWalletInfo?[currentChain.name]);
+    bool passCheckPermission = false;
+    if (Platform.isAndroid) {
+      AndroidDeviceInfo info = await getDeviceInfo();
+      final AndroidBuildVersion version = info.version;
+      final String release = version.release;
+      final int sdkInt = version.sdkInt;
+      if (int.parse(release) >= 13 && sdkInt >= 33) {
+        passCheckPermission = true;
       }
     }
+    if (passCheckPermission) {
+      if (mounted) {
+        viewModel.onSaveQrcode(context, repaintKey, userWalletInfo?[currentChain.name]);
+      }
+    } else {
+      PermissionStatus status = await _getStoragePermission();
+      if (status == PermissionStatus.permanentlyDenied) {
+        showStorageDialog();
+      }
+
+      if (status.isGranted) {
+        // 檢查權限
+        if (mounted) {
+          viewModel.onSaveQrcode(context, repaintKey, userWalletInfo?[currentChain.name]);
+        }
+      }
+    }
+  }
+
+  Future<AndroidDeviceInfo> getDeviceInfo() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    return androidInfo;
   }
 }
