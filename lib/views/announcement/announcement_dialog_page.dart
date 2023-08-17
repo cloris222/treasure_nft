@@ -7,7 +7,6 @@ import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/models/http/parameter/announce_data.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/announcement/announcement_detail_page.dart';
-import 'package:treasure_nft_project/views/announcement/announcement_main_page.dart';
 import '../../constant/enum/style_enum.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/ui_define.dart';
@@ -148,7 +147,7 @@ class _AnnouncementDialogPageState extends ConsumerState<AnnouncementDialogPage>
                           fontSize: FontSize(UIDefine.fontSize12),
                           color: AppColors.textBlack,
                           fontWeight: FontWeight.w600,
-                          padding: EdgeInsets.zero,
+                          padding: HtmlPaddings.zero,
                           fontFamily: AppTextFamily.PosteramaText.name
                       ),
                     },
@@ -169,7 +168,7 @@ class _AnnouncementDialogPageState extends ConsumerState<AnnouncementDialogPage>
                         //     ?
                         Html(
                             data: widget.data.content,
-                            onLinkTap: (String? url, RenderContext context, Map<String, String> attributes, element) {
+                            onLinkTap: (String? url, Map<String, String> attributes, element) {
                               viewModel.launchInBrowser(url!);
                             },
                             style: {
@@ -177,7 +176,7 @@ class _AnnouncementDialogPageState extends ConsumerState<AnnouncementDialogPage>
                                   maxLines: 3,
                                   fontSize: FontSize(UIDefine.fontSize12),
                                   fontWeight: FontWeight.w400,
-                                  padding: EdgeInsets.zero,
+                                  padding: HtmlPaddings.zero,
                                   fontFamily: AppTextFamily.PosteramaText.name
                                 ),
                               },
