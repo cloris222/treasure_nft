@@ -134,10 +134,10 @@ class _CourseVideoPageState extends State<CourseVideoPage> {
         return format(path, {"number": "03"});
 
       case VideoStrEnum.howToWithdraw:
-        return format(path, {"number": "04"});
+        return format(path, {"number": "05"});
 
       case VideoStrEnum.howToViewInvitations:
-        return format(path, {"number": "05"});
+        return format(path, {"number": "04"});
 
       case VideoStrEnum.howToViewEarnings:
         return format(path, {"number": "06"});
