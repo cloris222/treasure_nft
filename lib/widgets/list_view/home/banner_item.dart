@@ -23,7 +23,8 @@ class BannerItemView extends StatelessWidget {
           child:GraduallyNetworkImage(
               onlyShowNormal:true,
               imageUrl:itemData.viewMb,
-              cacheWidth: 360,
+              /// 360畫質太低
+              cacheWidth: 1600,
               width: UIDefine.getPixelWidth(360),
               height: UIDefine.getPixelWidth(170),
               fit: BoxFit.cover),
