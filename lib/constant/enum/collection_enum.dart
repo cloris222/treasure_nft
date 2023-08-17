@@ -12,7 +12,7 @@ enum CollectionTag {
   Ticket,
 
   ///勳章
-  // Medal
+  Medal
 }
 
 enum DepositChain{

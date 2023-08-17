@@ -54,6 +54,7 @@ class AppImagePath {
   static const String homeImage = '$_btnPath/btn_home_01.png';
   static const String avatarImg = '$_imgPath/img_Default_00.png';
   static const String avatarImgs = '$_imgPath/img_Default_0{index}.png';
+  static const String internalMessageBtn = '$_btnPath/btn_internal_message.png';
 
   /// coins
   static const String tetherImg = '$_coinsPath/icon_tether_01.png';
@@ -260,4 +261,7 @@ class AppImagePath {
   static const String noticeBackground = "$_imgPath/img_notice_background.png";
   static const String editIcon = "$_iconPath/icon_edit.png";
 
+  //站內信
+  static const String mailService = "$_iconPath/icon_mail_service.png";
+  static const String mailReserve = "$_iconPath/icon_mail_reserve_success.png";
 }
