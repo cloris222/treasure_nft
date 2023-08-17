@@ -79,7 +79,7 @@ dependencies:
   intl: ^0.17.0
   fluttertoast: ^8.2.1
   hexcolor: ^3.0.1
-  flutter_html: any
+  flutter_html: 3.0.0-beta.2
   firebase_crashlytics: ^3.3.3
   device_info_plus: ^9.0.2
 
