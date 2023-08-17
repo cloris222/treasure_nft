@@ -21,11 +21,11 @@ class BannerItemView extends StatelessWidget {
         child: GestureDetector(
           onTap: ()=> BaseViewModel().launchInBrowser(itemData.externalUrl),
           child:GraduallyNetworkImage(
-              showNormal:true,
+              onlyShowNormal:true,
               imageUrl:itemData.viewMb,
               cacheWidth: 360,
               width: UIDefine.getPixelWidth(360),
-              height: UIDefine.getPixelWidth(120),
+              height: UIDefine.getPixelWidth(170),
               fit: BoxFit.cover),
         )
 

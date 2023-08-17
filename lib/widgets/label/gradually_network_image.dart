@@ -18,7 +18,9 @@ class GraduallyNetworkImage extends StatelessWidget {
       this.childAlignment,
       this.childPadding,
       this.imageWidgetBuilder,
-      this.showNormal})
+      this.onlyShowNormal = false,
+      this.showNormal,
+      })
       : super(key: key);
   final String imageUrl;
   final double? width;
@@ -27,6 +29,9 @@ class GraduallyNetworkImage extends StatelessWidget {
   final Widget? errorWidget;
   final Widget? loadWidget;
   final int? cacheWidth;
+  /// 只讀原圖
+  final bool onlyShowNormal;
+  /// 是否要顯示原圖
   final bool? showNormal;
 
   /// Optional builder to further customize the display of the image.
@@ -40,8 +45,12 @@ class GraduallyNetworkImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /// 只讀原圖
+    if(onlyShowNormal){
+      return _buildLoadNormal(fail: true);
+    }
     // return _buildLoadNormal();
-    ///MARK: 暫時不讀壓圖
+    ///MARK: 暫時不讀原圖
     return _buildLoadLowPath(loadNormal: showNormal ?? false);
   }
 
