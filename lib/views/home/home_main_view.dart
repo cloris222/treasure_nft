@@ -227,11 +227,11 @@ class _HomeMainViewState extends ConsumerState<HomeMainView>
             )
           ],
         ),
-        buildSpace(height: 2),
-        Text(tr('index-product-text-1\''),
-            style: getContextStyle(color: AppColors.textGrey)),
-        Text(tr('index-product-text-2\''),
-            style: getContextStyle(color: AppColors.textGrey))
+        // buildSpace(height: 2),
+        // Text(tr('index-product-text-1\''),
+        //     style: getContextStyle(color: AppColors.textGrey)),
+        // Text(tr('index-product-text-2\''),
+        //     style: getContextStyle(color: AppColors.textGrey))
       ],
     );
   }
