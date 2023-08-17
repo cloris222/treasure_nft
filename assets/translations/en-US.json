@@ -1454,5 +1454,6 @@
   "systemMessage":"System Notification",
   "allRead":"All Read",
   "chargePrice":"Receive",
-  "EO_004_9":"Rewards will be retained {day} days. If failed to upgrade before {date}, all rewards will be taken back"
+  "EO_004_9":"Duplicate IP registration.",
+  "loading":"Loading..."
 }

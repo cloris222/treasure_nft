@@ -9,4 +9,5 @@ class SubjectKey {
 
 
   static const String keyChangeLanguage = 'changeLanguage';
+  static const String keyCloseLoadingDialog = 'closeLoadingDialog';
 }

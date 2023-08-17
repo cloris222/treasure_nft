@@ -1460,5 +1460,6 @@
   "systemMessage":"Thông báo hệ thống",
   "allRead":"Tất cả được đọc",
   "chargePrice":"Nhận được",
-  "EO_004_9":"Đăng ký IP trùng lặp."
+  "EO_004_9":"Đăng ký IP trùng lặp.",
+  "loading":"Đang tải..."
 }

@@ -1454,5 +1454,6 @@
     "systemMessage":"システム通知",
     "allRead":"すべて読みます",
     "chargePrice":"受け取る",
-    "EO_004_9":"重複するIP登録。"
+    "EO_004_9":"重複するIP登録。",
+    "loading":"読み込み..."
 }

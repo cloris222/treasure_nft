@@ -1454,5 +1454,6 @@
   "systemMessage":"Pemberitahuan Sistem",
   "allRead":"Semua dibaca",
   "chargePrice":"Menerima",
-  "EO_004_9":"Pendaftaran IP Duplikat."
+  "EO_004_9":"Pendaftaran IP Duplikat.",
+  "loading":"Memuatkan ..."
 }

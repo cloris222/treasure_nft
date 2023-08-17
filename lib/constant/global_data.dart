@@ -68,6 +68,9 @@ class GlobalData {
   ///MARK: 控管語言切換的
   static Subject languageSubject = Subject();
 
+  /// MARK: 控管讀取頁面的
+  static Subject loadingSubject = Subject();
+
   ///MARK: 判斷是否有進行綁定動作
   static bool passBindWalletAction = false;
 

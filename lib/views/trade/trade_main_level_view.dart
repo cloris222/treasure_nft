@@ -623,6 +623,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
       UserInfoData userInfo, ExperienceInfo experienceInfo) async {
     /// add new reservation
     await viewModel.addNewReservation(
+        context,
         reserveIndex: reserveDivisionRanges[currentDivisionRangeIndex].index,
         reserveStartPrice:
             reserveDivisionRanges[currentDivisionRangeIndex].startPrice,

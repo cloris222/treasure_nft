@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/models/data/validate_result_data.dart';
@@ -42,29 +44,23 @@ class LoginMainViewModel extends BaseViewModel {
 
   bool loginWait = false;
 
-  void onPressLogin(
-      BuildContext context, WidgetRef ref, WalletInfo? walletInfo) async {
+  void onPressLogin(BuildContext context, WidgetRef ref, WalletInfo? walletInfo) async {
     if (!loginWait) {
-      loginWait = true;
       if (!checkEmptyController()) {
         setState(() {
-          accountData =
-              ValidateResultData(result: accountController.text.isNotEmpty);
-          passwordData =
-              ValidateResultData(result: passwordController.text.isNotEmpty);
+          accountData = ValidateResultData(result: accountController.text.isNotEmpty);
+          passwordData = ValidateResultData(result: passwordController.text.isNotEmpty);
         });
         loginWait = false;
         return;
       }
+      showLoadingPage(context);
+      /// 將執行的程序往前
+      scheduleMicrotask(()async {
       try {
         ///MARK: 註冊API
-        await LoginAPI().login(
-                account: accountController.text,
-                password: passwordController.text,
-                isWallet: false)
-            .then((value) async {
-          String? path = AnimationDownloadUtil()
-              .getAnimationFilePath(getLoginTimeAnimationPath());
+        await LoginAPI().login(account: accountController.text, password: passwordController.text, isWallet: false).then((value) async {
+          String? path = AnimationDownloadUtil().getAnimationFilePath(getLoginTimeAnimationPath());
           if (path != null) {
             pushOpacityPage(
                 context,
@@ -73,29 +69,27 @@ class LoginMainViewModel extends BaseViewModel {
                     isFile: true,
                     animationPath: path,
                     runFunction: () async {
-                      await saveUserLoginInfo(
-                          response: value, ref: ref, isLogin: true);
+                      await saveUserLoginInfo(response: value, ref: ref, isLogin: true);
 
                       ///MARK:代表需要進行錢包綁定
                       if (walletInfo != null) {
-                        await WalletBindViewModel().bindWallet(context, ref,
-                            walletInfo, ref.read(userInfoProvider));
+                        await WalletBindViewModel().bindWallet(context, ref, walletInfo, ref.read(userInfoProvider));
                       }
                       startUserListener();
                     },
-                    nextPage:
-                        const MainPage(type: AppNavigationBarType.typeMain)));
+                    nextPage: const MainPage(type: AppNavigationBarType.typeMain)));
           } else {
             await saveUserLoginInfo(response: value, ref: ref, isLogin: true);
             startUserListener();
-            pushAndRemoveUntil(
-                context, const MainPage(type: AppNavigationBarType.typeMain));
+            pushAndRemoveUntil(context, const MainPage(type: AppNavigationBarType.typeMain));
           }
         });
-      } catch (e) {
+      } catch (e) {}
+      setState(() {
         loginWait = false;
-      }
-      loginWait = false;
+      });
+      closeLoadingPage();
+      });
     }
   }
 

@@ -1454,5 +1454,6 @@
   "systemMessage":"시스템 알림",
   "allRead":"모두 읽었습니다",
   "chargePrice":"받다",
-  "EO_004_9":"중복 IP 등록."
+  "EO_004_9":"중복 IP 등록.",
+  "loading":"로딩 ..."
 }

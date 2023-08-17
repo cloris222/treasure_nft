@@ -163,7 +163,11 @@ class _MainPageState extends State<MainPage> {
           mainAction: _mainAction,
           airdropAction: _airdropAction,
           announcementAction: _announcementAction),
-      body: Stack(
+      body:
+      GestureDetector(
+      onTap: ()=>BaseViewModel().clearAllFocus(),
+      behavior: HitTestBehavior.translucent,
+      child:Stack(
         children: [
           Padding(
             padding: EdgeInsets.only(
@@ -199,7 +203,7 @@ class _MainPageState extends State<MainPage> {
                 bStartTimer: true,
               ))
         ],
-      ),
+      )),
       extendBody: true,
     );
   }

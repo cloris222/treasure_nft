@@ -1460,5 +1460,6 @@
   "systemMessage":"系統通知",
   "allRead":"全部已讀",
   "chargePrice":"本次收取",
-  "EO_004_9":"重複IP註冊"
+  "EO_004_9":"重複IP註冊",
+  "loading":"讀取中..."
 }
