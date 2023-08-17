@@ -49,6 +49,7 @@ class AnimationDownloadUtil {
       }
     }
     if (passCheckPermission) {
+      hasPermission = true;
       start();
     } else {
       ///MARK: 檢查權限
