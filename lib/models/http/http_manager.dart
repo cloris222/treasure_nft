@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:format/format.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
@@ -36,9 +37,11 @@ class HttpManager {
       this.baseUrl = HttpSetting.appUrl,
       this.addToken = true,
       this.showTrString = true,
-      this.printLog = true}) {
+      this.printLog = true,
+        String? replaceRoute,
+      }) {
     _dio
-      ..options.baseUrl = baseUrl
+      ..options.baseUrl = format(baseUrl, {"route": replaceRoute ?? GlobalData.appLineSetting.getDomain()})
       ..options.connectTimeout = HttpSetting.connectionTimeout
       ..options.receiveTimeout = HttpSetting.receiveTimeout
       ..options.responseType = ResponseType.json;

@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 
+import '../constant/enum/route_setting_enum.dart';
+
 class AppSharedPreferences {
   AppSharedPreferences._();
 
@@ -118,6 +120,20 @@ class AppSharedPreferences {
 
   static Future<bool> getLogIn() async {
     return await getBool("LogIn");
+  }
+  /// MARK: 線路記憶
+  static Future<void> setLineSetting(RouteSetting setting) async {
+    return await setString("LineSetting", setting.name);
+  }
+
+  static Future<RouteSetting> getLinSetting() async {
+    String value = await getString("LineSetting", defaultValue: RouteSetting.lineXyz.name);
+    for (var type in RouteSetting.values) {
+      if (type.name.compareTo(value) == 0) {
+        return type;
+      }
+    }
+    return RouteSetting.lineXyz;
   }
 
   static Future<void> printAll() async {

@@ -1,3 +1,4 @@
+import 'package:format/format.dart';
 import 'package:stomp_dart_client/stomp.dart';
 import 'package:stomp_dart_client/stomp_config.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
@@ -28,7 +29,7 @@ class StompSocketUtil {
     stompClient = StompClient(
       config: StompConfig.SockJS(
         // useSockJS: true,
-        url: HttpSetting.socketUrl,
+        url: format(HttpSetting.socketUrl, {"route": GlobalData.appLineSetting.getDomain()}),
         onDebugMessage: (msg) {
           if (msg != '<<< h') {
             GlobalData.printLog('$key $msg');

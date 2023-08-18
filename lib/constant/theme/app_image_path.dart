@@ -265,4 +265,6 @@ class AppImagePath {
   /// line setting
   static const String lineSettingServer = "$_iconPath/icon_line_setting_server_01.png";
   static const String userEditAvatar = '$_btnPath/btn_edit_avatar_01.png';
+  static const String selectedServer = '$_btnPath/btn_server_selected_01.png';
+  static const String unselectServer = '$_btnPath/btn_server_unselect_01.png';
 }

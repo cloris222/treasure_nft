@@ -16,7 +16,6 @@ import 'package:treasure_nft_project/views/personal/common/user_change_password_
 import 'package:treasure_nft_project/views/personal/common/user_info_setting_page.dart';
 import 'package:treasure_nft_project/views/personal/common/user_line_setting_page.dart';
 import 'package:treasure_nft_project/views/personal/common/user_setting_top_view.dart';
-import 'package:treasure_nft_project/views/personal/personal_new_sub_user_info_view.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/simple_custom_dialog.dart';
@@ -280,7 +279,7 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
     return Column(children: [
       _buildListItem(iconPath: AppImagePath.lockIcon,label: tr('changePassword'),pushPage: const UserChangePasswordPage()),
       _buildLine(),
-      _buildListItem(iconPath: AppImagePath.settingLineIcon,label: tr('settingLine'),pushPage: const UserLineSettingPage()),
+      _buildListItem(iconPath: AppImagePath.settingLineIcon,label: tr('lineSettings'),pushPage: const UserLineSettingPage()),
       _buildLine(),
     ],);
   }
