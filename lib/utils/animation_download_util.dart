@@ -42,9 +42,10 @@ class AnimationDownloadUtil {
     if (Platform.isAndroid) {
       AndroidDeviceInfo info = await getDeviceInfo();
       final AndroidBuildVersion version = info.version;
-      final String release = version.release;
+      /// 部分手機版本號格式不對
+      // final String release = version.release;
       final int sdkInt = version.sdkInt;
-      if (int.parse(release) >= 13 && sdkInt >= 33) {
+      if (sdkInt >= 33) {
         passCheckPermission = true;
       }
     }
