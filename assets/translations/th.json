@@ -1373,7 +1373,7 @@
   "expressway":"ช่องทาง",
   "placeholder-channel":"กรุณาเลือกเลน",
   "Zambia":"ชาวแซมเบีย",
-
+  "lineSettings":"การตั้งค่าสาย",
 
 
 
@@ -1461,5 +1461,6 @@
   "allRead":"อ่านทั้งหมด",
   "chargePrice":"รับ",
   "EO_004_9":"การลงทะเบียน IP ซ้ำ",
-  "loading":"กำลังโหลด ..."
+  "loading":"กำลังโหลด ...",
+  "settingLineNumber":"บรรทัด {num}"
 }

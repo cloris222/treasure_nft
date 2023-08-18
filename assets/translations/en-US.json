@@ -1373,6 +1373,7 @@
   "expressway":"Express Lane",
   "placeholder-channel":"Please select a lane",
   "Zambia":"Zambia",
+  "lineSettings":"Line Settings",
   "--//app use":"---",
   "goPermissionSetting":"The scan function requires the camera permission on your phone. Go into your phone settings to open it?",
   "ticketValue":"Ticket value",
@@ -1455,5 +1456,6 @@
   "allRead":"All Read",
   "chargePrice":"Receive",
   "EO_004_9":"Duplicate IP registration.",
-  "loading":"Loading..."
+  "loading":"Loading...",
+  "settingLineNumber":"Line {num}"
 }

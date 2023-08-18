@@ -124,12 +124,10 @@ class UserSettingTopView extends ConsumerWidget {
 
   Widget _buildMedalIcon(BuildContext context, UserInfoData userInfo) {
     if (userInfo.medal.isNotEmpty) {
-      return InkWell(
-          onTap: () => _showPointPage(context),
-          child: MedalIconWidget(
-            medal: userInfo.medal,
-            size: UIDefine.fontSize24,
-          ));
+      return MedalIconWidget(
+        medal: userInfo.medal,
+        size: UIDefine.fontSize24,
+      );
     }
     return Container();
   }

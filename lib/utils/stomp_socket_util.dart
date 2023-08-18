@@ -29,7 +29,7 @@ class StompSocketUtil {
     stompClient = StompClient(
       config: StompConfig.SockJS(
         // useSockJS: true,
-        url: format(HttpSetting.socketUrl, {"route": GlobalData.appLineSetting.getDomain()}),
+        url: format(HttpSetting.socketUrl, {"route": GlobalData.appServerRoute.getDomain()}),
         onDebugMessage: (msg) {
           if (msg != '<<< h') {
             GlobalData.printLog('$key $msg');

@@ -1374,7 +1374,7 @@
   "expressway":"Thể hiện làn đường",
   "placeholder-channel":"Vui lòng chọn làn đường",
   "Zambia":"Zambia",
-
+  "lineSettings":"Cài đặt dòng",
 
 
 
@@ -1461,5 +1461,6 @@
   "allRead":"Tất cả được đọc",
   "chargePrice":"Nhận được",
   "EO_004_9":"Đăng ký IP trùng lặp.",
-  "loading":"Đang tải..."
+  "loading":"Đang tải...",
+  "settingLineNumber":"Dòng {num}"
 }

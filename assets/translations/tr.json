@@ -1373,7 +1373,7 @@
   "expressway":"Express Lane",
   "placeholder-channel":"Lütfen bir şerit seçin",
   "Zambia":"Zambiya",
-
+  "lineSettings":"Çizgi Ayarları",
 
 
 
@@ -1461,5 +1461,6 @@
   "allRead":"Hepsi okundu",
   "chargePrice":"Almak",
   "EO_004_9":"Yinelenen IP kaydı.",
-  "loading":"Yükleniyor..."
+  "loading":"Yükleniyor...",
+  "settingLineNumber":"Satır {num}"
 }

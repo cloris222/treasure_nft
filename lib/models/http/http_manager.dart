@@ -41,7 +41,7 @@ class HttpManager {
         String? replaceRoute,
       }) {
     _dio
-      ..options.baseUrl = format(baseUrl, {"route": replaceRoute ?? GlobalData.appLineSetting.getDomain()})
+      ..options.baseUrl = format(baseUrl, {"route": replaceRoute ?? GlobalData.appServerRoute.getDomain()})
       ..options.connectTimeout = HttpSetting.connectionTimeout
       ..options.receiveTimeout = HttpSetting.receiveTimeout
       ..options.responseType = ResponseType.json;

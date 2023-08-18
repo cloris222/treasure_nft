@@ -1373,6 +1373,7 @@
   "expressway":"Express 차선",
   "placeholder-channel":"차선을 선택하십시오",
   "Zambia":"잠비아",
+  "lineSettings":"라인 설정",
   "--//app use":"---",
   "goPermissionSetting":"스캔 기능을 사용하려면 휴대폰의 카메라 권한이 필요합니다. 전화 설정으로 이동하여 여시겠습니까?",
   "ticketValue":"티켓 가치",
@@ -1455,5 +1456,6 @@
   "allRead":"모두 읽었습니다",
   "chargePrice":"받다",
   "EO_004_9":"중복 IP 등록.",
-  "loading":"로딩 ..."
+  "loading":"로딩 ...",
+  "settingLineNumber":"라인 {num}"
 }

@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 
-import '../../../constant/enum/route_setting_enum.dart';
+import '../../../constant/enum/server_route_enum.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/ui_define.dart';
 import '../../../view_models/personal/common/user_line_setting_view_model.dart';
@@ -63,8 +63,8 @@ class _UserLineSettingPageState extends ConsumerState<UserLineSettingPage> {
                 right: UIDefine.getPixelWidth(20),
               ),
               children: List<Widget>.generate(
-                RouteSetting.values.length,
-                (index) => _buildItem(RouteSetting.values[index]),
+                ServerRoute.values.length,
+                (index) => _buildItem(ServerRoute.values[index]),
               ),
             ),
           )),
@@ -73,12 +73,13 @@ class _UserLineSettingPageState extends ConsumerState<UserLineSettingPage> {
     );
   }
 
-  Widget _buildItem(RouteSetting type) {
-    bool enable = GlobalData.appLineSetting == type;
+  Widget _buildItem(ServerRoute type) {
+    bool enable = GlobalData.appServerRoute == type;
     return GestureDetector(
-        onTap: () => viewModel.onChangeRoute(context,type),
+        onTap: () => viewModel.onChangeRoute(context, type),
         behavior: HitTestBehavior.translucent,
         child: LineServerItem(
+          key: ValueKey(type.index),
           name: format(tr("settingLineNumber"), {"num": type.index + 1}),
           server: type,
           enable: enable,

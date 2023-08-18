@@ -1373,7 +1373,7 @@
   "expressway":"Jalur Ekspres",
   "placeholder-channel":"Pilih jalur",
   "Zambia":"Zambia",
-
+  "lineSettings":"Pengaturan baris",
 
 
 
@@ -1461,5 +1461,6 @@
   "allRead":"Semua dibaca",
   "chargePrice":"Menerima",
   "EO_004_9":"Duplikat Pendaftaran IP.",
-  "loading":"Memuat..."
+  "loading":"Memuat...",
+  "settingLineNumber":"Baris {num}"
 }

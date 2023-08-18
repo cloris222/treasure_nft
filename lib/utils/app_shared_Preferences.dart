@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 
-import '../constant/enum/route_setting_enum.dart';
+import '../constant/enum/server_route_enum.dart';
 
 class AppSharedPreferences {
   AppSharedPreferences._();
@@ -122,18 +122,18 @@ class AppSharedPreferences {
     return await getBool("LogIn");
   }
   /// MARK: 線路記憶
-  static Future<void> setRouteSetting(RouteSetting setting) async {
+  static Future<void> setRouteSetting(ServerRoute setting) async {
     return await setString("RouteSetting", setting.name);
   }
 
-  static Future<RouteSetting> getRouteSetting() async {
-    String value = await getString("RouteSetting", defaultValue: RouteSetting.lineXyz.name);
-    for (var type in RouteSetting.values) {
+  static Future<ServerRoute> getRouteSetting() async {
+    String value = await getString("RouteSetting", defaultValue: ServerRoute.routeXyz.name);
+    for (var type in ServerRoute.values) {
       if (type.name.compareTo(value) == 0) {
         return type;
       }
     }
-    return RouteSetting.lineXyz;
+    return ServerRoute.routeXyz;
   }
 
   static Future<void> printAll() async {

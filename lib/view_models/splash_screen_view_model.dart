@@ -79,6 +79,8 @@ class SplashScreenViewModel extends BaseViewModel {
     await getCountry();
     await checkAppVersion();
 
+    GlobalData.appServerRoute = await AppSharedPreferences.getRouteSetting();
+
     ///MARK: 自動登入
     try {
       if (await AppSharedPreferences.getLogIn()) {

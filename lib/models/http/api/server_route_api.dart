@@ -1,10 +1,10 @@
 import 'package:treasure_nft_project/models/http/http_manager.dart';
 
-import '../../../constant/enum/route_setting_enum.dart';
+import '../../../constant/enum/server_route_enum.dart';
 import '../parameter/api_response.dart';
 
-class TestRouteAPI extends HttpManager {
-  TestRouteAPI({super.replaceRoute});
+class ServerRouteAPI extends HttpManager {
+  ServerRouteAPI({super.replaceRoute});
 
   /// 線路測試
   Future<ApiResponse> testConnectRoute() {
@@ -12,7 +12,7 @@ class TestRouteAPI extends HttpManager {
   }
 
   /// 紀錄線路延遲
-  Future<ApiResponse?> updateRouteDelay(RouteSetting route, num delay) async {
+  Future<ApiResponse?> updateRouteDelay(ServerRoute route, num delay) async {
     try {
       return await post("/user/route-delay", data: {"route": route.getFullUrl(), "delay": delay});
     } catch (e) {
@@ -21,7 +21,7 @@ class TestRouteAPI extends HttpManager {
   }
 
   /// 更換線路
-  Future<ApiResponse> setChangeRoute(RouteSetting route) {
+  Future<ApiResponse> setChangeRoute(ServerRoute route) {
     return post("/user/change-route", data: {"route": route.getFullUrl()});
   }
 }

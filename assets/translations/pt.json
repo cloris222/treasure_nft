@@ -1373,7 +1373,7 @@
   "expressway":"Via rápida",
   "placeholder-channel":"Selecione uma pista",
   "Zambia":"Zâmbia",
-
+  "lineSettings":"Configurações de linha",
 
 
 
@@ -1461,5 +1461,6 @@
   "allRead":"Tudo lido",
   "chargePrice":"Receber",
   "EO_004_9":"Registro de IP duplicado.",
-  "loading":"Carregando..."
+  "loading":"Carregando...",
+  "settingLineNumber":"Linha {num}"
 }

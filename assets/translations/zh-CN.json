@@ -1373,6 +1373,7 @@
   "expressway":"快速通道",
   "placeholder-channel":"请选择通道",
   "Zambia":"尚比亚",
+  "lineSettings":"线路设置",
 
 
 
@@ -1459,5 +1460,6 @@
   "allRead":"全部已读",
   "chargePrice":"本次收取",
   "EO_004_9":"重复IP注册",
-  "loading":"读取中..."
+  "loading":"读取中...",
+  "settingLineNumber":"线路 {num}"
 }

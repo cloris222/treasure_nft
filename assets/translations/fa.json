@@ -1373,7 +1373,7 @@
   "expressway":"خط ابراز",
   "placeholder-channel":"لطفا یک خط را انتخاب کنید",
   "Zambia":"زامبیا",
-
+  "lineSettings":"تنظیمات خط",
 
 
 
@@ -1461,5 +1461,6 @@
   "allRead":"همه می خوانند",
   "chargePrice":"دريافت كردن",
   "EO_004_9":"ثبت نام IP را کپی کنید.",
-  "loading":"بارگذاری..."
+  "loading":"بارگذاری...",
+  "settingLineNumber":"خط {num}"
 }

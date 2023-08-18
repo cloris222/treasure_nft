@@ -1,9 +1,9 @@
 import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
-import '../../../constant/enum/route_setting_enum.dart';
+import '../../../constant/enum/server_route_enum.dart';
 import '../../../constant/global_data.dart';
-import '../../../models/http/api/test_route_api.dart';
+import '../../../models/http/api/server_route_api.dart';
 
 class UserLineSettingItemViewModel extends BaseViewModel {
   UserLineSettingItemViewModel({required this.onViewChange});
@@ -23,7 +23,7 @@ class UserLineSettingItemViewModel extends BaseViewModel {
     pinResultList.clear();
   }
 
-  Future<void> initServer({required RouteSetting server, int successCount = 3, int runCount = 10}) async {
+  Future<void> initServer({required ServerRoute server, int successCount = 3, int runCount = 10}) async {
     disconnectServer();
     if (!isRun) {
       isRun = true;
@@ -37,7 +37,7 @@ class UserLineSettingItemViewModel extends BaseViewModel {
         }
         DateTime startTime = DateTime.now();
         try {
-          await TestRouteAPI(replaceRoute: server.getDomain()).testConnectRoute();
+          await ServerRouteAPI(replaceRoute: server.getDomain()).testConnectRoute();
           DateTime endTime = DateTime.now();
           int pingMs = endTime.difference(startTime).inMilliseconds;
 
@@ -62,7 +62,7 @@ class UserLineSettingItemViewModel extends BaseViewModel {
           total += i;
         }
         label = total / successCount;
-        TestRouteAPI().updateRouteDelay(server, label ?? 0);
+        ServerRouteAPI().updateRouteDelay(server, label ?? 0);
       } else {
         isTimeOut = true;
       }
@@ -73,5 +73,15 @@ class UserLineSettingItemViewModel extends BaseViewModel {
 
   void disconnectServer() {
     stop = true;
+  }
+
+  Future<void> restartServer({required ServerRoute server, int successCount = 3, int runCount = 10}) async {
+    disconnectServer();
+    while (true) {
+      if (!isRun) {
+        break;
+      }
+    }
+    initServer(server: server, successCount: successCount, runCount: runCount);
   }
 }

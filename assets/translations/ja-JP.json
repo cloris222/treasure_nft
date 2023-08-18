@@ -1374,6 +1374,7 @@
     "expressway":"エクスプレスレーン",
     "placeholder-channel":"レーンを選択してください",
     "Zambia":"ザンビア",
+    "lineSettings":"行設定",
     "--//app use":"---",
     "goPermissionSetting":"スキャン機能を使用するには、カメラの権限を有効にする必要があります。設定ページに移動して設定しますか?",
     "ticketValue":"クーポン値",
@@ -1455,5 +1456,6 @@
     "allRead":"すべて読みます",
     "chargePrice":"受け取る",
     "EO_004_9":"重複するIP登録。",
-    "loading":"読み込み..."
+    "loading":"読み込み...",
+    "settingLineNumber":"line {num}"
 }

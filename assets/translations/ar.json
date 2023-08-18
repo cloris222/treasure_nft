@@ -1373,6 +1373,7 @@
   "expressway":"Express Lane",
   "placeholder-channel":"الرجاء تحديد حارة",
   "Zambia":"زامبيا",
+  "lineSettings":"إعدادات الخط",
   "--//app use":"---",
   "goPermissionSetting":"تتطلب وظيفة المسح إذن الكاميرا على هاتفك. اذهب إلى إعدادات هاتفك لفتحه؟",
   "ticketValue":"قيمة التذكرة",
@@ -1455,5 +1456,6 @@
   "allRead":"الكل يقرأ",
   "chargePrice":"يستلم",
   "EO_004_9":"تكرار تسجيل IP.",
-  "loading":"تحميل..."
+  "loading":"تحميل...",
+  "settingLineNumber":"السطر {num}"
 }

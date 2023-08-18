@@ -1373,7 +1373,7 @@
   "expressway":"Carril rápido",
   "placeholder-channel":"Seleccione un carril",
   "Zambia":"Zambia",
-
+  "lineSettings":"Configuración de línea",
 
 
 
@@ -1461,5 +1461,6 @@
   "allRead":"Todo leido",
   "chargePrice":"Recibir",
   "EO_004_9":"Registro de IP duplicada.",
-  "loading":"Cargando..."
+  "loading":"Cargando...",
+  "settingLineNumber":"Línea {num}"
 }

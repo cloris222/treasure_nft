@@ -1373,6 +1373,7 @@
   "expressway":"Express Lane",
   "placeholder-channel":"Sila pilih lorong",
   "Zambia":"Zambia",
+  "lineSettings":"Tetapan baris",
   "--//app use":"---",
   "goPermissionSetting":"Fungsi imbasan memerlukan kebenaran kamera pada telefon anda. Pergi ke tetapan telefon anda untuk membukanya?",
   "ticketValue":"Nilai tiket",
@@ -1455,5 +1456,6 @@
   "allRead":"Semua dibaca",
   "chargePrice":"Menerima",
   "EO_004_9":"Pendaftaran IP Duplikat.",
-  "loading":"Memuatkan ..."
+  "loading":"Memuatkan ...",
+  "settingLineNumber":"Garis {num}"
 }

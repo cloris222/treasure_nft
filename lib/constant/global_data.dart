@@ -7,7 +7,7 @@ import '../models/http/parameter/country_phone_data.dart';
 import '../models/http/parameter/sign_in_data.dart';
 import '../widgets/app_bottom_navigation_bar.dart';
 import '../widgets/changenotifiers/bottom_navigation_notifier.dart';
-import 'enum/route_setting_enum.dart';
+import 'enum/server_route_enum.dart';
 
 class GlobalData {
   GlobalData._();
@@ -29,7 +29,7 @@ class GlobalData {
   }
 
   ///MARK: APP所使用的線路
-  static RouteSetting appLineSetting = RouteSetting.lineXyz;
+  static ServerRoute appServerRoute = ServerRoute.routeXyz;
 
   ///MARK: 判斷是否為要顯示登入動畫
   static bool showLoginAnimate = false;

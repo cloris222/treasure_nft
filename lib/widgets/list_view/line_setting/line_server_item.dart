@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:treasure_nft_project/constant/enum/route_setting_enum.dart';
+import 'package:treasure_nft_project/constant/enum/server_route_enum.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
@@ -22,7 +22,7 @@ class LineServerItem extends StatefulWidget {
   final String name;
 
   /// Server ip
-  final RouteSetting server;
+  final ServerRoute server;
 
   /// 是否被選擇
   final bool enable;
@@ -56,7 +56,7 @@ class _LineServerItemState extends State<LineServerItem> {
     setState(() {
       /// 非同一個Server就要重新判讀
       if (oldWidget.server != widget.server) {
-        viewModel.initServer(server: widget.server);
+        viewModel.restartServer(server: widget.server);
       }
     });
     super.didUpdateWidget(oldWidget);
