@@ -122,12 +122,12 @@ class AppSharedPreferences {
     return await getBool("LogIn");
   }
   /// MARK: 線路記憶
-  static Future<void> setLineSetting(RouteSetting setting) async {
-    return await setString("LineSetting", setting.name);
+  static Future<void> setRouteSetting(RouteSetting setting) async {
+    return await setString("RouteSetting", setting.name);
   }
 
-  static Future<RouteSetting> getLinSetting() async {
-    String value = await getString("LineSetting", defaultValue: RouteSetting.lineXyz.name);
+  static Future<RouteSetting> getRouteSetting() async {
+    String value = await getString("RouteSetting", defaultValue: RouteSetting.lineXyz.name);
     for (var type in RouteSetting.values) {
       if (type.name.compareTo(value) == 0) {
         return type;

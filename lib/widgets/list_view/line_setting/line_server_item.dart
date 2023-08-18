@@ -1,8 +1,5 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/constant/enum/route_setting_enum.dart';
-import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
@@ -11,7 +8,7 @@ import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
 
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/theme/app_style.dart';
-import '../../../models/http/api/test_route_api.dart';
+import '../../../view_models/personal/common/user_line_setting_item_view_model.dart';
 
 class LineServerItem extends StatefulWidget {
   const LineServerItem({
@@ -35,22 +32,22 @@ class LineServerItem extends StatefulWidget {
 }
 
 class _LineServerItemState extends State<LineServerItem> {
-  final String _tag = "LineConnect";
-  List<num> pinResultList = [];
-  bool isTimeOut = false;
-  num? label;
-  bool stop = false;
-  bool isRun = false;
+  late UserLineSettingItemViewModel viewModel;
 
   @override
   void initState() {
-    _initServer();
+    viewModel = UserLineSettingItemViewModel(onViewChange: () {
+      if (mounted) {
+        setState(() {});
+      }
+    });
+    viewModel.initServer(server: widget.server);
     super.initState();
   }
 
   @override
   void dispose() {
-    _disconnectServer();
+    viewModel.disconnectServer();
     super.dispose();
   }
 
@@ -59,7 +56,7 @@ class _LineServerItemState extends State<LineServerItem> {
     setState(() {
       /// 非同一個Server就要重新判讀
       if (oldWidget.server != widget.server) {
-        _initServer();
+        viewModel.initServer(server: widget.server);
       }
     });
     super.didUpdateWidget(oldWidget);
@@ -102,82 +99,23 @@ class _LineServerItemState extends State<LineServerItem> {
     );
   }
 
-  Future<void> _initServer({int successCount = 3, int runCount = 10}) async {
-    _disconnectServer();
-    if (!isRun) {
-      isRun = true;
-      _initSetting();
-
-      /// 測試10次 都沒成功就當作Time out
-      for (int i = 0; i < runCount; i++) {
-        /// 強制停止用
-        if (stop) {
-          break;
-        }
-        DateTime startTime = DateTime.now();
-        try {
-          await TestRouteAPI(replaceRoute: widget.server.getDomain()).testConnectRoute();
-          DateTime endTime = DateTime.now();
-          int pingMs = endTime.difference(startTime).inMilliseconds;
-          GlobalData.printLog("$_tag : startTime (${startTime.toIso8601String()})");
-          GlobalData.printLog("$_tag : endTime (${endTime.toIso8601String()})");
-          GlobalData.printLog("$_tag : Connect (${widget.server.name}) $pingMs ms");
-
-          pinResultList.add(endTime.difference(startTime).inMilliseconds);
-
-          /// 檢查是否連接滿成功的次數
-          if (pinResultList.length == successCount) {
-            break;
-          }
-        } catch (e) {
-          GlobalData.printLog("$_tag : Connect (${widget.server.name}) Error");
-        }
-        await Future.delayed(const Duration(milliseconds: 500));
-      }
-      if (mounted) {
-        setState(() {
-          if (pinResultList.length == successCount) {
-            num total = 0;
-            for (var i in pinResultList) {
-              total += i;
-            }
-            label = total / successCount;
-          } else {
-            isTimeOut = true;
-          }
-        });
-      }
-      isRun = false;
-    }
-  }
-
-  void _disconnectServer() {
-    stop = true;
-  }
-
-  void _initSetting() {
-    label = null;
-    isTimeOut = false;
-    stop = false;
-    pinResultList.clear();
-  }
-
   Widget _buildPinText() {
-    if (isTimeOut) {
+    if (viewModel.isTimeOut) {
       return Text(
         "9999 ms",
         style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w700, color: AppColors.linePingBad),
       );
     }
-    if (label == null) {
+    if (viewModel.label == null) {
       return Text(
         "- ms",
         style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w700, color: AppColors.textNineBlack),
       );
     }
     return Text(
-      "${NumberFormatUtil().removeTwoPointFormat(label)} ms",
-      style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w700, color: (label! >= 100 ? AppColors.linePingBad : AppColors.linePingGreat)),
+      "${NumberFormatUtil().removeTwoPointFormat(viewModel.label)} ms",
+      style:
+          AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w700, color: (viewModel.label! >= 100 ? AppColors.linePingBad : AppColors.linePingGreat)),
     );
   }
 }

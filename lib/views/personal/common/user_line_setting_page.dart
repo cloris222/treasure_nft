@@ -7,6 +7,7 @@ import 'package:treasure_nft_project/constant/global_data.dart';
 import '../../../constant/enum/route_setting_enum.dart';
 import '../../../constant/theme/app_colors.dart';
 import '../../../constant/ui_define.dart';
+import '../../../view_models/personal/common/user_line_setting_view_model.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../../../widgets/appbar/title_app_bar.dart';
 import '../../../widgets/list_view/line_setting/line_server_item.dart';
@@ -22,10 +23,15 @@ class UserLineSettingPage extends ConsumerStatefulWidget {
 }
 
 class _UserLineSettingPageState extends ConsumerState<UserLineSettingPage> {
-  int chooseItem = 0;
+  late UserLineSettingViewModel viewModel;
 
   @override
   void initState() {
+    viewModel = UserLineSettingViewModel(onViewChange: () {
+      if (mounted) {
+        setState(() {});
+      }
+    });
     super.initState();
   }
 
@@ -70,12 +76,12 @@ class _UserLineSettingPageState extends ConsumerState<UserLineSettingPage> {
   Widget _buildItem(RouteSetting type) {
     bool enable = GlobalData.appLineSetting == type;
     return GestureDetector(
-        onTap: () {
-          setState(() {
-            GlobalData.appLineSetting = type;
-          });
-        },
+        onTap: () => viewModel.onChangeRoute(context,type),
         behavior: HitTestBehavior.translucent,
-        child: LineServerItem(name: format(tr("settingLineNumber"), {"num": type.index}), server: type, enable: enable));
+        child: LineServerItem(
+          name: format(tr("settingLineNumber"), {"num": type.index + 1}),
+          server: type,
+          enable: enable,
+        ));
   }
 }

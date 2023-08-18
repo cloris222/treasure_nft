@@ -16,4 +16,8 @@ enum RouteSetting {
   String getDomain() {
     return HttpSetting.debugMode ? debugDomain : releaseDomain;
   }
+
+  String getFullUrl() {
+    return "https://${getDomain()}/";
+  }
 }

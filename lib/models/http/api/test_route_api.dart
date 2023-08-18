@@ -12,12 +12,16 @@ class TestRouteAPI extends HttpManager {
   }
 
   /// 紀錄線路延遲
-  Future<ApiResponse> updateRouteDelay(RouteSetting route, num delay) {
-    return post("/user/route-delay", data: {"route": "https:${route.getDomain()}/", "delay": delay});
+  Future<ApiResponse?> updateRouteDelay(RouteSetting route, num delay) async {
+    try {
+      return await post("/user/route-delay", data: {"route": route.getFullUrl(), "delay": delay});
+    } catch (e) {
+      return null;
+    }
   }
 
   /// 更換線路
   Future<ApiResponse> setChangeRoute(RouteSetting route) {
-    return post("/user/change-route", data: {"route": "https:${route.getDomain()}/"});
+    return post("/user/change-route", data: {"route": route.getFullUrl()});
   }
 }
