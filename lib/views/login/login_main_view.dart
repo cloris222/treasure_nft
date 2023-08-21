@@ -64,7 +64,7 @@ class _LoginMainViewState extends ConsumerState<LoginMainView> {
 
   Widget _buildBottom() {
     return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Visibility(
@@ -92,8 +92,8 @@ class _LoginMainViewState extends ConsumerState<LoginMainView> {
               onTap: viewModel.onTap,
               isSecure: true),
           CommonTextWidget(
+            fillWidth: false,
             text: "${tr('forgot')}?",
-            alignment: Alignment.centerRight,
             onPress: () => viewModel.onPressForgot(context),
           ),
           LoginButtonWidget(

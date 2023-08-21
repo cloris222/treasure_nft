@@ -1305,7 +1305,6 @@
   "currency":"币种",
   "getUsdt":"获得USDT",
   "reserveRandomBadge":"随机纪念勋章",
-  "fiatCurrencyRecharge":"法币充值",
   "purchasingPrice":"购买金额",
   "maximum":"最大",
   "minimum":"最小",
@@ -1350,7 +1349,6 @@
   "verifyError":"验证失败",
   "resetUnlockText":"由于您更改过信箱、密码、Google验证其中一项设定，系统暂时暂停您的提领功能将于{time}解锁",
   "changeSuccess":"更改成功",
-  "applicationFailed":"申请失败",
   "hours":"时",
   "minutes":"分",
   "second":"秒",
@@ -1373,12 +1371,6 @@
   "expressway":"快速通道",
   "placeholder-channel":"请选择通道",
   "Zambia":"尚比亚",
-
-
-
-
-
-
   "--//app use":"---",
   "goPermissionSetting":"扫码功能需先开启相机权限才能使用，是否前往设定页面做设定？",
   "ticketValue":"券值",
@@ -1436,9 +1428,11 @@
   "appSetAvatar":"设置头像",
   "appMyMedal":"我的徽章",
   "search":"搜寻",
+  "fiatCurrencyRecharge":"法币充值",
   "chooseAPaymentMethod":"请选择付款方式",
   "amountRangeError":"请输入范围内金额",
   "APP_0094":"您有多笔订单正在处理中，请稍后再次申请。",
+  "applicationFailed":"申请失败",
   "notification-NOTWON'":"未成功",
   "earnings":"利息",
   "updateNoticeTitle":"更新通知",
@@ -1458,5 +1452,13 @@
   "systemMessage":"系统通知",
   "allRead":"全部已读",
   "chargePrice":"本次收取",
-  "EO_004_9":"重复IP注册"
+  "EO_004_9":"重复IP注册",
+  "no_data_available":"暂无资料",
+  "no_data_placeHolder_text":"您可以返回预约画面进行操作",
+  "loading":"读取中...",
+  "enterEmail_verify":"请输入您的邮箱验证码",
+  "enterPhone_verify":"请输入您的手机验证码",
+  "enterGoogle_verify":"请输入您的Google验证码",
+  "nickname(Optional)":"请输入您的Google验证码",
+  "referralCode(Optional)":"请输入您的Google验证码"
 }

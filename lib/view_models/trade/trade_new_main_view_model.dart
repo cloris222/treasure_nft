@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
@@ -15,11 +16,12 @@ class TradeNewMainViewModel extends BaseViewModel {
   final void Function(String mainText, String subText) errorMsgDialog;
   final WidgetRef ref;
 
-  Future<void> addNewReservation({
+  Future<void> addNewReservation(BuildContext context,{
     required int reserveIndex,
     required num reserveStartPrice,
     required num reserveEndPrice,
   }) async {
+    showLoadingPage(context);
     /// 確認體驗帳號狀態
     await TradeAPI(onConnectFail: _experienceExpired, showTrString: false).getExperienceInfoAPI().then((value) {
       if (value.isExperience == true && value.status == 'EXPIRED') {
@@ -37,6 +39,7 @@ class TradeNewMainViewModel extends BaseViewModel {
         endPrice: reserveStartPrice,
         priceIndex: reserveIndex);
 
+    closeLoadingPage();
     /// 如果預約成功 會進call back function
     reservationSuccess();
   }
@@ -52,10 +55,12 @@ class TradeNewMainViewModel extends BaseViewModel {
   }
 
   void _experienceExpired(String errorMessage) {
+    closeLoadingPage();
     errorMsgDialog(tr("reserve-failed'"), '');
   }
 
   void _onAddReservationFail(String errorMessage) {
+    closeLoadingPage();
     switch (errorMessage) {
       /// 預約金不足
       case 'APP_0064':

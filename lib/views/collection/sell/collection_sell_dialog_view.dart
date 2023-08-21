@@ -222,7 +222,7 @@ class CollectionSellDialogView extends BaseDialog {
       Navigator.pop(context); // 關商品視窗
       callBack();
 
-    } else {
+    } else if(message !=null){
       CollectionItemStatusResponseErrorData data = CollectionItemStatusResponseErrorData();
       data = message;
       CommonCustomDialog(
