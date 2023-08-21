@@ -6,7 +6,7 @@ enum ServerRoute {
   routeXyz(debugDomain: "dev.treasurenft.xyz", releaseDomain: "treasurenft.xyz"),
 
   /// 備用伺服器
-  routeWorld(debugDomain: "dev.treasurenft.xyz", releaseDomain: "treasurenft.world");
+  routeWorld(debugDomain: "dev.treasurenft.xyz", releaseDomain: "a.treasurenft.world");
 
   final String debugDomain;
   final String releaseDomain;
