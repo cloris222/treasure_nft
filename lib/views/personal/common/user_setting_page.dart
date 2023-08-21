@@ -90,7 +90,7 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
         body: Column(children: [
           BackgroundWithLand(
               showPreBtn: false,
-              mainHeight: 200,
+              mainHeight: 217,
               bottomHeight: 40,
               onBackPress: () => BaseViewModel().popPage(context),
               body: Column(
@@ -172,11 +172,13 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
                   fit: BoxFit.contain),
               Text(
                 tr('bindWallet'),
+                textAlign: TextAlign.center,
                 style: AppTextStyle.getBaseStyle(
                     color: AppColors.textBlack, fontSize: UIDefine.fontSize12,fontWeight: FontWeight.w400),
               ),
               Text(
                 isWalletBind ? tr('bound') : tr('unBound'),
+                textAlign: TextAlign.center,
                 style: AppTextStyle.getBaseStyle(
                     color: isWalletBind
                         ? const Color(0xFF6CCA98)
@@ -202,11 +204,13 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
                   fit: BoxFit.contain),
               Text(
                 tr('googleValid'),
+                textAlign: TextAlign.center,
                 style: AppTextStyle.getBaseStyle(
                     color: AppColors.textBlack, fontSize: UIDefine.fontSize12,fontWeight: FontWeight.w400),
               ),
               Text(
                 isGoogleBind ? tr('bound') : tr('unBound'),
+                textAlign: TextAlign.center,
                 style: AppTextStyle.getBaseStyle(
                     color: isGoogleBind
                         ? const Color(0xFF6CCA98)
@@ -244,16 +248,14 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
                   fit: BoxFit.contain),
               Text(
                  tr('userInfo'),
+                textAlign: TextAlign.center,
                 style: AppTextStyle.getBaseStyle(
                     color: AppColors.textBlack, fontSize: UIDefine.fontSize12,fontWeight: FontWeight.w400),
               ),
               Text(
                 "",
-                style: AppTextStyle.getBaseStyle(
-                    color: isGoogleBind
-                        ? const Color(0xFF6CCA98)
-                        : const Color(0xFFFF0000),
-                    fontSize: UIDefine.fontSize10),
+                textAlign: TextAlign.center,
+                style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize10),
               )
             ],
           ),

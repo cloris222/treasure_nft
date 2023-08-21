@@ -19,6 +19,7 @@ class HttpSetting {
   // static const String pcArtistUrl =
   //     'https://image.treasurenft.xyz/video/index_video_{lang}.mp4';
   // static const bool debugMode = false;
+  // static const bool printDebugLog = false;
 
   ///MARK: develop Setting
   static const String imgUrl = "https://devimage.treasurenft.xyz";
@@ -29,6 +30,7 @@ class HttpSetting {
   static const String pcArtistUrl = 'https://dev.treasurenft.xyz/#/userMap/exploreCreator?id={artistId}';
 
   static const bool debugMode = true;
+  static const bool printDebugLog = true;
 
   // receiveTimeout
   static const int receiveTimeout = 180000;

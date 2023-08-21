@@ -19,7 +19,7 @@ class GlobalData {
   static List<CountryPhoneData> country = [];
 
   static printLog(String? logMessage) {
-    if (HttpSetting.debugMode) {
+    if (HttpSetting.printDebugLog) {
       debugPrint(logMessage);
     }
   }
