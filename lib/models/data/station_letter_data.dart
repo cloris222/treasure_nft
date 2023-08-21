@@ -9,12 +9,14 @@ class StationLetterData {
   final String title;
   final String content;
   final bool isRead;
+  final String createdAt;
 
   StationLetterData({
     required this.id,
     required this.title,
     required this.content,
     required this.isRead,
+    required this.createdAt,
   });
 
   StationLetterData copyWith({
@@ -22,12 +24,14 @@ class StationLetterData {
     String? title,
     String? content,
     bool? isRead,
+    String? createdAt,
   }) =>
       StationLetterData(
         id: id ?? this.id,
         title: title ?? this.title,
         content: content ?? this.content,
         isRead: isRead ?? this.isRead,
+        createdAt: createdAt ?? this.createdAt,
       );
 
   factory StationLetterData.fromRawJson(String str) => StationLetterData.fromJson(json.decode(str));
@@ -39,6 +43,7 @@ class StationLetterData {
     title: json["title"]??"",
     content: json["content"]??"",
     isRead: json["isRead"]??true,
+    createdAt: json["createdAt"]??"",
   );
 
   Map<String, dynamic> toJson() => {
