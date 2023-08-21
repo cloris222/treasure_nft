@@ -13,13 +13,16 @@ class BackgroundWithLand extends StatelessWidget {
       this.mainHeight = 300,
       this.bottomHeight = 70,
       required this.onBackPress,
-      this.backgroundColor = AppColors.defaultBackgroundSpace})
+      this.backgroundColor = AppColors.defaultBackgroundSpace,
+      this.showPreBtn = true,
+      })
       : super(key: key);
   final Widget body;
   final double mainHeight;
   final double bottomHeight;
   final onClickFunction onBackPress;
   final Color backgroundColor;
+  final bool showPreBtn;
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +47,9 @@ class BackgroundWithLand extends StatelessWidget {
         Positioned(
             top: UIDefine.getPixelWidth(12),
             left: UIDefine.getPixelWidth(10),
-            child: _buildPreButton()),
+            child: showPreBtn?_buildPreButton():const SizedBox()),
         Positioned(
-            top: UIDefine.getPixelWidth(50),
+            top: UIDefine.getPixelWidth(showPreBtn ? 50 : 20),
             bottom: 0,
             left: 0,
             right: 0,

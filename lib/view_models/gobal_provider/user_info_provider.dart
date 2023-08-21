@@ -34,6 +34,7 @@ class UserInfoNotifier extends StateNotifier<UserInfoData>
   Future<void> readAPIValue({ResponseErrorFunction? onConnectFail}) async {
     state = await UserInfoAPI(onConnectFail: onConnectFail).getPersonInfo();
     GlobalData.userZone = state.zone;
+    BaseViewModel().changeServerRouteSettingType(state.route);
   }
 
   @override
@@ -42,6 +43,7 @@ class UserInfoNotifier extends StateNotifier<UserInfoData>
     if (json != null) {
       state = UserInfoData.fromJson(json);
       GlobalData.userZone = state.zone;
+      BaseViewModel().changeServerRouteSettingType(state.route);
     } else {
       ///MARK: 沒預設值就該讀API
       await readAPIValue();

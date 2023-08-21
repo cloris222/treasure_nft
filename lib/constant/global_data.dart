@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/models/http/http_setting.dart';
 import 'package:treasure_nft_project/utils/observer_pattern/subject.dart';
 
@@ -8,6 +7,7 @@ import '../models/http/parameter/country_phone_data.dart';
 import '../models/http/parameter/sign_in_data.dart';
 import '../widgets/app_bottom_navigation_bar.dart';
 import '../widgets/changenotifiers/bottom_navigation_notifier.dart';
+import 'enum/server_route_enum.dart';
 
 class GlobalData {
   GlobalData._();
@@ -27,6 +27,9 @@ class GlobalData {
   static isDebugMode() {
     return HttpSetting.debugMode;
   }
+
+  ///MARK: APP所使用的線路
+  static ServerRoute appServerRoute = ServerRoute.routeXyz;
 
   ///MARK: 判斷是否為要顯示登入動畫
   static bool showLoginAnimate = false;

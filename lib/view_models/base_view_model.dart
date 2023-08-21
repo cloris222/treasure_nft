@@ -10,6 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:format/format.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
+import 'package:treasure_nft_project/constant/enum/server_route_enum.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/announce_data.dart';
@@ -80,11 +81,28 @@ class BaseViewModel with ControlRouterViewModel {
     FocusManager.instance.primaryFocus?.unfocus();
   }
 
+  /// 轉URL類型
+  ServerRoute changeServerRouteSettingType(String fullUrl) {
+    for (var type in ServerRoute.values) {
+      if (fullUrl.contains(type.getDomain())) {
+        return type;
+      }
+    }
+    return ServerRoute.routeXyz;
+  }
+
+  Future<void> updateAppServerRoute(String fullUrl) async {
+    GlobalData.appServerRoute = changeServerRouteSettingType(fullUrl);
+    await AppSharedPreferences.setRouteSetting(GlobalData.appServerRoute);
+  }
+
   ///MARK: 更新使用者資料
   Future<void> saveUserLoginInfo(
       {required bool isLogin,
       required ApiResponse response,
       required WidgetRef ref}) async {
+    /// 伺服器路徑切換
+    await updateAppServerRoute(response.data["route"] ?? "");
     await AppSharedPreferences.setLogIn(true);
     await AppSharedPreferences.setMemberID(response.data['id']);
     await AppSharedPreferences.setToken(response.data['token']);
