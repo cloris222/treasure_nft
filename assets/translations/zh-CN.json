@@ -1371,6 +1371,9 @@
   "expressway":"快速通道",
   "placeholder-channel":"请选择通道",
   "Zambia":"尚比亚",
+  "lineSettings":"线路设置",
+  "route":"线路",
+
   "--//app use":"---",
   "goPermissionSetting":"扫码功能需先开启相机权限才能使用，是否前往设定页面做设定？",
   "ticketValue":"券值",

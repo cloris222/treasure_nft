@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 
 import '../../../constant/enum/server_route_enum.dart';
@@ -80,7 +79,7 @@ class _UserLineSettingPageState extends ConsumerState<UserLineSettingPage> {
         behavior: HitTestBehavior.translucent,
         child: LineServerItem(
           key: ValueKey(type.index),
-          name: format(tr("settingLineNumber"), {"num": type.index + 1}),
+          name: "${tr("route")} ${type.index + 1}",
           server: type,
           enable: enable,
         ));
