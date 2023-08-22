@@ -18,6 +18,7 @@ import 'package:treasure_nft_project/views/explore/data/explore_category_respons
 
 import '../../../view_models/home/provider/home_banner_provider.dart';
 import '../parameter/home_banner_data.dart';
+import '../parameter/home_film_data.dart';
 import '../parameter/trading_volume_data.dart';
 
 class HomeAPI extends HttpManager {
@@ -156,5 +157,23 @@ class HomeAPI extends HttpManager {
       GlobalData.printLog(e.toString());
     }
     return result;
+  }
+
+  ///MARK 查詢影片
+  Future<List<HomeFilmData>> getFilm({String page = '1',String size ='20', String lang ='en'}) async {
+    List<HomeFilmData> data = <HomeFilmData>[];
+    ApiResponse response = await get('/index/content/film',queryParameters: {
+      "page": page,
+      "size": size,
+      "lang": lang,
+    });
+    try{
+      for(Map<String,dynamic> json in response.data["pageList"]){
+        data.add(HomeFilmData.fromJson(json));
+      }
+    }catch(e){
+      GlobalData.printLog(e.toString());
+    }
+    return data;
   }
 }

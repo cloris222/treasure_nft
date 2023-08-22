@@ -10,6 +10,7 @@ import 'package:treasure_nft_project/utils/language_util.dart';
 import 'package:treasure_nft_project/view_models/airdrop/airdrop_count_provider.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
+import 'package:treasure_nft_project/view_models/home/provider/home_film_provider.dart';
 import 'package:treasure_nft_project/views/home/home_main_style.dart';
 import 'package:treasure_nft_project/views/home/home_sub_discover_nft_view.dart';
 import 'package:treasure_nft_project/views/home/home_sub_illustrate_view.dart';
@@ -75,6 +76,7 @@ class _HomeMainViewState extends ConsumerState<HomeMainView>
     ref.read(homeCollectRankProvider.notifier).init();
     ref.read(homeCollectRandomProvider.notifier).init();
     ref.read(homeContactInfoProvider.notifier).init();
+    ref.read(homeFilmProvider.notifier).init();
 
     ref.read(homeDisCoverTagsProvider.notifier).init(onFinish: () {
       if (ref.read(homeDisCoverTagsProvider).isNotEmpty) {
@@ -116,7 +118,24 @@ class _HomeMainViewState extends ConsumerState<HomeMainView>
 
                 ///MARK: USDT資訊
                 // ignore: prefer_const_constructors
-                HomeSubUsdtView(),
+
+                Consumer(builder: (BuildContext context,
+                    WidgetRef ref, Widget? child) {
+                  final filmData = ref.watch(homeFilmProvider);
+                  return filmData.isEmpty?Container():HomeSubUsdtView(data: filmData);
+                  //   Visibility(
+                  //   visible: filmData.isNotEmpty,
+                  //   child: Builder(
+                  //       builder: (context) {
+                  //         return
+                  //           // Text(filmData[0].link);
+                  //           Container(
+                  //             color: Colors.red,
+                  //               child: HomeSubUsdtView(path: filmData[0].link));
+                  //       }
+                  //   ),
+                  // );
+                }),
 
                 buildSpace(height: 3),
 
