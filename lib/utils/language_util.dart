@@ -101,6 +101,9 @@ class LanguageUtil {
       case LanguageType.Japan:
         return 'ja-JP';
       case LanguageType.Francais:
+        return 'fr';
+      case LanguageType.Bulgaria:
+        return 'bg';
     }
   }
 
@@ -137,6 +140,10 @@ class LanguageUtil {
         return 'cn';
       case LanguageType.Japan:
         return 'jp';
+      case LanguageType.Francais:
+        return 'fr';
+      case LanguageType.Bulgaria:
+        return 'bg';
     }
   }
 
@@ -173,6 +180,10 @@ class LanguageUtil {
         return 'zh-CN';
       case LanguageType.Japan:
         return 'ja-JP';
+      case LanguageType.Francais:
+        return 'fr';
+      case LanguageType.Bulgaria:
+        return 'bg';
     }
   }
 
@@ -238,6 +249,10 @@ class LanguageUtil {
         return const Locale('zh', 'CN');
       case LanguageType.Japan:
         return const Locale('ja', 'JP');
+      case LanguageType.Francais:
+        return const Locale('fr');
+      case LanguageType.Bulgaria:
+        return const Locale('bg');
     }
   }
 
@@ -276,6 +291,8 @@ class LanguageUtil {
       return LanguageType.Japan;
     } else if (locale.languageCode == 'zh' && locale.countryCode == 'CN') {
       return LanguageType.Chinese;
+    }else if(locale.languageCode == 'fr' && locale.countryCode == "FR"){
+      return LanguageType.Francais;
     }
 
     return LanguageType.English;
@@ -313,6 +330,10 @@ class LanguageUtil {
         return tr('lang_cn');
       case LanguageType.Japan:
         return tr('lang_jp');
+      case LanguageType.Francais:
+        return tr('lang_fr');
+      case LanguageType.Bulgaria:
+        return tr('bg');
     }
   }
 }

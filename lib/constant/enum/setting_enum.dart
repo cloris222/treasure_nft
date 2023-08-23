@@ -46,6 +46,9 @@ enum LanguageType {
 
   ///MARK: 法語
   Francais,
+
+  ///MARK: 保加利雅語
+  Bulgaria
 }
 
 enum VideoStrEnum {
