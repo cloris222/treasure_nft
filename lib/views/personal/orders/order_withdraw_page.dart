@@ -82,16 +82,31 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
               Navigator.pop(context);
             }).show();
       } else if (withdrawAlertInfo.isBlock) {
-        CommonCustomDialog(context,
+        print("cause: ${withdrawAlertInfo.cause}");
+        if(withdrawAlertInfo.cause.contains("password")||
+           withdrawAlertInfo.cause.contains("google")||
+           withdrawAlertInfo.cause.contains("email")){
+            CommonCustomDialog(context,
+              isDialogCancel: false,
+              title: tr("applicationFailed"),
+              content: format(tr("resetUnlockText"),
+                  {"time": getBlockTimeFormat(value.expireIn.toInt())}),
+              type: DialogImageType.fail,
+              rightBtnText: tr('confirm'),
+              onLeftPress: () {}, onRightPress: () {
+                Navigator.pop(context);
+              }).show();
+        }else if(withdrawAlertInfo.cause.contains("status")){
+          CommonCustomDialog(context,
             isDialogCancel: false,
             title: tr("applicationFailed"),
-            content: format(tr("resetUnlockText"),
-                {"time": getBlockTimeFormat(value.expireIn.toInt())}),
+            content: tr("APP_0053"),
             type: DialogImageType.fail,
             rightBtnText: tr('confirm'),
             onLeftPress: () {}, onRightPress: () {
               Navigator.pop(context);
             }).show();
+        }
       }
     });
   }

@@ -17,22 +17,21 @@ class WithdrawAlertInfo {
     this.isBlock = false,
     this.expireIn = 0,
     this.hasWithdraw = false,
+    this.cause = const[],
   });
 
   /// 是否有預約單
   bool isReserve;
-
   /// 可提現現金
   String validAmount;
-
   /// 是否有提現鎖
   bool isBlock;
-
   /// 禁止時間(秒)
   num expireIn;
-
   /// 是否有提現單
   bool hasWithdraw;
+  /// 禁止原因
+  List<String> cause;
 
   factory WithdrawAlertInfo.fromJson(Map<String, dynamic> json) =>
     WithdrawAlertInfo(
@@ -41,6 +40,7 @@ class WithdrawAlertInfo {
       isBlock: json["isBlock"]??false,
       expireIn: json["expireIn"]??0,
       hasWithdraw: json["hasWithdraw"],
+      cause: List<String>.from(json["cause"].map((x)=>x)),
     );
 
   Map<String, dynamic> toJson() => {
@@ -49,5 +49,6 @@ class WithdrawAlertInfo {
     "isBlock": isBlock,
     "expireIn": expireIn,
     "hasWithdraw": hasWithdraw,
+    "cause": List<dynamic>.from(cause.map((e) => e.toString())),
   };
 }
