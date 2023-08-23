@@ -29,6 +29,7 @@ class AppImagePath {
   static const String arrowLeftBlack = '$_btnPath/btn_arrowleft_01.png';
   static const String arrowRight = '$_btnPath/btn_arrow_right_01_nor.png';
   static const String arrowRightBlack = '$_btnPath/btn_arrow_04_right.png';
+  static const String arrowRightSetting = '$_btnPath/btn_arrow_right_02.png';
 
   ///MARK: image background
   static const String backgroundLand = '$_imgPath/img_background_01.png';
@@ -127,6 +128,7 @@ class AppImagePath {
   static const String unableMedalIcon =
       '$_imgPath/img_medal_{mainNumber}_02.png';
   static const String lockIcon = '$_iconPath/icon_locked_01.png';
+  static const String settingLineIcon = "$_iconPath/icon_line_setting_01.png";
   static const String personalSettingIcon = '$_iconPath/icon_user_03.png';
   static const String googleAuthIcon = '$_iconPath/icon_google_authenticator_01.png';
   static const String orderClockImg = '$_imgPath/img_clock_03.png';
@@ -264,4 +266,10 @@ class AppImagePath {
   //站內信
   static const String mailService = "$_iconPath/icon_mail_service.png";
   static const String mailReserve = "$_iconPath/icon_mail_reserve_success.png";
+
+  /// line setting
+  static const String lineSettingServer = "$_iconPath/icon_line_setting_server_01.png";
+  static const String userEditAvatar = '$_btnPath/btn_edit_avatar_01.png';
+  static const String selectedServer = '$_btnPath/btn_server_selected_01.png';
+  static const String unselectServer = '$_btnPath/btn_server_unselect_01.png';
 }

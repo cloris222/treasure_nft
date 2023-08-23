@@ -14,11 +14,13 @@ import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/view_models/gobal_provider/user_info_provider.dart';
 import 'package:treasure_nft_project/views/personal/common/user_change_password_page.dart';
 import 'package:treasure_nft_project/views/personal/common/user_info_setting_page.dart';
-import 'package:treasure_nft_project/views/personal/personal_new_sub_user_info_view.dart';
+import 'package:treasure_nft_project/views/personal/common/user_line_setting_page.dart';
+import 'package:treasure_nft_project/views/personal/common/user_setting_top_view.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/simple_custom_dialog.dart';
 import 'package:treasure_nft_project/widgets/label/background_with_land.dart';
+import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
 import 'package:wallet_connect_plugin/model/wallet_info.dart';
 
 import '../../../constant/theme/app_colors.dart';
@@ -87,18 +89,34 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
         backgroundColor: AppColors.defaultBackgroundSpace,
         body: Column(children: [
           BackgroundWithLand(
-              mainHeight: 230,
-              bottomHeight: 100,
+              showPreBtn: false,
+              mainHeight: 217,
+              bottomHeight: 40,
               onBackPress: () => BaseViewModel().popPage(context),
-              body: Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.all(UIDefine.getPixelWidth(10)),
-                padding: EdgeInsets.all(UIDefine.getPixelWidth(10)),
-                decoration: AppStyle().styleNewUserSetting(),
-                child: PersonalNewSubUserInfoView(
-                    showId: false,
-                    enableModify: true,
-                    onViewUpdate: () => setState(() {})),
+              body: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.symmetric(horizontal:UIDefine.getPixelWidth(27)),
+                    child: UserSettingTopView(
+                        enableModify: true,
+                        onViewUpdate: () => setState(() {})),
+                  ),
+                  SizedBox(height: UIDefine.getPixelWidth(10)),
+                  Container(
+                    decoration: AppStyle().styleColorsRadiusBackground(radius: 8),
+                    margin: EdgeInsets.symmetric(
+                        vertical: UIDefine.getPixelWidth(5),
+                        horizontal: UIDefine.getPixelWidth(10)),
+                    padding: EdgeInsets.all(UIDefine.getPixelWidth(15)),
+                    child: Row(children: [
+                      _getWalletBolderButton(),
+                      _getGoogleAuthButton(),
+                      _getUserSettingButton(),
+                    ],),
+                  )
+                ],
               )),
           Container(
             decoration: AppStyle().styleColorsRadiusBackground(radius: 8),
@@ -106,32 +124,7 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
                 vertical: UIDefine.getPixelWidth(5),
                 horizontal: UIDefine.getPixelWidth(10)),
             padding: EdgeInsets.all(UIDefine.getPixelWidth(15)),
-            child: Row(
-              children: [
-                Expanded(
-                  child: _getGrayBolderButton(context, true),
-                ),
-                Expanded(
-                  child: _getGrayBolderButton(context, false),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            decoration: AppStyle().styleColorsRadiusBackground(radius: 8),
-            margin: EdgeInsets.symmetric(
-                vertical: UIDefine.getPixelWidth(5),
-                horizontal: UIDefine.getPixelWidth(10)),
-            padding: EdgeInsets.all(UIDefine.getPixelWidth(15)),
-            child: Row(
-              children: [
-                _getWalletBolderButton(),
-                _getGoogleAuthButton(),
-                // const Expanded(
-                //   child: SizedBox(),
-                // ),
-              ],
-            ),
+            child: _buildSettingList()
           ),
           space,
           Container(
@@ -143,7 +136,7 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
                       fontSize: UIDefine.fontSize12,
                       color: AppColors.textGrey))),
           space,
-          SizedBox(height: UIDefine.getPixelHeight(100)),
+          SizedBox(height: UIDefine.getPixelHeight(30)),
           Container(
               // 登出按鈕
               padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(5.5), 0,
@@ -166,31 +159,6 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
         ]));
   }
 
-  Widget _getGrayBolderButton(BuildContext context, bool bLockIcon) {
-    return GestureDetector(
-      onTap: () => bLockIcon ? _goChangePwd(context) : _goUserSetting(context),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          bLockIcon
-              ? Image.asset(AppImagePath.lockIcon,
-                  width: UIDefine.getPixelWidth(30),
-                  height: UIDefine.getPixelWidth(30),
-                  fit: BoxFit.contain)
-              : Image.asset(AppImagePath.personalSettingIcon,
-                  width: UIDefine.getPixelWidth(30),
-                  height: UIDefine.getPixelWidth(30),
-                  fit: BoxFit.contain),
-          Text(
-            bLockIcon ? tr('changePassword') : tr('userInfo'),
-            style: AppTextStyle.getBaseStyle(
-                color: AppColors.textBlack, fontSize: UIDefine.fontSize12),
-          )
-        ],
-      ),
-    );
-  }
-
   Widget _getWalletBolderButton() {
     return Expanded(
         child: GestureDetector(
@@ -204,16 +172,19 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
                   fit: BoxFit.contain),
               Text(
                 tr('bindWallet'),
+                textAlign: TextAlign.center,
                 style: AppTextStyle.getBaseStyle(
-                    color: AppColors.textBlack, fontSize: UIDefine.fontSize12),
+                    color: AppColors.textBlack, fontSize: UIDefine.fontSize12,fontWeight: FontWeight.w400),
               ),
               Text(
                 isWalletBind ? tr('bound') : tr('unBound'),
+                textAlign: TextAlign.center,
                 style: AppTextStyle.getBaseStyle(
                     color: isWalletBind
                         ? const Color(0xFF6CCA98)
                         : const Color(0xFFFF0000),
-                    fontSize: UIDefine.fontSize10),
+                    fontSize: UIDefine.fontSize10,
+                    fontWeight: FontWeight.w400),
               )
             ],
           ),
@@ -233,16 +204,19 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
                   fit: BoxFit.contain),
               Text(
                 tr('googleValid'),
+                textAlign: TextAlign.center,
                 style: AppTextStyle.getBaseStyle(
-                    color: AppColors.textBlack, fontSize: UIDefine.fontSize12),
+                    color: AppColors.textBlack, fontSize: UIDefine.fontSize12,fontWeight: FontWeight.w400),
               ),
               Text(
                 isGoogleBind ? tr('bound') : tr('unBound'),
+                textAlign: TextAlign.center,
                 style: AppTextStyle.getBaseStyle(
                     color: isGoogleBind
                         ? const Color(0xFF6CCA98)
                         : const Color(0xFFFF0000),
-                    fontSize: UIDefine.fontSize10),
+                    fontSize: UIDefine.fontSize10,
+                    fontWeight: FontWeight.w400,),
               )
             ],
           ),
@@ -261,6 +235,33 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
     // }
   }
 
+  Widget _getUserSettingButton() {
+    return Expanded(
+        child: GestureDetector(
+          onTap: () => _goUserSetting(context),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(AppImagePath.personalSettingIcon,
+                  width: UIDefine.getPixelWidth(30),
+                  height: UIDefine.getPixelWidth(30),
+                  fit: BoxFit.contain),
+              Text(
+                 tr('userInfo'),
+                textAlign: TextAlign.center,
+                style: AppTextStyle.getBaseStyle(
+                    color: AppColors.textBlack, fontSize: UIDefine.fontSize12,fontWeight: FontWeight.w400),
+              ),
+              Text(
+                "",
+                textAlign: TextAlign.center,
+                style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize10),
+              )
+            ],
+          ),
+        ));
+  }
+
   void _showGoogleReset() {
     CommonCustomDialog(context,
         title: tr("googleCheckTitle"),
@@ -273,6 +274,50 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
         onLeftPress: () {}, onRightPress: () {
           BaseViewModel().pushPage(context, GoogleDisablePage(blacklistData));
         }).show();
+  }
+
+
+  Widget _buildSettingList() {
+    return Column(children: [
+      _buildListItem(iconPath: AppImagePath.lockIcon,label: tr('changePassword'),pushPage: const UserChangePasswordPage()),
+      _buildLine(),
+      _buildListItem(iconPath: AppImagePath.settingLineIcon,label: tr('lineSettings'),pushPage: const UserLineSettingPage()),
+      _buildLine(),
+    ],);
+  }
+
+  Widget _buildListItem({required String iconPath, required String label, required Widget? pushPage}) {
+    return GestureDetector(
+      onTap: () {
+        if (pushPage != null) {
+          BaseViewModel().pushPage(context, pushPage);
+        }
+      },
+      behavior: HitTestBehavior.translucent,
+      child: Padding(
+        padding:EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(12)),
+        child: Row(
+          children: [
+            BaseIconWidget(imageAssetPath: iconPath, size: UIDefine.getPixelWidth(24)),
+            SizedBox(width: UIDefine.getPixelWidth(10)),
+            Text(label, style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w400, fontSize: UIDefine.fontSize16, color: AppColors.textBlack)),
+            const Spacer(),
+            BaseIconWidget(imageAssetPath: AppImagePath.arrowRightSetting, size: UIDefine.getPixelWidth(20)),
+          ],
+        ),
+      ),
+    );
+  }
+  Widget _buildLine(){
+    return Container(
+      height: 1,
+      width: UIDefine.getWidth(),
+      decoration: AppStyle().styleShadowBorderBackground(
+        offsetY: -0.5,
+        shadowColor: const Color(0xFFEEEEEE),
+        blurRadius: 0,
+      ),
+    );
   }
 
   void _goChangePwd(BuildContext context) {

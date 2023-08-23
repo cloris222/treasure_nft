@@ -54,6 +54,9 @@ class AppColors {
   static const Color buttonCarouselEnable=Color(0xFF039BE5);
   static const Color buttonCarouselUnable=Color(0xFF959292);
 
+  static const Color linePingGreat = Color(0xFF66E4D3);
+  static const Color linePingBad = Color(0xFFEB6E6E);
+
   ///MARK:主題色彩
   static const Color mainThemeButton = Color(0xFF3B82F6);
   static const Color subThemePurple = Color(0xFF9657D7);

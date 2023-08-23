@@ -86,6 +86,7 @@ class MenuButtonWidget extends ConsumerWidget {
         imgPath = AppImagePath.tg;
         cellTitle = tr("Telegram");
         break;
+      ///MARK: 工單551隱藏
       // case MenuIcon.internalMessage:
       //   imgPath = AppImagePath.internalMessageBtn;
       //   cellTitle = tr("stationMessage");
@@ -134,6 +135,8 @@ class MenuButtonWidget extends ConsumerWidget {
       case MenuIcon.telegram:
         _showTelegram(footers);
         break;
+
+      ///MARK: 工單551隱藏
       // case MenuIcon.internalMessage:
       //   {
       //     if (viewModel.isLogin()) {

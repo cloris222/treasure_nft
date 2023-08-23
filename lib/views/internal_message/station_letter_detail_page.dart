@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/ui_define.dart';
 import '../../models/data/station_letter_data.dart';
@@ -53,7 +54,13 @@ class _StationLetterDetailPageState extends State<StationLetterDetailPage> {
               fit: BoxFit.contain,
             ),
             SizedBox(width: UIDefine.getPixelWidth(10)),
-            Text(data.title, style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize16, color: Colors.black, fontWeight: FontWeight.w400)),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(data.title, style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize16, color: Colors.black, fontWeight: FontWeight.w400)),
+                Text(BaseViewModel().changeTimeZone(data.createdAt, isShowGmt: false), style: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize10, color: AppColors.textHintGrey, fontWeight: FontWeight.w400)),
+              ],
+            ),
           ],
         ),
         SizedBox(height: UIDefine.getPixelWidth(20)),
@@ -62,12 +69,6 @@ class _StationLetterDetailPageState extends State<StationLetterDetailPage> {
         SizedBox(height: UIDefine.navigationBarPadding),
       ]),
     );
-  }
-
-  String getTime(String strTime) {
-    var dateFormat = DateFormat('yyyy-MM-dd');
-    DateTime time = dateFormat.parse(strTime);
-    return "${time.year}-${time.month}-${time.day}";
   }
 
   Widget _buildTitleBar() {
