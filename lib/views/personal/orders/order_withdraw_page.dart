@@ -64,6 +64,9 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
     ref.read(walletWithdrawInterPaymentProvider.notifier).init();
 
     WalletAPI().checkWithdrawAlert().then((value) {
+      bool hasGoogleEmailPass = false;
+      bool hasStatus = false;
+      int expireInTime = 0;
       withdrawAlertInfo = value;
       if (withdrawAlertInfo.hasWithdraw) {
         ImgTitleDialog(context,
@@ -82,21 +85,27 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
               Navigator.pop(context);
             }).show();
       } else if (withdrawAlertInfo.isBlock) {
-        print("cause: ${withdrawAlertInfo.cause}");
-        if(withdrawAlertInfo.cause.contains("password")||
-           withdrawAlertInfo.cause.contains("google")||
-           withdrawAlertInfo.cause.contains("email")){
-            CommonCustomDialog(context,
-              isDialogCancel: false,
-              title: tr("applicationFailed"),
-              content: format(tr("resetUnlockText"),
-                  {"time": getBlockTimeFormat(value.expireIn.toInt())}),
-              type: DialogImageType.fail,
-              rightBtnText: tr('confirm'),
-              onLeftPress: () {}, onRightPress: () {
-                Navigator.pop(context);
-              }).show();
-        }else if(withdrawAlertInfo.cause.contains("status")){
+        for(var caseItem in withdrawAlertInfo.cause){
+          if(caseItem.cause =="google"||caseItem.cause=="email"||caseItem.cause=="password"){
+            if(caseItem.expireIn > expireInTime){
+              expireInTime = caseItem.expireIn;
+            }
+            hasGoogleEmailPass = true;
+          }else if(caseItem.cause == "status"){
+            hasStatus = true;
+          }
+        }
+        if(hasGoogleEmailPass){
+          CommonCustomDialog(context,
+            isDialogCancel: false,
+            title: tr("applicationFailed"),
+            content: format(tr("resetUnlockText"),{"time": getBlockTimeFormat(expireInTime)}),
+            type: DialogImageType.fail,
+            rightBtnText: tr('confirm'),
+            onLeftPress: () {}, onRightPress: () {
+              Navigator.pop(context);
+            }).show();
+        }else{
           CommonCustomDialog(context,
             isDialogCancel: false,
             title: tr("applicationFailed"),
