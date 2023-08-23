@@ -43,6 +43,9 @@ enum LanguageType {
 
   ///MARK:繁體中文
   Mandarin,
+
+  ///MARK: 法語
+  Francais,
 }
 
 enum VideoStrEnum {

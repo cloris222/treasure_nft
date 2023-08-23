@@ -100,6 +100,7 @@ class LanguageUtil {
         return 'zh-CN';
       case LanguageType.Japan:
         return 'ja-JP';
+      case LanguageType.Francais:
     }
   }
 
