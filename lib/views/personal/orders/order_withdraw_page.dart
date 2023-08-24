@@ -105,7 +105,7 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
             onLeftPress: () {}, onRightPress: () {
               Navigator.pop(context);
             }).show();
-        }else{
+        }else if(hasStatus){
           CommonCustomDialog(context,
             isDialogCancel: false,
             title: tr("applicationFailed"),
