@@ -43,9 +43,6 @@ class _HomeSubVideoViewState extends State<HomeSubVideoView> {
   void initState() {
     link = widget.data[0].link;
     videoName = widget.data[0].name;
-    // print("name1: ${widget.data[0].name}");
-    // print("name2: ${widget.data[1].name}");
-    print("link1: ${link}");
     if(videoName == "Youtube"){
       if(link.isNotEmpty){
         String? videoId = YoutubePlayer.convertUrlToId(link);
@@ -171,17 +168,18 @@ class _HomeSubVideoViewState extends State<HomeSubVideoView> {
               padding: EdgeInsets.all(UIDefine.getScreenWidth(2)),
               child: InkWell(
                 onTap: _onStart,
-                child: Stack(alignment: Alignment.center, children: [
-                  Transform.scale(scaleX: 1.1, child: Image.asset(_getImagePath())),
-                  Opacity(
-                    opacity: 0.87,
-                    child: CircleAvatar(
-                      radius: UIDefine.getScreenWidth(8),
-                      backgroundColor: Colors.white,
-                      child: Icon(Icons.play_arrow, color: Colors.black, size: UIDefine.getScreenWidth(8),
+                child: Stack(
+                  alignment: Alignment.center, children: [
+                    Transform.scale(scaleX: 1.1, child: Image.asset(_getImagePath())),
+                    Opacity(
+                      opacity: 0.87,
+                      child: CircleAvatar(
+                        radius: UIDefine.getScreenWidth(8),
+                        backgroundColor: Colors.white,
+                        child: Icon(Icons.play_arrow, color: Colors.black, size: UIDefine.getScreenWidth(8),
+                        ),
                       ),
                     ),
-                  ),
                 ]),
               ),
           )
