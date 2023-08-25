@@ -226,10 +226,10 @@ class _UserInfoSettingPageState extends ConsumerState<UserInfoSettingPage> {
                       fontSize: UIDefine.fontSize14)),
 
               /// 修改信箱 暫時隱藏
-              // InkWell(
-              //   onTap: () => _showEMailReset(),
-              //   child: Image.asset(AppImagePath.editIcon),
-              // )
+              InkWell(
+                onTap: () => _showEMailReset(),
+                child: Image.asset(AppImagePath.editIcon),
+              )
 
     ]),
            ),
@@ -239,13 +239,16 @@ class _UserInfoSettingPageState extends ConsumerState<UserInfoSettingPage> {
 
   void _showEMailReset() {
     CommonCustomDialog(context,
+        bOneButton: false,
         title: tr("emailCheckTitle"),
         content: format(tr("emailCheckText"),
             {"time": viewModel.formatDuration(
                 blacklistData.unableWithdrawByEmail)}),
         type: DialogImageType.warning,
         rightBtnText: tr('confirm'),
-        onLeftPress: () {}, onRightPress: () {
+        leftBtnText: tr('cancel'),
+        onLeftPress: () {Navigator.pop(context);},
+        onRightPress: () {
           BaseViewModel().pushPage(context,
               ModifyEmailPage(blacklistData));
         }).show();

@@ -55,10 +55,9 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
   void initState() {
     super.initState();
     // _setPage();
-    ///MARK: 檢查是否驗證google
-    if (!ref.read(userInfoProvider).bindGoogle) {
-      showGoogleUnVerify();
-    }
+    bool hasGoogleEmailPass = false;
+    bool hasStatus = false;
+    int expireInTime = 0;
 
     ref.read(walletWithdrawPaymentProvider.notifier).init();
     ref.read(walletWithdrawInterPaymentProvider.notifier).init();
@@ -72,25 +71,50 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
             onRightPress: () => Navigator.pop(context),
             mainText: tr("withdrawalErrorTitle"),
             subText: tr("withdrawalErrorText")).show();
+      } else if (withdrawAlertInfo.isBlock) {
+        for(var caseItem in withdrawAlertInfo.cause){
+          if(caseItem.cause =="google"||caseItem.cause=="email"||caseItem.cause=="password"){
+            if(caseItem.expireIn > expireInTime){
+              expireInTime = caseItem.expireIn;
+            }
+            hasGoogleEmailPass = true;
+          }else if(caseItem.cause == "status"){
+            hasStatus = true;
+          }
+        }
+        if(hasGoogleEmailPass){
+          CommonCustomDialog(context,
+            isDialogCancel: false,
+            title: tr("applicationFailed"),
+            content: format(tr("resetUnlockText"),{"time": getBlockTimeFormat(expireInTime)}),
+            type: DialogImageType.fail,
+            rightBtnText: tr('confirm'),
+            onLeftPress: () {}, onRightPress: () {
+              Navigator.pop(context);
+            }).show();
+        }else if(hasStatus){
+          CommonCustomDialog(context,
+            isDialogCancel: false,
+            title: tr("applicationFailed"),
+            content: tr("APP_0053"),
+            type: DialogImageType.fail,
+            rightBtnText: tr('confirm'),
+            onLeftPress: () {}, onRightPress: () {
+              Navigator.pop(context);
+            }).show();
+        }
+      } else if(!ref.read(userInfoProvider).bindGoogle){
+        ///MARK: 檢查是否驗證google
+        showGoogleUnVerify();
       } else if(withdrawAlertInfo.isReserve){
         CommonCustomDialog(context,
-            title: tr("reservenotDrawn"),
-            content: tr('reservenotDrawn-hint'),
-            type: DialogImageType.fail,
-            rightBtnText: tr('confirm'),
-            onLeftPress: () {}, onRightPress: () {
-              Navigator.pop(context);
-            }).show();
-      } else if (withdrawAlertInfo.isBlock) {
-        CommonCustomDialog(context,
-            title: tr("applicationFailed"),
-            content: format(tr("resetUnlockText"),
-                {"time": getBlockTimeFormat(value.expireIn.toInt())}),
-            type: DialogImageType.fail,
-            rightBtnText: tr('confirm'),
-            onLeftPress: () {}, onRightPress: () {
-              Navigator.pop(context);
-            }).show();
+          title: tr("reservenotDrawn"),
+          content: tr('reservenotDrawn-hint'),
+          type: DialogImageType.fail,
+          rightBtnText: tr('confirm'),
+          onLeftPress: () {}, onRightPress: () {
+            Navigator.pop(context);
+          }).show();
       }
     });
   }
