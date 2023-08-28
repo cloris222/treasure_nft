@@ -15,6 +15,7 @@ import '../../models/http/api/login_api.dart';
 import '../../utils/animation_download_util.dart';
 import '../../views/full_animation_page.dart';
 import '../../views/main_page.dart';
+import '../../widgets/dialog/common_custom_dialog.dart';
 import '../../widgets/dialog/simple_custom_dialog.dart';
 
 class RegisterMainViewModel extends BaseViewModel {
@@ -200,8 +201,13 @@ class RegisterMainViewModel extends BaseViewModel {
       if(currentIndex == 0) {
         currentCountry = "";
       }
-      LoginAPI(onConnectFail: (message) => onBaseConnectFail(context, message))
-          .register(
+      LoginAPI(onConnectFail: (message) {
+        if(message == tr("APP_0104")){
+          _onIpFail(context, message);
+        }else{
+          onBaseConnectFail(context, message);
+        }
+      }).register(
               account: accountController.text,
               password: passwordController.text,
               email: emailController.text,
@@ -321,5 +327,17 @@ class RegisterMainViewModel extends BaseViewModel {
     setState(() {
       nicknameData = checkAccount(value);
     });
+  }
+
+  _onIpFail(BuildContext context, String message) {
+    CommonCustomDialog(context,
+      type: DialogImageType.fail,
+      title: tr("notAvailable"),
+      content: tr('APP_0104'),
+      rightBtnText: tr('confirm'),
+      bOneButton: true,
+      onLeftPress: () {}, onRightPress: () {
+        popPage(context);
+      }).show();
   }
 }

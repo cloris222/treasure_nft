@@ -550,9 +550,6 @@
   "serviveFee":"Biaya Penanganan",
   "creatorFee":"Royalti",
   "fees":"Biaya",
-  "enterEmail_verify":"Silakan masukkan kode verifikasi kotak surat Anda",
-  "enterGoogle_verify":"Silakan masukkan kode verifikasi ponsel Anda",
-  "enterPhone_verify":"Masukkan kode verifikasi Google Anda",
   "confirm-address'":"Harap konfirmasikan alamat dompet Anda",
   "sorry":"Maaf",
   "withdrawAddress":"Alamat (TRC-20)",
@@ -1469,5 +1466,7 @@
   "enterPhone_verify":"Silakan masukkan kode verifikasi ponsel Anda",
   "enterGoogle_verify":"Masukkan kode verifikasi Google Anda",
   "nickname(Optional)":"Masukkan kode verifikasi Google Anda",
-  "referralCode(Optional)":"Masukkan kode verifikasi Google Anda"
+  "referralCode(Optional)":"Masukkan kode verifikasi Google Anda",
+  "APP_0104":"Karena dampak peraturan hukum lokal, tidak mungkin untuk menggunakannya. Kami mohon maaf atas ketidaknyamanan ini.",
+  "notAvailable":"Tidak dapat menggunakan."
 }

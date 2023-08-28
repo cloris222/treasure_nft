@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/models/data/validate_result_data.dart';
@@ -11,6 +12,7 @@ import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/view_models/gobal_provider/user_info_provider.dart';
 import 'package:treasure_nft_project/view_models/login/wallet_bind_view_model.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
+import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
 import 'package:wallet_connect_plugin/model/wallet_info.dart';
 
 import '../../constant/call_back_function.dart';
@@ -59,7 +61,12 @@ class LoginMainViewModel extends BaseViewModel {
       scheduleMicrotask(()async {
       try {
         ///MARK: 註冊API
-        await LoginAPI().login(account: accountController.text, password: passwordController.text, isWallet: false).then((value) async {
+        await LoginAPI(onConnectFail: (message) {
+          if(message == tr("APP_0104")){
+            _onIpFail(context, message);
+          }
+        })
+          .login(account: accountController.text, password: passwordController.text, isWallet: false).then((value) async {
           String? path = AnimationDownloadUtil().getAnimationFilePath(getLoginTimeAnimationPath());
           if (path != null) {
             pushOpacityPage(
@@ -115,5 +122,17 @@ class LoginMainViewModel extends BaseViewModel {
       accountData = ValidateResultData();
       passwordData = ValidateResultData();
     });
+  }
+
+  _onIpFail(BuildContext context, String message) {
+    CommonCustomDialog(context,
+      type: DialogImageType.fail,
+      title: tr("notAvailable"),
+      content: tr('APP_0104'),
+      rightBtnText: tr('confirm'),
+      bOneButton: true,
+      onLeftPress: () {}, onRightPress: () {
+        popPage(context);
+      }).show();
   }
 }
