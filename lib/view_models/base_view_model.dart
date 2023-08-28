@@ -10,6 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:format/format.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
+import 'package:treasure_nft_project/constant/enum/server_route_enum.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/announce_data.dart';
@@ -80,11 +81,28 @@ class BaseViewModel with ControlRouterViewModel {
     FocusManager.instance.primaryFocus?.unfocus();
   }
 
+  /// 轉URL類型
+  ServerRoute changeServerRouteSettingType(String fullUrl) {
+    for (var type in ServerRoute.values) {
+      if (fullUrl.contains(type.getDomain())) {
+        return type;
+      }
+    }
+    return ServerRoute.routeXyz;
+  }
+
+  Future<void> updateAppServerRoute(String fullUrl) async {
+    GlobalData.appServerRoute = changeServerRouteSettingType(fullUrl);
+    await AppSharedPreferences.setRouteSetting(GlobalData.appServerRoute);
+  }
+
   ///MARK: 更新使用者資料
   Future<void> saveUserLoginInfo(
       {required bool isLogin,
       required ApiResponse response,
       required WidgetRef ref}) async {
+    /// 伺服器路徑切換
+    await updateAppServerRoute(response.data["route"] ?? "");
     await AppSharedPreferences.setLogIn(true);
     await AppSharedPreferences.setMemberID(response.data['id']);
     await AppSharedPreferences.setToken(response.data['token']);
@@ -623,25 +641,40 @@ class BaseViewModel with ControlRouterViewModel {
 
   /// 總秒數轉為時分秒並使0不回傳
   String formatDuration(int minutes) {
-    final Duration duration = Duration(minutes: minutes);
-    final String formattedDuration =
-        DateFormat('H.m,',"en_US").format(DateTime(0).add(duration));
-    String processedDuration;
-    // 移除小時為0的情況
-    if (formattedDuration.startsWith('0.')) {
-      processedDuration = formattedDuration.substring(3);
-    } else {
-      processedDuration = formattedDuration;
-    }
-    // 移除分鐘為0的情況
-    if (minutes % 60 == 0) {
-      processedDuration = processedDuration.replaceAll('0,', '');
-    }
-    // 替換冒號為文字
-    final replacedDuration = processedDuration
-        .replaceAll('.', tr("hours"))
-        .replaceAll(',', tr("minutes"));
+    // final Duration duration = Duration(minutes: minutes);
+    // final String formattedDuration = DateFormat('H.m,',"en_US").format(DateTime(0).add(duration));
+    String processedDuration = '';
+    int hours = minutes ~/ 60;
+    int remainMinutes = minutes % 60;
 
-    return replacedDuration;
+    if(hours > 0){
+      processedDuration += '$hours${tr('hours')}';
+    }
+    if(remainMinutes > 0){
+      processedDuration += '$remainMinutes${tr("minutes")}';
+    }
+
+    // 移除小時為0的情況
+    // if (formattedDuration.startsWith('0.')) {
+    //   processedDuration = formattedDuration.substring(2);
+    // } else {
+    //   processedDuration = formattedDuration;
+    // }
+    // print("process: $processedDuration");
+    // // 移除分鐘為0的情況
+    // if (minutes % 60 == 0) {
+    //   processedDuration = processedDuration.replaceAll('0,', '');
+    // }
+    // if(minutes % 60 >= 24){
+    //   print(">=24");
+    //   processedDuration = formattedDuration;
+    //   print("else if: $processedDuration");
+    // }
+    // 替換冒號為文字
+    // final replacedDuration = processedDuration
+    //     .replaceAll('.', tr("hours"))
+    //     .replaceAll(',', tr("minutes"));
+
+    return processedDuration;
   }
 }

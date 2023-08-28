@@ -550,9 +550,9 @@
   "serviveFee":"Ağ Ücreti",
   "creatorFee":"Telif",
   "fees":"İşlem ücreti",
-  "emailValid-placeholder'":"Doğrulama Kodunu Girin",
-  "googleValid-placeholder'":"Doğrulama Kodunu Girin",
-  "phoneValid-placeholder'":"Google Doğrulama Kodunuzu Girin",
+  "enterEmail_verify":"Doğrulama Kodunu Girin",
+  "enterPhone_verify":"Doğrulama Kodunu Girin",
+  "enterGoogle_verify":"Google Doğrulama Kodunuzu Girin",
   "confirm-address'":"Cüzdan Adresinizi Girin",
   "sorry":"Afedersiniz",
   "withdrawAddress":"Trc-20 Adresi",
@@ -1373,7 +1373,8 @@
   "expressway":"Express Lane",
   "placeholder-channel":"Lütfen bir şerit seçin",
   "Zambia":"Zambiya",
-
+  "lineSettings":"Çizgi Ayarları",
+  "route":"Rota",
 
 
 

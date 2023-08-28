@@ -550,9 +550,9 @@
   "serviveFee":"Service Fee",
   "creatorFee":"Royalty",
   "fees":"Fees",
-  "emailValid-placeholder'":"Enter your email verification code",
-  "googleValid-placeholder'":"Enter your mobile verification code",
-  "phoneValid-placeholder'":"Enter your Google verification code",
+  "enterEmail_verify":"Enter your email verification code",
+  "enterGoogle_verify":"Enter your mobile verification code",
+  "enterPhone_verify":"Enter your Google verification code",
   "confirm-address'":"Enter your wallet address",
   "sorry":"Sorry",
   "withdrawAddress":"Address (TRC20)",
@@ -1373,7 +1373,8 @@
   "expressway":"Express Lane",
   "placeholder-channel":"Please select a lane",
   "Zambia":"Zambia",
-
+  "lineSettings":"Line Settings",
+  "route":"Route",
 
 
 

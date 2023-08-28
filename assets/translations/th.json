@@ -550,9 +550,9 @@
   "serviveFee":"ค่าธรรมเนียมการจัดการ",
   "creatorFee":"ค่าภาคหลวง",
   "fees":"ค่าใช้จ่าย",
-  "emailValid-placeholder'":"กรุณากรอกรหัสยืนยันอีเมลของคุณ",
-  "googleValid-placeholder'":"โปรดป้อนรหัสยืนยันมือถือของคุณ",
-  "phoneValid-placeholder'":"โปรดป้อนรหัสยืนยัน Google ของคุณ",
+  "enterEmail_verify":"กรุณากรอกรหัสยืนยันอีเมลของคุณ",
+  "enterPhone_verify":"โปรดป้อนรหัสยืนยันมือถือของคุณ",
+  "enterGoogle_verify":"โปรดป้อนรหัสยืนยัน Google ของคุณ",
   "confirm-address'":"โปรดยืนยันที่อยู่กระเป๋าเงินของคุณ",
   "sorry":"รู้สึกเสียใจ",
   "withdrawAddress":"ที่อยู่ (TRC-20)",
@@ -1373,7 +1373,8 @@
   "expressway":"ช่องทาง",
   "placeholder-channel":"กรุณาเลือกเลน",
   "Zambia":"ชาวแซมเบีย",
-
+  "lineSettings":"การตั้งค่าสาย",
+  "route":"เส้นทาง",
 
 
 

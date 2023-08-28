@@ -550,9 +550,9 @@
   "serviveFee":"手續費",
   "creatorFee":"版費",
   "fees":"費用",
-  "emailValid-placeholder'":"請輸入您的信箱驗證碼",
-  "googleValid-placeholder'":"請輸入您的手機驗證碼",
-  "phoneValid-placeholder'":"請輸入您的Google驗證碼",
+  "enterEmail_verify":"請輸入您的信箱驗證碼",
+  "enterGoogle_verify":"請輸入您的手機驗證碼",
+  "enterPhone_verify":"請輸入您的Google驗證碼",
   "confirm-address'":"請確認您的錢包地址",
   "sorry":"抱歉",
   "withdrawAddress":"地址(TRC-20)",
@@ -1373,7 +1373,8 @@
   "expressway":"快速通道",
   "placeholder-channel":"請選擇通道",
   "Zambia":"尚比亞",
-
+  "lineSettings":"線路設置",
+  "route":"線路",
 
 
 

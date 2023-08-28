@@ -550,9 +550,9 @@
   "serviveFee":"yuran pengendalian",
   "creatorFee":"royalti",
   "fees":"kos",
-  "emailValid-placeholder'":"Sila masukkan kod pengesahan e-mel anda",
-  "googleValid-placeholder'":"Sila masukkan kod pengesahan mudah alih anda",
-  "phoneValid-placeholder'":"Sila masukkan kod pengesahan Google anda",
+  "enterEmail_verify":"Sila masukkan kod pengesahan e-mel anda",
+  "enterPhone_verify":"Sila masukkan kod pengesahan mudah alih anda",
+  "enterGoogle_verify":"Sila masukkan kod pengesahan Google anda",
   "confirm-address'":"Sila sahkan alamat dompet anda",
   "sorry":"Berasa maaf",
   "withdrawAddress":"Alamat (TRC-20)",
@@ -1373,7 +1373,8 @@
   "expressway":"Express Lane",
   "placeholder-channel":"Sila pilih lorong",
   "Zambia":"Zambia",
-
+  "lineSettings":"Tetapan baris",
+  "route":"Laluan",
 
 
 

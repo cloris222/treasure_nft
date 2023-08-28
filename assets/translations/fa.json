@@ -550,9 +550,9 @@
   "serviveFee":"کارمزد",
   "creatorFee":"حق امتیاز",
   "fees":"هزینه",
-  "emailValid-placeholder'":"لطفا کد تایید ایمیل خود را وارد کنید",
-  "googleValid-placeholder'":"لطفاً کد تأیید تلفن همراه خود را وارد کنید",
-  "phoneValid-placeholder'":"لطفاً کد تأیید Google خود را وارد کنید",
+  "enterEmail_verify":"لطفا کد تایید ایمیل خود را وارد کنید",
+  "enterGoogle_verify":"لطفاً کد تأیید تلفن همراه خود را وارد کنید",
+  "enterPhone_verify":"لطفاً کد تأیید Google خود را وارد کنید",
   "confirm-address'":"لطفا آدرس کیف پول خود را تایید کنید",
   "sorry":"متاسفم",
   "withdrawAddress":"آدرس (TRC-20)",
@@ -1373,7 +1373,8 @@
   "expressway":"خط ابراز",
   "placeholder-channel":"لطفا یک خط را انتخاب کنید",
   "Zambia":"زامبیا",
-
+  "lineSettings":"تنظیمات خط",
+  "route":"مسیر",
 
 
 

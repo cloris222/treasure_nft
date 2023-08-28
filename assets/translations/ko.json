@@ -550,9 +550,9 @@
   "serviveFee":"수속비",
   "creatorFee":"로열티",
   "fees":"비용",
-  "emailValid-placeholder'":"우편번호 인증코드를 입력해주세요",
-  "googleValid-placeholder'":"핸드폰 인증코드를 입력해주세요",
-  "phoneValid-placeholder'":"Google인증코드를 입력해주세요",
+  "enterEmail_verify":"우편번호 인증코드를 입력해주세요",
+  "enterPhone_verify":"핸드폰 인증코드를 입력해주세요",
+  "enterGoogle_verify":"Google인증코드를 입력해주세요",
   "confirm-address'":"지갑 주소 확인하세요",
   "sorry":"죄송합니다",
   "withdrawAddress":"주소(TRC-20)",
@@ -1373,7 +1373,8 @@
   "expressway":"Express 차선",
   "placeholder-channel":"차선을 선택하십시오",
   "Zambia":"잠비아",
-
+  "lineSettings":"라인 설정",
+  "route":"노선",
 
 
 
