@@ -192,11 +192,11 @@ class BaseViewModel with ControlRouterViewModel {
   void showNoticeView(BuildContext context, bool compareIt){
     Future.delayed(const Duration(seconds: 1)).then((value) {
       String lang = LanguageUtil.getAnnouncementLanguage();
-      AnnounceAPI().getAnnounceLast(lang).then((value) => {
+      AnnounceAPI().getAnnounceAll(lang: lang).then((value) => {
         if(compareIt == false){
           BaseViewModel().pushOpacityPage(context, AnnouncementDialogPage(value))
-        }else if(value.title != GlobalData.lastAnnounce.title) {
-          GlobalData.lastAnnounce = value,
+        }else if(value[0].title != GlobalData.lastAnnounce.title) {
+          GlobalData.lastAnnounce = value[0],
           BaseViewModel().pushOpacityPage(context, AnnouncementDialogPage(value))
         }
       });
