@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -71,12 +72,10 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
                               vertical: UIDefine.getPixelWidth(20)),
                           child: _buildBackground(child: _buildBody(context, false)),
                         ),
-
                         Positioned(
                             top: -25,
                             right: -1,
                             child: Image.asset(AppImagePath.walletDepositDollar)),
-
                         Padding(
                           padding: EdgeInsets.symmetric(
                               vertical: UIDefine.getPixelWidth(15)),
@@ -206,6 +205,7 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
         hintSelect: tr("chooseAPaymentMethod"),
         listLength: payTypeList.length,
         itemString: (int index, bool needArrow) => payTypeList[index].type,
+        dropdownHeight: UIDefine.getPixelHeight(300),
         onChanged: (index) {
           ref.read(currentPayTypeProvider.notifier).state = payTypeList[index];
           ref.read(payTypeCurrentIndexProvider.notifier)

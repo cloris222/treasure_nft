@@ -35,6 +35,7 @@ class CustomDropButton extends StatefulWidget {
       this.showClearButton = false,
       this.onPressClear,
       this.needArrow = true,
+      this.dropdownHeight,
       })
       : super(key: key);
   final int listLength;
@@ -51,6 +52,7 @@ class CustomDropButton extends StatefulWidget {
   final EdgeInsetsGeometry? padding;
   final String? hintSelect;
   final double? dropdownWidth;
+  final double? dropdownHeight;
   final Widget Function()? buildCustomSelectHintItem;
   final bool needShowEmpty;
   final BoxDecoration? dropdownDecoration;
@@ -106,6 +108,7 @@ class _CustomDropButtonState extends State<CustomDropButton> {
       child: Stack(children: [
         DropdownButtonHideUnderline(
             child: DropdownButton2(
+              dropdownMaxHeight: widget.dropdownHeight,
               buttonPadding:const EdgeInsets.all(0),
               itemPadding: widget.needHorizontalPadding
                   ? const EdgeInsets.all(0)
