@@ -23,8 +23,8 @@ class AnnounceAPI extends HttpManager {
     AnnounceData data = AnnounceData();
     var response = await get('/announce/all', queryParameters: {
       "lang": lang,
-      "page":1,
-      "size":1
+      // "page":1,
+      // "size":1
     });
     for (Map<String, dynamic> json in response.data["pageList"]) {
       data = AnnounceData.fromJson(json);

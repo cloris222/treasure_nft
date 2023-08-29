@@ -30,6 +30,7 @@ class AnnouncementDialogPage extends ConsumerStatefulWidget {
 class _AnnouncementDialogPageState extends ConsumerState<AnnouncementDialogPage> {
   BaseViewModel viewModel = BaseViewModel();
   late AnnouncementViewModel announcementViewModel;
+  PageController pageController = PageController();
 
   @override
   void initState() {
@@ -100,126 +101,202 @@ class _AnnouncementDialogPageState extends ConsumerState<AnnouncementDialogPage>
 
   Widget _buildBody(BuildContext context, bool vis) {
     return Visibility(
-        visible: vis,
-        maintainState: true,
-        maintainAnimation: true,
-        maintainSize: true,
-        child:Container(
-            width: UIDefine.getWidth(),
-            margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(25)),
-            padding: EdgeInsets.all(UIDefine.getPixelWidth(24)),
-            child:Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
+      visible: vis,
+      maintainState: true,
+      maintainAnimation: true,
+      maintainSize: true,
+      child:Container(
+        width: UIDefine.getWidth(),
+        margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(25)),
+        padding: EdgeInsets.all(UIDefine.getPixelWidth(24)),
+        child:Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.asset(AppImagePath.mainAppBarLogo,
+                height: 35, fit: BoxFit.fitHeight),
+
+            SizedBox(height: UIDefine.getPixelHeight(24)),
+
+            Stack(children: [
+              // Image.asset(AppImagePath.noticeBackground, fit: BoxFit.fitWidth),
+              Text("Notification",
+                style: AppTextStyle.getBaseStyle(
+                color: AppColors.textBlack,
+                fontSize: UIDefine.fontSize28,
+                fontWeight: FontWeight.w800,
+                fontFamily: AppTextFamily.PosteramaText)
+              ),
+            ]),
+            SizedBox(height: UIDefine.getPixelHeight(24)),
+            Container(
+              padding: EdgeInsets.symmetric(
+                  horizontal: UIDefine.getPixelWidth(10),
+                  vertical: UIDefine.getPixelWidth(15)),
+              width: UIDefine.getWidth(),
+              decoration: AppStyle().baseBolderGradient(radius:12, borderWidth: 2),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Html(data: widget.data.title,
+                      style: {
+                        "*": Style(
+                            fontSize: FontSize(UIDefine.fontSize12),
+                            color: AppColors.textBlack,
+                            fontWeight: FontWeight.w600,
+                            padding: HtmlPaddings.zero,
+                            fontFamily: AppTextFamily.PosteramaText.name
+                        ),
+                      },
+                    ),
+                    // Text(widget.data.title,
+                    //     maxLines: 4,
+                    //     overflow: TextOverflow.ellipsis,
+                    //     style: AppTextStyle.getBaseStyle(
+                    //         color: AppColors.textBlack,
+                    //         fontSize: UIDefine.fontSize12,
+                    //         fontWeight: FontWeight.w600,
+                    //         fontFamily: AppTextFamily.PosteramaText)),
+                    SizedBox(height: UIDefine.getPixelHeight(8)),
+                    // widget.data.content.toString().contains("p>")
+                    //     ?
+                    Html(
+                      data: widget.data.content,
+                      onLinkTap: (String? url, Map<String, String> attributes, element) {
+                        viewModel.launchInBrowser(url!);
+                      },
+                      style: {
+                        "*": Style(
+                            maxLines: 3,
+                            fontSize: FontSize(UIDefine.fontSize12),
+                            fontWeight: FontWeight.w400,
+                            padding: HtmlPaddings.zero,
+                            fontFamily: AppTextFamily.PosteramaText.name
+                        ),
+                      },
+                    )
+                    // :  Text(announceItem.content,
+                    // maxLines: 4,
+                    // overflow: TextOverflow.ellipsis,
+                    // style: AppTextStyle.getBaseStyle(
+                    //     color: AppColors.textBlack,
+                    //     fontSize: UIDefine.fontSize12,
+                    //     fontWeight: FontWeight.w400,
+                    //     fontFamily:
+                    //     AppTextFamily.PosteramaText)),
+                  ])
+            ),
+            // _buildAnnounceView(widget.data),
+            SizedBox(height: UIDefine.getPixelHeight(30)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(AppImagePath.mainAppBarLogo,
-                    height: 35, fit: BoxFit.fitHeight),
-
-                SizedBox(height: UIDefine.getPixelHeight(24)),
-
-                Stack(children: [
-                  // Image.asset(AppImagePath.noticeBackground, fit: BoxFit.fitWidth),
-                  Text("Notification",
-                      style: AppTextStyle.getBaseStyle(
-                          color: AppColors.textBlack,
-                          fontSize: UIDefine.fontSize28,
-                          fontWeight: FontWeight.w800,
-                          fontFamily: AppTextFamily.PosteramaText)
-                  ),
-                ]),
-
-                SizedBox(height: UIDefine.getPixelHeight(24)),
-
-                Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: UIDefine.getPixelWidth(10),
-                      vertical: UIDefine.getPixelWidth(15)),
-                  width: UIDefine.getWidth(),
-                  decoration: AppStyle().baseBolderGradient(radius:12, borderWidth: 2),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-
-                  Html(
-                  data: widget.data.title,
-                    style: {
-                      "*": Style(
-                          fontSize: FontSize(UIDefine.fontSize12),
-                          color: AppColors.textBlack,
-                          fontWeight: FontWeight.w600,
-                          padding: HtmlPaddings.zero,
-                          fontFamily: AppTextFamily.PosteramaText.name
-                      ),
-                    },
-                  ),
-
-                        // Text(widget.data.title,
-                        //     maxLines: 4,
-                        //     overflow: TextOverflow.ellipsis,
-                        //     style: AppTextStyle.getBaseStyle(
-                        //         color: AppColors.textBlack,
-                        //         fontSize: UIDefine.fontSize12,
-                        //         fontWeight: FontWeight.w600,
-                        //         fontFamily: AppTextFamily.PosteramaText)),
-
-                        SizedBox(height: UIDefine.getPixelHeight(8)),
-
-                        // widget.data.content.toString().contains("p>")
-                        //     ?
-                        Html(
-                            data: widget.data.content,
-                            onLinkTap: (String? url, Map<String, String> attributes, element) {
-                              viewModel.launchInBrowser(url!);
-                            },
-                            style: {
-                                "*": Style(
-                                  maxLines: 3,
-                                  fontSize: FontSize(UIDefine.fontSize12),
-                                  fontWeight: FontWeight.w400,
-                                  padding: HtmlPaddings.zero,
-                                  fontFamily: AppTextFamily.PosteramaText.name
-                                ),
-                              },
-                            )
-
-                            // :  Text(widget.data.content,
-                            // maxLines: 4,
-                            // overflow: TextOverflow.ellipsis,
-                            // style: AppTextStyle.getBaseStyle(
-                            //     color: AppColors.textBlack,
-                            //     fontSize: UIDefine.fontSize12,
-                            //     fontWeight: FontWeight.w400,
-                            //     fontFamily:
-                            //     AppTextFamily.PosteramaText)),
-
-                      ]),
-                ),
-
-                SizedBox(height: UIDefine.getPixelHeight(30)),
-
-
-                Row(mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                  SizedBox(
-                      width: UIDefine.getPixelWidth(195),
-                      child:LoginButtonWidget(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: UIDefine.getPixelWidth(10)),
-                          isFillWidth: false,
-                          radius: 45,
-                          btnText: tr('go'),
-                          textColor: AppColors.textBlack,
-                          fontSize: UIDefine.fontSize20,
-                          onPressed: () => viewModel.pushPage(
-                              context, AnnouncementDetailPage(data: widget.data, viewModel: announcementViewModel)))),
-                ]),
-
-
-
-              ],
-            )));
+                SizedBox(
+                  width: UIDefine.getPixelWidth(195),
+                  child:LoginButtonWidget(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: UIDefine.getPixelWidth(10)),
+                    isFillWidth: false,
+                    radius: 45,
+                    btnText: tr('go'),
+                    textColor: AppColors.textBlack,
+                    fontSize: UIDefine.fontSize20,
+                    onPressed: () => viewModel.pushPage(
+                    context, AnnouncementDetailPage(data: widget.data, viewModel: announcementViewModel)))),
+            ]),
+          ],
+        )));
   }
 
+  Widget _buildAnnounceView(AnnounceData data){
+
+    List<AnnounceData> announceList = [data];
+    final List<Widget> _pages = announceList.map((announceItem) {
+      return _buildSingleAnnouncePage(announceItem);
+    }).toList();
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: UIDefine.getPixelWidth(10),
+        vertical: UIDefine.getPixelWidth(15)),
+      width: UIDefine.getWidth(),
+      decoration: AppStyle().baseBolderGradient(radius:12, borderWidth: 2),
+      child: PageView(
+        controller: pageController,
+        onPageChanged: (index) {
+          // Handle page change if needed
+        },
+        children: _pages,
+      ),
+    );
+  }
+
+  // return PageView.builder(
+  //     itemCount: announceList.length,
+  //     controller: pageController,
+  //     onPageChanged: (index){
+  //
+  //     },
+  //     itemBuilder: (context, index){
+  //       return _buildSingleAnnouncePage(announceList[index]);
+  //     },
+  //   );
 
 
+  Widget _buildSingleAnnouncePage(AnnounceData announceItem){
+    return Container(
+      width: double.infinity,
+      height: 200,
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Html(data: announceItem.title,
+              style: {
+                "*": Style(
+                    fontSize: FontSize(UIDefine.fontSize12),
+                    color: AppColors.textBlack,
+                    fontWeight: FontWeight.w600,
+                    padding: HtmlPaddings.zero,
+                    fontFamily: AppTextFamily.PosteramaText.name
+                ),
+              },
+            ),
+            // Text(widget.data.title,
+            //     maxLines: 4,
+            //     overflow: TextOverflow.ellipsis,
+            //     style: AppTextStyle.getBaseStyle(
+            //         color: AppColors.textBlack,
+            //         fontSize: UIDefine.fontSize12,
+            //         fontWeight: FontWeight.w600,
+            //         fontFamily: AppTextFamily.PosteramaText)),
+            SizedBox(height: UIDefine.getPixelHeight(8)),
+            // widget.data.content.toString().contains("p>")
+            //     ?
+            Html(
+              data: announceItem.content,
+              onLinkTap: (String? url, Map<String, String> attributes, element) {
+                viewModel.launchInBrowser(url!);
+              },
+              style: {
+                "*": Style(
+                    maxLines: 3,
+                    fontSize: FontSize(UIDefine.fontSize12),
+                    fontWeight: FontWeight.w400,
+                    padding: HtmlPaddings.zero,
+                    fontFamily: AppTextFamily.PosteramaText.name
+                ),
+              },
+            )
+            // :  Text(announceItem.content,
+            // maxLines: 4,
+            // overflow: TextOverflow.ellipsis,
+            // style: AppTextStyle.getBaseStyle(
+            //     color: AppColors.textBlack,
+            //     fontSize: UIDefine.fontSize12,
+            //     fontWeight: FontWeight.w400,
+            //     fontFamily:
+            //     AppTextFamily.PosteramaText)),
+          ]));
+
+
+  }
 }
