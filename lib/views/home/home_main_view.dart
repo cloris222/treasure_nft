@@ -99,6 +99,7 @@ class _HomeMainViewState extends ConsumerState<HomeMainView>
 
   @override
   Widget build(BuildContext context) {
+    final filmData = ref.watch(homeFilmProvider);
     return GestureDetector(
       onTap: () => viewModel.clearAllFocus(),
       child: Stack(
@@ -119,23 +120,15 @@ class _HomeMainViewState extends ConsumerState<HomeMainView>
                 ///MARK: USDT資訊
                 // ignore: prefer_const_constructors
 
-                Consumer(builder: (BuildContext context,
-                    WidgetRef ref, Widget? child) {
-                  final filmData = ref.watch(homeFilmProvider);
-                  return filmData.isEmpty?Container():HomeSubUsdtView(data: filmData);
-                  //   Visibility(
-                  //   visible: filmData.isNotEmpty,
-                  //   child: Builder(
-                  //       builder: (context) {
-                  //         return
-                  //           // Text(filmData[0].link);
-                  //           Container(
-                  //             color: Colors.red,
-                  //               child: HomeSubUsdtView(path: filmData[0].link));
-                  //       }
-                  //   ),
-                  // );
-                }),
+                // Consumer(builder: (BuildContext context,
+                //     WidgetRef ref, Widget? child) {
+                //   final filmData = ref.watch(homeFilmProvider);
+                //   return filmData[0].link.isEmpty||filmData[0].link == null?
+                //   Container():HomeSubUsdtView(data: filmData);
+                // }),
+                filmData.isEmpty ?
+                  Container():HomeSubUsdtView(data: filmData),
+
 
                 buildSpace(height: 3),
 

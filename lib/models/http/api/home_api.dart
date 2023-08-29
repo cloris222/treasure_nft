@@ -160,7 +160,7 @@ class HomeAPI extends HttpManager {
   }
 
   ///MARK 查詢影片
-  Future<List<HomeFilmData>> getFilm({String page = '1',String size ='20', String lang ='en'}) async {
+  Future<List<HomeFilmData>> getFilm({String? page,String? size, String? lang}) async {
     List<HomeFilmData> data = <HomeFilmData>[];
     ApiResponse response = await get('/index/content/film',queryParameters: {
       "page": page,

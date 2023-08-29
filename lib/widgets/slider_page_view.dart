@@ -68,10 +68,11 @@ class _SliderPageViewState extends State<SliderPageView> {
         child: SizedBox(
             height: UIDefine.getHeight(),
             child: SafeArea(
-                child: CustomScrollView(slivers: [
-              SliverToBoxAdapter(child: widget.topView),
-              SliverFillRemaining(
-                  child: Container(
+              child: CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(child: widget.topView),
+                  SliverFillRemaining(
+                    child: Container(
                       color: widget.backgroundColor,
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Column(mainAxisSize: MainAxisSize.min, children: [

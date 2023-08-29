@@ -44,28 +44,29 @@ class _HomeSubVideoViewState extends State<HomeSubVideoView> {
     link = widget.data[0].link;
     videoName = widget.data[0].name;
     if(videoName == "Youtube"){
-      if(link.isNotEmpty){
+      if(link.isNotEmpty) {
         String? videoId = YoutubePlayer.convertUrlToId(link);
-        if(videoId != null){
+        if (videoId != null) {
           youtubeId = videoId;
         }
+        _controller = YoutubePlayerController(
+          initialVideoId: youtubeId,
+          flags: const YoutubePlayerFlags(
+            mute: false,
+            autoPlay: false,
+            disableDragSeek: false,
+            loop: false,
+            isLive: false,
+            forceHD: false,
+            enableCaption: true,
+          ),
+        )
+          ..addListener(listener);
+        _idController = TextEditingController();
+        _seekToController = TextEditingController();
+        _videoMetaData = const YoutubeMetaData();
+        _playerState = PlayerState.unknown;
       }
-      _controller = YoutubePlayerController(
-        initialVideoId: youtubeId,
-        flags: const YoutubePlayerFlags(
-          mute: false,
-          autoPlay: false,
-          disableDragSeek: false,
-          loop: false,
-          isLive: false,
-          forceHD: false,
-          enableCaption: true,
-        ),
-      )..addListener(listener);
-      _idController = TextEditingController();
-      _seekToController = TextEditingController();
-      _videoMetaData = const YoutubeMetaData();
-      _playerState = PlayerState.unknown;
     }else{
       ///MARK: 本機影片
       _videoController = VideoPlayerController.network(
@@ -102,13 +103,17 @@ class _HomeSubVideoViewState extends State<HomeSubVideoView> {
   @override
   void deactivate() {
     // Pauses video while navigating to next page.
-    _controller.pause();
+    if(_controller != null){
+      _controller.pause();
+    }
     super.deactivate();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    if(_controller != null){
+      _controller.dispose();
+    }
     _idController.dispose();
     _seekToController.dispose();
     _videoController.dispose();
