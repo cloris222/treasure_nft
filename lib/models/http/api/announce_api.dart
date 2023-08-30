@@ -18,16 +18,17 @@ class AnnounceAPI extends HttpManager {
     return list;
   }
 
-  ///MARK: 查詢最新一筆公告
-  Future<AnnounceData> getAnnounceLast(String lang) async {
-    AnnounceData data = AnnounceData();
+  ///MARK: 查詢置頂一筆公告
+  Future<List<AnnounceData>> getAnnounceTop(String lang) async {
+    List<AnnounceData> data = [];
     var response = await get('/announce/all', queryParameters: {
       "lang": lang,
-      "page":1,
-      "size":1
     });
     for (Map<String, dynamic> json in response.data["pageList"]) {
-      data = AnnounceData.fromJson(json);
+      AnnounceData announce = AnnounceData.fromJson(json);
+      if(announce.sort == 0){
+        data.add(AnnounceData.fromJson(json));
+      }
     }
     return data;
   }
