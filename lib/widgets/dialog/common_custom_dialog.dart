@@ -120,7 +120,14 @@ class CommonCustomDialog extends BaseDialog {
     /// 實心按鈕
     return LoginButtonWidget(
         btnText: rightBtnText,
-        onPressed: () => onRightPress(),
+        onPressed: () {
+          if(isDialogCancel){
+            onRightPress();
+          }else{
+            Navigator.pop(context);
+            onRightPress();
+          }
+        },
         radius: 10,
         fontWeight: FontWeight.w600,
         fontSize: UIDefine.fontSize14,

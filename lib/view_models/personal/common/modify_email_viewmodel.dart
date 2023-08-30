@@ -2,6 +2,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:treasure_nft_project/view_models/control_router_viem_model.dart';
 import 'package:treasure_nft_project/views/personal/common/user_info_setting_page.dart';
 import '../../../../constant/call_back_function.dart';
 import '../../../../constant/enum/login_enum.dart';
@@ -49,8 +50,11 @@ class ModifyEmailViewModel extends BaseViewModel {
   void onPressSendCode(BuildContext context) {
     AuthAPI(onConnectFail: (errorMessage)
     => onBaseConnectFail(context, errorMessage))
-        .sendAuthActionMail(action: LoginAction.updateEmail, userInfo: userInfo);
-    SimpleCustomDialog(context, mainText:tr('pleaseGotoMailboxReceive')).show();
+        .sendAuthActionMail(action: LoginAction.updateEmail, email: emailController.text,userInfo: userInfo).then((value) {
+      if(value.message =="SUCCESS"){
+        SimpleCustomDialog(context, mainText:tr('pleaseGotoMailboxReceive')).show();
+      }
+    });
   }
 
 
@@ -64,14 +68,20 @@ class ModifyEmailViewModel extends BaseViewModel {
       setState((){});
       return;
     } else {
+      showLoadingPage(context);
       UserInfoAPI(
-          onConnectFail: (message)=> showFailedDialog(context, message))
-          .modifyEmail(googleCodeController.text,
-          passwordController.text,
-          emailController.text,
-          emailCodeController.text)
-          .then((value) => showSuccessDialog(context));
-
+        onConnectFail: (message){
+          closeLoadingPage();
+          showFailedDialog(context, message);
+        })
+        .modifyEmail(googleCodeController.text,
+        passwordController.text,
+        emailController.text,
+        emailCodeController.text)
+        .then((value) {
+          closeLoadingPage();
+          showSuccessDialog(context);
+        });
     }
   }
 

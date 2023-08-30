@@ -230,9 +230,9 @@ class _UserSettingPageState extends ConsumerState<UserSettingPage> {
           .then((value) => ref.read(userInfoProvider.notifier).update());
     }
     /// 重置google 暫時隱藏
-    // else {
-    //   _showGoogleReset();
-    // }
+    else {
+      _showGoogleReset();
+    }
   }
 
   Widget _getUserSettingButton() {

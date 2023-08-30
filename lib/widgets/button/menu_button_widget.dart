@@ -86,11 +86,11 @@ class MenuButtonWidget extends ConsumerWidget {
         imgPath = AppImagePath.tg;
         cellTitle = tr("Telegram");
         break;
-      ///MARK: 工單551隱藏
-      // case MenuIcon.internalMessage:
-      //   imgPath = AppImagePath.internalMessageBtn;
-      //   cellTitle = tr("stationMessage");
-      //   break;
+      ///MARK: 工單551站內信
+      case MenuIcon.internalMessage:
+        imgPath = AppImagePath.internalMessageBtn;
+        cellTitle = tr("stationMessage");
+        break;
     }
     Widget item = Row(
       children: [
@@ -136,17 +136,17 @@ class MenuButtonWidget extends ConsumerWidget {
         _showTelegram(footers);
         break;
 
-      ///MARK: 工單551隱藏
-      // case MenuIcon.internalMessage:
-      //   {
-      //     if (viewModel.isLogin()) {
-      //       AppRoutes.pushInternalMessage(context);
-      //     } else {
-      //       viewModel.pushAndRemoveUntil(
-      //           context, const MainPage(type: AppNavigationBarType.typeLogin));
-      //     }
-      //   }
-      //   break;
+      ///MARK: 工單551站內信
+      case MenuIcon.internalMessage:
+        {
+          if (viewModel.isLogin()) {
+            AppRoutes.pushInternalMessage(context);
+          } else {
+            viewModel.pushAndRemoveUntil(
+                context, const MainPage(type: AppNavigationBarType.typeLogin));
+          }
+        }
+        break;
     }
   }
 

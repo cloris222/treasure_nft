@@ -72,6 +72,6 @@ enum MenuIcon{
   language,
   service,
   telegram,
-  ///MARK: 工單551隱藏站內信
-  // internalMessage,
+  ///MARK: 工單551站內信
+  internalMessage,
 }
