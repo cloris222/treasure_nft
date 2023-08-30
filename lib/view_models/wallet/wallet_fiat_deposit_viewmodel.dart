@@ -36,23 +36,23 @@ class WalletFiatDepositViewModel extends BaseViewModel {
 
   String getMinText() {
     return getThousandFormat(
-        ref.read(currentPayTypeProvider.notifier).state.startPrice);
+        ref.read(currentAisleProvider.notifier).state.startPrice);
   }
 
   String getMaxText() {
     return getThousandFormat(
-        ref.read(currentPayTypeProvider.notifier).state.endPrice);
+        ref.read(currentAisleProvider.notifier).state.endPrice);
   }
 
   void onMinimum() {
     amountController.text =
-        ref.read(currentPayTypeProvider.notifier).state.startPrice.toString();
+        ref.read(currentAisleProvider.notifier).state.startPrice.toString();
     onTextChange();
   }
 
   void onMaximum() {
     amountController.text =
-        ref.read(currentPayTypeProvider.notifier).state.endPrice.toString();
+        ref.read(currentAisleProvider.notifier).state.endPrice.toString();
     onTextChange();
   }
 
@@ -68,7 +68,8 @@ class WalletFiatDepositViewModel extends BaseViewModel {
 
   void onPressConfirm() async {
     if (checkAmount()) {
-      await WalletAPI().depositCurrency(
+      await WalletAPI(onConnectFail: (errorMessage)
+      => onBaseConnectFail(context, errorMessage)).depositCurrency(
         payType: ref.read(currentPayTypeProvider.notifier).state.type,
         currency: ref.read(currentFiatProvider.notifier).state,
         amount: double.parse(amountController.text),
@@ -83,9 +84,9 @@ class WalletFiatDepositViewModel extends BaseViewModel {
 
   bool checkAmount() {
     if(double.parse(amountController.text)
-        < ref.read(currentPayTypeProvider.notifier).state.startPrice
+        < ref.read(currentAisleProvider.notifier).state.startPrice
         || double.parse(amountController.text)
-            > ref.read(currentPayTypeProvider.notifier).state.endPrice){
+            > ref.read(currentAisleProvider.notifier).state.endPrice){
       errorHint = true;
       onViewChange();
       return false;
