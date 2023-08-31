@@ -40,15 +40,14 @@ class _HomeSubVideoViewState extends ConsumerState<HomeSubVideoView> {
   String coverImg = "";
   bool _videoInitialized = false;
 
-
   @override
   void initState() {
     ref.read(homeFilmProvider.notifier).init(needFocusUpdate: true,onFinish: (){
       if(filmData.isNotEmpty){
         videoUrl = filmData[0].link;
         coverImg = filmData[0].cover;
-        _videoController = VideoPlayerController.networkUrl(Uri.parse(videoUrl)
-        )..initialize().then((value) {
+        _videoController = VideoPlayerController.networkUrl(Uri.parse(videoUrl))
+          ..initialize().then((value) {
           setState(() {
             _videoInitialized = true;
             _playerController = ChewieController(
@@ -66,11 +65,8 @@ class _HomeSubVideoViewState extends ConsumerState<HomeSubVideoView> {
         });
       }
     });
-    ///MARK: 本機影片
-
     super.initState();
   }
-
 
   @override
   void deactivate() {
@@ -89,38 +85,38 @@ class _HomeSubVideoViewState extends ConsumerState<HomeSubVideoView> {
     if(filmData.isNotEmpty && _videoInitialized){
       return
         SizedBox(
-          width: UIDefine.getWidth(),
-          height: _videoController.value.isInitialized ? (UIDefine.getWidth() / _videoController.value.aspectRatio) : UIDefine.getPixelHeight(200),
-          child: Container(
-            child: _videoController.value.isInitialized
-              ? _videoController.value.isPlaying
-              ? Chewie(
-            controller: _playerController!,
-          )
-          : Container(
-            color: Colors.white,
-            alignment: Alignment.center,
-            padding: EdgeInsets.all(UIDefine.getScreenWidth(2)),
-            child: InkWell(
-              onTap: _onStart,
-              child: Stack(
-                  alignment: Alignment.center, children: [
-                Transform.scale(scaleX: 1.1, child:  Image.network(coverImg)
-                ),
-                Opacity(
-                  opacity: 0.87,
-                  child: CircleAvatar(
-                    radius: UIDefine.getScreenWidth(8),
-                    backgroundColor: Colors.white,
-                    child: Icon(Icons.play_arrow, color: Colors.black, size: UIDefine.getScreenWidth(8),
-                    ),
+        width: UIDefine.getWidth(),
+        height: _videoController.value.isInitialized ? (UIDefine.getWidth() / _videoController.value.aspectRatio) : UIDefine.getPixelHeight(200),
+        child: Container(
+          child: _videoController.value.isInitialized
+            ? _videoController.value.isPlaying
+            ? Chewie(
+          controller: _playerController!,
+        )
+        : Container(
+          color: Colors.white,
+          alignment: Alignment.center,
+          padding: EdgeInsets.all(UIDefine.getScreenWidth(2)),
+          child: InkWell(
+            onTap: _onStart,
+            child: Stack(
+                alignment: Alignment.center, children: [
+              Transform.scale(scaleX: 1.1, child:  Image.network(coverImg)
+              ),
+              Opacity(
+                opacity: 0.87,
+                child: CircleAvatar(
+                  radius: UIDefine.getScreenWidth(8),
+                  backgroundColor: Colors.white,
+                  child: Icon(Icons.play_arrow, color: Colors.black, size: UIDefine.getScreenWidth(8),
                   ),
                 ),
-              ]),
-            ),
-          )
-              : Container(),
-        ));
+              ),
+            ]),
+          ),
+        )
+            : Container(),
+      ));
     }else{
       return Container();
     }
