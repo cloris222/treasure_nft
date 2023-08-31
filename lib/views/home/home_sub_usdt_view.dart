@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_film_data.dart';
+import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
 import 'package:treasure_nft_project/views/home/widget/home_usdt_info.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 
@@ -14,9 +15,9 @@ import 'home_main_style.dart';
 import 'home_sub_video_view.dart';
 
 class HomeSubUsdtView extends StatelessWidget with HomeMainStyle {
-  const HomeSubUsdtView({Key? key, required this.data}) : super(key: key);
+  const HomeSubUsdtView({Key? key}) : super(key: key);
 
-  final List<HomeFilmData> data;
+  // final List<HomeFilmData> data;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +63,7 @@ class HomeSubUsdtView extends StatelessWidget with HomeMainStyle {
           buildSpace(height: 3),
 
           ///MARK: 形象影片
-          HomeSubVideoView(data: data),
+          HomeSubVideoView(),
 
 
           buildSpace(height: 5),

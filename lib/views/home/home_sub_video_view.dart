@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:format/format.dart';
 import 'package:treasure_nft_project/models/http/api/home_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/home_film_data.dart';
@@ -12,110 +14,72 @@ import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/ui_define.dart';
 import '../../models/http/http_setting.dart';
+import '../../view_models/home/home_main_viewmodel.dart';
+import '../../view_models/home/provider/home_film_provider.dart';
 
-class HomeSubVideoView extends StatefulWidget {
-  const HomeSubVideoView({Key? key, required this.data}) : super(key: key);
+class HomeSubVideoView extends ConsumerStatefulWidget {
+  const HomeSubVideoView({Key? key});
 
-  final List<HomeFilmData> data;
+  // final List<HomeFilmData> data;
 
   @override
-  State<HomeSubVideoView> createState() => _HomeSubVideoViewState();
+  // State<HomeSubVideoView> createState() => _HomeSubVideoViewState();
+  ConsumerState createState() => _HomeSubVideoViewState();
 }
 
-class _HomeSubVideoViewState extends State<HomeSubVideoView> {
-  late YoutubePlayerController _controller;
-  late TextEditingController _idController;
-  late TextEditingController _seekToController;
-  late PlayerState _playerState;
-  late YoutubeMetaData _videoMetaData;
-  double _volume = 100;
-  bool _muted = false;
-  bool _isPlayerReady = false;
 
-  String link = "";
-  String videoName = "";
+class _HomeSubVideoViewState extends ConsumerState<HomeSubVideoView> {
+  // HomeFilmData filmData = HomeFilmData();
+
+  List<HomeFilmData> get filmData{
+    return ref.read(homeFilmProvider);
+  }
 
   late VideoPlayerController _videoController;
-  ChewieController? _playerController;
-  String youtubeId = "";
+  late ChewieController? _playerController;
+  String videoUrl = "";
+  String coverImg = "";
+  bool _videoInitialized = false;
+
 
   @override
   void initState() {
-    link = widget.data[0].link;
-    videoName = widget.data[0].name;
-    if(videoName == "Youtube"){
-      if(link.isNotEmpty) {
-        String? videoId = YoutubePlayer.convertUrlToId(link);
-        if (videoId != null) {
-          youtubeId = videoId;
-        }
-        _controller = YoutubePlayerController(
-          initialVideoId: youtubeId,
-          flags: const YoutubePlayerFlags(
-            mute: false,
-            autoPlay: false,
-            disableDragSeek: false,
-            loop: false,
-            isLive: false,
-            forceHD: false,
-            enableCaption: true,
-          ),
-        )
-          ..addListener(listener);
-        _idController = TextEditingController();
-        _seekToController = TextEditingController();
-        _videoMetaData = const YoutubeMetaData();
-        _playerState = PlayerState.unknown;
-      }
-    }else{
-      ///MARK: 本機影片
-      _videoController = VideoPlayerController.network(
-          // _getVideoPath()
-       link
-      )..initialize().then((value) {
-        setState(() {
-          _playerController = ChewieController(
-            videoPlayerController: _videoController,
-            looping: true,
-            customControls: const CupertinoControls(
-              backgroundColor: Color.fromRGBO(41, 41, 41, 0.7),
-              iconColor: Color.fromARGB(255, 200, 200, 200),
-            ),
-            deviceOrientationsOnEnterFullScreen: [
-              DeviceOrientation.landscapeLeft,
-              DeviceOrientation.landscapeRight,
-            ]);
+    ref.read(homeFilmProvider.notifier).init(needFocusUpdate: true,onFinish: (){
+      if(filmData.isNotEmpty){
+        videoUrl = filmData[0].link;
+        coverImg = filmData[0].cover;
+        _videoController = VideoPlayerController.networkUrl(Uri.parse(videoUrl)
+        )..initialize().then((value) {
+          setState(() {
+            _videoInitialized = true;
+            _playerController = ChewieController(
+                videoPlayerController: _videoController!,
+                looping: true,
+                customControls: const CupertinoControls(
+                  backgroundColor: Color.fromRGBO(41, 41, 41, 0.7),
+                  iconColor: Color.fromARGB(255, 200, 200, 200),
+                ),
+                deviceOrientationsOnEnterFullScreen: [
+                  DeviceOrientation.landscapeLeft,
+                  DeviceOrientation.landscapeRight,
+                ]);
+          });
         });
-      });
-    }
+      }
+    });
+    ///MARK: 本機影片
+
     super.initState();
   }
 
-  void listener() {
-    if (_isPlayerReady && mounted && !_controller.value.isFullScreen) {
-      setState(() {
-        _playerState = _controller.value.playerState;
-        _videoMetaData = _controller.metadata;
-      });
-    }
-  }
 
   @override
   void deactivate() {
-    // Pauses video while navigating to next page.
-    if(_controller != null){
-      _controller.pause();
-    }
     super.deactivate();
   }
 
   @override
   void dispose() {
-    if(_controller != null){
-      _controller.dispose();
-    }
-    _idController.dispose();
-    _seekToController.dispose();
     _videoController.dispose();
     _playerController?.dispose();
     super.dispose();
@@ -123,74 +87,45 @@ class _HomeSubVideoViewState extends State<HomeSubVideoView> {
 
   @override
   Widget build(BuildContext context) {
-    return videoName =="Youtube"?
-      YoutubePlayer(
-        controller: _controller,
-        showVideoProgressIndicator: true,
-        progressIndicatorColor: AppColors.mainThemeButton,
-        topActions: <Widget>[
-          const SizedBox(width: 8.0),
-          Expanded(
-            child: Text(
-              _controller.metadata.title,
-              style: const TextStyle(
-                color: AppColors.textWhite,
-                fontSize: 18.0,
-              ),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-            ),
-          ),
-          IconButton(
-            icon: const Icon(
-              Icons.settings,
-              color: AppColors.textWhite,
-              size: 25.0,
-            ),
-            onPressed: () {
-              print('Settings Tapped!');
-            },
-          ),
-        ],
-        onReady: () {
-          _isPlayerReady = true;
-        },
-        onEnded: (data) {
-        },
-      ):
-      SizedBox(
-        width: UIDefine.getWidth(),
-        height: _videoController.value.isInitialized ? (UIDefine.getWidth() / _videoController.value.aspectRatio) : UIDefine.getPixelHeight(200),
-        child: Container(
-          child: _videoController.value.isInitialized
-          ? _videoController.value.isPlaying
-            ? Chewie(
-                controller: _playerController!,
-              )
-            : Container(
-              color: Colors.white,
-              alignment: Alignment.center,
-              padding: EdgeInsets.all(UIDefine.getScreenWidth(2)),
-              child: InkWell(
-                onTap: _onStart,
-                child: Stack(
-                  alignment: Alignment.center, children: [
-                    Transform.scale(scaleX: 1.1, child: Image.asset(_getImagePath())),
-                    Opacity(
-                      opacity: 0.87,
-                      child: CircleAvatar(
-                        radius: UIDefine.getScreenWidth(8),
-                        backgroundColor: Colors.white,
-                        child: Icon(Icons.play_arrow, color: Colors.black, size: UIDefine.getScreenWidth(8),
-                        ),
-                      ),
-                    ),
-                ]),
-              ),
+    if(filmData.isNotEmpty && _videoInitialized){
+      return
+        SizedBox(
+          width: UIDefine.getWidth(),
+          height: _videoController.value.isInitialized ? (UIDefine.getWidth() / _videoController.value.aspectRatio) : UIDefine.getPixelHeight(200),
+          child: Container(
+            child: _videoController.value.isInitialized
+              ? _videoController.value.isPlaying
+              ? Chewie(
+            controller: _playerController!,
           )
-          : Container(),
-        ),
-      );
+          : Container(
+            color: Colors.white,
+            alignment: Alignment.center,
+            padding: EdgeInsets.all(UIDefine.getScreenWidth(2)),
+            child: InkWell(
+              onTap: _onStart,
+              child: Stack(
+                  alignment: Alignment.center, children: [
+                Transform.scale(scaleX: 1.1, child:  Image.network(coverImg)
+                ),
+                Opacity(
+                  opacity: 0.87,
+                  child: CircleAvatar(
+                    radius: UIDefine.getScreenWidth(8),
+                    backgroundColor: Colors.white,
+                    child: Icon(Icons.play_arrow, color: Colors.black, size: UIDefine.getScreenWidth(8),
+                    ),
+                  ),
+                ),
+              ]),
+            ),
+          )
+              : Container(),
+        ));
+    }else{
+      return Container();
+    }
+
   }
 
   void _onStop() {
@@ -198,7 +133,14 @@ class _HomeSubVideoViewState extends State<HomeSubVideoView> {
   }
 
   void _onStart() {
-    _videoController.seekTo(const Duration(seconds: 0)).then((value) => _videoController.play().then((value) => setState(() {})));
+    if(!_videoController.value.isPlaying){
+      _videoController.seekTo(const Duration(seconds: 0)).then((value) {
+        _videoController.play().then((value) {
+          setState(() {});
+        });
+      });
+    }
+    // _videoController.seekTo(const Duration(seconds: 0)).then((value) => _videoController.play().then((value) => setState(() {})));
   }
 
   String _getImagePath() {

@@ -25,6 +25,8 @@ import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
 import 'package:treasure_nft_project/widgets/list_view/home/artist_record_listview.dart';
 import 'package:treasure_nft_project/widgets/text_field/login_text_widget.dart';
 import '../../constant/enum/setting_enum.dart';
+import '../../models/http/api/home_api.dart';
+import '../../models/http/http_setting.dart';
 import '../../view_models/home/provider/home_artist_random_provider.dart';
 import '../../view_models/home/provider/home_carousel_provider.dart';
 import '../../view_models/home/provider/home_collect_random_provider.dart';
@@ -55,6 +57,7 @@ class _HomeMainViewState extends ConsumerState<HomeMainView>
 
   @override
   void initState() {
+    print("again");
     scrollController.addListener(() {
       if (viewModel.needRecordAnimation) {
         bool show = scrollController.offset > UIDefine.getPixelHeight(1275);
@@ -76,7 +79,6 @@ class _HomeMainViewState extends ConsumerState<HomeMainView>
     ref.read(homeCollectRankProvider.notifier).init();
     ref.read(homeCollectRandomProvider.notifier).init();
     ref.read(homeContactInfoProvider.notifier).init();
-    ref.read(homeFilmProvider.notifier).init();
 
     ref.read(homeDisCoverTagsProvider.notifier).init(onFinish: () {
       if (ref.read(homeDisCoverTagsProvider).isNotEmpty) {
@@ -99,7 +101,6 @@ class _HomeMainViewState extends ConsumerState<HomeMainView>
 
   @override
   Widget build(BuildContext context) {
-    final filmData = ref.watch(homeFilmProvider);
     return GestureDetector(
       onTap: () => viewModel.clearAllFocus(),
       child: Stack(
@@ -123,12 +124,13 @@ class _HomeMainViewState extends ConsumerState<HomeMainView>
                 // Consumer(builder: (BuildContext context,
                 //     WidgetRef ref, Widget? child) {
                 //   final filmData = ref.watch(homeFilmProvider);
-                //   return filmData[0].link.isEmpty||filmData[0].link == null?
+                //   // print("the first url is: ${filmData[0].link}");
+                //   return filmData.isEmpty||filmData[0].link.isEmpty?
                 //   Container():HomeSubUsdtView(data: filmData);
                 // }),
-                filmData.isEmpty ?
-                  Container():HomeSubUsdtView(data: filmData),
-
+                // filmData.isEmpty?
+                //   Container(): HomeSubUsdtView(data: filmData),
+                HomeSubUsdtView(),
 
                 buildSpace(height: 3),
 

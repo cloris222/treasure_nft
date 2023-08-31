@@ -162,18 +162,16 @@ class HomeAPI extends HttpManager {
   ///MARK 查詢影片
   Future<List<HomeFilmData>> getFilm({String? page,String? size, String? lang}) async {
     List<HomeFilmData> data = <HomeFilmData>[];
-    ApiResponse response = await get('/index/content/film',queryParameters: {
-      "page": page,
-      "size": size,
-      "lang": lang,
-    });
-    try{
+    ApiResponse response = await get('/index/content/film'
+        ,queryParameters: {
+        "page": 1,
+        "size": 20,
+        "lang": lang,
+      }
+      );
       for(Map<String,dynamic> json in response.data["pageList"]){
         data.add(HomeFilmData.fromJson(json));
       }
-    }catch(e){
-      GlobalData.printLog(e.toString());
-    }
     return data;
   }
 }

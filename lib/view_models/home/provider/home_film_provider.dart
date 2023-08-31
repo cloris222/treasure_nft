@@ -1,10 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:treasure_nft_project/models/http/api/home_api.dart';
+import 'package:treasure_nft_project/models/http/http_setting.dart';
 import 'package:treasure_nft_project/models/http/parameter/trading_volume_data.dart';
 import 'package:treasure_nft_project/utils/app_shared_Preferences.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 
 import '../../../constant/call_back_function.dart';
 import '../../../models/http/parameter/home_film_data.dart';
+import '../../../utils/language_util.dart';
 import '../../base_pref_provider.dart';
 
 
@@ -18,9 +22,11 @@ StateNotifierProvider<HomeFilmNotifier, List<HomeFilmData>>((ref) {
 class HomeFilmNotifier extends StateNotifier<List<HomeFilmData>>
     with BasePrefProvider {
   HomeFilmNotifier() : super([]);
+  WidgetRef? ref;
 
   @override
   Future<void> initProvider() async{
+    state = [];
   }
 
   @override
@@ -30,7 +36,8 @@ class HomeFilmNotifier extends StateNotifier<List<HomeFilmData>>
 
   @override
   Future<void> readAPIValue({ResponseErrorFunction? onConnectFail}) async {
-    state = [...await HomeAPI(onConnectFail: onConnectFail).getFilm()];
+    String lang = LanguageUtil.getAnnouncementLanguage();
+    state =  await HomeAPI().getFilm(lang: lang);
   }
 
   @override
