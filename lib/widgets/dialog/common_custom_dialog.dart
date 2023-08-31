@@ -98,11 +98,14 @@ class CommonCustomDialog extends BaseDialog {
 
   Widget _getButton() {
     if (bOneButton) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _solidButton(),
-        ],
+      return Padding(
+        padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(50)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(child: _solidButton()),
+          ],
+        ),
       );
     } else {
       return Row(

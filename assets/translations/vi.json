@@ -550,9 +550,6 @@
   "serviveFee":"phí xử lý",
   "creatorFee":"hoàng gia",
   "fees":"Giá cả",
-  "enterEmail_verify":"Vui lòng nhập mã xác minh email của bạn",
-  "enterPhone_verify":"Vui lòng nhập mã xác minh điện thoại di động của bạn",
-  "enterGoogle_verify":"Vui lòng nhập mã xác minh Google của bạn",
   "confirm-address'":"Vui lòng xác nhận địa chỉ ví của bạn",
   "sorry":"Cảm thấy có lỗi",
   "withdrawAddress":"Địa chỉ (TRC-20)",
@@ -1469,5 +1466,7 @@
   "enterPhone_verify":"Vui lòng nhập mã xác minh điện thoại di động của bạn",
   "enterGoogle_verify":"Vui lòng nhập mã xác minh Google của bạn",
   "nickname(Optional)":"Vui lòng nhập mã xác minh Google của bạn",
-  "referralCode(Optional)":"Vui lòng nhập mã xác minh Google của bạn"
+  "referralCode(Optional)":"Vui lòng nhập mã xác minh Google của bạn",
+  "APP_0104":"Do tác động của các quy định pháp lý địa phương, không thể sử dụng nó. Chúng tôi xin lỗi vì bất cứ sự bất tiện nào.",
+  "notAvailable":"Không thể sử dụng."
 }

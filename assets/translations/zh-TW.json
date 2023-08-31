@@ -550,9 +550,6 @@
   "serviveFee":"手續費",
   "creatorFee":"版費",
   "fees":"費用",
-  "enterEmail_verify":"請輸入您的信箱驗證碼",
-  "enterGoogle_verify":"請輸入您的手機驗證碼",
-  "enterPhone_verify":"請輸入您的Google驗證碼",
   "confirm-address'":"請確認您的錢包地址",
   "sorry":"抱歉",
   "withdrawAddress":"地址(TRC-20)",
@@ -1469,5 +1466,7 @@
   "enterPhone_verify":"請輸入您的手機驗證碼",
   "enterGoogle_verify":"請輸入您的Google驗證碼",
   "nickname(Optional)":"暱稱(選填)",
-  "referralCode(Optional)":"邀請碼(選填)"
+  "referralCode(Optional)":"邀請碼(選填)",
+  "APP_0104":"受制於當地法律規範的影響，所以無法使用，敬請見諒。",
+  "notAvailable":"無法使用"
 }

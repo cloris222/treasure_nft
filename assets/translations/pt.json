@@ -550,9 +550,6 @@
   "serviveFee":"Taxa de manuseamento",
   "creatorFee":"Royalty",
   "fees":"Taxas",
-  "enterEmail_verify":"Por favor introduza o código de verificação da sua caixa de correio",
-  "enterPhone_verify":"Por favor introduza o código de verificação do seu telemóvel",
-  "enterGoogle_verify":"Por favor introduza o seu código de verificação Google",
   "confirm-address'":"Por favor, confirme o endereço da sua carteira",
   "sorry":"Desculpe",
   "withdrawAddress":"Endereço (TRC-20)",
@@ -1469,5 +1466,7 @@
   "enterPhone_verify":"Por favor introduza o código de verificação do seu telemóvel",
   "enterGoogle_verify":"Por favor introduza o seu código de verificação Google",
   "nickname(Optional)":"Por favor introduza o seu código de verificação Google",
-  "referralCode(Optional)":"Por favor introduza o seu código de verificação Google"
+  "referralCode(Optional)":"Por favor introduza o seu código de verificação Google",
+  "APP_0104":"Devido ao impacto dos regulamentos legais locais, não é possível usá -lo. Pedimos desculpas por qualquer inconveniente.",
+  "notAvailable":"Incapaz de usar."
 }

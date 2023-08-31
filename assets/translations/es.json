@@ -550,9 +550,6 @@
   "serviveFee":"Tasa de tramitación",
   "creatorFee":"Derechos de autor",
   "fees":"Tasas",
-  "enterEmail_verify":"Por favor, introduzca el código de verificación de su buzón",
-  "enterGoogle_verify":"Introduzca el código de verificación de su teléfono móvil",
-  "enterPhone_verify":"Introduce tu código de verificación de Google",
   "confirm-address'":"Por favor, confirme la dirección de su cartera",
   "sorry":"Lo siento",
   "withdrawAddress":"Dirección (TRC-20)",
@@ -1469,5 +1466,7 @@
   "enterPhone_verify":"Introduzca el código de verificación de su teléfono móvil",
   "enterGoogle_verify":"Introduce tu código de verificación de Google",
   "nickname(Optional)":"Introduce tu código de verificación de Google",
-  "referralCode(Optional)":"Introduce tu código de verificación de Google"
+  "referralCode(Optional)":"Introduce tu código de verificación de Google",
+  "APP_0104":"Debido al impacto de las regulaciones legales locales, no es posible usarlo. Nos disculpamos por cualquier inconveniente.",
+  "notAvailable":"Incapaz de usar."
 }

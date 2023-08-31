@@ -550,9 +550,6 @@
   "serviveFee":"수속비",
   "creatorFee":"로열티",
   "fees":"비용",
-  "enterEmail_verify":"우편번호 인증코드를 입력해주세요",
-  "enterPhone_verify":"핸드폰 인증코드를 입력해주세요",
-  "enterGoogle_verify":"Google인증코드를 입력해주세요",
   "confirm-address'":"지갑 주소 확인하세요",
   "sorry":"죄송합니다",
   "withdrawAddress":"주소(TRC-20)",
@@ -1469,5 +1466,7 @@
   "enterPhone_verify":"핸드폰 인증코드를 입력해주세요",
   "enterGoogle_verify":"Google인증코드를 입력해주세요",
   "nickname(Optional)":"Google인증코드를 입력해주세요",
-  "referralCode(Optional)":"Google인증코드를 입력해주세요"
+  "referralCode(Optional)":"Google인증코드를 입력해주세요",
+  "APP_0104":"지역 법률 규정의 영향으로 인해 사용할 수 없습니다. 불편을 끼쳐 드려 죄송합니다.",
+  "notAvailable":"사용할 수 없습니다."
 }
