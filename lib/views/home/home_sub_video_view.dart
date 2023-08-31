@@ -132,13 +132,13 @@ class _HomeSubVideoViewState extends ConsumerState<HomeSubVideoView> {
   }
 
   void _onStart() {
-    if(!_videoController.value.isPlaying){
+    // if(!_videoController.value.isPlaying){
       _videoController.seekTo(const Duration(seconds: 0)).then((value) {
         _videoController.play().then((value) {
           setState(() {});
         });
       });
-    }
+    // }
     // _videoController.seekTo(const Duration(seconds: 0)).then((value) => _videoController.play().then((value) => setState(() {})));
   }
 
