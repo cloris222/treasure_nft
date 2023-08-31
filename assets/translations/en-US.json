@@ -550,9 +550,6 @@
   "serviveFee":"Service Fee",
   "creatorFee":"Royalty",
   "fees":"Fees",
-  "enterEmail_verify":"Enter your email verification code",
-  "enterGoogle_verify":"Enter your mobile verification code",
-  "enterPhone_verify":"Enter your Google verification code",
   "confirm-address'":"Enter your wallet address",
   "sorry":"Sorry",
   "withdrawAddress":"Address (TRC20)",
@@ -1469,5 +1466,7 @@
   "enterPhone_verify":"Enter your mobile verification code",
   "enterGoogle_verify":"Enter your Google verification code",
   "nickname(Optional)":"Nickname (optional)",
-  "referralCode(Optional)":"Invitation Code (optional)"
+  "referralCode(Optional)":"Invitation Code (optional)",
+  "APP_0104":"Due to the impact of local legal regulations, it is not possible to use it. We apologize for any inconvenience.",
+  "notAvailable":"Unable to use."
 }

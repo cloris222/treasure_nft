@@ -550,9 +550,6 @@
   "serviveFee":"کارمزد",
   "creatorFee":"حق امتیاز",
   "fees":"هزینه",
-  "enterEmail_verify":"لطفا کد تایید ایمیل خود را وارد کنید",
-  "enterGoogle_verify":"لطفاً کد تأیید تلفن همراه خود را وارد کنید",
-  "enterPhone_verify":"لطفاً کد تأیید Google خود را وارد کنید",
   "confirm-address'":"لطفا آدرس کیف پول خود را تایید کنید",
   "sorry":"متاسفم",
   "withdrawAddress":"آدرس (TRC-20)",
@@ -1469,5 +1466,7 @@
   "enterPhone_verify":"لطفاً کد تأیید تلفن همراه خود را وارد کنید",
   "enterGoogle_verify":"لطفاً کد تأیید Google خود را وارد کنید",
   "nickname(Optional)":"لطفاً کد تأیید Google خود را وارد کنید",
-  "referralCode(Optional)":"لطفاً کد تأیید Google خود را وارد کنید"
+  "referralCode(Optional)":"لطفاً کد تأیید Google خود را وارد کنید",
+  "APP_0104":"با توجه به تأثیر مقررات قانونی محلی ، استفاده از آن امکان پذیر نیست. برای هرگونه ناهماهنگی عذر می طلبیم.",
+  "notAvailable":"استفاده نمی شود."
 }

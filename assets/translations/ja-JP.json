@@ -550,9 +550,6 @@
     "serviveFee":"手数料",
     "creatorFee":"著作権",
     "fees":"費用",
-    "enterEmail_verify":"メールボックスの確認コードを入力してください",
-    "enterGoogle_verify":"携帯電話の認証コードを入力してください",
-    "enterPhone_verify":"Google 確認コードを入力してください",
     "confirm-address'":"ウォレットアドレスを確認してください",
     "sorry":"気の毒だと思う",
     "withdrawAddress":"アドレス（TRC-20）",
@@ -1470,5 +1467,7 @@
     "enterPhone_verify":"携帯電話の認証コードを入力してください",
     "enterGoogle_verify":"Google 確認コードを入力してください",
     "nickname(Optional)":"Google 確認コードを入力してください",
-    "referralCode(Optional)":"Google 確認コードを入力してください"
+    "referralCode(Optional)":"Google 確認コードを入力してください",
+    "APP_0104":"現地の法的規制の影響により、それを使用することはできません。ご不便をおかけして申し訳ございません。",
+    "notAvailable":"使用できません。"
 }

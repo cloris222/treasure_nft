@@ -550,9 +550,6 @@
   "serviveFee":"Ağ Ücreti",
   "creatorFee":"Telif",
   "fees":"İşlem ücreti",
-  "enterEmail_verify":"Doğrulama Kodunu Girin",
-  "enterPhone_verify":"Doğrulama Kodunu Girin",
-  "enterGoogle_verify":"Google Doğrulama Kodunuzu Girin",
   "confirm-address'":"Cüzdan Adresinizi Girin",
   "sorry":"Afedersiniz",
   "withdrawAddress":"Trc-20 Adresi",
@@ -1377,9 +1374,6 @@
   "route":"Rota",
 
 
-
-
-
   "--//app use":"---",
   "goPermissionSetting":"Tarama işlevi, telefonunuzda kamera izni gerektirir. Açmak için telefon ayarlarına git?",
   "ticketValue":"Bilet değeri",
@@ -1469,5 +1463,7 @@
   "enterPhone_verify":"Doğrulama Kodunu Girin",
   "enterGoogle_verify":"Google Doğrulama Kodunuzu Girin",
   "nickname(Optional)":"Google Doğrulama Kodunuzu Girin",
-  "referralCode(Optional)":"Google Doğrulama Kodunuzu Girin"
+  "referralCode(Optional)":"Google Doğrulama Kodunuzu Girin",
+  "APP_0104":"Yerel yasal düzenlemelerin etkisi nedeniyle, onu kullanmak mümkün değildir. Verdiğimiz rahatsızlıktan dolayı özür dileriz.",
+  "notAvailable":"Kullanılamıyor."
 }
