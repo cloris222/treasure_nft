@@ -8,7 +8,6 @@ import 'package:treasure_nft_project/models/http/parameter/home_film_data.dart';
 import 'package:treasure_nft_project/utils/language_util.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../../constant/enum/setting_enum.dart';
 import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_image_path.dart';
