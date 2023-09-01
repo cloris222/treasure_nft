@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,6 +9,7 @@ import 'package:treasure_nft_project/views/wallet/data/aisle_type_data.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
 import '../../constant/theme/app_image_path.dart';
 import '../../constant/ui_define.dart';
+import '../../utils/number_format_util.dart';
 import '../../view_models/wallet/wallet_aisle_provider.dart';
 import '../../view_models/wallet/wallet_fiat_currency_provider.dart';
 import '../../view_models/wallet/wallet_fiat_deposit_viewmodel.dart';
@@ -71,12 +73,10 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
                               vertical: UIDefine.getPixelWidth(20)),
                           child: _buildBackground(child: _buildBody(context, false)),
                         ),
-
                         Positioned(
                             top: -25,
                             right: -1,
                             child: Image.asset(AppImagePath.walletDepositDollar)),
-
                         Padding(
                           padding: EdgeInsets.symmetric(
                               vertical: UIDefine.getPixelWidth(15)),
@@ -143,21 +143,22 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
 
   Widget _buildContext() {
     return Container(
-        // padding: EdgeInsets.symmetric(
-        //     horizontal: UIDefine.getPixelWidth(20)),
+        padding: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(5)),
         constraints: BoxConstraints(maxHeight: UIDefine.getPixelWidth(365)),//內容高
         width: UIDefine.getWidth(),
-        child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              _buildFirstDrop(),
-              _buildSecondDrop(),
-              _buildThirdDrop(),
-              _buildAmount(),
-              _buildMinMaxButton(),
-              _buildRate(),
-              _buildEarn(),
-        ])
+        child: SingleChildScrollView(
+          child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                _buildFirstDrop(),
+                _buildSecondDrop(),
+                _buildThirdDrop(),
+                _buildAmount(),
+                _buildMinMaxButton(),
+                _buildRate(),
+                _buildEarn(),
+          ]),
+        )
     );
   }
 
@@ -189,6 +190,7 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
                 ref.read(walletAisleTypeProvider.notifier).init();
               });
 
+
             }));
   }
 
@@ -206,12 +208,13 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
         hintSelect: tr("chooseAPaymentMethod"),
         listLength: payTypeList.length,
         itemString: (int index, bool needArrow) => payTypeList[index].type,
+        dropdownHeight: UIDefine.getPixelHeight(300),
         onChanged: (index) {
-          ref.read(currentPayTypeProvider.notifier).state = payTypeList[index];
+          ref.read(currentPayTypeProvider.notifier).update((state) =>  payTypeList[index]) ;
           ref.read(payTypeCurrentIndexProvider.notifier)
               .update((state) => index);
-          aisleList.clear();
 
+          aisleList.clear();
           viewModel.onTextChange();
 
           ref.read(walletAisleTypeProvider.notifier).setRefAndVM(ref, viewModel);
@@ -292,7 +295,7 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
             needWhiteBackground: true,
             height: UIDefine.getPixelWidth(30),
             margin:EdgeInsets.only(right: UIDefine.getPixelHeight(4)),
-            btnText: '${tr("minimum")} ${viewModel.getMinText()}',
+            btnText: '${tr("minimum")} ${NumberFormatUtil().numberCompatFormat(viewModel.getMinText().replaceAll(',', ''))}',
             onPressed: () => viewModel.onMinimum(),
             isFillWidth: false,
             fontWeight: FontWeight.w600,
@@ -305,7 +308,7 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
             needWhiteBackground: true,
             height: UIDefine.getPixelWidth(30),
             margin:EdgeInsets.only(left: UIDefine.getPixelHeight(4)),
-            btnText: '${tr("maximum")} ${viewModel.getMaxText()}',
+            btnText: '${tr("maximum")} ${NumberFormatUtil().numberCompatFormat(viewModel.getMaxText().replaceAll(',', ''))}',
             onPressed: () => viewModel.onMaximum(),
             isFillWidth: false,
             fontWeight: FontWeight.w600,
