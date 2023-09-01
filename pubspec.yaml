@@ -81,6 +81,7 @@ dependencies:
   flutter_html: 3.0.0-beta.2
   firebase_crashlytics: ^3.3.3
   device_info_plus: ^9.0.2
+  dots_indicator: ^3.0.0
 
 
 dev_dependencies:

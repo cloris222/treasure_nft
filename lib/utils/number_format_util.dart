@@ -81,7 +81,6 @@ class NumberFormatUtil {
       locale: 'en_US',
       symbol: '',
     ).format(double.parse(value));
-
     return formattedNumber;
   }
 }
