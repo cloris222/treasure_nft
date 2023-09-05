@@ -27,7 +27,7 @@ class HttpSetting {
       "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDPPrcA1ZO5YmIPDqq/fBp6wQl3y1sAuVQhiTFmVLuUTh2euLZVFE2QzPLmY+9J+uxdLJrvXKWgQA8z5rC8TJrd41jxWdADH8D931UHm50lmZJcA8JEpTNEnXUkX5aR8kJWcy59ogGsE/cCu2+xzfkQOu9urc12dyw1zaPDVqQRSwIDAQAB";
   static const String homeAdUrl = 'https://devimage.treasurenft.xyz/video/index_video_{lang}.mp4';
   static const String systemTimeZone = 'GMT+8';
-  static const String pcArtistUrl = 'https://dev.treasurenft.xyz/#/userMap/exploreCreator?id={artistId}';
+  static const String pcArtistUrl = 'https://dev2.treasurenft.xyz/#/userMap/exploreCreator?id={artistId}';
 
   static const bool debugMode = true;
   static const bool printDebugLog = true;
