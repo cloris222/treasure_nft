@@ -17,92 +17,133 @@ class ImgTitleDialog extends BaseDialog{
         this.mainText,
         this.subText = '',
         required this.img,
+        required this.isNetWorkImg,///圖片是否netWork
         this.mainTextSize,
         this.mainMargin = const EdgeInsets.only(top: 10, bottom: 10),
         this.buttonMargin = const EdgeInsets.only(top: 10),
-        this.singleBottom = false,
-        this.wordImg = "",
+        this.singleBottom = false,///單一按鈕
+        this.needBackColor = false,///圖片與副文背景色
+        this.wordImg = "",///副文圖片
         this.onLeftPress,
         this.onRightPress,
+        this.imgUp = true,///圖片在主文上
   }):super(context, isDialogCancel: false);
 
   String? mainText;
   String subText;
   double? mainTextSize;
   String img;
+  bool isNetWorkImg;
   bool singleBottom;
+  bool needBackColor;
   String wordImg;
   EdgeInsetsGeometry mainMargin, buttonMargin;
   Function? onLeftPress;
   Function? onRightPress;
+  bool imgUp;
 
   @override
   Widget initContent(BuildContext context, StateSetter setState, WidgetRef ref){
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(15)),
+      child: needBackColor?
+          _haveBackColorStyle(context):_noBackColorStyle(context),
+    );
+  }
+
+
+  Widget _haveBackColorStyle(BuildContext context){
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
-        createImageWidget(asset: img),
+        imgUp? _buildImg(context) : _buildTitle(context),
         Container(
-          margin: mainMargin,
-          child: Text(mainText ?? '${tr('success')} !',
-              textAlign: TextAlign.center,
-              style: AppTextStyle.getBaseStyle(
-                  color: AppColors.textBlack,
-                  fontSize: mainTextSize ?? UIDefine.fontSize16,
-                  fontWeight: FontWeight.w600)),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+            color: AppColors.animateBackGrey,
+          ),
+          // margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(5),vertical: UIDefine.getPixelWidth(16)),
+          padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(5),vertical: UIDefine.getPixelWidth(10)),
+          child: Column(
+            children: [
+              imgUp? _buildTitle(context):_buildImg(context),
+              _buildSub(context),
+            ],
+          ),
         ),
-        subText.isNotEmpty ?
-         Padding(
-          padding: EdgeInsets.symmetric(vertical: 10,horizontal: UIDefine.getPixelWidth(30)),
-            child: wordImg.isNotEmpty?
-            RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                text: subText, // Your text here
-                style: DefaultTextStyle.of(context).style, // Use the default text style
-                children: <InlineSpan>[
-                  WidgetSpan(
-                    child: Padding(
-                      padding: EdgeInsets.only(top: UIDefine.getPixelWidth(0)),
-                      child: Image.asset(wordImg,
-                        height: 16,width: 16,),
-                    ),
-                  ),
-                ],
-              ),
-            ):
-            Text(subText,
-              textAlign: TextAlign.center,
-              style: AppTextStyle.getBaseStyle(
-                color: AppColors.textThreeBlack,
-                fontSize: UIDefine.fontSize14)),
-        ): const Text(''),
         Container(
-          margin: buttonMargin,
-          child: singleBottom?
-              _singlePart(context):_notSinglePart(context)
+            margin: buttonMargin,
+            child: singleBottom?
+            _singlePart(context):_notSinglePart(context)
         )
       ]);
+  }
+
+  Widget _noBackColorStyle(BuildContext context){
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        imgUp? _buildImg(context) : _buildTitle(context),
+        imgUp? _buildTitle(context): _buildImg(context),
+        _buildSub(context),
+        Container(
+            margin: buttonMargin,
+            child: singleBottom?
+            _singlePart(context):_notSinglePart(context)
+        )
+      ]);
+  }
+
+  Widget _buildSub(BuildContext context){
+    return subText.isNotEmpty ?
+    Padding(
+      padding: EdgeInsets.symmetric(vertical: 10,horizontal: UIDefine.getPixelWidth(30)),
+      child: wordImg.isNotEmpty?
+      RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(
+          text: subText, // Your text here
+          style: DefaultTextStyle.of(context).style, // Use the default text style
+          children: <InlineSpan>[
+            WidgetSpan(
+              child: Padding(
+                padding: EdgeInsets.only(top: UIDefine.getPixelWidth(0)),
+                child: Image.asset(wordImg,
+                  height: 16,width: 16,),
+              ),
+            ),
+          ],
+        ),
+      ):
+      Text(subText,
+          textAlign: TextAlign.center,
+          style: AppTextStyle.getBaseStyle(
+              color: AppColors.textThreeBlack,
+              fontSize: UIDefine.fontSize14)),
+    ): const Text('');
   }
   
   Widget _singlePart(BuildContext context){
     return  Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        LoginButtonWidget(
-          height: UIDefine.getPixelWidth(38),
-          width: UIDefine.getPixelWidth(109),
-          isFillWidth: false,
-          btnText: tr("check"),
-          onPressed: (){
-            if(onRightPress != null){
-              Navigator.pop(context);
-              onRightPress!();
-            }else{
-              Navigator.pop(context);
+        Expanded(
+          child: LoginButtonWidget(
+            height: UIDefine.getPixelWidth(38),
+            width: UIDefine.getPixelWidth(109),
+            isFillWidth: false,
+            btnText: tr("check"),
+            onPressed: (){
+              if(onRightPress != null){
+                Navigator.pop(context);
+                onRightPress!();
+              }else{
+                Navigator.pop(context);
+              }
             }
-          }
+          ),
         ),
       ],
     );
@@ -148,6 +189,24 @@ class ImgTitleDialog extends BaseDialog{
         )
       ],
     );
+  }
+
+  Widget _buildTitle(BuildContext context){
+    return Container(
+      margin: mainMargin,
+      child: Text(mainText ?? '${tr('success')} !',
+          textAlign: TextAlign.center,
+          style: AppTextStyle.getBaseStyle(
+              color: AppColors.textBlack,
+              fontSize: mainTextSize ?? UIDefine.fontSize16,
+              fontWeight: FontWeight.w600)),
+    );
+  }
+
+  Widget _buildImg(BuildContext context){
+    return isNetWorkImg?
+      Image.network(img,height: UIDefine.getPixelWidth(140),width: UIDefine.getPixelWidth(140),):
+      createImageWidget(asset: img);
   }
 
   @override

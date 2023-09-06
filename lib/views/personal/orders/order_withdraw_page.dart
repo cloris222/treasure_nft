@@ -67,6 +67,7 @@ class _OrderWithdrawPageState extends ConsumerState<OrderWithdrawPage> {
       if (withdrawAlertInfo.hasWithdraw) {
         ImgTitleDialog(context,
             img: AppImagePath.orderNoticeImg,
+            isNetWorkImg: false,
             singleBottom: true,
             onRightPress: () => Navigator.pop(context),
             mainText: tr("withdrawalErrorTitle"),

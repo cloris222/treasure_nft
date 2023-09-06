@@ -220,6 +220,7 @@ class OrderChainWithdrawViewModel extends BaseViewModel {
     .then((value) async {
     //   SimpleCustomDialog(context, mainText: tr('success')).show();
       ImgTitleDialog(context,
+          isNetWorkImg: false,
           img: AppImagePath.orderClockImg,
           wordImg: AppImagePath.questionBtn,
           singleBottom: true,

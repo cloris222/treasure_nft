@@ -22,6 +22,7 @@ import 'package:treasure_nft_project/views/main_page.dart';
 import 'package:treasure_nft_project/views/notify/notify_level_up_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/dialog/common_custom_dialog.dart';
+import 'package:treasure_nft_project/widgets/dialog/img_title_dialog.dart';
 import 'package:treasure_nft_project/widgets/dialog/level_up_one_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wallet_connect_plugin/model/wallet_info.dart';
@@ -315,7 +316,7 @@ class BaseViewModel with ControlRouterViewModel {
   ///MARK: 使用者監聽
   void startUserListener() {
     GlobalData.printLog('---startUserListener');
-    StompSocketUtil().connect(onConnect: _onStompConnect);
+    StompSocketUtil().connect(onConnect: onStompConnect);
 
     ///MARK: v2.1.2 ※因交易多時段，故移除開賣動畫
     // TradeTimerUtil().addListener(_onTradeTimerListener);
@@ -330,7 +331,7 @@ class BaseViewModel with ControlRouterViewModel {
     TradeTimerUtil().stop();
   }
 
-  void _onStompConnect(StompFrame frame) {
+  void onStompConnect(StompFrame frame) {
     ///MARK: 顯示購買成功
     StompSocketUtil().stompClient!.subscribe(
           destination: '/user/notify/${GlobalData.userMemberId}',
@@ -338,7 +339,7 @@ class BaseViewModel with ControlRouterViewModel {
             GlobalData.printLog('${StompSocketUtil().key} ${frame.body}');
             var result = json.decode(frame.body!);
             if (result['toUserId'] == GlobalData.userMemberId) {
-              showBuySuccessAnimate();
+              showBuySuccessAnimate(result);
             }
           },
         );
@@ -382,7 +383,7 @@ class BaseViewModel with ControlRouterViewModel {
         );
   }
 
-  void showBuySuccessAnimate() async {
+  void showBuySuccessAnimate(Map<String,dynamic> data) async {
     if (!GlobalData.bShowBuySuccessAnimate) {
       GlobalData.bShowBuySuccessAnimate = true;
       String? path = AnimationDownloadUtil()
@@ -393,18 +394,33 @@ class BaseViewModel with ControlRouterViewModel {
             FullAnimationPage(
                 isFile: true, animationPath: path, limitTimer: 4));
       }
-      await CommonCustomDialog(
+      await ImgTitleDialog(
         getGlobalContext(),
-        title: tr('buy_remind_title'),
-        content: tr('buy_remind_content'),
-        rightBtnText: tr('gotoPost'),
-        type: DialogImageType.success,
-        onLeftPress: () {},
+        mainText: "${tr("reserve-success'")}",
+        subText: "${data["itemName"]}\n${tr("value")}: ${data["price"]} ",
+        wordImg: 'assets/icon/coins/icon_tether_01.png',
+        isNetWorkImg: true,
+        imgUp: false,
+        img: data["imgUrl"],
+        singleBottom: true,
+        needBackColor: true,
         onRightPress: () {
-          pushAndRemoveUntil(getGlobalContext(),
-              const MainPage(type: AppNavigationBarType.typeCollection));
+          pushAndRemoveUntil(getGlobalContext(),const MainPage(
+              type: AppNavigationBarType.typeCollection));
         },
       ).show();
+      // CommonCustomDialog(
+      //   getGlobalContext(),
+      //   title: tr('buy_remind_title'),
+      //   content: tr('buy_remind_content'),
+      //   rightBtnText: tr('gotoPost'),
+      //   type: DialogImageType.success,
+      //   onLeftPress: () {},
+      //   onRightPress: () {
+      //     pushAndRemoveUntil(getGlobalContext(),
+      //         const MainPage(type: AppNavigationBarType.typeCollection));
+      //   },
+      // ).show();
       GlobalData.bShowBuySuccessAnimate = false;
     }
   }

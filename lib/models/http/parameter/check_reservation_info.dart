@@ -37,6 +37,7 @@ class CheckReservationInfo {
     required this.todayIncome,
     required this.income,
     required this.teamIncome,
+    required this.reserveResults,
     // required this.canReserve,
   });
 
@@ -72,6 +73,8 @@ class CheckReservationInfo {
 
   /// 預約結束日期
   String reserveEndDate;
+  /// 預約結果
+  List<ReserveResults> reserveResults;
 
   num todayIncome;
   num income;
@@ -125,6 +128,8 @@ class CheckReservationInfo {
         todayIncome: json["todayIncome"]??0.0,
         income: json["income"]??0.0,
         teamIncome: json["teamIncome"]??0.0,
+        reserveResults: json["reserveResults"] == null ? [] :
+        List<ReserveResults>.from(json["reserveResults"].map((x) => ReserveResults.fromJson(x)))??[],
         // canReserve: json["canReserve"],
       );
 
@@ -142,8 +147,7 @@ class CheckReservationInfo {
     "reserveCount": reserveCount,
     "balance": balance,
     "reserveBalance": reserveBalance,
-    "reserveRanges":
-        List<dynamic>.from(reserveRanges.map((x) => x.toJson())),
+    "reserveRanges": List<dynamic>.from(reserveRanges.map((x) => x.toJson())),
     // "reserveItems": List<dynamic>.from(reserveItems.map((x) => x.toJson())),
     "reserveStartTime": reserveStartTime,
     "reserveEndTime": reserveEndTime,
@@ -155,6 +159,7 @@ class CheckReservationInfo {
     "todayIncome": todayIncome,
     "income": income,
     "teamIncome": teamIncome,
+    "reserveResults": List<dynamic>.from(reserveResults.map((x) => x.toJson())),
     // "canReserve": canReserve,
   };
 }
@@ -213,4 +218,36 @@ class ReserveRange {
         "lock": lock,
         "rewardRate": rewardRate,
       };
+}
+
+class ReserveResults {
+  ReserveResults({
+    required this.orderNo,
+    required this.itemName,
+    required this.itemPrice,
+    required this.imgUrl,
+    required this.isWin,
+  });
+
+  String orderNo;
+  String itemName;
+  num itemPrice;
+  String imgUrl;
+  bool isWin;
+
+  factory ReserveResults.fromJson(Map<String, dynamic> json) => ReserveResults(
+    orderNo: json["orderNo"]??"",
+    itemName: json["itemName"] ?? "",
+    itemPrice: json["itemPrice"]?? 0,
+    imgUrl: json["imgUrl"]??"",
+    isWin: json["isWin"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "orderNo": orderNo,
+    "itemName": itemName,
+    "itemPrice": itemPrice,
+    "imgUrl": imgUrl,
+    "isWin": isWin,
+  };
 }

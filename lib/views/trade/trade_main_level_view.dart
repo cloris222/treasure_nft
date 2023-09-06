@@ -23,6 +23,7 @@ import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_vo
 import 'package:treasure_nft_project/view_models/trade/provider/trade_time_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/trade_new_main_view_model.dart';
 import 'package:treasure_nft_project/views/main_page.dart';
+import 'package:treasure_nft_project/views/trade/reserve_loading_page.dart';
 import 'package:treasure_nft_project/widgets/app_bottom_navigation_bar.dart';
 import 'package:treasure_nft_project/widgets/button/login_bolder_button_widget.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
@@ -39,6 +40,7 @@ import '../../models/http/parameter/reserve_view_data.dart';
 import '../../models/http/parameter/user_info_data.dart';
 import '../../view_models/gobal_provider/user_info_provider.dart';
 import '../../view_models/trade/provider/trade_reserve_info_provider.dart';
+import '../../widgets/dialog/img_title_dialog.dart';
 
 ///MARK: 交易 切換交易等級&轉轉轉方塊
 class TradeMainLevelView extends ConsumerStatefulWidget {
@@ -448,9 +450,12 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
       _buildDivisionInfoItem(
           title: tr('reservationTime'),
           context: TradeTimerUtil().getReservationTime()),
-      _buildDivisionInfoItem(
-          title: tr('NFTResultTime'),
-          context: TradeTimerUtil().getResultTime()),
+
+      /// MARK: 預約結果
+      // _buildDivisionInfoItem(
+      //     title: tr('NFTResultTime'),
+      //     context: TradeTimerUtil().getResultTime()),
+
       /// Mark 預約金
       // _buildDivisionInfoItem(
       //     title: tr('reservationFee'),
@@ -621,24 +626,18 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
 
   void _onPressReservation(
       UserInfoData userInfo, ExperienceInfo experienceInfo) async {
+
     /// add new reservation
     await viewModel.addNewReservation(
-        context,
-        reserveIndex: reserveDivisionRanges[currentDivisionRangeIndex].index,
-        reserveStartPrice:
-            reserveDivisionRanges[currentDivisionRangeIndex].startPrice,
-        reserveEndPrice:
-            reserveDivisionRanges[currentDivisionRangeIndex].endPrice);
+      context,
+      reserveIndex: reserveDivisionRanges[currentDivisionRangeIndex].index,
+      reserveStartPrice: reserveDivisionRanges[currentDivisionRangeIndex].startPrice,
+      reserveEndPrice: reserveDivisionRanges[currentDivisionRangeIndex].endPrice);
 
     /// if reservation success 預約狀態 = true
     reserveDivisionRanges[currentDivisionRangeIndex].used = true;
-    ref
-        .read(tradeReserveInfoProvider)
-        ?.reserveRanges[currentDivisionRangeIndex]
-        .used = true;
-    await ref
-        .read(tradeReserveInfoProvider.notifier)
-        .setSharedPreferencesValue();
+    ref.read(tradeReserveInfoProvider)?.reserveRanges[currentDivisionRangeIndex].used = true;
+    await ref.read(tradeReserveInfoProvider.notifier).setSharedPreferencesValue();
 
     _onDivisionChange(
         rangeIndex: currentDivisionRangeIndex,
@@ -646,17 +645,14 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
   }
 
   void _onDivisionChange({required int divisionIndex, int rangeIndex = 0}) {
-    GlobalData.printLog(
-        'mainTrade_onDivisionChange:divisionIndex=$divisionIndex,rangeIndex=$rangeIndex');
+    GlobalData.printLog('mainTrade_onDivisionChange:divisionIndex=$divisionIndex,rangeIndex=$rangeIndex');
 
     ///MARK: 初始化drop button
     ref.read(tradeCurrentRangeIndexProvider.notifier).state = rangeIndex;
     ref.read(tradeCurrentDivisionIndexProvider.notifier).state = divisionIndex;
 
     ///MARK: 設定對應值給查詢區間內的資料
-    ref
-        .read(tradeReserveInfoProvider.notifier)
-        .setCurrentChoose(reserveDivision[divisionIndex], null, null);
+    ref.read(tradeReserveInfoProvider.notifier).setCurrentChoose(reserveDivision[divisionIndex], null, null);
 
     ///MARK:查詢此區間
     ref.read(tradeReserveInfoProvider.notifier).init(onFinish: () {
@@ -670,9 +666,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
   void _onRangeChange({required int rangeIndex}) {
     GlobalData.printLog('mainTrade_onRangeChange:rangeIndex=$rangeIndex');
     ref.read(tradeCurrentRangeIndexProvider.notifier).state = rangeIndex;
-    ref
-        .read(tradeReserveVolumeProvider.notifier)
-        .setDivisionIndex(reserveDivisionRanges[rangeIndex].index);
+    ref.read(tradeReserveVolumeProvider.notifier).setDivisionIndex(reserveDivisionRanges[rangeIndex].index);
     ref.read(tradeReserveVolumeProvider.notifier).init();
     ref.read(tradeReserveCoinProvider.notifier).setSelectValue(
         reserveDivisionRanges[rangeIndex].index,

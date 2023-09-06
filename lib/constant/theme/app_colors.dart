@@ -12,6 +12,7 @@ class AppColors {
   static const Color textNineBlack = Color(0xFF999999);
   static const Color textGrey = Color(0xFF7A7C7D);
   static const Color textHintGrey = Color(0xFFC1C1C1);
+  static const Color animateBackGrey = Color(0xFFF1F1F1);
   static const Color indicatorGrey = Color(0XFF959292);
   static const Color dialogGrey = Color(0xFF8797B0);
   static const Color dialogBlack = Color(0xFF3D4045);

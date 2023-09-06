@@ -33,31 +33,34 @@ class _AirdropGetBoxPageState extends ConsumerState<AirdropGetBoxPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: AppColors.opacityBackground,
-        body: GestureDetector(
-            onTap: () => BaseViewModel().popPage(context),
-            child: Container(
-                constraints: const BoxConstraints.expand(),
-                color: Colors.transparent,
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Center(
-                    child: Stack(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: UIDefine.getPixelWidth(20)),
-                          child: _buildBackground(child: _buildBody(context)),
-                        ),
-                        Positioned(
-                            top: 0,
-                            right: 0,
-                            child: Image.asset(AppImagePath.airdropBoxIcon)),
-                      ],
-                    ),
+    return WillPopScope(
+      onWillPop: () async{
+        return false;
+      },
+      child: Scaffold(
+          backgroundColor: AppColors.opacityBackground,
+          body: Container(
+              constraints: const BoxConstraints.expand(),
+              color: Colors.transparent,
+              child: GestureDetector(
+                onTap: () {},
+                child: Center(
+                  child: Stack(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: UIDefine.getPixelWidth(20)),
+                        child: _buildBackground(child: _buildBody(context)),
+                      ),
+                      Positioned(
+                          top: 0,
+                          right: 0,
+                          child: Image.asset(AppImagePath.airdropBoxIcon)),
+                    ],
                   ),
-                ))));
+                ),
+              ))),
+    );
   }
 
   Widget _buildBackground({required Widget child}) {

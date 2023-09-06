@@ -194,38 +194,41 @@ class _AnnouncementDialogPageState extends ConsumerState<AnnouncementDialogPage>
   }
 
   Widget _buildAnnounceView(AnnounceData data){
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Html(
-          data: data.title,
-          style: {
-            "*": Style(
-              fontSize: FontSize(UIDefine.fontSize12),
-              color: AppColors.textBlack,
-              fontWeight: FontWeight.w600,
-              padding: HtmlPaddings.zero,
-              fontFamily: AppTextFamily.PosteramaText.name,
-            ),
-          },
-        ),
-        SizedBox(height: UIDefine.getPixelHeight(8)),
-        Html(
-          data: data.content,
-          onLinkTap: (String? url, Map<String, String> attributes, element) {
-            viewModel.launchInBrowser(url!);
-          },
-          style: {
-            "*": Style(
-              maxLines: 3,
-              fontSize: FontSize(UIDefine.fontSize12),
-              fontWeight: FontWeight.w400,
-              padding: HtmlPaddings.zero,
-              fontFamily: AppTextFamily.PosteramaText.name,
-            ),
-          },
-        ),
-      ],
+    return SingleChildScrollView(
+      physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Html(
+            data: data.title,
+            style: {
+              "*": Style(
+                fontSize: FontSize(UIDefine.fontSize12),
+                color: AppColors.textBlack,
+                fontWeight: FontWeight.w600,
+                padding: HtmlPaddings.zero,
+                fontFamily: AppTextFamily.PosteramaText.name,
+              ),
+            },
+          ),
+          SizedBox(height: UIDefine.getPixelHeight(8)),
+          Html(
+            data: data.content,
+            onLinkTap: (String? url, Map<String, String> attributes, element) {
+              viewModel.launchInBrowser(url!);
+            },
+            style: {
+              "*": Style(
+                maxLines: 3,
+                fontSize: FontSize(UIDefine.fontSize12),
+                fontWeight: FontWeight.w400,
+                padding: HtmlPaddings.zero,
+                fontFamily: AppTextFamily.PosteramaText.name,
+              ),
+            },
+          ),
+        ],
+      ),
     );
   }
 }

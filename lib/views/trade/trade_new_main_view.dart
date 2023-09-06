@@ -43,12 +43,13 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
   @override
   void initState() {
     viewModel = TradeNewMainViewModel(reservationSuccess: () {
-      SuccessDialog(context,
-              callOkFunction: () {},
-              isSuccess: true,
-              mainText: tr("reserve-success'"),
-              subText: tr("reserve-success-text'"))
-          .show();
+      /// MARK: 預約成功通知
+      // SuccessDialog(context,
+      //         callOkFunction: () {},
+      //         isSuccess: true,
+      //         mainText: tr("reserve-success'"),
+      //         subText: tr("reserve-success-text'"))
+      //     .show();
     }, errorMsgDialog: (String mainText, String subText) {
       SuccessDialog(context, callOkFunction: () {}, isSuccess: false, mainText: mainText, subText: subText).show();
     }, ref);

@@ -5,9 +5,11 @@ import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/models/http/api/trade_api.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
+import 'package:treasure_nft_project/view_models/control_router_viem_model.dart';
 import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_info_provider.dart';
 
 import '../../models/http/parameter/check_level_info.dart';
+import '../../views/trade/reserve_loading_page.dart';
 
 class TradeNewMainViewModel extends BaseViewModel {
   TradeNewMainViewModel(this.ref,{required this.reservationSuccess, required this.errorMsgDialog});
@@ -21,7 +23,7 @@ class TradeNewMainViewModel extends BaseViewModel {
     required num reserveStartPrice,
     required num reserveEndPrice,
   }) async {
-    showLoadingPage(context);
+    // showLoadingPage(context);
     /// 確認體驗帳號狀態
     await TradeAPI(onConnectFail: _experienceExpired, showTrString: false).getExperienceInfoAPI().then((value) {
       if (value.isExperience == true && value.status == 'EXPIRED') {
@@ -33,13 +35,14 @@ class TradeNewMainViewModel extends BaseViewModel {
 
     /// 新增預約
     await TradeAPI(onConnectFail: _onAddReservationFail, showTrString: false).postAddNewReservationAPI(
-        type: "PRICE",
-        reserveCount: 1,
-        startPrice: reserveEndPrice,
-        endPrice: reserveStartPrice,
-        priceIndex: reserveIndex);
-
-    closeLoadingPage();
+      type: "PRICE",
+      reserveCount: 1,
+      startPrice: reserveEndPrice,
+      endPrice: reserveStartPrice,
+      priceIndex: reserveIndex).then((value) {
+          ControlRouterViewModel().pushOpacityPage(context, const ReserveLoadingPage());
+      });
+    // closeLoadingPage();
     /// 如果預約成功 會進call back function
     reservationSuccess();
   }
@@ -60,7 +63,7 @@ class TradeNewMainViewModel extends BaseViewModel {
   }
 
   void _onAddReservationFail(String errorMessage) {
-    closeLoadingPage();
+    // closeLoadingPage();
     switch (errorMessage) {
       /// 預約金不足
       case 'APP_0064':
@@ -81,6 +84,12 @@ class TradeNewMainViewModel extends BaseViewModel {
       case 'APP_0069':
         errorMsgDialog(tr("expEnd_title"), format(tr('expEnd_title_hint'), {'amount': ref.watch(beginAmount.notifier).state}));
         break;
+
+      /// 預約次數已達上限
+      case 'APP_0043':
+        errorMsgDialog(tr("reserve-failed'"), tr("reserve-APP_0043'"));
+        break;
+
       default:
         errorMsgDialog(tr("reserve-failed'"), tr(errorMessage));
         break;

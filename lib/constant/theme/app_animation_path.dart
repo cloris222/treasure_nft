@@ -30,6 +30,8 @@ class AppAnimationPath {
 
   /// 購買成功
   static const String buyNFTSuccess = 'purchased_successfully_all.json';
+  /// 等待購買
+  static const String buyNFTLoading = '$animationPathJson/reservation_loading.json';
 
   /// 等級提升
   static const String showLevelUp = 'levelup_01_all.json';
