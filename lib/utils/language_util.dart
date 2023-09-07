@@ -293,8 +293,9 @@ class LanguageUtil {
       return LanguageType.Chinese;
     }else if(locale.languageCode == 'fr' && locale.countryCode == "FR"){
       return LanguageType.Francais;
+    }else if(locale.languageCode == 'bg'){
+      return LanguageType.Bulgaria;
     }
-
     return LanguageType.English;
   }
 
@@ -333,7 +334,7 @@ class LanguageUtil {
       case LanguageType.Francais:
         return tr('lang_fr');
       case LanguageType.Bulgaria:
-        return tr('bg');
+        return tr('lang_bg');
     }
   }
 }
