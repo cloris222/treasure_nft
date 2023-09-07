@@ -1470,5 +1470,8 @@
   "nickname(Optional)":"Vui lòng nhập mã xác minh Google của bạn",
   "referralCode(Optional)":"Vui lòng nhập mã xác minh Google của bạn",
   "APP_0104":"Do tác động của các quy định pháp lý địa phương, không thể sử dụng nó. Chúng tôi xin lỗi vì bất cứ sự bất tiện nào.",
-  "notAvailable":"Không thể sử dụng."
+  "notAvailable":"Không thể sử dụng.",
+  "withdrawalRules":"Quy tắc rút tiền",
+  "withdrawalRulesText-1":"Việc rút tiền thứ hai chỉ có thể được bắt đầu sau khi lần rút tiền đầu tiên được ghi có.",
+  "withdrawalRulesText-2":"Tiền sẽ được ghi có trong vòng 96 giờ sau khi rút tiền."
 }
