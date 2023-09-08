@@ -131,3 +131,15 @@ class TradeAPI extends HttpManager {
     }
   }
 }
+
+class ApiErrorException implements Exception {
+  final String code;
+  final String message;
+  final Map<String, dynamic>? data;
+
+  ApiErrorException({
+    required this.code,
+    required this.message,
+    this.data,
+  });
+}

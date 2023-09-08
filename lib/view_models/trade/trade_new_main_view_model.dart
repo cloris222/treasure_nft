@@ -25,7 +25,7 @@ class TradeNewMainViewModel extends BaseViewModel {
   }) async {
     // showLoadingPage(context);
     /// 確認體驗帳號狀態
-    await TradeAPI(onConnectFail: _experienceExpired, showTrString: false).getExperienceInfoAPI().then((value) {
+    await TradeAPI(onConnectFail: _experienceExpired, showTrString: true).getExperienceInfoAPI().then((value) {
       if (value.isExperience == true && value.status == 'EXPIRED') {
         errorMsgDialog(tr("reserve-failed'"), tr('APP_0057'));
       } else if (value.isExperience == true && value.status == 'DISABLE') {
@@ -72,12 +72,15 @@ class TradeNewMainViewModel extends BaseViewModel {
 
       /// 餘額不足
       case 'APP_0013':
-        errorMsgDialog(tr("reserve-failed'"), tr('APP_0013'));
+        errorMsgDialog(tr("reserve-failed'"), tr('APP_0013')
+        );
         break;
 
       /// 預約金額不符
       case 'APP_0041':
-        errorMsgDialog(tr("reserve-failed'"), tr('APP_0041'));
+        errorMsgDialog(tr("reserve-failed'"),
+            tr('APP_0041')
+        );
         break;
 
       /// 新手帳號交易天數到期

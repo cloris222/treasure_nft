@@ -68,6 +68,7 @@ class StompSocketUtil {
       ),
     );
     stompClient!.activate();
+    print("sockkkkkkkkket");
   }
 
   void disconnect() {

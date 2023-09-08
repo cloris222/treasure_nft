@@ -338,8 +338,11 @@ class BaseViewModel with ControlRouterViewModel {
           callback: (frame) {
             GlobalData.printLog('${StompSocketUtil().key} ${frame.body}');
             var result = json.decode(frame.body!);
-            if (result['toUserId'] == GlobalData.userMemberId) {
+            print("get result: ${result}");
+            if (result['toUserId'] == GlobalData.userMemberId && result["status"] == "SUCCESS") {
               showBuySuccessAnimate(result);
+            }else if(result['toUserId'] == GlobalData.userMemberId && result["status"] == "FAIL"){
+              showBuyFailAnimate(result);
             }
           },
         );
@@ -383,6 +386,19 @@ class BaseViewModel with ControlRouterViewModel {
         );
   }
 
+  void showBuyFailAnimate(Map<String, dynamic> data) async{
+    CommonCustomDialog(
+      getGlobalContext(),
+      type: DialogImageType.fail,
+      title: tr("reserve-failed'"),
+      rightBtnText: tr("confirm"),
+      onRightPress: (){
+        popPage(getGlobalContext());
+      },
+      onLeftPress: (){}
+    ).show();
+  }
+
   void showBuySuccessAnimate(Map<String,dynamic> data) async {
     if (!GlobalData.bShowBuySuccessAnimate) {
       GlobalData.bShowBuySuccessAnimate = true;
@@ -397,7 +413,7 @@ class BaseViewModel with ControlRouterViewModel {
       await ImgTitleDialog(
         getGlobalContext(),
         mainText: "${tr("reserve-success'")}",
-        subText: "${data["itemName"]}\n${tr("value")}: ${data["price"]} ",
+        subText: "${data["itemName"]}\n${tr("price")}: ${data["price"]} ",
         wordImg: 'assets/icon/coins/icon_tether_01.png',
         isNetWorkImg: true,
         imgUp: false,

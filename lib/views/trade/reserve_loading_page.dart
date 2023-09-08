@@ -40,21 +40,19 @@ class ReserveLoadingPage extends StatelessWidget{
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
                           Container(
+                            margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(24)),
+                            height: UIDefine.getPixelHeight(50),
+                            child: buildLoadingAnimation(),
+                          ),
+                          Container(
                               margin: mainMargin,
-                              child: Text("${tr("reservation")}...",
+                              child: Text("${tr("notification-PENDING'")}...",
                                   textAlign: TextAlign.center,
                                   style: AppTextStyle.getBaseStyle(
                                       color: Colors.black,
                                       fontSize: UIDefine.fontSize24,
                                       fontWeight: FontWeight.w700
                                   ))),
-
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelHeight(24)),
-                            height: UIDefine.getPixelHeight(50),
-                            child: buildLoadingAnimation(),
-                          ),
-
                           Container(
                               margin: buttonMargin,
                               child: LoginButtonWidget(
