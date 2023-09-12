@@ -352,7 +352,7 @@
   "bonus":"獎勵",
   "level":"等級",
   "open_A_lv":"邀請A級有效",
-  "open_BC_lv":"邀請ABC級有效",
+  "open_BC_lv":"邀請B+C有效",
   "reach_level_hint":"達到 Level {level} 即可領取 {bonus}({ratio}%)！",
   "Completed":"已完成",
   "tradecount":"交易次數",

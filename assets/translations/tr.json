@@ -352,7 +352,7 @@
   "bonus":"Ödül",
   "level":"Seviye",
   "open_A_lv":"Geçerli A Seviye Kullanıcılar",
-  "open_BC_lv":"Geçerli B ve C Seviye Kullanıcılar",
+  "open_BC_lv":"Geçerli Sınıf B+C Tavsiyeler",
   "reach_level_hint":"{bonus}({ratio}%) talep etmek için {level} seviyesini yükseltin！",
   "Completed":"Tamamlandı",
   "tradecount":"İşlem Sayısı",

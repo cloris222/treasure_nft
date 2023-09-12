@@ -352,7 +352,7 @@
   "bonus":"Bonus",
   "level":"Level",
   "open_A_lv":"Valid Grade A Referrals",
-  "open_BC_lv":"Valid Grade ABC Referrals",
+  "open_BC_lv":"Valid Grade B+C Referrals",
   "reach_level_hint":"Upgrade level {level} to claim {bonus}({ratio}%)！",
   "Completed":"Completed",
   "tradecount":"No. of Trades",

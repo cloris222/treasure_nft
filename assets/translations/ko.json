@@ -352,7 +352,7 @@
   "bonus":"보너스",
   "level":"레벨",
   "open_A_lv":"유효한 A급",
-  "open_BC_lv":"유효한 A+B+C급",
+  "open_BC_lv":"유효한 등급 B+C 추천",
   "reach_level_hint":"{bonus}({ratio}%)를 받으려면 {level} 레벨에 도달하세요!",
   "Completed":"완성",
   "tradecount":"거래차수",

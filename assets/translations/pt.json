@@ -352,7 +352,7 @@
   "bonus":"Recompensa",
   "level":"Níveis",
   "open_A_lv":"Válido para Convite A",
-  "open_BC_lv":"Válido para convites para o Nível A+B+C",
+  "open_BC_lv":"Referências válidas de grau B+C",
   "reach_level_hint":"Alcance o nível {level} para reivindicar {bonus}({ratio}%)！",
   "Completed":"Concluído",
   "tradecount":"Número de transacções",
