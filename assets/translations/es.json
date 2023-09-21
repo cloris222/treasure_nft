@@ -1473,5 +1473,6 @@
   "notAvailable":"Incapaz de usar.",
   "withdrawalRules":"Reglas de retiro",
   "withdrawalRulesText-1":"El segundo retiro solo se puede iniciar después de que se haya acreditado el primer retiro.",
-  "withdrawalRulesText-2":"Los fondos se acreditarán dentro de las 96 horas posteriores al retiro."
+  "withdrawalRulesText-2":"Los fondos se acreditarán dentro de las 96 horas posteriores al retiro.",
+  "Algeria":"Argelia"
 }
