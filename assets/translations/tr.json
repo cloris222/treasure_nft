@@ -1467,5 +1467,8 @@
   "nickname(Optional)":"Google Doğrulama Kodunuzu Girin",
   "referralCode(Optional)":"Google Doğrulama Kodunuzu Girin",
   "APP_0104":"Yerel yasal düzenlemelerin etkisi nedeniyle, onu kullanmak mümkün değildir. Verdiğimiz rahatsızlıktan dolayı özür dileriz.",
-  "notAvailable":"Kullanılamıyor."
+  "notAvailable":"Kullanılamıyor.",
+  "withdrawalRules":"Para çekme kuralları",
+  "withdrawalRulesText-1":"İkinci para çekme işlemi ancak ilk para çekme kredilendirildikten sonra başlatılabilir.",
+  "withdrawalRulesText-2":"Fonlar, para çekilmesinden sonraki 96 saat içinde kredilendirilecektir."
 }

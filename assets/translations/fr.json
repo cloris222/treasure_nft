@@ -1484,5 +1484,8 @@
   "enterPhone_verify":"Enter your mobile verification code",
   "enterGoogle_verify":"Enter your Google verification code",
   "nickname(Optional)":"Nickname (optional)",
-  "referralCode(Optional)":"Invitation Code (optional)"
+  "referralCode(Optional)":"Invitation Code (optional)",
+  "withdrawalRules":"Règles de retrait",
+  "withdrawalRulesText-1":"Le deuxième retrait ne peut être initié qu'après le premier retrait.",
+  "withdrawalRulesText-2":"Les fonds seront crédités dans les 96 heures suivant le retrait."
 }
