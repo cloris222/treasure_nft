@@ -125,6 +125,19 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
   }
 
   @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        _onDivisionChange(divisionIndex: (userInfo.level - 1));
+        // _onRangeChange(rangeIndex: (userInfo.level - 1));
+        // ref.read(tradeCurrentDivisionIndexProvider.notifier).update((state) => (userInfo.level - 1));
+        // ref.read(tradeCurrentRangeIndexProvider.notifier).update((state) => (userInfo.level - 1));
+      });
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     ///MARK: 強制監聽
     ref.watch(userInfoProvider);
