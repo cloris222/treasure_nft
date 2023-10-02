@@ -1484,5 +1484,8 @@
   "enterPhone_verify":"Enter your mobile verification code",
   "enterGoogle_verify":"Enter your Google verification code",
   "nickname(Optional)":"Nickname (optional)",
-  "referralCode(Optional)":"Invitation Code (optional)"
+  "referralCode(Optional)":"Invitation Code (optional)",
+  "withdrawalRules":"Правила за оттегляне",
+  "withdrawalRulesText-1":"Второто оттегляне може да бъде инициирано само след кредитиране на първото оттегляне.",
+  "withdrawalRulesText-2":"Средствата ще бъдат кредитирани в рамките на 96 часа след оттеглянето."
 }

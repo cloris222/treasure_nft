@@ -1470,5 +1470,8 @@
   "nickname(Optional)":"Sila masukkan kod pengesahan Google anda",
   "referralCode(Optional)":"Sila masukkan kod pengesahan Google anda",
   "APP_0104":"Oleh kerana kesan peraturan undang -undang tempatan, tidak mungkin untuk menggunakannya. Kami mohon maaf atas kesulitan.",
-  "notAvailable":"Tidak dapat digunakan."
+  "notAvailable":"Tidak dapat digunakan.",
+  "withdrawalRules":"Peraturan pengeluaran",
+  "withdrawalRulesText-1":"Pengeluaran kedua hanya boleh dimulakan selepas pengeluaran pertama telah dikreditkan.",
+  "withdrawalRulesText-2":"Dana akan dikreditkan dalam masa 96 jam pengeluaran."
 }
