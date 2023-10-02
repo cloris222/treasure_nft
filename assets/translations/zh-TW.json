@@ -17,6 +17,8 @@
   "lang_vi":"Tiếng Việt",
   "lang_cn":"简体中文",
   "lang_jp":"日本語",
+  "lang_bg":"български език",
+  "lang_fr":"français",
 
   "--// login":"---",
   "register":"註冊",
@@ -350,7 +352,7 @@
   "bonus":"獎勵",
   "level":"等級",
   "open_A_lv":"邀請A級有效",
-  "open_BC_lv":"邀請ABC級有效",
+  "open_BC_lv":"邀請B+C有效",
   "reach_level_hint":"達到 Level {level} 即可領取 {bonus}({ratio}%)！",
   "Completed":"已完成",
   "tradecount":"交易次數",
@@ -1468,5 +1470,9 @@
   "nickname(Optional)":"暱稱(選填)",
   "referralCode(Optional)":"邀請碼(選填)",
   "APP_0104":"受制於當地法律規範的影響，所以無法使用，敬請見諒。",
-  "notAvailable":"無法使用"
+  "notAvailable":"無法使用",
+  "withdrawalRules":"提現規則",
+  "withdrawalRulesText-1":"1.第一筆提現到帳後才能發起第二筆提現",
+  "withdrawalRulesText-2":"2.提現96小時內到帳",
+  "Algeria":"阿爾及利亞"
 }

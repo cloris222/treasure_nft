@@ -217,7 +217,7 @@ class CustomAppBar {
                               UIDefine.getPixelWidth(5),
                           ),
                           color: Colors.transparent,
-                          child: GradientThirdText(tr("airdrop"),styleHeight: 1.1,textDecoration: TextDecoration.underline)),
+                          child: GradientThirdText("Airdrop",styleHeight: 1.1,textDecoration: TextDecoration.underline)),
                       Positioned(
                         right: 0,
                         top: 0,

@@ -17,6 +17,8 @@
   "lang_vi":"Tiếng Việt",
   "lang_cn":"简体中文",
   "lang_jp":"日本語",
+  "lang_bg":"български език",
+  "lang_fr":"français",
 
   "--// login":"---",
   "register":"Registe-se",
@@ -350,7 +352,7 @@
   "bonus":"Recompensa",
   "level":"Níveis",
   "open_A_lv":"Válido para Convite A",
-  "open_BC_lv":"Válido para convites para o Nível A+B+C",
+  "open_BC_lv":"Referências válidas de grau B+C",
   "reach_level_hint":"Alcance o nível {level} para reivindicar {bonus}({ratio}%)！",
   "Completed":"Concluído",
   "tradecount":"Número de transacções",
@@ -1468,5 +1470,9 @@
   "nickname(Optional)":"Por favor introduza o seu código de verificação Google",
   "referralCode(Optional)":"Por favor introduza o seu código de verificação Google",
   "APP_0104":"Devido ao impacto dos regulamentos legais locais, não é possível usá -lo. Pedimos desculpas por qualquer inconveniente.",
-  "notAvailable":"Incapaz de usar."
+  "notAvailable":"Incapaz de usar.",
+  "withdrawalRules":"Regras de retirada",
+  "withdrawalRulesText-1":"A segunda retirada só pode ser iniciada após a credibilidade da primeira retirada.",
+  "withdrawalRulesText-2":"Os fundos serão creditados dentro de 96 horas após a retirada.",
+  "Algeria":"Argélia"
 }

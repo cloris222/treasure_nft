@@ -17,6 +17,8 @@
   "lang_vi":"Tiếng Việt",
   "lang_cn":"简体中文",
   "lang_jp":"日本語",
+  "lang_bg":"български език",
+  "lang_fr":"français",
 
   "--// login":"---",
   "register":"Kayıt Ol",
@@ -350,7 +352,7 @@
   "bonus":"Ödül",
   "level":"Seviye",
   "open_A_lv":"Geçerli A Seviye Kullanıcılar",
-  "open_BC_lv":"Geçerli B ve C Seviye Kullanıcılar",
+  "open_BC_lv":"Geçerli Sınıf B+C Tavsiyeler",
   "reach_level_hint":"{bonus}({ratio}%) talep etmek için {level} seviyesini yükseltin！",
   "Completed":"Tamamlandı",
   "tradecount":"İşlem Sayısı",
@@ -1465,5 +1467,9 @@
   "nickname(Optional)":"Google Doğrulama Kodunuzu Girin",
   "referralCode(Optional)":"Google Doğrulama Kodunuzu Girin",
   "APP_0104":"Yerel yasal düzenlemelerin etkisi nedeniyle, onu kullanmak mümkün değildir. Verdiğimiz rahatsızlıktan dolayı özür dileriz.",
-  "notAvailable":"Kullanılamıyor."
+  "notAvailable":"Kullanılamıyor.",
+  "withdrawalRules":"Para çekme kuralları",
+  "withdrawalRulesText-1":"İkinci para çekme işlemi ancak ilk para çekme kredilendirildikten sonra başlatılabilir.",
+  "withdrawalRulesText-2":"Fonlar, para çekilmesinden sonraki 96 saat içinde kredilendirilecektir.",
+  "Algeria":"Cezayir"
 }

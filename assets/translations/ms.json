@@ -17,6 +17,8 @@
   "lang_vi":"Tiếng Việt",
   "lang_cn":"简体中文",
   "lang_jp":"日本語",
+  "lang_bg":"български език",
+  "lang_fr":"français",
 
   "--// login":"---",
   "register":"Mendaftar",
@@ -350,7 +352,7 @@
   "bonus":"anugerah",
   "level":"gred",
   "open_A_lv":"Jemputan ke Kelas A adalah sah",
-  "open_BC_lv":"Jemputan ke peringkat ABC adalah sah",
+  "open_BC_lv":"Rujukan Gred B+C yang sah",
   "reach_level_hint":"Capai Tahap {level} untuk menerima {bonus}({nisbah}%)!",
   "Completed":"selesai",
   "tradecount":"bilangan urus niaga",
@@ -1468,5 +1470,9 @@
   "nickname(Optional)":"Sila masukkan kod pengesahan Google anda",
   "referralCode(Optional)":"Sila masukkan kod pengesahan Google anda",
   "APP_0104":"Oleh kerana kesan peraturan undang -undang tempatan, tidak mungkin untuk menggunakannya. Kami mohon maaf atas kesulitan.",
-  "notAvailable":"Tidak dapat digunakan."
+  "notAvailable":"Tidak dapat digunakan.",
+  "withdrawalRules":"Peraturan pengeluaran",
+  "withdrawalRulesText-1":"Pengeluaran kedua hanya boleh dimulakan selepas pengeluaran pertama telah dikreditkan.",
+  "withdrawalRulesText-2":"Dana akan dikreditkan dalam masa 96 jam pengeluaran.",
+  "Algeria":"Algeria"
 }
