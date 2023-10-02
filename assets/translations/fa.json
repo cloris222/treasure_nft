@@ -17,6 +17,8 @@
   "lang_vi":"Tiếng Việt",
   "lang_cn":"简体中文",
   "lang_jp":"日本語",
+  "lang_bg":"български език",
+  "lang_fr":"français",
 
   "--// login":"---",
   "register":"ثبت نام",
@@ -350,7 +352,7 @@
   "bonus":"جایزه",
   "level":"مقطع تحصیلی",
   "open_A_lv":"دعوت به کلاس A معتبر است",
-  "open_BC_lv":"دعوتنامه سطح A+B+C معتبر است",
+  "open_BC_lv":"ارجاع درجه B+C معتبر",
   "reach_level_hint":"برای ادعای {bonus}({ratio}%) به سطح {level} برسید!",
   "Completed":"تکمیل شد",
   "tradecount":"تعداد معاملات",
@@ -1468,5 +1470,9 @@
   "nickname(Optional)":"لطفاً کد تأیید Google خود را وارد کنید",
   "referralCode(Optional)":"لطفاً کد تأیید Google خود را وارد کنید",
   "APP_0104":"با توجه به تأثیر مقررات قانونی محلی ، استفاده از آن امکان پذیر نیست. برای هرگونه ناهماهنگی عذر می طلبیم.",
-  "notAvailable":"استفاده نمی شود."
+  "notAvailable":"استفاده نمی شود.",
+  "withdrawalRules":"قوانین عقب نشینی",
+  "withdrawalRulesText-1":"برداشت دوم فقط پس از اعتبار اولین برداشت قابل شروع است.",
+  "withdrawalRulesText-2":"وجوه طی 96 ساعت پس از برداشت اعتبار می یابد.",
+  "Algeria":"الجزایر"
 }
