@@ -315,7 +315,7 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
             fontSize: UIDefine.fontSize12,
           ))
 
-        ]));
+            ]));
   }
 
   Widget _buildRate() {
@@ -336,7 +336,7 @@ class _FiatDepositPageState extends ConsumerState<FiatDepositPage> {
         alignment: Alignment.centerLeft,
         child:Text(
             '${tr("available")}：≈${viewModel.available} USDT',
-            maxLines: 1,
+            // maxLines: 1,
             style: AppTextStyle.getBaseStyle(
                 fontSize: UIDefine.fontSize14,
                 fontWeight: FontWeight.w400,
