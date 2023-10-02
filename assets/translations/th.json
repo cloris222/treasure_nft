@@ -352,7 +352,7 @@
   "bonus":"รางวัล",
   "level":"ระดับ",
   "open_A_lv":"คำเชิญเข้าร่วมคลาส A ถูกต้อง",
-  "open_BC_lv":"คำเชิญระดับ A+B+C ถูกต้อง",
+  "open_BC_lv":"ผู้อ้างอิงเกรด B+C ที่ถูกต้อง",
   "reach_level_hint":"ถึงระดับ {level} เพื่อรับ {bonus}({ratio}%)!",
   "Completed":"สมบูรณ์",
   "tradecount":"จำนวนธุรกรรม",

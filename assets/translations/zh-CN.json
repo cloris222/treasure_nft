@@ -352,7 +352,7 @@
   "bonus":"奖励",
   "level":"等级",
   "open_A_lv":"推荐有效A级",
-  "open_BC_lv":"推荐有效ABC级",
+  "open_BC_lv":"邀请B+C级有效",
   "reach_level_hint":"达到 Level {level} 即可领取 {bonus}({ratio}%)！",
   "Completed":"已完成",
   "tradecount":"交易次数",

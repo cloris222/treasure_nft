@@ -352,7 +352,7 @@
     "bonus":"アワード",
     "level":"学年",
     "open_A_lv":"クラスAへの招待は有効です",
-    "open_BC_lv":"ABCクラスへの招待は有効です",
+    "open_BC_lv":"有効なグレードB+C紹介",
     "reach_level_hint":"レベル {level} に到達して {bonus}({ratio}%) を獲得しましょう!",
     "Completed":"完了",
     "tradecount":"取引",
