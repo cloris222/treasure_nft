@@ -352,7 +352,7 @@
   "bonus":"جایزه",
   "level":"مقطع تحصیلی",
   "open_A_lv":"دعوت به کلاس A معتبر است",
-  "open_BC_lv":"دعوتنامه سطح A+B+C معتبر است",
+  "open_BC_lv":"ارجاع درجه B+C معتبر",
   "reach_level_hint":"برای ادعای {bonus}({ratio}%) به سطح {level} برسید!",
   "Completed":"تکمیل شد",
   "tradecount":"تعداد معاملات",

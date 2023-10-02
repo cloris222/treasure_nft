@@ -352,7 +352,7 @@
   "bonus":"phần thưởng",
   "level":"lớp",
   "open_A_lv":"Lời mời đến Lớp A là hợp lệ",
-  "open_BC_lv":"Lời mời cấp A + B + C là hợp lệ",
+  "open_BC_lv":"Giới thiệu cấp độ B+C hợp lệ",
   "reach_level_hint":"Đạt cấp {level} để nhận {bonus}({ratio}%)！",
   "Completed":"hoàn thành",
   "tradecount":"số lượng giao dịch",

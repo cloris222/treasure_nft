@@ -352,7 +352,7 @@
   "bonus":"Hadiah",
   "level":"Level",
   "open_A_lv":"Berlaku untuk Undangan A",
-  "open_BC_lv":"Berlaku untuk undangan ke Level ABC",
+  "open_BC_lv":"Referensi Grade B+C yang valid",
   "reach_level_hint":"Raih Level {level} untuk menerima {bonus}({rasio}%)!",
   "Completed":"Selesai",
   "tradecount":"Jumlah transaksi",
