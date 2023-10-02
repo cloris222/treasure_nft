@@ -1473,5 +1473,6 @@
   "notAvailable":"Không thể sử dụng.",
   "withdrawalRules":"Quy tắc rút tiền",
   "withdrawalRulesText-1":"Việc rút tiền thứ hai chỉ có thể được bắt đầu sau khi lần rút tiền đầu tiên được ghi có.",
-  "withdrawalRulesText-2":"Tiền sẽ được ghi có trong vòng 96 giờ sau khi rút tiền."
+  "withdrawalRulesText-2":"Tiền sẽ được ghi có trong vòng 96 giờ sau khi rút tiền.",
+  "Algeria":"Algeria"
 }
