@@ -45,6 +45,20 @@ class ReserveLoadingPage extends StatelessWidget{
                             child: buildLoadingAnimation(),
                           ),
                           Container(
+                            width: UIDefine.getPixelWidth(224),
+                            height: UIDefine.getPixelWidth(62),
+                            decoration: BoxDecoration(
+                              border:Border.all(color: AppColors.textBlack.withOpacity(0.2)),
+                              borderRadius: BorderRadius.circular(22),
+                              color: AppColors.dialogLightGrey
+                            ),
+                            child: Column(
+                              children: [
+
+                              ],
+                            ),
+                          ),
+                          Container(
                               margin: mainMargin,
                               child: Text("${tr("notification-PENDING'")}...",
                                   textAlign: TextAlign.center,

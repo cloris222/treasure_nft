@@ -545,6 +545,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
         horizontal: UIDefine.getPixelWidth(0),
         vertical: UIDefine.getPixelWidth(0));
 
+
     return isReserved
         ? Row(
             children: [
