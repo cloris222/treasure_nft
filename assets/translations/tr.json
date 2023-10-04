@@ -1465,5 +1465,7 @@
   "nickname(Optional)":"Google Doğrulama Kodunuzu Girin",
   "referralCode(Optional)":"Google Doğrulama Kodunuzu Girin",
   "APP_0104":"Yerel yasal düzenlemelerin etkisi nedeniyle, onu kullanmak mümkün değildir. Verdiğimiz rahatsızlıktan dolayı özür dileriz.",
-  "notAvailable":"Kullanılamıyor."
+  "notAvailable":"Kullanılamıyor.",
+  "matchMaking":"Çöpçatanlık...",
+  "anticipated_income":"beklenen gelir"
 }

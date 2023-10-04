@@ -38,6 +38,7 @@ import '../../models/http/parameter/check_reservation_info.dart';
 import '../../models/http/parameter/check_reserve_deposit.dart';
 import '../../models/http/parameter/reserve_view_data.dart';
 import '../../models/http/parameter/user_info_data.dart';
+import '../../view_models/control_router_viem_model.dart';
 import '../../view_models/gobal_provider/user_info_provider.dart';
 import '../../view_models/trade/provider/trade_reserve_info_provider.dart';
 import '../../widgets/dialog/img_title_dialog.dart';
@@ -655,7 +656,10 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
       context,
       reserveIndex: reserveDivisionRanges[currentDivisionRangeIndex].index,
       reserveStartPrice: reserveDivisionRanges[currentDivisionRangeIndex].startPrice,
-      reserveEndPrice: reserveDivisionRanges[currentDivisionRangeIndex].endPrice);
+      reserveEndPrice: reserveDivisionRanges[currentDivisionRangeIndex].endPrice,
+      startExpectedReturn: reserveInfo!.reserveRanges[currentDivisionRangeIndex].startExpectedReturn,
+      endExpectedReturn: reserveInfo!.reserveRanges[currentDivisionRangeIndex].endExpectedReturn
+    );
 
     /// if reservation success 預約狀態 = true
     reserveDivisionRanges[currentDivisionRangeIndex].used = true;

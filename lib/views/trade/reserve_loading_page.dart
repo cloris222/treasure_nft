@@ -11,13 +11,19 @@ import '../../constant/theme/app_colors.dart';
 import '../../constant/theme/app_style.dart';
 import '../../utils/animation_download_util.dart';
 import '../../utils/app_text_style.dart';
+import '../../utils/number_format_util.dart';
 
 
 class ReserveLoadingPage extends StatelessWidget{
   const ReserveLoadingPage({super.key,
     this.mainMargin = const EdgeInsets.all(10),
     this.buttonMargin = const EdgeInsets.only(top: 10),
+    required this.startExpectedReturn,
+    required this.endExpectedReturn
   });
+
+  final num startExpectedReturn;
+  final num endExpectedReturn;
 
   final EdgeInsetsGeometry mainMargin, buttonMargin;
 
@@ -50,10 +56,12 @@ class ReserveLoadingPage extends StatelessWidget{
                             height: UIDefine.getPixelWidth(62),
                             decoration: BoxDecoration(
                               border:Border.all(color: AppColors.textBlack.withOpacity(0.2)),
-                              borderRadius: BorderRadius.circular(22),
+                              borderRadius: BorderRadius.circular(9),
                               color: AppColors.dialogLightGrey
                             ),
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(tr('anticipated_income'),style: AppTextStyle.getBaseStyle(
                                   fontSize: UIDefine.fontSize12,
@@ -61,9 +69,16 @@ class ReserveLoadingPage extends StatelessWidget{
                                   color: AppColors.textBlack
                                 ),),
                                Row(
+                                 mainAxisAlignment: MainAxisAlignment.center,
                                  children: [
                                    Image.asset(AppImagePath.tetherImg,width: UIDefine.getPixelWidth(24),),
-                                   Text('')
+                                   SizedBox(width: UIDefine.getPixelWidth(6),),
+                                   Text('${NumberFormatUtil().removeTwoPointFormat(startExpectedReturn)}~${NumberFormatUtil().removeTwoPointFormat(endExpectedReturn)}',
+                                     style: AppTextStyle.getBaseStyle(
+                                       fontSize: UIDefine.fontSize18,
+                                       fontWeight: FontWeight.w800,
+                                       color: AppColors.coinColorGreen
+                                     ),)
                                  ],
                                )
                               ],
