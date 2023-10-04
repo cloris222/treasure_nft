@@ -124,6 +124,9 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     return [];
   }
 
+  /// test
+  num upperRate = 60;
+
   @override
   Widget build(BuildContext context) {
     ///MARK: 強制監聽
@@ -204,7 +207,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
           vertical: UIDefine.getPixelWidth(3)),
       child: DropdownButtonHideUnderline(
           child: DropdownButton2(
-        customButton: _buildDivisionDropItem(currentDivisionIndex, false, true),
+        customButton: _buildDivisionDropItem(currentDivisionIndex, false, true, needUpperRate: true),
         isExpanded: true,
         items: List<DropdownMenuItem<int>>.generate(reserveDivision.length,
             (index) {
@@ -223,7 +226,8 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
   }
 
   Widget _buildDivisionDropItem(
-      int index, bool needGradientText, bool needArrow) {
+      int index, bool needGradientText, bool needArrow,
+      {bool needUpperRate = false}) {
     if (reserveDivision.isEmpty) {
       return SizedBox(height: UIDefine.getPixelWidth(40));
     }
@@ -236,16 +240,35 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
         children: [
           currentDivisionIndex == index && needGradientText
               ? GradientThirdText(
-                  text,
-                  size: UIDefine.fontSize12,
-                )
+            text,
+            size: UIDefine.fontSize12,
+          )
               : Text(
-                  text,
-                  style: AppTextStyle.getBaseStyle(
-                      fontSize: UIDefine.fontSize12,
-                      color: AppColors.textSixBlack,
-                      fontWeight: FontWeight.w600),
-                ),
+            text,
+            style: AppTextStyle.getBaseStyle(
+                fontSize: UIDefine.fontSize12,
+                color: AppColors.textSixBlack,
+                fontWeight: FontWeight.w600),
+          ),
+          Visibility(
+            visible: needUpperRate,
+              child: Row(
+                children: [
+                  SizedBox(width: UIDefine.getPixelWidth(17),),
+                  Row(
+                    children: [
+                      Text('${upperRate.toString()}%',style: AppTextStyle.getBaseStyle(
+                          fontSize: UIDefine.fontSize12,
+                          color: upperRate > 0?AppColors.coinColorGreen:AppColors.rateRed,
+                          fontWeight: FontWeight.w700
+                      ),),
+                      upperRate > 0?
+                      Image.asset('assets/icon/icon/icon_trend_up_01.png') :
+                      Image.asset('assets/icon/icon/icon_trend_down_01.png'),
+                    ],
+                  ),
+                ],
+          )),
           const Spacer(),
           Visibility(
               visible: needArrow,
