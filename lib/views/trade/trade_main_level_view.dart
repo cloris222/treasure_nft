@@ -124,8 +124,6 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     return [];
   }
 
-  /// test
-  num upperRate = 60;
 
   @override
   Widget build(BuildContext context) {
@@ -257,14 +255,15 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
                   SizedBox(width: UIDefine.getPixelWidth(17),),
                   Row(
                     children: [
-                      Text('${upperRate.toString()}%',style: AppTextStyle.getBaseStyle(
+                      Text(reserveInfo != null?'${reserveInfo!.reserveRanges[currentDivisionRangeIndex].grow.toString()}%':'',
+                        style: AppTextStyle.getBaseStyle(
                           fontSize: UIDefine.fontSize12,
-                          color: upperRate > 0?AppColors.coinColorGreen:AppColors.rateRed,
+                          color: AppColors.coinColorGreen,
                           fontWeight: FontWeight.w700
                       ),),
-                      upperRate > 0?
-                      Image.asset('assets/icon/icon/icon_trend_up_01.png') :
-                      Image.asset('assets/icon/icon/icon_trend_down_01.png'),
+                      reserveInfo != null?
+                      Image.asset('assets/icon/icon/icon_trend_up_01.png'):
+                      Container(),
                     ],
                   ),
                 ],
