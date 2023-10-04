@@ -23,20 +23,20 @@ class CustomAppBar {
       EdgeInsetsGeometry? margin,
       MainAxisAlignment mainAxisAlignment = MainAxisAlignment.start}) {
     return AppBar(
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        backgroundColor: color,
-        toolbarHeight: appBarHeight,
-        shape: shape,
-        actions: <Widget>[
-          Flexible(
-              child: Container(
-                  margin: margin,
-                  color: fillColor,
-                  constraints: const BoxConstraints.expand(),
-                  child: Row(
-                      mainAxisAlignment: mainAxisAlignment, children: actions)))
-        ]);
+      elevation: 0,
+      automaticallyImplyLeading: false,
+      backgroundColor: color,
+      toolbarHeight: appBarHeight,
+      shape: shape,
+      actions: <Widget>[
+        Flexible(
+          child: Container(
+            margin: margin,
+            color: fillColor,
+            constraints: const BoxConstraints.expand(),
+            child: Row(
+                mainAxisAlignment: mainAxisAlignment, children: actions)))
+      ]);
   }
 
   static AppBar getCustomAppBar({required List<Widget> actions}) {
