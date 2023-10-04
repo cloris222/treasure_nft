@@ -247,7 +247,7 @@ class _OrderInfoCard extends State<OrderInfoCard> {
 
   List<Widget> _getTitleContent() {
     List<Widget> titleContent = [];
-    for (int i = 0; i < widget.dataList.length; i++) {
+    for (int i = 0; i < widget.dataList.length - 1; i++) { // 隱藏預約金
       titleContent.add(Padding(
           padding: EdgeInsets.fromLTRB(0, 0, 0, 3),
           child: Row(
