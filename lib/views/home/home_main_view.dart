@@ -10,6 +10,7 @@ import 'package:treasure_nft_project/utils/language_util.dart';
 import 'package:treasure_nft_project/view_models/airdrop/airdrop_count_provider.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/view_models/home/home_main_viewmodel.dart';
+import 'package:treasure_nft_project/view_models/home/provider/home_film_provider.dart';
 import 'package:treasure_nft_project/views/home/home_main_style.dart';
 import 'package:treasure_nft_project/views/home/home_sub_discover_nft_view.dart';
 import 'package:treasure_nft_project/views/home/home_sub_illustrate_view.dart';
@@ -24,6 +25,8 @@ import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
 import 'package:treasure_nft_project/widgets/list_view/home/artist_record_listview.dart';
 import 'package:treasure_nft_project/widgets/text_field/login_text_widget.dart';
 import '../../constant/enum/setting_enum.dart';
+import '../../models/http/api/home_api.dart';
+import '../../models/http/http_setting.dart';
 import '../../view_models/home/provider/home_artist_random_provider.dart';
 import '../../view_models/home/provider/home_carousel_provider.dart';
 import '../../view_models/home/provider/home_collect_random_provider.dart';
@@ -54,6 +57,7 @@ class _HomeMainViewState extends ConsumerState<HomeMainView>
 
   @override
   void initState() {
+    print("again");
     scrollController.addListener(() {
       if (viewModel.needRecordAnimation) {
         bool show = scrollController.offset > UIDefine.getPixelHeight(1275);
@@ -116,6 +120,16 @@ class _HomeMainViewState extends ConsumerState<HomeMainView>
 
                 ///MARK: USDT資訊
                 // ignore: prefer_const_constructors
+
+                // Consumer(builder: (BuildContext context,
+                //     WidgetRef ref, Widget? child) {
+                //   final filmData = ref.watch(homeFilmProvider);
+                //   // print("the first url is: ${filmData[0].link}");
+                //   return filmData.isEmpty||filmData[0].link.isEmpty?
+                //   Container():HomeSubUsdtView(data: filmData);
+                // }),
+                // filmData.isEmpty?
+                //   Container(): HomeSubUsdtView(data: filmData),
                 HomeSubUsdtView(),
 
                 buildSpace(height: 3),
