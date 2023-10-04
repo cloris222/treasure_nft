@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/button/login_button_widget.dart';
@@ -54,7 +55,17 @@ class ReserveLoadingPage extends StatelessWidget{
                             ),
                             child: Column(
                               children: [
-
+                                Text(tr('anticipated_income'),style: AppTextStyle.getBaseStyle(
+                                  fontSize: UIDefine.fontSize12,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.textBlack
+                                ),),
+                               Row(
+                                 children: [
+                                   Image.asset(AppImagePath.tetherImg,width: UIDefine.getPixelWidth(24),),
+                                   Text('')
+                                 ],
+                               )
                               ],
                             ),
                           ),
