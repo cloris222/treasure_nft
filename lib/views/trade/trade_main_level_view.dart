@@ -474,7 +474,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
           reserveDivisionRanges.isNotEmpty?
           // "${reserveDivisionRanges[currentDivisionRangeIndex].rewardRate} %":""
           // "${currentDivisionIndex.runtimeType},${reserveDivisionRanges[currentDivisionRangeIndex].startPrice.runtimeType},${reserveDivisionRanges[currentDivisionRangeIndex].endPrice.runtimeType}":""
-          "${getLevelReward(userInfo.level, currentDivisionIndex)}%":"",
+          "${getLevelReward(userInfo.level, currentDivisionIndex,)}%":"",
           //     '${NumberFormatUtil().removeTwoPointFormat(reserveCoin?.reward ?? 0)} %'),
       )
     ]);
@@ -688,41 +688,26 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     return "${NumberFormatUtil().removeTwoPointFormat(pfStart)} - ${NumberFormatUtil().removeTwoPointFormat(pfEnd)}";
   }
 
-  String getLevelReward(int userLevel, int chooseLevel) {
+  String getLevelReward(int userLevel, int chooseLevel,) {
         print("choose: $chooseLevel");
-    switch (userLevel) {
-      case 0:
-        double levelResult = 1.5;
-        double num = levelResult*(chooseLevel+1);
-        return NumberFormatUtil().removeOnePointFormat(num);
-      case 1:
-        double levelResult = 1.5;
-        double num = levelResult*(chooseLevel+1);
-        return NumberFormatUtil().removeOnePointFormat(num);
-      case 2:
-        double levelResult = 1.7;
-        double num = levelResult*(chooseLevel+1);
-        return NumberFormatUtil().removeOnePointFormat(num);
-      case 3:
-        double levelResult = 1.9;
-        double num = levelResult*(chooseLevel+1);
-        return NumberFormatUtil().removeOnePointFormat(num);
-      case 4:
-        double levelResult = 2.1;
-        double num = levelResult*(chooseLevel+1);
-        return NumberFormatUtil().removeOnePointFormat(num);
-      case 5:
-        double levelResult = 2.3;
-        double num = levelResult*(chooseLevel+1);
-        return NumberFormatUtil().removeOnePointFormat(num);
-      case 6:
-        double levelResult = 2.5;
-        double num = levelResult*(chooseLevel+1);
-        return NumberFormatUtil().removeOnePointFormat(num);
-      default:
-        double levelResult = 0;
-        double num = levelResult*(chooseLevel+1);
-        return NumberFormatUtil().removeOnePointFormat(num);
-    }
+        switch (userLevel) {
+          case 0:
+            return '1.8';
+          case 1:
+            return '1.8';
+          case 2:
+            return '2.1';
+          case 3:
+            return '2.5';
+          case 4:
+            return '3.1';
+          case 5:
+            return '3.7';
+          case 6:
+            return '4.3';
+          default:
+            return '1.8';
+        }
   }
+
 }
