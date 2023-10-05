@@ -254,19 +254,28 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
               child: Row(
                 children: [
                   SizedBox(width: UIDefine.getPixelWidth(17),),
-                  Row(
-                    children: [
-                      Text(reserveInfo != null?'${reserveInfo!.reserveRanges[currentDivisionRangeIndex].grow.toString()}%':'',
-                        style: AppTextStyle.getBaseStyle(
-                          fontSize: UIDefine.fontSize12,
-                          color: AppColors.coinColorGreen,
-                          fontWeight: FontWeight.w700
-                      ),),
-                      reserveInfo != null?
-                      Image.asset('assets/icon/icon/icon_trend_up_01.png'):
-                      Container(),
-                    ],
+                  Text(
+                    reserveDivisionRanges.isNotEmpty?
+                  "${getLevelReward(userInfo.level, currentDivisionIndex)}%":"",
+                    style: AppTextStyle.getBaseStyle(
+                        fontSize: UIDefine.fontSize12,
+                        color: AppColors.coinColorGreen,
+                        fontWeight: FontWeight.w700
+                    ),
                   ),
+                  // Row(
+                  //   children: [
+                  //     Text(reserveInfo != null?'${reserveInfo!.reserveRanges[currentDivisionRangeIndex].grow.toString()}%':'',
+                  //       style: AppTextStyle.getBaseStyle(
+                  //         fontSize: UIDefine.fontSize12,
+                  //         color: AppColors.coinColorGreen,
+                  //         fontWeight: FontWeight.w700
+                  //     ),),
+                  //     reserveInfo != null?
+                  //     Image.asset('assets/icon/icon/icon_trend_up_01.png'):
+                  //     Container(),
+                  //   ],
+                  // ),
                 ],
           )),
           const Spacer(),
