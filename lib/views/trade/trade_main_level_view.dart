@@ -127,8 +127,8 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
   @override
   void initState() {
    Future.delayed(Duration.zero,() async {
-     await ref.read(tradeReserveDivisionProvider.notifier).init();
      if(userInfo.level > 0) {
+       await ref.read(tradeReserveDivisionProvider.notifier).init();
        setState(() {
          _onDivisionChange(divisionIndex: (userInfo.level - 1));
        });
