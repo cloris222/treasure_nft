@@ -62,7 +62,10 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
     ref.read(tradeReserveVolumeProvider.notifier).setDivisionIndex(0);
     ref.read(tradeReserveVolumeProvider.notifier).init();
     ref.read(tradeReserveDivisionProvider.notifier).init();
-    ref.read(tradeReserveInfoProvider.notifier).setCurrentChoose(ref.read(userInfoProvider).level > 0 ? 1 : 0, null, null);
+    if(ref.read(userInfoProvider).level == 0) {
+      ref.read(tradeReserveInfoProvider.notifier).setCurrentChoose(0, null, null);
+    }
+    // ref.read(tradeReserveInfoProvider.notifier).setCurrentChoose(ref.read(userInfoProvider).level > 0 ? 1 : 0, null, null);
     ref.read(tradeReserveInfoProvider.notifier).getBeginerHintNum().then((value) {
       if(!mounted)return;
       ref.read(beginAmount.notifier).update((state) => value.toString());
