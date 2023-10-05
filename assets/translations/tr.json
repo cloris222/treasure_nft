@@ -981,7 +981,7 @@
   "APP_0060":"Bu deneyim hesabı",
   "APP_0068":"adres kullanıldı",
   "APP_0062":"Yanlış listeleme zamanı",
-  "APP_0063":"Yanlış rezervasyon zamanı",
+  "APP_0063":"Randevu süresi: {startTime}-{endTime}. Lütfen o dönemde randevunuz için hazır olun. Teşekkür ederim.",
   "APP_0064":"Yetersiz tahmini tutar",
   "APP_0065":"Yanlış ülke kodları",
   "APP_0066":"Ülke kodları bulunamadı",

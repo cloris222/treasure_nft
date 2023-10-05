@@ -981,7 +981,7 @@
   "APP_0060":"Esta é a conta da experiência",
   "APP_0068":"O endereço foi usado",
   "APP_0062":"Hora de listagem incorreta",
-  "APP_0063":"Horário de reserva incorreto",
+  "APP_0063":"A hora do compromisso é: {startTime}-{endTime}. Por favor, esteja presente para sua consulta durante esse período. Obrigado.",
   "APP_0064":"Quantidade estimada insuficiente",
   "APP_0065":"Códigos de país incorretos",
   "APP_0066":"Códigos de país não encontrados",

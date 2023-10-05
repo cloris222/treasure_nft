@@ -13,7 +13,7 @@ import '../parameter/draw_result_info.dart';
 import '../parameter/trade_reserve_stage__info.dart';
 
 class TradeAPI extends HttpManager {
-  TradeAPI({super.onConnectFail, super.showTrString});
+  TradeAPI({super.onConnectFail, super.onConnectFailResponse, super.showTrString});
 
   /// 活動用參數 1:世界盃
   final String activityID = "1";

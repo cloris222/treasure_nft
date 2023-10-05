@@ -984,7 +984,7 @@
   "APP_0060":"C'est le compte d'expérience",
   "APP_0068":"L'adresse a été utilisée",
   "APP_0062":"Temps de liste incorrect",
-  "APP_0063":"Temps de réservation incorrect",
+  "APP_0063":"L'heure de rendez-vous est: {startTime} - {endTime}. Veuillez être présent pour votre rendez-vous pendant cette période. Merci.",
   "APP_0064":"Montant estimé insuffisant",
   "APP_0065":"Codes de pays incorrects",
   "APP_0066":"Codes de pays introuvables",

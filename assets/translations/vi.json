@@ -981,7 +981,7 @@
   "APP_0060":"Đây là tài khoản trải nghiệm",
   "APP_0068":"Địa chỉ đã được sử dụng",
   "APP_0062":"Thời gian niêm yết không chính xác",
-  "APP_0063":"Thời gian đặt trước không chính xác",
+  "APP_0063":"Thời gian hẹn là: {startTime}-{endTime}. Hãy có mặt cho cuộc hẹn của bạn trong khoảng thời gian đó. Cảm ơn.",
   "APP_0064":"Không đủ số lượng ước tính",
   "APP_0065":"Mã quốc gia không chính xác",
   "APP_0066":"Không tìm thấy mã quốc gia",
