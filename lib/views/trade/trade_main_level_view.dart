@@ -253,7 +253,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
             visible: needUpperRate,
               child: Row(
                 children: [
-                  SizedBox(width: UIDefine.getPixelWidth(17),),
+                  SizedBox(width: UIDefine.getPixelWidth(40),),
                   Text(
                     reserveDivisionRanges.isNotEmpty?
                   "${getRewardByUserLevel(userInfo.level)}%":"",
