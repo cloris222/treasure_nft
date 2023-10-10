@@ -447,9 +447,10 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
 
   Widget _buildDivisionInfo() {
     return Column(mainAxisSize: MainAxisSize.min, children: [
-      _buildDivisionInfoItem(
-          title: tr('reservationTime'),
-          context: TradeTimerUtil().getReservationTime()),
+      /// MARK: 預約時間
+      // _buildDivisionInfoItem(
+      //     title: tr('reservationTime'),
+      //     context: TradeTimerUtil().getReservationTime()),
 
       /// MARK: 預約結果
       // _buildDivisionInfoItem(
