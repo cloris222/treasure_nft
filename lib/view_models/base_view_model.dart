@@ -429,22 +429,23 @@ class BaseViewModel with ControlRouterViewModel {
                 type: AppNavigationBarType.typeCollection));
           },
         ).show();
+      } else {
+        await ImgTitleDialog(
+          getGlobalContext(),
+          mainText: "${tr("reserve-success'")}",
+          subText: "${data["itemName"]}\n${tr("price")}: ${data["price"]} ",
+          wordImg: 'assets/icon/coins/icon_tether_01.png',
+          isNetWorkImg: true,
+          imgUp: false,
+          img: data["imgUrl"],
+          singleBottom: true,
+          needBackColor: true,
+          onRightPress: () {
+            pushAndRemoveUntil(getGlobalContext(),const MainPage(
+                type: AppNavigationBarType.typeCollection));
+          },
+        ).show();
       }
-      await ImgTitleDialog(
-        getGlobalContext(),
-        mainText: "${tr("reserve-success'")}",
-        subText: "${data["itemName"]}\n${tr("price")}: ${data["price"]} ",
-        wordImg: 'assets/icon/coins/icon_tether_01.png',
-        isNetWorkImg: true,
-        imgUp: false,
-        img: data["imgUrl"],
-        singleBottom: true,
-        needBackColor: true,
-        onRightPress: () {
-          pushAndRemoveUntil(getGlobalContext(),const MainPage(
-              type: AppNavigationBarType.typeCollection));
-        },
-      ).show();
       // CommonCustomDialog(
       //   getGlobalContext(),
       //   title: tr('buy_remind_title'),
