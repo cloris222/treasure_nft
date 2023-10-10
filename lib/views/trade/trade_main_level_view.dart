@@ -562,6 +562,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
             fontSize: UIDefine.fontSize16,
             btnText: tr('confirm'),
             onPressed: () {
+
               if (sellStatus == SellingState.Reserving) {
                 _onPressReservation(userInfo, experienceInfo);
               }

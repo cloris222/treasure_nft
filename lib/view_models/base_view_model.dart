@@ -410,6 +410,26 @@ class BaseViewModel with ControlRouterViewModel {
             FullAnimationPage(
                 isFile: true, animationPath: path, limitTimer: 4));
       }
+
+      ///賣出成功彈窗
+      if(data["ownerId"] == GlobalData.userMemberId) {
+        await ImgTitleDialog(
+          getGlobalContext(),
+          mainText: tr("SoldOut"),
+          subText: "${tr('index-h1')}:${data["profit"]}",
+          wordImg: 'assets/icon/coins/icon_tether_01.png',
+          isNetWorkImg: true,
+          imgUp: false,
+          img: data["imgUrl"],
+          isWordImgFront: true,
+          singleBottom: true,
+          needBackColor: true,
+          onRightPress: () {
+            pushAndRemoveUntil(getGlobalContext(),const MainPage(
+                type: AppNavigationBarType.typeCollection));
+          },
+        ).show();
+      }
       await ImgTitleDialog(
         getGlobalContext(),
         mainText: "${tr("reserve-success'")}",

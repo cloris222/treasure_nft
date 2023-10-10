@@ -26,7 +26,8 @@ class ImgTitleDialog extends BaseDialog{
         this.wordImg = "",///副文圖片
         this.onLeftPress,
         this.onRightPress,
-        this.imgUp = true,///圖片在主文上
+        this.imgUp = true,///圖片在主文上,
+        this.isWordImgFront = false
   }):super(context, isDialogCancel: false);
 
   String? mainText;
@@ -41,6 +42,7 @@ class ImgTitleDialog extends BaseDialog{
   Function? onLeftPress;
   Function? onRightPress;
   bool imgUp;
+  bool isWordImgFront;
 
   @override
   Widget initContent(BuildContext context, StateSetter setState, WidgetRef ref){
@@ -101,6 +103,29 @@ class ImgTitleDialog extends BaseDialog{
     Padding(
       padding: EdgeInsets.symmetric(vertical: 10,horizontal: UIDefine.getPixelWidth(30)),
       child: wordImg.isNotEmpty?
+          isWordImgFront?
+          RichText(
+            textAlign: TextAlign.center,
+            text: TextSpan(
+              text: '', // Your text here
+              style: DefaultTextStyle.of(context).style, // Use the default text style
+              children: <InlineSpan>[
+                WidgetSpan(
+                  child: Padding(
+                    padding: EdgeInsets.only(top: UIDefine.getPixelWidth(0),right:UIDefine.getPixelWidth(5) ),
+                    child: Image.asset(wordImg,
+                      height: 16,width: 16,),
+                  ),
+                ),
+                WidgetSpan(
+                  child: Padding(
+                    padding: EdgeInsets.only(top: UIDefine.getPixelWidth(0)),
+                    child: Text(subText,style: DefaultTextStyle.of(context).style,),
+                  ),
+                ),
+              ],
+            ),
+          ):
       RichText(
         textAlign: TextAlign.center,
         text: TextSpan(
