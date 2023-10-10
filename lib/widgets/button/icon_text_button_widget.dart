@@ -70,10 +70,10 @@ class _IconTextButtonWidgetState extends State<IconTextButtonWidget> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              BaseIconWidget(
+              widget.iconPath.isNotEmpty?BaseIconWidget(
                 imageAssetPath: widget.iconPath,
                 size: (widget.height ?? UIDefine.getPixelWidth(50)) * 0.78,
-              ),
+              ):Container(),
               const SizedBox(width: 4),
               Text(widget.btnText,
                   style: TextStyle(
