@@ -42,6 +42,7 @@ class TradeNewMainViewModel extends BaseViewModel {
       priceIndex: reserveIndex).then((value) {
           ControlRouterViewModel().pushOpacityPage(context, const ReserveLoadingPage());
       });
+    Navigator.pop(context);
     // closeLoadingPage();
     /// 如果預約成功 會進call back function
     reservationSuccess();
