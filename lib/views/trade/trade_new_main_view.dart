@@ -125,49 +125,50 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
   }
 
   Widget _buildTitle(UserInfoData userInfo) {
-    return Container(
-      decoration: AppStyle().buildGradient(borderWith: 0, colors: AppColors.gradientBackgroundColorNoFloatBg),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(15), vertical: UIDefine.getPixelWidth(15)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                LevelIconWidget(level: userInfo.level, needBig: true, size: UIDefine.getPixelWidth(40)),
-                // Text(
-                //   '${tr('level')} ${userInfo.level}',
-                //   style: AppTextStyle.getBaseStyle(
-                //       fontSize: UIDefine.fontSize14,
-                //       fontWeight: FontWeight.w600),
-                // ),
-                const Spacer(),
-                GestureDetector(
-                  onTap: () {
-                    TradeRuleDialog(context).show();
-                  },
-                  child: Container(
-                    color: Colors.transparent,
-                    child: Text(
-                      tr('trade-rules'),
-                      style: AppTextStyle.getBaseStyle(
-                          fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w400, color: const Color(0xFF5CBFFE)),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            height: UIDefine.getPixelWidth(15),
-            width: UIDefine.getWidth(),
-            decoration: AppStyle()
-                .styleColorsRadiusBackground(color: backgroundColor, hasBottomRight: false, hasBottomLef: false),
-          )
-        ],
-      ),
-    );
+    return SizedBox(height: UIDefine.getPixelWidth(16),);
+    // return Container(
+    //   decoration: AppStyle().buildGradient(borderWith: 0, colors: AppColors.gradientBackgroundColorNoFloatBg),
+    //   child: Column(
+    //     mainAxisSize: MainAxisSize.min,
+    //     children: [
+    //       Container(
+    //         padding: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(15), vertical: UIDefine.getPixelWidth(15)),
+    //         child: Row(
+    //           mainAxisAlignment: MainAxisAlignment.spaceAround,
+    //           children: [
+    //             LevelIconWidget(level: userInfo.level, needBig: true, size: UIDefine.getPixelWidth(40)),
+    //             // Text(
+    //             //   '${tr('level')} ${userInfo.level}',
+    //             //   style: AppTextStyle.getBaseStyle(
+    //             //       fontSize: UIDefine.fontSize14,
+    //             //       fontWeight: FontWeight.w600),
+    //             // ),
+    //             const Spacer(),
+    //             GestureDetector(
+    //               onTap: () {
+    //                 TradeRuleDialog(context).show();
+    //               },
+    //               child: Container(
+    //                 color: Colors.transparent,
+    //                 child: Text(
+    //                   tr('trade-rules'),
+    //                   style: AppTextStyle.getBaseStyle(
+    //                       fontSize: UIDefine.fontSize14, fontWeight: FontWeight.w400, color: const Color(0xFF5CBFFE)),
+    //                 ),
+    //               ),
+    //             ),
+    //           ],
+    //         ),
+    //       ),
+    //       Container(
+    //         height: UIDefine.getPixelWidth(15),
+    //         width: UIDefine.getWidth(),
+    //         decoration: AppStyle()
+    //             .styleColorsRadiusBackground(color: backgroundColor, hasBottomRight: false, hasBottomLef: false),
+    //       )
+    //     ],
+    //   ),
+    // );
   }
 
   bool waitReadAPI = false;
