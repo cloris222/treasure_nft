@@ -59,7 +59,7 @@ class _CollectionReservationListViewState
 
   @override
   Widget buildSeparatorBuilder(int index) {
-    return SizedBox(height: UIDefine.getScreenWidth(16));
+    return SizedBox(height: UIDefine.getScreenWidth(4));
   }
 
   @override

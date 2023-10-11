@@ -87,7 +87,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
               // SizedBox(height: UIDefine.getScreenWidth(4)),
               //
               // /// 交易週期(only for 交易中)
-              _getTradeTimeView(), // test 換版後交易週期改放哪裡？
+              // _getTradeTimeView(), // test 換版後交易週期改放哪裡？
 
               /// 商品圖
               ClipRRect(
@@ -364,6 +364,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
       }
     } else if(itemType == 'Selling' || data.status == 'SELLING') {
       return Container(
+        width: UIDefine.getPixelWidth(144),
         height: UIDefine.getScreenWidth(11),
         decoration: BoxDecoration(
             gradient: const LinearGradient(

@@ -93,8 +93,8 @@ class _CollectionTotalCollectedListViewState
           index: index,
           type: _getType(data.status),
           callBack: (index){
-            // _removeItem(index);
-            // _sellingItem();
+            _removeItem(index);
+            _sellingItem();
           });
     }
   }
@@ -112,8 +112,8 @@ class _CollectionTotalCollectedListViewState
 
   void _sellingItem() {
     if(_tempData != null) {
+      _tempData!.status = 'SELLING';
       currentItems.insert(0, _tempData!);
-      currentItems[0].status = 'SELLING';
       setSharedPreferencesValue(maxSize: maxLoad());
       loadingFinish();
     }
