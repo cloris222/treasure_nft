@@ -11,10 +11,13 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:format/format.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
 import 'package:treasure_nft_project/constant/enum/server_route_enum.dart';
+import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/models/data/trade_model_data.dart';
 import 'package:treasure_nft_project/models/http/api/user_info_api.dart';
 import 'package:treasure_nft_project/models/http/parameter/announce_data.dart';
 import 'package:treasure_nft_project/utils/animation_download_util.dart';
+import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/utils/number_format_util.dart';
 import 'package:treasure_nft_project/views/airdrop/airdrop_get_box_page.dart';
 import 'package:treasure_nft_project/views/collection/api/collection_api.dart';
 import 'package:treasure_nft_project/views/full_animation_page.dart';
@@ -412,11 +415,11 @@ class BaseViewModel with ControlRouterViewModel {
       }
 
       ///賣出成功彈窗
-      if(data["ownerId"] == GlobalData.userMemberId) {
+      if(data["type"] == 'SELL') {
         await ImgTitleDialog(
           getGlobalContext(),
-          mainText: tr("SoldOut"),
-          subText: "${tr('index-h1')}:${data["profit"]}",
+          mainText: '',
+          subText: NumberFormatUtil().removeTwoPointFormat(data["profit"]),
           wordImg: 'assets/icon/coins/icon_tether_01.png',
           isNetWorkImg: true,
           imgUp: false,
@@ -424,10 +427,11 @@ class BaseViewModel with ControlRouterViewModel {
           isWordImgFront: true,
           singleBottom: true,
           needBackColor: true,
-          onRightPress: () {
-            pushAndRemoveUntil(getGlobalContext(),const MainPage(
-                type: AppNavigationBarType.typeCollection));
-          },
+          bgWidth: UIDefine.getPixelWidth(224),
+          description: tr('income'),
+          imgSize: UIDefine.getPixelWidth(24),
+          subTextStyle: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w800, color: AppColors.coinColorGreen),
+          onRightPress: () {},
         ).show();
       } else {
         await ImgTitleDialog(

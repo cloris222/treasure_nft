@@ -27,7 +27,11 @@ class ImgTitleDialog extends BaseDialog{
         this.onLeftPress,
         this.onRightPress,
         this.imgUp = true,///圖片在主文上,
-        this.isWordImgFront = false
+        this.isWordImgFront = false,
+        this.bgWidth,
+        this.subTextStyle,
+        this.description,
+        this.imgSize
   }):super(context, isDialogCancel: false);
 
   String? mainText;
@@ -43,6 +47,10 @@ class ImgTitleDialog extends BaseDialog{
   Function? onRightPress;
   bool imgUp;
   bool isWordImgFront;
+  double? bgWidth;
+  TextStyle? subTextStyle;
+  String? description;
+  double? imgSize;
 
   @override
   Widget initContent(BuildContext context, StateSetter setState, WidgetRef ref){
@@ -61,6 +69,7 @@ class ImgTitleDialog extends BaseDialog{
       children: [
         imgUp? _buildImg(context) : _buildTitle(context),
         Container(
+          width: bgWidth,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(8)),
             color: AppColors.animateBackGrey,
@@ -70,7 +79,8 @@ class ImgTitleDialog extends BaseDialog{
           child: Column(
             children: [
               imgUp? _buildTitle(context):_buildImg(context),
-              _buildSub(context),
+              description == null?Container():_buildDescription(description!),
+              isWordImgFront?_buildSubWithImgFront(context):_buildSub(context),
             ],
           ),
         ),
@@ -89,7 +99,8 @@ class ImgTitleDialog extends BaseDialog{
       children: [
         imgUp? _buildImg(context) : _buildTitle(context),
         imgUp? _buildTitle(context): _buildImg(context),
-        _buildSub(context),
+        description == null?Container():_buildDescription(description!),
+        isWordImgFront?_buildSubWithImgFront(context):_buildSub(context),
         Container(
             margin: buttonMargin,
             child: singleBottom?
@@ -103,40 +114,17 @@ class ImgTitleDialog extends BaseDialog{
     Padding(
       padding: EdgeInsets.symmetric(vertical: 10,horizontal: UIDefine.getPixelWidth(30)),
       child: wordImg.isNotEmpty?
-          isWordImgFront?
-          RichText(
-            textAlign: TextAlign.center,
-            text: TextSpan(
-              text: '', // Your text here
-              style: DefaultTextStyle.of(context).style, // Use the default text style
-              children: <InlineSpan>[
-                WidgetSpan(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: UIDefine.getPixelWidth(0),right:UIDefine.getPixelWidth(5) ),
-                    child: Image.asset(wordImg,
-                      height: 16,width: 16,),
-                  ),
-                ),
-                WidgetSpan(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: UIDefine.getPixelWidth(0)),
-                    child: Text(subText,style: DefaultTextStyle.of(context).style,),
-                  ),
-                ),
-              ],
-            ),
-          ):
       RichText(
         textAlign: TextAlign.center,
         text: TextSpan(
           text: subText, // Your text here
-          style: DefaultTextStyle.of(context).style, // Use the default text style
+          style: subTextStyle?? DefaultTextStyle.of(context).style, // Use the default text style
           children: <InlineSpan>[
             WidgetSpan(
               child: Padding(
                 padding: EdgeInsets.only(top: UIDefine.getPixelWidth(0)),
                 child: Image.asset(wordImg,
-                  height: 16,width: 16,),
+                  height: imgSize?? UIDefine.getPixelWidth(16),width: imgSize?? UIDefine.getPixelWidth(16),),
               ),
             ),
           ],
@@ -144,10 +132,25 @@ class ImgTitleDialog extends BaseDialog{
       ):
       Text(subText,
           textAlign: TextAlign.center,
-          style: AppTextStyle.getBaseStyle(
+          style: subTextStyle?? AppTextStyle.getBaseStyle(
               color: AppColors.textThreeBlack,
               fontSize: UIDefine.fontSize14)),
     ): const Text('');
+  }
+
+  Widget _buildSubWithImgFront(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(top: UIDefine.getPixelWidth(0)),
+          child: Image.asset(wordImg,
+            height: imgSize?? UIDefine.getPixelWidth(16),width: imgSize?? UIDefine.getPixelWidth(16),),
+        ),
+        SizedBox(width: UIDefine.getPixelWidth(4),),
+        Text(subText,style: subTextStyle?? DefaultTextStyle.of(context).style,)
+      ],
+    );
   }
   
   Widget _singlePart(BuildContext context){
@@ -232,6 +235,13 @@ class ImgTitleDialog extends BaseDialog{
     return isNetWorkImg?
       Image.network(img,height: UIDefine.getPixelWidth(140),width: UIDefine.getPixelWidth(140),):
       createImageWidget(asset: img);
+  }
+
+  Widget _buildDescription(String text) {
+    return Text(text, style: AppTextStyle.getBaseStyle(
+        color: AppColors.textBlack,
+        fontSize:UIDefine.fontSize12,
+        fontWeight: FontWeight.w400),);
   }
 
   @override
