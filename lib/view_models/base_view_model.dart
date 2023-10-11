@@ -430,7 +430,7 @@ class BaseViewModel with ControlRouterViewModel {
           bgWidth: UIDefine.getPixelWidth(224),
           description: tr('income'),
           imgSize: UIDefine.getPixelWidth(24),
-          subTextStyle: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w800, color: AppColors.coinColorGreen),
+          subTextStyle: AppTextStyle.getBaseStyle(fontSize: UIDefine.fontSize24, fontWeight: FontWeight.w500, color: AppColors.coinColorGreen),
           onRightPress: () {},
         ).show();
       } else {

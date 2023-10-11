@@ -49,7 +49,7 @@ class _CollectionFinancialManagementListViewState
 
   @override
   Widget buildSeparatorBuilder(int index) {
-    return SizedBox(height: UIDefine.getPixelWidth(10));
+    return SizedBox(height: UIDefine.getPixelWidth(12));
   }
 
   @override

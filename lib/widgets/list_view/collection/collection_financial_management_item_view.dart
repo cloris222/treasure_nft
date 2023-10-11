@@ -72,7 +72,7 @@ class CollectionFinancialManagementItemView extends ConsumerWidget {
                     children: [
                       Text(data.type.name,style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w700,fontSize: UIDefine.fontSize20),),
                       Text(data.note,style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w400,fontSize: UIDefine.fontSize14,color: AppColors.font02),),
-                      _buildTextWithTether(tr('定投金'), '${data.minInMoney} - ${data.maxInMoney}'),
+                      _buildTextWithTether(tr('amount'), '${data.minInMoney} - ${data.maxInMoney}'),
                       _buildTextWithTether(tr('日收益'), '${data.dayIncome.toString()}%')
                     ],
                   )

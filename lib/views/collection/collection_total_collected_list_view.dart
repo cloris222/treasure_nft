@@ -32,6 +32,7 @@ class _CollectionTotalCollectedListViewState
 
   DateTime loadTime = DateTime.now().toUtc();
   List<CollectionNftItemResponseData> finalData = [];
+  CollectionNftItemResponseData? _tempData;
 
 
   @override
@@ -91,7 +92,10 @@ class _CollectionTotalCollectedListViewState
           collectionNftItemResponseData: data,
           index: index,
           type: _getType(data.status),
-          callBack: (index) => _removeItem(index));
+          callBack: (index){
+            // _removeItem(index);
+            // _sellingItem();
+          });
     }
   }
 
@@ -106,17 +110,25 @@ class _CollectionTotalCollectedListViewState
     }
   }
 
+  void _sellingItem() {
+    if(_tempData != null) {
+      currentItems.insert(0, _tempData!);
+      currentItems[0].status = 'SELLING';
+      setSharedPreferencesValue(maxSize: maxLoad());
+      loadingFinish();
+    }
+  }
+
   void _updateItem(int index) {
     // 解鎖
     currentItems[index].status = 'PENDING';
     setSharedPreferencesValue(maxSize: maxLoad());
-
     loadingFinish();
   }
 
   void _removeItem(int index) {
     // 上架,轉出
-    currentItems.removeAt(index);
+    _tempData = currentItems.removeAt(index);
     setSharedPreferencesValue(maxSize: maxLoad());
     loadingFinish();
   }
