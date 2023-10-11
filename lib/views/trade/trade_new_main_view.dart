@@ -115,7 +115,7 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
                     onScrollTop: () {
                       controller.animateTo(0, duration: const Duration(milliseconds: 300), curve: Curves.fastOutSlowIn);
                     }),
-                SizedBox(height: UIDefine.navigationBarPadding),
+                // SizedBox(height: UIDefine.navigationBarPadding),
               ]),
             )
           ],

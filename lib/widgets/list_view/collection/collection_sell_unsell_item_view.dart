@@ -362,6 +362,27 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
           ],
         );
       }
+    } else if(itemType == 'Selling') {
+      return Expanded(
+        child: Container(
+          height: UIDefine.getScreenWidth(11),
+          decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                  colors: AppColors.gradientBaseColorBg),
+              borderRadius: BorderRadius.circular(10)),
+          child: TextButton(
+              onPressed: () {
+
+              },
+              child: Text(
+                tr('matchMaking'), // 匹配中
+                style: AppTextStyle.getBaseStyle(
+                    color: AppColors.textBlue,
+                    fontSize: UIDefine.fontSize12,
+                    fontWeight: FontWeight.w400),
+              )),
+        ),
+      );
     }
     return SizedBox(height: UIDefine.getScreenWidth(11));
   }

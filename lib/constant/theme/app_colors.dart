@@ -30,6 +30,8 @@ class AppColors {
   static const Color dailyAcceptedReward = Color(0xFFE2E2E2);
   static const Color coinColorGreen = Color(0xFF26A17B);
   static const Color hintGrey = Color(0xFF9E9E9E);
+  static const Color textBlue = Color(0xFF71D0F1);
+
   /// 交易收益卡片顏色
   static const Color borderGrey = Color(0xFFE6E9EE);
   static const Color tradeGrey = Color(0xFFAFAFAF);
