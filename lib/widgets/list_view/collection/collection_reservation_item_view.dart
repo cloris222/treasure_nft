@@ -32,7 +32,7 @@ class _CollectionReservationItemView
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.fromLTRB(
-          UIDefine.getScreenWidth(5), 0, UIDefine.getScreenWidth(5), 0),
+          UIDefine.getScreenWidth(3), 0, UIDefine.getScreenWidth(3), 0),
       child: _getViewByType(),
     );
   }

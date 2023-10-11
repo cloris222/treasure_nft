@@ -61,7 +61,7 @@ class _OrderInfoCard extends State<OrderInfoCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(UIDefine.getScreenWidth(4.4)),
+        padding: EdgeInsets.all(UIDefine.getPixelWidth(4.4)),
         decoration: BoxDecoration(
           border: Border.all(color: AppColors.bolderGrey, width: 2.5),
           borderRadius: const BorderRadius.all(Radius.circular(8)),

@@ -584,7 +584,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     }
 
     if(reserveInfo != null) {
-      if(reserveInfo!.reserveCount >= 0) {
+      if(reserveInfo!.reserveCount <= 0) {
         DateTime _now = DateTime.now();
         DateTime _resetTime = DateTime.parse(reserveInfo!.resetTime);
         Duration duration = _resetTime.difference(_now);
