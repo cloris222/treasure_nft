@@ -377,7 +377,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
             child: Text(
               tr('matchMaking'), // 匹配中
               style: AppTextStyle.getBaseStyle(
-                  color: AppColors.textBlue,
+                  color: AppColors.textWhite,
                   fontSize: UIDefine.fontSize12,
                   fontWeight: FontWeight.w400),
             )),
