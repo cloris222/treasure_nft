@@ -625,7 +625,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     }
 
     if(reserveInfo != null) {
-      if(reserveInfo!.reserveCount >= 0) {
+      if(reserveInfo!.reserveCount <= 0) {
         DateTime _now = DateTime.now();
         String resetTimeStr = BaseViewModel().changeTimeZone(reserveInfo!.resetTime.toString(),setSystemZone: 'GMT+8', isSystemTime: true, isApiValue: true);
         DateTime _resetTime = DateTime.parse(resetTimeStr);
