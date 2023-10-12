@@ -13,54 +13,92 @@ import '../../views/collection/data/collection_nft_item_response_data.dart';
 import '../../views/collection/data/collection_ticket_response_data.dart';
 
 class CollectionMainViewModel extends BaseViewModel {
-  Widget getCollectionTypeButtons(
-      {required CollectionTag currentExploreType,
-      required ItemScrollController controller,
-      required Function(CollectionTag tag) changePage}) {
-    List<Widget> buttons = <Widget>[];
-    for (int i = 0; i < CollectionTag.values.length; i++) {
-      CollectionTag tag = CollectionTag.values[i];
-      bool isCurrent = (tag == currentExploreType);
-      buttons.add(IntrinsicWidth(
-        child: Column(
-          children: [
-            SizedBox(
-              height: UIDefine.getScreenWidth(12),
-              child: TextButton(
-                onPressed: () {
-                  changePage(tag);
-                },
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.5), 0,
-                      UIDefine.getScreenWidth(3), 0),
+  // Widget getCollectionTypeButtons(
+  //     {required CollectionTag currentExploreType,
+  //     required ItemScrollController controller,
+  //     required Function(CollectionTag tag) changePage}) {
+  //   List<Widget> buttons = <Widget>[];
+  //   for (int i = 0; i < CollectionTag.values.length; i++) {
+  //     CollectionTag tag = CollectionTag.values[i];
+  //     bool isCurrent = (tag == currentExploreType);
+  //     buttons.add(IntrinsicWidth(
+  //       child: Column(
+  //         children: [
+  //           SizedBox(
+  //             height: UIDefine.getScreenWidth(12),
+  //             child: TextButton(
+  //               onPressed: () {
+  //                 changePage(tag);
+  //               },
+  //               child: Container(
+  //                 padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.5), 0,
+  //                     UIDefine.getScreenWidth(3), 0),
+  //                 child: Text(
+  //                   _getTabTitle(tag),
+  //                   style: AppTextStyle.getBaseStyle(
+  //                       color: _getButtonColor(isCurrent),
+  //                       fontSize: UIDefine.fontSize16),
+  //                   textAlign: TextAlign.center,
+  //                 ),
+  //               ),
+  //             ),
+  //           ),
+  //           Container(
+  //             height: _getLineHeight(isCurrent),
+  //             decoration: BoxDecoration(
+  //                 gradient: LinearGradient(colors: _getLineColor(isCurrent))),
+  //           ),
+  //         ],
+  //       ),
+  //     ));
+  //   }
+  //   return SizedBox(
+  //       height: UIDefine.getScreenWidth(13),
+  //       child: ScrollablePositionedList.builder(
+  //           scrollDirection: Axis.horizontal,
+  //           itemScrollController: controller,
+  //           itemCount: buttons.length,
+  //           itemBuilder: (context, index) {
+  //             return buttons[index];
+  //           }));
+  // }
+
+  Widget getCollectionTypeButtons() {
+    bool isCurrent = true;
+    return Column(
+      children: [
+        SizedBox(
+          height: UIDefine.getScreenWidth(12),
+          child: TextButton(
+            onPressed: () {
+
+            },
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.fromLTRB(UIDefine.getPixelWidth(4.5), 0,
+                      UIDefine.getPixelWidth(3), 0),
                   child: Text(
-                    _getTabTitle(tag),
+                    tr('finance'),
                     style: AppTextStyle.getBaseStyle(
                         color: _getButtonColor(isCurrent),
                         fontSize: UIDefine.fontSize16),
                     textAlign: TextAlign.center,
                   ),
                 ),
-              ),
+              ],
             ),
-            Container(
-              height: _getLineHeight(isCurrent),
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: _getLineColor(isCurrent))),
-            ),
-          ],
+          ),
         ),
-      ));
-    }
-    return SizedBox(
-        height: UIDefine.getScreenWidth(13),
-        child: ScrollablePositionedList.builder(
-            scrollDirection: Axis.horizontal,
-            itemScrollController: controller,
-            itemCount: buttons.length,
-            itemBuilder: (context, index) {
-              return buttons[index];
-            }));
+        Container(
+          width: UIDefine.getPixelWidth(40),
+          height: _getLineHeight(isCurrent),
+          decoration: BoxDecoration(
+              gradient: LinearGradient(colors: _getLineColor(isCurrent))
+          ),
+        ),
+      ],
+    );
   }
 
   String _getTabTitle(CollectionTag tag) {

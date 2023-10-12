@@ -40,19 +40,15 @@ class _CollectionMainView extends State<CollectionMainView> {
     return Scaffold(
       body: Column(children: [
         Container(
+          alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(
-                top: UIDefine.getScreenWidth(0.97),
-                bottom: UIDefine.getScreenWidth(0.97)),
+                top: UIDefine.getPixelWidth(0.97),
+                bottom: UIDefine.getPixelWidth(0.97)),
             margin: EdgeInsets.only(
                 left: UIDefine.getScreenWidth(5),
                 right: UIDefine.getScreenWidth(5),
                 bottom: UIDefine.getScreenWidth(0.8)),
-            child: viewModel.getCollectionTypeButtons(
-                controller: listController,
-                currentExploreType: currentExploreType,
-                changePage: (CollectionTag exploreType) {
-                  _changePage(exploreType);
-                })),
+            child: viewModel.getCollectionTypeButtons()),
         // 如要置頂不滑動才放此Class
         // Visibility(
         //   visible: currentExploreType == 'Pending',

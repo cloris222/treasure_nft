@@ -18,6 +18,7 @@ class CollectionFinancialManagementResponseData {
     this.minInMoney = 0,
     this.maxInMoney = 0,
     this.dayIncome = 0,
+    this.imgUrl = ''
   });
 
   num minRank; // 參與等級
@@ -25,9 +26,10 @@ class CollectionFinancialManagementResponseData {
   num dayCircle;  // ？天定投
   FinancialManagementType type;  // 方案類型
   String note; // 備註 35天限制參與一次
-  num minInMoney; // 定投金
-  num maxInMoney; // 定投金
+  num minInMoney; // 數量（最小）
+  num maxInMoney; // 數量（最大）
   num dayIncome; // 日收益
+  String imgUrl; // 圖片
 
 
   factory CollectionFinancialManagementResponseData.fromJson(Map<String, dynamic> json) => CollectionFinancialManagementResponseData(
@@ -39,6 +41,7 @@ class CollectionFinancialManagementResponseData {
     minInMoney: json["minInMoney"]??0,
     maxInMoney: json["maxInMoney"]??0,
     dayIncome: json["dayIncome"]??0,
+    imgUrl: json["imgUrl"]??'',
   );
 
   Map<String, dynamic> toJson() => {
@@ -50,6 +53,7 @@ class CollectionFinancialManagementResponseData {
     "minInMoney": minInMoney,
     "maxInMoney": maxInMoney,
     "dayIncome": dayIncome,
+    "imgUrl": imgUrl,
   };
 }
 

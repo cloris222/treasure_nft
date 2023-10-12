@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
@@ -51,7 +52,7 @@ class CollectionFinancialManagementItemView extends ConsumerWidget {
                     decoration: BoxDecoration(
                       border: Border.all(color: AppColors.coinColorGreen,width: 1)
                     ),
-                    child: Text('${data.dayCircle}${tr('daysInRegular')}',style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w600,fontSize: UIDefine.fontSize12,color: AppColors.coinColorGreen),),
+                    child: Text('${data.dayCircle}${tr('day')}',style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w600,fontSize: UIDefine.fontSize12,color: AppColors.coinColorGreen),),
                   )
                 ],
               ),
@@ -61,7 +62,7 @@ class CollectionFinancialManagementItemView extends ConsumerWidget {
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                     child: GraduallyNetworkImage(
                       showNormal: true,
-                      imageUrl: '',
+                      imageUrl: data.imgUrl,
                       height: UIDefine.getPixelWidth(120),
                       width: UIDefine.getPixelWidth(120),
                       cacheWidth: 120,
@@ -70,20 +71,22 @@ class CollectionFinancialManagementItemView extends ConsumerWidget {
                   ),
                   Column(
                     children: [
-                      Text(data.type.name,style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w700,fontSize: UIDefine.fontSize20),),
-                      Text(data.note,style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w400,fontSize: UIDefine.fontSize14,color: AppColors.font02),),
-                      _buildTextWithTether(tr('amount'), '${data.minInMoney} - ${data.maxInMoney}'),
-                      _buildTextWithTether(tr('日收益'), '${data.dayIncome.toString()}%')
+                      Text(tr('finance'),style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w700,fontSize: UIDefine.fontSize20),),
+                      Text(format(tr("limitParticipationDay"), {
+                        "day":'35',
+                        "items": '1'
+                      }),style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w400,fontSize: UIDefine.fontSize14,color: AppColors.font02),),
+                      _buildTextWithTether(tr('fixedInvestment'), '${data.minInMoney} - ${data.maxInMoney}'),
+                      _buildTextWithTether(tr('dailyIncome'), '${data.dayIncome.toString()}%')
                     ],
                   )
                 ],
               ),
               IconTextButtonWidget(
                   height: UIDefine.getScreenWidth(10),
-                  btnText: tr("查看詳情"),
+                  btnText: tr("checkDetails"),
                   iconPath: '',
                   onPressed: () {},)
-
             ]));
   }
 

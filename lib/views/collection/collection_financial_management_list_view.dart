@@ -44,7 +44,7 @@ class _CollectionFinancialManagementListViewState
 
   @override
   Widget buildItemBuilder(int index, data) {
-    return CollectionFinancialManagementItemView(data: CollectionFinancialManagementResponseData(),);
+    return CollectionFinancialManagementItemView(data: data,);
   }
 
   @override
@@ -59,13 +59,24 @@ class _CollectionFinancialManagementListViewState
 
   @override
   changeDataFromJson(json) {
-    return OrderMessageListResponseData.fromJson(json);
+    return CollectionFinancialManagementResponseData.fromJson(json);
   }
 
   @override
   Future<List> loadData(int page, int size) async {
     loadTime = DateTime.now().toUtc();
-    return await CollectionApi(onConnectFail: (msg)=>reloadAPI(page,size)).getMedalResponse(page: page, size: size);
+    List<CollectionFinancialManagementResponseData> dataList = [
+      CollectionFinancialManagementResponseData(
+        minRank: 1,
+        maxRank: 6,
+        dayCircle: 7,
+        minInMoney: 200,
+        maxInMoney: 500,
+        dayIncome: 2.3
+      ),
+    ];
+
+    return dataList;
   }
 
   @override
@@ -82,7 +93,7 @@ class _CollectionFinancialManagementListViewState
 
   @override
   String setKey() {
-    return "collectionTypeMedal";
+    return "finance";
   }
 
   @override
