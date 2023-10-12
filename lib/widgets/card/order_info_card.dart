@@ -128,7 +128,8 @@ class _OrderInfoCard extends State<OrderInfoCard> {
 
                             /// 未中籤寶箱icon
                               Visibility(
-                                  visible: widget.status == 'FAIL',
+                                visible: false,
+                                  // visible: widget.status == 'FAIL',
                                   child:  GestureDetector(
                                       onTap: () => viewModel.pushPage(
                                           context, const AirdropMainPage()),
