@@ -445,8 +445,8 @@ class BaseViewModel with ControlRouterViewModel {
           singleBottom: true,
           needBackColor: true,
           onRightPress: () {
-            pushAndRemoveUntil(getGlobalContext(),const MainPage(
-                type: AppNavigationBarType.typeCollection));
+            // pushAndRemoveUntil(getGlobalContext(),const MainPage(
+            //     type: AppNavigationBarType.typeCollection));
           },
         ).show();
       }

@@ -164,22 +164,22 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                                   ),
                                 ],
                               ),
-                              Row(
-                                children: [
-                                  Image.asset(
-                                      'assets/icon/icon/icon_trend_up_01.png'),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    // 商品漲幅價格
-                                    BaseViewModel()
-                                        .numberFormat(data.growAmount),
-                                    style: AppTextStyle.getBaseStyle(
-                                        color: AppColors.growPrice,
-                                        fontSize: UIDefine.fontSize12,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                ],
-                              )
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Image.asset(
+                                  'assets/icon/icon/icon_trend_up_01.png'),
+                              const SizedBox(width: 4),
+                              Text(
+                                // 商品漲幅價格
+                                BaseViewModel()
+                                    .numberFormat(data.growAmount),
+                                style: AppTextStyle.getBaseStyle(
+                                    color: AppColors.growPrice,
+                                    fontSize: UIDefine.fontSize12,
+                                    fontWeight: FontWeight.w400),
+                              ),
                             ],
                           )
                         ],

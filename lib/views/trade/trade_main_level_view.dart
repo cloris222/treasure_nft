@@ -620,6 +620,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
           btnText: tr('confirm'),
           onPressed: () {});
     }
+
     if (reserveDivision.isEmpty || reserveDivisionRanges.isEmpty) {
       return const SizedBox();
     }
@@ -638,47 +639,48 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
 
     return isReserved
         ? Row(
-            children: [
-              Expanded(
-                  child: LoginBolderButtonWidget(
-                      margin: buttonMargin,
-                      padding: buttonPadding,
-                      radius: 22,
-                      fontWeight: FontWeight.w600,
-                      fontSize: UIDefine.fontSize16,
-                      btnText: tr('continueReservation'),
-                      onPressed: () => widget.onScrollTop())),
-              SizedBox(width: UIDefine.getPixelWidth(5)),
-              Expanded(
-                  child: LoginButtonWidget(
+      children: [
+        Expanded(
+            child: LoginBolderButtonWidget(
                 margin: buttonMargin,
                 padding: buttonPadding,
                 radius: 22,
                 fontWeight: FontWeight.w600,
                 fontSize: UIDefine.fontSize16,
-                btnText: tr('matching'),
-                onPressed: () => viewModel.pushAndRemoveUntil(
-                    context,
-                    const MainPage(
-                      type: AppNavigationBarType.typeCollection,
-                    )),
-              ))
-            ],
-          )
+                btnText: tr('continueReservation'),
+                onPressed: () => widget.onScrollTop())),
+        SizedBox(width: UIDefine.getPixelWidth(5)),
+        Expanded(
+            child: LoginButtonWidget(
+              margin: buttonMargin,
+              padding: buttonPadding,
+              radius: 22,
+              fontWeight: FontWeight.w600,
+              fontSize: UIDefine.fontSize16,
+              btnText: tr('matching'),
+              onPressed: () => viewModel.pushAndRemoveUntil(
+                  context,
+                  const MainPage(
+                    type: AppNavigationBarType.typeCollection,
+                  )),
+            ))
+      ],
+    )
         : LoginButtonWidget(
-            enable: sellStatus == SellingState.Reserving,
-            isUnEnableGradient: false,
-            margin: buttonMargin,
-            padding: buttonPadding,
-            radius: 10,
-            fontWeight: FontWeight.w600,
-            fontSize: UIDefine.fontSize16,
-            btnText: tr('confirm'),
-            onPressed: () {
-              if (sellStatus == SellingState.Reserving) {
-                _onPressReservation(userInfo, experienceInfo);
-              }
-            });
+        enable: sellStatus == SellingState.Reserving,
+        isUnEnableGradient: false,
+        margin: buttonMargin,
+        padding: buttonPadding,
+        radius: 10,
+        fontWeight: FontWeight.w600,
+        fontSize: UIDefine.fontSize16,
+        btnText: tr('confirm'),
+        onPressed: () {
+          if (sellStatus == SellingState.Reserving) {
+            _onPressReservation(userInfo, experienceInfo);
+          }
+        });
+
   }
 
   ///MARK: 交易量
