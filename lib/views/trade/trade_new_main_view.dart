@@ -6,6 +6,7 @@ import 'package:treasure_nft_project/constant/theme/app_colors.dart';
 import 'package:treasure_nft_project/constant/theme/app_style.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/view_models/gobal_provider/user_level_info_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_division_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_info_provider.dart';
@@ -43,6 +44,7 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
   @override
   void initState() {
     viewModel = TradeNewMainViewModel(reservationSuccess: () {
+      BaseViewModel().popPage(context);
       /// MARK: 預約成功通知
       // SuccessDialog(context,
       //         callOkFunction: () {},

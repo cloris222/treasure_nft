@@ -47,6 +47,7 @@ class TradeNewMainViewModel extends BaseViewModel {
             endExpectedReturn: endExpectedReturn,
           ));
       });
+
     // closeLoadingPage();
     /// 如果預約成功 會進call back function
     reservationSuccess();
@@ -63,12 +64,13 @@ class TradeNewMainViewModel extends BaseViewModel {
   }
 
   void _experienceExpired(String errorMessage) {
-    closeLoadingPage();
+    // closeLoadingPage();
+    BaseViewModel().popPage(BaseViewModel().getGlobalContext());
     errorMsgDialog(tr("reserve-failed'"), '');
   }
 
   void _onAddReservationFail(String errorMessage) {
-    // closeLoadingPage();
+    closeLoadingPage();
     switch (errorMessage) {
       /// 預約金不足
       case 'APP_0064':

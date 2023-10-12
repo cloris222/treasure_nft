@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -134,19 +135,51 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
   CollectionTagNew currentExploreType = CollectionTagNew.Reservation;
   PageController pageController = PageController();
   List<Widget> pages = <Widget>[];
+  Timer? _timer;
+  late Duration _duration;
+  num durationNum = 0;
+  StateSetter? _countDownState;
 
   @override
   void initState() {
     _setPage();
-    Future.delayed(Duration.zero,() async {
+    Future.delayed(Duration.zero, () async {
       if(userInfo.level > 0) {
         await ref.read(tradeReserveDivisionProvider.notifier).init();
-        setState(() {
-          _onDivisionChange(divisionIndex: (userInfo.level - 1));
+        Future.delayed(Duration(seconds: 2), () {
+          _onDivisionChange(divisionIndex: (userInfo.level - 1)).then((value) {
+            if(reserveInfo != null) {
+              DateTime resetTime = DateTime.parse(reserveInfo!.resetTime);
+              DateTime systemTime = DateTime.parse('${reserveInfo!.systemDate} ${reserveInfo!.systemTime}');
+              _duration = resetTime.difference(systemTime);
+              durationNum = _duration.inSeconds;
+              _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+                if(_countDownState != null) {
+                  _countDownState!(() {
+                    if(durationNum > 0) {
+                      durationNum -- ;
+                    } else {
+                      durationNum = 0;
+                      if(_timer != null) {
+                        _timer!.cancel();
+                      }
+                    }
+                  });
+                }
+              });
+            }
+
+          });
         });
       }
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -627,13 +660,14 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
 
     if(reserveInfo != null) {
       if(reserveInfo!.reserveCount <= 0) {
-        DateTime _now = DateTime.now();
-        String resetTimeStr = BaseViewModel().changeTimeZone(reserveInfo!.resetTime.toString(),setSystemZone: 'GMT+8', isSystemTime: true, isApiValue: true);
-        DateTime _resetTime = DateTime.parse(resetTimeStr);
-        Duration duration = _resetTime.difference(_now);
         return Container(
             decoration: AppStyle().baseGradient(radius:10),
-            child: _buildTimeBar(userInfo, duration: duration, title: tr('appTradeNotYet')));
+            child: StatefulBuilder(
+                builder: (BuildContext context, StateSetter setState) {
+                  _countDownState = setState;
+                  return _buildTimeBar(userInfo, duration: Duration(seconds: durationNum.toInt()), title: tr('appTradeNotYet'));
+                },
+            ));
       }
     }
 
@@ -762,7 +796,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
         divisionIndex: currentDivisionIndex);
   }
 
-  void _onDivisionChange({required int divisionIndex, int rangeIndex = 0}) {
+  Future<void> _onDivisionChange({required int divisionIndex, int rangeIndex = 0}) async {
     GlobalData.printLog('mainTrade_onDivisionChange:divisionIndex=$divisionIndex,rangeIndex=$rangeIndex');
 
     ///MARK: 初始化drop button
