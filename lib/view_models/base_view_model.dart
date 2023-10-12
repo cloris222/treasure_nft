@@ -416,6 +416,7 @@ class BaseViewModel with ControlRouterViewModel {
 
       ///賣出成功彈窗
       if(data["type"] == 'SELL') {
+        GlobalData.sellSuccessNotifier.updateState(true);
         await ImgTitleDialog(
           getGlobalContext(),
           mainText: '',
@@ -463,6 +464,7 @@ class BaseViewModel with ControlRouterViewModel {
       //   },
       // ).show();
       GlobalData.bShowBuySuccessAnimate = false;
+      GlobalData.sellSuccessNotifier.updateState(false);
     }
   }
 

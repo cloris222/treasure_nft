@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:treasure_nft_project/constant/global_data.dart';
+import 'package:treasure_nft_project/widgets/changenotifiers/sell_success_notifier.dart';
 import 'package:treasure_nft_project/widgets/list_view/base_list_interface.dart';
 
 import '../../constant/theme/app_colors.dart';
@@ -33,19 +35,40 @@ class _CollectionTotalCollectedListViewState
   DateTime loadTime = DateTime.now().toUtc();
   List<CollectionNftItemResponseData> finalData = [];
   CollectionNftItemResponseData? _tempData;
-
+  late SellSuccessNotifier _sellSuccessNotifier;
 
   @override
   void initState() {
     init();
+    _onNotifierListener();
     super.initState();
+  }
+
+  _onNotifierListener() {
+    _sellSuccessNotifier = GlobalData.sellSuccessNotifier;
+    _sellSuccessNotifier.addListener(() {
+      if(mounted) {
+        if(_sellSuccessNotifier.ConnectSellSuccess == true) {
+          currentItems.clear();
+          finalData.clear();
+          setSharedPreferencesValue(maxSize: maxLoad());
+          loadingFinish();
+          Future.delayed(Duration.zero, () async {
+             await init();
+             setState(() {
+
+             });
+          });
+        }
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return buildGridView(
         crossAxisCount: 2,
-        padding: EdgeInsets.zero ,
+        padding: EdgeInsets.fromLTRB(0, 0, 0, UIDefine.getNavigationBarHeight()),
         spaceWidget: SizedBox(width: UIDefine.getScreenWidth(2.7)),
       placeHolderWidget: _buildPlaceHolderWidget()
     );
@@ -141,6 +164,8 @@ class _CollectionTotalCollectedListViewState
   @override
   Future<List> loadData(int page, int size) async {
     loadTime = DateTime.now().toUtc();
+
+    print('loadingData');
 
     /// 先拿selling
     var sellingData = await CollectionApi(onConnectFail: (msg)=>reloadAPI(page,size))

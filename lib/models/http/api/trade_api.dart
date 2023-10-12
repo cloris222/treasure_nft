@@ -28,8 +28,6 @@ class TradeAPI extends HttpManager {
   /// step2: 查詢預約資訊
   Future<CheckReservationInfo> getCheckReservationInfoAPI(int division,
       {String? reserveDate, int? reserveStage}) async {
-    /// test
-    print('divisionInApi=${division}');
     var response =
         await get('/reserve/info', queryParameters: {"division": division});
     return CheckReservationInfo.fromJson(response.data);

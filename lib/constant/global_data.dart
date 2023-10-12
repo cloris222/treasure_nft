@@ -7,6 +7,7 @@ import '../models/http/parameter/country_phone_data.dart';
 import '../models/http/parameter/sign_in_data.dart';
 import '../widgets/app_bottom_navigation_bar.dart';
 import '../widgets/changenotifiers/bottom_navigation_notifier.dart';
+import '../widgets/changenotifiers/sell_success_notifier.dart';
 import 'enum/server_route_enum.dart';
 
 class GlobalData {
@@ -61,6 +62,9 @@ class GlobalData {
   ///MARK: Notifier監聽
   static BottomNavigationNotifier bottomNavigationNotifier =
       BottomNavigationNotifier();
+
+  static SellSuccessNotifier sellSuccessNotifier =
+  SellSuccessNotifier();
 
   ///MARK: Stomp 控管用
   static bool bShowBuySuccessAnimate = false; //控管目前是否有顯示中獎
