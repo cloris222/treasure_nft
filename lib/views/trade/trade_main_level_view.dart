@@ -40,6 +40,7 @@ import '../../models/http/parameter/check_reservation_info.dart';
 import '../../models/http/parameter/check_reserve_deposit.dart';
 import '../../models/http/parameter/reserve_view_data.dart';
 import '../../models/http/parameter/user_info_data.dart';
+import '../../view_models/base_view_model.dart';
 import '../../view_models/gobal_provider/user_info_provider.dart';
 import '../../view_models/trade/provider/trade_reserve_info_provider.dart';
 import '../../widgets/dialog/img_title_dialog.dart';
@@ -584,9 +585,10 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     }
 
     if(reserveInfo != null) {
-      if(reserveInfo!.reserveCount <= 0) {
+      if(reserveInfo!.reserveCount >= 0) {
         DateTime _now = DateTime.now();
-        DateTime _resetTime = DateTime.parse(reserveInfo!.resetTime);
+        String resetTimeStr = BaseViewModel().changeTimeZone(reserveInfo!.resetTime.toString(),setSystemZone: 'GMT+8', isSystemTime: true, isApiValue: true);
+        DateTime _resetTime = DateTime.parse(resetTimeStr);
         Duration duration = _resetTime.difference(_now);
         return Container(
             decoration: AppStyle().baseGradient(radius:10),
