@@ -54,13 +54,12 @@ class _CollectionReservationListViewState
 
   @override
   Widget? buildTopView() {
-    return Platform.isAndroid? IconTextButtonWidget(
-        height: UIDefine.getScreenWidth(10),
-        btnText: tr("depositNFT"),
-        iconPath: 'assets/icon/btn/btn_card_01_nor.png',
-        onPressed: () {
-          BaseViewModel().pushPage(context, const DepositNftMainView());
-        }):Container();
+    return Container();
+  }
+
+  @override
+  Widget buildSeparatorBuilder(int index) {
+    return SizedBox(height: UIDefine.getScreenWidth(4));
   }
 
   @override

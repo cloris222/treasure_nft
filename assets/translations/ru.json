@@ -1471,4 +1471,12 @@
   "notAvailable":"Невозможно использовать.",
   "matchMaking":"Заказ ...",
   "anticipated_income":"ожидаемый доход"
+  "notAvailable":"Невозможно использовать.",
+  "finance":"Зарабатывать",
+  "fixedInvestment":"Количество",
+  "dailyIncome":"Ежедневный доход",
+  "fixedInvestmentPeriod":"Дни",
+  "checkDetails":"Подробности",
+  "incomeProfit":"Доход",
+  "limitParticipationDay":"Ограничение участия {День} Дни/{элементы} раз времена"
 }

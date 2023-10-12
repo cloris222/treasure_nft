@@ -1471,4 +1471,12 @@
   "notAvailable":"無法使用",
   "matchMaking":"匹配中...",
   "anticipated_income":"預期收益"
+  "notAvailable":"無法使用",
+  "finance":"理財",
+  "fixedInvestment":"數量",
+  "dailyIncome":"日收益",
+  "fixedInvestmentPeriod":"天數",
+  "checkDetails":"查看詳情",
+  "incomeProfit":"收益",
+  "limitParticipationDay":"限制參與{day}天/{items}次"
 }

@@ -1471,4 +1471,12 @@
   "notAvailable":"Incapaz de usar.",
   "matchMaking":"Matchmaking ...",
   "anticipated_income":"renda prevista"
+  "notAvailable":"Incapaz de usar.",
+  "finance":"Ganhar",
+  "fixedInvestment":"Quantia",
+  "dailyIncome":"Renda diária",
+  "fixedInvestmentPeriod":"Dias",
+  "checkDetails":"Detalhes",
+  "incomeProfit":"Renda",
+  "limitParticipationDay":"Restrição de participação {dia} dias/{itens} tempos"
 }

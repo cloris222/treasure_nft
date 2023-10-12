@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:format/format.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/constant/global_data.dart';
 import 'package:treasure_nft_project/constant/theme/app_animation_path.dart';
@@ -32,6 +33,7 @@ import 'package:treasure_nft_project/widgets/gradient_third_text.dart';
 import 'package:treasure_nft_project/widgets/label/coin/tether_coin_widget.dart';
 import 'package:treasure_nft_project/widgets/label/icon/base_icon_widget.dart';
 
+import '../../constant/enum/collection_enum.dart';
 import '../../constant/enum/trade_enum.dart';
 import '../../models/http/parameter/check_experience_info.dart';
 import '../../models/http/parameter/check_reservation_info.dart';
@@ -39,9 +41,12 @@ import '../../models/http/parameter/check_reserve_deposit.dart';
 import '../../models/http/parameter/reserve_view_data.dart';
 import '../../models/http/parameter/user_info_data.dart';
 import '../../view_models/control_router_viem_model.dart';
+import '../../view_models/base_view_model.dart';
 import '../../view_models/gobal_provider/user_info_provider.dart';
 import '../../view_models/trade/provider/trade_reserve_info_provider.dart';
 import '../../widgets/dialog/img_title_dialog.dart';
+import '../collection/collection_reservation_list_view.dart';
+import '../collection/collection_total_collected_list_view.dart';
 
 ///MARK: 交易 切換交易等級&轉轉轉方塊
 class TradeMainLevelView extends ConsumerStatefulWidget {
@@ -125,17 +130,22 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     return [];
   }
 
+  ItemScrollController listController = ItemScrollController();
+  CollectionTagNew currentExploreType = CollectionTagNew.Reservation;
+  PageController pageController = PageController();
+  List<Widget> pages = <Widget>[];
 
   @override
   void initState() {
-   Future.delayed(Duration.zero,() async {
-     if(userInfo.level > 0) {
-       await ref.read(tradeReserveDivisionProvider.notifier).init();
-       setState(() {
-         _onDivisionChange(divisionIndex: (userInfo.level - 1));
-       });
-     }
-   });
+    _setPage();
+    Future.delayed(Duration.zero,() async {
+      if(userInfo.level > 0) {
+        await ref.read(tradeReserveDivisionProvider.notifier).init();
+        setState(() {
+          _onDivisionChange(divisionIndex: (userInfo.level - 1));
+        });
+      }
+    });
     super.initState();
   }
 
@@ -153,16 +163,46 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     ref.watch(tradeTimeProvider);
 
     ///MARK: 建立畫面
-    return Column(
-      children: [
-        /// 交易的主要區塊
-        _buildDivision(),
+    return Container(
+      height: UIDefine.getHeight(),
+      child: Column(
+        children: [
 
-        // SizedBox(height: UIDefine.getPixelWidth(10)),
+          /// 交易的主要區塊
+          _buildDivision(),
 
-        /// 交易的其他資訊
-        // _buildSystemInfo(),
-      ],
+          SizedBox(height: UIDefine.getPixelWidth(16)),
+
+          /// 交易的其他資訊
+          // _buildSystemInfo(),
+
+          /// 收藏頁tag
+          Container(
+            padding: EdgeInsets.only(
+                top: UIDefine.getScreenWidth(0.97),
+                bottom: UIDefine.getScreenWidth(0.97)),
+            margin: EdgeInsets.only(
+                left: UIDefine.getScreenWidth(5),
+                right: UIDefine.getScreenWidth(5),
+                bottom: UIDefine.getScreenWidth(0.8)),
+            child: getCollectionTypeButtons(
+                controller: listController,
+                currentExploreType: currentExploreType,
+                changePage: (CollectionTagNew exploreType) {
+                  _changePage(exploreType);
+                }),
+          ),
+
+          /// 收藏頁
+          Expanded(
+            child: PageView(
+              controller: pageController,
+              onPageChanged: _onPageChange,
+              children: pages,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -191,20 +231,24 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
               Expanded(child: _buildRangeDropButton()),
             ],
           ),
-
-          ///MARK: 顯示預約的剩餘時間
-          _buildTimeBar(userInfo),
-
-          ///MARK: 顯示交易的骰子圖片&3D動畫
-          _buildTradeImage(isReserved, userInfo),
-
-          ///MARK: 顯示交易區間的資訊
-          _buildDivisionInfo(),
-
-          SizedBox(height: UIDefine.getPixelWidth(10)),
+          SizedBox(height: UIDefine.getPixelWidth(16),),
 
           ///MARK: 預約交易的按鈕
           _buildReservationButton(isReserved, isLock, userInfo, experienceInfo),
+
+          ///MARK: 顯示預約的剩餘時間
+          // _buildTimeBar(userInfo),
+
+          ///MARK: 顯示交易的骰子圖片&3D動畫
+          // _buildTradeImage(isReserved, userInfo),
+
+          ///MARK: 顯示交易區間的資訊
+          // _buildDivisionInfo(),
+
+          // SizedBox(height: UIDefine.getPixelWidth(10)),
+
+          ///MARK: 預約交易的按鈕
+          // _buildReservationButton(isReserved, isLock, userInfo, experienceInfo),
         ],
       ),
     );
@@ -384,13 +428,13 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     );
   }
 
-  Widget _buildTimeBar(UserInfoData userInfoData) {
+  Widget _buildTimeBar(UserInfoData userInfoData, {Duration? duration, String? title}) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(5)),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(timeTitle,
+          Text(title??timeTitle,
               style: AppTextStyle.getBaseStyle(
                   color: AppColors.textSixBlack,
                   fontWeight: FontWeight.w400,
@@ -399,14 +443,14 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
             margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(5)),
             child: CountDownTimer(
               isNewType: true,
-              duration: ref.watch(tradeTimeProvider)?.duration,
+              duration: duration??ref.watch(tradeTimeProvider)?.duration,
             ),
           ),
-          Text(TradeTimerUtil().getTradeZone(userInfoData),
-              style: AppTextStyle.getBaseStyle(
-                  color: AppColors.textSixBlack,
-                  fontWeight: FontWeight.w400,
-                  fontSize: UIDefine.fontSize12)),
+          // Text(TradeTimerUtil().getTradeZone(userInfoData),
+          //     style: AppTextStyle.getBaseStyle(
+          //         color: AppColors.textSixBlack,
+          //         fontWeight: FontWeight.w400,
+          //         fontSize: UIDefine.fontSize12)),
         ],
       ),
     );
@@ -555,19 +599,42 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
 
   Widget _buildReservationButton(bool isReserved, bool isLock,
       UserInfoData userInfo, ExperienceInfo experienceInfo) {
-    ///MARK: 如果鎖定 or 不允許使用交易功能時，要隱藏
-    if (isLock || !(GlobalData.appTradeEnterButtonStatus)) {
-      return const SizedBox();
-    }
-    if (reserveDivision.isEmpty || reserveDivisionRanges.isEmpty) {
-      return const SizedBox();
-    }
+
     EdgeInsetsGeometry buttonMargin = EdgeInsets.symmetric(
         horizontal: UIDefine.getPixelWidth(0),
         vertical: UIDefine.getPixelWidth(0));
     EdgeInsetsGeometry buttonPadding = EdgeInsets.symmetric(
         horizontal: UIDefine.getPixelWidth(0),
         vertical: UIDefine.getPixelWidth(0));
+
+    ///MARK: 如果鎖定 or 不允許使用交易功能時，要隱藏
+    if (isLock || !(GlobalData.appTradeEnterButtonStatus)) {
+      return LoginButtonWidget(
+          enable: false,
+          isUnEnableGradient: false,
+          margin: buttonMargin,
+          padding: buttonPadding,
+          radius: 10,
+          fontWeight: FontWeight.w600,
+          fontSize: UIDefine.fontSize16,
+          btnText: tr('confirm'),
+          onPressed: () {});
+    }
+    if (reserveDivision.isEmpty || reserveDivisionRanges.isEmpty) {
+      return const SizedBox();
+    }
+
+    if(reserveInfo != null) {
+      if(reserveInfo!.reserveCount >= 0) {
+        DateTime _now = DateTime.now();
+        String resetTimeStr = BaseViewModel().changeTimeZone(reserveInfo!.resetTime.toString(),setSystemZone: 'GMT+8', isSystemTime: true, isApiValue: true);
+        DateTime _resetTime = DateTime.parse(resetTimeStr);
+        Duration duration = _resetTime.difference(_now);
+        return Container(
+            decoration: AppStyle().baseGradient(radius:10),
+            child: _buildTimeBar(userInfo, duration: duration, title: tr('appTradeNotYet')));
+      }
+    }
 
     return isReserved
         ? Row(
@@ -603,7 +670,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
             isUnEnableGradient: false,
             margin: buttonMargin,
             padding: buttonPadding,
-            radius: 22,
+            radius: 10,
             fontWeight: FontWeight.w600,
             fontSize: UIDefine.fontSize16,
             btnText: tr('confirm'),
@@ -778,5 +845,107 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
       default:
         return '1.8';
     }
+  }
+
+  Widget getCollectionTypeButtons(
+      {required CollectionTagNew currentExploreType,
+        required ItemScrollController controller,
+        required Function(CollectionTagNew tag) changePage}) {
+    List<Widget> buttons = <Widget>[];
+    for (int i = 0; i < CollectionTagNew.values.length; i++) {
+      CollectionTagNew tag = CollectionTagNew.values[i];
+      bool isCurrent = (tag == currentExploreType);
+      buttons.add(IntrinsicWidth(
+        child: Column(
+          children: [
+            SizedBox(
+              height: UIDefine.getScreenWidth(12),
+              child: TextButton(
+                onPressed: () {
+                  changePage(tag);
+                },
+                child: Container(
+                  padding: EdgeInsets.fromLTRB(UIDefine.getScreenWidth(4.5), 0,
+                      UIDefine.getScreenWidth(3), 0),
+                  child: Text(
+                    _getTabTitle(tag),
+                    style: AppTextStyle.getBaseStyle(
+                        color: _getButtonColor(isCurrent),
+                        fontSize: UIDefine.fontSize16),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              height: _getLineHeight(isCurrent),
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(colors: _getLineColor(isCurrent))),
+            ),
+          ],
+        ),
+      ));
+    }
+    return SizedBox(
+        height: UIDefine.getScreenWidth(13),
+        child: ScrollablePositionedList.builder(
+            scrollDirection: Axis.horizontal,
+            itemScrollController: controller,
+            itemCount: buttons.length,
+            itemBuilder: (context, index) {
+              return buttons[index];
+            }));
+  }
+
+  String _getTabTitle(CollectionTagNew tag) {
+    switch (tag) {
+      case CollectionTagNew.Reservation:
+        return tr('tab_reserve');
+      case CollectionTagNew.Collected:
+        return tr('tab_unsell');
+    }
+  }
+
+  double _getLineHeight(bool isCurrent) {
+    if (isCurrent) return 2.5;
+    return 1;
+  }
+
+  List<Color> _getLineColor(bool isCurrent) {
+    if (isCurrent) return AppColors.gradientBaseColorBg;
+    return [AppColors.lineBarGrey, AppColors.lineBarGrey];
+  }
+
+  Color _getButtonColor(bool isCurrent) {
+    if (isCurrent) return Colors.black;
+    return Colors.grey;
+  }
+
+  void _changePage(CollectionTagNew exploreType) {
+    setState(() {
+      currentExploreType = exploreType;
+      pageController.jumpToPage(currentExploreType.index);
+    });
+  }
+
+  void _onPageChange(int value) {
+    setState(() {
+      currentExploreType = CollectionTagNew.values[value];
+      if (value != 0) {
+        listController.scrollTo(
+            index: value - 1, duration: const Duration(milliseconds: 300));
+      }
+    });
+  }
+
+  void _setPage() {
+    pages = List<Widget>.generate(CollectionTagNew.values.length, (index) {
+      switch (CollectionTagNew.values[index]) {
+        case CollectionTagNew.Reservation:
+          return const CollectionReservationListView();
+        case CollectionTagNew.Collected:
+          return const CollectionTotalCollectedListView();
+      }
+    });
   }
 }

@@ -1471,4 +1471,12 @@
   "notAvailable":"Unable to use.",
   "matchMaking":"Matchmaking...",
   "anticipated_income":"anticipated income"
+  "notAvailable":"Unable to use.",
+  "finance":"Earn",
+  "fixedInvestment":"Amount",
+  "dailyIncome":"Daily income",
+  "fixedInvestmentPeriod":"Days",
+  "checkDetails":"Details",
+  "incomeProfit":"Income",
+  "limitParticipationDay":"Participation restriction {day}days/{items}times"
 }

@@ -44,14 +44,22 @@ class CollectionApi extends HttpManager {
 
   /// 查詢會員商品
   Future<List<CollectionNftItemResponseData>> getNFTItemResponse(
-      {int page = 1, int size = 10, String status = ''}) async {
+      {int page = 1, int size = 10, String? status}) async {
     List<CollectionNftItemResponseData> result =
         <CollectionNftItemResponseData>[];
-    ApiResponse response = await get('/NFTItem/mine', queryParameters: {
-      'page': page,
-      'size': size,
-      'status': status,
-    });
+    ApiResponse response;
+    if(status != null) {
+      response = await get('/NFTItem/mine', queryParameters: {
+        'page': page,
+        'size': size,
+        'status': status,
+      });
+    } else {
+      response = await get('/NFTItem/mine', queryParameters: {
+        'page': page,
+        'size': size,
+      });
+    }
     for (Map<String, dynamic> json in response.data['pageList']) {
       result.add(CollectionNftItemResponseData.fromJson(json));
     }

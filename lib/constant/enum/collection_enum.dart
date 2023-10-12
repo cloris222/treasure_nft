@@ -15,6 +15,14 @@ enum CollectionTag {
   Medal
 }
 
+enum CollectionTagNew {
+  /// 今日預約
+  Reservation,
+
+  /// 我的收藏（包含已上架未上架）
+  Collected,
+}
+
 enum DepositChain{
   Polygon,
   BSC,

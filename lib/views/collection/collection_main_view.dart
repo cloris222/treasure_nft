@@ -6,6 +6,7 @@ import '../../constant/enum/collection_enum.dart';
 import '../../constant/ui_define.dart';
 import '../../view_models/collection/collection_main_view_model.dart';
 import '../../widgets/button/icon_text_button_widget.dart';
+import '../finance/financial_management_list_view.dart';
 import 'collection_medal_list_view.dart';
 import 'collection_pending_list_view.dart';
 import 'collection_reservation_list_view.dart';
@@ -40,19 +41,15 @@ class _CollectionMainView extends State<CollectionMainView> {
     return Scaffold(
       body: Column(children: [
         Container(
+          alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(
-                top: UIDefine.getScreenWidth(0.97),
-                bottom: UIDefine.getScreenWidth(0.97)),
+                top: UIDefine.getPixelWidth(0.97),
+                bottom: UIDefine.getPixelWidth(0.97)),
             margin: EdgeInsets.only(
                 left: UIDefine.getScreenWidth(5),
                 right: UIDefine.getScreenWidth(5),
                 bottom: UIDefine.getScreenWidth(0.8)),
-            child: viewModel.getCollectionTypeButtons(
-                controller: listController,
-                currentExploreType: currentExploreType,
-                changePage: (CollectionTag exploreType) {
-                  _changePage(exploreType);
-                })),
+            child: viewModel.getCollectionTypeButtons()),
         // 如要置頂不滑動才放此Class
         // Visibility(
         //   visible: currentExploreType == 'Pending',
@@ -70,20 +67,21 @@ class _CollectionMainView extends State<CollectionMainView> {
   }
 
   void _setPage() {
-    pages = List<Widget>.generate(CollectionTag.values.length, (index) {
-      switch (CollectionTag.values[index]) {
-        case CollectionTag.Reservation:
-          return const CollectionReservationListView();
-        case CollectionTag.Pending:
-          return const CollectionPendingListView();
-        case CollectionTag.Selling:
-          return const CollectionSellingListView();
-        case CollectionTag.Ticket:
-          return const CollectionTicketListView();
-        case CollectionTag.Medal:
-          return const CollectionMedalListView();
-      }
-    });
+    pages = [FinancialManagementListView()];
+    // pages = List<Widget>.generate(CollectionTag.values.length, (index) {
+    //   switch (CollectionTag.values[index]) {
+    //     case CollectionTag.Reservation:
+    //       return const CollectionReservationListView();
+    //     case CollectionTag.Pending:
+    //       return const CollectionPendingListView();
+    //     case CollectionTag.Selling:
+    //       return const CollectionSellingListView();
+    //     case CollectionTag.Ticket:
+    //       return const CollectionTicketListView();
+    //     case CollectionTag.Medal:
+    //       return const CollectionMedalListView();
+    //   }
+    // });
   }
 
   void _changePage(CollectionTag exploreType) {

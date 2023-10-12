@@ -1471,4 +1471,12 @@
   "notAvailable":"غير قادر على الاستخدام.",
   "matchMaking":"التوفيق ...",
   "anticipated_income":"الدخل المتوقع"
+  "notAvailable":"غير قادر على الاستخدام.",
+  "finance":"يكسب",
+  "fixedInvestment":"كمية",
+  "dailyIncome":"الدخل اليومي",
+  "fixedInvestmentPeriod":"أيام",
+  "checkDetails":"تفاصيل",
+  "incomeProfit":"دخل",
+  "limitParticipationDay":"قيود المشاركة {day} أيام/{العناصر} مرات"
 }

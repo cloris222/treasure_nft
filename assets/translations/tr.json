@@ -1468,4 +1468,12 @@
   "notAvailable":"Kullanılamıyor.",
   "matchMaking":"Çöpçatanlık...",
   "anticipated_income":"beklenen gelir"
+  "notAvailable":"Kullanılamıyor.",
+  "finance":"Para kazanmak",
+  "fixedInvestment":"Miktar",
+  "dailyIncome":"Günlük gelir",
+  "fixedInvestmentPeriod":"Günler",
+  "checkDetails":"Detaylar",
+  "incomeProfit":"Gelir",
+  "limitParticipationDay":"Katılım kısıtlaması {gün} günleri/{öğeler} kez"
 }

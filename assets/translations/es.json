@@ -1471,4 +1471,12 @@
   "notAvailable":"Incapaz de usar.",
   "matchMaking":"Casamentero...",
   "anticipated_income":"ingresos anticipados"
+  "notAvailable":"Incapaz de usar.",
+  "finance":"Ganar",
+  "fixedInvestment":"Cantidad",
+  "dailyIncome":"Ingresos diarios",
+  "fixedInvestmentPeriod":"Días",
+  "checkDetails":"Detalles",
+  "incomeProfit":"Ingreso",
+  "limitParticipationDay":"Restricción de participación {día} días/{elementos} veces"
 }

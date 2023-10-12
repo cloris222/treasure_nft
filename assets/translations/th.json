@@ -1471,4 +1471,12 @@
   "notAvailable":"ไม่สามารถใช้งานได้",
   "matchMaking":"การจับคู่ ...",
   "anticipated_income":"รายได้ที่คาดการณ์ไว้"
+  "notAvailable":"ไม่สามารถใช้งานได้",
+  "finance":"ได้รับ",
+  "fixedInvestment":"จำนวน",
+  "dailyIncome":"รายได้รายวัน",
+  "fixedInvestmentPeriod":"วัน",
+  "checkDetails":"รายละเอียด",
+  "incomeProfit":"รายได้",
+  "limitParticipationDay":"การ จำกัด การเข้าร่วม {วัน} วัน/{รายการ} ครั้ง"
 }

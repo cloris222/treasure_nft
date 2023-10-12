@@ -1465,4 +1465,12 @@
   "notAvailable":"无法使用",
   "matchMaking":"匹配中...",
   "anticipated_income":"预期收益"
+  "notAvailable":"无法使用",
+  "finance":"理财",
+  "fixedInvestment":"数量",
+  "dailyIncome":"日收益",
+  "fixedInvestmentPeriod":"天数",
+  "checkDetails":"查看详情",
+  "incomeProfit":"收益",
+  "limitParticipationDay":"限制参与{day}天/{items}次"
 }

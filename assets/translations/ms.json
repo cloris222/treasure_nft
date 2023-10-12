@@ -1471,4 +1471,12 @@
   "notAvailable":"Tidak dapat digunakan.",
   "matchMaking":"Membuat perjumpaan ...",
   "anticipated_income":"pendapatan yang dijangkakan"
+  "notAvailable":"Tidak dapat digunakan.",
+  "finance":"Memperoleh",
+  "fixedInvestment":"Jumlah",
+  "dailyIncome":"Pendapatan harian",
+  "fixedInvestmentPeriod":"Hari",
+  "checkDetails":"Perincian",
+  "incomeProfit":"Pendapatan",
+  "limitParticipationDay":"Sekatan penyertaan {hari} hari/{item} kali"
 }

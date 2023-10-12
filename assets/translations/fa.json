@@ -1471,4 +1471,12 @@
   "notAvailable":"استفاده نمی شود.",
   "matchMaking":"خواستگاری ...",
   "anticipated_income":"درآمد پیش بینی شده"
+  "notAvailable":"استفاده نمی شود.",
+  "finance":"بدست آوردن",
+  "fixedInvestment":"میزان",
+  "dailyIncome":"درآمد روزانه",
+  "fixedInvestmentPeriod":"روزها",
+  "checkDetails":"جزئیات",
+  "incomeProfit":"درآمد",
+  "limitParticipationDay":"محدودیت مشارکت {روز} روز/{موارد} بار"
 }

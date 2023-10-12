@@ -1472,4 +1472,12 @@
     "notAvailable":"使用できません。",
     "matchMaking":"マッチメイキング...",
     "anticipated_income":"予想される収入"
+    "notAvailable":"使用できません。",
+    "finance":"得る",
+    "fixedInvestment":"額",
+    "dailyIncome":"毎日の収入",
+    "fixedInvestmentPeriod":"日々",
+    "checkDetails":"詳細",
+    "incomeProfit":"所得",
+    "limitParticipationDay":"参加制限{日}日/{アイテム}回数"
 }

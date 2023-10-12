@@ -38,6 +38,7 @@ class CheckReservationInfo {
     required this.income,
     required this.teamIncome,
     required this.reserveResults,
+    required this.resetTime
     // required this.canReserve,
   });
 
@@ -79,6 +80,7 @@ class CheckReservationInfo {
   num todayIncome;
   num income;
   num teamIncome;
+  String resetTime; // 重置時間
   // bool canReserve;
 
   // List<ReserveItem> reserveItems;
@@ -130,6 +132,7 @@ class CheckReservationInfo {
         teamIncome: json["teamIncome"]??0.0,
         reserveResults: json["reserveResults"] == null ? [] :
         List<ReserveResults>.from(json["reserveResults"].map((x) => ReserveResults.fromJson(x)))??[],
+        resetTime: json["resetTime"] ?? "",
         // canReserve: json["canReserve"],
       );
 
@@ -160,6 +163,7 @@ class CheckReservationInfo {
     "income": income,
     "teamIncome": teamIncome,
     "reserveResults": List<dynamic>.from(reserveResults.map((x) => x.toJson())),
+    "resetTime": resetTime,
     // "canReserve": canReserve,
   };
 }

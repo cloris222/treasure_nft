@@ -267,6 +267,16 @@ class AppImagePath {
   static const String mailService = "$_iconPath/icon_mail_service.png";
   static const String mailReserve = "$_iconPath/icon_mail_reserve_success.png";
 
+  /// 理財圖片
+  static const String financeImg1 = "$_imgPath/finance_1.png";
+  static const String financeImg2 = "$_imgPath/finance_2.png";
+  static const String financeImg3 = "$_imgPath/finance_3.png";
+  static const String financeImg4 = "$_imgPath/finance_4.png";
+  static const String financeImg5 = "$_imgPath/finance_5.png";
+  static const String financeImg6 = "$_imgPath/finance_6.png";
+  static const String financeImg7 = "$_imgPath/finance_7.png";
+  static const String financeImg8 = "$_imgPath/finance_8.png";
+
   /// line setting
   static const String lineSettingServer = "$_iconPath/icon_line_setting_server_01.png";
   static const String userEditAvatar = '$_btnPath/btn_edit_avatar_01.png';
