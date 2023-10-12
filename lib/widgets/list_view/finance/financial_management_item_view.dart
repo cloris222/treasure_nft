@@ -42,6 +42,13 @@ class FinancialManagementItemView extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  data.maxRank == 0?
+                  Row(
+                    children: [
+                      Text('${tr('level')} : ',style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w700,fontSize: UIDefine.fontSize14,color: AppColors.font02),),
+                      Text('LV${data.minRank.toString()}',style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w700,fontSize: UIDefine.fontSize14,color: AppColors.coinColorGreen),),
+                    ],
+                  ):
                   Row(
                     children: [
                       Text('${tr('level')} : ',style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w700,fontSize: UIDefine.fontSize14,color: AppColors.font02),),
@@ -62,29 +69,24 @@ class FinancialManagementItemView extends ConsumerWidget {
                 ],
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    child: GraduallyNetworkImage(
-                      showNormal: true,
-                      imageUrl: data.imgUrl,
-                      height: UIDefine.getPixelWidth(120),
+                    child: Image.asset(data.imgUrl,
                       width: UIDefine.getPixelWidth(120),
-                      cacheWidth: 120,
+                      height: UIDefine.getPixelWidth(120),
                       fit: BoxFit.cover,
-                    ),
+                    )
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(tr('finance'),style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w700,fontSize: UIDefine.fontSize20),),
-                      SizedBox(
+                      data.note.isNotEmpty?SizedBox(
                         width: UIDefine.getPixelWidth(160),
-                        child: Text(format(tr("limitParticipationDay"), {
-                          "day":'35',
-                          "items": '1'
-                        }),style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w400,fontSize: UIDefine.fontSize14,color: AppColors.font02),),
-                      ),
+                        child: Text(data.note,style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w400,fontSize: UIDefine.fontSize14,color: AppColors.font02),),
+                      ):Container(),
                       SizedBox(height: UIDefine.getPixelWidth(20),),
                       _buildTextWithTether(tr('fixedInvestment'), '${data.minInMoney} - ${data.maxInMoney}'),
                       _buildTextWithTether(tr('dailyIncome'), '${data.dayIncome.toString()}%')

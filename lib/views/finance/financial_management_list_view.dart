@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/views/collection/data/collection_financial_management_response_data.dart';
@@ -82,70 +83,76 @@ class _FinancialManagementListViewState
         minInMoney: 200,
         maxInMoney: 500,
         dayIncome: 2.3,
+        note: format(tr("limitParticipationDay"), {
+          "day":'35',
+          "items": '1'
+        }),
         imgUrl: AppImagePath.financeImg1
       ),
       FinancialManagementResponseData(
-          minRank: 1,
+          minRank: 2,
           maxRank: 6,
-          dayCircle: 7,
+          dayCircle: 35,
           minInMoney: 200,
-          maxInMoney: 500,
-          dayIncome: 2.3,
-          imgUrl: AppImagePath.financeImg1
+          maxInMoney: 1500,
+          dayIncome: 2.8,
+          note: format(tr("limitParticipationDay"), {
+            "day":'35',
+            "items": '1'
+          }),
+          imgUrl: AppImagePath.financeImg2
       ),
       FinancialManagementResponseData(
-          minRank: 1,
+          minRank: 2,
           maxRank: 6,
-          dayCircle: 7,
+          dayCircle: 70,
           minInMoney: 200,
-          maxInMoney: 500,
-          dayIncome: 2.3,
-          imgUrl: AppImagePath.financeImg1
+          maxInMoney: 2000,
+          dayIncome: 3.5,
+          imgUrl: AppImagePath.financeImg3
       ),
       FinancialManagementResponseData(
-          minRank: 1,
+          minRank: 2,
           maxRank: 6,
-          dayCircle: 7,
+          dayCircle: 120,
           minInMoney: 200,
-          maxInMoney: 500,
-          dayIncome: 2.3,
-          imgUrl: AppImagePath.financeImg1
+          maxInMoney: 5000,
+          dayIncome: 4.1,
+          imgUrl: AppImagePath.financeImg4
       ),
       FinancialManagementResponseData(
-          minRank: 1,
-          maxRank: 6,
-          dayCircle: 7,
+          minRank: 2,
+          maxRank: 3,
+          dayCircle: 120,
           minInMoney: 200,
-          maxInMoney: 500,
-          dayIncome: 2.3,
-          imgUrl: AppImagePath.financeImg1
+          maxInMoney: 10000,
+          dayIncome: 4.1,
+          imgUrl: AppImagePath.financeImg5
       ),
       FinancialManagementResponseData(
-          minRank: 1,
-          maxRank: 6,
-          dayCircle: 7,
+          minRank: 4,
+          maxRank: 5,
+          dayCircle: 180,
           minInMoney: 200,
-          maxInMoney: 500,
-          dayIncome: 2.3,
-          imgUrl: AppImagePath.financeImg1
+          maxInMoney: 20000,
+          dayIncome: 4.8,
+          imgUrl: AppImagePath.financeImg6
       ),
       FinancialManagementResponseData(
-          minRank: 1,
-          maxRank: 6,
-          dayCircle: 7,
+          minRank: 5,
+          dayCircle: 10,
           minInMoney: 200,
-          maxInMoney: 500,
-          dayIncome: 2.3,
-          imgUrl: AppImagePath.financeImg1
+          maxInMoney: 5000,
+          dayIncome: 5.3,
+          imgUrl: AppImagePath.financeImg7
       ),
       FinancialManagementResponseData(
-          minRank: 1,
-          maxRank: 6,
-          dayCircle: 7,
+          minRank: 6,
+          dayCircle: 10,
           minInMoney: 200,
-          maxInMoney: 500,
-          dayIncome: 2.3,
-          imgUrl: AppImagePath.financeImg1
+          maxInMoney: 1000,
+          dayIncome: 5.3,
+          imgUrl: AppImagePath.financeImg8
       ),
     ];
 
