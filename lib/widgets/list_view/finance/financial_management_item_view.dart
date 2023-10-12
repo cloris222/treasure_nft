@@ -18,28 +18,33 @@ import '../../../views/collection/collection_medal_share_page.dart';
 import '../../button/icon_text_button_widget.dart';
 import '../../label/icon/base_icon_widget.dart';
 
-class CollectionFinancialManagementItemView extends ConsumerWidget {
-  CollectionFinancialManagementItemView({
+class FinancialManagementItemView extends ConsumerWidget {
+  FinancialManagementItemView({
     Key? key,
     required this.data
   })
       : super(key: key);
 
-  CollectionFinancialManagementResponseData data;
+  FinancialManagementResponseData data;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-        decoration: AppStyle().styleColorsRadiusBackground(radius: 12),
-        padding: EdgeInsets.all(UIDefine.getPixelWidth(8)),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: AppColors.datePickerBorder, width: 2)
+        ),
+        margin: EdgeInsets.symmetric(horizontal: UIDefine.getPixelWidth(18)),
+        padding: EdgeInsets.all(UIDefine.getPixelWidth(16)),
         child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
-                      Text(tr('level'),style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w700,fontSize: UIDefine.fontSize14,color: AppColors.font02),),
+                      Text('${tr('level')} : ',style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w700,fontSize: UIDefine.fontSize14,color: AppColors.font02),),
                       Text('LV${data.minRank.toString()}',style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w700,fontSize: UIDefine.fontSize14,color: AppColors.coinColorGreen),),
                       Text('-',style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w700,fontSize: UIDefine.fontSize14,color: AppColors.coinColorGreen),),
                       Text('LV${data.maxRank.toString()}',style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w700,fontSize: UIDefine.fontSize14,color: AppColors.coinColorGreen),),
@@ -70,33 +75,54 @@ class CollectionFinancialManagementItemView extends ConsumerWidget {
                     ),
                   ),
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(tr('finance'),style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w700,fontSize: UIDefine.fontSize20),),
-                      Text(format(tr("limitParticipationDay"), {
-                        "day":'35',
-                        "items": '1'
-                      }),style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w400,fontSize: UIDefine.fontSize14,color: AppColors.font02),),
+                      SizedBox(
+                        width: UIDefine.getPixelWidth(160),
+                        child: Text(format(tr("limitParticipationDay"), {
+                          "day":'35',
+                          "items": '1'
+                        }),style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w400,fontSize: UIDefine.fontSize14,color: AppColors.font02),),
+                      ),
+                      SizedBox(height: UIDefine.getPixelWidth(20),),
                       _buildTextWithTether(tr('fixedInvestment'), '${data.minInMoney} - ${data.maxInMoney}'),
                       _buildTextWithTether(tr('dailyIncome'), '${data.dayIncome.toString()}%')
                     ],
                   )
                 ],
               ),
-              IconTextButtonWidget(
-                  height: UIDefine.getScreenWidth(10),
-                  btnText: tr("checkDetails"),
-                  iconPath: '',
-                  onPressed: () {},)
+              Container(
+                margin: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(10)),
+                height: UIDefine.getPixelWidth(1),
+                color: Colors.black.withOpacity(0.1),
+              ),
+              Container(
+                child: IconTextButtonWidget(
+                    height: UIDefine.getScreenWidth(10),
+                    btnText: tr("checkDetails"),
+                    marginHorizon: 0,
+                    iconPath: '',
+                    onPressed: () {},),
+              )
             ]));
   }
 
   Widget _buildTextWithTether(String title, String text) {
-    return Row(
-      children: [
-        Text(title, style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14,color: AppColors.font02),),
-        Image.asset(AppImagePath.tetherImg,width: UIDefine.getPixelWidth(20),fit: BoxFit.fitWidth,),
-        Text(text, style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14),)
-      ],
+    return SizedBox(
+      width: UIDefine.getPixelWidth(167),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(title, style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14,color: AppColors.font02),),
+          Row(
+            children: [
+              Image.asset(AppImagePath.tetherImg,width: UIDefine.getPixelWidth(14),fit: BoxFit.fitWidth,),
+              Text(text, style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w500, fontSize: UIDefine.fontSize14),)
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

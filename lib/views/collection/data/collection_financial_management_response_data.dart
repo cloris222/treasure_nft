@@ -4,16 +4,15 @@
 
 import 'dart:convert';
 
-CollectionFinancialManagementResponseData collectionFinancialManagementResponseDataFromJson(String str) => CollectionFinancialManagementResponseData.fromJson(json.decode(str));
+FinancialManagementResponseData financialManagementResponseDataFromJson(String str) => FinancialManagementResponseData.fromJson(json.decode(str));
 
-String collectionFinancialManagementResponseDataToJson(CollectionFinancialManagementResponseData data) => json.encode(data.toJson());
+String collectionFinancialManagementResponseDataToJson(FinancialManagementResponseData data) => json.encode(data.toJson());
 
-class CollectionFinancialManagementResponseData {
-  CollectionFinancialManagementResponseData({
+class FinancialManagementResponseData {
+  FinancialManagementResponseData({
     this.minRank = 0,
     this.maxRank = 0,
     this.dayCircle = 0,
-    this.type = FinancialManagementType.normal,
     this.note = '',
     this.minInMoney = 0,
     this.maxInMoney = 0,
@@ -24,7 +23,6 @@ class CollectionFinancialManagementResponseData {
   num minRank; // 參與等級
   num maxRank;  // 參與等級
   num dayCircle;  // ？天定投
-  FinancialManagementType type;  // 方案類型
   String note; // 備註 35天限制參與一次
   num minInMoney; // 數量（最小）
   num maxInMoney; // 數量（最大）
@@ -32,11 +30,10 @@ class CollectionFinancialManagementResponseData {
   String imgUrl; // 圖片
 
 
-  factory CollectionFinancialManagementResponseData.fromJson(Map<String, dynamic> json) => CollectionFinancialManagementResponseData(
+  factory FinancialManagementResponseData.fromJson(Map<String, dynamic> json) => FinancialManagementResponseData(
     minRank: json["minRank"]??0,
     maxRank: json["maxRank"]??0,
     dayCircle: json["dayCircle"]??0,
-    type: json["type"]??FinancialManagementType.normal,
     note: json["note"]??'',
     minInMoney: json["minInMoney"]??0,
     maxInMoney: json["maxInMoney"]??0,
@@ -48,7 +45,6 @@ class CollectionFinancialManagementResponseData {
     "minRank": minRank,
     "maxRank": maxRank,
     "dayCircle": dayCircle,
-    "type": type,
     "note": note,
     "minInMoney": minInMoney,
     "maxInMoney": maxInMoney,

@@ -20,6 +20,7 @@ class IconTextButtonWidget extends StatefulWidget {
       this.height,
       this.fontSize,
       this.fontWeight,
+        this.marginHorizon,
       this.needTimes = 1});
 
   final String btnText;
@@ -31,6 +32,7 @@ class IconTextButtonWidget extends StatefulWidget {
   final double? fontSize;
   final FontWeight? fontWeight;
   final int needTimes;
+  final double? marginHorizon;
 
   @override
   State<IconTextButtonWidget> createState() => _IconTextButtonWidgetState();
@@ -60,7 +62,7 @@ class _IconTextButtonWidgetState extends State<IconTextButtonWidget> {
           alignment: Alignment.center,
           margin: EdgeInsets.symmetric(
               vertical: UIDefine.getScreenWidth(2),
-              horizontal: UIDefine.getScreenWidth(5)),
+              horizontal:UIDefine.getScreenWidth( widget.marginHorizon ?? 5)),
           decoration: widget.enable
               ? AppStyle().baseGradient(radius: 10)
               : AppStyle()
