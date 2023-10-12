@@ -140,6 +140,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
   num durationNum = 0;
   StateSetter? _countDownState;
 
+
   @override
   void initState() {
     _setPage();
@@ -787,13 +788,23 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     );
 
     /// if reservation success 預約狀態 = true
-    reserveDivisionRanges[currentDivisionRangeIndex].used = true;
-    ref.read(tradeReserveInfoProvider)?.reserveRanges[currentDivisionRangeIndex].used = true;
+    // reserveDivisionRanges[currentDivisionRangeIndex].used = true;
+    // ref.read(tradeReserveInfoProvider)?.reserveRanges[currentDivisionRangeIndex].used = true;
+    // await ref.read(tradeReserveInfoProvider.notifier).setSharedPreferencesValue();
+
+    reserveDivisionRanges[currentDivisionRangeIndex].used = false;
+    ref.read(tradeReserveInfoProvider)?.reserveRanges[currentDivisionRangeIndex].used = false;
     await ref.read(tradeReserveInfoProvider.notifier).setSharedPreferencesValue();
 
     _onDivisionChange(
         rangeIndex: currentDivisionRangeIndex,
         divisionIndex: currentDivisionIndex);
+
+    setState(() {
+
+    });
+
+
   }
 
   Future<void> _onDivisionChange({required int divisionIndex, int rangeIndex = 0}) async {

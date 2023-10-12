@@ -276,6 +276,7 @@ class AppImagePath {
   static const String financeImg6 = "$_imgPath/finance_6.png";
   static const String financeImg7 = "$_imgPath/finance_7.png";
   static const String financeImg8 = "$_imgPath/finance_8.png";
+  static const String financeComingSoonImg = "$_imgPath/finance_coming_soon.png";
 
   /// line setting
   static const String lineSettingServer = "$_iconPath/icon_line_setting_server_01.png";
