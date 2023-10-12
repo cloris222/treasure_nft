@@ -1468,5 +1468,7 @@
   "nickname(Optional)":"Nickname (optional)",
   "referralCode(Optional)":"Invitation Code (optional)",
   "APP_0104":"Due to the impact of local legal regulations, it is not possible to use it. We apologize for any inconvenience.",
-  "notAvailable":"Unable to use."
+  "notAvailable":"Unable to use.",
+  "matchMaking":"Matchmaking...",
+  "anticipated_income":"anticipated income"
 }

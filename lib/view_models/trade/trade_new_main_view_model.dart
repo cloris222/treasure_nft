@@ -22,6 +22,8 @@ class TradeNewMainViewModel extends BaseViewModel {
     required int reserveIndex,
     required num reserveStartPrice,
     required num reserveEndPrice,
+    required num startExpectedReturn,
+    required num endExpectedReturn
   }) async {
     // showLoadingPage(context);
     /// 確認體驗帳號狀態
@@ -40,7 +42,10 @@ class TradeNewMainViewModel extends BaseViewModel {
       startPrice: reserveEndPrice,
       endPrice: reserveStartPrice,
       priceIndex: reserveIndex).then((value) {
-          ControlRouterViewModel().pushOpacityPage(context, const ReserveLoadingPage());
+          ControlRouterViewModel().pushOpacityPage(context,  ReserveLoadingPage(
+            startExpectedReturn: startExpectedReturn,
+            endExpectedReturn: endExpectedReturn,
+          ));
       });
     // closeLoadingPage();
     /// 如果預約成功 會進call back function

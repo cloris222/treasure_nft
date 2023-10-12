@@ -1468,5 +1468,7 @@
   "nickname(Optional)":"Introduce tu código de verificación de Google",
   "referralCode(Optional)":"Introduce tu código de verificación de Google",
   "APP_0104":"Debido al impacto de las regulaciones legales locales, no es posible usarlo. Nos disculpamos por cualquier inconveniente.",
-  "notAvailable":"Incapaz de usar."
+  "notAvailable":"Incapaz de usar.",
+  "matchMaking":"Casamentero...",
+  "anticipated_income":"ingresos anticipados"
 }

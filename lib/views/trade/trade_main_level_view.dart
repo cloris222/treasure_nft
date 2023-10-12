@@ -38,6 +38,7 @@ import '../../models/http/parameter/check_reservation_info.dart';
 import '../../models/http/parameter/check_reserve_deposit.dart';
 import '../../models/http/parameter/reserve_view_data.dart';
 import '../../models/http/parameter/user_info_data.dart';
+import '../../view_models/control_router_viem_model.dart';
 import '../../view_models/gobal_provider/user_info_provider.dart';
 import '../../view_models/trade/provider/trade_reserve_info_provider.dart';
 import '../../widgets/dialog/img_title_dialog.dart';
@@ -123,6 +124,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     }
     return [];
   }
+
 
   @override
   void initState() {
@@ -217,7 +219,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
           vertical: UIDefine.getPixelWidth(3)),
       child: DropdownButtonHideUnderline(
           child: DropdownButton2(
-        customButton: _buildDivisionDropItem(currentDivisionIndex, false, true),
+        customButton: _buildDivisionDropItem(currentDivisionIndex, false, true, needUpperRate: true),
         isExpanded: true,
         items: List<DropdownMenuItem<int>>.generate(reserveDivision.length,
             (index) {
@@ -236,7 +238,8 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
   }
 
   Widget _buildDivisionDropItem(
-      int index, bool needGradientText, bool needArrow) {
+      int index, bool needGradientText, bool needArrow,
+      {bool needUpperRate = false}) {
     if (reserveDivision.isEmpty) {
       return SizedBox(height: UIDefine.getPixelWidth(40));
     }
@@ -249,16 +252,45 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
         children: [
           currentDivisionIndex == index && needGradientText
               ? GradientThirdText(
-                  text,
-                  size: UIDefine.fontSize12,
-                )
+            text,
+            size: UIDefine.fontSize12,
+          )
               : Text(
-                  text,
-                  style: AppTextStyle.getBaseStyle(
-                      fontSize: UIDefine.fontSize12,
-                      color: AppColors.textSixBlack,
-                      fontWeight: FontWeight.w600),
-                ),
+            text,
+            style: AppTextStyle.getBaseStyle(
+                fontSize: UIDefine.fontSize12,
+                color: AppColors.textSixBlack,
+                fontWeight: FontWeight.w600),
+          ),
+          Visibility(
+            visible: needUpperRate,
+              child: Row(
+                children: [
+                  SizedBox(width: UIDefine.getPixelWidth(40),),
+                  Text(
+                    reserveDivisionRanges.isNotEmpty?
+                  "${getRewardByUserLevel(userInfo.level)}%":"",
+                    style: AppTextStyle.getBaseStyle(
+                        fontSize: UIDefine.fontSize12,
+                        color: AppColors.coinColorGreen,
+                        fontWeight: FontWeight.w700
+                    ),
+                  ),
+                  // Row(
+                  //   children: [
+                  //     Text(reserveInfo != null?'${reserveInfo!.reserveRanges[currentDivisionRangeIndex].grow.toString()}%':'',
+                  //       style: AppTextStyle.getBaseStyle(
+                  //         fontSize: UIDefine.fontSize12,
+                  //         color: AppColors.coinColorGreen,
+                  //         fontWeight: FontWeight.w700
+                  //     ),),
+                  //     reserveInfo != null?
+                  //     Image.asset('assets/icon/icon/icon_trend_up_01.png'):
+                  //     Container(),
+                  //   ],
+                  // ),
+                ],
+          )),
           const Spacer(),
           Visibility(
               visible: needArrow,
@@ -536,6 +568,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
         horizontal: UIDefine.getPixelWidth(0),
         vertical: UIDefine.getPixelWidth(0));
 
+
     return isReserved
         ? Row(
             children: [
@@ -645,7 +678,10 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
       context,
       reserveIndex: reserveDivisionRanges[currentDivisionRangeIndex].index,
       reserveStartPrice: reserveDivisionRanges[currentDivisionRangeIndex].startPrice,
-      reserveEndPrice: reserveDivisionRanges[currentDivisionRangeIndex].endPrice);
+      reserveEndPrice: reserveDivisionRanges[currentDivisionRangeIndex].endPrice,
+      startExpectedReturn: reserveInfo!.reserveRanges[currentDivisionRangeIndex].startExpectedReturn,
+      endExpectedReturn: reserveInfo!.reserveRanges[currentDivisionRangeIndex].endExpectedReturn
+    );
 
     /// if reservation success 預約狀態 = true
     reserveDivisionRanges[currentDivisionRangeIndex].used = true;
@@ -736,6 +772,27 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
         double levelResult = 0;
         double num = levelResult*(chooseLevel+1);
         return NumberFormatUtil().removeOnePointFormat(num);
+    }
+  }
+
+  String getRewardByUserLevel(int userLevel) {
+    switch (userLevel) {
+      case 0:
+        return '1.8';
+      case 1:
+        return '1.8';
+      case 2:
+        return '2.1';
+      case 3:
+        return '2.5';
+      case 4:
+        return '3.1';
+      case 5:
+        return '3.7';
+      case 6:
+        return '4.3';
+      default:
+        return '1.8';
     }
   }
 }

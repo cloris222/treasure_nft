@@ -192,14 +192,20 @@ class ReserveRange {
     required this.used,
     required this.lock,
     required this.rewardRate,
+    required this.grow,
+    required this.startExpectedReturn,
+    required this.endExpectedReturn
   });
 
-  int index;
-  num startPrice;
-  num endPrice;
-  bool used;
-  bool lock;
-  num rewardRate;
+  int index; // 序列號
+  num startPrice; // 價格區間(開始)
+  num endPrice; // 價格區間(結束)
+  bool used; // 預約狀態
+  bool lock; // 是否鎖定
+  num rewardRate; // 獎勵%數
+  num grow; // 預期收益
+  num startExpectedReturn; // 預期收益（起始）
+  num endExpectedReturn; // 預期收益（結束）
 
   factory ReserveRange.fromJson(Map<String, dynamic> json) => ReserveRange(
         index: json["index"],
@@ -208,6 +214,9 @@ class ReserveRange {
         used: json["used"],
         lock: json["lock"],
         rewardRate: json["rewardRate"]??0,
+        grow: json["grow"]??0,
+        startExpectedReturn: json["startExpectedReturn"]??0,
+        endExpectedReturn: json["endExpectedReturn"]??0,
       );
 
   Map<String, dynamic> toJson() => {
@@ -217,6 +226,9 @@ class ReserveRange {
         "used": used,
         "lock": lock,
         "rewardRate": rewardRate,
+        "grow": grow,
+        "startExpectedReturn": startExpectedReturn,
+        "endExpectedReturn": endExpectedReturn,
       };
 }
 

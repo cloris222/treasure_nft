@@ -85,9 +85,12 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
               // ),
               //
               // SizedBox(height: UIDefine.getScreenWidth(4)),
-              //
+
+
               // /// 交易週期(only for 交易中)
-              _getTradeTimeView(), // test 換版後交易週期改放哪裡？
+              // _getTradeTimeView(), // test 換版後交易週期改放哪裡？
+
+              _buildMatchMaking(),
 
               /// 商品圖
               ClipRRect(
@@ -220,6 +223,22 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
       );
     }
     return const SizedBox();
+  }
+
+  Widget _buildMatchMaking() {
+    if(data.status == 'SELLING' && itemType == 'Selling') {
+      return Padding(
+        padding:EdgeInsets.all(UIDefine.getPixelWidth(8)),
+        child: GradientText(
+          tr('matchMaking'),
+          colors: AppColors.gradientBaseColorBg,
+          size: UIDefine.fontSize12,
+          weight: FontWeight.w700,
+        ),
+      );
+    } else {
+      return Container();
+    }
   }
 
   Widget _getTimerView() {
