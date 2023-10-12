@@ -1468,5 +1468,12 @@
   "nickname(Optional)":"暱稱(選填)",
   "referralCode(Optional)":"邀請碼(選填)",
   "APP_0104":"受制於當地法律規範的影響，所以無法使用，敬請見諒。",
-  "notAvailable":"無法使用"
+  "notAvailable":"無法使用",
+  "finance":"理財",
+  "fixedInvestment":"數量",
+  "dailyIncome":"日收益",
+  "fixedInvestmentPeriod":"天數",
+  "checkDetails":"查看詳情",
+  "incomeProfit":"收益",
+  "limitParticipationDay":"限制參與{day}天/{items}次"
 }

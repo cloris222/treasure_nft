@@ -1468,5 +1468,12 @@
   "nickname(Optional)":"Sila masukkan kod pengesahan Google anda",
   "referralCode(Optional)":"Sila masukkan kod pengesahan Google anda",
   "APP_0104":"Oleh kerana kesan peraturan undang -undang tempatan, tidak mungkin untuk menggunakannya. Kami mohon maaf atas kesulitan.",
-  "notAvailable":"Tidak dapat digunakan."
+  "notAvailable":"Tidak dapat digunakan.",
+  "finance":"Memperoleh",
+  "fixedInvestment":"Jumlah",
+  "dailyIncome":"Pendapatan harian",
+  "fixedInvestmentPeriod":"Hari",
+  "checkDetails":"Perincian",
+  "incomeProfit":"Pendapatan",
+  "limitParticipationDay":"Sekatan penyertaan {hari} hari/{item} kali"
 }

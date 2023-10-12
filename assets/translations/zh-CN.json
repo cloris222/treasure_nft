@@ -1462,5 +1462,12 @@
   "nickname(Optional)":"请输入您的Google验证码",
   "referralCode(Optional)":"请输入您的Google验证码",
   "APP_0104":"受制于当地法律规范的影响，所以无法使用，敬请见谅。",
-  "notAvailable":"无法使用"
+  "notAvailable":"无法使用",
+  "finance":"理财",
+  "fixedInvestment":"数量",
+  "dailyIncome":"日收益",
+  "fixedInvestmentPeriod":"天数",
+  "checkDetails":"查看详情",
+  "incomeProfit":"收益",
+  "limitParticipationDay":"限制参与{day}天/{items}次"
 }

@@ -1468,5 +1468,12 @@
   "nickname(Optional)":"Google인증코드를 입력해주세요",
   "referralCode(Optional)":"Google인증코드를 입력해주세요",
   "APP_0104":"지역 법률 규정의 영향으로 인해 사용할 수 없습니다. 불편을 끼쳐 드려 죄송합니다.",
-  "notAvailable":"사용할 수 없습니다."
+  "notAvailable":"사용할 수 없습니다.",
+  "finance":"벌다",
+  "fixedInvestment":"양",
+  "dailyIncome":"일일 소득",
+  "fixedInvestmentPeriod":"날",
+  "checkDetails":"세부",
+  "incomeProfit":"소득",
+  "limitParticipationDay":"참여 제한 {day} days/{항목} 시간"
 }

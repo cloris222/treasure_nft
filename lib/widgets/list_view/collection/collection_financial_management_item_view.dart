@@ -39,7 +39,7 @@ class CollectionFinancialManagementItemView extends ConsumerWidget {
                 children: [
                   Row(
                     children: [
-                      Text(tr('participateRank'),style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w700,fontSize: UIDefine.fontSize14,color: AppColors.font02),),
+                      Text(tr('level'),style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w700,fontSize: UIDefine.fontSize14,color: AppColors.font02),),
                       Text('LV${data.minRank.toString()}',style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w700,fontSize: UIDefine.fontSize14,color: AppColors.coinColorGreen),),
                       Text('-',style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w700,fontSize: UIDefine.fontSize14,color: AppColors.coinColorGreen),),
                       Text('LV${data.maxRank.toString()}',style: AppTextStyle.getBaseStyle(fontWeight: FontWeight.w700,fontSize: UIDefine.fontSize14,color: AppColors.coinColorGreen),),

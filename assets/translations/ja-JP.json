@@ -1469,5 +1469,12 @@
     "nickname(Optional)":"Google 確認コードを入力してください",
     "referralCode(Optional)":"Google 確認コードを入力してください",
     "APP_0104":"現地の法的規制の影響により、それを使用することはできません。ご不便をおかけして申し訳ございません。",
-    "notAvailable":"使用できません。"
+    "notAvailable":"使用できません。",
+    "finance":"得る",
+    "fixedInvestment":"額",
+    "dailyIncome":"毎日の収入",
+    "fixedInvestmentPeriod":"日々",
+    "checkDetails":"詳細",
+    "incomeProfit":"所得",
+    "limitParticipationDay":"参加制限{日}日/{アイテム}回数"
 }

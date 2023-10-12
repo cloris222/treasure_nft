@@ -1468,5 +1468,12 @@
   "nickname(Optional)":"Introduce tu código de verificación de Google",
   "referralCode(Optional)":"Introduce tu código de verificación de Google",
   "APP_0104":"Debido al impacto de las regulaciones legales locales, no es posible usarlo. Nos disculpamos por cualquier inconveniente.",
-  "notAvailable":"Incapaz de usar."
+  "notAvailable":"Incapaz de usar.",
+  "finance":"Ganar",
+  "fixedInvestment":"Cantidad",
+  "dailyIncome":"Ingresos diarios",
+  "fixedInvestmentPeriod":"Días",
+  "checkDetails":"Detalles",
+  "incomeProfit":"Ingreso",
+  "limitParticipationDay":"Restricción de participación {día} días/{elementos} veces"
 }

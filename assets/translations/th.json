@@ -1468,5 +1468,12 @@
   "nickname(Optional)":"โปรดป้อนรหัสยืนยัน Google ของคุณ",
   "referralCode(Optional)":"โปรดป้อนรหัสยืนยัน Google ของคุณ",
   "APP_0104":"เนื่องจากผลกระทบของกฎระเบียบทางกฎหมายในท้องถิ่นจึงไม่สามารถใช้งานได้ เราต้องขออภัยในความไม่สะดวก.",
-  "notAvailable":"ไม่สามารถใช้งานได้"
+  "notAvailable":"ไม่สามารถใช้งานได้",
+  "finance":"ได้รับ",
+  "fixedInvestment":"จำนวน",
+  "dailyIncome":"รายได้รายวัน",
+  "fixedInvestmentPeriod":"วัน",
+  "checkDetails":"รายละเอียด",
+  "incomeProfit":"รายได้",
+  "limitParticipationDay":"การ จำกัด การเข้าร่วม {วัน} วัน/{รายการ} ครั้ง"
 }

@@ -1468,5 +1468,12 @@
   "nickname(Optional)":"لطفاً کد تأیید Google خود را وارد کنید",
   "referralCode(Optional)":"لطفاً کد تأیید Google خود را وارد کنید",
   "APP_0104":"با توجه به تأثیر مقررات قانونی محلی ، استفاده از آن امکان پذیر نیست. برای هرگونه ناهماهنگی عذر می طلبیم.",
-  "notAvailable":"استفاده نمی شود."
+  "notAvailable":"استفاده نمی شود.",
+  "finance":"بدست آوردن",
+  "fixedInvestment":"میزان",
+  "dailyIncome":"درآمد روزانه",
+  "fixedInvestmentPeriod":"روزها",
+  "checkDetails":"جزئیات",
+  "incomeProfit":"درآمد",
+  "limitParticipationDay":"محدودیت مشارکت {روز} روز/{موارد} بار"
 }
