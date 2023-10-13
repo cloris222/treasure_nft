@@ -45,9 +45,6 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
   @override
   void initState() {
     viewModel = TradeNewMainViewModel(reservationSuccess: () {
-      if(ref.read(globalIsLoadingProvider)) {
-        BaseViewModel().popPage(context);
-      }
       /// MARK: 預約成功通知
       // SuccessDialog(context,
       //         callOkFunction: () {},
