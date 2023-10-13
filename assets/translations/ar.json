@@ -1478,5 +1478,8 @@
   "fixedInvestmentPeriod":"أيام",
   "checkDetails":"تفاصيل",
   "incomeProfit":"دخل",
-  "limitParticipationDay":"قيود المشاركة {day} أيام/{العناصر} مرات"
+  "limitParticipationDay":"قيود المشاركة {day} أيام/{العناصر} مرات",
+  "comingSoon":"قريباً",
+  "comingSoonText":"المزيد من فرص الربح في الطريق ، يرجى ترقبوا.",
+  "nextRound":"الجولة التالية"
 }

@@ -1478,5 +1478,8 @@
   "fixedInvestmentPeriod":"วัน",
   "checkDetails":"รายละเอียด",
   "incomeProfit":"รายได้",
-  "limitParticipationDay":"การ จำกัด การเข้าร่วม {วัน} วัน/{รายการ} ครั้ง"
+  "limitParticipationDay":"การ จำกัด การเข้าร่วม {วัน} วัน/{รายการ} ครั้ง",
+  "comingSoon":"เร็วๆ นี้",
+  "comingSoonText":"โอกาสในการทำกำไรเพิ่มขึ้นโปรดติดตามความคืบหน้า",
+  "nextRound":"รอบถัดไป"
 }

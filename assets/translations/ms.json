@@ -1478,5 +1478,8 @@
   "fixedInvestmentPeriod":"Hari",
   "checkDetails":"Perincian",
   "incomeProfit":"Pendapatan",
-  "limitParticipationDay":"Sekatan penyertaan {hari} hari/{item} kali"
+  "limitParticipationDay":"Sekatan penyertaan {hari} hari/{item} kali",
+  "comingSoon":"Akan datang",
+  "comingSoonText":"Lebih banyak peluang keuntungan sedang dalam perjalanan, sila tunggu.",
+  "nextRound":"Pusingan seterusnya"
 }
