@@ -300,7 +300,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
   }
 
   Widget _getBottomBtn() {
-    if (itemType == 'Selling') {
+    if (itemType == 'Pending') {
       if (data.status == '???????') {
         // test 要判斷是否為拆分的商品, 後端還沒完成該欄位
         return Container(
@@ -379,7 +379,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
           ],
         );
       }
-    } else if(itemType == 'Pending' || data.status == 'SELLING') {
+    } else if(itemType == 'Selling' || data.status == 'SELLING') {
       return Container(
         width: UIDefine.getPixelWidth(144),
         height: UIDefine.getScreenWidth(11),
