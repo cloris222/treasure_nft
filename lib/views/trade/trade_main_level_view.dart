@@ -690,7 +690,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
             child: StatefulBuilder(
                 builder: (BuildContext context, StateSetter setState) {
                   _countDownState = setState;
-                  return _buildTimeBar(userInfo, duration: Duration(seconds: durationNum.toInt()), title: tr('appTradeNotYet'));
+                  return _buildTimeBar(userInfo, duration: Duration(seconds: durationNum.toInt()), title: tr('nextRound'));
                 },
             ));
       }
