@@ -43,6 +43,7 @@ import '../../models/http/parameter/reserve_view_data.dart';
 import '../../models/http/parameter/user_info_data.dart';
 import '../../view_models/control_router_viem_model.dart';
 import '../../view_models/base_view_model.dart';
+import '../../view_models/gobal_provider/global_isloading_provider.dart';
 import '../../view_models/gobal_provider/user_info_provider.dart';
 import '../../view_models/trade/provider/trade_reserve_info_provider.dart';
 import '../../widgets/changenotifiers/reserve_success_notifier.dart';
@@ -184,6 +185,9 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     _reserveSuccessNotifier.addListener(() {
       if(mounted) {
         if(_reserveSuccessNotifier.ConnectReserveSuccess == true) {
+          if(ref.read(globalIsLoadingProvider)) {
+            BaseViewModel().popPage(context);
+          }
           Future.delayed(Duration.zero, () async {
             if(userInfo.level > 0) {
               await ref.read(tradeReserveDivisionProvider.notifier).init();
