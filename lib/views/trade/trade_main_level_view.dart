@@ -866,25 +866,27 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
   }
 
   String getLevelReward(int userLevel, int chooseLevel,) {
-        print("choose: $chooseLevel");
-        switch (chooseLevel) {
-          case 0:
-            return '1.8';
-          case 1:
-            return '1.8';
-          case 2:
-            return '2.1';
-          case 3:
-            return '2.5';
-          case 4:
-            return '3.1';
-          case 5:
-            return '3.7';
-          case 6:
-            return '4.3';
-          default:
-            return '1.8';
-        }
+    if(userLevel == 0) {
+      return '1.8';
+    } else {
+      print("choose: $chooseLevel");
+      switch (chooseLevel) {
+        case 0:
+          return '1.8';
+        case 1:
+          return '2.1';
+        case 2:
+          return '2.5';
+        case 3:
+          return '3.1';
+        case 4:
+          return '3.7';
+        case 5:
+          return '4.3';
+        default:
+          return '1.8';
+      }
+    }
   }
 
   Widget getCollectionTypeButtons(
