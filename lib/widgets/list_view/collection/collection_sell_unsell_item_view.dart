@@ -392,6 +392,8 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
 
             },
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
                   tr('matchMaking'), // 匹配中
@@ -400,7 +402,8 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
                       fontSize: UIDefine.fontSize12,
                       fontWeight: FontWeight.w400),
                 ),
-                LoadingWidget()
+                SizedBox(width: UIDefine.getPixelWidth(5)),
+                LoadingWidget(size: UIDefine.getPixelWidth(3), marginVertical: UIDefine.getPixelWidth(2),)
               ],
             )),
       );

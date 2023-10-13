@@ -5,7 +5,13 @@ import 'package:flutter/material.dart';
 import '../../constant/ui_define.dart';
 
 class LoadingWidget extends StatefulWidget {
-  const LoadingWidget({Key? key}) : super(key: key);
+  LoadingWidget({
+    Key? key,
+    this.size,
+    this.marginVertical
+  }) : super(key: key);
+  double? size;
+  double? marginVertical;
 
   @override
   State<LoadingWidget> createState() => _LoadingWidgetState();
@@ -38,6 +44,7 @@ class _LoadingWidgetState extends State<LoadingWidget> {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisSize: MainAxisSize.min,
       children: List<Widget>.generate(3, (index) => _buildCircle(index)),
     );
@@ -54,11 +61,11 @@ class _LoadingWidgetState extends State<LoadingWidget> {
 
   Widget _buildCircle(int index) {
     return Container(
-      width: UIDefine.getPixelWidth(6),
-      height: UIDefine.getPixelWidth(6),
+      width: widget.size?? UIDefine.getPixelWidth(6),
+      height: widget.size?? UIDefine.getPixelWidth(6),
       margin: EdgeInsets.symmetric(
         horizontal: index == 1 ? UIDefine.getPixelWidth(6) : 0,
-        vertical: UIDefine.getPixelWidth(8),
+        vertical: widget.marginVertical?? UIDefine.getPixelWidth(8),
       ),
       child: CircleAvatar(backgroundColor: Colors.white.withOpacity(list.first[index])),
     );
