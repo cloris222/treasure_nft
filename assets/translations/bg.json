@@ -1488,5 +1488,20 @@
   "withdrawalRules":"Правила за оттегляне",
   "withdrawalRulesText-1":"Второто оттегляне може да бъде инициирано само след кредитиране на първото оттегляне.",
   "withdrawalRulesText-2":"Средствата ще бъдат кредитирани в рамките на 96 часа след оттеглянето.",
-  "Algeria":"Алжир"
+  "Algeria":"Алжир",
+  "APP_0090":"Адресът на портфейла вече съществува",
+  "settingFailed":"Настройката не успя",
+  "finance":"Печелете",
+  "fixedInvestment":"Количество",
+  "dailyIncome":"Ежедневен доход",
+  "fixedInvestmentPeriod":"Дни",
+  "checkDetails":"Подробности",
+  "incomeProfit":"Доход",
+  "limitParticipationDay":"Ограничение на участието {day} дни/{items} пъти",
+  "comingSoon":"Очаквайте скоро",
+  "comingSoonText":"Повече възможности за печалба са на път, моля, следете.",
+  "nextRound":"Следващ кръг",
+  "matchMaking":"Сварящи",
+  "anticipated_income":"Очакван доход",
+  "participateRank":"Участвайте ранг:"
 }

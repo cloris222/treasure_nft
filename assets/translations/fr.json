@@ -1488,5 +1488,20 @@
   "withdrawalRules":"Règles de retrait",
   "withdrawalRulesText-1":"Le deuxième retrait ne peut être initié qu'après le premier retrait.",
   "withdrawalRulesText-2":"Les fonds seront crédités dans les 96 heures suivant le retrait.",
-  "Algeria":"Algérie"
+  "Algeria":"Algérie",
+  "APP_0090":"L'adresse du portefeuille existe déjà",
+  "settingFailed":"Échec du réglage",
+  "finance":"Gagner",
+  "fixedInvestment":"Montant",
+  "dailyIncome":"Revenu quotidien",
+  "fixedInvestmentPeriod":"Jours",
+  "checkDetails":"Détails",
+  "incomeProfit":"Revenu",
+  "limitParticipationDay":"Restriction de participation {day} jours / {items} fois",
+  "comingSoon":"À venir",
+  "comingSoonText":"D'autres opportunités de profit sont en route, restez à l'écoute.",
+  "nextRound":"Tour suivant",
+  "matchMaking":"Matchmaking",
+  "anticipated_income":"Revenus attendus",
+  "participateRank":"Participer Rang:"
 }

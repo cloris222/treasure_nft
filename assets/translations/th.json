@@ -1474,7 +1474,7 @@
   "withdrawalRules":"กฎการถอน",
   "withdrawalRulesText-1":"การถอนครั้งที่สองสามารถเริ่มต้นได้หลังจากการถอนครั้งแรกได้รับเครดิต",
   "withdrawalRulesText-2":"เงินจะได้รับเครดิตภายใน 96 ชั่วโมงของการถอน",
-  "Algeria":"ประเทศแอลจีเรีย"
+  "Algeria":"ประเทศแอลจีเรีย",
   "notAvailable":"ไม่สามารถใช้งานได้",
   "matchMaking":"การจับคู่",
   "anticipated_income":"รายได้ที่คาดการณ์ไว้",
@@ -1485,7 +1485,7 @@
   "fixedInvestmentPeriod":"วัน",
   "checkDetails":"รายละเอียด",
   "incomeProfit":"รายได้",
-  "limitParticipationDay":"การ จำกัด การเข้าร่วม {วัน} วัน/{รายการ} ครั้ง",
+  "limitParticipationDay":"การ จำกัด การเข้าร่วม {day} วัน/{items} ครั้ง",
   "comingSoon":"เร็วๆ นี้",
   "comingSoonText":"โอกาสในการทำกำไรเพิ่มขึ้นโปรดติดตามความคืบหน้า",
   "nextRound":"รอบถัดไป"

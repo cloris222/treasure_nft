@@ -1474,7 +1474,7 @@
   "withdrawalRules":"Regras de retirada",
   "withdrawalRulesText-1":"A segunda retirada só pode ser iniciada após a credibilidade da primeira retirada.",
   "withdrawalRulesText-2":"Os fundos serão creditados dentro de 96 horas após a retirada.",
-  "Algeria":"Argélia"
+  "Algeria":"Argélia",
   "notAvailable":"Incapaz de usar.",
   "matchMaking":"Matchmaking",
   "anticipated_income":"renda prevista",
@@ -1485,7 +1485,7 @@
   "fixedInvestmentPeriod":"Dias",
   "checkDetails":"Detalhes",
   "incomeProfit":"Renda",
-  "limitParticipationDay":"Restrição de participação {dia} dias/{itens} tempos",
+  "limitParticipationDay":"Restrição de participação {day} dias/{items} tempos",
   "comingSoon":"Em breve",
   "comingSoonText":"Mais oportunidades de lucro estão a caminho, fique atento.",
   "nextRound":"Proxima rodada"

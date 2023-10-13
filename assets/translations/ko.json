@@ -1474,7 +1474,7 @@
   "withdrawalRules":"철수 규칙",
   "withdrawalRulesText-1":"두 번째 철수는 첫 번째 철수가 인정 된 후에 만 ​​시작될 수 있습니다.",
   "withdrawalRulesText-2":"자금은 인출 후 96 시간 이내에 적용됩니다.",
-  "Algeria":"알제리"
+  "Algeria":"알제리",
   "notAvailable":"사용할 수 없습니다.",
   "matchMaking":"결혼 중매",
   "anticipated_income":"예상 소득",
@@ -1485,7 +1485,7 @@
   "fixedInvestmentPeriod":"날",
   "checkDetails":"세부",
   "incomeProfit":"소득",
-  "limitParticipationDay":"참여 제한 {day} days/{항목} 시간",
+  "limitParticipationDay":"참여 제한 {day} 낮/{items} 시간",
   "comingSoon":"곧 올 것입니다",
   "comingSoonText":"더 많은 이익 기회가 진행 중입니다. 계속 지켜봐 주시기 바랍니다.",
   "nextRound":"다음 라운드"

@@ -1475,7 +1475,7 @@
     "withdrawalRules":"撤退規則",
     "withdrawalRulesText-1":"2回目の撤退は、最初の撤退がクレジットされた後にのみ開始できます。",
     "withdrawalRulesText-2":"資金は、撤退から96時間以内にクレジットされます。",
-    "Algeria":"アルジェリア"
+    "Algeria":"アルジェリア",
     "notAvailable":"使用できません。",
     "matchMaking":"マッチメイキング",
     "anticipated_income":"予想される収入",
@@ -1486,7 +1486,7 @@
     "fixedInvestmentPeriod":"日々",
     "checkDetails":"詳細",
     "incomeProfit":"所得",
-    "limitParticipationDay":"参加制限{日}日/{アイテム}回数",
+    "limitParticipationDay":"参加制限{day}日/{items}回数",
     "comingSoon":"近日公開",
     "comingSoonText":"より多くの利益機会が進行中です。ご期待ください。",
     "nextRound":"次のラウンド"

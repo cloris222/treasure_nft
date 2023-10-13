@@ -1474,7 +1474,7 @@
   "withdrawalRules":"قوانین عقب نشینی",
   "withdrawalRulesText-1":"برداشت دوم فقط پس از اعتبار اولین برداشت قابل شروع است.",
   "withdrawalRulesText-2":"وجوه طی 96 ساعت پس از برداشت اعتبار می یابد.",
-  "Algeria":"الجزایر"
+  "Algeria":"الجزایر",
   "notAvailable":"استفاده نمی شود.",
   "matchMaking":"تطبیق",
   "anticipated_income":"درآمد پیش بینی شده",
@@ -1485,7 +1485,7 @@
   "fixedInvestmentPeriod":"روزها",
   "checkDetails":"جزئیات",
   "incomeProfit":"درآمد",
-  "limitParticipationDay":"محدودیت مشارکت {روز} روز/{موارد} بار",
+  "limitParticipationDay":"محدودیت مشارکت {day} روز/{items} بار",
   "comingSoon":"به زودی",
   "comingSoonText":"فرصت های سود بیشتر در راه است ، لطفاً با ما در ارتباط باشید.",
   "nextRound":"دور بعد"

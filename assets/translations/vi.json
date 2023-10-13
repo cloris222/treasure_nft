@@ -1474,7 +1474,7 @@
   "withdrawalRules":"Quy tắc rút tiền",
   "withdrawalRulesText-1":"Việc rút tiền thứ hai chỉ có thể được bắt đầu sau khi lần rút tiền đầu tiên được ghi có.",
   "withdrawalRulesText-2":"Tiền sẽ được ghi có trong vòng 96 giờ sau khi rút tiền.",
-  "Algeria":"Algeria"
+  "Algeria":"Algeria",
   "notAvailable":"Không thể sử dụng.",
   "matchMaking":"Làm mai mối",
   "anticipated_income":"Thu nhập dự đoán",
@@ -1485,7 +1485,7 @@
   "fixedInvestmentPeriod":"Ngày",
   "checkDetails":"Chi tiết",
   "incomeProfit":"Thu nhập",
-  "limitParticipationDay":"Hạn chế tham gia {ngày} ngày/{items} lần",
+  "limitParticipationDay":"Hạn chế tham gia {day} ngày/{items} lần",
   "comingSoon":"Sắp ra mắt",
   "comingSoonText":"Nhiều cơ hội lợi nhuận đang trên đường, xin vui lòng theo dõi.",
   "nextRound":"Vòng tiếp theo"

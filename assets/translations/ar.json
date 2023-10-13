@@ -1474,7 +1474,7 @@
   "withdrawalRules":"قواعد الانسحاب",
   "withdrawalRulesText-1":"لا يمكن بدء الانسحاب الثاني إلا بعد الفضل في الانسحاب الأول.",
   "withdrawalRulesText-2":"سيتم الفضل في الأموال خلال 96 ساعة من الانسحاب.",
-  "Algeria":"الجزائر"
+  "Algeria":"الجزائر",
   "notAvailable":"غير قادر على الاستخدام.",
   "matchMaking":"التوفيق",
   "anticipated_income":"الدخل المتوقع",
@@ -1485,7 +1485,7 @@
   "fixedInvestmentPeriod":"أيام",
   "checkDetails":"تفاصيل",
   "incomeProfit":"دخل",
-  "limitParticipationDay":"قيود المشاركة {day} أيام/{العناصر} مرات",
+  "limitParticipationDay":"قيود المشاركة {day} أيام/{items} مرات",
   "comingSoon":"قريباً",
   "comingSoonText":"المزيد من فرص الربح في الطريق ، يرجى ترقبوا.",
   "nextRound":"الجولة التالية"

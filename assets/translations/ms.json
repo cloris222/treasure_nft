@@ -1474,7 +1474,7 @@
   "withdrawalRules":"Peraturan pengeluaran",
   "withdrawalRulesText-1":"Pengeluaran kedua hanya boleh dimulakan selepas pengeluaran pertama telah dikreditkan.",
   "withdrawalRulesText-2":"Dana akan dikreditkan dalam masa 96 jam pengeluaran.",
-  "Algeria":"Algeria"
+  "Algeria":"Algeria",
   "notAvailable":"Tidak dapat digunakan.",
   "matchMaking":"Membuat pertandingan",
   "anticipated_income":"pendapatan yang dijangkakan",
@@ -1485,7 +1485,7 @@
   "fixedInvestmentPeriod":"Hari",
   "checkDetails":"Perincian",
   "incomeProfit":"Pendapatan",
-  "limitParticipationDay":"Sekatan penyertaan {hari} hari/{item} kali",
+  "limitParticipationDay":"Sekatan penyertaan {day} hari/{items} kali",
   "comingSoon":"Akan datang",
   "comingSoonText":"Lebih banyak peluang keuntungan sedang dalam perjalanan, sila tunggu.",
   "nextRound":"Pusingan seterusnya"

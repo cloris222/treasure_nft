@@ -1474,7 +1474,7 @@
   "withdrawalRules":"Правила вывода",
   "withdrawalRulesText-1":"Второе снятие может быть инициировано только после того, как первое увольнение было зачислено.",
   "withdrawalRulesText-2":"Средства будут зачислены в течение 96 часов после снятия средств.",
-  "Algeria":"Алжир"
+  "Algeria":"Алжир",
   "notAvailable":"Невозможно использовать.",
   "matchMaking":"Сваты",
   "anticipated_income":"ожидаемый доход",
@@ -1485,7 +1485,7 @@
   "fixedInvestmentPeriod":"Дни",
   "checkDetails":"Подробности",
   "incomeProfit":"Доход",
-  "limitParticipationDay":"Ограничение участия {День} Дни/{элементы} раз времена",
+  "limitParticipationDay":"Ограничение участия {day} Дни/{items} раз времена",
   "comingSoon":"Вскоре",
   "comingSoonText":"Больше возможностей для прибыли в пути, пожалуйста, следите за обновлениями.",
   "nextRound":"Следующий раунд"
