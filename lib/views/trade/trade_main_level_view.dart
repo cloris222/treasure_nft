@@ -371,7 +371,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
                   SizedBox(width: UIDefine.getPixelWidth(40),),
                   Text(
                     reserveDivisionRanges.isNotEmpty?
-                  "${getRewardByUserLevel(userInfo.level)}%":"",
+                  "${getLevelReward(userInfo.level,currentDivisionIndex)}%":"",
                     style: AppTextStyle.getBaseStyle(
                         fontSize: UIDefine.fontSize12,
                         color: AppColors.coinColorGreen,
@@ -867,7 +867,7 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
 
   String getLevelReward(int userLevel, int chooseLevel,) {
         print("choose: $chooseLevel");
-        switch (userLevel) {
+        switch (chooseLevel) {
           case 0:
             return '1.8';
           case 1:
@@ -885,27 +885,6 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
           default:
             return '1.8';
         }
-  }
-
-  String getRewardByUserLevel(int userLevel) {
-    switch (userLevel) {
-      case 0:
-        return '1.8';
-      case 1:
-        return '1.8';
-      case 2:
-        return '2.1';
-      case 3:
-        return '2.5';
-      case 4:
-        return '3.1';
-      case 5:
-        return '3.7';
-      case 6:
-        return '4.3';
-      default:
-        return '1.8';
-    }
   }
 
   Widget getCollectionTypeButtons(
