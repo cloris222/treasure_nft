@@ -1478,5 +1478,8 @@
   "fixedInvestmentPeriod":"天數",
   "checkDetails":"查看詳情",
   "incomeProfit":"收益",
-  "limitParticipationDay":"限制參與{day}天/{items}次"
+  "limitParticipationDay":"限制參與{day}天/{items}次",
+  "comingSoon":"即將推出",
+  "comingSoonText":"更多收益的方式即將到來，請保持關注。",
+  "nextRound":"下一輪"
 }

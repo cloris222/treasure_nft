@@ -1475,5 +1475,8 @@
   "fixedInvestmentPeriod":"Günler",
   "checkDetails":"Detaylar",
   "incomeProfit":"Gelir",
-  "limitParticipationDay":"Katılım kısıtlaması {gün} günleri/{öğeler} kez"
+  "limitParticipationDay":"Katılım kısıtlaması {gün} günleri/{öğeler} kez",
+  "comingSoon":"Yakında gelecek",
+  "comingSoonText":"Daha fazla kar fırsatı yolda, lütfen bizi izlemeye devam edin.",
+  "nextRound":"Sonraki Tur"
 }

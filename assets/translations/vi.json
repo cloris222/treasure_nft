@@ -1478,5 +1478,8 @@
   "fixedInvestmentPeriod":"Ngày",
   "checkDetails":"Chi tiết",
   "incomeProfit":"Thu nhập",
-  "limitParticipationDay":"Hạn chế tham gia {ngày} ngày/{items} lần"
+  "limitParticipationDay":"Hạn chế tham gia {ngày} ngày/{items} lần",
+  "comingSoon":"Sắp ra mắt",
+  "comingSoonText":"Nhiều cơ hội lợi nhuận đang trên đường, xin vui lòng theo dõi.",
+  "nextRound":"Vòng tiếp theo"
 }

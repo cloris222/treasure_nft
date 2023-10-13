@@ -1478,5 +1478,8 @@
   "fixedInvestmentPeriod":"Дни",
   "checkDetails":"Подробности",
   "incomeProfit":"Доход",
-  "limitParticipationDay":"Ограничение участия {День} Дни/{элементы} раз времена"
+  "limitParticipationDay":"Ограничение участия {День} Дни/{элементы} раз времена",
+  "comingSoon":"Вскоре",
+  "comingSoonText":"Больше возможностей для прибыли в пути, пожалуйста, следите за обновлениями.",
+  "nextRound":"Следующий раунд"
 }

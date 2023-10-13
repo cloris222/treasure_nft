@@ -1470,7 +1470,7 @@
   "APP_0104":"Due to the impact of local legal regulations, it is not possible to use it. We apologize for any inconvenience.",
   "notAvailable":"Unable to use.",
   "matchMaking":"Matchmaking...",
-  "anticipated_income":"anticipated income",
+  "anticipated_income":"Expected income",
   "notAvailable":"Unable to use.",
   "finance":"Earn",
   "fixedInvestment":"Amount",
@@ -1478,5 +1478,8 @@
   "fixedInvestmentPeriod":"Days",
   "checkDetails":"Details",
   "incomeProfit":"Income",
-  "limitParticipationDay":"Participation restriction {day}days/{items}times"
+  "limitParticipationDay":"Participation restriction {day}days/{items}times",
+  "comingSoon":"Coming Soon",
+  "comingSoonText":"More profit opportunities are on the way, please stay tuned.",
+  "nextRound":"Next Round"
 }

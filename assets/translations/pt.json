@@ -1478,5 +1478,8 @@
   "fixedInvestmentPeriod":"Dias",
   "checkDetails":"Detalhes",
   "incomeProfit":"Renda",
-  "limitParticipationDay":"Restrição de participação {dia} dias/{itens} tempos"
+  "limitParticipationDay":"Restrição de participação {dia} dias/{itens} tempos",
+  "comingSoon":"Em breve",
+  "comingSoonText":"Mais oportunidades de lucro estão a caminho, fique atento.",
+  "nextRound":"Proxima rodada"
 }

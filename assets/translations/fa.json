@@ -1478,5 +1478,8 @@
   "fixedInvestmentPeriod":"روزها",
   "checkDetails":"جزئیات",
   "incomeProfit":"درآمد",
-  "limitParticipationDay":"محدودیت مشارکت {روز} روز/{موارد} بار"
+  "limitParticipationDay":"محدودیت مشارکت {روز} روز/{موارد} بار",
+  "comingSoon":"به زودی",
+  "comingSoonText":"فرصت های سود بیشتر در راه است ، لطفاً با ما در ارتباط باشید.",
+  "nextRound":"دور بعد"
 }
