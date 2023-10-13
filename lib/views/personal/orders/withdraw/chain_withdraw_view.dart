@@ -117,6 +117,7 @@ class _ChainWithdrawViewState extends ConsumerState<ChainWithdrawView> {
                     color: AppColors.defaultBackgroundSpace),
                 _buildWithdrawEmailView(userInfo),
                 _buildGoogleVerify(),
+                _buildRuleView(),
                 Container(
                     width: double.infinity,
                     height: UIDefine.getPixelWidth(2),
@@ -130,6 +131,23 @@ class _ChainWithdrawViewState extends ConsumerState<ChainWithdrawView> {
             : []
       ],
     ));
+  }
+
+  Widget _buildRuleView(){
+    return Container(
+      width: UIDefine.getWidth(),
+      padding: EdgeInsets.symmetric(vertical: UIDefine.getPixelWidth(16),horizontal: UIDefine.getPixelWidth(20)),
+      color: AppColors.itemBackground,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("${tr("withdrawalRules")}:",style: AppTextStyle.getBaseStyle(color: AppColors.textSixBlack,fontSize: UIDefine.fontSize12,fontWeight: FontWeight.w400),),
+          SizedBox(height: UIDefine.getPixelWidth(5),),
+          Text(tr("withdrawalRulesText-1"),style: AppTextStyle.getBaseStyle(color: AppColors.textABGrey,fontSize: UIDefine.fontSize12,fontWeight: FontWeight.w400),),
+          Text(tr("withdrawalRulesText-2"),style: AppTextStyle.getBaseStyle(color: AppColors.textABGrey,fontSize: UIDefine.fontSize12,fontWeight: FontWeight.w400),),
+        ],
+      ),
+    );
   }
 
   Widget _buildWithdrawTopView() {

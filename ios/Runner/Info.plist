@@ -70,5 +70,9 @@
 	<false/>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+	<string>com.wanda.treasurenft</string>
+	</array>
 </dict>
 </plist>
