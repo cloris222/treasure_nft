@@ -435,6 +435,7 @@ class BaseViewModel with ControlRouterViewModel {
           onRightPress: () {},
         ).show();
       } else {
+        GlobalData.reserveSuccessNotifier.updateState(true);
         await ImgTitleDialog(
           getGlobalContext(),
           mainText: "${tr("reserve-success'")}",
@@ -465,6 +466,7 @@ class BaseViewModel with ControlRouterViewModel {
       // ).show();
       GlobalData.bShowBuySuccessAnimate = false;
       GlobalData.sellSuccessNotifier.updateState(false);
+      GlobalData.reserveSuccessNotifier.updateState(false);
     }
   }
 

@@ -45,6 +45,7 @@ import '../../view_models/control_router_viem_model.dart';
 import '../../view_models/base_view_model.dart';
 import '../../view_models/gobal_provider/user_info_provider.dart';
 import '../../view_models/trade/provider/trade_reserve_info_provider.dart';
+import '../../widgets/changenotifiers/reserve_success_notifier.dart';
 import '../../widgets/dialog/img_title_dialog.dart';
 import '../collection/collection_reservation_list_view.dart';
 import '../collection/collection_total_collected_list_view.dart';
@@ -139,11 +140,12 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
   late Duration _duration;
   num durationNum = 0;
   StateSetter? _countDownState;
-
+  late ReserveSuccessNotifier _reserveSuccessNotifier;
 
   @override
   void initState() {
     _setPage();
+    _onNotifierListener();
     Future.delayed(Duration.zero, () async {
       if(userInfo.level > 0) {
         await ref.read(tradeReserveDivisionProvider.notifier).init();
@@ -175,6 +177,28 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
       }
     });
     super.initState();
+  }
+
+  _onNotifierListener() {
+    _reserveSuccessNotifier = GlobalData.reserveSuccessNotifier;
+    _reserveSuccessNotifier.addListener(() {
+      if(mounted) {
+        if(_reserveSuccessNotifier.ConnectReserveSuccess == true) {
+          Future.delayed(Duration.zero, () async {
+            if(userInfo.level > 0) {
+              await ref.read(tradeReserveDivisionProvider.notifier).init();
+              Future.delayed(const Duration(seconds: 2), (){
+                _onDivisionChange(divisionIndex: currentDivisionIndex).then((value) {
+                  setState(() {
+
+                  });
+                });
+              });
+            }
+          });
+        }
+      }
+    });
   }
 
   @override
@@ -788,23 +812,13 @@ class _TradeMainLevelViewState extends ConsumerState<TradeMainLevelView> {
     );
 
     /// if reservation success 預約狀態 = true
-    // reserveDivisionRanges[currentDivisionRangeIndex].used = true;
-    // ref.read(tradeReserveInfoProvider)?.reserveRanges[currentDivisionRangeIndex].used = true;
-    // await ref.read(tradeReserveInfoProvider.notifier).setSharedPreferencesValue();
-
-    reserveDivisionRanges[currentDivisionRangeIndex].used = false;
-    ref.read(tradeReserveInfoProvider)?.reserveRanges[currentDivisionRangeIndex].used = false;
+    reserveDivisionRanges[currentDivisionRangeIndex].used = true;
+    ref.read(tradeReserveInfoProvider)?.reserveRanges[currentDivisionRangeIndex].used = true;
     await ref.read(tradeReserveInfoProvider.notifier).setSharedPreferencesValue();
 
-    _onDivisionChange(
-        rangeIndex: currentDivisionRangeIndex,
-        divisionIndex: currentDivisionIndex);
-
-    setState(() {
-
-    });
-
-
+    // reserveDivisionRanges[currentDivisionRangeIndex].used = false;
+    // ref.read(tradeReserveInfoProvider)?.reserveRanges[currentDivisionRangeIndex].used = false;
+    // await ref.read(tradeReserveInfoProvider.notifier).setSharedPreferencesValue();
   }
 
   Future<void> _onDivisionChange({required int divisionIndex, int rangeIndex = 0}) async {

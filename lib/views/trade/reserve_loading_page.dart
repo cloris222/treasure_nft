@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:treasure_nft_project/constant/theme/app_image_path.dart';
 import 'package:treasure_nft_project/constant/ui_define.dart';
@@ -12,6 +13,7 @@ import '../../constant/theme/app_style.dart';
 import '../../utils/animation_download_util.dart';
 import '../../utils/app_text_style.dart';
 import '../../utils/number_format_util.dart';
+import '../../view_models/gobal_provider/global_isloading_provider.dart';
 
 
 class ReserveLoadingPage extends StatelessWidget{
@@ -19,9 +21,11 @@ class ReserveLoadingPage extends StatelessWidget{
     this.mainMargin = const EdgeInsets.all(10),
     this.buttonMargin = const EdgeInsets.only(top: 10),
     required this.startExpectedReturn,
-    required this.endExpectedReturn
+    required this.endExpectedReturn,
+    required this.ref
   });
-
+  
+  final WidgetRef ref;
   final num startExpectedReturn;
   final num endExpectedReturn;
 
@@ -106,6 +110,7 @@ class ReserveLoadingPage extends StatelessWidget{
   }
 
   void _onPress() {
+    ref.read(globalIsLoadingProvider.notifier).update((state) => false);
     BaseViewModel().popPage(BaseViewModel().getGlobalContext());
   }
 

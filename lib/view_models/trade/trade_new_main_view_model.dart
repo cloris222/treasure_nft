@@ -6,6 +6,7 @@ import 'package:treasure_nft_project/constant/call_back_function.dart';
 import 'package:treasure_nft_project/models/http/api/trade_api.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/view_models/control_router_viem_model.dart';
+import 'package:treasure_nft_project/view_models/gobal_provider/global_isloading_provider.dart';
 import 'package:treasure_nft_project/view_models/trade/provider/trade_reserve_info_provider.dart';
 
 import '../../models/http/parameter/check_level_info.dart';
@@ -42,7 +43,9 @@ class TradeNewMainViewModel extends BaseViewModel {
       startPrice: reserveEndPrice,
       endPrice: reserveStartPrice,
       priceIndex: reserveIndex).then((value) {
+          ref.read(globalIsLoadingProvider.notifier).update((state) => true);
           ControlRouterViewModel().pushOpacityPage(context,  ReserveLoadingPage(
+            ref: ref,
             startExpectedReturn: startExpectedReturn,
             endExpectedReturn: endExpectedReturn,
           ));
@@ -70,7 +73,10 @@ class TradeNewMainViewModel extends BaseViewModel {
   }
 
   void _onAddReservationFail(String errorMessage) {
-    closeLoadingPage();
+    // closeLoadingPage();
+    if(ref.read(globalIsLoadingProvider)) {
+      BaseViewModel().popPage(BaseViewModel().getGlobalContext());
+    }
     switch (errorMessage) {
       /// 預約金不足
       case 'APP_0064':

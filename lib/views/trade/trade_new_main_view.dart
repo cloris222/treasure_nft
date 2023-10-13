@@ -23,6 +23,7 @@ import '../../models/data/trade_model_data.dart';
 import '../../models/http/parameter/check_reservation_info.dart';
 import '../../models/http/parameter/user_info_data.dart';
 import '../../utils/trade_timer_util.dart';
+import '../../view_models/gobal_provider/global_isloading_provider.dart';
 import '../../view_models/gobal_provider/user_info_provider.dart';
 import '../../view_models/trade/provider/trade_reserve_coin_provider.dart';
 import '../../view_models/trade/provider/trade_time_provider.dart';
@@ -44,7 +45,9 @@ class _TradeNewMainViewState extends ConsumerState<TradeNewMainView> {
   @override
   void initState() {
     viewModel = TradeNewMainViewModel(reservationSuccess: () {
-      BaseViewModel().popPage(context);
+      if(ref.read(globalIsLoadingProvider)) {
+        BaseViewModel().popPage(context);
+      }
       /// MARK: 預約成功通知
       // SuccessDialog(context,
       //         callOkFunction: () {},
