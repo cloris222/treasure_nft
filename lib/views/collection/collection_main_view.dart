@@ -6,6 +6,7 @@ import '../../constant/enum/collection_enum.dart';
 import '../../constant/ui_define.dart';
 import '../../view_models/collection/collection_main_view_model.dart';
 import '../../widgets/button/icon_text_button_widget.dart';
+import '../finance/finance_coming_soon_view.dart';
 import '../finance/financial_management_list_view.dart';
 import 'collection_medal_list_view.dart';
 import 'collection_pending_list_view.dart';
@@ -39,35 +40,42 @@ class _CollectionMainView extends State<CollectionMainView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: [
-        Container(
-          alignment: Alignment.centerLeft,
-            padding: EdgeInsets.only(
-                top: UIDefine.getPixelWidth(0.97),
-                bottom: UIDefine.getPixelWidth(0.97)),
-            margin: EdgeInsets.only(
-                left: UIDefine.getScreenWidth(5),
-                right: UIDefine.getScreenWidth(5),
-                bottom: UIDefine.getScreenWidth(0.8)),
-            child: viewModel.getCollectionTypeButtons()),
-        // 如要置頂不滑動才放此Class
-        // Visibility(
-        //   visible: currentExploreType == 'Pending',
-        //   child: _getDepositBtn()
-        // ),
-        // SizedBox(height: UIDefine.getScreenWidth(2)),
-        Expanded(
-            child: PageView(
-          controller: pageController,
-          onPageChanged: _onPageChange,
-          children: pages,
-        ))
-      ]),
+      body: Padding(
+        padding:EdgeInsets.only(top: UIDefine.getPixelWidth(50)),
+        child: Column(children: [
+
+          /// 理財tab
+          // Container(
+          //   alignment: Alignment.centerLeft,
+          //     padding: EdgeInsets.only(
+          //         top: UIDefine.getPixelWidth(0.97),
+          //         bottom: UIDefine.getPixelWidth(0.97)),
+          //     margin: EdgeInsets.only(
+          //         left: UIDefine.getScreenWidth(5),
+          //         right: UIDefine.getScreenWidth(5),
+          //         bottom: UIDefine.getScreenWidth(0.8)),
+          //     child: viewModel.getCollectionTypeButtons()),
+
+          // 如要置頂不滑動才放此Class
+          // Visibility(
+          //   visible: currentExploreType == 'Pending',
+          //   child: _getDepositBtn()
+          // ),
+          // SizedBox(height: UIDefine.getScreenWidth(2)),
+          Expanded(
+              child: PageView(
+            controller: pageController,
+            onPageChanged: _onPageChange,
+            children: pages,
+          ))
+        ]),
+      ),
     );
   }
 
   void _setPage() {
-    pages = [FinancialManagementListView()];
+    // pages = [FinancialManagementListView()];
+    pages = [FinanceComingSoonView()];
     // pages = List<Widget>.generate(CollectionTag.values.length, (index) {
     //   switch (CollectionTag.values[index]) {
     //     case CollectionTag.Reservation:
