@@ -8,6 +8,7 @@ import 'package:treasure_nft_project/constant/ui_define.dart';
 import 'package:treasure_nft_project/view_models/base_view_model.dart';
 import 'package:treasure_nft_project/widgets/label/gradually_network_image.dart';
 import 'package:treasure_nft_project/utils/app_text_style.dart';
+import 'package:treasure_nft_project/widgets/label/loading_widget.dart';
 
 import '../../../constant/call_back_function.dart';
 import '../../../views/collection/data/collection_nft_item_response_data.dart';
@@ -299,7 +300,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
   }
 
   Widget _getBottomBtn() {
-    if (itemType == 'Pending') {
+    if (itemType == 'Selling') {
       if (data.status == '???????') {
         // test 要判斷是否為拆分的商品, 後端還沒完成該欄位
         return Container(
@@ -378,7 +379,7 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
           ],
         );
       }
-    } else if(itemType == 'Selling' || data.status == 'SELLING') {
+    } else if(itemType == 'Pending' || data.status == 'SELLING') {
       return Container(
         width: UIDefine.getPixelWidth(144),
         height: UIDefine.getScreenWidth(11),
@@ -390,12 +391,17 @@ class _SellUnSellItemInfoCard extends State<CollectionSellUnSellItemView> {
             onPressed: () {
 
             },
-            child: Text(
-              tr('matchMaking'), // 匹配中
-              style: AppTextStyle.getBaseStyle(
-                  color: AppColors.textWhite,
-                  fontSize: UIDefine.fontSize12,
-                  fontWeight: FontWeight.w400),
+            child: Row(
+              children: [
+                Text(
+                  tr('matchMaking'), // 匹配中
+                  style: AppTextStyle.getBaseStyle(
+                      color: AppColors.textWhite,
+                      fontSize: UIDefine.fontSize12,
+                      fontWeight: FontWeight.w400),
+                ),
+                LoadingWidget()
+              ],
             )),
       );
     }
