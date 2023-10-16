@@ -445,7 +445,7 @@ class BaseViewModel with ControlRouterViewModel {
           imgUp: false,
           img: data["imgUrl"],
           singleBottom: true,
-          needBackColor: true,
+          needBackColor: false,
           onRightPress: () {
             // pushAndRemoveUntil(getGlobalContext(),const MainPage(
             //     type: AppNavigationBarType.typeCollection));
