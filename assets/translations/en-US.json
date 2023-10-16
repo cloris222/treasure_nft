@@ -981,7 +981,7 @@
   "APP_0060":"This is the experience account",
   "APP_0068":"The address has been used",
   "APP_0062":"Incorrect listing time",
-  "APP_0063":"Incorrect reservation time",
+  "APP_0063":"The appointment time is: {startTime}-{endTime}. Please be present for your appointment during that period. Thank you.",
   "APP_0064":"Insufficient estimated amount",
   "APP_0065":"Incorrect country codes",
   "APP_0066":"Country codes not found",

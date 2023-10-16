@@ -981,7 +981,7 @@
   "APP_0060":"Ini adalah akaun pengalaman",
   "APP_0068":"Alamat telah digunakan",
   "APP_0062":"Masa penyenaraian yang salah",
-  "APP_0063":"Masa tempahan yang salah",
+  "APP_0063":"Masa pelantikan adalah: {startTime}-{endTime}. Sila hadir untuk pelantikan anda dalam tempoh itu. Terima kasih.",
   "APP_0064":"Jumlah anggaran yang tidak mencukupi",
   "APP_0065":"Kod negara yang salah",
   "APP_0066":"Kod negara tidak ditemui",

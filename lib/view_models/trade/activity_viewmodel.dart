@@ -49,7 +49,7 @@ class ActivityViewModel extends BaseViewModel {
   VoidCallback notEnoughToPay;
   VoidCallback bookPriceNotEnough;
   VoidCallback reservationSuccess;
-  VoidCallback wrongTime;
+  Function wrongTime;
   VoidCallback accountFrozen;
   VoidCallback activityNotFound;
   VoidCallback tradeForbidden;
@@ -173,12 +173,12 @@ class ActivityViewModel extends BaseViewModel {
 
   /// 新增活動預約
   createReservation() async {
-    await TradeAPI(onConnectFail: _onAddReservationFail, showTrString: false)
+    await TradeAPI(onConnectFailResponse: _onAddReservationFail, showTrString: false)
         .postActivityInsert();
     reservationSuccess();
   }
 
-  _onAddReservationFail(String errorMessage) {
+  _onAddReservationFail(String errorMessage, dynamic errorResponse) {
     switch (errorMessage) {
 
       /// 預約金額不符
@@ -188,7 +188,7 @@ class ActivityViewModel extends BaseViewModel {
 
       /// 預約時間錯誤
       case 'APP_0063':
-        wrongTime();
+        wrongTime(errorResponse);
         break;
 
       /// 餘額不足
@@ -231,4 +231,5 @@ class ActivityViewModel extends BaseViewModel {
         personalFull();
     }
   }
+
 }

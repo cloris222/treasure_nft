@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:format/format.dart';
 import 'package:treasure_nft_project/constant/enum/trade_enum.dart';
 import 'package:treasure_nft_project/constant/theme/app_animation_path.dart';
 import 'package:treasure_nft_project/utils/animation_download_util.dart';
@@ -70,12 +71,16 @@ class _WorldCupViewState extends State<WorldCupView> {
                 subText: tr('APP_0041'))
             .show();
       },
-      wrongTime: () {
+      wrongTime: (dynamic res) {
+        String text = format(tr('APP_0063'), {
+          'startTime':res.data["startTime"],
+          'endTime':res.data["endTime"]
+        });
         SuccessDialog(context,
                 callOkFunction: () {},
                 isSuccess: false,
                 mainText: tr("reserve-failed'"),
-                subText: tr('APP_0063'))
+                subText: text)
             .show();
       },
       errorMes: (errorCode) {
