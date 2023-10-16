@@ -404,15 +404,17 @@ class BaseViewModel with ControlRouterViewModel {
 
   void showBuySuccessAnimate(Map<String,dynamic> data) async {
     if (!GlobalData.bShowBuySuccessAnimate) {
-      GlobalData.bShowBuySuccessAnimate = true;
-      String? path = AnimationDownloadUtil()
-          .getAnimationFilePath(AppAnimationPath.buyNFTSuccess);
-      if (path != null) {
-        await pushOpacityPage(
-            getGlobalContext(),
-            FullAnimationPage(
-                isFile: true, animationPath: path, limitTimer: 4));
-      }
+
+      /// 移除中籤動畫
+      // GlobalData.bShowBuySuccessAnimate = true;
+      // String? path = AnimationDownloadUtil()
+      //     .getAnimationFilePath(AppAnimationPath.buyNFTSuccess);
+      // if (path != null) {
+      //   await pushOpacityPage(
+      //       getGlobalContext(),
+      //       FullAnimationPage(
+      //           isFile: true, animationPath: path, limitTimer: 4));
+      // }
 
       ///賣出成功彈窗
       if(data["type"] == 'SELL') {
